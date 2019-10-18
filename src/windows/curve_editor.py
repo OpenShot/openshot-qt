@@ -5,11 +5,12 @@
 """
 
 import os
+import json
 from sys import float_info
 from enum import Enum
-from PyQt5.QtWidgets import QDockWidget, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsPathItem, QWidget, QScrollBar, QHBoxLayout, QVBoxLayout, QDialogButtonBox, QSpinBox, QDialog, QFormLayout, QCheckBox
-from PyQt5.QtGui import QBrush, QPen, QPalette, QPainterPath, QColor
-from PyQt5.QtCore import Qt, QRectF, QLineF, QPointF
+from PyQt5.QtWidgets import QDockWidget, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsPathItem, QGraphicsEllipseItem, QGraphicsItem, QGraphicsLineItem, QWidget, QScrollBar, QHBoxLayout, QVBoxLayout, QDialogButtonBox, QSpinBox, QDialog, QFormLayout, QCheckBox, QMenu
+from PyQt5.QtGui import QBrush, QPen, QPalette, QPainterPath, QColor, QPixmap, QIcon
+from PyQt5.QtCore import Qt, QRectF, QLineF, QPointF, QTimer
 from classes import info, ui_util, settings
 from datetime import timedelta
 from classes.app import get_app
@@ -380,6 +381,8 @@ class GraphScene(QGraphicsScene):
         self.GraphPenGreen   = QPen(QBrush(QColor(Qt.darkGreen), Qt.SolidPattern), 3, Qt.SolidLine)
         self.GraphPenBlue    = QPen(QBrush(QColor(Qt.darkBlue), Qt.SolidPattern), 3, Qt.SolidLine)
         self.GraphPenLightB  = QPen(QBrush(QColor('#4b92ad'), Qt.SolidPattern), 2, Qt.SolidLine)
+        self.GraphPenOrngD   = QPen(QBrush(QColor('#a05a2c'), Qt.SolidPattern), 2, Qt.SolidLine)
+        self.GraphPenOrngDThin = QPen(QBrush(QColor('#a05a2c'), Qt.SolidPattern), 0, Qt.SolidLine)
         self.GraphPen        = QPen(self.GraphBrush, 3, Qt.SolidLine)
 
         # Defult brush and pen for drawing curves
@@ -907,6 +910,32 @@ class GraphScene(QGraphicsScene):
 
         return c
 
+    def getFrameColor(self, frame):
+        # Returns the QColor value for the property type "color"
+        # value taken at the Timeline's frame for the selected clip object
+
+        color = QColor('#000000')
+        # Get selected clip from the model
+        selected = get_app().window.propertyTableView.clip_properties_model.selected
+        if selected and selected[0]:
+            c, item_type = selected[0]
+
+            # Skip blank clips
+            if not c:
+                return color
+
+            # Get raw unordered JSON properties
+            raw_properties = json.loads(c.PropertiesJSON(int(frame)))
+
+            for property in raw_properties.items():
+                type = property[1]["type"]
+                if type == "color":
+                            red = property[1]["red"]["value"]
+                            green = property[1]["green"]["value"]
+                            blue = property[1]["blue"]["value"]
+                            color = QColor(int(red), int(green), int(blue))
+        return color
+
     def processAllAnimationPoints(self, item):
         """ Reads clips data to get keyframes values
             and calls for the curve element add if any found
@@ -1376,8 +1405,264 @@ class CurveElement(QGraphicsPathItem):
         QGraphicsPathItem.__init__(self, path)
         self.curvePen = self.crvEdt.scene.curvePen
 
+        self.setAcceptHoverEvents(True)
+
         # Set property of type "color" (red, green or blue curve)
         self.colorRGB = self.crvEdt.scene.colorRGB
+
+        self.handlesAdded = False
+
+        # Internal switcher for levers visibility, switches on left mouse click
+        self.ctrl_hide = True
+
+    def hoverEnterEvent(self, event):
+        self.setPen(self.crvEdt.scene.GraphPenHigh)
+
+    def hoverLeaveEvent(self, event):
+        self.setPen(self.curvePen)
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.ctrl_hide = not self.ctrl_hide
+            if self.handlesAdded:
+                # Switch visibility of the controls on each click
+                self.hideControls(self.ctrl_hide)
+            else:
+                self.addControls()
+
+    def getBezierPresets(self):
+        # Returns Bezier interpolation presets list
+        #
+        # TODO: consider to extend the list
+
+        # Get translation function
+        _ = get_app()._tr
+
+        return [
+                (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
+                (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
+                (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
+                (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)"))
+            ]
+
+    def contextMenuEvent(self, event):
+        # Here event is QGraphicsSceneContextMenuEvent object
+
+        bezier_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-{}.png".format(Seg.BEZIER.value))))
+        linear_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-{}.png".format(Seg.LINEAR.value))))
+        const_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-{}.png".format(Seg.CONST_STEP.value))))
+
+        # Get translation function
+        _ = get_app()._tr
+
+        menu = QMenu(event.widget())
+
+        # Sub-menu
+        bezier_menu = QMenu(_("Bezier"), menu)
+        bezier_menu.setIcon(bezier_icon)
+        all_bezier_presets = self.getBezierPresets()
+        act_preset = None
+        for i, preset in enumerate(all_bezier_presets):
+            act_preset = bezier_menu.addAction(preset[4])
+            # Store preset number inside the action itself
+            # Python handles the QVariant conversion here
+            act_preset.setData(i)
+
+        # Use menu triggered signal for closely related actions, it carries pointer to the action
+        bezier_menu.triggered.connect(self.changeToBezierAction)
+        menu.addMenu(bezier_menu)
+
+        # Plane actions
+        act_linear = menu.addAction(linear_icon, _("Linear"))
+        act_linear.triggered.connect(self.changeToLinear)
+        act_const = menu.addAction(const_icon, _("Constant"))
+        act_const.triggered.connect(self.changeToConst)
+        menu.addSeparator()
+        act_remLeft = menu.addAction(_("Remove Left Keyframe"))
+        act_remLeft.triggered.connect(self.removeLeftKeyframe)
+        act_remRight = menu.addAction(_("Remove Right Keyframe"))
+        act_remRight.triggered.connect(self.removeRightKeyframe)
+
+        menu.exec_(event.screenPos())
+
+        # The menu may be closed without action taken, thus disconnect old signals
+        bezier_menu.triggered.disconnect(self.changeToBezierAction)
+        act_linear.triggered.disconnect(self.changeToLinear)
+        act_const.triggered.disconnect(self.changeToConst)
+        act_remLeft.triggered.disconnect(self.removeLeftKeyframe)
+        act_remRight.triggered.disconnect(self.removeRightKeyframe)
+
+    def addControls(self):
+        if self.seg_type == Seg.BEZIER:
+            # Place segment above the all items
+            self.setZValue(1)
+
+            # Add Keypoints
+            p1 = KeyframePoint(self.startPoint, self.frame_p1, self.value_p1, self)
+            p2 = KeyframePoint(self.endPoint, self.frame_p2, self.value_p2, self)
+            p1.setPen(self.crvEdt.scene.GraphPenOrngD)
+            p2.setPen(self.crvEdt.scene.GraphPenOrngD)
+
+            # Save each pair
+            p1.pairPoint = p2
+            p2.pairPoint = p1
+            self.crvEdt.scene.addItem(p1)
+            self.crvEdt.scene.addItem(p2)
+
+            # Lever's line starts at the Point and ends at the Handle (control point)
+            line = QLineF(self.startPoint, self.c1)
+            lever1 = BezierLever(line, p1)
+            lever1.setPen(self.crvEdt.scene.GraphPenOrngDThin)
+            self.crvEdt.scene.addItem(lever1)
+            line = QLineF(self.endPoint, self.c2)
+            lever2 = BezierLever(line, p2)
+            lever2.setPen(self.crvEdt.scene.GraphPenOrngDThin)
+            self.crvEdt.scene.addItem(lever2)
+
+            # Levers ends with the round handles
+            c1 = HandleCircle(self.c1, self.origX_c1, self.origY_c1, p1, lever1)
+            c2 = HandleCircle(self.c2, self.origX_c2, self.origY_c2, p2, lever2)
+            c1.setPen(self.crvEdt.scene.GraphPenOrngDThin)
+            c2.setPen(self.crvEdt.scene.GraphPenOrngDThin)
+            c1.setBrush(self.crvEdt.scene.GraphBrush)
+            c2.setBrush(self.crvEdt.scene.GraphBrush)
+            self.crvEdt.scene.addItem(c1)
+            self.crvEdt.scene.addItem(c2)
+
+            # Set both handles
+            p1.cur_handle = c1
+            p2.cur_handle = c2
+
+            # Update allowed areas for keypoint
+            p1.updateKeyframeArea()
+            p2.updateKeyframeArea()
+
+            self.handlesAdded = True
+        elif self.seg_type == Seg.LINEAR:
+            # Place segment above the all items
+            self.setZValue(1)
+
+            # Add Keypoints
+            p1 = KeyframePoint(self.startPoint, self.frame_p1, self.value_p1, self)
+            p2 = KeyframePoint(self.endPoint, self.frame_p2, self.value_p2, self)
+            p1.setPen(self.crvEdt.scene.GraphPenOrngD)
+            p2.setPen(self.crvEdt.scene.GraphPenOrngD)
+
+            # Save each pair
+            p1.pairPoint = p2
+            p2.pairPoint = p1
+            self.crvEdt.scene.addItem(p1)
+            self.crvEdt.scene.addItem(p2)
+
+            # Update allowed areas for keypoints
+            p1.updateKeyframeArea()
+            p2.updateKeyframeArea()
+
+            self.handlesAdded = True
+        elif self.seg_type == Seg.CONST_STEP:
+            # Place segment above the all items
+            self.setZValue(1)
+
+            # Add Keypoints
+            p1 = KeyframePoint(self.startPoint, self.frame_p1, self.value_p1, self)
+            p2 = KeyframePoint(self.endPoint, self.frame_p2, self.value_p2, self)
+            p1.setPen(self.crvEdt.scene.GraphPenOrngD)
+            p2.setPen(self.crvEdt.scene.GraphPenOrngD)
+
+            # Save each pair
+            p1.pairPoint = p2
+            p2.pairPoint = p1
+            self.crvEdt.scene.addItem(p1)
+            self.crvEdt.scene.addItem(p2)
+
+            # Update allowed areas for keypoints
+            p1.updateKeyframeArea()
+            p2.updateKeyframeArea()
+
+            self.handlesAdded = True
+
+    def hideControls(self, hide):
+        # Show/hide existing controls for the keypoints
+        items = self.childItems()
+        for item in items:
+            item.setVisible(not hide)
+
+        if hide:
+            # Restore segment above/below position
+            self.setZValue(0)
+        else:
+            self.setZValue(1)
+
+    def changeToBezierAction(self, action):
+        # Forces the Bezier interpolation update with the given interpolation preset
+        bezier_presets = self.getBezierPresets()
+        preset = []
+
+        # Get first four elements of the list for the given preset number (stored in action)
+        preset = bezier_presets[action.data()][:4]
+
+        # Get at least one control point
+        if not self.handlesAdded:
+            self.addControls()
+        items = self.childItems()
+        for item in items:
+            # Change to Bezier
+            item.change_interpolation(Seg.BEZIER.value, preset)
+            break # Stop at first available control point
+
+    def changeToLinear(self, checked=False):
+        # Forces the Linear interpolation update
+        #
+        # Get at least one control point
+        if not self.handlesAdded:
+            self.addControls()
+        items = self.childItems()
+        for item in items:
+            # Change to Linear
+            item.change_interpolation(Seg.LINEAR.value)
+            break # Stop at first available control point
+
+    def changeToConst(self, checked=False):
+        # Forces the Constant interpolation update
+        #
+        # Get at least one control point
+        if not self.handlesAdded:
+            self.addControls()
+        items = self.childItems()
+        for item in items:
+            # Change to Constant
+            item.change_interpolation(Seg.CONST_STEP.value)
+            break # Stop at first available control point
+
+    def removeLeftKeyframe(self, checked=False):
+        # Get frame at left point of the curve
+        leftFrame = self.frame_p1
+        if self.frame_p2 < self.frame_p1:
+            leftFrame = self.frame_p2
+
+        # Get at least one control point
+        if not self.handlesAdded:
+            self.addControls()
+        items = self.childItems()
+        for item in items:
+            # Remove key
+            item.removeKeyframeAtFrame(leftFrame)
+            break # Stop at first available control point
+
+    def removeRightKeyframe(self, checked=False):
+        # Get farme at right point of the curve
+        rightFrame = self.frame_p2
+        if self.frame_p2 < self.frame_p1:
+            rightFrame = self.frame_p1
+
+        # Get at least one control point
+        if not self.handlesAdded:
+            self.addControls()
+        items = self.childItems()
+        for item in items:
+            # Remove key
+            item.removeKeyframeAtFrame(rightFrame)
+            break # Stop at first available control point
 
 class ClipBounds(QGraphicsPathItem):
     # Initial properties
@@ -1397,3 +1682,679 @@ class RoundedRect(QPainterPath):
         clipFullBounds = QPainterPath()
         clipFullBounds.addRoundedRect(bodyRect, r, r, Qt.AbsoluteSize)
         QPainterPath.__init__(self, clipFullBounds)
+
+class HandleCircle(QGraphicsEllipseItem):
+    # Initial properties
+    helper_obj = False
+    seg_type = Seg.HANDLE_CIRCLE
+    radius = 4
+
+    def __init__(self, center, norm_x, norm_y, source, parent):
+        self.circleX = center.x() - self.radius
+        self.circleY = center.y() - self.radius
+
+        # +1 point for centered object
+        self.diameter = 2 * self.radius + 1
+
+        # In libopenshot control points for Bezier intercolation lies within rectangle (source, dest)
+        # source is keypoint of the Handle origin
+        # dest is paired keypoint that limits the controls area
+        self.center = center
+        self.orig_x = norm_x
+        self.orig_y = norm_y
+        self.source = source
+
+        # Get dock widget to update UI later
+        self.crvEdt = get_app().window.findChild(QDockWidget, 'dockCurveEditor', Qt.FindDirectChildrenOnly)
+
+        QGraphicsEllipseItem.__init__(self, self.circleX, self.circleY, self.diameter, self.diameter, parent)
+
+        self.allowedAreaNeedsUpdate = True
+        self.was_moved = False
+
+        # Make item movable and send notifications on position change
+        self.setFlags(self.flags() | QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemSendsGeometryChanges)
+
+    def mouseReleaseEvent(self, event):
+        # Try to set new keyframe only after mouse button released
+        if self.was_moved:
+            self.source.setKey_timer.start()
+        # Keep default item's movement functionality
+        return QGraphicsItem.mouseReleaseEvent(self, event)
+
+    def adjustLever(self):
+        # Set updated line to the lever
+        lever = self.parentItem()
+        if lever is not None:
+            # Lever starts at the Point and ends at the Handle
+            lever.setLine(QLineF(self.source.center, self.center + self.pos()))
+
+    def itemChange(self, change, value):
+        if self.allowedAreaNeedsUpdate:
+            self.updateHandleArea()
+        if change == QGraphicsItem.ItemPositionChange:
+            newPos = value
+            rect = self.handleArea
+            if not rect.contains(newPos):
+                # Keep the item inside the scene rectangle
+                newPos.setX(min(rect.right(), max(newPos.x(), rect.left())))
+                newPos.setY(min(rect.bottom(), max(newPos.y(), rect.top())))
+                return newPos
+
+        if change == QGraphicsItem.ItemPositionHasChanged:
+            # Mark control point as moved, set new line for the lever and curve itself
+            self.was_moved = True
+            self.adjustLever()
+            self.updateSourceCurve()
+
+        # Return everything else unchanged or nothing would be processed at all
+        return QGraphicsItem.itemChange(self, change, value)
+
+    def updateHandleArea(self):
+        # Updates the Handle area allowed for movement
+        dest = self.source.pairPoint
+        if dest is not None:
+            # Limit the Handle area by the keypoints current position
+            self.handleArea = QRectF(self.source.center - self.center, dest.center + dest.pos() - self.center - self.source.pos()).normalized()
+            self.allowedAreaNeedsUpdate = False
+
+    def updateSourceCurve(self):
+        # Update path for the source curve
+        self.source.updateParentPath()
+
+class BezierLever(QGraphicsLineItem):
+    # Initial properties
+    helper_obj = False
+    seg_type = Seg.LEVER_LINE
+
+    def __init__(self, line, parent):
+        QGraphicsLineItem.__init__(self, line, parent)
+
+class KeyframePoint(QGraphicsRectItem):
+    # Initial properties
+    helper_obj = False
+    seg_type = Seg.KEYPOINT_RECTANGLE
+    radius = 5
+
+    def __init__(self, center, frame, value, parent):
+        self.rectX = center.x() - self.radius
+        self.rectY = center.y() - self.radius
+
+        # +1 point for centered object
+        self.width = 2 * self.radius + 1
+        self.center = center
+        rect = QRectF(self.rectX, self.rectY, self.width, self.width)
+        self.PosX = 0
+        self.PosY = 0
+        self.pairPosX = 0
+        self.pairPosY = 0
+
+        # Initial frame and value (before the move)
+        self.frame_orig = frame
+        self.value_orig = value
+
+        # Get dock widget to update UI later
+        self.crvEdt = get_app().window.findChild(QDockWidget, 'dockCurveEditor', Qt.FindDirectChildrenOnly)
+
+        # Get properties window
+        self.propWindow = get_app().window.propertyTableView
+
+        # Get main window
+        self.mWindow = get_app().window
+
+        QGraphicsRectItem.__init__(self, rect, parent)
+
+        # No pair point, no handle
+        self.pairPoint = None
+        self.cur_handle = None
+
+        # Don't update areas during creation of the point
+        self.allowedAreaNeedsUpdate = False
+
+        # No joint line until keyframe moved
+        self.jointLine = None
+        self.was_moved = False
+
+        # Make item movable and send notifications on position change
+        self.setFlags(self.flags() | QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemSendsGeometryChanges)
+
+        # Area allowed for keyframe movement
+        # Assuming that the self.crvEdt.scene.exposed is always Qt normilized() rectangle
+        self.exposedArea = self.crvEdt.scene.exposed
+        self.keyframeArea = self.exposedArea
+
+        # Timer to apply last changes with 0.5 sec delay if new not come up yet
+        self.setKey_timer = QTimer()
+        self.setKey_timer.setSingleShot(True)
+        self.setKey_timer.setInterval(500)
+        self.setKey_timer.timeout.connect(self.update_keyframe)
+
+        # Until moved (path changed) no updates needed
+        self.keyframeNeedsUpdate = False
+
+        # Remember parent
+        self.parentCurve = parent
+
+        # Use UI signals of the Editor, affects all points in once
+        self.crvEdt.actionOnly_X_axis.triggered.connect(self.setAreaToUpdate)
+        self.crvEdt.actionOnly_Y_axis.triggered.connect(self.setAreaToUpdate)
+
+    def mouseReleaseEvent(self, event):
+        # Try to set new keyframe only after mouse button released
+        if self.keyframeNeedsUpdate:
+            self.setKey_timer.start()
+        # Keep default item's movement functionality
+        return QGraphicsItem.mouseReleaseEvent(self, event)
+
+    def contextMenuEvent(self, event):
+        # Here event is QGraphicsSceneContextMenuEvent object
+        #
+        # Get translation function
+        _ = get_app()._tr
+
+        menu = QMenu(event.widget())
+        act = menu.addAction(_("Remove Keyframe"))
+
+        # This signal conection is valid only for the item (current point)
+        act.triggered.connect(self.removeKeyframe)
+        menu.exec_(event.screenPos())
+
+        # The menu may be closed without action taken, thus disconnect old signal
+        act.triggered.disconnect(self.removeKeyframe)
+
+    def itemChange(self, change, value):
+        if self.allowedAreaNeedsUpdate:
+            self.updateKeyframeArea()
+        if change == QGraphicsItem.ItemPositionChange:
+            newPos = value
+            rect = self.keyframeArea
+            if not rect.contains(newPos):
+                # Keep the item inside the scene rect
+                newPos.setX(min(rect.right(), max(newPos.x(), rect.left())))
+                newPos.setY(min(rect.bottom(), max(newPos.y(), rect.top())))
+                return newPos
+
+        if change == QGraphicsItem.ItemPositionHasChanged:
+            # Mark KeyframePoint as moved, update curve and intermediate path (joint)
+            # When curent point was moved - paired one may has new limits because of this
+            self.was_moved = True
+            self.adjustPairPoint()
+            self.updateParentPath()
+            self.updateJointPath()
+
+        # Return everything else unchanged or nothing would be processed at all
+        return QGraphicsItem.itemChange(self, change, value)
+
+    def adjustPairPoint(self):
+        # Current point was moved - paired point's allowed area needs recalculation
+        if self.pairPoint is not None:
+            self.pairPoint.allowedAreaNeedsUpdate = True
+
+        # Make sure to recalculate allowed areas of both handles too
+        self.setHandlesForRecalc()
+
+    def setAreaToUpdate(self, checked=False):
+        # Process the notifier from the triggered action (on X, Y axis restrictions change)
+        self.allowedAreaNeedsUpdate = True
+
+    def updateKeyframeArea(self):
+        if self.pairPoint is not None:
+            # Limit allowed for movements area to the paired point
+            # maximum position inside the exposed rectangle
+            self.calculateKeyPointsCoord()
+
+            x1 = self.PosX
+            y1 = self.exposedArea.bottom()
+            x2 = self.pairPosX
+            y2 = self.exposedArea.top()
+            if self.crvEdt.actionOnly_X_axis.isChecked():
+                y2 = y1 = self.PosY
+            if self.crvEdt.actionOnly_Y_axis.isChecked():
+                x2 = x1
+            corner1 = QPointF(x1, y1)
+            corner2 = QPointF(x2, y2)
+
+            # New keyframe area
+            self.keyframeArea = QRectF(corner2 - self.center, corner1 - self.center).normalized()
+
+            # Make sure to recalculate allowed areas of both Handles
+            self.setHandlesForRecalc()
+
+            self.allowedAreaNeedsUpdate = False
+
+    def setHandlesForRecalc(self):
+        # Sets recalculation flag for each Handle
+        if self.pairPoint is not None:
+            if self.cur_handle is not None:
+                self.cur_handle.allowedAreaNeedsUpdate = True
+            if self.pairPoint.cur_handle is not None:
+                self.pairPoint.cur_handle.allowedAreaNeedsUpdate = True
+
+    def updateParentPath(self):
+        # Sets new path for the parent curve
+
+        self.calculateKeyPointsCoord()
+
+        curCurve = self.parentItem()
+        if curCurve is not None:
+            newCurve = QPainterPath()
+            newCurve.moveTo(self.PosX, self.PosY)
+            if self.pairPoint is not None:
+                if self.cur_handle is None:
+                    # Staight line, c1 = p1
+                    c1 = QPointF(self.PosX, self.PosY)
+                else:
+                    c1 = self.cur_handle.pos() + self.cur_handle.center + self.pos()
+                if self.pairPoint.cur_handle is None:
+                    # Staight line, c2 = p2
+                    c2 = QPointF(self.pairPosX, self.pairPosY)
+                else:
+                    c2 = self.pairPoint.cur_handle.pos() + self.pairPoint.cur_handle.center + self.pairPoint.pos()
+
+                p2 = QPointF(self.pairPosX, self.pairPosY)
+
+                if self.parentCurve.seg_type == Seg.CONST_STEP:
+                    # Single line: p1-c1-cc2-pp2-cc2-c3-p3
+                    # p1 is 'self'
+                    # pp2 is at frame previous to p1 (is_p1 = -1)
+                    # p3 is paired point
+
+                    # Single frame length in pixels
+                    frameLength = int(self.crvEdt.scene.getFramePixelPosF(1))
+
+                    # Previous frame point but at paired point value
+                    pp2 = QPointF(self.PosX - frameLength, self.pairPosY)
+                    if self.pairPosX > self.PosX:
+                        # is_p1 = 1
+                        # Previous to paired frame point but at point value
+                        pp2 = QPointF(self.pairPosX - frameLength, self.PosY)
+
+                    # Staight line, cc2 = pp2 (...-c1-cc2-pp2 part)
+                    newCurve.cubicTo(c1, pp2, pp2)
+                    # Staight line, c1 = pp2 = cc2, (prepare to ...-cc2-c3-p3)
+                    c1 = pp2
+
+                newCurve.cubicTo(c1, c2, p2)
+                curCurve.setPath(newCurve)
+
+        # Prepare to update keyframe
+        self.keyframeNeedsUpdate = True
+
+    def updateJointPath(self):
+        # Sets intermediate path for the current-prevous KeyframePoint position
+        # Draws line to hide gaps between curve segments when one of the curve points moved
+        #
+        # It covers the fact, that the frame time of the keyframe is rarely modified in OpenShot.
+        # In other words, you cannot simply move a keyframe along the time axis inside the clip but can move the clip.
+        # Instead, a new keyframe is created each time and old keyframe needs to be deleted manualy.
+
+        line = QLineF(QPointF(self.PosX, self.PosY), QPointF(self.center))
+        if self.jointLine is None:
+            # Set new line to the joint line and remember it
+            self.jointLine = JointLineTmp(line, self.parentCurve)
+            self.jointLine.setPen(self.crvEdt.scene.GraphPenHelper)
+            self.crvEdt.scene.addItem(self.jointLine)
+        else:
+            # Set updated line to the joint line
+            self.jointLine.setLine(line)
+
+    def calculateKeyPointsCoord(self):
+        self.PosX = self.center.x() + self.pos().x()
+        self.PosY = self.center.y() + self.pos().y()
+        if self.pairPoint is not None:
+            self.pairPosX = self.pairPoint.center.x() + self.pairPoint.pos().x()
+            self.pairPosY = self.pairPoint.center.y() + self.pairPoint.pos().y()
+
+    def removeKeyframe(self, checked=False):
+        # Remove keyframe at the current point
+        self.removeKeyframeAtFrame(self.frame_orig)
+
+    def removeKeyframeAtFrame(self, frame):
+        # Remove keyframe at the frame
+        self.mWindow.previewFrame(frame) # Navigate to the point
+        self.update_keyframe(True)
+
+    def change_interpolation(self, type, preset=[]):
+        # Changes only interpolation type of the segment
+
+        # Get right (p2) point
+        curPoint_frame = self.frame_orig
+        if self.pairPoint is not None:
+            pairedP_frame = self.pairPoint.frame_orig
+            if pairedP_frame > curPoint_frame:
+                curPoint_frame = pairedP_frame
+        else:
+            log.error("No pair point found. Skipping change_interpolation()")
+            return
+
+        self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+
+        # Skip scene redraw
+        self.crvEdt.scene.skipRefresh = True
+
+        # Update interpolation, c1 and c2
+        item = self.crvEdt.scene.lastClipItem
+        if self.parentCurve.colorRGB is None:
+            self.propWindow.clip_properties_model.value_updated(item, type, None, preset)
+        else:
+            color = QColor("#000000") # Defalt color in OpenShot
+            self.propWindow.clip_properties_model.color_update(item, color, type, preset)
+        self.crvEdt.scene.skipRefresh = False
+
+        # Re-read the updated item data to display the graph changes
+        self.updateItemAndDraw()
+
+    def update_keyframe(self, remove=False):
+        # Calls for properties model update
+
+        # The change of keyframe takes next steps:
+        #
+        # Bezier left point (p1) move, new configuration p1*-p1-p2:
+        # 1. Change whole curve (p1*-p2) interpolation type to linear (faster update of libopenshot Preview, etc.)
+        # 2. Add new point (p1) between existing points (p1*-p2). The type of the left segment (p1*-p1) forced to linear.
+        # 3. Update control points (c1, c2) by changing the curve type/interpolation of the right segment (p1-p2)
+        #
+        # Bezier right point (p2) move, new configuration p1-p2-p2*:
+        # 1. Change whole curve (p1-p2*) interpolation type to linear (faster update of libopenshot Preview, etc.)
+        # 2. Add new point (p2) between existing points (p1-p2*). The type of the left segment (p1-p2) forced to linear.
+        # 3. Change the curve type/interpolation of the left segment (p1-p2), this also updates control points (c1, c2)
+        #
+        # If point preserving frame's position, for Bezier left point move the step 1 is skipped, the 2 acts as value update.
+        #
+        # If only interpolation update required (lever change) for the left point (p1), the steps 1 and 2 skipped.
+        #
+        # Note: In libopenshot, the Point defines segment interpolation type that lies BEFORE the Point.
+        #       libopenshot operates on internal clip's frames to set the animation keys,
+        #       thus OpenShot performs needed conversion during clip_properties_model.update_frame call in the previewFrame() loop.
+
+        # Prevent further edits. Make item not movable and do not send notifications on position change.
+        self.setFlags(self.flags() & ~QGraphicsItem.ItemIsMovable & ~QGraphicsItem.ItemSendsGeometryChanges)
+        if self.cur_handle is not None:
+            self.cur_handle.setFlags(self.flags() & ~QGraphicsItem.ItemIsMovable & ~QGraphicsItem.ItemSendsGeometryChanges)
+        if self.pairPoint is not None:
+            self.pairPoint.setFlags(self.flags() & ~QGraphicsItem.ItemIsMovable & ~QGraphicsItem.ItemSendsGeometryChanges)
+            if self.pairPoint.cur_handle is not None:
+                self.pairPoint.cur_handle.setFlags(self.flags() & ~QGraphicsItem.ItemIsMovable & ~QGraphicsItem.ItemSendsGeometryChanges)
+
+        item = self.crvEdt.scene.lastClipItem
+        if remove:
+            # Skip scene redraw during update
+            self.crvEdt.scene.skipRefresh = True
+            self.propWindow.clip_properties_model.remove_keyframe(item)
+            self.crvEdt.scene.skipRefresh = False
+
+            # Re-read the updated item data to display the graph changes
+            self.updateItemAndDraw()
+            return
+
+        if self.pairPoint is None:
+            log.error("No pair point found. Skipping update_keyframe()")
+            return
+
+        valueFixed = False
+        timeFixed = False
+        if self.crvEdt.actionOnly_X_axis.isChecked():
+            valueFixed = True
+        if self.crvEdt.actionOnly_Y_axis.isChecked():
+            timeFixed = True
+
+        # Only type of the interpolation can be changed (c1, c2)
+        if self.was_moved and not valueFixed:
+            valueF = self.getValueFromCoordF(self.PosY)
+        else:
+            # Fixed by value axis or not moved at all
+            valueF = self.value_orig
+
+        # Determine if Self is left (p1) point
+        is_p1 = -1 # Assuming it is not
+        if self.was_moved and not timeFixed:
+            curPoint_frame = self.crvEdt.scene.secToFrame(self.getTimeFromCoordF(self.PosX))
+        else:
+            # Fixed by time axis or not moved at all
+            curPoint_frame = self.frame_orig
+
+        # Only one - current point can be moved at once
+        pairedP_frame = self.pairPoint.frame_orig
+
+        if pairedP_frame > curPoint_frame:
+            is_p1 = 1
+        elif pairedP_frame == curPoint_frame:
+            is_p1 = 0
+
+        # Both interpolation and time/value needs update
+        full_upd = self.was_moved and not (timeFixed and valueFixed)
+
+        # Don't track changes in undo/redo history and skip scene redraw
+        get_app().updates.ignore_history = True
+        self.crvEdt.scene.skipRefresh = True
+
+        if self.parentCurve.seg_type == Seg.BEZIER:
+            """ Bezier """
+            # Fill control points of the curve
+            interDetails = self.getInterpolationDetails(is_p1)
+            if self.parentCurve.colorRGB is None:
+                if is_p1 == 0:
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Update only value
+                    self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+                elif is_p1 == 1:
+                    if full_upd:
+                        self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                        if not curPoint_frame == self.frame_orig:
+                            # Change to linear
+                            self.propWindow.clip_properties_model.value_updated(item, 1, None)
+                        # Update only value or Add new point
+                        self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+                    self.mWindow.previewFrame(pairedP_frame) # Navigate to the paired point
+                    # Update c1 and c2
+                    self.propWindow.clip_properties_model.value_updated(item, 0, None, interDetails)
+                else:
+                    self.mWindow.previewFrame(self.frame_orig) # Navigate to the previous position of the point
+                    if full_upd:
+                        # Change to linear
+                        self.propWindow.clip_properties_model.value_updated(item, 1, None)
+                        self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                        # Add new point
+                        self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+                    # Update interpolation, c1 and c2
+                    self.propWindow.clip_properties_model.value_updated(item, 0, None, interDetails)
+            else:
+                # Get new color for the curent point (valueF is integer here)
+                color = self.newTriadColor(self.parentCurve.colorRGB, curPoint_frame, int(valueF))
+                if is_p1 == 0:
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Update only value
+                    self.propWindow.clip_properties_model.color_update(item, color, -1)
+                elif is_p1 == 1:
+                    if full_upd:
+                        self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                        if not curPoint_frame == self.frame_orig:
+                            # Change to linear
+                            self.propWindow.clip_properties_model.color_update(item, color, 1)
+                        # Update only value or Add new point
+                        self.propWindow.clip_properties_model.color_update(item, color, -1)
+                    self.mWindow.previewFrame(pairedP_frame) # Navigate to the paired point
+                    # Update c1 and c2
+                    self.propWindow.clip_properties_model.color_update(item, color, 0, interDetails)
+                else:
+                    self.mWindow.previewFrame(self.frame_orig) # Navigate to the previous position of the point
+                    if full_upd:
+                        # Change to linear
+                        self.propWindow.clip_properties_model.color_update(item, color, 1)
+                        self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                        # Add new point
+                        self.propWindow.clip_properties_model.color_update(item, color, -1)
+                    # Update interpolation, c1 and c2
+                    self.propWindow.clip_properties_model.color_update(item, color, 0, interDetails)
+
+        elif self.parentCurve.seg_type == Seg.LINEAR:
+            """ Linear """
+            if self.parentCurve.colorRGB is None:
+                self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                # Update only value or Add new point
+                self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+            else:
+                # Get new color for the curent point (valueF is integer here)
+                color = self.newTriadColor(self.parentCurve.colorRGB, curPoint_frame, int(valueF))
+                self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                # Update only value or Add new point
+                self.propWindow.clip_properties_model.color_update(item, color, -1)
+
+        elif self.parentCurve.seg_type == Seg.CONST_STEP:
+            """ Constant """
+            if self.parentCurve.colorRGB is None:
+                if is_p1 == 0:
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Update only value
+                    self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+                elif is_p1 == 1:
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Add new point
+                    self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+                else:
+                    self.mWindow.previewFrame(self.frame_orig) # Navigate to the previous position of the point
+                    # Change to linear
+                    self.propWindow.clip_properties_model.value_updated(item, 1, None)
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Add new point
+                    self.propWindow.clip_properties_model.value_updated(item, -1, valueF)
+                    # Update interpolation, c1 and c2
+                    self.propWindow.clip_properties_model.value_updated(item, 2, None)
+            else:
+                # Get new color for the curent point (valueF is integer here)
+                color = self.newTriadColor(self.parentCurve.colorRGB, curPoint_frame, int(valueF))
+                if is_p1 == 0:
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Update only value
+                    self.propWindow.clip_properties_model.color_update(item, color, -1)
+                elif is_p1 == 1:
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Add new point
+                    self.propWindow.clip_properties_model.color_update(item, color, -1)
+                else:
+                    self.mWindow.previewFrame(self.frame_orig) # Navigate to the previous position of the point
+                    # Change to linear
+                    self.propWindow.clip_properties_model.color_update(item, color, 1)
+                    self.mWindow.previewFrame(curPoint_frame) # Navigate to the point
+                    # Add new point
+                    self.propWindow.clip_properties_model.color_update(item, color, -1)
+                    # Update interpolation, c1 and c2
+                    self.propWindow.clip_properties_model.color_update(item, color, 2)
+
+        self.keyframeNeedsUpdate = False
+
+        # Enable tracking of changes in undo/redo history and add final update to history
+        get_app().updates.ignore_history = False
+        get_app().updates.apply_last_action_to_history(self.crvEdt.scene.original_data)
+
+        # Scene can be redrawn now
+        self.crvEdt.scene.skipRefresh = False
+
+        # Re-read the updated item data to display the graph changes
+        self.updateItemAndDraw()
+
+    def updateItemAndDraw(self):
+        # Read current item data again
+        row = self.mWindow.propertyTableView.currentIndex().row()
+        model = self.mWindow.propertyTableView.clip_properties_model.model
+        selected_item = model.item(row, 1)
+
+        # Update graphic's scene
+        self.crvEdt.scene.refreshingDrawing = True
+        self.crvEdt.scene.processAllAnimationPoints(selected_item)
+        self.crvEdt.scene.refreshingDrawing = False
+
+    def getTimeFromCoordF(self, x=0):
+        # Returns time in seconds for the current position of the KeyframePoint,
+        # here "x" is Time axis coordinate of the KeyframePoint, in pixels
+
+        # Some cut points may lie out of the grid, thus making negative time values that isn't supported yet
+        if x < 0:
+            x = 0
+
+        # Time in seconds, taking into account the timeline scale
+        tF = x * zoomToSeconds(self.crvEdt.scene.timeAxisScale) / self.crvEdt.scene.cell_width + self.crvEdt.scene.gridOffsetTime
+        return tF
+
+    def getValueFromCoordF(self, y=0):
+        # Returns value for the current position of the KeyframePoint
+        # here y, is Value axis coordinate of the KeyframePoint, in pixels
+
+        # The value = max - y * (max - min)/(y_max - y_min), where y_min coordinate (0) is at top of the grid
+        vF = self.crvEdt.scene.maxValF - y * (self.crvEdt.scene.maxValF - self.crvEdt.scene.minValF) / (self.crvEdt.scene.cells_y_num * self.crvEdt.scene.cell_height - 0)
+        return vF
+
+    def getInterpolationDetails(self, is_p1=1):
+        # Returns list of the control points of the Bezier cubic curve in normalized format (0..1)
+        # Here: is_p1 =  1 the current point is first (p1)
+        #       is_p1 = -1 the current point is second (p2)
+        #       is_p1 =  0 the current point is same as second, p1.(frame) = p2.(frame)
+        detailsList = []
+        c1_X_norm = 1.0
+        c1_Y_norm = 1.0
+        c2_X_norm = 1.0
+        c2_Y_norm = 1.0
+        p1p2_X = 0
+        p1p2_Y = 0
+        if self.pairPoint is not None:
+            # At high zoom out level the points may overlap, zero length values may occur...
+            p1p2_X = abs(self.PosX - self.pairPoint.PosX)
+            if p1p2_X == 0:
+                p1p2_X = 0.0001
+            p1p2_Y = abs(self.PosY - self.pairPoint.PosY)
+            if p1p2_Y == 0:
+                p1p2_Y = 0.0001
+            if self.cur_handle is not None:
+                if self.cur_handle.was_moved:
+                    # Right handle
+                    c1_X_norm = abs(self.cur_handle.center.x() + self.cur_handle.pos().x() - self.PosX) / p1p2_X
+                    c1_Y_norm = abs(self.cur_handle.center.y() + self.cur_handle.pos().y() - self.PosY) / p1p2_Y
+                    if is_p1 == -1:
+                        # Left handle
+                        c1_X_norm = 1.0 - c1_X_norm
+                        c1_Y_norm = 1.0 - c1_Y_norm
+                else:
+                    c1_X_norm = self.cur_handle.orig_x
+                    c1_Y_norm = self.cur_handle.orig_y
+                if self.pairPoint.cur_handle is not None:
+                    # Only one - current point can be moved at once
+                    c2_X_norm = self.pairPoint.cur_handle.orig_x
+                    c2_Y_norm = self.pairPoint.cur_handle.orig_y
+
+        # Control points of the Bezier cubic curve segment (in terms of libopenshot)
+        # c1 - "right" handle of the p1,
+        # c2 - "left" handle of the p2
+        if is_p1 == -1:
+            detailsList.append(c2_X_norm) # c2, X normalized to 0..1
+            detailsList.append(c2_Y_norm) # c2, Y normalized to 0..1
+            detailsList.append(c1_X_norm) # c1, X normalized to 0..1
+            detailsList.append(c1_Y_norm) # c1, Y normalized to 0..1
+        else:
+            detailsList.append(c1_X_norm) # c1, X normalized to 0..1
+            detailsList.append(c1_Y_norm) # c1, Y normalized to 0..1
+            detailsList.append(c2_X_norm) # c2, X normalized to 0..1
+            detailsList.append(c2_Y_norm) # c2, Y normalized to 0..1
+        return detailsList
+
+    def newTriadColor(self, triad_name, frame=1, new_value=0):
+        # Returns new QColor for the modified triad at the frame, new_value is integer (0..255)
+
+        # Get color for the curent point at given frame
+        color = self.crvEdt.scene.getFrameColor(frame)
+
+        # Make new color based on triad current value
+        if triad_name == "red":
+            color = QColor(new_value, color.green(), color.blue(), color.alpha())
+        elif triad_name == "green":
+            color = QColor(color.red(), new_value, color.blue(), color.alpha())
+        else:
+            color = QColor(color.red(), color.green(), new_value, color.alpha())
+        return color
+
+class JointLineTmp(QGraphicsLineItem):
+    # Initial properties
+    helper_obj = False
+    seg_type = Seg.UNKNOWN_LINEAR
+
+    def __init__(self, line, parent):
+        QGraphicsLineItem.__init__(self, line, parent)

@@ -43,6 +43,20 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolBar" name="zoomTimeToolBar">
+       <attribute name="toolBarArea">
+        <enum>NoToolBarArea</enum>
+       </attribute>
+       <attribute name="toolBarBreak">
+        <bool>false</bool>
+       </attribute>
+       <addaction name="separator"/>
+       <addaction name="actionOnly_X_axis"/>
+       <addaction name="actionOnly_Y_axis"/>
+       <addaction name="separator"/>
+      </widget>
+     </item>
+     <item>
       <widget class="QSlider" name="sldrZoomTime">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -201,6 +215,40 @@
   </property>
   <property name="toolTip">
    <string>Set zoom of the Value axis to x1.0</string>
+  </property>
+ </action>
+ <action name="actionOnly_X_axis">
+  <property name="checkable">
+   <bool>true</bool>
+  </property>
+  <property name="checked">
+   <bool>false</bool>
+  </property>
+  <property name="icon">
+   <iconset>../../images/x-axis.svg</iconset>
+  </property>
+  <property name="text">
+   <string>X axis</string>
+  </property>
+  <property name="toolTip">
+   <string>Key Point can move along Time (X) axis only, fixes Value</string>
+  </property>
+ </action>
+ <action name="actionOnly_Y_axis">
+  <property name="checkable">
+   <bool>true</bool>
+  </property>
+  <property name="checked">
+   <bool>false</bool>
+  </property>
+  <property name="icon">
+   <iconset>../../images/y-axis.svg</iconset>
+  </property>
+  <property name="text">
+   <string>Y axis</string>
+  </property>
+  <property name="toolTip">
+   <string>Key Point can move along Value (Y) axis only, fixes Time</string>
   </property>
  </action>
  </widget>
