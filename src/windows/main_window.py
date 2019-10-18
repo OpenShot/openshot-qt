@@ -919,6 +919,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Update playhead position"""
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
+    
+    def SetPlayheadFollow(self, enable_follow):
+        """ Enable / Disable follow mode """
+        self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, event):
 
@@ -1310,6 +1314,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
+            
+    def actionCenterOnPlayhead_trigger(self, event):
+        """ Center the timeline on the current playhead position """
+        self.timeline.centerOnPlayhead()
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
@@ -1431,6 +1439,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPreviousMarker.trigger()
         elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
             self.actionNextMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.ExactMatch:
+            self.actionCenterOnPlayhead.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomIn.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
@@ -2247,6 +2257,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
         self.timelineToolbar.addAction(self.actionNextMarker)
+        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
