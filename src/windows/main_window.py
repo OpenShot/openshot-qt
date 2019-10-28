@@ -2020,7 +2020,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Get just the filename
             parent_path, filename = os.path.split(get_app().project.current_filepath)
             filename, ext = os.path.splitext(filename)
-            filename = filename.replace("_", " ").replace("-", " ").capitalize()
             self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor"))
 
     # Update undo and redo buttons enabled/disabled to available changes
