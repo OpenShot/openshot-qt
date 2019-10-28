@@ -255,11 +255,13 @@ App.controller('TimelineCtrl',function($scope) {
 	  // Update internal scope (in seconds)
 	  $scope.project.playhead_position = position_seconds;
 	  $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
+      let playhead_docked = (position_seconds === 0);
 
 	  // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
 	  $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
 	  $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
 	  $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
+      $("#playhead_dock").css("display", playhead_docked ? "block" : "none");
   };
   
   // Move the playhead to a specific frame
@@ -1338,6 +1340,15 @@ $scope.SetTrackLabel = function (label) {
 		style += "razor_cursor";
 	}
  	return style;
+ };
+
+ // Determine which CSS classes are used on playhead dock
+ $scope.getPlayheadDockStyle = function(playhead_position) {
+    style = "";
+    if (playhead_position > 1) {
+        style += "ng-hide";
+    }
+    return style;
  };
 
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes

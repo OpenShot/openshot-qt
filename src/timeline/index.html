@@ -56,6 +56,9 @@
 					<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="ShowMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond)}}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}" draggable="false"/>
 				</span>
 			</div>
+
+			<!-- Appears only when playhead is positioned at start of timeline -->
+			<div tl-playhead-dock id="playhead_dock" class="playhead" style="display: none;"></div>
 			<br class="cleared">
 
 			<!-- PROGRESS BAR -->
