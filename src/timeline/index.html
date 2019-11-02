@@ -52,7 +52,7 @@
 
 			<!-- MARKERS -->
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
-				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="ShowMarkerMenu(marker.id)" style="position: absolute; bottom: 2px; left: {{(marker.position * pixelsPerSecond) - 6 }}px; width:13px; height:16px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}" draggable="false"/>
+				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" class="marker_icon" ng-right-click="ShowMarkerMenu(marker.id)" style="left: {{(marker.position * pixelsPerSecond) - 6 }}px;" ng-src="media/images/markers/marker.svg" draggable="false"/>
 			</span>
 			<br class="cleared">
 

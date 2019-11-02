@@ -49,6 +49,7 @@ img {
 #ruler_ticks { background-color:#000; }
 #ruler_time { font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 17px; }
 #progress_container {margin-left:140px; overflow: hidden; height: 13px;}
+.marker_icon {position: absolute; bottom: 2px; width:13px; height:16px;}
 .drag_cursor { cursor: move; }
 
 /* Tracks */
@@ -66,7 +67,6 @@ img {
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-line-small { z-index: 9999; position: absolute; height:20px; top:32px;; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: 0px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;}
-.marker {position:absolute; top:30px;}
 
 /* Clips */
 .clip_top { display: -webkit-flex; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; overflow: hidden; }

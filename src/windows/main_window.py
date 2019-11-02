@@ -1207,7 +1207,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Look for existing Marker
         marker = Marker()
-        marker.data = {"position": position, "icon": "marker.svg"}
+        marker.data = {"position": position, "icon": "blue.png"}
         marker.save()
 
     def actionPreviousMarker_trigger(self, event):
