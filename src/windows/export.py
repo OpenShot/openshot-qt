@@ -657,7 +657,9 @@ class Export(QDialog):
 
     def disableControls(self):
         """Disable all controls"""
+        self.lblFileName.setEnabled(False)
         self.txtFileName.setEnabled(False)
+        self.lblFolderPath.setEnabled(False)
         self.txtExportFolder.setEnabled(False)
         self.tabWidget.setEnabled(False)
         self.export_button.setEnabled(False)
@@ -665,7 +667,9 @@ class Export(QDialog):
 
     def enableControls(self):
         """Enable all controls"""
+        self.lblFileName.setEnabled(True)
         self.txtFileName.setEnabled(True)
+        self.lblFolderPath.setEnabled(True)
         self.txtExportFolder.setEnabled(True)
         self.tabWidget.setEnabled(True)
         self.export_button.setEnabled(True)

@@ -68,6 +68,9 @@ for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH,
 # names of all contributors, using "u" for unicode encoding
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
 
+# Blender minimum version required (a string value)
+BLENDER_MIN_VERSION = "2.80"
+
 # Languages
 CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
