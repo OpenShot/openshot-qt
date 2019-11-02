@@ -1338,18 +1338,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Process key press events and match with known shortcuts"""
         # Detect the current KeySequence pressed (including modifier keys)
         key_value = event.key()
-        print(key_value)
         modifiers = int(event.modifiers())
-        if (key_value > 0 and key_value != Qt.Key_Shift and key_value != Qt.Key_Alt and
-                    key_value != Qt.Key_Control and key_value != Qt.Key_Meta):
-            # A valid keysequence was detected
-            key = QKeySequence(modifiers + key_value)
-        else:
-            # No valid keysequence detected
+
+        # Abort handling if the key sequence is invalid
+        if (key_value <= 0 or key_value in
+           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
             return
 
-        # Debug
-        log.info("keyPressEvent: %s" % (key.toString()))
+        # A valid keysequence was detected
+        key = QKeySequence(modifiers + key_value)
 
         # Get the video player object
         player = self.preview_thread.player
