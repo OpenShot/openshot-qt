@@ -152,8 +152,18 @@ class PropertiesTableView(QTableView):
     def mouseMoveEvent(self, event):
         # Get data model and selection
         model = self.clip_properties_model.model
-        row = self.indexAt(event.pos()).row()
-        column = self.indexAt(event.pos()).column()
+
+        # Do not change selected row during mouse move
+        if self.lock_selection:
+            row = self.prev_row
+        else:
+            row = self.indexAt(event.pos()).row()
+            self.prev_row = row
+            self.lock_selection = True
+
+        if row is None:
+            return
+
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
@@ -259,6 +269,9 @@ class PropertiesTableView(QTableView):
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
+
+        # Allow new selection
+        self.lock_selection = False
 
     def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
@@ -569,6 +582,8 @@ class PropertiesTableView(QTableView):
         self.selected_item = None
         self.new_value = None
         self.original_data = None
+        self.lock_selection = False
+        self.prev_row = None
 
         # Context menu concurrency lock
         self.menu_lock = False
