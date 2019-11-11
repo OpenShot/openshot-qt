@@ -1491,7 +1491,10 @@ $scope.SetTrackLabel = function (label) {
 		scrollTop: 0,
 		scrollLeft: 0
 	 }, 'slow');
-	 
+
+     // Update playhead position and time readout
+     $scope.MovePlayhead($scope.project.playhead_position)
+
 	 // return true
 	 return true;
  };
