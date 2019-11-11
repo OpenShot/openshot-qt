@@ -44,7 +44,7 @@
 		<!-- RULER (right of screen) -->
 		<div id="scrolling_ruler">
 			<!-- PLAYHEAD TOP -->
-			<div tl-playhead class="playhead playhead-top" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
+			<div tl-playhead class="playhead playhead-top playhead-top-undocked" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
 				<div class="playhead-line-small"></div>
 			</div>
 			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->

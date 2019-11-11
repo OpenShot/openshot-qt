@@ -261,9 +261,18 @@ App.controller('TimelineCtrl',function($scope) {
 	  $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
 	  $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
 	  $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
+
+      // Update playhead styling if "docked" at timeline origin
       $("#playhead_dock").css("display", playhead_docked ? "block" : "none");
+      if(playhead_docked) {
+          $(".playhead-top").addClass("playhead-top-docked");
+          $(".playhead-top").removeClass("playhead-top-undocked");
+      } else {
+          $(".playhead-top").addClass("playhead-top-undocked");
+          $(".playhead-top").removeClass("playhead-top-docked");
+      }
   };
-  
+
   // Move the playhead to a specific frame
   $scope.MovePlayheadToFrame = function(position_frames) {
 	  // Don't move the playhead if it's currently animating
@@ -1340,15 +1349,6 @@ $scope.SetTrackLabel = function (label) {
 		style += "razor_cursor";
 	}
  	return style;
- };
-
- // Determine which CSS classes are used on playhead dock
- $scope.getPlayheadDockStyle = function(playhead_position) {
-    style = "";
-    if (playhead_position > 1) {
-        style += "ng-hide";
-    }
-    return style;
  };
 
  // Apply JSON diff from UpdateManager (this is how the user interface communicates changes

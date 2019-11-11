@@ -52,13 +52,15 @@ img {
 #markers { position: absolute; height: 16px; top: 28px; margin-left: -6px; }
 .marker { position:absolute; top: 0; }
 #progress { margin-left: -3px;  color: rgba(80, 220, 60, 1); /* #4B92AD; */ }
-#playhead_dock { position: absolute; height: 39px; width: 2px; margin-left: -1px; margin-top: -39px; background-color: #ff0024; opacity: 0.75; z-index: 9999; }
+#playhead_dock { position: absolute; height: 39px; width: 2px; margin-left: -1px; margin-top: -39px; background-color: white; opacity: 1; z-index: 9997; }
 
 /* Playhead */
 .playhead-line { z-index: 9998; position: absolute; height:316px; top:0px; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-line-small { z-index: 9999; position: absolute; height:20px; top:32px;; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-line-docked { height:42px; top: 0px; }
-.playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: 13px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;}
+.playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: 13px; margin-top: 12px; width:25px; height:32px; opacity:1;}
+.playhead-top-undocked { background-image: url(../images/play_head.png); }
+.playhead-top-docked { background-image: url(../images/play_head_docked.png); }
 
 /* Tracks */
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
