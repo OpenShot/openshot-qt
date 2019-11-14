@@ -52,6 +52,7 @@ from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
+from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -158,6 +159,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
         get_app().logger_libopenshot.kill()
+        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -2427,6 +2429,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.is_transforming = False
 
+    def init_thumbnail_server(self):
+        """Initialize and start the thumbnail HTTP server"""
+        self.http_server_thread = httpThumbnailServerThread()
+        self.http_server_thread.start()
 
     def __init__(self, mode=None):
 
@@ -2483,6 +2489,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.TransformSignal.connect(self.transformTriggered)
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
+
+        # Init HTTP server for thumbnails
+        self.init_thumbnail_server()
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)

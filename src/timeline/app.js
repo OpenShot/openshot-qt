@@ -56,6 +56,7 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 		timeline.qt_log("Qt Found!");
 		$('body').scope().EnableQt();
 		timeline.page_ready();
+		$('body').scope().SetThumbAddress(timeline.get_thumb_address());
 	} else {
 		console.log("Qt NOT Found!");
 	}
