@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the properties tableview, used by the main window
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -28,14 +28,14 @@
 import os
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, Qt, QObject, QTimer
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QObject, QTimer
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
 
 from classes.logger import log
 from classes.app import get_app
 from classes import info
-from classes.query import Clip, Effect, Transition, File
+from classes.query import Clip, Effect, Transition
 from windows.models.properties_model import PropertiesModel
 from windows.models.transition_model import TransitionsModel
 from windows.models.files_model import FilesModel
@@ -63,17 +63,15 @@ class PropertyDelegate(QItemDelegate):
         row = model.itemFromIndex(index).row()
         selected_label = model.item(row, 0)
         selected_value = model.item(row, 1)
-        property = selected_label.data()
+        cur_property = selected_label.data()
 
         # Get min/max values for this property
-        property_name = property[1]["name"]
-        property_type = property[1]["type"]
-        property_max = property[1]["max"]
-        property_min = property[1]["min"]
-        readonly = property[1]["readonly"]
-        keyframe = property[1]["keyframe"]
-        points = property[1]["points"]
-        interpolation = property[1]["interpolation"]
+        property_type = cur_property[1]["type"]
+        property_max = cur_property[1]["max"]
+        property_min = cur_property[1]["min"]
+        readonly = cur_property[1]["readonly"]
+        points = cur_property[1]["points"]
+        interpolation = cur_property[1]["interpolation"]
 
         # Calculate percentage value
         if property_type in ["float", "int"]:
@@ -97,9 +95,9 @@ class PropertyDelegate(QItemDelegate):
         painter.setPen(QPen(Qt.NoPen))
         if property_type == "color":
             # Color keyframe
-            red = property[1]["red"]["value"]
-            green = property[1]["green"]["value"]
-            blue = property[1]["blue"]["value"]
+            red = cur_property[1]["red"]["value"]
+            green = cur_property[1]["green"]["value"]
+            blue = cur_property[1]["blue"]["value"]
             painter.setBrush(QBrush(QColor(QColor(red, green, blue))))
         else:
             # Normal Keyframe
@@ -162,28 +160,24 @@ class PropertiesTableView(QTableView):
 
         # Is the user dragging on the value column
         if self.selected_label and self.selected_item:
-            frame_number = self.clip_properties_model.frame_number
-
             # Get the position of the cursor and % value
             value_column_x = self.columnViewportPosition(1)
-            value_column_y = value_column_x + self.columnWidth(1)
             cursor_value = event.x() - value_column_x
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
             try:
-                property = self.selected_label.data()
-            except Exception as ex:
+                cur_property = self.selected_label.data()
+            except Exception:
                 # If item is deleted during this drag... an exception can occur
                 # Just ignore, since this is harmless
                 return
 
-            property_key = property[0]
-            property_name = property[1]["name"]
-            property_type = property[1]["type"]
-            property_max = property[1]["max"]
-            property_min = property[1]["min"]
-            property_value = property[1]["value"]
-            readonly = property[1]["readonly"]
+            property_key = cur_property[0]
+            property_name = cur_property[1]["name"]
+            property_type = cur_property[1]["type"]
+            property_max = cur_property[1]["max"]
+            property_min = cur_property[1]["min"]
+            readonly = cur_property[1]["readonly"]
             item_id, item_type = self.selected_item.data()
 
             # Bail if readonly
@@ -262,7 +256,6 @@ class PropertiesTableView(QTableView):
         # Get data model and selection
         model = self.clip_properties_model.model
         row = self.indexAt(event.pos()).row()
-        column = self.indexAt(event.pos()).column()
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
@@ -281,14 +274,14 @@ class PropertiesTableView(QTableView):
         self.selected_item = model.item(row, 1)
 
         if selected_label:
-            property = selected_label.data()
-            property_type = property[1]["type"]
+            cur_property = selected_label.data()
+            property_type = cur_property[1]["type"]
 
             if property_type == "color":
                 # Get current value of color
-                red = property[1]["red"]["value"]
-                green = property[1]["green"]["value"]
-                blue = property[1]["blue"]["value"]
+                red = cur_property[1]["red"]["value"]
+                green = cur_property[1]["green"]["value"]
+                blue = cur_property[1]["blue"]["value"]
 
                 # Show color dialog
                 currentColor = QColor(red, green, blue)
@@ -319,7 +312,22 @@ class PropertiesTableView(QTableView):
         # Update model
         self.clip_properties_model.update_model(value)
 
-    def contextMenuEvent(self, event):
+    def contextMenuEvent(self, event=None, release=False):
+        """ Display context menu, or release lock when menu displays """
+        if release:
+            # Just clear the menu lock and exit
+            self.menu_lock = False
+            return
+
+        if self.menu_lock or not event:
+            # If we're locked, ignore this menu request
+            # But set a 100ms timer to release the lock, just in case
+            QTimer.singleShot(100, partial(self.contextMenuEvent, release=True))
+            return
+
+        # Lock against repeated calls until we've displayed the menu
+        self.menu_lock = True
+
         # Get data model and selection
         model = self.clip_properties_model.model
         row = self.indexAt(event.pos()).row()
@@ -334,17 +342,16 @@ class PropertiesTableView(QTableView):
         # If item selected
         if selected_label:
             # Get data from selected item
-            property = selected_label.data()
-            property_name = property[1]["name"]
-            self.property_type = property[1]["type"]
-            memo = json.loads(property[1]["memo"] or "{}")
-            points = property[1]["points"]
-            self.choices = property[1]["choices"]
-            property_key = property[0]
+            cur_property = selected_label.data()
+            property_name = cur_property[1]["name"]
+            self.property_type = cur_property[1]["type"]
+            points = cur_property[1]["points"]
+            self.choices = cur_property[1]["choices"]
+            property_key = cur_property[0]
             clip_id, item_type = selected_value.data()
             log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
             log.info("Points: %s" % points)
-            log.info("Property: %s" % str(property))
+            log.info("Property: %s" % str(cur_property))
 
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
@@ -386,7 +393,6 @@ class PropertiesTableView(QTableView):
             # Handle reader type values
             if property_name =="Track" and self.property_type == "int" and not self.choices:
                 # Populate all display track names
-                track_choices = []
                 all_tracks = get_app().project.get("layers")
                 display_count = len(all_tracks)
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -497,8 +503,9 @@ class PropertiesTableView(QTableView):
                             Choice_Action.triggered.connect(self.Choice_Action_Triggered)
                         menu.addMenu(SubMenuRoot)
 
-                # Show choice menu
+                # Show choice menu and release lock
                 menu.popup(QCursor.pos())
+                self.contextMenuEvent(event, release=True)
 
     def Bezier_Action_Triggered(self, preset=[]):
         log.info("Bezier_Action_Triggered: %s" % str(preset))
@@ -562,6 +569,9 @@ class PropertiesTableView(QTableView):
         self.selected_item = None
         self.new_value = None
         self.original_data = None
+
+        # Context menu concurrency lock
+        self.menu_lock = False
 
         # Setup header columns
         self.setModel(self.clip_properties_model.model)

@@ -472,13 +472,10 @@ class BlenderListView(QListView):
             version_message = _("\n\nError Output:\n{}").format(command_output)
             log.error("Blender error output:\n{}".format(command_output))
 
-        # show error message
-        blender_version = "2.8"
-        # Handle exception
         msg = QMessageBox()
         msg.setText(_(
             "Blender, the free open source 3D content creation suite is required for this action (http://www.blender.org).\n\nPlease check the preferences in OpenShot and be sure the Blender executable is correct.  This setting should be the path of the 'blender' executable on your computer.  Also, please be sure that it is pointing to Blender version {} or greater.\n\nBlender Path:\n{}{}").format(
-            blender_version, s.get("blender_command"), version_message))
+            info.BLENDER_MIN_VERSION, s.get("blender_command"), version_message))
         msg.exec_()
 
         # Enable the Render button again
@@ -725,24 +722,24 @@ class Worker(QObject):
             # Shell the blender command to create the image sequence
             command_get_version = [self.blender_exec_path, '-v']
             command_render = [self.blender_exec_path, '-b', self.blend_file_path, '-P', self.target_script]
+            
+            # debug info
+            # NOTE: If the length of the command_render list changes, update to match!
+            log.info("Blender command: {} {} '{}' {} '{}'".format(*command_render))
+
             self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
 
             # Check the version of Blender
             self.version = self.blender_version.findall(str(self.process.stdout.readline()))
 
             if self.version:
-                if float(self.version[0]) < 2.78:
+                if self.version[0] < info.BLENDER_MIN_VERSION:
                     # change cursor to "default" and stop running blender command
                     self.is_running = False
 
                     # Wrong version of Blender.
-                    self.blender_version_error.emit(float(self.version[0]))
+                    self.blender_version_error.emit(self.version[0])
                     return
-
-            # debug info
-            log.info(
-                "Blender command: {} {} '{}' {} '{}'".format(command_render[0], command_render[1], command_render[2],
-                                                             command_render[3], command_render[4]))
 
             # Run real command to render Blender project
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
@@ -771,7 +768,7 @@ class Worker(QObject):
                 # Update progress bar
                 if not self.preview_mode:
                     # only update progress if in 'render' mode
-                    self.progress.emit(float(current_frame))
+                    self.progress.emit(int(current_frame))
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))

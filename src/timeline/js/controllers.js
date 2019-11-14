@@ -237,6 +237,7 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.snapline = false;
   $scope.enable_snapping = true;
   $scope.enable_razor = false;
+  $scope.enable_playhead_follow = true;
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
@@ -278,6 +279,11 @@ App.controller('TimelineCtrl',function($scope) {
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var position_seconds = ((position_frames - 1) / frames_per_second);
 	  
+	  // Center on the playhead if it has moved out of view and the timeline should follow it
+	  if ($scope.enable_playhead_follow && !$scope.isTimeVisible(position_seconds)) {
+	    $scope.centerOnTime(position_seconds);
+	  }
+      
 	  // Update internal scope (in seconds)
 	  $scope.MovePlayhead(position_seconds);
   };
@@ -376,7 +382,7 @@ App.controller('TimelineCtrl',function($scope) {
 	// Return keyframe array
 	return keyframes;
   };
-  
+
   // Determine track top (in vertical pixels)
   $scope.getTrackTop = function(layer) {
 	  // Get scrollbar position
@@ -391,6 +397,26 @@ App.controller('TimelineCtrl',function($scope) {
 	  else {
 		  return 0;
 	  }
+  };
+
+  // Determine whether a given timeline time index is scrolled into view
+  $scope.isTimeVisible = function(time_pos) {
+    // Get scrollbar positions
+    var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+    var canvas_width = $("#scrolling_tracks").width();
+
+    // Compute pixel location of time index
+    var time_x = (time_pos * $scope.pixelsPerSecond) - horz_scroll_offset;
+    if (time_x > 0 && time_x < canvas_width ) {
+        return true;
+    } else {
+        return false;
+    }
+  };
+
+  // Determine whether the playhead is within the visible timeline section
+  $scope.isPlayheadVisible = function() {
+    return $scope.isTimeVisible($scope.project.playhead_position);
   };
 
 // ############# QT FUNCTIONS #################### //
@@ -419,6 +445,24 @@ App.controller('TimelineCtrl',function($scope) {
 	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
 	 $("#scrolling_tracks").scrollLeft(new_cursor_x);
  };
+ 
+ // Center the timeline on a given time position
+ $scope.centerOnTime = function(centerTime) {
+    // Get the width of the timeline
+    var scrollingTracksWidth = $("#scrolling_tracks").width();
+    
+    // Calculate the position to scroll the timeline to to center on the requested time
+    var pixelToCenterOn = parseFloat(centerTime) * $scope.pixelsPerSecond;
+    var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
+    
+    // Scroll the timeline using JQuery
+    $("#scrolling_tracks").scrollLeft(Math.floor(scrollPosition + 0.5));
+ };
+
+  // Center the timeline on the current playhead position
+  $scope.centerOnPlayhead = function() {
+    $scope.centerOnTime($scope.project.playhead_position);
+  };
 
  // Update thumbnail for clip
  $scope.updateThumbnail = function(clip_id) {
@@ -503,6 +547,13 @@ App.controller('TimelineCtrl',function($scope) {
       $scope.$apply(function() {
          $scope.enable_razor = enable_razor;
      });
+ };
+
+ // Change playhead follow mode
+ $scope.SetFollow = function(enable_follow) {
+    $scope.$apply(function() {
+        $scope.enable_playhead_follow = enable_follow;
+    });
  };
 
  // Get the color of an effect
@@ -1430,7 +1481,10 @@ $scope.SetTrackLabel = function (label) {
 		scrollTop: 0,
 		scrollLeft: 0
 	 }, 'slow');
-	 
+
+     // Update playhead position and time readout
+     $scope.MovePlayhead($scope.project.playhead_position)
+
 	 // return true
 	 return true;
  };

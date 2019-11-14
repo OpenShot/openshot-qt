@@ -921,6 +921,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Update playhead position"""
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
+    
+    def SetPlayheadFollow(self, enable_follow):
+        """ Enable / Disable follow mode """
+        self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, event):
 
@@ -1312,6 +1316,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
+            
+    def actionCenterOnPlayhead_trigger(self, event):
+        """ Center the timeline on the current playhead position """
+        self.timeline.centerOnPlayhead()
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
@@ -1332,18 +1340,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Process key press events and match with known shortcuts"""
         # Detect the current KeySequence pressed (including modifier keys)
         key_value = event.key()
-        print(key_value)
         modifiers = int(event.modifiers())
-        if (key_value > 0 and key_value != Qt.Key_Shift and key_value != Qt.Key_Alt and
-                    key_value != Qt.Key_Control and key_value != Qt.Key_Meta):
-            # A valid keysequence was detected
-            key = QKeySequence(modifiers + key_value)
-        else:
-            # No valid keysequence detected
+
+        # Abort handling if the key sequence is invalid
+        if (key_value <= 0 or key_value in
+           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
             return
 
-        # Debug
-        log.info("keyPressEvent: %s" % (key.toString()))
+        # A valid keysequence was detected
+        key = QKeySequence(modifiers + key_value)
 
         # Get the video player object
         player = self.preview_thread.player
@@ -1433,6 +1438,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPreviousMarker.trigger()
         elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
             self.actionNextMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.ExactMatch:
+            self.actionCenterOnPlayhead.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomIn.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
@@ -2249,6 +2256,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
         self.timelineToolbar.addAction(self.actionNextMarker)
+        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
