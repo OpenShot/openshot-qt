@@ -110,6 +110,11 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         file_frame = int(url_output[0][1])
         only_path = url_output[0][2]
 
+        # Catch undefined calls
+        if file_id == "undefined":
+            self.send_error(404)
+            return
+
         # Send headers
         if not only_path:
             self.send_header('Content-type', 'image/png')
