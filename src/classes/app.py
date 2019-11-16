@@ -27,18 +27,17 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
-import sys
-import platform
-import traceback
 import atexit
-from uuid import uuid4
-from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QT_VERSION_STR
+import os
+import platform
+import sys
+import traceback
+
 from PyQt5.QtCore import PYQT_VERSION_STR
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import QT_VERSION_STR
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
+from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 try:
     # Enable High-DPI resolutions
@@ -102,7 +101,7 @@ class OpenShotApp(QApplication):
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except Exception:
             pass
-			
+
         # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
@@ -255,6 +254,7 @@ class OpenShotApp(QApplication):
         # return exit result
         return res
 
+
 # Log the session's end
 @atexit.register
 def onLogTheEnd():
@@ -268,4 +268,3 @@ def onLogTheEnd():
         log.info("================================================")
     except Exception:
         pass
-

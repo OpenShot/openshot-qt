@@ -33,6 +33,7 @@ import copy
 import os
 import re
 
+from classes.assets import get_assets_path
 from classes.logger import log
 from classes import info
 
@@ -162,15 +163,19 @@ class JsonDataStore:
 
         # Find absolute path of file (if needed)
         utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
-        if "@transitions" not in utf_path:
-            # Convert path to the correct relative path (based on the existing folder)
-            new_path = os.path.abspath(os.path.join(path_context.get("existing_project_folder", ""), utf_path))
+        if "@transitions" in utf_path:
+            new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
-        # Determine if @transitions path is found
+        elif "@assets" in utf_path:
+            new_path = path.replace("@assets", path_context["new_project_assets"])
+            new_path = json.dumps(new_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_path)
+
         else:
-            new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
+            # Convert path to the correct relative path
+            new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), utf_path))
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
@@ -180,6 +185,8 @@ class JsonDataStore:
             # Get project folder
             path_context["new_project_folder"] = os.path.dirname(file_path)
             path_context["existing_project_folder"] = os.path.dirname(file_path)
+            path_context["new_project_assets"] = get_assets_path(file_path, create_paths=False)
+            path_context["existing_project_assets"] = get_assets_path(file_path, create_paths=False)
 
             # Optimized regex replacement
             data = re.sub(path_regex, self.replace_string_to_absolute, data)
@@ -213,6 +220,16 @@ class JsonDataStore:
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
+        # Determine if @assets path is found
+        elif path_context["new_project_assets"] in folder_path:
+            # Yes, this is an OpenShot transitions
+            folder_path = folder_path.replace(path_context["new_project_assets"], "@assets")
+
+            # Convert path to @transitions/ path
+            new_path = os.path.join(folder_path, file_path).replace("\\", "/")
+            new_path = json.dumps(new_path)  # Escape backslashes
+            return '"%s": %s' % (key, new_path)
+
         # Find absolute path of file (if needed)
         else:
             # Convert path to the correct relative path (based on the existing folder)
@@ -232,9 +249,12 @@ class JsonDataStore:
         try:
             # Get project folder
             path_context["new_project_folder"] = os.path.dirname(file_path)
+            path_context["new_project_assets"] = get_assets_path(file_path, create_paths=False)
             path_context["existing_project_folder"] = os.path.dirname(file_path)
-            if previous_path:
+            path_context["existing_project_assets"] = get_assets_path(file_path, create_paths=False)
+            if previous_path and file_path != previous_path:
                 path_context["existing_project_folder"] = os.path.dirname(previous_path)
+                path_context["existing_project_assets"] = get_assets_path(previous_path, create_paths=False)
 
             # Optimized regex replacement
             data = re.sub(path_regex, self.replace_string_to_relative, data)

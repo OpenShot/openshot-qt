@@ -236,7 +236,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             existing_clip.data["id"] = clip_data["id"]
             existing_clip.data["layer"] = clip_data["layer"]
             existing_clip.data["position"] = clip_data["position"]
-            existing_clip.data["image"] = clip_data["image"]
             existing_clip.data["start"] = clip_data["start"]
             existing_clip.data["end"] = clip_data["end"]
 
@@ -2681,7 +2680,6 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         new_clip = json.loads(c.Json())
         new_clip["file_id"] = file.id
         new_clip["title"] = filename
-        new_clip["image"] = thumb_path
 
         # Skip any clips that are missing a 'reader' attribute
         # TODO: Determine why this even happens, as it shouldn't be possible

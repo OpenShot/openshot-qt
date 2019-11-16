@@ -125,15 +125,6 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         if not os.path.exists(thumb_path) and file_frame != 1:
             # Try with no frame # (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
-        if not os.path.exists(thumb_path):
-            # Still doesn't exist, try assets directory
-            thumb_path = os.path.join(info.ASSETS_PATH, "thumbnail", "%s-%s.png" % (file_id, file_frame))
-        if not os.path.exists(thumb_path) and file_frame == 1:
-            # Try with no frame # (for backwards compatibility)
-            thumb_path = os.path.join(info.ASSETS_PATH, "thumbnail", "%s.png" % file_id)
-        if not os.path.exists(thumb_path):
-            # Just set the path to what we want
-            thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
 
         if not os.path.exists(thumb_path):
             # Generate thumbnail (since we can't find it)
