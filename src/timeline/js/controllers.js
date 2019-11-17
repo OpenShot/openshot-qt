@@ -772,62 +772,62 @@ App.controller('TimelineCtrl',function($scope) {
 	}
  };
  
- // Show clip context menu
- $scope.ShowClipMenu = function(clip_id, event) {
- 	if ($scope.Qt) {
+// Show clip context menu
+$scope.ShowClipMenu = function(clip_id, event) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowClipMenu");
 	 	$scope.SelectClip(clip_id, false, event);
 	 	timeline.ShowClipMenu(clip_id);
  	}
- };
+};
 
- // Show clip context menu
- $scope.ShowEffectMenu = function(effect_id) {
- 	if ($scope.Qt) {
+// Show clip context menu
+$scope.ShowEffectMenu = function(effect_id) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowEffectMenu");
 	 	timeline.ShowEffectMenu(effect_id);
  	}
- };
- 
- // Show transition context menu
- $scope.ShowTransitionMenu = function(tran_id, event) {
- 	if ($scope.Qt) {
+};
+
+// Show transition context menu
+$scope.ShowTransitionMenu = function(tran_id, event) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowTransitionMenu");
 	 	$scope.SelectTransition(tran_id, false, event);
 	 	timeline.ShowTransitionMenu(tran_id);
  	}
- };
- 
- // Show track context menu
- $scope.ShowTrackMenu = function(layer_id) {
- 	if ($scope.Qt) {
+};
+
+// Show track context menu
+$scope.ShowTrackMenu = function(layer_id) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowTrackMenu");
 	 	timeline.ShowTrackMenu(layer_id);
  	}
- };
+};
 
- // Show marker context menu
- $scope.ShowMarkerMenu = function(marker_id) {
- 	if ($scope.Qt) {
+// Show marker context menu
+$scope.ShowMarkerMenu = function(marker_id) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowMarkerMenu");
 	 	timeline.ShowMarkerMenu(marker_id);
  	}
- };
- 
+};
+
   // Show playhead context menu
- $scope.ShowPlayheadMenu = function(position) {
- 	if ($scope.Qt) {
+$scope.ShowPlayheadMenu = function(position) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowPlayheadMenu");
 	 	timeline.ShowPlayheadMenu(position);
 	 }
- };
+};
 
   // Show timeline context menu
- $scope.ShowTimelineMenu = function(e, layer_number) {
- 	if ($scope.Qt) {
+$scope.ShowTimelineMenu = function(e, layer_number) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.ShowTimelineMenu($scope.GetJavaScriptPosition(e.pageX), layer_number);
 	 }
- };
+};
 
  // Get the name of the track
  $scope.GetTrackName = function(layer_label, layer_number) {
