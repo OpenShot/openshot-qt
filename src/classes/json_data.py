@@ -145,7 +145,7 @@ class JsonDataStore:
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """ Save JSON settings to a file """
         try:
-            contents = json.dumps(data, indent=4)
+            contents = json.dumps(data, indent=1)
             if path_mode == "relative":
                 # Convert any paths to relative
                 contents = self.convert_paths_to_relative(file_path, previous_path, contents)
