@@ -228,7 +228,6 @@ App.controller('TimelineCtrl',function($scope) {
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playheadOffset = 0;
-  $scope.keyframePointOffset = 3;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
