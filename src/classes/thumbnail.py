@@ -29,6 +29,7 @@ import os
 import re
 import openshot
 import socket
+import time
 from threading import Thread
 from classes import info
 from classes.query import File
@@ -99,6 +100,11 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
     """ This class handles HTTP requests to the HTTP thumbnail server above."""
 
     def do_GET(self):
+        # Pause processing of request (since we don't currently use thread pooling, this allows
+        # the threads to be processed without choking the CPU as much
+        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
+        time.sleep(0.01)
+
         """ Process each GET request and return a value (image or file path)"""
         # Parse URL
         url_output = REGEX_THUMBNAIL_URL.findall(self.path)
