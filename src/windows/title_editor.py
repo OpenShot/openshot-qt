@@ -50,6 +50,7 @@ from windows.views.titles_listview import TitlesListView
 
 import json
 
+
 class TitleEditor(QDialog):
     """ Title Editor Dialog """
 
@@ -100,6 +101,8 @@ class TitleEditor(QDialog):
         self.display_name = ""
         self.font_family = "Bitstream Vera Sans"
         self.tspan_node = None
+
+        self.qfont = QFont(self.font_family)
 
         # Add titles list view
         self.titlesTreeView = TitlesListView(self)
@@ -193,6 +196,12 @@ class TitleEditor(QDialog):
         # get the text elements
         self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
         self.text_fields = len(self.tspan_node)
+
+        # Reset default font
+        self.font_family = "Bitstream Vera Sans"
+        if self.qfont:
+            del self.qfont
+        self.qfont = QFont(self.font_family)
 
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
@@ -346,11 +355,11 @@ class TitleEditor(QDialog):
             self.update_font_color_button()
             self.font_color_code = col
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def btnBackgroundColor_clicked(self):
         app = get_app()
@@ -366,32 +375,36 @@ class TitleEditor(QDialog):
             self.update_background_color_button()
             self.bg_color_code = col
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def btnFont_clicked(self):
         app = get_app()
         _ = app._tr
 
+        # Default to previously-selected font
+        oldfont = self.qfont
+
         # Get font from user
-        font, ok = QFontDialog.getFont(QFont(), caption=_("Change Font"))
+        font, ok = QFontDialog.getFont(oldfont, caption=("Change Font"))
 
         # Update SVG font
-        if ok:
+        if ok and font is not oldfont:
+            self.qfont = font
             fontinfo = QtGui.QFontInfo(font)
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
             self.set_font_style()
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def find_in_list(self, l, value):
         '''when passed a partial value, function will return the list index'''
@@ -430,11 +443,11 @@ class TitleEditor(QDialog):
                 pass
 
             # Default the font color to white if non-existing
-            if color == None:
+            if color is None:
                 color = "#FFFFFF"
 
             # Default the opacity to fully visible if non-existing
-            if opacity == None:
+            if opacity is None:
                 opacity = 1.0
 
             color = QtGui.QColor(color)
@@ -443,9 +456,9 @@ class TitleEditor(QDialog):
             colrgb = color.getRgbF()
             lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
             if (lum < 0.5):
-              text_color = QtGui.QColor(Qt.white)
+                text_color = QtGui.QColor(Qt.white)
             else:
-              text_color = QtGui.QColor(Qt.black)
+                text_color = QtGui.QColor(Qt.black)
 
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
@@ -488,11 +501,11 @@ class TitleEditor(QDialog):
                 pass
 
             # Default the background color to black if non-existing
-            if color == None:
+            if color is None:
                 color = "#000000"
 
             # Default opacity to fully visible if non-existing
-            if opacity == None:
+            if opacity is None:
                 opacity = 1.0
 
             color = QtGui.QColor(color)
@@ -501,9 +514,9 @@ class TitleEditor(QDialog):
             colrgb = color.getRgbF()
             lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
             if (lum < 0.5):
-              text_color = QtGui.QColor(Qt.white)
+                text_color = QtGui.QColor(Qt.white)
             else:
-              text_color = QtGui.QColor(Qt.black)
+                text_color = QtGui.QColor(Qt.black)
 
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
@@ -571,13 +584,13 @@ class TitleEditor(QDialog):
             s = self.rect_node[0].attributes["style"].value
             ar = s.split(";")
             fill = self.find_in_list(ar, "fill:")
-            if fill == None:
+            if fill is None:
                 ar.append("fill:" + color)
             else:
                 ar[fill] = "fill:" + color
 
             opacity = self.find_in_list(ar, "opacity:")
-            if opacity == None:
+            if opacity is None:
                 ar.append("opacity:" + str(alpha))
             else:
                 ar[opacity] = "opacity:" + str(alpha)
@@ -598,13 +611,13 @@ class TitleEditor(QDialog):
             # split the text node so we can access each part
             ar = s.split(";")
             fill = self.find_in_list(ar, "fill:")
-            if fill == None:
+            if fill is None:
                 ar.append("fill:" + color)
             else:
                 ar[fill] = "fill:" + color
 
             opacity = self.find_in_list(ar, "opacity:")
-            if opacity == None:
+            if opacity is None:
                 ar.append("opacity:" + str(alpha))
             else:
                 ar[opacity] = "opacity:" + str(alpha)
@@ -621,7 +634,7 @@ class TitleEditor(QDialog):
                 # split the text node so we can access each part
                 ar = s.split(";")
                 fill = self.find_in_list(ar, "fill:")
-                if fill == None:
+                if fill is None:
                     ar.append("fill:" + color)
                 else:
                     ar[fill] = "fill:" + color
