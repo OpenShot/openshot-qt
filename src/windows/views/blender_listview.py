@@ -46,15 +46,6 @@ from windows.models.blender_model import BlenderModel
 
 import json
 
-class QBlenderEvent(QEvent):
-    """ A custom Blender QEvent, which can safely be sent from the Blender thread to the Qt thread (to communicate) """
-
-    def __init__(self, id, data=None, *args):
-        # Invoke parent init
-        QEvent.__init__(self, id)
-        self.data = data
-        self.id = id
-
 
 class BlenderListView(QListView):
     """ A TreeView QWidget used on the animated title window """
@@ -127,8 +118,8 @@ class BlenderListView(QListView):
                 self.params[param["name"]] = _(param["default"])
 
                 # create spinner
-                widget = QTextEdit()
-                widget.setText(_(param["default"]).replace("\\n", "\n"))
+                widget = QPlainTextEdit()
+                widget.setPlainText(_(param["default"]).replace("\\n", "\n"))
                 widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
             elif param["type"] == "dropdown":
@@ -199,11 +190,11 @@ class BlenderListView(QListView):
 
     def text_value_changed(self, widget, param, value=None):
         try:
-            # Attempt to load value from QTextEdit (i.e. multi-line)
+            # Attempt to load value from QPlainTextEdit (i.e. multi-line)
             if not value:
                 value = widget.toPlainText()
-        except:
-            pass
+        except Exception:
+            return
         self.params[param["name"]] = value.replace("\n", "\\n")
         # XXX: This will log every individual KEYPRESS in the text field.
         # log.info('Animation param %s set to %s' % (param["name"], value))
