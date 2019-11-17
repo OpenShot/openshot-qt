@@ -35,7 +35,7 @@ import webbrowser
 from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
-from time import sleep
+from time import sleep, time
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
@@ -52,6 +52,7 @@ from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
+from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -158,6 +159,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
         get_app().logger_libopenshot.kill()
+        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -174,8 +176,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.open_project(recovery_path, clear_thumbnails=False)
 
             # Clear the file_path (which is set by saving the project)
-            get_app().project.current_filepath = None
-            get_app().project.has_unsaved_changes = True
+            project = get_app().project
+            project.current_filepath = None
+            project.has_unsaved_changes = True
 
             # Set Window title
             self.SetWindowTitle()
@@ -544,28 +547,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
         try:
-            if os.path.exists(info.THUMBNAIL_PATH):
-                log.info("Clear all thumbnails: %s" % info.THUMBNAIL_PATH)
-                # Remove thumbnail folder
-                shutil.rmtree(info.THUMBNAIL_PATH)
-                # Create thumbnail folder
-                os.mkdir(info.THUMBNAIL_PATH)
+            openshot_thumbnail_path = os.path.join(info.USER_PATH, "thumbnail")
+            if os.path.exists(openshot_thumbnail_path):
+                log.info("Clear all thumbnails: %s" % openshot_thumbnail_path)
+                shutil.rmtree(openshot_thumbnail_path)
+                os.mkdir(openshot_thumbnail_path)
 
             # Clear any blender animations
-            if os.path.exists(info.BLENDER_PATH):
-                log.info("Clear all animations: %s" % info.BLENDER_PATH)
-                # Remove blender folder
-                shutil.rmtree(info.BLENDER_PATH)
-                # Create blender folder
-                os.mkdir(info.BLENDER_PATH)
+            openshot_blender_path = os.path.join(info.USER_PATH, "blender")
+            if os.path.exists(openshot_blender_path):
+                log.info("Clear all animations: %s" % openshot_blender_path)
+                shutil.rmtree(openshot_blender_path)
+                os.mkdir(openshot_blender_path)
 
-            # Clear any assets folder
-            if os.path.exists(info.ASSETS_PATH):
-                log.info("Clear all assets: %s" % info.ASSETS_PATH)
-                # Remove assets folder
-                shutil.rmtree(info.ASSETS_PATH)
-                # Create assets folder
-                os.mkdir(info.ASSETS_PATH)
+            # Clear any title animations
+            openshot_title_path = os.path.join(info.USER_PATH, "title")
+            if os.path.exists(openshot_title_path):
+                log.info("Clear all titles: %s" % openshot_title_path)
+                shutil.rmtree(openshot_title_path)
+                os.mkdir(openshot_title_path)
 
             # Clear any backups
             backup_path = os.path.join(info.BACKUP_PATH, "backup.osp")
@@ -620,6 +620,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
+        s = settings.get_settings()
+
         # Get current filepath (if any)
         file_path = get_app().project.current_filepath
         if get_app().project.needs_save():
@@ -630,6 +632,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Append .osp if needed
                 if ".osp" not in file_path:
                     file_path = "%s.osp" % file_path
+                folder_path, file_name = os.path.split(file_path)
+                file_name, file_ext = os.path.splitext(file_name)
+
+                # Make copy of unsaved project file in 'recovery' folder
+                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time()), file_name))
+                shutil.copy(file_path, recover_path_with_timestamp)
+
+                # Find any recovery file older than X auto-saves
+                old_backup_files = []
+                backup_file_count = 0
+                for backup_filename in reversed(sorted(os.listdir(info.RECOVERY_PATH))):
+                    if ".osp" in backup_filename:
+                        backup_file_count += 1
+                        if backup_file_count > s.get("recovery-limit"):
+                            old_backup_files.append(os.path.join(info.RECOVERY_PATH, backup_filename))
+
+                # Delete recovery files which are 'too old'
+                for backup_filepath in old_backup_files:
+                    os.unlink(backup_filepath)
 
                 # Save project
                 log.info("Auto save project file: %s" % file_path)
@@ -2435,6 +2456,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.is_transforming = False
 
+    def init_thumbnail_server(self):
+        """Initialize and start the thumbnail HTTP server"""
+        self.http_server_thread = httpThumbnailServerThread()
+        self.http_server_thread.start()
 
     def __init__(self, mode=None):
 
@@ -2491,6 +2516,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.TransformSignal.connect(self.transformTriggered)
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
+
+        # Init HTTP server for thumbnails
+        self.init_thumbnail_server()
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)

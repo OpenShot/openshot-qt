@@ -242,6 +242,15 @@
     "type": "spinner-int"
   },
   {
+    "max": 99,
+    "title": "Recovery Limit (# of project copies)",
+    "category": "Autosave",
+    "min": 0,
+    "setting": "recovery-limit",
+    "value": 30,
+    "type": "spinner-int"
+  },
+  {
     "title": "Cache Mode",
     "category": "Cache",
     "setting": "cache-mode",

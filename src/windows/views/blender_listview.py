@@ -26,7 +26,6 @@
  """
 
 import os
-import uuid
 import shutil
 import subprocess
 import sys
@@ -237,7 +236,7 @@ class BlenderListView(QListView):
         """ Generate a new, unique folder name to contain Blender frames """
 
         # Assign a new unique id for each template selected
-        self.unique_folder_name = str(uuid.uuid1())
+        self.unique_folder_name = str(self.app.project.generate_id())
 
         # Create a folder (if it does not exist)
         if not os.path.exists(os.path.join(info.BLENDER_PATH, self.unique_folder_name)):

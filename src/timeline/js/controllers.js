@@ -242,12 +242,18 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
+  $scope.ThumbServer = "http://127.0.0.1/";
 
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
   $scope.EnableQt = function() {
 	  	$scope.Qt = true;
 	  	timeline.qt_log("$scope.Qt = true;");
+  };
+
+  $scope.SetThumbAddress = function(url) {
+	  	$scope.ThumbServer = url;
+	  	timeline.qt_log("SetThumbAddress: " + url);
   };
 
   // Move the playhead to a specific time
@@ -740,14 +746,10 @@ App.controller('TimelineCtrl',function($scope) {
 	}
  };
 
-  // Format the thumbnail path
- $scope.FormatThumbPath = function(image_url) {
- 	if (image_url.charAt(0) == ".") {
-		return image_url;
- 	}
-	else {
-		return "file:///" + image_url;
-	}
+  // Format the thumbnail path: http://127.0.0.1:8081/thumbnails/FILE-ID/FRAME-NUMBER/
+ $scope.GetThumbPath = function(clip) {
+ 	var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
+ 	return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
  };
 
   // Select transition in scope
