@@ -206,6 +206,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             initial_scale = get_app().project.get("scale") or 15
             get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
+            # The setValue() above doesn't trigger update_zoom when a project file is
+            # loaded on the command line (too early?), so also call the JS directly
+            cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(initial_scale) + ", 0);"
+            self.eval_js(cmd)
+
     # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str, bool, bool, bool)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False, ignore_refresh=False):
@@ -2568,7 +2573,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get access to timeline scope and set scale to new computed value
         cmd = JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");"
-        self.page().mainFrame().evaluateJavaScript(cmd)
+        self.eval_js(cmd)
 
         # Start timer to redraw audio
         self.redraw_audio_timer.start()
