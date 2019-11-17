@@ -24,7 +24,7 @@
 
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
- """
+"""
 
 import sys
 import os
@@ -208,7 +208,7 @@ class TitleEditor(QDialog):
             try:
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
-            except:
+            except Exception:
                 pass
 
         # Get text nodes and rect nodes
@@ -429,7 +429,7 @@ class TitleEditor(QDialog):
                 # Parse the result
                 txt = ar[color]
                 color = txt[5:]
-            except:
+            except Exception:
                 # If the color was in an invalid format, try the next text element
                 continue
 
@@ -439,7 +439,7 @@ class TitleEditor(QDialog):
                 # Parse the result
                 txt = ar[opacity]
                 opacity = float(txt[8:])
-            except:
+            except Exception:
                 pass
 
             # Default the font color to white if non-existing
@@ -710,8 +710,9 @@ class TitleEditor(QDialog):
             file.save()
             return True
 
-        except:
+        except Exception as ex:
             # Handle exception
+            log.error('Could not import {}: {}'.format(filename, str(ex)))
             msg = QMessageBox()
             msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
