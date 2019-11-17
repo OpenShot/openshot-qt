@@ -242,6 +242,15 @@
     "type": "spinner-int"
   },
   {
+    "max": 99,
+    "title": "Recovery Limit (# of project copies)",
+    "category": "Autosave",
+    "min": 0,
+    "setting": "recovery-limit",
+    "value": 30,
+    "type": "spinner-int"
+  },
+  {
     "title": "Cache Mode",
     "category": "Cache",
     "setting": "cache-mode",
@@ -538,6 +547,14 @@
     "restart": true,
     "setting": "actionNextMarker",
     "value": "Ctrl+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Center on Playhead",
+    "restart": true,
+    "setting": "actionCenterOnPlayhead",
+    "value": "Ctrl+Up",
     "type": "text"
   },
   {

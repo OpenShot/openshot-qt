@@ -27,17 +27,17 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import atexit
 import os
-import sys
 import platform
+import sys
 import traceback
-from uuid import uuid4
-from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QT_VERSION_STR
+
 from PyQt5.QtCore import PYQT_VERSION_STR
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import QT_VERSION_STR
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
+from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 try:
     # Enable High-DPI resolutions
@@ -101,9 +101,6 @@ class OpenShotApp(QApplication):
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except Exception:
             pass
-			
-        # Connect QCoreApplication::aboutToQuit() signal to log end of the session
-        self.aboutToQuit.connect(self.onLogTheEnd)
 
         # Setup application
         self.setApplicationName('openshot')
@@ -189,19 +186,32 @@ class OpenShotApp(QApplication):
             self.setStyle(QStyleFactory.create("Fusion"))
 
             darkPalette = self.palette()
+
             darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.WindowText, Qt.white)
             darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
             darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.ToolTipBase, Qt.white)
-            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+            darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
             darkPalette.setColor(QPalette.Text, Qt.white)
             darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
             darkPalette.setColor(QPalette.ButtonText, Qt.white)
-            darkPalette.setColor(QPalette.BrightText, Qt.red)
-            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
             darkPalette.setColor(QPalette.HighlightedText, Qt.black)
-            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(104, 104, 104))
+            #
+            # Disabled palette
+            #
+            darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
+            darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
+            darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
+
+            # Tooltips
+            darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
+            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 
@@ -244,19 +254,17 @@ class OpenShotApp(QApplication):
         # return exit result
         return res
 
-    # Log the session's end
-    @pyqtSlot()
-    def onLogTheEnd(self):
-        """ Log when the primary Qt event loop ends """
 
-        try:
-            from classes.logger import log
-            import time
-            log.info('OpenShot\'s session ended'.center(48))
-            log.info(time.asctime().center(48))
-            log.info("================================================")
-        except Exception:
-            pass
+# Log the session's end
+@atexit.register
+def onLogTheEnd():
+    """ Log when the primary Qt event loop ends """
 
-        # return 0 on success
-        return 0
+    try:
+        from classes.logger import log
+        import time
+        log.info('OpenShot\'s session ended'.center(48))
+        log.info(time.asctime().center(48))
+        log.info("================================================")
+    except Exception:
+        pass

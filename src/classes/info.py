@@ -43,8 +43,8 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary o
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
 BACKUP_PATH = os.path.join(USER_PATH)
+RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
-ASSETS_PATH = os.path.join(USER_PATH, "assets")
 RESOURCES_PATH =  os.path.join(PATH, "resources")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
@@ -60,13 +60,17 @@ USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
 # Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, PREVIEW_CACHE_PATH]:
+for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
+               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, PREVIEW_CACHE_PATH,
+               RECOVERY_PATH]:
     if not os.path.exists(folder.encode("UTF-8")):
         os.makedirs(folder, exist_ok=True)
 
 # names of all contributors, using "u" for unicode encoding
 JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
+
+# Blender minimum version required (a string value)
+BLENDER_MIN_VERSION = "2.80"
 
 # Languages
 CMDLINE_LANGUAGE = None

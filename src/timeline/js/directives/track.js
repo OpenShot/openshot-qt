@@ -76,15 +76,15 @@ App.directive('tlTrack', function($timeout) {
 		       			// Remove all selections
 						if ($(".ui-selected").length > 1)
 						{
-							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
-								scope.project.clips[clip_index].selected = false;
+							for (const clip of scope.project.clips) {
+								clip.selected = false;
 								if (scope.Qt)
-									timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
+									timeline.removeSelection(clip.id.replace("clip_", ""), "clip");
 							}
-							for (var tran_index = 0; tran_index < scope.project.effects.length; tran_index++) {
-								scope.project.effects[tran_index].selected = false;
+							for (const tran of scope.project.effects) {
+								tran.selected = false;
 								if (scope.Qt)
-									timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
+									timeline.removeSelection(tran.id.replace("transition_", ""), "transition");
 							}
 						}
 						
@@ -125,7 +125,7 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data = findElement(scope.project.effects, "id", item_num);
 
 							// set time diff (if not already determined)
-							if (position_diff == 0.0)
+							if (position_diff === 0.0)
 								// once calculated, we want to apply the exact same time diff to each clip/trans
 		            			position_diff = (item_left / scope.pixelsPerSecond) - item_data.position;
 
@@ -158,13 +158,11 @@ App.directive('tlTrack', function($timeout) {
 		            });
 
 					// Add missing transitions (if any)
-					if (dropped_clips.length == 1)
+					if (dropped_clips.length === 1)
 						// Hack to only add missing transitions if a single clip is being dropped
-						for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
-							var item_data = dropped_clips[clip_index];
-
+						for (const clip of dropped_clips) {
 							// Check again for missing transitions
-							missing_transition_details = scope.GetMissingTransitions(item_data);
+							missing_transition_details = scope.GetMissingTransitions(clip);
 							if (scope.Qt && missing_transition_details != null)
 								timeline.add_missing_transition(JSON.stringify(missing_transition_details));
 						}

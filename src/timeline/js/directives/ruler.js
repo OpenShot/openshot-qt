@@ -56,7 +56,7 @@ App.directive('tlScrollableTracks', function () {
 
 			// Initialize panning when middle mouse is clicked
 			element.on('mousedown', function(e) {
-				if (e.which == 2) { // middle button
+				if (e.which === 2) { // middle button
 					e.preventDefault();
 					is_scrolling = true;
 					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() };
@@ -93,7 +93,7 @@ App.directive('tlBody', function () {
 		link: function (scope, element, attrs){
 
 			element.on('mouseup', function(e){
-				if (e.which == 2) // middle button
+				if (e.which === 2) // middle button
 					is_scrolling = false;
 			});
 
@@ -170,10 +170,10 @@ App.directive('tlRuler', function ($timeout) {
 							ctx.beginPath();
 
 							//if it's even, make the line longer
-							if (x%2 == 0){
+							if (x%2 === 0){
 								line_top = 18;
 								//if it's not the first line, set the time text
-								if (x != 0){
+								if (x !== 0){
 									//get time for this tick
 									time = (scale * x) /2;
 									time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
@@ -219,7 +219,7 @@ App.directive('tlRulertime', function () {
 
 			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
-				if (e.which == 1 && !scope.playhead_animating) { // left button
+				if (e.which === 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = 0.0;
 					// Update playhead
 					scope.MovePlayhead(playhead_seconds);
@@ -231,8 +231,3 @@ App.directive('tlRulertime', function () {
 		}
 	};
 });
-
-
-
-
-

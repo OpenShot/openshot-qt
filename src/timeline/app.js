@@ -56,6 +56,7 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 		timeline.qt_log("Qt Found!");
 		$('body').scope().EnableQt();
 		timeline.page_ready();
+		$('body').scope().SetThumbAddress(timeline.get_thumb_address());
 	} else {
 		console.log("Qt NOT Found!");
 	}
@@ -65,7 +66,7 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 	
 	// Bind to keydown event (to detect SHIFT)
 	$( "body" ).keydown(function(event) {
-	  if (event.which==16)
+	  if (event.which === 16)
     	$('body').scope().shift_pressed = true;
 	});
 	$( "body" ).keyup(function(event) {
@@ -73,4 +74,3 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 	  	$('body').scope().shift_pressed = false;
 	});
 });
-
