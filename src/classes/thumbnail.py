@@ -28,6 +28,7 @@
 import os
 import re
 import openshot
+import socket
 from threading import Thread
 from classes import info
 from classes.query import File
@@ -75,18 +76,23 @@ class httpThumbnailServerThread(Thread):
     """ This class runs a HTTP thumbnail server inside a thread
         so we don't block the main thread with handle_request()."""
 
+    def find_free_port(self):
+        """Find the first available socket port"""
+        s = socket.socket()
+        s.bind(('', 0))
+        return s.getsockname()[1]
+
     def kill(self):
         self.running = False
+        self.thumbServer.shutdown()
 
     def run(self):
         self.running = True
 
-        # TODO: Choose availble port
-        self.server_address = ('127.0.0.1', 8081)
+        # Start listening for HTTP requests (and check for shutdown every 0.5 seconds)
+        self.server_address = ('127.0.0.1', self.find_free_port())
         self.thumbServer = httpThumbnailServer(self.server_address, httpThumbnailHandler)
-
-        while self.running:
-            self.thumbServer.handle_request()
+        self.thumbServer.serve_forever(0.5)
 
 
 class httpThumbnailHandler(BaseHTTPRequestHandler):
