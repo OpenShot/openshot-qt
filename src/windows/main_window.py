@@ -824,57 +824,52 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language())
-            log.info("Help Contents is open")
-        except:
-            QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
-            log.info("Unable to open the Help Contents")
+            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
+        except Exception as ex:
+            QMessageBox.information(self, "Error !", "Unable to open the online help")
+            log.error("Unable to open the Help Contents: {}".format(str(ex)))
 
     def actionAbout_trigger(self, event):
         """Show about dialog"""
         from windows.about import About
         win = About()
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('About Openshot add confirmed')
-        else:
-            log.info('About Openshot add cancelled')
+        win.exec_()
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language())
-            log.info("Open the Bug Report GitHub Issues web page with success")
-        except:
+            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
+            log.error("Unable to open the Bug Report page: {}".format(str(ex)))
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://www.reddit.com/r/OpenShot/")
-            log.info("Open the official OpenShot subreddit web page with success")
-        except:
+            webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
+            log.error("Unable to open the subreddit page: {}".format(str(ex)))
 
     def actionTranslate_trigger(self, event):
         try:
-            webbrowser.open("https://translations.launchpad.net/openshot/2.0")
-            log.info("Open the Translate launchpad web page with success")
-        except:
+            webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
+            log.error("Unable to open the translation page: {}".format(str(ex)))
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language())
-            log.info("Open the Donate web page with success")
-        except:
+            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
+            log.error("Unable to open the donation page: {}".format(str(ex)))
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language())
-            log.info("Open the Download web page with success")
-        except:
+            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
+            log.error("Unable to open the download page: {}".format(str(ex)))
 
     def actionPlay_trigger(self, event, force=None):
 
