@@ -201,7 +201,6 @@ class AddToTimeline(QDialog):
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
             new_clip["title"] = filename
-            new_clip["image"] = thumb_path
 
             # Skip any clips that are missing a 'reader' attribute
             # TODO: Determine why this even happens, as it shouldn't be possible

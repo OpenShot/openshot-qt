@@ -228,7 +228,6 @@ App.controller('TimelineCtrl',function($scope) {
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playheadOffset = 0;
-  $scope.keyframePointOffset = 3;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime =  secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
@@ -242,12 +241,18 @@ App.controller('TimelineCtrl',function($scope) {
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
+  $scope.ThumbServer = "http://127.0.0.1/";
 
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
   $scope.EnableQt = function() {
 	  	$scope.Qt = true;
 	  	timeline.qt_log("$scope.Qt = true;");
+  };
+
+  $scope.SetThumbAddress = function(url) {
+	  	$scope.ThumbServer = url;
+	  	timeline.qt_log("SetThumbAddress: " + url);
   };
 
   // Move the playhead to a specific time
@@ -747,14 +752,10 @@ App.controller('TimelineCtrl',function($scope) {
 	}
  };
 
-  // Format the thumbnail path
- $scope.FormatThumbPath = function(image_url) {
- 	if (image_url.charAt(0) == ".") {
-		return image_url;
- 	}
-	else {
-		return "file:///" + image_url;
-	}
+  // Format the thumbnail path: http://127.0.0.1:8081/thumbnails/FILE-ID/FRAME-NUMBER/
+ $scope.GetThumbPath = function(clip) {
+ 	var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
+ 	return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
  };
 
   // Select transition in scope
@@ -783,62 +784,62 @@ App.controller('TimelineCtrl',function($scope) {
 	}
  };
 
- // Show clip context menu
- $scope.ShowClipMenu = function(clip_id, event) {
- 	if ($scope.Qt) {
+// Show clip context menu
+$scope.ShowClipMenu = function(clip_id, event) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowClipMenu");
 	 	$scope.SelectClip(clip_id, false, event);
 	 	timeline.ShowClipMenu(clip_id);
  	}
- };
+};
 
- // Show clip context menu
- $scope.ShowEffectMenu = function(effect_id) {
- 	if ($scope.Qt) {
+// Show clip context menu
+$scope.ShowEffectMenu = function(effect_id) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowEffectMenu");
 	 	timeline.ShowEffectMenu(effect_id);
  	}
- };
+};
 
- // Show transition context menu
- $scope.ShowTransitionMenu = function(tran_id, event) {
- 	if ($scope.Qt) {
+// Show transition context menu
+$scope.ShowTransitionMenu = function(tran_id, event) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowTransitionMenu");
 	 	$scope.SelectTransition(tran_id, false, event);
 	 	timeline.ShowTransitionMenu(tran_id);
  	}
- };
+};
 
- // Show track context menu
- $scope.ShowTrackMenu = function(layer_id) {
- 	if ($scope.Qt) {
+// Show track context menu
+$scope.ShowTrackMenu = function(layer_id) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowTrackMenu");
 	 	timeline.ShowTrackMenu(layer_id);
  	}
- };
+};
 
- // Show marker context menu
- $scope.ShowMarkerMenu = function(marker_id) {
- 	if ($scope.Qt) {
+// Show marker context menu
+$scope.ShowMarkerMenu = function(marker_id) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowMarkerMenu");
 	 	timeline.ShowMarkerMenu(marker_id);
  	}
- };
+};
 
   // Show playhead context menu
- $scope.ShowPlayheadMenu = function(position) {
- 	if ($scope.Qt) {
+$scope.ShowPlayheadMenu = function(position) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.qt_log("$scope.ShowPlayheadMenu");
 	 	timeline.ShowPlayheadMenu(position);
 	 }
- };
+};
 
   // Show timeline context menu
- $scope.ShowTimelineMenu = function(e, layer_number) {
- 	if ($scope.Qt) {
+$scope.ShowTimelineMenu = function(e, layer_number) {
+ 	if ($scope.Qt && !$scope.enable_razor) {
 	 	timeline.ShowTimelineMenu($scope.GetJavaScriptPosition(e.pageX), layer_number);
 	 }
- };
+};
 
  // Get the name of the track
  $scope.GetTrackName = function(layer_label, layer_number) {
@@ -1035,7 +1036,7 @@ $scope.SetTrackLabel = function (label) {
 
 		// Compare position of track to Y param (for unlocked tracks)
 		if (!layer.lock) {
-			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position==0) {
+			if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position === 0) {
 				// return first matching layer
 				bounding_box.track_position = layer.y;
 			}
@@ -1263,7 +1264,7 @@ $scope.SetTrackLabel = function (label) {
 	}
 
 	// no nearby found?
-	if (smallest_diff == 900.0) {
+	if (smallest_diff === 900.0) {
 		smallest_diff = 0.0;
 	}
 
@@ -1487,6 +1488,9 @@ $scope.SetTrackLabel = function (label) {
 		scrollLeft: 0
 	 }, 'slow');
 
+	 // Update playhead position and time readout
+	 $scope.MovePlayhead($scope.project.playhead_position)
+
 	 // return true
 	 return true;
  };
@@ -1498,7 +1502,7 @@ $scope.SetTrackLabel = function (label) {
 // ############ DEBUG STUFFS ################## //
 
  $scope.ToggleDebug = function() {
-	 if ($scope.debug == true) {
+	 if ($scope.debug === true) {
 		 $scope.debug = false;
 	 }
 	 else {

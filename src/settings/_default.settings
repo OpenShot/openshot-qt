@@ -92,20 +92,6 @@
     "setting": "docks_frozen"
   },
   {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_pos"
-  },
-  {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_2_pos"
-  },
-  {
     "value": "thumbnail",
     "title": "",
     "type": "hidden",
@@ -239,6 +225,15 @@
     "min": 0,
     "setting": "history-limit",
     "value": 15,
+    "type": "spinner-int"
+  },
+  {
+    "max": 99,
+    "title": "Recovery Limit (# of project copies)",
+    "category": "Autosave",
+    "min": 0,
+    "setting": "recovery-limit",
+    "value": 30,
     "type": "spinner-int"
   },
   {

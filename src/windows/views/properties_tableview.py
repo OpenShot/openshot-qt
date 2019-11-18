@@ -152,8 +152,18 @@ class PropertiesTableView(QTableView):
     def mouseMoveEvent(self, event):
         # Get data model and selection
         model = self.clip_properties_model.model
-        row = self.indexAt(event.pos()).row()
-        column = self.indexAt(event.pos()).column()
+
+        # Do not change selected row during mouse move
+        if self.lock_selection:
+            row = self.prev_row
+        else:
+            row = self.indexAt(event.pos()).row()
+            self.prev_row = row
+            self.lock_selection = True
+
+        if row is None:
+            return
+
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
@@ -217,10 +227,21 @@ class PropertiesTableView(QTableView):
 
                     # Huge range - increment / decrement slowly
                     if self.previous_x == -1:
-                        # init previous_x for the first time
+                        # Init previous_x for the first time
                         self.previous_x = event.x()
-                    # calculate # of pixels dragged
+                        self.diff_length = 10
+                    # Calculate # of pixels dragged
                     drag_diff = self.previous_x - event.x()
+
+                    if abs(drag_diff) < self.diff_length:
+                        # If threshold exceed then allow any small incriment for the next time
+                        # In few steps, because the first click may has any far position
+                        self.diff_length -= 1
+                        if self.diff_length < 0:
+                            self.diff_length = 0
+                        self.previous_x = event.x()
+                        return
+
                     if drag_diff > 0:
                         # Move to the left by a small amount
                         self.new_value -= 0.50
@@ -230,8 +251,21 @@ class PropertiesTableView(QTableView):
                     # update previous x
                     self.previous_x = event.x()
                 else:
+                    if self.previous_x == -1:
+                        # Init previous_x for the first time
+                        self.previous_x = event.x()
+                        self.diff_length = 10
+                    if abs(self.previous_x - event.x()) < self.diff_length:
+                        # If threshold exceeded then allow any small incriment for the next time
+                        # In few steps, because the first click may has any far position
+                        self.diff_length -= 1
+                        if self.diff_length < 0:
+                            self.diff_length = 0
+                        self.previous_x = event.x()
+                        return
                     # Small range - use cursor % to calculate new value
                     self.new_value = property_min + (min_max_range * cursor_value_percent)
+                    self.previous_x = event.x()
 
                 # Clamp value between min and max (just incase user drags too big)
                 self.new_value = max(property_min, self.new_value)
@@ -259,6 +293,10 @@ class PropertiesTableView(QTableView):
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
+
+        # Allow new selection and prepare to set minimum move threshold
+        self.lock_selection = False
+        self.previous_x = -1
 
     def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
@@ -569,6 +607,8 @@ class PropertiesTableView(QTableView):
         self.selected_item = None
         self.new_value = None
         self.original_data = None
+        self.lock_selection = False
+        self.prev_row = None
 
         # Context menu concurrency lock
         self.menu_lock = False
