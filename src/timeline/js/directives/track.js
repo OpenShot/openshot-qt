@@ -76,15 +76,15 @@ App.directive('tlTrack', function($timeout) {
 		       			// Remove all selections
 						if ($(".ui-selected").length > 1)
 						{
-							for (const clip of scope.project.clips) {
-								clip.selected = false;
+							for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
+								scope.project.clips[clip_index].selected = false;
 								if (scope.Qt)
-									timeline.removeSelection(clip.id.replace("clip_", ""), "clip");
+									timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
 							}
-							for (const tran of scope.project.effects) {
-								tran.selected = false;
+							for (var tran_index = 0; tran_index < scope.project.effects.length; tran_index++) {
+								scope.project.effects[tran_index].selected = false;
 								if (scope.Qt)
-									timeline.removeSelection(tran.id.replace("transition_", ""), "transition");
+									timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
 							}
 						}
 						
@@ -158,11 +158,13 @@ App.directive('tlTrack', function($timeout) {
 		            });
 
 					// Add missing transitions (if any)
-					if (dropped_clips.length === 1)
+					if (dropped_clips.length == 1)
 						// Hack to only add missing transitions if a single clip is being dropped
-						for (const clip of dropped_clips) {
+						for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
+							var item_data = dropped_clips[clip_index];
+
 							// Check again for missing transitions
-							missing_transition_details = scope.GetMissingTransitions(clip);
+							missing_transition_details = scope.GetMissingTransitions(item_data);
 							if (scope.Qt && missing_transition_details != null)
 								timeline.add_missing_transition(JSON.stringify(missing_transition_details));
 						}

@@ -30,9 +30,10 @@
 // Find a JSON element / object with a particular value in the json data
 function findElement(arr, propName, propValue) {
   // Loop through array looking for a matching element
-  for (const elem of arr)
-    if (elem[propName] == propValue)
-      return elem;
+  for (var i=0; i < arr.length; i++)
+    if (arr[i][propName] == propValue)
+      return arr[i];
+
 }
 
 // Get the height of the track container (minus bottom margin of last track)
@@ -230,14 +231,14 @@ function setBoundingBox(scope, item){
 
     // Get list of current selected ids (so we can ignore their snapping x coordinates)
     bounding_box.selected_ids = {};
-    for (const clip of scope.project.clips) {
-        if (clip.selected) {
-            bounding_box.selected_ids[clip.id] = true;
+    for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
+        if (scope.project.clips[clip_index].selected) {
+            bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
         }
     }
-    for (const effect of scope.project.effects) {
-        if (effect.selected) {
-            bounding_box.selected_ids[effect.id] = true;
+    for (var effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
+        if (scope.project.effects[effect_index].selected) {
+            bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
         }
     }
 }
