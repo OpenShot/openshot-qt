@@ -224,7 +224,7 @@ App.controller('TimelineCtrl',function($scope) {
 				//    version : "2"
 				// }
     };
-  
+
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond =  parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playheadOffset = 0;
@@ -266,14 +266,14 @@ App.controller('TimelineCtrl',function($scope) {
 	  $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
 	  $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
   };
-  
+
   // Move the playhead to a specific frame
   $scope.MovePlayheadToFrame = function(position_frames) {
 	  // Don't move the playhead if it's currently animating
 	  if ($scope.playhead_animating) {
 			return;
 	  }
-	  
+
 	  // Determine seconds
 	  var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
 	  var position_seconds = ((position_frames - 1) / frames_per_second);
@@ -420,25 +420,32 @@ App.controller('TimelineCtrl',function($scope) {
 
 // ############# QT FUNCTIONS #################### //
 
- // Change the scale and apply to scope
- $scope.setScale = function(scaleVal, cursor_x) {
-	  // Get scrollbar positions
-	  var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-	  var track_labels_width = $("#track_controls").width();
+  // Change the scale and apply to scope
+  $scope.setScale = function(scaleVal, cursor_x) {
+    // Get scrollbar positions
+    var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
+    var track_labels_width = $("#track_controls").width();
+    var center_x = 0;
+    var cursor_time = 0;
 
-	  // Determine actual x coordinate (over timeline)
-      var center_x = Math.max(cursor_x - track_labels_width, 0);
-      if (cursor_x === 0) {
-		center_x = 0;
-      }
+    // Determine actual x coordinate (over timeline)
+    if (cursor_x > 0) {
+        center_x = Math.max(cursor_x - track_labels_width, 0);
+        // Determine time of cursor position
+        cursor_time = parseFloat(center_x + horz_scroll_offset) / $scope.pixelsPerSecond;
+    } else if ($scope.isPlayheadVisible()) {
+        // Zoom on playhead if visible
+        cursor_time = $scope.project.playhead_position;
+        center_x = (cursor_time * $scope.pixelsPerSecond) - horz_scroll_offset;
+    } else {
+        // Fall back to centering on left edge of canvas
+        cursor_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
+    }
 
-      // Determine time of cursor position
-      var cursor_time = parseFloat(center_x + horz_scroll_offset) / $scope.pixelsPerSecond;
-
-      $scope.$apply(function() {
-         $scope.project.scale = parseFloat(scaleVal);
-         $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-      });
+    $scope.$apply(function() {
+        $scope.project.scale = parseFloat(scaleVal);
+        $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
+    });
 
 	 // Scroll back to correct cursor time (minus the difference of the cursor location)
 	 var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
@@ -590,17 +597,17 @@ App.controller('TimelineCtrl',function($scope) {
 
 		 clip_json.position = clip_position;
 		 clip_json.layer = $scope.GetTrackAtY(y).number;
-		 
+
 		 // Push new clip onto stack
 		 $scope.project.clips.push(clip_json);
 	 });
  };
-	
+
  // Update cache json
  $scope.RenderCache = function(cache_json) {
 	 // Push new clip onto stack
 	 $scope.project.progress = cache_json;
-	 
+
 	//clear the canvas first
 	var ruler = $("#progress");
 	var ctx = ruler[0].getContext('2d');
@@ -645,7 +652,7 @@ App.controller('TimelineCtrl',function($scope) {
 		}
 	});
  };
- 
+
  // Select all clips and transitions
  $scope.SelectAll = function() {
 	 $scope.$apply(function() {
@@ -661,7 +668,7 @@ App.controller('TimelineCtrl',function($scope) {
 		 }
 	 });
  };
-	
+
  // Select clip in scope
  $scope.SelectClip = function(clip_id, clear_selections, event) {
  	// Trim clip_id
@@ -686,7 +693,7 @@ App.controller('TimelineCtrl',function($scope) {
 	if (event && event.ctrlKey) {
 		is_ctrl = true;
 	}
- 	
+
  	// Unselect all clips
 	for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
 		if ($scope.project.clips[clip_index].id == id) {
@@ -703,7 +710,7 @@ App.controller('TimelineCtrl',function($scope) {
 		}
 	}
  };
- 
+
   // Select transition in scope
  $scope.SelectTransition = function(tran_id, clear_selections, event) {
  	// Trim tran_id
@@ -776,7 +783,7 @@ App.controller('TimelineCtrl',function($scope) {
 		}
 	}
  };
- 
+
 // Show clip context menu
 $scope.ShowClipMenu = function(clip_id, event) {
  	if ($scope.Qt && !$scope.enable_razor) {
@@ -855,7 +862,7 @@ $scope.SetTrackLabel = function (label) {
 	return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
  };
 
- 
+
  // Get Position of item (used by Qt)
  $scope.GetJavaScriptPosition = function(x) {
 	// Adjust for scrollbar position
@@ -868,11 +875,11 @@ $scope.SetTrackLabel = function (label) {
 	 if (clip_position < 0) {
 		 clip_position = 0;
 	 }
-	 
+
 	 // Return position in seconds
 	 return clip_position;
  };
- 
+
  // Get Track number of item (used by Qt)
  $scope.GetJavaScriptTrack = function(y) {
 	// Adjust for scrollbar position
@@ -884,7 +891,7 @@ $scope.SetTrackLabel = function (label) {
 	var track_number = parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number);
 	return track_number;
  };
- 
+
  // Get JSON of most recent item (used by Qt)
  $scope.UpdateRecentItemJSON = function(item_type, item_id) {
 
@@ -937,7 +944,7 @@ $scope.SetTrackLabel = function (label) {
 	// Remove CSS class (after the drag)
 	bounding_box = {};
  };
-	
+
  // Init bounding boxes for manual move
  $scope.StartManualMove = function(item_type, item_id) {
 	 // Select the item
@@ -990,7 +997,7 @@ $scope.SetTrackLabel = function (label) {
 	 	bounding_box.element.addClass("manual-move");
 	 }
  };
- 
+
  // Move a new clip to the timeline
  $scope.MoveItem = function(x, y, item_type) {
 
@@ -1039,7 +1046,7 @@ $scope.SetTrackLabel = function (label) {
 	bounding_box.element.css('left', results.position.left);
 	bounding_box.element.css('top', bounding_box.track_position - scrolling_tracks_offset_top);
  };
- 
+
  // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
  $scope.UpdateLayerIndex = function(){
 
@@ -1058,7 +1065,7 @@ $scope.SetTrackLabel = function (label) {
 		 // Loop through each layer
 		for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
 			var layer = $scope.project.layers[layer_index];
-			
+
 			// Find element on screen (bound to this layer)
 			var layer_elem = $("#track_" + layer.number);
 			if (layer_elem) {
@@ -1116,16 +1123,16 @@ $scope.SetTrackLabel = function (label) {
 		});
 	}
  };
- 
+
  // Find overlapping clips
  $scope.GetMissingTransitions = function(original_clip) {
 
  	var transition_size = null;
- 	
+
  	// Get clip that matches this id
  	var original_left = original_clip.position;
  	var original_right = original_clip.position + (original_clip.end - original_clip.start);
-	
+
 	// Search through all other clips on this track, and look for overlapping ones
 	for (var index = 0; index < $scope.project.clips.length; index++) {
 		var clip = $scope.project.clips[index];
@@ -1134,11 +1141,11 @@ $scope.SetTrackLabel = function (label) {
 		if (original_clip.layer != clip.layer) {
 			continue;
 		}
-		
+
 		// is clip overlapping
 		var clip_left = clip.position;
 		var clip_right = clip.position + (clip.end - clip.start);
-		
+
 		if (original_left < clip_right && original_left > clip_left) {
 			transition_size = { "position" : original_left, "layer" : clip.layer, "start" : 0, "end" : (clip_right - original_left) };
 		}
@@ -1182,7 +1189,7 @@ $scope.SetTrackLabel = function (label) {
 
  	return transition_size;
  };
- 
+
  // Search through clips and transitions to find the closest element within a given threshold
  $scope.GetNearbyPosition = function(pixel_positions, threshold, ignore_ids) {
 	// init some vars
@@ -1205,11 +1212,11 @@ $scope.SetTrackLabel = function (label) {
 			if (ignore_ids.hasOwnProperty(clip.id)) {
 				continue;
 			}
-			
+
 			diffs.push({'diff' : position - clip_left_position, 'position' : clip_left_position}, // left side of clip
 			           {'diff' : position - clip_right_position, 'position' : clip_right_position}); // right side of clip
 		}
-		
+
 		// Add transition positions to array
 		for (var index = 0; index < $scope.project.effects.length; index++) {
 			var transition = $scope.project.effects[index];
@@ -1221,7 +1228,7 @@ $scope.SetTrackLabel = function (label) {
 			if (ignore_ids.hasOwnProperty(transition.id)) {
 				continue;
 			}
-			
+
 			diffs.push({'diff' : position - tran_left_position, 'position' : tran_left_position}, // left side of transition
 			           {'diff' : position - tran_right_position, 'position' : tran_right_position}); // right side of transition
 		}
@@ -1239,13 +1246,13 @@ $scope.SetTrackLabel = function (label) {
 		var playhead_pixel_position = $scope.project.playhead_position * $scope.pixelsPerSecond;
 		var playhead_diff = position - playhead_pixel_position;
 		diffs.push({'diff' : playhead_diff, 'position' : playhead_pixel_position });
-		
+
 		// Loop through diffs (and find the smallest one)
 		for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
 			var diff = diffs[diff_index].diff;
 			var position = diffs[diff_index].position;
 			var abs_diff = Math.abs(diff);
-			
+
 			// Check if this clip is nearby
 			if (abs_diff < smallest_abs_diff && abs_diff <= threshold) {
 				// This one is smaller
@@ -1255,16 +1262,16 @@ $scope.SetTrackLabel = function (label) {
 			}
 		}
 	}
-	
+
 	// no nearby found?
 	if (smallest_diff === 900.0) {
 		smallest_diff = 0.0;
 	}
-	
+
 	// Return closest nearby position
 	return [smallest_diff, snapping_position];
  };
- 
+
   // Show the nearby snapping line
  $scope.ShowSnapline = function(position) {
 	 if (position != $scope.snapline_position || !$scope.snapline) {
@@ -1275,7 +1282,7 @@ $scope.SetTrackLabel = function (label) {
 		 });
 	 }
  };
- 
+
  // Hide the nearby snapping line
  $scope.HideSnapline = function() {
 	 if ($scope.snapline) {
@@ -1285,7 +1292,7 @@ $scope.SetTrackLabel = function (label) {
 		 });
 	 }
  };
- 
+
  // Find a track JSON object at a given y coordinate (if any)
  $scope.GetTrackAtY = function(y) {
 		// Loop through each layer (looking for the closest track based on Y coordinate)
@@ -1348,7 +1355,7 @@ $scope.SetTrackLabel = function (label) {
 	 // Loop through each UpdateAction
 	for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
 		var action = jsonDiff[action_index];
-	 	
+
 		 // Iterate through the key levels (looking for a matching element in the $scope.project)
 		 var previous_object = null;
 		 var current_object = $scope.project;
@@ -1367,7 +1374,7 @@ $scope.SetTrackLabel = function (label) {
 	 			previous_object = current_object;
 	 			current_object = current_object[key_value];
 	 			current_key = key_value;
-		 		
+
 		 	}
 		 	else if (key_value.constructor == Object) {
 		 		// Get the id from the object (if any)
@@ -1381,7 +1388,7 @@ $scope.SetTrackLabel = function (label) {
 			 		current_position = 0;
 			 		for (var child_index = 0; child_index < current_object.length; child_index++) {
 			 			var child_object = current_object[child_index];
-			 		
+
 						// Find matching child
 						if (child_object.hasOwnProperty("id") && child_object.id == id) {
 				 			// set current level and previous level
@@ -1458,10 +1465,10 @@ $scope.SetTrackLabel = function (label) {
 	// return true
 	return true;
  };
- 
+
  // Load entire project data JSON from UpdateManager (i.e. user opened an existing project)
  $scope.LoadJson = function(EntireProjectJson) {
- 	
+
 	 $scope.$apply(function() {
  		// Update the entire JSON object for the entire timeline
  		$scope.project = EntireProjectJson.value;
@@ -1481,8 +1488,8 @@ $scope.SetTrackLabel = function (label) {
 		scrollLeft: 0
 	 }, 'slow');
 
-     // Update playhead position and time readout
-     $scope.MovePlayhead($scope.project.playhead_position)
+	 // Update playhead position and time readout
+	 $scope.MovePlayhead($scope.project.playhead_position)
 
 	 // return true
 	 return true;
