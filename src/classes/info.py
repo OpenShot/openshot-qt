@@ -39,34 +39,48 @@ DESCRIPTION = "Create and edit stunning videos, movies, and animations"
 COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-2018 %s" % COMPANY_NAME
 CWD = os.getcwd()
+
+# Application paths
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+RESOURCES_PATH = os.path.join(PATH, "resources")
+PROFILES_PATH = os.path.join(PATH, "profiles")
+IMAGES_PATH = os.path.join(PATH, "images")
+EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
+
+# User paths
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
 BACKUP_PATH = os.path.join(USER_PATH)
-BLENDER_PATH = os.path.join(USER_PATH, "blender")
-ASSETS_PATH = os.path.join(USER_PATH, "assets")
-RESOURCES_PATH =  os.path.join(PATH, "resources")
+RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
-PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
+BLENDER_PATH = os.path.join(USER_PATH, "blender")
+ASSETS_PATH = os.path.join(USER_PATH, "assets")
 TITLE_PATH = os.path.join(USER_PATH, "title")
-PROFILES_PATH = os.path.join(PATH, "profiles")
-IMAGES_PATH = os.path.join(PATH, "images")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
-EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
-EXPORT_TESTS = os.path.join(USER_PATH, "tests")
+PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
+
+# User files
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
-# Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, PREVIEW_CACHE_PATH]:
-    if not os.path.exists(folder.encode("UTF-8")):
+# Create user paths if they do not exist
+# (this is where temp files are stored... such as cached thumbnails)
+for folder in [USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+               BLENDER_PATH, ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH,
+               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH]:
+    if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
-# names of all contributors, using "u" for unicode encoding
-JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
+# Maintainer details, for packaging
+JT = {"name": "Jonathan Thomas",
+      "email": "jonathan@openshot.org",
+      "website": "http://openshot.org/developers/jonathan"}
+
+# Blender minimum version required (a string value)
+BLENDER_MIN_VERSION = "2.80"
 
 # Languages
 CMDLINE_LANGUAGE = None
@@ -75,15 +89,15 @@ SUPPORTED_LANGUAGES = ['en_US']
 
 try:
     from language import openshot_lang
-    language_path=":/locale/"
+    language_path = ":/locale/"
 except ImportError:
-    language_path=os.path.join(PATH, 'language')
+    language_path = os.path.join(PATH, 'language')
     print("Compiled translation resources missing!")
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
 langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot|QDir.Files,
+langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
                           sort=QDir.Name)
 for trpath in langs:
     SUPPORTED_LANGUAGES.append(trpath.split('.')[1])

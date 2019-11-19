@@ -225,7 +225,7 @@ def export_xml():
         track_count += 1
 
     try:
-        file = open(file_path.encode('UTF-8'), "wb")  # wb needed for windows support
+        file = open(os.fsencode(file_path), "wb")  # wb needed for windows support
         file.write(bytes(xmldoc.toxml(), 'UTF-8'))
         file.close()
     except IOError as inst:

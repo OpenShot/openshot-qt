@@ -132,7 +132,7 @@ class FileProperties(QDialog):
         self.txtAudioBitRate.setValue(int(self.file.data["audio_bit_rate"]))
 
         # Populate output field
-        self.txtOutput.setText(json.dumps(file.data, sort_keys=True, indent=4, separators=(',', ': ')))
+        self.txtOutput.setText(json.dumps(file.data, sort_keys=True, indent=2))
 
         # Add channel layouts
         channel_layout_index = 0

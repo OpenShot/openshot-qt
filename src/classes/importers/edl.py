@@ -111,7 +111,6 @@ def create_clip(context, track):
     clip.data["file_id"] = file.id
     clip.data["title"] = context.get("clip_path", "")
     clip.data["layer"] = track.data.get("number", 1000000)
-    clip.data["image"] = thumb_path
     if video_ctx and not audio_ctx:
         # Only video
         clip.data["position"] = timecodeToSeconds(video_ctx.get("timeline_position", "00:00:00:00"), fps_num, fps_den)
