@@ -408,7 +408,7 @@ class Preferences(QDialog):
             if prev_val and os.path.exists(prev_val):
                 startpath = prev_val
 
-        fileName, fileType = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))
+        fileName = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))[0]
         if fileName:
             self.s.set(param["setting"], fileName)
             widget.setText(fileName)

@@ -228,14 +228,14 @@ class TitleEditor(QDialog):
         # If edit mode, set file name
         if self.edit_file_path and not self.duplicate:
             # Use existing name (and prevent editing name)
-            self.txtFileName.setText(os.path.split(self.edit_file_path)[1])
+            self.txtFileName.setText(os.path.basename(self.edit_file_path))
             self.txtFileName.setEnabled(False)
         else:
             name = _("TitleFileName-%d")
             offset = 0
             if self.duplicate and self.edit_file_path:
                 # Re-use current name
-                name = os.path.split(self.edit_file_path)[1]
+                name = os.path.basename(self.edit_file_path)
                 # Splits the filename into (base-part)(optional "-")(number)(.svg)
                 match = re.match(r"^(.*?)(-?)([0-9]*)(\.svg)?$", name)
                 # Make sure the new title ends with "-%d" by default
@@ -680,7 +680,7 @@ class TitleEditor(QDialog):
         super(TitleEditor, self).accept()
 
     def add_file(self, filepath):
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()

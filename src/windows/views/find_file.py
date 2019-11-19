@@ -31,7 +31,7 @@ from classes.app import get_app
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 
 # Keep track of all previously checked paths, and keep checking them
-known_paths = [ info.HOME_PATH ]
+known_paths = [info.HOME_PATH]
 
 
 def find_missing_file(file_path):
@@ -60,10 +60,12 @@ def find_missing_file(file_path):
         if not recommended_path:
             recommended_path = info.HOME_PATH
         else:
-            recommended_path = os.path.split(recommended_path)[0]
-        QMessageBox.warning(None, _("Missing File (%s)") % file_name, _("%s cannot be found.") % file_name)
+            recommended_path = os.path.dirname(recommended_path)
+        QMessageBox.warning(None, _("Missing File (%s)") % file_name,
+                            _("%s cannot be found.") % file_name)
         modified = True
-        folder_to_check = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name), recommended_path)
+        folder_to_check = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name),
+                                                           recommended_path)
         if folder_to_check and folder_to_check not in known_paths:
             known_paths.append(folder_to_check)
         if folder_to_check == "":

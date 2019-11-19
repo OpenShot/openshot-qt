@@ -566,9 +566,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 
                             # Get file name
-                            path, filename = os.path.split(file.data["path"])
+                            filename = os.path.basename(file.data["path"])
 
-                            # Convert path to the correct relative path (based on this folder)
                             file_path = file.absolute_path()
 
                             # Create clip object for this file
@@ -925,8 +924,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Get translation method
         from classes.app import get_app
         _ = get_app()._tr
-
-        from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
         log.info("checking project files...")
 

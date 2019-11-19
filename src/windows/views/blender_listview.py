@@ -135,14 +135,20 @@ class BlenderListView(QListView):
                     # override files dropdown
                     param["values"] = {}
                     for file in File.filter():
-                        if file.data["media_type"] in ("image", "video"):
-                            (dirName, fileName) = os.path.split(file.data["path"])
-                            (fileBaseName, fileExtension) = os.path.splitext(fileName)
+                        if file.data["media_type"] not in ("image", "video"):
+                            continue
 
-                            if fileExtension.lower() not in (".svg"):
-                                param["values"][fileName] = "|".join((file.data["path"], str(file.data["height"]),
-                                                                      str(file.data["width"]), file.data["media_type"],
-                                                                      str(file.data["fps"]["num"] / file.data["fps"]["den"])))
+                        fileName = os.path.basename(file.data["path"])
+                        fileExtension = os.path.splitext(fileName)[1]
+
+                        if fileExtension.lower() in (".svg"):
+                            continue
+
+                        param["values"][fileName] = "|".join(
+                            file.data["path"], str(file.data["height"]),
+                            str(file.data["width"]), file.data["media_type"],
+                            str(file.data["fps"]["num"] / file.data["fps"]["den"])
+                        )
 
                 # Add normal values
                 box_index = 0

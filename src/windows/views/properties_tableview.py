@@ -42,8 +42,6 @@ from windows.models.files_model import FilesModel
 
 import openshot
 
-import json
-
 class PropertyDelegate(QItemDelegate):
     def __init__(self, parent=None, *args):
         QItemDelegate.__init__(self, parent, *args)

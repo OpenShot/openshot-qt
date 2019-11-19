@@ -63,7 +63,6 @@ class BlenderModel():
             if os.path.isfile(os.path.join(effects_dir, file)) and ".xml" in file:
                 # Split path
                 path = os.path.join(effects_dir, file)
-                (fileBaseName, fileExtension) = os.path.splitext(path)
 
                 # load xml effect file
                 xmldoc = xml.parse(path)

@@ -93,7 +93,7 @@ class TransitionsModel():
 
             for filename in sorted(files):
                 path = os.path.join(dir, filename)
-                (fileBaseName, fileExtension) = os.path.splitext(filename)
+                fileBaseName = os.path.splitext(filename)[0]
 
                 # Skip hidden files (such as .DS_Store, etc...)
                 if filename[0] == "." or "thumbs.db" in filename.lower():
