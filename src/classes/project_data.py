@@ -492,7 +492,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Keep track of files that failed to load
         failed_files = []
 
-        with open(file_path.encode('UTF-8'), 'rb') as f:
+        with open(os.fsencode(file_path), 'rb') as f:
             try:
                 # Unpickle legacy openshot project file
                 v1_data = pickle.load(f, fix_imports=True, encoding="UTF-8")
@@ -888,7 +888,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
-        if not file_path or "backup.osp" in file_path:
+        if not file_path or file_path is info.BACKUP_FILE:
             # Ignore backup recovery project
             return
 

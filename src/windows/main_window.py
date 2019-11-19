@@ -167,13 +167,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def recover_backup(self):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
-        # Check for backup.osp file
-        recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
 
-        # Load recovery project
-        if os.path.exists(recovery_path):
-            log.info("Recovering backup file: %s" % recovery_path)
-            self.open_project(recovery_path, clear_thumbnails=False)
+        # Check for backup.osp file
+        if os.path.exists(info.BACKUP_FILE):
+            # Load recovery project
+            log.info("Recovering backup file: %s" % info.BACKUP_FILE)
+            self.open_project(info.BACKUP_FILE, clear_thumbnails=False)
 
             # Clear the file_path (which is set by saving the project)
             project = get_app().project
@@ -266,7 +265,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 last_log_line = ""
 
             # Throw exception (with last libopenshot line... if found)
-            log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
+            log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_FILE)
             track_metric_error("unhandled-crash%s" % last_log_line, True)
 
             # Remove file
@@ -568,11 +567,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 os.mkdir(openshot_title_path)
 
             # Clear any backups
-            backup_path = os.path.join(info.BACKUP_PATH, "backup.osp")
-            if os.path.exists(backup_path):
-                log.info("Clear backup: %s" % backup_path)
+            if os.path.exists(info.BACKUP_FILE):
+                log.info("Clear backup: %s" % info.BACKUP_FILE)
                 # Remove backup file
-                os.unlink(backup_path)
+                os.unlink(info.BACKUP_FILE)
 
         except:
             log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
@@ -657,16 +655,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.save_project(file_path)
 
                 # Remove backup.osp (if any)
-                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
-                if os.path.exists(recovery_path):
+                if os.path.exists(info.BACKUP_FILE):
                     # Delete backup.osp since we just saved the actual project
-                    os.unlink(recovery_path)
+                    os.unlink(info.BACKUP_FILE)
 
             else:
                 # No saved project found
-                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
-                log.info("Creating backup of project file: %s" % recovery_path)
-                get_app().project.save(recovery_path, move_temp_files=False, make_paths_relative=False)
+                log.info("Creating backup of project file: %s" % info.BACKUP_FILE)
+                get_app().project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
 
                 # Clear the file_path (which is set by saving the project)
                 get_app().project.current_filepath = None

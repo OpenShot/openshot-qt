@@ -162,7 +162,7 @@ class JsonDataStore:
         path = match.groups(0)[1]
 
         # Find absolute path of file (if needed)
-        utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
+        utf_path = os.fsencode(path)  # parse bytestring into unicode string
         if "@transitions" in utf_path:
             new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
             new_path = json.dumps(new_path)  # Escape backslashes
@@ -200,7 +200,7 @@ class JsonDataStore:
         """Replace matched string for converting paths to relative paths"""
         key = match.groups(0)[0]
         path = match.groups(0)[1]
-        utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
+        utf_path = os.fsencode(path)  # parse bytestring into unicode string
         folder_path, file_path = os.path.split(os.path.abspath(utf_path))
 
         # Determine if thumbnail path is found
