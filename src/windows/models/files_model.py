@@ -38,7 +38,7 @@ from classes import info
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
-from classes.thumbnail import GenerateThumbnail
+from requests import get
 
 import json
 
@@ -131,38 +131,23 @@ class FilesModel(updates.UpdateInterface):
 
             # Generate thumbnail for file (if needed)
             if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
-                # Determine thumb path
-                thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}.png".format(file.id))
+                # Check for start and end attributes (optional)
+                thumbnail_frame = 1
+                if 'start' in file.data.keys():
+                    fps = file.data["fps"]
+                    fps_float = float(fps["num"]) / float(fps["den"])
+                    thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
-                # Check if thumb exists
-                if not os.path.exists(thumb_path):
+                # Determine thumb path (default value... a guess)
+                thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file.id, thumbnail_frame))
 
-                    try:
-                        # Convert path to the correct relative path (based on this folder)
-                        file_path = file.absolute_path()
-
-                        # Determine if video overlay should be applied to thumbnail
-                        overlay_path = ""
-                        if file.data["media_type"] == "video":
-                            overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
-
-                        # Check for start and end attributes (optional)
-                        thumbnail_frame = 1
-                        if 'start' in file.data.keys():
-                            fps = file.data["fps"]
-                            fps_float = float(fps["num"]) / float(fps["den"])
-                            thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
-
-                        # Create thumbnail image
-                        GenerateThumbnail(file_path, thumb_path, thumbnail_frame, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path)
-
-                    except:
-                        # Handle exception
-                        msg = QMessageBox()
-                        msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
-                        msg.exec_()
-                        continue
-
+                # Connect to thumbnail server and get image
+                thumb_server_details = get_app().window.http_server_thread.server_address
+                thumb_address = "http://%s:%s/thumbnails/%s/%s/path/" % (thumb_server_details[0], thumb_server_details[1], file.id, thumbnail_frame)
+                r = get(thumb_address)
+                if r.ok:
+                    # Update thumbnail path to real one
+                    thumb_path = r.text
             else:
                 # Audio file
                 thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")

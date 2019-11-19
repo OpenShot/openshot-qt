@@ -153,7 +153,6 @@ def import_xml():
                     clip.data["file_id"] = file.id
                     clip.data["title"] = clip_element.getElementsByTagName("name")[0].childNodes[0].nodeValue
                     clip.data["layer"] = track.data.get("number", 1000000)
-                    clip.data["image"] = thumb_path
                     clip.data["position"] = float(clip_element.getElementsByTagName("start")[0].childNodes[0].nodeValue) / fps_float
                     clip.data["start"] = float(clip_element.getElementsByTagName("in")[0].childNodes[0].nodeValue) / fps_float
                     clip.data["end"] = float(clip_element.getElementsByTagName("out")[0].childNodes[0].nodeValue) / fps_float

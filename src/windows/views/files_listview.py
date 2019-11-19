@@ -192,10 +192,15 @@ class FilesListView(QListView):
 
             # Save file
             file.save()
+            # Reset list of ignored paths
+            self.ignore_image_sequence_paths = []
+
             return True
 
-        except:
-            # Handle exception
+        except Exception as ex:
+            # Log exception
+            log.warning("Failed to import file: {}".format(str(ex)))
+            # Show message to user
             msg = QMessageBox()
             msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
@@ -206,7 +211,7 @@ class FilesListView(QListView):
 
         # Get just the file name
         (dirName, fileName) = os.path.split(file_path)
-        extensions = ["png", "jpg", "jpeg", "gif", "tif"]
+        extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
         match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
 
         if not match:
@@ -237,7 +242,7 @@ class FilesListView(QListView):
                 is_sequence = False
 
             if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence')
+                log.info('Prompt user to import image sequence from {}'.format(dirName))
                 # Ignore this path (temporarily)
                 self.ignore_image_sequence_paths.append(dirName)
 
@@ -248,6 +253,7 @@ class FilesListView(QListView):
                 ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
                 if ret == QMessageBox.Yes:
                     # Yes, import image sequence
+                    log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
                     parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
                     return parameters
                 else:

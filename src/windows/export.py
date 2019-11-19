@@ -157,7 +157,7 @@ class Export(QDialog):
             # Get just the filename
             parent_path, filename = os.path.split(get_app().project.current_filepath)
             filename, ext = os.path.splitext(filename)
-            self.txtFileName.setText(filename.replace("_", " ").replace("-", " ").capitalize())
+            self.txtFileName.setText(filename)
 
         # Default image type
         self.txtImageFormat.setText("-%05d.png")
