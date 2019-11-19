@@ -207,7 +207,7 @@ elif sys.platform == "linux":
     for library in lib_list:
         p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
         out, err = p.communicate()
-        depends = str(out).replace("\\t","").replace("\\n","\n").replace("\'","").split("\n")
+        depends = str(out).replace("\\t", "").replace("\\n", "\n").replace("\'", "").split("\n")
 
         # Loop through each line of output (which outputs dependencies - one per line)
         for line in depends:
@@ -227,13 +227,36 @@ elif sys.platform == "linux":
             # Or if the dependency matches one of the following exceptions
             # And ignore paths that start with /lib
             libpath = libdetailsparts[0].strip()
-            libpath_folder, libpath_file = os.path.split(libpath)
-            if (libpath \
-                and not libpath.startswith("/lib") \
-                and not "libnvidia-glcore.so" in libpath \
-                and not libpath_file in ["libstdc++.so.6", "libGL.so.1", "libxcb.so.1", "libX11.so.6", "libasound.so.2", "libgcc_s.so.1 ", "libICE.so.6", "libp11-kit.so.0", "libSM.so.6", "libgobject-2.0.so.0", "libdrm.so.2"]) \
-                    or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
-
+            libpath_file = os.path.basename(libpath)
+            if (libpath
+                and not libpath.startswith("/lib")
+                and "libnvidia-glcore.so" not in libpath
+                and libpath_file not in [
+                    "libstdc++.so.6",
+                    "libGL.so.1",
+                    "libxcb.so.1",
+                    "libX11.so.6",
+                    "libX11-xcb.so.1",
+                    "libasound.so.2",
+                    "libgcc_s.so.1 ",
+                    "libICE.so.6",
+                    "libp11-kit.so.0",
+                    "libSM.so.6",
+                    "libgobject-2.0.so.0",
+                    "libdrm.so.2",
+                    "libfreetype.so.6",
+                    "libfontconfig.so.1",
+                    "libcairo.so.2",
+                    "libpango-1.0.so.0",
+                    "libpangocairo-1.0.so.0",
+                    "libpangoft2-1.0.so.0",
+                    "libharfbuzz.so.0",
+                    "libthai.so.0",
+                    ]
+                and not libpath_file.startswith("libxcb-")
+               ) \
+               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
+              
                 # Ignore missing files
                 if os.path.exists(libpath):
                     filepath, filename = os.path.split(libpath)
