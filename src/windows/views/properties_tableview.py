@@ -283,6 +283,9 @@ class PropertiesTableView(QTableView):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
 
+            # Emit signal of the selected item address (QStandardItem) to catch it in the Curve Editor
+            get_app().window.ItemSelected.emit(self.selected_item)
+
         # Allow new selection and prepare to set minimum move threshold
         self.lock_selection = False
         self.previous_x = -1
@@ -323,6 +326,9 @@ class PropertiesTableView(QTableView):
 
         # Get translation object
         _ = get_app()._tr
+
+        # Emit signal to catch it in the Curve Editor that old selected item is not valid anymore
+        get_app().window.ItemSelected.emit(None)
 
         # Update item
         self.clip_properties_model.update_item(item_id, item_type)

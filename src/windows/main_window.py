@@ -102,6 +102,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
     FileUpdated = pyqtSignal(str)
+    ItemSelected = pyqtSignal('QStandardItem')
 
     # Docks are closable, movable and floatable
     docks_frozen = False
