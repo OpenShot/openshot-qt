@@ -47,13 +47,13 @@ Please download our latest daily installer:
    -  **Windows**: OpenShot stores its logs in your user profile
       directory (``%USERPROFILE%``, e.g. ``C:\Users\username\``)
 
-      -  ``%USERPROFILE%/.openshot_qt/openshot_qt.log``
+      -  ``%USERPROFILE%/.openshot_qt/openshot-qt.log``
       -  ``%USERPROFILE%/.openshot_qt/libopenshot.log``
 
    -  **Linux/MacOS**: OpenShot stores its logs in your home directory
       (``$HOME``, e.g. ``/home/username/``)
 
-      -  ``$HOME/.openshot_qt/openshot_qt.log``
+      -  ``$HOME/.openshot_qt/openshot-qt.log``
       -  ``$HOME/.openshot_qt/libopenshot.log``
 
 4. Re-launch OpenShot and trigger the crash as quickly as possible (to

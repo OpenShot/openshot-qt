@@ -38,6 +38,7 @@ from classes.image_types import is_image
 from classes.json_data import JsonDataStore
 from classes.logger import log
 from classes.updates import UpdateInterface
+from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
 
 
@@ -123,7 +124,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     return None
 
                 # If next part of path isn't in current dictionary, return failure
-                if not key_part in obj:
+                if key_part not in obj:
                     log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
                                                                                                            key_part,
                                                                                                            key))
@@ -137,7 +138,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def set(self, key, value):
         """Prevent calling JsonDataStore set() method. It is not allowed in ProjectDataStore, as changes come from UpdateManager."""
-        raise Exception("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
+        raise RuntimeError("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
 
     def _set(self, key, values=None, add=False, partial_update=False, remove=False):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
@@ -204,10 +205,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     return None
 
                 # If next part of path isn't in current dictionary, return failure
-                if not key_part in obj:
-                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
-                                                                                                           key_part,
-                                                                                                           key))
+                if key_part not in obj:
+                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
                     return None
 
                 # Get sub-object based on part key as new object, continue to next part
@@ -269,6 +268,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.current_filepath = None
         self.has_unsaved_changes = False
 
+        # Reset info paths
+        info.THUMBNAIL_PATH =  os.path.join(info.USER_PATH, "thumbnail")
+        info.TITLE_PATH = os.path.join(info.USER_PATH, "title")
+        info.BLENDER_PATH = os.path.join(info.USER_PATH, "blender")
+
         # Get default profile
         s = settings.get_settings()
         default_profile = s.get("default-profile")
@@ -287,7 +291,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     self._data["profile"] = profile.info.description
                     self._data["width"] = profile.info.width
                     self._data["height"] = profile.info.height
-                    self._data["fps"] = {"num" : profile.info.fps.num, "den" : profile.info.fps.den}
+                    self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
                     self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
                     self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
                     break
@@ -341,14 +345,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if not project_data.get("history"):
                     project_data["history"] = {"undo": [], "redo": []}
 
-            except Exception as ex:
+            except Exception:
                 try:
                     # Attempt to load legacy project file (v1.X version)
                     project_data = self.read_legacy_project_file(file_path)
 
-                except Exception as ex:
+                except Exception:
                     # Project file not recognized as v1.X or v2.X, bubble up error
-                    raise ex
+                    raise
 
             # Merge default and project settings, excluding settings not in default.
             self._data = self.merge_settings(default_project, project_data)
@@ -356,21 +360,24 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # On success, save current filepath
             self.current_filepath = file_path
 
+            # Update info paths to assets folders
+            if clear_thumbnails:
+                info.THUMBNAIL_PATH = os.path.join(get_assets_path(self.current_filepath), "thumbnail")
+                info.TITLE_PATH = os.path.join(get_assets_path(self.current_filepath), "title")
+                info.BLENDER_PATH = os.path.join(get_assets_path(self.current_filepath), "blender")
+
             # Clear needs save flag
             self.has_unsaved_changes = False
 
             # Check if paths are all valid
             self.check_if_paths_are_valid()
 
-            # Copy any project thumbnails to main THUMBNAILS folder
-            loaded_project_folder = os.path.dirname(self.current_filepath)
-            project_thumbnails_folder = os.path.join(loaded_project_folder, "thumbnail")
-            if os.path.exists(project_thumbnails_folder) and clear_thumbnails:
-                # Remove thumbnail path
-                shutil.rmtree(info.THUMBNAIL_PATH, True)
-
-                # Copy project thumbnails folder
-                shutil.copytree(project_thumbnails_folder, info.THUMBNAIL_PATH)
+            # Clear old thumbnails
+            openshot_thumbnails = os.path.join(info.USER_PATH, "thumbnails")
+            if os.path.exists(openshot_thumbnails) and clear_thumbnails:
+                # Clear thumbnails
+                shutil.rmtree(openshot_thumbnails, True)
+                os.mkdir(openshot_thumbnails)
 
             # Add to recent files setting
             self.add_to_recent_files(file_path)
@@ -422,7 +429,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through all effects/transitions (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
-        for effect in self._data.get('effects',[]):
+        for effect in self._data.get('effects', []):
             for attribute in effect:
                 if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
                     for point in effect.get(attribute).get("Points"):
@@ -440,7 +447,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
-        import sys, pickle
+        import sys
+        import pickle
         from classes.query import File, Track, Clip, Transition
         from classes.app import get_app
         import openshot
@@ -450,10 +458,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         _ = get_app()._tr
 
         # Append version info
-        v = openshot.GetVersion()
         project_data = {}
-        project_data["version"] = {"openshot-qt" : info.VERSION,
-                                   "libopenshot" : v.ToString()}
+        project_data["version"] = {"openshot-qt": info.VERSION,
+                                   "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Get FPS from project
         from classes.app import get_app
@@ -517,9 +524,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Keep track of new ids and old ids
                             file_lookup[item.unique_id] = file
 
-                        except:
+                        except Exception as ex:
                             # Handle exception quietly
-                            msg = ("%s is not a valid video, audio, or image file." % item.name)
+                            msg = ("%s is not a valid video, audio, or image file: %s" % (item.name, str(ex)))
                             log.error(msg)
                             failed_files.append(item.name)
 
@@ -571,7 +578,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             new_clip = json.loads(c.Json(), strict=False)
                             new_clip["file_id"] = file.id
                             new_clip["title"] = filename
-                            new_clip["image"] = thumb_path
 
                             # Check for optional start and end attributes
                             new_clip["start"] = clip.start_time
@@ -609,7 +615,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             else:
                                 p = openshot.Point(1, clip.volume / 100.0, openshot.BEZIER)
                                 p_object = json.loads(p.Json(), strict=False)
-                                new_clip["volume"] = { "Points" : [p_object]}
+                                new_clip["volume"] = {"Points": [p_object]}
 
                             # Audio Fade IN
                             if clip.audio_fade_in:
@@ -681,14 +687,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             except Exception as ex:
                 # Error parsing legacy contents
-                msg = _("Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex})
+                msg = "Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex}
                 log.error(msg)
-                raise Exception(msg)
+                raise RuntimeError(msg) from ex
 
         # Show warning if some files failed to load
         if failed_files:
             # Throw exception
-            raise Exception(_("Failed to load the following files:\n%s" % ", ".join(failed_files)))
+            raise RuntimeError("Failed to load the following files:\n%s" % ", ".join(failed_files))
 
         # Return mostly empty project_data dict (with just the current version #)
         log.info("Successfully loaded legacy project file: %s" % file_path)
@@ -699,8 +705,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         openshot_version = self._data["version"]["openshot-qt"]
         libopenshot_version = self._data["version"]["libopenshot"]
 
-        log.info(openshot_version)
-        log.info(libopenshot_version)
+        log.info("Project data: openshot {}, libopenshot {}".format(openshot_version, libopenshot_version))
 
         if openshot_version == "0.0.0":
             # If version = 0.0.0, this is the beta of OpenShot
@@ -721,7 +726,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # using the new percent based keyframes
             for clip_type in ["clips", "effects"]:
                 for clip in self._data[clip_type]:
-                    for object in [clip] + clip.get('effects',[]):
+                    for object in [clip] + clip.get('effects', []):
                         for item_key, item_data in object.items():
                             # Does clip attribute have a {"Points": [...]} list
                             if type(item_data) == dict and "Points" in item_data:
@@ -761,12 +766,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
-            self.move_temp_paths_to_project_folder(file_path)
+            self.move_temp_paths_to_project_folder(file_path, previous_path=self.current_filepath)
 
         # Append version info
-        v = openshot.GetVersion()
-        self._data["version"] = { "openshot-qt" : info.VERSION,
-                                  "libopenshot" : v.ToString() }
+        self._data["version"] = {"openshot-qt": info.VERSION,
+                                 "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Try to save project settings file, will raise error on failure
         self.write_to_file(file_path, self._data, path_mode="relative", previous_path=self.current_filepath)
@@ -774,96 +778,113 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # On success, save current filepath
         self.current_filepath = file_path
 
+        # Update info paths to assets folders
+        if move_temp_files:
+            info.THUMBNAIL_PATH = os.path.join(get_assets_path(self.current_filepath), "thumbnail")
+            info.TITLE_PATH = os.path.join(get_assets_path(self.current_filepath), "title")
+            info.BLENDER_PATH = os.path.join(get_assets_path(self.current_filepath), "blender")
+
         # Add to recent files setting
         self.add_to_recent_files(file_path)
 
         # Track unsaved changes
         self.has_unsaved_changes = False
 
-    def move_temp_paths_to_project_folder(self, file_path):
-        """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project folder. """
+    def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
+        """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """
         try:
-            # Get project folder
-            new_project_folder = os.path.dirname(file_path)
-            new_thumbnails_folder = os.path.join(new_project_folder, "thumbnail")
+            # Get or generate asset folder name, max 30 chars of filename + "_assets"
+            asset_path = get_assets_path(file_path)
+            target_thumb_path = os.path.join(asset_path, "thumbnail")
+            target_title_path = os.path.join(asset_path, "title")
+            target_blender_path = os.path.join(asset_path, "blender")
 
-            # Create project thumbnails folder
-            if not os.path.exists(new_thumbnails_folder):
-                os.mkdir(new_thumbnails_folder)
+            # Update paths (if a previous path exists)
+            #   /Project1/ to /Project2/ for example
+            if previous_path:
+                previous_asset_path = get_assets_path(previous_path)
+                info.THUMBNAIL_PATH = os.path.join(previous_asset_path, "thumbnail")
+                info.TITLE_PATH = os.path.join(previous_asset_path, "title")
+                info.BLENDER_PATH = os.path.join(previous_asset_path, "blender")
 
-            # Copy all thumbnails to project
-            for filename in glob.glob(os.path.join(info.THUMBNAIL_PATH, '*.*')):
-                shutil.copy(filename, new_thumbnails_folder)
+            # Track assets we copy/update
+            copied = []
+            reader_paths = {}
 
-            # Loop through each file
+            # Copy all thumbnail files (if not found in target asset folder)
+            for thumb_path in os.listdir(info.THUMBNAIL_PATH):
+                working_thumb_path = os.path.join(info.THUMBNAIL_PATH, thumb_path)
+                target_thumb_filepath = os.path.join(target_thumb_path, thumb_path)
+                if not os.path.exists(target_thumb_filepath):
+                    shutil.copy2(working_thumb_path, target_thumb_filepath)
+
+            # Copy all title files (if not found in target asset folder)
+            for title_path in os.listdir(info.TITLE_PATH):
+                working_title_path = os.path.join(info.TITLE_PATH, title_path)
+                target_title_filepath = os.path.join(target_title_path, title_path)
+                if not os.path.exists(target_title_filepath):
+                    shutil.copy2(working_title_path, target_title_filepath)
+
+            # Copy all blender folders (if not found in target asset folder)
+            for blender_path in os.listdir(info.BLENDER_PATH):
+                working_blender_path = os.path.join(info.BLENDER_PATH, blender_path)
+                target_blender_filepath = os.path.join(target_blender_path, blender_path)
+                if os.path.isdir(working_blender_path) and not os.path.exists(target_blender_filepath):
+                    shutil.copytree(working_blender_path, target_blender_filepath)
+
+            # Copy any necessary assets for File records
             for file in self._data["files"]:
                 path = file["path"]
 
-                # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in file")
+                # No longer store thumbnail image
+                file["image"] = ""
 
-                    # Get folder of file
-                    folder_path, file_name = os.path.split(path)
-                    parent_path, folder_name = os.path.split(folder_path)
-                    new_parent_path = new_project_folder
+                # Assets which need to be copied
+                new_asset_path = None
+                if info.BLENDER_PATH in path:
+                    # Copy directory of blender files
+                    log.info("Copying {}".format(path))
+                    old_dir, asset_name = os.path.split(path)
+                    if os.path.isdir(old_dir) and old_dir not in copied:
+                        # Copy dir into new folder
+                        old_dir_name = os.path.basename(old_dir)
+                        copied.append(old_dir)
+                        log.info("Copied dir {} to {}.".format(old_dir_name, target_blender_path))
+                    new_asset_path = os.path.join(target_blender_path, old_dir_name, asset_name)
 
-                    if os.path.isdir(path) or "%" in path:
-                        # Update path to new folder
-                        new_parent_path = os.path.join(new_project_folder, folder_name)
+                if info.TITLE_PATH in path:
+                    # Copy title files into assets folder
+                    log.info("Copying {}".format(path))
+                    old_dir, asset_name = os.path.split(path)
+                    if asset_name not in copied:
+                        # Copy title into assets title folder
+                        copied.append(asset_name)
+                        log.info("Copied title {} to {}.".format(asset_name, target_title_path))
+                    new_asset_path = os.path.join(target_title_path, asset_name)
 
-                        # Copy blender tree into new folder
-                        shutil.copytree(folder_path, new_parent_path)
-                    else:
-                        # New path
-                        new_parent_path = os.path.join(new_project_folder, "assets")
+                # Update path in File object to new location
+                if new_asset_path:
+                    file["path"] = new_asset_path
+                    file_id = file["id"]
+                    reader_paths[file_id] = new_asset_path
+                    log.info("Set file {} path to {}".format(file_id, new_asset_path))
 
-                        # Ensure blender folder exists
-                        if not os.path.exists(new_parent_path):
-                            os.mkdir(new_parent_path)
-
-                        # Copy titles/individual files into new folder
-                        shutil.copy2(path, os.path.join(new_parent_path, file_name))
-
-                    # Update paths in project to new location
-                    file["path"] = os.path.join(new_parent_path, file_name)
-
-            # Loop through each clip
+            # Copy all Clip thumbnails and update reader paths
             for clip in self._data["clips"]:
-                path = clip["reader"]["path"]
+                file_id = clip["file_id"]
 
-                # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in clip")
+                # No longer store thumbnail image
+                clip["image"] = ""
 
-                    # Get folder of file
-                    folder_path, file_name = os.path.split(path)
-                    parent_path, folder_name = os.path.split(folder_path)
-                    # Update path to new folder
-                    path = os.path.join(new_project_folder, folder_name)
-
-                    # Update paths in project to new location
-                    clip["reader"]["path"] = os.path.join(path, file_name)
-
-            # Loop through each file
-            for clip in self._data["clips"]:
-                path = clip["image"]
-
-                # Find any temp BLENDER file paths
-                if info.BLENDER_PATH in path or info.ASSETS_PATH in path:
-                    log.info("Temp blender file path detected in clip thumbnail")
-
-                    # Get folder of file
-                    folder_path, file_name = os.path.split(path)
-                    parent_path, folder_name = os.path.split(folder_path)
-                    # Update path to new folder
-                    path = os.path.join(new_project_folder, folder_name)
-
-                    # Update paths in project to new location
-                    clip["image"] = os.path.join(path, file_name)
+                log.info("Checking clip {} path for file {}".format(clip["id"], file_id))
+                # Update paths to files stored in our working space or old path structure
+                # (should have already been copied during previous File stage)
+                if file_id and file_id in reader_paths.keys():
+                    clip["reader"]["path"] = reader_paths[file_id]
+                    log.info("Updated clip {} path for file {}".format(clip["id"], file_id))
 
         except Exception as ex:
-            log.error("Error while moving temp files into project folder: %s" % str(ex))
+            log.error("Error while moving temp paths to project assets folder {}: {}".format(asset_path, ex))
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
@@ -930,18 +951,21 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
-            path, is_modified, is_skipped = find_missing_file(clip["reader"]["path"])
-            parent_path, file_name_with_ext = os.path.split(path)
+            path = clip["reader"]["path"]
 
-            # File is missing
-            if path and is_modified and not is_skipped:
-                # Found file, update path
-                clip["reader"]["path"] = path
-                log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
-            elif is_skipped:
-                # Remove missing file
-                log.info('Removed missing clip: %s' % file_name_with_ext)
-                self._data["clips"].remove(clip)
+            if not os.path.exists(path) and "%" not in path:
+                # File is missing
+                path, is_modified, is_skipped = find_missing_file(path)
+                file_name_with_ext = os.path.basename(path)
+
+                if path and is_modified and not is_skipped:
+                    # Found file, update path
+                    clip["reader"]["path"] = path
+                    log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
+                elif is_skipped:
+                    # Remove missing file
+                    log.info('Removed missing clip: %s' % file_name_with_ext)
+                    self._data["clips"].remove(clip)
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

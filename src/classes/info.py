@@ -51,6 +51,7 @@ EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
 BACKUP_PATH = os.path.join(USER_PATH)
+RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
@@ -67,9 +68,9 @@ USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
 # Create user paths if they do not exist
 # (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, BACKUP_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH,
-               ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
-               USER_PROFILES_PATH, USER_PRESETS_PATH]:
+for folder in [USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+               BLENDER_PATH, ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH,
+               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
@@ -77,6 +78,9 @@ for folder in [USER_PATH, BACKUP_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH,
 JT = {"name": "Jonathan Thomas",
       "email": "jonathan@openshot.org",
       "website": "http://openshot.org/developers/jonathan"}
+
+# Blender minimum version required (a string value)
+BLENDER_MIN_VERSION = "2.80"
 
 # Languages
 CMDLINE_LANGUAGE = None
