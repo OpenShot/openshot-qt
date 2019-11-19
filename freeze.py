@@ -191,17 +191,20 @@ elif sys.platform == "linux":
     src_files.append((os.path.join(PATH, "installer", "launch-linux.sh"), "launch-linux.sh"))
 
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
+    pyqt5_mod_files = []
+    from importlib import import_module
+    for submod in ['QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+        mod_name  = "PyQt5.{}".format(submod)
+        import_module(mod_name)
+        pyqt5_mod_files.append(sys.modules.get(mod_name).__spec__.origin)
+
+    lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
+                "/usr/local/lib/libresvg.so",
+                "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so"
+                ] + pyqt5_mod_files
+
     import subprocess
-    for library in [os.path.join(libopenshot_path, "libopenshot.so"),
-                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKit.cpython-34m-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtSvg.cpython-34m-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.cpython-34m-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtWidgets.cpython-34m-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtCore.cpython-34m-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtGui.cpython-34dm-x86_64-linux-gnu.so",
-                    "/usr/lib/python3/dist-packages/PyQt5/QtDBus.cpython-34dm-x86_64-linux-gnu.so",
-                    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so",
-                    "/usr/local/lib/libresvg.so"]:
+    for library in lib_list:
         p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
         out, err = p.communicate()
         depends = str(out).replace("\\t", "").replace("\\n", "\n").replace("\'", "").split("\n")
@@ -211,49 +214,53 @@ elif sys.platform == "linux":
             lineparts = line.split("=>")
             libname = lineparts[0].strip()
 
-            if len(lineparts) > 1:
-                libdetails = lineparts[1].strip()
-                libdetailsparts = libdetails.split("(")
+            if len(lineparts) <= 1:
+                continue
 
-                if len(libdetailsparts) > 1:
-                    # Determine if dependency is usr installed (or system installed)
-                    # Or if the dependency matches one of the following exceptions
-                    # And ignore paths that start with /lib
-                    libpath = libdetailsparts[0].strip()
-                    libpath_folder, libpath_file = os.path.split(libpath)
-                    if (libpath
-                        and not libpath.startswith("/lib")
-                        and "libnvidia-glcore.so" not in libpath
-                        and libpath_file not in [
-                            "libstdc++.so.6",
-                            "libGL.so.1",
-                            "libxcb.so.1",
-                            "libX11.so.6",
-                            "libX11-xcb.so.1",
-                            "libasound.so.2",
-                            "libgcc_s.so.1 ",
-                            "libICE.so.6",
-                            "libp11-kit.so.0",
-                            "libSM.so.6",
-                            "libgobject-2.0.so.0",
-                            "libdrm.so.2",
-                            "libfreetype.so.6",
-                            "libfontconfig.so.1",
-                            "libcairo.so.2",
-                            "libpango-1.0.so.0",
-                            "libpangocairo-1.0.so.0",
-                            "libpangoft2-1.0.so.0",
-                            "libharfbuzz.so.0",
-                            "libthai.so.0",
-                            ]
-                        and not libpath_file.startswith("libxcb-")
-                       ) \
-                       or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
+            libdetails = lineparts[1].strip()
+            libdetailsparts = libdetails.split("(")
 
-                        # Ignore missing files
-                        if os.path.exists(libpath):
-                            filepath, filename = os.path.split(libpath)
-                            external_so_files.append((libpath, filename))
+            if len(libdetailsparts) <= 1:
+                continue
+
+            # Determine if dependency is usr installed (or system installed)
+            # Or if the dependency matches one of the following exceptions
+            # And ignore paths that start with /lib
+            libpath = libdetailsparts[0].strip()
+            libpath_file = os.path.basename(libpath)
+            if (libpath
+                and not libpath.startswith("/lib")
+                and "libnvidia-glcore.so" not in libpath
+                and libpath_file not in [
+                    "libstdc++.so.6",
+                    "libGL.so.1",
+                    "libxcb.so.1",
+                    "libX11.so.6",
+                    "libX11-xcb.so.1",
+                    "libasound.so.2",
+                    "libgcc_s.so.1 ",
+                    "libICE.so.6",
+                    "libp11-kit.so.0",
+                    "libSM.so.6",
+                    "libgobject-2.0.so.0",
+                    "libdrm.so.2",
+                    "libfreetype.so.6",
+                    "libfontconfig.so.1",
+                    "libcairo.so.2",
+                    "libpango-1.0.so.0",
+                    "libpangocairo-1.0.so.0",
+                    "libpangoft2-1.0.so.0",
+                    "libharfbuzz.so.0",
+                    "libthai.so.0",
+                    ]
+                and not libpath_file.startswith("libxcb-")
+               ) \
+               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
+              
+                # Ignore missing files
+                if os.path.exists(libpath):
+                    filepath, filename = os.path.split(libpath)
+                    external_so_files.append((libpath, filename))
 
     # Manually add missing files (that were missed in the above step). These files are required
     # for certain distros (like Fedora, openSUSE, Debian, etc...)

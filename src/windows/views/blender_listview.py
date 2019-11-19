@@ -26,7 +26,6 @@
  """
 
 import os
-import uuid
 import shutil
 import subprocess
 import sys
@@ -46,15 +45,6 @@ from classes.app import get_app
 from windows.models.blender_model import BlenderModel
 
 import json
-
-class QBlenderEvent(QEvent):
-    """ A custom Blender QEvent, which can safely be sent from the Blender thread to the Qt thread (to communicate) """
-
-    def __init__(self, id, data=None, *args):
-        # Invoke parent init
-        QEvent.__init__(self, id)
-        self.data = data
-        self.id = id
 
 
 class BlenderListView(QListView):
@@ -128,8 +118,8 @@ class BlenderListView(QListView):
                 self.params[param["name"]] = _(param["default"])
 
                 # create spinner
-                widget = QTextEdit()
-                widget.setText(_(param["default"]).replace("\\n", "\n"))
+                widget = QPlainTextEdit()
+                widget.setPlainText(_(param["default"]).replace("\\n", "\n"))
                 widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
             elif param["type"] == "dropdown":
@@ -145,14 +135,20 @@ class BlenderListView(QListView):
                     # override files dropdown
                     param["values"] = {}
                     for file in File.filter():
-                        if file.data["media_type"] in ("image", "video"):
-                            (dirName, fileName) = os.path.split(file.data["path"])
-                            (fileBaseName, fileExtension) = os.path.splitext(fileName)
+                        if file.data["media_type"] not in ("image", "video"):
+                            continue
 
-                            if fileExtension.lower() not in (".svg"):
-                                param["values"][fileName] = "|".join((file.data["path"], str(file.data["height"]),
-                                                                      str(file.data["width"]), file.data["media_type"],
-                                                                      str(file.data["fps"]["num"] / file.data["fps"]["den"])))
+                        fileName = os.path.basename(file.data["path"])
+                        fileExtension = os.path.splitext(fileName)[1]
+
+                        if fileExtension.lower() in (".svg"):
+                            continue
+
+                        param["values"][fileName] = "|".join(
+                            file.data["path"], str(file.data["height"]),
+                            str(file.data["width"]), file.data["media_type"],
+                            str(file.data["fps"]["num"] / file.data["fps"]["den"])
+                        )
 
                 # Add normal values
                 box_index = 0
@@ -200,11 +196,11 @@ class BlenderListView(QListView):
 
     def text_value_changed(self, widget, param, value=None):
         try:
-            # Attempt to load value from QTextEdit (i.e. multi-line)
+            # Attempt to load value from QPlainTextEdit (i.e. multi-line)
             if not value:
                 value = widget.toPlainText()
-        except:
-            pass
+        except Exception:
+            return
         self.params[param["name"]] = value.replace("\n", "\\n")
         # XXX: This will log every individual KEYPRESS in the text field.
         # log.info('Animation param %s set to %s' % (param["name"], value))
@@ -237,7 +233,7 @@ class BlenderListView(QListView):
         """ Generate a new, unique folder name to contain Blender frames """
 
         # Assign a new unique id for each template selected
-        self.unique_folder_name = str(uuid.uuid1())
+        self.unique_folder_name = str(self.app.project.generate_id())
 
         # Create a folder (if it does not exist)
         if not os.path.exists(os.path.join(info.BLENDER_PATH, self.unique_folder_name)):
@@ -473,13 +469,10 @@ class BlenderListView(QListView):
             version_message = _("\n\nError Output:\n{}").format(command_output)
             log.error("Blender error output:\n{}".format(command_output))
 
-        # show error message
-        blender_version = "2.8"
-        # Handle exception
         msg = QMessageBox()
         msg.setText(_(
             "Blender, the free open source 3D content creation suite is required for this action (http://www.blender.org).\n\nPlease check the preferences in OpenShot and be sure the Blender executable is correct.  This setting should be the path of the 'blender' executable on your computer.  Also, please be sure that it is pointing to Blender version {} or greater.\n\nBlender Path:\n{}{}").format(
-            blender_version, s.get("blender_command"), version_message))
+            info.BLENDER_MIN_VERSION, s.get("blender_command"), version_message))
         msg.exec_()
 
         # Enable the Render button again
@@ -726,24 +719,24 @@ class Worker(QObject):
             # Shell the blender command to create the image sequence
             command_get_version = [self.blender_exec_path, '-v']
             command_render = [self.blender_exec_path, '-b', self.blend_file_path, '-P', self.target_script]
+            
+            # debug info
+            # NOTE: If the length of the command_render list changes, update to match!
+            log.info("Blender command: {} {} '{}' {} '{}'".format(*command_render))
+
             self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
 
             # Check the version of Blender
             self.version = self.blender_version.findall(str(self.process.stdout.readline()))
 
             if self.version:
-                if float(self.version[0]) < 2.78:
+                if self.version[0] < info.BLENDER_MIN_VERSION:
                     # change cursor to "default" and stop running blender command
                     self.is_running = False
 
                     # Wrong version of Blender.
-                    self.blender_version_error.emit(float(self.version[0]))
+                    self.blender_version_error.emit(self.version[0])
                     return
-
-            # debug info
-            log.info(
-                "Blender command: {} {} '{}' {} '{}'".format(command_render[0], command_render[1], command_render[2],
-                                                             command_render[3], command_render[4]))
 
             # Run real command to render Blender project
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
@@ -772,7 +765,7 @@ class Worker(QObject):
                 # Update progress bar
                 if not self.preview_mode:
                     # only update progress if in 'render' mode
-                    self.progress.emit(float(current_frame))
+                    self.progress.emit(int(current_frame))
 
             # Look for progress info in the Blender Output
             output_saved = self.blender_saved_expression.findall(str(line))

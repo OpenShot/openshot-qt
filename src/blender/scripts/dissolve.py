@@ -1,32 +1,31 @@
-#	OpenShot Video Editor is a program that creates, modifies, and edits video files.
+# OpenShot Video Editor is a program that creates, modifies, and edits video files.
 #   Copyright (C) 2009  Jonathan Thomas
 #
-#	This file is part of OpenShot Video Editor (http://launchpad.net/openshot/).
+# This file is part of OpenShot Video Editor (http://launchpad.net/openshot/).
 #
-#	OpenShot Video Editor is free software: you can redistribute it and/or modify
-#	it under the terms of the GNU General Public License as published by
-#	the Free Software Foundation, either version 3 of the License, or
-#	(at your option) any later version.
+# OpenShot Video Editor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#	OpenShot Video Editor is distributed in the hope that it will be useful,
-#	but WITHOUT ANY WARRANTY; without even the implied warranty of
-#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#	GNU General Public License for more details.
+# OpenShot Video Editor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#	You should have received a copy of the GNU General Public License
-#	along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with OpenShot Video Editor.  If not, see <http://www.gnu.org/licenses/>.
 
 
 # Import Blender's python API.  This only works when the script is being
-# run from the context of Blender.  Blender contains it's own version of Python
+# run from the context of Blender.  Blender contains its own version of Python
 # with this library pre-installed.
-from math import pi
-
 import bpy
 from bpy.props import *
 
+from math import pi
 
-# Load a font
+
 def load_font(font_path):
     """ Load a new TTF font into Blender, and return the font object """
     # get the original list of fonts (before we add a new one)
@@ -45,11 +44,11 @@ def load_font(font_path):
 
 
 # the stuff
-#  
+#
 #  name: createDissolveText
 #  @param
 #  @return
-#  
+#
 def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font):
     """ Create aned animate the exploding texte """
 
@@ -249,7 +248,7 @@ params = {
     'diffuse_color': [0.57, 0.57, 0.57, 1.0]
 }
 
-#INJECT_PARAMS_HERE
+# INJECT_PARAMS_HERE
 
 # The remainder of this script will modify the current Blender .blend project
 # file, and adjust the settings.  The .blend file is specified in the XML file

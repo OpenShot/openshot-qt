@@ -39,6 +39,7 @@ from classes.app import get_app
 
 import json
 
+
 class TitleStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
         QStandardItemModel.__init__(self)
@@ -91,8 +92,8 @@ class TitlesModel():
                 titles_list.append(os.path.join(info.TITLE_PATH, file))
 
         for path in sorted(titles_list):
-            (parent_path, filename) = os.path.split(path)
-            (fileBaseName, fileExtension) = os.path.splitext(filename)
+            filename = os.path.basename(path)
+            fileBaseName = os.path.splitext(filename)[0]
 
             # Skip hidden files (such as .DS_Store, etc...)
             if filename[0] == "." or "thumbs.db" in filename.lower() or filename.lower() == "temp.svg":
@@ -104,7 +105,7 @@ class TitlesModel():
             if name_parts[-1].isdigit():
                 suffix_number = name_parts[-1]
 
-            # get name of transition
+            # get name of title template
             title_name = fileBaseName.replace("_", " ").capitalize()
 
             # replace suffix number with placeholder (if any)
@@ -115,7 +116,7 @@ class TitlesModel():
                 title_name = self.app._tr(title_name)
 
             # Check for thumbnail path (in build-in cache)
-            thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
+            thumb_path = os.path.join(info.IMAGES_PATH, "cache", "{}.png".format(fileBaseName))
 
             # Check built-in cache (if not found)
             if not os.path.exists(thumb_path):
@@ -172,7 +173,7 @@ class TitlesModel():
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
-            if not path in self.model_paths:
+            if path not in self.model_paths:
                 self.model.appendRow(row)
                 self.model_paths[path] = path
 

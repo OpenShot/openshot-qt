@@ -29,7 +29,6 @@
 
 // Find a JSON element / object with a particular value in the json data
 function findElement(arr, propName, propValue) {
-
   // Loop through array looking for a matching element
   for (var i=0; i < arr.length; i++)
     if (arr[i][propName] == propValue)
@@ -168,7 +167,7 @@ function findTrackAtLocation(scope, top){
 
 		// Compare position of track to Y param (of unlocked tracks)
         if (!layer.lock)
-            if ((top < layer.y && top > track_position) || track_position==0) {
+            if ((top < layer.y && top > track_position) || track_position === 0) {
                 // return first matching layer
                 track_position = layer.y;
                 track_number = layer.number;

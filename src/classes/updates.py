@@ -76,15 +76,15 @@ class UpdateAction:
                          "partial": self.partial_update,
                          "old_values": copy.deepcopy(self.old_values)}
 
-        # Always remove 'history' key (if found). This prevents nested "history"
-        # attributes when a project dict is loaded.
-        try:
-            if data_dict.get("value") and "history" in data_dict.get("value"):
-                data_dict.get("value").pop("history", None)
-            if data_dict.get("old_values") and "history" in data_dict.get("old_values"):
-                data_dict.get("old_values").pop("history", None)
-        except Exception:
-            log.info('Warning: failed to clear history attribute from undo/redo data.')
+            # Always remove 'history' key (if found). This prevents nested "history"
+            # attributes when a project dict is loaded.
+            try:
+                if isinstance(data_dict.get("value"), dict) and "history" in data_dict.get("value"):
+                    data_dict.get("value").pop("history", None)
+                if isinstance(data_dict.get("old_values"), dict) and "history" in data_dict.get("old_values"):
+                    data_dict.get("old_values").pop("history", None)
+            except Exception as ex:
+                log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
 
         if not is_array:
             # Use a JSON Object as the root object
@@ -112,12 +112,12 @@ class UpdateAction:
         # Always remove 'history' key (if found). This prevents nested "history"
         # attributes when a project dict is loaded.
         try:
-            if self.values and "history" in self.values:
+            if isinstance(self.values, dict) and "history" in self.values:
                 self.values.pop("history", None)
-            if self.old_values and "history" in self.old_values:
+            if isinstance(self.old_values, dict) and "history" in self.old_values:
                 self.old_values.pop("history", None)
-        except Exception:
-            log.info('Warning: failed to clear history attribute from undo/redo data.')
+        except Exception as ex:
+            log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
 
 
 class UpdateManager:
@@ -180,7 +180,7 @@ class UpdateManager:
                 actionDict = json.loads(action.json(), strict=False)
                 undo_list.append(actionDict)
             else:
-                log.info("Saving undo, skipped key: %s" % str(action.key))
+                log.info("Saving undo history, skipped key: %s" % str(action.key))
 
         # Set history data in project
         self.ignore_history = True
@@ -203,7 +203,7 @@ class UpdateManager:
                 # Insert listener at index
                 self.updateListeners.insert(index, listener)
         else:
-            log.warning("Listener already added.")
+            log.warning("Cannot add existing listener: {}".format(str(listener)))
 
     def add_watcher(self, watcher):
         """ Add a new watcher (which will invoke the updateStatusChanged() method each time a 'redo' or 'undo' action is available). """
@@ -211,7 +211,7 @@ class UpdateManager:
         if not watcher in self.statusWatchers:
             self.statusWatchers.append(watcher)
         else:
-            log.warning("Watcher already added.")
+            log.warning("Cannot add existing watcher: {}".format(str(watcher)))
 
     def update_watchers(self):
         """ Notify all watchers if any 'undo' or 'redo' actions are available. """

@@ -41,10 +41,6 @@ import openshot
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import PYQT_VERSION_STR
 
-
-# Get libopenshot version
-libopenshot_version = openshot.GetVersion()
-
 # Get settings
 s = settings.get_settings()
 
@@ -74,21 +70,22 @@ except Exception as Ex:
 user_agent = "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36" % os_version
 
 params = {
-    "cid" : s.get("unique_install_id"),     # Unique install ID
-    "v" : 1,                                # Google Measurement API version
-    "tid" : "UA-4381101-5",                 # Google Analytic Tracking ID
-    "an" : info.PRODUCT_NAME,               # App Name
-    "aip" : 1,                              # Anonymize IP
-    "aid" : "org.openshot.%s" % info.NAME,  # App ID
-    "av" : info.VERSION,                    # App Version
-    "ul" : language.get_current_locale().replace('_','-').lower(),   # Current Locale
-    "ua" : user_agent,                      # Custom User Agent (for OS, Processor, and OS version)
-    "cd1" : libopenshot_version.ToString(), # Dimension 1: libopenshot version
-    "cd2" : platform.python_version(),      # Dimension 2: python version (i.e. 3.4.3)
-    "cd3" : QT_VERSION_STR,                 # Dimension 3: qt5 version (i.e. 5.2.1)
-    "cd4" : PYQT_VERSION_STR,               # Dimension 4: pyqt5 version (i.e. 5.2.1)
-    "cd5" : linux_distro
+    "cid": s.get("unique_install_id"),      # Unique install ID
+    "v": 1,                                 # Google Measurement API version
+    "tid": "UA-4381101-5",                  # Google Analytic Tracking ID
+    "an": info.PRODUCT_NAME,                # App Name
+    "aip": 1,                               # Anonymize IP
+    "aid": "org.openshot.%s" % info.NAME,   # App ID
+    "av": info.VERSION,                     # App Version
+    "ul": language.get_current_locale().replace('_', '-').lower(),   # Current Locale
+    "ua": user_agent,                       # Custom User Agent (for OS, Processor, and OS version)
+    "cd1": openshot.OPENSHOT_VERSION_FULL,  # Dimension 1: libopenshot version
+    "cd2": platform.python_version(),       # Dimension 2: python version (i.e. 3.4.3)
+    "cd3": QT_VERSION_STR,                  # Dimension 3: qt5 version (i.e. 5.2.1)
+    "cd4": PYQT_VERSION_STR,                # Dimension 4: pyqt5 version (i.e. 5.2.1)
+    "cd5": linux_distro
 }
+
 
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
@@ -99,6 +96,7 @@ def track_metric_screen(screen_name):
 
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
+
 
 def track_metric_event(event_action, event_label, event_category="General", event_value=0):
     """Track a GUI screen being shown"""
@@ -113,6 +111,7 @@ def track_metric_event(event_action, event_label, event_category="General", even
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
 
+
 def track_metric_error(error_name, is_fatal=False):
     """Track an error has occurred"""
     metric_params = deepcopy(params)
@@ -125,10 +124,12 @@ def track_metric_error(error_name, is_fatal=False):
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
 
+
 def track_exception_stacktrace(stacktrace, source):
     """Track an exception/stacktrace has occurred"""
     t = threading.Thread(target=send_exception, args=[stacktrace, source])
     t.start()
+
 
 def track_metric_session(is_start=True):
     """Track a GUI screen being shown"""
@@ -143,6 +144,7 @@ def track_metric_session(is_start=True):
 
     t = threading.Thread(target=send_metric, args=[metric_params])
     t.start()
+
 
 def send_metric(params):
     """Send anonymous metric over HTTP for tracking"""
@@ -160,16 +162,17 @@ def send_metric(params):
         except Exception as Ex:
             log.error("Failed to Track metric: %s" % (Ex))
 
+
 def send_exception(stacktrace, source):
     """Send exception stacktrace over HTTP for tracking"""
     # Check if the user wants to send metrics and errors
     if s.get("send_metrics"):
 
-        data = urllib.parse.urlencode({ "stacktrace": stacktrace,
-                                        "platform": platform.system(),
-                                        "version": info.VERSION,
-                                        "source": source,
-                                        "unique_install_id": s.get("unique_install_id" )})
+        data = urllib.parse.urlencode({"stacktrace": stacktrace,
+                                       "platform": platform.system(),
+                                       "version": info.VERSION,
+                                       "source": source,
+                                       "unique_install_id": s.get("unique_install_id")})
         url = "http://www.openshot.org/exception/json/"
 
         # Send exception HTTP data

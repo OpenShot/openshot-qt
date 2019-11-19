@@ -155,9 +155,9 @@ class Export(QDialog):
         else:
             # Yes, project is saved
             # Get just the filename
-            parent_path, filename = os.path.split(get_app().project.current_filepath)
-            filename, ext = os.path.splitext(filename)
-            self.txtFileName.setText(filename.replace("_", " ").replace("-", " ").capitalize())
+            filename = os.path.basename(get_app().project.current_filepath)
+            filename = os.path.splitext(filename)[0]
+            self.txtFileName.setText(filename)
 
         # Default image type
         self.txtImageFormat.setText("-%05d.png")
@@ -611,11 +611,11 @@ class Export(QDialog):
 
         # update export folder path
         file_path = QFileDialog.getExistingDirectory(self, _("Choose a Folder..."), self.txtExportFolder.text())
+
         if os.path.exists(file_path):
             self.txtExportFolder.setText(file_path)
-
             # update export folder path in project file
-            get_app().updates.update(["export_path"], file_path)
+            app.updates.update(["export_path"], file_path)
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0
@@ -657,7 +657,9 @@ class Export(QDialog):
 
     def disableControls(self):
         """Disable all controls"""
+        self.lblFileName.setEnabled(False)
         self.txtFileName.setEnabled(False)
+        self.lblFolderPath.setEnabled(False)
         self.txtExportFolder.setEnabled(False)
         self.tabWidget.setEnabled(False)
         self.export_button.setEnabled(False)
@@ -665,7 +667,9 @@ class Export(QDialog):
 
     def enableControls(self):
         """Enable all controls"""
+        self.lblFileName.setEnabled(True)
         self.txtFileName.setEnabled(True)
+        self.lblFolderPath.setEnabled(True)
         self.txtExportFolder.setEnabled(True)
         self.tabWidget.setEnabled(True)
         self.export_button.setEnabled(True)

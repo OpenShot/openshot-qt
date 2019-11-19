@@ -82,7 +82,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         painter = QPainter(self)
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
-        # Fill background black
+        # Fill the whole widget with the solid color
         painter.fillRect(event.rect(), self.palette().window())
 
         if self.current_image:
@@ -607,10 +607,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Mutex lock
         self.mutex = QMutex()
 
-        # Init Qt style properties (black background, etc...)
-        p = QPalette()
-        p.setColor(QPalette.Window, QColor("#191919"))
-        super().setPalette(p)
+        # Init Qt widget's properties (background repainting, etc...)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 

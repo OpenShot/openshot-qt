@@ -650,7 +650,7 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "reader":
                         reader_json = json.loads(memo or "{}")
                         reader_path = reader_json.get("path", "/")
-                        (dirName, fileName) = os.path.split(reader_path)
+                        fileName = os.path.basename(reader_path)
                         col.setText(fileName)
                     elif type == "int" and label == "Track":
                         # Find track display name
@@ -748,7 +748,7 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "reader":
                         reader_json = json.loads(property[1].get("memo", "{}"))
                         reader_path = reader_json.get("path", "/")
-                        (dirName, fileName) = os.path.split(reader_path)
+                        fileName = os.path.basename(reader_path)
                         col.setText("%s" % fileName)
                     else:
                         # Use numeric value

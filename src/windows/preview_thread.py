@@ -55,6 +55,10 @@ class PreviewParent(QObject):
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
         log.info('onModeChanged')
+        if current_mode is openshot.PLAYBACK_PLAY:
+            self.parent.SetPlayheadFollow(False)
+        else:
+            self.parent.SetPlayheadFollow(True)
 
     # Signal when the playback encounters an error
     def onError(self, error):
@@ -239,9 +243,6 @@ class PlayerWorker(QObject):
             # Switch back to last timeline position
             seek_position = self.original_position
         else:
-            # Get extension of media path
-            ext = os.path.splitext(path)
-
             # Create new timeline reader (to preview selected clip)
             s = settings.get_settings()
             project = get_app().project

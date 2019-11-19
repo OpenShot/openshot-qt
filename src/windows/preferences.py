@@ -396,7 +396,19 @@ class Preferences(QDialog):
     def selectExecutable(self, widget, param):
         _ = get_app()._tr
 
-        fileName, fileType = QFileDialog.getOpenFileName(self, _("Select executable file"), QDir.rootPath(), _("All Files (*)"))
+        # Fallback default to user home
+        startpath = QDir.rootPath()
+
+        # Start at directory of old setting, if it exists, or walk up the
+        # path until we encounter a directory that does exist and start there
+        if "setting" in param and param["setting"]:
+            prev_val = self.s.get(param["setting"])
+            while prev_val and not os.path.exists(prev_val):
+                prev_val = os.path.dirname(prev_val)
+            if prev_val and os.path.exists(prev_val):
+                startpath = prev_val
+
+        fileName = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))[0]
         if fileName:
             self.s.set(param["setting"], fileName)
             widget.setText(fileName)

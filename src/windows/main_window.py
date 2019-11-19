@@ -35,7 +35,7 @@ import webbrowser
 from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
-from time import sleep
+from time import sleep, time
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
@@ -47,11 +47,11 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.time_parts import secondsToTime
 from classes.query import File, Clip, Transition, Marker, Track
 from classes.metrics import *
 from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
+from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -101,15 +101,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Save window settings on close
     def closeEvent(self, event):
 
+        app = get_app()
         # Some window managers handels dragging of the modal messages incorrectly if other windows are open
         # Hide tutorial window first
         self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
-        if get_app().project.needs_save() and not self.mode == "unittest":
+        if app.project.needs_save() and not self.mode == "unittest":
             log.info('Prompt user to save project')
             # Translate object
-            _ = get_app()._tr
+            _ = app._tr
 
             # Handle exception
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project before closing?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -157,7 +158,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
-        get_app().logger_libopenshot.kill()
+        app.logger_libopenshot.kill()
+        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -165,17 +167,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def recover_backup(self):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
-        # Check for backup.osp file
-        recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
 
-        # Load recovery project
-        if os.path.exists(recovery_path):
-            log.info("Recovering backup file: %s" % recovery_path)
-            self.open_project(recovery_path, clear_thumbnails=False)
+        # Check for backup.osp file
+        if os.path.exists(info.BACKUP_FILE):
+            # Load recovery project
+            log.info("Recovering backup file: %s" % info.BACKUP_FILE)
+            self.open_project(info.BACKUP_FILE, clear_thumbnails=False)
 
             # Clear the file_path (which is set by saving the project)
-            get_app().project.current_filepath = None
-            get_app().project.has_unsaved_changes = True
+            project = get_app().project
+            project.current_filepath = None
+            project.has_unsaved_changes = True
 
             # Set Window title
             self.SetWindowTitle()
@@ -263,7 +265,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 last_log_line = ""
 
             # Throw exception (with last libopenshot line... if found)
-            log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_PATH)
+            log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_FILE)
             track_metric_error("unhandled-crash%s" % last_log_line, True)
 
             # Remove file
@@ -324,7 +326,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         _ = app._tr  # Get translation function
 
         # Do we have unsaved changes?
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
@@ -337,8 +339,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.clear_all_thumbnails()
 
         # clear data and start new project
-        get_app().project.load("")
-        get_app().updates.reset()
+        app.project.load("")
+        app.updates.reset()
         self.updateStatusChanged(False, False)
 
         # Reset selections
@@ -445,8 +447,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionClearHistory_trigger(self, event):
         """Clear history for current project"""
-        app = get_app()
-        app.updates.reset()
+        get_app().updates.reset()
         log.info('History cleared')
 
     def save_project(self, file_path):
@@ -486,7 +487,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             return
 
         # Do we have unsaved changes?
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
@@ -496,7 +497,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 return
 
         # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
         try:
             if os.path.exists(file_path):
@@ -539,40 +540,36 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
 
         # Restore normal cursor
-        get_app().restoreOverrideCursor()
+        app.restoreOverrideCursor()
 
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
         try:
-            if os.path.exists(info.THUMBNAIL_PATH):
-                log.info("Clear all thumbnails: %s" % info.THUMBNAIL_PATH)
-                # Remove thumbnail folder
-                shutil.rmtree(info.THUMBNAIL_PATH)
-                # Create thumbnail folder
-                os.mkdir(info.THUMBNAIL_PATH)
+            openshot_thumbnail_path = os.path.join(info.USER_PATH, "thumbnail")
+            if os.path.exists(openshot_thumbnail_path):
+                log.info("Clear all thumbnails: %s" % openshot_thumbnail_path)
+                shutil.rmtree(openshot_thumbnail_path)
+                os.mkdir(openshot_thumbnail_path)
 
             # Clear any blender animations
-            if os.path.exists(info.BLENDER_PATH):
-                log.info("Clear all animations: %s" % info.BLENDER_PATH)
-                # Remove blender folder
-                shutil.rmtree(info.BLENDER_PATH)
-                # Create blender folder
-                os.mkdir(info.BLENDER_PATH)
+            openshot_blender_path = os.path.join(info.USER_PATH, "blender")
+            if os.path.exists(openshot_blender_path):
+                log.info("Clear all animations: %s" % openshot_blender_path)
+                shutil.rmtree(openshot_blender_path)
+                os.mkdir(openshot_blender_path)
 
-            # Clear any assets folder
-            if os.path.exists(info.ASSETS_PATH):
-                log.info("Clear all assets: %s" % info.ASSETS_PATH)
-                # Remove assets folder
-                shutil.rmtree(info.ASSETS_PATH)
-                # Create assets folder
-                os.mkdir(info.ASSETS_PATH)
+            # Clear any title animations
+            openshot_title_path = os.path.join(info.USER_PATH, "title")
+            if os.path.exists(openshot_title_path):
+                log.info("Clear all titles: %s" % openshot_title_path)
+                shutil.rmtree(openshot_title_path)
+                os.mkdir(openshot_title_path)
 
             # Clear any backups
-            backup_path = os.path.join(info.BACKUP_PATH, "backup.osp")
-            if os.path.exists(backup_path):
-                log.info("Clear backup: %s" % backup_path)
+            if os.path.exists(info.BACKUP_FILE):
+                log.info("Clear backup: %s" % info.BACKUP_FILE)
                 # Remove backup file
-                os.unlink(backup_path)
+                os.unlink(info.BACKUP_FILE)
 
         except:
             log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
@@ -585,7 +582,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = info.HOME_PATH
 
         # Do we have unsaved changes?
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
@@ -595,7 +592,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 return
 
         # Prompt for open project file
-        file_path, file_type = QFileDialog.getOpenFileName(self, _("Open Project..."), recommended_path, _("OpenShot Project (*.osp)"))
+        file_path = QFileDialog.getOpenFileName(self, _("Open Project..."), recommended_path, _("OpenShot Project (*.osp)"))[0]
 
         # Load project file
         self.OpenProjectSignal.emit(file_path)
@@ -608,7 +605,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file_path = app.project.current_filepath
         if not file_path:
             recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
-            file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project..."), recommended_path, _("OpenShot Project (*.osp)"))
+            file_path = QFileDialog.getSaveFileName(self, _("Save Project..."), recommended_path, _("OpenShot Project (*.osp)"))[0]
 
         if file_path:
             # Append .osp if needed
@@ -620,9 +617,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
+        app = get_app()
+        s = settings.get_settings()
+
         # Get current filepath (if any)
-        file_path = get_app().project.current_filepath
-        if get_app().project.needs_save():
+        file_path = app.project.current_filepath
+        if app.project.needs_save():
             log.info("auto_save_project")
 
             if file_path:
@@ -630,26 +630,43 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Append .osp if needed
                 if ".osp" not in file_path:
                     file_path = "%s.osp" % file_path
+                folder_path, file_name = os.path.split(file_path)
+                file_name, file_ext = os.path.splitext(file_name)
+
+                # Make copy of unsaved project file in 'recovery' folder
+                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time()), file_name))
+                shutil.copy(file_path, recover_path_with_timestamp)
+
+                # Find any recovery file older than X auto-saves
+                old_backup_files = []
+                backup_file_count = 0
+                for backup_filename in reversed(sorted(os.listdir(info.RECOVERY_PATH))):
+                    if ".osp" in backup_filename:
+                        backup_file_count += 1
+                        if backup_file_count > s.get("recovery-limit"):
+                            old_backup_files.append(os.path.join(info.RECOVERY_PATH, backup_filename))
+
+                # Delete recovery files which are 'too old'
+                for backup_filepath in old_backup_files:
+                    os.unlink(backup_filepath)
 
                 # Save project
                 log.info("Auto save project file: %s" % file_path)
                 self.save_project(file_path)
 
                 # Remove backup.osp (if any)
-                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
-                if os.path.exists(recovery_path):
+                if os.path.exists(info.BACKUP_FILE):
                     # Delete backup.osp since we just saved the actual project
-                    os.unlink(recovery_path)
+                    os.unlink(info.BACKUP_FILE)
 
             else:
                 # No saved project found
-                recovery_path = os.path.join(info.BACKUP_PATH, "backup.osp")
-                log.info("Creating backup of project file: %s" % recovery_path)
-                get_app().project.save(recovery_path, move_temp_files=False, make_paths_relative=False)
+                log.info("Creating backup of project file: %s" % info.BACKUP_FILE)
+                app.project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
 
                 # Clear the file_path (which is set by saving the project)
-                get_app().project.current_filepath = None
-                get_app().project.has_unsaved_changes = True
+                app.project.current_filepath = None
+                app.project.has_unsaved_changes = True
 
     def actionSaveAs_trigger(self, event):
         app = get_app()
@@ -658,7 +675,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         recommended_path = app.project.current_filepath
         if not recommended_path:
             recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
-        file_path, file_type = QFileDialog.getSaveFileName(self, _("Save Project As..."), recommended_path, _("OpenShot Project (*.osp)"))
+        file_path = QFileDialog.getSaveFileName(self, _("Save Project As..."), recommended_path, _("OpenShot Project (*.osp)"))[0]
         if file_path:
             # Append .osp if needed
             if ".osp" not in file_path:
@@ -743,16 +760,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionUndo_trigger(self, event):
         log.info('actionUndo_trigger')
-        app = get_app()
-        app.updates.undo()
+        get_app().updates.undo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
     def actionRedo_trigger(self, event):
         log.info('actionRedo_trigger')
-        app = get_app()
-        app.updates.redo()
+        get_app().updates.redo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
@@ -803,57 +818,52 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionHelpContents_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language())
-            log.info("Help Contents is open")
-        except:
-            QMessageBox.information(self, "Error !", "Unable to open the Help Contents. Please ensure the openshot-doc package is installed.")
-            log.info("Unable to open the Help Contents")
+            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
+        except Exception as ex:
+            QMessageBox.information(self, "Error !", "Unable to open the online help")
+            log.error("Unable to open the Help Contents: {}".format(str(ex)))
 
     def actionAbout_trigger(self, event):
         """Show about dialog"""
         from windows.about import About
         win = About()
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('About Openshot add confirmed')
-        else:
-            log.info('About Openshot add cancelled')
+        win.exec_()
 
     def actionReportBug_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language())
-            log.info("Open the Bug Report GitHub Issues web page with success")
-        except:
+            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
+            log.error("Unable to open the Bug Report page: {}".format(str(ex)))
 
     def actionAskQuestion_trigger(self, event):
         try:
-            webbrowser.open("https://www.reddit.com/r/OpenShot/")
-            log.info("Open the official OpenShot subreddit web page with success")
-        except:
+            webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
+            log.error("Unable to open the subreddit page: {}".format(str(ex)))
 
     def actionTranslate_trigger(self, event):
         try:
-            webbrowser.open("https://translations.launchpad.net/openshot/2.0")
-            log.info("Open the Translate launchpad web page with success")
-        except:
+            webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
+            log.error("Unable to open the translation page: {}".format(str(ex)))
 
     def actionDonate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language())
-            log.info("Open the Donate web page with success")
-        except:
+            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
+            log.error("Unable to open the donation page: {}".format(str(ex)))
 
     def actionUpdate_trigger(self, event):
         try:
-            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language())
-            log.info("Open the Download web page with success")
-        except:
+            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
+        except Exception as ex:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
+            log.error("Unable to open the download page: {}".format(str(ex)))
 
     def actionPlay_trigger(self, event, force=None):
 
@@ -919,6 +929,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Update playhead position"""
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
+    
+    def SetPlayheadFollow(self, enable_follow):
+        """ Enable / Disable follow mode """
+        self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, event):
 
@@ -975,7 +989,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionSaveFrame_trigger")
 
         # Translate object
-        _ = get_app()._tr
+        app = get_app()
+        _ = app._tr
 
         # Prepare to use the status bar
         self.statusBar = QStatusBar()
@@ -983,32 +998,32 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Determine path for saved frame - Default export path
         recommended_path = recommended_path = os.path.join(info.HOME_PATH)
-        if get_app().project.current_filepath:
-            recommended_path = os.path.dirname(get_app().project.current_filepath)
+        if app.project.current_filepath:
+            recommended_path = os.path.dirname(app.project.current_filepath)
 
         # Determine path for saved frame - Project's export path
-        if get_app().project.get("export_path"):
-            recommended_path = get_app().project.get("export_path")
+        if app.project.get("export_path"):
+            recommended_path = app.project.get("export_path")
 
         framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
 
         # Ask user to confirm or update framePath
-        framePath, file_type = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))
+        framePath = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))[0]
 
-        if framePath:
-            # Append .png if needed
-            if ".png" not in framePath:
-                framePath = "%s.png" % framePath
-        else:
+        if not framePath:
             # No path specified (save frame cancelled)
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
 
-        get_app().updates.update(["export_path"], os.path.dirname(framePath))
-        log.info(_("Saving frame to %s" % framePath ))
+        # Append .png if needed
+        if not framePath.endswith(".png"):
+            framePath = "%s.png" % framePath
+
+        app.updates.update(["export_path"], os.path.dirname(framePath))
+        log.info("Saving frame to %s" % framePath)
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        get_app().window.actionPlay_trigger(None, force="pause")
+        app.window.actionPlay_trigger(None, force="pause")
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
@@ -1016,7 +1031,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(get_app().project.get("width"), get_app().project.get("height"))
+        self.timeline_sync.timeline.SetMaxSize(app.project.get("width"), app.project.get("height"))
         self.cache_object.Clear()
 
         # Check if file exists, if it does, get the lastModified time
@@ -1310,6 +1325,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
+            
+    def actionCenterOnPlayhead_trigger(self, event):
+        """ Center the timeline on the current playhead position """
+        self.timeline.centerOnPlayhead()
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
@@ -1330,18 +1349,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Process key press events and match with known shortcuts"""
         # Detect the current KeySequence pressed (including modifier keys)
         key_value = event.key()
-        print(key_value)
         modifiers = int(event.modifiers())
-        if (key_value > 0 and key_value != Qt.Key_Shift and key_value != Qt.Key_Alt and
-                    key_value != Qt.Key_Control and key_value != Qt.Key_Meta):
-            # A valid keysequence was detected
-            key = QKeySequence(modifiers + key_value)
-        else:
-            # No valid keysequence detected
+
+        # Abort handling if the key sequence is invalid
+        if (key_value <= 0 or key_value in
+           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
             return
 
-        # Debug
-        log.info("keyPressEvent: %s" % (key.toString()))
+        # A valid keysequence was detected
+        key = QKeySequence(modifiers + key_value)
 
         # Get the video player object
         player = self.preview_thread.player
@@ -1431,6 +1447,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPreviousMarker.trigger()
         elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
             self.actionNextMarker.trigger()
+        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.ExactMatch:
+            self.actionCenterOnPlayhead.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
             self.actionTimelineZoomIn.trigger()
         elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
@@ -1949,7 +1967,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAACCAAAC3/wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAALfAAAAmAD////8AAACXgAAAKcAAAAAAP////oAAAAAAgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQAAAAAA/////wAAAAAAAAAAAAAAAQAAANUAAALf/AIAAAAC+wAAABwAZABvAGMAawBQAHIAbwBwAGUAcgB0AGkAZQBzAQAAACcAAALfAAAAnwD////7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAAAuMAAALY/AEAAAAB/AAAAIgAAALjAAABWgD////8AgAAAAL8AAAAJwAAAe8AAACYAP////wBAAAAAvsAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAIgAAACKAAAAbAD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAEYAAACUwAAAEcA/////AAAAhwAAADjAAAAmAD////8AQAAAAL7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAACIAAACUgAAAPoA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAuAAAACLAAAAWgD///8AAALjAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAADKPwCAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAA9AAADKAAAAKEA/////AAAAl4AAACnAAAAAAD////6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAADVAAADKPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAFDwAAAyH8AQAAAAH8AAAA9wAABQ8AAAD6AP////wCAAAAAvwAAAA9AAACIQAAAVMA/////AEAAAAC/AAAAPcAAAG9AAAAewD////8AgAAAAL7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAA9AAAA9gAAAJgA/////AAAATkAAAElAAAAtQEAABz6AAAAAQEAAAAC+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAABsAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAC+AAABKgAAAFoA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACugAAA0wAAABHAP////sAAAAYAGQAbwBjAGsAVABpAG0AZQBsAGkAbgBlAQAAAmQAAAD6AAAAlgD///8AAAUPAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -1988,29 +2006,29 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Set the window title based on a variety of factors """
 
         # Get translation function
-        _ = get_app()._tr
+        app = get_app()
+        _ = app._tr
 
         if not profile:
-            profile = get_app().project.get("profile")
+            profile = app.project.get("profile")
 
         # Determine if the project needs saving (has any unsaved changes)
         save_indicator = ""
-        if get_app().project.needs_save():
+        if app.project.needs_save():
             save_indicator = "*"
             self.actionSave.setEnabled(True)
         else:
             self.actionSave.setEnabled(False)
 
         # Is this a saved project?
-        if not get_app().project.current_filepath:
+        if not app.project.current_filepath:
             # Not saved yet
             self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, "OpenShot Video Editor"))
         else:
             # Yes, project is saved
             # Get just the filename
-            parent_path, filename = os.path.split(get_app().project.current_filepath)
-            filename, ext = os.path.splitext(filename)
-            filename = filename.replace("_", " ").replace("-", " ").capitalize()
+            filename = os.path.basename(app.project.current_filepath)
+            filename = os.path.splitext(filename)[0]
             self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor"))
 
     # Update undo and redo buttons enabled/disabled to available changes
@@ -2094,8 +2112,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         s = settings.get_settings()
 
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
-        if s.get('window_state_v2'): self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
-        if s.get('window_geometry_v2'): self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+        if s.get('window_state_v2'):
+            self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
+        if s.get('window_geometry_v2'):
+            self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
         if s.get('docks_frozen'):
             """ Freeze all dockable widgets on the main screen """
             self.freezeDocks()
@@ -2105,7 +2125,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Load Recent Projects
         self.load_recent_menu()
-        
+
         # The method restoreState restores the visibility of the toolBar,
         # but does not set the correct flag in the actionView_Toolbar.
         self.actionView_Toolbar.setChecked(self.toolBar.isVisibleTo(self))
@@ -2247,6 +2267,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addAction(self.actionAddMarker)
         self.timelineToolbar.addAction(self.actionPreviousMarker)
         self.timelineToolbar.addAction(self.actionNextMarker)
+        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
         # Get project's initial zoom value
@@ -2427,6 +2448,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.is_transforming = False
 
+    def init_thumbnail_server(self):
+        """Initialize and start the thumbnail HTTP server"""
+        self.http_server_thread = httpThumbnailServerThread()
+        self.http_server_thread.start()
 
     def __init__(self, mode=None):
 
@@ -2436,8 +2461,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.initialized = False
 
         # set window on app for reference during initialization of children
-        get_app().window = self
-        _ = get_app()._tr
+        app = get_app()
+        app.window = self
+        _ = app._tr
 
         # Load user settings for window
         s = settings.get_settings()
@@ -2472,7 +2498,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.setup_toolbars()
 
         # Add window as watcher to receive undo/redo status updates
-        get_app().updates.add_watcher(self)
+        app.updates.add_watcher(self)
 
         # Get current version of OpenShot via HTTP
         self.FoundVersionSignal.connect(self.foundCurrentVersion)
@@ -2483,6 +2509,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.TransformSignal.connect(self.transformTriggered)
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
+
+        # Init HTTP server for thumbnails
+        self.init_thumbnail_server()
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
@@ -2521,7 +2550,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Process events before continuing
         # TODO: Figure out why this is needed for a backup recovery to correctly show up on the timeline
-        get_app().processEvents()
+        app.processEvents()
 
         # Setup properties table
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
