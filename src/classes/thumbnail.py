@@ -122,8 +122,14 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         file_frame = int(url_output.group('file_frame'))
         only_path = url_output.group('only_path')
 
-        # Catch undefined calls
-        if file_id == "undefined":
+        try:
+            # Look up file data
+            file = File.get(id=file_id)
+
+            # Ensure file location is an absolute path
+            file_path = file.absolute_path()
+        except AttributeError:
+            # Couldn't match file ID
             self.send_error(404)
             return
 
@@ -137,18 +143,14 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         # Locate thumbnail
         thumb_path = os.path.join(info.THUMBNAIL_PATH, file_id, "%s.png" % file_frame)
         if not os.path.exists(thumb_path) and file_frame == 1:
-            # Try with no frame # (for backwards compatibility)
+            # Try ID with no frame # (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file_id)
         if not os.path.exists(thumb_path) and file_frame != 1:
-            # Try with no frame # (for backwards compatibility)
+            # Try with ID and frame # in filename (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
 
         if not os.path.exists(thumb_path):
             # Generate thumbnail (since we can't find it)
-            file = File.get(id=file_id)
-
-            # Convert path to the correct relative path (based on this folder)
-            file_path = file.absolute_path()
 
             # Determine if video overlay should be applied to thumbnail
             overlay_path = ""
