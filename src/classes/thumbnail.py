@@ -36,7 +36,7 @@ from classes.query import File
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
-REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(.+?)/(\d+)(/path/)?")
+REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)(?P<only_path>/path/)?")
 
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
@@ -107,8 +107,8 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
 
         """ Process each GET request and return a value (image or file path)"""
         # Parse URL
-        url_output = REGEX_THUMBNAIL_URL.findall(self.path)
-        if url_output and len(url_output[0]) == 3:
+        url_output = REGEX_THUMBNAIL_URL.match(self.path)
+        if url_output and len(url_output.groups()) == 3:
             # Path is expected to have 3 matched components (third is optional though)
             #   /thumbnails/FILE-ID/FRAME-NUMBER/   or
             #   /thumbnails/FILE-ID/FRAME-NUMBER/path/
@@ -118,9 +118,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             return
 
         # Get URL parts
-        file_id = url_output[0][0]
-        file_frame = int(url_output[0][1])
-        only_path = url_output[0][2]
+        file_id = url_output.group('file_id')
+        file_frame = int(url_output.group('file_frame'))
+        only_path = url_output.group('only_path')
 
         # Catch undefined calls
         if file_id == "undefined":
