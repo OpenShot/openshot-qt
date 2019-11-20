@@ -42,15 +42,16 @@ from windows.models.files_model import FilesModel
 
 import openshot
 
+
 class PropertyDelegate(QItemDelegate):
     def __init__(self, parent=None, *args):
         QItemDelegate.__init__(self, parent, *args)
 
         # pixmaps for curve icons
-        self.curve_pixmaps = { openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
-                               openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
-                               openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
-                             }
+        self.curve_pixmaps = {openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
+                              openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
+                              openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
+                              }
 
     def paint(self, painter, option, index):
         painter.save()
@@ -125,9 +126,9 @@ class PropertyDelegate(QItemDelegate):
             painter.setBrush(gradient)
             path = QPainterPath()
             value_rect = QRectF(option.rect)
-            path.addRoundedRect(value_rect, 15, 15);
+            path.addRoundedRect(value_rect, 15, 15)
             painter.fillPath(path, gradient)
-            painter.drawPath(path);
+            painter.drawPath(path)
             painter.setClipping(False)
 
             if points > 1:
@@ -406,7 +407,11 @@ class PropertiesTableView(QTableView):
                     fileParentPath = self.files_model.model.item(fileItem.row(), 4).text()
 
                     # Append file choice
-                    file_choices.append({"name": fileName, "value": os.path.join(fileParentPath, fileName), "selected": False, "icon": fileIcon })
+                    file_choices.append({"name": fileName,
+                                         "value": os.path.join(fileParentPath, fileName),
+                                         "selected": False,
+                                         "icon": fileIcon
+                                         })
 
                 # Add root file choice
                 self.choices.append({"name": _("Files"), "value": file_choices, "selected": False})
@@ -421,20 +426,20 @@ class PropertiesTableView(QTableView):
                     transPath = self.transition_model.model.item(transItem.row(), 3).text()
 
                     # Append transition choice
-                    trans_choices.append({"name": transName, "value": transPath, "selected": False, "icon": transIcon })
+                    trans_choices.append({"name": transName, "value": transPath, "selected": False, "icon": transIcon})
 
                 # Add root transitions choice
                 self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
 
             # Handle reader type values
-            if property_name =="Track" and self.property_type == "int" and not self.choices:
+            if property_name == "Track" and self.property_type == "int" and not self.choices:
                 # Populate all display track names
                 all_tracks = get_app().project.get("layers")
                 display_count = len(all_tracks)
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
                     # Append track choice
                     track_name = track.get("label") or _("Track %s") % display_count
-                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False })
+                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False})
                     display_count -= 1
 
             # Define bezier presets
@@ -680,7 +685,7 @@ class SelectionLabel(QFrame):
                 item_icon = QIcon(QPixmap(clip.data.get('image')))
                 action = menu.addAction(item_name)
                 action.setIcon(item_icon)
-                action.setData({'item_id':item_id, 'item_type':'clip'})
+                action.setData({'item_id': item_id, 'item_type': 'clip'})
                 action.triggered.connect(self.Action_Triggered)
 
                 # Add effects for these clips (if any)
@@ -699,7 +704,7 @@ class SelectionLabel(QFrame):
             trans = Transition.get(id=item_id)
             if trans:
                 item_name = _(trans.title())
-                item_icon = QIcon(QPixmap(trans.data.get('reader',{}).get('path')))
+                item_icon = QIcon(QPixmap(trans.data.get('reader', {}).get('path')))
                 action = menu.addAction(_(item_name))
                 action.setIcon(item_icon)
                 action.setData({'item_id': item_id, 'item_type': 'transition'})
@@ -793,7 +798,7 @@ class SelectionLabel(QFrame):
         self.lblSelection.setTextFormat(Qt.RichText)
 
         hbox = QHBoxLayout()
-        hbox.setContentsMargins(0,0,0,0)
+        hbox.setContentsMargins(0, 0, 0, 0)
         hbox.addWidget(self.lblSelection)
         hbox.addWidget(self.btnSelectionName)
         self.setLayout(hbox)
