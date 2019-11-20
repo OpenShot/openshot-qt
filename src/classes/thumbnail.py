@@ -58,7 +58,7 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
         pass
 
     # Create thumbnail folder (if needed)
-    parent_path, file_name = os.path.split(thumb_path)
+    parent_path = os.path.dirname(thumb_path)
     if not os.path.exists(parent_path):
         os.mkdir(parent_path)
 
