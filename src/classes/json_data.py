@@ -38,7 +38,7 @@ from classes.logger import log
 from classes import info
 
 # Compiled path regex
-path_regex = re.compile(r'\"(image|path)\":.*?\"(.*?)\"', re.UNICODE)
+path_regex = re.compile(r'\"(image|path)\":.*?\"(.*?)\"')
 path_context = {}
 
 
@@ -162,20 +162,19 @@ class JsonDataStore:
         path = match.groups(0)[1]
 
         # Find absolute path of file (if needed)
-        utf_path = os.fsencode(path)  # parse bytestring into unicode string
-        if "@transitions" in utf_path:
+        if "@transitions" in path:
             new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
-        elif "@assets" in utf_path:
+        elif "@assets" in path:
             new_path = path.replace("@assets", path_context["new_project_assets"])
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
         else:
             # Convert path to the correct relative path
-            new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), utf_path))
+            new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), path))
             new_path = json.dumps(new_path)  # Escape backslashes
             return '"%s": %s' % (key, new_path)
 
@@ -200,8 +199,7 @@ class JsonDataStore:
         """Replace matched string for converting paths to relative paths"""
         key = match.groups(0)[0]
         path = match.groups(0)[1]
-        utf_path = os.fsencode(path)  # parse bytestring into unicode string
-        folder_path, file_path = os.path.split(os.path.abspath(utf_path))
+        folder_path, file_path = os.path.split(os.path.abspath(path))
 
         # Determine if thumbnail path is found
         if info.THUMBNAIL_PATH in folder_path:
@@ -233,7 +231,7 @@ class JsonDataStore:
         # Find absolute path of file (if needed)
         else:
             # Convert path to the correct relative path (based on the existing folder)
-            orig_abs_path = os.path.abspath(utf_path)
+            orig_abs_path = os.path.abspath(path)
 
             # Remove file from abs path
             orig_abs_folder = os.path.split(orig_abs_path)[0]
