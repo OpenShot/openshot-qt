@@ -153,7 +153,7 @@ class PropertiesTableView(QTableView):
         model = self.clip_properties_model.model
 
         # Do not change selected row during mouse move
-        if self.lock_selection:
+        if self.lock_selection and self.prev_row:
             row = self.prev_row
         else:
             row = self.indexAt(event.pos()).row()
