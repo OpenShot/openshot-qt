@@ -33,6 +33,7 @@ import time
 from threading import Thread
 from classes import info
 from classes.query import File
+from classes.logger import log
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
@@ -54,7 +55,7 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
     try:
         if reader.info.metadata.count("rotate"):
             rotate = float(reader.info.metadata.find("rotate").value()[1])
-    except:
+    except Exception:
         pass
 
     # Create thumbnail folder (if needed)
@@ -98,6 +99,14 @@ class httpThumbnailServerThread(Thread):
 
 class httpThumbnailHandler(BaseHTTPRequestHandler):
     """ This class handles HTTP requests to the HTTP thumbnail server above."""
+
+    def log_message(self, msg_format, *args):
+        """ Log message from HTTPServer """
+        log.info(msg_format % args)
+
+    def log_error(self, msg_format, *args):
+        """ Log error from HTTPServer """
+        log.error(msg_format % args)
 
     def do_GET(self):
         # Pause processing of request (since we don't currently use thread pooling, this allows
