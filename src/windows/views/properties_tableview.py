@@ -215,31 +215,37 @@ class PropertiesTableView(QTableView):
                         # Grab the original data for this item/property
                         self.original_data = c.data
 
-            # Calculate percentage value
+            # For numeric values, apply percentage within parameter's allowable range
             if property_type in ["float", "int"] and property_name != "Track":
+
+                if self.previous_x == -1:
+                    # Start tracking movement (init diff_length and previous_x)
+                    self.diff_length = 10
+                    self.previous_x = event.x()
+
+                # Calculate # of pixels dragged
+                drag_diff = self.previous_x - event.x()
+
+                # update previous x
+                self.previous_x = event.x()
+
+                # Ignore small initial movements
+                if abs(drag_diff) < self.diff_length:
+                    # Lower threshold to 0 incrementally, to guarantee it'll eventually be exceeded
+                    self.diff_length = max(0, self.diff_length - 1)
+                    return
+
+                # Compute size of property's possible values range
                 min_max_range = float(property_max) - float(property_min)
 
-                # Determine if range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
-                if min_max_range > 1000.0:
-                    # Get the current value
+                if min_max_range < 1000.0:
+                    # Small range - use cursor to calculate new value as percentage of total range
+                    self.new_value = property_min + (min_max_range * cursor_value_percent)
+                else:
+                    # range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
+
+                    # Get the current value and apply fixed adjustments in response to motion
                     self.new_value = QLocale().system().toDouble(self.selected_item.text())[0]
-
-                    # Huge range - increment / decrement slowly
-                    if self.previous_x == -1:
-                        # Init previous_x for the first time
-                        self.previous_x = event.x()
-                        self.diff_length = 10
-                    # Calculate # of pixels dragged
-                    drag_diff = self.previous_x - event.x()
-
-                    if abs(drag_diff) < self.diff_length:
-                        # If threshold exceed then allow any small incriment for the next time
-                        # In few steps, because the first click may has any far position
-                        self.diff_length -= 1
-                        if self.diff_length < 0:
-                            self.diff_length = 0
-                        self.previous_x = event.x()
-                        return
 
                     if drag_diff > 0:
                         # Move to the left by a small amount
@@ -247,24 +253,6 @@ class PropertiesTableView(QTableView):
                     elif drag_diff < 0:
                         # Move to the right by a small amount
                         self.new_value += 0.50
-                    # update previous x
-                    self.previous_x = event.x()
-                else:
-                    if self.previous_x == -1:
-                        # Init previous_x for the first time
-                        self.previous_x = event.x()
-                        self.diff_length = 10
-                    if abs(self.previous_x - event.x()) < self.diff_length:
-                        # If threshold exceeded then allow any small incriment for the next time
-                        # In few steps, because the first click may has any far position
-                        self.diff_length -= 1
-                        if self.diff_length < 0:
-                            self.diff_length = 0
-                        self.previous_x = event.x()
-                        return
-                    # Small range - use cursor % to calculate new value
-                    self.new_value = property_min + (min_max_range * cursor_value_percent)
-                    self.previous_x = event.x()
 
                 # Clamp value between min and max (just incase user drags too big)
                 self.new_value = max(property_min, self.new_value)
