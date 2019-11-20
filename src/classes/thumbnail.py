@@ -112,7 +112,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             # Path is expected to have 3 matched components (third is optional though)
             #   /thumbnails/FILE-ID/FRAME-NUMBER/   or
             #   /thumbnails/FILE-ID/FRAME-NUMBER/path/
-            self.send_response(200)
+            self.send_response_only(200)
         else:
             self.send_error(404)
             return
