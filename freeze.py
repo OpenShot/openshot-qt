@@ -331,12 +331,13 @@ exes = [Executable("openshot_qt/launch.py",
                    shortcutDir="ProgramMenuFolder",
                    targetName=exe_name)]
 
-if extra_exe:
+try:
     exes.append(Executable("openshot_qt/launch.py",
-                base=extra_exe.base,
+                base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
-                targetName=extra_exe.name))
-
+                targetName=extra_exe['name']))
+except NameError:
+    pass
 
 # Create distutils setup object
 setup(name=info.PRODUCT_NAME,
