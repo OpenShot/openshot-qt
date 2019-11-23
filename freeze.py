@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief cx_Freeze script to build OpenShot package with dependencies (for Mac and Windows)
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -141,6 +141,10 @@ for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
             src_files.append((git_log_path, "settings/%s.log" % project))
 
 if sys.platform == "win32":
+    # Define alternate terminal-based executable
+    extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
+
+    # Standard graphical Win32 launcher
     base = "Win32GUI"
     build_exe_options["include_msvcr"] = True
     exe_name += ".exe"
@@ -252,11 +256,11 @@ elif sys.platform == "linux":
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
                     "libthai.so.0",
-                    ]
+                ]
                 and not libpath_file.startswith("libxcb-")
-               ) \
+                ) \
                or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
-              
+
                 # Ignore missing files
                 if os.path.exists(libpath):
                     filepath, filename = os.path.split(libpath)
@@ -303,18 +307,30 @@ build_exe_options["include_files"] = src_files + external_so_files
 # Set options
 build_options["build_exe"] = build_exe_options
 
+# Define launcher executable to create
+exes = [Executable("openshot_qt/launch.py",
+                   base=base,
+                   icon=os.path.join(PATH, "xdg", iconFile),
+                   shortcutName="%s" % info.PRODUCT_NAME,
+                   shortcutDir="ProgramMenuFolder",
+                   targetName=exe_name)]
+
+try:
+    # Include extra launcher configuration, if defined
+    exes.append(Executable("openshot_qt/launch.py",
+                base=extra_exe['base'],
+                icon=os.path.join(PATH, "xdg", iconFile),
+                targetName=extra_exe['name']))
+except NameError:
+    pass
+
 # Create distutils setup object
 setup(name=info.PRODUCT_NAME,
       version=info.VERSION,
       description=info.DESCRIPTION,
       author=info.COMPANY_NAME,
       options=build_options,
-      executables=[Executable("openshot_qt/launch.py",
-                              base=base,
-                              icon=os.path.join(PATH, "xdg", iconFile),
-                              shortcutName="%s" % info.PRODUCT_NAME,
-                              shortcutDir="ProgramMenuFolder",
-                              targetName=exe_name)])
+      executables=exes)
 
 
 # Remove temporary folder (if SRC folder present)
