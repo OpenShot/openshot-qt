@@ -160,6 +160,8 @@ for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
             src_files.append((git_log_path, "settings/%s.log" % project))
 
 if sys.platform == "win32":
+    extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
+
     base = "Win32GUI"
     build_exe_options["include_msvcr"] = True
     exe_name += ".exe"
@@ -271,9 +273,9 @@ elif sys.platform == "linux":
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
                     "libthai.so.0",
-                    ]
+                ]
                 and not libpath_file.startswith("libxcb-")
-               ) \
+                ) \
                or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
                 # Ignore missing files
@@ -322,18 +324,27 @@ build_exe_options["include_files"] = src_files + external_so_files
 # Set options
 build_options["build_exe"] = build_exe_options
 
+exes = [Executable("openshot_qt/launch.py",
+                   base=base,
+                   icon=os.path.join(PATH, "xdg", iconFile),
+                   shortcutName="%s" % info.PRODUCT_NAME,
+                   shortcutDir="ProgramMenuFolder",
+                   targetName=exe_name)]
+
+if extra_exe:
+    exes.append(Executable("openshot_qt/launch.py",
+                base=extra_exe.base,
+                icon=os.path.join(PATH, "xdg", iconFile),
+                targetName=extra_exe.name))
+
+
 # Create distutils setup object
 setup(name=info.PRODUCT_NAME,
       version=info.VERSION,
       description=info.DESCRIPTION,
       author=info.COMPANY_NAME,
       options=build_options,
-      executables=[Executable("openshot_qt/launch.py",
-                              base=base,
-                              icon=os.path.join(PATH, "xdg", iconFile),
-                              shortcutName="%s" % info.PRODUCT_NAME,
-                              shortcutDir="ProgramMenuFolder",
-                              targetName=exe_name)])
+      executables=exes)
 
 
 # Remove temporary folder (if SRC folder present)
