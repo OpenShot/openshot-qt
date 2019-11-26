@@ -530,7 +530,7 @@ class BlenderListView(QListView):
             script_body = f.read()
 
         # modify script variable
-        script_body = script_body.replace("#INJECT_PARAMS_HERE", user_params)
+        script_body = script_body.replace("# INJECT_PARAMS_HERE", user_params)
 
         # Write update script
         with open(path, "w", encoding="UTF-8", errors="strict") as f:
@@ -719,7 +719,7 @@ class Worker(QObject):
             # Shell the blender command to create the image sequence
             command_get_version = [self.blender_exec_path, '-v']
             command_render = [self.blender_exec_path, '-b', self.blend_file_path, '-P', self.target_script]
-            
+
             # debug info
             # NOTE: If the length of the command_render list changes, update to match!
             log.info("Blender command: {} {} '{}' {} '{}'".format(*command_render))
