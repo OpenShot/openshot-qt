@@ -65,8 +65,25 @@ import shutil
 print (str(cx_Freeze))
 
 # Packages to include
-python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", "json"]
+python_packages = ["os",
+                   "sys",
+                   "PyQt5",
+                   "openshot",
+                   "time",
+                   "uuid",
+                   "shutil", 
+                   "threading",
+                   "subprocess",
+                   "re",
+                   "math",
+                   "xml",
+                   "logging",
+                   "urllib",
+                   "requests",
+                   "zmq",
+                   "webbrowser", 
+                   "json"
+                   ]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -161,9 +178,9 @@ if sys.platform == "win32":
     # Manually add zmq dependency (windows does not freeze it correctly)
     import zmq
     python_packages.remove('zmq')
-    zmq_path = os.path.dirname(inspect.getfile(zmq))
+    zmq_path = os.path.normpath(os.path.dirname(inspect.getfile(zmq)))
     for filename in find_files(zmq_path, ["*"]):
-        src_files.append((filename, os.path.join("lib", "zmq", filename.replace(zmq_path + "\\", ""))))
+        src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
 
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
@@ -177,12 +194,12 @@ elif sys.platform == "linux":
     # Find all related SO files
     for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
         if '_' in filename or filename.count(".") == 2:
-            external_so_files.append((filename, filename.replace("/usr/local/lib/", "").replace(libopenshot_path + "/", "")))
+            external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
 
     # Add libresvg (if found)
     resvg_path = "/usr/local/lib/libresvg.so"
     if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
+        external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
     # Append Linux ICON file
     iconFile += ".svg"
@@ -197,10 +214,10 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
-        import_module(mod_name)
-        pyqt5_mod_files.append(sys.modules.get(mod_name).__spec__.origin)
+        mod = import_module(mod_name)
+        pyqt5_mod_files.append(inspect.getfile(mod))
 
     lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
                 "/usr/local/lib/libresvg.so",
