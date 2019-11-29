@@ -64,6 +64,11 @@ import shutil
 
 print (str(cx_Freeze))
 
+# Set '${ARCHLIB}' envvar to override system library path
+ARCHLIB = os.getenv('ARCHLIB', "/usr/lib/x86_64-linux-gnu/")
+if not ARCHLIB.endswith('/'):
+    ARCHLIB += '/'
+
 # Packages to include
 python_packages = ["os",
                    "sys",
@@ -221,7 +226,7 @@ elif sys.platform == "linux":
 
     lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
                 "/usr/local/lib/libresvg.so",
-                "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so"
+                ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
                 ] + pyqt5_mod_files
 
     import subprocess
@@ -285,14 +290,18 @@ elif sys.platform == "linux":
 
     # Manually add missing files (that were missed in the above step). These files are required
     # for certain distros (like Fedora, openSUSE, Debian, etc...)
-    external_so_files.append(("/lib/x86_64-linux-gnu/libssl.so.1.0.0", "libssl.so.1.0.0"))
-    external_so_files.append(("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", "libcrypto.so.1.0.0"))
-    # Glib related files (required for some distros)
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libglib-2.0.so", "libglib-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgio-2.0.so", "libgio-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so", "libgmodule-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgthread-2.0.so", "libgthread-2.0.so"))
+    # Also add Glib related files (required for some distros)
 
+    for added_lib in [ARCHLIB + "libssl.so.1.0.0",
+                      ARCHLIB + "libcrypto.so.1.0.0",
+                      ARCHLIB + "libglib-2.0.so",
+                      ARCHLIB + "libgio-2.0.so",
+                      ARCHLIB + "libgmodule-2.0.so",
+                      ARCHLIB + "libthread-2.0.so"
+                      ]:
+        if os.path.exists(added_lib):
+            external_so_files.append((added_lib, os.path.basename(added_lib)))
+                      
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
     # JPEG library
