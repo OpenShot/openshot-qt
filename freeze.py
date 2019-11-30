@@ -76,7 +76,7 @@ python_packages = ["os",
                    "openshot",
                    "time",
                    "uuid",
-                   "shutil", 
+                   "shutil",
                    "threading",
                    "subprocess",
                    "re",
@@ -86,7 +86,7 @@ python_packages = ["os",
                    "urllib",
                    "requests",
                    "zmq",
-                   "webbrowser", 
+                   "webbrowser",
                    "json"
                    ]
 
@@ -301,7 +301,9 @@ elif sys.platform == "linux":
                       ]:
         if os.path.exists(added_lib):
             external_so_files.append((added_lib, os.path.basename(added_lib)))
-                      
+        else:
+            log.warning("{}: not found, skipping".format(added_lib))
+
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
     # JPEG library
