@@ -1019,7 +1019,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not framePath.endswith(".png"):
             framePath = "%s.png" % framePath
 
-        app.updates.update(["export_path"], os.path.dirname(framePath))
+        app.updates.update_untracked(["export_path"], os.path.dirname(framePath))
         log.info("Saving frame to %s" % framePath)
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)

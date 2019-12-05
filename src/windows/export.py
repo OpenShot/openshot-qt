@@ -615,7 +615,7 @@ class Export(QDialog):
         if os.path.exists(file_path):
             self.txtExportFolder.setText(file_path)
             # update export folder path in project file
-            app.updates.update(["export_path"], file_path)
+            app.updates.update_untracked(["export_path"], file_path)
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0
