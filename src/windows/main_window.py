@@ -694,7 +694,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         for file_path in files:
             self.filesTreeView.add_file(file_path)
             self.filesTreeView.refresh_view()
-            app.updates.update(["import_path"], os.path.dirname(file_path))
+            app.updates.update_untracked(["import_path"], os.path.dirname(file_path))
             log.info("Imported media file {}".format(file_path))
 
     def actionAdd_to_Timeline_trigger(self, event):
@@ -929,7 +929,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Update playhead position"""
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
-    
+
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable follow mode """
         self.timeline.SetPlayheadFollow(enable_follow)
@@ -1325,7 +1325,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
-            
+
     def actionCenterOnPlayhead_trigger(self, event):
         """ Center the timeline on the current playhead position """
         self.timeline.centerOnPlayhead()

@@ -939,7 +939,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if path and is_modified and not is_skipped:
                     # Found file, update path
                     file["path"] = path
-                    get_app().updates.update(["import_path"], os.path.dirname(path))
+                    get_app().updates.update_untracked(["import_path"], os.path.dirname(path))
                     log.info("Auto-updated missing file: %s" % path)
                 elif is_skipped:
                     # Remove missing file
