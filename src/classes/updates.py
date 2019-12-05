@@ -322,6 +322,13 @@ class UpdateManager:
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
+    def update_untracked(self, key, values, partial_update=False):
+        """ Update the UpdateManager with an UpdateAction, without creating a new entry in the history table (this action will then be distributed to all listeners) """
+        previous_ignore = self.ignore_history
+        self.ignore_history = True
+        self.update(key, values, partial_update)
+        self.ignore_history = previous_ignore
+
     def delete(self, key):
         """ Delete an item from the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
