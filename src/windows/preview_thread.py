@@ -55,10 +55,14 @@ class PreviewParent(QObject):
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
         log.info('onModeChanged')
-        if current_mode is openshot.PLAYBACK_PLAY:
-            self.parent.SetPlayheadFollow(False)
-        else:
-            self.parent.SetPlayheadFollow(True)
+        try:
+            if current_mode is openshot.PLAYBACK_PLAY:
+                self.parent.SetPlayheadFollow(False)
+            else:
+                self.parent.SetPlayheadFollow(True)
+        except AttributeError:
+            # Parent object doesn't need the playhead follow code
+            pass
 
     # Signal when the playback encounters an error
     def onError(self, error):
