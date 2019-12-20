@@ -835,12 +835,15 @@ class Export(QDialog):
             # These extra options should be set in an extra method
             # No feedback is given to the user
             # TODO: Tell user if option is not available
-            # Set the quality in case crf was selected
-            if "crf" in self.txtVideoBitRate.text():
-                w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
-
-            # Muxing options for mp4/mov
-            w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
+            if export_type in [_("Audio Only")]:
+                # Muxing options for mp4/mov
+                w.SetOption(openshot.AUDIO_STREAM, "muxing_preset", "mp4_faststart")
+            else:
+                # Muxing options for mp4/mov
+                w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
+                # Set the quality in case crf was selected
+                if "crf" in self.txtVideoBitRate.text():
+                    w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
 
             # Open the writer
             w.Open()
