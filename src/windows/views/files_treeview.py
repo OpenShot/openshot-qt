@@ -209,7 +209,7 @@ class FilesTreeView(QTreeView):
         """Inspect a file path and determine if this is an image sequence"""
 
         # Get just the file name
-        fileName = os.path.basename(file_path)
+        (dirName, fileName) = os.path.split(file_path)
         extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
         match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
 
