@@ -74,7 +74,7 @@ class OpenShotApp(QApplication):
 
             # Re-route stdout and stderr to logger
             reroute_output()
-        except (ImportError, ModuleNotFoundError) as ex:
+        except ImportError as ex:
             tb = traceback.format_exc()
             QMessageBox.warning(None, "Import Error",
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
