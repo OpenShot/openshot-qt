@@ -22,7 +22,7 @@ Getting Started
 
 OpenShot Video Editor is available on most operating systems (including Linux, Mac, and Windows).
 Visit the official download page and grab the latest and greatest version:
-http://www.openshot.org/download/.
+https://www.openshot.org/download/.
 
 Linux
 -----
