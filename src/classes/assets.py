@@ -26,7 +26,7 @@
  """
 
 import os
-from classes import info, settings
+from classes import info
 from classes.logger import log
 
 
