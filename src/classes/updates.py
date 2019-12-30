@@ -306,8 +306,8 @@ class UpdateManager:
         """ Insert a new UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('insert', key, values)
-        self.redoHistory.clear()
         if not self.ignore_history:
+            self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
@@ -315,19 +315,26 @@ class UpdateManager:
         """ Update the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('update', key, values, partial_update)
-        if self.last_action.key and self.last_action.key[0] != "history":
-            # Clear redo history for any update except a "history" update
-            self.redoHistory.clear()
         if not self.ignore_history:
+            if self.last_action.key and self.last_action.key[0] != "history":
+                # Clear redo history for any update except a "history" update
+                self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
+
+    def update_untracked(self, key, values, partial_update=False):
+        """ Update the UpdateManager with an UpdateAction, without creating a new entry in the history table (this action will then be distributed to all listeners) """
+        previous_ignore = self.ignore_history
+        self.ignore_history = True
+        self.update(key, values, partial_update)
+        self.ignore_history = previous_ignore
 
     def delete(self, key):
         """ Delete an item from the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('delete', key)
-        self.redoHistory.clear()
         if not self.ignore_history:
+            self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
