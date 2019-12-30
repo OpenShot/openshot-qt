@@ -269,7 +269,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.has_unsaved_changes = False
 
         # Reset info paths
-        info.THUMBNAIL_PATH =  os.path.join(info.USER_PATH, "thumbnail")
+        info.THUMBNAIL_PATH = os.path.join(info.USER_PATH, "thumbnail")
         info.TITLE_PATH = os.path.join(info.USER_PATH, "title")
         info.BLENDER_PATH = os.path.join(info.USER_PATH, "blender")
 
@@ -835,8 +835,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             for file in self._data["files"]:
                 path = file["path"]
 
-                # No longer store thumbnail image
-                file["image"] = ""
+                # For now, store thumbnail path for backwards compatibility
+                file["image"] = os.path.join(target_thumb_path, "{}.png".format(file["id"]))
 
                 # Assets which need to be copied
                 new_asset_path = None
@@ -872,8 +872,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             for clip in self._data["clips"]:
                 file_id = clip["file_id"]
 
-                # No longer store thumbnail image
-                clip["image"] = ""
+                # For now, store thumbnail path for backwards compatibility
+                clip["image"] = os.path.join(target_thumb_path, "{}.png".format(file_id))
 
                 log.info("Checking clip {} path for file {}".format(clip["id"], file_id))
                 # Update paths to files stored in our working space or old path structure
