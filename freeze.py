@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief cx_Freeze script to build OpenShot package with dependencies (for Mac and Windows)
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -64,9 +64,31 @@ import shutil
 
 print (str(cx_Freeze))
 
+# Set '${ARCHLIB}' envvar to override system library path
+ARCHLIB = os.getenv('ARCHLIB', "/usr/lib/x86_64-linux-gnu/")
+if not ARCHLIB.endswith('/'):
+    ARCHLIB += '/'
+
 # Packages to include
-python_packages = ["os", "sys", "PyQt5", "openshot", "time", "uuid", "shutil", "threading", "subprocess",
-                                 "re", "math", "xml", "logging", "urllib", "requests", "zmq", "webbrowser", "json"]
+python_packages = ["os",
+                   "sys",
+                   "PyQt5",
+                   "openshot",
+                   "time",
+                   "uuid",
+                   "shutil",
+                   "threading",
+                   "subprocess",
+                   "re",
+                   "math",
+                   "xml",
+                   "logging",
+                   "urllib",
+                   "requests",
+                   "zmq",
+                   "webbrowser",
+                   "json"
+                   ]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -141,6 +163,10 @@ for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
             src_files.append((git_log_path, "settings/%s.log" % project))
 
 if sys.platform == "win32":
+    # Define alternate terminal-based executable
+    extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
+
+    # Standard graphical Win32 launcher
     base = "Win32GUI"
     build_exe_options["include_msvcr"] = True
     exe_name += ".exe"
@@ -157,9 +183,9 @@ if sys.platform == "win32":
     # Manually add zmq dependency (windows does not freeze it correctly)
     import zmq
     python_packages.remove('zmq')
-    zmq_path = os.path.dirname(inspect.getfile(zmq))
+    zmq_path = os.path.normpath(os.path.dirname(inspect.getfile(zmq)))
     for filename in find_files(zmq_path, ["*"]):
-        src_files.append((filename, os.path.join("lib", "zmq", filename.replace(zmq_path + "\\", ""))))
+        src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
 
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
@@ -173,12 +199,12 @@ elif sys.platform == "linux":
     # Find all related SO files
     for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
         if '_' in filename or filename.count(".") == 2:
-            external_so_files.append((filename, filename.replace("/usr/local/lib/", "").replace(libopenshot_path + "/", "")))
+            external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
 
     # Add libresvg (if found)
     resvg_path = "/usr/local/lib/libresvg.so"
     if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
+        external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
     # Append Linux ICON file
     iconFile += ".svg"
@@ -193,14 +219,14 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
-        import_module(mod_name)
-        pyqt5_mod_files.append(sys.modules.get(mod_name).__spec__.origin)
+        mod = import_module(mod_name)
+        pyqt5_mod_files.append(inspect.getfile(mod))
 
     lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
                 "/usr/local/lib/libresvg.so",
-                "/usr/lib/x86_64-linux-gnu/qt5/plugins/platforms/libqxcb.so"
+                ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
                 ] + pyqt5_mod_files
 
     import subprocess
@@ -252,11 +278,11 @@ elif sys.platform == "linux":
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
                     "libthai.so.0",
-                    ]
+                ]
                 and not libpath_file.startswith("libxcb-")
-               ) \
+                ) \
                or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
-              
+
                 # Ignore missing files
                 if os.path.exists(libpath):
                     filepath, filename = os.path.split(libpath)
@@ -264,13 +290,19 @@ elif sys.platform == "linux":
 
     # Manually add missing files (that were missed in the above step). These files are required
     # for certain distros (like Fedora, openSUSE, Debian, etc...)
-    external_so_files.append(("/lib/x86_64-linux-gnu/libssl.so.1.0.0", "libssl.so.1.0.0"))
-    external_so_files.append(("/lib/x86_64-linux-gnu/libcrypto.so.1.0.0", "libcrypto.so.1.0.0"))
-    # Glib related files (required for some distros)
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libglib-2.0.so", "libglib-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgio-2.0.so", "libgio-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgmodule-2.0.so", "libgmodule-2.0.so"))
-    external_so_files.append(("/usr/lib/x86_64-linux-gnu/libgthread-2.0.so", "libgthread-2.0.so"))
+    # Also add Glib related files (required for some distros)
+
+    for added_lib in [ARCHLIB + "libssl.so.1.0.0",
+                      ARCHLIB + "libcrypto.so.1.0.0",
+                      ARCHLIB + "libglib-2.0.so",
+                      ARCHLIB + "libgio-2.0.so",
+                      ARCHLIB + "libgmodule-2.0.so",
+                      ARCHLIB + "libthread-2.0.so"
+                      ]:
+        if os.path.exists(added_lib):
+            external_so_files.append((added_lib, os.path.basename(added_lib)))
+        else:
+            log.warning("{}: not found, skipping".format(added_lib))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
@@ -303,18 +335,30 @@ build_exe_options["include_files"] = src_files + external_so_files
 # Set options
 build_options["build_exe"] = build_exe_options
 
+# Define launcher executable to create
+exes = [Executable("openshot_qt/launch.py",
+                   base=base,
+                   icon=os.path.join(PATH, "xdg", iconFile),
+                   shortcutName="%s" % info.PRODUCT_NAME,
+                   shortcutDir="ProgramMenuFolder",
+                   targetName=exe_name)]
+
+try:
+    # Include extra launcher configuration, if defined
+    exes.append(Executable("openshot_qt/launch.py",
+                base=extra_exe['base'],
+                icon=os.path.join(PATH, "xdg", iconFile),
+                targetName=extra_exe['name']))
+except NameError:
+    pass
+
 # Create distutils setup object
 setup(name=info.PRODUCT_NAME,
       version=info.VERSION,
       description=info.DESCRIPTION,
       author=info.COMPANY_NAME,
       options=build_options,
-      executables=[Executable("openshot_qt/launch.py",
-                              base=base,
-                              icon=os.path.join(PATH, "xdg", iconFile),
-                              shortcutName="%s" % info.PRODUCT_NAME,
-                              shortcutDir="ProgramMenuFolder",
-                              targetName=exe_name)])
+      executables=exes)
 
 
 # Remove temporary folder (if SRC folder present)
