@@ -25,12 +25,11 @@ Did you find a bug?
 -------------------
 
 -  **Please check if this bug was already reported** by searching on
-   GitHub under
-   `Issues <https://github.com/OpenShot/openshot-qt/issues>`__.
+   GitHub under `Issues`_.
 
--  If you're unable to find an open issue addressing the problem, `open
-   a new one <https://github.com/OpenShot/openshot-qt/issues/new>`__. Be
-   sure to include a **title and clear description**, as much relevant
+-  If you're unable to find an open issue addressing the problem,
+   :openshot-issue:`open a new one <new/choose>`.
+   Be sure to include a **title and clear description**, as much relevant
    information as possible, and the steps to reproduce the crash or
    issue.
 
@@ -39,7 +38,7 @@ Did you find a bug?
 
 Please download our latest daily installer:
 """""""""""""""""""""""""""""""""""""""""""
-1. `www.openshot.org/download <https://www.openshot.org/download>`__ - click the '**DAILY BUILDS**' button, then grab the latest build from the list.
+1. `openshot.org/download <https://www.openshot.org/download>`_ - click the '**DAILY BUILDS**' button, then grab the latest build from the list.
    (Use the buttons below to download installers for a different Operating System.)
 2. Then enable 'Debug Mode (Verbose)' in the Preferences
 3. Quit OpenShot and delete both log files:
@@ -78,3 +77,5 @@ help us fix them!
 Thanks!
 
 OpenShot Team
+
+.. _Issues: https://github.com/OpenShot/openshot-qt/issues/
