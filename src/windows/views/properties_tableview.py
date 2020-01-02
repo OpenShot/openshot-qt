@@ -42,15 +42,16 @@ from windows.models.files_model import FilesModel
 
 import openshot
 
+
 class PropertyDelegate(QItemDelegate):
     def __init__(self, parent=None, *args):
         QItemDelegate.__init__(self, parent, *args)
 
         # pixmaps for curve icons
-        self.curve_pixmaps = { openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
-                               openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
-                               openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
-                             }
+        self.curve_pixmaps = {openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
+                              openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
+                              openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
+                              }
 
     def paint(self, painter, option, index):
         painter.save()
@@ -125,9 +126,9 @@ class PropertyDelegate(QItemDelegate):
             painter.setBrush(gradient)
             path = QPainterPath()
             value_rect = QRectF(option.rect)
-            path.addRoundedRect(value_rect, 15, 15);
+            path.addRoundedRect(value_rect, 15, 15)
             painter.fillPath(path, gradient)
-            painter.drawPath(path);
+            painter.drawPath(path)
             painter.setClipping(False)
 
             if points > 1:
@@ -152,7 +153,7 @@ class PropertiesTableView(QTableView):
         model = self.clip_properties_model.model
 
         # Do not change selected row during mouse move
-        if self.lock_selection:
+        if self.lock_selection and self.prev_row:
             row = self.prev_row
         else:
             row = self.indexAt(event.pos()).row()
@@ -214,31 +215,37 @@ class PropertiesTableView(QTableView):
                         # Grab the original data for this item/property
                         self.original_data = c.data
 
-            # Calculate percentage value
+            # For numeric values, apply percentage within parameter's allowable range
             if property_type in ["float", "int"] and property_name != "Track":
+
+                if self.previous_x == -1:
+                    # Start tracking movement (init diff_length and previous_x)
+                    self.diff_length = 10
+                    self.previous_x = event.x()
+
+                # Calculate # of pixels dragged
+                drag_diff = self.previous_x - event.x()
+
+                # update previous x
+                self.previous_x = event.x()
+
+                # Ignore small initial movements
+                if abs(drag_diff) < self.diff_length:
+                    # Lower threshold to 0 incrementally, to guarantee it'll eventually be exceeded
+                    self.diff_length = max(0, self.diff_length - 1)
+                    return
+
+                # Compute size of property's possible values range
                 min_max_range = float(property_max) - float(property_min)
 
-                # Determine if range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
-                if min_max_range > 1000.0:
-                    # Get the current value
+                if min_max_range < 1000.0:
+                    # Small range - use cursor to calculate new value as percentage of total range
+                    self.new_value = property_min + (min_max_range * cursor_value_percent)
+                else:
+                    # range is unreasonably long (such as position, start, end, etc.... which can be huge #'s)
+
+                    # Get the current value and apply fixed adjustments in response to motion
                     self.new_value = QLocale().system().toDouble(self.selected_item.text())[0]
-
-                    # Huge range - increment / decrement slowly
-                    if self.previous_x == -1:
-                        # Init previous_x for the first time
-                        self.previous_x = event.x()
-                        self.diff_length = 10
-                    # Calculate # of pixels dragged
-                    drag_diff = self.previous_x - event.x()
-
-                    if abs(drag_diff) < self.diff_length:
-                        # If threshold exceed then allow any small incriment for the next time
-                        # In few steps, because the first click may has any far position
-                        self.diff_length -= 1
-                        if self.diff_length < 0:
-                            self.diff_length = 0
-                        self.previous_x = event.x()
-                        return
 
                     if drag_diff > 0:
                         # Move to the left by a small amount
@@ -246,24 +253,6 @@ class PropertiesTableView(QTableView):
                     elif drag_diff < 0:
                         # Move to the right by a small amount
                         self.new_value += 0.50
-                    # update previous x
-                    self.previous_x = event.x()
-                else:
-                    if self.previous_x == -1:
-                        # Init previous_x for the first time
-                        self.previous_x = event.x()
-                        self.diff_length = 10
-                    if abs(self.previous_x - event.x()) < self.diff_length:
-                        # If threshold exceeded then allow any small incriment for the next time
-                        # In few steps, because the first click may has any far position
-                        self.diff_length -= 1
-                        if self.diff_length < 0:
-                            self.diff_length = 0
-                        self.previous_x = event.x()
-                        return
-                    # Small range - use cursor % to calculate new value
-                    self.new_value = property_min + (min_max_range * cursor_value_percent)
-                    self.previous_x = event.x()
 
                 # Clamp value between min and max (just incase user drags too big)
                 self.new_value = max(property_min, self.new_value)
@@ -406,7 +395,11 @@ class PropertiesTableView(QTableView):
                     fileParentPath = self.files_model.model.item(fileItem.row(), 4).text()
 
                     # Append file choice
-                    file_choices.append({"name": fileName, "value": os.path.join(fileParentPath, fileName), "selected": False, "icon": fileIcon })
+                    file_choices.append({"name": fileName,
+                                         "value": os.path.join(fileParentPath, fileName),
+                                         "selected": False,
+                                         "icon": fileIcon
+                                         })
 
                 # Add root file choice
                 self.choices.append({"name": _("Files"), "value": file_choices, "selected": False})
@@ -421,20 +414,20 @@ class PropertiesTableView(QTableView):
                     transPath = self.transition_model.model.item(transItem.row(), 3).text()
 
                     # Append transition choice
-                    trans_choices.append({"name": transName, "value": transPath, "selected": False, "icon": transIcon })
+                    trans_choices.append({"name": transName, "value": transPath, "selected": False, "icon": transIcon})
 
                 # Add root transitions choice
                 self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
 
             # Handle reader type values
-            if property_name =="Track" and self.property_type == "int" and not self.choices:
+            if property_name == "Track" and self.property_type == "int" and not self.choices:
                 # Populate all display track names
                 all_tracks = get_app().project.get("layers")
                 display_count = len(all_tracks)
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
                     # Append track choice
                     track_name = track.get("label") or _("Track %s") % display_count
-                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False })
+                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False})
                     display_count -= 1
 
             # Define bezier presets
@@ -680,7 +673,7 @@ class SelectionLabel(QFrame):
                 item_icon = QIcon(QPixmap(clip.data.get('image')))
                 action = menu.addAction(item_name)
                 action.setIcon(item_icon)
-                action.setData({'item_id':item_id, 'item_type':'clip'})
+                action.setData({'item_id': item_id, 'item_type': 'clip'})
                 action.triggered.connect(self.Action_Triggered)
 
                 # Add effects for these clips (if any)
@@ -699,7 +692,7 @@ class SelectionLabel(QFrame):
             trans = Transition.get(id=item_id)
             if trans:
                 item_name = _(trans.title())
-                item_icon = QIcon(QPixmap(trans.data.get('reader',{}).get('path')))
+                item_icon = QIcon(QPixmap(trans.data.get('reader', {}).get('path')))
                 action = menu.addAction(_(item_name))
                 action.setIcon(item_icon)
                 action.setData({'item_id': item_id, 'item_type': 'transition'})
@@ -793,7 +786,7 @@ class SelectionLabel(QFrame):
         self.lblSelection.setTextFormat(Qt.RichText)
 
         hbox = QHBoxLayout()
-        hbox.setContentsMargins(0,0,0,0)
+        hbox.setContentsMargins(0, 0, 0, 0)
         hbox.addWidget(self.lblSelection)
         hbox.addWidget(self.btnSelectionName)
         self.setLayout(hbox)
