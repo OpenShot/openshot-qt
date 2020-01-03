@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the video preview QWidget (based on a QLabel)
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -567,6 +567,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
         # Stop timer
         self.delayed_resize_timer.stop()
+
+        # Ensure width & height are divisible by 2 (round decimals).
+        # Trying to find the closest even number to the requested aspect ratio
+        # so that both width and height are divisible by 2. This is to prevent some
+        # strange phantom scaling lines on the edges of the preview window.
+        ratio = float(get_app().project.get("width")) / float(get_app().project.get("height"))
+        width = round(self.delayed_size.width() / 2.0) * 2
+        height = (round(width / ratio) / 2.0) * 2
+
+        # Override requested size
+        self.delayed_size.setWidth(width)
+        self.delayed_size.setHeight(height)
 
         # Emit signal that video widget changed size
         self.win.MaxSizeChanged.emit(self.delayed_size)
