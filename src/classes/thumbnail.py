@@ -64,7 +64,7 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
         os.mkdir(parent_path)
 
     # Save thumbnail image and close readers
-    reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, width, height, mask, overlay, "#000", False, "png", 100, rotate)
+    reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, width, height, mask, overlay, "#000", False, "png", 85, rotate)
     reader.Close()
     clip.Close()
 

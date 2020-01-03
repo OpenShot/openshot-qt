@@ -161,7 +161,8 @@ class TitleEditor(QDialog):
         reader.Open()
 
         # Save thumbnail image and close readers
-        reader.GetFrame(1).Thumbnail(tmp_filename, self.graphicsView.width(), self.graphicsView.height(), "", "", "#000", False, "png", 100, 0.0)
+        reader.GetFrame(1).Thumbnail(tmp_filename, self.graphicsView.width(), self.graphicsView.height(), "", "",
+                                     "#000", False, "png", 85, 0.0)
         reader.Close()
         clip.Close()
 
