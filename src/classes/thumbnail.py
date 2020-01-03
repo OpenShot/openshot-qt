@@ -96,6 +96,10 @@ class httpThumbnailServerThread(Thread):
         self.thumbServer = httpThumbnailServer(self.server_address, httpThumbnailHandler)
         self.thumbServer.serve_forever(0.5)
 
+    def __init__(self):
+        Thread.__init__(self)
+        self.server_address = None
+
 
 class httpThumbnailHandler(BaseHTTPRequestHandler):
     """ This class handles HTTP requests to the HTTP thumbnail server above."""

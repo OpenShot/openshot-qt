@@ -29,6 +29,7 @@
 
 import os
 import sys
+import time
 from copy import deepcopy
 from functools import partial
 from random import uniform
@@ -166,6 +167,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def get_thumb_address(self):
         """Return the thumbnail HTTP server address"""
         thumb_server_details = get_app().window.http_server_thread.server_address
+        while not thumb_server_details:
+            log.info('No HTTP thumbnail server found yet... keep waiting...')
+            time.sleep(0.25)
+            thumb_server_details = get_app().window.http_server_thread.server_address
+
         thumb_address = "http://%s:%s/thumbnails/" % (thumb_server_details[0], thumb_server_details[1])
         return thumb_address
 
