@@ -82,10 +82,13 @@ class httpThumbnailServerThread(Thread):
         """Find the first available socket port"""
         s = socket.socket()
         s.bind(('', 0))
-        return s.getsockname()[1]
+        socket_port = s.getsockname()[1]
+        s.close()
+        return socket_port
 
     def kill(self):
         self.running = False
+        log.info('Shutting down thumbnail server: %s' % str(self.server_address))
         self.thumbServer.shutdown()
 
     def run(self):
