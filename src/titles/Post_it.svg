@@ -74,11 +74,6 @@
          in="SourceAlpha"
          stdDeviation="1.000000"
          result="blur" />
-      <feColorMatrix
-         id="feColorMatrix4002"
-         result="bluralpha"
-         type="matrix"
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.000000 0 " />
       <feOffset
          id="feOffset4004"
          in="bluralpha"
@@ -142,11 +137,6 @@
          in="SourceAlpha"
          stdDeviation="1.000000"
          result="blur" />
-      <feColorMatrix
-         id="feColorMatrix4002-4"
-         result="bluralpha"
-         type="matrix"
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.000000 0 " />
       <feOffset
          id="feOffset4004-2"
          in="bluralpha"
@@ -221,11 +211,6 @@
          in="SourceAlpha"
          stdDeviation="1.000000"
          result="blur" />
-      <feColorMatrix
-         id="feColorMatrix4002-4-4"
-         result="bluralpha"
-         type="matrix"
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.000000 0 " />
       <feOffset
          id="feOffset4004-2-8"
          in="bluralpha"
@@ -300,11 +285,6 @@
          in="SourceAlpha"
          stdDeviation="1.000000"
          result="blur" />
-      <feColorMatrix
-         id="feColorMatrix4002-4-3"
-         result="bluralpha"
-         type="matrix"
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.000000 0 " />
       <feOffset
          id="feOffset4004-2-0"
          in="bluralpha"
@@ -379,11 +359,6 @@
          in="SourceAlpha"
          stdDeviation="1.000000"
          result="blur" />
-      <feColorMatrix
-         id="feColorMatrix4002-4-1"
-         result="bluralpha"
-         type="matrix"
-         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.000000 0 " />
       <feOffset
          id="feOffset4004-2-9"
          in="bluralpha"
