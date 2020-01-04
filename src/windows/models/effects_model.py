@@ -119,6 +119,7 @@ class EffectsModel():
 
                 try:
                     # Reload this reader
+                    log.info('Generating thumbnail for % (%s)' % (thumb_path, icon_path))
                     clip = openshot.Clip(icon_path)
                     reader = clip.Reader()
 
