@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the effects model, used by the main window
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -88,7 +88,8 @@ class EffectsModel():
             effect_name = effect_info["class_name"]
             title = effect_info["name"]
             description = effect_info["description"]
-            icon_name = "%s.png" % effect_name.lower()
+            # Remove any spaces from icon name
+            icon_name = "%s.png" % effect_name.lower().replace(' ', '')
             icon_path = os.path.join(icons_dir, icon_name)
 
             # Determine the category of effect (audio, video, both)
@@ -119,6 +120,7 @@ class EffectsModel():
 
                 try:
                     # Reload this reader
+                    log.info('Generating thumbnail for % (%s)' % (thumb_path, icon_path))
                     clip = openshot.Clip(icon_path)
                     reader = clip.Reader()
 
@@ -126,12 +128,13 @@ class EffectsModel():
                     reader.Open()
 
                     # Save thumbnail
-                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), "",
-                                                 "#000", True)
+                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
+                                                 "", "#000", True, "png", 85)
                     reader.Close()
 
                 except:
                     # Handle exception
+                    log.info('Invalid effect image file: %s' % icon_path)
                     msg = QMessageBox()
                     msg.setText(_("{} is not a valid image file.".format(icon_path)))
                     msg.exec_()
