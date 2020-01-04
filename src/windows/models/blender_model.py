@@ -104,6 +104,7 @@ class BlenderModel():
 
                     except:
                         # Handle exception
+                        log.info('Invalid blender image file: %s' % icon_path)
                         msg = QMessageBox()
                         msg.setText(_("{} is not a valid image file.".format(icon_path)))
                         msg.exec_()
