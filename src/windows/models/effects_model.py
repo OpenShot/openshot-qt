@@ -88,7 +88,8 @@ class EffectsModel():
             effect_name = effect_info["class_name"]
             title = effect_info["name"]
             description = effect_info["description"]
-            icon_name = "%s.png" % effect_name.lower()
+            # Remove any spaces from icon name
+            icon_name = "%s.png" % effect_name.lower().replace(' ', '')
             icon_path = os.path.join(icons_dir, icon_name)
 
             # Determine the category of effect (audio, video, both)
