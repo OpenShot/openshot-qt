@@ -76,13 +76,14 @@ class OpenShotApp(QApplication):
             reroute_output()
         except ImportError as ex:
             tb = traceback.format_exc()
+            log.error('OpenShotApp::Import Error: %s' % str(ex))
             QMessageBox.warning(None, "Import Error",
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
             raise
             sys.exit()
-        except Exception:
-            raise
+        except Exception as ex:
+            log.error('OpenShotApp::Init Error: %s' % str(ex))
             sys.exit()
 
         # Log some basic system info

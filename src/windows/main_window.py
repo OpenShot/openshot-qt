@@ -159,7 +159,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
         app.logger_libopenshot.kill()
-        self.http_server_thread.kill()
+        if self.http_server_thread:
+            self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -2448,11 +2449,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.is_transforming = False
 
-    def init_thumbnail_server(self):
-        """Initialize and start the thumbnail HTTP server"""
-        self.http_server_thread = httpThumbnailServerThread()
-        self.http_server_thread.start()
-
     def __init__(self, mode=None):
 
         # Create main window base class
@@ -2510,8 +2506,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 
-        # Init HTTP server for thumbnails
-        self.init_thumbnail_server()
+            # Initialize and start the thumbnail HTTP server
+            self.http_server_thread = httpThumbnailServerThread()
+            self.http_server_thread.start()
+        else:
+            self.http_server_thread = None
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
@@ -2666,6 +2665,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Show window
         if not self.mode == "unittest":
             self.show()
+        else:
+            log.info('Hiding UI for unittests')
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
