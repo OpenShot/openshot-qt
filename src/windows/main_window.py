@@ -159,8 +159,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Close & Stop libopenshot logger
         openshot.ZmqLogger.Instance().Close()
         app.logger_libopenshot.kill()
-        if self.http_server_thread:
-            self.http_server_thread.kill()
+        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -2506,11 +2505,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 
-            # Initialize and start the thumbnail HTTP server
-            self.http_server_thread = httpThumbnailServerThread()
-            self.http_server_thread.start()
-        else:
-            self.http_server_thread = None
+        # Initialize and start the thumbnail HTTP server
+        self.http_server_thread = httpThumbnailServerThread()
+        self.http_server_thread.start()
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
