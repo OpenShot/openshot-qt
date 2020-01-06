@@ -95,7 +95,9 @@ class About(QDialog):
         self.btnchangelog.clicked.connect(self.load_changelog)
 
         # Init some variables
-        self.txtversion.setText(_("Version: %s") % info.VERSION)
+        openshot_qt_version = _("Version: %s") % info.VERSION
+        libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
+        self.txtversion.setText("<b>%s</b><br/>%s" % (openshot_qt_version, libopenshot_version))
         self.txtversion.setAlignment(Qt.AlignCenter)
 
         # Track metrics
