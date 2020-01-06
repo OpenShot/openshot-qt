@@ -953,10 +953,6 @@ class Export(QDialog):
         # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
-        # Return keyframes to preview scaling
-        if self.keyframes_rescaled:
-            app.project.rescale_keyframes(self.original_fps_factor)
-
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
             # Hide cancel and export buttons
@@ -980,6 +976,8 @@ class Export(QDialog):
 
     def reject(self):
         # Re-set OMP thread enabled flag
+        # NOTE: This is always called when closing the export modal, and thus
+        # the keyframes are always scaled back to the original FPS if needed.
         if self.s.get("omp_threads_enabled"):
             openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
         else:
