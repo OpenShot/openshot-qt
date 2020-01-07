@@ -2417,6 +2417,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if sys.platform == "linux" and self.has_launcher:
                 if not self.unity_launchers:
                     # Get launcher only once
+                    import gi
+                    gi.require_version('Unity', '7.0')
                     from gi.repository import Unity
                     self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("openshot-qt.desktop"))
                     self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("appimagekit-openshot-qt.desktop"))
