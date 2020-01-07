@@ -399,12 +399,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             return round(original_value * scale_factor)
 
     def rescale_keyframes(self, scale_factor):
-        """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)"""
+        """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
+           and return scaled project data without modifing the current project."""
         log.info('Scale all keyframes by a factor of %s' % scale_factor)
 
+        # Create copy of active project data
+        data = copy.deepcopy(self._data)
+
+        # Rescale the the copied project data
         # Loop through all clips (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
-        for clip in self._data.get('clips', []):
+        for clip in data.get('clips', []):
             for attribute in clip:
                 if type(clip.get(attribute)) == dict and "Points" in clip.get(attribute):
                     for point in clip.get(attribute).get("Points"):
@@ -429,7 +434,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through all effects/transitions (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
-        for effect in self._data.get('effects', []):
+        for effect in data.get('effects', []):
             for attribute in effect:
                 if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
                     for point in effect.get(attribute).get("Points"):
@@ -441,9 +446,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if "co" in point:
                                 point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
 
-        # Get app, and distribute all project data through update manager
-        from classes.app import get_app
-        get_app().updates.load(self._data)
+        # return the copied and scaled project data
+        return data
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
