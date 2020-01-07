@@ -50,7 +50,7 @@ class EffectsStandardItemModel(QStandardItemModel):
         files = []
         for item in indexes:
             selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 4).text())
+            files.append(self.item(selected_row, 3).text())
         data.setText(json.dumps(files))
         data.setHtml("effect")
 
@@ -73,7 +73,7 @@ class EffectsModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name"), _("Description")])
+        self.model.setHorizontalHeaderLabels([_("Name"), _("Description"), _("Type")])
 
         # Get the folder path of effects
         effects_dir = os.path.join(info.PATH, "effects")
@@ -142,21 +142,13 @@ class EffectsModel():
 
             row = []
 
-            # Append thumbnail
-            col = QStandardItem()
-
             icon_pixmap = QPixmap(thumb_path)
             scaled_pixmap = icon_pixmap.scaled(QSize(98, 64), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-            col.setIcon(QIcon(scaled_pixmap))
-            col.setText(self.app._tr(title))
-            col.setToolTip(self.app._tr(title))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
 
-            # Append Name
-            col = QStandardItem("Name")
+            # Append Name & thumbnail
+            col = QStandardItem(QIcon(scaled_pixmap), self.app._tr(title))
             col.setData(self.app._tr(title), Qt.DisplayRole)
-            col.setText(self.app._tr(title))
+            col.setToolTip(self.app._tr(title))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
@@ -166,22 +158,20 @@ class EffectsModel():
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
-            # Append Category
-            col = QStandardItem("Category")
+            # Append Category (Type)
+            col = QStandardItem(category)
             col.setData(category, Qt.DisplayRole)
-            col.setText(category)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append Path
-            col = QStandardItem("Effect")
+            col = QStandardItem(effect_name)
             col.setData(effect_name, Qt.DisplayRole)
-            col.setText(effect_name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
-            if not effect_name in self.model_names:
+            if effect_name not in self.model_names:
                 self.model.appendRow(row)
                 self.model_names[effect_name] = effect_name
 
@@ -190,5 +180,5 @@ class EffectsModel():
         # Create standard model
         self.app = get_app()
         self.model = EffectsStandardItemModel()
-        self.model.setColumnCount(5)
+        self.model.setColumnCount(4)
         self.model_names = {}

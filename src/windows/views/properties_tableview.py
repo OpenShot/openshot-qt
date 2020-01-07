@@ -410,8 +410,8 @@ class PropertiesTableView(QTableView):
                     modelIndex = self.transition_model.model.index(transIndex, 0)
                     transItem = self.transition_model.model.itemFromIndex(modelIndex)
                     transIcon = self.transition_model.model.item(transItem.row(), 0).icon()
-                    transName = self.transition_model.model.item(transItem.row(), 1).text()
-                    transPath = self.transition_model.model.item(transItem.row(), 3).text()
+                    transName = self.transition_model.model.item(transItem.row(), 0).text()
+                    transPath = self.transition_model.model.item(transItem.row(), 2).text()
 
                     # Append transition choice
                     trans_choices.append({"name": transName, "value": transPath, "selected": False, "icon": transIcon})

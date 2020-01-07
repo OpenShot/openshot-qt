@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the effects file treeview, used by the main window
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -34,9 +34,14 @@ from windows.models.effects_model import EffectsModel
 
 import json
 
+
 class EffectsTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = 48
+
+    def resizeEvent(self, event):
+        name_width = max(150, min(event.size().width() * 0.4, 280))
+        self.header().resizeSection(0, name_width)
 
     def contextMenuEvent(self, event):
         # Set context menu mode
@@ -57,7 +62,6 @@ class EffectsTreeView(QTreeView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.effects_model.model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -67,8 +71,8 @@ class EffectsTreeView(QTreeView):
 
     def refresh_view(self):
         self.effects_model.update_model()
+        self.hideColumn(2)
         self.hideColumn(3)
-        self.hideColumn(4)
 
     def __init__(self, *args):
         # Invoke parent init

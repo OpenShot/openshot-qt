@@ -38,6 +38,7 @@ from classes.app import get_app
 
 import json
 
+
 class TransitionStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
         QStandardItemModel.__init__(self)
@@ -50,7 +51,7 @@ class TransitionStandardItemModel(QStandardItemModel):
         files = []
         for item in indexes:
             selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 3).text())
+            files.append(self.item(selected_row, 2).text())
         data.setText(json.dumps(files))
         data.setHtml("transition")
 
@@ -73,7 +74,7 @@ class TransitionsModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name")])
+        self.model.setHorizontalHeaderLabels([_("Name")])
 
         # get a list of files in the OpenShot /transitions directory
         transitions_dir = os.path.join(info.PATH, "transitions")
@@ -125,7 +126,7 @@ class TransitionsModel():
                         continue
 
                 # Check for thumbnail path (in build-in cache)
-                thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
+                thumb_path = os.path.join(info.IMAGES_PATH, "cache", "{}.png".format(fileBaseName))
 
                 # Check built-in cache (if not found)
                 if not os.path.exists(thumb_path):
@@ -159,37 +160,26 @@ class TransitionsModel():
 
                 row = []
 
-                # Append thumbnail
-                col = QStandardItem()
-                col.setIcon(QIcon(thumb_path))
-                col.setText(trans_name)
+                # Append thumbnail & name
+                col = QStandardItem(QIcon(thumb_path), trans_name)
                 col.setToolTip(trans_name)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
-                # Append Filename
-                col = QStandardItem("Name")
-                col.setData(trans_name, Qt.DisplayRole)
-                col.setText(trans_name)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-                row.append(col)
-
-                # Append Media Type
-                col = QStandardItem("Type")
+                # Categorize
+                col = QStandardItem(type)
                 col.setData(type, Qt.DisplayRole)
-                col.setText(type)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Path
-                col = QStandardItem("Path")
+                col = QStandardItem(path)
                 col.setData(path, Qt.DisplayRole)
-                col.setText(path)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
-                if not path in self.model_paths:
+                if path not in self.model_paths:
                     self.model.appendRow(row)
                     self.model_paths[path] = path
 
@@ -198,5 +188,5 @@ class TransitionsModel():
         # Create standard model
         self.app = get_app()
         self.model = TransitionStandardItemModel()
-        self.model.setColumnCount(4)
+        self.model.setColumnCount(3)
         self.model_paths = {}
