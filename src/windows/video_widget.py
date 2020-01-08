@@ -46,8 +46,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         display_ratio_changed = False
         pixel_ratio_changed = False
         if action.key and action.key[0] in ["display_ratio", "pixel_ratio"] or action.type in ["load"]:
-            self.mutex.lock()
-
             # Update display ratio (if found)
             if action.type == "load" and action.values.get("display_ratio"):
                 display_ratio_changed = True
@@ -71,8 +69,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Update max size (to size of video preview viewport)
             if display_ratio_changed or pixel_ratio_changed:
                 get_app().window.timeline_sync.timeline.SetMaxSize(round(self.width() * self.pixel_ratio.ToFloat()), round(self.height() * self.pixel_ratio.ToFloat()))
-
-            self.mutex.unlock()
 
     def paintEvent(self, event, *args):
         """ Custom paint event """

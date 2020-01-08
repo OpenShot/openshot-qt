@@ -486,6 +486,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Ignore the request
             return
 
+        # Stop preview thread
+        self.SpeedSignal.emit(0)
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
+        self.actionPlay.setChecked(False)
+        QCoreApplication.processEvents()
+
         # Do we have unsaved changes?
         if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
