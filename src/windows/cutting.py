@@ -191,7 +191,7 @@ class Cutting(QDialog):
 
         # Convert seconds to time stamp
         time_text = time_parts.secondsToTime(seconds, self.fps_num, self.fps_den)
-        timestamp = "%s:%s:%s:%s" % (time_text["hour"], time_text["min"], time_text["sec"], time_text["frame"])
+        timestamp = "%s:%s:%s [%s]" % (time_text["hour"], time_text["min"], time_text["sec"], time_text["frame"])
 
         # Update label
         self.lblVideoTime.setText(timestamp)

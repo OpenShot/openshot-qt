@@ -404,7 +404,7 @@ class AddToTimeline(QDialog):
 
         # Update label
         total_parts = time_parts.secondsToTime(total, fps["num"], fps["den"])
-        timestamp = "%s:%s:%s:%s" % (total_parts["hour"], total_parts["min"], total_parts["sec"], total_parts["frame"])
+        timestamp = "%s:%s:%s [%s]" % (total_parts["hour"], total_parts["min"], total_parts["sec"], total_parts["frame"])
         self.lblTotalLengthValue.setText(timestamp)
 
     def reject(self):

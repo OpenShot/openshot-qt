@@ -93,7 +93,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
     $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
     $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
-    $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
+    $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + " [" + $scope.playheadTime.frame + "]");
   };
 
   // Move the playhead to a specific frame
