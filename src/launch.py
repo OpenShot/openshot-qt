@@ -42,7 +42,7 @@
 
 import sys
 import os.path
-from argparse import ArgumentParser, REMAINDER
+import argparse
 
 try:
     from classes import info
@@ -53,13 +53,11 @@ except ImportError:
     from classes import info
     print("Loaded modules from installed directory: %s" % info.PATH)
 
-from classes.app import OpenShotApp
-
 
 def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
-    parser = ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
+    parser = argparse.ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
     parser.add_argument('-l', '--lang', action='store',
                         help='language code for interface (overrides '
                         'preferences and system environment)')
@@ -71,7 +69,8 @@ def main():
                         help='Additional locations to search for modules '
                         '(PYTHONPATH). Can be used multiple times.')
     parser.add_argument('-V', '--version', action='store_true')
-    parser.add_argument('remain', nargs=REMAINDER)
+    parser.add_argument('remain', nargs=argparse.REMAINDER,
+                        help=argparse.SUPPRESS)
 
     args = parser.parse_args()
 
@@ -107,6 +106,8 @@ def main():
             sys.exit(-1)
 
     # Create Qt application, pass any unprocessed arguments
+    from classes.app import OpenShotApp
+
     argv = [sys.argv[0]]
     for arg in args.remain:
         argv.append(arg)
