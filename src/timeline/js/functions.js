@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Misc Functions used by the OpenShot Timeline 
+ * @brief Misc Functions used by the OpenShot Timeline
  * @author Jonathan Thomas <jonathan@openshot.org>
  * @author Cody Parker <cody@yourcodepro.com>
  *
@@ -38,12 +38,12 @@ function findElement(arr, propName, propValue) {
 
 // Get the height of the track container (minus bottom margin of last track)
 function getTrackContainerHeight() {
-	
+
 	var track_margin = 0;
 	if ($(".track").length)
 		if ($(".track").css("margin-bottom"))
 			track_margin = parseInt($(".track").css("margin-bottom").replace("px",""));
-	
+
 	return $("#track-container").height() - track_margin;
 }
 
@@ -73,10 +73,10 @@ function drawAudio(scope, clip_id){
 
         // Clear canvas
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        
+
         color = "#2a82da"; // rgb(42,130,218)
         color_transp = "rgba(42,130,218,0.5)";
-        
+
         ctx.strokeStyle = color;
 
         // Find the midpoint
@@ -89,15 +89,15 @@ function drawAudio(scope, clip_id){
         ctx.moveTo(0, mid_point);
         ctx.lineTo(audio_canvas.width(), mid_point);
         ctx.stroke();
-        
-        
+
+
         var sample = 0.0,
             // Variables for accumulation
             avg = 0.0,
             avg_cnt = 0,
             max = 0.0,
             last_x = 0;
-        
+
         // Go through all of the (reduced) samples
         // And whenever enough are "collected", draw a block
         for (var i = start_sample; i < end_sample; i++) {
@@ -109,19 +109,19 @@ function drawAudio(scope, clip_id){
             avg += sample;
             avg_cnt++;
             max = Math.max(max, sample);
-            
+
             if(x >= last_x + block_width || i == end_sample-1){
                 // Block wide enough or last block -> draw it
 
                 // Draw the slightly transparent max-bar
                 ctx.fillStyle = color_transp;
                 ctx.fillRect(last_x, mid_point, x-last_x, -(max * scale));
-                
+
                 // Draw the fully visible average-bar
                 ctx.fillStyle = color;
                 ctx.fillRect(last_x, mid_point, x-last_x, -(avg/avg_cnt * scale));
-                
-                // Reset all the variables for accumulation 
+
+                // Reset all the variables for accumulation
                 last_x = x;
                 avg = 0;
                 avg_cnt = 0;
@@ -152,7 +152,7 @@ function secondsToTime(secs, fps_num, fps_den)
 	var week = Math.floor(day/7);
 	var day = day % 7;
 
-	var frame = Math.round((milli / 1000.0) * (fps_num / fps_den)) + 1;
+	var frame = Math.floor((milli / 1000.0) * (fps_num / fps_den)) + 1;
     return { "week":padNumber(week,2), "day":padNumber(day,2), "hour":padNumber(hour,2), "min":padNumber(min,2), "sec":padNumber(sec,2), "milli":padNumber(milli,2), "frame":padNumber(frame,2) };
 }
 
@@ -202,7 +202,7 @@ var bounding_box = Object();
 function setBoundingBox(scope, item){
 	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
 	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-	
+
     var item_bottom = item.position().top + item.height() + vert_scroll_offset;
     var item_top = item.position().top + vert_scroll_offset;
     var item_left = item.position().left + horz_scroll_offset;
@@ -221,7 +221,7 @@ function setBoundingBox(scope, item){
         if (item_left < bounding_box.left) bounding_box.left = item_left;
         if (item_bottom > bounding_box.bottom) bounding_box.bottom = item_bottom;
         if (item_right > bounding_box.right) bounding_box.right = item_right;
-        
+
         // compare height and width of bounding box (take the largest number)
         var height = bounding_box.bottom - bounding_box.top;
         var width = bounding_box.right - bounding_box.left;
@@ -305,7 +305,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
             bounding_box.right -= nearby_offset;
             snapping_result.left -= nearby_offset;
         }
-		
+
     } else {
 	    // Hide snapline
 		scope.HideSnapline();
