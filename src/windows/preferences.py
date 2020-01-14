@@ -412,7 +412,7 @@ class Preferences(QDialog):
         if fileName:
             if platform.system() == "Darwin":
                 # Check for Mac specific app-bundle executable file (if any)
-                appBundlePath = os.path.join(fileName, 'Contents', 'MacOS', 'resources')
+                appBundlePath = os.path.join(fileName, 'Contents', 'MacOS')
                 if os.path.exists(os.path.join(appBundlePath, 'blender')):
                     fileName = os.path.join(appBundlePath, 'blender')
                 elif os.path.exists(os.path.join(appBundlePath, 'Blender')):
