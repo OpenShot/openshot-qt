@@ -344,3 +344,4 @@ class UpdateManager:
         if self.last_action:
             self.last_action.set_old_values(previous_value)
             self.actionHistory.append(self.last_action)
+            self.update_watchers()
