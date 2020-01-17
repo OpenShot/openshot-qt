@@ -191,6 +191,7 @@ class UpdateManager:
         """ Reset the UpdateManager, and clear all UpdateActions and History. This does not clear listeners and watchers. """
         self.actionHistory.clear()
         self.redoHistory.clear()
+        self.update_watchers()
 
     def add_listener(self, listener, index=-1):
         """ Add a new listener (which will invoke the changed(action) method each time an UpdateAction is available). """
