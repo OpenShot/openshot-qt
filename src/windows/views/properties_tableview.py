@@ -260,6 +260,7 @@ class PropertiesTableView(QTableView):
 
                 # Update value of this property
                 self.clip_properties_model.value_updated(self.selected_item, -1, self.new_value)
+                self.updated_called = True
 
                 # Repaint
                 self.viewport().update()
@@ -268,8 +269,11 @@ class PropertiesTableView(QTableView):
         # Inform UpdateManager to accept updates, and only store our final update
         get_app().updates.ignore_history = False
 
-        # Add final update to undo/redo history
-        get_app().updates.apply_last_action_to_history(self.original_data)
+        # Add final update to undo/redo history only if update was actually called
+        if self.updated_called:
+            get_app().updates.apply_last_action_to_history(self.original_data)
+            # Reset flag until the next successful mouse move
+            self.updated_called = False
 
         # Clear original data
         self.original_data = None
@@ -600,6 +604,9 @@ class PropertiesTableView(QTableView):
         self.original_data = None
         self.lock_selection = False
         self.prev_row = None
+
+        # The value_updated was called during the mouse move
+        self.updated_called = False
 
         # Context menu concurrency lock
         self.menu_lock = False
