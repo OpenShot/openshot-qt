@@ -133,13 +133,13 @@ class UpdateManager:
         self.actionHistory = []  # List of actions performed to current state
         self.redoHistory = []  # List of actions undone
         self.currentStatus = [None, None]  # Status of Undo and Redo buttons (true/false for should be enabled)
-        self.ignore_history = False # Ignore saving actions to history, to prevent a huge undo/redo list
-        self.last_action = None
+        self.ignore_history = False  # Ignore saving actions to history, to prevent a huge undo/redo list
+        self.last_action = None  # The last action processed
+        self.pending_action = None  # Last action not added to actionHistory list
 
     def load_history(self, project):
         """Load history from project"""
-        self.redoHistory.clear()
-        self.actionHistory.clear()
+        self.reset()
 
         # Get history from project data
         history = project.get("history")
@@ -186,15 +186,15 @@ class UpdateManager:
                 log.info("Saving undo history, skipped key: %s" % str(action.key))
 
         # Set history data in project
-        self.ignore_history = True
-        self.update(["history"], { "redo": redo_list, "undo": undo_list})
-        self.ignore_history = False
+        self.update_untracked(["history"], {"redo": redo_list, "undo": undo_list})
 
     def reset(self):
         """ Reset the UpdateManager, and clear all UpdateActions and History.
         This does not clear listeners and watchers. """
         self.actionHistory.clear()
         self.redoHistory.clear()
+        self.pending_action = None
+        self.last_action = None
 
     def add_listener(self, listener, index=-1):
         """ Add a new listener (which will invoke the changed(action) method
@@ -265,6 +265,7 @@ class UpdateManager:
             last_action = copy.deepcopy(self.actionHistory.pop())
 
             self.redoHistory.append(last_action)
+            self.pending_action = None
             # Get reverse of last action and perform it
             reverse_action = self.get_reverse_action(last_action)
             self.dispatch_action(reverse_action)
@@ -281,6 +282,7 @@ class UpdateManager:
                 next_action.key = next_action.key[:-1]
 
             self.actionHistory.append(next_action)
+            self.pending_action = None
             # Perform next redo action
             self.dispatch_action(next_action)
 
@@ -306,6 +308,7 @@ class UpdateManager:
         self.last_action = UpdateAction('load', '', values)
         self.redoHistory.clear()
         self.actionHistory.clear()
+        self.pending_action = None
         self.dispatch_action(self.last_action)
 
     # Perform new actions, clearing redo history for taking a new path
@@ -314,8 +317,11 @@ class UpdateManager:
         (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('insert', key, values)
-        if not self.ignore_history:
+        if self.ignore_history:
+            self.pending_action = self.last_action
+        else:
             self.redoHistory.clear()
+            self.pending_action = None
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
@@ -324,10 +330,13 @@ class UpdateManager:
         (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('update', key, values, partial_update)
-        if not self.ignore_history:
+        if self.ignore_history:
+            self.pending_action = self.last_action
+        else:
             if self.last_action.key and self.last_action.key[0] != "history":
                 # Clear redo history for any update except a "history" update
                 self.redoHistory.clear()
+            self.pending_action = None
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
@@ -336,22 +345,29 @@ class UpdateManager:
         a new entry in the history table
         (this action will then be distributed to all listeners) """
         previous_ignore = self.ignore_history
+        previous_pending = self.pending_action
         self.ignore_history = True
         self.update(key, values, partial_update)
         self.ignore_history = previous_ignore
+        self.pending_action = previous_pending
 
     def delete(self, key):
         """ Delete an item from the UpdateManager with an UpdateAction
         (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('delete', key)
-        if not self.ignore_history:
+        if self.ignore_history:
+            self.pending_action = self.last_action
+        else:
             self.redoHistory.clear()
+            self.pending_action = None
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
     def apply_last_action_to_history(self, previous_value):
         """ Apply the last action to the history """
-        if self.last_action:
-            self.last_action.set_old_values(previous_value)
-            self.actionHistory.append(self.last_action)
+        if self.pending_action:
+            self.pending_action.set_old_values(previous_value)
+            self.actionHistory.append(self.pending_action)
+            self.last_action = self.pending_action
+            self.pending_action = None
