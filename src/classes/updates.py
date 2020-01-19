@@ -192,6 +192,9 @@ class UpdateManager:
         self.actionHistory.clear()
         self.redoHistory.clear()
 
+        # Notify watchers of new history state
+        self.update_watchers()
+
     def add_listener(self, listener, index=-1):
         """ Add a new listener (which will invoke the changed(action) method each time an UpdateAction is available). """
 
@@ -343,3 +346,6 @@ class UpdateManager:
         if self.last_action:
             self.last_action.set_old_values(previous_value)
             self.actionHistory.append(self.last_action)
+
+            # Notify watchers of new history state
+            self.update_watchers()
