@@ -28,16 +28,16 @@
  """
 
 from classes.logger import log
-from classes import info
 import copy
-import os
 import json
+
 
 class UpdateWatcher:
     """ Interface for classes that listen for 'undo' and 'redo' events. """
 
     def updateStatusChanged(self, undo_status, redo_status):
-        """ Easily be notified each time there are 'undo' or 'redo' actions available in the UpdateManager. """
+        """ Easily be notified each time there are 'undo' or 'redo' actions
+        available in the UpdateManager. """
         raise NotImplementedError("updateStatus() not implemented in UpdateWatcher implementer.")
 
 
@@ -45,13 +45,15 @@ class UpdateInterface:
     """ Interface for classes that listen for changes (insert, update, and delete). """
 
     def changed(self, action):
-        """ This method is invoked each time the UpdateManager is changed. The action contains all the details of what changed,
+        """ This method is invoked each time the UpdateManager is changed.
+        The action contains all the details of what changed,
         including the type of change (insert, update, or delete). """
         raise NotImplementedError("changed() not implemented in UpdateInterface implementer.")
 
 
 class UpdateAction:
-    """A data structure representing a single update manager action, including any necessary data to reverse the action."""
+    """A data structure representing a single update manager action,
+    including any necessary data to reverse the action."""
 
     def __init__(self, type=None, key=[], values=None, partial_update=False):
         self.type = type  # insert, update, or delete
@@ -121,8 +123,9 @@ class UpdateAction:
 
 
 class UpdateManager:
-    """ This class is used to track and distribute changes to listeners. Typically, only 1 instance of this class is needed,
-    and many different listeners are connected with the add_listener() method. """
+    """ This class is used to track and distribute changes to listeners.
+    Typically, only 1 instance of this class is needed, and many different
+    listeners are connected with the add_listener() method. """
 
     def __init__(self):
         self.statusWatchers = []  # List of watchers
@@ -188,14 +191,16 @@ class UpdateManager:
         self.ignore_history = False
 
     def reset(self):
-        """ Reset the UpdateManager, and clear all UpdateActions and History. This does not clear listeners and watchers. """
+        """ Reset the UpdateManager, and clear all UpdateActions and History.
+        This does not clear listeners and watchers. """
         self.actionHistory.clear()
         self.redoHistory.clear()
 
     def add_listener(self, listener, index=-1):
-        """ Add a new listener (which will invoke the changed(action) method each time an UpdateAction is available). """
+        """ Add a new listener (which will invoke the changed(action) method
+        each time an UpdateAction is available). """
 
-        if not listener in self.updateListeners:
+        if listener not in self.updateListeners:
             if index <= -1:
                 # Add listener to end of list
                 self.updateListeners.append(listener)
@@ -206,9 +211,10 @@ class UpdateManager:
             log.warning("Cannot add existing listener: {}".format(str(listener)))
 
     def add_watcher(self, watcher):
-        """ Add a new watcher (which will invoke the updateStatusChanged() method each time a 'redo' or 'undo' action is available). """
+        """ Add a new watcher (which will invoke the updateStatusChanged() method
+        each time a 'redo' or 'undo' action is available). """
 
-        if not watcher in self.statusWatchers:
+        if watcher not in self.statusWatchers:
             self.statusWatchers.append(watcher)
         else:
             log.warning("Cannot add existing watcher: {}".format(str(watcher)))
@@ -294,7 +300,8 @@ class UpdateManager:
 
     # Perform load action (loading all project data), clearing history for taking a new path
     def load(self, values):
-        """ Load all project data via an UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
+        """ Load all project data via an UpdateAction into the UpdateManager
+        (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('load', '', values)
         self.redoHistory.clear()
@@ -303,7 +310,8 @@ class UpdateManager:
 
     # Perform new actions, clearing redo history for taking a new path
     def insert(self, key, values):
-        """ Insert a new UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
+        """ Insert a new UpdateAction into the UpdateManager
+        (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('insert', key, values)
         if not self.ignore_history:
@@ -312,7 +320,8 @@ class UpdateManager:
         self.dispatch_action(self.last_action)
 
     def update(self, key, values, partial_update=False):
-        """ Update the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
+        """ Update the UpdateManager with an UpdateAction
+        (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('update', key, values, partial_update)
         if not self.ignore_history:
@@ -323,14 +332,17 @@ class UpdateManager:
         self.dispatch_action(self.last_action)
 
     def update_untracked(self, key, values, partial_update=False):
-        """ Update the UpdateManager with an UpdateAction, without creating a new entry in the history table (this action will then be distributed to all listeners) """
+        """ Update the UpdateManager with an UpdateAction, without creating
+        a new entry in the history table
+        (this action will then be distributed to all listeners) """
         previous_ignore = self.ignore_history
         self.ignore_history = True
         self.update(key, values, partial_update)
         self.ignore_history = previous_ignore
 
     def delete(self, key):
-        """ Delete an item from the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
+        """ Delete an item from the UpdateManager with an UpdateAction
+        (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('delete', key)
         if not self.ignore_history:
