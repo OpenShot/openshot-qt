@@ -324,13 +324,12 @@ class PropertiesModel(updates.UpdateInterface):
                                 # Only update interpolation type (and the LEFT side of the curve)
                                 found_point = True
                                 clip_updated = True
-                                point["interpolation"] = interpolation
                                 if interpolation == 0:
                                     point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
                                     point["handle_right"]["X"] = interpolation_details[0]
                                     point["handle_right"]["Y"] = interpolation_details[1]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                                log.info("updating interpolation preset of the point: co.X = %s" % (point["co"]["X"]))
                                 log.info("use interpolation preset: %s" % str(interpolation_details))
 
                             elif interpolation > -1 and point["co"]["X"] == closest_point_x:
@@ -454,13 +453,12 @@ class PropertiesModel(updates.UpdateInterface):
                             # Only update interpolation type (and the LEFT side of the curve)
                             found_point = True
                             clip_updated = True
-                            point["interpolation"] = interpolation
                             if interpolation == 0:
                                 point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
                                 point["handle_right"]["X"] = interpolation_details[0]
                                 point["handle_right"]["Y"] = interpolation_details[1]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                            log.info("updating interpolation preset of the point: co.X = %s" % (point["co"]["X"]))
                             log.info("use interpolation preset: %s" % str(interpolation_details))
 
                         elif interpolation > -1 and point["co"]["X"] == closest_point_x:
