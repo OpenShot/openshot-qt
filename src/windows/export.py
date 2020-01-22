@@ -979,6 +979,21 @@ class Export(QDialog):
             super(Export, self).accept()
 
     def reject(self):
+        # Handle cancel
+        if self.exporting and not self.close_button.isVisible():
+            _ = get_app()._tr
+            ret = QMessageBox(self)
+            ret.setIcon(QMessageBox.Question)
+            ret.setWindowTitle(_("Video Export"))
+            ret.setText(_("Are you sure you want to abort the video export?"))
+            ret.addButton(_("Yes"), QMessageBox.AcceptRole)
+            button_No = QPushButton(_("No"))
+            ret.addButton(button_No, QMessageBox.RejectRole)
+            ret.setDefaultButton(button_No)
+            ret.exec_()
+            if ret.clickedButton() == button_No:
+                return
+
         # Re-set OMP thread enabled flag
         if self.s.get("omp_threads_enabled"):
             openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
