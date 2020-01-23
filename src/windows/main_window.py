@@ -32,10 +32,10 @@ import sys
 import platform
 import shutil
 import webbrowser
+from time import sleep
 from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
-from time import sleep, time
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
@@ -617,6 +617,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
+        import time
+
         app = get_app()
         s = settings.get_settings()
 
@@ -634,7 +636,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 file_name, file_ext = os.path.splitext(file_name)
 
                 # Make copy of unsaved project file in 'recovery' folder
-                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time()), file_name))
+                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
                 shutil.copy(file_path, recover_path_with_timestamp)
 
                 # Find any recovery file older than X auto-saves
