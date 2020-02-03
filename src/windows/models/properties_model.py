@@ -81,6 +81,9 @@ class PropertiesModel(updates.UpdateInterface):
 
     # Update the next item (once the timer runs out)
     def update_item_timeout(self):
+        # Stop QTimer
+        self.update_timer.stop()
+
         # Get the next item id, and type
         item_id = self.next_item_id
         item_type = self.next_item_type
@@ -548,9 +551,6 @@ class PropertiesModel(updates.UpdateInterface):
         log.info("updating clip properties model.")
         app = get_app()
         _ = app._tr
-
-        # Stop QTimer
-        self.update_timer.stop()
 
         # Check for a selected clip
         if self.selected and self.selected[0]:
