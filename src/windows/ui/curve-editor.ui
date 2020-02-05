@@ -31,12 +31,177 @@
     <number>9</number>
    </property>
    <item row="0" column="1">
-    <layout class="QHBoxLayout" name="topContent_1"/>
+    <layout class="QHBoxLayout" name="topContent_1">
+     <item>
+      <widget class="QCheckBox" name="chk_show_full">
+       <property name="text">
+        <string>Show Whole Animation</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="sldrZoomTime">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>29</number>
+       </property>
+       <property name="sliderPosition">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_zoomTime">
+       <property name="text">
+        <string></string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="2">
+    <widget class="QToolBar" name="SettingsToolBar">
+     <attribute name="toolBarArea">
+      <enum>NoToolBarArea</enum>
+     </attribute>
+     <attribute name="toolBarBreak">
+      <bool>false</bool>
+     </attribute>
+     <addaction name="actionCurveEditorSettings"/>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <layout class="QVBoxLayout" name="rightContent_1">
+     <item>
+      <widget class="QSlider" name="sldrZoomVal">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>99</number>
+       </property>
+       <property name="sliderPosition">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_zoomVal">
+       <property name="text">
+        <string></string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolBar" name="zoomValToolBar">
+       <attribute name="toolBarArea">
+        <enum>NoToolBarArea</enum>
+       </attribute>
+       <attribute name="toolBarBreak">
+        <bool>false</bool>
+       </attribute>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <addaction name="separator"/>
+       <addaction name="actionZoom_Y_axis_1"/>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="2" column="1">
-    <layout class="QHBoxLayout" name="bottomContent_1"/>
+    <layout class="QHBoxLayout" name="bottomContent_1">
+     <item>
+      <widget class="QLabel" name="label_1_obj_txt">
+       <property name="text">
+        <string>Object:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="obj_name">
+       <property name="text">
+        <string>No data available</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_1">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item> 
+     <item>
+      <widget class="QLabel" name="label_2_prop_txt">
+       <property name="text">
+        <string>Property:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="prop_name">
+       <property name="text">
+        <string>No data available</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>200</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item> 
+    </layout>
    </item>
   </layout>
  </widget>
+ <action name="actionCurveEditorSettings">
+  <property name="icon">
+   <iconset theme="document-properties" resource="../../images/openshot.qrc">
+    <normaloff>:/icons/Humanity/actions/16/document-properties.svg</normaloff>:/icons/Humanity/actions/16/document-properties.svg</iconset>
+  </property>
+  <property name="text">
+   <string>Curve Editor Settings</string>
+  </property>
+ </action>
+ <action name="actionZoom_Y_axis_1">
+  <property name="icon">
+   <iconset>../../images/zoom-1-to-1.svg</iconset>
+  </property>
+  <property name="text">
+   <string>Zoom Value Axis x1.0</string>
+  </property>
+  <property name="toolTip">
+   <string>Set zoom of the Value axis to x1.0</string>
+  </property>
+ </action>
  </widget>
 </ui>
