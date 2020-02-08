@@ -1189,8 +1189,41 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 # Add keyframes
                 start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
                 start_object = json.loads(start.Json())
+
+                # Start point shouldn't modify existing left handle and its type
+                del start_object['handle_left']
+                del start_object['handle_type']
+
+                # Default interpolation for keyframe insertion is LINEAR
+                # The BEZIER was used only to fill the handles fields
+                start_object['interpolation'] = openshot.LINEAR
+
                 end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
+
+                # End point shouldn't modify existing right handle of the point
+                del end_object['handle_right']
+
+                # Remove animation keys between start/end points for scale_x, scale_y
+                new_data = []
+                for point in clip.data["scale_x"]["Points"]:
+                    if (point['co']['X'] < start_animation) or (point['co']['X'] > end_animation):
+                        # Include only points that is not in the modified segment
+                        new_data.append(point)
+                    if point['co']['X'] == start_animation:
+                        # Do not modify existing interpolation of the previous segment
+                        start_object['interpolation'] = point['interpolation']
+                clip.data["scale_x"]["Points"] = new_data
+                new_data = []
+                for point in clip.data["scale_y"]["Points"]:
+                    if (point['co']['X'] < start_animation) or (point['co']['X'] > end_animation):
+                        # Include only points that is not in the modified segment
+                        new_data.append(point)
+                    if point['co']['X'] == start_animation:
+                        # Do not modify existing interpolation of the previous segment
+                        start_object['interpolation'] = point['interpolation']
+                clip.data["scale_y"]["Points"] = new_data
+
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
                 clip.data["scale_x"]["Points"].append(start_object)
                 clip.data["scale_x"]["Points"].append(end_object)
