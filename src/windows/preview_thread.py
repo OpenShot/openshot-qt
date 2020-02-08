@@ -30,17 +30,14 @@ import time
 import sip
 
 from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal, QCoreApplication
+from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.app import get_app
 from classes.logger import log
 from classes import settings
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class PreviewParent(QObject):
     """ Class which communicates with the PlayerWorker Class (running on a separate thread) """
@@ -58,6 +55,25 @@ class PreviewParent(QObject):
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
         log.info('onModeChanged')
+        try:
+            if current_mode is openshot.PLAYBACK_PLAY:
+                self.parent.SetPlayheadFollow(False)
+            else:
+                self.parent.SetPlayheadFollow(True)
+        except AttributeError:
+            # Parent object doesn't need the playhead follow code
+            pass
+
+    # Signal when the playback encounters an error
+    def onError(self, error):
+        log.info('onError: %s' % error)
+
+        # Get translation object
+        _ = get_app()._tr
+
+        # Only JUCE audio errors bubble up here now
+        if not get_app().window.mode == "unittest":
+            QMessageBox.warning(self.parent, _("Audio Error"), _("Please fix the following error and restart OpenShot\n%s") % error)
 
     @pyqtSlot(object, object)
     def Init(self, parent, timeline, video_widget):
@@ -77,6 +93,7 @@ class PreviewParent(QObject):
         self.worker.mode_changed.connect(self.onModeChanged)
         self.background.started.connect(self.worker.Start)
         self.worker.finished.connect(self.background.quit)
+        self.worker.error_found.connect(self.onError)
 
         # Connect preview thread to main UI signals
         self.parent.previewFrameSignal.connect(self.worker.previewFrame)
@@ -98,6 +115,7 @@ class PlayerWorker(QObject):
 
     position_changed = pyqtSignal(int)
     mode_changed = pyqtSignal(object)
+    error_found = pyqtSignal(object)
     finished = pyqtSignal()
 
     @pyqtSlot(object, object)
@@ -132,6 +150,11 @@ class PlayerWorker(QObject):
         self.player.Reader(self.timeline)
         self.player.Play()
         self.player.Pause()
+
+        # Check for any Player initialization errors (only JUCE errors bubble up here now)
+        if self.player.GetError():
+            # Emit error_found signal
+            self.error_found.emit(self.player.GetError())
 
         # Main loop, waiting for frames to process
         while self.is_running:
@@ -224,20 +247,17 @@ class PlayerWorker(QObject):
             # Switch back to last timeline position
             seek_position = self.original_position
         else:
-            # Get extension of media path
-            ext = os.path.splitext(path)
-
             # Create new timeline reader (to preview selected clip)
             s = settings.get_settings()
             project = get_app().project
 
             # Get some settings from the project
-            fps = project.get(["fps"])
-            width = project.get(["width"])
-            height = project.get(["height"])
-            sample_rate = project.get(["sample_rate"])
-            channels = project.get(["channels"])
-            channel_layout = project.get(["channel_layout"])
+            fps = project.get("fps")
+            width = project.get("width")
+            height = project.get("height")
+            sample_rate = project.get("sample_rate")
+            channels = project.get("channels")
+            channel_layout = project.get("channel_layout")
 
             # Create an instance of a libopenshot Timeline object
             self.clip_reader = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels, channel_layout)

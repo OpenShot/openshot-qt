@@ -14,12 +14,36 @@
    height="1080"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:version="0.91 r13725"
    version="1.0"
    sodipodi:docname="Ribbon_3.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs2385">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4212">
+      <stop
+         style="stop-color:#6f83c1;stop-opacity:0.30588236"
+         offset="0"
+         id="stop4214" />
+      <stop
+         style="stop-color:#6f83c2;stop-opacity:0.55686277"
+         offset="1"
+         id="stop4216" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4202">
+      <stop
+         style="stop-color:#7083c1;stop-opacity:0.48235294"
+         offset="0"
+         id="stop4204" />
+      <stop
+         style="stop-color:#6e83c2;stop-opacity:0.87843138"
+         offset="1"
+         id="stop4206" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient3190">
@@ -95,6 +119,28 @@
        x2="1622.8263"
        y2="542.59882"
        gradientTransform="matrix(-1,0,0,1,1920.0025,7.77e-2)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4202"
+       id="radialGradient4210"
+       cx="972.97369"
+       cy="134"
+       fx="972.97369"
+       fy="134"
+       r="973.02442"
+       gradientTransform="matrix(0.96511785,0,0,0.09249511,33.939417,121.60565)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4212"
+       id="radialGradient4220"
+       cx="972.97369"
+       cy="967"
+       fx="972.97369"
+       fy="967"
+       r="973.02443"
+       gradientTransform="matrix(0.95349048,0,0,0.09249511,45.252536,877.55723)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -106,16 +152,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="604.7993"
-     inkscape:cy="503.96234"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="985.9184"
+     inkscape:cy="542.5212"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="975"
-     inkscape:window-x="75"
-     inkscape:window-y="34"
+     inkscape:window-width="1296"
+     inkscape:window-height="1028"
+     inkscape:window-x="624"
+     inkscape:window-y="24"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
@@ -148,13 +194,13 @@
        id="rect3171"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="opacity:0.76859502;fill:#6f82c1;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1"
+       style="opacity:0.76859502;fill:url(#radialGradient4210);fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1"
        d="M -0.050730284,43.999997 C 655.44874,118.60889 1305.1033,129.24364 1945.9981,43.999997 L 1945.9981,224 C 1289.5924,131.01978 641.7467,141.10031 -0.050730284,224 L -0.050730284,43.999997 z"
        id="path3178"
        sodipodi:nodetypes="ccccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.39215687;"
        x="962.81787"
        y="154.0043"
        id="text2395"><tspan
@@ -162,20 +208,20 @@
          id="tspan2397"
          x="962.81787"
          y="154.0043"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.25064087px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">The Title</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.25064087px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:3.75001788;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.39215687;">The Title</tspan></text>
     <path
        style="opacity:0.30833333;fill:#6f82c1;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1"
        d="M -16.001949,859 C 639.49753,933.60889 1289.1521,944.24364 1930.0469,859 L 1930.0469,1039 C 1273.6411,946.01978 625.79548,956.10031 -16.001949,1039 L -16.001949,859 z"
        id="path2419"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="opacity:0.3625;fill:#6f82c1;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1"
+       style="opacity:0.3625;fill:url(#radialGradient4220);fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1"
        d="M -0.050752217,877 C 655.44872,951.60889 1305.1033,962.24364 1945.9981,877 L 1945.9981,1057 C 1289.5923,964.01978 641.74667,974.10031 -0.050752217,1057 L -0.050752217,877 z"
        id="path2421"
        sodipodi:nodetypes="ccccc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.39215687"
        x="959.02515"
        y="975.02747"
        id="text3161"><tspan
@@ -183,6 +229,6 @@
          id="tspan3163"
          x="959.02515"
          y="975.02747"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:81.3274231px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Sub-Title</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:81.3274231px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.39215687">Sub-Title</tspan></text>
   </g>
 </svg>

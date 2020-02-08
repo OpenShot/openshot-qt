@@ -5,7 +5,7 @@
 		<META name="author" content="OpenShot Studios, LLC">
   		<META name="copyright" content="Copyright (c) 2008-2018 OpenShot Studios, LLC">
   		<META name="license" content="GPLv3">
-		<link rel="icon" type="image/png" href="../../xdg/openshot.png" />
+		<link rel="icon" type="image/png" href="../images/openshot.png" />
 		<title>OpenShot Timeline</title>
 		
 		<!-- JQuery & Angular -->
@@ -47,7 +47,8 @@
 			<div tl-playhead class="playhead playhead-top" ng-right-click="ShowPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
 				<div class="playhead-line-small"></div>
 			</div>
-			<canvas tl-ruler id="ruler" width="{{GetTimelineWidth(1024)+7}}" height="39"></canvas>
+			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->
+			<canvas tl-ruler id="ruler" width="{{GetTimelineWidth(1024)+50}}" height="39"></canvas>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
@@ -90,7 +91,7 @@
 						</div>
 
 						<!-- CLIP KEYFRAME POINTS -->
-						<img ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png" ng-show="clip.selected "/>
+						<div ng-repeat="(point, value) in getKeyframes(clip)" id="point_{{clip.id}}_{{point}}_{{$index}}" style="left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond)}}px;" class="point_region" ng-show="clip.selected "><div class="point_icon"></div></div>
 
 						<!-- CLIP LABEL -->
 						<div class="clip_label" ng-class="getClipLabelStyle(clip)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400">{{clip.title}}</div>
@@ -98,26 +99,25 @@
 					</div>
 					<br class="cleared">
 					<div ng-show="!clip.show_audio" class="thumb-container">
-						<img class="thumb thumb-start" ng-src="{{ FormatThumbPath(clip.image) }}"/>
+						<img class="thumb thumb-start" ng-show="{{ GetThumbPath(clip) }}" ng-src="{{ GetThumbPath(clip) }}"/>
 					</div>
 					<div ng-show="clip.show_audio" class="audio-container">
 						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
 					</div>
 				</div>
-				
+
 				<!-- TRANSITIONS -->
 				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="SelectTransition(transition.id, true, $event)" ng-right-click="ShowTransitionMenu(transition.id, $event)" class="transition droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu" ng-show="!enable_razor" ng-mousedown="ShowTransitionMenu(transition.id, $event)"></div>
 						<!-- TRANSITION KEYFRAME POINTS -->
-						<span class="keyframe_point" id="points_for_{{transition.id}}" ng-show="transition.selected">
-							<img ng-repeat="(point, value) in getKeyframes(transition)" id="point_{{point}}_{{$index}}" style="position: absolute; bottom: 0px; left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond) - keyframePointOffset}}px;" class="point_icon" ng-src="media/images/keyframes/point.png"/>
-						</span>
+						<div ng-repeat="(point, value) in getKeyframes(transition)" id="point_{{transition.id}}_{{point}}_{{$index}}" style="left: {{(((point - 1) / (project.fps.num / project.fps.den) - transition.start) * pixelsPerSecond)}}px;" class="point_region" ng-show="transition.selected "><div class="point_icon"></div></div>
+
 						<!--div class="transition_label">{{transition.title}}</div-->
 						<br class="cleared">
 					</div>
 					<br class="cleared">
-				</div>					
+				</div>
 
 			</div>
 

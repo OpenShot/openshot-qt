@@ -57,84 +57,26 @@
 		<default>#FFCF00</default>
 	</param>
 	
-	<param name="specular_color" type="color" title="Specular Color" description="">
-		<default>#ffffff</default>
-	</param>
-	
-	<param name="mirror_color" type="color" title="Mirror Color" description="">
-		<default>#FF00BA</default>
-	</param>
-	
-	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="">
+	<param name="strength" type="spinner" title="Strength" description="">
 		<min>0.0</min>
 		<max>1.0</max>
-		<default>0.5</default>
+		<default>1</default>
 	</param>
-	
-	<param name="alpha" type="spinner" title="Alpha" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.3</default>
-	</param>
-	
-	
-	<param name="halo_size" type="spinner" title="Halo: Size" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.2</default>
-	</param>
-	
-	<param name="halo_hardness" type="spinner" title="Halo: Hardness" description="">
-		<min>0.0</min>
-		<max>100.0</max>
-		<default>68.0</default>
-	</param>
-	
-	<param name="halo_use_lines" type="dropdown" title="Halo: Use Lines" description="">
+
+	<param name="glare_type" type="dropdown" title="Glare Type" description="">
 		<values>
-			<value name="Yes" num="Yes"/>
-			<value name="No" num="No"/>
+			<value name="Streaks" num="STREAKS"/>
+			<value name="Ghosts" num="GHOSTS"/>
+			<value name="Fog Glow" num="FOG_GLOW"/>
+			<value name="Simple Star" num="SIMPLE_STAR"/>
 		</values>
-		<default>Yes</default>
+		<default>STREAKS</default>
 	</param>
-	<param name="halo_line_count" type="spinner" title="Halo: Line Count" description="">
+
+	<param name="particle_scale" type="spinner" title="Particle Scale" description="">
 		<min>0.0</min>
-		<max>100.0</max>
-		<default>12.0</default>
-	</param>
-	
-	<param name="halo_use_ring" type="dropdown" title="Halo: Use Rings" description="">
-		<values>
-			<value name="Yes" num="Yes"/>
-			<value name="No" num="No"/>
-		</values>
-		<default>Yes</default>
-	</param>
-	<param name="halo_ring_count" type="spinner" title="Halo: Ring Count" description="">
-		<min>0.0</min>
-		<max>100.0</max>
-		<default>4.0</default>
-	</param>
-	
-	<param name="halo_use_star" type="dropdown" title="Halo: Use Stars" description="">
-		<values>
-			<value name="Yes" num="Yes"/>
-			<value name="No" num="No"/>
-		</values>
-		<default>Yes</default>
-	</param>
-	<param name="halo_star_tip_count" type="spinner" title="Halo: Star Count" description="">
-		<min>0.0</min>
-		<max>100.0</max>
-		<default>4.0</default>
-	</param>
-	
-	<param name="halo_use_flare_mode" type="dropdown" title="Halo: Use Flare" description="">
-		<values>
-			<value name="Yes" num="Yes"/>
-			<value name="No" num="No"/>
-		</values>
-		<default>No</default>
+		<max>3.0</max>
+		<default>0.03</default>
 	</param>
 
 	<param name="particles_lifetime" type="spinner" title="Particles: Lifetime" description="">
@@ -144,8 +86,8 @@
 	</param>	
 	
 	<param name="particles_gravity" type="spinner" title="Particles: Gravity" description="">
-		<min>0.0</min>
-		<max>1.0</max>
+		<min>-3.0</min>
+		<max>3.0</max>
 		<default>1.0</default>
 	</param>
 	

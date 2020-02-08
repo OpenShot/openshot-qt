@@ -14,6 +14,7 @@
     "category": "General",
     "setting": "theme",
     "type": "dropdown",
+    "translate_values": true,
     "values": [
       {
         "value": "Humanity",
@@ -84,18 +85,11 @@
     "setting": "window_geometry_v2"
   },
   {
-    "value": "",
+    "value": false,
     "title": "",
     "type": "hidden",
     "category": "Qt",
-    "setting": "window_splitter_pos"
-  },
-  {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_2_pos"
+    "setting": "docks_frozen"
   },
   {
     "value": "thumbnail",
@@ -128,16 +122,25 @@
   {
     "value": "HD 720p 30 fps",
     "title": "Default Profile",
-    "category": "Profiles",
+    "category": "Preview",
     "setting": "default-profile",
     "type": "dropdown",
     "values": [],
     "restart": true
   },
   {
-    "max": 128000,
+    "value": "",
+    "title": "Playback Audio Device",
+    "category": "Preview",
+    "setting": "playback-audio-device",
+    "type": "dropdown",
+    "values": [],
+    "restart": true
+  },
+  {
+    "max": 192000,
     "title": "Default Audio Sample Rate",
-    "category": "Profiles",
+    "category": "Preview",
     "min": 22050,
     "setting": "default-samplerate",
     "value": 44100,
@@ -169,11 +172,12 @@
   {
     "max": 10,
     "title": "Default Audio Channels",
-    "category": "Profiles",
+    "category": "Preview",
     "min": 1,
     "setting": "default-channellayout",
     "type": "dropdown",
     "value": "LAYOUT_STEREO",
+    "translate_values": true,
     "values": [
       {
         "value": "LAYOUT_MONO",
@@ -206,16 +210,16 @@
     "setting": "enable-auto-save"
   },
   {
-    "max": 60,
+    "max": 60.0,
     "title": "Autosave Interval (minutes)",
     "category": "Autosave",
-    "min": 0,
+    "min": 1.0,
     "setting": "autosave-interval",
     "value": 3.0,
     "type": "spinner"
   },
   {
-    "max": 999,
+    "max": 99,
     "title": "History Limit (# of undo/redo)",
     "category": "Autosave",
     "min": 0,
@@ -224,10 +228,20 @@
     "type": "spinner-int"
   },
   {
+    "max": 99,
+    "title": "Recovery Limit (# of project copies)",
+    "category": "Autosave",
+    "min": 0,
+    "setting": "recovery-limit",
+    "value": 30,
+    "type": "spinner-int"
+  },
+  {
     "title": "Cache Mode",
     "category": "Cache",
     "setting": "cache-mode",
     "value": "CacheMemory",
+    "translate_values": true,
     "values": [
       {
         "value": "CacheMemory",
@@ -319,27 +333,87 @@
     "restart": true
   },
   {
-    "value": true,
+    "value": false,
     "title": "Send Anonymous Metrics and Errors",
     "type": "bool",
     "category": "Debug",
     "setting": "send_metrics"
   },
   {
-    "value": false,
-    "title": "Enable Hardware Decode",
-    "type": "hidden",
-    "restart": true,
-    "category": "Performance",
-    "setting": "hardware_decode"
+    "value": true,
+    "title": "Show Export Dialog when Finished",
+    "type": "bool",
+    "restart": false,
+    "category": "General",
+    "setting": "show_finished_window"
   },
   {
-    "value": false,
-    "title": "Enable Hardware Encode",
-    "type": "hidden",
-    "restart": true,
+    "max": 4,
+    "title": "Hardware Decoder Mode",
     "category": "Performance",
-    "setting": "hardware_encode"
+    "min": 0,
+    "setting": "hw-decoder",
+    "type": "dropdown",
+    "value": "0",
+    "translate_values": true,
+    "values": [
+      {
+        "value": "0",
+        "name": "No acceleration"
+      },
+      {
+        "value": "1",
+        "name": "Linux VA-API"
+      },
+      {
+        "value": "2",
+        "name": "Nvidia NVDEC"
+      },
+      {
+        "value": "3",
+        "name": "Windows D3D9"
+      },
+      {
+        "value": "4",
+        "name": "Windows D3D11"
+      },
+      {
+        "value": "5",
+        "name": "MacOS"
+      },
+      {
+        "value": "6",
+        "name": "Linux VDPAU"
+      },
+      {
+        "value": "7",
+        "name": "Intel QSV"
+      }
+    ],
+    "restart": true
+  },
+  {
+    "max": 2,
+    "title": "Hardware Decoder Graphics Card",
+    "category": "Performance",
+    "min": 0,
+    "setting": "graca_number_de",
+    "type": "dropdown",
+    "value": "0",
+    "translate_values": true,
+    "values": [],
+    "restart": true
+  },
+  {
+    "max": 2,
+    "title": "Hardware Encoder Graphics Card",
+    "category": "Performance",
+    "min": 0,
+    "setting": "graca_number_en",
+    "type": "dropdown",
+    "value": "0",
+    "values": [],
+    "restart": true
   },
   {
     "value": true,
@@ -348,6 +422,54 @@
     "restart": false,
     "category": "Performance",
     "setting": "omp_threads_enabled"
+  },
+  {
+    "min": 0,
+    "max": 128,
+    "value": 12,
+    "title": "OMP Threads (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "omp_threads_number"
+  },
+  {
+    "min": 0,
+    "max": 16,
+    "value": 8,
+    "title": "FFmpeg Threads (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "ff_threads_number"
+  },
+  {
+    "min": 0,
+    "max": 16000,
+    "value": 1950,
+    "title": "Hardware Decoder Max Width (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "decode_hw_max_width"
+  },
+  {
+    "min": 0,
+    "max": 16000,
+    "value": 1100,
+    "title": "Hardware Decoder Max Height (0 = Default)",
+    "type": "spinner-int",
+    "restart": true,
+    "category": "Performance",
+    "setting": "decode_hw_max_height"
+  },
+  {
+    "value": false,
+    "title": "Use Blender GPU rendering for Animated Titles (Experimental)",
+    "type": "bool",
+    "restart": false,
+    "category": "Performance",
+    "setting": "blender_gpu_enabled"
   },
   {
     "value": true,
@@ -415,6 +537,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Center on Playhead",
+    "restart": true,
+    "setting": "actionCenterOnPlayhead",
+    "value": "Ctrl+Up",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Add to Timeline",
     "restart": true,
     "setting": "actionAdd_to_Timeline",
@@ -471,7 +601,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "New Project...",
+    "title": "New Project",
     "restart": true,
     "setting": "actionNew",
     "value": "Ctrl+N",

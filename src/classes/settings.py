@@ -89,7 +89,7 @@ class SettingStore(JsonDataStore):
         file_path = os.path.join(info.USER_PATH, self.settings_filename)
 
         # Load user settings (if found)
-        if os.path.exists(file_path.encode('UTF-8')):
+        if os.path.exists(os.fsencode(file_path)):
 
             # Will raise exception to caller on failure to read
             try:

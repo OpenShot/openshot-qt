@@ -24,7 +24,7 @@
 
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
- """
+"""
 
 import sys
 import os
@@ -48,10 +48,7 @@ from classes.query import File
 from classes.metrics import *
 from windows.views.titles_listview import TitlesListView
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+import json
 
 
 class TitleEditor(QDialog):
@@ -104,6 +101,8 @@ class TitleEditor(QDialog):
         self.display_name = ""
         self.font_family = "Bitstream Vera Sans"
         self.tspan_node = None
+
+        self.qfont = QFont(self.font_family)
 
         # Add titles list view
         self.titlesTreeView = TitlesListView(self)
@@ -162,7 +161,8 @@ class TitleEditor(QDialog):
         reader.Open()
 
         # Save thumbnail image and close readers
-        reader.GetFrame(1).Thumbnail(tmp_filename, self.graphicsView.width(), self.graphicsView.height(), "", "", "#000", False, "png", 100, 0.0)
+        reader.GetFrame(1).Thumbnail(tmp_filename, self.graphicsView.width(), self.graphicsView.height(), "", "",
+                                     "#000", False, "png", 85, 0.0)
         reader.Close()
         clip.Close()
 
@@ -178,10 +178,10 @@ class TitleEditor(QDialog):
     def create_temp_title(self, template_path):
 
         # Set temp file path
-        self.filename = os.path.join(info.TITLE_PATH, "temp.svg")
+        self.filename = os.path.join(info.USER_PATH, "title", "temp.svg")
 
         # Copy template to temp file
-        shutil.copy(template_path, self.filename)
+        shutil.copyfile(template_path, self.filename)
 
         # return temp path
         return self.filename
@@ -198,12 +198,18 @@ class TitleEditor(QDialog):
         self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
         self.text_fields = len(self.tspan_node)
 
+        # Reset default font
+        self.font_family = "Bitstream Vera Sans"
+        if self.qfont:
+            del self.qfont
+        self.qfont = QFont(self.font_family)
+
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
             try:
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
-            except:
+            except Exception:
                 pass
 
         # Get text nodes and rect nodes
@@ -223,14 +229,14 @@ class TitleEditor(QDialog):
         # If edit mode, set file name
         if self.edit_file_path and not self.duplicate:
             # Use existing name (and prevent editing name)
-            self.txtFileName.setText(os.path.split(self.edit_file_path)[1])
+            self.txtFileName.setText(os.path.basename(self.edit_file_path))
             self.txtFileName.setEnabled(False)
         else:
             name = _("TitleFileName-%d")
             offset = 0
             if self.duplicate and self.edit_file_path:
                 # Re-use current name
-                name = os.path.split(self.edit_file_path)[1]
+                name = os.path.basename(self.edit_file_path)
                 # Splits the filename into (base-part)(optional "-")(number)(.svg)
                 match = re.match(r"^(.*?)(-?)([0-9]*)(\.svg)?$", name)
                 # Make sure the new title ends with "-%d" by default
@@ -243,7 +249,7 @@ class TitleEditor(QDialog):
             # Find an unused file name
             for i in range(1, 1000):
                 curname = name % (offset + i)
-                possible_path = os.path.join(info.ASSETS_PATH, "%s.svg" % curname)
+                possible_path = os.path.join(info.TITLE_PATH, "%s.svg" % curname)
                 if not os.path.exists(possible_path):
                     self.txtFileName.setText(curname)
                     break
@@ -330,7 +336,7 @@ class TitleEditor(QDialog):
         if not self.filename.endswith("svg"):
             self.filename = self.filename + ".svg"
         try:
-            file = open(self.filename.encode('UTF-8'), "wb")  # wb needed for windows support
+            file = open(os.fsencode(self.filename), "wb")  # wb needed for windows support
             file.write(bytes(xmldoc.toxml(), 'UTF-8'))
             file.close()
         except IOError as inst:
@@ -350,11 +356,11 @@ class TitleEditor(QDialog):
             self.update_font_color_button()
             self.font_color_code = col
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def btnBackgroundColor_clicked(self):
         app = get_app()
@@ -370,32 +376,36 @@ class TitleEditor(QDialog):
             self.update_background_color_button()
             self.bg_color_code = col
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def btnFont_clicked(self):
         app = get_app()
         _ = app._tr
 
+        # Default to previously-selected font
+        oldfont = self.qfont
+
         # Get font from user
-        font, ok = QFontDialog.getFont(QFont(), caption=_("Change Font"))
+        font, ok = QFontDialog.getFont(oldfont, caption=("Change Font"))
 
         # Update SVG font
-        if ok:
+        if ok and font is not oldfont:
+            self.qfont = font
             fontinfo = QtGui.QFontInfo(font)
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
             self.set_font_style()
 
-        # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
+            # Something changed, so update temp SVG
+            self.writeToFile(self.xmldoc)
 
-        # Display SVG again
-        self.display_svg()
+            # Display SVG again
+            self.display_svg()
 
     def find_in_list(self, l, value):
         '''when passed a partial value, function will return the list index'''
@@ -420,7 +430,7 @@ class TitleEditor(QDialog):
                 # Parse the result
                 txt = ar[color]
                 color = txt[5:]
-            except:
+            except Exception:
                 # If the color was in an invalid format, try the next text element
                 continue
 
@@ -430,15 +440,15 @@ class TitleEditor(QDialog):
                 # Parse the result
                 txt = ar[opacity]
                 opacity = float(txt[8:])
-            except:
+            except Exception:
                 pass
 
             # Default the font color to white if non-existing
-            if color == None:
+            if color is None:
                 color = "#FFFFFF"
 
             # Default the opacity to fully visible if non-existing
-            if opacity == None:
+            if opacity is None:
                 opacity = 1.0
 
             color = QtGui.QColor(color)
@@ -447,9 +457,9 @@ class TitleEditor(QDialog):
             colrgb = color.getRgbF()
             lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
             if (lum < 0.5):
-              text_color = QtGui.QColor(Qt.white)
+                text_color = QtGui.QColor(Qt.white)
             else:
-              text_color = QtGui.QColor(Qt.black)
+                text_color = QtGui.QColor(Qt.black)
 
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
@@ -492,11 +502,11 @@ class TitleEditor(QDialog):
                 pass
 
             # Default the background color to black if non-existing
-            if color == None:
+            if color is None:
                 color = "#000000"
 
             # Default opacity to fully visible if non-existing
-            if opacity == None:
+            if opacity is None:
                 opacity = 1.0
 
             color = QtGui.QColor(color)
@@ -505,9 +515,9 @@ class TitleEditor(QDialog):
             colrgb = color.getRgbF()
             lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
             if (lum < 0.5):
-              text_color = QtGui.QColor(Qt.white)
+                text_color = QtGui.QColor(Qt.white)
             else:
-              text_color = QtGui.QColor(Qt.black)
+                text_color = QtGui.QColor(Qt.black)
 
             # Convert the opacity into the alpha value
             alpha = int(opacity * 65535.0)
@@ -575,13 +585,13 @@ class TitleEditor(QDialog):
             s = self.rect_node[0].attributes["style"].value
             ar = s.split(";")
             fill = self.find_in_list(ar, "fill:")
-            if fill == None:
+            if fill is None:
                 ar.append("fill:" + color)
             else:
                 ar[fill] = "fill:" + color
 
             opacity = self.find_in_list(ar, "opacity:")
-            if opacity == None:
+            if opacity is None:
                 ar.append("opacity:" + str(alpha))
             else:
                 ar[opacity] = "opacity:" + str(alpha)
@@ -602,13 +612,13 @@ class TitleEditor(QDialog):
             # split the text node so we can access each part
             ar = s.split(";")
             fill = self.find_in_list(ar, "fill:")
-            if fill == None:
+            if fill is None:
                 ar.append("fill:" + color)
             else:
                 ar[fill] = "fill:" + color
 
             opacity = self.find_in_list(ar, "opacity:")
-            if opacity == None:
+            if opacity is None:
                 ar.append("opacity:" + str(alpha))
             else:
                 ar[opacity] = "opacity:" + str(alpha)
@@ -625,7 +635,7 @@ class TitleEditor(QDialog):
                 # split the text node so we can access each part
                 ar = s.split(";")
                 fill = self.find_in_list(ar, "fill:")
-                if fill == None:
+                if fill is None:
                     ar.append("fill:" + color)
                 else:
                     ar[fill] = "fill:" + color
@@ -647,7 +657,7 @@ class TitleEditor(QDialog):
         else:
             # Create new title (with unique name)
             file_name = "%s.svg" % self.txtFileName.toPlainText().strip()
-            file_path = os.path.join(info.ASSETS_PATH, file_name)
+            file_path = os.path.join(info.TITLE_PATH, file_name)
 
             if self.txtFileName.toPlainText().strip():
                 # Do we have unsaved changes?
@@ -671,7 +681,7 @@ class TitleEditor(QDialog):
         super(TitleEditor, self).accept()
 
     def add_file(self, filepath):
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()
@@ -701,8 +711,9 @@ class TitleEditor(QDialog):
             file.save()
             return True
 
-        except:
+        except Exception as ex:
             # Handle exception
+            log.error('Could not import {}: {}'.format(filename, str(ex)))
             msg = QMessageBox()
             msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()

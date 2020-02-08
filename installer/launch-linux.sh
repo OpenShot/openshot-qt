@@ -8,4 +8,4 @@ export QT_PLUGIN_PATH="."
 
 # Launch application
 HERE="$(dirname "$(readlink -f "${0}")")"
-exec "${HERE}"/launch "$@"
+exec "${HERE}"/openshot-qt "$@"

@@ -32,11 +32,7 @@ from PyQt5.QtWidgets import QListView, QMenu
 from classes.app import get_app
 from windows.models.titles_model import TitlesModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class TitlesListView(QListView):
     """ A QListView QWidget used on the title editor window """

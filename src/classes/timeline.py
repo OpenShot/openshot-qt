@@ -44,12 +44,12 @@ class TimelineSync(UpdateInterface):
         s = settings.get_settings()
 
         # Get some settings from the project
-        fps = project.get(["fps"])
-        width = project.get(["width"])
-        height = project.get(["height"])
-        sample_rate = project.get(["sample_rate"])
-        channels = project.get(["channels"])
-        channel_layout = project.get(["channel_layout"])
+        fps = project.get("fps")
+        width = project.get("width")
+        height = project.get("height")
+        sample_rate = project.get("sample_rate")
+        channels = project.get("channels")
+        channel_layout = project.get("channel_layout")
 
         # Create an instance of a libopenshot Timeline object
         self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels,
@@ -76,13 +76,7 @@ class TimelineSync(UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "export_path", "import_path", "scale"]:
-            return
-
-        elif len(action.key) >= 1 and action.key[0].lower() in ["profile"]:
-
-            # The timeline's profile changed, so update all clips
-            self.timeline.ApplyMapperToClips()
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "export_path", "import_path", "scale", "profile"]:
             return
 
         # Pass the change to the libopenshot timeline

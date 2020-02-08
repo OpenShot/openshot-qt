@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 
 from classes import settings
-from classes import info, ui_util
+from classes import info, ui_util, time_parts
 from classes.logger import log
 from classes.query import Track, Clip, Transition
 from classes.app import get_app
@@ -42,12 +42,7 @@ from classes.metrics import *
 from windows.views.add_to_timeline_treeview import TimelineTreeView
 
 import openshot
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class AddToTimeline(QDialog):
     """ Add To timeline Dialog """
@@ -175,7 +170,7 @@ class AddToTimeline(QDialog):
             random_transition = True
 
         # Get frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Loop through each file (in the current order)
@@ -192,7 +187,7 @@ class AddToTimeline(QDialog):
                 thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 
             # Get file name
-            path, filename = os.path.split(file.data["path"])
+            filename = os.path.basename(file.data["path"])
 
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
@@ -206,7 +201,6 @@ class AddToTimeline(QDialog):
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
             new_clip["title"] = filename
-            new_clip["image"] = thumb_path
 
             # Skip any clips that are missing a 'reader' attribute
             # TODO: Determine why this even happens, as it shouldn't be possible
@@ -406,33 +400,12 @@ class AddToTimeline(QDialog):
             total += duration
 
         # Get frames per second
-        fps = get_app().project.get(["fps"])
+        fps = get_app().project.get("fps")
 
         # Update label
-        total_parts = self.secondsToTime(total, fps["num"], fps["den"])
+        total_parts = time_parts.secondsToTime(total, fps["num"], fps["den"])
         timestamp = "%s:%s:%s:%s" % (total_parts["hour"], total_parts["min"], total_parts["sec"], total_parts["frame"])
         self.lblTotalLengthValue.setText(timestamp)
-
-    def padNumber(self, value, pad_length):
-        format_mask = '%%0%sd' % pad_length
-        return format_mask % value
-
-    def secondsToTime(self, secs, fps_num, fps_den):
-        # calculate time of playhead
-        milliseconds = secs * 1000
-        sec = math.floor(milliseconds/1000)
-        milli = milliseconds % 1000
-        min = math.floor(sec/60)
-        sec = sec % 60
-        hour = math.floor(min/60)
-        min = min % 60
-        day = math.floor(hour/24)
-        hour = hour % 24
-        week = math.floor(day/7)
-        day = day % 7
-
-        frame = round((milli / 1000.0) * (fps_num / fps_den)) + 1
-        return { "week":self.padNumber(week,2), "day":self.padNumber(day,2), "hour":self.padNumber(hour,2), "min":self.padNumber(min,2), "sec":self.padNumber(sec,2), "milli":self.padNumber(milli,2), "frame":self.padNumber(frame,2) };
 
     def reject(self):
         """ Cancel button clicked """
@@ -483,7 +456,7 @@ class AddToTimeline(QDialog):
         self.txtTransitionLength.valueChanged.connect(self.updateTotal)
 
         # Find display track number
-        all_tracks = get_app().project.get(["layers"])
+        all_tracks = get_app().project.get("layers")
         display_count = len(all_tracks)
         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
             # Add to dropdown
@@ -520,7 +493,7 @@ class AddToTimeline(QDialog):
 
             for filename in sorted(files):
                 path = os.path.join(dir, filename)
-                (fileBaseName, fileExtension) = os.path.splitext(filename)
+                fileBaseName = os.path.splitext(filename)[0]
 
                 # Skip hidden files (such as .DS_Store, etc...)
                 if filename[0] == "." or "thumbs.db" in filename.lower():

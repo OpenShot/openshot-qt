@@ -26,11 +26,9 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 import glob
+import os
 import re
-import sys
-from urllib.parse import urlparse
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QSize, Qt, QPoint
@@ -38,15 +36,12 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMessageBox, QAbstractItemView, QMenu
 
 from classes.app import get_app
+from classes.image_types import is_image
 from classes.logger import log
 from classes.query import File
 from windows.models.files_model import FilesModel
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class FilesListView(QListView):
     """ A ListView QWidget used on the main window """
@@ -127,16 +122,8 @@ class FilesListView(QListView):
     def dragMoveEvent(self, event):
         pass
 
-    def is_image(self, file):
-        path = file["path"].lower()
-
-        if path.endswith((".jpg", ".jpeg", ".png", ".bmp", ".svg", ".thm", ".gif", ".bmp", ".pgm", ".tif", ".tiff")):
-            return True
-        else:
-            return False
-
     def add_file(self, filepath):
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()
@@ -158,9 +145,9 @@ class FilesListView(QListView):
             file_data = json.loads(reader.Json())
 
             # Determine media type
-            if file_data["has_video"] and not self.is_image(file_data):
+            if file_data["has_video"] and not is_image(file_data):
                 file_data["media_type"] = "video"
-            elif file_data["has_video"] and self.is_image(file_data):
+            elif file_data["has_video"] and is_image(file_data):
                 file_data["media_type"] = "image"
             elif file_data["has_audio"] and not file_data["has_video"]:
                 file_data["media_type"] = "audio"
@@ -189,7 +176,7 @@ class FilesListView(QListView):
                 pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
 
                 # Split folder name
-                (parentPath, folderName) = os.path.split(folder_path)
+                folderName = os.path.basename(folder_path)
                 if not base_name:
                     # Give alternate name
                     file.data["name"] = "%s (%s)" % (folderName, pattern)
@@ -205,10 +192,15 @@ class FilesListView(QListView):
 
             # Save file
             file.save()
+            # Reset list of ignored paths
+            self.ignore_image_sequence_paths = []
+
             return True
 
-        except:
-            # Handle exception
+        except Exception as ex:
+            # Log exception
+            log.warning("Failed to import file: {}".format(str(ex)))
+            # Show message to user
             msg = QMessageBox()
             msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
             msg.exec_()
@@ -219,7 +211,7 @@ class FilesListView(QListView):
 
         # Get just the file name
         (dirName, fileName) = os.path.split(file_path)
-        extensions = ["png", "jpg", "jpeg", "gif", "tif"]
+        extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
         match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
 
         if not match:
@@ -236,21 +228,22 @@ class FilesListView(QListView):
             full_base_name = os.path.join(dirName, base_name)
 
             # Check for images which the file names have the different length
-            fixlen = fixlen or not (glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
-                                    or glob.glob(
-                "%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension)))
+            fixlen = fixlen or not (
+                glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
+                or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
+            )
 
             # Check for previous or next image
             for x in range(max(0, number - 100), min(number + 101, 50000)):
-                if x != number and os.path.exists("%s%s.%s" % (
-                full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
+                if x != number and os.path.exists(
+                   "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
                     is_sequence = True
                     break
             else:
                 is_sequence = False
 
             if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence')
+                log.info('Prompt user to import image sequence from {}'.format(dirName))
                 # Ignore this path (temporarily)
                 self.ignore_image_sequence_paths.append(dirName)
 
@@ -258,10 +251,20 @@ class FilesListView(QListView):
                 _ = get_app()._tr
 
                 # Handle exception
-                ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
+                ret = QMessageBox.question(self, _("Import Image Sequence"),
+                                           _("Would you like to import %s as an image sequence?") % fileName,
+                                           QMessageBox.No | QMessageBox.Yes)
                 if ret == QMessageBox.Yes:
                     # Yes, import image sequence
-                    parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
+                    log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
+                    parameters = {
+                        "file_path": file_path,
+                        "folder_path": dirName,
+                        "base_name": base_name,
+                        "fixlen": fixlen,
+                        "digits": digits,
+                        "extension": extension
+                    }
                     return parameters
                 else:
                     return None
@@ -287,17 +290,8 @@ class FilesListView(QListView):
                     if self.add_file(filepath):
                         event.accept()
 
-    def clear_filter(self):
-        if self:
-            self.win.filesFilter.setText("")
-
     def filter_changed(self):
-        if self:
-            if self.win.filesFilter.text() == "":
-                self.win.actionFilesClear.setEnabled(False)
-            else:
-                self.win.actionFilesClear.setEnabled(True)
-            self.refresh_view()
+        self.refresh_view()
 
     def refresh_view(self):
         self.files_model.update_model()
@@ -313,7 +307,7 @@ class FilesListView(QListView):
         """Remove signal handlers and prepare for deletion"""
         try:
             self.files_model.model.ModelRefreshed.disconnect()
-        except:
+        except Exception:
             pass
 
     def __init__(self, *args):
@@ -349,4 +343,3 @@ class FilesListView(QListView):
         # setup filter events
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
-        app.window.actionFilesClear.triggered.connect(self.clear_filter)

@@ -1,28 +1,28 @@
-""" 
+"""
  @file
  @brief This file contains the classes needed for tracking updates and distributing changes
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -31,12 +31,7 @@ from classes.logger import log
 from classes import info
 import copy
 import os
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class UpdateWatcher:
     """ Interface for classes that listen for 'undo' and 'redo' events. """
@@ -81,15 +76,15 @@ class UpdateAction:
                          "partial": self.partial_update,
                          "old_values": copy.deepcopy(self.old_values)}
 
-        # Always remove 'history' key (if found). This prevents nested "history"
-        # attributes when a project dict is loaded.
-        try:
-            if data_dict.get("value") and "history" in data_dict.get("value"):
-                data_dict.get("value").pop("history", None)
-            if data_dict.get("old_values") and "history" in data_dict.get("old_values"):
-                data_dict.get("old_values").pop("history", None)
-        except Exception:
-            log.info('Warning: failed to clear history attribute from undo/redo data.')
+            # Always remove 'history' key (if found). This prevents nested "history"
+            # attributes when a project dict is loaded.
+            try:
+                if isinstance(data_dict.get("value"), dict) and "history" in data_dict.get("value"):
+                    data_dict.get("value").pop("history", None)
+                if isinstance(data_dict.get("old_values"), dict) and "history" in data_dict.get("old_values"):
+                    data_dict.get("old_values").pop("history", None)
+            except Exception as ex:
+                log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
 
         if not is_array:
             # Use a JSON Object as the root object
@@ -117,12 +112,12 @@ class UpdateAction:
         # Always remove 'history' key (if found). This prevents nested "history"
         # attributes when a project dict is loaded.
         try:
-            if self.values and "history" in self.values:
+            if isinstance(self.values, dict) and "history" in self.values:
                 self.values.pop("history", None)
-            if self.old_values and "history" in self.old_values:
+            if isinstance(self.old_values, dict) and "history" in self.old_values:
                 self.old_values.pop("history", None)
-        except Exception:
-            log.info('Warning: failed to clear history attribute from undo/redo data.')
+        except Exception as ex:
+            log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
 
 
 class UpdateManager:
@@ -144,7 +139,7 @@ class UpdateManager:
         self.actionHistory.clear()
 
         # Get history from project data
-        history = project.get(["history"])
+        history = project.get("history")
 
         # Loop through each, and load serialized data into updateAction objects
         # Ignore any load actions or history update actions
@@ -185,7 +180,7 @@ class UpdateManager:
                 actionDict = json.loads(action.json(), strict=False)
                 undo_list.append(actionDict)
             else:
-                log.info("Saving undo, skipped key: %s" % str(action.key))
+                log.info("Saving undo history, skipped key: %s" % str(action.key))
 
         # Set history data in project
         self.ignore_history = True
@@ -196,6 +191,9 @@ class UpdateManager:
         """ Reset the UpdateManager, and clear all UpdateActions and History. This does not clear listeners and watchers. """
         self.actionHistory.clear()
         self.redoHistory.clear()
+
+        # Notify watchers of new history state
+        self.update_watchers()
 
     def add_listener(self, listener, index=-1):
         """ Add a new listener (which will invoke the changed(action) method each time an UpdateAction is available). """
@@ -208,7 +206,7 @@ class UpdateManager:
                 # Insert listener at index
                 self.updateListeners.insert(index, listener)
         else:
-            log.warning("Listener already added.")
+            log.warning("Cannot add existing listener: {}".format(str(listener)))
 
     def add_watcher(self, watcher):
         """ Add a new watcher (which will invoke the updateStatusChanged() method each time a 'redo' or 'undo' action is available). """
@@ -216,7 +214,7 @@ class UpdateManager:
         if not watcher in self.statusWatchers:
             self.statusWatchers.append(watcher)
         else:
-            log.warning("Watcher already added.")
+            log.warning("Cannot add existing watcher: {}".format(str(watcher)))
 
     def update_watchers(self):
         """ Notify all watchers if any 'undo' or 'redo' actions are available. """
@@ -311,8 +309,8 @@ class UpdateManager:
         """ Insert a new UpdateAction into the UpdateManager (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('insert', key, values)
-        self.redoHistory.clear()
         if not self.ignore_history:
+            self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
@@ -320,19 +318,26 @@ class UpdateManager:
         """ Update the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('update', key, values, partial_update)
-        if self.last_action.key and self.last_action.key[0] != "history":
-            # Clear redo history for any update except a "history" update
-            self.redoHistory.clear()
         if not self.ignore_history:
+            if self.last_action.key and self.last_action.key[0] != "history":
+                # Clear redo history for any update except a "history" update
+                self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
+
+    def update_untracked(self, key, values, partial_update=False):
+        """ Update the UpdateManager with an UpdateAction, without creating a new entry in the history table (this action will then be distributed to all listeners) """
+        previous_ignore = self.ignore_history
+        self.ignore_history = True
+        self.update(key, values, partial_update)
+        self.ignore_history = previous_ignore
 
     def delete(self, key):
         """ Delete an item from the UpdateManager with an UpdateAction (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('delete', key)
-        self.redoHistory.clear()
         if not self.ignore_history:
+            self.redoHistory.clear()
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
@@ -341,3 +346,6 @@ class UpdateManager:
         if self.last_action:
             self.last_action.set_old_values(previous_value)
             self.actionHistory.append(self.last_action)
+
+            # Notify watchers of new history state
+            self.update_watchers()

@@ -21,24 +21,10 @@
 		<default>#ffffff</default>
 	</param>
 	
-	<param name="specular_color" type="color" title="Specular Color" description="">
-		<default>#ffffff</default>
-	</param>
-	
-	<param name="mirror_color" type="color" title="Mirror Color" description="">
-		<default>#ffffff</default>
-	</param>
-	
-	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.5</default>
-	</param>
-	
-	<param name="alpha" type="spinner" title="Alpha" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.3</default>
+	<param name="size" type="spinner" title="Size" description="">
+		<min>1.00</min>
+		<max>20.0</max>
+		<default>2.0</default>
 	</param>
 	
 	<param name="gravity_x" type="spinner" title="Gravity: X" description="">

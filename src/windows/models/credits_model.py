@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the credits model, used by the about window
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -34,10 +34,7 @@ from classes import info
 from classes.logger import log
 from classes.app import get_app
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+import json
 
 
 class CreditsStandardItemModel(QStandardItemModel):
@@ -46,12 +43,12 @@ class CreditsStandardItemModel(QStandardItemModel):
 
 
 class CreditsModel():
-    star_icon = QIcon(os.path.join(info.IMAGES_PATH, "star-icon.png"))
-    paypal_icon = QIcon(os.path.join(info.IMAGES_PATH, "paypal-icon.png"))
-    kickstarter_icon = QIcon(os.path.join(info.IMAGES_PATH, "kickstarter-icon.png"))
-    bitcoin_icon = QIcon(os.path.join(info.IMAGES_PATH, "bitcoin-icon.png"))
-    patreon_icon = QIcon(os.path.join(info.IMAGES_PATH, "patreon-icon.png"))
-    developer_icon = QIcon(os.path.join(info.IMAGES_PATH, "python-icon.png"))
+    star_icon = QIcon(":/about/star-icon.png")
+    paypal_icon = QIcon(":/about/paypal-icon.png")
+    kickstarter_icon = QIcon(":/about/kickstarter-icon.png")
+    bitcoin_icon = QIcon(":/about/bitcoin-icon.png")
+    patreon_icon = QIcon(":/about/patreon-icon.png")
+    developer_icon = QIcon(":/about/python-icon.png")
 
     def update_model(self, filter=None, clear=True):
         log.info("updating credits model.")

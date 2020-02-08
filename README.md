@@ -26,6 +26,9 @@ video editing and animation solutions to the world.
 * Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
 * Audio mixing and editing
 * Digital video effects, including brightness, gamma, hue, greyscale, chroma key, and many more!
+* Experimental hardware encoding and decoding (VA-API, NVDEC, D3D9, D3D11, VTB)
+* Import & Export widely supported formats (EDL, XML)
+* Render videos in many codecs and formats (based on FFmpeg)
 
 ## Getting Started
 
@@ -51,10 +54,12 @@ instructions for getting source code, configuring dependencies, and building Ope
 
 Beautiful HTML documentation can be generated using Sphinx.
 
-```
+```sh
 cd doc
 make html
 ```
+
+The documentation for the most recent release can be viewed online at [openshot.org/user-guide](https://www.openshot.org/user-guide/).
 
 ## Report a bug
 
@@ -92,12 +97,27 @@ dependencies in order to run OpenShot successfully:
 
 ## Launch
 
-To run OpenShot from the command line, use the following syntax:
+To run OpenShot from the command line with an installed `libopenshot`,
+use the following syntax:
 (be sure the change the path to match the install or repo location 
 of openshot-qt)
 
-    $ cd [openshot-qt folder]
-    $ python3 src/launch.py
+```sh
+cd [openshot-qt folder]
+python3 src/launch.py
+```
+    
+To run with a version of `libopenshot` built from source but not installed,
+set `PYTHONPATH` to the location of the compiled Python bindings. e.g.:
+
+```sh
+cd [libopenshot folder]
+mkdir build; cd build; cmake [options] ..; make
+    
+cd [openshot-qt folder]
+PYTHONPATH=[libopenshot folder]/build/src/bindings/python \
+python3 src/launch.py
+```
 
 ## Websites
 

@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the video preview QWidget (based on a QLabel)
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -33,15 +33,42 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip
+from classes import updates
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+import json
 
-
-class VideoWidget(QWidget):
+class VideoWidget(QWidget, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
+
+    # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+    def changed(self, action):
+        # Handle change
+        display_ratio_changed = False
+        pixel_ratio_changed = False
+        if action.key and action.key[0] in ["display_ratio", "pixel_ratio"] or action.type in ["load"]:
+            # Update display ratio (if found)
+            if action.type == "load" and action.values.get("display_ratio"):
+                display_ratio_changed = True
+                self.aspect_ratio = openshot.Fraction(action.values.get("display_ratio", {}).get("num", 16), action.values.get("display_ratio", {}).get("den", 9))
+                log.info("Load: Set video widget display aspect ratio to: %s" % self.aspect_ratio.ToFloat())
+            elif action.key and action.key[0] == "display_ratio":
+                display_ratio_changed = True
+                self.aspect_ratio = openshot.Fraction(action.values.get("num", 16), action.values.get("den", 9))
+                log.info("Update: Set video widget display aspect ratio to: %s" % self.aspect_ratio.ToFloat())
+
+            # Update pixel ratio (if found)
+            if action.type == "load" and action.values.get("pixel_ratio"):
+                pixel_ratio_changed = True
+                self.pixel_ratio = openshot.Fraction(action.values.get("pixel_ratio").get("num", 16), action.values.get("pixel_ratio").get("den", 9))
+                log.info("Set video widget pixel aspect ratio to: %s" % self.pixel_ratio.ToFloat())
+            elif action.key and action.key[0] == "pixel_ratio":
+                pixel_ratio_changed = True
+                self.pixel_ratio = openshot.Fraction(action.values.get("num", 16), action.values.get("den", 9))
+                log.info("Update: Set video widget pixel aspect ratio to: %s" % self.pixel_ratio.ToFloat())
+
+            # Update max size (to size of video preview viewport)
+            if display_ratio_changed or pixel_ratio_changed:
+                get_app().window.timeline_sync.timeline.SetMaxSize(round(self.width() * self.pixel_ratio.ToFloat()), round(self.height() * self.pixel_ratio.ToFloat()))
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
@@ -51,7 +78,7 @@ class VideoWidget(QWidget):
         painter = QPainter(self)
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
-        # Fill background black
+        # Fill the whole widget with the solid color
         painter.fillRect(event.rect(), self.palette().window())
 
         if self.current_image:
@@ -70,7 +97,7 @@ class VideoWidget(QWidget):
         if self.transforming_clip:
             # Draw transform handles on top of video preview
             # Get framerate
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Determine frame # of clip
@@ -245,11 +272,6 @@ class VideoWidget(QWidget):
 
         self.mutex.unlock()
 
-    def SetAspectRatio(self, new_aspect_ratio, new_pixel_ratio):
-        """ Set a new aspect ratio """
-        self.aspect_ratio = new_aspect_ratio
-        self.pixel_ratio = new_pixel_ratio
-
     def centeredViewport(self, width, height):
         """ Calculate size of viewport to maintain apsect ratio """
 
@@ -310,7 +332,7 @@ class VideoWidget(QWidget):
 
         if self.transforming_clip:
             # Get framerate
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Get current clip's position
@@ -531,7 +553,7 @@ class VideoWidget(QWidget):
 
     def resizeEvent(self, event):
         """Widget resize event"""
-        self.delayed_size = self.centeredViewport(event.size().width(), event.size().height())
+        self.delayed_size = self.size()
         self.delayed_resize_timer.start()
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
@@ -541,6 +563,18 @@ class VideoWidget(QWidget):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
         # Stop timer
         self.delayed_resize_timer.stop()
+
+        # Ensure width & height are divisible by 2 (round decimals).
+        # Trying to find the closest even number to the requested aspect ratio
+        # so that both width and height are divisible by 2. This is to prevent some
+        # strange phantom scaling lines on the edges of the preview window.
+        ratio = float(get_app().project.get("width")) / float(get_app().project.get("height"))
+        width = round(self.delayed_size.width() / 2.0) * 2
+        height = (round(width / ratio) / 2.0) * 2
+
+        # Override requested size
+        self.delayed_size.setWidth(width)
+        self.delayed_size.setHeight(height)
 
         # Emit signal that video widget changed size
         self.win.MaxSizeChanged.emit(self.delayed_size)
@@ -581,12 +615,12 @@ class VideoWidget(QWidget):
         # Mutex lock
         self.mutex = QMutex()
 
-        # Init Qt style properties (black background, etc...)
-        p = QPalette()
-        p.setColor(QPalette.Window, QColor("#191919"))
-        super().setPalette(p)
+        # Init Qt widget's properties (background repainting, etc...)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+
+        # Add self as listener to project data updates (used to update the timeline)
+        get_app().updates.add_listener(self)
 
         # Set mouse tracking
         self.setMouseTracking(True)

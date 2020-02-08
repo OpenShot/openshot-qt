@@ -23,8 +23,8 @@
    <string>OpenShot Video Editor</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../images/openshot.svg</normaloff>../../images/openshot.svg</iconset>
+   <iconset resource="../../images/openshot.qrc">
+    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="documentMode">
    <bool>false</bool>
@@ -94,6 +94,32 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export Project</string>
+     </property>
+     <property name="icon">
+      <iconset theme="media-record">
+       <normalon>:/icons/Humanity/actions/16/media-record.svg</normalon>
+      </iconset>
+     </property>
+     <addaction name="actionExportVideo"/>
+     <addaction name="separator"/>
+     <addaction name="actionExportEDL"/>
+     <addaction name="actionExportFCPXML"/>
+    </widget>
+    <widget class="QMenu" name="menuImport_Project">
+     <property name="title">
+      <string>Import Project</string>
+     </property>
+     <property name="icon">
+      <iconset theme="view-list-details">
+       <normalon>:/icons/Humanity/actions/16/view-list-details.png</normalon>
+      </iconset>
+     </property>
+     <addaction name="actionImportEDL"/>
+     <addaction name="actionImportFCPXML"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionRecent_Placeholder"/>
@@ -103,7 +129,9 @@
     <addaction name="separator"/>
     <addaction name="actionImportFiles"/>
     <addaction name="actionProfile"/>
-    <addaction name="actionExportVideo"/>
+    <addaction name="separator"/>
+    <addaction name="menuImport_Project"/>
+    <addaction name="menuExport"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -348,6 +376,9 @@
        <property name="placeholderText">
         <string>Filter</string>
        </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -476,7 +507,7 @@
      <normaloff>:/icons/Humanity/actions/16/document-new.svg</normaloff>:/icons/Humanity/actions/16/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>New Project...</string>
+    <string>New Project</string>
    </property>
    <property name="toolTip">
     <string>New Project</string>
@@ -866,6 +897,18 @@
     <string>Next Marker</string>
    </property>
   </action>
+  <action name="actionCenterOnPlayhead">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+	    <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Center on Playhead</string>
+   </property>
+   <property name="toolTip">
+    <string>Center the timeline on the Playhead</string>
+   </property>
+  </action>
   <action name="actionFilesShowAll">
    <property name="checkable">
     <bool>true</bool>
@@ -1048,8 +1091,8 @@
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
-    <iconset theme="video-x-generic" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/video-x-generic.svg</iconset>
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/about/blender.svg</normaloff>:/about/blender.svg</iconset>
    </property>
    <property name="text">
     <string>Animated Title</string>
@@ -1083,9 +1126,8 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset theme="zoom-in" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/zoom-in.png</normaloff>:/icons/Humanity/actions/16/zoom-in.png</iconset>
+   <property name="checked">
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>View Toolbar</string>
@@ -1319,7 +1361,7 @@
     <string>File Properties</string>
    </property>
   </action>
-  <action name="actionPropertyClear">
+  <action name="actionPropertyFilterClear">
    <property name="icon">
     <iconset theme="edit-clear" resource="../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
@@ -1551,6 +1593,54 @@
    </property>
    <property name="toolTip">
     <string>Clear History</string>
+   </property>
+  </action>
+  <action name="actionImportEDL">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import EDL</string>
+   </property>
+   <property name="toolTip">
+    <string>Import Edit Decision List</string>
+   </property>
+  </action>
+  <action name="actionImportFCPXML">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import XML (Final Cut Pro)</string>
+   </property>
+   <property name="toolTip">
+    <string>Import XML (Final Cut Pro)</string>
+   </property>
+  </action>
+  <action name="actionExportEDL">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export EDL</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Edit Decision List</string>
+   </property>
+  </action>
+  <action name="actionExportFCPXML">
+   <property name="icon">
+    <iconset theme="view-list-details" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/view-list-details.png</normaloff>:/icons/Humanity/actions/16/view-list-details.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export XML (Final Cut Pro)</string>
+   </property>
+   <property name="toolTip">
+    <string>Export XML (Final Cut Pro)</string>
    </property>
   </action>
  </widget>

@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the clip properties model, used by the properties view
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -39,11 +39,7 @@ from classes.logger import log
 from classes.app import get_app
 import openshot
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 
 class ClipStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
@@ -172,7 +168,7 @@ class PropertiesModel(updates.UpdateInterface):
                         break
 
             # Get FPS from project
-            fps = get_app().project.get(["fps"])
+            fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Requested time
@@ -495,38 +491,44 @@ class PropertiesModel(updates.UpdateInterface):
             if not clip_updated:
                 # If no keyframe was found, set a basic property
                 if property_type == "int":
-                    # Integer
                     clip_updated = True
-                    c.data[property_key] = int(new_value)
+                    try:
+                        c.data[property_key] = int(new_value)
+                    except Exception as ex:
+                        log.warn('Invalid Integer value passed to property: %s' % ex)
 
                 elif property_type == "float":
-                    # Float
                     clip_updated = True
-                    c.data[property_key] = new_value
+                    try:
+                        c.data[property_key] = float(new_value)
+                    except Exception as ex:
+                        log.warn('Invalid Float value passed to property: %s' % ex)
 
                 elif property_type == "bool":
-                    # Boolean
                     clip_updated = True
-                    c.data[property_key] = bool(new_value)
+                    try:
+                        c.data[property_key] = bool(new_value)
+                    except Exception as ex:
+                        log.warn('Invalid Boolean value passed to property: %s' % ex)
 
                 elif property_type == "string":
-                    # String
                     clip_updated = True
-                    c.data[property_key] = str(new_value)
+                    try:
+                        c.data[property_key] = str(new_value)
+                    except Exception as ex:
+                        log.warn('Invalid String value passed to property: %s' % ex)
 
                 elif property_type == "reader":
-                    # Reader
-                    clip_updated = True
-
                     # Transition
+                    clip_updated = True
                     try:
                         clip_object = openshot.Clip(value)
                         clip_object.Open()
                         c.data[property_key] = json.loads(clip_object.Reader().Json())
                         clip_object.Close()
                         clip_object = None
-                    except:
-                        log.info('Failed to load %s into Clip object for reader property' % value)
+                    except Exception as ex:
+                        log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
 
             # Reduce # of clip properties we are saving (performance boost)
             c.data = {property_key: c.data.get(property_key)}
@@ -562,7 +564,6 @@ class PropertiesModel(updates.UpdateInterface):
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
-            log.info("Getting properties for frame %s: %s" % (self.frame_number, str(all_properties)))
 
             # Check if filter was changed (if so, wipe previous model data)
             if self.previous_filter != filter:
@@ -623,7 +624,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setBackground(QColor("green"))  # Highlight keyframe background
                     elif points > 1:
                         col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-                    if readonly:
+                    if readonly or type == "color" or choices or label == "Track":
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
                         col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
@@ -648,11 +649,11 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "reader":
                         reader_json = json.loads(memo or "{}")
                         reader_path = reader_json.get("path", "/")
-                        (dirName, fileName) = os.path.split(reader_path)
+                        fileName = os.path.basename(reader_path)
                         col.setText(fileName)
                     elif type == "int" and label == "Track":
                         # Find track display name
-                        all_tracks = get_app().project.get(["layers"])
+                        all_tracks = get_app().project.get("layers")
                         display_count = len(all_tracks)
                         display_label = None
                         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -687,7 +688,7 @@ class PropertiesModel(updates.UpdateInterface):
                         blue = property[1]["blue"]["value"]
                         col.setBackground(QColor(red, green, blue))
 
-                    if readonly or type == "color" or choices:
+                    if readonly or type == "color" or choices or label == "Track":
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
                         col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
@@ -731,7 +732,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText("")
                     elif type == "int" and label == "Track":
                         # Find track display name
-                        all_tracks = get_app().project.get(["layers"])
+                        all_tracks = get_app().project.get("layers")
                         display_count = len(all_tracks)
                         display_label = None
                         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -746,7 +747,7 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "reader":
                         reader_json = json.loads(property[1].get("memo", "{}"))
                         reader_path = reader_json.get("path", "/")
-                        (dirName, fileName) = os.path.split(reader_path)
+                        fileName = os.path.basename(reader_path)
                         col.setText("%s" % fileName)
                     else:
                         # Use numeric value

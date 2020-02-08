@@ -40,11 +40,7 @@ from classes.metrics import *
 from windows.views.credits_treeview import CreditsTreeView
 from windows.views.changelog_treeview import ChangelogTreeView
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
+import json
 import datetime
 
 class About(QDialog):
@@ -99,7 +95,9 @@ class About(QDialog):
         self.btnchangelog.clicked.connect(self.load_changelog)
 
         # Init some variables
-        self.txtversion.setText(_("Version: %s") % info.VERSION)
+        openshot_qt_version = _("Version: %s") % info.VERSION
+        libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
+        self.txtversion.setText("<b>%s</b><br/>%s" % (openshot_qt_version, libopenshot_version))
         self.txtversion.setAlignment(Qt.AlignCenter)
 
         # Track metrics
@@ -144,7 +142,7 @@ class License(QDialog):
         _ = self.app._tr
 
         # Init license
-        with open(os.path.join(info.PATH, 'settings', 'license.txt'), 'r') as my_license:
+        with open(os.path.join(info.RESOURCES_PATH, 'license.txt'), 'r') as my_license:
             text = my_license.read()
             self.textBrowser.append(text)
 
@@ -186,7 +184,7 @@ class Credits(QDialog):
 
         # Get list of developers
         developer_list = []
-        with codecs.open(os.path.join(info.PATH, 'settings', 'contributors.json'), 'r', 'utf-8') as contributors_file:
+        with codecs.open(os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf-8') as contributors_file:
             developer_string = contributors_file.read()
             developer_list = json.loads(developer_string)
 
@@ -217,7 +215,7 @@ class Credits(QDialog):
 
         # Get list of supporters
         supporter_list = []
-        with codecs.open(os.path.join(info.PATH, 'settings', 'supporters.json'), 'r', 'utf-8') as supporter_file:
+        with codecs.open(os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf-8') as supporter_file:
             supporter_string = supporter_file.read()
             supporter_list = json.loads(supporter_string)
 
@@ -270,6 +268,7 @@ class Changelog(QDialog):
                                                    'date': line[9:20].strip(),
                                                    'author': line[20:45].strip(),
                                                    'subject': line[45:].strip() })
+                        break
                 except:
                     # Ignore decoding errors
                     pass

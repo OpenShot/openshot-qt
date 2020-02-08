@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the current version number of OpenShot, along with other global settings.
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -29,9 +29,9 @@ import os
 
 from PyQt5.QtCore import QDir
 
-VERSION = "2.4.4"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.3"
-DATE = "20190315000000"
+VERSION = "2.5.0"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.4"
+DATE = "20200113000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
@@ -39,32 +39,48 @@ DESCRIPTION = "Create and edit stunning videos, movies, and animations"
 COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-2018 %s" % COMPANY_NAME
 CWD = os.getcwd()
+
+# Application paths
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
-HOME_PATH = os.path.join(os.path.expanduser("~"))
-USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
-BACKUP_PATH = os.path.join(USER_PATH, "backup")
-BLENDER_PATH = os.path.join(USER_PATH, "blender")
-ASSETS_PATH = os.path.join(USER_PATH, "assets")
-THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
-CACHE_PATH = os.path.join(USER_PATH, "cache")
-PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
-TITLE_PATH = os.path.join(USER_PATH, "title")
+RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
-TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
 EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
-EXPORT_TESTS = os.path.join(USER_PATH, "tests")
+
+# User paths
+HOME_PATH = os.path.join(os.path.expanduser("~"))
+USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+BACKUP_PATH = os.path.join(USER_PATH)
+RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
+THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
+CACHE_PATH = os.path.join(USER_PATH, "cache")
+BLENDER_PATH = os.path.join(USER_PATH, "blender")
+ASSETS_PATH = os.path.join(USER_PATH, "assets")
+TITLE_PATH = os.path.join(USER_PATH, "title")
+TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
+PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
 
-# Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, ASSETS_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, PREVIEW_CACHE_PATH]:
-    if not os.path.exists(folder.encode("UTF-8")):
+# User files
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
+USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
+
+# Create user paths if they do not exist
+# (this is where temp files are stored... such as cached thumbnails)
+for folder in [USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+               BLENDER_PATH, ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH,
+               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH]:
+    if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
-# names of all contributors, using "u" for unicode encoding
-JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
+# Maintainer details, for packaging
+JT = {"name": "Jonathan Thomas",
+      "email": "jonathan@openshot.org",
+      "website": "http://openshot.org/developers/jonathan"}
+
+# Blender minimum version required (a string value)
+BLENDER_MIN_VERSION = "2.80"
 
 # Languages
 CMDLINE_LANGUAGE = None
@@ -73,15 +89,15 @@ SUPPORTED_LANGUAGES = ['en_US']
 
 try:
     from language import openshot_lang
-    language_path=":/locale/"
+    language_path = ":/locale/"
 except ImportError:
-    language_path=os.path.join(PATH, 'language')
+    language_path = os.path.join(PATH, 'language')
     print("Compiled translation resources missing!")
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
 langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot|QDir.Files,
+langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
                           sort=QDir.Name)
 for trpath in langs:
     SUPPORTED_LANGUAGES.append(trpath.split('.')[1])

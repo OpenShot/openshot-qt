@@ -1,5 +1,6 @@
 language: cpp
-dist: trusty
+dist: xenial
+sudo: required
 
 before_install:
   - sudo add-apt-repository ppa:openshot.developers/libopenshot-daily -y
