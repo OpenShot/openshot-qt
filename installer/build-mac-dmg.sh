@@ -34,6 +34,7 @@ mv "$OS_PATH/MacOS/images" "$OS_PATH/Resources/images"; ln -s "../Resources/imag
 mv "$OS_PATH/MacOS/language" "$OS_PATH/Resources/language"; ln -s "../Resources/language" "$OS_PATH/MacOS/language";
 mv "$OS_PATH/MacOS/presets" "$OS_PATH/Resources/presets"; ln -s "../Resources/presets" "$OS_PATH/MacOS/presets";
 mv "$OS_PATH/MacOS/profiles" "$OS_PATH/Resources/profiles"; ln -s "../Resources/profiles" "$OS_PATH/MacOS/profiles";
+mv "$OS_PATH/MacOS/resources" "$OS_PATH/Resources/resources"; ln -s "../Resources/resources" "$OS_PATH/MacOS/resources";
 mv "$OS_PATH/MacOS/settings" "$OS_PATH/Resources/settings"; ln -s "../Resources/settings" "$OS_PATH/MacOS/settings";
 mv "$OS_PATH/MacOS/tests" "$OS_PATH/Resources/tests"; ln -s "../Resources/tests" "$OS_PATH/MacOS/tests";
 mv "$OS_PATH/MacOS/timeline" "$OS_PATH/Resources/timeline"; ln -s "../Resources/timeline" "$OS_PATH/MacOS/timeline";

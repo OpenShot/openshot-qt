@@ -95,7 +95,9 @@ class About(QDialog):
         self.btnchangelog.clicked.connect(self.load_changelog)
 
         # Init some variables
-        self.txtversion.setText(_("Version: %s") % info.VERSION)
+        openshot_qt_version = _("Version: %s") % info.VERSION
+        libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
+        self.txtversion.setText("<b>%s</b><br/>%s" % (openshot_qt_version, libopenshot_version))
         self.txtversion.setAlignment(Qt.AlignCenter)
 
         # Track metrics
@@ -266,6 +268,7 @@ class Changelog(QDialog):
                                                    'date': line[9:20].strip(),
                                                    'author': line[20:45].strip(),
                                                    'subject': line[45:].strip() })
+                        break
                 except:
                     # Ignore decoding errors
                     pass
