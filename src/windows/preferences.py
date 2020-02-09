@@ -410,6 +410,16 @@ class Preferences(QDialog):
 
         fileName = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))[0]
         if fileName:
+            if platform.system() == "Darwin":
+                # Check for Mac specific app-bundle executable file (if any)
+                appBundlePath = os.path.join(fileName, 'Contents', 'MacOS')
+                if os.path.exists(os.path.join(appBundlePath, 'blender')):
+                    fileName = os.path.join(appBundlePath, 'blender')
+                elif os.path.exists(os.path.join(appBundlePath, 'Blender')):
+                    fileName = os.path.join(appBundlePath, 'Blender')
+                elif os.path.exists(os.path.join(appBundlePath, 'Inkscape')):
+                    fileName = os.path.join(appBundlePath, 'Inkscape')
+
             self.s.set(param["setting"], fileName)
             widget.setText(fileName)
 

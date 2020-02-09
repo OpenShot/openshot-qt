@@ -292,8 +292,8 @@ elif sys.platform == "linux":
     # for certain distros (like Fedora, openSUSE, Debian, etc...)
     # Also add Glib related files (required for some distros)
 
-    for added_lib in [ARCHLIB + "libssl.so.1.0.0",
-                      ARCHLIB + "libcrypto.so.1.0.0",
+    for added_lib in [ARCHLIB + "libssl.so",
+                      ARCHLIB + "libcrypto.so",
                       ARCHLIB + "libglib-2.0.so",
                       ARCHLIB + "libgio-2.0.so",
                       ARCHLIB + "libgmodule-2.0.so",

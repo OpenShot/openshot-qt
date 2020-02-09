@@ -56,11 +56,10 @@ class Profile(QDialog):
         ui_util.init_ui(self)
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        app.window.actionPlay_trigger(None, force="pause")
+        get_app().window.actionPlay_trigger(None, force="pause")
 
         # Track metrics
         track_metric_screen("profile-screen")
@@ -93,7 +92,7 @@ class Profile(QDialog):
             self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
 
             # Set default (if it matches the project)
-            if app.project.get(['profile']) in profile_name:
+            if get_app().project.get(['profile']) in profile_name:
                 self.initial_index = box_index
 
             # increment item counter
@@ -145,7 +144,14 @@ class Profile(QDialog):
 
         # Rescale all keyframes and reload project
         if fps_factor != 1.0:
-            get_app().project.rescale_keyframes(fps_factor)
+            # Get a copy of rescaled project data (this does not modify the active project... yet)
+            rescaled_app_data = get_app().project.rescale_keyframes(fps_factor)
+
+            # Apply rescaled data to active project
+            get_app().project._data = rescaled_app_data
+
+            # Distribute all project data through update manager
+            get_app().updates.load(rescaled_app_data)
 
         # Force ApplyMapperToClips to apply these changes
         get_app().window.timeline_sync.timeline.ApplyMapperToClips()

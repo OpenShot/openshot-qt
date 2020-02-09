@@ -486,6 +486,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Ignore the request
             return
 
+        # Stop preview thread
+        self.SpeedSignal.emit(0)
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
+        self.actionPlay.setChecked(False)
+        QCoreApplication.processEvents()
+
         # Do we have unsaved changes?
         if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -545,25 +551,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
         try:
-            openshot_thumbnail_path = os.path.join(info.USER_PATH, "thumbnail")
-            if os.path.exists(openshot_thumbnail_path):
-                log.info("Clear all thumbnails: %s" % openshot_thumbnail_path)
-                shutil.rmtree(openshot_thumbnail_path)
-                os.mkdir(openshot_thumbnail_path)
+            clear_path = os.path.join(info.USER_PATH, "thumbnail")
+            if os.path.exists(clear_path):
+                log.info("Clear all thumbnails: %s" % clear_path)
+                shutil.rmtree(clear_path)
+                os.mkdir(clear_path)
 
             # Clear any blender animations
-            openshot_blender_path = os.path.join(info.USER_PATH, "blender")
-            if os.path.exists(openshot_blender_path):
-                log.info("Clear all animations: %s" % openshot_blender_path)
-                shutil.rmtree(openshot_blender_path)
-                os.mkdir(openshot_blender_path)
+            clear_path = os.path.join(info.USER_PATH, "blender")
+            if os.path.exists(clear_path):
+                log.info("Clear all animations: %s" % clear_path)
+                shutil.rmtree(clear_path)
+                os.mkdir(clear_path)
 
             # Clear any title animations
-            openshot_title_path = os.path.join(info.USER_PATH, "title")
-            if os.path.exists(openshot_title_path):
-                log.info("Clear all titles: %s" % openshot_title_path)
-                shutil.rmtree(openshot_title_path)
-                os.mkdir(openshot_title_path)
+            clear_path = os.path.join(info.USER_PATH, "title")
+            if os.path.exists(clear_path):
+                log.info("Clear all titles: %s" % clear_path)
+                shutil.rmtree(clear_path)
+                os.mkdir(clear_path)
 
             # Clear any backups
             if os.path.exists(info.BACKUP_FILE):
@@ -571,8 +577,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Remove backup file
                 os.unlink(info.BACKUP_FILE)
 
-        except:
-            log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
+        except Exception as ex:
+            log.info("Failed to clear {}: {}".format(clear_path, ex))
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -1043,13 +1049,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             framePathTime = QDateTime()
 
         # Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
-        openshot.Timeline.GetFrame(self.timeline_sync.timeline,self.preview_thread.current_frame).Save(framePath, 1.0)
+        openshot.Timeline.GetFrame(self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
 
         # Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
             self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
         else:
-            self.statusBar.showMessage( _("Failed to save image to %s" % framePath), 5000)
+            self.statusBar.showMessage(_("Failed to save image to %s" % framePath), 5000)
 
         # Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
@@ -1266,7 +1272,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     closest_position = marker_position
 
         # Seek to marker position (if any)
-        if closest_position != None:
+        if closest_position is not None:
             # Seek
             frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
@@ -1319,7 +1325,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     closest_position = marker_position
 
         # Seek to marker position (if any)
-        if closest_position != None:
+        if closest_position is not None:
             # Seek
             frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
@@ -1406,16 +1412,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
             self.actionPlay.setChecked(True)
 
-        elif key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch or \
-             key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch or \
-             key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch or \
-             key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch:
+        elif (key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch or
+              key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch or
+              key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch or
+              key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch):
             # Toggle playbutton and show properties
             self.actionPlay.trigger()
             self.propertyTableView.select_frame(player.Position())
 
-        elif key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch or \
-             key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch:
+        elif (key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch or
+              key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch):
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
@@ -2227,11 +2233,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
         ospacer1 = QWidget(self)
-        ospacer1.setMinimumSize(32, 1) # actionSaveFrame
+        ospacer1.setMinimumSize(32, 1)  # actionSaveFrame
         self.videoToolbar.addWidget(ospacer1)
-        #ospacer2 = QWidget(self)
-        #ospacer2.setMinimumSize(32, 1) # ???
-        #self.videoToolbar.addWidget(ospacer2)
 
         # Add left spacer
         spacer = QWidget(self)
@@ -2285,7 +2288,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)
 
-        self.zoomScaleLabel = QLabel( _("{} seconds").format(zoomToSeconds(self.sliderZoom.value())) )
+        self.zoomScaleLabel = QLabel(
+            _("{} seconds").format(zoomToSeconds(self.sliderZoom.value()))
+        )
 
         # add zoom widgets
         self.timelineToolbar.addAction(self.actionTimelineZoomIn)
@@ -2388,7 +2393,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("cache-limit-mb: %s" % s.get("cache-limit-mb"))
 
         # Get MB limit of cache (and convert to bytes)
-        cache_limit = s.get("cache-limit-mb") * 1024 * 1024 # Convert MB to Bytes
+        cache_limit = s.get("cache-limit-mb") * 1024 * 1024  # Convert MB to Bytes
 
         # Clear old cache
         new_cache_object = None
@@ -2419,6 +2424,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if sys.platform == "linux" and self.has_launcher:
                 if not self.unity_launchers:
                     # Get launcher only once
+                    import gi
+                    gi.require_version('Unity', '7.0')
                     from gi.repository import Unity
                     self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("openshot-qt.desktop"))
                     self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("appimagekit-openshot-qt.desktop"))
@@ -2428,7 +2435,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     launcher.set_property("progress", current_frame / (end_frame - start_frame))
                     launcher.set_property("progress_visible", True)
 
-        except:
+        except Exception:
             # Just ignore
             self.has_launcher = False
 
@@ -2440,7 +2447,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     # Set progress on Unity launcher and hide progress bar
                     launcher.set_property("progress", 0.0)
                     launcher.set_property("progress_visible", False)
-        except:
+        except Exception:
             pass
 
     def transformTriggered(self, clip_id):
@@ -2598,9 +2605,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Set encoding method
         if s.get("hw-decoder"):
-                openshot.Settings.Instance().HARDWARE_DECODER = int(str(s.get("hw-decoder")))
+            openshot.Settings.Instance().HARDWARE_DECODER = int(str(s.get("hw-decoder")))
         else:
-                openshot.Settings.Instance().HARDWARE_DECODER = 0
+            openshot.Settings.Instance().HARDWARE_DECODER = 0
 
         # Set graphics card for decoding
         if s.get("graca_number_de"):
@@ -2622,9 +2629,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Set audio playback settings
         if s.get("playback-audio-device"):
-                openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
+            openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
         else:
-                openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = ""
+            openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = ""
 
         # Set OMP thread enabled flag (for stability)
         if s.get("omp_threads_enabled"):
@@ -2637,13 +2644,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Set use omp threads number environment variable
         if s.get("omp_threads_number"):
-            openshot.Settings.Instance().OMP_THREADS = max(2,int(str(s.get("omp_threads_number"))))
+            openshot.Settings.Instance().OMP_THREADS = max(2, int(str(s.get("omp_threads_number"))))
         else:
             openshot.Settings.Instance().OMP_THREADS = 12
 
         # Set use ffmpeg threads number environment variable
         if s.get("ff_threads_number"):
-            openshot.Settings.Instance().FF_THREADS = max(1,int(str(s.get("ff_threads_number"))))
+            openshot.Settings.Instance().FF_THREADS = max(1, int(str(s.get("ff_threads_number"))))
         else:
             openshot.Settings.Instance().FF_THREADS = 8
 
