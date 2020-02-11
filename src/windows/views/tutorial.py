@@ -154,7 +154,9 @@ class TutorialDialog(QWidget):
         # Make transparent
         self.setAttribute(Qt.WA_NoSystemBackground, True)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        #self.setWindowFlags(Qt.FramelessWindowHint)
+        # self.setWindowFlags(Qt.FramelessWindowHint)
+
+        self.setAttribute(Qt.WA_DeleteOnClose, True)
 
 
 class TutorialManager(object):
@@ -197,6 +199,9 @@ class TutorialManager(object):
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
             tutorial_dialog.btn_close_tips.clicked.connect(functools.partial(self.hide_tips, tutorial_id, True))
 
+            # Get previous dock contents
+            old_widget = self.dock.widget()
+
             # Insert into tutorial dock
             self.dock.setWidget(tutorial_dialog)
             self.current_dialog = tutorial_dialog
@@ -206,6 +211,11 @@ class TutorialManager(object):
             self.dock.setEnabled(True)
             self.re_position_dialog()
             self.dock.show()
+
+            # Delete old widget
+            if old_widget:
+                old_widget.close()
+
             break
 
     def get_object(self, object_id):
