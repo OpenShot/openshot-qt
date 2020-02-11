@@ -47,7 +47,6 @@ class TutorialDialog(QWidget):
         painter.setRenderHint(QPainter.Antialiasing)
         frameColor = QColor("#53a0ed")
 
-
         painter.setPen(QPen(frameColor, 2))
         painter.setBrush(self.palette().color(QPalette.Window))
         painter.drawRoundedRect(QRectF(31, 0, self.width() - 31, self.height()), 10, 10)
@@ -60,10 +59,7 @@ class TutorialDialog(QWidget):
             path.lineTo(31, 35 - arrow_height)
             path.lineTo(31, (35 - arrow_height) + (arrow_height * 2))
             path.lineTo(0, 35)
-            painter.setPen(Qt.NoPen)
-            painter.setBrush(frameColor)
             painter.fillPath(path, frameColor)
-            painter.drawPath(path)
 
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
