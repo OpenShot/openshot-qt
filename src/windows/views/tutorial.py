@@ -65,10 +65,10 @@ class TutorialDialog(QWidget):
         if self.arrow:
             arrow_height = 20
             path = QPainterPath()
-            path.moveTo (0, 35)
-            path.lineTo (31, 35 - arrow_height)
-            path.lineTo (31, (35 - arrow_height) + (arrow_height * 2))
-            path.lineTo (0, 35)
+            path.moveTo(0, 35)
+            path.lineTo(31, 35 - arrow_height)
+            path.lineTo(31, (35 - arrow_height) + (arrow_height * 2))
+            path.lineTo(0, 35)
             painter.fillPath(path, frameColor)
             painter.drawPath(path)
 
@@ -102,7 +102,7 @@ class TutorialDialog(QWidget):
 
         # Create vertical box
         vbox = QVBoxLayout()
-        vbox.setContentsMargins(32,10,10,10)
+        vbox.setContentsMargins(32, 10, 10, 10)
 
         # Add label
         self.label = QLabel(self)
@@ -132,7 +132,7 @@ class TutorialDialog(QWidget):
 
         # Add button box
         hbox = QHBoxLayout()
-        hbox.setContentsMargins(20,10,0,0)
+        hbox.setContentsMargins(20, 10, 0, 0)
 
         # Create buttons
         self.btn_close_tips = QPushButton(self)
@@ -165,7 +165,7 @@ class TutorialManager(object):
     def process(self, parent_name=None):
         """ Process and show the first non-completed tutorial """
 
-        # Do nothing if a tutorial is already visible
+        # If a tutorial is already visible, just update it
         if self.current_dialog:
             # XXX: Respond to possible dock floats/moves
             self.dock.raise_()
@@ -176,24 +176,19 @@ class TutorialManager(object):
         for tutorial_details in self.tutorial_objects:
             # Get details
             tutorial_id = tutorial_details["id"]
-            tutorial_object_id = tutorial_details["object_id"]
-            tutorial_text = tutorial_details["text"]
-            tutorial_x_offset = tutorial_details["x"]
-            tutorial_y_offset = tutorial_details["y"]
-            turorial_arrow = tutorial_details["arrow"]
 
             # Get QWidget
-            tutorial_object = self.get_object(tutorial_object_id)
+            tutorial_object = self.get_object(tutorial_details["object_id"])
 
             # Skip completed tutorials (and invisible widgets)
-            if tutorial_object.visibleRegion().isEmpty() or tutorial_id in self.tutorial_ids or not self.tutorial_enabled:
+            if not self.tutorial_enabled or tutorial_id in self.tutorial_ids or tutorial_object.visibleRegion().isEmpty():
                 continue
 
             # Create tutorial
             self.position_widget = tutorial_object
-            self.x_offset = tutorial_x_offset
-            self.y_offset = tutorial_y_offset
-            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_text, turorial_arrow)
+            self.x_offset = tutorial_details["x"]
+            self.y_offset = tutorial_details["y"]
+            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"])
 
             # Connect signals
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
@@ -284,7 +279,7 @@ class TutorialManager(object):
             self.win.dockEffects.visibilityChanged.disconnect()
             self.win.dockProperties.visibilityChanged.disconnect()
             self.win.dockVideo.visibilityChanged.disconnect()
-        except:
+        except Exception:
             # Ignore errors from this
             pass
 
@@ -326,18 +321,66 @@ class TutorialManager(object):
         self.tutorial_ids = s.get("tutorial_ids").split(",")
 
         # Add all possible tutorials
-        self.tutorial_objects = [    {"id":"0", "x":400, "y":0, "object_id":"filesTreeView", "text":_("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"), "arrow":False},
-                                     {"id":"1", "x":20, "y":0, "object_id":"filesTreeView", "text":_("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system."), "arrow":True},
-                                     {"id":"2", "x":200, "y":-15, "object_id":"timeline", "text":_("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips."), "arrow":True},
-                                     {"id":"3", "x":200, "y":100, "object_id":"dockVideoContents", "text":_("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."), "arrow":True},
-                                     {"id":"4", "x":20, "y":-35, "object_id":"propertyTableView", "text":_("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties."), "arrow":True},
-                                     {"id":"5", "x":20, "y":10, "object_id":"transitionsTreeView", "text":_("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."), "arrow":True},
-                                     {"id":"6", "x":20, "y":20, "object_id":"effectsTreeView", "text":_("<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"), "arrow":True},
-                                     {"id":"7", "x":-265, "y":-22, "object_id":"export_button", "text":_("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."), "arrow":True}
-                                ]
+        self.tutorial_objects = [
+            {"id": "0",
+             "x": 400,
+             "y": 0,
+             "object_id": "filesTreeView",
+             "text": _("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"),
+             "arrow": False
+             },
+            {"id": "1",
+             "x": 20,
+             "y": 0,
+             "object_id": "filesTreeView",
+             "text": _("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system."),
+             "arrow": True
+             },
+            {"id": "2",
+             "x": 200,
+             "y": -15,
+             "object_id": "timeline",
+             "text": _("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips."),
+             "arrow": True
+             },
+            {"id": "3",
+             "x": 200,
+             "y": 100,
+             "object_id": "dockVideoContents",
+             "text": _("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."),
+             "arrow": True},
+            {"id": "4",
+             "x": 20,
+             "y": -35,
+             "object_id": "propertyTableView",
+             "text": _("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties."),
+             "arrow": True
+             },
+            {"id": "5",
+             "x": 20,
+             "y": 10,
+             "object_id": "transitionsTreeView",
+             "text": _("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."),
+             "arrow": True
+             },
+            {"id": "6",
+             "x": 20,
+             "y": 20,
+             "object_id": "effectsTreeView",
+             "text": _("<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"),
+             "arrow": True
+             },
+            {"id": "7",
+             "x": -265,
+             "y": -22,
+             "object_id": "export_button",
+             "text": _("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."),
+             "arrow": True
+             }
+        ]
 
         # Configure tutorial frame
-        self.dock.setTitleBarWidget(QWidget()) # Prevents window decoration
+        self.dock.setTitleBarWidget(QWidget())  # Prevents window decoration
         self.dock.setAttribute(Qt.WA_NoSystemBackground, True)
         self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
         self.dock.setWindowFlags(Qt.FramelessWindowHint)
