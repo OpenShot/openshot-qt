@@ -47,19 +47,10 @@ class TutorialDialog(QWidget):
         painter.setRenderHint(QPainter.Antialiasing)
         frameColor = QColor("#53a0ed")
 
-        # Paint blue rounded rectangle
-        path = QPainterPath()
-        path.addRoundedRect(QRectF(31, 0, self.width()-31, self.height()), 10, 10)
-        painter.setPen(Qt.NoPen)
-        painter.fillPath(path, frameColor)
-        painter.drawPath(path)
 
-        # Paint gray rounded rectangle
-        path = QPainterPath()
-        path.addRoundedRect(QRectF(32, 1, self.width()-33, self.height()-2), 10, 10)
-        painter.setPen(Qt.NoPen)
-        painter.fillPath(path, self.palette().color(QPalette.Window))
-        painter.drawPath(path)
+        painter.setPen(QPen(frameColor, 2))
+        painter.setBrush(self.palette().color(QPalette.Window))
+        painter.drawRoundedRect(QRectF(31, 0, self.width() - 31, self.height()), 10, 10)
 
         # Paint blue triangle (if needed)
         if self.arrow:
@@ -69,6 +60,8 @@ class TutorialDialog(QWidget):
             path.lineTo(31, 35 - arrow_height)
             path.lineTo(31, (35 - arrow_height) + (arrow_height * 2))
             path.lineTo(0, 35)
+            painter.setPen(Qt.NoPen)
+            painter.setBrush(frameColor)
             painter.fillPath(path, frameColor)
             painter.drawPath(path)
 
@@ -144,10 +137,9 @@ class TutorialDialog(QWidget):
         hbox.addWidget(self.btn_next_tip)
         vbox.addLayout(hbox)
 
-        # Set layout
+        # Set layout, cursor, and size
         self.setLayout(vbox)
-
-        # Set size
+        self.setCursor(Qt.ArrowCursor)
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
 
