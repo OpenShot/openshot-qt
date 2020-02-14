@@ -9,3 +9,6 @@
     overflow: visible;
 }
 
+.wy-table-responsive th p {
+    margin-bottom: unset;
+}
