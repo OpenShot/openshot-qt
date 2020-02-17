@@ -2,7 +2,7 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">MP4 (SVT-AV1)</title>
+	<title translatable="True">MP4 (AV1 svt)</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>libsvt_av1</videocodec>
 	<audiocodec>libvorbis</audiocodec>

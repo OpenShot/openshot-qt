@@ -2,7 +2,7 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">MP4 (rav1e)</title>
+	<title translatable="True">MP4 (AV1 rav1e)</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>librav1e</videocodec>
 	<audiocodec>libvorbis</audiocodec>

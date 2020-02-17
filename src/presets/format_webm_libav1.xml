@@ -2,7 +2,7 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">WEBM (AV1)</title>
+	<title translatable="True">WEBM (AV1 aom)</title>
 	<videoformat>webm</videoformat>
 	<videocodec>libaom-av1</videocodec>
 	<audiocodec>libvorbis</audiocodec>
