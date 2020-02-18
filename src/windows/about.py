@@ -289,6 +289,7 @@ class Changelog(QDialog):
                                                    'date': line[9:20].strip(),
                                                    'author': line[20:45].strip(),
                                                    'subject': line[45:].strip() })
+                        break
                 except:
                     # Ignore decoding errors
                     pass
@@ -309,6 +310,7 @@ class Changelog(QDialog):
                                                    'date': line[9:20].strip(),
                                                    'author': line[20:45].strip(),
                                                    'subject': line[45:].strip() })
+                        break
                 except:
                     # Ignore decoding errors
                     pass
