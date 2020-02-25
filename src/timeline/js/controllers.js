@@ -754,6 +754,10 @@ App.controller('TimelineCtrl',function($scope) {
 
   // Format the thumbnail path: http://127.0.0.1:8081/thumbnails/FILE-ID/FRAME-NUMBER/
  $scope.GetThumbPath = function(clip) {
+  var has_video = clip["reader"]["has_video"];
+  var has_audio = clip["reader"]["has_audio"];
+  if (!has_video && has_audio)
+    return "../images/AudioThumbnail.png"
  	var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
  	return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
  };
