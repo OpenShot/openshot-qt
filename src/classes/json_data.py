@@ -164,19 +164,16 @@ class JsonDataStore:
         # Find absolute path of file (if needed)
         if "@transitions" in path:
             new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
-            new_path = json.dumps(new_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_path)
+            return '"%s": "%s"' % (key, new_path)
 
         elif "@assets" in path:
             new_path = path.replace("@assets", path_context["new_project_assets"])
-            new_path = json.dumps(new_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_path)
+            return '"%s": "%s"' % (key, new_path)
 
         else:
             # Convert path to the correct relative path
             new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), path))
-            new_path = json.dumps(new_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_path)
+            return '"%s": "%s"' % (key, new_path)
 
     def convert_paths_to_absolute(self, file_path, data):
         """ Convert all paths to absolute using regex """
@@ -198,15 +195,14 @@ class JsonDataStore:
     def replace_string_to_relative(self, match):
         """Replace matched string for converting paths to relative paths"""
         key = match.groups(0)[0]
-        path = match.groups(0)[1]
+        path = match.groups(0)[1].encode('utf-8').decode('unicode_escape')
         folder_path, file_path = os.path.split(os.path.abspath(path))
 
         # Determine if thumbnail path is found
         if info.THUMBNAIL_PATH in folder_path:
             # Convert path to relative thumbnail path
             new_path = os.path.join("thumbnail", file_path).replace("\\", "/")
-            new_path = json.dumps(new_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_path)
+            return '"%s": "%s"' % (key, new_path)
 
         # Determine if @transitions path is found
         elif os.path.join(info.PATH, "transitions") in folder_path:
@@ -215,8 +211,7 @@ class JsonDataStore:
 
             # Convert path to @transitions/ path
             new_path = os.path.join("@transitions", category_path, file_path).replace("\\", "/")
-            new_path = json.dumps(new_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_path)
+            return '"%s": "%s"' % (key, new_path)
 
         # Determine if @assets path is found
         elif path_context["new_project_assets"] in folder_path:
@@ -225,8 +220,7 @@ class JsonDataStore:
 
             # Convert path to @transitions/ path
             new_path = os.path.join(folder_path, file_path).replace("\\", "/")
-            new_path = json.dumps(new_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_path)
+            return '"%s": "%s"' % (key, new_path)
 
         # Find absolute path of file (if needed)
         else:
@@ -239,8 +233,7 @@ class JsonDataStore:
             # Calculate new relateive path
             new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))
             new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
-            new_rel_path = json.dumps(new_rel_path)  # Escape backslashes
-            return '"%s": %s' % (key, new_rel_path)
+            return '"%s": "%s"' % (key, new_rel_path)
 
     def convert_paths_to_relative(self, file_path, previous_path, data):
         """ Convert all paths relative to this filepath """
