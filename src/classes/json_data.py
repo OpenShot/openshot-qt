@@ -36,6 +36,7 @@ import re
 from classes.assets import get_assets_path
 from classes.logger import log
 from classes import info
+from classes.app import get_app
 
 # Compiled path regex
 path_regex = re.compile(r'\"(image|path)\":.*?\"(.*?)\"')
@@ -52,6 +53,24 @@ class JsonDataStore:
     def __init__(self):
         self._data = {}  # Private data store, accessible through the get and set methods
         self.data_type = "json data"
+
+        # Regular expression for project files with possible corruption
+        self.version_re = re.compile(r'"openshot-qt".*"2.5.0')
+
+        # Regular expression matching likely corruption in project files
+        self.damage_re = re.compile(r'/u([0-9a-fA-F]{4})')
+
+        # Connection to Qt main window, used in recovery alerts
+        app = get_app()
+        if app:
+            self.app = app
+
+        if app and app._tr:
+            self._ = app._tr
+        else:
+            def fn(arg):
+                return arg
+            self._ = fn
 
     def get(self, key):
         """ Get copied value of a given key in data store """
@@ -108,7 +127,7 @@ class JsonDataStore:
             # Update default values to match user values
             for item in default:
                 user_value = user_values.get(item["setting"], None)
-                if user_value != None:
+                if user_value is not None:
                     item["value"] = user_value
 
             # Return merged list
@@ -129,16 +148,51 @@ class JsonDataStore:
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 contents = f.read()
-                if contents:
-                    if path_mode == "absolute":
-                        # Convert any paths to absolute
-                        contents = self.convert_paths_to_absolute(file_path, contents)
-                    return json.loads(contents)
+            if not contents:
+                raise RuntimeError("Couldn't load {} file, no data.".format(self.data_type))
+
+            # Scan for and correct possible OpenShot 2.5.0 corruption
+            if self.damage_re.search(contents) and self.version_re.search(contents):
+                # File contains corruptions, backup and repair
+                self.make_repair_backup(file_path, contents)
+
+                # Repair all corrupted escapes
+                contents, subs_count = self.damage_re.subn(r'\\u\1', contents)
+
+                if subs_count < 1:
+                    # Nothing to do!
+                    log.info("No recovery substitutions on {}".format(file_path))
+                else:
+                    # We have to de- and re-serialize the data, to complete repairs
+                    temp_data = json.loads(contents)
+                    contents = json.dumps(temp_data, ensure_ascii=False)
+                    temp_data = {}
+
+                    # Save the repaired data back to the original file
+                    with open(file_path, "w", encoding="utf-8") as fout:
+                        fout.write(contents)
+
+                    msg_log = "Repaired {} corruptions in file {}"
+                    msg_local = self._("Repaired {num} corruptions in file {path}")
+                    log.info(msg_log.format(subs_count, file_path))
+                    if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
+                        self.app.window.statusBar.showMessage(
+                            msg_local.format(num=subs_count, path=file_path), 5000
+                        )
+
+            # Process JSON data
+            if path_mode == "absolute":
+                # Convert any paths to absolute
+                contents = self.convert_paths_to_absolute(file_path, contents)
+            return json.loads(contents)
+        except RuntimeError as ex:
+            log.error(str(ex))
+            raise
         except Exception as ex:
             msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
             log.error(msg)
-            raise Exception(msg)
-        msg = ("Couldn't load {} file, no data.".format(self.data_type))
+            raise Exception(msg) from ex
+        msg = ()
         log.warning(msg)
         raise Exception(msg)
 
@@ -261,3 +315,42 @@ class JsonDataStore:
             log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
 
         return data
+
+    def make_repair_backup(self, file_path, jsondata, backup_dir=None):
+        """ Make a backup copy of an OSP file before performing recovery """
+
+        if backup_dir:
+            backup_base = os.path.join(backup_dir, os.path.basename(file_path))
+        else:
+            backup_base = os.path.realpath(file_path)
+
+        # Generate a filename.osp.bak (or filename.osp.bak.1...) backup file name
+        backup_file = "{}.bak".format(backup_base)
+        dup_count = 1
+        while os.path.exists(backup_file) and dup_count <= 999:
+            backup_file = "{}.bak.{}".format(backup_base, dup_count)
+            dup_count += 1
+
+        if dup_count >= 1000:
+            # Something's wrong, we can't find a free save file name; bail
+            raise Exception("Aborting recovery, cannot create backup file")
+
+        # Attempt to open backup file for writing and store original data
+        try:
+            with open(backup_file, "w") as fout:
+                fout.write(jsondata)
+
+            if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
+                self.app.window.statusBar.showMessage(
+                    self._("Saved backup file {}").format(backup_file), 5000
+                )
+            log.info("Backed up {} as {}".format(file_path, backup_file))
+        except (PermissionError, FileExistsError) as ex:
+            # Couldn't write to backup file! Try alternate location
+            log.error("Couldn't write to backup file {}: {}".format(backup_file, ex))
+            if not backup_dir:
+                # Retry in alternate location
+                log.info("Attempting to save backup in user config directory")
+                self.make_repair_backup(file_path, jsondata, backup_dir=info.USER_PATH)
+            else:
+                raise Exception("Aborting recovery, cannot write backup file") from ex

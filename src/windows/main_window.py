@@ -532,10 +532,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 log.info("Loaded project {}".format(file_path))
             else:
-                # Prepare to use status bar
-                self.statusBar = QStatusBar()
-                self.setStatusBar(self.statusBar)
-
                 log.info("File not found at {}".format(file_path))
                 self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
                 self.remove_recent_project(file_path)
@@ -2552,6 +2548,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.effectsTreeView = EffectsListView(self)
         self.tabEffects.layout().addWidget(self.effectsTreeView)
+
+        # Set up status bar
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
 
         # Process events before continuing
         # TODO: Figure out why this is needed for a backup recovery to correctly show up on the timeline
