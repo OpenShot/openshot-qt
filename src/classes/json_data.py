@@ -165,7 +165,7 @@ class JsonDataStore:
                 else:
                     # We have to de- and re-serialize the data, to complete repairs
                     temp_data = json.loads(contents)
-                    contents = json.dumps(temp_data, ensure_ascii=False)
+                    contents = json.dumps(temp_data, ensure_ascii=False, indent=1)
                     temp_data = {}
 
                     # Save the repaired data back to the original file
