@@ -30,6 +30,7 @@ import encodings.idna
 import requests
 import platform
 import threading
+import time
 import urllib.parse
 from copy import deepcopy
 from classes import info
@@ -86,6 +87,9 @@ params = {
     "cd5": linux_distro
 }
 
+# Queue for metrics (incase things are disabled... just queue it up
+# incase the user enables metrics later
+metric_queue = []
 
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
@@ -148,19 +152,31 @@ def track_metric_session(is_start=True):
 
 def send_metric(params):
     """Send anonymous metric over HTTP for tracking"""
+
+    # Add to queue and *maybe* send if the user allows it
+    metric_queue.append(params)
+
     # Check if the user wants to send metrics and errors
     if s.get("send_metrics"):
 
-        url_params = urllib.parse.urlencode(params)
-        url = "http://www.google-analytics.com/collect?%s" % url_params
+        for metric_params in metric_queue:
+            url_params = urllib.parse.urlencode(metric_params)
+            url = "http://www.google-analytics.com/collect?%s" % url_params
 
-        # Send metric HTTP data
-        try:
-            r = requests.get(url, headers={"user-agent": user_agent}, verify=False)
-            log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
+            # Send metric HTTP data
+            try:
+                r = requests.get(url, headers={"user-agent": user_agent}, verify=False)
+                log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
 
-        except Exception as Ex:
-            log.error("Failed to Track metric: %s" % (Ex))
+            except Exception as Ex:
+                log.error("Failed to Track metric: %s" % (Ex))
+
+            # Wait a moment, so we don't spam the requests
+            time.sleep(0.25)
+
+        # All metrics have been sent (or attempted to send)
+        # Clear the queue
+        metric_queue.clear()
 
 
 def send_exception(stacktrace, source):

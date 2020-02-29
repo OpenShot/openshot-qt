@@ -32,10 +32,10 @@ import sys
 import platform
 import shutil
 import webbrowser
+from time import sleep
 from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
-from time import sleep, time
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
@@ -486,6 +486,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Ignore the request
             return
 
+        # Stop preview thread
+        self.SpeedSignal.emit(0)
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
+        self.actionPlay.setChecked(False)
+        QCoreApplication.processEvents()
+
         # Do we have unsaved changes?
         if app.project.needs_save():
             ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
@@ -526,10 +532,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 log.info("Loaded project {}".format(file_path))
             else:
-                # Prepare to use status bar
-                self.statusBar = QStatusBar()
-                self.setStatusBar(self.statusBar)
-
                 log.info("File not found at {}".format(file_path))
                 self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
                 self.remove_recent_project(file_path)
@@ -545,25 +547,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
         try:
-            openshot_thumbnail_path = os.path.join(info.USER_PATH, "thumbnail")
-            if os.path.exists(openshot_thumbnail_path):
-                log.info("Clear all thumbnails: %s" % openshot_thumbnail_path)
-                shutil.rmtree(openshot_thumbnail_path)
-                os.mkdir(openshot_thumbnail_path)
+            clear_path = os.path.join(info.USER_PATH, "thumbnail")
+            if os.path.exists(clear_path):
+                log.info("Clear all thumbnails: %s" % clear_path)
+                shutil.rmtree(clear_path)
+                os.mkdir(clear_path)
 
             # Clear any blender animations
-            openshot_blender_path = os.path.join(info.USER_PATH, "blender")
-            if os.path.exists(openshot_blender_path):
-                log.info("Clear all animations: %s" % openshot_blender_path)
-                shutil.rmtree(openshot_blender_path)
-                os.mkdir(openshot_blender_path)
+            clear_path = os.path.join(info.USER_PATH, "blender")
+            if os.path.exists(clear_path):
+                log.info("Clear all animations: %s" % clear_path)
+                shutil.rmtree(clear_path)
+                os.mkdir(clear_path)
 
             # Clear any title animations
-            openshot_title_path = os.path.join(info.USER_PATH, "title")
-            if os.path.exists(openshot_title_path):
-                log.info("Clear all titles: %s" % openshot_title_path)
-                shutil.rmtree(openshot_title_path)
-                os.mkdir(openshot_title_path)
+            clear_path = os.path.join(info.USER_PATH, "title")
+            if os.path.exists(clear_path):
+                log.info("Clear all titles: %s" % clear_path)
+                shutil.rmtree(clear_path)
+                os.mkdir(clear_path)
 
             # Clear any backups
             if os.path.exists(info.BACKUP_FILE):
@@ -571,8 +573,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Remove backup file
                 os.unlink(info.BACKUP_FILE)
 
-        except Exception:
-            log.info("Failed to clear thumbnails: %s" % info.THUMBNAIL_PATH)
+        except Exception as ex:
+            log.info("Failed to clear {}: {}".format(clear_path, ex))
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -617,6 +619,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def auto_save_project(self):
         """Auto save the project"""
+        import time
+
         app = get_app()
         s = settings.get_settings()
 
@@ -634,7 +638,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 file_name, file_ext = os.path.splitext(file_name)
 
                 # Make copy of unsaved project file in 'recovery' folder
-                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time()), file_name))
+                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
                 shutil.copy(file_path, recover_path_with_timestamp)
 
                 # Find any recovery file older than X auto-saves
@@ -1041,8 +1045,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             framePathTime = QDateTime()
 
         # Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
-        openshot.Timeline.GetFrame(self.timeline_sync.timeline,
-                                   self.preview_thread.current_frame).Save(framePath, 1.0)
+        openshot.Timeline.GetFrame(self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
 
         # Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
@@ -2344,7 +2347,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.sliderZoom.setInvertedControls(True)
         self.sliderZoom.resize(100, 16)
 
-        self.zoomScaleLabel = QLabel(_("{} seconds").format(zoomToSeconds(self.sliderZoom.value())))
+        self.zoomScaleLabel = QLabel(
+            _("{} seconds").format(zoomToSeconds(self.sliderZoom.value()))
+        )
 
         # add zoom widgets
         self.timelineToolbar.addAction(self.actionTimelineZoomIn)
@@ -2478,6 +2483,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if sys.platform == "linux" and self.has_launcher:
                 if not self.unity_launchers:
                     # Get launcher only once
+                    import gi
+                    gi.require_version('Unity', '7.0')
                     from gi.repository import Unity
                     self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("openshot-qt.desktop"))
                     self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("appimagekit-openshot-qt.desktop"))
@@ -2604,6 +2611,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.effectsTreeView = EffectsListView(self)
         self.tabEffects.layout().addWidget(self.effectsTreeView)
+
+        # Set up status bar
+        self.statusBar = QStatusBar()
+        self.setStatusBar(self.statusBar)
 
         # Process events before continuing
         # TODO: Figure out why this is needed for a backup recovery to correctly show up on the timeline

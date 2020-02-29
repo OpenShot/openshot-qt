@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file can easily query Clips, Files, and other project data
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -30,7 +30,6 @@ import copy
 
 from classes import info
 from classes.app import get_app
-
 
 
 # Get project data reference
@@ -97,33 +96,42 @@ class QueryObject:
 
         # Get a list of all objects of this type
         parent = project.get(OBJECT_TYPE.object_key)
+
+        if not parent:
+            return []
+
         matching_objects = []
 
         # Loop through all children objects
-        if parent:
-            for child in parent:
+        for child in parent:
 
-                # Loop through all kwargs (and look for matches)
-                match = True
-                for key, value in kwargs.items():
-                    # Equals
-                    if key in child and not child[key] == value:
+            # Protect against non-iterable/subscriptables
+            if not child:
+                continue
+
+            # Loop through all kwargs (and look for matches)
+            match = True
+            for key, value in kwargs.items():
+
+                # Equals
+                if key in child and not child[key] == value:
+                    match = False
+                    break
+
+                # Intersection Position
+                if key == "intersect":
+                    if (child.get("position", 0) > value or
+                       child.get("position", 0) + (child.get("end", 0) - child.get("start", 0)) < value):
                         match = False
-                        break
-                    # Intersection Position
-                    elif key == "intersect":
-                        if child.get("position", 0) > value or \
-                                    child.get("position", 0) + (child.get("end", 0) - child.get("start", 0)) < value:
-                            match = False
 
-                # Add matched record
-                if match:
-                    object = OBJECT_TYPE()
-                    object.id = child["id"]
-                    object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
-                    object.data = copy.deepcopy(child) # copy of object
-                    object.type = "update"
-                    matching_objects.append(object)
+            # Add matched record
+            if match:
+                object = OBJECT_TYPE()
+                object.id = child["id"]
+                object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
+                object.data = copy.deepcopy(child)  # copy of object
+                object.type = "update"
+                matching_objects.append(object)
 
         # Return matching objects
         return matching_objects

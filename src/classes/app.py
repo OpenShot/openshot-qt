@@ -231,7 +231,8 @@ class OpenShotApp(QApplication):
                 # Auto load project passed as argument
                 self.window.OpenProjectSignal.emit(path)
             else:
-                # Auto import media file
+                # Apply the default settings and Auto import media file
+                self.project.load("")
                 self.window.filesTreeView.add_file(path)
         else:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
