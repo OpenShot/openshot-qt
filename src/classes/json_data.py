@@ -60,6 +60,9 @@ class JsonDataStore:
         # Regular expression matching likely corruption in project files
         self.damage_re = re.compile(r'/u([0-9a-fA-F]{4})')
 
+        # Regular expression used to detect lost slashes, when repairing data
+        self.slash_repair_re = re.compile(r'(["/][.]+)(/u[0-9a-fA-F]{4})')
+
         # Connection to Qt main window, used in recovery alerts
         app = get_app()
         if app:
@@ -156,7 +159,8 @@ class JsonDataStore:
                 # File contains corruptions, backup and repair
                 self.make_repair_backup(file_path, contents)
 
-                # Repair all corrupted escapes
+                # Repair lost slashes, then fix all corrupted escapes
+                contents = self.slash_repair_re.sub(r'\1/\2', contents)
                 contents, subs_count = self.damage_re.subn(r'\\u\1', contents)
 
                 if subs_count < 1:
