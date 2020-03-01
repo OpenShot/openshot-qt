@@ -1578,6 +1578,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionRemove_from_Project_trigger(self, event):
         log.info("actionRemove_from_Project_trigger")
 
+        # Tell file model to ignore updates
+        self.filesTreeView.files_model.ignore_update_signal = True
+
         # Loop through selected files
         for file_id in self.selected_files:
             # Find matching file
@@ -1594,6 +1597,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Clear selected files
         self.selected_files = []
+
+        # Re-enable updates and refresh view
+        self.filesTreeView.files_model.ignore_update_signal = False
+        self.filesTreeView.refresh_view()
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
