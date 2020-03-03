@@ -153,7 +153,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         if not only_path:
             self.send_header('Content-type', 'image/png')
         else:
-            self.send_header('Content-type', 'text/html')
+            self.send_header('Content-type', 'text/html; charset=utf-8')
         self.end_headers()
 
         # Locate thumbnail

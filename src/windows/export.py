@@ -36,6 +36,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 
+from classes import info
 from classes import ui_util
 from classes.app import get_app
 from classes.metrics import *
@@ -964,6 +965,17 @@ class Export(QDialog):
             super(Export, self).accept()
 
     def reject(self):
+        if self.exporting and not self.close_button.isVisible():
+            # Show confirmation dialog
+            _ = get_app()._tr
+            result = QMessageBox.question(self,
+                _("Export Video"),
+                _("Are you sure you want to cancel the export?"),
+                QMessageBox.No | QMessageBox.Yes)
+            if result == QMessageBox.No:
+                # Resume export
+                return
+
         # Re-set OMP thread enabled flag
         # NOTE: This is always called when closing the export modal, and thus
         # the keyframes are always scaled back to the original FPS if needed.

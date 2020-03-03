@@ -322,26 +322,32 @@ try:
         os.mkdir(os.path.join(app_dir_path, "usr", "share", "pixmaps"))
         os.mkdir(os.path.join(app_dir_path, "usr", "share", "mime"))
         os.mkdir(os.path.join(app_dir_path, "usr", "share", "mime", "packages"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "lib"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "lib", "mime"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "lib", "mime", "packages"))
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
-        # Create .desktop file
-        with open(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"), "w") as f:
-            f.write('[Desktop Entry]\nName=OpenShot Video Editor\nGenericName=Video Editor\nX-GNOME-FullName=OpenShot Video Editor\nComment=Create and edit amazing videos and movies\nExec=openshot-qt.wrapper %F\nTerminal=false\nIcon=openshot-qt\nType=Application')
-
         # Copy some installation-related files
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "openshot-qt.svg"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "usr", "share", "pixmaps", "openshot-qt.svg"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"), os.path.join(app_dir_path, "usr", "share", "mime", "packages", "org.openshot.OpenShot.xml"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt"), os.path.join(app_dir_path, "usr", "lib", "mime", "packages", "openshot-qt"))
+        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
+            os.path.join(app_dir_path, "openshot-qt.svg"))
+        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
+            os.path.join(app_dir_path, "usr", "share", "pixmaps", "openshot-qt.svg"))
+        shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
+            os.path.join(app_dir_path, "usr", "share", "mime", "packages", "org.openshot.OpenShot.xml"))
 
         # Copy the entire frozen app
-        shutil.copytree(os.path.join(PATH, "build", exe_dir), os.path.join(app_dir_path, "usr", "bin"))
+        shutil.copytree(os.path.join(PATH, "build", exe_dir),
+            os.path.join(app_dir_path, "usr", "bin"))
+
+        # Copy .desktop file, replacing Exec= commandline
+        desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
+        desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+        with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
+            for line in inf:
+                if line.startswith("Exec="):
+                    outf.write("Exec=openshot-qt.wrapper %F\n")
+                else:
+                    outf.write(line)
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")

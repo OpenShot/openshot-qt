@@ -105,7 +105,10 @@ class PropertyDelegate(QItemDelegate):
             else:
                 painter.setBrush(QBrush(QColor("#3e3e3e")))
 
-        if not readonly:
+        if readonly:
+            # Set text color for read only fields
+            painter.setPen(QPen(get_app().window.palette().color(QPalette.Disabled, QPalette.Text)))
+        else:
             path = QPainterPath()
             path.addRoundedRect(QRectF(option.rect), 15, 15)
             painter.fillPath(path, QColor("#3e3e3e"))
@@ -135,8 +138,9 @@ class PropertyDelegate(QItemDelegate):
                 # Draw interpolation icon on top
                 painter.drawPixmap(option.rect.x() + option.rect.width() - 30.0, option.rect.y() + 4, self.curve_pixmaps[interpolation])
 
-        # set text color
-        painter.setPen(QPen(Qt.white))
+            # Set text color
+            painter.setPen(QPen(Qt.white))
+
         value = index.data(Qt.DisplayRole)
         if value:
             painter.drawText(option.rect, Qt.AlignCenter, value)
