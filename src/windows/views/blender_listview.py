@@ -720,14 +720,14 @@ class Worker(QObject):
             command_get_version = [self.blender_exec_path, '-v']
             command_render = [self.blender_exec_path, '-b', self.blend_file_path, '-P', self.target_script]
 
-            # debug info
-            # NOTE: If the length of the command_render list changes, update to match!
-            log.info("Blender command: {} {} '{}' {} '{}'".format(*command_render))
+            # Check the version of Blender
+            import shlex
+            log.info("Checking Blender version, command: {}".format(" ".join([shlex.quote(x) for x in command_get_version])))
 
-            self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
+            self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo, universal_newlines=True)
 
             # Check the version of Blender
-            self.version = self.blender_version.findall(str(self.process.stdout.readline()))
+            self.version = self.blender_version.findall(self.process.stdout.readline())
 
             if self.version:
                 if self.version[0] < info.BLENDER_MIN_VERSION:
@@ -738,8 +738,12 @@ class Worker(QObject):
                     self.blender_version_error.emit(self.version[0])
                     return
 
+            # debug info
+            log.info("Running Blender, command: {}".format(" ".join([shlex.quote(x) for x in command_render])))
+            log.info("Blender output:")
+
             # Run real command to render Blender project
-            self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo)
+            self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=startupinfo, universal_newlines=True)
 
         except:
             # Error running command.  Most likely the blender executable path in
@@ -751,8 +755,16 @@ class Worker(QObject):
         while self.is_running and self.process.poll() is None:
 
             # Look for progress info in the Blender Output
-            line = str(self.process.stdout.readline())
-            self.command_output = self.command_output + line + "\n"  # append all output into a variable
+            line = self.process.stdout.readline().strip()
+
+            # Skip blank lines
+            if not line:
+                continue
+
+            # append all output into a variable, and log
+            self.command_output = self.command_output + line + "\n"
+            log.info("  {}".format(line))
+
             output_frame = self.blender_frame_expression.findall(line)
 
             # Does it have a match?
@@ -768,7 +780,7 @@ class Worker(QObject):
                     self.progress.emit(int(current_frame))
 
             # Look for progress info in the Blender Output
-            output_saved = self.blender_saved_expression.findall(str(line))
+            output_saved = self.blender_saved_expression.findall(line)
 
             # Does it have a match?
             if output_saved:
@@ -778,8 +790,9 @@ class Worker(QObject):
                 time_saved = output_saved[0][1]
 
                 # Update preview image
-                log.info("Image detected from blender regex: %s" % image_path)
                 self.image_updated.emit(image_path)
+
+        log.info("Blender process exited.")
 
         # Re-enable the interface
         self.enable_interface.emit()
