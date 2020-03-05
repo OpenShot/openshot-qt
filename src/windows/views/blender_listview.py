@@ -722,7 +722,7 @@ class Worker(QObject):
 
             # Check the version of Blender
             import shlex
-            log.info("Checking Blender version, command: {}".format(" ".join([shlex.quote(x) for x in command_version])))
+            log.info("Checking Blender version, command: {}".format(" ".join([shlex.quote(x) for x in command_get_version])))
 
             self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo, universal_newlines=True)
 
