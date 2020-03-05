@@ -33,6 +33,7 @@ from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5.QtGui import QDrag, QCursor
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QActionGroup
 
+from classes import settings
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
@@ -81,6 +82,9 @@ class FilesTreeView(QTreeView):
 
         # Exclusive group
         sorting_type_group = QActionGroup(menu)
+
+        # Update sorting
+        self.read_sorting_settings()
 
         sort_option = None
         for i, sort_by in enumerate(all_sorting):
@@ -232,11 +236,21 @@ class FilesTreeView(QTreeView):
     def sort_ascending(self, checked=False):
         if checked:
             self.sort_order = Qt.AscendingOrder
+
+            # Save sorting order
+            s = settings.get_settings()
+            s.set("files_view_sorting_order", 0)
+
             self.apply_items_sorting()
 
     def sort_descending(self, checked=False):
         if checked:
             self.sort_order = Qt.DescendingOrder
+
+            # Save sorting order
+            s = settings.get_settings()
+            s.set("files_view_sorting_order", 1)
+
             self.apply_items_sorting()
 
     def update_sorting(self, action):
@@ -250,6 +264,11 @@ class FilesTreeView(QTreeView):
 
         # Get what sorting was triggered
         self.sort_column = action.data()
+
+        # Save sorting
+        s = settings.get_settings()
+        s.set("files_view_sorting", self.sort_column)
+
         self.apply_items_sorting()
 
     def apply_items_sorting(self):
@@ -263,9 +282,7 @@ class FilesTreeView(QTreeView):
         self.resize_contents()
 
         # Update sorting
-        model = self.model()
-        self.sort_column = model.sortColumn()
-        self.sort_order = model.sortOrder()
+        self.read_sorting_settings()
         self.apply_items_sorting()
 
     def resize_contents(self):
@@ -314,6 +331,17 @@ class FilesTreeView(QTreeView):
         # Update file thumbnail
         self.win.FileUpdated.emit(file_id)
 
+    def read_sorting_settings(self):
+        # Get sorting settings
+        s = settings.get_settings()
+        order = s.get("files_view_sorting_order")
+        self.sort_order = Qt.AscendingOrder
+        if order == 1:
+            self.sort_order = Qt.DescendingOrder
+
+        # Column from the files model to sort by (-1 is unsorted)
+        self.sort_column = s.get("files_view_sorting")
+
     def __init__(self, model, *args):
         # Invoke parent init
         super().__init__(*args)
@@ -325,9 +353,10 @@ class FilesTreeView(QTreeView):
         self.files_model = model
         self.setModel(self.files_model.proxy_model)
 
-        # Column from the files model to sort by (-1 is unsorted)
-        self.sort_column = self.files_model.proxy_model.sortColumn()
-        self.sort_order = self.files_model.proxy_model.sortOrder()
+        # Get sorting settings
+        self.sort_order = Qt.AscendingOrder
+        self.sort_column = -1
+        self.read_sorting_settings()
 
         # Remove the default selection model and wire up to the shared one
         self.selectionModel().deleteLater()

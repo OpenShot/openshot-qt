@@ -106,6 +106,20 @@
     "setting": "file_view"
   },
   {
+    "value": -1,
+    "title": "",
+    "type": "hidden",
+    "category": "UI",
+    "setting": "files_view_sorting"
+  },
+  {
+    "value": 0,
+    "title": "",
+    "type": "hidden",
+    "category": "UI",
+    "setting": "files_view_sorting_order"
+  },
+  {
     "value": "thumbnail",
     "title": "",
     "type": "hidden",

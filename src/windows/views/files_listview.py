@@ -32,6 +32,7 @@ from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
 from PyQt5.QtGui import QDrag, QCursor
 from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu, QActionGroup
 
+from classes import settings
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
@@ -80,6 +81,9 @@ class FilesListView(QListView):
 
         # Exclusive group
         sorting_type_group = QActionGroup(menu)
+
+        # Update sorting
+        self.read_sorting_settings()
 
         sort_option = None
         for i, sort_by in enumerate(all_sorting):
@@ -228,11 +232,21 @@ class FilesListView(QListView):
     def sort_ascending(self, checked=False):
         if checked:
             self.sort_order = Qt.AscendingOrder
+
+            # Save sorting order
+            s = settings.get_settings()
+            s.set("files_view_sorting_order", 0)
+
             self.apply_items_sorting()
 
     def sort_descending(self, checked=False):
         if checked:
             self.sort_order = Qt.DescendingOrder
+
+            # Save sorting order
+            s = settings.get_settings()
+            s.set("files_view_sorting_order", 1)
+
             self.apply_items_sorting()
 
     def update_sorting(self, action):
@@ -246,6 +260,11 @@ class FilesListView(QListView):
 
         # Get what sorting was triggered
         self.sort_column = action.data()
+
+        # Save sorting
+        s = settings.get_settings()
+        s.set("files_view_sorting", self.sort_column)
+
         self.apply_items_sorting()
 
     def apply_items_sorting(self):
@@ -257,12 +276,23 @@ class FilesListView(QListView):
         filter_text = self.win.filesFilter.text()
         model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*'), Qt.CaseInsensitive))
 
-        self.sort_column = model.sortColumn()
-        self.sort_order = model.sortOrder()
+        # Update sorting
+        self.read_sorting_settings()
         self.apply_items_sorting()
 
     def resize_contents(self):
         pass
+
+    def read_sorting_settings(self):
+        # Get sorting settings
+        s = settings.get_settings()
+        order = s.get("files_view_sorting_order")
+        self.sort_order = Qt.AscendingOrder
+        if order == 1:
+            self.sort_order = Qt.DescendingOrder
+
+        # Column from the files model to sort by (-1 is unsorted)
+        self.sort_column = s.get("files_view_sorting")
 
     def __init__(self, model, *args):
         # Invoke parent init
@@ -275,9 +305,10 @@ class FilesListView(QListView):
         self.files_model = model
         self.setModel(self.files_model.proxy_model)
 
-        # Column from the files model to sort by (-1 is unsorted)
-        self.sort_column = self.files_model.proxy_model.sortColumn()
-        self.sort_order = self.files_model.proxy_model.sortOrder()
+        # Get sorting settings
+        self.sort_order = Qt.AscendingOrder
+        self.sort_column = -1
+        self.read_sorting_settings()
 
         # Remove the default selection model and wire up to the shared one
         self.selectionModel().deleteLater()
