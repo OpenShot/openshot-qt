@@ -447,6 +447,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionClearHistory_trigger(self, event):
         """Clear history for current project"""
+        project = get_app().project
+        project.has_unsaved_changes = True
         get_app().updates.reset()
         log.info('History cleared')
 
