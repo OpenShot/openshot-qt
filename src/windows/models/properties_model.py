@@ -605,7 +605,7 @@ class PropertiesModel(updates.UpdateInterface):
                     selected_choice = [c for c in choices if c["selected"] == True][0]["name"]
 
                 # Hide filtered out properties
-                if filter and filter.lower() not in name.lower():
+                if filter and filter.lower() not in _(label).lower():
                     continue
 
                 # Hide unused base properties (if any)
