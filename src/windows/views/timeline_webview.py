@@ -401,13 +401,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             Slice_Menu = QMenu(_("Slice All"), self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
             Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
-            Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, trans_ids, position))
+            Slice_Keep_Both.triggered.connect(partial(
+                self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, clip_ids, trans_ids, position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
             Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
-            Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, trans_ids, position))
+            Slice_Keep_Left.triggered.connect(partial(
+                self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, clip_ids, trans_ids, position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
             Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
-            Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
+            Slice_Keep_Right.triggered.connect(partial(
+                self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
             return menu.popup(QCursor.pos())
 
@@ -445,7 +448,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 menu = QMenu(self)
                 Paste_Clip = menu.addAction(_("Paste"))
                 Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
-                Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], []))
+                Paste_Clip.triggered.connect(
+                    partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
+                )
 
                 return menu.popup(QCursor.pos())
 
@@ -494,24 +499,32 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             Keyframe_Menu = QMenu(_("Keyframes"), self)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
-            Copy_Keyframes_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, [clip_id], []))
+            Copy_Keyframes_All.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, [clip_id], []))
             Keyframe_Menu.addSeparator()
             Copy_Keyframes_Alpha = Keyframe_Menu.addAction(_("Alpha"))
-            Copy_Keyframes_Alpha.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALPHA, [clip_id], []))
+            Copy_Keyframes_Alpha.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALPHA, [clip_id], []))
             Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
-            Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_SCALE, [clip_id], []))
+            Copy_Keyframes_Scale.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_SCALE, [clip_id], []))
             Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
-            Copy_Keyframes_Rotate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ROTATE, [clip_id], []))
+            Copy_Keyframes_Rotate.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_ROTATE, [clip_id], []))
             Copy_Keyframes_Locate = Keyframe_Menu.addAction(_("Location"))
-            Copy_Keyframes_Locate.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_LOCATION, [clip_id], []))
+            Copy_Keyframes_Locate.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_LOCATION, [clip_id], []))
             Copy_Keyframes_Time = Keyframe_Menu.addAction(_("Time"))
-            Copy_Keyframes_Time.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_TIME, [clip_id], []))
+            Copy_Keyframes_Time.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_TIME, [clip_id], []))
             Copy_Keyframes_Volume = Keyframe_Menu.addAction(_("Volume"))
-            Copy_Keyframes_Volume.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_VOLUME, [clip_id], []))
+            Copy_Keyframes_Volume.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_VOLUME, [clip_id], []))
 
             # Only add copy->effects and copy->keyframes if 1 clip is selected
             Copy_Effects = Copy_Menu.addAction(_("Effects"))
-            Copy_Effects.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_EFFECTS, [clip_id], []))
+            Copy_Effects.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_EFFECTS, [clip_id], []))
             Copy_Menu.addMenu(Keyframe_Menu)
             menu.addMenu(Copy_Menu)
 
@@ -552,26 +565,34 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             if position == "Start of Clip":
                 Fade_In_Fast = Position_Menu.addAction(_("Fade In (Fast)"))
-                Fade_In_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_FAST, clip_ids, position))
+                Fade_In_Fast.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_IN_FAST, clip_ids, position))
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Slow)"))
-                Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
+                Fade_In_Slow.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
 
             elif position == "End of Clip":
                 Fade_Out_Fast = Position_Menu.addAction(_("Fade Out (Fast)"))
-                Fade_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_FAST, clip_ids, position))
+                Fade_Out_Fast.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_OUT_FAST, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Slow)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
+                Fade_Out_Slow.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
 
             else:
                 Fade_In_Out_Fast = Position_Menu.addAction(_("Fade In and Out (Fast)"))
-                Fade_In_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_FAST, clip_ids, position))
+                Fade_In_Out_Fast.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_IN_OUT_FAST, clip_ids, position))
                 Fade_In_Out_Slow = Position_Menu.addAction(_("Fade In and Out (Slow)"))
-                Fade_In_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_ids, position))
+                Fade_In_Out_Slow.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_IN_OUT_SLOW, clip_ids, position))
                 Position_Menu.addSeparator()
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Entire Clip)"))
-                Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
+                Fade_In_Slow.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_IN_SLOW, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Entire Clip)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
+                Fade_Out_Slow.triggered.connect(partial(
+                    self.Fade_Triggered, MENU_FADE_OUT_SLOW, clip_ids, position))
 
             Fade_Menu.addMenu(Position_Menu)
         menu.addMenu(Fade_Menu)
@@ -591,53 +612,71 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Scale
             Scale_Menu = QMenu(_("Zoom"), self)
             Animate_In_50_100 = Scale_Menu.addAction(_("Zoom In (50% to 100%)"))
-            Animate_In_50_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_50_100, clip_ids, position))
+            Animate_In_50_100.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_IN_50_100, clip_ids, position))
             Animate_In_75_100 = Scale_Menu.addAction(_("Zoom In (75% to 100%)"))
-            Animate_In_75_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_75_100, clip_ids, position))
+            Animate_In_75_100.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_IN_75_100, clip_ids, position))
             Animate_In_100_150 = Scale_Menu.addAction(_("Zoom In (100% to 150%)"))
-            Animate_In_100_150.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_IN_100_150, clip_ids, position))
+            Animate_In_100_150.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_IN_100_150, clip_ids, position))
             Animate_Out_100_75 = Scale_Menu.addAction(_("Zoom Out (100% to 75%)"))
-            Animate_Out_100_75.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_100_75, clip_ids, position))
+            Animate_Out_100_75.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_OUT_100_75, clip_ids, position))
             Animate_Out_100_50 = Scale_Menu.addAction(_("Zoom Out (100% to 50%)"))
-            Animate_Out_100_50.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_100_50, clip_ids, position))
+            Animate_Out_100_50.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_OUT_100_50, clip_ids, position))
             Animate_Out_150_100 = Scale_Menu.addAction(_("Zoom Out (150% to 100%)"))
-            Animate_Out_150_100.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_OUT_150_100, clip_ids, position))
+            Animate_Out_150_100.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_OUT_150_100, clip_ids, position))
             Position_Menu.addMenu(Scale_Menu)
 
             # Center to Edge
             Center_Edge_Menu = QMenu(_("Center to Edge"), self)
             Animate_Center_Top = Center_Edge_Menu.addAction(_("Center to Top"))
-            Animate_Center_Top.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_TOP, clip_ids, position))
+            Animate_Center_Top.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_CENTER_TOP, clip_ids, position))
             Animate_Center_Left = Center_Edge_Menu.addAction(_("Center to Left"))
-            Animate_Center_Left.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_LEFT, clip_ids, position))
+            Animate_Center_Left.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_CENTER_LEFT, clip_ids, position))
             Animate_Center_Right = Center_Edge_Menu.addAction(_("Center to Right"))
-            Animate_Center_Right.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_RIGHT, clip_ids, position))
+            Animate_Center_Right.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_CENTER_RIGHT, clip_ids, position))
             Animate_Center_Bottom = Center_Edge_Menu.addAction(_("Center to Bottom"))
-            Animate_Center_Bottom.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_CENTER_BOTTOM, clip_ids, position))
+            Animate_Center_Bottom.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_CENTER_BOTTOM, clip_ids, position))
             Position_Menu.addMenu(Center_Edge_Menu)
 
             # Edge to Center
             Edge_Center_Menu = QMenu(_("Edge to Center"), self)
             Animate_Top_Center = Edge_Center_Menu.addAction(_("Top to Center"))
-            Animate_Top_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_TOP_CENTER, clip_ids, position))
+            Animate_Top_Center.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_TOP_CENTER, clip_ids, position))
             Animate_Left_Center = Edge_Center_Menu.addAction(_("Left to Center"))
-            Animate_Left_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_LEFT_CENTER, clip_ids, position))
+            Animate_Left_Center.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_LEFT_CENTER, clip_ids, position))
             Animate_Right_Center = Edge_Center_Menu.addAction(_("Right to Center"))
-            Animate_Right_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RIGHT_CENTER, clip_ids, position))
+            Animate_Right_Center.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_RIGHT_CENTER, clip_ids, position))
             Animate_Bottom_Center = Edge_Center_Menu.addAction(_("Bottom to Center"))
-            Animate_Bottom_Center.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_BOTTOM_CENTER, clip_ids, position))
+            Animate_Bottom_Center.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_BOTTOM_CENTER, clip_ids, position))
             Position_Menu.addMenu(Edge_Center_Menu)
 
             # Edge to Edge
             Edge_Edge_Menu = QMenu(_("Edge to Edge"), self)
             Animate_Top_Bottom = Edge_Edge_Menu.addAction(_("Top to Bottom"))
-            Animate_Top_Bottom.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_TOP_BOTTOM, clip_ids, position))
+            Animate_Top_Bottom.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_TOP_BOTTOM, clip_ids, position))
             Animate_Left_Right = Edge_Edge_Menu.addAction(_("Left to Right"))
-            Animate_Left_Right.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_LEFT_RIGHT, clip_ids, position))
+            Animate_Left_Right.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_LEFT_RIGHT, clip_ids, position))
             Animate_Right_Left = Edge_Edge_Menu.addAction(_("Right to Left"))
-            Animate_Right_Left.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_RIGHT_LEFT, clip_ids, position))
+            Animate_Right_Left.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_RIGHT_LEFT, clip_ids, position))
             Animate_Bottom_Top = Edge_Edge_Menu.addAction(_("Bottom to Top"))
-            Animate_Bottom_Top.triggered.connect(partial(self.Animate_Triggered, MENU_ANIMATE_BOTTOM_TOP, clip_ids, position))
+            Animate_Bottom_Top.triggered.connect(partial(
+                self.Animate_Triggered, MENU_ANIMATE_BOTTOM_TOP, clip_ids, position))
             Position_Menu.addMenu(Edge_Edge_Menu)
 
             # Random Animation
@@ -654,36 +693,48 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Rotate Menu
         Rotation_Menu = QMenu(_("Rotate"), self)
         Rotation_None = Rotation_Menu.addAction(_("No Rotation"))
-        Rotation_None.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_NONE, clip_ids))
+        Rotation_None.triggered.connect(partial(
+            self.Rotate_Triggered, MENU_ROTATE_NONE, clip_ids))
         Rotation_Menu.addSeparator()
         Rotation_90_Right = Rotation_Menu.addAction(_("Rotate 90 (Right)"))
-        Rotation_90_Right.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_RIGHT, clip_ids))
+        Rotation_90_Right.triggered.connect(partial(
+            self.Rotate_Triggered, MENU_ROTATE_90_RIGHT, clip_ids))
         Rotation_90_Left = Rotation_Menu.addAction(_("Rotate 90 (Left)"))
-        Rotation_90_Left.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_90_LEFT, clip_ids))
+        Rotation_90_Left.triggered.connect(partial(
+            self.Rotate_Triggered, MENU_ROTATE_90_LEFT, clip_ids))
         Rotation_180_Flip = Rotation_Menu.addAction(_("Rotate 180 (Flip)"))
-        Rotation_180_Flip.triggered.connect(partial(self.Rotate_Triggered, MENU_ROTATE_180_FLIP, clip_ids))
+        Rotation_180_Flip.triggered.connect(partial(
+            self.Rotate_Triggered, MENU_ROTATE_180_FLIP, clip_ids))
         menu.addMenu(Rotation_Menu)
 
         # Layout Menu
         Layout_Menu = QMenu(_("Layout"), self)
         Layout_None = Layout_Menu.addAction(_("Reset Layout"))
-        Layout_None.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_NONE, clip_ids))
+        Layout_None.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_NONE, clip_ids))
         Layout_Menu.addSeparator()
         Layout_Center = Layout_Menu.addAction(_("1/4 Size - Center"))
-        Layout_Center.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_CENTER, clip_ids))
+        Layout_Center.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_CENTER, clip_ids))
         Layout_Top_Left = Layout_Menu.addAction(_("1/4 Size - Top Left"))
-        Layout_Top_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_LEFT, clip_ids))
+        Layout_Top_Left.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_TOP_LEFT, clip_ids))
         Layout_Top_Right = Layout_Menu.addAction(_("1/4 Size - Top Right"))
-        Layout_Top_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_TOP_RIGHT, clip_ids))
+        Layout_Top_Right.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_TOP_RIGHT, clip_ids))
         Layout_Bottom_Left = Layout_Menu.addAction(_("1/4 Size - Bottom Left"))
-        Layout_Bottom_Left.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_LEFT, clip_ids))
+        Layout_Bottom_Left.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_BOTTOM_LEFT, clip_ids))
         Layout_Bottom_Right = Layout_Menu.addAction(_("1/4 Size - Bottom Right"))
-        Layout_Bottom_Right.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_BOTTOM_RIGHT, clip_ids))
+        Layout_Bottom_Right.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_BOTTOM_RIGHT, clip_ids))
         Layout_Menu.addSeparator()
         Layout_Bottom_All_With_Aspect = Layout_Menu.addAction(_("Show All (Maintain Ratio)"))
-        Layout_Bottom_All_With_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITH_ASPECT, clip_ids))
+        Layout_Bottom_All_With_Aspect.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_ALL_WITH_ASPECT, clip_ids))
         Layout_Bottom_All_Without_Aspect = Layout_Menu.addAction(_("Show All (Distort)"))
-        Layout_Bottom_All_Without_Aspect.triggered.connect(partial(self.Layout_Triggered, MENU_LAYOUT_ALL_WITHOUT_ASPECT, clip_ids))
+        Layout_Bottom_All_Without_Aspect.triggered.connect(partial(
+            self.Layout_Triggered, MENU_LAYOUT_ALL_WITHOUT_ASPECT, clip_ids))
         menu.addMenu(Layout_Menu)
 
         # Time Menu
@@ -707,7 +758,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 for actual_speed in speed_values:
                     # Add menu option
                     Time_Option = Direction_Menu.addAction(_(actual_speed))
-                    Time_Option.triggered.connect(partial(self.Time_Triggered, direction_value, clip_ids, actual_speed))
+                    Time_Option.triggered.connect(
+                        partial(self.Time_Triggered, direction_value, clip_ids, actual_speed))
 
                 # Add menu to parent
                 Speed_Menu.addMenu(Direction_Menu)
@@ -725,7 +777,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             for freeze_seconds in [2, 4, 6, 8, 10, 20, 30]:
                 # Add menu option
                 Time_Option = Freeze_Menu.addAction(_('{} seconds').format(freeze_seconds))
-                Time_Option.triggered.connect(partial(self.Time_Triggered, trigger_type, clip_ids, freeze_seconds, playhead_position))
+                Time_Option.triggered.connect(
+                    partial(self.Time_Triggered, trigger_type, clip_ids, freeze_seconds, playhead_position))
 
             # Add menu to parent
             Time_Menu.addMenu(Freeze_Menu)
@@ -747,51 +800,70 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             if position == "Start of Clip":
                 Fade_In_Fast = Position_Menu.addAction(_("Fade In (Fast)"))
-                Fade_In_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_FAST, clip_ids, position))
+                Fade_In_Fast.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_IN_FAST, clip_ids, position))
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Slow)"))
-                Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_ids, position))
+                Fade_In_Slow.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_ids, position))
 
             elif position == "End of Clip":
                 Fade_Out_Fast = Position_Menu.addAction(_("Fade Out (Fast)"))
-                Fade_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_FAST, clip_ids, position))
+                Fade_Out_Fast.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_OUT_FAST, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Slow)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_ids, position))
+                Fade_Out_Slow.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_ids, position))
 
             else:
                 Fade_In_Out_Fast = Position_Menu.addAction(_("Fade In and Out (Fast)"))
-                Fade_In_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_FAST, clip_ids, position))
+                Fade_In_Out_Fast.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_FAST, clip_ids, position))
                 Fade_In_Out_Slow = Position_Menu.addAction(_("Fade In and Out (Slow)"))
-                Fade_In_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_SLOW, clip_ids, position))
+                Fade_In_Out_Slow.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_IN_OUT_SLOW, clip_ids, position))
                 Position_Menu.addSeparator()
                 Fade_In_Slow = Position_Menu.addAction(_("Fade In (Entire Clip)"))
-                Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_ids, position))
+                Fade_In_Slow.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_IN_SLOW, clip_ids, position))
                 Fade_Out_Slow = Position_Menu.addAction(_("Fade Out (Entire Clip)"))
-                Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_ids, position))
+                Fade_Out_Slow.triggered.connect(partial(
+                    self.Volume_Triggered, MENU_VOLUME_FADE_OUT_SLOW, clip_ids, position))
 
             # Add levels (100% to 0%)
             Position_Menu.addSeparator()
             Volume_100 = Position_Menu.addAction(_("Level 100%"))
-            Volume_100.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_100, clip_ids, position))
+            Volume_100.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_100, clip_ids, position))
             Volume_90 = Position_Menu.addAction(_("Level 90%"))
-            Volume_90.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_90, clip_ids, position))
+            Volume_90.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_90, clip_ids, position))
             Volume_80 = Position_Menu.addAction(_("Level 80%"))
-            Volume_80.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_80, clip_ids, position))
+            Volume_80.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_80, clip_ids, position))
             Volume_70 = Position_Menu.addAction(_("Level 70%"))
-            Volume_70.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_70, clip_ids, position))
+            Volume_70.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_70, clip_ids, position))
             Volume_60 = Position_Menu.addAction(_("Level 60%"))
-            Volume_60.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_60, clip_ids, position))
+            Volume_60.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_60, clip_ids, position))
             Volume_50 = Position_Menu.addAction(_("Level 50%"))
-            Volume_50.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_50, clip_ids, position))
+            Volume_50.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_50, clip_ids, position))
             Volume_40 = Position_Menu.addAction(_("Level 40%"))
-            Volume_40.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_40, clip_ids, position))
+            Volume_40.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_40, clip_ids, position))
             Volume_30 = Position_Menu.addAction(_("Level 30%"))
-            Volume_30.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_30, clip_ids, position))
+            Volume_30.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_30, clip_ids, position))
             Volume_20 = Position_Menu.addAction(_("Level 20%"))
-            Volume_20.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_20, clip_ids, position))
+            Volume_20.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_20, clip_ids, position))
             Volume_10 = Position_Menu.addAction(_("Level 10%"))
-            Volume_10.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_10, clip_ids, position))
+            Volume_10.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_10, clip_ids, position))
             Volume_0 = Position_Menu.addAction(_("Level 0%"))
-            Volume_0.triggered.connect(partial(self.Volume_Triggered, MENU_VOLUME_LEVEL_0, clip_ids, position))
+            Volume_0.triggered.connect(partial(
+                self.Volume_Triggered, MENU_VOLUME_LEVEL_0, clip_ids, position))
 
             Volume_Menu.addMenu(Position_Menu)
         menu.addMenu(Volume_Menu)
@@ -799,9 +871,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Add separate audio menu
         Split_Audio_Channels_Menu = QMenu(_("Separate Audio"), self)
         Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
-        Split_Single_Clip.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_SINGLE, clip_ids))
+        Split_Single_Clip.triggered.connect(partial(
+            self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_SINGLE, clip_ids))
         Split_Multiple_Clips = Split_Audio_Channels_Menu.addAction(_("Multiple Clips (each channel)"))
-        Split_Multiple_Clips.triggered.connect(partial(self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_MULTIPLE, clip_ids))
+        Split_Multiple_Clips.triggered.connect(partial(
+            self.Split_Audio_Triggered, MENU_SPLIT_AUDIO_MULTIPLE, clip_ids))
         menu.addMenu(Split_Audio_Channels_Menu)
 
         # If Playhead overlapping clip
@@ -809,20 +883,27 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             start_of_clip = float(clip.data["start"])
             end_of_clip = float(clip.data["end"])
             position_of_clip = float(clip.data["position"])
-            if playhead_position >= position_of_clip and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip)):
+            if (
+                playhead_position >= position_of_clip
+                and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip))
+            ):
                 # Add split clip menu
                 Slice_Menu = QMenu(_("Slice"), self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-                Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
+                Slice_Keep_Both.triggered.connect(partial(
+                    self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [clip_id], [], playhead_position))
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-                Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
+                Slice_Keep_Left.triggered.connect(partial(
+                    self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [clip_id], [], playhead_position))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-                Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
+                Slice_Keep_Right.triggered.connect(partial(
+                    self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [clip_id], [], playhead_position))
                 menu.addMenu(Slice_Menu)
 
         # Transform menu
         Transform_Action = self.window.actionTransform
-        Transform_Action.triggered.connect(partial(self.Transform_Triggered, MENU_TRANSFORM, clip_ids))
+        Transform_Action.triggered.connect(
+            partial(self.Transform_Triggered, MENU_TRANSFORM, clip_ids))
         menu.addAction(Transform_Action)
 
         # Add clip display menu (waveform or thumbnail)
@@ -1787,7 +1868,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Get the nearest starting frame position to the playhead (this helps to prevent cutting
         # in-between frames, and thus less likely to repeat or skip a frame).
-        playhead_position = float(round((playhead_position * fps_num) / fps_den ) * fps_den ) / fps_num
+        playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
 
         # Loop through each clip (using the list of ids)
         for clip_id in clip_ids:
@@ -2262,7 +2343,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     # Adjust end & duration
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
                     clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-                    clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+                    clip.data["reader"]["video_length"] = self.round_to_multiple(
+                        float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
 
                 if action == MENU_TIME_BACKWARD:
                     # Add keyframes
@@ -2277,7 +2359,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     # Adjust end & duration
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
                     clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-                    clip.data["reader"]["video_length"] = str(self.round_to_multiple(float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple))
+                    clip.data["reader"]["video_length"] = self.round_to_multiple(
+                        float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
 
                 if action == MENU_TIME_NONE:
                     # Reset original end & duration (if available)
@@ -2438,12 +2521,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             Keyframe_Menu = QMenu(_("Keyframes"), self)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
-            Copy_Keyframes_All.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, [], [tran_id]))
+            Copy_Keyframes_All.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_ALL, [], [tran_id]))
             Keyframe_Menu.addSeparator()
             Copy_Keyframes_Brightness = Keyframe_Menu.addAction(_("Brightness"))
-            Copy_Keyframes_Brightness.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_BRIGHTNESS, [], [tran_id]))
+            Copy_Keyframes_Brightness.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_BRIGHTNESS, [], [tran_id]))
             Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Contrast"))
-            Copy_Keyframes_Scale.triggered.connect(partial(self.Copy_Triggered, MENU_COPY_KEYFRAMES_CONTRAST, [], [tran_id]))
+            Copy_Keyframes_Scale.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_CONTRAST, [], [tran_id]))
 
             # Only show copy->keyframe if a single transitions is selected
             Copy_Menu.addMenu(Keyframe_Menu)
@@ -2477,15 +2563,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             start_of_tran = float(tran.data["start"])
             end_of_tran = float(tran.data["end"])
             position_of_tran = float(tran.data["position"])
-            if playhead_position >= position_of_tran and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran)):
+            if (playhead_position >= position_of_tran
+               and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran))):
                 # Add split transition menu
                 Slice_Menu = QMenu(_("Slice"), self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-                Slice_Keep_Both.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [], [tran_id], playhead_position))
+                Slice_Keep_Both.triggered.connect(partial(
+                    self.Slice_Triggered, MENU_SLICE_KEEP_BOTH, [], [tran_id], playhead_position))
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-                Slice_Keep_Left.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [], [tran_id], playhead_position))
+                Slice_Keep_Left.triggered.connect(partial(
+                    self.Slice_Triggered, MENU_SLICE_KEEP_LEFT, [], [tran_id], playhead_position))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-                Slice_Keep_Right.triggered.connect(partial(self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [], [tran_id], playhead_position))
+                Slice_Keep_Right.triggered.connect(partial(
+                    self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, [], [tran_id], playhead_position))
                 menu.addMenu(Slice_Menu)
 
         # Reverse Transition menu
@@ -2860,8 +2950,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
         for clip in possible_clips:
-            if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (
-                        clip.data["end"] - clip.data["start"])):
+            if js_position == 0 or (
+               clip.data["position"] <= js_position <= clip.data["position"]
+               + (clip.data["end"] - clip.data["start"])
+               ):
                 log.info("Applying effect to clip")
                 log.info(clip)
 
