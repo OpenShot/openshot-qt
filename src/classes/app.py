@@ -128,6 +128,9 @@ class OpenShotApp(QApplication):
             # Stop launching and exit
             sys.exit()
 
+        # Set location of OpenShot program (for libopenshot)
+        openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
+
         # Tests of project data loading/saving
         self.project = project_data.ProjectDataStore()
 
