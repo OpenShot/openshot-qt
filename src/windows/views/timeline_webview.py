@@ -1847,7 +1847,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     self.waveform_cache[right_clip.id] = self.waveform_cache.get(clip_id, '[]')
 
                     # Pass audio to javascript timeline (and render)
-                    cmd = JS_SCOPE_SELECTOR + ".setAudioData('" + right_clip.id + "', " + self.waveform_cache.get(right_clip.id) + ");"
+                    cmd = JS_SCOPE_SELECTOR + ".setAudioData('{}',{});".format(
+                        right_clip.id, self.waveform_cache.get(right_clip.id))
                     self.page().mainFrame().evaluateJavaScript(cmd)
 
             # Save changes
@@ -2037,7 +2038,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
             # Determine if waveform needs to be redrawn
-            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('" + clip.id + "');"))
+            has_audio_data = bool(self.eval_js(JS_SCOPE_SELECTOR + ".hasAudioData('{}');".format(clip.id)))
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
                 self.Show_Waveform_Triggered(clip.id)
@@ -2758,11 +2759,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             new_clip["end"] = file.data['end']
 
         # Find the closest track (from javascript)
-        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack({});".format(position.y())))
         new_clip["layer"] = top_layer
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition({});".format(position.x()))
         new_clip["position"] = js_position
 
         # Adjust clip duration, start, and end
@@ -2788,7 +2789,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.item_id = new_clip.get('id')
 
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('" + self.item_type + "', '" + self.item_id + "');"
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('{}', '{}');".format(self.item_type, self.item_id)
         self.eval_js(code)
 
     # Resize timeline
@@ -2802,10 +2803,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         log.info("addTransition...")
 
         # Find the closest track (from javascript)
-        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack({});".format(position.y())))
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition({});".format(position.x()))
 
         # Get FPS from project
         fps = get_app().project.get("fps")
@@ -2841,7 +2842,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.item_id = transitions_data.get('id')
 
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('" + self.item_type + "', '" + self.item_id + "');"
+        code = JS_SCOPE_SELECTOR + ".StartManualMove('{}','{}');".format(self.item_type, self.item_id)
         self.eval_js(code)
 
     # Add Effect
@@ -2851,10 +2852,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         name = effect_names[0]
 
         # Find the closest track (from javascript)
-        closest_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack(" + str(position.y()) + ");"))
+        closest_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack({});".format(position.y())))
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition(" + str(position.x()) + ");")
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition({});".format(position.x()))
 
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
@@ -2887,7 +2888,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Move clip on timeline
         if self.item_type in ["clip", "transition"]:
-            code = JS_SCOPE_SELECTOR + ".MoveItem(" + str(pos.x()) + ", " + str(pos.y()) + ", '" + self.item_type + "');"
+            code = JS_SCOPE_SELECTOR + ".MoveItem({}, {}, '{}');".format(pos.x(), pos.y(), self.item_type)
             self.eval_js(code)
 
     # Drop an item on the timeline
@@ -2899,7 +2900,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('" + self.item_type + "', '" + self.item_id + "');")
+            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('{}'. '{}');".format(self.item_type, self.item_id))
 
         elif self.item_type == "effect":
             # Add effect only on drop
@@ -2989,7 +2990,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     # Cache has changed, re-render it
                     self.cache_renderer_version = cache_version
 
-                    cmd = JS_SCOPE_SELECTOR + ".RenderCache(" + cache_json + ");"
+                    cmd = JS_SCOPE_SELECTOR + ".RenderCache({});".format(cache_json)
                     self.page().mainFrame().evaluateJavaScript(cmd)
         finally:
             # ignore any errors inside the cache rendering
