@@ -41,6 +41,7 @@
  """
 
 import sys
+import os.path
 import argparse
 
 try:
@@ -63,6 +64,10 @@ def main():
     parser.add_argument('--list-languages', dest='list_languages',
                         action='store_true', help='List all language '
                         'codes supported by OpenShot')
+    parser.add_argument('--path', dest='py_path',
+                        action='append',
+                        help='Additional locations to search for modules '
+                        '(PYTHONPATH). Can be used multiple times.')
     parser.add_argument('-V', '--version', action='store_true')
     parser.add_argument('remain', nargs=argparse.REMAINDER,
                         help=argparse.SUPPRESS)
@@ -80,6 +85,18 @@ def main():
         for lang in get_all_languages():
             print("  {:>12}  {}".format(lang[0],lang[1]))
         sys.exit()
+
+    if args.py_path:
+        for p in args.py_path:
+            try:
+                if os.path.exists(os.path.realpath(p)):
+                    sys.path.insert(0, os.path.realpath(p))
+                    print("Added {} to PYTHONPATH".format(os.path.realpath(p)))
+                else:
+                    print("{} does not exist".format(os.path.realpath(p)))
+            except TypeError as ex:
+                    print("Bad path {}: {}".format(p, ex))
+                    continue
 
     if args.lang:
         if args.lang in info.SUPPORTED_LANGUAGES:
