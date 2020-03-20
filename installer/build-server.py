@@ -28,8 +28,6 @@
 import os
 import sys
 
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
-
 import datetime
 import platform
 import shutil
@@ -148,6 +146,7 @@ def zulip_upload_log(log, title, comment=None):
     log = open(log_path, "a")
     print(resp)
 
+
 def get_release(repo, tag_name):
     """Fetch the GitHub release tagged with the given tag and return it
     @param repo:        github3 repository object
@@ -156,6 +155,7 @@ def get_release(repo, tag_name):
     for release in repo.iter_releases():
         if release.tag_name == tag_name:
             return release
+
 
 def upload(file_path, github_release):
     """Upload a file to GitHub (retry 3 times)"""
@@ -187,6 +187,7 @@ def upload(file_path, github_release):
                 raise Exception('Upload failed. Verify that this file is not already uploaded: %s' % file_path, ex)
 
     return url
+
 
 def parse_version_info(version_path):
     """Parse version info from gitlab artifacts"""
@@ -385,9 +386,10 @@ try:
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
-        # Create AppRun.64 file (the real one)
+        # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
+        # XXX: Temporary: Use new AppRun binary in project repo
+        shutil.copyfile(os.path.join(PATH, "installer", "AppRun.64"), app_run_path)
 
         # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)
