@@ -26,6 +26,7 @@
  """
 
 import os
+from time import strftime
 
 from PyQt5.QtCore import QDir
 
@@ -37,7 +38,7 @@ PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit stunning videos, movies, and animations"
 COMPANY_NAME = "OpenShot Studios, LLC"
-COPYRIGHT = "Copyright (c) 2008-2018 %s" % COMPANY_NAME
+COPYRIGHT = "Copyright (c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
