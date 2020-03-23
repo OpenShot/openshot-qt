@@ -897,7 +897,7 @@
   <action name="actionCenterOnPlayhead">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-	    <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
+     <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
    </property>
    <property name="text">
     <string>Center on Playhead</string>
@@ -1561,9 +1561,6 @@
    <property name="toolTip">
     <string>Edit Title</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+T</string>
-   </property>
   </action>
   <action name="actionDuplicateTitle">
    <property name="icon">
@@ -1577,7 +1574,7 @@
     <string>Duplicate Title</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+T</string>
+    <string>Ctrl+Shift+C</string>
    </property>
   </action>
   <action name="actionClearHistory">

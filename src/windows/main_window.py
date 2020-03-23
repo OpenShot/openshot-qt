@@ -423,10 +423,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionDuplicateTitle_trigger(self, event):
 
-        # Get selected svg title file
-        selected_file_id = self.selected_files[0]
-        file = File.get(id=selected_file_id)
-        file_path = file.data.get("path")
+        file_path = None
+
+        # Loop through selected files (set 1 selected file if more than 1)
+        for file_id in self.selected_files:
+            # Find matching file
+            f = File.get(id=file_id)
+            if f.data.get("path").endswith(".svg"):
+                file_path = f.data.get("path")
+                break
+
+        if not file_path:
+            return
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
@@ -1463,6 +1471,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionTitle.trigger()
         elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
+            log.info("Duplicating title, {}".format(event))
+            self.actionDuplicateTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
+            self.actionEditTitle.trigger()
         elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
             self.actionFullscreen.trigger()
         elif key.matches(self.getShortcutByName("actionAbout")) == QKeySequence.ExactMatch:
