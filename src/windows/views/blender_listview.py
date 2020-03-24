@@ -30,8 +30,14 @@ import shutil
 import subprocess
 import sys
 import re
-import xml.dom.minidom as xml
 import functools
+import json
+
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
 
 from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QTimer
 from PyQt5.QtGui import *
@@ -43,8 +49,6 @@ from classes import settings
 from classes.query import File
 from classes.app import get_app
 from windows.models.blender_model import BlenderModel
-
-import json
 
 
 class BlenderListView(QListView):
