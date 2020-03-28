@@ -18,7 +18,9 @@ __EOM__
 [ -z $1 ] && usage && exit -1
 
 # We take one argument, the path in which to look for target libraries
-hw_lib_dir=$(realpath "$1")
+if [ -d "$1" ]; then
+  hw_lib_dir="$1"
+fi
 
 # Count files processed
 ((processed=0))
