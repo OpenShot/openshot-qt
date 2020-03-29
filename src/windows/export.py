@@ -668,15 +668,15 @@ class Export(QDialog):
                 raw_number = locale.atof(raw_number_string)
 
                 if "kb" in raw_measurement:
-                    measurement = "kb"
+                    # Kbit to bytes
                     bit_rate_bytes = raw_number * 1000.0
 
                 elif "mb" in raw_measurement:
-                    measurement = "mb"
+                    # Mbit to bytes
                     bit_rate_bytes = raw_number * 1000.0 * 1000.0
 
-                elif "crf" in raw_measurement:
-                    measurement = "crf"
+                elif ("crf" in raw_measurement) or ("cqp" in raw_measurement):
+                    # Just a number
                     if raw_number > 63:
                         raw_number = 63
                     if raw_number < 0:
@@ -684,7 +684,7 @@ class Export(QDialog):
                     bit_rate_bytes = raw_number
 
                 elif "qp" in raw_measurement:
-                    measurement = "qp"
+                    # Just a number
                     if raw_number > 255:
                         raw_number = 255
                     if raw_number < 0:
@@ -886,11 +886,12 @@ class Export(QDialog):
             else:
                 # Muxing options for mp4/mov
                 w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
-                # Set the quality in case crf was selected
+                # Set the quality in case crf, cqp or qp was selected
                 if "crf" in self.txtVideoBitRate.text():
                     w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
-                # Set the quality in case qp was selected
-                if "qp" in self.txtVideoBitRate.text():
+                elif "cqp" in self.txtVideoBitRate.text():
+                    w.SetOption(openshot.VIDEO_STREAM, "cqp", str(int(video_settings.get("video_bitrate"))) )
+                elif "qp" in self.txtVideoBitRate.text():
                     w.SetOption(openshot.VIDEO_STREAM, "qp", str(int(video_settings.get("video_bitrate"))) )
 
 
