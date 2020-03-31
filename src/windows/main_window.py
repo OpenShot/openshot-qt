@@ -1021,6 +1021,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
 
+        # Set scale mode to higher quality (to skip chroma optimizations of preview and get Export-like quality)
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
+
         # Append .png if needed
         if not framePath.endswith(".png"):
             framePath = "%s.png" % framePath
@@ -1031,8 +1034,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         app.window.actionPlay_trigger(None, force="pause")
 
-        # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
-        old_cache_object = self.cache_object
+        # Create a new CacheMemory object (ignore quality and scale prefs)
+        self.timeline_sync.timeline.ClearAllCache()
         new_cache_object = openshot.CacheMemory(settings.get_settings().get("cache-limit-mb") * 1024 * 1024)
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
@@ -1055,13 +1058,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.statusBar.showMessage(_("Failed to save image to %s" % framePath), 5000)
 
+        # Return scale mode to lower quality scaling (for faster previews)
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
+
         # Reset the MaxSize to match the preview and reset the preview cache
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
         self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
-        self.cache_object.Clear()
-        self.timeline_sync.timeline.SetCache(old_cache_object)
-        self.cache_object = old_cache_object
-        old_cache_object = None
+        self.InitCacheSettings()
         new_cache_object = None
 
     def actionAddTrack_trigger(self, event):
