@@ -59,6 +59,7 @@ BLENDER_PATH = os.path.join(USER_PATH, "blender")
 ASSETS_PATH = os.path.join(USER_PATH, "assets")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
+EMOJIS_PATH = os.path.join(USER_PATH, "emojis")
 PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
@@ -71,7 +72,7 @@ USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 # (this is where temp files are stored... such as cached thumbnails)
 for folder in [USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
                BLENDER_PATH, ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH,
-               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH]:
+               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, EMOJIS_PATH]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 

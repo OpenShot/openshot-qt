@@ -57,6 +57,7 @@ from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
+from windows.views.emojis_listview import EmojisListView
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
@@ -1897,6 +1898,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         return [self.dockFiles,
                 self.dockTransitions,
                 self.dockEffects,
+                self.dockEmojis,
                 self.dockVideo,
                 self.dockProperties,
                 self.dockTimeline]
@@ -1946,15 +1948,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.removeDocks()
 
         # Add Docks
-        self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockEmojis, self.dockVideo], Qt.TopDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
         self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
-        self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockVideo])
+        self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
+        self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockEmojis, self.dockVideo])
 
         # Set initial size of docks
-        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACnAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAERgAAAtj8AQAAAAH8AAAAAAAABEYAAAD6AP////wCAAAAAvwAAAAnAAABwAAAALQA/////AEAAAAC/AAAAAAAAAFcAAAAewD////6AAAAAAIAAAAD+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACYAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAmAD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACYAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAWIAAALkAAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAHtAAABEgAAAJYA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
+        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACfAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAFEgAAAvP8AQAAAAH8AAAAAAAABRIAAAD6AP////wCAAAAAvwAAAAnAAAB0QAAAK0A/////AEAAAAC/AAAAAAAAAHaAAAAewD////6AAAAAAIAAAAE+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACRAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAkQD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACRAP////sAAAAUAGQAbwBjAGsARQBtAG8AagBpAHMBAAAAJwAAAdEAAACRAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAeAAAAMyAAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAH+AAABHAAAAJYA////AAAFEgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
 
@@ -1964,16 +1967,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.removeDocks()
 
         # Add Docks
-        self.addDocks([self.dockFiles, self.dockTransitions, self.dockVideo], Qt.TopDockWidgetArea)
-        self.addDocks([self.dockEffects], Qt.RightDockWidgetArea)
+        self.addDocks([self.dockFiles, self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockEffects, self.dockTransitions, self.dockEmojis], Qt.RightDockWidgetArea)
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
 
         self.floatDocks(False)
-        self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
-        self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockProperties])
+        self.tabifyDockWidget(self.dockEmojis, self.dockEffects)
+        self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockEmojis, self.dockProperties])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAADKPwCAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAA9AAADKAAAAKEA/////AAAAl4AAACnAAAAAAD////6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAADVAAADKPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAFDwAAAyH8AQAAAAH8AAAA9wAABQ8AAAD6AP////wCAAAAAvwAAAA9AAACIQAAAVMA/////AEAAAAC/AAAAPcAAAG9AAAAewD////8AgAAAAL7AAAAEgBkAG8AYwBrAEYAaQBsAGUAcwEAAAA9AAAA9gAAAJgA/////AAAATkAAAElAAAAtQEAABz6AAAAAQEAAAAC+wAAAB4AZABvAGMAawBUAHIAYQBuAHMAaQB0AGkAbwBuAHMBAAAAAP////8AAABsAP////sAAAAWAGQAbwBjAGsARQBmAGYAZQBjAHQAcwEAAAC+AAABKgAAAFoA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACugAAA0wAAABHAP////sAAAAYAGQAbwBjAGsAVABpAG0AZQBsAGkAbgBlAQAAAmQAAAD6AAAAlgD///8AAAUPAAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAAC+vwCAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAnAAAC+gAAAJ8A/////AAAAl4AAACnAAAAAAD////6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAACZAAAC+vwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAJwAAAvoAAACRAP///wAAAAIAAAN8AAAC8/wBAAAAAfwAAAD3AAADfAAAAPoA/////AIAAAAC/AAAACcAAAHZAAABRAD////8AQAAAAL8AAAA9wAAAVsAAAB7AP////wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAADkAAAAkQD////8AAABEQAAAO8AAACtAQAAG/oAAAAAAQAAAAL7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/////wAAAGwA////+wAAABQAZABvAGMAawBFAG0AbwBqAGkAcwEAAAD3AAABHQAAAFgA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACWAAAAhsAAABHAP////sAAAAYAGQAbwBjAGsAVABpAG0AZQBsAGkAbgBlAQAAAgYAAAEUAAAAlgD///8AAAN8AAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -2225,6 +2228,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effectsFilter.setClearButtonEnabled(True)
         self.effectsToolbar.addWidget(self.effectsFilter)
         self.tabEffects.layout().addWidget(self.effectsToolbar)
+
+        # Add emojis toolbar
+        self.emojisToolbar = QToolBar("Emojis Toolbar")
+        self.emojisFilter = QLineEdit()
+        self.emojisFilter.setObjectName("emojisFilter")
+        self.emojisFilter.setPlaceholderText(_("Filter"))
+        self.emojisFilter.setClearButtonEnabled(True)
+        self.emojisToolbar.addWidget(self.emojisFilter)
+        self.tabEmojis.layout().addWidget(self.emojisToolbar)
 
         # Add Video Preview toolbar
         self.videoToolbar = QToolBar("Video Toolbar")
@@ -2550,6 +2562,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             self.effectsTreeView = EffectsListView(self)
         self.tabEffects.layout().addWidget(self.effectsTreeView)
+
+        # Setup emojis view
+        self.emojiListView = EmojisListView(self)
+        self.tabEmojis.layout().addWidget(self.emojiListView)
 
         # Set up status bar
         self.statusBar = QStatusBar()

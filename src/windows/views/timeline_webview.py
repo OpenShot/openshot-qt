@@ -201,10 +201,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Load entire project data
             code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
-        else:
+            self.eval_js(code)
+        elif action.key[0] != "files":
             # Apply diff to part of project data
             code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
-        self.eval_js(code)
+            self.eval_js(code)
 
         # Reset the scale when loading new JSON
         if action.type == "load":

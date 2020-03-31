@@ -311,6 +311,33 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockEmojis">
+   <property name="windowTitle">
+    <string>Emojis</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContentsEmoji">
+    <layout class="QGridLayout" name="gridLayoutEmoji">
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <property name="topMargin">
+      <number>9</number>
+     </property>
+     <property name="rightMargin">
+      <number>9</number>
+     </property>
+     <property name="bottomMargin">
+      <number>9</number>
+     </property>
+     <item row="0" column="0">
+      <layout class="QVBoxLayout" name="tabEmojis"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QDockWidget" name="dockEffects">
    <property name="windowTitle">
     <string>Effects</string>
