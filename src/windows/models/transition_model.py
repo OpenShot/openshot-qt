@@ -27,7 +27,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt
+from PyQt5.QtCore import QMimeData, Qt, QSortFilterProxyModel
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -56,6 +56,37 @@ class TransitionStandardItemModel(QStandardItemModel):
 
         # Return Mimedata
         return data
+
+
+class TransitionFilterProxyModel(QSortFilterProxyModel):
+    """Proxy class used for sorting and filtering model data"""
+
+    def filterAcceptsRow(self, sourceRow, sourceParent):
+        """Filter for common transitions and text filter"""
+
+        if get_app().window.actionTransitionsShowCommon.isChecked():
+            # Fetch the group name
+            index = self.sourceModel().index(sourceRow, 2, sourceParent) # group name column
+            group_name = self.sourceModel().data(index) # group name (i.e. common)
+
+            # Fetch the transitions name
+            index = self.sourceModel().index(sourceRow, 0, sourceParent) # transition name column
+            trans_name = self.sourceModel().data(index) # transition name (i.e. Fade In)
+
+            # Return, if regExp match in displayed format.
+            return "common" == group_name and self.filterRegExp().indexIn(trans_name) >= 0
+
+        # Continue running built-in parent filter logic
+        return super(TransitionFilterProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
+
+    def lessThan(self, left, right):
+        """Sort with both group name and transition name"""
+        leftData = self.sourceModel().data(left)
+        leftGroup = self.sourceModel().data(left, 257) # Strange way to access 'type' column in model
+        rightData = self.sourceModel().data(right)
+        rightGroup = self.sourceModel().data(right, 257)
+
+        return leftGroup < rightGroup and leftData < rightData
 
 
 class TransitionsModel():
@@ -115,15 +146,6 @@ class TransitionsModel():
                 else:
                     trans_name = self.app._tr(trans_name)
 
-                if not win.actionTransitionsShowAll.isChecked():
-                    if win.actionTransitionsShowCommon.isChecked():
-                        if not type == "common":
-                            continue  # to next file, didn't match filter
-
-                if win.transitionsFilter.text() != "":
-                    if not win.transitionsFilter.text().lower() in trans_name.lower():
-                        continue
-
                 # Check for thumbnail path (in build-in cache)
                 thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
 
@@ -164,6 +186,7 @@ class TransitionsModel():
                 col.setIcon(QIcon(thumb_path))
                 col.setText(trans_name)
                 col.setToolTip(trans_name)
+                col.setData(type)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 

@@ -114,20 +114,21 @@ class EmojisListView(QListView):
         self.refresh_view()
 
     def refresh_view(self):
+        """Filter transitions with proxy class"""
         filter_text = self.win.emojisFilter.text()
         self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.sort(Qt.AscendingOrder)
 
-    def __init__(self, *args):
+    def __init__(self, model):
         # Invoke parent init
-        QListView.__init__(self, *args)
+        QListView.__init__(self)
 
         # Get a reference to the window object
         self.win = get_app().window
 
         # Get Model data
-        self.emojis_model = EmojisModel()
+        self.emojis_model = model
 
         # Create proxy model (for sorting and filtering)
         self.proxy_model = QSortFilterProxyModel(self)

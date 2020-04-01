@@ -55,9 +55,12 @@ from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
+from windows.models.transition_model import TransitionsModel
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.transitions_listview import TransitionsListView
+from windows.models.emoji_model import EmojisModel
 from windows.views.emojis_listview import EmojisListView
+from windows.models.effects_model import EffectsModel
 from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
@@ -1839,7 +1842,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
             self.transitionsTreeView.deleteLater()
             self.transitionsTreeView = None
-            self.transitionsTreeView = TransitionsTreeView(self)
+            self.transitionsTreeView = TransitionsTreeView(self.transition_model)
             self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 
         # Effects
@@ -1848,7 +1851,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.tabEffects.layout().removeWidget(self.effectsTreeView)
             self.effectsTreeView.deleteLater()
             self.effectsTreeView = None
-            self.effectsTreeView = EffectsTreeView(self)
+            self.effectsTreeView = EffectsTreeView(self.effects_model)
             self.tabEffects.layout().addWidget(self.effectsTreeView)
 
     def actionThumbnailView_trigger(self, event):
@@ -1877,7 +1880,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
             self.transitionsTreeView.deleteLater()
             self.transitionsTreeView = None
-            self.transitionsTreeView = TransitionsListView(self)
+            self.transitionsTreeView = TransitionsListView(self.transition_model)
             self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 
         # Effects
@@ -1886,7 +1889,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.tabEffects.layout().removeWidget(self.effectsTreeView)
             self.effectsTreeView.deleteLater()
             self.effectsTreeView = None
-            self.effectsTreeView = EffectsListView(self)
+            self.effectsTreeView = EffectsListView(self.effects_model)
             self.tabEffects.layout().addWidget(self.effectsTreeView)
 
     def resize_contents(self):
@@ -2550,21 +2553,24 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.filesTreeView.setFocus()
 
         # Setup transitions tree
+        self.transition_model = TransitionsModel()
         if s.get("transitions_view") == "details":
-            self.transitionsTreeView = TransitionsTreeView(self)
+            self.transitionsTreeView = TransitionsTreeView(self.transition_model)
         else:
-            self.transitionsTreeView = TransitionsListView(self)
+            self.transitionsTreeView = TransitionsListView(self.transition_model)
         self.tabTransitions.layout().addWidget(self.transitionsTreeView)
 
         # Setup effects tree
+        self.effects_model = EffectsModel()
         if s.get("effects_view") == "details":
-            self.effectsTreeView = EffectsTreeView(self)
+            self.effectsTreeView = EffectsTreeView(self.effects_model)
         else:
-            self.effectsTreeView = EffectsListView(self)
+            self.effectsTreeView = EffectsListView(self.effects_model)
         self.tabEffects.layout().addWidget(self.effectsTreeView)
 
         # Setup emojis view
-        self.emojiListView = EmojisListView(self)
+        self.emoji_model = EmojisModel()
+        self.emojiListView = EmojisListView(self.emoji_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
         # Set up status bar
