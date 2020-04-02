@@ -53,6 +53,7 @@ from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
+from windows.models.files_model import FilesModel
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
 from windows.models.transition_model import TransitionsModel
@@ -81,6 +82,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     previewFrameSignal = pyqtSignal(int)
     refreshFrameSignal = pyqtSignal()
+    refreshFilesSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
     PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
@@ -350,7 +352,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Reset selections
         self.clearSelections()
 
-        self.filesTreeView.refresh_view()
+        # Refresh files views
+        self.refreshFilesSignal.emit()
         log.info("New Project created.")
 
         # Set Window title
@@ -412,8 +415,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
 
-        # Force update of files model (which will rebuild missing thumbnails)
-        get_app().window.filesTreeView.refresh_view()
+        # Refresh files views
+        self.refreshFilesSignal.emit()
 
         # Force update of clips
         clips = Clip.filter(file_id=selected_file_id)
@@ -530,8 +533,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Reset selections
                 self.clearSelections()
 
-                # Refresh file tree
-                QTimer.singleShot(0, self.filesTreeView.refresh_view)
+                # Refresh files views
+                self.refreshFilesSignal.emit()
 
                 # Load recent projects again
                 self.load_recent_menu()
@@ -701,11 +704,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
         files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
+
+        # Set cursor to waiting
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
         for file_path in files:
             self.filesTreeView.add_file(file_path)
-            self.filesTreeView.refresh_view()
             app.updates.update_untracked(["import_path"], os.path.dirname(file_path))
             log.info("Imported media file {}".format(file_path))
+
+        # Restore cursor
+        get_app().restoreOverrideCursor()
+
+        # Refresh files views
+        self.refreshFilesSignal.emit()
 
     def actionAdd_to_Timeline_trigger(self, event):
         # Loop through selected files
@@ -729,17 +741,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info('confirmed')
         else:
             log.info('canceled')
-
-    def actionUploadVideo_trigger(self, event):
-        # show window
-        from windows.upload_video import UploadVideo
-        win = UploadVideo()
-        # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Upload Video add confirmed')
-        else:
-            log.info('Upload Video add cancelled')
 
     def actionExportVideo_trigger(self, event):
         # show window
@@ -809,16 +810,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_app().restoreOverrideCursor()
 
     def actionFilesShowAll_trigger(self, event):
-        self.filesTreeView.refresh_view()
+        self.refreshFilesSignal.emit()
 
     def actionFilesShowVideo_trigger(self, event):
-        self.filesTreeView.refresh_view()
+        self.refreshFilesSignal.emit()
 
     def actionFilesShowAudio_trigger(self, event):
-        self.filesTreeView.refresh_view()
+        self.refreshFilesSignal.emit()
 
     def actionFilesShowImage_trigger(self, event):
-        self.filesTreeView.refresh_view()
+        self.refreshFilesSignal.emit()
 
     def actionTransitionsShowAll_trigger(self, event):
         self.transitionsTreeView.refresh_view()
@@ -1823,18 +1824,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         app = get_app()
         s = settings.get_settings()
 
-        # Prepare treeview for deletion
-        if self.filesTreeView:
-            self.filesTreeView.prepare_for_delete()
-
         # Files
         if app.context_menu_object == "files":
             s.set("file_view", "details")
-            self.tabFiles.layout().removeWidget(self.filesTreeView)
-            self.filesTreeView.deleteLater()
-            self.filesTreeView = None
-            self.filesTreeView = FilesTreeView(self)
-            self.tabFiles.layout().addWidget(self.filesTreeView)
+            self.filesListView.hide()
+            self.filesTreeView.show()
+            self.filesTreeView.clearSelection()
 
         # Transitions
         elif app.context_menu_object == "transitions":
@@ -1861,18 +1856,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         app = get_app()
         s = settings.get_settings()
 
-        # Prepare treeview for deletion
-        if self.filesTreeView:
-            self.filesTreeView.prepare_for_delete()
-
         # Files
         if app.context_menu_object == "files":
             s.set("file_view", "thumbnail")
-            self.tabFiles.layout().removeWidget(self.filesTreeView)
-            self.filesTreeView.deleteLater()
-            self.filesTreeView = None
-            self.filesTreeView = FilesListView(self)
-            self.tabFiles.layout().addWidget(self.filesTreeView)
+            self.filesListView.show()
+            self.filesListView.clearSelection()
+            self.filesTreeView.hide()
 
         # Transitions
         elif app.context_menu_object == "transitions":
@@ -2205,7 +2194,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.filesFilter.setPlaceholderText(_("Filter"))
         self.filesFilter.setClearButtonEnabled(True)
         self.filesToolbar.addWidget(self.filesFilter)
-        self.tabFiles.layout().addWidget(self.filesToolbar)
+        self.tabFiles.layout().insertWidget(0, self.filesToolbar)
 
         # Add transitions toolbar
         self.transitionsToolbar = QToolBar("Transitions Toolbar")
@@ -2544,13 +2533,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
-        # Setup files tree
+        # Setup files tree and list view (both share a model)
+        self.files_model = FilesModel()
+        self.filesTreeView = FilesTreeView(self.files_model)
+        self.filesListView = FilesListView(self.files_model)
+        self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
+        self.tabFiles.layout().insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
-            self.filesTreeView = FilesTreeView(self)
+            self.filesTreeView.show()
+            self.filesListView.hide()
+            self.filesTreeView.setFocus()
         else:
-            self.filesTreeView = FilesListView(self)
-        self.tabFiles.layout().addWidget(self.filesTreeView)
-        self.filesTreeView.setFocus()
+            self.filesTreeView.hide()
+            self.filesListView.show()
+            self.filesListView.setFocus()
 
         # Setup transitions tree
         self.transition_model = TransitionsModel()

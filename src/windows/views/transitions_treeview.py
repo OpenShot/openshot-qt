@@ -25,12 +25,12 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint
+from PyQt5.QtCore import QSize, QPoint, QRegExp, Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 
 from classes.app import get_app
-from windows.models.transition_model import TransitionsModel
+from windows.models.transition_model import TransitionsModel, TransitionFilterProxyModel
 
 import json
 
@@ -51,12 +51,12 @@ class TransitionsTreeView(QTreeView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.transition_model.model.itemFromIndex(self.selectionModel().selectedIndexes()[0]).row()
+        selected_row = self.transition_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.transition_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.transition_model.model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
@@ -66,9 +66,11 @@ class TransitionsTreeView(QTreeView):
         self.refresh_view()
 
     def refresh_view(self):
-        self.transition_model.update_model()
-        self.hideColumn(2)
-        self.hideColumn(3)
+        """Filter transitions with proxy class"""
+        filter_text = self.win.transitionsFilter.text()
+        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.sort(Qt.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
@@ -79,6 +81,13 @@ class TransitionsTreeView(QTreeView):
 
         # Get Model data
         self.transition_model = model
+
+        # Create proxy model (for sorting and filtering)
+        self.proxy_model = TransitionFilterProxyModel(self)
+        self.proxy_model.setDynamicSortFilter(True)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSourceModel(self.transition_model.model)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
@@ -95,8 +104,10 @@ class TransitionsTreeView(QTreeView):
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 
-        # Refresh view
-        self.refresh_view()
+        # Load initial transition model data
+        self.transition_model.update_model()
+        self.hideColumn(2)
+        self.hideColumn(3)
 
         # setup filter events
         app = get_app()

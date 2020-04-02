@@ -104,7 +104,7 @@ class EffectsListView(QListView):
         self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
-        # Load initial emoji model data
+        # Load initial effects model data
         self.effects_model.update_model()
 
         # setup filter events

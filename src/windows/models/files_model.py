@@ -28,7 +28,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt, pyqtSignal
+from PyQt5.QtCore import QMimeData, Qt, pyqtSignal, QSortFilterProxyModel, QEventLoop
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -64,27 +64,81 @@ class FileStandardItemModel(QStandardItemModel):
         return data
 
 
+class FileFilterProxyModel(QSortFilterProxyModel):
+    """Proxy class used for sorting and filtering model data"""
+
+    def filterAcceptsRow(self, sourceRow, sourceParent):
+        """Filter for text"""
+
+        if get_app().window.actionFilesShowVideo.isChecked() \
+                or get_app().window.actionFilesShowAudio.isChecked() \
+                or get_app().window.actionFilesShowImage.isChecked() \
+                or get_app().window.filesFilter.text():
+            # Fetch the file name
+            index = self.sourceModel().index(sourceRow, 0, sourceParent)
+            file_name = self.sourceModel().data(index) # file name (i.e. MyVideo.mp4)
+
+            # Fetch the media_type
+            index = self.sourceModel().index(sourceRow, 3, sourceParent)
+            media_type = self.sourceModel().data(index) # media type (i.e. video, image, audio)
+
+            index = self.sourceModel().index(sourceRow, 2, sourceParent)
+            tags = self.sourceModel().data(index) # tags (i.e. intro, custom, etc...)
+
+            if get_app().window.actionFilesShowVideo.isChecked():
+                if not media_type == "video":
+                    return False
+            elif get_app().window.actionFilesShowAudio.isChecked():
+                if not media_type == "audio":
+                    return False
+            elif get_app().window.actionFilesShowImage.isChecked():
+                if not media_type == "image":
+                    return False
+
+            # Match against regex pattern
+            return self.filterRegExp().indexIn(file_name) >= 0 or self.filterRegExp().indexIn(tags) >= 0
+
+        # Continue running built-in parent filter logic
+        return super(FileFilterProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
+
+
 class FilesModel(updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
 
         # Something was changed in the 'files' list
-        if len(action.key) >= 1 and action.key[0].lower() == "files":
+        if (len(action.key) >= 1 and action.key[0].lower() == "files") or action.type == "load":
             # Refresh project files model
             if action.type == "insert":
                 # Don't clear the existing items if only inserting new things
                 self.update_model(clear=False)
+            elif action.type == "delete" and action.key[0].lower() == "files":
+                # Don't clear the existing items if only deleting things
+                self.update_model(clear=False, delete_file_id=action.key[1].get('id', ''))
             else:
                 # Clear existing items
                 self.update_model(clear=True)
 
-    def update_model(self, clear=True):
+    def update_model(self, clear=True, delete_file_id=None):
         log.info("updating files model.")
         app = get_app()
 
         # Get window to check filters
         win = app.window
         _ = app._tr
+
+        # Delete a file (if delete_file_id passed in)
+        if delete_file_id in self.model_ids:
+            for row_num in range(self.model.rowCount()):
+                id_index = self.model.index(row_num, 5)
+                if delete_file_id == self.model.data(id_index):
+                    # Delete row from model
+                    self.model.beginRemoveRows(id_index.parent(), row_num, row_num)
+                    self.model.removeRow(row_num, id_index.parent())
+                    self.model.endRemoveRows()
+                    self.model.submit()
+                    self.model_ids.pop(delete_file_id)
+                    break
 
         # Skip updates (if needed)
         if self.ignore_update_signal:
@@ -103,6 +157,10 @@ class FilesModel(updates.UpdateInterface):
 
         # add item for each file
         for file in files:
+            if file.data["id"] in self.model_ids:
+                # Ignore files that already exist in model
+                continue
+
             path, filename = os.path.split(file.data["path"])
             tags = ""
             if "tags" in file.data.keys():
@@ -110,24 +168,6 @@ class FilesModel(updates.UpdateInterface):
             name = filename
             if "name" in file.data.keys():
                 name = file.data["name"]
-
-            if not win.actionFilesShowAll.isChecked():
-                if win.actionFilesShowVideo.isChecked():
-                    if not file.data["media_type"] == "video":
-                        continue  # to next file, didn't match filter
-                elif win.actionFilesShowAudio.isChecked():
-                    if not file.data["media_type"] == "audio":
-                        continue  # to next file, didn't match filter
-                elif win.actionFilesShowImage.isChecked():
-                    if not file.data["media_type"] == "image":
-                        continue  # to next file, didn't match filter
-
-
-            if win.filesFilter.text() != "":
-                if not win.filesFilter.text().lower() in filename.lower() \
-                        and not win.filesFilter.text().lower() in tags.lower() \
-                        and not win.filesFilter.text().lower() in name.lower():
-                    continue
 
             # Generate thumbnail for file (if needed)
             if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
@@ -201,10 +241,7 @@ class FilesModel(updates.UpdateInterface):
             if not file.data["id"] in self.model_ids:
                 self.model.appendRow(row)
                 self.model_ids[file.data["id"]] = file.data["id"]
-
-            # Process events in QT (to keep the interface responsive)
-            # TODO: FIX THIS
-            #app.processEvents()
+                get_app().processEvents(QEventLoop.ExcludeUserInputEvents)
 
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()

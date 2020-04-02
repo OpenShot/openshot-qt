@@ -103,7 +103,7 @@ class EffectsTreeView(QTreeView):
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 
-        # Load initial emoji model data
+        # Load initial effects model data
         self.effects_model.update_model()
         self.hideColumn(3)
         self.hideColumn(4)
