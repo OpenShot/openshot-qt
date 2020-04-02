@@ -156,6 +156,7 @@ class FilesModel(updates.UpdateInterface):
         files = File.filter()  # get all files
 
         # add item for each file
+        row_added_count = 0
         for file in files:
             if file.data["id"] in self.model_ids:
                 # Ignore files that already exist in model
@@ -241,7 +242,11 @@ class FilesModel(updates.UpdateInterface):
             if not file.data["id"] in self.model_ids:
                 self.model.appendRow(row)
                 self.model_ids[file.data["id"]] = file.data["id"]
-                get_app().processEvents(QEventLoop.ExcludeUserInputEvents)
+
+                row_added_count += 1
+                if row_added_count % 2 == 0:
+                    # Update every X items
+                    get_app().processEvents(QEventLoop.ExcludeUserInputEvents)
 
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()
