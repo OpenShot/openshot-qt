@@ -72,6 +72,13 @@ class TransitionsTreeView(QTreeView):
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.sort(Qt.AscendingOrder)
 
+    def refresh_columns(self):
+        """Resize and hide certain columns"""
+        if type(self) == TransitionsTreeView:
+            # Only execute when the treeview is active
+            self.hideColumn(2)
+            self.hideColumn(3)
+
     def __init__(self, model):
         # Invoke parent init
         QTreeView.__init__(self)
@@ -95,7 +102,7 @@ class TransitionsTreeView(QTreeView):
         self.setDropIndicatorShown(True)
 
         # Setup header columns
-        self.setModel(self.transition_model.model)
+        self.setModel(self.proxy_model)
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
@@ -103,12 +110,13 @@ class TransitionsTreeView(QTreeView):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+        self.transition_model.model.ModelRefreshed.connect(self.refresh_columns)
 
         # Load initial transition model data
         self.transition_model.update_model()
-        self.hideColumn(2)
-        self.hideColumn(3)
+        self.refresh_columns()
 
         # setup filter events
         app = get_app()
         app.window.transitionsFilter.textChanged.connect(self.filter_changed)
+        app.window.refreshTransitionsSignal.connect(self.refresh_view)

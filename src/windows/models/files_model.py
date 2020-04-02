@@ -246,7 +246,7 @@ class FilesModel(updates.UpdateInterface):
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()
 
-        # Emit signal
+        # Emit signal when model is updated
         self.model.ModelRefreshed.emit()
 
     def __init__(self, *args):

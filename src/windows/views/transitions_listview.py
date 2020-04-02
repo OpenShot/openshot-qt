@@ -114,3 +114,4 @@ class TransitionsListView(QListView):
         # setup filter events
         app = get_app()
         app.window.transitionsFilter.textChanged.connect(self.filter_changed)
+        app.window.refreshTransitionsSignal.connect(self.refresh_view)

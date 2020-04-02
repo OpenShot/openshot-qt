@@ -27,7 +27,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt, QSortFilterProxyModel
+from PyQt5.QtCore import QMimeData, Qt, QSortFilterProxyModel, pyqtSignal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -39,6 +39,8 @@ from classes.app import get_app
 import json
 
 class TransitionStandardItemModel(QStandardItemModel):
+    ModelRefreshed = pyqtSignal()
+
     def __init__(self, parent=None):
         QStandardItemModel.__init__(self)
 
@@ -215,6 +217,9 @@ class TransitionsModel():
                 if not path in self.model_paths:
                     self.model.appendRow(row)
                     self.model_paths[path] = path
+
+        # Emit signal when model is updated
+        self.model.ModelRefreshed.emit()
 
     def __init__(self, *args):
 

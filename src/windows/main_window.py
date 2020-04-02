@@ -83,6 +83,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     previewFrameSignal = pyqtSignal(int)
     refreshFrameSignal = pyqtSignal()
     refreshFilesSignal = pyqtSignal()
+    refreshTransitionsSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
     PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
@@ -822,10 +823,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.refreshFilesSignal.emit()
 
     def actionTransitionsShowAll_trigger(self, event):
-        self.transitionsTreeView.refresh_view()
+        self.refreshTransitionsSignal.emit()
 
     def actionTransitionsShowCommon_trigger(self, event):
-        self.transitionsTreeView.refresh_view()
+        self.refreshTransitionsSignal.emit()
 
     def actionHelpContents_trigger(self, event):
         try:
@@ -1834,11 +1835,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Transitions
         elif app.context_menu_object == "transitions":
             s.set("transitions_view", "details")
-            self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
-            self.transitionsTreeView.deleteLater()
-            self.transitionsTreeView = None
-            self.transitionsTreeView = TransitionsTreeView(self.transition_model)
-            self.tabTransitions.layout().addWidget(self.transitionsTreeView)
+            self.transitionsListView.hide()
+            self.transitionsTreeView.show()
+            self.transitionsTreeView.clearSelection()
 
         # Effects
         elif app.context_menu_object == "effects":
@@ -1859,18 +1858,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Files
         if app.context_menu_object == "files":
             s.set("file_view", "thumbnail")
+            self.filesTreeView.hide()
             self.filesListView.show()
             self.filesListView.clearSelection()
-            self.filesTreeView.hide()
 
         # Transitions
         elif app.context_menu_object == "transitions":
             s.set("transitions_view", "thumbnail")
-            self.tabTransitions.layout().removeWidget(self.transitionsTreeView)
-            self.transitionsTreeView.deleteLater()
-            self.transitionsTreeView = None
-            self.transitionsTreeView = TransitionsListView(self.transition_model)
-            self.tabTransitions.layout().addWidget(self.transitionsTreeView)
+            self.transitionsTreeView.hide()
+            self.transitionsListView.show()
+            self.transitionsListView.clearSelection()
 
         # Effects
         elif app.context_menu_object == "effects":
@@ -2540,8 +2537,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
         self.tabFiles.layout().insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
-            self.filesTreeView.show()
             self.filesListView.hide()
+            self.filesTreeView.show()
             self.filesTreeView.setFocus()
         else:
             self.filesTreeView.hide()
@@ -2550,11 +2547,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Setup transitions tree
         self.transition_model = TransitionsModel()
+        self.transitionsTreeView = TransitionsTreeView(self.transition_model)
+        self.transitionsListView = TransitionsListView(self.transition_model)
+        self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
+        self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
         if s.get("transitions_view") == "details":
-            self.transitionsTreeView = TransitionsTreeView(self.transition_model)
+            self.transitionsListView.hide()
+            self.transitionsTreeView.show()
+            self.transitionsTreeView.setFocus()
         else:
-            self.transitionsTreeView = TransitionsListView(self.transition_model)
-        self.tabTransitions.layout().addWidget(self.transitionsTreeView)
+            self.transitionsTreeView.hide()
+            self.transitionsListView.show()
+            self.transitionsListView.setFocus()
 
         # Setup effects tree
         self.effects_model = EffectsModel()
