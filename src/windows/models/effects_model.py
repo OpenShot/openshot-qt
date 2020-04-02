@@ -27,7 +27,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt, QSize
+from PyQt5.QtCore import QMimeData, Qt, QSize, pyqtSignal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -39,6 +39,8 @@ from classes.app import get_app
 import json
 
 class EffectsStandardItemModel(QStandardItemModel):
+    ModelRefreshed = pyqtSignal()
+
     def __init__(self, parent=None):
         QStandardItemModel.__init__(self)
 
@@ -184,6 +186,9 @@ class EffectsModel():
             if not effect_name in self.model_names:
                 self.model.appendRow(row)
                 self.model_names[effect_name] = effect_name
+
+        # Emit signal when model is updated
+        self.model.ModelRefreshed.emit()
 
     def __init__(self, *args):
 

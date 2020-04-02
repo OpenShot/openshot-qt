@@ -71,6 +71,13 @@ class EffectsTreeView(QTreeView):
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.sort(Qt.AscendingOrder)
 
+    def refresh_columns(self):
+        """Hide certain columns"""
+        if type(self) == EffectsTreeView:
+            # Only execute when the treeview is active
+            self.hideColumn(3)
+            self.hideColumn(4)
+
     def __init__(self, model):
         # Invoke parent init
         QTreeView.__init__(self)
@@ -98,15 +105,14 @@ class EffectsTreeView(QTreeView):
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+        self.effects_model.model.ModelRefreshed.connect(self.refresh_columns)
 
         # Load initial effects model data
         self.effects_model.update_model()
-        self.hideColumn(3)
-        self.hideColumn(4)
+        self.refresh_columns()
 
         # setup filter events
         app = get_app()

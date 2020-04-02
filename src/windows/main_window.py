@@ -1842,11 +1842,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Effects
         elif app.context_menu_object == "effects":
             s.set("effects_view", "details")
-            self.tabEffects.layout().removeWidget(self.effectsTreeView)
-            self.effectsTreeView.deleteLater()
-            self.effectsTreeView = None
-            self.effectsTreeView = EffectsTreeView(self.effects_model)
-            self.tabEffects.layout().addWidget(self.effectsTreeView)
+            self.effectsListView.hide()
+            self.effectsTreeView.show()
+            self.effectsTreeView.clearSelection()
 
     def actionThumbnailView_trigger(self, event):
         log.info("Switch to Thumbnail View")
@@ -1872,11 +1870,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Effects
         elif app.context_menu_object == "effects":
             s.set("effects_view", "thumbnail")
-            self.tabEffects.layout().removeWidget(self.effectsTreeView)
-            self.effectsTreeView.deleteLater()
-            self.effectsTreeView = None
-            self.effectsTreeView = EffectsListView(self.effects_model)
-            self.tabEffects.layout().addWidget(self.effectsTreeView)
+            self.effectsTreeView.hide()
+            self.effectsListView.show()
+            self.effectsListView.clearSelection()
 
     def resize_contents(self):
         if self.filesTreeView:
@@ -2562,11 +2558,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Setup effects tree
         self.effects_model = EffectsModel()
+        self.effectsTreeView = EffectsTreeView(self.effects_model)
+        self.effectsListView = EffectsListView(self.effects_model)
+        self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
+        self.tabEffects.layout().insertWidget(-1, self.effectsListView)
         if s.get("effects_view") == "details":
-            self.effectsTreeView = EffectsTreeView(self.effects_model)
+            self.effectsListView.hide()
+            self.effectsTreeView.show()
+            self.effectsTreeView.setFocus()
         else:
-            self.effectsTreeView = EffectsListView(self.effects_model)
-        self.tabEffects.layout().addWidget(self.effectsTreeView)
+            self.effectsTreeView.hide()
+            self.effectsListView.show()
+            self.effectsListView.setFocus()
 
         # Setup emojis view
         self.emoji_model = EmojisModel()

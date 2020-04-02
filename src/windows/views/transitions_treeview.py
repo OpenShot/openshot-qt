@@ -73,7 +73,7 @@ class TransitionsTreeView(QTreeView):
         self.proxy_model.sort(Qt.AscendingOrder)
 
     def refresh_columns(self):
-        """Resize and hide certain columns"""
+        """Hide certain columns"""
         if type(self) == TransitionsTreeView:
             # Only execute when the treeview is active
             self.hideColumn(2)
