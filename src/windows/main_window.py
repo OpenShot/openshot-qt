@@ -2216,10 +2216,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Add emojis toolbar
         self.emojisToolbar = QToolBar("Emojis Toolbar")
+        self.emojiFilterGroup = QComboBox()
         self.emojisFilter = QLineEdit()
         self.emojisFilter.setObjectName("emojisFilter")
         self.emojisFilter.setPlaceholderText(_("Filter"))
         self.emojisFilter.setClearButtonEnabled(True)
+        self.emojisToolbar.addWidget(self.emojiFilterGroup)
         self.emojisToolbar.addWidget(self.emojisFilter)
         self.tabEmojis.layout().addWidget(self.emojisToolbar)
 

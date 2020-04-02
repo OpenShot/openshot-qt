@@ -33,7 +33,7 @@ from PyQt5.QtWidgets import QListView, QMenu
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from classes.query import File
 from classes.app import get_app
-from windows.models.emoji_model import EmojisModel
+from windows.models.emoji_model import EmojisModel, EmojiFilterProxyModel
 from classes.logger import log
 import json
 
@@ -131,11 +131,12 @@ class EmojisListView(QListView):
         self.emojis_model = model
 
         # Create proxy model (for sorting and filtering)
-        self.proxy_model = QSortFilterProxyModel(self)
+        self.proxy_model = EmojiFilterProxyModel(self)
         self.proxy_model.setDynamicSortFilter(False)
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.emojis_model.model)
+        self.proxy_model.setSortLocaleAware(True)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
@@ -158,3 +159,4 @@ class EmojisListView(QListView):
         # setup filter events
         app = get_app()
         app.window.emojisFilter.textChanged.connect(self.filter_changed)
+        app.window.emojiFilterGroup.currentIndexChanged.connect(self.filter_changed)

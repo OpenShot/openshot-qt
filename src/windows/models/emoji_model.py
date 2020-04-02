@@ -59,6 +59,30 @@ class EmojiStandardItemModel(QStandardItemModel):
         return data
 
 
+class EmojiFilterProxyModel(QSortFilterProxyModel):
+    """Proxy class used for sorting and filtering model data"""
+
+    def filterAcceptsRow(self, sourceRow, sourceParent):
+        """Filter for emoji groups and text filter"""
+
+        if get_app().window.emojiFilterGroup.currentData() and \
+                get_app().window.emojiFilterGroup.currentData() != "Show All":
+            # Fetch the group name
+            index = self.sourceModel().index(sourceRow, 2, sourceParent) # group name column
+            group_name = self.sourceModel().data(index) # group name (i.e. common)
+
+            # Fetch the emoji name
+            index = self.sourceModel().index(sourceRow, 0, sourceParent) # transition name column
+            emoji_name = self.sourceModel().data(index) # emoji name (i.e. Smiley Face)
+
+            # Return, if regExp match in displayed format.
+            return get_app().window.emojiFilterGroup.currentData() == group_name and \
+                   self.filterRegExp().indexIn(emoji_name) >= 0
+
+        # Continue running built-in parent filter logic
+        return super(EmojiFilterProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
+
+
 class EmojisModel():
     def update_model(self, clear=True):
         log.info("updating emoji model.")
@@ -88,13 +112,14 @@ class EmojisModel():
 
         # get a list of files in the OpenShot /emojis directory
         emojis_dir = os.path.join(info.PATH, "emojis", "color", "svg")
-        transition_groups = [{"type": "common", "dir": emojis_dir, "files": os.listdir(emojis_dir)}, ]
+        emoji_paths = [{"type": "common", "dir": emojis_dir, "files": os.listdir(emojis_dir)}, ]
+        emoji_groups = {}
 
         # Add optional user-defined transitions folder
         if os.path.exists(info.EMOJIS_PATH) and os.listdir(info.EMOJIS_PATH):
-            transition_groups.append({"type": "user", "dir": info.EMOJIS_PATH, "files": os.listdir(info.EMOJIS_PATH)})
+            emoji_paths.append({"type": "user", "dir": info.EMOJIS_PATH, "files": os.listdir(info.EMOJIS_PATH)})
 
-        for group in transition_groups:
+        for group in emoji_paths:
             type = group["type"]
             dir = group["dir"]
             files = group["files"]
@@ -109,8 +134,12 @@ class EmojisModel():
 
                 # get name of transition
                 emoji = emoji_lookup.get(fileBaseName, {})
-                emoji_name = emoji.get("annotation", fileBaseName)
+                emoji_name = _(emoji.get("annotation", fileBaseName).capitalize())
                 emoji_type = emoji.get("group", "user")
+
+                # Track unique emoji groups
+                if emoji_type not in emoji_groups.keys():
+                    emoji_groups[emoji_type] = emoji_type
 
                 # Check for thumbnail path (in build-in cache)
                 thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
@@ -152,6 +181,7 @@ class EmojisModel():
                 col.setIcon(QIcon(thumb_path))
                 col.setText(emoji_name)
                 col.setToolTip(emoji_name)
+                col.setData(emoji_type)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
@@ -180,6 +210,12 @@ class EmojisModel():
                 if not path in self.model_paths:
                     self.model.appendRow(row)
                     self.model_paths[path] = path
+
+        # Loop through emoji groups, and populate emoji filter drop-down
+        get_app().window.emojiFilterGroup.clear()
+        get_app().window.emojiFilterGroup.addItem(_("Show All"), "Show All")
+        for emoji_type in sorted(emoji_groups.keys()):
+            get_app().window.emojiFilterGroup.addItem(_(emoji_type.capitalize()), emoji_type)
 
     def __init__(self, *args):
 

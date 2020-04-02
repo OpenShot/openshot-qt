@@ -94,6 +94,7 @@ class EffectsTreeView(QTreeView):
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.effects_model.model)
+        self.proxy_model.setSortLocaleAware(True)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
