@@ -1,0 +1,12 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="12" y="12" width="48" height="47.834" fill="#b399c8"/>
+  </g>
+  <g id="line">
+    <line x1="35.5" x2="35.5" y1="53" y2="19" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line x1="47" x2="25" y1="28.5" y2="28.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line x1="40" x2="32" y1="23.5" y2="23.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line x1="39.4072" x2="32.2588" y1="49.6309" y2="46.0371" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <rect x="12.25" y="11.75" width="48" height="48" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

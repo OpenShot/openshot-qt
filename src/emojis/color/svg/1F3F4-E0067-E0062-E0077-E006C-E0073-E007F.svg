@@ -1,0 +1,34 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="5" y="17" width="62" height="38" fill="#5c9e31"/>
+    <rect x="5" y="17" width="62" height="19" fill="#fff"/>
+    <polygon fill="#d22f27" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="59 27.5 59 23 56.231 26.462 59 27.5"/>
+    <ellipse cx="53" cy="31" rx="1.5" ry="1" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M58,26c-1.2829,3.7235-2.7439,6-5,6"/>
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="53 50 51 49 48 49 45 50.5"/>
+    <line x1="48" x2="46" y1="49" y2="48" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="51" x2="48" y1="49" y2="40" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="38 50 36 49 33 49 30 50.5"/>
+    <line x1="33" x2="31" y1="49" y2="48" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="23 50 21 49 18 49 15 50.5"/>
+    <line x1="18" x2="16" y1="49" y2="48" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="21" x2="27" y1="49" y2="43" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="21" x2="24" y1="49" y2="43" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="14 38 15 36 15 33 13.5 30"/>
+    <line x1="15" x2="16" y1="33" y2="31" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="15" x2="21" y1="36" y2="41" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12,23a4,4,0,0,0,4,4"/>
+    <line x1="16" x2="18" y1="27" y2="27" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="#d22f27" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M42,21l-6.5858,6.5858A5.565,5.565,0,0,0,34,31v1a3,3,0,0,1-3,3H27V23H22l-4,4h6c0,4.403-3,4.5428-3,10v6H34l3.3846,2.5385L36,49l5-5c-2.5-1.6186-1.1176-4.5,1-5,2.3383,2.447,6,3,9,3V40.5L46,38h7V36c-3.8571,0-5.1429-1-9-1a4,4,0,0,1,4-4c-2.7965-2.327-.2664-6.8723,3-9-3,2-4.5,3-6.5,3-1.7446,0-2.5-1.2969-2.5-4"/>
+    <line x1="41" x2="43" y1="44" y2="45" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="51" x2="51" y1="49" y2="40.5" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="51" x2="54" y1="40.5" y2="42" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M53,36c2.5911,0,4.327-2.5526,3.3657-4.1623"/>
+    <path fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M53,30a4,4,0,0,1,0,8"/>
+    <line x1="27" x2="28" y1="23" y2="22" fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M34,43H21a2.1886,2.1886,0,0,1-1.5812-.8137L15,36"/>
+  </g>
+  <g id="line">
+    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

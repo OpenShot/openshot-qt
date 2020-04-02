@@ -1,0 +1,23 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#d0cfce" d="M36.16,48.8886l-.0183,2.5862s-3.0975.0769-5.3547,3.6928a14.1107,14.1107,0,0,0-1.6149,6.5818l-10.541-.2452s6.8354-3.1377,8.8827-6.7536A52.3822,52.3822,0,0,0,30.13,48.7931"/>
+    <path fill="#9b9b9a" d="M36.1219,48.4489l-.0035,3.0259s3.0974.0769,5.3547,3.6928a14.1113,14.1113,0,0,1,1.6148,6.5818l10.541-.2452s-6.8354-3.1377-8.8826-6.7536a53.7324,53.7324,0,0,1-2.6976-6.17"/>
+    <rect x="5.9595" y="63.4401" width="30.0405" height="2.5875" fill="#b1cc33"/>
+    <rect x="36" y="63.4401" width="30.0405" height="2.5875" fill="#5c9e31"/>
+    <g>
+      <polygon fill="#d0cfce" points="36.111 42.528 30.13 42.528 36 19.286 36.111 24.224 36.111 42.528"/>
+      <polygon fill="#9b9b9a" points="40.931 42.528 36.111 42.528 36.075 20.881 37.143 25.528 40.931 42.528"/>
+    </g>
+    <polygon fill="#d0cfce" points="36.178 48.012 28.583 48.012 28.005 43.899 36.178 43.887 36.178 48.012"/>
+    <polygon fill="#9b9b9a" points="43.031 48.012 36.178 48.012 36.178 43.935 44.04 43.935 43.031 48.012"/>
+  </g>
+  <g id="line">
+    <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="27.44 43.224 44.56 43.224 43.519 48.724 28.385 48.724 27.44 43.224"/>
+    <rect x="5.0191" y="62.5276" width="61.9618" height="4.5" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2" d="M29.7858,62.0276c0-5.314,2.8457-9.6218,6.3561-9.6218s6.356,4.3078,6.356,9.6218"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M42.8775,49.5279a17.0418,17.0418,0,0,0,3.03,5.8265,25.0285,25.0285,0,0,0,8.3533,6.6732"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M28.832,49.353a17.8744,17.8744,0,0,1-3.3641,7.0014,18.5363,18.5363,0,0,1-7.6913,5.5376"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M31.14,42.594a156.7777,156.7777,0,0,0,4.4836-25.8015q.3567-4.0348.4949-7.8574"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M41.0282,42.594a156.7675,156.7675,0,0,1-4.4835-25.8015q-.3567-4.0348-.4949-7.8574"/>
+  </g>
+</svg>

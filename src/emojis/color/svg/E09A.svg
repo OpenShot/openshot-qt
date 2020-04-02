@@ -1,0 +1,38 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <polygon fill="#9b9b9a" points="7.785 63.268 21.297 43.369 31.046 36.135 37.309 37.608 42.625 36.135 47.753 42.546 56.1 48.371 62.656 63.268 7.785 63.268"/>
+    <circle cx="22.7062" cy="18.6085" r="5.0643" fill="#3f3f3f"/>
+    <circle cx="40.7382" cy="13.0158" r="4.879" fill="#9b9b9a"/>
+    <circle cx="53.0697" cy="25.9463" r="4.879" fill="#9b9b9a"/>
+    <circle cx="32.0388" cy="15.7089" r="6.5809" fill="#9b9b9a"/>
+    <circle cx="43.9506" cy="21.655" r="7.8212" fill="#9b9b9a"/>
+    <circle cx="36.2454" cy="26.2645" r="5.6425" fill="#3f3f3f"/>
+    <polygon fill="#d0cfce" points="62.656 63.268 43.483 63.268 47.364 51.131 44.249 48.626 47.753 42.546 56.1 48.371 62.656 63.268"/>
+  </g>
+  <g id="line">
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" points="8.244 62.609 21.297 43.369 31.046 36.135 37.309 37.608 42.625 36.135 47.753 42.546 56.1 48.371 62.456 62.759"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="25.214 40.46 26.868 43.992 25.254 50.276 26.17 57.589"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="47.753 42.546 44.249 48.626 47.364 51.131 45.786 56.065"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M32.2514,22.279a5.6425,5.6425,0,1,0,8.9467,6.6894,7.7871,7.7871,0,0,0,2.7524.5077"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M40.7382,8.1368a4.8606,4.8606,0,0,0-4.3248,2.6653,6.57,6.57,0,0,0-10.8313,3.6436,5.058,5.058,0,0,0-7.94,4.1628"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M43.9506,13.8337a7.8213,7.8213,0,0,1,7.8212,7.8213"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M51.7575,21.2458a4.883,4.883,0,0,1,6.1912,4.7005"/>
+    <circle cx="64.0099" cy="11.7481" r="1.4802"/>
+    <circle cx="58.6793" cy="18.5997" r="1.4802"/>
+    <circle cx="46.4483" cy="18.5997" r="1.4802"/>
+    <circle cx="64.3398" cy="26.4514" r="1.4802"/>
+    <circle cx="58.6793" cy="32.9629" r="1.4802"/>
+    <circle cx="64.0099" cy="40.1445" r="1.4802"/>
+    <circle cx="58.6793" cy="45.9962" r="1.4802"/>
+    <circle cx="64.0099" cy="52.5179" r="1.4802"/>
+    <circle cx="57.3595" cy="60.3594" r="1.4802"/>
+    <circle cx="52.9164" cy="11.7481" r="1.4802"/>
+    <circle cx="41.5145" cy="11.7481" r="1.4802"/>
+    <circle cx="52.9164" cy="26.4514" r="1.4802"/>
+    <circle cx="47.4483" cy="32.9629" r="1.4802"/>
+    <circle cx="52.9164" cy="40.1445" r="1.4802"/>
+    <circle cx="52.2564" cy="52.5179" r="1.4802"/>
+    <circle cx="48.1082" cy="60.3594" r="1.4802"/>
+    <circle cx="41.5145" cy="40.1445" r="1.4802"/>
+  </g>
+</svg>

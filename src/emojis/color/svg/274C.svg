@@ -1,0 +1,15 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <polygon fill="#EA5A47" stroke="none" points="43.8322,36.0822 46.7582,33.1094 56.9705,22.72 49.0941,14.707 38.8758,25.1024 36.0948,27.928 35.736,28.2895 22.4569,14.7802 14.5805,22.7932 27.6292,36.0682 27.8559,36.2987 24.7331,39.4715 13.641,50.756 21.5174,58.769 32.6115,47.4825 35.464,44.5844 35.7307,44.3102 50.0244,58.8517 57.9008,50.8387 43.6131,36.3033"/>
+    <path fill="none" stroke="#FFFFFF" stroke-miterlimit="10" stroke-width="2" d="M38.3068,50.0024"/>
+    <path fill="none" stroke="#FFFFFF" stroke-miterlimit="10" stroke-width="2" d="M16.6317,32.5062"/>
+    <path fill="none" stroke="#FFFFFF" stroke-miterlimit="10" stroke-width="2" d="M52.9015,35.2115"/>
+    <path fill="none" stroke="#FFFFFF" stroke-miterlimit="10" stroke-width="2" d="M31.2264,17.7152"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="43.8322,36.0822 46.7582,33.1094 56.9705,22.72 49.0941,14.707 38.8758,25.1024 36.0948,27.928 35.736,28.2895 22.4569,14.7802 14.5805,22.7932 27.6292,36.0682 27.8559,36.2987 24.7331,39.4715 13.641,50.756 21.5174,58.769 32.6115,47.4825 35.464,44.5844 35.7307,44.3102 50.0244,58.8517 57.9008,50.8387 43.6131,36.3033"/>
+  </g>
+</svg>

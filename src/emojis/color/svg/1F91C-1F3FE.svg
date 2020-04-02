@@ -1,0 +1,16 @@
+<svg id="emoji" x="0" y="0" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g id="hair"/>
+  <g id="skin">
+    <path fill="#a57939" d="M67.91,45.1697c0.3,3.77-3.8199,5.11-8.17,3.46c1,8.43-3,9.56-7.44,8.43l-20.9-7.74 c-1.27-0.4-1.75-0.96-2.53-1.91l-8.47-9.82c-1.28-1.59-2.28-1.9-3.35-2.15l-9.04-1.92c-4.59-5.09-4.19-12.93,0.9-17.52l51.33,2.08 c3.29,0.34,7.1,2.37,7.68,6.63L67.91,45.1697z"/>
+  </g>
+  <g id="skin-shadow"/>
+  <g id="color"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M28.8674,47.4062c0.7812,0.9585,1.2656,1.5173,2.5312,1.9171"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M28.8674,47.4062l-8.4688-9.8125c-1.2812-1.5938-2.2812-1.9062-3.3438-2.1562l-9.0401-1.9202 C3.4244,28.4331,3.8248,20.5904,8.909,16l51.3335,2.0833c3.2917,0.3333,7.099,2.3638,7.6823,6.6224l-0.0156,20.4609 c0.3021,3.7708-3.8229,5.1146-8.1667,3.4583c1,8.4375-3,9.5625-7.4375,8.4375l-20.9062-7.7392"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M57.4285,29.1676c0,4.0625-4.892,4.3437-10.9375,4.3437c0.5,4.0312,2.5938,8.625,10.0312,12.995"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M28.8674,47.4062c0.7812,0.9585,1.2656,1.5173,2.5312,1.9171"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M28.8674,47.4062l-8.4688-9.8125c-1.2812-1.5938-2.2812-1.9062-3.3438-2.1562l-9.0401-1.9202 C3.4244,28.4331,3.8248,20.5904,8.909,16l51.3335,2.0833c3.2917,0.3333,7.099,2.3638,7.6823,6.6224l-0.0156,20.4609 c0.3021,3.7708-3.8229,5.1146-8.1667,3.4583c1,8.4375-3,9.5625-7.4375,8.4375l-20.9062-7.7392"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M57.4285,29.1676c0,4.0625-4.892,4.3437-10.9375,4.3437c0.5,4.0312,2.5938,8.625,10.0312,12.995"/>
+  </g>
+</svg>

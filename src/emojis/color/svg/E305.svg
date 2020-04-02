@@ -1,0 +1,26 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="23.2105" y="27.93" rx="4.6438" width="25.579" height="16.7093" fill="#92d3f5"/>
+    <circle cx="29.0404" cy="33.0581" r="2.0455" fill="#9b9b9a"/>
+    <circle cx="36.0864" cy="33.0581" r="2.0455" fill="#d0cfce"/>
+    <circle cx="43.1325" cy="33.0581" r="2.0455" fill="#d0cfce"/>
+    <circle cx="29.0404" cy="39.6843" r="2.0455" fill="#d0cfce"/>
+    <circle cx="36.0864" cy="39.6843" r="2.0455" fill="#d0cfce"/>
+    <circle cx="43.1325" cy="39.6843" r="2.0455" fill="#d0cfce"/>
+    <rect x="27.5607" y="31.1854" width="1.4796" height="3.6876" fill="#d0cfce"/>
+    <rect x="36.0864" y="31.1854" width="1.4796" height="3.6876" fill="#9b9b9a"/>
+    <rect x="43.1325" y="31.1854" width="1.4796" height="3.6876" fill="#9b9b9a"/>
+    <rect x="43.1325" y="37.8405" width="1.4796" height="3.6876" fill="#9b9b9a"/>
+    <rect x="36.0864" y="37.8405" width="1.4796" height="3.6876" fill="#9b9b9a"/>
+    <rect x="29.0404" y="37.8405" width="1.4796" height="3.6876" fill="#9b9b9a"/>
+  </g>
+  <g id="line">
+    <rect x="23.2105" y="27.93" rx="4.6438" width="25.579" height="16.7093" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <circle cx="29.0404" cy="33.0581" r="2.0455" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+    <circle cx="36.0864" cy="33.0581" r="2.0455" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+    <circle cx="43.1325" cy="33.0581" r="2.0455" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+    <circle cx="29.0404" cy="39.6843" r="2.0455" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+    <circle cx="36.0864" cy="39.6843" r="2.0455" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+    <circle cx="43.1325" cy="39.6843" r="2.0455" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/>
+  </g>
+</svg>

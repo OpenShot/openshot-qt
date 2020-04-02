@@ -1,0 +1,14 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color"/>
+  <g id="hair"/>
+  <g id="skin">
+    <path fill="#fadcbc" stroke="#fadcbc" d="M46.0495,41.9032c-1.0781-3.8065-4.3718-14.867-3.1714-30.0282h-13.391 c1.2004,15.1611-2.0933,26.2217-3.1714,30.0282"/>
+    <path fill="#fadcbc" stroke="#fadcbc" d="M50.25,36.7078c7.5833,4.6667,2.8334,12.7522-1.6875,14.0214C44.6425,51.8296,46,60.0682,36,60.0417 c-10,0.0265-8.6425-8.212-12.5625-9.3125c-4.5209-1.2691-9.2818-9.3547-1.6984-14.0214"/>
+  </g>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M29.4871,12.875c1.2004,14.6562-2.0933,25.3484-3.1714,29.0282"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M42.8781,12.875c-1.2004,14.6562,2.0933,25.3484,3.1714,29.0282"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M50.25,37.7083c7.5833,4.6667,2.8334,11.7517-1.6875,13.0208C44.6425,51.8296,46,60.0682,36,60.0417 c-10,0.0265-8.6425-8.212-12.5625-9.3125C18.9166,49.46,14.1667,42.375,21.75,37.7083"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect id="großes_schwarzes_quadrat_color_1" x="11" y="11.0417" width="50" height="50"/>
+  </g>
+  <g id="line">
+    <rect id="großes_schwarzes_quadrat_line" x="11" y="11.0417" width="50" height="50" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

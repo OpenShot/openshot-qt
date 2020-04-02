@@ -1,0 +1,18 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="5" y="17" width="62" height="38" fill="#1e50a0"/>
+    <circle cx="46.8595" cy="38.8723" r="0.5035" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1.007"/>
+    <circle cx="58.9438" cy="38.8723" r="0.5035" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1.007"/>
+    <circle cx="56.9298" cy="47.9356" r="0.5035" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1.007"/>
+    <circle cx="48.8736" cy="47.9356" r="0.5035" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1.007"/>
+    <circle cx="52.9017" cy="49.9496" r="0.5035" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="1.007"/>
+    <path fill="#fff" d="M58.4616,45.4768l-2.5193-4.3636a.8383.8383,0,0,0-1.1788,0l-1.0191,1.7649V39.9889h1.05a.6653.6653,0,0,0,.6652-.6653v-.3843a.6653.6653,0,0,0-.6652-.6653h-1.05V36.5591H56.45a.7248.7248,0,0,0,.7247-.7247v-.2655a.7248.7248,0,0,0-.7247-.7247h-7.125a.7248.7248,0,0,0-.7247.7247v.2655a.7248.7248,0,0,0,.7247.7247H52.03v6.61l-1.1872-2.0561a.8381.8381,0,0,0-1.1787,0l-2.5194,4.3636a.5336.5336,0,0,0,.1953.7289l.1932.1116a.5338.5338,0,0,0,.7291-.1953L48.84,45.12H51.666l.5783,1.0019a.7441.7441,0,0,0,1.1173,0L53.94,45.12h2.8256l.5786,1.0019a.5335.5335,0,0,0,.7289.1953l.193-.1116A.5335.5335,0,0,0,58.4616,45.4768ZM49.5852,43.83l.6679-1.1567.6678,1.1567Zm5.1,0,.668-1.1567.668,1.1567Z"/>
+    <polyline fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" points="36.5 17.5 36.5 36.5 5.5 36.5"/>
+    <rect x="5" y="17" width="11" height="19" fill="#1e50a0"/>
+    <rect x="16" y="17" width="10" height="19" fill="#fff"/>
+    <rect x="26" y="17" width="10" height="19" fill="#d22f27"/>
+  </g>
+  <g id="line">
+    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#d0cfce" d="M38.889,12.2778a5.2581,5.2581,0,0,1,9.2247-3.4712,4.195,4.195,0,0,1,7.6433,2.4177c.0071,0,.0137-.002.0208-.002a4.2222,4.2222,0,1,1,0,8.4444c-.0686,0-.1323-.017-.2-.02a3.1151,3.1151,0,0,1-1.9479,4.06c.0057.0633.0369.1178.0369.1825a2.1111,2.1111,0,1,1-4.2222,0,2.0851,2.0851,0,0,1,.5476-1.3879,3.1488,3.1488,0,0,1-.4257-.9549,3.1433,3.1433,0,0,1-4.2993-2.4894A4.1985,4.1985,0,0,1,39.18,13.9329,5.22,5.22,0,0,1,38.889,12.2778Z"/>
+    <rect x="11.1061" y="44.0303" width="49.7879" height="15.9697" fill="#9b9b9a"/>
+    <rect x="15.8031" y="48.7273" width="12.2121" height="11.2727" fill="#d0cfce"/>
+    <polygon fill="#92d3f5" points="51.5 48.727 46.803 48.727 42.106 48.727 37.409 48.727 32.712 48.727 32.712 53.424 37.409 53.424 42.106 53.424 46.803 53.424 51.5 53.424 56.197 53.424 56.197 48.727 51.5 48.727"/>
+    <polygon fill="#9b9b9a" points="54.788 44.03 49.152 44.03 50.091 29 53.848 29 54.788 44.03"/>
+    <polygon fill="#d0cfce" points="15.8 37.455 15.805 44.03 25.194 44.03 15.8 37.455"/>
+    <polygon fill="#d0cfce" points="25.667 37.455 25.671 44.03 35.061 44.03 25.667 37.455"/>
+    <polygon fill="#d0cfce" points="35.061 37.455 35.065 44.03 44.455 44.03 35.061 37.455"/>
+  </g>
+  <g id="line">
+    <g id="line-2">
+      <rect x="11.1061" y="44.0303" width="49.7879" height="15.9697" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <rect x="15.8031" y="48.7273" width="12.2121" height="11.2727" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="15.8031" x2="28.0152" y1="52.4849" y2="52.4849" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="15.8031" x2="28.0152" y1="56.2424" y2="56.2424" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="37.409 53.424 32.712 53.424 32.712 48.727 37.409 48.727"/>
+      <line x1="42.1061" x2="37.4091" y1="53.4242" y2="53.4242" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="37.4091" x2="42.1061" y1="48.7273" y2="48.7273" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="46.803" x2="42.1061" y1="53.4242" y2="53.4242" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="42.1061" x2="46.803" y1="48.7273" y2="48.7273" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="51.5" x2="46.803" y1="53.4242" y2="53.4242" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="46.803" x2="51.5" y1="48.7273" y2="48.7273" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="51.5 48.727 56.197 48.727 56.197 53.424 51.5 53.424"/>
+      <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="54.788 44.03 49.152 44.03 50.091 29 53.848 29 54.788 44.03"/>
+      <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="15.8 37.455 15.805 44.03 25.194 44.03 15.8 37.455"/>
+      <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="25.667 37.455 25.671 44.03 35.061 44.03 25.667 37.455"/>
+      <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="35.061 37.455 35.065 44.03 44.455 44.03 35.061 37.455"/>
+    </g>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M38.889,12.2778a5.2581,5.2581,0,0,1,9.2247-3.4712,4.195,4.195,0,0,1,7.6433,2.4177c.0071,0,.0137-.002.0208-.002a4.2222,4.2222,0,1,1,0,8.4444c-.0686,0-.1323-.017-.2-.02a3.1151,3.1151,0,0,1-1.9479,4.06c.0057.0633.0369.1178.0369.1825a2.1111,2.1111,0,1,1-4.2222,0,2.0851,2.0851,0,0,1,.5476-1.3879,3.1488,3.1488,0,0,1-.4257-.9549,3.1433,3.1433,0,0,1-4.2993-2.4894A4.1985,4.1985,0,0,1,39.18,13.9329,5.22,5.22,0,0,1,38.889,12.2778Z"/>
+  </g>
+</svg>

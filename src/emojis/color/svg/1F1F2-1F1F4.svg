@@ -1,0 +1,25 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="5" y="17" width="62" height="38" fill="#186648"/>
+    <g>
+      <line x1="32.4077" x2="39.4077" y1="49.977" y2="49.977" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="43.9077" x2="27.9077" y1="47.977" y2="47.977" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="25.4077" x2="46.4077" y1="45.977" y2="45.977" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+      <polygon fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" points="34.467 27.023 36.127 22.023 37.557 26.946 33.583 23.98 38.583 23.856 34.467 27.023"/>
+      <polygon fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" points="42.993 28.307 42.355 25.211 44.576 27.34 41.621 26.991 44.182 25.427 42.993 28.307"/>
+      <polygon fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" points="46.094 33.047 47.09 30.047 47.949 33.001 45.564 31.221 48.564 31.147 46.094 33.047"/>
+      <polygon fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" points="29.007 28.155 29.645 25.059 27.424 27.188 30.379 26.839 27.818 25.275 29.007 28.155"/>
+      <polygon fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" points="25.906 32.895 24.91 29.895 24.051 32.849 26.436 31.069 23.436 30.995 25.906 32.895"/>
+      <g>
+        <g>
+          <path fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" d="M35.0066,41.34c1.3822,1.2555,4.0028,1.8321,6.8351,1.3326s5.0984-1.9379,5.9676-3.5908c-1.3821-1.2559-4.0031-1.8327-6.8359-1.3332s-5.0976,1.9374-5.9671,3.59Z"/>
+          <path fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" d="M24.0062,39.083c.8695,1.6525,3.1348,3.09,5.9671,3.59s5.4538-.0773,6.8358-1.3332c-.8691-1.6529-3.1347-3.0913-5.9675-3.5908s-5.4529.0771-6.8351,1.3326Z"/>
+        </g>
+        <path fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" d="M35.907,29.977c-1.4765,1.0443-2.4993,3.31-2.4993,5.9373s1.0232,4.8938,2.5,5.9378c1.4769-1.044,2.5-3.31,2.5-5.9378s-1.0228-4.893-2.4992-5.9373Z"/>
+      </g>
+    </g>
+  </g>
+  <g id="line">
+    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

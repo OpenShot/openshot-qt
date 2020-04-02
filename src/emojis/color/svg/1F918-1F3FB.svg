@@ -1,0 +1,22 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color"/>
+  <g id="hair"/>
+  <g id="skin">
+    <path fill="#fadcbc" stroke="#fadcbc" d="M33.44,29.64V28.7C33.48,29.01,33.48,29.33,33.44,29.64z"/>
+    <path fill="#fadcbc" stroke="#fadcbc" d="M53.88,50.93v0.01c0,10.04-8.23,16.87-17.89,16.87c-8.68,0.13-16.08-6.25-17.22-14.85 c-0.39-2.89-1.06-7.88-1.06-14.88l-2-18.37c-1.61-7.79,5.1565-8.15,6.8165-2.03l1.13,9.0466L23.865,27 c0,0,1.272,7.0058,2.1919,7.2158c0.37,0.08,0.1231-3.1858,0.3831-0.6258v-3.95c-0.25-1.9301,1.1-3.71,3.04-3.97 c1.93-0.26,3.71,1.1,3.96,3.03v0.94c0.04-0.3101,0.04-0.63,0-0.94c-0.25-1.9301,1.17-3.72,3.1-3.98 c1.35-0.18,3.08,2.7677,4.09,3.8577c1.19-1.18,1.6835-5.2277,1.6835-5.2277l0.53-14.94c0-5.88,9.2846-5.4635,9.2846-0.0734 l1.0634,31.32L53.24,40.17L53.88,50.93z"/>
+    <path fill="#fadcbc" stroke="#fadcbc" d="M33.44,29.64V28.7C33.48,29.01,33.48,29.33,33.44,29.64z"/>
+  </g>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M18.7712,52.9565 c1.1419,8.6001,8.5393,14.9847,17.214,14.857c9.667,0,17.893-6.833,17.893-16.878l-0.001-0.001l-0.657-11.129 c-0.1631-2.228-2.0023-3.9616-4.236-3.993h-10c-2.0658-0.1226-3.8473,1.4362-4,3.5c0.1821,2.1099,1.8646,3.7781,3.976,3.942 l1.049,0.117c2.187,0.242,3.976,1.342,3.976,2.442v2v0.44c-2.1534,0.4577-4.1469,1.4784-5.777,2.958"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M18.7712,52.9565 c-0.3908-2.8898-1.0629-7.8732-1.0629-14.8732"/>
+    <line x1="17.7083" x2="15.7708" y1="38.0833" y2="19.5676" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="22" x2="22.9435" y1="17.9167" y2="26.6073" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="43.5" x2="43.0417" y1="8.25" y2="23.16" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="51.875" x2="52.375" y1="8.4583" y2="33.2917" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M15.7708,19.5676 c-0.7236-7.7302,5.4982-7.5954,6.2292-1.651"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M43.5,8.25 c0-5.875,8.375-5.1875,8.375,0.2083"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M31.3179,40.6385 c-3.322,1.2271-4.997-1.9342-4.8744-4v-7c-0.2578-1.933,1.1001-3.709,3.0331-3.9669c1.933-0.2578,3.709,1.1001,3.9669,3.0331 c0.0413,0.3099,0.0413,0.6239,0,0.9337"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M33.5059,34.0036v-5.3175 c-0.2578-1.933,1.1001-3.709,3.0331-3.9669c1.933-0.2578,3.709,1.1001,3.9669,3.0331c0.0413,0.3099,0.0413,0.6239,0,0.9337 l0.031,3.5043"/>
+  </g>
+</svg>

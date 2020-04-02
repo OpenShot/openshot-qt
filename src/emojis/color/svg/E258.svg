@@ -1,0 +1,14 @@
+<svg id="emoji" x="0" y="0" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <polyline fill="#D0CFCE" points="19.7998,43.3879 16.437,46.7507 24.495,54.8088 27.8578,51.446"/>
+    <polyline fill="#D0CFCE" points="19.7986,43.3584 7.5932,31.153 55.8448,16 40.2346,63.7943 27.8714,51.4311"/>
+    <polyline fill="#9B9B9A" points="55.9157,16.0709 29.7452,52.4497 40.013,62.7175 55.9157,16.0709"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="19.8696,43.4293 7.6642,31.2239 55.9157,16.0709 40.3055,63.8653 27.9423,51.502"/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="19.8707,43.4589 16.5079,46.8217 24.5659,54.8797 27.9287,51.5169"/>
+  </g>
+</svg>

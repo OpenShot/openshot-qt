@@ -1,0 +1,18 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="24.7567" y="43.1038" width="3.6084" height="3.0321" transform="translate(39.3306 -5.7126) rotate(45)" fill="#d22f27"/>
+    <rect x="44.738" y="21.5308" width="4.6432" height="4.4189" transform="translate(30.5703 -26.3228) rotate(45)" fill="#d0cfce"/>
+    <rect x="45.2534" y="18.9191" width="9.5913" height="3.6634" transform="translate(29.332 -29.3122) rotate(45)" fill="#9b9b9a"/>
+    <rect x="26.0378" y="35.1707" width="9.5913" height="9.5913" transform="translate(37.2914 -10.0967) rotate(45)" fill="#d22f27"/>
+  </g>
+  <g id="line">
+    <rect x="31.6525" y="21.6157" width="9.5913" height="25.4719" transform="translate(34.9657 -15.7113) rotate(45)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <rect x="24.7567" y="43.1038" width="3.6084" height="3.0321" transform="translate(39.3306 -5.7126) rotate(45)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <rect x="44.738" y="21.5308" width="4.6432" height="4.4189" transform="translate(30.5703 -26.3228) rotate(45)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <rect x="45.2534" y="18.9191" width="9.5913" height="3.6634" transform="translate(29.332 -29.3122) rotate(45)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="25.0814" x2="15.0973" y1="46.0994" y2="56.0835" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="38.5257" x2="40.6075" y1="34.8564" y2="36.9381" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="40.6682" x2="43.8778" y1="30.4582" y2="33.6678" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <rect x="26.0378" y="35.1707" width="9.5913" height="9.5913" transform="translate(37.2914 -10.0967) rotate(45)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

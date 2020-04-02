@@ -1,0 +1,35 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path id="Leg_Skin_1-2" fill="#d0cfce" stroke="#d0cfce" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M58.9318,8.7773c-2.87,6.6957-11.9928,11.43-11.9566,13.87.04,2.701,1.2377,8.168,1.4348,11a116.1177,116.1177,0,0,1,0,19.1307c-.1385,1.9079,4.45,5.4241,0,8.6087-1.1692.8368-5.7392-1.913-13.3914,0a23.0823,23.0823,0,0,1-7.26.278,1.7218,1.7218,0,0,1-.4942-3.2618c2.131-.9925,4.9607-1.8741,6.7972-2.7556,2.8229-1.355,4.5793-2.71,5.5716-4.4676a1.7154,1.7154,0,0,0,.2082-.6654c.8149-7.6618-2.4679-19.3382-4.8232-24.52a7.726,7.726,0,0,1-.9566-3.8261c0-1.9131.9566-2.87,1.9131-4.7827,2.1454-4.2908,2.7235-6.8638,3.7575-9.0221a1.92,1.92,0,0,1,1.647-.9573,50.4282,50.4282,0,0,1,14.0182.652Z"/>
+    <path fill="#fff" d="M47.0307,27.514H37.257a2.54,2.54,0,0,0-2.54,2.54V51.5456c-7.1223,0-12.8961,0-12.8961,5.8813,0,5.2772,5.7738,5.8813,12.8961,5.8813H45.4094a4.1611,4.1611,0,0,0,4.1611-4.1611V30.0537A2.54,2.54,0,0,0,47.0307,27.514Z"/>
+    <path fill="#fff" d="M26.2252,52.1093A14.0876,14.0876,0,0,0,32.4214,63.28h6.457S32.26,56.9348,32.9991,51.5488A19.3456,19.3456,0,0,0,26.2252,52.1093Z"/>
+    <polygon fill="#fff" points="34.717 50.807 49.57 56.039 49.57 48.156 39.351 45.084 34.717 43.691 34.717 50.807"/>
+    <polygon fill="#fff" points="49.57 39.574 42.144 45.923 34.717 43.691 49.57 31.9 49.57 39.574"/>
+    <path fill="#fff" d="M42.1439,27.514l4.8337,6.4443-4.8337,3.837-7.0252-9.1068A2.5464,2.5464,0,0,1,37.257,27.514Z"/>
+    <path fill="#fff" d="M35.9456,59.83l13.6249-3.79v3.1076s.3968,4.1611-5.1477,4.1611H38.8784Z"/>
+  </g>
+  <g id="line">
+    <g id="line-2">
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M55.3981,8.06a50.3163,50.3163,0,0,0-14.02-.65,1.9359,1.9359,0,0,0-1.65.95c-1.03,2.16-1.61,4.74-3.75,9.03-.96,1.91-1.92,2.87-1.92,4.78a7.8233,7.8233,0,0,0,.96,3.82c.26.58.54,1.23.82,1.95v.01"/>
+      <line x1="36.8981" x2="36.8981" y1="30.9995" y2="30.9895" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M36.9281,61a.2769.2769,0,0,0-.09.01"/>
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M47.5581,27.56a39.7673,39.7673,0,0,1-.58-4.91c-.04-2.44,9.08-7.18,11.95-13.87"/>
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M49.3281,60.69a.647.647,0,0,1-.09.08c0,.01,0,.01-.01.02"/>
+      <path id="Leg_Line_2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M39.8012,19.2991c-1.311,1.6165-1.7026,3.5095-.9565,4.7826a2.78,2.78,0,0,0,.9565.9566"/>
+    </g>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="M47.0307,27.514H37.257a2.54,2.54,0,0,0-2.54,2.54V51.5456c-7.1223,0-12.8961,0-12.8961,5.8813,0,5.2772,5.7738,5.8813,12.8961,5.8813H45.4094a4.1611,4.1611,0,0,0,4.1611-4.1611V30.0537A2.54,2.54,0,0,0,47.0307,27.514Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M26.2252,52.1093A14.0876,14.0876,0,0,0,32.4214,63.28h6.457S32.26,56.9348,32.9991,51.5488A19.3456,19.3456,0,0,0,26.2252,52.1093Z"/>
+    <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="34.717 51.546 49.57 56.039 49.57 48.156 39.351 45.084 34.717 43.691 34.717 51.546"/>
+    <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="49.57 39.574 42.144 45.923 34.717 43.691 49.57 31.9 49.57 39.574"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M42.1439,27.514l4.8337,6.4443-4.8337,3.837-7.0252-9.1068A2.5464,2.5464,0,0,1,37.257,27.514Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M35.9456,59.83l13.6249-3.79v3.1076s.3968,4.1611-5.1477,4.1611H38.8784Z"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="25.886 48.613 23.572 44.756 26.479 44.222 23.571 39.377"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="9.765 62.244 14.143 61.214 13.766 64.146 19.266 62.852"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="19.275 52.668 14.943 51.459 15.199 54.404 9.756 52.885"/>
+  </g>
+  <g id="color-foreground">
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="25.886 48.613 23.572 44.756 26.479 44.222 23.571 39.377"/>
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="9.765 62.244 14.143 61.214 13.766 64.146 19.266 62.852"/>
+    <polyline fill="none" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="19.275 52.668 14.943 51.459 15.199 54.404 9.756 52.885"/>
+  </g>
+</svg>

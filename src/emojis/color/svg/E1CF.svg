@@ -1,0 +1,23 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#D0CFCE" stroke="none" d="M53.9081,63.031H18.009c-0.5523,0-1-0.4477-1-1V13.0675c0-0.5523,0.4477-1,1-1h35.8991 c0.5523,0,1,0.4477,1,1V62.031C54.9081,62.5833,54.4604,63.031,53.9081,63.031z"/>
+    <circle cx="36.0239" cy="45.0155" r="12" fill="#FFFFFF" stroke="none"/>
+    <path fill="#92D3F5" stroke="none" d="M24.0239,45.0155c0,6.6274,5.3726,12,12,12s12-5.3726,12-12"/>
+    <rect x="17" y="17.0086" width="16" height="9.9501" fill="#9B9B9A" stroke="none"/>
+    <circle cx="36.0239" cy="45.0155" r="7" fill="#D0CFCE" stroke="none"/>
+    <path fill="#61B2E4" stroke="none" d="M29.0239,45.0155c0,3.866,3.134,7,7,7s7-3.134,7-7"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <circle cx="36.0239" cy="45.0155" r="12" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"/>
+    <circle cx="36.0239" cy="45.0155" r="7" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M53.9081,63.031H18.009c-0.5523,0-1-0.4477-1-1V13.0675c0-0.5523,0.4477-1,1-1h35.8991c0.5523,0,1,0.4477,1,1V62.031 C54.9081,62.5833,54.4604,63.031,53.9081,63.031z"/>
+    <rect x="17" y="17.0086" width="16" height="9.9501" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="37" x2="44" y1="19" y2="19" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="37" x2="44" y1="23" y2="23" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="23" x2="27" y1="21" y2="21" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <circle cx="49" cy="21" r="2" fill="#000000" stroke="none"/>
+  </g>
+</svg>

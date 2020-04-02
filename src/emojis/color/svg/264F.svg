@@ -1,0 +1,16 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="12" y="12" width="48" height="47.834" fill="#b399c8"/>
+  </g>
+  <g id="line">
+    <rect x="12.25" y="11.75" width="48" height="48" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="33.75" x2="33.875" y1="43.25" y2="29.1875" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line x1="21.5" x2="21.5" y1="43" y2="26" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line x1="44.75" x2="44.875" y1="43.25" y2="28.875" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21.75,29.3125s2.1191-6.33,5.8779-6.2812c3.7559.0478,6.0889,5.0087,6.1846,6.4062"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M33.8125,29.3125s1.4932-6.3613,5.25-6.3125,5.7168,4.6025,5.8125,6"/>
+    <line x1="21.5" x2="21.5" y1="37" y2="21" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" d="M44.751,43.3125S45,48.667,51,48"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" points="49.317 44.024 53.101 47.755 49.37 51.538"/>
+  </g>
+</svg>
