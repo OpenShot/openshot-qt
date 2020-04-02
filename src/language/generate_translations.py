@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-""" 
+"""
  @file
  @brief This file updates the OpenShot.POT (language translation template) by scanning all source files.
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  This file helps you generate the POT file that contains all of the translatable
  strings / text in OpenShot.  Because some of our text is in custom XML files,
- the xgettext command can't correctly generate the POT file.  Thus... the 
+ the xgettext command can't correctly generate the POT file.  Thus... the
  existence of this file. =)
 
  Command to create the individual language PO files (Ascii files)
@@ -28,23 +28,23 @@
        $ msgcat ~/openshot/locale/OpenShot/OpenShot_source.pot ~/openshot/openshot/locale/OpenShot/OpenShot_glade.pot -o ~/openshot/main/locale/OpenShot/OpenShot.pot
 
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -200,6 +200,21 @@ for effect in props:
     if "description" in effect:
         effects_text[effect["description"]] = "libopenshot (Effect Metadata)"
 
+# Append Emoji Data
+emoji_text = {}
+emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji.json")
+with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
+    emoji_metadata = json.load(f)
+
+    # Loop through props
+    for emoji in emoji_metadata:
+        emoji_name = emoji["annotation"].capitalize()
+        emoji_group = emoji["group"].capitalize()
+        if "annotation" in emoji:
+            emoji_text[emoji_name] = "Emoji Metadata (Displayed Name)"
+        if "group" in emoji and emoji_group not in effects_text:
+            emoji_text[emoji_group] = "Emoji Metadata (Group Filter name)"
+
 # Loop through the Blender XML
 for file in os.listdir(blender_path):
     if os.path.isfile(os.path.join(blender_path, file)):
@@ -332,7 +347,7 @@ header_text = header_text + '"Content-Transfer-Encoding: 8bit\\n"\n'
 
 # Create POT files for the custom text (from our XML files)
 temp_files = [['OpenShot_effects.pot', effects_text], ['OpenShot_export.pot', export_text],
-              ['OpenShot_transitions.pot', transitions_text]]
+              ['OpenShot_transitions.pot', transitions_text], ['OpenShot_emojis.pot', emoji_text]]
 for temp_file, text_dict in temp_files:
     f = open(temp_file, "w")
 
@@ -355,8 +370,8 @@ log.info(" Combine all temp POT files using msgcat command ")
 log.info(" (this removes dupes) ")
 log.info("-----------------------------------------------------")
 
-temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot', 'OpenShot_export.pot',
-              'OpenShot_transitions.pot', 'OpenShot_QtUi.pot']
+temp_files = ['OpenShot_source.pot', 'OpenShot_glade.pot', 'OpenShot_effects.pot',
+              'OpenShot_export.pot', 'OpenShot_QtUi.pot']
 command = "msgcat"
 for temp_file in temp_files:
     # append files
@@ -384,6 +399,16 @@ if os.path.exists(os.path.join(language_folder_path, "OpenShot", "OpenShot.pot")
 final = open(os.path.join(language_folder_path, "OpenShot", "OpenShot.pot"), "w")
 final.write(header_text)
 final.write("\n")
+
+# Move transitions POT file to final location
+if os.path.exists(os.path.join(language_folder_path, "OpenShot_transitions.pot")):
+    os.rename(os.path.join(language_folder_path, "OpenShot_transitions.pot"),
+              os.path.join(language_folder_path, "OpenShot", "OpenShot_transitions.pot"))
+
+# Move emoji POT file to final location
+if os.path.exists(os.path.join(language_folder_path, "OpenShot_emojis.pot")):
+    os.rename(os.path.join(language_folder_path, "OpenShot_emojis.pot"),
+              os.path.join(language_folder_path, "OpenShot", "OpenShot_emojis.pot"))
 
 # Trim the beginning off of each POT file
 start_pos = entire_source.find("#: ")
