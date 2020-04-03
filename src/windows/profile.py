@@ -79,15 +79,20 @@ class Profile(QDialog):
         self.profile_paths = {}
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in os.listdir(profile_folder):
-                # Load Profile
                 profile_path = os.path.join(profile_folder, file)
-                profile = openshot.Profile(profile_path)
+                try:
+                    # Load Profile
+                    profile = openshot.Profile(profile_path)
 
-                # Add description of Profile to list
-                profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
-                self.profile_names.append(profile_name)
-                self.profile_paths[profile_name] = profile_path
-
+                    # Add description of Profile to list
+                    profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
+                    self.profile_names.append(profile_name)
+                    self.profile_paths[profile_name] = profile_path
+                
+                except RuntimeError as e:
+                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
+                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
+                    
         # Sort list
         self.profile_names.sort()
 

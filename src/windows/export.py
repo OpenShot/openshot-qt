@@ -30,7 +30,7 @@ import os
 import time
 import xml.dom.minidom as xml
 import tempfile
-
+from xml.parsers.expat import ExpatError
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -199,14 +199,19 @@ class Export(QDialog):
         self.profile_paths = {}
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in os.listdir(profile_folder):
-                # Load Profile
                 profile_path = os.path.join(profile_folder, file)
-                profile = openshot.Profile(profile_path)
+                try:
+                    # Load Profile
+                    profile = openshot.Profile(profile_path)
 
-                # Add description of Profile to list
-                profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
-                self.profile_names.append(profile_name)
-                self.profile_paths[profile_name] = profile_path
+                    # Add description of Profile to list
+                    profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
+                    self.profile_names.append(profile_name)
+                    self.profile_paths[profile_name] = profile_path
+
+                except RuntimeError as e:
+                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
+                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
         # Sort list
         self.profile_names.sort()
@@ -230,11 +235,17 @@ class Export(QDialog):
         # ********* Simple Project Type **********
         # load the simple project type dropdown
         presets = []
-        for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
-            for file in os.listdir(preset_path):
-                xmldoc = xml.parse(os.path.join(preset_path, file))
-                type = xmldoc.getElementsByTagName("type")
-                presets.append(_(type[0].childNodes[0].data))
+        for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
+            for file in os.listdir(preset_folder):
+                preset_path = os.path.join(preset_folder, file)
+                try:
+                    xmldoc = xml.parse(preset_path)
+                    type = xmldoc.getElementsByTagName("type")
+                    presets.append(_(type[0].childNodes[0].data))
+                    
+                except ExpatError as e:
+                    # This indicates an invalid Preset file - display an error and continue
+                    log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
         # Exclude duplicates
         type_index = 0
@@ -374,30 +385,36 @@ class Export(QDialog):
         # parse the xml files and get targets that match the project type
         project_types = []
         acceleration_types = {}
-        for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
-            for file in os.listdir(preset_path):
-                xmldoc = xml.parse(os.path.join(preset_path, file))
-                type = xmldoc.getElementsByTagName("type")
+        for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
+            for file in os.listdir(preset_folder):
+                preset_path = os.path.join(preset_folder, file)
+                try:
+                    xmldoc = xml.parse(preset_path)
+                    type = xmldoc.getElementsByTagName("type")
 
-                if _(type[0].childNodes[0].data) == selected_project:
-                    titles = xmldoc.getElementsByTagName("title")
-                    videocodecs = xmldoc.getElementsByTagName("videocodec")
-                    for title in titles:
-                        project_types.append(_(title.childNodes[0].data))
-                    for codec in videocodecs:
-                        codec_text = codec.childNodes[0].data
-                        if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
-                        elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
-                        elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
-                        elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
-                        elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
-                        elif openshot.FFmpegWriter.IsValidCodec(codec_text):
-                            acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
+                    if _(type[0].childNodes[0].data) == selected_project:
+                        titles = xmldoc.getElementsByTagName("title")
+                        videocodecs = xmldoc.getElementsByTagName("videocodec")
+                        for title in titles:
+                            project_types.append(_(title.childNodes[0].data))
+                        for codec in videocodecs:
+                            codec_text = codec.childNodes[0].data
+                            if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
+                            elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
+                            elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
+                            elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
+                            elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
+                            elif openshot.FFmpegWriter.IsValidCodec(codec_text):
+                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
+
+                except ExpatError as e:
+                    # This indicates an invalid Preset file - display an error and continue
+                    log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
         # Add all targets for selected project type
         preset_index = 0
@@ -474,77 +491,83 @@ class Export(QDialog):
             # parse the xml to return suggested profiles
             profile_index = 0
             all_profiles = False
-            for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
-                for file in os.listdir(preset_path):
-                    xmldoc = xml.parse(os.path.join(preset_path, file))
-                    title = xmldoc.getElementsByTagName("title")
-                    if _(title[0].childNodes[0].data) == selected_target:
-                        profiles = xmldoc.getElementsByTagName("projectprofile")
+            for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
+                for file in os.listdir(preset_folder):
+                    preset_path = os.path.join(preset_folder, file)
+                    try:
+                        xmldoc = xml.parse(preset_path)
+                        title = xmldoc.getElementsByTagName("title")
+                        if _(title[0].childNodes[0].data) == selected_target:
+                            profiles = xmldoc.getElementsByTagName("projectprofile")
 
-                        # get the basic profile
-                        all_profiles = False
-                        if profiles:
-                            # if profiles are defined, show them
-                            for profile in profiles:
-                                profiles_list.append(_(profile.childNodes[0].data))
-                        else:
-                            # show all profiles
-                            all_profiles = True
-                            for profile_name in self.profile_names:
-                                profiles_list.append(profile_name)
+                            # get the basic profile
+                            all_profiles = False
+                            if profiles:
+                                # if profiles are defined, show them
+                                for profile in profiles:
+                                    profiles_list.append(_(profile.childNodes[0].data))
+                            else:
+                                # show all profiles
+                                all_profiles = True
+                                for profile_name in self.profile_names:
+                                    profiles_list.append(profile_name)
 
-                        # get the video bit rate(s)
-                        videobitrate = xmldoc.getElementsByTagName("videobitrate")
-                        for rate in videobitrate:
-                            v_l = rate.attributes["low"].value
-                            v_m = rate.attributes["med"].value
-                            v_h = rate.attributes["high"].value
-                            self.vbr = {_("Low"): v_l, _("Med"): v_m, _("High"): v_h}
+                            # get the video bit rate(s)
+                            videobitrate = xmldoc.getElementsByTagName("videobitrate")
+                            for rate in videobitrate:
+                                v_l = rate.attributes["low"].value
+                                v_m = rate.attributes["med"].value
+                                v_h = rate.attributes["high"].value
+                                self.vbr = {_("Low"): v_l, _("Med"): v_m, _("High"): v_h}
 
-                        # get the audio bit rates
-                        audiobitrate = xmldoc.getElementsByTagName("audiobitrate")
-                        for audiorate in audiobitrate:
-                            a_l = audiorate.attributes["low"].value
-                            a_m = audiorate.attributes["med"].value
-                            a_h = audiorate.attributes["high"].value
-                            self.abr = {_("Low"): a_l, _("Med"): a_m, _("High"): a_h}
+                            # get the audio bit rates
+                            audiobitrate = xmldoc.getElementsByTagName("audiobitrate")
+                            for audiorate in audiobitrate:
+                                a_l = audiorate.attributes["low"].value
+                                a_m = audiorate.attributes["med"].value
+                                a_h = audiorate.attributes["high"].value
+                                self.abr = {_("Low"): a_l, _("Med"): a_m, _("High"): a_h}
 
-                        # get the remaining values
-                        vf = xmldoc.getElementsByTagName("videoformat")
-                        self.txtVideoFormat.setText(vf[0].childNodes[0].data)
-                        vc = xmldoc.getElementsByTagName("videocodec")
-                        self.txtVideoCodec.setText(vc[0].childNodes[0].data)
-                        sr = xmldoc.getElementsByTagName("samplerate")
-                        self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
-                        c = xmldoc.getElementsByTagName("audiochannels")
-                        self.txtChannels.setValue(int(c[0].childNodes[0].data))
-                        c = xmldoc.getElementsByTagName("audiochannellayout")
+                            # get the remaining values
+                            vf = xmldoc.getElementsByTagName("videoformat")
+                            self.txtVideoFormat.setText(vf[0].childNodes[0].data)
+                            vc = xmldoc.getElementsByTagName("videocodec")
+                            self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+                            sr = xmldoc.getElementsByTagName("samplerate")
+                            self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
+                            c = xmldoc.getElementsByTagName("audiochannels")
+                            self.txtChannels.setValue(int(c[0].childNodes[0].data))
+                            c = xmldoc.getElementsByTagName("audiochannellayout")
 
-                        # check for compatible audio codec
-                        ac = xmldoc.getElementsByTagName("audiocodec")
-                        audio_codec_name = ac[0].childNodes[0].data
-                        if audio_codec_name == "aac":
-                            # Determine which version of AAC encoder is available
-                            if openshot.FFmpegWriter.IsValidCodec("libfaac"):
-                                self.txtAudioCodec.setText("libfaac")
-                            elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
-                                self.txtAudioCodec.setText("libvo_aacenc")
-                            elif openshot.FFmpegWriter.IsValidCodec("aac"):
-                                self.txtAudioCodec.setText("aac")
+                            # check for compatible audio codec
+                            ac = xmldoc.getElementsByTagName("audiocodec")
+                            audio_codec_name = ac[0].childNodes[0].data
+                            if audio_codec_name == "aac":
+                                # Determine which version of AAC encoder is available
+                                if openshot.FFmpegWriter.IsValidCodec("libfaac"):
+                                    self.txtAudioCodec.setText("libfaac")
+                                elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
+                                    self.txtAudioCodec.setText("libvo_aacenc")
+                                elif openshot.FFmpegWriter.IsValidCodec("aac"):
+                                    self.txtAudioCodec.setText("aac")
+                                else:
+                                    # fallback audio codec
+                                    self.txtAudioCodec.setText("ac3")
                             else:
                                 # fallback audio codec
-                                self.txtAudioCodec.setText("ac3")
-                        else:
-                            # fallback audio codec
-                            self.txtAudioCodec.setText(audio_codec_name)
+                                self.txtAudioCodec.setText(audio_codec_name)
 
-                        layout_index = 0
-                        for layout in self.channel_layout_choices:
-                            if layout == int(c[0].childNodes[0].data):
-                                self.cboChannelLayout.setCurrentIndex(layout_index)
-                                break
-                            layout_index += 1
-
+                            layout_index = 0
+                            for layout in self.channel_layout_choices:
+                                if layout == int(c[0].childNodes[0].data):
+                                    self.cboChannelLayout.setCurrentIndex(layout_index)
+                                    break
+                                layout_index += 1
+                                
+                    except ExpatError as e:
+                        # This indicates an invalid Preset file - display an error and continue
+                        log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
+            
             # init the profiles combo
             for item in sorted(profiles_list):
                 self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
