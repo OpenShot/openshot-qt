@@ -27,7 +27,6 @@
 
 import os
 import sys
-import functools
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
@@ -52,18 +51,12 @@ class Profile(QDialog):
         # Create dialog class
         QDialog.__init__(self)
 
-        # Load UI from designer
+        # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
-
-        # Init UI
         ui_util.init_ui(self)
 
         # get translations
-        app = get_app()
-        _ = app._tr
-
-        # Get settings
-        self.s = settings.get_settings()
+        _ = get_app()._tr
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         get_app().window.actionPlay_trigger(None, force="pause")
@@ -71,8 +64,8 @@ class Profile(QDialog):
         # Track metrics
         track_metric_screen("profile-screen")
 
-        # Ignore first dropdown selected index callback (TODO: Find better way to avoid this)
-        self.skip_first = True
+        # Keep track of starting selection
+        self.initial_index = 0
 
         # Loop through profiles
         self.profile_names = []
@@ -98,35 +91,28 @@ class Profile(QDialog):
 
         # Loop through sorted profiles
         box_index = 0
-        selected_index = 0
         for profile_name in self.profile_names:
 
             # Add to dropdown
             self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
 
             # Set default (if it matches the project)
-            if app.project.get(['profile']) in profile_name:
-                selected_index = box_index
+            if get_app().project.get(['profile']) in profile_name:
+                self.initial_index = box_index
 
             # increment item counter
             box_index += 1
 
-
-        # Connect signal
-        self.cboProfile.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, self.cboProfile))
+        # Connect signals
+        self.cboProfile.currentIndexChanged.connect(self.dropdown_index_changed)
+        self.cboProfile.activated.connect(self.dropdown_activated)
 
         # Set current item (from project)
-        self.cboProfile.setCurrentIndex(selected_index)
+        self.cboProfile.setCurrentIndex(self.initial_index)
 
-    def dropdown_index_changed(self, widget, index):
-        # Ignore first callback
-        if self.skip_first:
-            self.skip_first = False
-            return
-
+    def dropdown_index_changed(self, index):
         # Get profile path
         value = self.cboProfile.itemData(index)
-        log.info(value)
 
         # Load profile
         profile = openshot.Profile(value)
@@ -135,6 +121,17 @@ class Profile(QDialog):
         self.lblSize.setText("%sx%s" % (profile.info.width, profile.info.height))
         self.lblFPS.setText("%0.2f" % (profile.info.fps.num / profile.info.fps.den))
         self.lblOther.setText("DAR: %s/%s, SAR: %s/%s, Interlaced: %s" % (profile.info.display_ratio.num, profile.info.display_ratio.den, profile.info.pixel_ratio.num, profile.info.pixel_ratio.den, profile.info.interlaced_frame))
+
+    def dropdown_activated(self, index):
+        # Ignore if the selection wasn't changed
+        if index == self.initial_index:
+            return
+
+        # Get profile path
+        value = self.cboProfile.itemData(index)
+
+        # Load profile
+        profile = openshot.Profile(value)
 
         # Get current FPS (prior to changing)
         current_fps = get_app().project.get("fps")
@@ -146,19 +143,27 @@ class Profile(QDialog):
         get_app().updates.update(["profile"], profile.info.description)
         get_app().updates.update(["width"], profile.info.width)
         get_app().updates.update(["height"], profile.info.height)
-        get_app().updates.update(["fps"], {"num" : profile.info.fps.num, "den" : profile.info.fps.den})
+        get_app().updates.update(["fps"], {"num": profile.info.fps.num, "den": profile.info.fps.den})
         get_app().updates.update(["display_ratio"], {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den})
         get_app().updates.update(["pixel_ratio"], {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den})
 
         # Rescale all keyframes and reload project
         if fps_factor != 1.0:
-            get_app().project.rescale_keyframes(fps_factor)
+            # Get a copy of rescaled project data (this does not modify the active project... yet)
+            rescaled_app_data = get_app().project.rescale_keyframes(fps_factor)
+
+            # Apply rescaled data to active project
+            get_app().project._data = rescaled_app_data
+
+            # Distribute all project data through update manager
+            get_app().updates.load(rescaled_app_data)
 
         # Force ApplyMapperToClips to apply these changes
         get_app().window.timeline_sync.timeline.ApplyMapperToClips()
 
-        # Update Window Title
+        # Update Window Title and stored index
         get_app().window.SetWindowTitle(profile.info.description)
+        self.initial_index = index
 
         # Refresh frame (since size of preview might have changed)
         QTimer.singleShot(500, get_app().window.refreshFrameSignal.emit)

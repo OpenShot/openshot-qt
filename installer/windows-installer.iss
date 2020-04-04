@@ -121,10 +121,6 @@ Type: dirifempty; Name: "{app}\*"
 Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles
 
 [Registry]
-; Remove previously installed registry keys (no longer needed)
-Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"QT_PLUGIN_PATH"; ValueType: none; Flags: deletevalue;
-Root: HKLM; Subkey: "System\CurrentControlSet\Control\Session Manager\Environment"; ValueName:"MAGICK_CONFIGURE_PATH"; ValueType: none; Flags: deletevalue;
-
 ; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
 
 ; Filename extension .osp

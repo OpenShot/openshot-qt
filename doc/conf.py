@@ -19,8 +19,9 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.dirname(os.path.abspath('.')))
-from src.classes import info
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath('.')), "src"))
+
+from classes import info
 
 # -- General configuration ------------------------------------------------
 
@@ -31,7 +32,28 @@ from src.classes import info
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = [
+    'sphinx.ext.extlinks'
+]
+
+try:
+    # Add Copy button to code cells, if extension is available
+    import sphinx_copybutton
+    extensions.append('sphinx_copybutton')
+except ImportError:
+    pass
+
+# External links mappings for extlinks
+# see: http://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
+extlinks = {
+    # alias: (url_template, prefix)
+    'openshot-github':
+        ('https://github.com/OpenShot/%s', ''),
+    'libopenshot-wiki':
+        ('https://github.com/OpenShot/libopenshot/wiki/%s', ''),
+    'openshot-issue':
+        ('https://github.com/OpenShot/openshot-qt/issues/%s', 'issue ')
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -144,7 +166,7 @@ html_theme_path = ["_themes", ]
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #
-html_logo = "../src/images/openshot-arrow.png"
+html_logo = "../xdg/openshot-arrow.png"
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -240,21 +262,21 @@ htmlhelp_basename = 'OpenShotVideoEditordoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-     # The paper size ('letterpaper' or 'a4paper').
-     #
-     # 'papersize': 'letterpaper',
+    # The paper size ('letterpaper' or 'a4paper').
+    #
+    # 'papersize': 'letterpaper',
 
-     # The font size ('10pt', '11pt' or '12pt').
-     #
-     # 'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    #
+    # 'pointsize': '10pt',
 
-     # Additional stuff for the LaTeX preamble.
-     #
-     # 'preamble': '',
+    # Additional stuff for the LaTeX preamble.
+    #
+    # 'preamble': '',
 
-     # Latex figure (float) alignment
-     #
-     # 'figure_align': 'htbp',
+    # Latex figure (float) alignment
+    #
+    # 'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

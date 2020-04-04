@@ -400,9 +400,6 @@
      <height>38</height>
     </size>
    </property>
-   <property name="cursor">
-    <cursorShape>ForbiddenCursor</cursorShape>
-   </property>
    <property name="focusPolicy">
     <enum>Qt::ClickFocus</enum>
    </property>
@@ -895,6 +892,18 @@
    </property>
    <property name="toolTip">
     <string>Next Marker</string>
+   </property>
+  </action>
+  <action name="actionCenterOnPlayhead">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+	    <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Center on Playhead</string>
+   </property>
+   <property name="toolTip">
+    <string>Center the timeline on the Playhead</string>
    </property>
   </action>
   <action name="actionFilesShowAll">

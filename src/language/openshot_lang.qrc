@@ -27,6 +27,7 @@
         <file>OpenShot.en_GB.qm</file>
         <file>OpenShot.la.qm</file>
         <file>OpenShot.si.qm</file>
+        <file>OpenShot.tl.qm</file>
         <file>OpenShot.en_CA.qm</file>
         <file>OpenShot.te.qm</file>
         <file>OpenShot.sq.qm</file>
@@ -40,6 +41,7 @@
         <file>OpenShot.vi.qm</file>
         <file>OpenShot.br.qm</file>
         <file>OpenShot.sv.qm</file>
+        <file>OpenShot.ti.qm</file>
         <file>OpenShot.ar.qm</file>
         <file>OpenShot.zh_HK.qm</file>
         <file>OpenShot.ka.qm</file>
@@ -79,6 +81,7 @@
         <file>OpenShot.uz.qm</file>
         <file>OpenShot.pt_BR.qm</file>
         <file>OpenShot.jv.qm</file>
+        <file>OpenShot.as.qm</file>
         <file>OpenShot.am.qm</file>
         <file>OpenShot.ur.qm</file>
         <file>OpenShot.el.qm</file>

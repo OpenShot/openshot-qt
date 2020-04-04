@@ -125,7 +125,7 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data = findElement(scope.project.effects, "id", item_num);
 
 							// set time diff (if not already determined)
-							if (position_diff == 0.0)
+							if (position_diff === 0.0)
 								// once calculated, we want to apply the exact same time diff to each clip/trans
 		            			position_diff = (item_left / scope.pixelsPerSecond) - item_data.position;
 

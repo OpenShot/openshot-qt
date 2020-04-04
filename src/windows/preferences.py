@@ -221,19 +221,16 @@ class Preferences(QDialog):
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
-                elif param["type"] == "text":
+                elif param["type"] == "text" or param["type"] == "browse":
                     # create QLineEdit
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
-                elif param["type"] == "browse":
-                    # create QLineEdit
-                    widget = QLineEdit()
-                    widget.setText(_(param["value"]))
-                    widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
-                    extraWidget = QPushButton(_("Browse..."))
-                    extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
+                    if param["type"] == "browse":
+                        # Add filesystem browser button
+                        extraWidget = QPushButton(_("Browse..."))
+                        extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
 
                 elif param["type"] == "bool":
                     # create spinner
@@ -399,8 +396,30 @@ class Preferences(QDialog):
     def selectExecutable(self, widget, param):
         _ = get_app()._tr
 
-        fileName, fileType = QFileDialog.getOpenFileName(self, _("Select executable file"), QDir.rootPath(), _("All Files (*)"))
+        # Fallback default to user home
+        startpath = QDir.rootPath()
+
+        # Start at directory of old setting, if it exists, or walk up the
+        # path until we encounter a directory that does exist and start there
+        if "setting" in param and param["setting"]:
+            prev_val = self.s.get(param["setting"])
+            while prev_val and not os.path.exists(prev_val):
+                prev_val = os.path.dirname(prev_val)
+            if prev_val and os.path.exists(prev_val):
+                startpath = prev_val
+
+        fileName = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))[0]
         if fileName:
+            if platform.system() == "Darwin":
+                # Check for Mac specific app-bundle executable file (if any)
+                appBundlePath = os.path.join(fileName, 'Contents', 'MacOS')
+                if os.path.exists(os.path.join(appBundlePath, 'blender')):
+                    fileName = os.path.join(appBundlePath, 'blender')
+                elif os.path.exists(os.path.join(appBundlePath, 'Blender')):
+                    fileName = os.path.join(appBundlePath, 'Blender')
+                elif os.path.exists(os.path.join(appBundlePath, 'Inkscape')):
+                    fileName = os.path.join(appBundlePath, 'Inkscape')
+
             self.s.set(param["setting"], fileName)
             widget.setText(fileName)
 

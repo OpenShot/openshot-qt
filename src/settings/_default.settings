@@ -92,20 +92,6 @@
     "setting": "docks_frozen"
   },
   {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_pos"
-  },
-  {
-    "value": "",
-    "title": "",
-    "type": "hidden",
-    "category": "Qt",
-    "setting": "window_splitter_2_pos"
-  },
-  {
     "value": "thumbnail",
     "title": "",
     "type": "hidden",
@@ -242,6 +228,15 @@
     "type": "spinner-int"
   },
   {
+    "max": 99,
+    "title": "Recovery Limit (# of project copies)",
+    "category": "Autosave",
+    "min": 0,
+    "setting": "recovery-limit",
+    "value": 30,
+    "type": "spinner-int"
+  },
+  {
     "title": "Cache Mode",
     "category": "Cache",
     "setting": "cache-mode",
@@ -338,7 +333,7 @@
     "restart": true
   },
   {
-    "value": true,
+    "value": false,
     "title": "Send Anonymous Metrics and Errors",
     "type": "bool",
     "category": "Debug",
@@ -538,6 +533,14 @@
     "restart": true,
     "setting": "actionNextMarker",
     "value": "Ctrl+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Center on Playhead",
+    "restart": true,
+    "setting": "actionCenterOnPlayhead",
+    "value": "Ctrl+Up",
     "type": "text"
   },
   {

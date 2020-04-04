@@ -28,8 +28,6 @@
 import os
 import sys
 
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
-
 import datetime
 import platform
 import shutil
@@ -43,6 +41,8 @@ import traceback
 from github3 import login
 from requests.auth import HTTPBasicAuth
 from requests import post
+
+PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
@@ -82,7 +82,7 @@ def output(line):
 
 def run_command(command, working_dir=None):
     """Utility function to return output from command line"""
-    short_command = command.split('" ')[0] # We don't need to print args
+    short_command = command.split('" ')[0]  # We don't need to print args
     output("Running %s... (%s)" % (short_command, working_dir))
     p = subprocess.Popen(command, shell=True, cwd=working_dir,
                          stdout=subprocess.PIPE,
@@ -147,6 +147,7 @@ def zulip_upload_log(log, title, comment=None):
     log = open(log_path, "a")
     print(resp)
 
+
 def get_release(repo, tag_name):
     """Fetch the GitHub release tagged with the given tag and return it
     @param repo:        github3 repository object
@@ -156,41 +157,49 @@ def get_release(repo, tag_name):
         if release.tag_name == tag_name:
             return release
 
+
 def upload(file_path, github_release):
     """Upload a file to GitHub (retry 3 times)"""
+    if not s3_connection:
+        return None
+
     url = None
-    if s3_connection:
-        folder_path, file_name = os.path.split(file_path)
+    file_name = os.path.basename(file_path)
 
-        # Check if this asset is already uploaded
-        for asset in github_release.assets:
-            if asset.name == file_name:
-                raise Exception('Duplicate asset already uploaded: %s (%s)' % (file_path, asset.to_json()["browser_download_url"]))
+    # Check if this asset is already uploaded
+    for asset in github_release.assets:
+        if asset.name == file_name:
+            raise Exception('Duplicate asset already uploaded: %s (%s)' % (file_path, asset.to_json()["browser_download_url"]))
 
-        for attempt in range(3):
-            try:
-                # Attempt the upload
-                with open(file_path, "rb") as f:
-                    # Upload to GitHub
-                    asset = github_release.upload_asset("application/octet-stream", file_name, f)
-                    url = asset.to_json()["browser_download_url"]
-                # Successfully uploaded!
-                break
-            except Exception as ex:
-                # Quietly fail, and try again
-                if attempt < 2:
-                    output("Upload failed... trying again")
-                else:
-                    # Throw loud exception
-                    raise Exception('Upload failed. Verify that this file is not already uploaded: %s' % file_path, ex)
+    for attempt in range(3):
+        try:
+            # Attempt the upload
+            with open(file_path, "rb") as f:
+                # Upload to GitHub
+                asset = github_release.upload_asset("application/octet-stream", file_name, f)
+                url = asset.to_json()["browser_download_url"]
+            # Successfully uploaded!
+            break
+        except Exception as ex:
+            # Quietly fail, and try again
+            if attempt < 2:
+                output("Upload failed... trying again")
+            else:
+                # Throw loud exception
+                raise Exception('Upload failed. Verify that this file is not already uploaded: %s' % file_path, ex)
 
     return url
+
 
 def parse_version_info(version_path):
     """Parse version info from gitlab artifacts"""
     # Get name of version file
     version_name = os.path.split(version_path)[1]
-    version_info[version_name] = {"CI_PROJECT_NAME": None, "CI_COMMIT_REF_NAME": None, "CI_COMMIT_SHA": None, "CI_JOB_ID": None}
+    version_info[version_name] = {
+        "CI_PROJECT_NAME": None,
+        "CI_COMMIT_REF_NAME": None,
+        "CI_COMMIT_SHA": None,
+        "CI_JOB_ID": None}
 
     if os.path.exists(version_path):
         with open(version_path, "r") as f:
@@ -221,7 +230,7 @@ try:
         gh = login(github_user, github_pass)
         repo = gh.repository("OpenShot", "openshot-qt")
 
-    if len(sys.argv) >=9:
+    if len(sys.argv) >= 9:
         windows_32bit = False
         if sys.argv[8] == 'True':
             windows_32bit = True
@@ -314,34 +323,46 @@ try:
                 exe_dir = exe_path
                 break
 
-        # Create AppDir folder
         app_dir_path = os.path.join(PATH, "build", "OpenShot.AppDir")
-        os.mkdir(app_dir_path)
-        os.mkdir(os.path.join(app_dir_path, "usr"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "share"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "share", "pixmaps"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "share", "mime"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "share", "mime", "packages"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "lib"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "lib", "mime"))
-        os.mkdir(os.path.join(app_dir_path, "usr", "lib", "mime", "packages"))
+
+        # Recursively create AppDir /usr folder
+        os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
+        # XXX: Temporary: Use new AppRun binary in project repo
+        shutil.copyfile(os.path.join(PATH, "installer", "AppRun.64"), app_run_path)
 
-        # Create .desktop file
-        with open(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"), "w") as f:
-            f.write('[Desktop Entry]\nName=OpenShot Video Editor\nGenericName=Video Editor\nX-GNOME-FullName=OpenShot Video Editor\nComment=Create and edit amazing videos and movies\nExec=openshot-qt.wrapper %F\nTerminal=false\nIcon=openshot-qt\nType=Application')
+        # Install program icon
+        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
+                        os.path.join(app_dir_path, "openshot-qt.svg"))
 
-        # Copy some installation-related files
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "openshot-qt.svg"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"), os.path.join(app_dir_path, "usr", "share", "pixmaps", "openshot-qt.svg"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"), os.path.join(app_dir_path, "usr", "share", "mime", "packages", "org.openshot.OpenShot.xml"))
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt"), os.path.join(app_dir_path, "usr", "lib", "mime", "packages", "openshot-qt"))
+        dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
+        os.makedirs(dest, exist_ok=True)
+
+        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
+                        os.path.join(dest, "openshot-qt.svg"))
+
+        # Install MIME handler
+        dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
+        os.makedirs(dest, exist_ok=True)
+
+        shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
+                        os.path.join(dest, "org.openshot.OpenShot.xml"))
 
         # Copy the entire frozen app
-        shutil.copytree(os.path.join(PATH, "build", exe_dir), os.path.join(app_dir_path, "usr", "bin"))
+        shutil.copytree(os.path.join(PATH, "build", exe_dir),
+                        os.path.join(app_dir_path, "usr", "bin"))
+
+        # Copy .desktop file, replacing Exec= commandline
+        desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
+        desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+        with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
+            for line in inf:
+                if line.startswith("Exec="):
+                    outf.write("Exec=openshot-qt.wrapper %F\n")
+                else:
+                    outf.write(line)
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
@@ -349,7 +370,7 @@ try:
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
-        # Change permission of AppRun (and desktop.wrapper) file (add execute permission)
+        # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)
         os.chmod(app_run_path, st.st_mode | stat.S_IEXEC)
         os.chmod(desktop_wrapper, st.st_mode | stat.S_IEXEC)

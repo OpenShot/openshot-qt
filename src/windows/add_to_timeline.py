@@ -187,7 +187,7 @@ class AddToTimeline(QDialog):
                 thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 
             # Get file name
-            path, filename = os.path.split(file.data["path"])
+            filename = os.path.basename(file.data["path"])
 
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
@@ -201,7 +201,6 @@ class AddToTimeline(QDialog):
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
             new_clip["title"] = filename
-            new_clip["image"] = thumb_path
 
             # Skip any clips that are missing a 'reader' attribute
             # TODO: Determine why this even happens, as it shouldn't be possible
@@ -494,7 +493,7 @@ class AddToTimeline(QDialog):
 
             for filename in sorted(files):
                 path = os.path.join(dir, filename)
-                (fileBaseName, fileExtension) = os.path.splitext(filename)
+                fileBaseName = os.path.splitext(filename)[0]
 
                 # Skip hidden files (such as .DS_Store, etc...)
                 if filename[0] == "." or "thumbs.db" in filename.lower():

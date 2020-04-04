@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the clip properties model, used by the properties view
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -564,7 +564,6 @@ class PropertiesModel(updates.UpdateInterface):
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
-            log.info("Getting properties for frame %s: %s" % (self.frame_number, str(all_properties)))
 
             # Check if filter was changed (if so, wipe previous model data)
             if self.previous_filter != filter:
@@ -606,7 +605,7 @@ class PropertiesModel(updates.UpdateInterface):
                     selected_choice = [c for c in choices if c["selected"] == True][0]["name"]
 
                 # Hide filtered out properties
-                if filter and filter.lower() not in name.lower():
+                if filter and filter.lower() not in _(label).lower():
                     continue
 
                 # Hide unused base properties (if any)
@@ -650,7 +649,7 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "reader":
                         reader_json = json.loads(memo or "{}")
                         reader_path = reader_json.get("path", "/")
-                        (dirName, fileName) = os.path.split(reader_path)
+                        fileName = os.path.basename(reader_path)
                         col.setText(fileName)
                     elif type == "int" and label == "Track":
                         # Find track display name
@@ -748,7 +747,7 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "reader":
                         reader_json = json.loads(property[1].get("memo", "{}"))
                         reader_path = reader_json.get("path", "/")
-                        (dirName, fileName) = os.path.split(reader_path)
+                        fileName = os.path.basename(reader_path)
                         col.setText("%s" % fileName)
                     else:
                         # Use numeric value
