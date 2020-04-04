@@ -22,9 +22,6 @@ if [ -d "$1" ]; then
   hw_lib_dir="$1"
 fi
 
-# Count files processed
-((processed=0))
-
 echo -n "Looking for libvdpau.so.1..."
 hwlib="${hw_lib_dir}/libvdpau.so.1"
 if [ -w "${hwlib}" ]; then
@@ -36,7 +33,6 @@ if [ -w "${hwlib}" ]; then
     -e 's,/usr\(/lib/vdpau\),\./\.\.\1,g' \
     "${hwlib}"
   echo " done."
-  ((processed+=1))
 else
   echo " NOT found, skipping."
 fi
@@ -48,11 +44,9 @@ if [ -w "${hwlib}" ]; then
   # /usr/lib/x86_64-linux-gnu/dri => ./../lib/x86_64-linux-gnu/dri
   sed -i -e 's,/usr\(/lib/x86_64-linux-gnu/dri\),\./\.\.\1,g' "${hwlib}"
   echo " done."
-  ((processed+=1))
 else
   echo " NOT found, skipping."
 fi
 
-# Final summary
-echo "Files processed: ${processed}" && exit 0
+exit 0
 
