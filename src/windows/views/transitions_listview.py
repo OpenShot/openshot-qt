@@ -54,12 +54,12 @@ class TransitionsListView(QListView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.transition_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
+        selected_row = self.transition_model.model.itemFromIndex(self.transition_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.transition_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.transition_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
@@ -71,9 +71,9 @@ class TransitionsListView(QListView):
     def refresh_view(self):
         """Filter transitions with proxy class"""
         filter_text = self.win.transitionsFilter.text()
-        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.sort(Qt.AscendingOrder)
+        self.transition_model.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
+        self.transition_model.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.transition_model.proxy_model.sort(Qt.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
@@ -85,21 +85,13 @@ class TransitionsListView(QListView):
         # Get Model data
         self.transition_model = model
 
-        # Create proxy model (for sorting and filtering)
-        self.proxy_model = TransitionFilterProxyModel(self)
-        self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.transition_model.model)
-        self.proxy_model.setSortLocaleAware(True)
-
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
         # Setup header columns
-        self.setModel(self.proxy_model)
+        self.setModel(self.transition_model.proxy_model)
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)

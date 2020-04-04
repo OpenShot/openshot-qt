@@ -69,7 +69,6 @@ class FileFilterProxyModel(QSortFilterProxyModel):
 
     def filterAcceptsRow(self, sourceRow, sourceParent):
         """Filter for text"""
-
         if get_app().window.actionFilesShowVideo.isChecked() \
                 or get_app().window.actionFilesShowAudio.isChecked() \
                 or get_app().window.actionFilesShowImage.isChecked() \
@@ -265,3 +264,11 @@ class FilesModel(updates.UpdateInterface):
         self.model.setColumnCount(6)
         self.model_ids = {}
         self.ignore_update_signal = False
+
+        # Create proxy model (for sorting and filtering)
+        self.proxy_model = FileFilterProxyModel()
+        self.proxy_model.setDynamicSortFilter(True)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setSortLocaleAware(True)

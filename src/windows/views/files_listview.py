@@ -55,7 +55,7 @@ class FilesListView(QListView):
         rows = []
         self.win.selected_files = []
         for selection in self.selected:
-            selected_row = self.files_model.model.itemFromIndex(self.proxy_model.mapToSource(selection)).row()
+            selected_row = self.files_model.model.itemFromIndex(self.files_model.proxy_model.mapToSource(selection)).row()
             if selected_row not in rows:
                 self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
                 rows.append(selected_row)
@@ -105,12 +105,12 @@ class FilesListView(QListView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.files_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
+        selected_row = self.files_model.model.itemFromIndex(self.files_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.files_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.files_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -302,9 +302,9 @@ class FilesListView(QListView):
     def refresh_view(self):
         """Filter files with proxy class"""
         filter_text = self.win.filesFilter.text()
-        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.sort(Qt.AscendingOrder)
+        self.files_model.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
+        self.files_model.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.files_model.proxy_model.sort(Qt.AscendingOrder)
 
     def currentChanged(self, selected, deselected):
         self.updateSelection()
@@ -329,14 +329,6 @@ class FilesListView(QListView):
         # Get Model data
         self.files_model = model
 
-        # Create proxy model (for sorting and filtering)
-        self.proxy_model = FileFilterProxyModel(self)
-        self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.files_model.model)
-        self.proxy_model.setSortLocaleAware(True)
-
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
@@ -345,7 +337,7 @@ class FilesListView(QListView):
         self.ignore_image_sequence_paths = []
 
         # Setup header columns
-        self.setModel(self.proxy_model)
+        self.setModel(self.files_model.proxy_model)
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)

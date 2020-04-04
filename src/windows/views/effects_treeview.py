@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint, QSortFilterProxyModel, Qt, QRegExp
+from PyQt5.QtCore import QSize, QPoint, Qt, QRegExp
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 
@@ -51,25 +51,15 @@ class EffectsTreeView(QTreeView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.effects_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
+        selected_row = self.effects_model.model.itemFromIndex(self.effects_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.effects_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.effects_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
-
-    def filter_changed(self):
-        self.refresh_view()
-
-    def refresh_view(self):
-        """Filter transitions with proxy class"""
-        filter_text = self.win.effectsFilter.text()
-        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.sort(Qt.AscendingOrder)
 
     def refresh_columns(self):
         """Hide certain columns"""
@@ -88,21 +78,13 @@ class EffectsTreeView(QTreeView):
         # Get Model data
         self.effects_model = model
 
-        # Create proxy model (for sorting and filtering)
-        self.proxy_model = QSortFilterProxyModel(self)
-        self.proxy_model.setDynamicSortFilter(False)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.effects_model.model)
-        self.proxy_model.setSortLocaleAware(True)
-
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
         # Setup header columns
-        self.setModel(self.proxy_model)
+        self.setModel(self.effects_model.proxy_model)
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
@@ -117,4 +99,3 @@ class EffectsTreeView(QTreeView):
 
         # setup filter events
         app = get_app()
-        app.window.effectsFilter.textChanged.connect(self.filter_changed)

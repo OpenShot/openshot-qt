@@ -52,12 +52,12 @@ class EmojisListView(QListView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.emojis_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
+        selected_row = self.emojis_model.model.itemFromIndex(self.emojis_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.emojis_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.emojis_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
 
@@ -116,9 +116,9 @@ class EmojisListView(QListView):
     def refresh_view(self):
         """Filter transitions with proxy class"""
         filter_text = self.win.emojisFilter.text()
-        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.sort(Qt.AscendingOrder)
+        self.emojis_model.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
+        self.emojis_model.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.emojis_model.proxy_model.sort(Qt.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
@@ -130,23 +130,15 @@ class EmojisListView(QListView):
         # Get Model data
         self.emojis_model = model
 
-        # Create proxy model (for sorting and filtering)
-        self.proxy_model = EmojiFilterProxyModel(self)
-        self.proxy_model.setDynamicSortFilter(False)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.emojis_model.model)
-        self.proxy_model.setSortLocaleAware(True)
-
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
         # Setup header columns
-        self.setModel(self.proxy_model)
-        self.setIconSize(QSize(131, 108))
-        self.setGridSize(QSize(102, 92))
+        self.setModel(self.emojis_model.proxy_model)
+        self.setIconSize(QSize(75, 75))
+        self.setGridSize(QSize(90, 100))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)

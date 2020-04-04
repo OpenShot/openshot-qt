@@ -161,7 +161,7 @@ class EmojisModel():
                         reader.Open()
 
                         # Save thumbnail
-                        reader.GetFrame(0).Thumbnail(thumb_path, 70, 70, os.path.join(info.IMAGES_PATH, "mask.png"),
+                        reader.GetFrame(0).Thumbnail(thumb_path, 75, 75, os.path.join(info.IMAGES_PATH, "mask.png"),
                                                      "", "#000", True, "png", 85)
                         reader.Close()
                         clip.Close()
@@ -224,3 +224,11 @@ class EmojisModel():
         self.model = EmojiStandardItemModel()
         self.model.setColumnCount(4)
         self.model_paths = {}
+
+        # Create proxy model (for sorting and filtering)
+        self.proxy_model = EmojiFilterProxyModel()
+        self.proxy_model.setDynamicSortFilter(False)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setSortLocaleAware(True)

@@ -51,26 +51,15 @@ class TransitionsTreeView(QTreeView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.transition_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
+        selected_row = self.transition_model.model.itemFromIndex(self.transition_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.transition_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
+        drag.setMimeData(self.transition_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
-
-    def filter_changed(self):
-        self.refresh_view()
-
-    def refresh_view(self):
-        """Filter transitions with proxy class"""
-        filter_text = self.win.transitionsFilter.text()
-        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.sort(Qt.AscendingOrder)
 
     def refresh_columns(self):
         """Hide certain columns"""
@@ -89,21 +78,13 @@ class TransitionsTreeView(QTreeView):
         # Get Model data
         self.transition_model = model
 
-        # Create proxy model (for sorting and filtering)
-        self.proxy_model = TransitionFilterProxyModel(self)
-        self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.transition_model.model)
-        self.proxy_model.setSortLocaleAware(True)
-
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
         # Setup header columns
-        self.setModel(self.proxy_model)
+        self.setModel(self.transition_model.proxy_model)
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
@@ -119,5 +100,3 @@ class TransitionsTreeView(QTreeView):
 
         # setup filter events
         app = get_app()
-        app.window.transitionsFilter.textChanged.connect(self.filter_changed)
-        app.window.refreshTransitionsSignal.connect(self.refresh_view)

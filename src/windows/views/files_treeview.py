@@ -56,7 +56,7 @@ class FilesTreeView(QTreeView):
         rows = []
         self.win.selected_files = []
         for selection in self.selected:
-            selected_row = self.files_model.model.itemFromIndex(self.proxy_model.mapToSource(selection)).row()
+            selected_row = self.files_model.model.itemFromIndex(self.files_model.proxy_model.mapToSource(selection)).row()
             if selected_row not in rows:
                 self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
                 rows.append(selected_row)
@@ -106,12 +106,12 @@ class FilesTreeView(QTreeView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_row = self.files_model.model.itemFromIndex(self.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
+        selected_row = self.files_model.model.itemFromIndex(self.files_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
         icon = self.files_model.model.item(selected_row, 0).icon()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.files_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -297,16 +297,6 @@ class FilesTreeView(QTreeView):
         # Restore cursor
         get_app().restoreOverrideCursor()
 
-    def filter_changed(self):
-        self.refresh_view()
-
-    def refresh_view(self):
-        """Filter files with proxy class"""
-        filter_text = self.win.filesFilter.text()
-        self.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.sort(Qt.AscendingOrder)
-
     def refresh_columns(self):
         """Resize and hide certain columns"""
         if type(self) == FilesTreeView:
@@ -381,14 +371,6 @@ class FilesTreeView(QTreeView):
         # Get Model data
         self.files_model = model
 
-        # Create proxy model (for sorting and filtering)
-        self.proxy_model = FileFilterProxyModel(self)
-        self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.files_model.model)
-        self.proxy_model.setSortLocaleAware(True)
-
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
@@ -397,7 +379,7 @@ class FilesTreeView(QTreeView):
         self.ignore_image_sequence_paths = []
 
         # Setup header columns
-        self.setModel(self.proxy_model)
+        self.setModel(self.files_model.proxy_model)
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
@@ -414,6 +396,4 @@ class FilesTreeView(QTreeView):
 
         # setup filter events
         app = get_app()
-        app.window.filesFilter.textChanged.connect(self.filter_changed)
-        app.window.refreshFilesSignal.connect(self.refresh_view)
         self.files_model.model.itemChanged.connect(self.value_updated)

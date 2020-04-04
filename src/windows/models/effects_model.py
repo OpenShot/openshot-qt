@@ -27,7 +27,7 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt, QSize, pyqtSignal
+from PyQt5.QtCore import QMimeData, Qt, QSize, pyqtSignal, QSortFilterProxyModel
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -197,3 +197,11 @@ class EffectsModel():
         self.model = EffectsStandardItemModel()
         self.model.setColumnCount(5)
         self.model_names = {}
+
+        # Create proxy model (for sorting and filtering)
+        self.proxy_model = QSortFilterProxyModel()
+        self.proxy_model.setDynamicSortFilter(False)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setSortLocaleAware(True)
