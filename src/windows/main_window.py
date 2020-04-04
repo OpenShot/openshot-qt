@@ -38,7 +38,7 @@ from uuid import uuid4
 from copy import deepcopy
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QCursor, QKeySequence
+from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QPalette
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -973,6 +973,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """Update playhead position"""
         # Notify preview thread
         self.timeline.movePlayhead(position_frames)
+        self.timelines_frame.setValue(position_frames)
 
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable follow mode """
@@ -2422,6 +2423,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.videoToolbar.addWidget(spacer)
 
         # Other controls (right-aligned)
+        self.videoToolbar.addWidget(self.timelines_frame)
         self.videoToolbar.addAction(self.actionSaveFrame)
 
         self.tabVideo.layout().addWidget(self.videoToolbar)
@@ -2642,6 +2644,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Widget to display global frame number of the cursor position on the Timeline
+        self.timelines_frame = QDoubleSpinBox(self)
+        self.timelines_frame.setReadOnly(True)
+        self.timelines_frame.setToolTip( _("Frame Number") )
+
+        # Upper limit 72h at 60 fps, the Export fields doesn't allow to enter more
+        self.timelines_frame.setMaximum(99999999)
+        self.timelines_frame.setMinimum(0)
+        self.timelines_frame.setDecimals(0)
+        self.timelines_frame.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.timelines_frame.setAlignment(Qt.AlignRight)
+
+        # Set background color for widget same as main window
+        dsBoxPal = self.timelines_frame.palette()
+        dsBoxPal.setColor(QPalette.Base, dsBoxPal.color(QPalette.Window))
+        self.timelines_frame.setPalette(dsBoxPal)
 
         # Setup toolbars that aren't on main window, set initial state of items, etc
         self.setup_toolbars()
