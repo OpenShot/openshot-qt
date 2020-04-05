@@ -35,6 +35,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import info
 from classes.logger import log
 from classes.app import get_app
+from classes.settings import get_settings
 
 import json
 
@@ -211,11 +212,20 @@ class EmojisModel():
                     self.model.appendRow(row)
                     self.model_paths[path] = path
 
+        # Get default emoji filter group
+        s = get_settings()
+        default_type = s.get('emoji_group_filter') or 'smileys-emotion'
+
         # Loop through emoji groups, and populate emoji filter drop-down
         get_app().window.emojiFilterGroup.clear()
         get_app().window.emojiFilterGroup.addItem(_("Show All"), "Show All")
+        dropdown_index = 1
         for emoji_type in sorted(emoji_groups.keys()):
             get_app().window.emojiFilterGroup.addItem(_(emoji_type.capitalize()), emoji_type)
+            if emoji_type == default_type:
+                # Initialize emoji filter group to settings
+                get_app().window.emojiFilterGroup.setCurrentIndex(dropdown_index)
+            dropdown_index += 1
 
     def __init__(self, *args):
 

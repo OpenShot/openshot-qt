@@ -39,6 +39,13 @@
     "setting": "unique_install_id"
   },
   {
+    "value": "smileys-emotion",
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "emoji_group_filter"
+  },
+  {
     "max": 10000,
     "title": "Image Length (seconds)",
     "category": "General",

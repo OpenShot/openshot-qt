@@ -26,14 +26,14 @@
  """
 
 import os
-from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, pyqtSlot, QSortFilterProxyModel, QRegExp
+from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, pyqtSlot, QRegExp
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QListView, QMenu
+from PyQt5.QtWidgets import QListView
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from classes.query import File
 from classes.app import get_app
-from windows.models.emoji_model import EmojisModel, EmojiFilterProxyModel
+from classes.settings import get_settings
 from classes.logger import log
 import json
 
@@ -113,6 +113,13 @@ class EmojisListView(QListView):
     def filter_changed(self):
         self.refresh_view()
 
+        # Save current emoji filter to settings
+        s = get_settings()
+        setting_emoji_group = s.get('emoji_group_filter') or 'smileys-emotion'
+        current_emoji_group = get_app().window.emojiFilterGroup.currentData()
+        if setting_emoji_group != current_emoji_group:
+            s.set('emoji_group_filter', current_emoji_group)
+
     def refresh_view(self):
         """Filter transitions with proxy class"""
         filter_text = self.win.emojisFilter.text()
@@ -147,6 +154,7 @@ class EmojisListView(QListView):
 
         # Load initial emoji model data
         self.emojis_model.update_model()
+        self.refresh_view()
 
         # setup filter events
         app = get_app()
