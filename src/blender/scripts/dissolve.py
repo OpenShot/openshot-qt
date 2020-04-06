@@ -113,7 +113,7 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     ActiveObjectText.particle_systems[0].settings.count = NbQuads
     ActiveObjectText.particle_systems[0].settings.frame_start = 10
     ActiveObjectText.particle_systems[0].settings.frame_end = 60
-    ActiveObjectText.particle_systems[0].settings.lifetime = 80
+    ActiveObjectText.particle_systems[0].settings.lifetime = 120
     ActiveObjectText.particle_systems[0].point_cache.frame_step = 1
     ActiveObjectText.particle_systems[0].settings.normal_factor = 0.0
     # not useful
