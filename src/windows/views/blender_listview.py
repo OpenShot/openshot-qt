@@ -209,6 +209,8 @@ class BlenderListView(QListView):
         value = widget.itemData(index)
         self.params[param["name"]] = value
         log.info('Animation param %s set to %s' % (param["name"], value))
+        if param["name"] == "length_multiplier":
+            self.init_slider_values()
 
     def color_button_clicked(self, widget, param, index):
         # Get translation object
@@ -269,15 +271,7 @@ class BlenderListView(QListView):
         """ Init the slider and preview frame label to the currently selected animation """
 
         # Get current preview slider frame
-        preview_frame_number = self.win.sliderPreview.value()
-        length = int(self.params.get("end_frame", 1))
-
-        # Get the animation speed (if any)
-        if not self.params.get("animation_speed"):
-            self.params["animation_speed"] = 1
-        else:
-            # Adjust length (based on animation speed multiplier)
-            length *= int(self.params["animation_speed"])
+        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
 
         # Update the preview slider
         middle_frame = int(length / 2)
@@ -286,16 +280,12 @@ class BlenderListView(QListView):
         self.win.sliderPreview.setMaximum(length)
         self.win.sliderPreview.setValue(middle_frame)
 
-        # Update preview label
-        self.win.lblFrame.setText("{}/{}".format(middle_frame, length))
-
         # Click the refresh button
         self.btnRefresh_clicked(None)
 
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
-        preview_frame_number = self.win.sliderPreview.value()
         self.preview_timer.start()
 
     @pyqtSlot()
@@ -317,18 +307,18 @@ class BlenderListView(QListView):
         # update label and preview slider
         self.win.sliderPreview.setValue(current_frame)
 
-        length = int(self.params["end_frame"])
+        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
         self.win.lblFrame.setText("{}/{}".format(current_frame, length))
 
+    @pyqtSlot(int)
     def sliderPreview_valueChanged(self, new_value):
         """Get new value of preview slider, and start timer to Render frame"""
         if self.win.sliderPreview.isEnabled():
             self.preview_timer.start()
 
         # Update preview label
-        preview_frame_number = new_value
-        length = int(self.params["end_frame"])
-        self.win.lblFrame.setText("{}/{}".format(preview_frame_number, length))
+        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
+        self.win.lblFrame.setText("{}/{}".format(new_value, length))
 
     def preview_timer_onTimeout(self):
         """Timer is ready to Render frame"""

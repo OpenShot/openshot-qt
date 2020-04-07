@@ -127,11 +127,11 @@ bpy.context.scene.frame_start = params["start_frame"]
 bpy.context.scene.frame_end = params["end_frame"]
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
-animation_speed = int(params["animation_speed"])  # time remapping multiplier
-new_length = int(params["end_frame"]) * animation_speed  # new length (in frames)
+length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
+new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
 bpy.context.scene.frame_end = new_length
 bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = animation_speed
+bpy.context.scene.render.frame_map_new = length_multiplier
 if params["start_frame"] == params["end_frame"]:
     bpy.context.scene.frame_start = params["end_frame"]
     bpy.context.scene.frame_end = params["end_frame"]
