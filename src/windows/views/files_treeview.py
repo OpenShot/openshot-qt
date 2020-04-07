@@ -30,10 +30,11 @@
 import glob
 import os
 import re
+import json
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QCursor, QDrag
 from PyQt5.QtWidgets import QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
 
 from classes.app import get_app
@@ -42,7 +43,6 @@ from classes.logger import log
 from classes.query import File
 from windows.models.files_model import FilesModel
 
-import json
 
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
@@ -121,11 +121,10 @@ class FilesTreeView(QTreeView):
     def dragMoveEvent(self, event):
         pass
 
-    def add_file(self, filepath):
+    def add_file(self, filepath, image_seq_details=None):
         filename = os.path.basename(filepath)
 
         # Add file into project
-        app = get_app()
         _ = get_app()._tr
 
         # Check for this path in our existing project data
@@ -133,6 +132,7 @@ class FilesTreeView(QTreeView):
 
         # If this file is already found, exit
         if file:
+            log.warning("File already added, skipping: {}".format(filepath))
             return
 
         # Load filepath in libopenshot clip object (which will try multiple readers to open it)
@@ -159,11 +159,12 @@ class FilesTreeView(QTreeView):
             file.data = file_data
 
             # Is this file an image sequence / animation?
-            image_seq_details = self.get_image_sequence_details(filepath)
+            if not image_seq_details:
+                image_seq_details = self.get_image_sequence_details(filepath)
+
             if image_seq_details:
                 # Update file with correct path
                 folder_path = image_seq_details["folder_path"]
-                file_name = image_seq_details["file_path"]
                 base_name = image_seq_details["base_name"]
                 fixlen = image_seq_details["fixlen"]
                 digits = image_seq_details["digits"]
@@ -260,7 +261,6 @@ class FilesTreeView(QTreeView):
                     # Yes, import image sequence
                     log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
                     parameters = {
-                        "file_path": file_path,
                         "folder_path": dirName,
                         "base_name": base_name,
                         "fixlen": fixlen,
@@ -322,7 +322,6 @@ class FilesTreeView(QTreeView):
         self.header().setSectionResizeMode(2, QHeaderView.Interactive)
 
     def currentChanged(self, selected, deselected):
-        log.info('currentChanged')
         self.updateSelection()
 
     def value_updated(self, item):
@@ -360,7 +359,7 @@ class FilesTreeView(QTreeView):
         """Remove signal handlers and prepare for deletion"""
         try:
             self.files_model.model.ModelRefreshed.disconnect()
-        except:
+        except Exception:
             pass
 
     def __init__(self, *args):
@@ -373,7 +372,6 @@ class FilesTreeView(QTreeView):
         # Get Model data
         self.files_model = FilesModel()
 
-        # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)

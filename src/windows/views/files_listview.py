@@ -29,10 +29,11 @@
 import glob
 import os
 import re
+import json
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QCursor, QDrag
 from PyQt5.QtWidgets import QListView, QMessageBox, QAbstractItemView, QMenu
 
 from classes.app import get_app
@@ -41,7 +42,6 @@ from classes.logger import log
 from classes.query import File
 from windows.models.files_model import FilesModel
 
-import json
 
 class FilesListView(QListView):
     """ A ListView QWidget used on the main window """
@@ -113,7 +113,6 @@ class FilesListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.files_model.model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -122,11 +121,10 @@ class FilesListView(QListView):
     def dragMoveEvent(self, event):
         pass
 
-    def add_file(self, filepath):
+    def add_file(self, filepath, image_seq_details=None):
         filename = os.path.basename(filepath)
 
         # Add file into project
-        app = get_app()
         _ = get_app()._tr
 
         # Check for this path in our existing project data
@@ -134,6 +132,7 @@ class FilesListView(QListView):
 
         # If this file is already found, exit
         if file:
+            log.warning("File already added, skipping: {}".format(filepath))
             return
 
         # Load filepath in libopenshot clip object (which will try multiple readers to open it)
@@ -160,11 +159,12 @@ class FilesListView(QListView):
             file.data = file_data
 
             # Is this file an image sequence / animation?
-            image_seq_details = self.get_image_sequence_details(filepath)
+            if not image_seq_details:
+                image_seq_details = self.get_image_sequence_details(filepath)
+
             if image_seq_details:
                 # Update file with correct path
                 folder_path = image_seq_details["folder_path"]
-                file_name = image_seq_details["file_path"]
                 base_name = image_seq_details["base_name"]
                 fixlen = image_seq_details["fixlen"]
                 digits = image_seq_details["digits"]
@@ -261,7 +261,6 @@ class FilesListView(QListView):
                     # Yes, import image sequence
                     log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
                     parameters = {
-                        "file_path": file_path,
                         "folder_path": dirName,
                         "base_name": base_name,
                         "fixlen": fixlen,
@@ -300,7 +299,6 @@ class FilesListView(QListView):
         self.files_model.update_model()
 
     def currentChanged(self, selected, deselected):
-        log.info('currentChanged')
         self.updateSelection()
 
     def resize_contents(self):
@@ -322,6 +320,7 @@ class FilesListView(QListView):
 
         # Get Model data
         self.files_model = FilesModel()
+
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)

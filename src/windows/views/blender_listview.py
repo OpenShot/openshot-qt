@@ -294,12 +294,21 @@ class BlenderListView(QListView):
     @pyqtSlot()
     def render_finished(self):
 
-        # Add file to project
-        final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info('RENDER FINISHED! Adding to project files: %s' % final_path)
+        # Compose image sequence data
+        seq_params = {
+            "folder_path": os.path.join(info.BLENDER_PATH, self.unique_folder_name),
+            "base_name": self.params["file_name"],
+            "fixlen": True,
+            "digits": 4,
+            "extension": "png"
+        }
+
+        filename = "{}%04d.png".format(seq_params["base_name"])
+        final_path = os.path.join(seq_params["folder_path"], filename)
+        log.info('RENDER FINISHED! Adding to project files: {}'.format(filename))
 
         # Add to project files
-        self.win.add_file(final_path)
+        self.win.add_file(final_path, seq_params)
 
         # We're done here
         self.win.close()

@@ -26,30 +26,15 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys
 import os
-import time
 import uuid
-import shutil
-import threading
-import subprocess
-import re
-import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QPushButton
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, metrics
 from classes.app import get_app
-from classes.logger import log
-from classes.query import File
-from classes.metrics import *
 from windows.views.blender_listview import BlenderListView
 
-import json
 
 class AnimatedTitle(QDialog):
     """ Animated Title Dialog """
@@ -125,45 +110,11 @@ class AnimatedTitle(QDialog):
         # Cancel dialog
         super(AnimatedTitle, self).reject()
 
-    def add_file(self, filepath):
+    def add_file(self, filepath, seq_params=None):
         """ Add an animation to the project file tree """
-        filename = os.path.basename(filepath)
+        (dirname, filename) = os.path.split(filepath)
 
-        # Add file into project
-        app = get_app()
-        _ = get_app()._tr
-
-        # Check for this path in our existing project data
-        file = File.get(path=filepath)
-
-        # If this file is already found, exit
-        if file:
-            return
-
-        # Get the JSON for the clip's internal reader
-        try:
-            # Open image sequence in FFmpegReader
-            reader = openshot.FFmpegReader(filepath)
-            reader.Open()
-
-            # Serialize JSON for the reader
-            file_data = json.loads(reader.Json())
-
-            # Set media type
-            file_data["media_type"] = "video"
-
-            # Save new file to the project data
-            file = File()
-            file.data = file_data
-            file.save()
-            return True
-
-        except:
-            # Handle exception
-            msg = QMessageBox()
-            msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
-            msg.exec_()
-            return False
+        get_app().window.filesTreeView.add_file(filepath, seq_params)
 
     def clear_effect_controls(self):
         """ Clear all child widgets used for settings """
