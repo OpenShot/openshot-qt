@@ -69,7 +69,7 @@ class AnimatedTitle(QDialog):
         ui_util.init_ui(self)
 
         # Track metrics
-        track_metric_screen("animated-title-screen")
+        metrics.track_metric_screen("animated-title-screen")
 
         # Add render button
         app = get_app()
@@ -173,5 +173,5 @@ class AnimatedTitle(QDialog):
             try:
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
-            except:
+            except Exception:
                 pass

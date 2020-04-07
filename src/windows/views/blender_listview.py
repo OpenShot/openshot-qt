@@ -33,9 +33,15 @@ import re
 import xml.dom.minidom as xml
 import functools
 
-from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QTimer
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import (
+    QSize, Qt, QObject, QThread, pyqtSlot, pyqtSignal, QMetaObject,
+    Q_ARG, QTimer
+)
+from PyQt5.QtGui import QImage, QPixmap, QColor
+from PyQt5.QtWidgets import (
+    QApplication, QTreeView, QColorDialog, QDoubleSpinBox, QComboBox,
+    QMessageBox, QListView, QPushButton, QLineEdit, QPlainTextEdit, QLabel
+)
 
 from classes import info
 from classes.logger import log
@@ -43,8 +49,6 @@ from classes import settings
 from classes.query import File
 from classes.app import get_app
 from windows.models.blender_model import BlenderModel
-
-import json
 
 
 class BlenderListView(QListView):
@@ -74,7 +78,7 @@ class BlenderListView(QListView):
         self.generateUniqueFolder()
 
         # Loop through params
-        for param in animation.get("params",[]):
+        for param in animation.get("params", []):
             log.info('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
@@ -168,10 +172,9 @@ class BlenderListView(QListView):
             elif param["type"] == "color":
                 # add value to dictionary
                 color = QColor(param["default"])
+                self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
                 if "diffuse_color" in param.get("name"):
-                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF(), color.alphaF()]
-                else:
-                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
+                    self.params[param["name"]].append(color.alphaF())
 
                 widget = QPushButton()
                 widget.setText("")
@@ -298,7 +301,7 @@ class BlenderListView(QListView):
         # Add to project files
         self.win.add_file(final_path)
 
-        # Enable the Render button again
+        # We're done here
         self.win.close()
 
     @pyqtSlot(int)
@@ -452,17 +455,26 @@ class BlenderListView(QListView):
 
         version_message = ""
         if version:
-            version_message = _("\n\nVersion Detected:\n{}").format(version)
+            version_message = _("Version Detected: {}").format(version)
             log.error("Blender version detected: {}".format(version))
 
         if command_output:
-            version_message = _("\n\nError Output:\n{}").format(command_output)
+            version_message = _("Error Output:\n{}").format(command_output)
             log.error("Blender error output:\n{}".format(command_output))
 
         msg = QMessageBox()
-        msg.setText(_(
-            "Blender, the free open source 3D content creation suite is required for this action (http://www.blender.org).\n\nPlease check the preferences in OpenShot and be sure the Blender executable is correct.  This setting should be the path of the 'blender' executable on your computer.  Also, please be sure that it is pointing to Blender version {} or greater.\n\nBlender Path:\n{}{}").format(
-            info.BLENDER_MIN_VERSION, s.get("blender_command"), version_message))
+        msg.setText(_("""
+Blender, the free open source 3D content creation suite, is required for this action. (http://www.blender.org)
+
+Please check the preferences in OpenShot and be sure the Blender executable is correct.
+This setting should be the path of the 'blender' executable on your computer.
+Also, please be sure that it is pointing to Blender version {} or greater.
+
+Blender Path: {}
+{}""").format(info.BLENDER_MIN_VERSION,
+              s.get("blender_command"),
+              version_message))
+
         msg.exec_()
 
         # Enable the Render button again
@@ -623,7 +635,6 @@ class BlenderListView(QListView):
         # Refresh view
         self.refresh_view()
 
-
         # Background Worker Thread (for Blender process)
         self.background = QThread(self)
         self.worker = Worker()  # no parent!
@@ -735,7 +746,7 @@ class Worker(QObject):
             # Run real command to render Blender project
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=startupinfo, universal_newlines=True)
 
-        except:
+        except Exception:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
             self.is_running = False
