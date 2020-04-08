@@ -979,6 +979,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def navigateToFrameTimeout(self):
         self.movePlayhead(self.navigateToFrame)
+        self.previewFrame(self.navigateToFrame)
 
     def movePlayhead(self, position_frames):
         """Update playhead position"""
