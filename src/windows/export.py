@@ -478,6 +478,41 @@ class Export(QDialog):
         else:
             self.cboInterlaced.setCurrentIndex(1)
 
+        # Load color options
+        # Here userData of the Item = Enum number in FFmpeg
+        self.cboColorSpace.clear()
+        self.cboColorSpace.addItem( _("Unspecified") , 2) # UNSPECIFIED
+        self.cboColorSpace.addItem("BT.709", 1)
+        # Set BT.709
+        self.cboColorSpace.setCurrentIndex(1)
+
+        self.cboColorTRC.clear()
+        self.cboColorTRC.addItem( _("Unspecified") , 2) # UNSPECIFIED
+        self.cboColorTRC.addItem("BT.709", 1)
+        # Set BT.709
+        self.cboColorTRC.setCurrentIndex(1)
+
+        self.cboColorPrim.clear()
+        self.cboColorPrim.addItem( _("Unspecified") , 2) # UNSPECIFIED
+        self.cboColorPrim.addItem("BT.709", 1)
+        # Set BT.709
+        self.cboColorPrim.setCurrentIndex(1)
+
+        self.cboColorRange.clear()
+        self.cboColorRange.addItem( _("Unspecified") , 0)  # UNSPECIFIED
+        self.cboColorRange.addItem( _("Partial (TV)") , 1) # MPEG
+        self.cboColorRange.addItem( _("Full (PC)") , 2)    # JPEG
+        # Set Partial
+        self.cboColorRange.setCurrentIndex(1)
+
+        self.cboChromaSampleLoc.clear()
+        self.cboChromaSampleLoc.addItem( _("Unspecified") , 0) # UNSPECIFIED
+        self.cboChromaSampleLoc.addItem("H.264", 1)            # Left
+        self.cboChromaSampleLoc.addItem("JPEG", 2)             # Center
+        self.cboChromaSampleLoc.addItem("ITU-R 601", 3)        # TopLeft
+        # Set Left
+        self.cboChromaSampleLoc.setCurrentIndex(1)
+
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
         log.info(selected_target)
@@ -893,6 +928,12 @@ class Export(QDialog):
                 if "qp" in self.txtVideoBitRate.text():
                     w.SetOption(openshot.VIDEO_STREAM, "qp", str(int(video_settings.get("video_bitrate"))) )
 
+                # Set color details
+                w.SetOption(openshot.VIDEO_STREAM, "colorspace", str(int(self.cboColorSpace.itemData(self.cboColorSpace.currentIndex()))))
+                w.SetOption(openshot.VIDEO_STREAM, "color_trc", str(int(self.cboColorTRC.itemData(self.cboColorTRC.currentIndex()))))
+                w.SetOption(openshot.VIDEO_STREAM, "color_primaries", str(int(self.cboColorPrim.itemData(self.cboColorPrim.currentIndex()))))
+                w.SetOption(openshot.VIDEO_STREAM, "color_range", str(int(self.cboColorRange.itemData(self.cboColorRange.currentIndex()))))
+                w.SetOption(openshot.VIDEO_STREAM, "chroma_sample_location", str(int(self.cboChromaSampleLoc.itemData(self.cboChromaSampleLoc.currentIndex()))))
 
             # Open the writer
             w.Open()
