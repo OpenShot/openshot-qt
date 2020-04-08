@@ -41,12 +41,16 @@ def load_font(font_path):
     return None
 
 
-def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode, textsize, width, font, ground):
+def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode,
+                     textsize, width, font, ground, frame_count):
     """ Create aned animate the exploding texte """
 
     newText = title
     # create text
-    bpy.ops.object.text_add(radius=1.0, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
+    bpy.ops.object.text_add(
+        radius=1.0, enter_editmode=False, align='WORLD',
+        location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0)
+    )
     newtext = bpy.context.view_layer.objects.active
 
     # modifying the text
@@ -66,7 +70,11 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode, te
 
     # rotating text
     # angles are in radians
-    #bpy.ops.transform.rotate(value=(pi/2,), axis=(1.0, 0.0, 0.0), constraint_axis=(False, False, False), constraint_orientation='GLOBAL', mirror=False, proportional='DISABLED', proportional_edit_falloff='SMOOTH', proportional_size=1, snap=False, snap_target='CLOSEST', snap_point=(0, 0, 0), snap_align=False, snap_normal=(0, 0, 0), release_confirm=False)
+    # bpy.ops.transform.rotate(value=(pi/2,), axis=(1.0, 0.0, 0.0), constraint_axis=(False, False, False),
+    # constraint_orientation='GLOBAL', mirror=False, proportional='DISABLED', proportional_edit_falloff='SMOOTH',
+    # proportional_size=1, snap=False, snap_target='CLOSEST', snap_point=(0, 0, 0), snap_align=False,
+    # snap_normal=(0, 0, 0), release_confirm=False)
+
     # second solution
     newtext.rotation_euler[0] = pi / 2  # xaxis
     newtext.rotation_euler[1] = 0.0  # yaxis
@@ -86,7 +94,10 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode, te
     bpy.ops.object.modifier_add(type='SOLIDIFY')
 
     # apply quick explode
-    bpy.ops.object.quick_explode(style='EXPLODE', amount=100, frame_duration=50, frame_start=1, frame_end=51, velocity=1, fade=True)
+    bpy.ops.object.quick_explode(
+        style='EXPLODE', amount=100, frame_duration=50,
+        frame_start=1, frame_end=51, velocity=1, fade=True
+    )
 
     # modifying Particle System
     # emitfrom
@@ -94,7 +105,7 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode, te
     # particle number
     newtext.particle_systems[0].settings.count = particle_number
     # particle lifetime
-    newtext.particle_systems[0].settings.lifetime = 200  # 200 +48 > 150 ;-)z
+    newtext.particle_systems[0].settings.lifetime = 200  # 200 + 48 > 150
     # start/end explosion
     newtext.particle_systems[0].settings.frame_end = 48
     newtext.particle_systems[0].settings.frame_start = 48
@@ -134,14 +145,11 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode, te
         bpy.ops.object.modifier_remove(modifier="Collision")
         bpy.data.objects['Ground'].hide_render = True
 
-    bpy.ops.ptcache.free_bake_all()   # erase baked dynamics
-    bpy.ops.ptcache.bake_all()  # bake dynamics : take time but needed before rendering animation
-
-
 # Debug Info:
 # ./blender -b test.blend -P demo.py
 # -b = background mode
 # -P = run a Python script within the context of the project file
+
 
 # Init all of the variables needed by this script.  Because Blender executes
 # this script, OpenShot will inject a dictionary of the required parameters
@@ -182,16 +190,7 @@ params = {
 # ----------------------------------------------------------------------------
 
 # Modify Text / Curve settings
-#print (bpy.data.curves.keys())
-
-
-#text_object = bpy.data.curves["txtName1"]
-#text_object.extrude = params["extrude"]
-#text_object.bevel_depth = params["bevel_depth"]
-#text_object.body = params["title"]
-#text_object.align = params["spacemode"]
-#text_object.size = params["text_size"]
-#text_object.space_character = params["width"]
+# print (bpy.data.curves.keys())
 
 # Get font object
 font = None
@@ -202,10 +201,14 @@ else:
     # Get default font
     font = bpy.data.fonts["Bfont"]
 
+# Compute animation length
+length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
+frame_count = int(params["end_frame"]) * length_multiplier  # new length (in frames)
+
 createExplodeTxt(
     params["title"], params["particle_number"], params["extrude"],
     params["bevel_depth"], params["spacemode"], params["text_size"],
-    params["width"], font, params["ground_on_off"]
+    params["width"], font, params["ground_on_off"], frame_count
 )
 
 # Change the material settings (color, alpha, etc...)
@@ -230,6 +233,8 @@ bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
 
+bpy.ops.ptcache.free_bake_all()   # erase baked dynamics
+
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
@@ -237,12 +242,9 @@ bpy.context.scene.render.frame_map_old = 1
 bpy.context.scene.render.frame_map_new = length_multiplier
 
 # Set render length/position
-if "preview_frame" in params:
-    bpy.context.scene.frame_start = params["preview_frame"]
-    bpy.context.scene.frame_end = params["preview_frame"]
-else:
-    bpy.context.scene.frame_start = params["start_frame"]
-    bpy.context.scene.frame_end = new_length
+bpy.context.scene.frame_start = params["start_frame"]
+bpy.context.scene.frame_end = new_length
 
-# Render the current animation to the params["output_path"] folder
-bpy.ops.render.render(animation=params["animation"])
+if "preview_frame" not in params:
+    # bake dynamics : take time but needed before rendering animation
+    bpy.ops.ptcache.bake_all()

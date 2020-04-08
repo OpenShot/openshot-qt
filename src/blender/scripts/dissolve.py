@@ -21,7 +21,6 @@
 # run from the context of Blender.  Blender contains its own version of Python
 # with this library pre-installed.
 import bpy
-from bpy.props import *
 
 from math import pi
 
@@ -115,8 +114,8 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     # Particle parameters
     ActiveObjectText.particle_systems[0].settings.count = NbQuads
     ActiveObjectText.particle_systems[0].settings.frame_start = 10
-    ActiveObjectText.particle_systems[0].settings.frame_end = int(frame_count * 0.75 - 10)
-    ActiveObjectText.particle_systems[0].settings.lifetime = int(frame_count * 0.25 + 10)
+    ActiveObjectText.particle_systems[0].settings.frame_end = 60
+    ActiveObjectText.particle_systems[0].settings.lifetime = 80
     ActiveObjectText.particle_systems[0].point_cache.frame_step = 1
     ActiveObjectText.particle_systems[0].settings.normal_factor = 0.0
     # not useful
@@ -307,13 +306,17 @@ bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
 # Unbake particle cache
 bpy.ops.ptcache.free_bake_all()
 
-# Set render length/position
-if "preview_frame" in params:
-    bpy.context.scene.frame_start = params["preview_frame"]
-    bpy.context.scene.frame_end = params["preview_frame"]
-else:
-    bpy.context.scene.frame_start = params["start_frame"]
-    bpy.context.scene.frame_end = frame_count
+# Animation Speed (use Blender's time remapping to slow or speed up animation)
+length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
+new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
+bpy.context.scene.render.frame_map_old = 1
+bpy.context.scene.render.frame_map_new = length_multiplier
 
-# Render the current animation to the params["output_path"] folder
-bpy.ops.render.render(animation=params["animation"])
+# Set render length/position
+bpy.context.scene.frame_start = params["start_frame"]
+bpy.context.scene.frame_end = new_length
+
+# Set render length/position
+if "preview_frame" not in params:
+    # bake dynamics : take time but needed before rendering animation
+    bpy.ops.ptcache.bake_all()
