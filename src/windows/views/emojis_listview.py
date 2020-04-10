@@ -120,7 +120,7 @@ class EmojisListView(QListView):
         if setting_emoji_group != current_emoji_group:
             s.set('emoji_group_filter', current_emoji_group)
 
-    def refresh_view(self):
+    def refresh_view(self, *args):
         """Filter transitions with proxy class"""
         filter_text = self.win.emojisFilter.text()
         self.emojis_model.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
