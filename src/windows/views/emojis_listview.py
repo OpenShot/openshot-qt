@@ -159,4 +159,5 @@ class EmojisListView(QListView):
         # setup filter events
         app = get_app()
         app.window.emojisFilter.textChanged.connect(self.filter_changed)
-        app.window.emojiFilterGroup.currentIndexChanged.connect(self.filter_changed)
+        if not app.window.mode == "unittest":
+            app.window.emojiFilterGroup.currentIndexChanged.connect(self.filter_changed)
