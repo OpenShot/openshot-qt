@@ -34,7 +34,9 @@ from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip
 from classes import updates
+from classes import info
 
+import os
 import json
 
 class VideoWidget(QWidget, updates.UpdateInterface):
@@ -330,6 +332,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Clear original data
         self.original_clip_data = None
 
+    def rotateCursor(self, pixmap, rotation, shear_x, shear_y):
+        """Rotate cursor based on the current transform"""
+        rotated_pixmap = pixmap.transformed(
+            QTransform().rotate(rotation).shear(shear_x, shear_y).scale(0.8, 0.8), Qt.SmoothTransformation)
+        return QCursor(rotated_pixmap)
+
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
         self.mutex.lock()
@@ -345,6 +353,20 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Corner size
             cs = 14.0
 
+            # Determine frame # of clip
+            start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
+            position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
+            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
+            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
+
+            # Get properties of clip at current frame
+            raw_properties = json.loads(self.transforming_clip_object.PropertiesJSON(clip_frame_number))
+
+            # Get current rotation and skew (used for cursor rotation)
+            rotation = raw_properties.get('rotation').get('value')
+            shear_x = raw_properties.get('shear_x').get('value')
+            shear_y = raw_properties.get('shear_y').get('value')
+
             # Get the rect where the video is actually drawn (without the black borders, etc...)
             viewport_rect = self.centeredViewport(self.width(), self.height())
 
@@ -354,87 +376,78 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Determine if cursor is over a handle
             if self.transform.mapToPolygon(self.topRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeBDiagCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_top_right'
             elif self.transform.mapToPolygon(self.topHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeVerCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_top'
             elif self.transform.mapToPolygon(self.topLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeFDiagCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_top_left'
             elif self.transform.mapToPolygon(self.leftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeHorCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_left'
             elif self.transform.mapToPolygon(self.rightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeHorCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_right'
             elif self.transform.mapToPolygon(self.bottomLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeBDiagCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_bottom_left'
             elif self.transform.mapToPolygon(self.bottomHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeVerCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_bottom'
             elif self.transform.mapToPolygon(self.bottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeFDiagCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_bottom_right'
             elif self.transform.mapToPolygon(self.topShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeHorCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'shear_top'
             elif self.transform.mapToPolygon(self.leftShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeVerCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'shear_left'
             elif self.transform.mapToPolygon(self.rightShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeVerCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'shear_right'
             elif self.transform.mapToPolygon(self.bottomShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeHorCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'shear_bottom'
             elif self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.SizeAllCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('move'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'location'
             elif not self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                self.setCursor(QCursor(Qt.CrossCursor))
+                self.setCursor(self.rotateCursor(self.cursors.get('rotate'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'rotation'
             elif not self.transform_mode:
                 # Reset cursor when not over a handle
                 self.setCursor(QCursor(Qt.ArrowCursor))
-
-            # Determine frame # of clip
-            start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
-            position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
-            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
-            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
-
-            # Get properties of clip at current frame
-            raw_properties = json.loads(self.transforming_clip_object.PropertiesJSON(clip_frame_number))
 
             # Transform clip object
             if self.transform_mode:
@@ -734,6 +747,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.resize_button.hide()
         self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
         self.resize_button.clicked.connect(self.resize_button_clicked)
+
+        # Initialize cursors
+        self.cursors = { "move": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_move.png")),
+                         "resize_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_x.png")),
+                         "resize_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_y.png")),
+                         "resize_bdiag": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_bdiag.png")),
+                         "resize_fdiag": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_fdiag.png")),
+                         "rotate": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_rotate.png")),
+                         "shear_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_x.png")),
+                         "shear_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_y.png")),
+                       }
 
         # Mutex lock
         self.mutex = QMutex()
