@@ -60,30 +60,6 @@ class EmojiStandardItemModel(QStandardItemModel):
         return data
 
 
-class EmojiFilterProxyModel(QSortFilterProxyModel):
-    """Proxy class used for sorting and filtering model data"""
-
-    def filterAcceptsRow(self, sourceRow, sourceParent):
-        """Filter for emoji groups and text filter"""
-
-        if get_app().window.emojiFilterGroup.currentData() and \
-                get_app().window.emojiFilterGroup.currentData() != "Show All":
-            # Fetch the group name
-            index = self.sourceModel().index(sourceRow, 2, sourceParent) # group name column
-            group_name = self.sourceModel().data(index) # group name (i.e. common)
-
-            # Fetch the emoji name
-            index = self.sourceModel().index(sourceRow, 0, sourceParent) # transition name column
-            emoji_name = self.sourceModel().data(index) # emoji name (i.e. Smiley Face)
-
-            # Return, if regExp match in displayed format.
-            return get_app().window.emojiFilterGroup.currentData() == group_name and \
-                   self.filterRegExp().indexIn(emoji_name) >= 0
-
-        # Continue running built-in parent filter logic
-        return super(EmojiFilterProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
-
-
 class EmojisModel():
     def update_model(self, clear=True):
         log.info("updating emoji model.")
@@ -180,7 +156,7 @@ class EmojisModel():
                 # Append thumbnail
                 col = QStandardItem()
                 col.setIcon(QIcon(thumb_path))
-                col.setText(emoji_name)
+                col.setText("%s (%s)" % (emoji_name, emoji_type))
                 col.setToolTip(emoji_name)
                 col.setData(emoji_type)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
@@ -236,7 +212,7 @@ class EmojisModel():
         self.model_paths = {}
 
         # Create proxy model (for sorting and filtering)
-        self.proxy_model = EmojiFilterProxyModel()
+        self.proxy_model = QSortFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(False)
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)

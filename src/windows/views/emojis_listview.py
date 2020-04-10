@@ -122,7 +122,14 @@ class EmojisListView(QListView):
 
     def refresh_view(self, *args):
         """Filter transitions with proxy class"""
-        filter_text = self.win.emojisFilter.text()
+        filter_text = self.win.emojisFilter.text().strip().replace(' ', '.*')
+        current_emoji_group = get_app().window.emojiFilterGroup.currentData()
+        if current_emoji_group != "Show All":
+            # Create regex which combines category and filter text
+            # It's much faster for Qt to do this regex than use a custom
+            # Python filter function
+            # FYI:    smiley.*alien.*|alien.*smiley.*
+            filter_text = "%s.*%s.*|%s.*%s.*" % (filter_text, current_emoji_group, current_emoji_group, filter_text)
         self.emojis_model.proxy_model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
         self.emojis_model.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.emojis_model.proxy_model.sort(Qt.AscendingOrder)
