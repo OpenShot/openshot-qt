@@ -978,6 +978,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.navigateToFrame_timer.start()
 
     def navigateToFrameTimeout(self):
+        # Skip navigation if already in place
+        if self.navigateToFrame == self.preview_thread.player.Position():
+            return
         self.movePlayhead(self.navigateToFrame)
         self.previewFrame(self.navigateToFrame)
 
@@ -2905,6 +2908,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.navigateToFrame_timer.setInterval(500)
         self.navigateToFrame_timer.timeout.connect(self.navigateToFrameTimeout)
         self.timelines_frame.valueChanged.connect(self.movePlayheadFrames)
+        self.timelines_frame.editingFinished.connect(self.navigateToFrameTimeout)
 
         # Refresh frame
         QTimer.singleShot(100, self.refreshFrameSignal.emit)
