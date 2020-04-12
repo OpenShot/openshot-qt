@@ -178,7 +178,7 @@ class OpenShotApp(QApplication):
         self.context_menu_object = None
 
         # Set Font for any theme
-        if self.settings.get("theme") != "No Theme":
+        if self.settings.get("theme") != "No Theme" and self.settings.get("theme") != "Fusion":
             # Load embedded font
             try:
                 log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
@@ -225,6 +225,8 @@ class OpenShotApp(QApplication):
 
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
+        elif self.settings.get("theme") == "Fusion":
+            self.setStyle(QStyleFactory.create("Fusion"))
 
         # Create main window
         from windows.main_window import MainWindow

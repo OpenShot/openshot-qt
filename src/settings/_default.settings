@@ -17,6 +17,10 @@
     "translate_values": true,
     "values": [
       {
+        "value": "Fusion",
+        "name": "Fusion"
+      },
+      {
         "value": "Humanity",
         "name": "Humanity"
       },
