@@ -188,28 +188,27 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             self.transform = QTransform()
 
-            # Apply rotation
-            rotation = raw_properties.get('rotation').get('value')
-            if rotation:
-                origin_x = x + scaled_source_width / 2.0
-                origin_y = y + scaled_source_height / 2.0
-                self.transform.translate(origin_x, origin_y)
-                self.transform.rotate(rotation)
-                self.transform.translate(-origin_x, -origin_y)
-
             # Apply translate/move
             if x or y:
                 self.transform.translate(x, y)
 
+            # Apply rotation
+            rotation = raw_properties.get('rotation').get('value')
+            shear_x = raw_properties.get('shear_x').get('value')
+            shear_y = raw_properties.get('shear_y').get('value')
+            origin_x = raw_properties.get('origin_x').get('value')
+            origin_y = raw_properties.get('origin_y').get('value')
+            if rotation or shear_x or shear_y:
+                origin_x_value = scaled_source_width * origin_x
+                origin_y_value = scaled_source_height * origin_y
+                self.transform.translate(origin_x_value, origin_y_value)
+                self.transform.rotate(rotation)
+                self.transform.shear(shear_x, shear_y)
+                self.transform.translate(-origin_x_value, -origin_y_value)
+
             # Apply scale
             if sx or sy:
                 self.transform.scale(sx, sy)
-
-            # Apply shear
-            shear_x = raw_properties.get('shear_x').get('value')
-            shear_y = raw_properties.get('shear_y').get('value')
-            if shear_x or shear_y:
-                self.transform.shear(shear_x, shear_y)
 
             # Apply transform
             painter.setTransform(self.transform)
@@ -257,12 +256,14 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             painter.drawRect(self.clipBounds)
 
             # Calculate center coordinate
-            self.centerHandle = QRectF((source_width / 2.0) - (os/sx), (source_height / 2.0) - (os/sy), os/sx*2.0, os/sy*2.0)
+            self.centerHandle = QRectF((source_width * origin_x) - (os/sx), (source_height * origin_y) - (os/sy), os/sx*2.0, os/sy*2.0)
 
             # Draw origin
-            painter.setBrush(QColor(83, 160, 237, 122))
-            painter.setPen(Qt.NoPen)
             painter.drawEllipse(self.centerHandle)
+            painter.drawLine(self.centerHandle.x() + (self.centerHandle.width()/2.0), self.centerHandle.y() + (self.centerHandle.height()/2.0) - self.centerHandle.height(),
+                             self.centerHandle.x() + (self.centerHandle.width()/2.0), self.centerHandle.y() + (self.centerHandle.height()/2.0) + self.centerHandle.height())
+            painter.drawLine(self.centerHandle.x() + (self.centerHandle.width()/2.0) - self.centerHandle.width(), self.centerHandle.y() + (self.centerHandle.height()/2.0),
+                             self.centerHandle.x() + (self.centerHandle.width()/2.0) + self.centerHandle.width(), self.centerHandle.y() + (self.centerHandle.height()/2.0))
 
             # Remove transform
             painter.resetTransform()
@@ -375,7 +376,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 self.original_clip_data = self.transforming_clip.data
 
             # Determine if cursor is over a handle
-            if self.transform.mapToPolygon(self.topRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'origin':
+                    self.setCursor(self.rotateCursor(self.cursors.get('move'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'origin'
+            elif self.transform.mapToPolygon(self.topRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
                 if not self.transform_mode or self.transform_mode == 'scale_top_right':
                     self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
@@ -465,7 +472,32 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Transform clip object
             if self.transform_mode:
-                if self.transform_mode == 'location':
+                if self.transform_mode == 'origin':
+                    # Get current keyframe value
+                    origin_x = raw_properties.get('origin_x').get('value')
+                    origin_y = raw_properties.get('origin_y').get('value')
+                    scale_x = raw_properties.get('scale_x').get('value')
+                    scale_y = raw_properties.get('scale_y').get('value')
+
+                    # Calculate new location coordinates
+                    origin_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() * scale_x)
+                    origin_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y)
+
+                    # Constrain to clip
+                    if origin_x < 0.0:
+                        origin_x = 0.0
+                    if origin_x > 1.0:
+                        origin_x = 1.0
+                    if origin_y < 0.0:
+                        origin_y = 0.0
+                    if origin_y > 1.0:
+                        origin_y = 1.0
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'origin_x', origin_x, refresh=False)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'origin_y', origin_y)
+
+                elif self.transform_mode == 'location':
                     # Get current keyframe value
                     location_x = raw_properties.get('location_x').get('value')
                     location_y = raw_properties.get('location_y').get('value')
@@ -482,23 +514,22 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     # Get current keyframe shear value
                     shear_x = raw_properties.get('shear_x').get('value')
                     scale_x = raw_properties.get('scale_x').get('value')
-                    location_x = raw_properties.get('location_x').get('value')
 
                     # Calculate new location coordinates
-                    aspect_ratio = self.clipBounds.width() / self.clipBounds.height()
-                    shear_x -= (event.pos().x() - self.mouse_position.x()) / self.clipBounds.width()
-                    location_x += (event.pos().x() - self.mouse_position.x()) / ((viewport_rect.width() * aspect_ratio) / scale_x)
+                    clip_aspect_ratio = self.clipBounds.width() / self.clipBounds.height()
+                    shear_x -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / clip_aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x, refresh=False)
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_x', location_x)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
 
                 elif self.transform_mode == 'shear_bottom':
                     # Get current keyframe shear value
+                    scale_x = raw_properties.get('scale_x').get('value')
                     shear_x = raw_properties.get('shear_x').get('value')
 
                     # Calculate new location coordinates
-                    shear_x += (event.pos().x() - self.mouse_position.x()) / self.clipBounds.width()
+                    clip_aspect_ratio = self.clipBounds.width() / self.clipBounds.height()
+                    shear_x += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / clip_aspect_ratio)
 
                     # Update keyframe value (or create new one)
                     self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
@@ -507,23 +538,22 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     # Get current keyframe shear value
                     shear_y = raw_properties.get('shear_y').get('value')
                     scale_y = raw_properties.get('scale_y').get('value')
-                    location_y = raw_properties.get('location_y').get('value')
 
                     # Calculate new location coordinates
-                    aspect_ratio = self.clipBounds.height() / self.clipBounds.width()
-                    shear_y -= (event.pos().y() - self.mouse_position.y()) / self.clipBounds.height()
-                    location_y += (event.pos().y() - self.mouse_position.y()) / ((viewport_rect.height() * aspect_ratio) / scale_y)
+                    clip_aspect_ratio =  self.clipBounds.height() / self.clipBounds.width()
+                    shear_y -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / clip_aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y, refresh=False)
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_y', location_y)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
 
                 elif self.transform_mode == 'shear_right':
                     # Get current keyframe shear value
+                    clip_aspect_ratio = self.clipBounds.height() / self.clipBounds.width()
+                    scale_y = raw_properties.get('scale_y').get('value')
                     shear_y = raw_properties.get('shear_y').get('value')
 
                     # Calculate new location coordinates
-                    shear_y += (event.pos().y() - self.mouse_position.y()) / self.clipBounds.height()
+                    shear_y += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / clip_aspect_ratio)
 
                     # Update keyframe value (or create new one)
                     self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
