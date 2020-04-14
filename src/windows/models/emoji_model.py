@@ -51,8 +51,9 @@ class EmojiStandardItemModel(QStandardItemModel):
         # Get list of all selected file ids
         files = []
         for item in indexes:
-            selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 3).text())
+
+            selected_item = self.itemFromIndex(item)
+            files.append(selected_item.data())
         data.setText(json.dumps(files))
         data.setHtml("clip")
 
@@ -73,9 +74,10 @@ class EmojisModel():
         if clear:
             self.model_paths = {}
             self.model.clear()
+            self.emoji_groups.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name")])
+        self.model.setHorizontalHeaderLabels([_("Name")])
 
         # Get emoji metadata
         emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji.json")
@@ -115,8 +117,8 @@ class EmojisModel():
                 emoji_type = emoji.get("group", "user")
 
                 # Track unique emoji groups
-                if emoji_type not in emoji_groups.keys():
-                    emoji_groups[emoji_type] = emoji_type
+                if emoji_type not in self.emoji_groups:
+                    self.emoji_groups.append(emoji_type)
 
                 # Check for thumbnail path (in build-in cache)
                 thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
@@ -138,8 +140,11 @@ class EmojisModel():
                         reader.Open()
 
                         # Save thumbnail
-                        reader.GetFrame(0).Thumbnail(thumb_path, 75, 75, os.path.join(info.IMAGES_PATH, "mask.png"),
-                                                     "", "#000", True, "png", 85)
+                        reader.GetFrame(0).Thumbnail(
+                            thumb_path, 75, 75,
+                            os.path.join(info.IMAGES_PATH, "mask.png"),
+                            "", "#000", True, "png", 85
+                        )
                         reader.Close()
                         clip.Close()
 
@@ -153,68 +158,45 @@ class EmojisModel():
 
                 row = []
 
-                # Append thumbnail
-                col = QStandardItem()
-                col.setIcon(QIcon(thumb_path))
-                col.setText("%s (%s)" % (emoji_name, emoji_type))
-                col.setToolTip(emoji_name)
-                col.setData(emoji_type)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-                row.append(col)
-
-                # Append Filename
+                # Set emoji data
                 col = QStandardItem("Name")
-                col.setData(emoji_name, Qt.DisplayRole)
+                col.setIcon(QIcon(thumb_path))
                 col.setText(emoji_name)
+                col.setToolTip(emoji_name)
+                col.setData(path)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
-                # Append Media Type
-                col = QStandardItem("Type")
-                col.setData(type, Qt.DisplayRole)
-                col.setText(emoji_type)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-                row.append(col)
-
-                # Append Path
-                col = QStandardItem("Path")
-                col.setData(path, Qt.DisplayRole)
-                col.setText(path)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                # Append filterable group
+                col = QStandardItem(emoji_type)
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
-                if not path in self.model_paths:
+                if path not in self.model_paths:
                     self.model.appendRow(row)
                     self.model_paths[path] = path
-
-        # Get default emoji filter group
-        s = get_settings()
-        default_type = s.get('emoji_group_filter') or 'smileys-emotion'
-
-        # Loop through emoji groups, and populate emoji filter drop-down
-        get_app().window.emojiFilterGroup.clear()
-        get_app().window.emojiFilterGroup.addItem(_("Show All"), "Show All")
-        dropdown_index = 1
-        for emoji_type in sorted(emoji_groups.keys()):
-            get_app().window.emojiFilterGroup.addItem(_(emoji_type.capitalize()), emoji_type)
-            if emoji_type == default_type:
-                # Initialize emoji filter group to settings
-                get_app().window.emojiFilterGroup.setCurrentIndex(dropdown_index)
-            dropdown_index += 1
 
     def __init__(self, *args):
 
         # Create standard model
         self.app = get_app()
         self.model = EmojiStandardItemModel()
-        self.model.setColumnCount(4)
+        self.model.setColumnCount(2)
         self.model_paths = {}
+        self.emoji_groups = []
 
-        # Create proxy model (for sorting and filtering)
+        # Create proxy models (for grouping, sorting and filtering)
+        self.group_model = QSortFilterProxyModel()
+        self.group_model.setDynamicSortFilter(False)
+        self.group_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.group_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.group_model.setSourceModel(self.model)
+        self.group_model.setSortLocaleAware(True)
+        self.group_model.setFilterKeyColumn(1)
+
         self.proxy_model = QSortFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(False)
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
-        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setSourceModel(self.group_model)
         self.proxy_model.setSortLocaleAware(True)
