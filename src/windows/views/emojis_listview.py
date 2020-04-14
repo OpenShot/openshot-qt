@@ -52,11 +52,15 @@ class EmojisListView(QListView):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
-        selected_index = self.selectedIndexes()
+        selected = self.selectedIndexes()
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.model.mimeData(selected_index))
+        drag.setMimeData(self.model.mimeData(selected))
+        icon = self.model.data(selected[0], Qt.DecorationRole)
+        drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
+        drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
+
 
         # Create emoji file before drag starts
         data = json.loads(drag.mimeData().text())
