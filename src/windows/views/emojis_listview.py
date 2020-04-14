@@ -112,9 +112,8 @@ class EmojisListView(QListView):
 
     @pyqtSlot(int)
     def group_changed(self, index=-1):
-        log.info("Group set to: {}".format(index))
         item = get_app().window.emojiFilterGroup.itemData(index)
-        log.info("Filtering on {}".format(item))
+
         self.group_model.setFilterFixedString(item)
         self.group_model.setFilterKeyColumn(1)
 
@@ -123,7 +122,7 @@ class EmojisListView(QListView):
     @pyqtSlot(str)
     def filter_changed(self, filter_text=None):
         """Filter emoji with proxy class"""
-        log.info("Filter text: {}".format(filter_text or ""))
+
         self.model.setFilterRegExp(QRegExp(filter_text, Qt.CaseInsensitive))
         self.model.setFilterKeyColumn(0)
         self.refresh_view()
