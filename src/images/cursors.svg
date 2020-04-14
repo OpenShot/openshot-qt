@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="96.060204mm"
-   height="18.757893mm"
-   viewBox="0 0 340.3708 66.464975"
+   width="107.60794mm"
+   height="18.536289mm"
+   viewBox="0 0 381.28798 65.679766"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="38.32417"
-     inkscape:cy="-24.474388"
+     inkscape:zoom="2.8"
+     inkscape:cx="234.96466"
+     inkscape:cy="15.380594"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -67,7 +67,7 @@
        inkscape:export-ydpi="88.640381" />
     <g
        id="g4489"
-       transform="translate(-0.35688915,2.2610382)"
+       transform="translate(-0.15161266,2.2610379)"
        inkscape:export-xdpi="91.555717"
        inkscape:export-ydpi="91.555717">
       <path
@@ -85,7 +85,7 @@
     </g>
     <g
        id="g4495-8"
-       transform="matrix(0,1,-1,0,361.72897,-97.413456)"
+       transform="matrix(0,1,-1,0,362.75536,-97.413456)"
        inkscape:export-xdpi="89.784409"
        inkscape:export-ydpi="89.784409">
       <rect
@@ -104,7 +104,7 @@
     </g>
     <g
        id="g4495-8-2"
-       transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,187.92354,-161.96861)"
+       transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,189.15516,-161.96861)"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
       <g
@@ -125,7 +125,7 @@
       </g>
     </g>
     <g
-       transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,371.82196,-161.96861)"
+       transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,373.25885,-161.96861)"
        id="g4637-3"
        inkscape:export-xdpi="90.000008"
        inkscape:export-ydpi="90.000008">
@@ -145,7 +145,7 @@
     </g>
     <g
        id="g4685"
-       transform="translate(-65.879615,-32.627301)"
+       transform="translate(-66.067154,-32.286732)"
        inkscape:export-xdpi="89.784416"
        inkscape:export-ydpi="89.784416">
       <g
@@ -178,7 +178,7 @@
     </g>
     <g
        id="g4495-8-0"
-       transform="matrix(-1,0,0,-1,420.84807,282.51812)"
+       transform="matrix(-1,0,0,-1,421.66918,282.51812)"
        inkscape:export-xdpi="89.784393"
        inkscape:export-ydpi="89.784393">
       <rect
@@ -197,7 +197,7 @@
     </g>
     <g
        id="g4685-6"
-       transform="matrix(0,1,-1,0,314.17108,-27.052625)"
+       transform="matrix(0,1,-1,0,317.06217,-27.863535)"
        inkscape:export-xdpi="89.784393"
        inkscape:export-ydpi="89.784393">
       <g
@@ -227,6 +227,26 @@
          width="29.069635"
          id="rect4493-2-3-0"
          style="opacity:0.42000002;fill:none;fill-opacity:1;stroke:none;stroke-width:0.93036503;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4226"
+       transform="translate(0,1.8029805)"
+       inkscape:export-xdpi="88.640381"
+       inkscape:export-ydpi="88.640381">
+      <path
+         sodipodi:nodetypes="ccczcccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4209"
+         d="m 334.70549,142.75395 0,-5.46054 c -1.2109,-1.15689 -2.48458,-1.84268 -4.09541,0 -0.65759,10.04071 3.32814,14.98208 11.19548,14.85976 7.86734,-0.12232 8.29972,-12.78003 8.50419,-18.87933 -1.1685,-1.33782 -2.4029,-1.68727 -3.77308,0 l 0,5.61223 0,-8.41835 c -1.17505,-1.15364 -2.44281,-1.6583 -4.01957,0 l 0,6.97737 0,-8.94923 c -1.21345,-1.01121 -2.52803,-1.01121 -3.94373,0 l 0,9.17675 0,-7.65993 c -1.23829,-0.83916 -2.50563,-1.35878 -3.94373,0 z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1" />
+      <rect
+         y="329.069"
+         x="-152.3681"
+         height="21.213203"
+         width="21.213203"
+         id="rect4493-2-9-1-5"
+         style="opacity:0.42000002;fill:none;fill-opacity:1;stroke:none;stroke-width:0.93036503;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,0,0)" />
     </g>
   </g>
 </svg>

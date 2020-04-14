@@ -378,7 +378,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Determine if cursor is over a handle
             if self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
                 if not self.transform_mode or self.transform_mode == 'origin':
-                    self.setCursor(self.rotateCursor(self.cursors.get('move'), rotation, shear_x, shear_y))
+                    self.setCursor(self.rotateCursor(self.cursors.get('hand'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'origin'
@@ -807,6 +807,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                          "rotate": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_rotate.png")),
                          "shear_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_x.png")),
                          "shear_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_y.png")),
+                         "hand": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_hand.png")),
                        }
 
         # Mutex lock
