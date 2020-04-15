@@ -913,5 +913,12 @@
     "setting": "nudgeRight",
     "value": "Shift+Right",
     "type": "text"
+  },
+  {
+    "value": false,
+    "title": "Auto-Transform Selection",
+    "type": "bool",
+    "category": "General",
+    "setting": "auto-transform"
   }
 ]
