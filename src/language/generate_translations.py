@@ -209,7 +209,7 @@ with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     # Loop through props
     for filename, emoji in emoji_metadata.items():
         emoji_name = emoji["annotation"].capitalize()
-        emoji_group = emoji["group"].replace('-', ' ').capitalize()
+        emoji_group = emoji["group"].split('-')[0].capitalize()
         if "annotation" in emoji:
             emoji_text[emoji_name] = "Emoji Metadata (Displayed Name)"
         if "group" in emoji and emoji_group not in effects_text:

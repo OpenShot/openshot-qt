@@ -106,8 +106,8 @@ class EmojisModel():
 
                 # get name of transition
                 emoji = emoji_lookup.get(fileBaseName, {})
-                emoji_name = _(emoji.get("annotation", fileBaseName).replace('-', ' ').capitalize())
-                emoji_type = emoji.get("group", "user")
+                emoji_name = _(emoji.get("annotation", fileBaseName).capitalize())
+                emoji_type = _(emoji.get("group", "user").split('-')[0].capitalize())
 
                 # Track unique emoji groups
                 if emoji_type not in emoji_groups.keys():
