@@ -202,14 +202,14 @@ for effect in props:
 
 # Append Emoji Data
 emoji_text = {}
-emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji.json")
+emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
 
     # Loop through props
-    for emoji in emoji_metadata:
+    for filename, emoji in emoji_metadata.items():
         emoji_name = emoji["annotation"].capitalize()
-        emoji_group = emoji["group"].capitalize()
+        emoji_group = emoji["group"].replace('-', ' ').capitalize()
         if "annotation" in emoji:
             emoji_text[emoji_name] = "Emoji Metadata (Displayed Name)"
         if "group" in emoji and emoji_group not in effects_text:
