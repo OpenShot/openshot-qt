@@ -18,6 +18,22 @@ from classes.conversion import zoomToSeconds
 from classes.logger import log
 from classes.query import Clip, Transition, Effect
 
+def getBezierPresets():
+    # Returns Bezier interpolation presets list
+    #
+    # TODO: consider to extend the list
+    #       and move it to the properties_tableview.py (there it used too)
+
+    # Get translation function
+    _ = get_app()._tr
+
+    return [
+            (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
+            (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
+            (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
+            (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)"))
+        ]
+
 class CurveEditor(QDockWidget):
     """ This class is the Curve Editor dock window for OpenShot animations edit
     """
@@ -1020,6 +1036,8 @@ class GraphScene(QGraphicsScene):
         startClipFrame = self.secToFrame(startTime)
         endClipFrame = self.secToFrame(endTime)
 
+        defaultBezierPreset = getBezierPresets()[0]
+
         # Assuming that whole curve fits into the grid
         draw_tail = True
 
@@ -1142,8 +1160,8 @@ class GraphScene(QGraphicsScene):
                     if j == first_j:
                         prevPointX = point["co"]["X"]
                         prevPointY = point["co"]["Y"]
-                        prevHandle1X = 1.0
-                        prevHandle1Y = 1.0
+                        prevHandle1X = defaultBezierPreset[0] # 0.250
+                        prevHandle1Y = defaultBezierPreset[1] # 0.100
 
                     # Reset current segment pen and set color triad type
                     if color_key is None:
@@ -1167,15 +1185,15 @@ class GraphScene(QGraphicsScene):
                         c2_yF = point["handle_left"]["Y"]
                     except Exception:
                         # Assuming that handle point not exist
-                        c2_xF = 1.0
-                        c2_yF = 1.0
+                        c2_xF = defaultBezierPreset[2] # 0.250
+                        c2_yF = defaultBezierPreset[3] # 1.000
                     try:
                         prevHandle1X = point["handle_right"]["X"]
                         prevHandle1Y = point["handle_right"]["Y"]
                     except Exception:
                         # Assuming that handle point not exist
-                        prevHandle1X = 1.0
-                        prevHandle1Y = 1.0
+                        prevHandle1X = defaultBezierPreset[0] # 0.250
+                        prevHandle1Y = defaultBezierPreset[1] # 0.100
 
                     if point["interpolation"] == 0:
                         # Bezier
@@ -1211,10 +1229,10 @@ class GraphScene(QGraphicsScene):
 
                         # Substitute with the linear coefficients
                         self.segment_type = Seg.UNKNOWN_LINEAR
-                        c1_xF = 1.0
-                        c1_yF = 1.0
-                        c2_xF = 1.0
-                        c2_yF = 1.0
+                        c1_xF = defaultBezierPreset[0] # 0.250
+                        c1_yF = defaultBezierPreset[1] # 0.100
+                        c2_xF = defaultBezierPreset[2] # 0.250
+                        c2_yF = defaultBezierPreset[3] # 1.000
 
                         # Draw it blank
                         self.curvePen = self.GraphPenEmpty
@@ -1430,21 +1448,6 @@ class CurveElement(QGraphicsPathItem):
             else:
                 self.addControls()
 
-    def getBezierPresets(self):
-        # Returns Bezier interpolation presets list
-        #
-        # TODO: consider to extend the list
-
-        # Get translation function
-        _ = get_app()._tr
-
-        return [
-                (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
-                (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
-                (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
-                (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)"))
-            ]
-
     def contextMenuEvent(self, event):
         # Here event is QGraphicsSceneContextMenuEvent object
 
@@ -1460,7 +1463,7 @@ class CurveElement(QGraphicsPathItem):
         # Sub-menu
         bezier_menu = QMenu(_("Bezier"), menu)
         bezier_menu.setIcon(bezier_icon)
-        all_bezier_presets = self.getBezierPresets()
+        all_bezier_presets = getBezierPresets()
         act_preset = None
         for i, preset in enumerate(all_bezier_presets):
             act_preset = bezier_menu.addAction(preset[4])
@@ -1595,7 +1598,7 @@ class CurveElement(QGraphicsPathItem):
 
     def changeToBezierAction(self, action):
         # Forces the Bezier interpolation update with the given interpolation preset
-        bezier_presets = self.getBezierPresets()
+        bezier_presets = getBezierPresets()
         preset = []
 
         # Get first four elements of the list for the given preset number (stored in action)
@@ -2290,10 +2293,11 @@ class KeyframePoint(QGraphicsRectItem):
         #       is_p1 = -1 the current point is second (p2)
         #       is_p1 =  0 the current point is same as second, p1.(frame) = p2.(frame)
         detailsList = []
-        c1_X_norm = 1.0
-        c1_Y_norm = 1.0
-        c2_X_norm = 1.0
-        c2_Y_norm = 1.0
+        defaultBezierPreset = getBezierPresets()[0]
+        c1_X_norm = defaultBezierPreset[0] # 0.250
+        c1_Y_norm = defaultBezierPreset[1] # 0.100
+        c2_X_norm = defaultBezierPreset[2] # 0.250
+        c2_Y_norm = defaultBezierPreset[3] # 1.000
         p1p2_X = 0
         p1p2_Y = 0
         if self.pairPoint is not None:
