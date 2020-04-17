@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.5.1-dev2)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2020-04-16 16:17:39.397314\n"
+"POT-Creation-Date: 2020-04-17 15:59:40.492612\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -17,3351 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: Emoji Metadata (Displayed Name)
-msgid "Bicycle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tent"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with medical mask"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cheese wedge"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spider"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ambulance"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Six-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "High-heeled shoe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Card index"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "T-rex"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fish cake with swirl"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Couch and lamp"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Birthday cake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Beach with umbrella"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Japanese post office"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flushed face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with tear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Microbe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Slightly smiling face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Locked with pen"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Top hat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hospital"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Yellow heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hear-no-evil monkey"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spouting whale"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Custard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Softball"
-msgstr ""
-
-#: Emoji Metadata (Group Filter name)
-msgid "Activities"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Baby chick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nine o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Woman’s clothes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Palm tree"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Graduation cap"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kissing cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Thread"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Monorail"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Billed cap"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shallow pan of food"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Butterfly"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Safety pin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "High-speed train"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with symbols on mouth"
-msgstr ""
-
-#: Emoji Metadata (Group Filter name)
-msgid "Travel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Winking face with tongue"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "T-shirt"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Seat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Open book"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Heart with arrow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sports medal"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Closed umbrella"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Herb"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Performing arts"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pie"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crossed swords"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Classical building"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pine decoration"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Blowfish"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ballet shoes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Speaker low volume"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Video game"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "House with garden"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Stuffed flatbread"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Takeout box"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Clamp"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cactus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nesting dolls"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Briefcase"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Straight ruler"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ewe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dvd"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Loudspeaker"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Magnifying glass tilted right"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wastebasket"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Yen banknote"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spade suit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Duck"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Coffin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Old key"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pancakes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chains"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Twelve o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Full moon face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ferry"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Luggage"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Waning gibbous moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Revolving hearts"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Coat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Headphone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "World map"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Frowning face with open mouth"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flashlight"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nut and bolt"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chestnut"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shopping cart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Train"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Automobile"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spiral notepad"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Twelve-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Confounded face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Deciduous tree"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Locked"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nazar amulet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dizzy face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ice skate"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mountain cableway"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Trumpet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Postal horn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Octopus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Card file box"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cucumber"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Triangular ruler"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Panda"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wrapped gift"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dashing away"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Elephant"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ring"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Videocassette"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ribbon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Razor"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fortune cookie"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Globe showing europe-africa"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Umbrella with rain drops"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Link"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "One o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ram"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mantelpiece clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bowling"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Black nib"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kite"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fork and knife with plate"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Television"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with sunglasses"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Christmas tree"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Motorway"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Glasses"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Astonished face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling cat with heart-eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Skis"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Beating heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Backpack"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crying cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Moon cake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Broccoli"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Jack-o-lantern"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Diya lamp"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bagel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Maple leaf"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rocket"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eight-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Zipper-mouth face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Compass"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kimono"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cityscape"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sunrise"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kangaroo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "File folder"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Joystick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Candle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Volcano"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Two o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Basketball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Weary face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Petri dish"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sunset"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Upside-down face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shower"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Polar bear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Police car"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tired face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with tongue"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Leopard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Potato"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Alien monster"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "3rd place medal"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Long drum"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Diving mask"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pouting face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cloud with lightning"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bird"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ballot box with ballot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Roasted sweet potato"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Skunk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Funeral urn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Piñata"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rolled-up newspaper"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Onion"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mosque"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Horse"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Turtle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Horse face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Star-struck"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Camera"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Abacus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tumbler glass"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Speaker high volume"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Motorized wheelchair"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Soap"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Euro banknote"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Zebra"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Four o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sparkling heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Basket"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sailboat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Neutral face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "French fries"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bread"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Umbrella on ground"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fax machine"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Curry rice"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bug"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Blue book"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Right anger bubble"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Guide dog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Axe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Slightly frowning face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Electric plug"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Japanese dolls"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Building construction"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fly"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Skateboard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flat shoe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Zzz"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Garlic"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Scorpion"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with hearts"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Running shirt"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Violin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Jeans"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Anguished face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Steaming bowl"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cloud with snow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Carp streamer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face screaming in fear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Credit card"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Avocado"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Open mailbox with raised flag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Strawberry"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wind face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "First quarter moon face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with thermometer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Curling stone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Desert"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sloth"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lobster"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Last quarter moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Church"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Moai"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lady beetle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pig nose"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Closed mailbox with lowered flag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Two hearts"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tiger"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tomato"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Poodle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Light rail"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bridge at night"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Floppy disk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Guitar"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fireworks"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Notebook with decorative cover"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Notebook"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Worm"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Trackball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ten o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bank"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Round pushpin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Battery"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Beer mug"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bowl with spoon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "First quarter moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spoon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Snowflake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Telescope"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Whale"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Left speech bubble"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Heart with ribbon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Film frames"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pushpin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Baby bottle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sponge"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fire"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Party popper"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pill"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Snow-capped mountain"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ice"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Teddy bear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "2nd place medal"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Thought balloon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Otter"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sun behind rain cloud"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hammer and pick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Construction"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Racing car"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Olive"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with hand over mouth"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Star"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grinning face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with heart-eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sun behind cloud"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "New moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Snowman without snow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tamale"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mahjong red dragon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Circus tent"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lotion bottle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Parrot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pleading face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Peach"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Adhesive bandage"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with rolling eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Necktie"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Alembic"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Roller skate"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with head-bandage"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Closed mailbox with raised flag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hedgehog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cricket game"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hot pepper"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Club suit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Doughnut"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eleven-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Outbox tray"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Confetti ball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Boxing glove"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Falafel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Film projector"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Leafy green"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Anchor"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kick scooter"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Motor boat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Japanese castle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crab"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Red apple"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grinning cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hammer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pool 8 ball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bikini"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Banana"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bullet train"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cat face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cup with straw"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Heart decoration"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Clapper board"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Squid"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ping pong"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pistol"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Musical keyboard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lipstick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Synagogue"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Camel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Peanuts"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Light bulb"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Brick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Koala"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Zany face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rabbit face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "White heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Skull"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sari"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Thermometer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crocodile"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Receipt"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pencil"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Turkey"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crown"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hammer and wrench"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crayon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mushroom"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Beverage box"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sandwich"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Love letter"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pound banknote"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wilted flower"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hippopotamus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Confused face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Oden"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nauseated face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fried shrimp"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mate"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Globe showing americas"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Diamond suit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bus stop"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Framed picture"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Camera with flash"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wolf"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Woman’s hat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mouse"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Butter"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Frog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Water buffalo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sparkles"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cow face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Clown face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hourglass done"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bell"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Scarf"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sunglasses"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Waffle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Growing heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shark"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hot face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Motor scooter"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Vertical traffic light"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mango"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Motorcycle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dumpling"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Amphora"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Oncoming automobile"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chopsticks"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lizard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Scroll"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Downcast face with sweat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flying disc"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with smiling eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sun"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hugging face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pouting cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "House"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Night with stars"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Radio"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Angry face with horns"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Woman’s boot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kissing face with closed eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Airplane departure"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sun behind small cloud"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mount fuji"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cupcake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Briefs"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cat with tears of joy"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ear of corn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shinto shrine"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bed"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Paw prints"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ten-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grimacing face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Door"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Speech balloon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Taco"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Carrot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shorts"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Calendar"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rose"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Glass of milk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mobile phone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Watermelon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Yarn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "File cabinet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sunrise over mountains"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Black cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Anxious face with sweat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "New moon face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Gorilla"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bar chart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kaaba"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mosquito"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Egg"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Magnifying glass tilted left"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Trophy"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Movie camera"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ant"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Linked paperclips"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Telephone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fountain"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Service dog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Disappointed face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Expressionless face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Front-facing baby chick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Running shoe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Teacup without handle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Orangutan"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Baguette bread"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Six o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Unamused face"
-msgstr ""
-
-#: Emoji Metadata (Group Filter name)
-msgid "Objects"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hushed face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Toothbrush"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Waxing gibbous moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dollar banknote"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cloud"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ghost"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hotel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with halo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shield"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Station"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Railway track"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Passenger ship"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chess pawn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Suspension railway"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bell with slash"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Page with curl"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pizza"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
 msgid "Muted speaker"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hamster"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Drum"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kiwi fruit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Swan"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hatching chick"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fork and knife"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Broom"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Loudly crying face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Heart suit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lion"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rhinoceros"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Two-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Admission tickets"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Paperclip"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smiling face with horns"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Printer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cyclone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Magnet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Newspaper"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Two-hump camel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Police car light"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Monkey"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kissing face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Green heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Relieved face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pager"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Aerial tramway"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Musical score"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chart decreasing"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Balance scale"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sushi"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fox"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Oncoming bus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "One-thirty"
-msgstr ""
-
-#: Emoji Metadata (Group Filter name)
-msgid "Food"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Department store"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Alarm clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tokyo tower"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hibiscus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hiking boot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Weary cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rescue worker’s helmet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Blue heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Goat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shamrock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Five o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Stadium"
-msgstr ""
-
-#: Emoji Metadata (Group Filter name)
-msgid "Animals"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "High voltage"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Stopwatch"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Gear"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Field hockey"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ice hockey"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Microphone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Memo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Droplet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Carousel horse"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cricket"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Auto rickshaw"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Orange book"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dress"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Black heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Blueberries"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tiger face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Delivery truck"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Thinking face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grapes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hundred points"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with open mouth"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dagger"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Skull and crossbones"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pen"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Goggles"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Books"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Military medal"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Blossom"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "E-mail"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Direct hit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sauropod"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Heart exclamation"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crystal ball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Stop sign"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shaved ice"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Robot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Four-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fire extinguisher"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wrench"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Convenience store"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lemon"
-msgstr ""
-
-#: Emoji Metadata (Group Filter name)
-msgid "Smileys"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Yo-yo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chocolate bar"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Seven-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Artist palette"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shopping bags"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Deer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hindu temple"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Card index dividers"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eleven o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fish"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Toolbox"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rainbow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Purse"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Manual wheelchair"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bouquet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ship"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tanabata tree"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cherries"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tropical fish"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chart increasing with yen"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cloud with lightning and rain"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Canoe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Socks"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wedding"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Factory"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Broken heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with steam from nose"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Burrito"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Milky way"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Woman’s sandal"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pretzel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Honeybee"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Envelope"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Red heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pickup truck"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Post office"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Disguised face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lollipop"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Moon viewing ceremony"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Timer clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Giraffe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Salt"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Unlocked"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Envelope with arrow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Telephone receiver"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cocktail glass"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Anger symbol"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Collision"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Test tube"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Raccoon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tractor"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Laptop"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kiss mark"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Small airplane"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Microscope"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Green salad"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pig face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bow and arrow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ox"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Snail"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Coconut"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Optical disk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lacrosse"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Soccer ball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eagle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Musical note"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Railway car"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sleeping face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Poultry leg"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shortcake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hot dog"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Firecracker"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Boar"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Minibus"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Popcorn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Locomotive"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sun with face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dragon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sport utility vehicle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tram"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Yawning face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Snake"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Globe with meridians"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Clutch bag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Satellite antenna"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Penguin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mountain railway"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sheaf of rice"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Love hotel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Martial arts uniform"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Musical notes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Open mailbox with lowered flag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Green apple"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kitchen knife"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Alien"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Game die"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Persevering face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wine glass"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Croissant"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "White flower"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cat with wry smile"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Inbox tray"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Foggy"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cowboy hat face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fallen leaf"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Handbag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Balloon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Llama"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Castle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with raised eyebrow"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with monocle"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spaghetti"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Package"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fire engine"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Clipboard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Exploding head"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Computer disk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tulip"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Comet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tennis"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Money with wings"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pig"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dolphin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lying face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Meat on bone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Megaphone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eight o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Woozy face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cooked rice"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Worried face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Water wave"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spiral calendar"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tangerine"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Roller coaster"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ice cream"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Postbox"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Lab coat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Saxophone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cigarette"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bookmark"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Banjo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Key"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Metro"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Computer mouse"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Unicorn"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shushing face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sled"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rolling on the floor laughing"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spider web"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fearful face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Wind chime"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chipmunk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sun behind large cloud"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grinning face with big eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crying face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Oyster"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "See-no-evil monkey"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bookmark tabs"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Desert island"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ferris wheel"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Goblin"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "National park"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grinning cat with smiling eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cherry blossom"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flamingo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Red envelope"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flatbread"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Winking face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bacon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ticket"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Kissing face with smiling eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Plunger"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Full moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Studio microphone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Magic wand"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Oil drum"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Statue of liberty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Angry face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Beaming face with smiling eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Peacock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Desktop computer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Stethoscope"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Helicopter"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sad but relieved face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "White cane"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eye in speech bubble"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cut of meat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Honey pot"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Gem stone"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Safety vest"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dog face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tropical drink"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chicken"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Joker"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Last quarter moon face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sneezing face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hole"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grinning face with smiling eyes"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "American football"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Three o’clock"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Drop of blood"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Four leaf clover"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Control knobs"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hourglass not done"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chair"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shrimp"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tram car"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flag in hole"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mouse face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pile of poo"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sunflower"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cookie"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ringed planet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Squinting face with tongue"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tear-off calendar"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bellhop bell"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dragon face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Parachute"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dango"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sparkler"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "One-piece swimsuit"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Office building"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rugby football"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Roll of paper"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Seedling"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Glowing star"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Mountain"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Map of japan"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Partying face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dna"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bomb"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hamburger"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Label"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flying saucer"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Man’s shoe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fuel pump"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face savoring food"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Grinning face with sweat"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Owl"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Red paper lantern"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cold face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face blowing a kiss"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Clinking glasses"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3369,55 +25,15 @@ msgid "Fountain pen"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Barber pole"
+msgid "Bento box"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Mobile phone with arrow"
+msgid "Blueberries"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Five-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Volleyball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Money bag"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Scissors"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Orange heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Umbrella"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Houses"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Brown heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Level slider"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bottle with popping cork"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Taxi"
+msgid "Electric plug"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3425,343 +41,75 @@ msgid "Face without mouth"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Open file folder"
+msgid "Printer"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Keyboard"
+msgid "Crown"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Seven o’clock"
+msgid "Shrimp"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Green book"
+msgid "Slightly frowning face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Slot machine"
+msgid "Flatbread"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Clinking beer mugs"
+msgid "Saxophone"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Cloud with rain"
+msgid "Computer disk"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Rabbit"
+msgid "Popcorn"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Rosette"
+msgid "Open book"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Thong sandal"
+msgid "Telephone"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Canned food"
+msgid "Butter"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Baseball"
+msgid "First quarter moon face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Candy"
+msgid "Potato"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Waxing crescent moon"
+msgid "Railway track"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Speak-no-evil monkey"
+msgid "Crystal ball"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Speedboat"
+msgid "Hot dog"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Monkey face"
+msgid "Orangutan"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Articulated lorry"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Tornado"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Closed book"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Oncoming taxi"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Watch"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Spiral shell"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Fishing pole"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dove"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cooking"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sweat droplets"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Satellite"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Drooling face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Frowning face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hot springs"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Badminton"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Puzzle piece"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Video camera"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Toilet"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Airplane"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Chart increasing"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Flower playing cards"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Evergreen tree"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pensive face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pot of food"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Hot beverage"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rice cracker"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face vomiting"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Money-mouth face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "1st place medal"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Goal net"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "School"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Page facing up"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Purple heart"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Melon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Speaker medium volume"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bathtub"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Airplane arrival"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Smirking face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rooster"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Face with tears of joy"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Dizzy"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Badger"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Reminder ribbon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Camping"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ogre"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Locked with key"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Soft ice cream"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Waning crescent moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Bento box"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Eggplant"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nine-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Shooting star"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Three-thirty"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Ledger"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Pineapple"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Snowman"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Cityscape at dusk"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Derelict house"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Globe showing asia-australia"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Rice ball"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Nerd face"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Crescent moon"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Paintbrush"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Leaf fluttering in wind"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Syringe"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Incoming envelope"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Gloves"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Horizontal traffic light"
+msgid "Kaaba"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3769,7 +117,215 @@ msgid "Sleepy face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Oncoming police car"
+msgid "Television"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Black cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Helicopter"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rolling on the floor laughing"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shopping bags"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oden"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fire"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chart increasing with yen"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Goal net"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "File folder"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Twelve-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Running shirt"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Magnifying glass tilted right"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bar chart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Package"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Green book"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Christmas tree"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hamburger"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Linked paperclips"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cupcake"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with heart-eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Open mailbox with raised flag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Right anger bubble"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "2nd place medal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Takeout box"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tractor"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rose"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fly"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Auto rickshaw"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bicycle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Four o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Baby chick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Teacup without handle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bowl with spoon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Carousel horse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Heart suit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dango"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cityscape"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mobile phone with arrow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Barber pole"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Triangular ruler"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crab"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cherry blossom"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sandwich"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pickup truck"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Banjo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hammer and wrench"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Thong sandal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bookmark"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cookie"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Keyboard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flower playing cards"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sake"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3777,9 +333,3453 @@ msgid "Prayer beads"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Grinning squinting face"
+msgid "Egg"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Camel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kick scooter"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Small airplane"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wastebasket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cold face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sun behind rain cloud"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nauseated face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dvd"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Snowman without snow"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Activities"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Poodle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Candle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pistol"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Guide dog"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Love hotel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Post office"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Trophy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Skis"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Postal horn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wine glass"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "See-no-evil monkey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crayon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "World map"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Factory"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Orange heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Honeybee"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Poultry leg"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Seven o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pot of food"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Peacock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Horizontal traffic light"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Giraffe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Burrito"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beaming face with smiling eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Star-struck"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mouse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hippopotamus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Green apple"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Speaker low volume"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Olive"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "T-rex"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Postbox"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Locked"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Diamond suit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Boxing glove"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shark"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Telescope"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pleading face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rice ball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pig nose"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kite"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Curry rice"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Motor scooter"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hedgehog"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sponge"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hotel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lizard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Statue of liberty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Incoming envelope"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Exploding head"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Open mailbox with lowered flag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Military medal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Boar"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Globe showing europe-africa"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shield"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Upside-down face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Money with wings"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Musical keyboard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sun behind small cloud"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Joystick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mosque"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Open file folder"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chart decreasing"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Birthday cake"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sparkling heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Closed umbrella"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Anchor"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Softball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cheese wedge"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bottle with popping cork"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mountain railway"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rainbow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fork and knife with plate"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Articulated lorry"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Duck"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dumpling"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Film projector"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dog face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dragon face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Black heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Police car"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Framed picture"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Jeans"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sushi"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with steam from nose"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Diya lamp"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hourglass done"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Light rail"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Camping"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chopsticks"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flag in hole"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sweat droplets"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Honey pot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Angry face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sailboat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Heart with arrow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Piñata"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Broom"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Scarf"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Speaker medium volume"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Card index dividers"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Stuffed flatbread"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Zzz"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ram"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eleven o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rocket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pool 8 ball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Droplet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bell"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ballet shoes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wrapped gift"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "House"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bagel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ten-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Onion"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nine o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ticket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ice hockey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hiking boot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Martial arts uniform"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Salt"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Black nib"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eleven-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Telephone receiver"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Control knobs"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cloud with rain"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Blue book"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flushed face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Long drum"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kissing face with closed eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Funeral urn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chipmunk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pouting face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fountain"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Owl"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Church"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Yen banknote"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Service dog"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Automobile"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kissing cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hourglass not done"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Money-mouth face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Waning gibbous moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oncoming automobile"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with symbols on mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Croissant"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "New moon face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bank"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sad but relieved face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Horse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wind face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dog"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Aerial tramway"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "T-shirt"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bookmark tabs"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Closed book"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Musical notes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rugby football"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Avocado"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dizzy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Baby bottle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Derelict house"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Badger"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Squinting face with tongue"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Door"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nesting dolls"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Left speech bubble"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flashlight"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rhinoceros"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sneezing face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tent"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Scroll"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Heart with ribbon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with thermometer"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Food"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bouquet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nine-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tropical fish"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with tear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mahjong red dragon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "White cane"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Red apple"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lollipop"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fried shrimp"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Airplane"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cherries"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Moon viewing ceremony"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Reminder ribbon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Slightly smiling face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Zebra"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Snow-capped mountain"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Alien"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kiss mark"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Roll of paper"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rosette"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Delivery truck"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pen"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sunrise"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pencil"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tomato"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Two o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "First quarter moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Closed mailbox with lowered flag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Thinking face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cloud with lightning"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dollar banknote"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Baguette bread"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Metro"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pig"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chess pawn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Jack-o-lantern"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with tears of joy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wind chime"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hatching chick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Turtle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oncoming police car"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cucumber"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "White heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Backpack"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Otter"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clamp"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Circus tent"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spider"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Loudspeaker"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Squid"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "French fries"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Herb"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Laptop"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Banana"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Office building"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Headphone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pensive face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Trumpet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sled"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Milky way"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rolled-up newspaper"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Taxi"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "One o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Amphora"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Speak-no-evil monkey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Railway car"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Basketball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "High-heeled shoe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pie"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hammer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Parrot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Persevering face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ear of corn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Koala"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pancakes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pound banknote"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with hearts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bus stop"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Money bag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clipboard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Joker"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Alarm clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Worried face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Movie camera"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Monkey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tired face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Star"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hot beverage"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fortune cookie"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Light bulb"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hamster"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Drop of blood"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hugging face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oncoming bus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Blossom"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sun behind cloud"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Whale"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chestnut"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Leopard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Love letter"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Heart exclamation"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Orange book"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Old key"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clutch bag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cooking"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Radio"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tangerine"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spider web"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Stethoscope"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Trolleybus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Waffle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Department store"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Robot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shallow pan of food"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tanabata tree"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Billed cap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flat shoe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spouting whale"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Camera with flash"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Deciduous tree"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rescue worker’s helmet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Foggy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Zany face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Watch"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Waxing gibbous moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bullet train"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Key"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "American football"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Gem stone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with smiling eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lab coat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beverage box"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Performing arts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Safety vest"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Globe showing americas"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Airplane departure"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ewe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Confused face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Video camera"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "White flower"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fireworks"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shooting star"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pager"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "One-piece swimsuit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Scissors"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ant"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hundred points"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shinto shrine"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Downcast face with sweat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Elephant"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Basket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ribbon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fallen leaf"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shower"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sunglasses"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cyclone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Carrot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Couch and lamp"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Film frames"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fishing pole"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Two-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shushing face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Comet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Peach"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Abacus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Socks"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Passenger ship"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ballot box with ballot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pretzel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sparkler"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Glass of milk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Heart decoration"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Roller coaster"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Envelope"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Partying face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hole"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Umbrella"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Snail"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Houses"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spaghetti"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with horns"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Manual wheelchair"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Curling stone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Yawning face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Seat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mount fuji"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wolf"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Game die"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fork and knife"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Thermometer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Seven-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "One-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mouse face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Scorpion"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kissing face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Train"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face blowing a kiss"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Red envelope"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flying disc"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clinking glasses"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pizza"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Minibus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Volleyball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Doughnut"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Toilet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rice cracker"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Soft ice cream"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tiger face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dress"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Party popper"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flamingo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cricket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Japanese castle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Motorway"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Panda"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Deer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Worm"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Volcano"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Soccer ball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Baseball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spiral notepad"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Zipper-mouth face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Growing heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Moon cake"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Gloves"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "New moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Six o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ledger"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ice skate"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pine decoration"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sloth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Last quarter moon face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bikini"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crying cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eye in speech bubble"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Page with curl"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Gear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hammer and pick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hindu temple"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Balloon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kissing face with smiling eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bathtub"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fire engine"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Blue heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Top hat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Toothbrush"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lipstick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kimono"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Firecracker"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cat with tears of joy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fire extinguisher"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ten o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fish cake with swirl"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Roller skate"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cityscape at dusk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Round pushpin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pig face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Globe with meridians"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eagle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hot springs"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dove"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "School"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bed"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Satellite"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cow face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Coconut"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Soap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Locomotive"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ghost"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Memo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Optical disk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pill"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Artist palette"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lobster"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cut of meat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Red heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dashing away"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Microscope"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Garlic"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Label"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Green heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Blowfish"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Direct hit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Magnet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eggplant"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nazar amulet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Studio microphone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Test tube"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Llama"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nut and bolt"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Front-facing baby chick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spiral calendar"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Microbe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Meat on bone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dna"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Unicorn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Four-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Snowman"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ringed planet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Red paper lantern"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tulip"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Syringe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Collision"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Expressionless face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beating heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Briefcase"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Alembic"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spade suit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Suspension railway"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Winking face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Octopus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Goblin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wrench"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Objects"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Strawberry"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning face with big eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Monkey face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Broken heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shamrock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Water wave"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sun"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Station"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Inbox tray"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning face with smiling eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pushpin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Brown heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Page facing up"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Purse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Butterfly"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Puzzle piece"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bowling"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chocolate bar"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with open mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Synagogue"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Axe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Glowing star"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Graduation cap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hospital"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Full moon face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hibiscus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sunflower"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Carp streamer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grimacing face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Classical building"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Building construction"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Stopwatch"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bacon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Outbox tray"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Euro banknote"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "3rd place medal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Man’s shoe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lacrosse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tumbler glass"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Thread"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Angry face with horns"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Thought balloon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "National park"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Convenience store"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Magnifying glass tilted left"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Monorail"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wedding"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Leaf fluttering in wind"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "High voltage"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face screaming in fear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling cat with heart-eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Flying saucer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Computer mouse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Moai"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Razor"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Woman’s boot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Construction"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oil drum"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Coffin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Custard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Loudly crying face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with monocle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bridge at night"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Plunger"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tornado"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ogre"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Skateboard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lady beetle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Japanese post office"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rabbit face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mountain cableway"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Maple leaf"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ice cream"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fox"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Leafy green"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crescent moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shorts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sports medal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crocodile"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sari"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Broccoli"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sparkles"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Night with stars"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with sunglasses"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oncoming taxi"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Neutral face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Three-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Closed mailbox with raised flag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Card file box"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Unlocked"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Locked with key"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Videocassette"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Desert island"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Books"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Card index"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cloud with snow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rooster"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Notebook"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Badminton"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Animals"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Compass"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Straight ruler"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pineapple"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hushed face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Newspaper"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Notebook with decorative cover"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Guitar"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Relieved face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Club suit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Candy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Weary face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cat face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fearful face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Teddy bear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Canned food"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Anxious face with sweat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tram car"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Credit card"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Falafel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Airplane arrival"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Adhesive bandage"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Skunk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Calendar"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with rolling eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lying face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kitchen knife"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Purple heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Raccoon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lemon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Frowning face with open mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Field hockey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Umbrella on ground"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Horse face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Astonished face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Necktie"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Melon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fuel pump"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Satellite antenna"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Level slider"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Umbrella with rain drops"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Locked with pen"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chart increasing"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Musical note"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "1st place medal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Goggles"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sunrise over mountains"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Motorized wheelchair"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smiling face with halo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "E-mail"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Battery"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Parachute"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grapes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Five o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Water buffalo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pile of poo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Balance scale"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cooked rice"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bread"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clown face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mobile phone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Roasted sweet potato"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Trackball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ping pong"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "High-speed train"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Yo-yo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with tongue"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shortcake"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bomb"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lotion bottle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fog"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Petri dish"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Motor boat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Paperclip"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ox"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "House with garden"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Snake"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Link"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Two-hump camel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beach with umbrella"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Magic wand"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ring"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Camera"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sunset"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dizzy face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Luggage"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chains"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sun with face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Alien monster"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cocktail glass"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tropical drink"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Full moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning cat with smiling eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Map of japan"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hear-no-evil monkey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bow and arrow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Four leaf clover"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ferry"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fish"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Timer clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Winking face with tongue"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Last quarter moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kangaroo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with medical mask"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Woman’s clothes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with head-bandage"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Floppy disk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Woozy face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sauropod"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Oyster"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Racing car"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Slot machine"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nerd face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Police car light"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Brick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Waxing crescent moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Waning crescent moon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cowboy hat face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ice"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chicken"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bell with slash"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bug"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bird"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Weary cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beer mug"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Snowflake"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face savoring food"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sport utility vehicle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bellhop bell"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Three o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pouting cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Japanese dolls"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Megaphone"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Smileys"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Skull"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Motorcycle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hot pepper"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Envelope with arrow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Anger symbol"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face vomiting"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning face with sweat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ferris wheel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tokyo tower"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Admission tickets"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Five-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Evergreen tree"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Kiwi fruit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Disappointed face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Microphone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Safety pin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mosquito"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Coat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crossed swords"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "File cabinet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Woman’s hat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ambulance"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Castle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Frog"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cricket game"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spoon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hot face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Green salad"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Handbag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Woman’s sandal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Disguised face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Two hearts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mushroom"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Crying face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Desert"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dolphin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clinking beer mugs"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with raised eyebrow"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shopping cart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eight-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Canoe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Video game"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Goat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Penguin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Drum"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tennis"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Yarn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ship"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tamale"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Unamused face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dragon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Polar bear"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Steaming bowl"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chair"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rabbit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Revolving hearts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Clapper board"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Stop sign"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fax machine"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sheaf of rice"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tear-off calendar"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Smirking face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cat with wry smile"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Shaved ice"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Running shoe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sun behind large cloud"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Drooling face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wilted flower"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Grinning squinting face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Paw prints"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Violin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cloud"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Speech balloon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dagger"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Vertical traffic light"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Stadium"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cup with straw"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Speaker high volume"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eight o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mango"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Globe showing asia-australia"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tiger"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Peanuts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Twelve o’clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Skull and crossbones"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Gorilla"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Seedling"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mountain"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Lion"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cactus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mate"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Confounded face"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Travel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Six-thirty"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cigarette"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Diving mask"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Confetti ball"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Desktop computer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Taco"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Anguished face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Glasses"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sleeping face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Speedboat"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Musical score"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Palm tree"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Yellow heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Briefs"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Watermelon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tram"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with hand over mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mantelpiece clock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Turkey"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Swan"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cloud with lightning and rain"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Frowning face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Spiral shell"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Receipt"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Paintbrush"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Toolbox"
 msgstr ""

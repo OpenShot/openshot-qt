@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.5.1-dev2)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2020-04-16 16:17:39.397314\n"
+"POT-Creation-Date: 2020-04-17 15:59:40.492612\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -1384,7 +1384,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:796
+#: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:800
 msgid "Reset Zoom"
 msgstr ""
 
@@ -1498,184 +1498,11 @@ msgid "Are you sure you want to cancel the export?"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Best Fit"
+msgid "ID"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Is Odd Frame"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Right Size"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Auto"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Crop Height"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Enable Audio"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the color saturation."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Replace Image"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Scale X"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Crop Y"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Color Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Enable Video"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Vertical speed"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Alpha Mask / Wipe Transition"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Channel Mapping"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid ""
-"Uses a grayscale mask image to gradually wipe / transition between 2 images."
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Crop"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Top Center"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Right Margin"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Y Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Gravity"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Center"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Blur"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Amplitude"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Multiplier"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Alpha X Shift"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Position"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Sigma"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Origin Y"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Vertical Radius"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Negative"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Duration"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Left"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Saturation"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Green Y Shift"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Pixelate"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Frame Number"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Channel Filter"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Right"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Blue X Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Left Size"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Source"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the hue / color of the frame's image."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Off"
+msgid "Wave length"
 msgstr ""
 
 #: libopenshot (Clip Properties)
@@ -1683,39 +1510,104 @@ msgid "Crop X"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "X Shift"
+msgid "Key Color"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the blur of the frame's image."
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Location X"
+msgid "Alpha Y Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Frame Number"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Add colored bars around your video."
+msgid "Alpha Mask / Wipe Transition"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Green Y Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Position"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Chroma Key (Greenscreen)"
+msgid "Wave"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bar Color"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Left"
 msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Crop Width"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Track"
+#: libopenshot (Effect Metadata)
+msgid "Brightness & Contrast"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Red X Shift"
+msgid "Center"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Bottom Margin"
+msgid "Auto"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Right"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Distort the frame's image into a wave pattern."
+msgid "Deinterlace"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Shear X"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Waveform"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:97
+msgid "Start"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Blue X Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Duration"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Channel Mapping"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Bars"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Fuzz"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Chroma Key (Greenscreen)"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
@@ -1724,24 +1616,202 @@ msgid ""
 "the color)."
 msgstr ""
 
+#: libopenshot (Clip Properties)
+msgid "Right Margin"
+msgstr ""
+
 #: libopenshot (Effect Metadata)
-msgid "Deinterlace"
+msgid "Shift the image up, down, left, and right (with infinite wrapping)."
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Both"
+msgid "Stretch"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Key Color"
+msgid "Amplitude"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Wave length"
+msgid "Track"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Is Odd Frame"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Horizontal Radius"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Crop Y"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "X Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Enable Audio"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Margin"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Location X"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Right Size"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Alpha X Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Left Size"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
 msgid "Pixelate (increase or decrease) the number of visible pixels."
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Pixelate"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Distort the frame's image into a wave pattern."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Sigma"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Bottom Left"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Pixelization"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Scale X"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Size"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Volume Mixing"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the color saturation."
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid ""
+"Uses a grayscale mask image to gradually wipe / transition between 2 images."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:116
+msgid "End"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Center"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Right"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Y Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Red Y Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Reduce"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Add colored bars around your video."
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the brightness and contrast of the frame's image."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Crop Height"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Best Fit"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Scale Y"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Crop"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Top Margin"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Green X Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Enable Video"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Channel Filter"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Hue"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Adjust the hue / color of the frame's image."
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "On"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Replace Image"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Negative"
 msgstr ""
 
 #: libopenshot (Clip Properties)
@@ -1753,138 +1823,24 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: libopenshot (Clip Properties)
-msgid "Top Margin"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "ID"
-msgstr ""
-
 #: libopenshot (Effect Metadata)
-msgid "Hue"
+msgid "Color Shift"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Top Left"
+msgid "Both"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Shear X"
+msgid "Saturation"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Fuzz"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Average"
+msgid "Vertical speed"
 msgstr ""
 
 #: libopenshot (Clip Properties)
 msgid "Location Y"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Reduce"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:116
-msgid "End"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Stretch"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Wave Color"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/cutting.ui:97
-msgid "Start"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Brightness & Contrast"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Waveform"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Bars"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Volume Mixing"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Horizontal Radius"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Remove interlacing from a video (i.e. even or odd horizontal lines)"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Negates the colors, producing a negative of the image."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Alpha Y Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Red Y Shift"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Iterations"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Shift the image up, down, left, and right (with infinite wrapping)."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Top Right"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "On"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bottom Center"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Adjust the brightness and contrast of the frame's image."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Pixelization"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Green X Shift"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Crop out any part of your video."
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Bar Color"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Shear Y"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
@@ -1892,15 +1848,39 @@ msgid "Color Saturation"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Origin X"
-msgstr ""
-
-#: libopenshot (Clip Properties)
-msgid "Scale Y"
+msgid "Left Margin"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Adjust the blur of the frame's image."
+msgid "Blur"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Multiplier"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Origin Y"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Iterations"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Average"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Red X Shift"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Off"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Crop out any part of your video."
 msgstr ""
 
 #: libopenshot (Clip Properties)
@@ -1908,11 +1888,19 @@ msgid "Bottom Size"
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Left Margin"
+msgid "Origin X"
 msgstr ""
 
-#: libopenshot (Effect Metadata)
-msgid "Wave"
+#: libopenshot (Clip Properties)
+msgid "Source"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Gravity"
+msgstr ""
+
+#: libopenshot (Clip Properties)
+msgid "Vertical Radius"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
@@ -1922,366 +1910,23 @@ msgid ""
 msgstr ""
 
 #: libopenshot (Clip Properties)
-msgid "Top Size"
+msgid "Bottom Center"
 msgstr ""
 
-#: Settings for cache-mode
-msgid "Cache Mode"
+#: libopenshot (Clip Properties)
+msgid "Shear Y"
 msgstr ""
 
-#: Settings for decode_hw_max_width
-msgid "Hardware Decoder Max Width (0 = Default)"
+#: libopenshot (Clip Properties)
+msgid "Wave Color"
 msgstr ""
 
-#: Settings for cache-mode
-msgid "Memory"
+#: libopenshot (Effect Metadata)
+msgid "Negates the colors, producing a negative of the image."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_qsv.xml
-msgid "MP4 (h.264 qsv)"
-msgstr ""
-
-#: Settings for actionJumpStart
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:783
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:786
-msgid "Jump To Start"
-msgstr ""
-
-#: Settings for omp_threads_number
-msgid "OMP Threads (0 = Default)"
-msgstr ""
-
-#: Settings for rewindVideo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:795
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:798
-msgid "Rewind"
-msgstr ""
-
-#: Settings for cache-image-format
-msgid "Image Format (Disk Only)"
-msgstr ""
-
-#: Settings for autosave-interval
-msgid "Autosave Interval (minutes)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Apple TV"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
-msgid "Wikipedia"
-msgstr ""
-
-#: Settings for playToggle
-msgid "Play/Pause Toggle"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_hw.xml
-msgid "MP4 (h.264 va)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
-msgid "AVI (mpeg2)"
-msgstr ""
-
-#: Settings Category for Debug
-msgid "Debug"
-msgstr ""
-
-#: Settings for actionAddMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:891
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:894
-msgid "Add Marker"
-msgstr ""
-
-#: Settings for actionCenterOnPlayhead
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:930
-msgid "Center on Playhead"
-msgstr ""
-
-#: Settings for actionProperties
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:376
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1484
-msgid "Properties"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_hevc_hw.xml
-msgid "MP4 (HEVC va)"
-msgstr ""
-
-#: Settings for hw-decoder
-msgid "Hardware Decoder Mode"
-msgstr ""
-
-#: Settings Category for Autosave
-msgid "Autosave"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/instagram.xml
-msgid "Instagram"
-msgstr ""
-
-#: Settings for blender_gpu_enabled
-msgid "Use Blender GPU rendering for Animated Titles (Experimental)"
-msgstr ""
-
-#: Settings for show_finished_window
-msgid "Show Export Dialog when Finished"
-msgstr ""
-
-#: Settings for cache-quality
-msgid "Image Quality (Disk Only)"
-msgstr ""
-
-#: Settings Category for Cache
-msgid "Cache"
-msgstr ""
-
-#: Settings for default-language
-msgid "Language"
-msgstr ""
-
-#: Settings for actionQuit
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:726
-msgid "Quit"
-msgstr ""
-
-#: Settings for nudgeRight
-msgid "Nudge right"
-msgstr ""
-
-#: Settings for actionThumbnailView
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1187
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1190
-msgid "Thumbnail View"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x265_crf.xml
-msgid "MP4 (h.265)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
-msgid "MOV (h.264)"
-msgstr ""
-
-#: Settings for theme
-msgid "Default Theme"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
-msgid "MP4 (mpeg4)"
-msgstr ""
-
-#: Settings for playToggle3
-msgid "Play/Pause Toggle (Alternate 3)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
-msgid "OGG (theora/vorbis)"
-msgstr ""
-
-#: Settings Category for Performance
-msgid "Performance"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
-msgid "WEBM (vpx)"
-msgstr ""
-
-#: Settings for default-samplerate
-msgid "Default Audio Sample Rate"
-msgstr ""
-
-#: Settings for sliceAllKeepRightSide
-msgid "Slice All: Keep Right Side"
-msgstr ""
-
-#: Settings for omp_threads_enabled
-msgid "Process Video Frames in Parallel (Experimental)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
-msgid "OGG (theora/flac)"
-msgstr ""
-
-#: Settings for theme
-msgid "Humanity"
-msgstr ""
-
-#: Settings for title_editor
-msgid "Advanced Title Editor (path)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mkv_libaom.xml
-msgid "MKV (av1)"
-msgstr ""
-
-#: Settings for sliceAllKeepLeftSide
-msgid "Slice All: Keep Left Side"
-msgstr ""
-
-#: Settings for actionPreferences
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:756
-msgid "Preferences"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "AVCHD Disks"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
-msgid "Blu-Ray/AVCHD"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
-msgid "Flickr-HD"
-msgstr ""
-
-#: Settings for actionRedo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:654
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:657
-msgid "Redo"
-msgstr ""
-
-#: Settings for deleteItem
-msgid "Delete Item"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
-msgid "YouTube"
-msgstr ""
-
-#: Settings for history-limit
-msgid "History Limit (# of undo/redo)"
-msgstr ""
-
-#: Settings for hw-decoder
-msgid "Nvidia NVDEC"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Web"
-msgstr ""
-
-#: Settings for actionAddTrack
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:741
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:744
-msgid "Add Track"
-msgstr ""
-
-#: Settings for nudgeLeft
-msgid "Nudge left"
-msgstr ""
-
-#: Settings for selectAll
-msgid "Select All"
-msgstr ""
-
-#: Settings for seekNextFrame
-msgid "Next Frame"
-msgstr ""
-
-#: Settings for actionAnimatedTitle
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1122
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1125
-msgid "Animated Title"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD"
-msgstr ""
-
-#: Settings for actionTransform
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1574
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1577
-msgid "Transform"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
-msgid "AVI (mpeg4)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
-msgid "MP4 (Xvid)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
-msgid "Metacafe"
-msgstr ""
-
-#: Settings for default-image-length
-msgid "Image Length (seconds)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
-msgid "MOV (mpeg4)"
-msgstr ""
-
-#: Settings for send_metrics
-msgid "Send Anonymous Metrics and Errors"
-msgstr ""
-
-#: Settings for actionPreviousMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:906
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:909
-msgid "Previous Marker"
-msgstr ""
-
-#: Settings for actionSaveFrame
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
-msgid "Save Current Frame"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
-msgid "MPEG (mpeg2)"
-msgstr ""
-
-#: Settings for fastforwardVideo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:807
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:810
-msgid "Fast Forward"
-msgstr ""
-
-#: Settings for sliceAllKeepBothSides
-msgid "Slice All: Keep Both Sides"
-msgstr ""
-
-#: Settings for theme
-msgid "Humanity: Dark"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
-msgid "Nokia nHD"
-msgstr ""
-
-#: Settings for seekPreviousFrame
-msgid "Previous Frame"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
-msgid "Vimeo"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_vtb.xml
-msgid "MP4 (h.264 videotoolbox)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
-msgid "Picasa"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_dx.xml
-msgid "MP4 (h.264 dx)"
-msgstr ""
-
-#: Settings Category for General
-msgid "General"
-msgstr ""
-
-#: Settings for selectNone
-msgid "Select None"
+#: Settings for cache-scale
+msgid "Scale Factor (Disk Only)"
 msgstr ""
 
 #: Settings for actionSnappingTool
@@ -2290,21 +1935,17 @@ msgstr ""
 msgid "Snapping Enabled"
 msgstr ""
 
-#: Settings for hw-decoder
-msgid "MacOS"
+#: Settings for actionQuit
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:726
+msgid "Quit"
 msgstr ""
 
-#: Settings for actionSplitClip
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1466
-msgid "Split Clip..."
+#: Settings for seekNextFrame
+msgid "Next Frame"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_nv.xml
-msgid "MP4 (h.264 nv)"
-msgstr ""
-
-#: Settings for playToggle2
-msgid "Play/Pause Toggle (Alternate 2)"
+#: Settings for show_finished_window
+msgid "Show Export Dialog when Finished"
 msgstr ""
 
 #: Settings for actionImportFiles
@@ -2312,12 +1953,64 @@ msgstr ""
 msgid "Import Files..."
 msgstr ""
 
-#: Settings for debug-port
-msgid "Debug Mode (Port)"
-msgstr ""
-
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvp9_lossless.xml
 msgid "WEBM (vp9) lossless"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/chromebook.xml
+msgid "Chromebook"
+msgstr ""
+
+#: Settings for playToggle2
+msgid "Play/Pause Toggle (Alternate 2)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml
+msgid "Vimeo-HD"
+msgstr ""
+
+#: Settings for sliceAllKeepBothSides
+msgid "Slice All: Keep Both Sides"
+msgstr ""
+
+#: Settings for default-channellayout
+msgid "Default Audio Channels"
+msgstr ""
+
+#: Settings for omp_threads_number
+msgid "OMP Threads (0 = Default)"
+msgstr ""
+
+#: Settings for playToggle1
+msgid "Play/Pause Toggle (Alternate 1)"
+msgstr ""
+
+#: Settings for actionJumpStart
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:783
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:786
+msgid "Jump To Start"
+msgstr ""
+
+#: Settings for actionPreviousMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:906
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:909
+msgid "Previous Marker"
+msgstr ""
+
+#: Settings for selectAll
+msgid "Select All"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Device"
+msgstr ""
+
+#: Settings for recovery-limit
+msgid "Recovery Limit (# of project copies)"
+msgstr ""
+
+#: Settings for selectNone
+msgid "Select None"
 msgstr ""
 
 #: Settings for actionSave
@@ -2326,95 +2019,77 @@ msgstr ""
 msgid "Save Project"
 msgstr ""
 
-#: Settings for decode_hw_max_height
-msgid "Hardware Decoder Max Height (0 = Default)"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Web"
+msgstr ""
+
+#: Settings for enable-auto-save
+msgid "Enable Autosave"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mpeg_mpeg2.xml
+msgid "MPEG (mpeg2)"
+msgstr ""
+
+#: Settings for actionPreferences
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:756
+msgid "Preferences"
 msgstr ""
 
 #: Settings for hw-decoder
-msgid "Linux VA-API"
+msgid "Windows D3D11"
 msgstr ""
 
-#: Settings for actionAbout
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
-msgid "About OpenShot"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
-msgid "DVD-PAL"
-msgstr ""
-
-#: Settings for hw-decoder
-msgid "Windows D3D9"
-msgstr ""
-
-#: Settings for hw-decoder
-msgid "Linux VDPAU"
-msgstr ""
-
-#: Settings for actionDetailsView
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1202
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1205
-msgid "Details View"
-msgstr ""
-
-#: Settings Category for Keyboard
-msgid "Keyboard"
-msgstr ""
-
-#: Settings for graca_number_de
-msgid "Hardware Decoder Graphics Card"
-msgstr ""
-
-#: Settings for actionNextMarker
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:918
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:921
-msgid "Next Marker"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/chromebook.xml
-msgid "Chromebook"
-msgstr ""
-
-#: Settings for blender_command
-msgid "Blender Command (path)"
+#: Settings Category for Performance
+msgid "Performance"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_x264.xml
 msgid "AVI (h.264)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
-msgid "DVD-NTSC"
+#: Settings for nudgeLeft
+msgid "Nudge left"
 msgstr ""
 
-#: Settings for cache-mode
-msgid "Disk"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mkv_libaom.xml
+msgid "MKV (av1)"
 msgstr ""
 
-#: Settings for playToggle1
-msgid "Play/Pause Toggle (Alternate 1)"
-msgstr ""
-
-#: Settings for actionNew
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
-msgid "New Project"
+#: Settings for playback-audio-device
+msgid "Playback Audio Device"
 msgstr ""
 
 #: Settings for theme
 msgid "No Theme"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
-msgid "Device"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_flac.xml
+msgid "OGG (theora/flac)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/twitter.xml
-msgid "Twitter"
+#: Settings for cache-mode
+msgid "Cache Mode"
 msgstr ""
 
-#: Settings for hw-decoder
-msgid "Windows D3D11"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mpeg2.xml
+msgid "AVI (mpeg2)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_hw.xml
+msgid "MP4 (h.264 va)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_mpeg4.xml
+msgid "MOV (mpeg4)"
+msgstr ""
+
+#: Settings for nudgeRight
+msgid "Nudge right"
+msgstr ""
+
+#: Settings Category for General
+msgid "General"
 msgstr ""
 
 #: Settings for actionTitle
@@ -2424,42 +2099,28 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: Settings for cache-mode
+msgid "Disk"
+msgstr ""
+
+#: Settings for default-language
+msgid "Language"
+msgstr ""
+
+#: Settings Category for Autosave
+msgid "Autosave"
+msgstr ""
+
 #: Settings for default-profile
 msgid "Default Profile"
 msgstr ""
 
-#: Settings for default-channellayout
-msgid "Default Audio Channels"
+#: Settings for default-image-length
+msgid "Image Length (seconds)"
 msgstr ""
 
-#: Settings for playback-audio-device
-msgid "Playback Audio Device"
-msgstr ""
-
-#: Settings for hw-decoder
-msgid "Intel QSV"
-msgstr ""
-
-#: Settings for actionUndo
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:579
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:582
-msgid "Undo"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
-msgid "FLV (h.264)"
-msgstr ""
-
-#: Settings for recovery-limit
-msgid "Recovery Limit (# of project copies)"
-msgstr ""
-
-#: Settings for enable-auto-save
-msgid "Enable Autosave"
-msgstr ""
-
-#: Settings for auto-transform
-msgid "Auto-Transform Selection"
+#: /home/jonathan/apps/openshot-qt-git/src/presets/twitter.xml
+msgid "Twitter"
 msgstr ""
 
 #: Settings for actionAdd_to_Timeline
@@ -2468,8 +2129,252 @@ msgstr ""
 msgid "Add to Timeline"
 msgstr ""
 
+#: Settings for deleteItem
+msgid "Delete Item"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_vtb.xml
+msgid "MP4 (h.264 videotoolbox)"
+msgstr ""
+
+#: Settings for actionAddMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:891
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:894
+msgid "Add Marker"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/wikipedia.xml
+msgid "Wikipedia"
+msgstr ""
+
+#: Settings for theme
+msgid "Default Theme"
+msgstr ""
+
+#: Settings for playToggle3
+msgid "Play/Pause Toggle (Alternate 3)"
+msgstr ""
+
+#: Settings for decode_hw_max_width
+msgid "Hardware Decoder Max Width (0 = Default)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_pal.xml
+msgid "DVD-PAL"
+msgstr ""
+
+#: Settings for autosave-interval
+msgid "Autosave Interval (minutes)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_avi_mp4.xml
+msgid "AVI (mpeg4)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
+msgid "YouTube-HD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_dx.xml
+msgid "MP4 (h.264 dx)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_vp9_hw.xml
+msgid "WEBP (vp9 va)"
+msgstr ""
+
+#: Settings for cache-mode
+msgid "Memory"
+msgstr ""
+
+#: Settings for default-samplerate
+msgid "Default Audio Sample Rate"
+msgstr ""
+
+#: Settings for sliceAllKeepLeftSide
+msgid "Slice All: Keep Left Side"
+msgstr ""
+
+#: Settings for hw-decoder
+msgid "Linux VDPAU"
+msgstr ""
+
+#: Settings for blender_command
+msgid "Blender Command (path)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_qsv.xml
+msgid "MP4 (h.264 qsv)"
+msgstr ""
+
+#: Settings for graca_number_en
+msgid "Hardware Encoder Graphics Card"
+msgstr ""
+
+#: Settings for actionCenterOnPlayhead
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:930
+msgid "Center on Playhead"
+msgstr ""
+
+#: Settings Category for Cache
+msgid "Cache"
+msgstr ""
+
+#: Settings for debug-mode
+msgid "Debug Mode (Verbose)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo.xml
+msgid "Vimeo"
+msgstr ""
+
+#: Settings for actionAddTrack
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:741
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:744
+msgid "Add Track"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/picasa.xml
+msgid "Picasa"
+msgstr ""
+
+#: Settings for hw-decoder
+msgid "MacOS"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD-NTSC"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x265_crf.xml
+msgid "MP4 (h.265)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "AVCHD Disks"
+msgstr ""
+
+#: Settings for send_metrics
+msgid "Send Anonymous Metrics and Errors"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_flv_x264.xml
+msgid "FLV (h.264)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/nokia_nHD.xml
+msgid "Nokia nHD"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
+msgid "WEBM (vpx)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_mpeg4.xml
+msgid "MP4 (mpeg4)"
+msgstr ""
+
+#: Settings for rewindVideo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:795
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:798
+msgid "Rewind"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvp9.xml
+msgid "WEBM (vp9)"
+msgstr ""
+
+#: Settings for seekPreviousFrame
+msgid "Previous Frame"
+msgstr ""
+
+#: Settings for actionNew
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:534
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:537
+msgid "New Project"
+msgstr ""
+
+#: Settings for hw-decoder
+msgid "Linux VA-API"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_xvid.xml
+msgid "MP4 (Xvid)"
+msgstr ""
+
+#: Settings for cache-quality
+msgid "Image Quality (Disk Only)"
+msgstr ""
+
+#: Settings for hw-decoder
+msgid "Windows D3D9"
+msgstr ""
+
+#: Settings for actionSaveFrame
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:831
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:834
+msgid "Save Current Frame"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libav1.xml
 msgid "WEBM (AV1)"
+msgstr ""
+
+#: Settings for ff_threads_number
+msgid "FFmpeg Threads (0 = Default)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_ogg_libvorbis.xml
+msgid "OGG (theora/vorbis)"
+msgstr ""
+
+#: Settings for theme
+msgid "Humanity: Dark"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
+msgid "Xbox 360"
+msgstr ""
+
+#: Settings for title_editor
+msgid "Advanced Title Editor (path)"
+msgstr ""
+
+#: Settings for actionUndo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:579
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:582
+msgid "Undo"
+msgstr ""
+
+#: Settings for debug-port
+msgid "Debug Mode (Port)"
+msgstr ""
+
+#: Settings Category for Debug
+msgid "Debug"
+msgstr ""
+
+#: Settings for actionTransform
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1574
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1577
+msgid "Transform"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_hevc_hw.xml
+msgid "MP4 (HEVC va)"
+msgstr ""
+
+#: Settings for actionAbout
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:23
+msgid "About OpenShot"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/instagram.xml
+msgid "Instagram"
+msgstr ""
+
+#: Settings for theme
+msgid "Humanity"
 msgstr ""
 
 #: Settings for actionJumpEnd
@@ -2478,42 +2383,14 @@ msgstr ""
 msgid "Jump To End"
 msgstr ""
 
-#: Settings for deleteItem1
-msgid "Delete Item (Alternate 1)"
+#: Settings for graca_number_de
+msgid "Hardware Decoder Graphics Card"
 msgstr ""
 
-#: Settings for cache-scale
-msgid "Scale Factor (Disk Only)"
-msgstr ""
-
-#: Settings for graca_number_en
-msgid "Hardware Encoder Graphics Card"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/xbox360.xml
-msgid "Xbox 360"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvp9.xml
-msgid "WEBM (vp9)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube_HD.xml
-msgid "YouTube-HD"
-msgstr ""
-
-#: Settings for actionFullscreen
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1140
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1143
-msgid "Fullscreen"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/presets/vimeo_HD.xml
-msgid "Vimeo-HD"
-msgstr ""
-
-#: Settings for ff_threads_number
-msgid "FFmpeg Threads (0 = Default)"
+#: Settings for actionDetailsView
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1202
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1205
+msgid "Details View"
 msgstr ""
 
 #: Settings for actionProfile
@@ -2522,16 +2399,139 @@ msgstr ""
 msgid "Choose Profile"
 msgstr ""
 
+#: Settings for blender_gpu_enabled
+msgid "Use Blender GPU rendering for Animated Titles (Experimental)"
+msgstr ""
+
+#: Settings Category for Keyboard
+msgid "Keyboard"
+msgstr ""
+
+#: Settings for sliceAllKeepRightSide
+msgid "Slice All: Keep Right Side"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/metacafe.xml
+msgid "Metacafe"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mov_x264.xml
+msgid "MOV (h.264)"
+msgstr ""
+
+#: Settings for history-limit
+msgid "History Limit (# of undo/redo)"
+msgstr ""
+
+#: Settings for fastforwardVideo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:807
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:810
+msgid "Fast Forward"
+msgstr ""
+
+#: Settings for omp_threads_enabled
+msgid "Process Video Frames in Parallel (Experimental)"
+msgstr ""
+
+#: Settings for actionProperties
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:376
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1484
+msgid "Properties"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/avchd.xml
+msgid "Blu-Ray/AVCHD"
+msgstr ""
+
+#: Settings for actionNextMarker
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:918
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:921
+msgid "Next Marker"
+msgstr ""
+
+#: Settings for actionThumbnailView
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1187
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1190
+msgid "Thumbnail View"
+msgstr ""
+
+#: Settings for auto-transform
+msgid "Auto-Transform Selection"
+msgstr ""
+
+#: Settings for playToggle
+msgid "Play/Pause Toggle"
+msgstr ""
+
+#: Settings for actionFullscreen
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1140
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1143
+msgid "Fullscreen"
+msgstr ""
+
+#: Settings for decode_hw_max_height
+msgid "Hardware Decoder Max Height (0 = Default)"
+msgstr ""
+
+#: Settings for hw-decoder
+msgid "Hardware Decoder Mode"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/youtube.xml
+msgid "YouTube"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264_nv.xml
+msgid "MP4 (h.264 nv)"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/apple_tv.xml
+msgid "Apple TV"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/dvd_ntsc.xml
+msgid "DVD"
+msgstr ""
+
+#: Settings for actionSplitClip
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1466
+msgid "Split Clip..."
+msgstr ""
+
+#: Settings for hw-decoder
+msgid "Nvidia NVDEC"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/presets/flickr_HD.xml
+msgid "Flickr-HD"
+msgstr ""
+
+#: Settings for actionAnimatedTitle
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1122
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1125
+msgid "Animated Title"
+msgstr ""
+
+#: Settings for deleteItem1
+msgid "Delete Item (Alternate 1)"
+msgstr ""
+
+#: Settings for actionRedo
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:654
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:657
+msgid "Redo"
+msgstr ""
+
 #: Settings for cache-limit-mb
 msgid "Cache Limit (MB)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_vp9_hw.xml
-msgid "WEBP (vp9 va)"
+#: Settings for cache-image-format
+msgid "Image Format (Disk Only)"
 msgstr ""
 
-#: Settings for debug-mode
-msgid "Debug Mode (Verbose)"
+#: Settings for hw-decoder
+msgid "Intel QSV"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/about.ui:98
