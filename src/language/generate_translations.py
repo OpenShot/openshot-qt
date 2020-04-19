@@ -201,7 +201,7 @@ for effect in props:
         effects_text[effect["description"]] = "libopenshot (Effect Metadata)"
 
 # Append Emoji Data
-emoji_text = {}
+emoji_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
@@ -216,7 +216,7 @@ with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
             emoji_text[emoji_group] = "Emoji Metadata (Group Filter name)"
 
 # Loop through the Blender XML
-blender_text = {}
+blender_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 for file in os.listdir(blender_path):
     if os.path.isfile(os.path.join(blender_path, file)):
         # load xml effect file
@@ -265,7 +265,7 @@ for setting in settings:
                 export_text[value["name"]] = "Settings for %s" % setting["setting"]
 
 # Loop through transitions and add to POT file
-transitions_text = {}
+transitions_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 for file in os.listdir(transitions_path):
     # load xml export file
     full_file_path = os.path.join(transitions_path, file)
