@@ -152,7 +152,7 @@ class EmojisModel():
                 col = QStandardItem()
                 col.setIcon(QIcon(thumb_path))
                 col.setText("%s (%s)" % (emoji_name, emoji_type))
-                col.setToolTip(emoji_name)
+                col.setToolTip("%s (%s)" % (emoji_name, emoji_type))
                 col.setData(emoji_type)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
