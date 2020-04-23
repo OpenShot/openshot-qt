@@ -1247,7 +1247,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if selected_clip:
                 all_marker_positions.append(selected_clip.data["position"])
                 all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
-                # add all keyframes. itterate on all properties of Data,, and for each every Points
+                # add all keyframes. itterate on all properties of Data, look for each points
                 for property in selected_clip.data :
                     try :
                         for point in selected_clip.data[property]["Points"] :
@@ -1313,6 +1313,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if selected_clip:
                 all_marker_positions.append(selected_clip.data["position"])
                 all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
+                # add all keyframes. itterate on all properties of Data, look for each points
+                for property in selected_clip.data :
+                    try :
+                        for point in selected_clip.data[property]["Points"] :
+                            keyframe=(point["co"]["X"]-1)/fps_float - selected_clip.data["start"] + selected_clip.data["position"]
+                            if keyframe > start and keyframe < stop :
+                                all_marker_positions.append(keyframe)
+                    except TypeError:
+                        log.info("%s : %s : not itterable", property, selected_clip.data[property])
+                        pass
+                    except KeyError:
+                        log.info("%s : %s : has no points", property, selected_clip.data[property])
+                        pass
 
         # Loop through selected transitions (and add key positions)
         for tran_id in self.selected_transitions:
