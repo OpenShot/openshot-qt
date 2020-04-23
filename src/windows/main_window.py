@@ -1248,18 +1248,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 all_marker_positions.append(selected_clip.data["position"])
                 all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
                 # add all keyframes. itterate on all properties of Data, look for each points
-                for property in selected_clip.data :
-                    try :
-                        for point in selected_clip.data[property]["Points"] :
-                            log.info("point : %s", point)
-                            keyframe=(point["co"]["X"]-1)/fps_float - selected_clip.data["start"] + selected_clip.data["position"]
-                            if keyframe > start and keyframe < stop :
-                                all_marker_positions.append(keyframe)
-                    except TypeError:
-                        log.info("%s : %s : not itterable", property, selected_clip.data[property])
-                        pass-                    except KeyError:
-                        log.info("%s : %s : has no points", property, selected_clip.data[property])
-                        pass
+                addKeyframesToMarkers(selected_clip.data)
 
         # Loop through selected transitions (and add key positions)
         for tran_id in self.selected_transitions:
@@ -1314,19 +1303,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 all_marker_positions.append(selected_clip.data["position"])
                 all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
                 # add all keyframes. itterate on all properties of Data, look for each points
-                for property in selected_clip.data :
-                    try :
-                        for point in selected_clip.data[property]["Points"] :
-                            keyframe=(point["co"]["X"]-1)/fps_float - selected_clip.data["start"] + selected_clip.data["position"]
-                            if keyframe > start and keyframe < stop :
-                                all_marker_positions.append(keyframe)
-                    except TypeError:
-                        log.info("%s : %s : not itterable", property, selected_clip.data[property])
-                        pass
-                    except KeyError:
-                        log.info("%s : %s : has no points", property, selected_clip.data[property])
-                        pass
-
+                addKeyframesToMarkers(selected_clip.data)
         # Loop through selected transitions (and add key positions)
         for tran_id in self.selected_transitions:
             # Get selected object
@@ -1357,6 +1334,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
+
+    def addKeyframesToMarkers(self, data):
+        for property in data :
+            try :
+                for point in data[property]["Points"] :
+                    keyframe=(point["co"]["X"]-1)/fps_float - data["start"] + data["position"]
+                    if keyframe > start and keyframe < stop :
+                        all_marker_positions.append(keyframe)
+            except TypeError:
+                log.info("%s : %s : not itterable", property, data[property])
+                pass
+            except KeyError:
+                log.info("%s : %s : has no points", property, data[property])
+                pass
 
     def actionCenterOnPlayhead_trigger(self, event):
         """ Center the timeline on the current playhead position """
