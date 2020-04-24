@@ -201,21 +201,22 @@ for effect in props:
         effects_text[effect["description"]] = "libopenshot (Effect Metadata)"
 
 # Append Emoji Data
-emoji_text = {}
-emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji.json")
+emoji_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
+emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
 
     # Loop through props
-    for emoji in emoji_metadata:
+    for filename, emoji in emoji_metadata.items():
         emoji_name = emoji["annotation"].capitalize()
-        emoji_group = emoji["group"].capitalize()
+        emoji_group = emoji["group"].split('-')[0].capitalize()
         if "annotation" in emoji:
             emoji_text[emoji_name] = "Emoji Metadata (Displayed Name)"
         if "group" in emoji and emoji_group not in effects_text:
             emoji_text[emoji_group] = "Emoji Metadata (Group Filter name)"
 
 # Loop through the Blender XML
+blender_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 for file in os.listdir(blender_path):
     if os.path.isfile(os.path.join(blender_path, file)):
         # load xml effect file
@@ -223,7 +224,7 @@ for file in os.listdir(blender_path):
         xmldoc = xml.parse(os.path.join(blender_path, file))
 
         # add text to list
-        effects_text[xmldoc.getElementsByTagName("title")[0].childNodes[0].data] = full_file_path
+        blender_text[xmldoc.getElementsByTagName("title")[0].childNodes[0].data] = full_file_path
 
         # get params
         params = xmldoc.getElementsByTagName("param")
@@ -231,7 +232,7 @@ for file in os.listdir(blender_path):
         # Loop through params
         for param in params:
             if param.attributes["title"]:
-                effects_text[param.attributes["title"].value] = full_file_path
+                blender_text[param.attributes["title"].value] = full_file_path
 
 # Loop through the Export Settings XML
 export_text = {}
@@ -264,7 +265,7 @@ for setting in settings:
                 export_text[value["name"]] = "Settings for %s" % setting["setting"]
 
 # Loop through transitions and add to POT file
-transitions_text = {}
+transitions_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 for file in os.listdir(transitions_path):
     # load xml export file
     full_file_path = os.path.join(transitions_path, file)
@@ -346,8 +347,12 @@ header_text = header_text + '"Content-Type: text/plain; charset=UTF-8\\n"\n'
 header_text = header_text + '"Content-Transfer-Encoding: 8bit\\n"\n'
 
 # Create POT files for the custom text (from our XML files)
-temp_files = [['OpenShot_effects.pot', effects_text], ['OpenShot_export.pot', export_text],
-              ['OpenShot_transitions.pot', transitions_text], ['OpenShot_emojis.pot', emoji_text]]
+temp_files = [['OpenShot_effects.pot', effects_text],
+              ['OpenShot_export.pot', export_text],
+              ['OpenShot_transitions.pot', transitions_text],
+              ['OpenShot_emojis.pot', emoji_text],
+              ['OpenShot_blender.pot', blender_text]
+              ]
 for temp_file, text_dict in temp_files:
     f = open(temp_file, "w")
 
@@ -409,6 +414,11 @@ if os.path.exists(os.path.join(language_folder_path, "OpenShot_transitions.pot")
 if os.path.exists(os.path.join(language_folder_path, "OpenShot_emojis.pot")):
     os.rename(os.path.join(language_folder_path, "OpenShot_emojis.pot"),
               os.path.join(language_folder_path, "OpenShot", "OpenShot_emojis.pot"))
+
+# Move blender POT file to final location
+if os.path.exists(os.path.join(language_folder_path, "OpenShot_blender.pot")):
+    os.rename(os.path.join(language_folder_path, "OpenShot_blender.pot"),
+              os.path.join(language_folder_path, "OpenShot", "OpenShot_blender.pot"))
 
 # Trim the beginning off of each POT file
 start_pos = entire_source.find("#: ")

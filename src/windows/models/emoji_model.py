@@ -80,14 +80,9 @@ class EmojisModel():
         self.model.setHorizontalHeaderLabels([_("Name")])
 
         # Get emoji metadata
-        emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji.json")
+        emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
         with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
-            emoji_metadata = json.load(f)
-
-        # Parse emoji metadata, and reshape data
-        emoji_lookup = {}
-        for emoji in emoji_metadata:
-            emoji_lookup[emoji.get("hexcode")] = emoji
+            emoji_lookup = json.load(f)
 
         # get a list of files in the OpenShot /emojis directory
         emojis_dir = os.path.join(info.PATH, "emojis", "color", "svg")
@@ -114,7 +109,7 @@ class EmojisModel():
                 # get name of transition
                 emoji = emoji_lookup.get(fileBaseName, {})
                 emoji_name = _(emoji.get("annotation", fileBaseName).capitalize())
-                emoji_type = emoji.get("group", "user")
+                emoji_type = _(emoji.get("group", "user").split('-')[0].capitalize())
 
                 # Track unique emoji groups
                 if emoji_type not in self.emoji_groups:

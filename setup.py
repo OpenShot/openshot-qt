@@ -72,6 +72,7 @@ os_files = [
     # XDG Freedesktop icon paths
     ('share/icons/hicolor/scalable/apps', ['xdg/openshot-qt.svg']),
     ('share/icons/hicolor/64x64/apps', ['xdg/icon/64/openshot-qt.png']),
+    ('share/icons/hicolor/128x128/apps', ['xdg/icon/128/openshot-qt.png']),
     ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/openshot-qt.png']),
     ('share/icons/hicolor/512x512/apps', ['xdg/icon/512/openshot-qt.png']),
     # XDG desktop mime types cache

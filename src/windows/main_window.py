@@ -1494,11 +1494,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
             self.actionProperties.trigger()
         elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.ExactMatch:
-            if not self.is_transforming and self.selected_clips:
+            if self.selected_clips:
                 self.TransformSignal.emit(self.selected_clips[0])
-            else:
-                self.TransformSignal.emit("")
-
         elif key.matches(self.getShortcutByName("actionInsertKeyframe")) == QKeySequence.ExactMatch:
             print("actionInsertKeyframe")
             if self.selected_clips or self.selected_transitions:
@@ -2035,23 +2032,24 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Add to the selected items
     def addSelection(self, item_id, item_type, clear_existing=False):
         log.info('main::addSelection: item_id: %s, item_type: %s, clear_existing: %s' % (item_id, item_type, clear_existing))
+        s = settings.get_settings()
 
         # Clear existing selection (if needed)
         if clear_existing:
             if item_type == "clip":
                 self.selected_clips.clear()
+                self.TransformSignal.emit("")
             elif item_type == "transition":
                 self.selected_transitions.clear()
             elif item_type == "effect":
                 self.selected_effects.clear()
 
-            # Clear transform (if any)
-            self.TransformSignal.emit("")
-
         if item_id:
             # If item_id is not blank, store it
             if item_type == "clip" and item_id not in self.selected_clips:
                 self.selected_clips.append(item_id)
+                if s.get("auto-transform"):
+                    self.TransformSignal.emit(self.selected_clips[-1])
             elif item_type == "transition" and item_id not in self.selected_transitions:
                 self.selected_transitions.append(item_id)
             elif item_type == "effect" and item_id not in self.selected_effects:
@@ -2073,8 +2071,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             elif item_type == "effect" and item_id in self.selected_effects:
                 self.selected_effects.remove(item_id)
 
-        # Clear transform (if any)
-        get_app().window.TransformSignal.emit("")
+        if not self.selected_clips:
+            # Clear transform (if no other clips are selected)
+            get_app().window.TransformSignal.emit("")
 
         # Move selection to next selected clip (if any)
         self.show_property_id = ""
@@ -2447,13 +2446,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         except Exception:
             pass
 
-    def transformTriggered(self, clip_id):
-        """Handle transform signal (to keep track of whether a transform is happening or not)"""
-        if clip_id and clip_id in self.selected_clips:
-            self.is_transforming = True
-        else:
-            self.is_transforming = False
-
     def __init__(self, mode=None):
 
         # Create main window base class
@@ -2506,8 +2498,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_current_Version()
 
         # Connect signals
-        self.is_transforming = False
-        self.TransformSignal.connect(self.transformTriggered)
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 

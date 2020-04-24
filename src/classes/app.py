@@ -36,7 +36,7 @@ import traceback
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 try:
@@ -70,6 +70,7 @@ class OpenShotApp(QApplication):
             log.info('Starting new session'.center(48))
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
+            from images import openshot_rc
             import openshot
 
             # Re-route stdout and stderr to logger
@@ -106,6 +107,12 @@ class OpenShotApp(QApplication):
         # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
+        self.setWindowIcon(QIcon(":/openshot.svg"))
+        try:
+            # Qt 5.7+ only
+            self.setDesktopFile("org.openshot.OpenShot")
+        except AttributeError:
+            pass
 
         # Init settings
         self.settings = settings.SettingStore()
