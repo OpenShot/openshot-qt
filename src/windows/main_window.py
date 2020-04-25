@@ -1231,25 +1231,31 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def findAllMarkerPositions(self):
         """Build and return a list of all seekable locations for the currently-selected timeline elements"""
 
-        def getKeyframePositions(data, clip_start_time, clip_stop_time, fps_float):
-            """ Add all keyframes of a clip.data to all_marker_positions """
+        def getTimelineObjectPositions(obj):
+            """ Add boundaries & all keyframes of a timeline object (clip, transition...) to all_marker_positions """
             positions = []
-            for property in data :
+
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+
+            clip_start_time=obj.data["position"]
+            clip_stop_time=obj.data["position"] + (obj.data["end"] - obj.data["start"])
+
+            # add clip boundaries
+            all_marker_positions.append(clip_start_time)
+            all_marker_positions.append(clip_stop_time)
+
+            # add all keyframes
+            for property in obj.data :
                 try :
-                    for point in data[property]["Points"] :
-                        keyframe_time=(point["co"]["X"]-1)/fps_float - data["start"] + data["position"]
+                    for point in obj.data[property]["Points"] :
+                        keyframe_time=(point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
                         if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
                             positions.append(keyframe_time)
-                except TypeError:
-                    log.info("%s : %s : not itterable", property, data[property])
-                    pass
-                except KeyError:
-                    log.info("%s : %s : has no points", property, data[property])
+                except (TypeError, KeyError):
                     pass
             return positions
 
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1261,20 +1267,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Get selected object
             selected_clip = Clip.get(id=clip_id)
             if selected_clip:
-                clip_start_time=selected_clip.data["position"]
-                clip_stop_time=selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"])
-                all_marker_positions.append(clip_start_time)
-                all_marker_positions.append(clip_stop_time)
-                # add all keyframes
-                all_marker_positions.extend(getKeyframePositions(selected_clip.data, clip_start_time, clip_stop_time, fps_float))
+                all_marker_positions.extend(getTimelineObjectPositions(selected_clip))
 
         # Loop through selected transitions (and add key positions)
         for tran_id in self.selected_transitions:
             # Get selected object
             selected_tran = Transition.get(id=tran_id)
             if selected_tran:
-                all_marker_positions.append(selected_tran.data["position"])
-                all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
+                all_marker_positions.extend(getTimelineObjectPositions(selected_tran))
 
         # remove duplicates
         all_marker_positions = list(set(all_marker_positions))
