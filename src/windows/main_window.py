@@ -1240,11 +1240,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                         keyframe_time=(point["co"]["X"]-1)/fps_float - data["start"] + data["position"]
                         if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
                             positions.append(keyframe_time)
-                except TypeError:
-                    log.info("%s : %s : not itterable", property, data[property])
-                    pass
-                except KeyError:
-                    log.info("%s : %s : has no points", property, data[property])
+                except (TypeError, KeyError):
                     pass
             return positions
 
