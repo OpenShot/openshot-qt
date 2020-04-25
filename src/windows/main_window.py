@@ -1227,13 +1227,29 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         marker.data = {"position": position, "icon": "blue.png"}
         marker.save()
 
-    def actionPreviousMarker_trigger(self, event):
-        log.info("actionPreviousMarker_trigger")
 
-        # Calculate current position (in seconds)
+    def findAllMarkerPositions(self):
+        """Build and return a list of all seekable locations for the currently-selected timeline elements"""
+
+        def getKeyframePositions(data, clip_start_time, clip_stop_time, fps_float):
+            """ Add all keyframes of a clip.data to all_marker_positions """
+            positions = []
+            for property in data :
+                try :
+                    for point in data[property]["Points"] :
+                        keyframe_time=(point["co"]["X"]-1)/fps_float - data["start"] + data["position"]
+                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
+                            positions.append(keyframe_time)
+                except TypeError:
+                    log.info("%s : %s : not itterable", property, data[property])
+                    pass
+                except KeyError:
+                    log.info("%s : %s : has no points", property, data[property])
+                    pass
+            return positions
+
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = (self.preview_thread.current_frame - 1) / fps_float
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1245,10 +1261,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Get selected object
             selected_clip = Clip.get(id=clip_id)
             if selected_clip:
-                all_marker_positions.append(selected_clip.data["position"])
-                all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
-                # add all keyframes. itterate on all properties of Data, look for each points
-                addKeyframesToMarkers(selected_clip.data)
+                clip_start_time=selected_clip.data["position"]
+                clip_stop_time=selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"])
+                all_marker_positions.append(clip_start_time)
+                all_marker_positions.append(clip_stop_time)
+                # add all keyframes
+                all_marker_positions.extend(getKeyframePositions(selected_clip.data, clip_start_time, clip_stop_time, fps_float))
 
         # Loop through selected transitions (and add key positions)
         for tran_id in self.selected_transitions:
@@ -1257,6 +1275,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if selected_tran:
                 all_marker_positions.append(selected_tran.data["position"])
                 all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
+
+        # remove duplicates
+        all_marker_positions = list(set(all_marker_positions))
+
+        return all_marker_positions
+
+    def actionPreviousMarker_trigger(self, event):
+        log.info("actionPreviousMarker_trigger")
+
+        # Calculate current position (in seconds)
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
+        all_marker_positions = self.findAllMarkerPositions()
 
         # Loop through all markers, and find the closest one to the left
         closest_position = None
@@ -1289,28 +1321,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
-        all_marker_positions = []
-
-        # Get list of marker and important positions (like selected clip bounds)
-        for marker in Marker.filter():
-            all_marker_positions.append(marker.data["position"])
-
-        # Loop through selected clips (and add key positions)
-        for clip_id in self.selected_clips:
-            # Get selected object
-            selected_clip = Clip.get(id=clip_id)
-            if selected_clip:
-                all_marker_positions.append(selected_clip.data["position"])
-                all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
-                # add all keyframes. itterate on all properties of Data, look for each points
-                addKeyframesToMarkers(selected_clip.data)
-        # Loop through selected transitions (and add key positions)
-        for tran_id in self.selected_transitions:
-            # Get selected object
-            selected_tran = Transition.get(id=tran_id)
-            if selected_tran:
-                all_marker_positions.append(selected_tran.data["position"])
-                all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
+        all_marker_positions = self.findAllMarkerPositions()
 
         # Loop through all markers, and find the closest one to the right
         closest_position = None
@@ -1334,20 +1345,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Update the preview and reselct current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
-
-    def addKeyframesToMarkers(self, data):
-        for property in data :
-            try :
-                for point in data[property]["Points"] :
-                    keyframe=(point["co"]["X"]-1)/fps_float - data["start"] + data["position"]
-                    if keyframe > start and keyframe < stop :
-                        all_marker_positions.append(keyframe)
-            except TypeError:
-                log.info("%s : %s : not itterable", property, data[property])
-                pass
-            except KeyError:
-                log.info("%s : %s : has no points", property, data[property])
-                pass
 
     def actionCenterOnPlayhead_trigger(self, event):
         """ Center the timeline on the current playhead position """
