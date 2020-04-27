@@ -1238,22 +1238,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
-            clip_start_time=obj.data["position"]
-            clip_stop_time=obj.data["position"] + (obj.data["end"] - obj.data["start"])
+            clip_start_time = obj.data["position"]
+            clip_orig_time = clip_start_time - obj.data["start"]
+            clip_stop_time = clip_orig_time + obj.data["end"]
 
             # add clip boundaries
-            all_marker_positions.append(clip_start_time)
-            all_marker_positions.append(clip_stop_time)
+            positions.append(clip_start_time)
+            positions.append(clip_stop_time)
 
             # add all keyframes
             for property in obj.data :
                 try :
                     for point in obj.data[property]["Points"] :
-                        keyframe_time=(point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
+                        keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
                         if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
                             positions.append(keyframe_time)
                 except (TypeError, KeyError):
                     pass
+
+
+            # Add all Effect keyframes
+            if "effects" in obj.data:
+                for effect_data in obj.data["effects"]:
+                    for property in effect_data:
+                        try:
+                            for point in effect_data[property]["Points"]:
+                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                                if keyframe_time > clip_start_time and keyframe_time < clip_stop_time:
+                                    positions.append(keyframe_time)
+                        except (TypeError, KeyError):
+                            pass
+
             return positions
 
         all_marker_positions = []
