@@ -745,11 +745,12 @@ class Worker(QObject):
             # Run real command to render Blender project
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=startupinfo, universal_newlines=True)
 
-        except:
+        except Exception as ex:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
             self.is_running = False
             self.blender_error_nodata.emit()
+            log.error("Could not execute Blender: {}".format(ex))
             return
 
         while self.is_running and self.process.poll() is None:
