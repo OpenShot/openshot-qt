@@ -726,6 +726,9 @@ class Worker(QObject):
 
             self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo, universal_newlines=True)
 
+            # In case the user's default locale is incompatible (e.g. 'ascii')
+            self.process.stdout.reconfigure(encoding='utf-8')
+
             # Check the version of Blender
             self.version = self.blender_version.findall(self.process.stdout.readline())
 
@@ -744,6 +747,9 @@ class Worker(QObject):
 
             # Run real command to render Blender project
             self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=startupinfo, universal_newlines=True)
+
+            # In case the user's default locale is incompatible (e.g. 'ascii')
+            self.process.stdout.reconfigure(encoding='utf-8')
 
         except:
             # Error running command.  Most likely the blender executable path in
