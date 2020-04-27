@@ -108,8 +108,12 @@ if os.path.exists(os.path.join(PATH, "openshot_qt")):
     print("Loaded modules from openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
 
 # Append possible build server paths
+
 sys.path.insert(0, os.path.join(PATH, "build", "install-x86", "lib"))
+sys.path.insert(0, os.path.join(PATH, "build", "install-x86", "bin"))
+
 sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "lib"))
+sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "bin"))
 
 
 from classes import info
