@@ -33,9 +33,14 @@ import re
 import xml.dom.minidom as xml
 import functools
 
-from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QTimer
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import (
+    Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
+)
+from PyQt5.QtWidgets import (
+    QApplication, QListView, QMessageBox, QColorDialog,
+    QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
+)
+from PyQt5.QtGui import QColor, QImage, QPixmap
 
 from classes import info
 from classes.logger import log
@@ -44,11 +49,9 @@ from classes.query import File
 from classes.app import get_app
 from windows.models.blender_model import BlenderModel
 
-import json
-
 
 class BlenderListView(QListView):
-    """ A TreeView QWidget used on the animated title window """
+    """ A ListView QWidget used on the animated title window """
 
     def currentChanged(self, selected, deselected):
         # Get selected item
@@ -74,7 +77,7 @@ class BlenderListView(QListView):
         self.generateUniqueFolder()
 
         # Loop through params
-        for param in animation.get("params",[]):
+        for param in animation.get("params", []):
             log.info('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
@@ -588,7 +591,7 @@ class BlenderListView(QListView):
 
     def __init__(self, *args):
         # Invoke parent init
-        QTreeView.__init__(self, *args)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.app = get_app()
@@ -632,7 +635,6 @@ class BlenderListView(QListView):
 
         # Refresh view
         self.refresh_view()
-
 
         # Background Worker Thread (for Blender process)
         self.background = QThread(self)
@@ -722,9 +724,14 @@ class Worker(QObject):
 
             # Check the version of Blender
             import shlex
-            log.info("Checking Blender version, command: {}".format(" ".join([shlex.quote(x) for x in command_get_version])))
+            log.info("Checking Blender version, command: {}".format(
+                " ".join([shlex.quote(x) for x in command_get_version])))
 
-            self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo, universal_newlines=True)
+            self.process = subprocess.Popen(
+                command_get_version,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                startupinfo=startupinfo, universal_newlines=True,
+            )
 
             # Check the version of Blender
             self.version = self.blender_version.findall(self.process.stdout.readline())
@@ -739,11 +746,16 @@ class Worker(QObject):
                     return
 
             # debug info
-            log.info("Running Blender, command: {}".format(" ".join([shlex.quote(x) for x in command_render])))
+            log.info("Running Blender, command: {}".format(
+                " ".join([shlex.quote(x) for x in command_render])))
             log.info("Blender output:")
 
             # Run real command to render Blender project
-            self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=startupinfo, universal_newlines=True)
+            self.process = subprocess.Popen(
+                command_render,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                startupinfo=startupinfo, universal_newlines=True,
+            )
 
         except Exception as ex:
             # Error running command.  Most likely the blender executable path in
