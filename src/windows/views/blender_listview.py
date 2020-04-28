@@ -363,61 +363,39 @@ class BlenderListView(QListView):
 
         # Get list of params
         animation = {"title": animation_title, "path": xml_path, "service": service, "params": []}
-        xml_params = xmldoc.getElementsByTagName("param")
 
         # Loop through params
-        for param in xml_params:
-            param_item = {}
+        for param in xmldoc.getElementsByTagName("param"):
+            # Set up item dict, "default" key is required
+            param_item = {"default": ""}
 
             # Get details of param
-            if param.attributes["title"]:
-                param_item["title"] = param.attributes["title"].value
+            for att in ["title", "description", "name", "type"]:
+                if param.attributes[att]:
+                    param_item[att] = param.attributes[att].value
 
-            if param.attributes["description"]:
-                param_item["description"] = param.attributes["description"].value
+            for tag in ["min", "max", "step", "digits", "default"]:
+                for p in param.getElementsByTagName(tag):
+                    if p.childNodes:
+                        param_item[tag] = p.firstChild.data
 
-            if param.attributes["name"]:
-                param_item["name"] = param.attributes["name"].value
-
-            if param.attributes["type"]:
-                param_item["type"] = param.attributes["type"].value
-
-            if param.getElementsByTagName("min"):
-                param_item["min"] = param.getElementsByTagName("min")[0].childNodes[0].data
-
-            if param.getElementsByTagName("max"):
-                param_item["max"] = param.getElementsByTagName("max")[0].childNodes[0].data
-
-            if param.getElementsByTagName("step"):
-                param_item["step"] = param.getElementsByTagName("step")[0].childNodes[0].data
-
-            if param.getElementsByTagName("digits"):
-                param_item["digits"] = param.getElementsByTagName("digits")[0].childNodes[0].data
-
-            if param.getElementsByTagName("default"):
-                if param.getElementsByTagName("default")[0].childNodes:
-                    param_item["default"] = param.getElementsByTagName("default")[0].childNodes[0].data
-                else:
-                    param_item["default"] = ""
-
-            param_item["values"] = {}
-            values = param.getElementsByTagName("value")
-            for value in values:
-                # Get list of values
-                name = ""
-                num = ""
-
-                if value.attributes["name"]:
-                    name = value.attributes["name"].value
-
-                if value.attributes["num"]:
-                    num = value.attributes["num"].value
-
-                # add to parameter
-                param_item["values"][name] = num
+            try:
+                # Build values dict from list of (name, num) tuples
+                param_item["values"] = dict([
+                    (p.attributes["name"].value, p.attributes["num"].value)
+                    for p in param.getElementsByTagName("value") if (
+                        "name" in p.attributes and "num" in p.attributes
+                    )
+                ])
+            except (TypeError, AttributeError) as ex:
+                log.warn("XML parser: {}".format(ex))
+                pass
 
             # Append param object to list
             animation["params"].append(param_item)
+
+        # Free up XML document memory
+        xmldoc.unlink()
 
         # Return animation dictionary
         return animation
