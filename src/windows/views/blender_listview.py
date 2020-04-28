@@ -298,7 +298,6 @@ class BlenderListView(QListView):
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
-        preview_frame_number = self.win.sliderPreview.value()
         self.preview_timer.start()
 
     @pyqtSlot()
@@ -675,20 +674,21 @@ class Worker(QObject):
         # Init regex expression used to determine blender's render progress
         s = settings.get_settings()
 
+        _ = get_app()._tr
+
         # get the blender executable path
         self.blender_exec_path = s.get("blender_command")
-        self.blender_frame_expression = re.compile(r"Fra:([0-9,]*).*Mem:(.*?) .*Sce:")
-        self.blender_saved_expression = re.compile(r"Saved: '(.*.png)(.*)'")
-        self.blender_version = re.compile(r"Blender (.*?) ")
-        self.blend_file_path = blend_file_path
-        self.target_script = target_script
         self.preview_mode = preview_mode
         self.frame_detected = False
+        self.last_frame = 0
         self.version = None
         self.command_output = ""
         self.process = None
-        self.is_running = True
-        _ = get_app()._tr
+        self.is_running = False
+
+        blender_frame_re = re.compile(r"Fra:([0-9,]*)")
+        blender_saved_re = re.compile(r"Saved: '(.*\.png)")
+        blender_version_re = re.compile(r"Blender (.*?) ")
 
         startupinfo = None
         if sys.platform == 'win32':
@@ -698,30 +698,40 @@ class Worker(QObject):
         try:
             # Shell the blender command to create the image sequence
             command_get_version = [self.blender_exec_path, '-v']
-            command_render = [self.blender_exec_path, '-b', self.blend_file_path, '-P', self.target_script]
+            command_render = [self.blender_exec_path, '-b', blend_file_path, '-P', target_script]
 
             # Check the version of Blender
             import shlex
             log.info("Checking Blender version, command: {}".format(
                 " ".join([shlex.quote(x) for x in command_get_version])))
 
-            self.process = subprocess.Popen(
+            proc = subprocess.Popen(
                 command_get_version,
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                startupinfo=startupinfo, universal_newlines=True,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                startupinfo=startupinfo,
             )
 
             # Check the version of Blender
-            self.version = self.blender_version.findall(self.process.stdout.readline())
+            try:
+                # Give Blender up to 10 seconds to respond
+                (out, err) = proc.communicate(timeout=10)
+            except subprocess.TimeoutExpired:
+                self.blender_error_nodata.emit()
+                return
 
-            if self.version:
-                if self.version[0] < info.BLENDER_MIN_VERSION:
-                    # change cursor to "default" and stop running blender command
-                    self.is_running = False
+            ver_string = out.decode('utf-8')
+            ver_match = blender_version_re.search(ver_string)
 
-                    # Wrong version of Blender.
-                    self.blender_version_error.emit(self.version[0])
-                    return
+            if not ver_match:
+                raise Exception("No Blender version detected in output")
+
+            self.version = ver_match.group(1)
+            log.info("Found Blender version {}".format(self.version))
+
+            if self.version < info.BLENDER_MIN_VERSION:
+                # Wrong version of Blender.
+                self.blender_version_error.emit(self.version)
+                return
 
             # debug info
             log.info("Running Blender, command: {}".format(
@@ -729,59 +739,58 @@ class Worker(QObject):
             log.info("Blender output:")
 
             # Run real command to render Blender project
-            self.process = subprocess.Popen(
-                command_render,
+            proc = subprocess.Popen(
+                command_render, bufsize=512,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=startupinfo, universal_newlines=True,
+                startupinfo=startupinfo,
             )
+            self.process = proc
+            self.is_running = True
 
-        except Exception as ex:
+        except subprocess.SubprocessError:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
             self.is_running = False
             self.blender_error_nodata.emit()
-            log.error("Could not execute Blender: {}".format(ex))
+            raise
+        except Exception as ex:
+            log.error("{}".format(ex))
             return
 
-        while self.is_running and self.process.poll() is None:
+        while self.is_running and proc.poll() is None:
+            for outline in iter(proc.stdout.readline, b''):
+                line = outline.decode('utf-8').strip()
 
-            # Look for progress info in the Blender Output
-            line = self.process.stdout.readline().strip()
+                # Skip blank output
+                if not line:
+                    continue
 
-            # Skip blank lines
-            if not line:
-                continue
+                # append all output into a variable, and log
+                self.command_output = self.command_output + line + "\n"
+                log.info("  {}".format(line))
 
-            # append all output into a variable, and log
-            self.command_output = self.command_output + line + "\n"
-            log.info("  {}".format(line))
+                # Look for progress info in the Blender Output
+                output_frame = blender_frame_re.search(line)
+                output_saved = blender_saved_re.search(line)
 
-            output_frame = self.blender_frame_expression.findall(line)
+                # Does it have a match?
+                if output_frame or output_saved:
+                    # Yes, we have a match
+                    self.frame_detected = True
 
-            # Does it have a match?
-            if output_frame:
-                # Yes, we have a match
-                self.frame_detected = True
-                current_frame = output_frame[0][0]
-                memory = output_frame[0][1]
+                if output_frame:
+                    current_frame = int(output_frame.group(1))
 
-                # Update progress bar
-                if not self.preview_mode:
-                    # only update progress if in 'render' mode
-                    self.progress.emit(int(current_frame))
+                    # Update progress bar
+                    if current_frame != self.last_frame and not self.preview_mode:
+                        # update progress on frame change, if in 'render' mode
+                        self.progress.emit(current_frame)
 
-            # Look for progress info in the Blender Output
-            output_saved = self.blender_saved_expression.findall(line)
+                    self.last_frame = current_frame
 
-            # Does it have a match?
-            if output_saved:
-                # Yes, we have a match
-                self.frame_detected = True
-                image_path = output_saved[0][0]
-                time_saved = output_saved[0][1]
-
-                # Update preview image
-                self.image_updated.emit(image_path)
+                if output_saved:
+                    # Update preview image
+                    self.image_updated.emit(output_saved.group(1))
 
         log.info("Blender process exited.")
 
