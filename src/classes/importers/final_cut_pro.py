@@ -201,3 +201,6 @@ def import_xml():
             # Update the preview and reselect current frame in properties
             app.window.refreshFrameSignal.emit()
             app.window.propertyTableView.select_frame(app.window.preview_thread.player.Position())
+
+    # Free up DOM memory
+    xmldoc.unlink()

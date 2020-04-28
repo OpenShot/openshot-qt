@@ -26,20 +26,18 @@
  """
 
 import os
-import locale
-import xml.dom.minidom as xml
-import functools
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QPushButton
+
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, settings
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 
 import json
+
 
 class FileProperties(QDialog):
     """ File Properties Dialog """
@@ -183,7 +181,7 @@ class FileProperties(QDialog):
         self.file.data["name"] = self.txtFileName.text()
         self.file.data["tags"] = self.txtTags.text()
 
-        #experimental: update file path
+        # experimental: update file path
         self.file.data["path"] = self.txtFilePath.text()
 
         # Update Framerate
