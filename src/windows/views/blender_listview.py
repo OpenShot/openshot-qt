@@ -148,9 +148,12 @@ class BlenderListView(QListView):
                             continue
 
                         param["values"][fileName] = "|".join(
-                            file.data["path"], str(file.data["height"]),
-                            str(file.data["width"]), file.data["media_type"],
-                            str(file.data["fps"]["num"] / file.data["fps"]["den"])
+                            (file.data["path"],
+                             str(file.data["height"]),
+                             str(file.data["width"]),
+                             file.data["media_type"],
+                             str(file.data["fps"]["num"] / file.data["fps"]["den"])
+                             )
                         )
 
                 # Add normal values
