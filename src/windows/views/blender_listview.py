@@ -705,7 +705,7 @@ class Worker(QObject):
             log.info("Checking Blender version, command: {}".format(
                 " ".join([shlex.quote(x) for x in command_get_version])))
 
-            proc = subprocess.Popen(
+            self.process = subprocess.Popen(
                 command_get_version,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 startupinfo=startupinfo,
@@ -714,7 +714,7 @@ class Worker(QObject):
             # Check the version of Blender
             try:
                 # Give Blender up to 10 seconds to respond
-                (out, err) = proc.communicate(timeout=10)
+                (out, err) = self.process.communicate(timeout=10)
             except subprocess.TimeoutExpired:
                 self.blender_error_nodata.emit()
                 return
@@ -739,12 +739,11 @@ class Worker(QObject):
             log.info("Blender output:")
 
             # Run real command to render Blender project
-            proc = subprocess.Popen(
+            self.process = subprocess.Popen(
                 command_render, bufsize=512,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 startupinfo=startupinfo,
             )
-            self.process = proc
             self.is_running = True
 
         except subprocess.SubprocessError:
@@ -757,8 +756,8 @@ class Worker(QObject):
             log.error("{}".format(ex))
             return
 
-        while self.is_running and proc.poll() is None:
-            for outline in iter(proc.stdout.readline, b''):
+        while self.is_running and self.process.poll() is None:
+            for outline in iter(self.process.stdout.readline, b''):
                 line = outline.decode('utf-8').strip()
 
                 # Skip blank output
