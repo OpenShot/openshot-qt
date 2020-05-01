@@ -34,35 +34,45 @@
       "label" : "",
       "number": 1000000,
       "y": 0,
-      "lock": false
+      "lock": false,
+      "skip_audio": false,
+      "skip_video": false
     },
     {
       "id": "L2",
       "label" : "",
       "number": 2000000,
       "y": 0,
-      "lock": false
+      "lock": false,
+      "skip_audio": false,
+      "skip_video": false
     },
     {
       "id": "L3",
       "label" : "",
       "number": 3000000,
       "y": 0,
-      "lock": false
+      "lock": false,
+      "skip_audio": false,
+      "skip_video": false
     },
     {
       "id": "L4",
       "label" : "",
       "number": 4000000,
       "y": 0,
-      "lock": false
+      "lock": false,
+      "skip_audio": false,
+      "skip_video": false
     },
     {
       "id": "L5",
       "label" : "",
       "number": 5000000,
       "y": 0,
-      "lock": false
+      "lock": false,
+      "skip_audio": false,
+      "skip_video": false
     }
   ],
   "markers": [  ],

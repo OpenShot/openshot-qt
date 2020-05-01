@@ -1556,6 +1556,50 @@
     <string>Unlock Track</string>
    </property>
   </action>
+  <action name="actionEnableAllStreams">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable Audio + Video</string>
+   </property>
+   <property name="toolTip">
+    <string>Enable Audio and Video streams</string>
+   </property>
+  </action>
+  <action name="actionAudioOnlyStream">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Skip Video</string>
+   </property>
+   <property name="toolTip">
+    <string>Disable Video stream</string>
+   </property>
+  </action>
+  <action name="actionVideoOnlyStream">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Skip Audio</string>
+   </property>
+   <property name="toolTip">
+    <string>Disable Audio stream</string>
+   </property>
+  </action>
+  <action name="actionNoStreams">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Skip All</string>
+   </property>
+   <property name="toolTip">
+    <string>Skip whole Track</string>
+   </property>
+  </action>
   <action name="actionTransform">
    <property name="icon">
     <iconset theme="transform-move" resource="../../images/openshot.qrc">

@@ -38,7 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence
 from PyQt5.QtWebKitWidgets import QWebView
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QMenu, QActionGroup
 
 from classes import info, updates
 from classes import settings
@@ -2604,11 +2604,16 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Get track object
         track = Track.get(id=layer_id)
         locked = track.data.get("lock", False)
+        skip_audio = track.data.get("skip_audio", False)
+        skip_video = track.data.get("skip_video", False)
 
         menu = QMenu(self)
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
+        menu.addSeparator()
+
+        # Lock/Unlock Track
         if locked:
             menu.addAction(self.window.actionUnlockTrack)
             self.window.actionRemoveTrack.setEnabled(False)
@@ -2616,6 +2621,27 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             menu.addAction(self.window.actionLockTrack)
             self.window.actionRemoveTrack.setEnabled(True)
         menu.addSeparator()
+
+        # Enable/Skip Audio+Video streams for the Track
+        menu.addAction(self.window.actionEnableAllStreams)
+        menu.addAction(self.window.actionAudioOnlyStream)
+        menu.addAction(self.window.actionVideoOnlyStream)
+        menu.addAction(self.window.actionNoStreams)
+        exlusive_group = QActionGroup(menu)
+        exlusive_group.addAction(self.window.actionEnableAllStreams)
+        exlusive_group.addAction(self.window.actionAudioOnlyStream)
+        exlusive_group.addAction(self.window.actionVideoOnlyStream)
+        exlusive_group.addAction(self.window.actionNoStreams)
+        if skip_video and skip_audio:
+            self.window.actionNoStreams.setChecked(True)
+        elif skip_audio:
+            self.window.actionVideoOnlyStream.setChecked(True)
+        elif skip_video:
+            self.window.actionAudioOnlyStream.setChecked(True)
+        else:
+            self.window.actionEnableAllStreams.setChecked(True)
+        menu.addSeparator()
+
         menu.addAction(self.window.actionRemoveTrack)
         return menu.popup(QCursor.pos())
 

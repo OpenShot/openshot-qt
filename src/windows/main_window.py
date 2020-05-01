@@ -1193,7 +1193,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Create new track above existing layer(s)
         track = Track()
-        track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
+        track.data = {"number": track_number, "y": 0, "label": "", "lock": False, "skip_audio": False, "skip_video": False}
         track.save()
 
     def actionAddTrackAbove_trigger(self, event):
@@ -1232,7 +1232,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
             # Create new track and insert
             track = Track()
-            track.data = {"number": new_track_num, "y": 0, "label": "", "lock": False}
+            track.data = {"number": new_track_num, "y": 0, "label": "", "lock": False, "skip_audio": False, "skip_video": False}
             track.save()
         else:
             # Track numbering is too tight, renumber them all and insert
@@ -1282,7 +1282,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
             # Create new track and insert
             track = Track()
-            track.data = {"number": new_track_num, "y": 0, "label": "", "lock": False}
+            track.data = {"number": new_track_num, "y": 0, "label": "", "lock": False, "skip_audio": False, "skip_video": False}
             track.save()
         else:
             # Track numbering is too tight, renumber them all and insert
@@ -1885,6 +1885,54 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Lock track and save
         selected_track.data['lock'] = False
+        selected_track.save()
+
+    def actionEnableAllStreams_trigger(self, event):
+        """ Callback for enable all streams in a track """
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+
+        # Enable Audio+Video for the track and save
+        selected_track.data["skip_audio"] = False
+        selected_track.data["skip_video"] = False
+        selected_track.save()
+
+    def actionAudioOnlyStream_trigger(self, event):
+        """ Callback for enable audio only stream in a track """
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+
+        # Enable Audio only for the track and save
+        selected_track.data["skip_audio"] = False
+        selected_track.data["skip_video"] = True
+        selected_track.save()
+
+    def actionVideoOnlyStream_trigger(self, event):
+        """ Callback for enable video only stream in a track """
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+
+        # Enable Video only for the track and save
+        selected_track.data["skip_audio"] = True
+        selected_track.data["skip_video"] = False
+        selected_track.save()
+
+    def actionNoStreams_trigger(self, event):
+        """ Callback for disabling all streams in a track """
+
+        # Get details of track
+        track_id = self.selected_tracks[0]
+        selected_track = Track.get(id=track_id)
+
+        # Disable both Audio and Video for the track and save
+        selected_track.data["skip_audio"] = True
+        selected_track.data["skip_video"] = True
         selected_track.save()
 
     def actionRenameTrack_trigger(self, event):

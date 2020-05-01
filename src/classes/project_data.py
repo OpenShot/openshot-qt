@@ -766,6 +766,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         if self._data.get("id") == "T0":
             self._data["id"] = self.generate_id()
 
+        # Add new layers controls since v2.5.1-dev2+
+        # otherwise they would be uneditable in old projects
+        if openshot_version <= "2.5.1-dev2":
+            for track in self._data["layers"]:
+                if not "skip_audio" in track:
+                    track["skip_audio"] = False
+                if not "skip_video" in track:
+                    track["skip_video"] = False
+
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
         import openshot
