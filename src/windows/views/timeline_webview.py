@@ -3048,6 +3048,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Accept event
         event.accept()
 
+        # Clip may be placed on track that has skip stream setting
+        get_app().window.upd_track_skipping()
+
         # Update the preview and reselct current frame in properties
         get_app().window.refreshFrameSignal.emit()
         get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
