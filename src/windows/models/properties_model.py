@@ -582,6 +582,13 @@ class PropertiesModel(updates.UpdateInterface):
                 # Add Headers
                 self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
 
+            # Get layer of the item (Track # the Clip lies on)
+            layer = 0
+            for property in all_properties.items():
+                if "layer" == property[0]:
+                    layer = property[1]["value"]
+
+            all_tracks = get_app().project.get("layers")
 
             # Loop through properties, and build a model
             for property in all_properties.items():
@@ -596,6 +603,28 @@ class PropertiesModel(updates.UpdateInterface):
                 interpolation = property[1]["interpolation"]
                 closest_point_x = property[1]["closest_point_x"]
                 choices = property[1]["choices"]
+
+                # Prevent has_audio/has_video property creation,
+                # so it can't be edited through UI
+                skip_item = False
+                audio_prop = False
+                video_prop = False
+
+                if name == "has_audio":
+                    audio_prop = True
+                elif name == "has_video":
+                    video_prop = True
+
+                if audio_prop or video_prop:
+                    for track in all_tracks:
+                        if track["number"] == layer:
+                            # When stream for the Track is disabled,
+                            # exclude correponding item from the model
+                            if (audio_prop and track["skip_audio"]) or (video_prop and track["skip_video"]):
+                                skip_item = True
+                                break
+                if skip_item:
+                    continue
 
                 # Adding Transparency to translation file
                 transparency_label = _("Transparency")
@@ -653,7 +682,6 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText(fileName)
                     elif type == "int" and label == "Track":
                         # Find track display name
-                        all_tracks = get_app().project.get("layers")
                         display_count = len(all_tracks)
                         display_label = None
                         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
@@ -732,7 +760,6 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText("")
                     elif type == "int" and label == "Track":
                         # Find track display name
-                        all_tracks = get_app().project.get("layers")
                         display_count = len(all_tracks)
                         display_label = None
                         for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
