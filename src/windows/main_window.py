@@ -541,6 +541,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Load recent projects again
                 self.load_recent_menu()
 
+                # Update Streams skipping
+                self.upd_track_skipping()
+
                 log.info("Loaded project {}".format(file_path))
             else:
                 log.info("File not found at {}".format(file_path))
@@ -1897,7 +1900,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Enable Audio+Video for the track and save
         selected_track.data["skip_audio"] = False
         selected_track.data["skip_video"] = False
+
+        # Ignore undo/redo history for the action
+        get_app().updates.ignore_history = True
         selected_track.save()
+        get_app().updates.ignore_history = False
+
+        track_list = []
+        if "number" in selected_track.data:
+            track_list.append(selected_track.data["number"])
+
+        # Restore Audio+Video
+        self.restoreStream(self.timeline_sync.timeline, "av", track_list)
 
     def actionAudioOnlyStream_trigger(self, event):
         """ Callback for enable audio only stream in a track """
@@ -1909,7 +1923,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Enable Audio only for the track and save
         selected_track.data["skip_audio"] = False
         selected_track.data["skip_video"] = True
+
+        # Ignore undo/redo history for the action
+        get_app().updates.ignore_history = True
         selected_track.save()
+        get_app().updates.ignore_history = False
+
+        track_list = []
+        if "number" in selected_track.data:
+            track_list.append(selected_track.data["number"])
+
+        # Skip Video
+        self.skipStream(self.timeline_sync.timeline, "v", track_list)
+
+        # Restore Audio
+        self.restoreStream(self.timeline_sync.timeline, "a", track_list)
 
     def actionVideoOnlyStream_trigger(self, event):
         """ Callback for enable video only stream in a track """
@@ -1921,7 +1949,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Enable Video only for the track and save
         selected_track.data["skip_audio"] = True
         selected_track.data["skip_video"] = False
+
+        # Ignore undo/redo history for the action
+        get_app().updates.ignore_history = True
         selected_track.save()
+        get_app().updates.ignore_history = False
+
+        track_list = []
+        if "number" in selected_track.data:
+            track_list.append(selected_track.data["number"])
+
+        # Skip Audio
+        self.skipStream(self.timeline_sync.timeline, "a", track_list)
+
+        # Restore Video
+        self.restoreStream(self.timeline_sync.timeline, "v", track_list)
 
     def actionNoStreams_trigger(self, event):
         """ Callback for disabling all streams in a track """
@@ -1933,7 +1975,121 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Disable both Audio and Video for the track and save
         selected_track.data["skip_audio"] = True
         selected_track.data["skip_video"] = True
+
+        # Ignore undo/redo history for the action
+        get_app().updates.ignore_history = True
         selected_track.save()
+        get_app().updates.ignore_history = False
+
+        track_list = []
+        if "number" in selected_track.data:
+            track_list.append(selected_track.data["number"])
+
+        # Skip Audio+Video
+        self.skipStream(self.timeline_sync.timeline, "av", track_list)
+
+    def skipStream(self, timeline, skip_type, track_list):
+        """ Override given timeline object with the special JSON
+            entry to disable media streams
+        """
+        # skip_type "a" is for Audio stream
+        # skip_type "v" is for Video stream
+
+        # JSON string to disable whole stream
+        disable_audio_str = '{"has_audio": { "Points": [{"co": {"X": 1.0, "Y": 0.0}, "interpolation": 2}] }}'
+        disable_video_str = '{"has_video": { "Points": [{"co": {"X": 1.0, "Y": 0.0}, "interpolation": 2}] }}'
+
+        audio = "a" in skip_type
+        video = "v" in skip_type
+
+        # Disable audio/video for each clip that is on the track_list
+        clips = timeline.Clips()
+        for clip in clips:
+            track_number = clip.Layer()
+            if (track_number in track_list):
+                if audio:
+                    log.info("Skipping audio for Track {}".format(track_number))
+                    clip.SetJson(disable_audio_str)
+                if video:
+                    log.info("Skipping video for Track {}".format(track_number))
+                    clip.SetJson(disable_video_str)
+
+        # Update preview cache because it's not valid any more
+        self.timeline_sync.timeline.ClearAllCache()
+
+        # Forcing full model update
+        self.propertyTableView.clip_properties_model.new_item = True
+        self.propertyTableView.clip_properties_model.update_model()
+
+    def restoreStream(self, timeline, restore_type, track_list):
+        """ Load given timeline object with the JSON from the real
+            timeline to restore media streams state
+        """
+        # restore_type "a" is for Audio stream
+        # restore_type "v" is for Video stream
+
+        if "clips" not in get_app().project._data:
+            return
+
+        restore_audio = {}
+        restore_video = {}
+        audio = "a" in restore_type
+        video = "v" in restore_type
+
+        json_clips = get_app().project._data["clips"]
+        for clip in json_clips:
+            if "layer" in clip:
+                if (clip["layer"] in track_list):
+                    if audio and ("has_audio" in clip):
+                        # Get original "has_audio" json string for the clip
+                        restore_audio[clip["id"]] = { "has_audio": clip["has_audio"] }
+                    if video and ("has_video" in clip):
+                        # Get original "has_video" json string for the clip
+                        restore_video[clip["id"]] = { "has_video": clip["has_video"] }
+
+        # Restore has_audio/has_video for each clip of interest
+        clips = timeline.Clips()
+        for clip in clips:
+            clip_id = clip.Id()
+            if audio and (clip_id in restore_audio):
+                # Restore original "has_audio" json string for the Clip
+                json_str = json.dumps(restore_audio[clip_id])
+                clip.SetJson(json_str)
+            if video and (clip_id in restore_video):
+                # Restore original "has_video" json string for the Clip
+                json_str = json.dumps(restore_video[clip_id])
+                clip.SetJson(json_str)
+
+        # Update preview cache because it's not valid any more
+        self.timeline_sync.timeline.ClearAllCache()
+
+        # Forcing full model update
+        self.propertyTableView.clip_properties_model.new_item = True
+        self.propertyTableView.clip_properties_model.update_model()
+
+    def getTracksToSkip(self):
+        # Get all Tracks
+        all_tracks = get_app().project.get("layers")
+
+        # Get track number to skip audio or video
+        skip_audio = []
+        skip_video = []
+        for track in all_tracks:
+            if "skip_audio" in track:
+                if track["skip_audio"]:
+                    skip_audio.append(track["number"])
+            if "skip_video" in track:
+                if track["skip_video"]:
+                    skip_video.append(track["number"])
+        return [skip_audio, skip_video]
+
+    def upd_track_skipping(self):
+        # Get skip lists of track numbers and skip audio/video streams
+        skip_audio, skip_video = self.getTracksToSkip()
+        if skip_audio:
+            self.skipStream(self.timeline_sync.timeline, "a", skip_audio)
+        if skip_video:
+            self.skipStream(self.timeline_sync.timeline, "v", skip_video)
 
     def actionRenameTrack_trigger(self, event):
         """Callback for renaming track"""
