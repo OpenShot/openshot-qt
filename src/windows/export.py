@@ -905,6 +905,14 @@ class Export(QDialog):
             start_time_export = time.time()
             start_frame_export = video_settings.get("start_frame")
             end_frame_export = video_settings.get("end_frame")
+
+            # Get skip lists of track numbers and skip audio/video streams
+            skip_audio, skip_video = get_app().window.getTracksToSkip()
+            if skip_audio:
+                get_app().window.skipStream(self.timeline, "a", skip_audio)
+            if skip_video:
+                get_app().window.skipStream(self.timeline, "v", skip_video)
+
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
