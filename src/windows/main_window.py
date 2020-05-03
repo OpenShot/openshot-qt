@@ -2067,6 +2067,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.propertyTableView.clip_properties_model.new_item = True
         self.propertyTableView.clip_properties_model.update_model()
 
+    def restoreAllStreams(self):
+        # Get all Tracks numbers
+        all_tracks = get_app().project.get("layers")
+        track_list = []
+        for track in all_tracks:
+            if "number" in track:
+                track_list.append(track["number"])
+
+        # Restore Audio+Video
+        self.restoreStream(self.timeline_sync.timeline, "av", track_list)
+
     def getTracksToSkip(self):
         # Get all Tracks
         all_tracks = get_app().project.get("layers")
