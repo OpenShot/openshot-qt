@@ -909,8 +909,10 @@ class Export(QDialog):
             # Get skip lists of track numbers and skip audio/video streams
             skip_audio, skip_video = get_app().window.getTracksToSkip()
             if skip_audio:
+                log.info("Skipping audio for Tracks {}".format(skip_audio))
                 get_app().window.skipStream(self.timeline, "a", skip_audio)
             if skip_video:
+                log.info("Skipping video for Tracks {}".format(skip_video))
                 get_app().window.skipStream(self.timeline, "v", skip_video)
 
             # Write each frame in the selected range

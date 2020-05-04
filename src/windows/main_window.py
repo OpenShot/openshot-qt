@@ -2008,10 +2008,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             track_number = clip.Layer()
             if (track_number in track_list):
                 if audio:
-                    log.info("Skipping audio for Track {}".format(track_number))
                     clip.SetJson(disable_audio_str)
                 if video:
-                    log.info("Skipping video for Track {}".format(track_number))
                     clip.SetJson(disable_video_str)
 
         # Update preview cache because it's not valid any more
