@@ -1523,6 +1523,31 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepBothSides")) == QKeySequence.ExactMatch:
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
+                trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitons]
+                self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepLeftSide")) == QKeySequence.ExactMatch:
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
+                trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitons]
+                self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepRightSide")) == QKeySequence.ExactMatch:
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of ids that are also selected
+                clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
+                trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitons]
+                self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+
         elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
             self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
