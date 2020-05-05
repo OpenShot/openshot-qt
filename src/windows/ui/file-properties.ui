@@ -191,8 +191,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>354</width>
-            <height>222</height>
+            <width>367</width>
+            <height>245</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -502,9 +502,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-28</y>
-            <width>354</width>
-            <height>117</height>
+            <y>0</y>
+            <width>367</width>
+            <height>127</height>
            </rect>
           </property>
           <attribute name="label">
@@ -616,9 +616,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-98</y>
-            <width>354</width>
-            <height>187</height>
+            <y>0</y>
+            <width>367</width>
+            <height>205</height>
            </rect>
           </property>
           <attribute name="label">
@@ -816,7 +816,7 @@
             <x>0</x>
             <y>0</y>
             <width>367</width>
-            <height>89</height>
+            <height>90</height>
            </rect>
           </property>
           <attribute name="label">
@@ -897,20 +897,46 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="pageOutput">
-          <attribute name="label">
-           <string>Output</string>
-          </attribute>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QTextEdit" name="txtOutput">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Output">
+      <attribute name="title">
+       <string>JSON</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QTextEdit" name="txtOutput">
+         <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>391</width>
+          <height>411</height>
+         </rect>
+        </property>
+         <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+         <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContents</enum>
+        </property>
+         <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+         <property name="lineWrapMode">
+          <enum>QTextEdit::NoWrap</enum>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
       </layout>
