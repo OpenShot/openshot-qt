@@ -30,12 +30,23 @@ import shutil
 import subprocess
 import sys
 import re
-import xml.dom.minidom as xml
 import functools
+import json
 
-from PyQt5.QtCore import QSize, Qt, QEvent, QObject, QThread, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QTimer
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
+
+from PyQt5.QtCore import (
+    Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
+)
+from PyQt5.QtWidgets import (
+    QApplication, QListView, QMessageBox, QColorDialog,
+    QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
+)
+from PyQt5.QtGui import QColor, QImage, QPixmap
 
 from classes import info
 from classes.logger import log
@@ -44,11 +55,9 @@ from classes.query import File
 from classes.app import get_app
 from windows.models.blender_model import BlenderModel
 
-import json
-
 
 class BlenderListView(QListView):
-    """ A TreeView QWidget used on the animated title window """
+    """ A ListView QWidget used on the animated title window """
 
     def currentChanged(self, selected, deselected):
         # Get selected item
@@ -74,7 +83,7 @@ class BlenderListView(QListView):
         self.generateUniqueFolder()
 
         # Loop through params
-        for param in animation.get("params",[]):
+        for param in animation.get("params", []):
             log.info('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
@@ -145,9 +154,12 @@ class BlenderListView(QListView):
                             continue
 
                         param["values"][fileName] = "|".join(
-                            file.data["path"], str(file.data["height"]),
-                            str(file.data["width"]), file.data["media_type"],
-                            str(file.data["fps"]["num"] / file.data["fps"]["den"])
+                            (file.data["path"],
+                             str(file.data["height"]),
+                             str(file.data["width"]),
+                             file.data["media_type"],
+                             str(file.data["fps"]["num"] / file.data["fps"]["den"])
+                             )
                         )
 
                 # Add normal values
@@ -295,7 +307,6 @@ class BlenderListView(QListView):
     def btnRefresh_clicked(self, checked):
 
         # Render current frame
-        preview_frame_number = self.win.sliderPreview.value()
         self.preview_timer.start()
 
     @pyqtSlot()
@@ -360,61 +371,39 @@ class BlenderListView(QListView):
 
         # Get list of params
         animation = {"title": animation_title, "path": xml_path, "service": service, "params": []}
-        xml_params = xmldoc.getElementsByTagName("param")
 
         # Loop through params
-        for param in xml_params:
-            param_item = {}
+        for param in xmldoc.getElementsByTagName("param"):
+            # Set up item dict, "default" key is required
+            param_item = {"default": ""}
 
             # Get details of param
-            if param.attributes["title"]:
-                param_item["title"] = param.attributes["title"].value
+            for att in ["title", "description", "name", "type"]:
+                if param.attributes[att]:
+                    param_item[att] = param.attributes[att].value
 
-            if param.attributes["description"]:
-                param_item["description"] = param.attributes["description"].value
+            for tag in ["min", "max", "step", "digits", "default"]:
+                for p in param.getElementsByTagName(tag):
+                    if p.childNodes:
+                        param_item[tag] = p.firstChild.data
 
-            if param.attributes["name"]:
-                param_item["name"] = param.attributes["name"].value
-
-            if param.attributes["type"]:
-                param_item["type"] = param.attributes["type"].value
-
-            if param.getElementsByTagName("min"):
-                param_item["min"] = param.getElementsByTagName("min")[0].childNodes[0].data
-
-            if param.getElementsByTagName("max"):
-                param_item["max"] = param.getElementsByTagName("max")[0].childNodes[0].data
-
-            if param.getElementsByTagName("step"):
-                param_item["step"] = param.getElementsByTagName("step")[0].childNodes[0].data
-
-            if param.getElementsByTagName("digits"):
-                param_item["digits"] = param.getElementsByTagName("digits")[0].childNodes[0].data
-
-            if param.getElementsByTagName("default"):
-                if param.getElementsByTagName("default")[0].childNodes:
-                    param_item["default"] = param.getElementsByTagName("default")[0].childNodes[0].data
-                else:
-                    param_item["default"] = ""
-
-            param_item["values"] = {}
-            values = param.getElementsByTagName("value")
-            for value in values:
-                # Get list of values
-                name = ""
-                num = ""
-
-                if value.attributes["name"]:
-                    name = value.attributes["name"].value
-
-                if value.attributes["num"]:
-                    num = value.attributes["num"].value
-
-                # add to parameter
-                param_item["values"][name] = num
+            try:
+                # Build values dict from list of (name, num) tuples
+                param_item["values"] = dict([
+                    (p.attributes["name"].value, p.attributes["num"].value)
+                    for p in param.getElementsByTagName("value") if (
+                        "name" in p.attributes and "num" in p.attributes
+                    )
+                ])
+            except (TypeError, AttributeError) as ex:
+                log.warn("XML parser: {}".format(ex))
+                pass
 
             # Append param object to list
             animation["params"].append(param_item)
+
+        # Free up XML document memory
+        xmldoc.unlink()
 
         # Return animation dictionary
         return animation
@@ -588,7 +577,7 @@ class BlenderListView(QListView):
 
     def __init__(self, *args):
         # Invoke parent init
-        QTreeView.__init__(self, *args)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.app = get_app()
@@ -632,7 +621,6 @@ class BlenderListView(QListView):
 
         # Refresh view
         self.refresh_view()
-
 
         # Background Worker Thread (for Blender process)
         self.background = QThread(self)
@@ -695,20 +683,21 @@ class Worker(QObject):
         # Init regex expression used to determine blender's render progress
         s = settings.get_settings()
 
+        _ = get_app()._tr
+
         # get the blender executable path
         self.blender_exec_path = s.get("blender_command")
-        self.blender_frame_expression = re.compile(r"Fra:([0-9,]*).*Mem:(.*?) .*Sce:")
-        self.blender_saved_expression = re.compile(r"Saved: '(.*.png)(.*)'")
-        self.blender_version = re.compile(r"Blender (.*?) ")
-        self.blend_file_path = blend_file_path
-        self.target_script = target_script
         self.preview_mode = preview_mode
         self.frame_detected = False
+        self.last_frame = 0
         self.version = None
         self.command_output = ""
         self.process = None
-        self.is_running = True
-        _ = get_app()._tr
+        self.is_running = False
+
+        blender_frame_re = re.compile(r"Fra:([0-9,]*)")
+        blender_saved_re = re.compile(r"Saved: '(.*\.png)")
+        blender_version_re = re.compile(r"Blender (.*?) ")
 
         startupinfo = None
         if sys.platform == 'win32':
@@ -718,79 +707,98 @@ class Worker(QObject):
         try:
             # Shell the blender command to create the image sequence
             command_get_version = [self.blender_exec_path, '-v']
-            command_render = [self.blender_exec_path, '-b', self.blend_file_path, '-P', self.target_script]
+            command_render = [self.blender_exec_path, '-b', blend_file_path, '-P', target_script]
 
             # Check the version of Blender
             import shlex
-            log.info("Checking Blender version, command: {}".format(" ".join([shlex.quote(x) for x in command_get_version])))
+            log.info("Checking Blender version, command: {}".format(
+                " ".join([shlex.quote(x) for x in command_get_version])))
 
-            self.process = subprocess.Popen(command_get_version, stdout=subprocess.PIPE, stderr=subprocess.PIPE, startupinfo=startupinfo, universal_newlines=True)
+            self.process = subprocess.Popen(
+                command_get_version,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                startupinfo=startupinfo,
+            )
 
             # Check the version of Blender
-            self.version = self.blender_version.findall(self.process.stdout.readline())
+            try:
+                # Give Blender up to 10 seconds to respond
+                (out, err) = self.process.communicate(timeout=10)
+            except subprocess.TimeoutExpired:
+                self.blender_error_nodata.emit()
+                return
 
-            if self.version:
-                if self.version[0] < info.BLENDER_MIN_VERSION:
-                    # change cursor to "default" and stop running blender command
-                    self.is_running = False
+            ver_string = out.decode('utf-8')
+            ver_match = blender_version_re.search(ver_string)
 
-                    # Wrong version of Blender.
-                    self.blender_version_error.emit(self.version[0])
-                    return
+            if not ver_match:
+                raise Exception("No Blender version detected in output")
+
+            self.version = ver_match.group(1)
+            log.info("Found Blender version {}".format(self.version))
+
+            if self.version < info.BLENDER_MIN_VERSION:
+                # Wrong version of Blender.
+                self.blender_version_error.emit(self.version)
+                return
 
             # debug info
-            log.info("Running Blender, command: {}".format(" ".join([shlex.quote(x) for x in command_render])))
+            log.info("Running Blender, command: {}".format(
+                " ".join([shlex.quote(x) for x in command_render])))
             log.info("Blender output:")
 
             # Run real command to render Blender project
-            self.process = subprocess.Popen(command_render, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, startupinfo=startupinfo, universal_newlines=True)
+            self.process = subprocess.Popen(
+                command_render, bufsize=512,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                startupinfo=startupinfo,
+            )
+            self.is_running = True
 
-        except:
+        except subprocess.SubprocessError:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
             self.is_running = False
             self.blender_error_nodata.emit()
+            raise
+        except Exception as ex:
+            log.error("{}".format(ex))
             return
 
         while self.is_running and self.process.poll() is None:
+            for outline in iter(self.process.stdout.readline, b''):
+                line = outline.decode('utf-8').strip()
 
-            # Look for progress info in the Blender Output
-            line = self.process.stdout.readline().strip()
+                # Skip blank output
+                if not line:
+                    continue
 
-            # Skip blank lines
-            if not line:
-                continue
+                # append all output into a variable, and log
+                self.command_output = self.command_output + line + "\n"
+                log.info("  {}".format(line))
 
-            # append all output into a variable, and log
-            self.command_output = self.command_output + line + "\n"
-            log.info("  {}".format(line))
+                # Look for progress info in the Blender Output
+                output_frame = blender_frame_re.search(line)
+                output_saved = blender_saved_re.search(line)
 
-            output_frame = self.blender_frame_expression.findall(line)
+                # Does it have a match?
+                if output_frame or output_saved:
+                    # Yes, we have a match
+                    self.frame_detected = True
 
-            # Does it have a match?
-            if output_frame:
-                # Yes, we have a match
-                self.frame_detected = True
-                current_frame = output_frame[0][0]
-                memory = output_frame[0][1]
+                if output_frame:
+                    current_frame = int(output_frame.group(1))
 
-                # Update progress bar
-                if not self.preview_mode:
-                    # only update progress if in 'render' mode
-                    self.progress.emit(int(current_frame))
+                    # Update progress bar
+                    if current_frame != self.last_frame and not self.preview_mode:
+                        # update progress on frame change, if in 'render' mode
+                        self.progress.emit(current_frame)
 
-            # Look for progress info in the Blender Output
-            output_saved = self.blender_saved_expression.findall(line)
+                    self.last_frame = current_frame
 
-            # Does it have a match?
-            if output_saved:
-                # Yes, we have a match
-                self.frame_detected = True
-                image_path = output_saved[0][0]
-                time_saved = output_saved[0][1]
-
-                # Update preview image
-                self.image_updated.emit(image_path)
+                if output_saved:
+                    # Update preview image
+                    self.image_updated.emit(output_saved.group(1))
 
         log.info("Blender process exited.")
 
