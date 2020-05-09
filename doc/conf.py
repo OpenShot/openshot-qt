@@ -43,6 +43,15 @@ try:
 except ImportError:
     pass
 
+import sys
+sys.path.insert(0, '.')
+try:
+    # Load our YouTube directive
+    import youtube_directive
+    extensions.append('youtube_directive')
+except ImportError:
+    pass
+
 # External links mappings for extlinks
 # see: http://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
 extlinks = {

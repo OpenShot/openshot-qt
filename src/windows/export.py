@@ -28,9 +28,13 @@ import functools
 import locale
 import os
 import time
-import xml.dom.minidom as xml
 import tempfile
-from xml.parsers.expat import ExpatError
+
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -662,6 +666,14 @@ class Export(QDialog):
                         raw_number = 0
                     bit_rate_bytes = raw_number
 
+                elif "qp" in raw_measurement:
+                    measurement = "qp"
+                    if raw_number > 255:
+                        raw_number = 255
+                    if raw_number < 0:
+                        raw_number = 0
+                    bit_rate_bytes = raw_number
+
         except:
             pass
 
@@ -860,6 +872,10 @@ class Export(QDialog):
                 # Set the quality in case crf was selected
                 if "crf" in self.txtVideoBitRate.text():
                     w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
+                # Set the quality in case qp was selected
+                if "qp" in self.txtVideoBitRate.text():
+                    w.SetOption(openshot.VIDEO_STREAM, "qp", str(int(video_settings.get("video_bitrate"))) )
+
 
             # Open the writer
             w.Open()

@@ -1,35 +1,40 @@
-""" 
+"""
  @file
  @brief This file contains PyQt help functions, to translate the interface, load icons, and connect signals
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
 import os
-import xml.etree.ElementTree
 import time
+
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import ElementTree
+except ImportError:
+  from xml.etree import ElementTree
 
 from PyQt5.QtCore import QDir, QLocale
 from PyQt5.QtGui import QIcon
@@ -85,7 +90,7 @@ def load_ui(window, path):
         raise error
 
     # Save xml tree for ui
-    window.uiTree = xml.etree.ElementTree.parse(path)
+    window.uiTree = ElementTree.parse(path)
 
 
 def get_default_icon(theme_name):

@@ -2,16 +2,16 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">WEBM (AV1 aom)</title>
-	<videoformat>webm</videoformat>
-	<videocodec>libaom-av1</videocodec>
+	<title translatable="True">MP4 (AV1 rav1e)</title>
+	<videoformat>mp4</videoformat>
+	<videocodec>librav1e</videocodec>
 	<audiocodec>libvorbis</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
-	 low="384 kb/s"
-	 med="1.5 Mb/s"
-	 high="15.00 Mb/s"></videobitrate>
+	 low="200 qp"
+	 med="100 qp"
+	 high="50 qp"></videobitrate>
 	<audiobitrate
 	 low="96 kb/s"
 	 med="128 kb/s"

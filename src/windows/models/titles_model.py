@@ -86,17 +86,18 @@ class TitlesModel():
             titles_list.append(os.path.join(titles_dir, filename))
 
         # Add user-defined titles (if any)
-        for file in sorted(os.listdir(info.TITLE_PATH)):
-            # pretty up the filename for display purposes
-            if fnmatch.fnmatch(file, '*.svg'):
-                titles_list.append(os.path.join(info.TITLE_PATH, file))
+        for filename in sorted(os.listdir(info.USER_TITLES_PATH)):
+            if fnmatch.fnmatch(filename, '*.svg'):
+                titles_list.append(os.path.join(info.USER_TITLES_PATH, filename))
 
         for path in sorted(titles_list):
             filename = os.path.basename(path)
             fileBaseName = os.path.splitext(filename)[0]
 
             # Skip hidden files (such as .DS_Store, etc...)
-            if filename[0] == "." or "thumbs.db" in filename.lower() or filename.lower() == "temp.svg":
+            if (filename[0] == "."
+               or "thumbs.db" in filename.lower()
+               or filename.lower() == "temp.svg"):
                 continue
 
             # split the name into parts (looking for a number)
@@ -135,16 +136,19 @@ class TitlesModel():
                     reader.Open()
 
                     # Save thumbnail
-                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
-                                                 "", "#000", True, "png", 85)
+                    reader.GetFrame(0).Thumbnail(
+                        thumb_path, 98, 64,
+                        os.path.join(info.IMAGES_PATH, "mask.png"),
+                        "", "#000", True, "png", 85
+                    )
                     reader.Close()
                     clip.Close()
 
-                except:
+                except Exception as ex:
                     # Handle exception
-                    log.info('Invalid title image file: %s' % filename)
+                    log.info('Failed to open {} as title: {}'.format(filename, ex))
                     msg = QMessageBox()
-                    msg.setText(_("{} is not a valid image file.".format(filename)))
+                    msg.setText(_("%s is not a valid image file." % filename))
                     msg.exec_()
                     continue
 

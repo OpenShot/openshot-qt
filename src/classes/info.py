@@ -28,8 +28,6 @@
 import os
 from time import strftime
 
-from PyQt5.QtCore import QDir
-
 VERSION = "2.5.1-dev2"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.5"
 DATE = "20200228000000"
@@ -56,22 +54,23 @@ RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
-ASSETS_PATH = os.path.join(USER_PATH, "assets")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
 PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
-
+USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
 # Create user paths if they do not exist
 # (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
-               BLENDER_PATH, ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH,
-               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH]:
+for folder in [
+    USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+    BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
+    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH,
+]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
@@ -97,11 +96,18 @@ except ImportError:
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
-langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
-                          sort=QDir.Name)
-for trpath in langs:
-    SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+try:
+    from PyQt5.QtCore import QDir
+    langdir = QDir(language_path)
+    langs = langdir.entryList(
+        ['OpenShot.*.qm'],
+        QDir.NoDotAndDotDot | QDir.Files,
+        sort=QDir.Name)
+    for trpath in langs:
+        SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+except ImportError:
+    # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
+    pass
 
 SETUP = {
     "name": NAME,
