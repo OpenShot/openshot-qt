@@ -28,9 +28,13 @@ import functools
 import locale
 import os
 import time
-import xml.dom.minidom as xml
 import tempfile
 
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *

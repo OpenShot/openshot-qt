@@ -30,8 +30,14 @@ import shutil
 import subprocess
 import sys
 import re
-import xml.dom.minidom as xml
 import functools
+import json
+
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
 
 from PyQt5.QtCore import (
     Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
