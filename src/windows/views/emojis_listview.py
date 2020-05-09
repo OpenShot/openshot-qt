@@ -113,9 +113,14 @@ class EmojisListView(QListView):
     @pyqtSlot(int)
     def group_changed(self, index=-1):
         item = get_app().window.emojiFilterGroup.itemData(index)
-
         self.group_model.setFilterFixedString(item)
         self.group_model.setFilterKeyColumn(1)
+
+        # Save current emoji filter to settings
+        s = get_settings()
+        setting_emoji_group = s.get('emoji_group_filter') or 'smileys-emotion'
+        if setting_emoji_group != item:
+            s.set('emoji_group_filter', item)
 
         self.refresh_view()
 
@@ -169,16 +174,19 @@ class EmojisListView(QListView):
 
         # setup filter events
         self.win.emojisFilter.textChanged.connect(self.filter_changed)
-        if not self.win.mode == "unittest":
-            self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
 
         # Loop through emoji groups, and populate emoji filter drop-down
         self.win.emojiFilterGroup.clear()
         self.win.emojiFilterGroup.addItem(_("Show All"), "")
-        dropdown_index = -1
+        dropdown_index = 0
         for index, emoji_type in enumerate(sorted(self.emojis_model.emoji_groups)):
             self.win.emojiFilterGroup.addItem(_(emoji_type.capitalize()), emoji_type)
             if emoji_type == default_type:
                 # Initialize emoji filter group to settings
-                dropdown_index = index
+                # Off by one, due to 'show all' choice above
+                dropdown_index = index + 1
+
+        if not self.win.mode == "unittest":
+            self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
         self.win.emojiFilterGroup.setCurrentIndex(dropdown_index)
+
