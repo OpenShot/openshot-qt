@@ -48,39 +48,44 @@ class FilesListView(QListView):
     drag_item_size = 48
 
     def updateSelection(self):
-        log.info('updateSelection')
-
         # Track selected items
-        self.selected = self.selectionModel().selectedIndexes()
+        m = self.files_model.model
+        selected_items = [m.itemFromIndex(x) for x in self.selectionModel().selectedIndexes()]
 
         # Track selected file ids on main window
-        rows = []
-        self.win.selected_files = []
-        for selection in self.selected:
-            selected_row = self.files_model.model.itemFromIndex(selection).row()
-            if selected_row not in rows:
-                self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
-                rows.append(selected_row)
+        self.win.selected_files = [x.text() for x in self.selected_items if x.column() == 5]
 
     def contextMenuEvent(self, event):
-        # Update selection
-        self.updateSelection()
 
         # Set context menu mode
         app = get_app()
         app.context_menu_object = "files"
 
+        index = self.indexAt(event.pos())
+
+        # Build menu
         menu = QMenu(self)
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionDetailsView)
-        if self.selected:
-            # If file selected, show file related options
+
+        if index.isValid():
+            # Look up the model item and our unique ID
+            item = self.files_model.model.itemFromIndex(index)
+            file_id = self.files_model.model.item(item.row(), 5).text()
+
+            try:
+                # Check whether we know the item is selected
+                i = self.win.selected_files.index(file_id)
+            except ValueError:
+                # Add to our list, if it's not already there
+                self.win.selected_files.append(file_id)
+
+            # If a valid file is selected, show file related options
             menu.addSeparator()
 
             # Add edit title option (if svg file)
-            selected_file_id = self.win.selected_files[0]
-            file = File.get(id=selected_file_id)
+            file = File.get(id=file_id)
             if file and file.data.get("path").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
                 menu.addAction(self.win.actionDuplicateTitle)
@@ -95,7 +100,7 @@ class FilesListView(QListView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
@@ -103,7 +108,7 @@ class FilesListView(QListView):
             event.setDropAction(Qt.CopyAction)
             event.accept()
 
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
@@ -325,7 +330,6 @@ class FilesListView(QListView):
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
-        self.selected = []
         self.ignore_image_sequence_paths = []
 
         # Setup header columns
@@ -335,6 +339,7 @@ class FilesListView(QListView):
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
@@ -346,3 +351,5 @@ class FilesListView(QListView):
         # setup filter events
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
+        self.selectionModel().selectionChanged.connect(self.updateSelection)
+

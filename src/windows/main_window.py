@@ -395,20 +395,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file = File.get(id=selected_file_id)
         file_path = file.data.get("path")
 
-        # Delete thumbnail for this file (it will be recreated soon)
-        thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}.png".format(file.id))
-
-        # Check if thumb exists (and delete it)
-        if os.path.exists(thumb_path):
-            os.remove(thumb_path)
-
         # show dialog for editing title
         from windows.title_editor import TitleEditor
         win = TitleEditor(file_path)
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
 
-        # Force update of files model (which will rebuild missing thumbnails)
+        # Force update of files model (which will rebuild thumbnails)
         get_app().window.filesTreeView.refresh_view()
 
         # Force update of clips
@@ -423,10 +416,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionDuplicateTitle_trigger(self, event):
 
-        # Get selected svg title file
-        selected_file_id = self.selected_files[0]
-        file = File.get(id=selected_file_id)
-        file_path = file.data.get("path")
+        file_path = None
+
+        # Loop through selected files (set 1 selected file if more than 1)
+        for file_id in self.selected_files:
+            # Find matching file
+            f = File.get(id=file_id)
+            if f.data.get("path").endswith(".svg"):
+                file_path = f.data.get("path")
+                break
+
+        if not file_path:
+            return
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
@@ -911,7 +912,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Bail out if no file selected
         if not f:
-            log.info(self.selected_files)
+            log.info("Preview action failed, selected files: {}".format(self.selected_files))
             return
 
         # show dialog
@@ -1260,7 +1261,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionSnappingTool_trigger(self, event):
         log.info("actionSnappingTool_trigger")
-        log.info(self.actionSnappingTool.isChecked())
 
         # Enable / Disable snapping mode
         self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
@@ -1344,7 +1344,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
-        log.info(self.preview_thread.current_frame)
 
         # Calculate current position (in seconds)
         fps = get_app().project.get("fps")
@@ -1487,7 +1486,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
 
-        # Boiler plate key mappings (mostly for menu support on Ubuntu/Unity)
+        # Menu shortcuts
         elif key.matches(self.getShortcutByName("actionNew")) == QKeySequence.ExactMatch:
             self.actionNew.trigger()
         elif key.matches(self.getShortcutByName("actionOpen")) == QKeySequence.ExactMatch:
@@ -1526,6 +1525,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionTitle.trigger()
         elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
+            log.info("Duplicating title, {}".format(event))
+            self.actionDuplicateTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
+            self.actionEditTitle.trigger()
         elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
             self.actionFullscreen.trigger()
         elif key.matches(self.getShortcutByName("actionAbout")) == QKeySequence.ExactMatch:
@@ -1602,8 +1606,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         elif key.matches(self.getShortcutByName("selectNone")) == QKeySequence.ExactMatch:
             self.timeline.ClearAllSelections()
 
-        # Bubble event on
-        event.ignore()
+        # If we didn't act on the event, forward it to the base class
+        else:
+            super(MainWindow, self).keyPressEvent(event)
 
 
     def actionProfile_trigger(self, event):
@@ -1627,7 +1632,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Bail out if no file selected
         if not f:
-            log.info(self.selected_files)
+            log.warn("Split clip action failed, selected files: {}".format(self.selected_files))
             return
 
         # show dialog

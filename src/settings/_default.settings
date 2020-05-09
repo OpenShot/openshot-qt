@@ -687,10 +687,6 @@
     "value": "-",
     "type": "text"
   },
-
-
-
-
   {
     "category": "Keyboard",
     "title": "Previous Frame",
@@ -905,6 +901,22 @@
     "restart": true,
     "setting": "nudgeRight",
     "value": "Shift+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Edit Title",
+    "restart": true,
+    "setting": "actionEditTitle",
+    "value": "",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Duplicate Title",
+    "restart": true,
+    "setting": "actionDuplicateTitle",
+    "value": "Ctrl+Shift+C",
     "type": "text"
   }
 ]
