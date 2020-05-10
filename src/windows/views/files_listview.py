@@ -93,7 +93,7 @@ class FilesListView(QListView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept

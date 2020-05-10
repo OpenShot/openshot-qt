@@ -28,8 +28,6 @@
 import os
 from time import strftime
 
-from PyQt5.QtCore import QDir
-
 VERSION = "2.5.1-dev2"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.5"
 DATE = "20200228000000"
@@ -98,11 +96,18 @@ except ImportError:
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
-langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
-                          sort=QDir.Name)
-for trpath in langs:
-    SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+try:
+    from PyQt5.QtCore import QDir
+    langdir = QDir(language_path)
+    langs = langdir.entryList(
+        ['OpenShot.*.qm'],
+        QDir.NoDotAndDotDot | QDir.Files,
+        sort=QDir.Name)
+    for trpath in langs:
+        SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+except ImportError:
+    # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
+    pass
 
 SETUP = {
     "name": NAME,

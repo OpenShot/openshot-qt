@@ -57,7 +57,7 @@ def createEffect(xmldoc, name, node, points, scale):
             first_value = None
             for keyframeTime in sorted(keyframes.keys()):
                 keyframeValue = keyframes.get(keyframeTime)
-                if first_value == None:
+                if first_value is None:
                     first_value = keyframeValue
 
                 # Create keyframe element for each point
@@ -230,4 +230,6 @@ def export_xml():
         file.close()
     except IOError as inst:
         log.error("Error writing XML export: {}".format(str(inst)))
-
+    finally:
+        # Free up DOM memory
+        xmldoc.unlink()

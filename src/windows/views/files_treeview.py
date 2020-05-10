@@ -44,6 +44,7 @@ from windows.models.files_model import FilesModel, FileFilterProxyModel
 
 import json
 
+
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = 48
@@ -94,7 +95,7 @@ class FilesTreeView(QTreeView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept

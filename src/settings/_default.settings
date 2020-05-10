@@ -804,6 +804,30 @@
   },
   {
     "category": "Keyboard",
+    "title": "Slice Selected: Keep Both Sides",
+    "restart": true,
+    "setting": "sliceSelectedKeepBothSides",
+    "value": "s",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Left Side",
+    "restart": true,
+    "setting": "sliceSelectedKeepLeftSide",
+    "value": "d",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Right Side",
+    "restart": true,
+    "setting": "sliceSelectedKeepRightSide",
+    "value": "a",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Copy",
     "restart": true,
     "setting": "copyAll",
@@ -920,5 +944,21 @@
     "type": "bool",
     "category": "General",
     "setting": "auto-transform"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Edit Title",
+    "restart": true,
+    "setting": "actionEditTitle",
+    "value": "",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Duplicate Title",
+    "restart": true,
+    "setting": "actionDuplicateTitle",
+    "value": "Ctrl+Shift+C",
+    "type": "text"
   }
 ]

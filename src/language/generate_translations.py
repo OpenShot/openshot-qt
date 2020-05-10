@@ -54,8 +54,14 @@ import datetime
 import os
 import subprocess
 import sys
-import xml.dom.minidom as xml
 import json
+
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
+
 import openshot
 
 # Get the absolute path of this project

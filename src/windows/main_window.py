@@ -403,13 +403,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file = File.get(id=selected_file_id)
         file_path = file.data.get("path")
 
-        # Delete thumbnail for this file (it will be recreated soon)
-        thumb_path = os.path.join(info.THUMBNAIL_PATH, "{}.png".format(file.id))
-
-        # Check if thumb exists (and delete it)
-        if os.path.exists(thumb_path):
-            os.remove(thumb_path)
-
         # show dialog for editing title
         from windows.title_editor import TitleEditor
         win = TitleEditor(file_path)
@@ -431,10 +424,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionDuplicateTitle_trigger(self, event):
 
-        # Get selected svg title file
-        selected_file_id = self.selected_files[0]
-        file = File.get(id=selected_file_id)
-        file_path = file.data.get("path")
+        file_path = None
+
+        # Loop through selected files (set 1 selected file if more than 1)
+        for file_id in self.selected_files:
+            # Find matching file
+            f = File.get(id=file_id)
+            if f.data.get("path").endswith(".svg"):
+                file_path = f.data.get("path")
+                break
+
+        if not file_path:
+            return
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
@@ -917,7 +918,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Bail out if no file selected
         if not f:
-            log.info(self.selected_files)
+            log.info("Preview action failed, selected files: {}".format(self.selected_files))
             return
 
         # show dialog
@@ -1070,12 +1071,94 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         old_cache_object = None
         new_cache_object = None
 
+    def renumber_all_layers(self, insert_at=None, stride=1000000):
+        """Renumber all of the project's layers to be equidistant (in
+        increments of stride), leaving room for future insertion/reordering.
+        Inserts a new track, if passed an insert_at index"""
+
+        app = get_app()
+
+        # Don't track renumbering in undo history
+        app.updates.ignore_history = True
+
+        tracks = sorted(app.project.get("layers"), key=lambda x: x['number'])
+
+        log.warning("######## RENUMBERING TRACKS ########")
+        log.info("Tracks before: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
+
+        # Leave placeholder for new track, if insert requested
+        if insert_at is not None and int(insert_at) < len(tracks) + 1:
+            tracks.insert(int(insert_at), "__gap__")
+
+        # Statistics for end-of-function logging
+        renum_count = len(tracks)
+        renum_min = stride
+        renum_max = renum_count * stride
+
+        # Collect items to renumber
+        targets = []
+        gap_num = None
+        for (idx, layer) in enumerate(tracks):
+            newnum = (idx + 1) * stride
+
+            # Check for insertion placeholder
+            if isinstance(layer, str) and layer == "__gap__":
+                insert_num = newnum
+                continue
+
+            # Look up track info
+            oldnum = layer.get('number')
+            cur_track = Track.get(number=oldnum)
+            if not cur_track:
+                log.error('Track number {} not found'.format(oldnum))
+                continue
+
+            # Find track elements
+            cur_clips = list(Clip.filter(layer=oldnum))
+            cur_trans = list(Transition.filter(layer=oldnum))
+
+            # Collect items to be updated with new layer number
+            targets.append({
+                "number": newnum,
+                "track": cur_track,
+                "clips": cur_clips,
+                "trans": cur_trans,
+            })
+
+        # Renumber everything
+        for layer in targets:
+            try:
+                num = layer["number"]
+                layer["track"].data["number"] = num
+                layer["track"].save()
+
+                for item in layer["clips"] + layer["trans"]:
+                    item.data["layer"] = num
+                    item.save()
+            except (AttributeError, IndexError, ValueError):
+                # Ignore references to deleted objects
+                continue
+
+        # Re-enable undo tracking for new track insertion
+        app.updates.ignore_history = False
+
+        # Create new track and insert at gap point, if requested
+        if insert_at is not None:
+            track = Track()
+            track.data = {"number": insert_num, "y": 0, "label": "", "lock": False}
+            track.save()
+
+        log.info("Renumbered {} tracks from {} to {}{}".format(
+            renum_count, renum_min, renum_max,
+            " (inserted {} at {})".format(insert_num, insert_at) if insert_at else "")
+        )
+
     def actionAddTrack_trigger(self, event):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
         all_tracks = get_app().project.get("layers")
-        track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
+        track_number = reversed(sorted(all_tracks, key=lambda x: x['number']))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
         track = Track()
@@ -1083,127 +1166,107 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         track.save()
 
     def actionAddTrackAbove_trigger(self, event):
-        log.info("actionAddTrackAbove_trigger")
-
-        # Get # of tracks
+        # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
-        # Get selected track data
+        log.info("adding track above {}".format(selected_layer_id))
+
+        # Get track data for selected track
         existing_track = Track.get(id=selected_layer_id)
         if not existing_track:
             # Log error and fail silently
             log.error('No track object found with id: %s' % selected_layer_id)
             return
-        selected_layer_number = int(existing_track.data["number"])
+        selected_layer_num = int(existing_track.data["number"])
 
-        # Get track above selected track (if any)
-        previous_track_number = 0
-        track_number_delta = 0
-        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-            if track.get("number") == selected_layer_number:
-                track_number_delta = previous_track_number - selected_layer_number
-                break
-            previous_track_number = track.get("number")
+        # Find track above selected track (if any)
+        try:
+            tracks = sorted(all_tracks, key=lambda x: x['number'])
+            existing_index = tracks.index(existing_track.data)
+        except ValueError as ex:
+            log.warning("Could not find track {}: {}".format(selected_layer_num, ex))
+            return
+        try:
+            next_index = existing_index + 1
+            next_layer = tracks[next_index]
+            delta = abs(selected_layer_num - next_layer.get('number'))
+        except IndexError:
+            delta = 2000000
 
         # Calculate new track number (based on gap delta)
-        new_track_number = selected_layer_number + 1000000
-        if track_number_delta > 2:
+        if delta > 2:
             # New track number (pick mid point in track number gap)
-            new_track_number = selected_layer_number + int(round(track_number_delta / 2.0))
+            new_track_num = selected_layer_num + int(round(delta / 2.0))
+
+            # Create new track and insert
+            track = Track()
+            track.data = {"number": new_track_num, "y": 0, "label": "", "lock": False}
+            track.save()
         else:
-            # Loop through tracks above insert point
-            for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                if track.get("number") > selected_layer_number:
-                    existing_track = Track.get(number=track.get("number"))
-                    if not existing_track:
-                        # Log error and fail silently, and continue
-                        log.error('No track object found with number: %s' % track.get("number"))
-                        continue
-                    existing_layer = existing_track.data["number"]
-                    existing_track.data["number"] = existing_layer + 1000000
-                    existing_track.save()
+            # Track numbering is too tight, renumber them all and insert
+            self.renumber_all_layers(insert_at=next_index)
 
-                    # Loop through clips and transitions for track, moving up to new layer
-                    for clip in Clip.filter(layer=existing_layer):
-                        clip.data["layer"] = int(clip.data["layer"]) + 1000000
-                        clip.save()
+        tracks = sorted(get_app().project.get("layers"), key=lambda x: x['number'])
 
-                    for trans in Transition.filter(layer=existing_layer):
-                        trans.data["layer"] = int(trans.data["layer"]) + 1000000
-                        trans.save()
-
-        # Create new track at vacated layer
-        track = Track()
-        track.data = {"number": new_track_number, "y": 0, "label": "", "lock": False}
-        track.save()
+        # Temporarily for debugging
+        log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
     def actionAddTrackBelow_trigger(self, event):
-        log.info("actionAddTrackBelow_trigger")
-
-        # Get # of tracks
+        # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
-        # Get selected track data
+        log.info("adding track below {}".format(selected_layer_id))
+
+        # Get track data for selected track
         existing_track = Track.get(id=selected_layer_id)
         if not existing_track:
             # Log error and fail silently
             log.error('No track object found with id: %s' % selected_layer_id)
             return
-        selected_layer_number = int(existing_track.data["number"])
+        selected_layer_num = int(existing_track.data["number"])
 
         # Get track below selected track (if any)
-        next_track_number = 0
-        track_number_delta = 0
-        found_track = False
-        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-            if found_track:
-                next_track_number = track.get("number")
-                track_number_delta = selected_layer_number - next_track_number
-                break
-            if track.get("number") == selected_layer_number:
-                found_track = True
-                continue
+        try:
+            tracks = sorted(all_tracks, key=lambda x: x['number'])
+            existing_index = tracks.index(existing_track.data)
+        except ValueError as ex:
+            log.warning("Could not find track {}: {}".format(selected_layer_num, ex))
+            return
+
+        if existing_index > 0:
+            prev_index = existing_index - 1
+            prev_layer = tracks[prev_index]
+            delta = abs(selected_layer_num - prev_layer.get('number'))
+        else:
+            delta = selected_layer_num
 
         # Calculate new track number (based on gap delta)
-        new_track_number = selected_layer_number
-        if track_number_delta > 2:
+        if delta > 2:
             # New track number (pick mid point in track number gap)
-            new_track_number = selected_layer_number - int(round(track_number_delta / 2.0))
+            new_track_num = selected_layer_num - int(round(delta / 2.0))
+
+            log.info("New track num {} (delta {})".format(new_track_num, delta))
+
+            # Create new track and insert
+            track = Track()
+            track.data = {"number": new_track_num, "y": 0, "label": "", "lock": False}
+            track.save()
         else:
-            # Loop through tracks from insert point and above
-            for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                if track.get("number") >= selected_layer_number:
-                    existing_track = Track.get(number=track.get("number"))
-                    if not existing_track:
-                        # Log error and fail silently, and continue
-                        log.error('No track object found with number: %s' % track.get("number"))
-                        continue
-                    existing_layer = existing_track.data["number"]
-                    existing_track.data["number"] = existing_layer + 1000000
-                    existing_track.save()
+            # Track numbering is too tight, renumber them all and insert
+            self.renumber_all_layers(insert_at=existing_index)
 
-                    # Loop through clips and transitions for track, moving up to new layer
-                    for clip in Clip.filter(layer=existing_layer):
-                        clip.data["layer"] = int(clip.data["layer"]) + 1000000
-                        clip.save()
+        tracks = sorted(get_app().project.get("layers"), key=lambda x: x['number'])
 
-                    for trans in Transition.filter(layer=existing_layer):
-                        trans.data["layer"] = int(trans.data["layer"]) + 1000000
-                        trans.save()
-
-        # Create new track at vacated layer
-        track = Track()
-        track.data = {"number": new_track_number, "y": 0, "label": "", "lock": False}
-        track.save()
+        # Temporarily for debugging
+        log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
     def actionArrowTool_trigger(self, event):
         log.info("actionArrowTool_trigger")
 
     def actionSnappingTool_trigger(self, event):
         log.info("actionSnappingTool_trigger")
-        log.info(self.actionSnappingTool.isChecked())
 
         # Enable / Disable snapping mode
         self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
@@ -1287,7 +1350,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionNextMarker_trigger(self, event):
         log.info("actionNextMarker_trigger")
-        log.info(self.preview_thread.current_frame)
 
         # Calculate current position (in seconds)
         fps = get_app().project.get("fps")
@@ -1430,7 +1492,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
 
-        # Boiler plate key mappings (mostly for menu support on Ubuntu/Unity)
+        # Menu shortcuts
         elif key.matches(self.getShortcutByName("actionNew")) == QKeySequence.ExactMatch:
             self.actionNew.trigger()
         elif key.matches(self.getShortcutByName("actionOpen")) == QKeySequence.ExactMatch:
@@ -1469,6 +1531,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionTitle.trigger()
         elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
+            log.info("Duplicating title, {}".format(event))
+            self.actionDuplicateTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
+            self.actionEditTitle.trigger()
         elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
             self.actionFullscreen.trigger()
         elif key.matches(self.getShortcutByName("actionAbout")) == QKeySequence.ExactMatch:
@@ -1526,6 +1593,31 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepBothSides")) == QKeySequence.ExactMatch:
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
+                trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
+                self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepLeftSide")) == QKeySequence.ExactMatch:
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of clip ids
+                clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
+                trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
+                self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepRightSide")) == QKeySequence.ExactMatch:
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if intersecting_clips or intersecting_trans:
+                # Get list of ids that are also selected
+                clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
+                trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
+                self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+
         elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
             self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
@@ -1542,8 +1634,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         elif key.matches(self.getShortcutByName("selectNone")) == QKeySequence.ExactMatch:
             self.timeline.ClearAllSelections()
 
-        # Bubble event on
-        event.ignore()
+        # If we didn't act on the event, forward it to the base class
+        else:
+            super(MainWindow, self).keyPressEvent(event)
 
 
     def actionProfile_trigger(self, event):
@@ -1567,7 +1660,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Bail out if no file selected
         if not f:
-            log.info(self.selected_files)
+            log.warn("Split clip action failed, selected files: {}".format(self.selected_files))
             return
 
         # show dialog
@@ -1753,7 +1846,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Find display track number
         all_tracks = get_app().project.get("layers")
         display_count = len(all_tracks)
-        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+        for track in reversed(sorted(all_tracks, key=lambda x: x['number'])):
             if track.get("id") == track_id:
                 break
             display_count -= 1

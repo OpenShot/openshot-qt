@@ -28,21 +28,32 @@ import functools
 import locale
 import os
 import time
-import xml.dom.minidom as xml
 import tempfile
 
+import openshot
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
+
+from PyQt5.QtCore import Qt, QCoreApplication, QTimer
+from PyQt5.QtWidgets import (
+    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
+)
+from PyQt5.QtGui import QSize, QIcon
 
 from classes import info
 from classes import ui_util
+from classes import settings
+from classes.logger import log
 from classes.app import get_app
-from classes.metrics import *
+from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
 
 import json
+
 
 class Export(QDialog):
     """ Export Dialog """
@@ -229,9 +240,11 @@ class Export(QDialog):
         presets = []
         for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_path):
-                xmldoc = xml.parse(os.path.join(preset_path, file))
-                type = xmldoc.getElementsByTagName("type")
-                presets.append(_(type[0].childNodes[0].data))
+                # Use context manager to automatically unlink xmldoc objects
+                with xml.parse(os.path.join(preset_path, file)) as xmldoc:
+                    type = xmldoc.getElementsByTagName("type")
+                    presets.append(_(type[0].childNodes[0].data))
+
 
         # Exclude duplicates
         type_index = 0
@@ -395,6 +408,9 @@ class Export(QDialog):
                         elif openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
 
+                # Free up DOM memory
+                xmldoc.unlink()
+
         # Add all targets for selected project type
         preset_index = 0
         selected_preset = 0
@@ -539,6 +555,9 @@ class Export(QDialog):
                                 break
                             layout_index += 1
 
+                    # Free up DOM memory
+                    xmldoc.unlink()
+
             # init the profiles combo
             for item in sorted(profiles_list):
                 self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
@@ -635,6 +654,14 @@ class Export(QDialog):
                     measurement = "crf"
                     if raw_number > 63:
                         raw_number = 63
+                    if raw_number < 0:
+                        raw_number = 0
+                    bit_rate_bytes = raw_number
+
+                elif "qp" in raw_measurement:
+                    measurement = "qp"
+                    if raw_number > 255:
+                        raw_number = 255
                     if raw_number < 0:
                         raw_number = 0
                     bit_rate_bytes = raw_number
@@ -837,6 +864,10 @@ class Export(QDialog):
                 # Set the quality in case crf was selected
                 if "crf" in self.txtVideoBitRate.text():
                     w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
+                # Set the quality in case qp was selected
+                if "qp" in self.txtVideoBitRate.text():
+                    w.SetOption(openshot.VIDEO_STREAM, "qp", str(int(video_settings.get("video_bitrate"))) )
+
 
             # Open the writer
             w.Open()
