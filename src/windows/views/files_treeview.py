@@ -367,18 +367,19 @@ class FilesTreeView(QTreeView):
         """Remove signal handlers and prepare for deletion"""
         try:
             self.files_model.model.ModelRefreshed.disconnect()
-        except:
+        except Exception:
             pass
 
     def __init__(self, *args):
         # Invoke parent init
-        QTreeView.__init__(self, *args)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.win = get_app().window
 
         # Get Model data
         self.files_model = FilesModel()
+        self.setModel(self.files_model.model)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
@@ -386,16 +387,19 @@ class FilesTreeView(QTreeView):
         self.setDropIndicatorShown(True)
         self.ignore_image_sequence_paths = []
 
-        # Setup header columns
-        self.setModel(self.files_model.model)
+        # Setup header columns and layout
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+
         self.files_model.model.ModelRefreshed.connect(self.refresh_columns)
 
         # Refresh view

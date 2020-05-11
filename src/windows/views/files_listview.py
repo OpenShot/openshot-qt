@@ -118,7 +118,6 @@ class FilesListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.files_model.model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -320,30 +319,35 @@ class FilesListView(QListView):
 
     def __init__(self, *args):
         # Invoke parent init
-        QListView.__init__(self, *args)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.win = get_app().window
 
         # Get Model data
         self.files_model = FilesModel()
+        self.setModel(self.files_model.model)
+
+        # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
         self.ignore_image_sequence_paths = []
 
-        # Setup header columns
-        self.setModel(self.files_model.model)
+        # Setup header columns and layout
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+
         self.setUniformItemSizes(True)
+        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
 
         # Refresh view
         self.refresh_view()
