@@ -38,11 +38,11 @@ try:
 except ImportError:
   from xml.dom import minidom as xml
 
-from PyQt5.QtCore import Qt, QCoreApplication, QTimer
+from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize
 from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
 )
-from PyQt5.QtGui import QSize, QIcon
+from PyQt5.QtGui import QIcon
 
 from classes import info
 from classes import ui_util
