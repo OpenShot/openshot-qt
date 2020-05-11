@@ -52,10 +52,10 @@ class FilesTreeView(QTreeView):
     def updateSelection(self):
         # Track selected items
         m = self.files_model.model
-        self.selected_items = [m.itemFromIndex(x) for x in self.selectionModel().selectedIndexes()]
+        selected_items = [m.itemFromIndex(x) for x in self.selectionModel().selectedIndexes()]
 
         # Track selected file ids on main window
-        self.win.selected_files = [x.text() for x in self.selected_items if x.column() == 5]
+        self.win.selected_files = [x.text() for x in selected_items if x.column() == 5]
 
     def contextMenuEvent(self, event):
 
@@ -407,4 +407,3 @@ class FilesTreeView(QTreeView):
         app.window.filesFilter.textChanged.connect(self.filter_changed)
         self.files_model.model.itemChanged.connect(self.value_updated)
         self.selectionModel().selectionChanged.connect(self.updateSelection)
-
