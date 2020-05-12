@@ -55,6 +55,9 @@ App.directive("tlClip", function ($timeout) {
         start: function (e, ui) {
           dragging = true;
 
+          // Disable frame-navigation widget
+          scope.frameNavigationWidgetEnable(false);
+
           //determine which side is being changed
           var parentOffset = element.offset();
           var mouseLoc = e.pageX - parentOffset.left;
@@ -85,6 +88,9 @@ App.directive("tlClip", function ($timeout) {
         },
         stop: function (e, ui) {
           dragging = false;
+
+          // Enable frame-navigation widget
+          scope.frameNavigationWidgetEnable(true);
 
           if (resize_disabled) {
             // disabled, do nothing

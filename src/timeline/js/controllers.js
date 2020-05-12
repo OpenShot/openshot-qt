@@ -143,6 +143,14 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
+  // Set Frame number widget visibility/state
+  $scope.frameNavigationWidgetEnable = function (is_editable) {
+    // Update frame number widget state (enabled/disabled)
+    if ($scope.Qt) {
+      timeline.PreviewFrameNavigationEnable(is_editable);
+    }
+  };
+
   // Get an array of keyframe points for the selected clips
   $scope.getKeyframes = function (object) {
     // List of keyframes

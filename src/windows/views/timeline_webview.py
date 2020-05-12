@@ -2652,6 +2652,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Seek to frame
         self.window.SeekSignal.emit(frame_number)
 
+    @pyqtSlot(bool)
+    def PreviewFrameNavigationEnable(self, is_editable):
+        # Enable frame navigation widget
+        self.window.timelines_frame.setEnabled(is_editable)
+
     @pyqtSlot(int)
     def PlayheadMoved(self, position_frames):
 
