@@ -821,7 +821,7 @@
     <string>Seek to Previous Frame</string>
    </property>
    <property name="toolTip">
-    <string>Seek to Next Frame</string>
+    <string>Seek to Previous Frame</string>
    </property>
   </action>
   <action name="actionSeekNextFrame">

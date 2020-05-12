@@ -2693,7 +2693,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Widget to display global frame number of the cursor position on the Timeline
         self.timelines_frame = QDoubleSpinBox(self)
-        self.timelines_frame.setToolTip( _("Frame Number") )
+        self.timelines_frame.setToolTip( _("Current Frame") )
 
         # Upper limit 72h at 60 fps, the Export fields doesn't allow to enter more
         self.timelines_frame.setRange(1, 99999999)
