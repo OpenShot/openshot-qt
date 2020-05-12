@@ -541,6 +541,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Load recent projects again
                 self.load_recent_menu()
 
+                # Reset frame navigation
+                self.timelines_frame.setValue(1)
+
                 log.info("Loaded project {}".format(file_path))
             else:
                 log.info("File not found at {}".format(file_path))
