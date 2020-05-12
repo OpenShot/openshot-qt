@@ -1,18 +1,21 @@
-.. Copyright (c) 2020-2020 OpenShot Studios, LLC
- (http://www.openshotstudios.com).
- This file is part of OpenShot Video Editor (http://www.openshot.org),
- an open-source project dedicated to delivering high quality video editing and animation solutions to the world.
+.. Copyright (c) 2008-2020 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
 
-.. OpenShot Video Editor is free software:
- you can redistribute it and/or modify it under the terms of the GNU General Public License as published by  the Free Software Foundation, 
- either version 3 of the License,
- or (at your option) any later version.
+.. OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
 .. OpenShot Video Editor is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- See the GNU General Public License for more details.
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
 .. You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
 .. _Documentation_ref:
 
@@ -44,7 +47,7 @@ And because the documentation gets parsed in other tools before it reaches its f
 
 Github
 ------
-In the issue tracker, subjects that contain explanations that should probably be included in the documentation can be labeled ** `docs. <https://github.com/OpenShot/openshot-qt/labels/docs>`_ **
+In the issue tracker, subjects that contain explanations that should probably be included in the documentation can be labeled `docs <https://github.com/OpenShot/openshot-qt/labels/docs>`_\ .
 Questions that are answered often in Github or Reddit can be tagged *FAQ* / are tagged **question**
 
 .. TODO: Add link Reddit + link Github
@@ -103,20 +106,22 @@ Software
 File naming and directory structure
 -----------------------------------
 
-| Files are stored in \docs
-| File names may not contain spaces. Spaces in filenames cause problems with Sphinx. 
-| For multi-word filenames, ReST documentation filenames are separated by an underscore ( _ ).
-| Image filenames are separated by a dash ( - ). 
-| Images are named after the file they belong to, and sorted in the doc\\images subdirectory. 
+Documentation files are stored in the ``doc/`` directory of the project repository.
+Each source file represents one chapter of the User Guide.
+The filename is the chapter title, with any spaces replaced by underscores (``_``).
+ReStructuredText files have the extension ``.rst``.
+Images used in the documentation are in the ``doc/images`` subdirectory. 
 
-.. NOTE: Or maybe not, see Images
+.. caution::
 
-Translations go into their own directory. 
+   Documentation filenames must not contain spaces, as they cause problems for Sphinx.
+
+
 
 File structure
 --------------
 
-Every file starts with 5 hidden segments (See `template <Template.rst>`_ )
+Every file starts with 5 hidden segments (See `template <template.rst>`_ )
 
 - Copyright notice
 - Openshot description
@@ -124,9 +129,25 @@ Every file starts with 5 hidden segments (See `template <Template.rst>`_ )
 - License notice
 - Referral anchor for the title
 
-Followed by the title with double underlining (with == )
-Then a short description of what the chapter will be about, and why the reader should care (or skip). 
-Subtitles are single underlined ( -- )
+The content starts with a chapter title, double-underlined using equals signs (``=====``).
+This is followed by a short introduction describing what will be covered in the chapter.
+
+A chapter may be divided into sections and subsections, each beginning with an underlined heading.
+Like the chapter title, section headings are double-underlined using equals signs.
+Subsection headings are single-underlined using hyphens (``----``).
+
+.. code-block:: ReST
+
+    Chapter title
+    =============
+
+    Introduction paragraph.
+    
+    Section heading
+    ===============
+    
+    Subsection heading
+    ------------------
 
 Sentences should be written one sentence per line, and do not need to end on a space.
 The markup language then flows them all together into paragraphs when it generates the formatted docs.
