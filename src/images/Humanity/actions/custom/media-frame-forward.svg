@@ -1,0 +1,28 @@
+<svg width="16" height="16" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="linearGradient4518" x1="10" x2="7" y1="5" y2="13" gradientTransform="matrix(-1,0,0,1,15,19.864)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#eeeeec" offset="0"/>
+   <stop stop-color="#babdb6" offset=".6958"/>
+   <stop stop-color="#a1a59b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4520" x1="3.5" x2="12.5" y1="-14.5" y2="-13.5" gradientTransform="translate(20.349,15.471)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#eeeeec" offset="0"/>
+   <stop stop-color="#babdb6" offset=".6958"/>
+   <stop stop-color="#a1a59b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4522" x1="14.978" x2="15.139" y1="5.9683" y2="15.736" gradientTransform="matrix(-1 0 0 .88732 14.971 21.23)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#fff" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4524" x1="8" x2="8" y1="4" y2="13" gradientTransform="matrix(-1,0,0,1,15,19.864)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#fff" stop-opacity="0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="matrix(-1 0 0 1 13 -19.864)">
+  <path d="m8.497 23.366v9.9951l-7.997-4.997 7.997-4.998z" display="block" fill="url(#linearGradient4518)" stroke="#888a86" stroke-linejoin="round" stroke-width="1.0053"/>
+  <rect transform="matrix(0,1,1,0,0,0)" x="23.349" y=".47099" width="10" height="2" rx="0" ry="0" display="block" fill="url(#linearGradient4520)" stroke="#888a86" stroke-linejoin="round"/>
+  <path d="m1.471 24.335v7.996" display="block" fill="none" opacity=".3" stroke="url(#linearGradient4522)" stroke-linecap="square" stroke-width=".94198"/>
+  <path d="m7.4997 25.302v6.125l-5.2817-3.062 5.2817-3.0625z" display="block" fill="none" opacity=".5" stroke="url(#linearGradient4524)" stroke-linejoin="round" stroke-width="1.0053"/>
+ </g>
+</svg>

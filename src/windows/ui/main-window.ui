@@ -813,6 +813,28 @@
     <string>Jump To End</string>
    </property>
   </action>
+  <action name="actionSeekPreviousFrame">
+   <property name="icon">
+    <iconset>../../images/Humanity/actions/custom/media-frame-backward.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Seek to Previous Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Seek to Next Frame</string>
+   </property>
+  </action>
+  <action name="actionSeekNextFrame">
+   <property name="icon">
+    <iconset>../../images/Humanity/actions/custom/media-frame-forward.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Seek to Next Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Seek to Next Frame</string>
+   </property>
+  </action>
   <action name="actionSaveFrame">
    <property name="icon">
     <iconset theme="camera-photo-symbolic" resource="../../images/openshot.qrc">

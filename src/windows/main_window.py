@@ -935,7 +935,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if self.actionPlay.isChecked():
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
             self.PlaySignal.emit(timeline_length_int)
-
+            self.updPreviewSpeed()
         else:
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
             self.PauseSignal.emit()
@@ -1045,6 +1045,38 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Seek to the 1st frame
         self.SeekSignal.emit(timeline_length_int)
+
+    def actionSeekPreviousFrame_trigger(self, event):
+        # Pause video
+        self.actionPlay_trigger(None, force="pause")
+
+        # Get the video player object
+        player = self.preview_thread.player
+
+        # Set speed to 0
+        if player.Speed() != 0:
+            self.SpeedSignal.emit(0)
+        # Seek to previous frame
+        self.SeekSignal.emit(player.Position() - 1)
+
+        # Notify properties dialog
+        self.propertyTableView.select_frame(player.Position())
+
+    def actionSeekNextFrame_trigger(self, event):
+        # Pause video
+        self.actionPlay_trigger(None, force="pause")
+
+        # Get the video player object
+        player = self.preview_thread.player
+
+        # Set speed to 0
+        if player.Speed() != 0:
+            self.SpeedSignal.emit(0)
+        # Seek to next frame
+        self.SeekSignal.emit(player.Position() + 1)
+
+        # Notify properties dialog
+        self.propertyTableView.select_frame(player.Position())
 
     def actionSaveFrame_trigger(self, event):
         log.info("actionSaveFrame_trigger")
@@ -1496,6 +1528,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 keyboard_shortcuts.append(setting)
         return keyboard_shortcuts
 
+    def setPreviewSpeed(self, speed=1.0):
+        # Set preview playback speed
+
+        # Get the video player object
+        player = self.preview_thread.player
+
+        if player.Mode() == openshot.PLAYBACK_PLAY:
+            self.SpeedSignal.emit(speed)
+
+    def updPreviewSpeed(self):
+        self.setPreviewSpeed(self.preview_speed.value())
+
     def keyPressEvent(self, event):
         """ Process key press events and match with known shortcuts"""
         # Detect the current KeySequence pressed (including modifier keys)
@@ -1520,28 +1564,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Basic shortcuts i.e just a letter
         if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
-            # Pause video
-            self.actionPlay_trigger(event, force="pause")
-            # Set speed to 0
-            if player.Speed() != 0:
-                self.SpeedSignal.emit(0)
-            # Seek to previous frame
-            self.SeekSignal.emit(player.Position() - 1)
-
-            # Notify properties dialog
-            self.propertyTableView.select_frame(player.Position())
+            self.actionSeekPreviousFrame.trigger()
 
         elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
-            # Pause video
-            self.actionPlay_trigger(event, force="pause")
-            # Set speed to 0
-            if player.Speed() != 0:
-                self.SpeedSignal.emit(0)
-            # Seek to next frame
-            self.SeekSignal.emit(player.Position() + 1)
-
-            # Notify properties dialog
-            self.propertyTableView.select_frame(player.Position())
+            self.actionSeekNextFrame.trigger()
 
         elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
             # Toggle rewind and start playback
@@ -2415,22 +2441,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Add Video Preview toolbar
         self.videoToolbar = QToolBar("Video Toolbar")
 
-        # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
-        ospacer1 = QWidget(self)
-        ospacer1.setMinimumSize(32, 1)  # actionSaveFrame
-        self.videoToolbar.addWidget(ospacer1)
-
-        # Add left spacer
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.videoToolbar.addWidget(spacer)
-
-        # Playback controls (centered)
-        self.videoToolbar.addAction(self.actionJumpStart)
-        self.videoToolbar.addAction(self.actionRewind)
+        # Playback controls
         self.videoToolbar.addAction(self.actionPlay)
-        self.videoToolbar.addAction(self.actionFastForward)
+        self.videoToolbar.addWidget(self.preview_speed)
+        self.videoToolbar.addAction(self.actionJumpStart)
         self.videoToolbar.addAction(self.actionJumpEnd)
+        self.videoToolbar.addAction(self.actionSeekPreviousFrame)
+        self.videoToolbar.addAction(self.actionSeekNextFrame)
         self.actionPlay.setCheckable(True)
 
         # Add right spacer
@@ -2660,6 +2677,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Widget to display current preview playback speed
+        self.preview_speed = QDoubleSpinBox(self)
+        self.preview_speed.setDecimals(0)
+        self.preview_speed.setRange(-99, 99)
+        self.preview_speed.setValue(1)
+
+        # Not translatable symbol with meaning of "Scale"
+        self.preview_speed.setSuffix("x")
+        self.preview_speed.setToolTip( _("Preview Speed") )
 
         # Widget to display global frame number of the cursor position on the Timeline
         self.timelines_frame = QDoubleSpinBox(self)
@@ -2909,6 +2936,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.navigateToFrame_timer.timeout.connect(self.navigateToFrameTimeout)
         self.timelines_frame.valueChanged.connect(self.movePlayheadFrames)
         self.timelines_frame.editingFinished.connect(self.navigateToFrameTimeout)
+
+        # Preview Speed connections
+        self.preview_speed.valueChanged.connect(self.setPreviewSpeed)
+        self.preview_speed.editingFinished.connect(self.updPreviewSpeed)
 
         # Refresh frame
         QTimer.singleShot(100, self.refreshFrameSignal.emit)
