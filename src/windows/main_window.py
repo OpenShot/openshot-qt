@@ -2696,8 +2696,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelines_frame.setToolTip( _("Frame Number") )
 
         # Upper limit 72h at 60 fps, the Export fields doesn't allow to enter more
-        self.timelines_frame.setMaximum(99999999)
-        self.timelines_frame.setMinimum(1)
+        self.timelines_frame.setRange(1, 99999999)
         self.timelines_frame.setDecimals(0)
         self.timelines_frame.setAlignment(Qt.AlignRight)
 
