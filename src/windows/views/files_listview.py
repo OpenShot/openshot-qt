@@ -312,13 +312,6 @@ class FilesListView(QListView):
     def resize_contents(self):
         pass
 
-    def prepare_for_delete(self):
-        """Remove signal handlers and prepare for deletion"""
-        try:
-            self.files_model.model.ModelRefreshed.disconnect()
-        except Exception:
-            pass
-
     def __init__(self, model):
         # Invoke parent init
         QListView.__init__(self)
@@ -348,6 +341,7 @@ class FilesListView(QListView):
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
+        self.files_model.model.ModelRefreshed.connect(self.refresh_view)
 
         # Load initial files model data
         self.files_model.update_model()

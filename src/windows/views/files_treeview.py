@@ -326,6 +326,9 @@ class FilesTreeView(QTreeView):
 
     def value_updated(self, item):
         """ Name or tags updated """
+        if self.files_model.ignore_updates:
+            return
+
         # Get translation method
         _ = get_app()._tr
 
@@ -336,31 +339,22 @@ class FilesTreeView(QTreeView):
 
         # Get file object and update friendly name and tags attribute
         f = File.get(id=file_id)
-        if name != f.data["path"]:
+        if name and name != os.path.split(f.data["path"])[-1]:
             f.data["name"] = name
         else:
-            f.data["name"] = ""
+            f.data["name"] = os.path.split(f.data["path"])[-1]
+
         if "tags" in f.data.keys():
             if tags != f.data["tags"]:
                 f.data["tags"] = tags
         elif tags:
             f.data["tags"] = tags
 
-        # Tell file model to ignore updates (since this treeview will already be updated)
-        self.files_model.ignore_update_signal = True
-
         # Save File
         f.save()
 
-        # Re-enable updates
-        self.files_model.ignore_update_signal = False
-
-    def prepare_for_delete(self):
-        """Remove signal handlers and prepare for deletion"""
-        try:
-            self.files_model.model.ModelRefreshed.disconnect()
-        except:
-            pass
+        # Update file thumbnail
+        self.win.FileUpdated.emit(file_id)
 
     def __init__(self, model):
         # Invoke parent init

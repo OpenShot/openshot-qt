@@ -101,6 +101,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
+    FileUpdated = pyqtSignal(str)
 
     # Docks are closable, movable and floatable
     docks_frozen = False
@@ -409,8 +410,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
 
-        # Refresh files views
-        self.refreshFilesSignal.emit()
+        # Update file thumbnail
+        self.FileUpdated.emit(selected_file_id)
 
         # Force update of clips
         clips = Clip.filter(file_id=selected_file_id)
@@ -421,6 +422,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
             # Emit thumbnail update signal (to update timeline thumb image)
             self.ThumbnailUpdated.emit(c.id)
+
+        # Update preview
+        self.refreshFrameSignal.emit()
 
     def actionDuplicateTitle_trigger(self, event):
 
@@ -537,6 +541,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
                 # Refresh files views
                 self.refreshFilesSignal.emit()
+
+                # Refresh thumbnail
+                self.refreshFrameSignal.emit()
 
                 # Load recent projects again
                 self.load_recent_menu()

@@ -114,6 +114,9 @@ class FilesModel(updates.UpdateInterface):
             elif action.type == "delete" and action.key[0].lower() == "files":
                 # Don't clear the existing items if only deleting things
                 self.update_model(clear=False, delete_file_id=action.key[1].get('id', ''))
+            elif action.type == "update" and action.key[0].lower() == "files":
+                # Do nothing for file updates
+                pass
             else:
                 # Clear existing items
                 self.update_model(clear=True)
@@ -121,6 +124,8 @@ class FilesModel(updates.UpdateInterface):
     def update_model(self, clear=True, delete_file_id=None):
         log.info("updating files model.")
         app = get_app()
+
+        self.ignore_updates = True
 
         # Get window to check filters
         win = app.window
@@ -138,10 +143,6 @@ class FilesModel(updates.UpdateInterface):
                     self.model.submit()
                     self.model_ids.pop(delete_file_id)
                     break
-
-        # Skip updates (if needed)
-        if self.ignore_update_signal:
-            return
 
         # Clear all items
         if clear:
@@ -178,16 +179,8 @@ class FilesModel(updates.UpdateInterface):
                     fps_float = float(fps["num"]) / float(fps["den"])
                     thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
-                # Determine thumb path (default value... a guess)
-                thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file.id, thumbnail_frame))
-
-                # Connect to thumbnail server and get image
-                thumb_server_details = get_app().window.http_server_thread.server_address
-                thumb_address = "http://%s:%s/thumbnails/%s/%s/path/" % (thumb_server_details[0], thumb_server_details[1], file.id, thumbnail_frame)
-                r = get(thumb_address)
-                if r.ok:
-                    # Update thumbnail path to real one
-                    thumb_path = r.text
+                # Get thumb path
+                thumb_path = self.get_thumb_path(file.id, thumbnail_frame)
             else:
                 # Audio file
                 thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
@@ -250,8 +243,55 @@ class FilesModel(updates.UpdateInterface):
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()
 
+        self.ignore_updates = False
+
         # Emit signal when model is updated
         self.model.ModelRefreshed.emit()
+
+    def get_thumb_path(self, file_id, thumbnail_frame, clear_cache=False):
+        """Get thumbnail path by invoking HTTP thumbnail request"""
+
+        # Clear thumb cache (if requested)
+        thumb_cache = ""
+        if clear_cache:
+            thumb_cache = "no-cache/"
+
+        # Connect to thumbnail server and get image
+        thumb_server_details = get_app().window.http_server_thread.server_address
+        thumb_address = "http://%s:%s/thumbnails/%s/%s/path/%s" % (
+        thumb_server_details[0], thumb_server_details[1], file_id, thumbnail_frame, thumb_cache)
+        r = get(thumb_address)
+        if r.ok:
+            # Update thumbnail path to real one
+            return r.text
+        else:
+            return ''
+
+    def update_file_thumbnail(self, file_id):
+        """Update/re-generate the thumbnail of a specific file"""
+        file = File.get(id=file_id)
+        path, filename = os.path.split(file.data["path"])
+        name = filename
+        if "name" in file.data.keys():
+            name = file.data["name"]
+
+        # Refresh thumbnail for updated file
+        self.ignore_updates = True
+        if file_id in self.model_ids:
+            for row_num in range(self.model.rowCount()):
+                id_index = self.model.index(row_num, 5)
+                if file_id == self.model.data(id_index):
+                    # Update thumb for file
+                    thumb_index = self.model.index(row_num, 0)
+                    thumb_path = self.get_thumb_path(file_id, 1, clear_cache=True)
+                    item = self.model.itemFromIndex(thumb_index)
+                    item.setIcon(QIcon(thumb_path))
+                    item.setText(name)
+
+                    # Emit signal when model is updated
+                    self.model.ModelRefreshed.emit()
+                    break
+        self.ignore_updates = False
 
     def __init__(self, *args):
 
@@ -263,7 +303,7 @@ class FilesModel(updates.UpdateInterface):
         self.model = FileStandardItemModel()
         self.model.setColumnCount(6)
         self.model_ids = {}
-        self.ignore_update_signal = False
+        self.ignore_updates = False
 
         # Create proxy model (for sorting and filtering)
         self.proxy_model = FileFilterProxyModel()
@@ -272,3 +312,6 @@ class FilesModel(updates.UpdateInterface):
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
+
+        # Connect signal
+        app.window.FileUpdated.connect(self.update_file_thumbnail)
