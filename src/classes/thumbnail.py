@@ -37,7 +37,13 @@ from classes.logger import log
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
-REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)(?P<only_path>/path/)?")
+# Regex for parsing URLs: (examples)
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/path/no-cache/
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/path/
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/path
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1
+REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)/*(?P<only_path>path)?/*(?P<no_cache>no-cache)?")
 
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
@@ -124,10 +130,12 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         """ Process each GET request and return a value (image or file path)"""
         # Parse URL
         url_output = REGEX_THUMBNAIL_URL.match(self.path)
-        if url_output and len(url_output.groups()) == 3:
+        if url_output and len(url_output.groups()) == 4:
             # Path is expected to have 3 matched components (third is optional though)
             #   /thumbnails/FILE-ID/FRAME-NUMBER/   or
-            #   /thumbnails/FILE-ID/FRAME-NUMBER/path/
+            #   /thumbnails/FILE-ID/FRAME-NUMBER/path/  or
+            #   /thumbnails/FILE-ID/FRAME-NUMBER/no-cache/  or
+            #   /thumbnails/FILE-ID/FRAME-NUMBER/path/no-cache/
             self.send_response_only(200)
         else:
             self.send_error(404)
@@ -137,6 +145,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         file_id = url_output.group('file_id')
         file_frame = int(url_output.group('file_frame'))
         only_path = url_output.group('only_path')
+        no_cache = url_output.group('no_cache')
 
         try:
             # Look up file data
@@ -165,7 +174,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             # Try with ID and frame # in filename (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
 
-        if not os.path.exists(thumb_path):
+        if not os.path.exists(thumb_path) or no_cache:
             # Generate thumbnail (since we can't find it)
 
             # Determine if video overlay should be applied to thumbnail
