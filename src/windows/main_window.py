@@ -1874,9 +1874,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionFullscreen_trigger(self, event):
         # Toggle fullscreen mode
         if not self.isFullScreen():
+            self.last_window_state = self.windowState()
             self.showFullScreen()
         else:
-            self.showNormal()
+            self.setWindowState(self.last_window_state & ~Qt.WindowFullScreen)
 
     def actionFile_Properties_trigger(self, event):
         log.info("Show file properties")
@@ -2781,6 +2782,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Save settings
         s.save()
+
+        # Last window state to restore from full screen
+        self.last_window_state = self.windowState()
 
         # Refresh frame
         QTimer.singleShot(100, self.refreshFrameSignal.emit)
