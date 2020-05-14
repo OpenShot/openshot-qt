@@ -72,6 +72,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if display_ratio_changed or pixel_ratio_changed:
                 get_app().window.timeline_sync.timeline.SetMaxSize(round(self.width() * self.pixel_ratio.ToFloat()), round(self.height() * self.pixel_ratio.ToFloat()))
 
+                # Force update of UI spacers for playback controls
+                # 0.5 + 0.2 sec delay to ensure that painter started
+                QTimer.singleShot(500, self.delayed_resize_timer.start)
+
     def paintEvent(self, event, *args):
         """ Custom paint event """
         self.mutex.lock()
@@ -94,6 +98,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Scale image
             scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+
+            self.previewAreaSize = scaledPix.size()
 
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)
@@ -829,6 +835,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Init current frame's QImage
         self.current_image = None
+
+        # Rendered area size
+        self.previewAreaSize = None
 
         # Get a reference to the window object
         self.win = get_app().window
