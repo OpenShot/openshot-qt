@@ -2993,7 +2993,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('{}'. '{}');".format(self.item_type, self.item_id))
+            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('{}', '{}');".format(self.item_type, self.item_id))
 
         elif self.item_type == "effect":
             # Add effect only on drop
