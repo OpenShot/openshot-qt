@@ -37,7 +37,7 @@ except ImportError:
   from xml.dom import minidom as xml
 
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QPushButton
 
 # Python module for libopenshot (required video editing module installed separately)
 import openshot
@@ -45,7 +45,8 @@ import openshot
 from classes import info, ui_util, settings
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
+
 
 
 class FileProperties(QDialog):
@@ -190,7 +191,7 @@ class FileProperties(QDialog):
         self.file.data["name"] = self.txtFileName.text()
         self.file.data["tags"] = self.txtTags.text()
 
-        #experimental: update file path
+        # experimental: update file path
         self.file.data["path"] = self.txtFilePath.text()
 
         # Update Framerate

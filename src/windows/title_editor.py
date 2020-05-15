@@ -26,7 +26,6 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import sys
 import os
 import re
 import shutil
@@ -35,17 +34,20 @@ import subprocess
 import tempfile
 from xml.dom import minidom
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QFont
-from PyQt5.QtWidgets import *
-from PyQt5 import uic, QtSvg, QtGui
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import (
+    QGraphicsScene, QMessageBox, QDialog, QColorDialog, QFontDialog,
+    QPushButton, QTextEdit, QLabel
+)
+
 import openshot
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, settings
 from classes.logger import log
 from classes.app import get_app
 from classes.query import File
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 from windows.views.titles_listview import TitlesListView
 
 import json
@@ -102,7 +104,7 @@ class TitleEditor(QDialog):
         self.font_family = "Bitstream Vera Sans"
         self.tspan_node = None
 
-        self.qfont = QFont(self.font_family)
+        self.qfont = QtGui.QFont(self.font_family)
 
         # Add titles list view
         self.titlesTreeView = TitlesListView(self)
@@ -202,7 +204,7 @@ class TitleEditor(QDialog):
         self.font_family = "Bitstream Vera Sans"
         if self.qfont:
             del self.qfont
-        self.qfont = QFont(self.font_family)
+        self.qfont = QtGui.QFont(self.font_family)
 
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
@@ -276,7 +278,6 @@ class TitleEditor(QDialog):
                 widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
                 self.settingsContainer.layout().addRow(label, widget)
 
-
         # Add Font button
         label = QLabel()
         label.setText(_("Font:"))
@@ -340,7 +341,7 @@ class TitleEditor(QDialog):
             file.write(bytes(xmldoc.toxml(), 'UTF-8'))
             file.close()
         except IOError as inst:
-            log.error("Error writing SVG title")
+            log.error("Error writing SVG title: {}".format(inst))
 
     def btnFontColor_clicked(self):
         app = get_app()
@@ -624,7 +625,6 @@ class TitleEditor(QDialog):
             t = ";"
             text_child.setAttribute("style", t.join(ar))
 
-
             # Loop through each TSPAN
             for tspan_child in self.tspan_node:
 
@@ -660,8 +660,11 @@ class TitleEditor(QDialog):
             if self.txtFileName.toPlainText().strip():
                 # Do we have unsaved changes?
                 if os.path.exists(file_path) and not self.edit_file_path:
-                    ret = QMessageBox.question(self, _("Title Editor"), _("%s already exists.\nDo you want to replace it?") % file_name,
-                                               QMessageBox.No | QMessageBox.Yes)
+                    ret = QMessageBox.question(
+                        self, _("Title Editor"),
+                        _("%s already exists.\nDo you want to replace it?") % file_name,
+                        QMessageBox.No | QMessageBox.Yes
+                    )
                     if ret == QMessageBox.No:
                         # Do nothing
                         return
@@ -682,7 +685,6 @@ class TitleEditor(QDialog):
         filename = os.path.basename(filepath)
 
         # Add file into project
-        app = get_app()
         _ = get_app()._tr
 
         # Check for this path in our existing project data

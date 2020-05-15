@@ -30,23 +30,30 @@ import os
 import time
 import tempfile
 
+import openshot
+
 # Try to get the security-patched XML functions from defusedxml
 try:
   from defusedxml import minidom as xml
 except ImportError:
   from xml.dom import minidom as xml
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize
+from PyQt5.QtWidgets import (
+    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
+)
 from PyQt5.QtGui import QIcon
 
 from classes import info
 from classes import ui_util
+from classes import settings
+from classes.logger import log
 from classes.app import get_app
-from classes.metrics import *
+from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
 
 import json
+
 
 class Export(QDialog):
     """ Export Dialog """
@@ -236,6 +243,7 @@ class Export(QDialog):
         # ********* Simple Project Type **********
         # load the simple project type dropdown
         presets = []
+
         for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_folder):
                 preset_path = os.path.join(preset_folder, file)
@@ -416,6 +424,9 @@ class Export(QDialog):
                     # This indicates an invalid Preset file - display an error and continue
                     log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
+                # Free up DOM memory
+                xmldoc.unlink()
+
         # Add all targets for selected project type
         preset_index = 0
         selected_preset = 0
@@ -553,6 +564,7 @@ class Export(QDialog):
                                     self.txtAudioCodec.setText("ac3")
                             else:
                                 # fallback audio codec
+
                                 self.txtAudioCodec.setText(audio_codec_name)
 
                             layout_index = 0
@@ -561,11 +573,14 @@ class Export(QDialog):
                                     self.cboChannelLayout.setCurrentIndex(layout_index)
                                     break
                                 layout_index += 1
+                  
+                        # Free up DOM memory
+                        xmldoc.unlink()
                                 
                     except ExpatError as e:
                         # This indicates an invalid Preset file - display an error and continue
                         log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
-            
+
             # init the profiles combo
             for item in sorted(profiles_list):
                 self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
