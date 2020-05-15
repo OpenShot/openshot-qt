@@ -1290,13 +1290,50 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         marker.data = {"position": position, "icon": "blue.png"}
         marker.save()
 
-    def actionPreviousMarker_trigger(self, event):
-        log.info("actionPreviousMarker_trigger")
 
-        # Calculate current position (in seconds)
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = (self.preview_thread.current_frame - 1) / fps_float
+    def findAllMarkerPositions(self):
+        """Build and return a list of all seekable locations for the currently-selected timeline elements"""
+
+        def getTimelineObjectPositions(obj):
+            """ Add boundaries & all keyframes of a timeline object (clip, transition...) to all_marker_positions """
+            positions = []
+
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+
+            clip_start_time = obj.data["position"]
+            clip_orig_time = clip_start_time - obj.data["start"]
+            clip_stop_time = clip_orig_time + obj.data["end"]
+
+            # add clip boundaries
+            positions.append(clip_start_time)
+            positions.append(clip_stop_time)
+
+            # add all keyframes
+            for property in obj.data :
+                try :
+                    for point in obj.data[property]["Points"] :
+                        keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
+                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
+                            positions.append(keyframe_time)
+                except (TypeError, KeyError):
+                    pass
+
+
+            # Add all Effect keyframes
+            if "effects" in obj.data:
+                for effect_data in obj.data["effects"]:
+                    for property in effect_data:
+                        try:
+                            for point in effect_data[property]["Points"]:
+                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                                if keyframe_time > clip_start_time and keyframe_time < clip_stop_time:
+                                    positions.append(keyframe_time)
+                        except (TypeError, KeyError):
+                            pass
+
+            return positions
+
         all_marker_positions = []
 
         # Get list of marker and important positions (like selected clip bounds)
@@ -1308,16 +1345,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Get selected object
             selected_clip = Clip.get(id=clip_id)
             if selected_clip:
-                all_marker_positions.append(selected_clip.data["position"])
-                all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
+                all_marker_positions.extend(getTimelineObjectPositions(selected_clip))
 
         # Loop through selected transitions (and add key positions)
         for tran_id in self.selected_transitions:
             # Get selected object
             selected_tran = Transition.get(id=tran_id)
             if selected_tran:
-                all_marker_positions.append(selected_tran.data["position"])
-                all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
+                all_marker_positions.extend(getTimelineObjectPositions(selected_tran))
+
+        # remove duplicates
+        all_marker_positions = list(set(all_marker_positions))
+
+        return all_marker_positions
+
+    def actionPreviousMarker_trigger(self, event):
+        log.info("actionPreviousMarker_trigger")
+
+        # Calculate current position (in seconds)
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
+        all_marker_positions = self.findAllMarkerPositions()
 
         # Loop through all markers, and find the closest one to the left
         closest_position = None
@@ -1349,27 +1398,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
-        all_marker_positions = []
-
-        # Get list of marker and important positions (like selected clip bounds)
-        for marker in Marker.filter():
-            all_marker_positions.append(marker.data["position"])
-
-        # Loop through selected clips (and add key positions)
-        for clip_id in self.selected_clips:
-            # Get selected object
-            selected_clip = Clip.get(id=clip_id)
-            if selected_clip:
-                all_marker_positions.append(selected_clip.data["position"])
-                all_marker_positions.append(selected_clip.data["position"] + (selected_clip.data["end"] - selected_clip.data["start"]))
-
-        # Loop through selected transitions (and add key positions)
-        for tran_id in self.selected_transitions:
-            # Get selected object
-            selected_tran = Transition.get(id=tran_id)
-            if selected_tran:
-                all_marker_positions.append(selected_tran.data["position"])
-                all_marker_positions.append(selected_tran.data["position"] + (selected_tran.data["end"] - selected_tran.data["start"]))
+        all_marker_positions = self.findAllMarkerPositions()
 
         # Loop through all markers, and find the closest one to the right
         closest_position = None
