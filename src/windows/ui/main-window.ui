@@ -894,10 +894,10 @@
      <normaloff>:/icons/Humanity/actions/16/go-first.svg</normaloff>:/icons/Humanity/actions/16/go-first.svg</iconset>
    </property>
    <property name="text">
-    <string>Previous Marker</string>
+    <string>Previous Key Point</string>
    </property>
    <property name="toolTip">
-    <string>Previous Marker</string>
+    <string>Previous Key Point</string>
    </property>
   </action>
   <action name="actionNextMarker">
@@ -906,10 +906,10 @@
      <normaloff>:/icons/Humanity/actions/16/go-last.svg</normaloff>:/icons/Humanity/actions/16/go-last.svg</iconset>
    </property>
    <property name="text">
-    <string>Next Marker</string>
+    <string>Next Key Point</string>
    </property>
    <property name="toolTip">
-    <string>Next Marker</string>
+    <string>Next Key Point</string>
    </property>
   </action>
   <action name="actionCenterOnPlayhead">

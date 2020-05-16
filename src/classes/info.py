@@ -79,6 +79,9 @@ JT = {"name": "Jonathan Thomas",
       "email": "jonathan@openshot.org",
       "website": "http://openshot.org/developers/jonathan"}
 
+# Desktop launcher ID, for Linux
+DESKTOP_ID = "org.openshot.OpenShot.desktop"
+
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "2.80"
 

@@ -280,21 +280,26 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Loop through profiles
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in os.listdir(profile_folder):
-                # Load Profile and append description
                 profile_path = os.path.join(profile_folder, file)
-                profile = openshot.Profile(profile_path)
+                try:
+                    # Load Profile and append description
+                    profile = openshot.Profile(profile_path)
 
-                if default_profile == profile.info.description:
-                    log.info("Setting default profile to %s" % profile.info.description)
+                    if default_profile == profile.info.description:
+                        log.info("Setting default profile to %s" % profile.info.description)
 
-                    # Update default profile
-                    self._data["profile"] = profile.info.description
-                    self._data["width"] = profile.info.width
-                    self._data["height"] = profile.info.height
-                    self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
-                    self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
-                    self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
-                    break
+                        # Update default profile
+                        self._data["profile"] = profile.info.description
+                        self._data["width"] = profile.info.width
+                        self._data["height"] = profile.info.height
+                        self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
+                        self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
+                        self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+                        break
+
+                except RuntimeError as e:
+                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
+                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
         # Get the default audio settings for the timeline (and preview playback)
         default_sample_rate = int(s.get("default-samplerate"))
