@@ -376,8 +376,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.mouse_dragging and not self.transform_mode:
                 self.original_clip_data = self.transforming_clip.data
 
+            # Mouse over resize button (and not currently dragging)
+            if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
+                self.setCursor(Qt.ArrowCursor)
             # Determine if cursor is over a handle
-            if self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            elif self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
                 if not self.transform_mode or self.transform_mode == 'origin':
                     self.setCursor(self.rotateCursor(self.cursors.get('hand'), rotation, shear_x, shear_y))
                 # Set the transform mode
@@ -734,16 +737,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
-        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
-            # For each 120 (standard scroll unit) adjust the zoom slider
-            tick_scale = 1024
-            self.zoom += event.angleDelta().y() / tick_scale
-            if self.zoom <= 0.0:
-                # Don't allow zoom to go all the way to zero (or negative)
-                self.zoom = 0.05
-        else:
-            # Otherwise pass on to implement default functionality (scroll in QWebView)
-            super(type(self), self).wheelEvent(event)
+        # For each 120 (standard scroll unit) adjust the zoom slider
+        tick_scale = 1024
+        self.zoom += event.angleDelta().y() / tick_scale
+        if self.zoom <= 0.0:
+            # Don't allow zoom to go all the way to zero (or negative)
+            self.zoom = 0.05
 
         # Add resize button (if not 100% zoom)
         if self.zoom != 1.0:
@@ -801,6 +800,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.resize_button.hide()
         self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
         self.resize_button.clicked.connect(self.resize_button_clicked)
+        self.resize_button.setMouseTracking(True)
 
         # Initialize cursors
         self.cursors = { "move": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_move.png")),
