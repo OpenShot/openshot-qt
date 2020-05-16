@@ -2533,34 +2533,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.cache_object = new_cache_object
 
     def FrameExported(self, title_message, start_frame, end_frame, current_frame):
-        """Connect to Unity launcher (for Linux)"""
+        """Update progress in Unity Launcher (if connected)"""
         try:
-            if sys.platform == "linux" and self.has_launcher:
-                if not self.unity_launchers:
-                    # Get launcher only once
-                    import gi
-                    gi.require_version('Unity', '7.0')
-                    from gi.repository import Unity
-                    self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("openshot-qt.desktop"))
-                    self.unity_launchers.append(Unity.LauncherEntry.get_for_desktop_id("appimagekit-openshot-qt.desktop"))
-
-                # Set progress and show progress bar
-                for launcher in self.unity_launchers:
-                    launcher.set_property("progress", current_frame / (end_frame - start_frame))
-                    launcher.set_property("progress_visible", True)
-
+            # Set progress and show progress bar
+            self.unity_launcher.set_property("progress", current_frame / (end_frame - start_frame))
+            self.unity_launcher.set_property("progress_visible", True)
         except Exception:
             # Just ignore
-            self.has_launcher = False
+            pass
 
     def ExportFinished(self, path):
-        """Export has completed"""
+        """Show completion in Unity Launcher (if connected)"""
         try:
-            if sys.platform == "linux" and self.has_launcher:
-                for launcher in self.unity_launchers:
-                    # Set progress on Unity launcher and hide progress bar
-                    launcher.set_property("progress", 0.0)
-                    launcher.set_property("progress_visible", False)
+            # Set progress on Unity launcher and hide progress bar
+            self.unity_launcher.set_property("progress", 0.0)
+            self.unity_launcher.set_property("progress_visible", False)
         except Exception:
             pass
 
@@ -2796,11 +2783,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tutorial_manager = TutorialManager(self)
 
         # Connect to Unity DBus signal (if linux)
-        if sys.platform == "linux":
-            self.unity_launchers = []
-            self.has_launcher = True
-            self.ExportFrame.connect(self.FrameExported)
-            self.ExportEnded.connect(self.ExportFinished)
+        self.unity_launcher = None
+        if "linux" in sys.platform:
+            try:
+                # Get connection to Unity Launcher
+                from gi.repository import Unity
+                self.unity_launcher = Unity.LauncherEntry.get_for_desktop_id(info.DESKTOP_ID)
+            except Exception:
+                # Guess we're not on Ubuntu
+                pass
+            else:
+                self.ExportFrame.connect(self.FrameExported)
+                self.ExportEnded.connect(self.ExportFinished)
 
         # Save settings
         s.save()
