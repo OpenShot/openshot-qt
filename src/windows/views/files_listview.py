@@ -1,27 +1,27 @@
-""" 
+"""
  @file
  @brief This file contains the project file listview, used by the main window
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -48,39 +48,44 @@ class FilesListView(QListView):
     drag_item_size = 48
 
     def updateSelection(self):
-        log.info('updateSelection')
-
         # Track selected items
-        self.selected = self.selectionModel().selectedIndexes()
+        m = self.files_model.model
+        selected_items = [m.itemFromIndex(x) for x in self.selectionModel().selectedIndexes()]
 
         # Track selected file ids on main window
-        rows = []
-        self.win.selected_files = []
-        for selection in self.selected:
-            selected_row = self.files_model.model.itemFromIndex(selection).row()
-            if selected_row not in rows:
-                self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
-                rows.append(selected_row)
+        self.win.selected_files = [x.text() for x in selected_items if x.column() == 5]
 
     def contextMenuEvent(self, event):
-        # Update selection
-        self.updateSelection()
 
         # Set context menu mode
         app = get_app()
         app.context_menu_object = "files"
 
+        index = self.indexAt(event.pos())
+
+        # Build menu
         menu = QMenu(self)
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionDetailsView)
-        if self.selected:
-            # If file selected, show file related options
+
+        if index.isValid():
+            # Look up the model item and our unique ID
+            item = self.files_model.model.itemFromIndex(index)
+            file_id = self.files_model.model.item(item.row(), 5).text()
+
+            try:
+                # Check whether we know the item is selected
+                i = self.win.selected_files.index(file_id)
+            except ValueError:
+                # Add to our list, if it's not already there
+                self.win.selected_files.append(file_id)
+
+            # If a valid file is selected, show file related options
             menu.addSeparator()
 
             # Add edit title option (if svg file)
-            selected_file_id = self.win.selected_files[0]
-            file = File.get(id=selected_file_id)
+            file = File.get(id=file_id)
             if file and file.data.get("path").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
                 menu.addAction(self.win.actionDuplicateTitle)
@@ -95,7 +100,7 @@ class FilesListView(QListView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
@@ -103,7 +108,7 @@ class FilesListView(QListView):
             event.setDropAction(Qt.CopyAction)
             event.accept()
 
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
@@ -113,7 +118,6 @@ class FilesListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.files_model.model.mimeData(self.selectionModel().selectedIndexes()))
-        # drag.setPixmap(QIcon.fromTheme('document-new').pixmap(QSize(self.drag_item_size,self.drag_item_size)))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -123,7 +127,7 @@ class FilesListView(QListView):
         pass
 
     def add_file(self, filepath):
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()
@@ -151,6 +155,9 @@ class FilesListView(QListView):
                 file_data["media_type"] = "image"
             elif file_data["has_audio"] and not file_data["has_video"]:
                 file_data["media_type"] = "audio"
+            else:
+                # If neither set, just assume video
+                file_data["media_type"] = "video"
 
             # Save new file to the project data
             file = File()
@@ -176,7 +183,7 @@ class FilesListView(QListView):
                 pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
 
                 # Split folder name
-                (parentPath, folderName) = os.path.split(folder_path)
+                folderName = os.path.basename(folder_path)
                 if not base_name:
                     # Give alternate name
                     file.data["name"] = "%s (%s)" % (folderName, pattern)
@@ -228,14 +235,15 @@ class FilesListView(QListView):
             full_base_name = os.path.join(dirName, base_name)
 
             # Check for images which the file names have the different length
-            fixlen = fixlen or not (glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
-                                    or glob.glob(
-                "%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension)))
+            fixlen = fixlen or not (
+                glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
+                or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
+            )
 
             # Check for previous or next image
             for x in range(max(0, number - 100), min(number + 101, 50000)):
-                if x != number and os.path.exists("%s%s.%s" % (
-                full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
+                if x != number and os.path.exists(
+                   "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
                     is_sequence = True
                     break
             else:
@@ -250,11 +258,20 @@ class FilesListView(QListView):
                 _ = get_app()._tr
 
                 # Handle exception
-                ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
+                ret = QMessageBox.question(self, _("Import Image Sequence"),
+                                           _("Would you like to import %s as an image sequence?") % fileName,
+                                           QMessageBox.No | QMessageBox.Yes)
                 if ret == QMessageBox.Yes:
                     # Yes, import image sequence
                     log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
-                    parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
+                    parameters = {
+                        "file_path": file_path,
+                        "folder_path": dirName,
+                        "base_name": base_name,
+                        "fixlen": fixlen,
+                        "digits": digits,
+                        "extension": extension
+                    }
                     return parameters
                 else:
                     return None
@@ -297,35 +314,40 @@ class FilesListView(QListView):
         """Remove signal handlers and prepare for deletion"""
         try:
             self.files_model.model.ModelRefreshed.disconnect()
-        except:
+        except Exception:
             pass
 
     def __init__(self, *args):
         # Invoke parent init
-        QListView.__init__(self, *args)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.win = get_app().window
 
         # Get Model data
         self.files_model = FilesModel()
+        self.setModel(self.files_model.model)
+
+        # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
-        self.selected = []
         self.ignore_image_sequence_paths = []
 
-        # Setup header columns
-        self.setModel(self.files_model.model)
+        # Setup header columns and layout
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+
         self.setUniformItemSizes(True)
+        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
 
         # Refresh view
         self.refresh_view()
@@ -333,3 +355,4 @@ class FilesListView(QListView):
         # setup filter events
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
+        self.selectionModel().selectionChanged.connect(self.updateSelection)

@@ -127,7 +127,7 @@ class AnimatedTitle(QDialog):
 
     def add_file(self, filepath):
         """ Add an animation to the project file tree """
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()

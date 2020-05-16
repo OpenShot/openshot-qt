@@ -55,8 +55,8 @@ def create_clip(context, track):
     _ = app._tr
 
     # Get FPS info
-    fps_num = get_app().project.get("fps").get("num", 24)
-    fps_den = get_app().project.get("fps").get("den", 1)
+    fps_num = app.project.get("fps").get("num", 24)
+    fps_den = app.project.get("fps").get("den", 1)
     fps_float = float(fps_num / fps_den)
 
     # Get clip path (and prompt user if path not found)
@@ -191,15 +191,15 @@ def import_edl():
     if not recommended_path:
         recommended_path = info.HOME_PATH
     else:
-        recommended_path = os.path.split(recommended_path)[0]
-    file_path, file_type = QFileDialog.getOpenFileName(get_app().window, _("Import EDL..."), recommended_path,
-                                                       _("Edit Decision Lists (*.edl)"), _("Edit Decision Lists (*.edl)"))
+        recommended_path = os.path.dirname(recommended_path)
+    file_path = QFileDialog.getOpenFileName(app.window, _("Import EDL..."), recommended_path,
+                                            _("Edit Decision Lists (*.edl)"), _("Edit Decision Lists (*.edl)"))[0]
     if os.path.exists(file_path):
         context = {}
         current_clip_index = ""
 
         # Get # of tracks
-        all_tracks = get_app().project.get("layers")
+        all_tracks = app.project.get("layers")
         track_number = list(reversed(sorted(all_tracks, key=itemgetter('number'))))[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
@@ -278,5 +278,5 @@ def import_edl():
             create_clip(context, track)
 
             # Update the preview and reselect current frame in properties
-            get_app().window.refreshFrameSignal.emit()
-            get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
+            app.window.refreshFrameSignal.emit()
+            app.window.propertyTableView.select_frame(app.window.preview_thread.player.Position())

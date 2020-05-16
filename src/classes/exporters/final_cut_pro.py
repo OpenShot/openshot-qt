@@ -57,7 +57,7 @@ def createEffect(xmldoc, name, node, points, scale):
             first_value = None
             for keyframeTime in sorted(keyframes.keys()):
                 keyframeValue = keyframes.get(keyframeTime)
-                if first_value == None:
+                if first_value is None:
                     first_value = keyframeValue
 
                 # Create keyframe element for each point
@@ -90,16 +90,18 @@ def export_xml():
         recommended_path = os.path.join(info.HOME_PATH, "%s.xml" % _("Untitled Project"))
     else:
         recommended_path = recommended_path.replace(".osp", ".xml")
-    file_path, file_type = QFileDialog.getSaveFileName(app.window, _("Export XML..."), recommended_path,
-                                                       _("Final Cut Pro (*.xml)"))
-    if file_path:
-        # Append .xml if needed
-        if ".xml" not in file_path:
-            file_path = "%s.xml" % file_path
+    file_path = QFileDialog.getSaveFileName(app.window, _("Export XML..."), recommended_path,
+                                            _("Final Cut Pro (*.xml)"))[0]
+    if not file_path:
+        # User canceled dialog
+        return
 
-    # Get filename with no extension
-    parent_path, file_name_with_ext = os.path.split(file_path)
-    file_name, ext = os.path.splitext(file_name_with_ext)
+    # Append .xml if needed
+    if not file_path.endswith(".xml"):
+        file_path = "%s.xml" % file_path
+
+    # Get filename with no path
+    file_name = os.path.basename(file_path)
 
     # Determine max frame (based on clips)
     duration = 0.0
@@ -113,7 +115,7 @@ def export_xml():
     xmldoc = minidom.parse(os.path.join(info.RESOURCES_PATH, 'export-project-template.xml'))
 
     # Set Project Details
-    xmldoc.getElementsByTagName("name")[0].childNodes[0].nodeValue = file_name_with_ext
+    xmldoc.getElementsByTagName("name")[0].childNodes[0].nodeValue = file_name
     xmldoc.getElementsByTagName("uuid")[0].childNodes[0].nodeValue = str(uuid1())
     xmldoc.getElementsByTagName("duration")[0].childNodes[0].nodeValue = duration
     xmldoc.getElementsByTagName("width")[0].childNodes[0].nodeValue = app.project.get("width")
@@ -136,8 +138,7 @@ def export_xml():
             log.error('No track object found with number: %s' % track.get("number"))
             continue
 
-        # Track name
-        track_name = track.get("label") or "TRACK %s" % track_count
+        # Track details
         track_locked = track.get("lock", False)
         clips_on_track = Clip.filter(layer=track.get("number"))
         if not clips_on_track:
@@ -224,8 +225,11 @@ def export_xml():
         track_count += 1
 
     try:
-        file = open(file_path.encode('UTF-8'), "wb")  # wb needed for windows support
+        file = open(os.fsencode(file_path), "wb")  # wb needed for windows support
         file.write(bytes(xmldoc.toxml(), 'UTF-8'))
         file.close()
     except IOError as inst:
-        log.error("Error writing XML export")
+        log.error("Error writing XML export: {}".format(str(inst)))
+    finally:
+        # Free up DOM memory
+        xmldoc.unlink()

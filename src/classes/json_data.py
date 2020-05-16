@@ -36,9 +36,10 @@ import re
 from classes.assets import get_assets_path
 from classes.logger import log
 from classes import info
+from classes.app import get_app
 
 # Compiled path regex
-path_regex = re.compile(r'\"(image|path)\":.*?\"(.*?)\"', re.UNICODE)
+path_regex = re.compile(r'"(image|path)"\s*:\s*"(.*?)"')
 path_context = {}
 
 
@@ -52,6 +53,27 @@ class JsonDataStore:
     def __init__(self):
         self._data = {}  # Private data store, accessible through the get and set methods
         self.data_type = "json data"
+
+        # Regular expression for project files with possible corruption
+        self.version_re = re.compile(r'"openshot-qt".*"2.5.0')
+
+        # Regular expression matching likely corruption in project files
+        self.damage_re = re.compile(r'/u([0-9a-fA-F]{4})')
+
+        # Regular expression used to detect lost slashes, when repairing data
+        self.slash_repair_re = re.compile(r'(["/][.]+)(/u[0-9a-fA-F]{4})')
+
+        # Connection to Qt main window, used in recovery alerts
+        app = get_app()
+        if app:
+            self.app = app
+
+        if app and app._tr:
+            self._ = app._tr
+        else:
+            def fn(arg):
+                return arg
+            self._ = fn
 
     def get(self, key):
         """ Get copied value of a given key in data store """
@@ -108,7 +130,7 @@ class JsonDataStore:
             # Update default values to match user values
             for item in default:
                 user_value = user_values.get(item["setting"], None)
-                if user_value != None:
+                if user_value is not None:
                     item["value"] = user_value
 
             # Return merged list
@@ -127,29 +149,65 @@ class JsonDataStore:
     def read_from_file(self, file_path, path_mode="ignore"):
         """ Load JSON settings from a file """
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 contents = f.read()
-                if contents:
-                    if path_mode == "absolute":
-                        # Convert any paths to absolute
-                        contents = self.convert_paths_to_absolute(file_path, contents)
-                    return json.loads(contents, strict=False)
+            if not contents:
+                raise RuntimeError("Couldn't load {} file, no data.".format(self.data_type))
+
+            # Scan for and correct possible OpenShot 2.5.0 corruption
+            if self.damage_re.search(contents) and self.version_re.search(contents):
+                # File contains corruptions, backup and repair
+                self.make_repair_backup(file_path, contents)
+
+                # Repair lost slashes, then fix all corrupted escapes
+                contents = self.slash_repair_re.sub(r'\1/\2', contents)
+                contents, subs_count = self.damage_re.subn(r'\\u\1', contents)
+
+                if subs_count < 1:
+                    # Nothing to do!
+                    log.info("No recovery substitutions on {}".format(file_path))
+                else:
+                    # We have to de- and re-serialize the data, to complete repairs
+                    temp_data = json.loads(contents)
+                    contents = json.dumps(temp_data, ensure_ascii=False, indent=1)
+                    temp_data = {}
+
+                    # Save the repaired data back to the original file
+                    with open(file_path, "w", encoding="utf-8") as fout:
+                        fout.write(contents)
+
+                    msg_log = "Repaired {} corruptions in file {}"
+                    msg_local = self._("Repaired {num} corruptions in file {path}")
+                    log.info(msg_log.format(subs_count, file_path))
+                    if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
+                        self.app.window.statusBar.showMessage(
+                            msg_local.format(num=subs_count, path=file_path), 5000
+                        )
+
+            # Process JSON data
+            if path_mode == "absolute":
+                # Convert any paths to absolute
+                contents = self.convert_paths_to_absolute(file_path, contents)
+            return json.loads(contents)
+        except RuntimeError as ex:
+            log.error(str(ex))
+            raise
         except Exception as ex:
             msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
             log.error(msg)
-            raise Exception(msg)
-        msg = ("Couldn't load {} file, no data.".format(self.data_type))
+            raise Exception(msg) from ex
+        msg = ()
         log.warning(msg)
         raise Exception(msg)
 
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """ Save JSON settings to a file """
         try:
-            contents = json.dumps(data, indent=1)
+            contents = json.dumps(data, ensure_ascii=False, indent=1)
             if path_mode == "relative":
                 # Convert any paths to relative
                 contents = self.convert_paths_to_relative(file_path, previous_path, contents)
-            with open(file_path, 'w') as f:
+            with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(contents)
         except Exception as ex:
             msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
@@ -162,21 +220,20 @@ class JsonDataStore:
         path = match.groups(0)[1]
 
         # Find absolute path of file (if needed)
-        utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
-        if "@transitions" in utf_path:
+        if "@transitions" in path:
             new_path = path.replace("@transitions", os.path.join(info.PATH, "transitions"))
-            new_path = json.dumps(new_path)  # Escape backslashes
+            new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
-        elif "@assets" in utf_path:
+        elif "@assets" in path:
             new_path = path.replace("@assets", path_context["new_project_assets"])
-            new_path = json.dumps(new_path)  # Escape backslashes
+            new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         else:
             # Convert path to the correct relative path
-            new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), utf_path))
-            new_path = json.dumps(new_path)  # Escape backslashes
+            new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), path))
+            new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
     def convert_paths_to_absolute(self, file_path, data):
@@ -200,14 +257,13 @@ class JsonDataStore:
         """Replace matched string for converting paths to relative paths"""
         key = match.groups(0)[0]
         path = match.groups(0)[1]
-        utf_path = json.loads('"%s"' % path, encoding="utf-8")  # parse bytestring into unicode string
-        folder_path, file_path = os.path.split(os.path.abspath(utf_path))
+        folder_path, file_path = os.path.split(os.path.abspath(path))
 
         # Determine if thumbnail path is found
         if info.THUMBNAIL_PATH in folder_path:
             # Convert path to relative thumbnail path
             new_path = os.path.join("thumbnail", file_path).replace("\\", "/")
-            new_path = json.dumps(new_path)  # Escape backslashes
+            new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         # Determine if @transitions path is found
@@ -217,7 +273,7 @@ class JsonDataStore:
 
             # Convert path to @transitions/ path
             new_path = os.path.join("@transitions", category_path, file_path).replace("\\", "/")
-            new_path = json.dumps(new_path)  # Escape backslashes
+            new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         # Determine if @assets path is found
@@ -227,13 +283,13 @@ class JsonDataStore:
 
             # Convert path to @transitions/ path
             new_path = os.path.join(folder_path, file_path).replace("\\", "/")
-            new_path = json.dumps(new_path)  # Escape backslashes
+            new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         # Find absolute path of file (if needed)
         else:
             # Convert path to the correct relative path (based on the existing folder)
-            orig_abs_path = os.path.abspath(utf_path)
+            orig_abs_path = os.path.abspath(path)
 
             # Remove file from abs path
             orig_abs_folder = os.path.split(orig_abs_path)[0]
@@ -241,7 +297,7 @@ class JsonDataStore:
             # Calculate new relateive path
             new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))
             new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
-            new_rel_path = json.dumps(new_rel_path)  # Escape backslashes
+            new_rel_path = json.dumps(new_rel_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_rel_path)
 
     def convert_paths_to_relative(self, file_path, previous_path, data):
@@ -263,3 +319,42 @@ class JsonDataStore:
             log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
 
         return data
+
+    def make_repair_backup(self, file_path, jsondata, backup_dir=None):
+        """ Make a backup copy of an OSP file before performing recovery """
+
+        if backup_dir:
+            backup_base = os.path.join(backup_dir, os.path.basename(file_path))
+        else:
+            backup_base = os.path.realpath(file_path)
+
+        # Generate a filename.osp.bak (or filename.osp.bak.1...) backup file name
+        backup_file = "{}.bak".format(backup_base)
+        dup_count = 1
+        while os.path.exists(backup_file) and dup_count <= 999:
+            backup_file = "{}.bak.{}".format(backup_base, dup_count)
+            dup_count += 1
+
+        if dup_count >= 1000:
+            # Something's wrong, we can't find a free save file name; bail
+            raise Exception("Aborting recovery, cannot create backup file")
+
+        # Attempt to open backup file for writing and store original data
+        try:
+            with open(backup_file, "w") as fout:
+                fout.write(jsondata)
+
+            if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
+                self.app.window.statusBar.showMessage(
+                    self._("Saved backup file {}").format(backup_file), 5000
+                )
+            log.info("Backed up {} as {}".format(file_path, backup_file))
+        except (PermissionError, FileExistsError) as ex:
+            # Couldn't write to backup file! Try alternate location
+            log.error("Couldn't write to backup file {}: {}".format(backup_file, ex))
+            if not backup_dir:
+                # Retry in alternate location
+                log.info("Attempting to save backup in user config directory")
+                self.make_repair_backup(file_path, jsondata, backup_dir=info.USER_PATH)
+            else:
+                raise Exception("Aborting recovery, cannot write backup file") from ex

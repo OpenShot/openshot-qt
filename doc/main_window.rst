@@ -29,21 +29,21 @@ Overview
 .. image:: images/main-window.jpg
 
 .. table::
-     :widths: 5 22 73
-     
-     ==  ==================  ============
-     #   Name                Description
-     ==  ==================  ============
-     1   Main Toolbar        Contains buttons to open, save, and export your video project.
-     2   Function Tabs       Switch between Project Files, Transitions, and Effects.
-     3   Project Files       All audio, video, and image files that have been imported into your project.
-     4   Preview Window      This is the area that the video will playback on the screen.
-     5   Edit Toolbar        This toolbar contains buttons used for snapping, inserting markers, and jumping between markers.
-     6   Zoom Slider         This slider will adjust the time-scale of your timeline.
-     7   Play-head / Ruler   The ruler shows the time-scale, and the red line is the play-head. The play-head represents the current playback position.
-     8   Timeline            The timeline visualizes your video project, and each clip and transition in your project.
-     9   Filter              Filter the list of items shown (project files, transitions, and effects) by using these buttons and filter textbox. Enter a few letters of what you are looking for, and the results will be shown.
-     ==  ==================  ============
+   :widths: 5 22 73
+   
+   ==  ==================  ============
+   #   Name                Description
+   ==  ==================  ============
+   1   Main Toolbar        Contains buttons to open, save, and export your video project.
+   2   Function Tabs       Switch between Project Files, Transitions, and Effects.
+   3   Project Files       All audio, video, and image files that have been imported into your project.
+   4   Preview Window      This is the area that the video will playback on the screen.
+   5   Edit Toolbar        This toolbar contains buttons used for snapping, inserting markers, and jumping between markers.
+   6   Zoom Slider         This slider will adjust the time-scale of your timeline.
+   7   Play-head / Ruler   The ruler shows the time-scale, and the red line is the play-head. The play-head represents the current playback position.
+   8   Timeline            The timeline visualizes your video project, and each clip and transition in your project.
+   9   Filter              Filter the list of items shown (project files, transitions, and effects) by using these buttons and filter textbox. Enter a few letters of what you are looking for, and the results will be shown.
+   ==  ==================  ============
 
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
 :ref:`quick_tutorial_ref`.
@@ -69,15 +69,15 @@ For example, imagine a 3 track video project
 .. image:: images/tracks.jpg
 
 .. table::
-     :widths: 5 18 77
-     
-     ==  ==================  ============
-     #   Name                Description
-     ==  ==================  ============
-     1   Top Track           Clips on this track will always be on top and visible
-     2   Middle Track        Clips in the middle (might or might not be visible, depending on what is above them)
-     3   Bottom Track        Clips on this track will always be on the bottom
-     ==  ==================  ============
+   :widths: 5 18 77
+   
+   ==  ==================  ============
+   #   Name                Description
+   ==  ==================  ============
+   1   Top Track           Clips on this track will always be on top and visible
+   2   Middle Track        Clips in the middle (might or might not be visible, depending on what is above them)
+   3   Bottom Track        Clips on this track will always be on the bottom
+   ==  ==================  ============
 
 .. _keyboard_shortcut_ref:
 

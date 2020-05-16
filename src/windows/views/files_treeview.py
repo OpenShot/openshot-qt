@@ -1,28 +1,28 @@
-""" 
+"""
  @file
  @brief This file contains the project file treeview, used by the main window
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Olivier Girard <eolinwen@gmail.com>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -44,43 +44,50 @@ from windows.models.files_model import FilesModel
 
 import json
 
+
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = 48
 
     def updateSelection(self):
-
         # Track selected items
-        self.selected = self.selectionModel().selectedIndexes()
+        m = self.files_model.model
+        selected_items = [m.itemFromIndex(x) for x in self.selectionModel().selectedIndexes()]
 
         # Track selected file ids on main window
-        rows = []
-        self.win.selected_files = []
-        for selection in self.selected:
-            selected_row = self.files_model.model.itemFromIndex(selection).row()
-            if selected_row not in rows:
-                self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
-                rows.append(selected_row)
+        self.win.selected_files = [x.text() for x in selected_items if x.column() == 5]
 
     def contextMenuEvent(self, event):
-        # Update selection
-        self.updateSelection()
 
         # Set context menu mode
         app = get_app()
         app.context_menu_object = "files"
 
+        index = self.indexAt(event.pos())
+
+        # Build menu
         menu = QMenu(self)
 
         menu.addAction(self.win.actionImportFiles)
-        menu.addAction(self.win.actionThumbnailView)
-        if self.selected:
-            # If file selected, show file related options
+        menu.addAction(self.win.actionDetailsView)
+
+        if index.isValid():
+            # Look up the model item and our unique ID
+            item = self.files_model.model.itemFromIndex(index)
+            file_id = self.files_model.model.item(item.row(), 5).text()
+
+            try:
+                # Check whether we know the item is selected
+                i = self.win.selected_files.index(file_id)
+            except ValueError:
+                # Add to our list, if it's not already there
+                self.win.selected_files.append(file_id)
+
+            # If a valid file is selected, show file related options
             menu.addSeparator()
 
             # Add edit title option (if svg file)
-            selected_file_id = self.win.selected_files[0]
-            file = File.get(id=selected_file_id)
+            file = File.get(id=file_id)
             if file and file.data.get("path").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
                 menu.addAction(self.win.actionDuplicateTitle)
@@ -95,7 +102,7 @@ class FilesTreeView(QTreeView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
@@ -103,7 +110,7 @@ class FilesTreeView(QTreeView):
             event.setDropAction(Qt.CopyAction)
             event.accept()
 
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
         # Get image of selected item
@@ -122,7 +129,7 @@ class FilesTreeView(QTreeView):
         pass
 
     def add_file(self, filepath):
-        path, filename = os.path.split(filepath)
+        filename = os.path.basename(filepath)
 
         # Add file into project
         app = get_app()
@@ -150,6 +157,9 @@ class FilesTreeView(QTreeView):
                 file_data["media_type"] = "image"
             elif file_data["has_audio"] and not file_data["has_video"]:
                 file_data["media_type"] = "audio"
+            else:
+                # If neither set, just assume video
+                file_data["media_type"] = "video"
 
             # Save new file to the project data
             file = File()
@@ -175,7 +185,7 @@ class FilesTreeView(QTreeView):
                 pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
 
                 # Split folder name
-                (parentPath, folderName) = os.path.split(folder_path)
+                folderName = os.path.basename(folder_path)
                 if not base_name:
                     # Give alternate name
                     file.data["name"] = "%s (%s)" % (folderName, pattern)
@@ -227,14 +237,15 @@ class FilesTreeView(QTreeView):
             full_base_name = os.path.join(dirName, base_name)
 
             # Check for images which the file names have the different length
-            fixlen = fixlen or not (glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
-                                    or glob.glob(
-                "%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension)))
+            fixlen = fixlen or not (
+                glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
+                or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
+            )
 
             # Check for previous or next image
             for x in range(max(0, number - 100), min(number + 101, 50000)):
-                if x != number and os.path.exists("%s%s.%s" % (
-                full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
+                if x != number and os.path.exists(
+                   "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
                     is_sequence = True
                     break
             else:
@@ -249,11 +260,20 @@ class FilesTreeView(QTreeView):
                 _ = get_app()._tr
 
                 # Handle exception
-                ret = QMessageBox.question(self, _("Import Image Sequence"), _("Would you like to import %s as an image sequence?") % fileName, QMessageBox.No | QMessageBox.Yes)
+                ret = QMessageBox.question(self, _("Import Image Sequence"),
+                                           _("Would you like to import %s as an image sequence?") % fileName,
+                                           QMessageBox.No | QMessageBox.Yes)
                 if ret == QMessageBox.Yes:
                     # Yes, import image sequence
                     log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
-                    parameters = {"file_path":file_path, "folder_path":dirName, "base_name":base_name, "fixlen":fixlen, "digits":digits, "extension":extension}
+                    parameters = {
+                        "file_path": file_path,
+                        "folder_path": dirName,
+                        "base_name": base_name,
+                        "fixlen": fixlen,
+                        "digits": digits,
+                        "extension": extension
+                    }
                     return parameters
                 else:
                     return None
@@ -347,36 +367,39 @@ class FilesTreeView(QTreeView):
         """Remove signal handlers and prepare for deletion"""
         try:
             self.files_model.model.ModelRefreshed.disconnect()
-        except:
+        except Exception:
             pass
 
     def __init__(self, *args):
         # Invoke parent init
-        QTreeView.__init__(self, *args)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.win = get_app().window
 
         # Get Model data
         self.files_model = FilesModel()
+        self.setModel(self.files_model.model)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
-        self.selected = []
         self.ignore_image_sequence_paths = []
 
-        # Setup header columns
-        self.setModel(self.files_model.model)
+        # Setup header columns and layout
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
+
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+
         self.files_model.model.ModelRefreshed.connect(self.refresh_columns)
 
         # Refresh view
@@ -387,3 +410,4 @@ class FilesTreeView(QTreeView):
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
         self.files_model.model.itemChanged.connect(self.value_updated)
+        self.selectionModel().selectionChanged.connect(self.updateSelection)

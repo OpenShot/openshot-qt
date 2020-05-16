@@ -56,16 +56,18 @@ def export_edl():
         recommended_path = os.path.join(info.HOME_PATH, "%s.edl" % _("Untitled Project"))
     else:
         recommended_path = recommended_path.replace(".osp", ".edl")
-    file_path, file_type = QFileDialog.getSaveFileName(get_app().window, _("Export EDL..."), recommended_path,
-                                                       _("Edit Decision Lists (*.edl)"))
-    if file_path:
-        # Append .edl if needed
-        if ".edl" not in file_path:
-            file_path = "%s.edl" % file_path
+    file_path = QFileDialog.getSaveFileName(app.window, _("Export EDL..."), recommended_path,
+                                            _("Edit Decision Lists (*.edl)"))[0]
+    if not file_path:
+        return
+
+    # Append .edl if needed
+    if not file_path.endswith(".edl"):
+        file_path = "%s.edl" % file_path
 
     # Get filename with no extension
-    parent_path, file_name_with_ext = os.path.split(file_path)
-    file_name, ext = os.path.splitext(file_name_with_ext)
+    file_name_with_ext = os.path.basename(file_path)
+    file_name = os.path.splitext(file_name_with_ext)[0]
 
     all_tracks = get_app().project.get("layers")
     track_count = len(all_tracks)
@@ -83,7 +85,7 @@ def export_edl():
             continue
 
         # Generate EDL File (1 per track - limitation of EDL format)
-        # TODO: Improve and move this into it's own class
+        # TODO: Improve and move this into its own class
         with open("%s-%s.edl" % (file_path.replace(".edl", ""), track_name), 'w', encoding="utf8") as f:
             # Add Header
             f.write("TITLE: %s - %s\n" % (file_name, track_name))
@@ -105,8 +107,9 @@ def export_edl():
 
                     # Write blank clip
                     f.write(edl_string % (
-                    edit_index, "BL"[:9], "V"[:6], "C", clip_start_time, clip_end_time, timeline_start_time,
-                    timeline_end_time))
+                            edit_index, "BL"[:9], "V"[:6], "C",
+                            clip_start_time, clip_end_time,
+                            timeline_start_time, timeline_end_time))
 
                 # Format clip start/end and timeline start/end values (i.e. 00:00:00:00)
                 clip_start_time = secondsToTimecode(clip.data.get('start'), fps_num, fps_den)
@@ -119,13 +122,15 @@ def export_edl():
                 if has_video:
                     # Video Track
                     f.write(edl_string % (
-                    edit_index, "AX"[:9], "V"[:6], "C", clip_start_time, clip_end_time, timeline_start_time,
-                    timeline_end_time))
+                            edit_index, "AX"[:9], "V"[:6], "C",
+                            clip_start_time, clip_end_time,
+                            timeline_start_time, timeline_end_time))
                 if has_audio:
                     # Audio Track
                     f.write(edl_string % (
-                    edit_index, "AX"[:9], "A"[:6], "C", clip_start_time, clip_end_time, timeline_start_time,
-                    timeline_end_time))
+                            edit_index, "AX"[:9], "A"[:6], "C",
+                            clip_start_time, clip_end_time,
+                            timeline_start_time, timeline_end_time))
                 f.write("* FROM CLIP NAME: %s\n" % clip.data.get('title'))
 
                 # Add opacity data (if any)

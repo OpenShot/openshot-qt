@@ -269,7 +269,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.has_unsaved_changes = False
 
         # Reset info paths
-        info.THUMBNAIL_PATH =  os.path.join(info.USER_PATH, "thumbnail")
+        info.THUMBNAIL_PATH = os.path.join(info.USER_PATH, "thumbnail")
         info.TITLE_PATH = os.path.join(info.USER_PATH, "title")
         info.BLENDER_PATH = os.path.join(info.USER_PATH, "blender")
 
@@ -399,12 +399,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             return round(original_value * scale_factor)
 
     def rescale_keyframes(self, scale_factor):
-        """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)"""
+        """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
+           and return scaled project data without modifing the current project."""
         log.info('Scale all keyframes by a factor of %s' % scale_factor)
 
+        # Create copy of active project data
+        data = copy.deepcopy(self._data)
+
+        # Rescale the the copied project data
         # Loop through all clips (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
-        for clip in self._data.get('clips', []):
+        for clip in data.get('clips', []):
             for attribute in clip:
                 if type(clip.get(attribute)) == dict and "Points" in clip.get(attribute):
                     for point in clip.get(attribute).get("Points"):
@@ -429,7 +434,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through all effects/transitions (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
-        for effect in self._data.get('effects', []):
+        for effect in data.get('effects', []):
             for attribute in effect:
                 if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
                     for point in effect.get(attribute).get("Points"):
@@ -441,9 +446,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             if "co" in point:
                                 point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
 
-        # Get app, and distribute all project data through update manager
-        from classes.app import get_app
-        get_app().updates.load(self._data)
+        # return the copied and scaled project data
+        return data
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
@@ -492,7 +496,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Keep track of files that failed to load
         failed_files = []
 
-        with open(file_path.encode('UTF-8'), 'rb') as f:
+        with open(os.fsencode(file_path), 'rb') as f:
             try:
                 # Unpickle legacy openshot project file
                 v1_data = pickle.load(f, fix_imports=True, encoding="UTF-8")
@@ -566,9 +570,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
 
                             # Get file name
-                            path, filename = os.path.split(file.data["path"])
+                            filename = os.path.basename(file.data["path"])
 
-                            # Convert path to the correct relative path (based on this folder)
                             file_path = file.absolute_path()
 
                             # Create clip object for this file
@@ -836,8 +839,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             for file in self._data["files"]:
                 path = file["path"]
 
-                # No longer store thumbnail image
-                file["image"] = ""
+                # For now, store thumbnail path for backwards compatibility
+                file["image"] = os.path.join(target_thumb_path, "{}.png".format(file["id"]))
 
                 # Assets which need to be copied
                 new_asset_path = None
@@ -873,8 +876,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             for clip in self._data["clips"]:
                 file_id = clip["file_id"]
 
-                # No longer store thumbnail image
-                clip["image"] = ""
+                # For now, store thumbnail path for backwards compatibility
+                clip["image"] = os.path.join(target_thumb_path, "{}.png".format(file_id))
 
                 log.info("Checking clip {} path for file {}".format(clip["id"], file_id))
                 # Update paths to files stored in our working space or old path structure
@@ -888,7 +891,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
-        if not file_path or "backup.osp" in file_path:
+        if not file_path or file_path is info.BACKUP_FILE:
             # Ignore backup recovery project
             return
 
@@ -926,8 +929,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.app import get_app
         _ = get_app()._tr
 
-        from PyQt5.QtWidgets import QFileDialog, QMessageBox
-
         log.info("checking project files...")
 
         # Loop through each files (in reverse order)
@@ -942,7 +943,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if path and is_modified and not is_skipped:
                     # Found file, update path
                     file["path"] = path
-                    get_app().updates.update(["import_path"], os.path.dirname(path))
+                    get_app().updates.update_untracked(["import_path"], os.path.dirname(path))
                     log.info("Auto-updated missing file: %s" % path)
                 elif is_skipped:
                     # Remove missing file

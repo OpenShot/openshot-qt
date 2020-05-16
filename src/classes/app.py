@@ -36,7 +36,7 @@ import traceback
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 try:
@@ -70,19 +70,21 @@ class OpenShotApp(QApplication):
             log.info('Starting new session'.center(48))
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
+            from images import openshot_rc
             import openshot
 
             # Re-route stdout and stderr to logger
             reroute_output()
-        except (ImportError, ModuleNotFoundError) as ex:
+        except ImportError as ex:
             tb = traceback.format_exc()
+            log.error('OpenShotApp::Import Error: %s' % str(ex))
             QMessageBox.warning(None, "Import Error",
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
             raise
             sys.exit()
-        except Exception:
-            raise
+        except Exception as ex:
+            log.error('OpenShotApp::Init Error: %s' % str(ex))
             sys.exit()
 
         # Log some basic system info
@@ -105,6 +107,12 @@ class OpenShotApp(QApplication):
         # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
+        self.setWindowIcon(QIcon(":/openshot.svg"))
+        try:
+            # Qt 5.7+ only
+            self.setDesktopFile("org.openshot.OpenShot")
+        except AttributeError:
+            pass
 
         # Init settings
         self.settings = settings.SettingStore()
@@ -126,6 +134,9 @@ class OpenShotApp(QApplication):
                                 {"minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION, "current_version": libopenshot_version})
             # Stop launching and exit
             sys.exit()
+
+        # Set location of OpenShot program (for libopenshot)
+        openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
 
         # Tests of project data loading/saving
         self.project = project_data.ProjectDataStore()
@@ -230,7 +241,8 @@ class OpenShotApp(QApplication):
                 # Auto load project passed as argument
                 self.window.OpenProjectSignal.emit(path)
             else:
-                # Auto import media file
+                # Apply the default settings and Auto import media file
+                self.project.load("")
                 self.window.filesTreeView.add_file(path)
         else:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)

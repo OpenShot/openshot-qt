@@ -26,48 +26,58 @@
  """
 
 import os
+from time import strftime
 
-from PyQt5.QtCore import QDir
-
-VERSION = "2.4.4-dev2"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.3"
-DATE = "20190315000000"
+VERSION = "2.5.1-dev2"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.5"
+DATE = "20200228000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit stunning videos, movies, and animations"
 COMPANY_NAME = "OpenShot Studios, LLC"
-COPYRIGHT = "Copyright (c) 2008-2018 %s" % COMPANY_NAME
+COPYRIGHT = "Copyright (c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
+
+# Application paths
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+RESOURCES_PATH = os.path.join(PATH, "resources")
+PROFILES_PATH = os.path.join(PATH, "profiles")
+IMAGES_PATH = os.path.join(PATH, "images")
+EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
+
+# User paths
 HOME_PATH = os.path.join(os.path.expanduser("~"))
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
 BACKUP_PATH = os.path.join(USER_PATH)
 RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
-BLENDER_PATH = os.path.join(USER_PATH, "blender")
-RESOURCES_PATH =  os.path.join(PATH, "resources")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
-PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
+BLENDER_PATH = os.path.join(USER_PATH, "blender")
 TITLE_PATH = os.path.join(USER_PATH, "title")
-PROFILES_PATH = os.path.join(PATH, "profiles")
-IMAGES_PATH = os.path.join(PATH, "images")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
-EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
-EXPORT_TESTS = os.path.join(USER_PATH, "tests")
+PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
+USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
+# User files
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
-# Create PATHS if they do not exist (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, THUMBNAIL_PATH, CACHE_PATH, BLENDER_PATH, TITLE_PATH, PROFILES_PATH, IMAGES_PATH,
-               TRANSITIONS_PATH, EXPORT_TESTS, BACKUP_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH, PREVIEW_CACHE_PATH,
-               RECOVERY_PATH]:
-    if not os.path.exists(folder.encode("UTF-8")):
+# Create user paths if they do not exist
+# (this is where temp files are stored... such as cached thumbnails)
+for folder in [
+    USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+    BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
+    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH,
+]:
+    if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
-# names of all contributors, using "u" for unicode encoding
-JT = {"name": u"Jonathan Thomas", "email": "jonathan@openshot.org", "website":"http://openshot.org/developers/jonathan"}
+# Maintainer details, for packaging
+JT = {"name": "Jonathan Thomas",
+      "email": "jonathan@openshot.org",
+      "website": "http://openshot.org/developers/jonathan"}
 
 # Desktop launcher ID, for Linux
 DESKTOP_ID = "org.openshot.OpenShot.desktop"
@@ -89,11 +99,18 @@ except ImportError:
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
-langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
-                          sort=QDir.Name)
-for trpath in langs:
-    SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+try:
+    from PyQt5.QtCore import QDir
+    langdir = QDir(language_path)
+    langs = langdir.entryList(
+        ['OpenShot.*.qm'],
+        QDir.NoDotAndDotDot | QDir.Files,
+        sort=QDir.Name)
+    for trpath in langs:
+        SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+except ImportError:
+    # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
+    pass
 
 SETUP = {
     "name": NAME,

@@ -333,7 +333,7 @@
     "restart": true
   },
   {
-    "value": true,
+    "value": false,
     "title": "Send Anonymous Metrics and Errors",
     "type": "bool",
     "category": "Debug",
@@ -687,10 +687,6 @@
     "value": "-",
     "type": "text"
   },
-
-
-
-
   {
     "category": "Keyboard",
     "title": "Previous Frame",
@@ -793,6 +789,30 @@
     "restart": true,
     "setting": "sliceAllKeepRightSide",
     "value": "Ctrl+J",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Both Sides",
+    "restart": true,
+    "setting": "sliceSelectedKeepBothSides",
+    "value": "s",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Left Side",
+    "restart": true,
+    "setting": "sliceSelectedKeepLeftSide",
+    "value": "d",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Right Side",
+    "restart": true,
+    "setting": "sliceSelectedKeepRightSide",
+    "value": "a",
     "type": "text"
   },
   {
@@ -905,6 +925,22 @@
     "restart": true,
     "setting": "nudgeRight",
     "value": "Shift+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Edit Title",
+    "restart": true,
+    "setting": "actionEditTitle",
+    "value": "",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Duplicate Title",
+    "restart": true,
+    "setting": "actionDuplicateTitle",
+    "value": "Ctrl+Shift+C",
     "type": "text"
   }
 ]

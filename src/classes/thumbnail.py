@@ -33,10 +33,11 @@ import time
 from threading import Thread
 from classes import info
 from classes.query import File
+from classes.logger import log
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
-REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(.+?)/(\d+)(/path/)?")
+REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)(?P<only_path>/path/)?")
 
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
@@ -54,16 +55,16 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
     try:
         if reader.info.metadata.count("rotate"):
             rotate = float(reader.info.metadata.find("rotate").value()[1])
-    except:
+    except Exception:
         pass
 
     # Create thumbnail folder (if needed)
-    parent_path, file_name = os.path.split(thumb_path)
+    parent_path = os.path.dirname(thumb_path)
     if not os.path.exists(parent_path):
         os.mkdir(parent_path)
 
     # Save thumbnail image and close readers
-    reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, width, height, mask, overlay, "#000", False, "png", 100, rotate)
+    reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, width, height, mask, overlay, "#000", False, "png", 85, rotate)
     reader.Close()
     clip.Close()
 
@@ -81,10 +82,13 @@ class httpThumbnailServerThread(Thread):
         """Find the first available socket port"""
         s = socket.socket()
         s.bind(('', 0))
-        return s.getsockname()[1]
+        socket_port = s.getsockname()[1]
+        s.close()
+        return socket_port
 
     def kill(self):
         self.running = False
+        log.info('Shutting down thumbnail server: %s' % str(self.server_address))
         self.thumbServer.shutdown()
 
     def run(self):
@@ -95,9 +99,21 @@ class httpThumbnailServerThread(Thread):
         self.thumbServer = httpThumbnailServer(self.server_address, httpThumbnailHandler)
         self.thumbServer.serve_forever(0.5)
 
+    def __init__(self):
+        Thread.__init__(self)
+        self.server_address = None
+
 
 class httpThumbnailHandler(BaseHTTPRequestHandler):
     """ This class handles HTTP requests to the HTTP thumbnail server above."""
+
+    def log_message(self, msg_format, *args):
+        """ Log message from HTTPServer """
+        log.info(msg_format % args)
+
+    def log_error(self, msg_format, *args):
+        """ Log error from HTTPServer """
+        log.error(msg_format % args)
 
     def do_GET(self):
         # Pause processing of request (since we don't currently use thread pooling, this allows
@@ -107,23 +123,29 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
 
         """ Process each GET request and return a value (image or file path)"""
         # Parse URL
-        url_output = REGEX_THUMBNAIL_URL.findall(self.path)
-        if url_output and len(url_output[0]) == 3:
+        url_output = REGEX_THUMBNAIL_URL.match(self.path)
+        if url_output and len(url_output.groups()) == 3:
             # Path is expected to have 3 matched components (third is optional though)
             #   /thumbnails/FILE-ID/FRAME-NUMBER/   or
             #   /thumbnails/FILE-ID/FRAME-NUMBER/path/
-            self.send_response(200)
+            self.send_response_only(200)
         else:
             self.send_error(404)
             return
 
         # Get URL parts
-        file_id = url_output[0][0]
-        file_frame = int(url_output[0][1])
-        only_path = url_output[0][2]
+        file_id = url_output.group('file_id')
+        file_frame = int(url_output.group('file_frame'))
+        only_path = url_output.group('only_path')
 
-        # Catch undefined calls
-        if file_id == "undefined":
+        try:
+            # Look up file data
+            file = File.get(id=file_id)
+
+            # Ensure file location is an absolute path
+            file_path = file.absolute_path()
+        except AttributeError:
+            # Couldn't match file ID
             self.send_error(404)
             return
 
@@ -131,24 +153,20 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         if not only_path:
             self.send_header('Content-type', 'image/png')
         else:
-            self.send_header('Content-type', 'text/html')
+            self.send_header('Content-type', 'text/html; charset=utf-8')
         self.end_headers()
 
         # Locate thumbnail
         thumb_path = os.path.join(info.THUMBNAIL_PATH, file_id, "%s.png" % file_frame)
         if not os.path.exists(thumb_path) and file_frame == 1:
-            # Try with no frame # (for backwards compatibility)
+            # Try ID with no frame # (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file_id)
         if not os.path.exists(thumb_path) and file_frame != 1:
-            # Try with no frame # (for backwards compatibility)
+            # Try with ID and frame # in filename (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
 
         if not os.path.exists(thumb_path):
             # Generate thumbnail (since we can't find it)
-            file = File.get(id=file_id)
-
-            # Convert path to the correct relative path (based on this folder)
-            file_path = file.absolute_path()
 
             # Determine if video overlay should be applied to thumbnail
             overlay_path = ""

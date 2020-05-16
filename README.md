@@ -54,7 +54,7 @@ instructions for getting source code, configuring dependencies, and building Ope
 
 Beautiful HTML documentation can be generated using Sphinx.
 
-```
+```sh
 cd doc
 make html
 ```
@@ -97,12 +97,27 @@ dependencies in order to run OpenShot successfully:
 
 ## Launch
 
-To run OpenShot from the command line, use the following syntax:
+To run OpenShot from the command line with an installed `libopenshot`,
+use the following syntax:
 (be sure the change the path to match the install or repo location 
 of openshot-qt)
 
-    $ cd [openshot-qt folder]
-    $ python3 src/launch.py
+```sh
+cd [openshot-qt folder]
+python3 src/launch.py
+```
+    
+To run with a version of `libopenshot` built from source but not installed,
+set `PYTHONPATH` to the location of the compiled Python bindings. e.g.:
+
+```sh
+cd [libopenshot folder]
+mkdir build; cd build; cmake [options] ..; make
+    
+cd [openshot-qt folder]
+PYTHONPATH=[libopenshot folder]/build/src/bindings/python \
+python3 src/launch.py
+```
 
 ## Websites
 
@@ -114,7 +129,7 @@ of openshot-qt)
 
 ## Copyright
 
-Copyright (c) 2008-2019 OpenShot Studios, LLC. This file is part of
+Copyright (c) 2008-2020 OpenShot Studios, LLC. This file is part of
 OpenShot Video Editor (https://www.openshot.org), an open-source project
 dedicated to delivering high quality video editing and animation solutions
 to the world.

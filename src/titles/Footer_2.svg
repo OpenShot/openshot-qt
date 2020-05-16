@@ -144,7 +144,7 @@
        ry="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;opacity:0.8;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;opacity:0.8;fill:#324da7;fill-opacity:1;stroke:none;stroke-width:2.81251335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        x="957.21832"
        y="1013.0276"
        id="text3161"><tspan
@@ -152,6 +152,6 @@
          id="tspan3163"
          x="957.21832"
          y="1013.0276"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:81.3274231px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:2.81251335;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Footer Text</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:81.3274231px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:none;stroke-width:2.81251335;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Footer Text</tspan></text>
   </g>
 </svg>

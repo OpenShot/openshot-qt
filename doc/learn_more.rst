@@ -19,5 +19,7 @@
 
 Learn More
 ==========
-We are working hard to expand this user guide, but if you are stuck and don't know where to turn, please
-submit a question or bug report here: https://github.com/OpenShot/openshot-qt/issues
+We are working hard to expand this user guide, but if you are stuck and don't know where to turn,
+please submit a question or bug report here: Issues_.
+
+.. _Issues: https://github.com/OpenShot/openshot-qt/issues/

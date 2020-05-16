@@ -27,19 +27,27 @@
 
 import os
 import locale
-import xml.dom.minidom as xml
 import functools
+import json
+
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
 
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+from PyQt5.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QPushButton
+
+# Python module for libopenshot (required video editing module installed separately)
+import openshot
 
 from classes import info, ui_util, settings
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 
-import json
+
 
 class FileProperties(QDialog):
     """ File Properties Dialog """
@@ -78,8 +86,8 @@ class FileProperties(QDialog):
         self.settings_data = settings.get_settings().get_all_settings()
 
         # Get file properties
-        path, filename = os.path.split(self.file.data["path"])
-        baseFilename, ext = os.path.splitext(filename)
+        filename = os.path.basename(self.file.data["path"])
+        file_extension = os.path.splitext(filename)[1]
         fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
 
         tags = ""
@@ -92,7 +100,7 @@ class FileProperties(QDialog):
         # Populate fields
         self.txtFileName.setText(name)
         self.txtTags.setText(tags)
-        self.txtFilePath.setText(os.path.join(path, filename))
+        self.txtFilePath.setText(self.file.data["path"])
         self.btnBrowse.clicked.connect(self.browsePath)
 
         # Populate video fields
@@ -123,7 +131,7 @@ class FileProperties(QDialog):
             self.txtEndFrame.setValue(round(float(file.data["end"]) * fps_float) + 1)
 
         # Populate video & audio format
-        self.txtVideoFormat.setText(ext.replace(".", ""))
+        self.txtVideoFormat.setText(file_extension.replace(".", ""))
         self.txtVideoCodec.setText(self.file.data["vcodec"])
         self.txtAudioCodec.setText(self.file.data["acodec"])
         self.txtSampleRate.setValue(int(self.file.data["sample_rate"]))
@@ -175,15 +183,15 @@ class FileProperties(QDialog):
         _ = app._tr
 
         starting_folder, filename = os.path.split(self.file.data["path"])
-        newFilePath = QFileDialog.getOpenFileName(None,(_("Locate media file: %s") % filename), starting_folder)
-        self.txtFilePath.setText(newFilePath[0])
+        newFilePath = QFileDialog.getOpenFileName(None, _("Locate media file: %s") % filename, starting_folder)[0]
+        self.txtFilePath.setText(newFilePath)
 
     def accept(self):
         # Update file details
         self.file.data["name"] = self.txtFileName.text()
         self.file.data["tags"] = self.txtTags.text()
 
-        #experimental: update file path
+        # experimental: update file path
         self.file.data["path"] = self.txtFilePath.text()
 
         # Update Framerate

@@ -28,20 +28,32 @@ import functools
 import locale
 import os
 import time
-import xml.dom.minidom as xml
 import tempfile
 
+import openshot
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+# Try to get the security-patched XML functions from defusedxml
+try:
+  from defusedxml import minidom as xml
+except ImportError:
+  from xml.dom import minidom as xml
+
+from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize
+from PyQt5.QtWidgets import (
+    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
+)
 from PyQt5.QtGui import QIcon
 
+from classes import info
 from classes import ui_util
+from classes import settings
+from classes.logger import log
 from classes.app import get_app
-from classes.metrics import *
+from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
 
 import json
+
 
 class Export(QDialog):
     """ Export Dialog """
@@ -61,8 +73,7 @@ class Export(QDialog):
         ui_util.init_ui(self)
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # Get settings
         self.s = settings.get_settings()
@@ -113,9 +124,6 @@ class Export(QDialog):
         channels = get_app().window.timeline_sync.timeline.info.channels
         channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
 
-        # No keyframe rescaling has happened yet (due to differences in FPS)
-        self.keyframes_rescaled = False
-
         # Create new "export" openshot.Timeline object
         self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps.num, fps.den),
                                           sample_rate, channels, channel_layout)
@@ -137,8 +145,8 @@ class Export(QDialog):
 
         # Default export path
         recommended_path = os.path.join(info.HOME_PATH)
-        if app.project.current_filepath:
-            recommended_path = os.path.dirname(app.project.current_filepath)
+        if get_app().project.current_filepath:
+            recommended_path = os.path.dirname(get_app().project.current_filepath)
 
         export_path = get_app().project.get("export_path")
         if export_path and os.path.exists(export_path):
@@ -155,8 +163,8 @@ class Export(QDialog):
         else:
             # Yes, project is saved
             # Get just the filename
-            parent_path, filename = os.path.split(get_app().project.current_filepath)
-            filename, ext = os.path.splitext(filename)
+            filename = os.path.basename(get_app().project.current_filepath)
+            filename = os.path.splitext(filename)[0]
             self.txtFileName.setText(filename)
 
         # Default image type
@@ -220,7 +228,7 @@ class Export(QDialog):
             self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
 
             # Set default (if it matches the project)
-            if app.project.get(['profile']) in profile_name:
+            if get_app().project.get(['profile']) in profile_name:
                 self.selected_profile_index = box_index
 
             # increment item counter
@@ -232,9 +240,11 @@ class Export(QDialog):
         presets = []
         for preset_path in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_path):
-                xmldoc = xml.parse(os.path.join(preset_path, file))
-                type = xmldoc.getElementsByTagName("type")
-                presets.append(_(type[0].childNodes[0].data))
+                # Use context manager to automatically unlink xmldoc objects
+                with xml.parse(os.path.join(preset_path, file)) as xmldoc:
+                    type = xmldoc.getElementsByTagName("type")
+                    presets.append(_(type[0].childNodes[0].data))
+
 
         # Exclude duplicates
         type_index = 0
@@ -251,7 +261,7 @@ class Export(QDialog):
 
 
         # Populate all profiles
-        self.populateAllProfiles(app.project.get(['profile']))
+        self.populateAllProfiles(get_app().project.get(['profile']))
 
         # Connect framerate signals
         self.txtFrameRateNum.valueChanged.connect(self.updateFrameRate)
@@ -368,8 +378,7 @@ class Export(QDialog):
         self.cboSimpleTarget.clear()
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # parse the xml files and get targets that match the project type
         project_types = []
@@ -399,6 +408,9 @@ class Export(QDialog):
                         elif openshot.FFmpegWriter.IsValidCodec(codec_text):
                             acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
 
+                # Free up DOM memory
+                xmldoc.unlink()
+
         # Add all targets for selected project type
         preset_index = 0
         selected_preset = 0
@@ -424,8 +436,7 @@ class Export(QDialog):
         log.info(selected_profile_path)
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # Load profile
         profile = openshot.Profile(selected_profile_path)
@@ -454,8 +465,7 @@ class Export(QDialog):
         log.info(selected_target)
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # don't do anything if the combo has been cleared
         if selected_target:
@@ -545,6 +555,9 @@ class Export(QDialog):
                                 break
                             layout_index += 1
 
+                    # Free up DOM memory
+                    xmldoc.unlink()
+
             # init the profiles combo
             for item in sorted(profiles_list):
                 self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
@@ -594,8 +607,7 @@ class Export(QDialog):
         log.info(selected_quality)
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # Set the video and audio bitrates
         if selected_quality:
@@ -606,16 +618,13 @@ class Export(QDialog):
         log.info("btnBrowse_clicked")
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # update export folder path
         file_path = QFileDialog.getExistingDirectory(self, _("Choose a Folder..."), self.txtExportFolder.text())
+
         if os.path.exists(file_path):
             self.txtExportFolder.setText(file_path)
-
-            # update export folder path in project file
-            get_app().updates.update(["export_path"], file_path)
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0
@@ -645,6 +654,14 @@ class Export(QDialog):
                     measurement = "crf"
                     if raw_number > 63:
                         raw_number = 63
+                    if raw_number < 0:
+                        raw_number = 0
+                    bit_rate_bytes = raw_number
+
+                elif "qp" in raw_measurement:
+                    measurement = "qp"
+                    if raw_number > 255:
+                        raw_number = 255
                     if raw_number < 0:
                         raw_number = 0
                     bit_rate_bytes = raw_number
@@ -679,8 +696,7 @@ class Export(QDialog):
         """ Start exporting video """
 
         # get translations
-        app = get_app()
-        _ = app._tr
+        _ = get_app()._tr
 
         # Init progress bar
         self.progressExportVideo.setMinimum(self.txtStartFrame.value())
@@ -690,7 +706,6 @@ class Export(QDialog):
         # Prompt error message
         if self.txtStartFrame.value() == self.txtEndFrame.value():
             msg = QMessageBox()
-            _ = get_app()._tr
             msg.setWindowTitle(_("Export Error"))
             msg.setText(_("Sorry, please select a valid range of frames to export"))
             msg.exec_()
@@ -711,10 +726,15 @@ class Export(QDialog):
         # Determine final exported file path (and replace blank paths with default ones)
         default_filename = "Untitled Project"
         default_folder = os.path.join(info.HOME_PATH)
-        if export_type != _("Image Sequence"):
-            file_name_with_ext = "%s.%s" % (self.txtFileName.text().strip() or default_filename, self.txtVideoFormat.text().strip())
-        else:
+        if export_type == _("Image Sequence"):
             file_name_with_ext = "%s%s" % (self.txtFileName.text().strip() or default_filename, self.txtImageFormat.text().strip())
+        else:
+            file_ext = self.txtVideoFormat.text().strip()
+            file_name_with_ext = self.txtFileName.text().strip() or default_filename
+            # Append extension, if not already present
+            if not file_name_with_ext.endswith(file_ext):
+                file_name_with_ext = '{}.{}'.format(file_name_with_ext, file_ext)
+
         export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
         log.info("Export path: %s" % export_file_path)
 
@@ -727,13 +747,12 @@ class Export(QDialog):
             export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
             log.info("Invalid export path detected, changing to: %s" % export_file_path)
 
-        # Translate object
-        _ = get_app()._tr
-
         file = File.get(path=export_file_path)
         if file:
-            ret = QMessageBox.question(self, _("Export Video"), _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
-                                       QMessageBox.Ok)
+            ret = QMessageBox.question(self,
+                _("Export Video"),
+                _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
+                QMessageBox.Ok)
             self.enableControls()
             self.exporting = False
             return
@@ -741,8 +760,10 @@ class Export(QDialog):
         # Handle exception
         if os.path.exists(export_file_path) and export_type in [_("Video & Audio"), _("Video Only"), _("Audio Only")]:
             # File already exists! Prompt user
-            ret = QMessageBox.question(self, _("Export Video"), _("%s already exists.\nDo you want to replace it?") % file_name_with_ext,
-                                       QMessageBox.No | QMessageBox.Yes)
+            ret = QMessageBox.question(self,
+                _("Export Video"),
+                _("%s already exists.\nDo you want to replace it?") % file_name_with_ext,
+                QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.No:
                 # Stop and don't do anything
                 # Re-enable controls
@@ -778,6 +799,11 @@ class Export(QDialog):
             else:
                 video_settings["vcodec"] = image_ext
 
+        # Store updated export folder path in project file
+        get_app().updates.update_untracked(["export_path"], os.path.dirname(export_file_path))
+        # Mark project file as unsaved
+        get_app().project.has_unsaved_changes = True
+
         # Set MaxSize (so we don't have any downsampling)
         self.timeline.SetMaxSize(video_settings.get("width"), video_settings.get("height"))
 
@@ -785,14 +811,13 @@ class Export(QDialog):
         export_cache_object = openshot.CacheMemory(500)
         self.timeline.SetCache(export_cache_object)
 
-        # Rescale all keyframes and reload project
+        # Rescale all keyframes (if needed)
         if self.export_fps_factor != 1.0:
-            self.keyframes_rescaled = True
-            get_app().project.rescale_keyframes(self.export_fps_factor)
+            # Get a copy of rescaled project data (this does not modify the active project)
+            rescaled_app_data = get_app().project.rescale_keyframes(self.export_fps_factor)
 
             # Load the "export" Timeline reader with the JSON from the real timeline
-            json_timeline = json.dumps(get_app().project._data)
-            self.timeline.SetJson(json_timeline)
+            self.timeline.SetJson(json.dumps(rescaled_app_data))
 
             # Re-update the timeline FPS again (since the timeline just got clobbered)
             self.updateFrameRate()
@@ -830,12 +855,19 @@ class Export(QDialog):
             # These extra options should be set in an extra method
             # No feedback is given to the user
             # TODO: Tell user if option is not available
-            # Set the quality in case crf was selected
-            if "crf" in self.txtVideoBitRate.text():
-                w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
+            if export_type in [_("Audio Only")]:
+                # Muxing options for mp4/mov
+                w.SetOption(openshot.AUDIO_STREAM, "muxing_preset", "mp4_faststart")
+            else:
+                # Muxing options for mp4/mov
+                w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
+                # Set the quality in case crf was selected
+                if "crf" in self.txtVideoBitRate.text():
+                    w.SetOption(openshot.VIDEO_STREAM, "crf", str(int(video_settings.get("video_bitrate"))) )
+                # Set the quality in case qp was selected
+                if "qp" in self.txtVideoBitRate.text():
+                    w.SetOption(openshot.VIDEO_STREAM, "qp", str(int(video_settings.get("video_bitrate"))) )
 
-            # Muxing options for mp4/mov
-            w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
 
             # Open the writer
             w.Open()
@@ -920,7 +952,6 @@ class Export(QDialog):
 
             # Prompt error message
             msg = QMessageBox()
-            _ = get_app()._tr
             msg.setWindowTitle(_("Export Error"))
             msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
             msg.exec_()
@@ -942,10 +973,6 @@ class Export(QDialog):
 
         # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
-
-        # Return keyframes to preview scaling
-        if self.keyframes_rescaled:
-            get_app().project.rescale_keyframes(self.original_fps_factor)
 
         # Handle end of export (for non-canceled exports)
         if self.s.get("show_finished_window") and self.exporting:
@@ -969,7 +996,20 @@ class Export(QDialog):
             super(Export, self).accept()
 
     def reject(self):
+        if self.exporting and not self.close_button.isVisible():
+            # Show confirmation dialog
+            _ = get_app()._tr
+            result = QMessageBox.question(self,
+                _("Export Video"),
+                _("Are you sure you want to cancel the export?"),
+                QMessageBox.No | QMessageBox.Yes)
+            if result == QMessageBox.No:
+                # Resume export
+                return
+
         # Re-set OMP thread enabled flag
+        # NOTE: This is always called when closing the export modal, and thus
+        # the keyframes are always scaled back to the original FPS if needed.
         if self.s.get("omp_threads_enabled"):
             openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
         else:
@@ -977,10 +1017,6 @@ class Export(QDialog):
 
         # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
-
-        # Return keyframes to preview scaling
-        if self.keyframes_rescaled:
-            get_app().project.rescale_keyframes(self.original_fps_factor)
 
         # Cancel dialog
         self.exporting = False

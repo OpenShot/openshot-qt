@@ -68,7 +68,13 @@
     <content_attribute id="money-purchasing">none</content_attribute>
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
+  <provides>
+    <binary>openshot-qt</binary>
+    <id>openshot-qt</id>
+  </provides>
   <releases>
+    <release version="2.5.1" date="2020-02-28"/>
+    <release version="2.5.0" date="2020-02-07"/>
     <release version="2.4.4" date="2019-03-20"/>
     <release version="2.4.3" date="2018-09-22"/>
     <release version="2.4.2" date="2018-06-30"/>
