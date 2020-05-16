@@ -2787,6 +2787,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if "linux" in sys.platform:
             try:
                 # Get connection to Unity Launcher
+                import gi
+                gi.require_version('Unity', '7.0')
                 from gi.repository import Unity
                 self.unity_launcher = Unity.LauncherEntry.get_for_desktop_id(info.DESKTOP_ID)
             except Exception:
