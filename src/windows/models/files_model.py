@@ -60,14 +60,14 @@ class FileFilterProxyModel(QSortFilterProxyModel):
                 or get_app().window.filesFilter.text():
             # Fetch the file name
             index = self.sourceModel().index(sourceRow, 0, sourceParent)
-            file_name = self.sourceModel().data(index) # file name (i.e. MyVideo.mp4)
+            file_name = self.sourceModel().data(index)  # file name (i.e. MyVideo.mp4)
 
             # Fetch the media_type
             index = self.sourceModel().index(sourceRow, 3, sourceParent)
-            media_type = self.sourceModel().data(index) # media type (i.e. video, image, audio)
+            media_type = self.sourceModel().data(index)  # media type (i.e. video, image, audio)
 
             index = self.sourceModel().index(sourceRow, 2, sourceParent)
-            tags = self.sourceModel().data(index) # tags (i.e. intro, custom, etc...)
+            tags = self.sourceModel().data(index)  # tags (i.e. intro, custom, etc...)
 
             if get_app().window.actionFilesShowVideo.isChecked():
                 if not media_type == "video":
@@ -134,8 +134,7 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         self.ignore_updates = True
 
-        # Get window to check filters
-        win = app.window
+        # Translations
         _ = app._tr
 
         # Delete a file (if delete_file_id passed in)
@@ -298,6 +297,36 @@ class FilesModel(QObject, updates.UpdateInterface):
             self.ModelRefreshed.emit()
 
         self.ignore_updates = False
+
+    def selected_file_ids(self):
+        """ Get a list of file IDs for all selected files """
+        # Get the indexes for column 5 of all selected rows
+        selected = self.selection_model.selectedRows(5)
+
+        return [idx.data() for idx in selected]
+
+    def selected_files(self):
+        """ Get a list of File objects representing the current selection """
+        files = []
+        for id in self.selected_file_ids():
+            files.append(File.get(id=id))
+        return files
+
+    def current_file_id(self):
+        """ Get the file ID of the current files-view item, or the first selection """
+        cur = self.selection_model.currentIndex()
+
+        if not cur or not cur.isValid() and self.selection_model.hasSelection():
+            cur = self.selection_model.selectedIndexes()[0]
+
+        if cur and cur.isValid():
+            return cur.sibling(cur.row(), 5).data()
+
+    def current_file(self):
+        """ Get the File object for the current files-view item, or the first selection """
+        cur_id = self.current_file_id()
+        if cur_id:
+            return File.get(id=cur_id)
 
     def __init__(self, *args):
 

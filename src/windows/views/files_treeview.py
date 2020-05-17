@@ -49,38 +49,33 @@ class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = 48
 
-    def updateSelection(self):
-        # Track selected items
-        self.selected = self.selectionModel().selectedIndexes()
-
-        # Track selected file ids on main window
-        rows = []
-        self.win.selected_files = []
-        for selection in self.selected:
-            selected_row = self.files_model.model.itemFromIndex(self.files_model.proxy_model.mapToSource(selection)).row()
-            if selected_row not in rows:
-                self.win.selected_files.append(self.files_model.model.item(selected_row, 5).text())
-                rows.append(selected_row)
-
     def contextMenuEvent(self, event):
-        # Update selection
-        self.updateSelection()
 
         # Set context menu mode
         app = get_app()
         app.context_menu_object = "files"
 
+        index = self.indexAt(event.pos())
+
+        # Build menu
         menu = QMenu(self)
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionThumbnailView)
-        if self.selected:
-            # If file selected, show file related options
+
+        if index.isValid():
+            # Look up the model item and our unique ID
+            model = index.model()
+
+            # Look up file_id from 5th column of row
+            id_index = index.sibling(index.row(), 5)
+            file_id = model.data(id_index, Qt.DisplayRole)
+
+            # If a valid file selected, show file related options
             menu.addSeparator()
 
             # Add edit title option (if svg file)
-            selected_file_id = self.win.selected_files[0]
-            file = File.get(id=selected_file_id)
+            file = File.get(id=file_id)
             if file and file.data.get("path").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
                 menu.addAction(self.win.actionDuplicateTitle)
@@ -103,16 +98,18 @@ class FilesTreeView(QTreeView):
             event.setDropAction(Qt.CopyAction)
             event.accept()
 
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
+        # The relevant model for index values
+        model = self.model()
 
-        # Get image of selected item
-        selected_row = self.files_model.model.itemFromIndex(self.files_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
-        icon = self.files_model.model.item(selected_row, 0).icon()
+        # Get indexes from column 0 of selected row
+        selected_rows = self.selectionModel().selectedRows(0)
+        icon = selected_rows[0].data(Qt.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.files_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(model.mimeData(self.selectionModel().selectedRows()))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -321,9 +318,6 @@ class FilesTreeView(QTreeView):
         self.header().setSectionResizeMode(1, QHeaderView.Stretch)
         self.header().setSectionResizeMode(2, QHeaderView.Interactive)
 
-    def currentChanged(self, selected, deselected):
-        self.updateSelection()
-
     def value_updated(self, item):
         """ Name or tags updated """
         if self.files_model.ignore_updates:
@@ -377,7 +371,6 @@ class FilesTreeView(QTreeView):
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
-        self.selected = []
         self.ignore_image_sequence_paths = []
 
         # Setup header columns and layout

@@ -399,9 +399,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionEditTitle_trigger(self, event):
 
-        # Get selected svg title file
-        selected_file_id = self.selected_files[0]
-        file = File.get(id=selected_file_id)
+        # Get requested view item
+        index = self.filesView.indexAt(event.pos())
+
+        # look up svg title file ID from column 5 of that row
+        selected_id = index.model().sibling(index.row(), 5, index.parent()).data()
+
+        file = File.get(id=selected_id)
         file_path = file.data.get("path")
 
         # show dialog for editing title
@@ -431,9 +435,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file_path = None
 
         # Loop through selected files (set 1 selected file if more than 1)
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        for f in self.selected_files():
             if f.data.get("path").endswith(".svg"):
                 file_path = f.data.get("path")
                 break
@@ -730,11 +732,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionAdd_to_Timeline_trigger(self, event):
         # Loop through selected files
-        f = None
-        files = []
-        for file_id in self.selected_files:
-            # Find matching file
-            files.append(File.get(id=file_id))
+        files = self.selected_files()
+
+        # Bail if nothing's selected
+        if not files:
+            return
 
         # Get current position of playhead
         fps = get_app().project.get("fps")
@@ -918,14 +920,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info('actionPreview_File_trigger')
 
         # Loop through selected files (set 1 selected file if more than 1)
-        f = None
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        f = self.files_model.current_file()
 
         # Bail out if no file selected
         if not f:
-            log.info("Preview action failed, selected files: {}".format(self.selected_files))
+            log.info("Couldn't find current file for preview window")
             return
 
         # show dialog
@@ -1660,14 +1659,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionSplitClip_trigger")
 
         # Loop through selected files (set 1 selected file if more than 1)
-        f = None
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        f = self.files_model.current_file()
 
         # Bail out if no file selected
         if not f:
-            log.warn("Split clip action failed, selected files: {}".format(self.selected_files))
+            log.warn("Split clip action failed, couldn't find current file")
             return
 
         # show dialog
@@ -1684,21 +1680,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionRemove_from_Project_trigger")
 
         # Loop through selected files
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
-            if f:
-                # Remove file
-                f.delete()
+        for f in self.selected_files():
+            if not f:
+                continue
 
-                # Find matching clips (if any)
-                clips = Clip.filter(file_id=file_id)
-                for c in clips:
-                    # Remove clip
-                    c.delete()
+            id = f.data["id"]
+            # Remove file
+            f.delete()
 
-        # Clear selected files
-        self.selected_files = []
+            # Find matching clips (if any)
+            clips = Clip.filter(file_id=id)
+            for c in clips:
+                # Remove clip
+                c.delete()
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
@@ -1891,11 +1885,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionFile_Properties_trigger(self, event):
         log.info("Show file properties")
 
-        # Loop through selected files (set 1 selected file if more than 1)
-        f = None
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        # Get current selected file (corresponding to menu, if possible)
+        f = self.files_model.current_file()
+        if not f:
+            log.warning("Couldn't find current file for properties window")
+            return
 
         # show dialog
         from windows.file_properties import FileProperties
@@ -1905,7 +1899,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if result == QDialog.Accepted:
 
             # BRUTE FORCE approach: go through all clips and update file path
-            clips = Clip.filter(file_id=file_id)
+            clips = Clip.filter(file_id=f.data["id"])
             for c in clips:
                 # update clip
                 c.data["reader"]["path"] = f.data["path"]
@@ -2191,6 +2185,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Change selected item in properties view
         self.show_property_timer.start()
 
+    def selected_files(self):
+        """ Return a list of File objects for the Project Files dock's selection """
+        return self.files_model.selected_files()
+
+    def selected_file_ids(self):
+        """ Return a list of File IDs for the Project Files dock's selection """
+        return self.files_model.selected_file_ids()
+
+    def current_file(self):
+        """ Return the Project Files dock's currently-active item as a File object """
+        return self.files_model.current_file()
+
+    def current_file_id(self):
+        """ Return the ID of the Project Files dock's currently-active item """
+        return self.files_model.current_file_id()
+
     # Update window settings in setting store
     def save_settings(self):
         s = settings.get_settings()
@@ -2399,7 +2409,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def clearSelections(self):
         """Clear all selection containers"""
-        self.selected_files = []
         self.selected_clips = []
         self.selected_transitions = []
         self.selected_markers = []
