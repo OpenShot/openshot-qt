@@ -27,32 +27,34 @@ The source files for the manual are all found in the project repository, `(the d
 The documentation is written in reStructured Text, or ReST. 
 This is a plain text format encoded in UTF-8.
 It contains special syntax so formatting can be applied by third-party tools.
-The tool used by Openshot is Sphinx to create both the online HTML and the offline manual.
+Sphinx is the tool used by OpenShot to create the manual.
 
 You can suggest improvements or submit small changes for our documentation on our Github here: 
 https://github.com/OpenShot/openshot-qt/issues/2989
 
-Or in *this* reddit thread. 
-
-.. TODO: Reddit thread to be made, bookmarked?, add hyperlink 
-
+.. todo:: 
+  **Discuss if this is needed/desired and if Reddit threads can be pinned to top. **
+  Todo: Reddit thread to be made, bookmarked?, add hyperlink
+  finish line: Or in `this<url>`_ reddit thread. 
+  
 The preferred method for submitting large edits would be via GitHub Pull Request. 
 But we can make accommodations for anyone who would like to contribute but is not familiar with version-control systems like Git.
 
 License
 -------
-We use the GPL-3 license (see above) for documentation, see the header.
-This is for simplicity because it is the same license as the project code.
-And because the documentation gets parsed in other tools before it reaches its final form.
+Project documentation is licensed under the same license as the source code.
+Specifically, the GNU General Public License version 3 or higher (GPLv3+); see the document header.
+Is is also allows the the documentation to ger prosessed in other tools before it reaches its final form.
 
 Github
 ------
 In the issue tracker, subjects that contain explanations that should probably be included in the documentation can be labeled `docs <https://github.com/OpenShot/openshot-qt/labels/docs>`_\ .
-Questions that are answered often in Github or Reddit can be tagged *FAQ* / are tagged **question**
 
-.. TODO: Add link Reddit + link Github
+.. TODO:: Create WIKI FAQ + propose FAQ-tag. Include line: 
+          Questions that are answered often in Github or Reddit can be tagged **FAQ**
+          Add links Reddit + link Github
 
-|  Tutorials how to add changes to Github: 
+|  Tutorials for how to add changes to Github: 
 |  Github on Pull requests https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork
 |  Github text howto https://opensource.com/life/16/3/submit-github-pull-request
 |  Github video howto https://www.youtube.com/watch?v=rgbCcBNZcdQ
@@ -67,18 +69,21 @@ So it would set you up with a copy ("fork") under your account,
 where you can make changes before submitting them as a Pull Request.
 
 Editing on the web is perfectly workable.
-The only downside being that there is no real way to preview your changes.
+Rest files are automatically recognized by Github, to view the plain text version click on **raw** or the **edit** button. 
+A workflow test is included in the repo, and will be included in the fork. However, you will need to activate this under **Actions**
+Once activated, it will automatically run after every commit. 
+It will also generate the HTML version of the documentation as a so-called *artifact*, 
+and can be downloaded as ZIP package under the workflow event in the *Action* page. 
+
 With a local clone you can use a previewing editor or
 (if you have the necessary Sphinx tools installed)
 generate updated HTML docs and view them in a web browser.
 
 Sphinx
 ------
-`Spinx <https://en.wikipedia.org/wiki/Sphinx_(documentation_generator)>`_ was created to simply generate documentation from Python sourcecode.
+`Spinx <https://www.sphinx-doc.org/en/master/>`_ was created to simply generate documentation from Python sourcecode.
 It is written in Python, and also used in other environments. 
 It is licensed under the BSD license.
-It can also export files for translation.
-
 Generating a local copy of the manual requires only the Python-based Sphinx documentation system and the Sphinx RTD theme.  
 They can be installed  using most package managers, or via 
 
@@ -92,16 +97,18 @@ Tutorial video:	https://www.youtube.com/watch?v=ouHVkMo3gwE
 
 ReST Basic Syntax
 -----------------
-`List of basic syntax </Documentation_RestSyntax.rst>`_  in Openshot documentation.  
+.. TODO::  `List of basic/custom syntax </Documentation_RestSyntax.rst>`_  in Openshot documentation.  
 
 - Some explanation here:  https://hyperpolyglot.org/lightweight-markup
 - or here: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html
+- Sphinx ReST details https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html#gotchas
 - Video tutorials here:  https://www.youtube.com/results?search_query=restructuredtext+tutorial
 
-Software 
+Most text editors with syntax highlighting and checking include a ReST language mode or templates can be added. 
 
-- Notepad++ ReST template:	https://github.com/steenhulthin/reStructuredText_NPP
-- Linux: 
+A crossplatfom ReST editor with automatic HTML previewing. is ATOM: https://atom.io/
+A Notepad++ ReST template:	https://github.com/steenhulthin/reStructuredText_NPP
+ 
 
 File naming and directory structure
 -----------------------------------
@@ -121,13 +128,10 @@ Images used in the documentation are in the ``doc/images`` subdirectory.
 File structure
 --------------
 
-Every file starts with 5 hidden segments (See `template <template.rst>`_ )
-
-- Copyright notice
-- Openshot description
-- Openshot disclaimer
-- License notice
-- Referral anchor for the title
+Every file starts with a hidden 4 paragraph block of the standard header. 
+It contains the Copyright notice, description of OpenShot,  disclaimer and License notice. 
+(See `template <template.rst>`_ )
+It is sometimes followed by a referral anchor for the title. 
 
 The content starts with a chapter title, double-underlined using equals signs (``=====``).
 This is followed by a short introduction describing what will be covered in the chapter.
@@ -159,36 +163,44 @@ This tends to be a pretty good fit for any sort of written prose, when it is in 
 There are four reasons for this:
 
 - Writing that way, there is no worrying about line length or when to wrap. 
-- It encourages shorter, simpler sentences which is a good thing when writing docs. 
 - The diffs when changes are submitted also tend to be more readable and focused. 
-- Lines are easier to translate and less likely to be changed. 
+- It encourages shorter, simpler sentences which is a good thing when writing docs. 
+- Short lines are easier to translate as they are less likely to be changed. 
 
 Comments for why things are documented a certain way can be hidden after a double dot and start with "NOTE: ". 
 They may contain a link to a relevant issue in the tracker for more information. 
 
-Translation
------------
-Translation files are generated and managed by Sphinx.
-If the images are not translated, they will default back to the original.
-Filenames do not get translated.
-There may be translation notes hidden in the documentation, blocked out with \.. TRANSLATION NOTE: 
+But comments regarding issues that are not complete (like new features) should be marked with the tag \.. TODO::
+They will be emphasized by Github but filtered out of the final user documentation by Sphinx. 
 
-Files for translation will be hosted at `Launchpad <https://translations.launchpad.net/openshot/2.0/+translations>`_.
 
-When translating numbers referencing a screenshot in non-western languages, please make sure to update the screenshot too. 
-If available, images of the translation should be saved in their subdirectory *(to be decided)* 
 
-.. TODO: Add subdirectory
+.. todo:: 
+  ** After finding out how translation files can be created, update this paragraph.**
 
-.. TRANSLATION NOTE: After translating tables, make sure that the underlining of table rows stay the same length as the new words. 
+  Translation
+  -----------
+  
+  Translation files are generated and managed by Sphinx.
+  If the images are not translated, they will default back to the original.
+  Filenames do not get translated.
+  There may be translation notes hidden in the documentation, blocked out with \.. TRANSLATION NOTE: 
+  Files for translation will be hosted at `Launchpad <https://translations.launchpad.net/openshot/2.0/+translations>`_.
+  When translating numbers referencing a screenshot in non-western languages, please make sure to update the screenshot too. 
+  If available, images of the translation should be saved in their subdirectory *(to be decided)* 
+
+  .. TODO:: Add subdirectory
+
+  .. TRANSLATION NOTE: After translating tables make sure they do not break. The underlining of table rows needs to be the same length as the new words. 
+  
 
 Images
 ------
 
-**Please make sure to add your images under the GPL3 as well.**
+.. caution:: Please make sure to add your images under the GPL3 as well.
 
 **PNG** is the preferred format for screenshots, as it's not subject to compression artifacts the way JPG is. 
-JPG is fine too, though, if the quality is high enough (Compression of 90% or better). 
+JPG is fine too, if the quality is high enough (Compression of 90% or better). 
 Clarity is the priority, not file size. 
 
 Animated GIFs are not suitable as screenshots, because the animated component is only visible when the docs are viewed in web form. 
@@ -202,7 +214,7 @@ Images should be whatever shape they need to be in order to show the necessary i
 But since images will be scaled to fit the width of the page, in general images should not be unnecessarily wide. 
 Otherwise they can end up too small when displayed.
 
-.. NOTE: Verification Needed; 
+.. TODO:: Image width Verification Needed: 
   Is this set in the server? Does it apply to all browsers? Does this apply to offline docs too?
   From a test by ferdnyc "when I have a Chrome window open with the manual loaded into it, once the window hits about 1160px wide, that's it — the content stops getting any wider. Past that width (which is including the sidebar), the only thing that grows is the empty space to the right of the content container. And at that size, the images are scaled to 696px wide."
   https://github.com/OpenShot/openshot-qt/issues/2989
@@ -211,20 +223,17 @@ There is no demo art package available for screenshots.
 Screenshots showing different content is an opportunity to illustrate the variety of different features and configurations available.
 However during a step-by-step tutorial for a feature, it makes sense to have a set of consistent imports for all of the steps. 
 So that the illustrations reflect exactly what the user would expect to see in the actual software.
-|
+
 Images should be named descriptively, so the names have relevance long-term.
 It should say what it is, and it should be what it says. 
-They should (not?) be named for the tutorial page they belong to. 
-
-.. QUESTION: Opinions differ, see File naming and directory structure
+I suitable, they can be named for the tutorial page they belong to. 
 
 They can be named for Action-WindowName or ActionStepNumber. 
 Images belonging to a sequence should be numbered. 
 Names like intro-tutorial-step-1.png (followed by -step-2.png through -step-n.png), 
 interface-export-simple.png and so on. 
 
-.. QUESTION: Should image sequences be in the same resolution? 
-  So they can be combined to animation?
+.. TODO:: QUESTION: Should image sequences be in the same resolution? So they can be combined to animation?
 
 Tutorial art
 ------------
@@ -237,12 +246,9 @@ There is a green call-out circle  used for numbering in the repo under docs/imag
 It is editable in software that can edit SVG files (e.g. Inkscape and Illustrator). 
 The green arrow is not yet in the repo.
 
-.. TODO: upload font and callout circle to dir
-
-.. QUESTION: because it is an SVG, is the number changed in ReST?
-
-.. PROPOSAL: save all tutorial art into docs/pointers/ or something like that?
-
+.. TODO:: PROPOSAL: save all tutorial art into docs/pointers/ or something like that?
+.. TODO:: Upload font and callout circle to dir
+.. TODO:: Question: because it is an SVG, is the number changed in ReST?
 
 Video
 -----
@@ -264,8 +270,9 @@ Beside GIF, only Youtube videos can be embedded with the tag
 Tables
 ------
 
+.. TODO:: Table specifications
+
 | Todo: Issues with tables
 | https://github.com/OpenShot/openshot-qt/issues/1262
 | https://github.com/OpenShot/openshot-qt/pull/1272
 
-..  TODO: Table specifications
