@@ -203,18 +203,18 @@ class TutorialManager(object):
 
     def get_object(self, object_id):
         """Get an object from the main window by object id"""
-        if object_id == "filesTreeView":
-            return self.win.filesTreeView
+        if object_id == "filesView":
+            return self.win.filesView
         elif object_id == "timeline":
             return self.win.timeline
         elif object_id == "dockVideoContents":
             return self.win.dockVideoContents
         elif object_id == "propertyTableView":
             return self.win.propertyTableView
-        elif object_id == "transitionsTreeView":
-            return self.win.transitionsTreeView
-        elif object_id == "effectsTreeView":
-            return self.win.effectsTreeView
+        elif object_id == "transitionsView":
+            return self.win.transitionsView
+        elif object_id == "effectsView":
+            return self.win.effectsView
         elif object_id == "export_button":
             # Find export toolbar button on main window
             export_button = None
@@ -313,14 +313,14 @@ class TutorialManager(object):
             {"id": "0",
              "x": 400,
              "y": 0,
-             "object_id": "filesTreeView",
+             "object_id": "filesView",
              "text": _("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"),
              "arrow": False
              },
             {"id": "1",
              "x": 20,
              "y": 0,
-             "object_id": "filesTreeView",
+             "object_id": "filesView",
              "text": _("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system."),
              "arrow": True
              },
@@ -347,14 +347,14 @@ class TutorialManager(object):
             {"id": "5",
              "x": 20,
              "y": 10,
-             "object_id": "transitionsTreeView",
+             "object_id": "transitionsView",
              "text": _("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."),
              "arrow": True
              },
             {"id": "6",
              "x": 20,
              "y": 20,
-             "object_id": "effectsTreeView",
+             "object_id": "effectsView",
              "text": _("<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"),
              "arrow": True
              },

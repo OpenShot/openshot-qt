@@ -27,41 +27,26 @@
  """
 
 import os
+import json
+import re
+import glob
 
-from PyQt5.QtCore import QMimeData, Qt, pyqtSignal, QSortFilterProxyModel, QEventLoop
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QMessageBox
-import openshot  # Python module for libopenshot (required video editing module installed separately)
-
+from PyQt5.QtCore import (
+    QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
+    QSortFilterProxyModel, QItemSelectionModel, QPersistentModelIndex,
+)
+from PyQt5.QtGui import (
+    QIcon, QStandardItem, QStandardItemModel
+)
 from classes import updates
 from classes import info
+from classes.image_types import is_image
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
 from requests import get
 
-import json
-
-class FileStandardItemModel(QStandardItemModel):
-    ModelRefreshed = pyqtSignal()
-
-    def __init__(self, parent=None):
-        QStandardItemModel.__init__(self)
-
-    def mimeData(self, indexes):
-        # Create MimeData for drag operation
-        data = QMimeData()
-
-        # Get list of all selected file ids
-        files = []
-        for item in indexes:
-            selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 5).text())
-        data.setText(json.dumps(files))
-        data.setHtml("clip")
-
-        # Return Mimedata
-        return data
+import openshot
 
 
 class FileFilterProxyModel(QSortFilterProxyModel):
@@ -98,10 +83,32 @@ class FileFilterProxyModel(QSortFilterProxyModel):
             return self.filterRegExp().indexIn(file_name) >= 0 or self.filterRegExp().indexIn(tags) >= 0
 
         # Continue running built-in parent filter logic
-        return super(FileFilterProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
+        return super().filterAcceptsRow(sourceRow, sourceParent)
+
+    def mimeData(self, indexes):
+        # Create MimeData for drag operation
+        data = QMimeData()
+
+        # Get list of all selected file ids
+        ids = self.parent.selected_file_ids()
+        data.setText(json.dumps(ids))
+        data.setHtml("clip")
+
+        # Return Mimedata
+        return data
+
+    def __init__(self, **kwargs):
+        if "parent" in kwargs:
+            self.parent = kwargs["parent"]
+            kwargs.pop("parent")
+
+        # Call base class implementation
+        super().__init__(**kwargs)
 
 
-class FilesModel(updates.UpdateInterface):
+class FilesModel(QObject, updates.UpdateInterface):
+    ModelRefreshed = pyqtSignal()
+
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
 
@@ -246,7 +253,7 @@ class FilesModel(updates.UpdateInterface):
         self.ignore_updates = False
 
         # Emit signal when model is updated
-        self.model.ModelRefreshed.emit()
+        self.ModelRefreshed.emit()
 
     def get_thumb_path(self, file_id, thumbnail_frame, clear_cache=False):
         """Get thumbnail path by invoking HTTP thumbnail request"""
@@ -287,31 +294,39 @@ class FilesModel(updates.UpdateInterface):
                     item = self.model.itemFromIndex(thumb_index)
                     item.setIcon(QIcon(thumb_path))
                     item.setText(name)
+            # Emit signal when model is updated
+            self.ModelRefreshed.emit()
 
-                    # Emit signal when model is updated
-                    self.model.ModelRefreshed.emit()
-                    break
         self.ignore_updates = False
 
     def __init__(self, *args):
 
-        # Add self as listener to project data updates (undo/redo, as well as normal actions handled within this class all update the tree model)
+        # Add self as listener to project data updates
+        # (undo/redo, as well as normal actions handled within this class all update the model)
         app = get_app()
         app.updates.add_listener(self)
 
         # Create standard model
-        self.model = FileStandardItemModel()
+        self.model = QStandardItemModel()
         self.model.setColumnCount(6)
         self.model_ids = {}
         self.ignore_updates = False
 
+        self.ignore_image_sequence_paths = []
+
         # Create proxy model (for sorting and filtering)
-        self.proxy_model = FileFilterProxyModel()
+        self.proxy_model = FileFilterProxyModel(parent=self)
         self.proxy_model.setDynamicSortFilter(True)
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 
+        # Create selection model to share between views
+        self.selection_model = QItemSelectionModel(self.proxy_model)
+
         # Connect signal
         app.window.FileUpdated.connect(self.update_file_thumbnail)
+
+        # Call init for superclass QObject
+        super(QObject, FilesModel).__init__(self, *args)

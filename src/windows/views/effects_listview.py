@@ -30,9 +30,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView, QMenu
 
 from classes.app import get_app
-from windows.models.effects_model import EffectsModel
 
-import json
 
 class EffectsListView(QListView):
     """ A TreeView QWidget used on the main window """
@@ -86,8 +84,15 @@ class EffectsListView(QListView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
-        # Setup header columns
         self.setModel(self.effects_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.effects_model.selection_model)
+
+        # Setup header columns
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)

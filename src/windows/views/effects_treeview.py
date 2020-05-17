@@ -25,14 +25,12 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint, Qt, QRegExp
-from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt, QSize, QPoint
+from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 
 from classes.app import get_app
-from windows.models.effects_model import EffectsModel
 
-import json
 
 class EffectsTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
@@ -83,19 +81,22 @@ class EffectsTreeView(QTreeView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
-        # Setup header columns
         self.setModel(self.effects_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.effects_model.selection_model)
+
+        # Setup header columns
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
-        self.effects_model.model.ModelRefreshed.connect(self.refresh_columns)
+        self.effects_model.ModelRefreshed.connect(self.refresh_columns)
 
         # Load initial effects model data
         self.effects_model.update_model()
         self.refresh_columns()
-
-        # setup filter events
-        app = get_app()

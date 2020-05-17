@@ -90,8 +90,15 @@ class TransitionsListView(QListView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
-        # Setup header columns
         self.setModel(self.transition_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.transition_model.selection_model)
+
+        # Setup header columns
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)

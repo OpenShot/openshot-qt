@@ -3002,7 +3002,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         elif self.item_type == "os_drop":
             # Add new files to project
-            get_app().window.filesTreeView.dropEvent(event)
+            get_app().window.filesView.dropEvent(event)
 
             # Add clips for each file dropped
             for uri in event.mimeData().urls():

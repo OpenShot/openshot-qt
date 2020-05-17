@@ -312,15 +312,22 @@ class FilesListView(QListView):
     def resize_contents(self):
         pass
 
-    def __init__(self, model):
+    def __init__(self, model, *args):
         # Invoke parent init
-        QListView.__init__(self)
+        super().__init__(*args)
 
         # Get a reference to the window object
         self.win = get_app().window
 
         # Get Model data
         self.files_model = model
+        self.setModel(self.files_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.files_model.selection_model)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
@@ -329,19 +336,19 @@ class FilesListView(QListView):
         self.selected = []
         self.ignore_image_sequence_paths = []
 
-        # Setup header columns
-        self.setModel(self.files_model.proxy_model)
+        # Setup header columns and layout
         self.setIconSize(QSize(131, 108))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
-        self.setSelectionBehavior(QListView.SelectRows)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+
         self.setUniformItemSizes(True)
+        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
-        self.setStyleSheet('QListView::item { padding-top: 2px; }')
-        self.files_model.model.ModelRefreshed.connect(self.refresh_view)
+
+        self.files_model.ModelRefreshed.connect(self.refresh_view)
 
         # Load initial files model data
         self.files_model.update_model()

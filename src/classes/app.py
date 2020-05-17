@@ -243,7 +243,7 @@ class OpenShotApp(QApplication):
             else:
                 # Apply the default settings and Auto import media file
                 self.project.load("")
-                self.window.filesTreeView.add_file(path)
+                self.window.filesView.add_file(path)
         else:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
             self.window.RecoverBackup.emit()

@@ -83,20 +83,22 @@ class TransitionsTreeView(QTreeView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
-        # Setup header columns
         self.setModel(self.transition_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.transition_model.selection_model)
+
+        # Setup header columns
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
-        self.transition_model.model.ModelRefreshed.connect(self.refresh_columns)
+        self.transition_model.ModelRefreshed.connect(self.refresh_columns)
 
         # Load initial transition model data
         self.transition_model.update_model()
         self.refresh_columns()
-
-        # setup filter events
-        app = get_app()

@@ -1926,22 +1926,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if app.context_menu_object == "files":
             s.set("file_view", "details")
             self.filesListView.hide()
-            self.filesTreeView.show()
-            self.filesTreeView.clearSelection()
+            self.filesView = self.filesTreeView
+            self.filesView.show()
 
         # Transitions
         elif app.context_menu_object == "transitions":
             s.set("transitions_view", "details")
             self.transitionsListView.hide()
-            self.transitionsTreeView.show()
-            self.transitionsTreeView.clearSelection()
+            self.transitionsView = self.transitionsTreeView
+            self.transitionsView.show()
 
         # Effects
         elif app.context_menu_object == "effects":
             s.set("effects_view", "details")
             self.effectsListView.hide()
-            self.effectsTreeView.show()
-            self.effectsTreeView.clearSelection()
+            self.effectsView = self.effectsTreeView
+            self.effectsView.show()
 
     def actionThumbnailView_trigger(self, event):
         log.info("Switch to Thumbnail View")
@@ -1954,25 +1954,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if app.context_menu_object == "files":
             s.set("file_view", "thumbnail")
             self.filesTreeView.hide()
-            self.filesListView.show()
-            self.filesListView.clearSelection()
+            self.filesView = self.filesListView
+            self.filesView.show()
 
         # Transitions
         elif app.context_menu_object == "transitions":
             s.set("transitions_view", "thumbnail")
             self.transitionsTreeView.hide()
-            self.transitionsListView.show()
-            self.transitionsListView.clearSelection()
+            self.transitionsView = self.transitionsListView
+            self.transitionsView.show()
 
         # Effects
         elif app.context_menu_object == "effects":
             s.set("effects_view", "thumbnail")
             self.effectsTreeView.hide()
-            self.effectsListView.show()
-            self.effectsListView.clearSelection()
+            self.effectsView = self.effectsListView
+            self.effectsView.show()
 
     def resize_contents(self):
-        if self.filesTreeView:
+        if self.filesView == self.filesTreeView:
             self.filesTreeView.resize_contents()
 
     def getDocks(self):
@@ -2625,28 +2625,30 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
         self.tabFiles.layout().insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
+            self.filesView = self.filesTreeView
             self.filesListView.hide()
-            self.filesTreeView.show()
-            self.filesTreeView.setFocus()
         else:
+            self.filesView = self.filesListView
             self.filesTreeView.hide()
-            self.filesListView.show()
-            self.filesListView.setFocus()
+        # Show our currently-enabled project files view
+        self.filesView.show()
+        self.filesView.setFocus()
 
-        # Setup transitions tree
+        # Setup transitions tree and list views
         self.transition_model = TransitionsModel()
         self.transitionsTreeView = TransitionsTreeView(self.transition_model)
         self.transitionsListView = TransitionsListView(self.transition_model)
         self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
         self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
         if s.get("transitions_view") == "details":
+            self.transitionsView = self.transitionsTreeView
             self.transitionsListView.hide()
-            self.transitionsTreeView.show()
-            self.transitionsTreeView.setFocus()
         else:
+            self.transitionsView = self.transitionsListView
             self.transitionsTreeView.hide()
-            self.transitionsListView.show()
-            self.transitionsListView.setFocus()
+        # Show our currently-enabled transitions view
+        self.transitionsView.show()
+        self.transitionsView.setFocus()
 
         # Setup effects tree
         self.effects_model = EffectsModel()
@@ -2655,13 +2657,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
         self.tabEffects.layout().insertWidget(-1, self.effectsListView)
         if s.get("effects_view") == "details":
+            self.effectsView = self.effectsTreeView
             self.effectsListView.hide()
-            self.effectsTreeView.show()
-            self.effectsTreeView.setFocus()
         else:
+            self.effectsView = self.effectsListView
             self.effectsTreeView.hide()
-            self.effectsListView.show()
-            self.effectsListView.setFocus()
+        # Show our currently-enabled effects view
+        self.effectsView.show()
+        self.effectsView.setFocus()
 
         # Setup emojis view
         self.emoji_model = EmojisModel()
