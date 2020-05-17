@@ -69,7 +69,7 @@ class FilesTreeView(QTreeView):
         menu = QMenu(self)
 
         menu.addAction(self.win.actionImportFiles)
-        menu.addAction(self.win.actionDetailsView)
+        menu.addAction(self.win.actionThumbnailView)
 
         if index.isValid():
             # Look up the model item and our unique ID
