@@ -21,7 +21,8 @@ jobs:
     steps:
     # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v2
-    # Builds docs using sphinx
+
+    # Build docs using sphinx
     - uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "doc/"
@@ -30,3 +31,13 @@ jobs:
       with:
         name: UserGuideHTML
         path: "doc/_build/html/"
+
+    # Build doc handbook using sphinx
+    - uses: ammaraskar/sphinx-action@master
+      with:
+        docs-folder: "doc/AboutDoc/"
+    # Create an artifact out of the generated HTML
+    - uses: actions/upload-artifact@v1
+      with:
+        name: AboutDocHTML
+        path: "doc/AboutDoc/_build/html/"
