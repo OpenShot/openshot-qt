@@ -30,6 +30,7 @@ from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 
 from classes.app import get_app
+from classes.logger import log
 
 
 class EffectsTreeView(QTreeView):
@@ -43,18 +44,29 @@ class EffectsTreeView(QTreeView):
 
         menu = QMenu(self)
         menu.addAction(self.win.actionThumbnailView)
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def startDrag(self, event):
         """ Override startDrag method to display custom icon """
 
-        # Get image of selected item
-        selected_row = self.effects_model.model.itemFromIndex(self.effects_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
-        icon = self.effects_model.model.item(selected_row, 0).icon()
+        # Get first column indexes for all selected rows
+        selected = self.selectionModel().selectedRows(0)
+
+        # Get image of current item
+        current = self.selectionModel().currentIndex()
+        if not current.isValid() and selected:
+            current = selected[0]
+
+        if not current.isValid():
+            # We can't find anything to drag
+            log.warning("No draggable items found in model!")
+            return False
+
+        icon = current.data(Qt.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.effects_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.model().mimeData(selected))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()

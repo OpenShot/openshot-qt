@@ -447,7 +447,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         from windows.title_editor import TitleEditor
         win = TitleEditor(file_path, duplicate=True)
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
+        return win.exec_()
 
     def actionImportImageSequence_trigger(self, event):
         # show dialog
@@ -719,16 +719,50 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Set cursor to waiting
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
-        for file_path in files:
-            self.filesTreeView.add_file(file_path)
-            app.updates.update_untracked(["import_path"], os.path.dirname(file_path))
-            log.info("Imported media file {}".format(file_path))
+        # Import list of files
+        self.files_model.add_files(files)
 
         # Restore cursor
         get_app().restoreOverrideCursor()
 
         # Refresh files views
         self.refreshFilesSignal.emit()
+
+    def invalidImage(self, filename=None):
+        """ Show a popup when an image file can't be loaded """
+        if not filename:
+            return
+
+        # Translations
+        _ = get_app()._tr
+
+        # Show message to user
+        QMessageBox.warning(
+            self,
+            None,
+            _("%s is not a valid video, audio, or image file.") % filename,
+            QMessageBox.Ok
+        )
+
+    def promptImageSequence(self, filename=None):
+        """ Ask the user whether to import an image sequence """
+        if not filename:
+            return False
+
+        # Get translations
+        _ = get_app()._tr
+
+        # Handle exception
+        ret = QMessageBox.question(
+            self,
+            _("Import Image Sequence"),
+            _("Would you like to import %s as an image sequence?") % filename,
+            QMessageBox.No | QMessageBox.Yes
+        )
+        if ret == QMessageBox.Yes:
+            return True
+        else:
+            return False
 
     def actionAdd_to_Timeline_trigger(self, event):
         # Loop through selected files

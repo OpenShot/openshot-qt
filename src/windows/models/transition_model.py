@@ -50,12 +50,12 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
 
         if get_app().window.actionTransitionsShowCommon.isChecked():
             # Fetch the group name
-            index = self.sourceModel().index(sourceRow, 2, sourceParent) # group name column
-            group_name = self.sourceModel().data(index) # group name (i.e. common)
+            index = self.sourceModel().index(sourceRow, 2, sourceParent)  # group name column
+            group_name = self.sourceModel().data(index)  # group name (i.e. common)
 
             # Fetch the transitions name
-            index = self.sourceModel().index(sourceRow, 0, sourceParent) # transition name column
-            trans_name = self.sourceModel().data(index) # transition name (i.e. Fade In)
+            index = self.sourceModel().index(sourceRow, 0, sourceParent)  # transition name column
+            trans_name = self.sourceModel().data(index)  # transition name (i.e. Fade In)
 
             # Return, if regExp match in displayed format.
             return "common" == group_name and self.filterRegExp().indexIn(trans_name) >= 0
@@ -66,7 +66,7 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
     def lessThan(self, left, right):
         """Sort with both group name and transition name"""
         leftData = self.sourceModel().data(left)
-        leftGroup = self.sourceModel().data(left, 257) # Strange way to access 'type' column in model
+        leftGroup = self.sourceModel().data(left, 257)  # Strange way to access 'type' column in model
         rightData = self.sourceModel().data(right)
         rightGroup = self.sourceModel().data(right, 257)
 
@@ -92,8 +92,7 @@ class TransitionsModel(QObject):
         log.info("updating transitions model.")
         app = get_app()
 
-        # Get window to check filters
-        win = app.window
+        # Translations
         _ = app._tr
 
         # Clear all items
@@ -108,12 +107,22 @@ class TransitionsModel(QObject):
         transitions_dir = os.path.join(info.PATH, "transitions")
         common_dir = os.path.join(transitions_dir, "common")
         extra_dir = os.path.join(transitions_dir, "extra")
-        transition_groups = [{"type": "common", "dir": common_dir, "files": os.listdir(common_dir)},
-                             {"type": "extra", "dir": extra_dir, "files": os.listdir(extra_dir)}]
+        transition_groups = [
+            {"type": "common",
+             "dir": common_dir,
+             "files": os.listdir(common_dir)},
+            {"type": "extra",
+             "dir": extra_dir,
+             "files": os.listdir(extra_dir)},
+        ]
 
         # Add optional user-defined transitions folder
         if (os.path.exists(info.TRANSITIONS_PATH) and os.listdir(info.TRANSITIONS_PATH)):
-            transition_groups.append({"type": "user", "dir": info.TRANSITIONS_PATH, "files": os.listdir(info.TRANSITIONS_PATH)})
+            transition_groups.append(
+                {"type": "user",
+                 "dir": info.TRANSITIONS_PATH,
+                 "files": os.listdir(info.TRANSITIONS_PATH)}
+            )
 
         for group in transition_groups:
             type = group["type"]
@@ -145,7 +154,7 @@ class TransitionsModel(QObject):
                     trans_name = self.app._tr(trans_name)
 
                 # Check for thumbnail path (in build-in cache)
-                thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
+                thumb_path = os.path.join(info.IMAGES_PATH, "cache", "{}.png".format(fileBaseName))
 
                 # Check built-in cache (if not found)
                 if not os.path.exists(thumb_path):
@@ -169,11 +178,11 @@ class TransitionsModel(QObject):
                         reader.Close()
                         clip.Close()
 
-                    except:
+                    except Exception as ex:
                         # Handle exception
-                        log.info('Invalid transition image file: %s' % filename)
+                        log.warning('Invalid transition image file {}: {}'.format(filename, ex))
                         msg = QMessageBox()
-                        msg.setText(_("{} is not a valid image file.".format(filename)))
+                        msg.setText(_("{} is not a valid transition file.".format(filename)))
                         msg.exec_()
                         continue
 
@@ -210,9 +219,9 @@ class TransitionsModel(QObject):
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
-                if not path in self.model_paths:
+                if path not in self.model_paths:
                     self.model.appendRow(row)
-                    self.model_paths[path] = path
+                    self.model_paths[path] = QPersistentModelIndex(row[3].index())
 
         # Emit signal when model is updated
         self.ModelRefreshed.emit()

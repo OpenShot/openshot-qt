@@ -26,22 +26,16 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import glob
 import os
-import re
 
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QListView, QMessageBox, QAbstractItemView, QMenu
+from PyQt5.QtGui import QDrag, QCursor
+from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
 
 from classes.app import get_app
-from classes.image_types import is_image
 from classes.logger import log
 from classes.query import File
-from windows.models.files_model import FilesModel, FileFilterProxyModel
 
-import json
 
 class FilesListView(QListView):
     """ A ListView QWidget used on the main window """
@@ -117,166 +111,12 @@ class FilesListView(QListView):
     def dragMoveEvent(self, event):
         pass
 
-    def add_file(self, filepath):
-        filename = os.path.basename(filepath)
-
-        # Add file into project
-        app = get_app()
-        _ = get_app()._tr
-
-        # Check for this path in our existing project data
-        file = File.get(path=filepath)
-
-        # If this file is already found, exit
-        if file:
-            return
-
-        # Load filepath in libopenshot clip object (which will try multiple readers to open it)
-        clip = openshot.Clip(filepath)
-
-        # Get the JSON for the clip's internal reader
-        try:
-            reader = clip.Reader()
-            file_data = json.loads(reader.Json())
-
-            # Determine media type
-            if file_data["has_video"] and not is_image(file_data):
-                file_data["media_type"] = "video"
-            elif file_data["has_video"] and is_image(file_data):
-                file_data["media_type"] = "image"
-            elif file_data["has_audio"] and not file_data["has_video"]:
-                file_data["media_type"] = "audio"
-            else:
-                # If neither set, just assume video
-                file_data["media_type"] = "video"
-
-            # Save new file to the project data
-            file = File()
-            file.data = file_data
-
-            # Is this file an image sequence / animation?
-            image_seq_details = self.get_image_sequence_details(filepath)
-            if image_seq_details:
-                # Update file with correct path
-                folder_path = image_seq_details["folder_path"]
-                file_name = image_seq_details["file_path"]
-                base_name = image_seq_details["base_name"]
-                fixlen = image_seq_details["fixlen"]
-                digits = image_seq_details["digits"]
-                extension = image_seq_details["extension"]
-
-                if not fixlen:
-                    zero_pattern = "%d"
-                else:
-                    zero_pattern = "%%0%sd" % digits
-
-                # Generate the regex pattern for this image sequence
-                pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
-
-                # Split folder name
-                folderName = os.path.basename(folder_path)
-                if not base_name:
-                    # Give alternate name
-                    file.data["name"] = "%s (%s)" % (folderName, pattern)
-
-                # Load image sequence (to determine duration and video_length)
-                image_seq = openshot.Clip(os.path.join(folder_path, pattern))
-
-                # Update file details
-                file.data["path"] = os.path.join(folder_path, pattern)
-                file.data["media_type"] = "video"
-                file.data["duration"] = image_seq.Reader().info.duration
-                file.data["video_length"] = image_seq.Reader().info.video_length
-
-            # Save file
-            file.save()
-            # Reset list of ignored paths
-            self.ignore_image_sequence_paths = []
-
-            return True
-
-        except Exception as ex:
-            # Log exception
-            log.warning("Failed to import file: {}".format(str(ex)))
-            # Show message to user
-            msg = QMessageBox()
-            msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
-            msg.exec_()
-            return False
-
-    def get_image_sequence_details(self, file_path):
-        """Inspect a file path and determine if this is an image sequence"""
-
-        # Get just the file name
-        (dirName, fileName) = os.path.split(file_path)
-        extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
-        match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
-
-        if not match:
-            # File name does not match an image sequence
-            return None
-        else:
-            # Get the parts of image name
-            base_name = match[0][0]
-            fixlen = match[0][1] > ""
-            number = int(match[0][2])
-            digits = len(match[0][1] + match[0][2])
-            extension = match[0][3]
-
-            full_base_name = os.path.join(dirName, base_name)
-
-            # Check for images which the file names have the different length
-            fixlen = fixlen or not (
-                glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
-                or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
-            )
-
-            # Check for previous or next image
-            for x in range(max(0, number - 100), min(number + 101, 50000)):
-                if x != number and os.path.exists(
-                   "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
-                    is_sequence = True
-                    break
-            else:
-                is_sequence = False
-
-            if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence from {}'.format(dirName))
-                # Ignore this path (temporarily)
-                self.ignore_image_sequence_paths.append(dirName)
-
-                # Translate object
-                _ = get_app()._tr
-
-                # Handle exception
-                ret = QMessageBox.question(self, _("Import Image Sequence"),
-                                           _("Would you like to import %s as an image sequence?") % fileName,
-                                           QMessageBox.No | QMessageBox.Yes)
-                if ret == QMessageBox.Yes:
-                    # Yes, import image sequence
-                    log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
-                    parameters = {
-                        "file_path": file_path,
-                        "folder_path": dirName,
-                        "base_name": base_name,
-                        "fixlen": fixlen,
-                        "digits": digits,
-                        "extension": extension
-                    }
-                    return parameters
-                else:
-                    return None
-            else:
-                return None
-
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
-        # Reset list of ignored image sequences paths
-        self.ignore_image_sequence_paths = []
-
         # Set cursor to waiting
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
+        media_paths = []
         for uri in event.mimeData().urls():
             log.info('Processing drop event for {}'.format(uri))
             filepath = uri.toLocalFile()
@@ -287,12 +127,18 @@ class FilesListView(QListView):
                     self.win.OpenProjectSignal.emit(filepath)
                     event.accept()
                 else:
-                    # Auto import media file
-                    if self.add_file(filepath):
-                        event.accept()
+                    media_paths.append(filepath)
+
+        # Import all new media files
+        if media_paths and self.files_model.add_files(media_paths):
+            event.accept()
 
         # Restore cursor
         get_app().restoreOverrideCursor()
+
+    # Pass file add requests to the model
+    def add_file(self, filepath):
+        self.files_model.add_files(filepath)
 
     def filter_changed(self):
         self.refresh_view()
@@ -330,7 +176,6 @@ class FilesListView(QListView):
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
-        self.ignore_image_sequence_paths = []
 
         # Setup header columns and layout
         self.setIconSize(QSize(131, 108))

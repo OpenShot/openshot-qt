@@ -139,16 +139,18 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Delete a file (if delete_file_id passed in)
         if delete_file_id in self.model_ids:
-            for row_num in range(self.model.rowCount()):
-                id_index = self.model.index(row_num, 5)
-                if delete_file_id == self.model.data(id_index):
-                    # Delete row from model
-                    self.model.beginRemoveRows(id_index.parent(), row_num, row_num)
-                    self.model.removeRow(row_num, id_index.parent())
-                    self.model.endRemoveRows()
-                    self.model.submit()
-                    self.model_ids.pop(delete_file_id)
-                    break
+            # Use the persistent index we stored to find the row
+            id_index = self.model_ids[delete_file_id]
+
+            # sanity check
+            if not id_index.isValid() or delete_file_id != id_index.data():
+                log.warning("Couldn't remove {} from model!".format(delete_file_id))
+                return
+            # Delete row from model
+            row_num = id_index.row()
+            self.model.removeRows(row_num, 1, id_index.parent())
+            self.model.submit()
+            self.model_ids.pop(delete_file_id)
 
         # Clear all items
         if clear:
@@ -156,7 +158,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels(["", _("Name"), _("Tags"), "", "", ""])
+        self.model.setHorizontalHeaderLabels(["", _("Name"), _("Tags")])
 
         # Get list of files in project
         files = File.filter()  # get all files
@@ -164,7 +166,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         # add item for each file
         row_added_count = 0
         for file in files:
-            if file.data["id"] in self.model_ids:
+            id = file.data["id"]
+            if id in self.model_ids and self.model_ids[id].isValid():
                 # Ignore files that already exist in model
                 continue
 
@@ -176,8 +179,10 @@ class FilesModel(QObject, updates.UpdateInterface):
             if "name" in file.data.keys():
                 name = file.data["name"]
 
+            media_type = file.data.get("media_type")
+
             # Generate thumbnail for file (if needed)
-            if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
+            if media_type in ["video", "image"]:
                 # Check for start and end attributes (optional)
                 thumbnail_frame = 1
                 if 'start' in file.data.keys():
@@ -194,52 +199,42 @@ class FilesModel(QObject, updates.UpdateInterface):
             row = []
 
             # Append thumbnail
-            col = QStandardItem()
+            col = QStandardItem(name)
             col.setIcon(QIcon(thumb_path))
-            col.setText(name)
             col.setToolTip(filename)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append Filename
-            col = QStandardItem("Name")
-            col.setData(filename, Qt.DisplayRole)
-            col.setText(name)
+            col = QStandardItem(name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Tags
-            col = QStandardItem("Tags")
-            col.setData(tags, Qt.DisplayRole)
-            col.setText(tags)
+            col = QStandardItem(tags)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Media Type
-            col = QStandardItem("Type")
-            col.setData(file.data["media_type"], Qt.DisplayRole)
-            col.setText(file.data["media_type"])
+            col = QStandardItem(media_type)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Path
-            col = QStandardItem("Path")
-            col.setData(path, Qt.DisplayRole)
-            col.setText(path)
+            col = QStandardItem(path)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append ID
-            col = QStandardItem("ID")
-            col.setData(file.data["id"], Qt.DisplayRole)
-            col.setText(file.data["id"])
+            col = QStandardItem(id)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
-            if not file.data["id"] in self.model_ids:
+            if id not in self.model_ids:
                 self.model.appendRow(row)
-                self.model_ids[file.data["id"]] = file.data["id"]
+                # Link the file ID hash to that column of the table row by persistent index
+                self.model_ids[id] = QPersistentModelIndex(row[5].index())
 
                 row_added_count += 1
                 if row_added_count % 2 == 0:
@@ -253,6 +248,170 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
+
+    def add_files(self, files):
+        # Access translations
+        app = get_app()
+        _ = app._tr
+
+        # Make sure we're working with a list of files
+        if not isinstance(files, (list, tuple)):
+            files = [files]
+
+        for filepath in files:
+            (dir_path, filename) = os.path.split(filepath)
+
+            # Check for this path in our existing project data
+            file = File.get(path=filepath)
+
+            # If this file is already found, exit
+            if file:
+                return
+
+            # Load filepath in libopenshot clip object (which will try multiple readers to open it)
+            clip = openshot.Clip(filepath)
+
+            # Get the JSON for the clip's internal reader
+            try:
+                reader = clip.Reader()
+                file_data = json.loads(reader.Json())
+
+                # Determine media type
+                if file_data["has_video"] and not is_image(file_data):
+                    file_data["media_type"] = "video"
+                elif file_data["has_video"] and is_image(file_data):
+                    file_data["media_type"] = "image"
+                elif file_data["has_audio"] and not file_data["has_video"]:
+                    file_data["media_type"] = "audio"
+                else:
+                    # If none set, just assume video
+                    file_data["media_type"] = "video"
+
+                # Save new file to the project data
+                file = File()
+                file.data = file_data
+
+                # Is this file an image sequence / animation?
+                image_seq_details = self.get_image_sequence_details(filepath)
+                if image_seq_details:
+                    # Update file with correct path
+                    folder_path = image_seq_details["folder_path"]
+                    base_name = image_seq_details["base_name"]
+                    fixlen = image_seq_details["fixlen"]
+                    digits = image_seq_details["digits"]
+                    extension = image_seq_details["extension"]
+
+                    if not fixlen:
+                        zero_pattern = "%d"
+                    else:
+                        zero_pattern = "%%0%sd" % digits
+
+                    # Generate the regex pattern for this image sequence
+                    pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
+
+                    # Split folder name
+                    folderName = os.path.basename(folder_path)
+                    if not base_name:
+                        # Give alternate name
+                        file.data["name"] = "%s (%s)" % (folderName, pattern)
+
+                    # Load image sequence (to determine duration and video_length)
+                    image_seq = openshot.Clip(os.path.join(folder_path, pattern))
+
+                    # Update file details
+                    file.data["path"] = os.path.join(folder_path, pattern)
+                    file.data["media_type"] = "video"
+                    file.data["duration"] = image_seq.Reader().info.duration
+                    file.data["video_length"] = image_seq.Reader().info.video_length
+
+                    log.info('Imported {} as image sequence {}'.format(
+                        filepath, pattern))
+
+                    # Remove any other image sequence files from the list we're processing
+                    match_glob = "{}{}.{}".format(base_name, '[0-9]*', extension)
+                    for seq_file in glob.iglob(os.path.join(folder_path, match_glob)):
+                        if seq_file in files:
+                            files.remove(seq_file)
+
+                if not image_seq_details:
+                    # Log our not-an-image-sequence import
+                    log.info("Imported media file {}".format(filepath))
+
+                # Save file
+                file.save()
+
+                prev_path = app.project.get("import_path")
+                if dir_path != prev_path:
+                    app.updates.update_untracked(["import_path"], dir_path)
+
+            except Exception as ex:
+                # Log exception
+                log.warning("Failed to import {}: {}".format(filepath, ex))
+
+                # Show message box to user
+                app.window.invalidImage(filename)
+
+        # Reset list of ignored paths
+        self.ignore_image_sequence_paths = []
+
+    def get_image_sequence_details(self, file_path):
+        """Inspect a file path and determine if this is an image sequence"""
+
+        # Get just the file name
+        (dirName, fileName) = os.path.split(file_path)
+        extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
+        match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
+
+        if not match:
+            # File name does not match an image sequence
+            return None
+
+        # Get the parts of image name
+        base_name = match[0][0]
+        fixlen = match[0][1] > ""
+        number = int(match[0][2])
+        digits = len(match[0][1] + match[0][2])
+        extension = match[0][3]
+
+        full_base_name = os.path.join(dirName, base_name)
+
+        # Check for images which the file names have the different length
+        fixlen = fixlen or not (
+            glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
+            or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
+        )
+
+        # Check for previous or next image
+        for x in range(max(0, number - 100), min(number + 101, 50000)):
+            if x != number and os.path.exists(
+               "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
+                is_sequence = True
+                break
+        else:
+            is_sequence = False
+
+        if is_sequence and dirName not in self.ignore_image_sequence_paths:
+            log.info('Prompt user to import image sequence from {}'.format(dirName))
+            # Ignore this path (temporarily)
+            self.ignore_image_sequence_paths.append(dirName)
+
+            if not get_app().window.promptImageSequence(fileName):
+                # User said no, don't import as a sequence
+                return None
+
+            # Yes, import image sequence
+            parameters = {
+                "file_path": file_path,
+                "folder_path": dirName,
+                "base_name": base_name,
+                "fixlen": fixlen,
+                "digits": digits,
+                "extension": extension
+            }
+            return parameters
+
+        # We didn't discover an image sequence
+        return None
 
     def get_thumb_path(self, file_id, thumbnail_frame, clear_cache=False):
         """Get thumbnail path by invoking HTTP thumbnail request"""
@@ -283,16 +442,21 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Refresh thumbnail for updated file
         self.ignore_updates = True
+        m = self.model
+
         if file_id in self.model_ids:
-            for row_num in range(self.model.rowCount()):
-                id_index = self.model.index(row_num, 5)
-                if file_id == self.model.data(id_index):
-                    # Update thumb for file
-                    thumb_index = self.model.index(row_num, 0)
-                    thumb_path = self.get_thumb_path(file_id, 1, clear_cache=True)
-                    item = self.model.itemFromIndex(thumb_index)
-                    item.setIcon(QIcon(thumb_path))
-                    item.setText(name)
+            # Look up stored index to ID column
+            id_index = self.model_ids[file_id]
+            if not id_index.isValid():
+                return
+
+            # Update thumb for file
+            thumb_index = id_index.sibling(id_index.row(), 0, Qt.DecorationRole)
+            thumb_path = self.get_thumb_path(file_id, 1, clear_cache=True)
+            item = m.itemFromIndex(thumb_index)
+            item.setIcon(QIcon(thumb_path))
+            item.setText(name)
+
             # Emit signal when model is updated
             self.ModelRefreshed.emit()
 
