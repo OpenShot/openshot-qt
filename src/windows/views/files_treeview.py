@@ -74,6 +74,7 @@ class FilesTreeView(QTreeView):
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionThumbnailView)
+
         if self.selected:
             # If file selected, show file related options
             menu.addSeparator()
