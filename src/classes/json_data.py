@@ -39,7 +39,7 @@ from classes import info
 from classes.app import get_app
 
 # Compiled path regex
-path_regex = re.compile(r'\"(image|path)\":.*?\"(.*?)\"')
+path_regex = re.compile(r'"(image|path)"\s*:\s*"(.*?)"')
 path_context = {}
 
 
