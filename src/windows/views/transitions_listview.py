@@ -65,7 +65,8 @@ class TransitionsListView(QListView):
             log.warning("No draggable items found in model!")
             return False
 
-        icon = current.data(Qt.DecorationRole)
+        # Get icon from column 0 on same row as current item
+        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)

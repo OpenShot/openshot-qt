@@ -93,16 +93,26 @@ class FilesTreeView(QTreeView):
 
     def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
-        # The relevant model for index values
-        model = self.model()
 
-        # Get indexes from column 0 of selected row
-        selected_rows = self.selectionModel().selectedRows(0)
-        icon = selected_rows[0].data(Qt.DecorationRole)
+        # Get first column indexes for all selected rows
+        selected = self.selectionModel().selectedRows(0)
+
+        # Get image of current item
+        current = self.selectionModel().currentIndex()
+        if not current.isValid() and selected:
+            current = selected[0]
+
+        if not current.isValid():
+            # We can't find anything to drag
+            log.warning("No draggable items found in model!")
+            return False
+
+        # Get icon from column 0 on same row as current item
+        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(model.mimeData(self.selectionModel().selectedRows()))
+        drag.setMimeData(self.model().mimeData(selected))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
