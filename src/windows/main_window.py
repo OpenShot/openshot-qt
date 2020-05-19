@@ -399,14 +399,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionEditTitle_trigger(self, event):
 
-        # Get requested view item
-        index = self.filesView.indexAt(event.pos())
+        # Loop through selected files (set 1 selected file if more than 1)
+        for f in self.selected_files():
+            if f.data.get("path").endswith(".svg"):
+                file_path = f.data.get("path")
+                break
 
-        # look up svg title file ID from column 5 of that row
-        selected_id = index.model().sibling(index.row(), 5, index.parent()).data()
-
-        file = File.get(id=selected_id)
-        file_path = file.data.get("path")
+        if not file_path:
+            return
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
