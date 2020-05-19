@@ -85,6 +85,9 @@ DESKTOP_ID = "org.openshot.OpenShot.desktop"
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "2.80"
 
+# Data-model debugging enabler
+MODEL_TEST = False
+
 # Languages
 CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'

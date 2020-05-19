@@ -246,3 +246,19 @@ class TransitionsModel(QObject):
 
         # Create selection model to share between views
         self.selection_model = QItemSelectionModel(self.proxy_model)
+
+        # Attempt to load model testing interface, if requested
+        # (will only succeed with Qt 5.11+)
+        if info.MODEL_TEST:
+            try:
+                # Create model tester objects
+                from PyQt5.QtTest import QAbstractItemModelTester
+                self.model_tests = []
+                for m in [self.proxy_model, self.model]:
+                    self.model_tests.append(
+                        QAbstractItemModelTester(
+                            m, QAbstractItemModelTester.FailureReportingMode.Warning)
+                    )
+                log.info("Enabled {} model tests for transition data".format(len(self.model_tests)))
+            except ImportError:
+                pass

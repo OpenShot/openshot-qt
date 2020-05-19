@@ -523,3 +523,19 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Call init for superclass QObject
         super(QObject, FilesModel).__init__(self, *args)
+
+        # Attempt to load model testing interface, if requested
+        # (will only succeed with Qt 5.11+)
+        if info.MODEL_TEST:
+            try:
+                # Create model tester objects
+                from PyQt5.QtTest import QAbstractItemModelTester
+                self.model_tests = []
+                for m in [self.proxy_model, self.model]:
+                    self.model_tests.append(
+                        QAbstractItemModelTester(
+                            m, QAbstractItemModelTester.FailureReportingMode.Warning)
+                    )
+                log.info("Enabled {} model tests for emoji data".format(len(self.model_tests)))
+            except ImportError:
+                pass
