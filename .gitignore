@@ -2,7 +2,6 @@
 .idea
 .settings
 idea/*
-doc/_build
 **/__pycache__/
 build
 dist
