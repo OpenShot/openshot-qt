@@ -403,6 +403,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         for f in self.selected_files():
             if f.data.get("path").endswith(".svg"):
                 file_path = f.data.get("path")
+                file_id = f.id
                 break
 
         if not file_path:
@@ -415,11 +416,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         result = win.exec_()
 
         # Update file thumbnail
-        self.FileUpdated.emit(selected_file_id)
+        self.FileUpdated.emit(file_id)
 
         # Force update of clips
-        clips = Clip.filter(file_id=selected_file_id)
-        for c in clips:
+        for c in Clip.filter(file_id=file_id):
             # update clip
             c.data["reader"]["path"] = file_path
             c.save()
