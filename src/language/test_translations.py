@@ -46,7 +46,7 @@ all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
 print("Testing {} strings in all translation files...\n".format(len(all_strings)))
 
 # Loop through folders/languages
-for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot.*.qm'):
+for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot_*.qm'):
     lang_code = filename[:-3]
     # Install language
     translator = QTranslator(app)

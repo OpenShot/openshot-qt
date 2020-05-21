@@ -65,7 +65,7 @@ def init_language():
          "prefix": 'qtbase_',
          "path": os.path.join(info.PATH, 'language')}, # Optional path where we package QT translations
         {"type": 'OpenShot',
-         "prefix": 'OpenShot.',  # Our custom translations
+         "prefix": 'OpenShot_',  # Our custom translations
          "path": language_path},
     )
 

@@ -102,12 +102,14 @@ except ImportError:
 try:
     from PyQt5.QtCore import QDir
     langdir = QDir(language_path)
-    langs = langdir.entryList(
-        ['OpenShot.*.qm'],
+    trpaths = langdir.entryList(
+        ['OpenShot_*.qm'],
         QDir.NoDotAndDotDot | QDir.Files,
         sort=QDir.Name)
-    for trpath in langs:
-        SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+    for trpath in trpaths:
+        # Extract everything between "Openshot_" and ".qm"
+        lang=trpath[trpath.find('_')+1:-3]
+        SUPPORTED_LANGUAGES.append(lang)
 except ImportError:
     # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
     pass
