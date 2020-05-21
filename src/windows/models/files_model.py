@@ -249,7 +249,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
-    def add_files(self, files):
+    def add_files(self, files, image_seq_details=None):
         # Access translations
         app = get_app()
         _ = app._tr
@@ -268,11 +268,11 @@ class FilesModel(QObject, updates.UpdateInterface):
             if file:
                 return
 
-            # Load filepath in libopenshot clip object (which will try multiple readers to open it)
-            clip = openshot.Clip(filepath)
-
-            # Get the JSON for the clip's internal reader
             try:
+                # Load filepath in libopenshot clip object (which will try multiple readers to open it)
+                clip = openshot.Clip(filepath)
+
+                # Get the JSON for the clip's internal reader
                 reader = clip.Reader()
                 file_data = json.loads(reader.Json())
 
@@ -291,8 +291,11 @@ class FilesModel(QObject, updates.UpdateInterface):
                 file = File()
                 file.data = file_data
 
-                # Is this file an image sequence / animation?
-                image_seq_details = self.get_image_sequence_details(filepath)
+                if not image_seq_details:
+                    # Try to discover image sequence, if not supplied
+                    image_seq_details = self.get_image_sequence_details(filepath)
+
+                # Is this an image sequence / animation?
                 if image_seq_details:
                     # Update file with correct path
                     folder_path = image_seq_details["folder_path"]
@@ -401,7 +404,6 @@ class FilesModel(QObject, updates.UpdateInterface):
 
             # Yes, import image sequence
             parameters = {
-                "file_path": file_path,
                 "folder_path": dirName,
                 "base_name": base_name,
                 "fixlen": fixlen,
@@ -451,8 +453,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                 return
 
             # Update thumb for file
-            thumb_index = id_index.sibling(id_index.row(), 0, Qt.DecorationRole)
             thumb_path = self.get_thumb_path(file_id, 1, clear_cache=True)
+            thumb_index = id_index.sibling(id_index.row(), 0)
             item = m.itemFromIndex(thumb_index)
             item.setIcon(QIcon(thumb_path))
             item.setText(name)
