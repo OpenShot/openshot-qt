@@ -449,17 +449,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
 
-    def actionImportImageSequence_trigger(self, event):
-        # show dialog
-        from windows.Import_image_seq import ImportImageSeq
-        win = ImportImageSeq()
-        # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Import image sequence add confirmed')
-        else:
-            log.info('Import image sequence add cancelled')
-
     def actionClearHistory_trigger(self, event):
         """Clear history for current project"""
         project = get_app().project
