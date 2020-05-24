@@ -195,3 +195,19 @@ class EmojisModel():
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.group_model)
         self.proxy_model.setSortLocaleAware(True)
+
+        # Attempt to load model testing interface, if requested
+        # (will only succeed with Qt 5.11+)
+        if info.MODEL_TEST:
+            try:
+                # Create model tester objects
+                from PyQt5.QtTest import QAbstractItemModelTester
+                self.model_tests = []
+                for m in [self.proxy_model, self.group_model, self.model]:
+                    self.model_tests.append(
+                        QAbstractItemModelTester(
+                            m, QAbstractItemModelTester.FailureReportingMode.Warning)
+                    )
+                log.info("Enabled {} model tests for emoji data".format(len(self.model_tests)))
+            except ImportError:
+                pass

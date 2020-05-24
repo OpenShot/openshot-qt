@@ -25,14 +25,13 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QPoint, QRegExp, Qt
-from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt, QSize, QPoint
+from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 
 from classes.app import get_app
-from windows.models.transition_model import TransitionsModel, TransitionFilterProxyModel
+from classes.logger import log
 
-import json
 
 class TransitionsTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
@@ -45,18 +44,30 @@ class TransitionsTreeView(QTreeView):
 
         menu = QMenu(self)
         menu.addAction(self.win.actionThumbnailView)
-        menu.exec_(QCursor.pos())
+        menu.exec_(event.globalPos())
 
     def startDrag(self, event):
         """ Override startDrag method to display custom icon """
 
-        # Get image of selected item
-        selected_row = self.transition_model.model.itemFromIndex(self.transition_model.proxy_model.mapToSource(self.selectionModel().selectedIndexes()[0])).row()
-        icon = self.transition_model.model.item(selected_row, 0).icon()
+        # Get first column indexes for all selected rows
+        selected = self.selectionModel().selectedRows(0)
+
+        # Get image of current item
+        current = self.selectionModel().currentIndex()
+        if not current.isValid() and selected:
+            current = selected[0]
+
+        if not current.isValid():
+            # We can't find anything to drag
+            log.warning("No draggable items found in model!")
+            return False
+
+        # Get icon from column 0 on same row as current item
+        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.transition_model.proxy_model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.model().mimeData(selected))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -83,20 +94,22 @@ class TransitionsTreeView(QTreeView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
-        # Setup header columns
         self.setModel(self.transition_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.transition_model.selection_model)
+
+        # Setup header columns
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
-        self.transition_model.model.ModelRefreshed.connect(self.refresh_columns)
+        self.transition_model.ModelRefreshed.connect(self.refresh_columns)
 
         # Load initial transition model data
         self.transition_model.update_model()
         self.refresh_columns()
-
-        # setup filter events
-        app = get_app()

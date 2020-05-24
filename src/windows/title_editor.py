@@ -46,7 +46,6 @@ import openshot
 from classes import info, ui_util, settings
 from classes.logger import log
 from classes.app import get_app
-from classes.query import File
 from classes.metrics import track_metric_screen
 from windows.views.titles_listview import TitlesListView
 
@@ -163,8 +162,11 @@ class TitleEditor(QDialog):
         reader.Open()
 
         # Save thumbnail image and close readers
-        reader.GetFrame(1).Thumbnail(tmp_filename, self.graphicsView.width(), self.graphicsView.height(), "", "",
-                                     "#000", False, "png", 85, 0.0)
+        reader.GetFrame(1).Thumbnail(
+            tmp_filename,
+            self.graphicsView.width(),
+            self.graphicsView.height(),
+            "", "", "#000", False, "png", 85, 0.0)
         reader.Close()
         clip.Close()
 
@@ -234,20 +236,20 @@ class TitleEditor(QDialog):
             self.txtFileName.setText(os.path.basename(self.edit_file_path))
             self.txtFileName.setEnabled(False)
         else:
-            name = _("TitleFileName-%d")
+            name = _("TitleFileName (%d)")
             offset = 0
             if self.duplicate and self.edit_file_path:
                 # Re-use current name
                 name = os.path.basename(self.edit_file_path)
-                # Splits the filename into (base-part)(optional "-")(number)(.svg)
-                match = re.match(r"^(.*?)(-?)([0-9]*)(\.svg)?$", name)
-                # Make sure the new title ends with "-%d" by default
-                name = match.group(1) + "-%d"
+                # Splits the filename into "[base-part][optional space]([number]).svg
+                match = re.match(r"^(.*?)(\s*)\(([0-9]*)\)\.svg$", name)
+                # Make sure the new title has " (%d)" appended by default
+                name = match.group(1) + " (%d)"
                 if match.group(3):
                     # Filename already contained a number -> start counting from there
                     offset = int(match.group(3))
-                    # -> only use "-" if it was there before
-                    name = match.group(1) + match.group(2) + "%d"
+                    # -> only include space(s) if there before
+                    name = match.group(1) + match.group(2) + "(%d)"
             # Find an unused file name
             for i in range(1, 1000):
                 curname = name % (offset + i)
@@ -676,48 +678,10 @@ class TitleEditor(QDialog):
                 self.writeToFile(self.xmldoc)
 
                 # Add file to project
-                self.add_file(self.filename)
+                app.window.files_model.add_files(self.filename)
 
         # Close window
-        super(TitleEditor, self).accept()
-
-    def add_file(self, filepath):
-        filename = os.path.basename(filepath)
-
-        # Add file into project
-        _ = get_app()._tr
-
-        # Check for this path in our existing project data
-        file = File.get(path=filepath)
-
-        # If this file is already found, exit
-        if file:
-            return
-
-        # Load filepath in libopenshot clip object (which will try multiple readers to open it)
-        clip = openshot.Clip(filepath)
-
-        # Get the JSON for the clip's internal reader
-        try:
-            reader = clip.Reader()
-            file_data = json.loads(reader.Json())
-
-            # Set media type
-            file_data["media_type"] = "image"
-
-            # Save new file to the project data
-            file = File()
-            file.data = file_data
-            file.save()
-            return True
-
-        except Exception as ex:
-            # Handle exception
-            log.error('Could not import {}: {}'.format(filename, str(ex)))
-            msg = QMessageBox()
-            msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
-            msg.exec_()
-            return False
+        super().accept()
 
     def btnAdvanced_clicked(self):
         _ = self.app._tr
@@ -744,5 +708,5 @@ class TitleEditor(QDialog):
 
         except OSError:
             msg = QMessageBox()
-            msg.setText(_("Please install {} to use this function").format(prog.capitalize()))
+            msg.setText(_("Please install %s to use this function" % prog))
             msg.exec_()

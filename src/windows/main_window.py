@@ -399,10 +399,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def actionEditTitle_trigger(self, event):
 
-        # Get selected svg title file
-        selected_file_id = self.selected_files[0]
-        file = File.get(id=selected_file_id)
-        file_path = file.data.get("path")
+        # Loop through selected files (set 1 selected file if more than 1)
+        for f in self.selected_files():
+            if f.data.get("path").endswith(".svg"):
+                file_path = f.data.get("path")
+                file_id = f.id
+                break
+
+        if not file_path:
+            return
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
@@ -411,11 +416,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         result = win.exec_()
 
         # Update file thumbnail
-        self.FileUpdated.emit(selected_file_id)
+        self.FileUpdated.emit(file_id)
 
         # Force update of clips
-        clips = Clip.filter(file_id=selected_file_id)
-        for c in clips:
+        for c in Clip.filter(file_id=file_id):
             # update clip
             c.data["reader"]["path"] = file_path
             c.save()
@@ -431,9 +435,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file_path = None
 
         # Loop through selected files (set 1 selected file if more than 1)
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        for f in self.selected_files():
             if f.data.get("path").endswith(".svg"):
                 file_path = f.data.get("path")
                 break
@@ -445,18 +447,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         from windows.title_editor import TitleEditor
         win = TitleEditor(file_path, duplicate=True)
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-
-    def actionImportImageSequence_trigger(self, event):
-        # show dialog
-        from windows.Import_image_seq import ImportImageSeq
-        win = ImportImageSeq()
-        # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Import image sequence add confirmed')
-        else:
-            log.info('Import image sequence add cancelled')
+        return win.exec_()
 
     def actionClearHistory_trigger(self, event):
         """Clear history for current project"""
@@ -717,10 +708,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Set cursor to waiting
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
-        for file_path in files:
-            self.filesTreeView.add_file(file_path)
-            app.updates.update_untracked(["import_path"], os.path.dirname(file_path))
-            log.info("Imported media file {}".format(file_path))
+        # Import list of files
+        self.files_model.add_files(files)
 
         # Restore cursor
         get_app().restoreOverrideCursor()
@@ -728,13 +717,49 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Refresh files views
         self.refreshFilesSignal.emit()
 
+    def invalidImage(self, filename=None):
+        """ Show a popup when an image file can't be loaded """
+        if not filename:
+            return
+
+        # Translations
+        _ = get_app()._tr
+
+        # Show message to user
+        QMessageBox.warning(
+            self,
+            None,
+            _("%s is not a valid video, audio, or image file.") % filename,
+            QMessageBox.Ok
+        )
+
+    def promptImageSequence(self, filename=None):
+        """ Ask the user whether to import an image sequence """
+        if not filename:
+            return False
+
+        # Get translations
+        _ = get_app()._tr
+
+        # Handle exception
+        ret = QMessageBox.question(
+            self,
+            _("Import Image Sequence"),
+            _("Would you like to import %s as an image sequence?") % filename,
+            QMessageBox.No | QMessageBox.Yes
+        )
+        if ret == QMessageBox.Yes:
+            return True
+        else:
+            return False
+
     def actionAdd_to_Timeline_trigger(self, event):
         # Loop through selected files
-        f = None
-        files = []
-        for file_id in self.selected_files:
-            # Find matching file
-            files.append(File.get(id=file_id))
+        files = self.selected_files()
+
+        # Bail if nothing's selected
+        if not files:
+            return
 
         # Get current position of playhead
         fps = get_app().project.get("fps")
@@ -918,14 +943,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info('actionPreview_File_trigger')
 
         # Loop through selected files (set 1 selected file if more than 1)
-        f = None
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        f = self.files_model.current_file()
 
         # Bail out if no file selected
         if not f:
-            log.info("Preview action failed, selected files: {}".format(self.selected_files))
+            log.info("Couldn't find current file for preview window")
             return
 
         # show dialog
@@ -1689,14 +1711,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionSplitClip_trigger")
 
         # Loop through selected files (set 1 selected file if more than 1)
-        f = None
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        f = self.files_model.current_file()
 
         # Bail out if no file selected
         if not f:
-            log.warn("Split clip action failed, selected files: {}".format(self.selected_files))
+            log.warn("Split clip action failed, couldn't find current file")
             return
 
         # show dialog
@@ -1713,21 +1732,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("actionRemove_from_Project_trigger")
 
         # Loop through selected files
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
-            if f:
-                # Remove file
-                f.delete()
+        for f in self.selected_files():
+            if not f:
+                continue
 
-                # Find matching clips (if any)
-                clips = Clip.filter(file_id=file_id)
-                for c in clips:
-                    # Remove clip
-                    c.delete()
+            id = f.data["id"]
+            # Remove file
+            f.delete()
 
-        # Clear selected files
-        self.selected_files = []
+            # Find matching clips (if any)
+            clips = Clip.filter(file_id=id)
+            for c in clips:
+                # Remove clip
+                c.delete()
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
@@ -1920,11 +1937,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionFile_Properties_trigger(self, event):
         log.info("Show file properties")
 
-        # Loop through selected files (set 1 selected file if more than 1)
-        f = None
-        for file_id in self.selected_files:
-            # Find matching file
-            f = File.get(id=file_id)
+        # Get current selected file (corresponding to menu, if possible)
+        f = self.files_model.current_file()
+        if not f:
+            log.warning("Couldn't find current file for properties window")
+            return
 
         # show dialog
         from windows.file_properties import FileProperties
@@ -1934,7 +1951,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if result == QDialog.Accepted:
 
             # BRUTE FORCE approach: go through all clips and update file path
-            clips = Clip.filter(file_id=file_id)
+            clips = Clip.filter(file_id=f.data["id"])
             for c in clips:
                 # update clip
                 c.data["reader"]["path"] = f.data["path"]
@@ -1955,22 +1972,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if app.context_menu_object == "files":
             s.set("file_view", "details")
             self.filesListView.hide()
-            self.filesTreeView.show()
-            self.filesTreeView.clearSelection()
+            self.filesView = self.filesTreeView
+            self.filesView.show()
 
         # Transitions
         elif app.context_menu_object == "transitions":
             s.set("transitions_view", "details")
             self.transitionsListView.hide()
-            self.transitionsTreeView.show()
-            self.transitionsTreeView.clearSelection()
+            self.transitionsView = self.transitionsTreeView
+            self.transitionsView.show()
 
         # Effects
         elif app.context_menu_object == "effects":
             s.set("effects_view", "details")
             self.effectsListView.hide()
-            self.effectsTreeView.show()
-            self.effectsTreeView.clearSelection()
+            self.effectsView = self.effectsTreeView
+            self.effectsView.show()
 
     def actionThumbnailView_trigger(self, event):
         log.info("Switch to Thumbnail View")
@@ -1983,25 +2000,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if app.context_menu_object == "files":
             s.set("file_view", "thumbnail")
             self.filesTreeView.hide()
-            self.filesListView.show()
-            self.filesListView.clearSelection()
+            self.filesView = self.filesListView
+            self.filesView.show()
 
         # Transitions
         elif app.context_menu_object == "transitions":
             s.set("transitions_view", "thumbnail")
             self.transitionsTreeView.hide()
-            self.transitionsListView.show()
-            self.transitionsListView.clearSelection()
+            self.transitionsView = self.transitionsListView
+            self.transitionsView.show()
 
         # Effects
         elif app.context_menu_object == "effects":
             s.set("effects_view", "thumbnail")
             self.effectsTreeView.hide()
-            self.effectsListView.show()
-            self.effectsListView.clearSelection()
+            self.effectsView = self.effectsListView
+            self.effectsView.show()
 
     def resize_contents(self):
-        if self.filesTreeView:
+        if self.filesView == self.filesTreeView:
             self.filesTreeView.resize_contents()
 
     def getDocks(self):
@@ -2213,6 +2230,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Change selected item in properties view
         self.show_property_timer.start()
 
+    def selected_files(self):
+        """ Return a list of File objects for the Project Files dock's selection """
+        return self.files_model.selected_files()
+
+    def selected_file_ids(self):
+        """ Return a list of File IDs for the Project Files dock's selection """
+        return self.files_model.selected_file_ids()
+
+    def current_file(self):
+        """ Return the Project Files dock's currently-active item as a File object """
+        return self.files_model.current_file()
+
+    def current_file_id(self):
+        """ Return the ID of the Project Files dock's currently-active item """
+        return self.files_model.current_file_id()
+
     # Update window settings in setting store
     def save_settings(self):
         s = settings.get_settings()
@@ -2421,7 +2454,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def clearSelections(self):
         """Clear all selection containers"""
-        self.selected_files = []
         self.selected_clips = []
         self.selected_transitions = []
         self.selected_markers = []
@@ -2634,28 +2666,30 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
         self.tabFiles.layout().insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
+            self.filesView = self.filesTreeView
             self.filesListView.hide()
-            self.filesTreeView.show()
-            self.filesTreeView.setFocus()
         else:
+            self.filesView = self.filesListView
             self.filesTreeView.hide()
-            self.filesListView.show()
-            self.filesListView.setFocus()
+        # Show our currently-enabled project files view
+        self.filesView.show()
+        self.filesView.setFocus()
 
-        # Setup transitions tree
+        # Setup transitions tree and list views
         self.transition_model = TransitionsModel()
         self.transitionsTreeView = TransitionsTreeView(self.transition_model)
         self.transitionsListView = TransitionsListView(self.transition_model)
         self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
         self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
         if s.get("transitions_view") == "details":
+            self.transitionsView = self.transitionsTreeView
             self.transitionsListView.hide()
-            self.transitionsTreeView.show()
-            self.transitionsTreeView.setFocus()
         else:
+            self.transitionsView = self.transitionsListView
             self.transitionsTreeView.hide()
-            self.transitionsListView.show()
-            self.transitionsListView.setFocus()
+        # Show our currently-enabled transitions view
+        self.transitionsView.show()
+        self.transitionsView.setFocus()
 
         # Setup effects tree
         self.effects_model = EffectsModel()
@@ -2664,13 +2698,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
         self.tabEffects.layout().insertWidget(-1, self.effectsListView)
         if s.get("effects_view") == "details":
+            self.effectsView = self.effectsTreeView
             self.effectsListView.hide()
-            self.effectsTreeView.show()
-            self.effectsTreeView.setFocus()
         else:
+            self.effectsView = self.effectsListView
             self.effectsTreeView.hide()
-            self.effectsListView.show()
-            self.effectsListView.setFocus()
+        # Show our currently-enabled effects view
+        self.effectsView.show()
+        self.effectsView.setFocus()
 
         # Setup emojis view
         self.emoji_model = EmojisModel()

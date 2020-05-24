@@ -27,8 +27,11 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt, QSortFilterProxyModel, pyqtSignal
-from PyQt5.QtGui import *
+from PyQt5.QtCore import (
+    QObject, QMimeData, Qt, pyqtSignal,
+    QSortFilterProxyModel, QPersistentModelIndex, QItemSelectionModel,
+)
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -37,27 +40,6 @@ from classes.logger import log
 from classes.app import get_app
 
 import json
-
-class TransitionStandardItemModel(QStandardItemModel):
-    ModelRefreshed = pyqtSignal()
-
-    def __init__(self, parent=None):
-        QStandardItemModel.__init__(self)
-
-    def mimeData(self, indexes):
-        # Create MimeData for drag operation
-        data = QMimeData()
-
-        # Get list of all selected file ids
-        files = []
-        for item in indexes:
-            selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 3).text())
-        data.setText(json.dumps(files))
-        data.setHtml("transition")
-
-        # Return Mimedata
-        return data
 
 
 class TransitionFilterProxyModel(QSortFilterProxyModel):
@@ -68,12 +50,12 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
 
         if get_app().window.actionTransitionsShowCommon.isChecked():
             # Fetch the group name
-            index = self.sourceModel().index(sourceRow, 2, sourceParent) # group name column
-            group_name = self.sourceModel().data(index) # group name (i.e. common)
+            index = self.sourceModel().index(sourceRow, 2, sourceParent)  # group name column
+            group_name = self.sourceModel().data(index)  # group name (i.e. common)
 
             # Fetch the transitions name
-            index = self.sourceModel().index(sourceRow, 0, sourceParent) # transition name column
-            trans_name = self.sourceModel().data(index) # transition name (i.e. Fade In)
+            index = self.sourceModel().index(sourceRow, 0, sourceParent)  # transition name column
+            trans_name = self.sourceModel().data(index)  # transition name (i.e. Fade In)
 
             # Return, if regExp match in displayed format.
             return "common" == group_name and self.filterRegExp().indexIn(trans_name) >= 0
@@ -84,20 +66,33 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
     def lessThan(self, left, right):
         """Sort with both group name and transition name"""
         leftData = self.sourceModel().data(left)
-        leftGroup = self.sourceModel().data(left, 257) # Strange way to access 'type' column in model
+        leftGroup = self.sourceModel().data(left, 257)  # Strange way to access 'type' column in model
         rightData = self.sourceModel().data(right)
         rightGroup = self.sourceModel().data(right, 257)
 
         return leftGroup < rightGroup and leftData < rightData
 
+    def mimeData(self, indexes):
+        # Create MimeData for drag operation
+        data = QMimeData()
 
-class TransitionsModel():
+        # Create list from requested transition indexes
+        items = [i.sibling(i.row(), 3).data() for i in indexes]
+        data.setText(json.dumps(items))
+        data.setHtml("transition")
+
+        # Return Mimedata
+        return data
+
+
+class TransitionsModel(QObject):
+    ModelRefreshed = pyqtSignal()
+
     def update_model(self, clear=True):
         log.info("updating transitions model.")
         app = get_app()
 
-        # Get window to check filters
-        win = app.window
+        # Translations
         _ = app._tr
 
         # Clear all items
@@ -112,12 +107,22 @@ class TransitionsModel():
         transitions_dir = os.path.join(info.PATH, "transitions")
         common_dir = os.path.join(transitions_dir, "common")
         extra_dir = os.path.join(transitions_dir, "extra")
-        transition_groups = [{"type": "common", "dir": common_dir, "files": os.listdir(common_dir)},
-                             {"type": "extra", "dir": extra_dir, "files": os.listdir(extra_dir)}]
+        transition_groups = [
+            {"type": "common",
+             "dir": common_dir,
+             "files": os.listdir(common_dir)},
+            {"type": "extra",
+             "dir": extra_dir,
+             "files": os.listdir(extra_dir)},
+        ]
 
         # Add optional user-defined transitions folder
         if (os.path.exists(info.TRANSITIONS_PATH) and os.listdir(info.TRANSITIONS_PATH)):
-            transition_groups.append({"type": "user", "dir": info.TRANSITIONS_PATH, "files": os.listdir(info.TRANSITIONS_PATH)})
+            transition_groups.append(
+                {"type": "user",
+                 "dir": info.TRANSITIONS_PATH,
+                 "files": os.listdir(info.TRANSITIONS_PATH)}
+            )
 
         for group in transition_groups:
             type = group["type"]
@@ -149,7 +154,7 @@ class TransitionsModel():
                     trans_name = self.app._tr(trans_name)
 
                 # Check for thumbnail path (in build-in cache)
-                thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
+                thumb_path = os.path.join(info.IMAGES_PATH, "cache", "{}.png".format(fileBaseName))
 
                 # Check built-in cache (if not found)
                 if not os.path.exists(thumb_path):
@@ -173,11 +178,11 @@ class TransitionsModel():
                         reader.Close()
                         clip.Close()
 
-                    except:
+                    except Exception as ex:
                         # Handle exception
-                        log.info('Invalid transition image file: %s' % filename)
+                        log.warning('Invalid transition image file {}: {}'.format(filename, ex))
                         msg = QMessageBox()
-                        msg.setText(_("{} is not a valid image file.".format(filename)))
+                        msg.setText(_("{} is not a valid transition file.".format(filename)))
                         msg.exec_()
                         continue
 
@@ -214,18 +219,20 @@ class TransitionsModel():
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
-                if not path in self.model_paths:
+                if path not in self.model_paths:
                     self.model.appendRow(row)
-                    self.model_paths[path] = path
+                    self.model_paths[path] = QPersistentModelIndex(row[3].index())
 
         # Emit signal when model is updated
-        self.model.ModelRefreshed.emit()
+        self.ModelRefreshed.emit()
 
     def __init__(self, *args):
+        # Init QObject superclass
+        super().__init__(*args)
 
         # Create standard model
         self.app = get_app()
-        self.model = TransitionStandardItemModel()
+        self.model = QStandardItemModel()
         self.model.setColumnCount(4)
         self.model_paths = {}
 
@@ -236,3 +243,22 @@ class TransitionsModel():
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
+
+        # Create selection model to share between views
+        self.selection_model = QItemSelectionModel(self.proxy_model)
+
+        # Attempt to load model testing interface, if requested
+        # (will only succeed with Qt 5.11+)
+        if info.MODEL_TEST:
+            try:
+                # Create model tester objects
+                from PyQt5.QtTest import QAbstractItemModelTester
+                self.model_tests = []
+                for m in [self.proxy_model, self.model]:
+                    self.model_tests.append(
+                        QAbstractItemModelTester(
+                            m, QAbstractItemModelTester.FailureReportingMode.Warning)
+                    )
+                log.info("Enabled {} model tests for transition data".format(len(self.model_tests)))
+            except ImportError:
+                pass
