@@ -68,6 +68,44 @@ from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
 
+def getTimelineObjectPositions(obj):
+    """ Add boundaries & all keyframes of a timeline object (clip, transition...) to all_marker_positions """
+    positions = []
+
+    fps = get_app().project.get("fps")
+    fps_float = float(fps["num"]) / float(fps["den"])
+
+    clip_start_time = obj.data["position"]
+    clip_orig_time = obj.data["position"] - obj.data["start"]
+    clip_end_time = clip_orig_time + obj.data["end"]
+
+    # Add clip boundaries
+    positions.append(clip_start_time)
+    positions.append(clip_end_time)
+
+    # Add all Clip and Transition keyframes
+    for property in obj.data:
+        try:
+            for point in obj.data[property]["Points"]:
+                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                if keyframe_time > clip_start_time and keyframe_time < clip_end_time:
+                    positions.append(keyframe_time)
+        except (TypeError, KeyError):
+            pass
+
+    # Add all Effect keyframes
+    if "effects" in obj.data:
+        for effect_data in obj.data["effects"]:
+            for property in effect_data:
+                try:
+                    for point in effect_data[property]["Points"]:
+                        keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                        if keyframe_time > clip_start_time and keyframe_time < clip_end_time:
+                            positions.append(keyframe_time)
+                except (TypeError, KeyError):
+                    pass
+
+    return positions
 
 class MainWindow(QMainWindow, updates.UpdateWatcher):
     """ This class contains the logic for the main window widget """
@@ -1293,46 +1331,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def findAllMarkerPositions(self):
         """Build and return a list of all seekable locations for the currently-selected timeline elements"""
-
-        def getTimelineObjectPositions(obj):
-            """ Add boundaries & all keyframes of a timeline object (clip, transition...) to all_marker_positions """
-            positions = []
-
-            fps = get_app().project.get("fps")
-            fps_float = float(fps["num"]) / float(fps["den"])
-
-            clip_start_time = obj.data["position"]
-            clip_orig_time = clip_start_time - obj.data["start"]
-            clip_stop_time = clip_orig_time + obj.data["end"]
-
-            # add clip boundaries
-            positions.append(clip_start_time)
-            positions.append(clip_stop_time)
-
-            # add all keyframes
-            for property in obj.data :
-                try :
-                    for point in obj.data[property]["Points"] :
-                        keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
-                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
-                            positions.append(keyframe_time)
-                except (TypeError, KeyError):
-                    pass
-
-
-            # Add all Effect keyframes
-            if "effects" in obj.data:
-                for effect_data in obj.data["effects"]:
-                    for property in effect_data:
-                        try:
-                            for point in effect_data[property]["Points"]:
-                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
-                                if keyframe_time > clip_start_time and keyframe_time < clip_stop_time:
-                                    positions.append(keyframe_time)
-                        except (TypeError, KeyError):
-                            pass
-
-            return positions
 
         all_marker_positions = []
 
