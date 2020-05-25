@@ -1928,11 +1928,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
 
     def actionFullscreen_trigger(self, event):
-        # Toggle fullscreen mode
-        if not self.isFullScreen():
-            self.showFullScreen()
-        else:
-            self.showNormal()
+        # Toggle fullscreen state (current state mask XOR WindowFullScreen)
+        self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
 
     def actionFile_Properties_trigger(self, event):
         log.info("Show file properties")
