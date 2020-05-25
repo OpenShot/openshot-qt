@@ -225,6 +225,11 @@ class JsonDataStore:
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
+        elif "@emojis" in path:
+            new_path = path.replace("@emojis", os.path.join(info.PATH, "emojis", "color", "svg"))
+            new_path = json.dumps(new_path, ensure_ascii=False)
+            return '"%s": %s' % (key, new_path)
+
         elif "@assets" in path:
             new_path = path.replace("@assets", path_context["new_project_assets"])
             new_path = json.dumps(new_path, ensure_ascii=False)
@@ -268,11 +273,19 @@ class JsonDataStore:
 
         # Determine if @transitions path is found
         elif os.path.join(info.PATH, "transitions") in folder_path:
-            # Yes, this is an OpenShot transitions
+            # Yes, this is an OpenShot transition
             folder_path, category_path = os.path.split(folder_path)
 
             # Convert path to @transitions/ path
             new_path = os.path.join("@transitions", category_path, file_path).replace("\\", "/")
+            new_path = json.dumps(new_path, ensure_ascii=False)
+            return '"%s": %s' % (key, new_path)
+
+        # Determine if @emojis path is found
+        elif os.path.join(info.PATH, "emojis") in folder_path:
+            # Yes, this is an OpenShot emoji
+            # Convert path to @emojis/ path
+            new_path = os.path.join("@emojis", file_path).replace("\\", "/")
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
@@ -281,7 +294,7 @@ class JsonDataStore:
             # Yes, this is an OpenShot transitions
             folder_path = folder_path.replace(path_context["new_project_assets"], "@assets")
 
-            # Convert path to @transitions/ path
+            # Convert path to @assets/ path
             new_path = os.path.join(folder_path, file_path).replace("\\", "/")
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)

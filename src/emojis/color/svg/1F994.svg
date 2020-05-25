@@ -1,0 +1,24 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#9B9B9A" stroke="none" d="M13.5877,35.5855c0,0-4.1667,5.1667-3.6667,8.3333l-2.8333,2.5v1.5c0,0,6.8333,2.8333,13.3333,0.8333v2.5 l0.1667,2.5l3.3333,1.3333c0,0,3.8333-0.6667,4.8333-6c0,0,4,1.5,5.6667,5.8333l4.6667-0.3333c0,0,0.6667-2.5-0.1667-4.1667 l20.5-0.3333l2,1.8333v2l1,1.1667h2.1667l1.6667-1.8333l-1.8333-6.5l1.5-4.6667c0,0-17.3333,10.5-41.3333-3.1667l-1.8333-3.8333 c0,0-3.8333,0.6667-3.6667,1.6667C19.0877,36.7521,18.2544,34.0855,13.5877,35.5855z"/>
+    <path fill="#6A462F" stroke="none" d="M18.5877,30.5021l-3.5,5.5c0,0,4.0833,0.1667,4,1.5833c-0.0833,1.4167,2.5,2.4167-0.4167,6.5833l2.1667,1 l1.4167-1.0833l1.5833-3.5l0.75-1.6667c0,0,19.0833,14.4167,41.3333,3.1667l1.5833-3l-5-5l-0.5833-2.1667l-0.6667-2.8333 l-3.9167-0.75l-3.5-4l-7.9167-1.3333l-4.25-1.5833l-3.8333,2.75l-3.8333-0.9167l-4.1667,2.9167l-1.9167,0.0833l-3.4167-0.3333 l-2.25,4.8333l-2.3333,0.0833L18.5877,30.5021z"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M24.4626,26.6384c-0.856,2.25-1.8321,3.2941-2.6133,4.0861c-0.5593,0.567-1.4467,0.6356-2.0742,0.1451l-1.1842-0.9257 l-3.4235,5.054c-0.4522,0.6675-1.2059,1.0673-2.0121,1.0673h0c0,0-2.6719,3.2711-3.6021,6.8056 c-0.2609,0.9913-0.8825,1.8494-1.7039,2.4625l-0.3813,0.2847c0,0-2.3508,1.9617,0.455,2.8147c0,0,9.623,3.0391,14.9564-1.2109"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M41.3785,22.3051c0,0-1.8239,1.2266-3.1987,1.4888c-0.591,0.1127-1.1626,0.2298-1.7154,0.3508l-3.1685-0.6729 c-1.5711,1.7948-3.7536,2.6499-5.291,3.3242"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M59.9626,28.8051c-1.9853,0-2.5489-0.1535-3.6695-1.0568c-0.8687-0.7003-1.6041-1.5463-2.172-2.5068l-0.4085-0.6909 c-2.6409,0-5.4664-0.3191-8.0477-0.7441"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M66.2544,38.5007c-3.0964-1.1547-3.5341-4.4159-4.5581-5.7359"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M20.8181,51.7455l-0.2275,0.4726c-0.639,1.3278,0.3286,2.8673,1.8022,2.8673h1.6275c0.7345,0,1.41-0.4027,1.7593-1.0488 l2.8454-5.2629c0,0,3.5011,1.4508,4.7542,5.0364c0.2731,0.7814,1.0483,1.2753,1.876,1.2753l2.0227,0 c1.1869,0,2.121-1.028,1.9899-2.2077c-0.1031-0.9279-0.2908-1.8895-0.633-2.3128c0,0,15.1566,0.4371,20.0075-0.6121 c1.0237-0.2214,2.0438,0.3984,2.2698,1.4212c0.1096,0.4959,0.1747,1.0522,0.1418,1.6371 c-0.0641,1.1392,0.8536,2.0744,1.9946,2.0744h0.3886c1.1246,0,2.0006-0.7999,2.0742-1.842 c0.1232-1.7442-0.0146-4.3923-1.5486-6.4315c0,0,1.1334-0.9919,1.1126-4.0873"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M19.2107,37.2177c0,0,2.1233-3.3264,4.0191-0.3412c1.2792,2.0143-0.3073,5.0412-1.4745,6.797 c-0.5543,0.8338-1.618,1.1557-2.5445,0.7763h0"/>
+    <line x1="27.4209" x2="32.4209" y1="34.5968" y2="30.4718" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="31.5459" x2="37.5459" y1="40.1202" y2="38.0618" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="36.9209" x2="42.9681" y1="32.7648" y2="29.9718" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="39.9445" x2="46.7959" y1="43.4718" y2="42.7247" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="48.7959" x2="55.6709" y1="36.6327" y2="37.8655" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="46.9444" x2="52.3975" y1="32.4901" y2="29.9873" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="53.0404" x2="59.3015" y1="43.7689" y2="45.4464" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

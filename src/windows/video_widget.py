@@ -1,6 +1,6 @@
 """
  @file
- @brief This file contains the video preview QWidget (based on a QLabel)
+ @brief This file contains the video preview QWidget (based on a QLabel) and transform controls.
  @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
@@ -27,14 +27,16 @@
 
 from PyQt5.QtCore import QSize, Qt, QCoreApplication, QPointF, QRect, QRectF, QMutex, QTimer
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QSizePolicy, QWidget
+from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip
 from classes import updates
+from classes import info
 
+import os
 import json
 
 class VideoWidget(QWidget, updates.UpdateInterface):
@@ -79,20 +81,22 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
         # Fill the whole widget with the solid color
-        painter.fillRect(event.rect(), self.palette().window())
+        painter.fillRect(event.rect(), QColor("#191919"))
+
+        # Find centered viewport
+        viewport_rect = self.centeredViewport(self.width(), self.height())
 
         if self.current_image:
             # DRAW FRAME
             # Calculate new frame image size, maintaining aspect ratio
             pixSize = self.current_image.size()
-            pixSize.scale(event.rect().size(), Qt.KeepAspectRatio)
+            pixSize.scale(event.rect().width(), event.rect().height(), Qt.KeepAspectRatio)
 
             # Scale image
             scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
             # Calculate center of QWidget and Draw image
-            center = self.centeredViewport(self.width(), self.height())
-            painter.drawImage(center, scaledPix)
+            painter.drawImage(viewport_rect, scaledPix)
 
         if self.transforming_clip:
             # Draw transform handles on top of video preview
@@ -110,8 +114,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             raw_properties = json.loads(self.transforming_clip_object.PropertiesJSON(clip_frame_number))
 
             # Get size of current video player
-            player_width = self.rect().width()
-            player_height = self.rect().height()
+            player_width = viewport_rect.width()
+            player_height = viewport_rect.height()
 
             # Determine original size of clip's reader
             source_width = self.transforming_clip.data['reader']['width']
@@ -139,8 +143,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             source_height = source_size.height()
 
             # Init X/Y
-            x = 0.0
-            y = 0.0
+            x = viewport_rect.x()
+            y = viewport_rect.y()
 
             # Get scaled source image size (scale_x, scale_y)
             sx = max(float(raw_properties.get('scale_x').get('value')), 0.001)
@@ -151,50 +155,36 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Determine gravity of clip
             gravity = self.transforming_clip.data['gravity']
             if gravity == openshot.GRAVITY_TOP_LEFT:
-                x += self.centeredViewport(self.width(), self.height()).x()  # nudge right
-                y += self.centeredViewport(self.width(), self.height()).y()  # nudge down
+                pass
             elif gravity == openshot.GRAVITY_TOP:
-                x = (player_width - scaled_source_width) / 2.0 # center
-                y += self.centeredViewport(self.width(), self.height()).y()  # nudge down
+                x += (player_width - scaled_source_width) / 2.0 # center
             elif gravity == openshot.GRAVITY_TOP_RIGHT:
-                x = player_width - scaled_source_width # right
-                x -= self.centeredViewport(self.width(), self.height()).x()  # nudge left
-                y += self.centeredViewport(self.width(), self.height()).y()  # nudge down
+                x += player_width - scaled_source_width # right
             elif gravity == openshot.GRAVITY_LEFT:
-                y = (player_height - scaled_source_height) / 2.0 # center
-                x += self.centeredViewport(self.width(), self.height()).x()  # nudge right
+                y += (player_height - scaled_source_height) / 2.0 # center
             elif gravity == openshot.GRAVITY_CENTER:
-                x = (player_width - scaled_source_width) / 2.0 # center
-                y = (player_height - scaled_source_height) / 2.0 # center
+                x += (player_width - scaled_source_width) / 2.0 # center
+                y += (player_height - scaled_source_height) / 2.0 # center
             elif gravity == openshot.GRAVITY_RIGHT:
-                x = player_width - scaled_source_width # right
-                y = (player_height - scaled_source_height) / 2.0 # center
-                x -= self.centeredViewport(self.width(), self.height()).x()  # nudge left
+                x += player_width - scaled_source_width # right
+                y += (player_height - scaled_source_height) / 2.0 # center
             elif gravity == openshot.GRAVITY_BOTTOM_LEFT:
-                y = (player_height - scaled_source_height) # bottom
-                x += self.centeredViewport(self.width(), self.height()).x()  # nudge right
-                y -= self.centeredViewport(self.width(), self.height()).y()  # nudge up
+                y += (player_height - scaled_source_height) # bottom
             elif gravity == openshot.GRAVITY_BOTTOM:
-                x = (player_width - scaled_source_width) / 2.0 # center
-                y = (player_height - scaled_source_height) # bottom
-                y -= self.centeredViewport(self.width(), self.height()).y()  # nudge up
+                x += (player_width - scaled_source_width) / 2.0 # center
+                y += (player_height - scaled_source_height) # bottom
             elif gravity == openshot.GRAVITY_BOTTOM_RIGHT:
-                x = player_width - scaled_source_width # right
-                y = (player_height - scaled_source_height) # bottom
-                x -= self.centeredViewport(self.width(), self.height()).x()  # nudge left
-                y -= self.centeredViewport(self.width(), self.height()).y()  # nudge up
+                x += player_width - scaled_source_width # right
+                y += (player_height - scaled_source_height) # bottom
 
             # Track gravity starting coordinate
             self.gravity_point = QPointF(x, y)
 
-            # Scale to fit in widget
-            final_size = QSize(source_width, source_height)
-
             # Adjust x,y for location
             x_offset = raw_properties.get('location_x').get('value')
             y_offset = raw_properties.get('location_y').get('value')
-            x += (scaledPix.width() * x_offset)
-            y += (scaledPix.height() * y_offset)
+            x += (player_width * x_offset)
+            y += (player_height * y_offset)
 
             self.transform = QTransform()
 
@@ -202,67 +192,79 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if x or y:
                 self.transform.translate(x, y)
 
+            # Apply rotation
+            rotation = raw_properties.get('rotation').get('value')
+            shear_x = raw_properties.get('shear_x').get('value')
+            shear_y = raw_properties.get('shear_y').get('value')
+            origin_x = raw_properties.get('origin_x').get('value')
+            origin_y = raw_properties.get('origin_y').get('value')
+            origin_x_value = scaled_source_width * origin_x
+            origin_y_value = scaled_source_height * origin_y
+            self.originHandle = QPointF(x + origin_x_value, y + origin_y_value)
+            if rotation or shear_x or shear_y:
+                self.transform.translate(origin_x_value, origin_y_value)
+                self.transform.rotate(rotation)
+                self.transform.shear(shear_x, shear_y)
+                self.transform.translate(-origin_x_value, -origin_y_value)
+
             # Apply scale
             if sx or sy:
                 self.transform.scale(sx, sy)
-
-            # Apply shear
-            shear_x = raw_properties.get('shear_x').get('value')
-            shear_y = raw_properties.get('shear_y').get('value')
-            if shear_x or shear_y:
-                self.transform.shear(shear_x, shear_y)
-
-            # Apply rotation
-            rotation = raw_properties.get('rotation').get('value')
-            if rotation:
-                origin_x = x - self.centeredViewport(self.width(), self.height()).x() + (scaled_source_width / 2.0)
-                origin_y = y - self.centeredViewport(self.width(), self.height()).y() + (scaled_source_height / 2.0)
-                self.transform.translate(origin_x, origin_y)
-                self.transform.rotate(rotation)
-                self.transform.translate(-origin_x, -origin_y)
 
             # Apply transform
             painter.setTransform(self.transform)
 
             # Draw transform corners and center origin circle
             # Corner size
-            cs = 6.0
+            cs = 14.0
             os = 12.0
 
+            # Calculate bounds of clip
+            self.clipBounds = QRectF(QPointF(0.0, 0.0), QPointF(source_width, source_height))
+
             # Calculate 4 corners coordinates
-            self.topLeftHandle = QRectF(0.0, 0.0, cs/sx, cs/sy)
-            self.topRightHandle = QRectF(source_width - (cs/sx), 0, cs/sx, cs/sy)
-            self.bottomLeftHandle = QRectF(0.0, source_height - (cs/sy), cs/sx, cs/sy)
-            self.bottomRightHandle = QRectF(source_width - (cs/sx), source_height - (cs/sy), cs/sx, cs/sy)
+            self.topLeftHandle = QRectF(-cs/sx/2.0, -cs/sy/2.0, cs/sx, cs/sy)
+            self.topRightHandle = QRectF(source_width - (cs/sx) + cs/sx/2.0, -cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomLeftHandle = QRectF(-cs/sx/2.0, source_height - (cs/sy) + cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomRightHandle = QRectF(source_width - (cs/sx) + cs/sx/2.0, source_height - (cs/sy) + cs/sy/2.0, cs/sx, cs/sy)
 
             # Draw 4 corners
-            painter.fillRect(self.topLeftHandle, QBrush(QColor("#53a0ed")))
-            painter.fillRect(self.topRightHandle, QBrush(QColor("#53a0ed")))
-            painter.fillRect(self.bottomLeftHandle, QBrush(QColor("#53a0ed")))
-            painter.fillRect(self.bottomRightHandle, QBrush(QColor("#53a0ed")))
+            pen = QPen(QBrush(QColor("#53a0ed")), 1.5)
+            pen.setCosmetic(True)
+            painter.setPen(pen)
+            painter.drawRect(self.topLeftHandle)
+            painter.drawRect(self.topRightHandle)
+            painter.drawRect(self.bottomLeftHandle)
+            painter.drawRect(self.bottomRightHandle)
 
             # Calculate 4 side coordinates
-            self.topHandle = QRectF(0.0 + (source_width / 2.0) - (cs/sx/2.0), 0, cs/sx, cs/sy)
-            self.bottomHandle = QRectF(0.0 + (source_width / 2.0) - (cs/sx/2.0), source_height - (cs/sy), cs/sx, cs/sy)
-            self.leftHandle = QRectF(0.0, (source_height / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
-            self.rightHandle = QRectF(source_width - (cs/sx), (source_height / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+            self.topHandle = QRectF((source_width / 2.0) - (cs/sx/2.0), -cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomHandle = QRectF((source_width / 2.0) - (cs/sx/2.0), source_height - (cs/sy) + cs/sy/2.0, cs/sx, cs/sy)
+            self.leftHandle = QRectF(-cs/sx/2.0, (source_height / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+            self.rightHandle = QRectF(source_width - (cs/sx) + cs/sx/2.0, (source_height / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+
+            # Calculate shear handles
+            self.topShearHandle = QRectF(self.topLeftHandle.x(), self.topLeftHandle.y(), self.clipBounds.width(), self.topLeftHandle.height())
+            self.leftShearHandle = QRectF(self.topLeftHandle.x(), self.topLeftHandle.y(), self.topLeftHandle.width(), self.clipBounds.height())
+            self.rightShearHandle = QRectF(self.topRightHandle.x(), self.topRightHandle.y(), self.topRightHandle.width(), self.clipBounds.height())
+            self.bottomShearHandle = QRectF(self.bottomLeftHandle.x(), self.bottomLeftHandle.y(), self.clipBounds.width(), self.topLeftHandle.height())
 
             # Draw 4 sides (centered)
-            painter.fillRect(self.topHandle, QBrush(QColor("#53a0ed")))
-            painter.fillRect(self.bottomHandle, QBrush(QColor("#53a0ed")))
-            painter.fillRect(self.leftHandle, QBrush(QColor("#53a0ed")))
-            painter.fillRect(self.rightHandle, QBrush(QColor("#53a0ed")))
+            painter.drawRect(self.topHandle)
+            painter.drawRect(self.bottomHandle)
+            painter.drawRect(self.leftHandle)
+            painter.drawRect(self.rightHandle)
+            painter.drawRect(self.clipBounds)
 
             # Calculate center coordinate
-            self.centerHandle = QRectF((source_width / 2.0) - (os/sx), (source_height / 2.0) - (os/sy), os/sx*2.0, os/sy*2.0)
+            self.centerHandle = QRectF((source_width * origin_x) - (os/sx), (source_height * origin_y) - (os/sy), os/sx*2.0, os/sy*2.0)
 
             # Draw origin
-            painter.setBrush(QColor(83, 160, 237, 122))
-            painter.setPen(Qt.NoPen)
             painter.drawEllipse(self.centerHandle)
-
-            # Draw translucent rectangle
-            self.clipRect = QRectF(0, 0, final_size.width(), final_size.height())
+            painter.drawLine(self.centerHandle.x() + (self.centerHandle.width()/2.0), self.centerHandle.y() + (self.centerHandle.height()/2.0) - self.centerHandle.height(),
+                             self.centerHandle.x() + (self.centerHandle.width()/2.0), self.centerHandle.y() + (self.centerHandle.height()/2.0) + self.centerHandle.height())
+            painter.drawLine(self.centerHandle.x() + (self.centerHandle.width()/2.0) - self.centerHandle.width(), self.centerHandle.y() + (self.centerHandle.height()/2.0),
+                             self.centerHandle.x() + (self.centerHandle.width()/2.0) + self.centerHandle.width(), self.centerHandle.y() + (self.centerHandle.height()/2.0))
 
             # Remove transform
             painter.resetTransform()
@@ -275,14 +277,23 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def centeredViewport(self, width, height):
         """ Calculate size of viewport to maintain apsect ratio """
 
+        # Calculate padding
+        top_padding = (height - (height * self.zoom)) / 2.0
+        left_padding = (width - (width * self.zoom)) / 2.0
+
+        # Adjust parameters to zoom
+        width = width * self.zoom
+        height = height * self.zoom
+
+        # Calculate which direction to scale (for perfect centering)
         aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
         heightFromWidth = width / aspectRatio
         widthFromHeight = height * aspectRatio
 
         if heightFromWidth <= height:
-            return QRect(0, (height - heightFromWidth) / 2, width, heightFromWidth)
+            return QRect(left_padding, ((height - heightFromWidth) / 2) + top_padding, width, heightFromWidth)
         else:
-            return QRect((width - widthFromHeight) / 2.0, 0, widthFromHeight, height)
+            return QRect(((width - widthFromHeight) / 2.0) + left_padding, top_padding, widthFromHeight, height)
 
     def present(self, image, *args):
         """ Present the current frame """
@@ -323,6 +334,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Clear original data
         self.original_clip_data = None
 
+    def rotateCursor(self, pixmap, rotation, shear_x, shear_y):
+        """Rotate cursor based on the current transform"""
+        rotated_pixmap = pixmap.transformed(
+            QTransform().rotate(rotation).shear(shear_x, shear_y).scale(0.8, 0.8), Qt.SmoothTransformation)
+        return QCursor(rotated_pixmap)
+
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
         self.mutex.lock()
@@ -335,11 +352,22 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
-            # Get current clip's position
-            start_of_clip = float(self.transforming_clip.data["start"])
-            end_of_clip = float(self.transforming_clip.data["end"])
-            position_of_clip = float(self.transforming_clip.data["position"])
-            playhead_position = float(get_app().window.preview_thread.current_frame) / fps_float
+            # Corner size
+            cs = 14.0
+
+            # Determine frame # of clip
+            start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
+            position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
+            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
+            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
+
+            # Get properties of clip at current frame
+            raw_properties = json.loads(self.transforming_clip_object.PropertiesJSON(clip_frame_number))
+
+            # Get current rotation and skew (used for cursor rotation)
+            rotation = raw_properties.get('rotation').get('value')
+            shear_x = raw_properties.get('shear_x').get('value')
+            shear_y = raw_properties.get('shear_y').get('value')
 
             # Get the rect where the video is actually drawn (without the black borders, etc...)
             viewport_rect = self.centeredViewport(self.width(), self.height())
@@ -348,114 +376,240 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.mouse_dragging and not self.transform_mode:
                 self.original_clip_data = self.transforming_clip.data
 
+            # Mouse over resize button (and not currently dragging)
+            if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
+                self.setCursor(Qt.ArrowCursor)
             # Determine if cursor is over a handle
-            if self.transform.mapRect(self.topRightHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeBDiagCursor))
+            elif self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'origin':
+                    self.setCursor(self.rotateCursor(self.cursors.get('hand'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'origin'
+            elif self.transform.mapToPolygon(self.topRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_top_right':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_top_right'
-
-            elif self.transform.mapRect(self.topHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeVerCursor))
+            elif self.transform.mapToPolygon(self.topHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_top':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_top'
-
-            elif self.transform.mapRect(self.topLeftHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeFDiagCursor))
+            elif self.transform.mapToPolygon(self.topLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_top_left':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_top_left'
-
-            elif self.transform.mapRect(self.leftHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeHorCursor))
+            elif self.transform.mapToPolygon(self.leftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_left':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_left'
-
-            elif self.transform.mapRect(self.rightHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeHorCursor))
+            elif self.transform.mapToPolygon(self.rightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_right':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_right'
-
-            elif self.transform.mapRect(self.bottomLeftHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeBDiagCursor))
+            elif self.transform.mapToPolygon(self.bottomLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_bottom_left':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_bottom_left'
-
-            elif self.transform.mapRect(self.bottomHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeVerCursor))
+            elif self.transform.mapToPolygon(self.bottomHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_bottom':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_bottom'
-
-            elif self.transform.mapRect(self.bottomRightHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeFDiagCursor))
+            elif self.transform.mapToPolygon(self.bottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'scale_bottom_right':
+                    self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'scale_bottom_right'
-
-            elif self.transform.mapRect(self.centerHandle).contains(event.pos()):
-                self.setCursor(QCursor(Qt.SizeAllCursor))
+            elif self.transform.mapToPolygon(self.topShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'shear_top':
+                    self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'shear_top'
+            elif self.transform.mapToPolygon(self.leftShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'shear_left':
+                    self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'shear_left'
+            elif self.transform.mapToPolygon(self.rightShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'shear_right':
+                    self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'shear_right'
+            elif self.transform.mapToPolygon(self.bottomShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'shear_bottom':
+                    self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'shear_bottom'
+            elif self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'location':
+                    self.setCursor(self.rotateCursor(self.cursors.get('move'), rotation, shear_x, shear_y))
                 # Set the transform mode
                 if self.mouse_dragging and not self.transform_mode:
                     self.transform_mode = 'location'
-                    # Determine x,y offsets for gravity
-                    self.corner_offset_x = event.pos().x() - self.transform.mapRect(self.topLeftHandle).x()
-                    self.corner_offset_y = event.pos().y() - self.transform.mapRect(self.topLeftHandle).y()
-
-
+            elif not self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+                if not self.transform_mode or self.transform_mode == 'rotation':
+                    self.setCursor(self.rotateCursor(self.cursors.get('rotate'), rotation, shear_x, shear_y))
+                # Set the transform mode
+                if self.mouse_dragging and not self.transform_mode:
+                    self.transform_mode = 'rotation'
             elif not self.transform_mode:
                 # Reset cursor when not over a handle
                 self.setCursor(QCursor(Qt.ArrowCursor))
 
-            # Determine frame # of clip
-            start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
-            position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
-            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
-            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
-
             # Transform clip object
             if self.transform_mode:
-                if self.transform_mode == 'location':
-                    # Calculate new location coordinates
-                    location_x = (event.pos().x() - self.gravity_point.x() - self.corner_offset_x) / viewport_rect.width()
-                    location_y = (event.pos().y() - self.gravity_point.y() - self.corner_offset_y) / viewport_rect.height()
+                if self.transform_mode == 'origin':
+                    # Get current keyframe value
+                    origin_x = raw_properties.get('origin_x').get('value')
+                    origin_y = raw_properties.get('origin_y').get('value')
+                    scale_x = raw_properties.get('scale_x').get('value')
+                    scale_y = raw_properties.get('scale_y').get('value')
 
-                    # Save new location
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_x', location_x)
+                    # Calculate new location coordinates
+                    origin_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() * scale_x)
+                    origin_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y)
+
+                    # Constrain to clip
+                    if origin_x < 0.0:
+                        origin_x = 0.0
+                    if origin_x > 1.0:
+                        origin_x = 1.0
+                    if origin_y < 0.0:
+                        origin_y = 0.0
+                    if origin_y > 1.0:
+                        origin_y = 1.0
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'origin_x', origin_x, refresh=False)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'origin_y', origin_y)
+
+                elif self.transform_mode == 'location':
+                    # Get current keyframe value
+                    location_x = raw_properties.get('location_x').get('value')
+                    location_y = raw_properties.get('location_y').get('value')
+
+                    # Calculate new location coordinates
+                    location_x += (event.pos().x() - self.mouse_position.x()) / viewport_rect.width()
+                    location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_x', location_x, refresh=False)
                     self.updateProperty(self.transforming_clip.id, clip_frame_number, 'location_y', location_y)
 
-                elif self.transform_mode.startswith('scale_'):
-                    scale_x = None
-                    scale_y = None
+                elif self.transform_mode == 'shear_top':
+                    # Get current keyframe shear value
+                    shear_x = raw_properties.get('shear_x').get('value')
+                    scale_x = raw_properties.get('scale_x').get('value')
 
                     # Calculate new location coordinates
-                    center_x = self.transform.mapRect(self.centerHandle).x() + (self.transform.mapRect(self.centerHandle).width() / 2.0)
-                    center_y = self.transform.mapRect(self.centerHandle).y() + (self.transform.mapRect(self.centerHandle).height() / 2.0)
+                    aspect_ratio = (self.clipBounds.width() / self.clipBounds.height()) * 2.0
+                    shear_x -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / aspect_ratio)
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
+
+                elif self.transform_mode == 'shear_bottom':
+                    # Get current keyframe shear value
+                    scale_x = raw_properties.get('scale_x').get('value')
+                    shear_x = raw_properties.get('shear_x').get('value')
+
+                    # Calculate new location coordinates
+                    aspect_ratio = (self.clipBounds.width() / self.clipBounds.height()) * 2.0
+                    shear_x += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / aspect_ratio)
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
+
+                elif self.transform_mode == 'shear_left':
+                    # Get current keyframe shear value
+                    shear_y = raw_properties.get('shear_y').get('value')
+                    scale_y = raw_properties.get('scale_y').get('value')
+
+                    # Calculate new location coordinates
+                    aspect_ratio = (self.clipBounds.height() / self.clipBounds.width()) * 2.0
+                    shear_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y / aspect_ratio)
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
+
+                elif self.transform_mode == 'shear_right':
+                    # Get current keyframe shear value
+                    scale_y = raw_properties.get('scale_y').get('value')
+                    shear_y = raw_properties.get('shear_y').get('value')
+
+                    # Calculate new location coordinates
+                    aspect_ratio = (self.clipBounds.height() / self.clipBounds.width()) * 2.0
+                    shear_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y / aspect_ratio)
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
+
+                elif self.transform_mode == 'rotation':
+                    # Get current rotation keyframe value
+                    rotation = raw_properties.get('rotation').get('value')
+                    scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+                    scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
+
+                    # Calculate new location coordinates
+                    is_on_left = event.pos().x() < self.originHandle.x()
+                    is_on_top = event.pos().y() < self.originHandle.y()
+
+                    if is_on_top:
+                        rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                    else:
+                        rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+
+                    if is_on_left:
+                        rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                    else:
+                        rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+
+                    # Update keyframe value (or create new one)
+                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'rotation', rotation)
+
+                elif self.transform_mode.startswith('scale_'):
+                    # Get current scale keyframe value
+                    scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+                    scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
 
                     if self.transform_mode == 'scale_top_right':
-                        scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
-                        scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
+                        scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                        scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_bottom_right':
-                        scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
-                        scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
+                        scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                        scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_top_left':
-                        scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
-                        scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
+                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                        scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_bottom_left':
-                        scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
-                        scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
+                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                        scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_top':
-                        scale_y = (center_y - event.pos().y()) / (viewport_rect.height() / 2.0)
+                        scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_bottom':
-                        scale_y = (event.pos().y() - center_y) / (viewport_rect.height() / 2.0)
+                        scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_left':
-                        scale_x = (center_x - event.pos().x()) / (viewport_rect.width() / 2.0)
+                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
                     elif self.transform_mode == 'scale_right':
-                        scale_x = (event.pos().x() - center_x) / (viewport_rect.width() / 2.0)
+                        scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
 
                     if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
                         # If CTRL key is pressed, fix the scale_y to the correct aspect ration
@@ -466,10 +620,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         elif scale_x:
                             scale_y = scale_x
 
-                    # Save new location
-                    if scale_x != None:
-                        self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_x', scale_x)
-                    if scale_y != None:
+                    # Update keyframe value (or create new one)
+                    both_scaled = scale_x != 0.001 and scale_y != 0.001
+                    if scale_x != 0.001:
+                        self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_x', scale_x, refresh=(not both_scaled))
+                    if scale_y != 0.001:
                         self.updateProperty(self.transforming_clip.id, clip_frame_number, 'scale_y', scale_y)
 
             # Force re-paint
@@ -480,7 +635,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         self.mutex.unlock()
 
-    def updateProperty(self, id, frame_number, property_key, new_value):
+    def updateProperty(self, id, frame_number, property_key, new_value, refresh=True):
         """Update a keyframe property to a new value, adding or updating keyframes as needed"""
         found_point = False
         clip_updated = False
@@ -513,7 +668,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             c.save()
 
             # Update the preview
-            get_app().window.refreshFrameSignal.emit()
+            if refresh:
+                get_app().window.refreshFrameSignal.emit()
 
     def refreshTriggered(self):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
@@ -579,9 +735,38 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Emit signal that video widget changed size
         self.win.MaxSizeChanged.emit(self.delayed_size)
 
+    # Capture wheel event to alter zoom/scale of widget
+    def wheelEvent(self, event):
+        # For each 120 (standard scroll unit) adjust the zoom slider
+        tick_scale = 1024
+        self.zoom += event.angleDelta().y() / tick_scale
+        if self.zoom <= 0.0:
+            # Don't allow zoom to go all the way to zero (or negative)
+            self.zoom = 0.05
+
+        # Add resize button (if not 100% zoom)
+        if self.zoom != 1.0:
+            self.resize_button.show()
+        else:
+            self.resize_button.hide()
+
+        # Repaint widget on zoom
+        self.repaint()
+
+    def resize_button_clicked(self):
+        """Resize zoom button clicked"""
+        self.zoom = 1.0
+        self.resize_button.hide()
+
+        # Repaint widget on zoom
+        self.repaint()
+
     def __init__(self, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
+
+        # Translate object
+        _ = get_app()._tr
 
         # Init aspect ratio settings (default values)
         self.aspect_ratio = openshot.Fraction()
@@ -602,15 +787,32 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.leftHandle = None
         self.rightHandle = None
         self.centerHandle = None
+        self.clipBounds = None
+        self.originHandle = None
         self.mouse_pressed = False
         self.mouse_dragging = False
         self.mouse_position = None
         self.transform_mode = None
-        self.corner_offset_x = None
-        self.corner_offset_y = None
-        self.clipRect = None
         self.gravity_point = None
         self.original_clip_data = None
+        self.zoom = 1.0 # Zoom of widget (does not affect video, only workspace)
+        self.resize_button = QPushButton(_('Reset Zoom'), self)
+        self.resize_button.hide()
+        self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
+        self.resize_button.clicked.connect(self.resize_button_clicked)
+        self.resize_button.setMouseTracking(True)
+
+        # Initialize cursors
+        self.cursors = { "move": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_move.png")),
+                         "resize_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_x.png")),
+                         "resize_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_y.png")),
+                         "resize_bdiag": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_bdiag.png")),
+                         "resize_fdiag": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_fdiag.png")),
+                         "rotate": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_rotate.png")),
+                         "shear_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_x.png")),
+                         "shear_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_y.png")),
+                         "hand": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_hand.png")),
+                       }
 
         # Mutex lock
         self.mutex = QMutex()

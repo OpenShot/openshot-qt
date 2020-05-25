@@ -1,0 +1,18 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="17.5625" y="12" width="42.4375" height="47.5" fill="#fcea2b"/>
+    <rect x="18" y="12" width="42" height="47.5" fill="#b1cc33"/>
+    <rect x="12" y="12" width="6.9925" height="47.5" fill="#5c9e31"/>
+  </g>
+  <g id="line">
+    <line x1="18" x2="18" y1="13" y2="59" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M62.9087,54.8149A1.986,1.986,0,0,0,64,53.0467V9.0833A2.0833,2.0833,0,0,0,61.9167,7H16.4591a4.7714,4.7714,0,0,0-3.9733,2.13h0a1.889,1.889,0,0,0,1.573,2.9349h3.8086l2.1331-.0177H59.9167v48H14.0583a1.8905,1.8905,0,0,1-1.8916-1.85V10.575"/>
+    <g>
+      <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="39.533 27.219 39.533 34.219 42.533 34.219"/>
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M33.7078,34.2187h0a2.5,2.5,0,0,1-2.5-2.5v-2a2.5,2.5,0,0,1,2.5-2.5h0a2.5,2.5,0,0,1,2.5,2.5v2A2.5,2.5,0,0,1,33.7078,34.2187Z"/>
+      <circle cx="45.5328" cy="34.2187" r="1"/>
+      <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="28.416 27.29 26.898 34.29 26.208 34.29 25.537 34.29 24 27.29"/>
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M49.4011,29.0073A2.151,2.151,0,0,1,51.5076,27.29h0a2.1436,2.1436,0,0,1,1.52.63,1.66,1.66,0,0,1-.0185,2.2515L49.3574,34.29h4.3"/>
+    </g>
+  </g>
+</svg>

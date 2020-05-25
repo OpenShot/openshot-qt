@@ -1,0 +1,24 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#FFFFFF" stroke="none" d="M12,28.1224l-0.003,31.9694l31.6594-0.0054l16.0898-12.0482C59.739,47.9894,60,44.0918,60,44.0918 l-0.003-16L12,28.1224z"/>
+    <path fill="#EA5A47" stroke="none" d="M11.4437,28.2921l48.5533-0.2003L60,12.1224c0,0-6.5361-0.9998-5.9834-0.9998h-3.5569l0.0526,5.772 c1.7272,0.4562,2.1504,3.0869,2.1504,3.0874c-0.0225,2.1919-2.6783,2.5299-2.6907,2.5274 c-1.8479-0.3787-2.4888-1.2828-2.4683-2.8021c0.0144-1.0682,0.046-1.3296,0.8087-2.0781 c0.5122-0.5019,0.6338-0.6085,1.3107-0.7802l-0.0279-5.7264h-3.5395c0.261,0-20.6026,0-20.0498,0h-3.6621l0.071,5.7264 c1.7272,0.4562,2.2925,0.8529,2.2752,2.7188c-0.0205,2.1929-2.706,3.2811-2.7187,3.2811 c-2.2051-0.0215-2.9918-1.0379-2.9713-3.243c0.0098-1.0683,0.8766-1.8637,1.6393-2.6122c0.5122-0.5019,0.6989-0.822,1.3758-0.9937 l-0.2395-4.8774h-3.7434c0.2142,0-6.0322,0.9998-6.0322,0.9998L11.4437,28.2921z"/>
+    <path fill="#d0cfce" stroke="none" d="M59.997,48.0382H43.1384c0,0-0.8989,6.1042-0.9709,5.6225v5.4255l1.4889,1.0002L59.997,48.0382z"/>
+    <line x1="22.0151" x2="22.0151" y1="8.6884" y2="18.9976" fill="#9b9b9a" fill-rule="evenodd" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" clip-rule="evenodd"/>
+    <line x1="50.0158" x2="50.0158" y1="8.6884" y2="18.9976" fill="#9b9b9a" fill-rule="evenodd" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" clip-rule="evenodd"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <ellipse cx="22" cy="19.849" rx="3" ry="3" transform="matrix(0.0096 -1 1 0.0096 1.9414 41.6581)" fill="none" fill-rule="evenodd" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" clip-rule="evenodd"/>
+    <line x1="26.0057" x2="46.0558" y1="12.1224" y2="12.1224" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="54.0163,12.1224 60,12.1224 60,28.1224 12,28.1224 12,12.1224 18.0318,12.1224"/>
+    <line x1="22.0151" x2="22.0151" y1="8.6884" y2="18.9976" fill="none" fill-rule="evenodd" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" clip-rule="evenodd"/>
+    <ellipse cx="50.0006" cy="19.849" rx="3" ry="3" transform="matrix(0.0096 -1 1 0.0096 29.6742 69.6575)" fill="none" fill-rule="evenodd" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" clip-rule="evenodd"/>
+    <line x1="50.0158" x2="50.0158" y1="8.6884" y2="18.9976" fill="none" fill-rule="evenodd" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" clip-rule="evenodd"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34.3355,38.092c0.5248-2.5644,2.7937-4.4936,5.5134-4.4936l0,0c1.5539,0,2.9609,0.63,3.9793,1.6484 c1.5843,1.5842,1.438,4.2167-0.0484,5.8928l-9.5586,10.7799h4.7601"/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="23.2764,37.3982 28.3485,33.5984 28.3485,51.9195"/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="11.997,28.0918 11.997,60.0918 43.6564,60.0864 59.997,48.0382 59.997,28.0918"/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="59.7462,48.0382 43.1384,48.0382 43.1384,53.5175"/>
+  </g>
+</svg>

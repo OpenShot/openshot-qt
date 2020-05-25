@@ -27,9 +27,13 @@
 
 import os
 
-from PyQt5.QtCore import QMimeData, Qt, QSize
-from PyQt5.QtGui import *
+from PyQt5.QtCore import (
+    QObject, QMimeData, Qt, QSize, pyqtSignal,
+    QSortFilterProxyModel, QPersistentModelIndex, QItemSelectionModel,
+)
+from PyQt5.QtGui import QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMessageBox
+
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info
@@ -38,27 +42,27 @@ from classes.app import get_app
 
 import json
 
-class EffectsStandardItemModel(QStandardItemModel):
+
+class EffectsProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
-        QStandardItemModel.__init__(self)
+        super().__init__(parent=parent)
 
     def mimeData(self, indexes):
         # Create MimeData for drag operation
         data = QMimeData()
 
-        # Get list of all selected file ids
-        files = []
-        for item in indexes:
-            selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 4).text())
-        data.setText(json.dumps(files))
+        # Get list of class names for requested effect indexes
+        items = [i.sibling(i.row(), 4).data() for i in indexes]
+        data.setText(json.dumps(items))
         data.setHtml("effect")
 
         # Return Mimedata
         return data
 
 
-class EffectsModel():
+class EffectsModel(QObject):
+    ModelRefreshed = pyqtSignal()
+
     def update_model(self, clear=True):
         log.info("updating effects model.")
         app = get_app()
@@ -104,7 +108,8 @@ class EffectsModel():
 
             # Filter out effect (if needed)
             if win.effectsFilter.text() != "":
-                if not win.effectsFilter.text().lower() in self.app._tr(title).lower() and not win.effectsFilter.text().lower() in self.app._tr(description).lower():
+                if (not win.effectsFilter.text().lower() in self.app._tr(title).lower()
+                   and not win.effectsFilter.text().lower() in self.app._tr(description).lower()):
                     continue
 
             # Check for thumbnail path (in build-in cache)
@@ -128,11 +133,14 @@ class EffectsModel():
                     reader.Open()
 
                     # Save thumbnail
-                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
-                                                 "", "#000", True, "png", 85)
+                    reader.GetFrame(0).Thumbnail(
+                        thumb_path, 98, 64,
+                        os.path.join(info.IMAGES_PATH, "mask.png"),
+                        "", "#000", True, "png", 85
+                    )
                     reader.Close()
 
-                except:
+                except Exception:
                     # Handle exception
                     log.info('Invalid effect image file: %s' % icon_path)
                     msg = QMessageBox()
@@ -181,14 +189,46 @@ class EffectsModel():
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
-            if not effect_name in self.model_names:
+            if effect_name not in self.model_names:
                 self.model.appendRow(row)
-                self.model_names[effect_name] = effect_name
+                self.model_names[effect_name] = QPersistentModelIndex(row[1].index())
+
+        # Emit signal when model is updated
+        self.ModelRefreshed.emit()
 
     def __init__(self, *args):
+        # Init QObject superclass
+        super().__init__(*args)
 
         # Create standard model
         self.app = get_app()
-        self.model = EffectsStandardItemModel()
+        self.model = QStandardItemModel()
         self.model.setColumnCount(5)
         self.model_names = {}
+
+        # Create proxy model (for sorting and filtering)
+        self.proxy_model = EffectsProxyModel()
+        self.proxy_model.setDynamicSortFilter(False)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setSortLocaleAware(True)
+
+        # Create selection model to share between views
+        self.selection_model = QItemSelectionModel(self.proxy_model)
+
+        # Attempt to load model testing interface, if requested
+        # (will only succeed with Qt 5.11+)
+        if info.MODEL_TEST:
+            try:
+                # Create model tester objects
+                from PyQt5.QtTest import QAbstractItemModelTester
+                self.model_tests = []
+                for m in [self.proxy_model, self.model]:
+                    self.model_tests.append(
+                        QAbstractItemModelTester(
+                            m, QAbstractItemModelTester.FailureReportingMode.Warning)
+                    )
+                log.info("Enabled {} model tests for effects data".format(len(self.model_tests)))
+            except ImportError:
+                pass

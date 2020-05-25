@@ -35,9 +35,9 @@ import json
 
 # Try to get the security-patched XML functions from defusedxml
 try:
-  from defusedxml import minidom as xml
+    from defusedxml import minidom as xml
 except ImportError:
-  from xml.dom import minidom as xml
+    from xml.dom import minidom as xml
 
 from PyQt5.QtCore import (
     Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
@@ -180,11 +180,9 @@ class BlenderListView(QListView):
             elif param["type"] == "color":
                 # add value to dictionary
                 color = QColor(param["default"])
+                self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
                 if "diffuse_color" in param.get("name"):
-                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF(), color.alphaF()]
-                else:
-                    self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
-
+                    self.params[param["name"]].append(color.alphaF())
                 widget = QPushButton()
                 widget.setText("")
                 widget.setStyleSheet("background-color: {}".format(param["default"]))
@@ -229,16 +227,16 @@ class BlenderListView(QListView):
         # Show color dialog
         color_value = self.params[param["name"]]
         currentColor = QColor("#FFFFFF")
-        if len(color_value) == 3:
+        if len(color_value) >= 3:
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
                                          QColorDialog.DontUseNativeDialog)
         if newColor.isValid():
             widget.setStyleSheet("background-color: {}".format(newColor.name()))
+            self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
             if "diffuse_color" in param.get("name"):
-                self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF(), newColor.alphaF()]
-            else:
-                self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
+                self.params[param["name"]].append(newColor.alphaF())
+
             log.info('Animation param %s set to %s' % (param["name"], newColor.name()))
 
     def generateUniqueFolder(self):
@@ -311,15 +309,23 @@ class BlenderListView(QListView):
 
     @pyqtSlot()
     def render_finished(self):
+        # Compose image sequence data
+        seq_params = {
+            "folder_path": os.path.join(info.BLENDER_PATH, self.unique_folder_name),
+            "base_name": self.params["file_name"],
+            "fixlen": True,
+            "digits": 4,
+            "extension": "png"
+        }
 
-        # Add file to project
-        final_path = os.path.join(info.BLENDER_PATH, self.unique_folder_name, self.params["file_name"] + "%04d.png")
-        log.info('RENDER FINISHED! Adding to project files: %s' % final_path)
+        filename = "{}%04d.png".format(seq_params["base_name"])
+        final_path = os.path.join(seq_params["folder_path"], filename)
+        log.info('RENDER FINISHED! Adding to project files: {}'.format(filename))
 
         # Add to project files
-        self.win.add_file(final_path)
+        get_app().window.files_model.add_files(final_path, seq_params)
 
-        # Enable the Render button again
+        # We're done here
         self.win.close()
 
     @pyqtSlot(int)
@@ -423,8 +429,12 @@ class BlenderListView(QListView):
         project = self.app.project
         project_params = {}
 
-        # Append on some project settings
-        project_params["fps"] = project.get("fps")
+        # Append some project settings
+        fps = project.get("fps")
+        project_params["fps"] = fps["num"]
+        if fps["den"] != 1:
+            project_params["fps_base"] = fps["den"]
+
         project_params["resolution_x"] = project.get("width")
         project_params["resolution_y"] = project.get("height")
 
@@ -451,17 +461,23 @@ class BlenderListView(QListView):
 
         version_message = ""
         if version:
-            version_message = _("\n\nVersion Detected:\n{}").format(version)
-            log.error("Blender version detected: {}".format(version))
+            version_message = _("Version Detected: {}").format(version)
+            log.info("Blender version detected: {}".format(version))
 
         if command_output:
-            version_message = _("\n\nError Output:\n{}").format(command_output)
+            version_message = _("Error Output:\n{}").format(command_output)
             log.error("Blender error output:\n{}".format(command_output))
 
         msg = QMessageBox()
-        msg.setText(_(
-            "Blender, the free open source 3D content creation suite is required for this action (http://www.blender.org).\n\nPlease check the preferences in OpenShot and be sure the Blender executable is correct.  This setting should be the path of the 'blender' executable on your computer.  Also, please be sure that it is pointing to Blender version {} or greater.\n\nBlender Path:\n{}{}").format(
-            info.BLENDER_MIN_VERSION, s.get("blender_command"), version_message))
+        msg.setText(_("""
+Blender, the free open source 3D content creation suite, is required for this action. (http://www.blender.org)
+Please check the preferences in OpenShot and be sure the Blender executable is correct.
+This setting should be the path of the 'blender' executable on your computer.
+Also, please be sure that it is pointing to Blender version {} or greater.
+Blender Path: {}
+{}""").format(info.BLENDER_MIN_VERSION,
+              s.get("blender_command"),
+              version_message))
         msg.exec_()
 
         # Enable the Render button again
@@ -762,7 +778,7 @@ class Worker(QObject):
             self.blender_error_nodata.emit()
             raise
         except Exception as ex:
-            log.error("{}".format(ex))
+            log.error("Worker exception: {}".format(ex))
             return
 
         while self.is_running and self.process.poll() is None:

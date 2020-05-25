@@ -1,0 +1,22 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <g id="_1F50F">
+      <polyline fill="#fcea2b" points="37.48 34.315 37.48 52.009 10.561 52.009 10.561 34.315 11.907 34.315 36.134 34.315 37.48 34.315"/>
+      <polygon fill="#f1b31c" points="37.48 34.365 23.879 51.878 37.551 51.878 37.48 34.365"/>
+      <path fill="none" stroke="#9b9b9a" stroke-linejoin="round" stroke-width="3.6251" d="M14.9071,33.8116c0-6.6518,2.1867-13.6858,8.9363-13.6858,6.8717,0,9.0737,5.5584,9.3486,13.6858"/>
+      <polyline fill="#d0cfce" stroke="#d0cfce" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.563" points="42.923 41.776 40.042 46.616 34.701 47.873 34.12 42.889 38.097 38.739"/>
+      <path fill="#9b9b9a" d="M61.4392,17.0306,59.2519,15.68l-2.16-1.386s-7.1483,5.7268-11.3965,11.7417a109.0153,109.0153,0,0,0-7.9309,12.4935l2.8285,1.78,2.6586,1.6735a138.8534,138.8534,0,0,0,10.09-11.1344A63.4177,63.4177,0,0,0,61.4392,17.0306Z"/>
+      <path fill="#3f3f3f" d="M43.3,29.7721a60.7017,60.7017,0,0,0-5.6274,8.6992l2.8285,1.78,2.6586,1.6735A63.8691,63.8691,0,0,0,50.336,34.201Z"/>
+    </g>
+  </g>
+  <g id="line">
+    <g id="_1F50F-2">
+      <path fill="none" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M13.6972,34.3068c0-7.5322,2.9241-15.2583,10.1189-15.2583,6.899,0,10.2745,6.0553,10.5858,15.2583"/>
+      <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="37.48 50.39 37.48 51.944 10.561 51.944 10.561 34.3 11.907 34.3 36.134 34.3 37.48 34.3"/>
+      <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="41.799 44.313 40.113 46.606 34.701 47.873 34.106 42.825 35.863 40.522"/>
+      <line x1="37.0884" x2="35.4023" y1="44.7021" y2="46.995" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M61.4392,17.0306,59.2519,15.68l-2.16-1.386s-7.1483,5.7268-11.3965,11.7417a109.0153,109.0153,0,0,0-7.9309,12.4935l2.8285,1.78,2.6586,1.6735a138.8534,138.8534,0,0,0,10.09-11.1344A63.4177,63.4177,0,0,0,61.4392,17.0306Z"/>
+      <line x1="43.2083" x2="50.6132" y1="29.6433" y2="34.3014" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
