@@ -2294,12 +2294,21 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.recent_menu.clear()
 
         # Add recent projects to menu
-        for file_path in reversed(recent_projects):
-            new_action = self.recent_menu.addAction(file_path)
-            new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
+        if recent_projects:
+            for file_path in reversed(recent_projects):
+                # Add each recent project
+                new_action = self.recent_menu.addAction(file_path)
+                new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
 
-    # Remove a project from the Recent menu if OpenShot can't find it
+            # Add 'Clear Recent Projects' menu to bottom of list
+            self.recent_menu.addSeparator()
+            self.recent_menu.addAction(self.actionClearRecents)
+            self.actionClearRecents.triggered.connect(self.clear_recents_clicked)
+        else:
+            self.recent_menu.addAction(_("No Recent Projects"))
+
     def remove_recent_project(self, file_path):
+        """Remove a project from the Recent menu if OpenShot can't find it"""
         s = settings.get_settings()
         recent_projects = s.get("recent_projects")
         if file_path in recent_projects:
@@ -2309,9 +2318,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def recent_project_clicked(self, file_path):
         """ Load a recent project when clicked """
-
-        # Load project file
         self.OpenProjectSignal.emit(file_path)
+
+    def clear_recents_clicked(self):
+        """Clear all recent projects"""
+        s = settings.get_settings()
+        s.set("recent_projects", [])
+
+        # Reload recent project list
+        self.load_recent_menu()
 
     def setup_toolbars(self):
         _ = get_app()._tr  # Get translation function
