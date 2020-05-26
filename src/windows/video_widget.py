@@ -81,7 +81,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
         # Fill the whole widget with the solid color
-        painter.fillRect(event.rect(), QColor("#191919"))
+        painter.fillRect(event.rect(), self.palette().window())
 
         # Find centered viewport
         viewport_rect = self.centeredViewport(self.width(), self.height())
