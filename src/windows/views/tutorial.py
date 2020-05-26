@@ -142,8 +142,6 @@ class TutorialDialog(QWidget):
         # Make transparent
         self.setAttribute(Qt.WA_NoSystemBackground, True)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        # self.setWindowFlags(Qt.FramelessWindowHint)
-
         self.setAttribute(Qt.WA_DeleteOnClose, True)
 
 
@@ -289,9 +287,25 @@ class TutorialManager(object):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:
             """ Move widget next to its position widget """
-            x = self.position_widget.mapToGlobal(self.position_widget.pos()).x()
-            y = self.position_widget.mapToGlobal(self.position_widget.pos()).y()
-            self.dock.move(QPoint(x + self.x_offset, y + self.y_offset))
+            x = self.position_widget.mapToGlobal(self.position_widget.pos()).x() + self.x_offset
+            y = self.position_widget.mapToGlobal(self.position_widget.pos()).y() + self.y_offset
+
+            # Position in Screen coordinates
+            bottom_dialog_pos = self.current_dialog.mapToGlobal(QPoint(self.current_dialog.geometry().right(),
+                                                                       self.current_dialog.geometry().bottom()))
+            right_edge = bottom_dialog_pos.x()
+            bottom_edge = bottom_dialog_pos.y()
+
+            # If we are exceeding the screen dimensions, adjust back to the visible screen
+            # This might result in sub-optimal positioning, but at least the tutorial
+            # buttons won't be hidden off-screen.
+            if right_edge > self.screen_width:
+                x = self.screen_width - self.current_dialog.geometry().width()
+            if bottom_edge > self.screen_height:
+                y = self.screen_height - self.current_dialog.geometry().height()
+
+            # Move tutorial widget to the correct position
+            self.dock.move(QPoint(x, y))
 
     def __init__(self, win):
         """ Constructor """
@@ -307,6 +321,11 @@ class TutorialManager(object):
         s = get_settings()
         self.tutorial_enabled = s.get("tutorial_enabled")
         self.tutorial_ids = s.get("tutorial_ids").split(",")
+
+        # get screen geometry
+        screen = QGuiApplication.primaryScreen()
+        self.screen_height = screen.geometry().height()
+        self.screen_width = screen.geometry().width()
 
         # Add all possible tutorials
         self.tutorial_objects = [
@@ -373,7 +392,6 @@ class TutorialManager(object):
         self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
         self.dock.setWindowFlags(Qt.FramelessWindowHint)
         self.dock.setFloating(True)
-
 
         # Connect to interface dock widgets
         self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
