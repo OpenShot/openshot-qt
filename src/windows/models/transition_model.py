@@ -65,10 +65,10 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
 
     def lessThan(self, left, right):
         """Sort with both group name and transition name"""
-        leftData = self.sourceModel().data(left)
-        leftGroup = self.sourceModel().data(left, 257)  # Strange way to access 'type' column in model
-        rightData = self.sourceModel().data(right)
-        rightGroup = self.sourceModel().data(right, 257)
+        leftData = left.data(self.sortRole())  # Transition name (or other role data)
+        rightData = right.data(self.sortRole())
+        leftGroup = left.sibling(left.row(), 2).data()  # group column
+        rightGroup = right.sibling(right.row(), 2).data()
 
         return leftGroup < rightGroup and leftData < rightData
 
