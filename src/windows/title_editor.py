@@ -151,8 +151,8 @@ class TitleEditor(QDialog):
 
     def display_svg(self):
         # Create a temp file for this thumbnail image
-        new_file, tmp_filename = tempfile.mkstemp()
-        tmp_filename = "%s.png" % tmp_filename
+        new_file, tmp_filename = tempfile.mkstemp(suffix=".png")
+        os.close(new_file)
 
         # Create a clip object and get the reader
         clip = openshot.Clip(self.filename)
@@ -161,7 +161,7 @@ class TitleEditor(QDialog):
         # Open reader
         reader.Open()
 
-        # Save thumbnail image and close readers
+        # Overwrite temp file with thumbnail image and close readers
         reader.GetFrame(1).Thumbnail(
             tmp_filename,
             self.graphicsView.width(),
@@ -170,14 +170,22 @@ class TitleEditor(QDialog):
         reader.Close()
         clip.Close()
 
+        # Attempt to load saved thumbnail
+        svg = QtGui.QPixmap()
+        if not svg.load(tmp_filename):
+            log.error("Couldn't load title preview from {}".format(tmp_filename))
+            return
+
         # Display temp image
         scene = QGraphicsScene(self)
         view = self.graphicsView
-        svg = QtGui.QPixmap(tmp_filename)
         svg_scaled = svg.scaled(self.graphicsView.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         scene.addPixmap(svg_scaled)
         view.setScene(scene)
         view.show()
+
+        # Remove temporary file
+        os.unlink(tmp_filename)
 
     def create_temp_title(self, template_path):
 
