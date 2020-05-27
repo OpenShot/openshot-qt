@@ -77,7 +77,30 @@ class TutorialDialog(QWidget):
             # Disable metric sending
             s.set("send_metrics", False)
 
-    def __init__(self, id, text, arrow, *args):
+    def keyPressEvent(self, event):
+        """ Process key press events and match with known shortcuts"""
+        # Detect the current KeySequence pressed (including modifier keys)
+        key_value = event.key()
+        modifiers = int(event.modifiers())
+
+        # Abort handling if the key sequence is invalid
+        if (key_value <= 0 or key_value in
+           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
+            return
+
+        # A valid keysequence was detected
+        key = QKeySequence(modifiers + key_value)
+        if key == Qt.Key_Escape:
+            # User hit Escape key, hide tutorial permanently
+            self.manager.hide_tips(self.id, True)
+
+    def mouseReleaseEvent(self, event):
+        """Process click events on tutorial. Especially useful when tutorial messages are partially
+        obscured or offscreen (i.e. on small screens). Just click any part of the tutorial, and it will
+        move on to the next one."""
+        self.manager.next_tip(self.id)
+
+    def __init__(self, id, text, arrow, manager, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -88,6 +111,7 @@ class TutorialDialog(QWidget):
         # Keep track of widget to position next to
         self.id = id
         self.arrow = arrow
+        self.manager = manager
 
         # Create vertical box
         vbox = QVBoxLayout()
@@ -99,6 +123,7 @@ class TutorialDialog(QWidget):
         self.label.setTextFormat(Qt.RichText)
         self.label.setWordWrap(True)
         self.label.setStyleSheet("margin-left: 20px;")
+        self.label.setAttribute(Qt.WA_TransparentForMouseEvents)
         vbox.addWidget(self.label)
 
         # Add error and anonymous metrics checkbox (for ID=0) tooltip
@@ -138,6 +163,7 @@ class TutorialDialog(QWidget):
         self.setCursor(Qt.ArrowCursor)
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
+        self.setFocusPolicy(Qt.ClickFocus)
 
         # Make transparent
         self.setAttribute(Qt.WA_NoSystemBackground, True)
@@ -174,7 +200,7 @@ class TutorialManager(object):
             self.position_widget = tutorial_object
             self.x_offset = tutorial_details["x"]
             self.y_offset = tutorial_details["y"]
-            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"])
+            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"], self)
 
             # Connect signals
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
@@ -206,13 +232,20 @@ class TutorialManager(object):
         elif object_id == "timeline":
             return self.win.timeline
         elif object_id == "dockVideoContents":
-            return self.win.dockVideoContents
+            return self.win.dockVideo
         elif object_id == "propertyTableView":
             return self.win.propertyTableView
         elif object_id == "transitionsView":
             return self.win.transitionsView
         elif object_id == "effectsView":
             return self.win.effectsView
+        elif object_id == "emojisView":
+            return self.win.emojiListView
+        elif object_id == "actionPlay":
+            play_button = None
+            for toolbutton in self.win.videoToolbar.children():
+                if type(toolbutton) == QToolButton and toolbutton.defaultAction() and toolbutton.defaultAction().objectName() == "actionPlay":
+                    return toolbutton
         elif object_id == "export_button":
             # Find export toolbar button on main window
             export_button = None
@@ -286,23 +319,20 @@ class TutorialManager(object):
     def re_position_dialog(self):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:
-            """ Move widget next to its position widget """
-            x = self.position_widget.mapToGlobal(self.position_widget.pos()).x() + self.x_offset
-            y = self.position_widget.mapToGlobal(self.position_widget.pos()).y() + self.y_offset
+            """ Move widget next to its position widget. Padd with 1/4 width of widget, so the tutorial dialog
+            floats a bit, and add custom offets for certain widgets, such as the Export button.
+            """
+            x = self.position_widget.mapToGlobal(self.position_widget.rect().topLeft()).x() + \
+                (self.position_widget.width() / 4) + self.x_offset
+            y = self.position_widget.mapToGlobal(self.position_widget.rect().topLeft()).y() + \
+                (self.position_widget.height() / 4) + self.y_offset
 
-            # Position in Screen coordinates
-            bottom_dialog_pos = self.current_dialog.mapToGlobal(QPoint(self.current_dialog.geometry().right(),
-                                                                       self.current_dialog.geometry().bottom()))
-            right_edge = bottom_dialog_pos.x()
-            bottom_edge = bottom_dialog_pos.y()
-
-            # If we are exceeding the screen dimensions, adjust back to the visible screen
-            # This might result in sub-optimal positioning, but at least the tutorial
-            # buttons won't be hidden off-screen.
-            if right_edge > self.screen_width:
-                x = self.screen_width - self.current_dialog.geometry().width()
-            if bottom_edge > self.screen_height:
-                y = self.screen_height - self.current_dialog.geometry().height()
+            # Hide / Show tutorial dialog based on if the position widget has valid coordinates
+            # When a dock is invisible, the widgets inside are located in negative coordinate space.
+            if x < 0 or y < 0:
+                self.hide_dialog()
+            else:
+                self.re_show_dialog()
 
             # Move tutorial widget to the correct position
             self.dock.move(QPoint(x, y))
@@ -322,64 +352,66 @@ class TutorialManager(object):
         self.tutorial_enabled = s.get("tutorial_enabled")
         self.tutorial_ids = s.get("tutorial_ids").split(",")
 
-        # get screen geometry
-        screen = QGuiApplication.primaryScreen()
-        self.screen_height = screen.geometry().height()
-        self.screen_width = screen.geometry().width()
-
         # Add all possible tutorials
         self.tutorial_objects = [
             {"id": "0",
-             "x": 400,
+             "x": 0,
              "y": 0,
-             "object_id": "filesView",
+             "object_id": "dockVideoContents",
              "text": _("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"),
              "arrow": False
              },
             {"id": "1",
-             "x": 20,
+             "x": 0,
              "y": 0,
              "object_id": "filesView",
              "text": _("<b>Project Files:</b> Get started with your project by adding video, audio, and image files here. Drag and drop files from your file system."),
              "arrow": True
              },
             {"id": "2",
-             "x": 200,
-             "y": -15,
+             "x": 0,
+             "y": 0,
              "object_id": "timeline",
              "text": _("<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to create automatic transitions. Access lots of fun presets and options by right-clicking on clips."),
              "arrow": True
              },
             {"id": "3",
-             "x": 200,
-             "y": 100,
-             "object_id": "dockVideoContents",
+             "x": 10,
+             "y": -27,
+             "object_id": "actionPlay",
              "text": _("<b>Video Preview:</b> Watch your timeline video preview here. Use the buttons (play, rewind, fast-forward) to control the video playback."),
              "arrow": True},
             {"id": "4",
-             "x": 20,
-             "y": -35,
+             "x": 0,
+             "y": 0,
              "object_id": "propertyTableView",
              "text": _("<b>Properties:</b> View and change advanced properties of clips and effects here. Right-clicking on clips is usually faster than manually changing properties."),
              "arrow": True
              },
             {"id": "5",
-             "x": 20,
-             "y": 10,
+             "x": 0,
+             "y": 0,
              "object_id": "transitionsView",
              "text": _("<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and drop a transition onto the timeline and position it on top of a clip (usually at the beginning or ending)."),
              "arrow": True
              },
             {"id": "6",
-             "x": 20,
-             "y": 20,
+             "x": 0,
+             "y": 0,
              "object_id": "effectsView",
              "text": _("<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting special effects. Drag and drop an effect onto the timeline and position it on top of a clip (or track)"),
              "arrow": True
              },
+            {"id": "8",
+             "x": 0,
+             "y": 0,
+             "object_id": "emojisView",
+             "text": _("<b>Emojis:</b> Add exciting and colorful emojis to your project! Drag and drop an emoji onto the timeline. The emoji will become a new Clip when dropped on the Timeline."),
+             "arrow": True
+             },
             {"id": "7",
-             "x": -265,
-             "y": -22,
+             "x": 10,
+             "y": -27,
              "object_id": "export_button",
              "text": _("<b>Export Video:</b> When you are ready to create your finished video, click this button to export your timeline as a single video file."),
              "arrow": True
@@ -399,6 +431,7 @@ class TutorialManager(object):
         self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))
         self.win.dockProperties.visibilityChanged.connect(functools.partial(self.process, "dockProperties"))
         self.win.dockVideo.visibilityChanged.connect(functools.partial(self.process, "dockVideo"))
+        self.win.dockEmojis.visibilityChanged.connect(functools.partial(self.process, "dockEmojis"))
 
         # Process tutorials (1 by 1)
         if self.tutorial_enabled:
