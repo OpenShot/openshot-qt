@@ -283,6 +283,9 @@ class TutorialManager(object):
             self.tutorial_enabled = False
             s.set("tutorial_enabled", False)
 
+        # Forgot current tutorial
+        self.current_dialog = None
+
     def close_dialogs(self):
         """ Close any open tutorial dialogs """
         if self.current_dialog:
