@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief Setup script to install OpenShot (on Linux and without any dependencies such as libopenshot)
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -71,6 +71,7 @@ os_files = [
     ('share/pixmaps', ['xdg/openshot-qt.svg']),
     # XDG Freedesktop icon paths
     ('share/icons/hicolor/scalable/apps', ['xdg/openshot-qt.svg']),
+    ('share/icons/hicolor/scalable/mimetypes', ['xdg/openshot-qt-doc.svg']),
     ('share/icons/hicolor/64x64/apps', ['xdg/icon/64/openshot-qt.png']),
     ('share/icons/hicolor/128x128/apps', ['xdg/icon/128/openshot-qt.png']),
     ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/openshot-qt.png']),
