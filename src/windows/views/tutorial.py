@@ -231,7 +231,7 @@ class TutorialManager(object):
             return self.win.filesView
         elif object_id == "timeline":
             return self.win.timeline
-        elif object_id == "dockVideoContents":
+        elif object_id == "dockVideo":
             return self.win.dockVideo
         elif object_id == "propertyTableView":
             return self.win.propertyTableView
@@ -243,9 +243,9 @@ class TutorialManager(object):
             return self.win.emojiListView
         elif object_id == "actionPlay":
             play_button = None
-            for toolbutton in self.win.videoToolbar.children():
-                if type(toolbutton) == QToolButton and toolbutton.defaultAction() and toolbutton.defaultAction().objectName() == "actionPlay":
-                    return toolbutton
+            for w in self.win.actionPlay.associatedWidgets():
+                if type(w) == QToolButton:
+                    return w
         elif object_id == "export_button":
             # Find export toolbar button on main window
             export_button = None
@@ -357,7 +357,7 @@ class TutorialManager(object):
             {"id": "0",
              "x": 0,
              "y": 0,
-             "object_id": "dockVideoContents",
+             "object_id": "dockVideo",
              "text": _("<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video editing application! This tutorial will walk you through the basics.<br><br>Would you like to automatically send errors and metrics to help improve OpenShot?"),
              "arrow": False
              },
