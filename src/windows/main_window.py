@@ -2294,18 +2294,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.recent_menu.clear()
 
         # Add recent projects to menu
-        if recent_projects:
-            for file_path in reversed(recent_projects):
-                # Add each recent project
-                new_action = self.recent_menu.addAction(file_path)
-                new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
-
-            # Add 'Clear Recent Projects' menu to bottom of list
-            self.recent_menu.addSeparator()
-            self.recent_menu.addAction(self.actionClearRecents)
-            self.actionClearRecents.triggered.connect(self.clear_recents_clicked)
-        else:
+        # Show just a placeholder menu, if we have no recent projects list
+        if not recent_projects:
             self.recent_menu.addAction(_("No Recent Projects"))
+            return
+
+        for file_path in reversed(recent_projects):
+            # Add each recent project
+            new_action = self.recent_menu.addAction(file_path)
+            new_action.triggered.connect(functools.partial(self.recent_project_clicked, file_path))
+
+        # Add 'Clear Recent Projects' menu to bottom of list
+        self.recent_menu.addSeparator()
+        self.recent_menu.addAction(self.actionClearRecents)
+        self.actionClearRecents.triggered.connect(self.clear_recents_clicked)
 
     def remove_recent_project(self, file_path):
         """Remove a project from the Recent menu if OpenShot can't find it"""
