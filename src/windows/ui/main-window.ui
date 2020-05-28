@@ -1657,8 +1657,8 @@
   </action>
   <action name="actionClearRecents">
    <property name="icon">
-    <iconset theme="edit-clear" resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
+    <iconset theme="edit-delete" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-delete.svg</normaloff>:/icons/Humanity/actions/16/edit-delete.svg</iconset>
    </property>
    <property name="text">
     <string>Clear Recent Projects</string>
