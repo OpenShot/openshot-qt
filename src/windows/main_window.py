@@ -2296,7 +2296,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Add recent projects to menu
         # Show just a placeholder menu, if we have no recent projects list
         if not recent_projects:
-            self.recent_menu.addAction(_("No Recent Projects"))
+            self.recent_menu.addAction(_("No Recent Projects")).setDisabled(True)
             return
 
         for file_path in reversed(recent_projects):
