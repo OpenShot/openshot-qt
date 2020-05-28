@@ -29,7 +29,7 @@ import functools
 
 from PyQt5.QtCore import Qt, QPoint, QRectF, QEvent
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QLabel, QWidget, QDockWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox
+from PyQt5.QtWidgets import QLabel, QWidget, QDockWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox, QAction
 
 from classes.logger import log
 from classes.settings import get_settings
@@ -76,23 +76,6 @@ class TutorialDialog(QWidget):
 
             # Disable metric sending
             s.set("send_metrics", False)
-
-    def keyPressEvent(self, event):
-        """ Process key press events and match with known shortcuts"""
-        # Detect the current KeySequence pressed (including modifier keys)
-        key_value = event.key()
-        modifiers = int(event.modifiers())
-
-        # Abort handling if the key sequence is invalid
-        if (key_value <= 0 or key_value in
-           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
-            return
-
-        # A valid keysequence was detected
-        key = QKeySequence(modifiers + key_value)
-        if key == Qt.Key_Escape:
-            # User hit Escape key, hide tutorial permanently
-            self.manager.hide_tips(self.id, True)
 
     def mouseReleaseEvent(self, event):
         """Process click events on tutorial. Especially useful when tutorial messages are partially
@@ -148,12 +131,20 @@ class TutorialDialog(QWidget):
         hbox = QHBoxLayout()
         hbox.setContentsMargins(20, 10, 0, 0)
 
+        # Close action
+        self.close_action = QAction(_("Hide Tutorial"))
+        self.close_action.setShortcut(QKeySequence(Qt.Key_Escape))
+        self.close_action.setShortcutContext(Qt.ApplicationShortcut)
+
         # Create buttons
         self.btn_close_tips = QPushButton(self)
         self.btn_close_tips.setText(_("Hide Tutorial"))
+        self.btn_close_tips.addAction(self.close_action)
+
         self.btn_next_tip = QPushButton(self)
         self.btn_next_tip.setText(_("Next"))
         self.btn_next_tip.setStyleSheet("font-weight:bold;")
+
         hbox.addWidget(self.btn_close_tips)
         hbox.addWidget(self.btn_next_tip)
         vbox.addLayout(hbox)
@@ -169,6 +160,10 @@ class TutorialDialog(QWidget):
         self.setAttribute(Qt.WA_NoSystemBackground, True)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WA_DeleteOnClose, True)
+
+        # Connect close action signal
+        self.close_action.triggered.connect(
+            functools.partial(self.manager.hide_tips, self.id, True))
 
 
 class TutorialManager(object):
