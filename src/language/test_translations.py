@@ -36,32 +36,40 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 # Get the absolute path of this project
 language_path = os.path.dirname(os.path.abspath(__file__))
 
+# Color for errors
+red='\033[31m'
+endc='\033[0m'
+
 # Get app instance
 app = QCoreApplication(sys.argv)
 
 # Load POT template (all English strings)
-POT_source = open(os.path.join(language_path, 'OpenShot', 'OpenShot.pot')).read()
-all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
+all_templates = ['OpenShot.pot', 'OpenShot_transitions.pot', 'OpenShot_blender.pot', 'OpenShot_transitions.pot']
+for template_name in all_templates:
+    POT_source = open(os.path.join(language_path, 'OpenShot', template_name)).read()
+    all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
 
-print("Testing {} strings in all translation files...\n".format(len(all_strings)))
+    print("Testing {} strings in {}...".format(len(all_strings), template_name))
 
-# Loop through folders/languages
-for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot_*.qm'):
-    lang_code = filename[:-3]
-    # Install language
-    translator = QTranslator(app)
-    app.installTranslator(translator)
+    # Loop through folders/languages
+    for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot.*.qm'):
+        lang_code = filename[:-3]
+        # Install language
+        translator = QTranslator(app)
+        app.installTranslator(translator)
 
-    # Load translation
-    success = translator.load(lang_code, language_path)
-    print('%s\t%s' % (success, lang_code))
+        # Load translation
+        success = translator.load(lang_code, language_path)
+        if not success:
+            print(red, '%s-%s' % (success, lang_code), endc)
 
-    # Loop through all test strings
-    for source_string in all_strings:
-        if "%s" in source_string or "%s(" in source_string or "%d" in source_string:
-            translated_string = app.translate("", source_string)
-            if source_string.count('%') != translated_string.count('%'):
-                print('  Invalid string replacement found: %s  (source: %s)' % (translated_string, source_string))
+        # Loop through all test strings
+        for source_string in all_strings:
+            if "%s" in source_string or "%s(" in source_string or "%d" in source_string:
+                translated_string = app.translate("", source_string)
+                if source_string.count('%') != translated_string.count('%'):
+                    print(red, '\tInvalid string replacement found: "%s" vs "%s" [%s]' %
+                          (translated_string, source_string, lang_code), endc)
 
-    # Remove translator
-    app.removeTranslator(translator)
+        # Remove translator
+        app.removeTranslator(translator)

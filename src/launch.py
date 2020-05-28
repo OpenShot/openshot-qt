@@ -59,18 +59,21 @@ def main():
 
     parser = argparse.ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
     parser.add_argument('-l', '--lang', action='store',
-                        help='language code for interface (overrides '
-                        'preferences and system environment)')
+        help='language code for interface (overrides '
+             'preferences and system environment)')
     parser.add_argument('--list-languages', dest='list_languages',
-                        action='store_true', help='List all language '
-                        'codes supported by OpenShot')
-    parser.add_argument('--path', dest='py_path',
-                        action='append',
-                        help='Additional locations to search for modules '
-                        '(PYTHONPATH). Can be used multiple times.')
+        action='store_true',
+        help='List all language codes supported by OpenShot')
+    parser.add_argument('--path', dest='py_path', action='append',
+        help='Additional locations to search for modules '
+              '(PYTHONPATH). Can be used multiple times.')
+    parser.add_argument('--test-models', dest='modeltest',
+       action='store_true',
+       help="Load Qt's QAbstractItemModelTester into data models "
+       '(requires Qt 5.11+)')
     parser.add_argument('-V', '--version', action='store_true')
     parser.add_argument('remain', nargs=argparse.REMAINDER,
-                        help=argparse.SUPPRESS)
+       help=argparse.SUPPRESS)
 
     args = parser.parse_args()
 
@@ -97,6 +100,12 @@ def main():
             except TypeError as ex:
                     print("Bad path {}: {}".format(p, ex))
                     continue
+
+    if args.modeltest:
+        info.MODEL_TEST = True
+        # Set default logging rules, if the user didn't
+        if os.getenv('QT_LOGGING_RULES') is None:
+            os.putenv('QT_LOGGING_RULES', 'qt.modeltest.debug=true')
 
     if args.lang:
         if args.lang in info.SUPPORTED_LANGUAGES:

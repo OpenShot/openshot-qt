@@ -1,0 +1,22 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#B1CC33" stroke="none" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M55.2257,56.7807 c-10.9878,10.9766-28.7798,10.9766-39.7676,0c-10.9765-10.9878-10.9765-28.7797,0-39.7675l2.6542,2.6542 c-9.5258,9.5145-9.5258,24.9447,0,34.4592c9.5145,9.5258,24.9447,9.5258,34.4592,0L55.2257,56.7807z"/>
+    <path fill="#EA5A47" stroke="#EA5A47" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M52.5715,54.1265c-9.5145,9.5258-24.9447,9.5258-34.4592,0c-9.5258-9.5145-9.5258-24.9447,0-34.4592L52.5715,54.1265"/>
+    <path fill="#EA5A47" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M49.5241,56.7181c-9.5196,6.8373-22.857,5.9734-31.4119-2.5916c-8.6198-8.6097-9.4396-22.0632-2.4594-31.5942"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M55.2257,56.7807 c-10.9878,10.9766-28.7798,10.9766-39.7676,0c-10.9765-10.9878-10.9765-28.7797,0-39.7675l2.6542,2.6542 c-9.5258,9.5145-9.5258,24.9447,0,34.4592c9.5145,9.5258,24.9447,9.5258,34.4592,0L55.2257,56.7807z"/>
+    <line x1="17.5157" x2="53.7223" y1="19.0707" y2="55.2773" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M49.5241,56.7181c-9.5196,6.8373-22.857,5.9734-31.4119-2.5916c-8.6198-8.6097-9.4396-22.0632-2.4594-31.5942"/>
+    <ellipse cx="31.8301" cy="46.9072" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -23.8456 36.2461)" fill="#000000" stroke="none"/>
+    <ellipse cx="44.5541" cy="53.2691" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -24.6174 47.1066)" fill="#000000" stroke="none"/>
+    <ellipse cx="31.8301" cy="54.8596" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -29.4688 38.5753)" fill="#000000" stroke="none"/>
+    <ellipse cx="25.8167" cy="40.8938" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -21.3547 30.2327)" fill="#000000" stroke="none"/>
+    <ellipse cx="19.4548" cy="28.1698" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -14.2209 22.0073)" fill="#000000" stroke="none"/>
+    <ellipse cx="17.8643" cy="40.8938" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -23.684 24.6094)" fill="#000000" stroke="none"/>
+    <ellipse cx="22.2812" cy="50.0862" rx="1.687" ry="0.8435" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -28.8903 30.4251)" fill="#000000" stroke="none"/>
+  </g>
+</svg>

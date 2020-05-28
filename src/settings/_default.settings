@@ -39,6 +39,13 @@
     "setting": "unique_install_id"
   },
   {
+    "value": "smileys-emotion",
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "emoji_group_filter"
+  },
+  {
     "max": 10000,
     "title": "Image Length (seconds)",
     "category": "General",
@@ -687,6 +694,10 @@
     "value": "-",
     "type": "text"
   },
+
+
+
+
   {
     "category": "Keyboard",
     "title": "Previous Frame",
@@ -926,6 +937,13 @@
     "setting": "nudgeRight",
     "value": "Shift+Right",
     "type": "text"
+  },
+  {
+    "value": false,
+    "title": "Auto-Transform Selection",
+    "type": "bool",
+    "category": "General",
+    "setting": "auto-transform"
   },
   {
     "category": "Keyboard",

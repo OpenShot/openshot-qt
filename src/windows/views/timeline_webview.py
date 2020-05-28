@@ -199,10 +199,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             # Load entire project data
             code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
-        else:
+            self.eval_js(code)
+        elif action.key[0] != "files":
             # Apply diff to part of project data
             code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
-        self.eval_js(code)
+            self.eval_js(code)
 
         # Reset the scale when loading new JSON
         if action.type == "load":
@@ -2992,7 +2993,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('{}'. '{}');".format(self.item_type, self.item_id))
+            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('{}', '{}');".format(self.item_type, self.item_id))
 
         elif self.item_type == "effect":
             # Add effect only on drop
@@ -3001,7 +3002,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         elif self.item_type == "os_drop":
             # Add new files to project
-            get_app().window.filesTreeView.dropEvent(event)
+            get_app().window.filesView.dropEvent(event)
 
             # Add clips for each file dropped
             for uri in event.mimeData().urls():

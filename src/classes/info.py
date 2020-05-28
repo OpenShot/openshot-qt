@@ -56,6 +56,7 @@ CACHE_PATH = os.path.join(USER_PATH, "cache")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
+EMOJIS_PATH = os.path.join(USER_PATH, "emojis")
 PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
@@ -69,8 +70,7 @@ USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 for folder in [
     USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
     BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
-    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH,
-]:
+    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH ]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
@@ -84,6 +84,9 @@ DESKTOP_ID = "org.openshot.OpenShot.desktop"
 
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "2.80"
+
+# Data-model debugging enabler
+MODEL_TEST = False
 
 # Languages
 CMDLINE_LANGUAGE = None

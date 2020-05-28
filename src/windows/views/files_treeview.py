@@ -27,35 +27,20 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import glob
 import os
-import re
 
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
+from PyQt5.QtGui import QDrag, QCursor
+from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
 
 from classes.app import get_app
-from classes.image_types import is_image
 from classes.logger import log
 from classes.query import File
-from windows.models.files_model import FilesModel
-
-import json
 
 
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
     drag_item_size = 48
-
-    def updateSelection(self):
-        # Track selected items
-        m = self.files_model.model
-        selected_items = [m.itemFromIndex(x) for x in self.selectionModel().selectedIndexes()]
-
-        # Track selected file ids on main window
-        self.win.selected_files = [x.text() for x in selected_items if x.column() == 5]
 
     def contextMenuEvent(self, event):
 
@@ -73,17 +58,13 @@ class FilesTreeView(QTreeView):
 
         if index.isValid():
             # Look up the model item and our unique ID
-            item = self.files_model.model.itemFromIndex(index)
-            file_id = self.files_model.model.item(item.row(), 5).text()
+            model = index.model()
 
-            try:
-                # Check whether we know the item is selected
-                i = self.win.selected_files.index(file_id)
-            except ValueError:
-                # Add to our list, if it's not already there
-                self.win.selected_files.append(file_id)
+            # Look up file_id from 5th column of row
+            id_index = index.sibling(index.row(), 5)
+            file_id = model.data(id_index, Qt.DisplayRole)
 
-            # If a valid file is selected, show file related options
+            # If a valid file selected, show file related options
             menu.addSeparator()
 
             # Add edit title option (if svg file)
@@ -113,13 +94,25 @@ class FilesTreeView(QTreeView):
     def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
-        # Get image of selected item
-        selected_row = self.files_model.model.itemFromIndex(self.selectionModel().selectedIndexes()[0]).row()
-        icon = self.files_model.model.item(selected_row, 0).icon()
+        # Get first column indexes for all selected rows
+        selected = self.selectionModel().selectedRows(0)
+
+        # Get image of current item
+        current = self.selectionModel().currentIndex()
+        if not current.isValid() and selected:
+            current = selected[0]
+
+        if not current.isValid():
+            # We can't find anything to drag
+            log.warning("No draggable items found in model!")
+            return False
+
+        # Get icon from column 0 on same row as current item
+        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.files_model.model.mimeData(self.selectionModel().selectedIndexes()))
+        drag.setMimeData(self.model().mimeData(selected))
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
         drag.exec_()
@@ -128,163 +121,15 @@ class FilesTreeView(QTreeView):
     def dragMoveEvent(self, event):
         pass
 
-    def add_file(self, filepath):
-        filename = os.path.basename(filepath)
-
-        # Add file into project
-        app = get_app()
-        _ = get_app()._tr
-
-        # Check for this path in our existing project data
-        file = File.get(path=filepath)
-
-        # If this file is already found, exit
-        if file:
-            return
-
-        # Load filepath in libopenshot clip object (which will try multiple readers to open it)
-        clip = openshot.Clip(filepath)
-
-        # Get the JSON for the clip's internal reader
-        try:
-            reader = clip.Reader()
-            file_data = json.loads(reader.Json())
-
-            # Determine media type
-            if file_data["has_video"] and not is_image(file_data):
-                file_data["media_type"] = "video"
-            elif file_data["has_video"] and is_image(file_data):
-                file_data["media_type"] = "image"
-            elif file_data["has_audio"] and not file_data["has_video"]:
-                file_data["media_type"] = "audio"
-            else:
-                # If neither set, just assume video
-                file_data["media_type"] = "video"
-
-            # Save new file to the project data
-            file = File()
-            file.data = file_data
-
-            # Is this file an image sequence / animation?
-            image_seq_details = self.get_image_sequence_details(filepath)
-            if image_seq_details:
-                # Update file with correct path
-                folder_path = image_seq_details["folder_path"]
-                file_name = image_seq_details["file_path"]
-                base_name = image_seq_details["base_name"]
-                fixlen = image_seq_details["fixlen"]
-                digits = image_seq_details["digits"]
-                extension = image_seq_details["extension"]
-
-                if not fixlen:
-                    zero_pattern = "%d"
-                else:
-                    zero_pattern = "%%0%sd" % digits
-
-                # Generate the regex pattern for this image sequence
-                pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
-
-                # Split folder name
-                folderName = os.path.basename(folder_path)
-                if not base_name:
-                    # Give alternate name
-                    file.data["name"] = "%s (%s)" % (folderName, pattern)
-
-                # Load image sequence (to determine duration and video_length)
-                image_seq = openshot.Clip(os.path.join(folder_path, pattern))
-
-                # Update file details
-                file.data["path"] = os.path.join(folder_path, pattern)
-                file.data["media_type"] = "video"
-                file.data["duration"] = image_seq.Reader().info.duration
-                file.data["video_length"] = image_seq.Reader().info.video_length
-
-            # Save file
-            file.save()
-            # Reset list of ignored paths
-            self.ignore_image_sequence_paths = []
-
-            return True
-
-        except Exception as ex:
-            # Log exception
-            log.warning("Failed to import file: {}".format(str(ex)))
-            # Show message to user
-            msg = QMessageBox()
-            msg.setText(_("{} is not a valid video, audio, or image file.".format(filename)))
-            msg.exec_()
-            return False
-
-    def get_image_sequence_details(self, file_path):
-        """Inspect a file path and determine if this is an image sequence"""
-
-        # Get just the file name
-        (dirName, fileName) = os.path.split(file_path)
-        extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
-        match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
-
-        if not match:
-            # File name does not match an image sequence
-            return None
-        else:
-            # Get the parts of image name
-            base_name = match[0][0]
-            fixlen = match[0][1] > ""
-            number = int(match[0][2])
-            digits = len(match[0][1] + match[0][2])
-            extension = match[0][3]
-
-            full_base_name = os.path.join(dirName, base_name)
-
-            # Check for images which the file names have the different length
-            fixlen = fixlen or not (
-                glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * (digits + 1), extension))
-                or glob.glob("%s%s.%s" % (full_base_name, "[0-9]" * ((digits - 1) if digits > 1 else 3), extension))
-            )
-
-            # Check for previous or next image
-            for x in range(max(0, number - 100), min(number + 101, 50000)):
-                if x != number and os.path.exists(
-                   "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
-                    is_sequence = True
-                    break
-            else:
-                is_sequence = False
-
-            if is_sequence and dirName not in self.ignore_image_sequence_paths:
-                log.info('Prompt user to import image sequence from {}'.format(dirName))
-                # Ignore this path (temporarily)
-                self.ignore_image_sequence_paths.append(dirName)
-
-                # Translate object
-                _ = get_app()._tr
-
-                # Handle exception
-                ret = QMessageBox.question(self, _("Import Image Sequence"),
-                                           _("Would you like to import %s as an image sequence?") % fileName,
-                                           QMessageBox.No | QMessageBox.Yes)
-                if ret == QMessageBox.Yes:
-                    # Yes, import image sequence
-                    log.info('Importing {} as image sequence {}'.format(file_path, base_name + '*.' + extension))
-                    parameters = {
-                        "file_path": file_path,
-                        "folder_path": dirName,
-                        "base_name": base_name,
-                        "fixlen": fixlen,
-                        "digits": digits,
-                        "extension": extension
-                    }
-                    return parameters
-                else:
-                    return None
-            else:
-                return None
-
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
         # Reset list of ignored image sequences paths
         self.ignore_image_sequence_paths = []
 
+        # Set cursor to waiting
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
+        media_paths = []
         for uri in event.mimeData().urls():
             log.info('Processing drop event for {}'.format(uri))
             filepath = uri.toLocalFile()
@@ -295,24 +140,28 @@ class FilesTreeView(QTreeView):
                     self.win.OpenProjectSignal.emit(filepath)
                     event.accept()
                 else:
-                    # Auto import media file
-                    if self.add_file(filepath):
-                        event.accept()
+                    media_paths.append(filepath)
+
+        # Import all new media files
+        if media_paths and self.files_model.add_files(media_paths):
+            event.accept()
+
+        # Restore cursor
+        get_app().restoreOverrideCursor()
+
+    # Forward file-add requests to the model, for legacy code (previous API)
+    def add_file(self, filepath):
+        self.files_model.add_files(filepath)
 
     def filter_changed(self):
         self.refresh_view()
 
     def refresh_view(self):
-        self.files_model.update_model()
-
-    def refresh_columns(self):
         """Resize and hide certain columns"""
-        if type(self) == FilesTreeView:
-            # Only execute when the treeview is active
-            self.hideColumn(3)
-            self.hideColumn(4)
-            self.hideColumn(5)
-            self.resize_contents()
+        self.hideColumn(3)
+        self.hideColumn(4)
+        self.hideColumn(5)
+        self.resize_contents()
 
     def resize_contents(self):
         # Get size of widget
@@ -328,12 +177,11 @@ class FilesTreeView(QTreeView):
         self.header().setSectionResizeMode(1, QHeaderView.Stretch)
         self.header().setSectionResizeMode(2, QHeaderView.Interactive)
 
-    def currentChanged(self, selected, deselected):
-        log.info('currentChanged')
-        self.updateSelection()
-
     def value_updated(self, item):
         """ Name or tags updated """
+        if self.files_model.ignore_updates:
+            return
+
         # Get translation method
         _ = get_app()._tr
 
@@ -344,33 +192,24 @@ class FilesTreeView(QTreeView):
 
         # Get file object and update friendly name and tags attribute
         f = File.get(id=file_id)
-        if name != f.data["path"]:
+        if name and name != os.path.split(f.data["path"])[-1]:
             f.data["name"] = name
         else:
-            f.data["name"] = ""
+            f.data["name"] = os.path.split(f.data["path"])[-1]
+
         if "tags" in f.data.keys():
             if tags != f.data["tags"]:
                 f.data["tags"] = tags
         elif tags:
             f.data["tags"] = tags
 
-        # Tell file model to ignore updates (since this treeview will already be updated)
-        self.files_model.ignore_update_signal = True
-
         # Save File
         f.save()
 
-        # Re-enable updates
-        self.files_model.ignore_update_signal = False
+        # Update file thumbnail
+        self.win.FileUpdated.emit(file_id)
 
-    def prepare_for_delete(self):
-        """Remove signal handlers and prepare for deletion"""
-        try:
-            self.files_model.model.ModelRefreshed.disconnect()
-        except Exception:
-            pass
-
-    def __init__(self, *args):
+    def __init__(self, model, *args):
         # Invoke parent init
         super().__init__(*args)
 
@@ -378,36 +217,33 @@ class FilesTreeView(QTreeView):
         self.win = get_app().window
 
         # Get Model data
-        self.files_model = FilesModel()
-        self.setModel(self.files_model.model)
+        self.files_model = model
+        self.setModel(self.files_model.proxy_model)
+
+        # Remove the default selection model and wire up to the shared one
+        self.selectionModel().deleteLater()
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionModel(self.files_model.selection_model)
 
         # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
-        self.ignore_image_sequence_paths = []
 
         # Setup header columns and layout
         self.setIconSize(QSize(75, 62))
         self.setIndentation(0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
 
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.files_model.ModelRefreshed.connect(self.refresh_view)
 
-        self.files_model.model.ModelRefreshed.connect(self.refresh_columns)
-
-        # Refresh view
-        self.refresh_view()
-        self.refresh_columns()
+        # Load initial files model data
+        self.files_model.update_model()
 
         # setup filter events
-        app = get_app()
-        app.window.filesFilter.textChanged.connect(self.filter_changed)
-        self.files_model.model.itemChanged.connect(self.value_updated)
-        self.selectionModel().selectionChanged.connect(self.updateSelection)
+        # self.files_model.model.itemChanged.connect(self.value_updated)

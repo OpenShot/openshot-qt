@@ -37,8 +37,6 @@ from classes.app import get_app
 from classes import info
 from classes.query import Clip, Effect, Transition
 from windows.models.properties_model import PropertiesModel
-from windows.models.transition_model import TransitionsModel
-from windows.models.files_model import FilesModel
 
 import openshot
 
@@ -380,29 +378,30 @@ class PropertiesTableView(QTableView):
             clip_id, item_type = selected_value.data()
             log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
             log.info("Points: %s" % points)
-            log.info("Property: %s" % str(cur_property))
+
+            # Clear menu if models updated
+            if self.menu_reset:
+                self.choices = []
+                self.menu_reset = False
 
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
 
-                # Refresh models
-                self.transition_model.update_model()
-                self.files_model.update_model()
-
                 # Add all files
                 file_choices = []
-                for filesIndex in range(self.files_model.model.rowCount()):
-                    modelIndex = self.files_model.model.index(filesIndex, 0)
-                    fileItem = self.files_model.model.itemFromIndex(modelIndex)
-                    fileIcon = self.files_model.model.item(fileItem.row(), 0).icon()
-                    fileName = self.files_model.model.item(fileItem.row(), 1).text()
-                    fileParentPath = self.files_model.model.item(fileItem.row(), 4).text()
+                for i in range(self.files_model.rowCount()):
+                    idx = self.files_model.index(i, 0)
+                    if not idx.isValid():
+                        continue
+                    icon = idx.data(Qt.DecorationRole)
+                    name = idx.sibling(idx.row(), 1).data()
+                    path = os.path.join(idx.sibling(idx.row(), 4).data(), name)
 
                     # Append file choice
-                    file_choices.append({"name": fileName,
-                                         "value": os.path.join(fileParentPath, fileName),
+                    file_choices.append({"name": name,
+                                         "value": path,
                                          "selected": False,
-                                         "icon": fileIcon
+                                         "icon": icon
                                          })
 
                 # Add root file choice
@@ -410,15 +409,20 @@ class PropertiesTableView(QTableView):
 
                 # Add all transitions
                 trans_choices = []
-                for transIndex in range(self.transition_model.model.rowCount()):
-                    modelIndex = self.transition_model.model.index(transIndex, 0)
-                    transItem = self.transition_model.model.itemFromIndex(modelIndex)
-                    transIcon = self.transition_model.model.item(transItem.row(), 0).icon()
-                    transName = self.transition_model.model.item(transItem.row(), 1).text()
-                    transPath = self.transition_model.model.item(transItem.row(), 3).text()
+                for i in range(self.transition_model.rowCount()):
+                    idx = self.transition_model.index(i, 0)
+                    if not idx.isValid():
+                        continue
+                    icon = idx.data(Qt.DecorationRole)
+                    name = idx.sibling(idx.row(), 1).data()
+                    path = idx.sibling(idx.row(), 3).data()
 
                     # Append transition choice
-                    trans_choices.append({"name": transName, "value": transPath, "selected": False, "icon": transIcon})
+                    trans_choices.append({"name": name,
+                                          "value": path,
+                                          "selected": False,
+                                          "icon": icon
+                                          })
 
                 # Add root transitions choice
                 self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
@@ -476,7 +480,7 @@ class PropertiesTableView(QTableView):
             # Add menu options for keyframes
             menu = QMenu(self)
             if points > 1:
-                # Menu for more than 1 point
+                # Menu items only for multiple points
                 Bezier_Menu = QMenu(_("Bezier"), self)
                 Bezier_Menu.setIcon(bezier_icon)
                 for bezier_preset in bezier_presets:
@@ -490,55 +494,51 @@ class PropertiesTableView(QTableView):
                 Constant_Action.setIcon(constant_icon)
                 Constant_Action.triggered.connect(self.Constant_Action_Triggered)
                 menu.addSeparator()
-                Insert_Action = menu.addAction(_("Insert Keyframe"))
-                Insert_Action.triggered.connect(self.Insert_Action_Triggered)
-                Remove_Action = menu.addAction(_("Remove Keyframe"))
-                Remove_Action.triggered.connect(self.Remove_Action_Triggered)
-                menu.popup(QCursor.pos())
-            elif points == 1:
-                # Menu for a single point
+            if points >= 1:
+                # Menu items for one or more points
                 Insert_Action = menu.addAction(_("Insert Keyframe"))
                 Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
                 menu.popup(QCursor.pos())
 
-            if self.choices:
-                # Menu for choices
-                for choice in self.choices:
-                    if type(choice["value"]) != list:
-                        # Add root choice items
-                        Choice_Action = menu.addAction(_(choice["name"]))
-                        Choice_Action.setData(choice["value"])
-                        Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+            # Menu for choices
+            if not self.choices:
+                return
+            for choice in self.choices:
+                if type(choice["value"]) != list:
+                    # Just add root choice item
+                    Choice_Action = menu.addAction(_(choice["name"]))
+                    Choice_Action.setData(choice["value"])
+                    Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+                    continue
+
+                # Add sub-choice items (for nested choice lists)
+                # Divide into smaller QMenus (since large lists cover the entire screen)
+                # For example: Transitions -> 1 -> sub items
+                SubMenu = None
+                SubMenuRoot = QMenu(_(choice["name"]), self)
+                SubMenuSize = 24
+                SubMenuNumber = 0
+                for sub_choice in choice["value"]:
+                    if len(choice["value"]) > SubMenuSize:
+                        if not SubMenu or len(SubMenu.children()) == SubMenuSize or sub_choice == choice["value"][-1]:
+                            SubMenuNumber += 1
+                            if SubMenu:
+                                SubMenuRoot.addMenu(SubMenu)
+                            SubMenu = QMenu(str(SubMenuNumber), self)
+                        Choice_Action = SubMenu.addAction(_(sub_choice["name"]))
                     else:
-                        # Add sub-choice items (for nested choice lists)
-                        # Divide into smaller QMenus (since large lists cover the entire screen)
-                        # For example: Transitions -> 1 -> sub items
-                        SubMenu = None
-                        SubMenuRoot = QMenu(_(choice["name"]), self)
-                        SubMenuSize = 24
-                        SubMenuNumber = 0
-                        for sub_choice in choice["value"]:
-                            if len(choice["value"]) > SubMenuSize:
-                                if not SubMenu or len(SubMenu.children()) == SubMenuSize or sub_choice == choice["value"][-1]:
-                                    SubMenuNumber += 1
-                                    if SubMenu:
-                                        SubMenuRoot.addMenu(SubMenu)
-                                    SubMenu = QMenu(str(SubMenuNumber), self)
-                                Choice_Action = SubMenu.addAction(_(sub_choice["name"]))
-                            else:
-                                Choice_Action = SubMenuRoot.addAction(_(sub_choice["name"]))
-                            Choice_Action.setData(sub_choice["value"])
-                            subChoiceIcon = sub_choice.get("icon")
-                            if subChoiceIcon:
-                                Choice_Action.setIcon(subChoiceIcon)
-                            Choice_Action.triggered.connect(self.Choice_Action_Triggered)
-                        menu.addMenu(SubMenuRoot)
+                        Choice_Action = SubMenuRoot.addAction(_(sub_choice["name"]))
+                    Choice_Action.setData(sub_choice["value"])
+                    if "icon" in sub_choice:
+                        Choice_Action.setIcon(sub_choice["icon"])
+                    Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+                menu.addMenu(SubMenuRoot)
 
-                # Show choice menu and release lock
-                menu.popup(QCursor.pos())
-                self.contextMenuEvent(event, release=True)
+            # Show choice menu and release lock
+            menu.popup(QCursor.pos())
+            self.contextMenuEvent(event, release=True)
 
     def Bezier_Action_Triggered(self, preset=[]):
         log.info("Bezier_Action_Triggered: %s" % str(preset))
@@ -584,6 +584,10 @@ class PropertiesTableView(QTableView):
         # Update value of dropdown item
         self.clip_properties_model.value_updated(self.selected_item, value=choice_value)
 
+    def refresh_menu(self):
+        """ Ensure we update the meun when our source models change """
+        self.menu_reset = True
+
     def __init__(self, *args):
         # Invoke parent init
         QTableView.__init__(self, *args)
@@ -591,10 +595,17 @@ class PropertiesTableView(QTableView):
         # Get a reference to the window object
         self.win = get_app().window
 
-        # Get Model data
+        # Create properties model
         self.clip_properties_model = PropertiesModel(self)
-        self.transition_model = TransitionsModel(self)
-        self.files_model = FilesModel(self)
+
+        # Get base models for files, transitions
+        self.transition_model = self.win.transition_model.model
+        self.files_model = self.win.files_model.model
+
+        # Connect to update signals, so our menus stay current
+        self.win.files_model.ModelRefreshed.connect(self.refresh_menu)
+        self.win.transition_model.ModelRefreshed.connect(self.refresh_menu)
+        self.menu_reset = False
 
         # Keep track of mouse press start position to determine when to start drag
         self.selected = []
@@ -627,8 +638,6 @@ class PropertiesTableView(QTableView):
 
         # Refresh view
         self.clip_properties_model.update_model()
-        self.transition_model.update_model()
-        self.files_model.update_model()
 
         # Resize columns
         self.resizeColumnToContents(0)
