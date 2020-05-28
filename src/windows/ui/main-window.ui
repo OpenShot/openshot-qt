@@ -1655,6 +1655,18 @@
     <string>Export XML (Final Cut Pro)</string>
    </property>
   </action>
+  <action name="actionClearRecents">
+   <property name="icon">
+    <iconset theme="edit-delete" resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-delete.svg</normaloff>:/icons/Humanity/actions/16/edit-delete.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Clear Recent Projects</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear Recent Projects</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../../images/openshot.qrc"/>
