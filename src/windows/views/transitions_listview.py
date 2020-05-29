@@ -118,9 +118,6 @@ class TransitionsListView(QListView):
         self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
-        # Load initial transition model data
-        self.transition_model.update_model()
-
         # setup filter events
         app = get_app()
         app.window.transitionsFilter.textChanged.connect(self.filter_changed)

@@ -169,9 +169,6 @@ class EmojisListView(QListView):
         s = get_settings()
         default_type = s.get('emoji_group_filter') or 'smileys-emotion'
 
-        # Load initial emoji model data
-        self.emojis_model.update_model()
-
         # setup filter events
         self.win.emojisFilter.textChanged.connect(self.filter_changed)
 

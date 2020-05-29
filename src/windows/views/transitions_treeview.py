@@ -110,6 +110,4 @@ class TransitionsTreeView(QTreeView):
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.transition_model.ModelRefreshed.connect(self.refresh_columns)
 
-        # Load initial transition model data
-        self.transition_model.update_model()
         self.refresh_columns()
