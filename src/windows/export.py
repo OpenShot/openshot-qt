@@ -38,6 +38,8 @@ try:
 except ImportError:
   from xml.dom import minidom as xml
 
+from xml.parsers.expat import ExpatError
+
 from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize
 from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
@@ -251,7 +253,7 @@ class Export(QDialog):
                     xmldoc = xml.parse(preset_path)
                     type = xmldoc.getElementsByTagName("type")
                     presets.append(_(type[0].childNodes[0].data))
-                    
+
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue
                     log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
@@ -573,10 +575,10 @@ class Export(QDialog):
                                     self.cboChannelLayout.setCurrentIndex(layout_index)
                                     break
                                 layout_index += 1
-                  
+
                         # Free up DOM memory
                         xmldoc.unlink()
-                                
+
                     except ExpatError as e:
                         # This indicates an invalid Preset file - display an error and continue
                         log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
