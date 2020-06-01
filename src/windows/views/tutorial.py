@@ -297,8 +297,7 @@ class TutorialManager(object):
             self.win.dockProperties.visibilityChanged.disconnect()
             self.win.dockVideo.visibilityChanged.disconnect()
         except Exception:
-            # Ignore errors from this
-            pass
+            log.warning('Failed to properly disconnect from dock signals')
 
         # Close dialog window
         self.close_dialogs()

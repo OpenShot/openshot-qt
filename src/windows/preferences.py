@@ -498,7 +498,7 @@ class Preferences(QDialog):
             if not value:
                 value = widget.toPlainText()
         except:
-            pass
+            log.warning('Failed to get plain text from widget')
 
         # If this setting is a keyboard mapping, parse it first
         if param.get("category") == "Keyboard":

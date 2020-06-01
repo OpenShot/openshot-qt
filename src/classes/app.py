@@ -102,7 +102,7 @@ class OpenShotApp(QApplication):
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except Exception:
-            pass
+            log.warning("Failed to read version info from dependencies and platform")
 
         # Setup application
         self.setApplicationName('openshot')
@@ -271,12 +271,12 @@ class OpenShotApp(QApplication):
 @atexit.register
 def onLogTheEnd():
     """ Log when the primary Qt event loop ends """
+    from classes.logger import log
+    import time
 
     try:
-        from classes.logger import log
-        import time
         log.info('OpenShot\'s session ended'.center(48))
         log.info(time.asctime().center(48))
         log.info("================================================")
     except Exception:
-        pass
+        log.warning('Failed to write session ended log')

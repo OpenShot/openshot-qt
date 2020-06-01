@@ -181,7 +181,7 @@ class PropertiesTableView(QTableView):
             except Exception:
                 # If item is deleted during this drag... an exception can occur
                 # Just ignore, since this is harmless
-                return
+                log.warning('Failed to access data on selected label widget')
 
             property_key = cur_property[0]
             property_name = cur_property[1]["name"]
