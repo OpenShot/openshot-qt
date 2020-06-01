@@ -11,9 +11,9 @@ export QT_PLUGIN_PATH="$CURR_DIR"
 export QT_DEBUG_PLUGINS="1"
 export DYLD_PRINT_LIBRARIES="1"
 
-echo $CURR_DIR
-echo $DYLD_LIBRARY_PATH
-echo $QT_PLUGIN_PATH
+echo "$CURR_DIR"
+echo "$DYLD_LIBRARY_PATH"
+echo "$QT_PLUGIN_PATH"
 
 # Launch application
 exec "$CURR_DIR/openshot-qt"
