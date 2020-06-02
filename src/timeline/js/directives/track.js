@@ -29,6 +29,7 @@
 
 // Treats element as a track
 // 1: allows clips, transitions, and effects to be dropped
+/*global App */
 App.directive("tlTrack", function ($timeout) {
   return {
     // A = attribute, E = Element, C = Class and M = HTML Comment

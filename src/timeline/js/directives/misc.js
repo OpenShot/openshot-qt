@@ -28,6 +28,7 @@
 
 
 // Handle right-click context menus
+/*global App */
 App.directive("ngRightClick", function ($parse) {
   return function (scope, element, attrs) {
     var fn = $parse(attrs.ngRightClick);

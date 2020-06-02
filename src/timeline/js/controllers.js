@@ -73,14 +73,14 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Method to set if Qt is detected (which clears demo data)
   $scope.Qt = false;
-  $scope.EnableQt = function () {
+  $scope.enableQt = function () {
     $scope.Qt = true;
     timeline.qt_log("$scope.Qt = true;");
   };
 
-  $scope.SetThumbAddress = function (url) {
+  $scope.setThumbAddress = function (url) {
     $scope.ThumbServer = url;
-    timeline.qt_log("SetThumbAddress: " + url);
+    timeline.qt_log("setThumbAddress: " + url);
   };
 
   // Move the playhead to a specific time

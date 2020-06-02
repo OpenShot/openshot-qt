@@ -55,11 +55,12 @@ $(document).ready(function () {
   });
 
   // Check for Qt Integration
+  /*global timeline */
   if (typeof timeline !== "undefined") {
     timeline.qt_log("Qt Found!");
-    body_object.scope().EnableQt();
+    body_object.scope().enableQt();
     timeline.page_ready();
-    body_object.scope().SetThumbAddress(timeline.get_thumb_address());
+    body_object.scope().setThumbAddress(timeline.get_thumb_address());
   }
 
   // Manually trigger the window resize code (to verify it runs at least once)
