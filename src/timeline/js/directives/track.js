@@ -121,7 +121,7 @@ App.directive("tlTrack", function ($timeout) {
             var drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
 
             // if the droptrack was found, update the json
-            if (drop_track_num != -1) {
+            if (drop_track_num !== -1) {
 
               // find the item in the json data
               item_data = null;

@@ -137,10 +137,10 @@ App.directive("tlClip", function ($timeout) {
             new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
             new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
 
-            if (scope.clip.end != new_right) {
+            if (scope.clip.end !== new_right) {
               scope.clip.end = new_right;
             }
-            if (scope.clip.start != new_left) {
+            if (scope.clip.start !== new_left) {
               scope.clip.start = new_left;
               scope.clip.position = new_position;
             }
@@ -306,7 +306,7 @@ App.directive("tlClip", function ($timeout) {
         drag: function (e, ui) {
           var previous_x = ui.originalPosition.left;
           var previous_y = ui.originalPosition.top;
-          if (previous_drag_position != null) {
+          if (previous_drag_position !== null) {
             // if available, override with previous drag position
             previous_x = previous_drag_position.left;
             previous_y = previous_drag_position.top;

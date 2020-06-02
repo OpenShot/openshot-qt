@@ -159,7 +159,7 @@ App.controller("TimelineCtrl", function ($scope) {
         continue;
       }
       // Determine if this property is a Keyframe
-      if (typeof object[child] == "object" && "Points" in object[child]) {
+      if (typeof object[child] === "object" && "Points" in object[child]) {
         for (var point = 0; point < object[child].Points.length; point++) {
           var co = object[child].Points[point].co;
           if (co.X >= clip_start_x && co.X <= clip_end_x) {
@@ -169,7 +169,7 @@ App.controller("TimelineCtrl", function ($scope) {
         }
       }
       // Determine if this property is a Color Keyframe
-      if (typeof object[child] == "object" && "red" in object[child]) {
+      if (typeof object[child] === "object" && "red" in object[child]) {
         for (var point = 0; point < object[child]["red"].Points.length; point++) {
           var co = object[child]["red"].Points[point].co;
           if (co.X >= clip_start_x && co.X <= clip_end_x) {
@@ -189,7 +189,7 @@ App.controller("TimelineCtrl", function ($scope) {
             continue;
           }
           // Determine if this property is a Keyframe
-          if (typeof object["effects"][effect][child] == "object" && "Points" in object["effects"][effect][child]) {
+          if (typeof object["effects"][effect][child] === "object" && "Points" in object["effects"][effect][child]) {
             for (var point = 0; point < object["effects"][effect][child].Points.length; point++) {
               var co = object["effects"][effect][child].Points[point].co;
               if (co.X >= clip_start_x && co.X <= clip_end_x) {
@@ -199,7 +199,7 @@ App.controller("TimelineCtrl", function ($scope) {
             }
           }
           // Determine if this property is a Color Keyframe
-          if (typeof object["effects"][effect][child] == "object" && "red" in object["effects"][effect][child]) {
+          if (typeof object["effects"][effect][child] === "object" && "red" in object["effects"][effect][child]) {
             for (var point = 0; point < object["effects"][effect][child]["red"].Points.length; point++) {
               var co = object["effects"][effect][child]["red"].Points[point].co;
               if (co.X >= clip_start_x && co.X <= clip_end_x) {
@@ -315,7 +315,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.setAudioData = function (clip_id, audio_data) {
     // Find matching clip
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ($scope.project.clips[clip_index].id == clip_id) {
+      if ($scope.project.clips[clip_index].id === clip_id) {
         // Set audio data
         $scope.$apply(function () {
           $scope.project.clips[clip_index].audio_data = audio_data;
@@ -334,7 +334,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.hideAudioData = function (clip_id) {
     // Find matching clip
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ($scope.project.clips[clip_index].id == clip_id) {
+      if ($scope.project.clips[clip_index].id === clip_id) {
         // Set audio data
         $scope.$apply(function () {
           $scope.project.clips[clip_index].show_audio = false;
@@ -360,7 +360,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.hasAudioData = function (clip_id) {
     // Find matching clip
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ($scope.project.clips[clip_index].id == clip_id && "audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+      if ($scope.project.clips[clip_index].id === clip_id && "audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
         return true;
       }
     }
@@ -507,12 +507,12 @@ App.controller("TimelineCtrl", function ($scope) {
     var id = clip_id.replace("clip_", "");
 
     // Clear transitions also (if needed)
-    if (id != "" && clear_selections) {
+    if (id !== "" && clear_selections) {
       $scope.selectTransition("", clear_selections);
       $scope.selectEffect("", clear_selections);
     }
     // Call slice method and exit (don't actually select the clip)
-    if (id != "" && $scope.enable_razor) {
+    if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
         var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
         timeline.RazorSliceAtCursor(id, "", cursor_seconds);
@@ -528,7 +528,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Unselect all clips
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ($scope.project.clips[clip_index].id == id) {
+      if ($scope.project.clips[clip_index].id === id) {
         $scope.project.clips[clip_index].selected = true;
         if ($scope.Qt) {
           timeline.addSelection(id, "clip", clear_selections);
@@ -549,12 +549,12 @@ App.controller("TimelineCtrl", function ($scope) {
     var id = tran_id.replace("transition_", "");
 
     // Clear clips also (if needed)
-    if (id != "" && clear_selections) {
+    if (id !== "" && clear_selections) {
       $scope.selectClip("", true);
       $scope.selectEffect("", true);
     }
     // Call slice method and exit (don't actually select the transition)
-    if (id != "" && $scope.enable_razor) {
+    if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
         var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
         timeline.RazorSliceAtCursor("", id, cursor_seconds);
@@ -571,7 +571,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Unselect all transitions
     for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
-      if ($scope.project.effects[tran_index].id == id) {
+      if ($scope.project.effects[tran_index].id === id) {
         $scope.project.effects[tran_index].selected = true;
         if ($scope.Qt) {
           timeline.addSelection(id, "transition", clear_selections);
@@ -750,10 +750,10 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Find item in JSON
     var item_object = null;
-    if (item_type == "clip") {
+    if (item_type === "clip") {
       item_object = findElement($scope.project.clips, "id", item_id);
     }
-    else if (item_type == "transition") {
+    else if (item_type === "transition") {
       item_object = findElement($scope.project.effects, "id", item_id);
     }
     else {
@@ -773,10 +773,10 @@ App.controller("TimelineCtrl", function ($scope) {
     });
 
     // update clip in Qt (very important =)
-    if (item_type == "clip") {
+    if (item_type === "clip") {
       timeline.update_clip_data(JSON.stringify(item_object), true, true, false);
     }
-    else if (item_type == "transition") {
+    else if (item_type === "transition") {
       timeline.update_transition_data(JSON.stringify(item_object), true, false);
     }
 
@@ -788,7 +788,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Check again for missing transitions
     var missing_transition_details = $scope.getMissingTransitions(item_object);
-    if ($scope.Qt && missing_transition_details != null) {
+    if ($scope.Qt && missing_transition_details !== null) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
     // Remove manual move stylesheet
@@ -802,10 +802,10 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.startManualMove = function (item_type, item_id) {
     // Select the item
     $scope.$apply(function () {
-      if (item_type == "clip") {
+      if (item_type === "clip") {
         $scope.selectClip(item_id, true);
       }
-      else if (item_type == "transition") {
+      else if (item_type === "transition") {
         $scope.selectTransition(item_id, true);
       }
     });
@@ -814,12 +814,12 @@ App.controller("TimelineCtrl", function ($scope) {
     // This needs to be done inline due to async issues with the
     // above calls to selectClip/selectTransition
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      $scope.project.clips[clip_index].selected = $scope.project.clips[clip_index].id == item_id;
+      $scope.project.clips[clip_index].selected = $scope.project.clips[clip_index].id === item_id;
     }
 
     // Select new transition object (and unselect others)
     for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
-      $scope.project.effects[tran_index].selected = $scope.project.effects[tran_index].id == item_id;
+      $scope.project.effects[tran_index].selected = $scope.project.effects[tran_index].id === item_id;
     }
 
     // JQuery selector for element (clip or transition)
@@ -838,7 +838,7 @@ App.controller("TimelineCtrl", function ($scope) {
     bounding_box.track_position = 0;
 
     // Set z-order to be above other clips/transitions
-    if (item_type != "os_drop") {
+    if (item_type !== "os_drop") {
       bounding_box.element.addClass("manual-move");
     }
   };
@@ -973,7 +973,7 @@ App.controller("TimelineCtrl", function ($scope) {
       var clip = $scope.project.clips[index];
 
       // skip clips that are not on the same layer
-      if (original_clip.layer != clip.layer) {
+      if (original_clip.layer !== clip.layer) {
         continue;
       }
 
@@ -993,22 +993,22 @@ App.controller("TimelineCtrl", function ($scope) {
         transition_size = {"position": clip_left, "layer": clip.layer, "start": 0, "end": (original_right - clip_left)};
       }
 
-      if (transition_size != null && transition_size.end >= 0.5) {
+      if (transition_size !== null && transition_size.end >= 0.5) {
         // Found a possible missing transition
         break;
       }
-      else if (transition_size != null && transition_size.end < 0.5) {
+      else if (transition_size !== null && transition_size.end < 0.5) {
         // Too small to be a missing transitions, clear and continue looking
         transition_size = null;
       }
     }
     // Search through all existing transitions, and don't overlap an existing one
-    if (transition_size != null) {
+    if (transition_size !== null) {
       for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
         var tran = $scope.project.effects[tran_index];
 
         // skip transitions that are not on the same layer
-        if (tran.layer != transition_size.layer) {
+        if (tran.layer !== transition_size.layer) {
           continue;
         }
 
@@ -1114,7 +1114,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Show the nearby snapping line
   $scope.showSnapline = function (position) {
-    if (position != $scope.snapline_position || !$scope.snapline) {
+    if (position !== $scope.snapline_position || !$scope.snapline) {
       // Only update if value has changed
       $scope.$apply(function () {
         $scope.snapline_position = position;
@@ -1216,7 +1216,7 @@ App.controller("TimelineCtrl", function ($scope) {
         var key_value = action.key[key_index];
 
         // Check the key type
-        if (key_value.constructor == String) {
+        if (key_value.constructor === String) {
           // Does the key value exist in scope?, No match, bail out
           if (!current_object.hasOwnProperty(key_value)) {
             return false;
@@ -1227,21 +1227,21 @@ App.controller("TimelineCtrl", function ($scope) {
           current_key = key_value;
 
         }
-        else if (key_value.constructor == Object) {
+        else if (key_value.constructor === Object) {
           // Get the id from the object (if any)
           var id = null;
           if ("id" in key_value) {
             id = key_value["id"];
           }
           // Be sure the current_object is an Array
-          if (current_object.constructor == Array) {
+          if (current_object.constructor === Array) {
             // Filter the current_object for a specific id
             current_position = 0;
             for (var child_index = 0; child_index < current_object.length; child_index++) {
               var child_object = current_object[child_index];
 
               // Find matching child
-              if (child_object.hasOwnProperty("id") && child_object.id == id) {
+              if (child_object.hasOwnProperty("id") && child_object.id === id) {
                 // set current level and previous level
                 previous_object = current_object;
                 current_object = child_object;
@@ -1257,28 +1257,28 @@ App.controller("TimelineCtrl", function ($scope) {
       // Now that we have a matching object in the $scope.project...
       if (current_object) {
         // INSERT OBJECT
-        if (action.type == "insert") {
+        if (action.type === "insert") {
           // Insert action's value into current_object
-          if (current_object.constructor == Array) {
+          if (current_object.constructor === Array) {
             // push new element into array
             current_object.push(action.value);
           }
           else {
             // replace the entire value
-            if (previous_object.constructor == Array) {
+            if (previous_object.constructor === Array) {
               // replace entire value in OBJECT
               previous_object[current_position] = action.value;
             }
-            else if (previous_object.constructor == Object) {
+            else if (previous_object.constructor === Object) {
               // replace entire value in OBJECT
               previous_object[current_key] = action.value;
             }
           }
         }
-        else if (action.type == "update") {
+        else if (action.type === "update") {
           // UPDATE OBJECT
           // Update: If action and current object are Objects
-          if (current_object.constructor == Object && action.value.constructor == Object) {
+          if (current_object.constructor === Object && action.value.constructor === Object) {
             for (var update_key in action.value) {
               if (update_key in current_object) {
                 // Only copy over keys that exist in both action and current_object
@@ -1288,17 +1288,17 @@ App.controller("TimelineCtrl", function ($scope) {
           }
           else {
             // replace the entire value
-            if (previous_object.constructor == Array) {
+            if (previous_object.constructor === Array) {
               // replace entire value in OBJECT
               previous_object[current_position] = action.value;
             }
-            else if (previous_object.constructor == Object) {
+            else if (previous_object.constructor === Object) {
               // replace entire value in OBJECT
               previous_object[current_key] = action.value;
             }
           }
         }
-        else if (action.type == "delete") {
+        else if (action.type === "delete") {
           // DELETE OBJECT
           // delete current object from it's parent (previous object)
           previous_object.splice(current_position, 1);
