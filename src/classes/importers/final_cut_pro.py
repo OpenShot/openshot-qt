@@ -142,7 +142,7 @@ def import_xml():
                         # Save file
                         file.save()
                     except Exception:
-                        log.warning('Failed to create File object for %s' % clip_path)
+                        log.warning('Error building File object for %s' % clip_path, exc_info=1)
 
                 if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
                     # Determine thumb path

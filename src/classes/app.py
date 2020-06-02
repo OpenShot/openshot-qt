@@ -102,7 +102,7 @@ class OpenShotApp(QApplication):
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except Exception:
-            log.warning("Failed to read version info from dependencies and platform")
+            log.warning("Error displaying dependency/system details", exc_info=1)
 
         # Setup application
         self.setApplicationName('openshot')
