@@ -32,44 +32,46 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 
 
 // Wait for document ready event
- $( document ).ready(function() {
+$( document ).ready(function() {
 
-	/// Capture window resize event, and resize scrollable divs (i.e. track container)
-	$( window ).resize(function() {
+  /// Capture window resize event, and resize scrollable divs (i.e. track container)
+  $( window ).resize(function() {
 
-		// Determine Y offset for track container div
-		var track_offset = $("#track_controls").offset().top;
+    // Determine Y offset for track container div
+    var track_offset = $("#track_controls").offset().top;
 
-		// Set the height of the scrollable divs. This resizes the tracks to fit the remaining
-		// height of the web page. As the user changes the size of the web page, this will continue
-		// to fire, and resize the child divs to fit.
-		var new_track_height = $(this).height() - track_offset;
+    // Set the height of the scrollable divs. This resizes the tracks to fit the remaining
+    // height of the web page. As the user changes the size of the web page, this will continue
+    // to fire, and resize the child divs to fit.
+    var new_track_height = $(this).height() - track_offset;
 
-		$("#track_controls").height(new_track_height);
-		$("#scrolling_tracks").height(new_track_height);
-		$('body').scope().playhead_height = $("#track-container").height();
-		$(".playhead-line").height($('body').scope().playhead_height);
-	});
+    $("#track_controls").height(new_track_height);
+    $("#scrolling_tracks").height(new_track_height);
+    $('body').scope().playhead_height = $("#track-container").height();
+    $(".playhead-line").height($('body').scope().playhead_height);
+  });
 
-	// Check for Qt Integration
-	if(typeof timeline !== 'undefined') {
-		timeline.qt_log("Qt Found!");
-		$('body').scope().EnableQt();
-		timeline.page_ready();
-		$('body').scope().SetThumbAddress(timeline.get_thumb_address());
-	}
+  // Check for Qt Integration
+  if(typeof timeline !== 'undefined') {
+    timeline.qt_log("Qt Found!");
+    $('body').scope().EnableQt();
+    timeline.page_ready();
+    $('body').scope().SetThumbAddress(timeline.get_thumb_address());
+  }
 
-	// Manually trigger the window resize code (to verify it runs at least once)
-	$(window).trigger('resize');
+  // Manually trigger the window resize code (to verify it runs at least once)
+  $(window).trigger('resize');
 
-	// Bind to keydown event (to detect SHIFT)
-	$( "body" ).keydown(function(event) {
-	  if (event.which===16)
-    	$('body').scope().shift_pressed = true;
-	});
-	$( "body" ).keyup(function(event) {
-	  if ($('body').scope().shift_pressed)
-	  	$('body').scope().shift_pressed = false;
-	});
+  // Bind to keydown event (to detect SHIFT)
+  $( "body" ).keydown(function(event) {
+    if (event.which === 16) {
+      $('body').scope().shift_pressed = true;
+    }
+  });
+  $( "body" ).keyup(function(event) {
+    if ($('body').scope().shift_pressed) {
+      $('body').scope().shift_pressed = false;
+    }
+  });
 });
 
