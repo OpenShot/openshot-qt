@@ -27,40 +27,39 @@
  */
 
 
-// Handle right-click context menus 
-App.directive('ngRightClick', function($parse) {
-    return function(scope, element, attrs) {
-        var fn = $parse(attrs.ngRightClick);
-        element.bind('contextmenu', function(event) {
-            scope.$apply(function() {
-                event.preventDefault();
-                fn(scope, {$event:event});
-            });
-        });
-    };
+// Handle right-click context menus
+App.directive("ngRightClick", function ($parse) {
+  return function (scope, element, attrs) {
+    var fn = $parse(attrs.ngRightClick);
+    element.bind("contextmenu", function (event) {
+      scope.$apply(function () {
+        event.preventDefault();
+        fn(scope, {$event: event});
+      });
+    });
+  };
 });
 
 
 // Debug directive (for binding a timeline scale slider)
-App.directive('dbSlider', function () {
-	return {
-		restrict: 'A',
-		link: function (scope, element, attrs) {
-			element.slider({
-			    value: 30,
-			    step: 1,
-			    min: 1,
-			    max: 210,
-			    slide: function(event, ui) {
-			        $("#scaleVal").val(ui.value);
-			        scope.$apply(function(){
-			        	scope.project.scale = ui.value;
-	            		scope.pixelsPerSecond =  parseFloat(scope.project.tick_pixels) / parseFloat(scope.project.scale);
-	            	});
+App.directive("dbSlider", function () {
+  return {
+    restrict: "A",
+    link: function (scope, element) {
+      element.slider({
+        value: 30,
+        step: 1,
+        min: 1,
+        max: 210,
+        slide: function (event, ui) {
+          $("#scaleVal").val(ui.value);
+          scope.$apply(function () {
+            scope.project.scale = ui.value;
+            scope.pixelsPerSecond = parseFloat(scope.project.tick_pixels) / parseFloat(scope.project.scale);
+          });
 
-			    }
-			});	
-		}
-	};
+        }
+      });
+    }
+  };
 });
-
