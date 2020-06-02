@@ -104,9 +104,9 @@ App.directive('tlClip', function($timeout){
 					var delta_time = delta_x/scope.pixelsPerSecond;
 
 					//change the clip end/start based on which side was dragged
-					new_position = scope.clip.position;
-					new_left = scope.clip.start;
-					new_right = scope.clip.end;
+					var new_position = scope.clip.position;
+					var new_left = scope.clip.start;
+					var new_right = scope.clip.end;
 
 					if (dragLoc === 'left') {
 						// changing the start of the clip

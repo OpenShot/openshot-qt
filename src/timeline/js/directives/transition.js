@@ -92,8 +92,8 @@ App.directive('tlTransition', function(){
 					var delta_time = delta_x/scope.pixelsPerSecond;
 
 					//change the transition end/start based on which side was dragged
-					new_left = scope.transition.position;
-					new_right = (scope.transition.end - scope.transition.start);
+					var new_left = scope.transition.position;
+					var new_right = (scope.transition.end - scope.transition.start);
 
 					if (dragLoc === 'left'){
 						//changing the start of the transition
