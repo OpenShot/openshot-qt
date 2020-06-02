@@ -28,7 +28,7 @@
 
 
 // Initialize Angular application
-var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
+var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 
 
 // Wait for document ready event
@@ -47,30 +47,30 @@ $( document ).ready(function() {
 
     $("#track_controls").height(new_track_height);
     $("#scrolling_tracks").height(new_track_height);
-    $('body').scope().playhead_height = $("#track-container").height();
-    $(".playhead-line").height($('body').scope().playhead_height);
+    $("body").scope().playhead_height = $("#track-container").height();
+    $(".playhead-line").height($("body").scope().playhead_height);
   });
 
   // Check for Qt Integration
-  if(typeof timeline !== 'undefined') {
+  if(typeof timeline !== "undefined") {
     timeline.qt_log("Qt Found!");
-    $('body').scope().EnableQt();
+    $("body").scope().EnableQt();
     timeline.page_ready();
-    $('body').scope().SetThumbAddress(timeline.get_thumb_address());
+    $("body").scope().SetThumbAddress(timeline.get_thumb_address());
   }
 
   // Manually trigger the window resize code (to verify it runs at least once)
-  $(window).trigger('resize');
+  $(window).trigger("resize");
 
   // Bind to keydown event (to detect SHIFT)
   $( "body" ).keydown(function(event) {
     if (event.which === 16) {
-      $('body').scope().shift_pressed = true;
+      $("body").scope().shift_pressed = true;
     }
   });
   $( "body" ).keyup(function(event) {
-    if ($('body').scope().shift_pressed) {
-      $('body').scope().shift_pressed = false;
+    if ($("body").scope().shift_pressed) {
+      $("body").scope().shift_pressed = false;
     }
   });
 });
