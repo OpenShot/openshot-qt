@@ -292,7 +292,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     f.write(lock_value)
                 break
             except Exception:
-                log.warning('Failed to write lock file (attempt: %s)' % attempts)
+                log.debug('Failed to write lock file (attempt: %s)' % attempts)
                 attempts -= 1
                 sleep(0.25)
 
@@ -307,7 +307,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 os.remove(lock_path)
                 break
             except Exception:
-                log.warning('Failed to destroy lock file (attempt: %s)' % attempts)
+                log.debug('Failed to destroy lock file (attempt: %s)' % attempts)
                 attempts -= 1
                 sleep(0.25)
 
@@ -2591,7 +2591,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.unity_launcher.set_property("progress", current_frame / (end_frame - start_frame))
             self.unity_launcher.set_property("progress_visible", True)
         except Exception:
-            log.warning('Failed to notify unity launcher of export progress. Frame: %s' % current_frame)
+            log.debug('Failed to notify unity launcher of export progress. Frame: %s' % current_frame)
 
     def ExportFinished(self, path):
         """Show completion in Unity Launcher (if connected)"""
@@ -2600,7 +2600,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.unity_launcher.set_property("progress", 0.0)
             self.unity_launcher.set_property("progress_visible", False)
         except Exception:
-            log.warning('Failed to notify unity launcher of export progress. Completed.')
+            log.debug('Failed to notify unity launcher of export progress. Completed.')
 
     def __init__(self, mode=None):
 

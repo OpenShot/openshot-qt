@@ -229,7 +229,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip_data = clip_json
         except Exception:
             # Failed to parse json, do nothing
-            log.warning('Failed to parse clip JSON data')
+            log.warning('Failed to parse clip JSON data', exc_info=1)
 
         # Search for matching clip in project data (if any)
         existing_clip = Clip.get(id=clip_data["id"])

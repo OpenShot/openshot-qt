@@ -222,7 +222,7 @@ class TitleEditor(QDialog):
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
             except Exception:
-                log.warning('Failed to delete child settings widget')
+                log.debug('Failed to delete child settings widget')
 
         # Get text nodes and rect nodes
         self.text_node = self.xmldoc.getElementsByTagName('text')
@@ -441,7 +441,7 @@ class TitleEditor(QDialog):
                 color = txt[5:]
             except Exception:
                 # If the color was in an invalid format, try the next text element
-                log.warning('Failed to parse color value from text element')
+                log.debug('Failed to parse {} as color value'.format(txt))
 
             opacity = self.find_in_list(ar, "opacity:")
 
@@ -450,7 +450,7 @@ class TitleEditor(QDialog):
                 txt = ar[opacity]
                 opacity = float(txt[8:])
             except Exception:
-                log.warning('Failed to parse opacity value from text element')
+                log.debug('Failed to parse {} as opacity value'.format(txt))
 
             # Default the font color to white if non-existing
             if color is None:
