@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief AngularJS App (initializes angular application) 
+ * @brief AngularJS App (initializes angular application)
  * @author Jonathan Thomas <jonathan@openshot.org>
  * @author Cody Parker <cody@yourcodepro.com>
  *
@@ -33,10 +33,10 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 
 // Wait for document ready event
  $( document ).ready(function() {
- 
+
 	/// Capture window resize event, and resize scrollable divs (i.e. track container)
 	$( window ).resize(function() {
-	
+
 		// Determine Y offset for track container div
 		var track_offset = $("#track_controls").offset().top;
 
@@ -50,23 +50,21 @@ var App = angular.module('openshot-timeline', ['ui.bootstrap','ngAnimate']);
 		$('body').scope().playhead_height = $("#track-container").height();
 		$(".playhead-line").height($('body').scope().playhead_height);
 	});
-	
+
 	// Check for Qt Integration
-	if(typeof timeline != 'undefined') {
+	if(typeof timeline !== 'undefined') {
 		timeline.qt_log("Qt Found!");
 		$('body').scope().EnableQt();
 		timeline.page_ready();
 		$('body').scope().SetThumbAddress(timeline.get_thumb_address());
-	} else {
-		console.log("Qt NOT Found!");
 	}
-	
+
 	// Manually trigger the window resize code (to verify it runs at least once)
 	$(window).trigger('resize');
-	
+
 	// Bind to keydown event (to detect SHIFT)
 	$( "body" ).keydown(function(event) {
-	  if (event.which==16)
+	  if (event.which===16)
     	$('body').scope().shift_pressed = true;
 	});
 	$( "body" ).keyup(function(event) {

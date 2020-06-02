@@ -134,7 +134,7 @@ App.directive('tlRuler', function ($timeout) {
 
 			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
-				if (e.which == 1 && !scope.playhead_animating) { // left button
+				if (e.which === 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
 					// Update playhead
 					scope.MovePlayhead(playhead_seconds);
@@ -219,7 +219,7 @@ App.directive('tlRulertime', function () {
 
 			// Move playhead to new position (if it's not currently being animated)
 			element.on('mousemove', function(e){
-				if (e.which == 1 && !scope.playhead_animating) { // left button
+				if (e.which === 1 && !scope.playhead_animating) { // left button
 					var playhead_seconds = 0.0;
 					// Update playhead
 					scope.MovePlayhead(playhead_seconds);

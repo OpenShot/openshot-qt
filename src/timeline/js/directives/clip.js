@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Clip directives (draggable & resizable functionality) 
+ * @brief Clip directives (draggable & resizable functionality)
  * @author Jonathan Thomas <jonathan@openshot.org>
  * @author Cody Parker <cody@yourcodepro.com>
  *
@@ -48,7 +48,7 @@ App.directive('tlClip', function($timeout){
 		link: function(scope, element, attrs) {
 
 			//handle resizability of clip
-			element.resizable({ 
+			element.resizable({
 				handles: "e, w",
 				minWidth: 1,
 				maxWidth: scope.clip.length * scope.pixelsPerSecond,
@@ -60,7 +60,7 @@ App.directive('tlClip', function($timeout){
 					var mouseLoc = e.pageX - parentOffset.left;
 					if (mouseLoc < 5) {
 						dragLoc = 'left';
-					} 
+					}
 					else {
 						dragLoc = 'right';
 					}
@@ -93,7 +93,7 @@ App.directive('tlClip', function($timeout){
 					}
 
 					// Hide keyframe points
-					if (dragLoc == 'right') {
+					if (dragLoc === 'right') {
 						// Make the keyframe points visible again
 						element.find('.point_icon').show();
 						element.find('.audio-container').show();
@@ -108,18 +108,18 @@ App.directive('tlClip', function($timeout){
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
 
-					if (dragLoc == 'left') {
+					if (dragLoc === 'left') {
 						// changing the start of the clip
 						new_left += delta_time;
 						if (new_left < 0) {
 							// prevent less than zero
 							new_left = 0.0;
 							new_position -= scope.clip.start
-						} 
+						}
 						else {
 							new_position += delta_time
 						}
-					} 
+					}
 					else {
 						// changing the end of the clips
 						new_right -= delta_time;
@@ -175,17 +175,17 @@ App.directive('tlClip', function($timeout){
 					new_left = scope.clip.start;
 					new_right = scope.clip.end;
 
-					if (dragLoc == 'left') {
+					if (dragLoc === 'left') {
 						// changing the start of the clip
 						new_left += delta_time;
 						if (new_left < 0) {
 							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
 							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
-						} 
+						}
 						else {
 							ui.element.width(ui.size.width);
 						}
-					} 
+					}
 					else {
 						// changing the end of the clips
 						new_right -= delta_time;
@@ -194,24 +194,24 @@ App.directive('tlClip', function($timeout){
 							// change back to actual duration (for the preview below)
 							new_right = scope.clip.duration;
 							ui.element.width(new_right * scope.pixelsPerSecond);
-						} 
+						}
 						else {
 							ui.element.width(ui.size.width);
 						}
 					}
 
 					// Preview frame during resize
-					if (dragLoc == 'left') {
+					if (dragLoc === 'left') {
 						// Preview the left side of the clip
 						scope.PreviewClipFrame(scope.clip.id, new_left);
-					} 
+					}
 					else {
 						// Preview the right side of the clip
 						scope.PreviewClipFrame(scope.clip.id, new_right);
 					}
 				}
 			});
-	
+
 			//handle hover over on the clip
 			element.hover(
 	  			function () {
@@ -231,7 +231,7 @@ App.directive('tlClip', function($timeout){
 			//handle draggability of clip
 			element.draggable({
 		        snap: ".track", // snaps to a track
-		        snapMode: "inner", 
+		        snapMode: "inner",
 		        snapTolerance: 20,
 		        scroll: true,
 				cancel: '.effect-container,.clip_menu',
@@ -243,22 +243,22 @@ App.directive('tlClip', function($timeout){
 		        		var clear_selections = false;
 		        		if ($(".ui-selected").length > 0)
 		        			clear_selections = true;
-		        		
+
 		        		// SelectClip, SelectTransition
 		        		var id = $(this).attr("id");
 		        		if (element.hasClass('clip')) {
 							// Select this clip, unselect all others
 		        			scope.SelectTransition("", clear_selections);
 		        			scope.SelectClip(id, clear_selections);
-		        			
-		        		} 
+
+		        		}
 		        		else if (element.hasClass('transition')) {
 							// Select this transition, unselect all others
 		        			scope.SelectClip("", clear_selections);
 		        			scope.SelectTransition(id, clear_selections);
 		        		}
 					}
-					
+
 				 	// Apply scope up to this point
 				 	scope.$apply(function(){});
 
@@ -279,7 +279,7 @@ App.directive('tlClip', function($timeout){
 						//send clip to bounding box builder
 						setBoundingBox(scope, $(this));
                     });
-					
+
 					// Does this bounding box overlap a locked track?
 					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor) {
 						return !event; // yes, do nothing
@@ -288,7 +288,7 @@ App.directive('tlClip', function($timeout){
                 stop: function(event, ui) {
 					// Ignore clip-menu click
 					$( event.toElement ).one('.clip_menu', function(e) {
-						e.stopImmediatePropagation(); 
+						e.stopImmediatePropagation();
 					});
 
                 	// Hide snapline (if any)
@@ -374,18 +374,18 @@ App.directive('tlMultiSelectable', function(){
 					var id = ui.selected.id;
 					var type = "";
 					var item = null;
-					
+
 					if (id.match("^clip_")) {
 						id = id.replace("clip_", "");
 						type = "clip";
 						item = findElement(scope.project.clips, "id", id);
-					} 
+					}
 					else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
 						item = findElement(scope.project.effects, "id", id);
 					}
-					
+
 					if (scope.Qt) {
 						timeline.addSelection(id, type, false);
 						// Clear effect selections (if any)
@@ -400,18 +400,18 @@ App.directive('tlMultiSelectable', function(){
 					var id = ui.unselected.id;
 					var type = "";
 					var item = null;
-					
+
 					if (id.match("^clip_")) {
 						id = id.replace("clip_", "");
 						type = "clip";
 						item = findElement(scope.project.clips, "id", id);
-					} 
+					}
 					else if (id.match("^transition_")) {
 						id = id.replace("transition_", "");
 						type = "transition";
 						item = findElement(scope.project.effects, "id", id);
 					}
-					
+
 					if (scope.Qt) {
 						timeline.removeSelection(id, type);
 					}

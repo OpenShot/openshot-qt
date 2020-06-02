@@ -34,7 +34,7 @@ App.directive('tlTrack', function($timeout) {
         // A = attribute, E = Element, C = Class and M = HTML Comment
         restrict:'A',
         link: function(scope, element, attrs) {
-        	
+
 			scope.$watch('project.layers.length', function (val) {
                 if (val) {
                 	$timeout(function(){
@@ -43,7 +43,7 @@ App.directive('tlTrack', function($timeout) {
 						scope.playhead_height = $("#track-container").height();
 						$(".playhead-line").height(scope.playhead_height);
                 	}, 0);
-                		
+
                 }
             });
 
@@ -87,7 +87,7 @@ App.directive('tlTrack', function($timeout) {
 									timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
 							}
 						}
-						
+
 						// Determine type of item
 						item_type = null;
 						if (item.hasClass('clip'))
@@ -111,17 +111,17 @@ App.directive('tlTrack', function($timeout) {
 						// make sure the item isn't dropped off too far to the left
 						if (item_left < 0) item_left = 0;
 
-		            	// get track the item was dropped on 
+		            	// get track the item was dropped on
 						drop_track_num = findTrackAtLocation(scope, parseInt(item_middle));
 
 		            	// if the droptrack was found, update the json
-		            	if (drop_track_num != -1){ 
+		            	if (drop_track_num != -1){
 
 		            		// find the item in the json data
 		            		item_data = null;
-		            		if (item_type == 'clip')
+		            		if (item_type === 'clip')
 		            			item_data = findElement(scope.project.clips, "id", item_num);
-		            		else if (item_type == 'transition')
+		            		else if (item_type === 'transition')
 		            			item_data = findElement(scope.project.effects, "id", item_num);
 
 							// set time diff (if not already determined)
@@ -135,7 +135,7 @@ App.directive('tlTrack', function($timeout) {
 		            			item_data.layer = drop_track_num;
 		            			item_data.position += position_diff;
 		            			item_data.position = (Math.round((item_data.position * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
-		            		});	
+		            		});
 
 							// Resize timeline if it's too small to contain all clips
 							scope.ResizeTimeline();
@@ -144,21 +144,21 @@ App.directive('tlTrack', function($timeout) {
 							dropped_clips.push(item_data);
 
 							// Determine if this is the last iteration
-							var needs_refresh = (index == selected_item_count - 1);
+							var needs_refresh = (index === selected_item_count - 1);
 
 							// update clip in Qt (very important =)
-	            			if (scope.Qt && item_type == 'clip')
+	            			if (scope.Qt && item_type === 'clip')
 	            				timeline.update_clip_data(JSON.stringify(item_data), true, true, !needs_refresh);
 
-	            			else if (scope.Qt && item_type == 'transition')
+	            			else if (scope.Qt && item_type === 'transition')
 	            				timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh);
-							
+
 
 		            	}
 		            });
 
 					// Add missing transitions (if any)
-					if (dropped_clips.length == 1)
+					if (dropped_clips.length === 1)
 						// Hack to only add missing transitions if a single clip is being dropped
 						for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
 							var item_data = dropped_clips[clip_index];
@@ -175,8 +175,8 @@ App.directive('tlTrack', function($timeout) {
 		            // Re-sort clips
 					scope.enable_sorting = true;
 		            scope.SortItems();
-		        }	
+		        }
 		    });
-    	}    
+    	}
     };
 });
