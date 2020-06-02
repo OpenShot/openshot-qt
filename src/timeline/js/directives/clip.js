@@ -41,7 +41,7 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-/*global App, timeline*/
+/*global App, timeline, moveBoundingBox*/
 App.directive("tlClip", function ($timeout) {
   return {
     scope: "@",
@@ -72,8 +72,8 @@ App.directive("tlClip", function ($timeout) {
 
           // Does this bounding box overlap a locked track?
           var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-          var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
-          var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
+          var track_top = (parseInt(element.position().top, 10) + parseInt(vert_scroll_offset, 10));
+          var track_bottom = (parseInt(element.position().top, 10) + parseInt(element.height(), 10) + parseInt(vert_scroll_offset, 10));
           if (hasLockedTrack(scope, track_top, track_bottom)) {
             resize_disabled = true;
           }

@@ -29,7 +29,7 @@
 
 // Treats element as a track
 // 1: allows clips, transitions, and effects to be dropped
-/*global App, timeline*/
+/*global App, timeline, findTrackAtLocation*/
 App.directive("tlTrack", function ($timeout) {
   return {
     // A = attribute, E = Element, C = Class and M = HTML Comment
@@ -118,7 +118,7 @@ App.directive("tlTrack", function ($timeout) {
             }
 
             // get track the item was dropped on
-            var drop_track_num = findTrackAtLocation(scope, parseInt(item_middle));
+            var drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
 
             // if the droptrack was found, update the json
             if (drop_track_num != -1) {

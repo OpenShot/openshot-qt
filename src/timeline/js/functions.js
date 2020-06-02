@@ -30,9 +30,11 @@
 // Find a JSON element / object with a particular value in the json data
 function findElement(arr, propName, propValue) {
   // Loop through array looking for a matching element
-  for (var i = 0; i < arr.length; i++)
-    if (arr[i][propName] === propValue)
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i][propName] === propValue) {
       return arr[i];
+    }
+  }
 
 }
 
@@ -41,9 +43,11 @@ function getTrackContainerHeight() {
 
   var track_margin = 0;
   var track_object = $(".track");
-  if (track_object.length)
-    if (track_object.css("margin-bottom"))
-      track_margin = parseInt(track_object.css("margin-bottom").replace("px", ""));
+  if (track_object.length) {
+    if (track_object.css("margin-bottom")) {
+      track_margin = parseInt(track_object.css("margin-bottom").replace("px", ""), 10);
+    }
+  }
 
   return $("#track-container").height() - track_margin;
 }
@@ -173,12 +177,13 @@ function findTrackAtLocation(scope, top) {
     var layer = scope.project.layers[layer_index];
 
     // Compare position of track to Y param (of unlocked tracks)
-    if (!layer.lock)
+    if (!layer.lock) {
       if ((top < layer.y && top > track_position) || track_position === 0) {
         // return first matching layer
         track_position = layer.y;
         track_number = layer.number;
       }
+    }
   }
 
   return track_number;
@@ -223,16 +228,16 @@ function setBoundingBox(scope, item) {
     bounding_box.width = item.width();
   } else {
     //compare and change if item is a better fit for bounding box edges
-    if (item_top < bounding_box.top) bounding_box.top = item_top;
-    if (item_left < bounding_box.left) bounding_box.left = item_left;
-    if (item_bottom > bounding_box.bottom) bounding_box.bottom = item_bottom;
-    if (item_right > bounding_box.right) bounding_box.right = item_right;
+    if (item_top < bounding_box.top) { bounding_box.top = item_top };
+    if (item_left < bounding_box.left) { bounding_box.left = item_left };
+    if (item_bottom > bounding_box.bottom) { bounding_box.bottom = item_bottom };
+    if (item_right > bounding_box.right) { bounding_box.right = item_right };
 
     // compare height and width of bounding box (take the largest number)
     var height = bounding_box.bottom - bounding_box.top;
     var width = bounding_box.right - bounding_box.left;
-    if (height > bounding_box.height) bounding_box.height = height;
-    if (width > bounding_box.width) bounding_box.width = width;
+    if (height > bounding_box.height) { bounding_box.height = height };
+    if (width > bounding_box.width) { bounding_box.width = width };
   }
 
   // Get list of current selected ids (so we can ignore their snapping x coordinates)

@@ -742,7 +742,7 @@ App.controller("TimelineCtrl", function ($scope) {
     y += scrolling_tracks.scrollTop();
 
     // Return number of track
-    return parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number);
+    return parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number, 10);
   };
 
   // Get JSON of most recent item (used by Qt)
@@ -1363,7 +1363,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.addClips = function (numClips) {
     var startNum = $scope.project.clips.length + 1;
     var positionNum = 0;
-    for (var x = 0; x < parseInt(numClips); x++) {
+    for (var x = 0; x < parseInt(numClips, 10); x++) {
       $scope.project.clips.push({
         id: x.toString(),
         layer: 0,
@@ -1407,7 +1407,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Debug method to add a marker to the $scope
   $scope.addMarker = function (markLoc) {
     $scope.project.markers.push({
-      position: parseInt(markLoc),
+      position: parseInt(markLoc, 10),
       icon: "blue.png"
     });
     $scope.markLoc = "";

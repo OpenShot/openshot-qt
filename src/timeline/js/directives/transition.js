@@ -41,7 +41,7 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-/*global App, timeline*/
+/*global App, timeline, hasLockedTrack, moveBoundingBox*/
 App.directive("tlTransition", function () {
   return {
     scope: "@",
@@ -66,14 +66,14 @@ App.directive("tlTransition", function () {
 
           // Does this bounding box overlap a locked track?
           var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-          var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
-          var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
+          var track_top = (parseInt(element.position().top, 10) + parseInt(vert_scroll_offset, 10));
+          var track_bottom = (parseInt(element.position().top, 10) + parseInt(element.height(), 10) + parseInt(vert_scroll_offset, 10));
           if (hasLockedTrack(scope, track_top, track_bottom)) {
             resize_disabled = true;
           }
 
           // Hide keyframe points
-          element.find(".point_icon").hide()
+          element.find(".point_icon").hide();
 
         },
         stop: function (e, ui) {
@@ -263,7 +263,7 @@ App.directive("tlTransition", function () {
         drag: function (e, ui) {
           var previous_x = ui.originalPosition.left;
           var previous_y = ui.originalPosition.top;
-          if (previous_drag_position != null) {
+          if (previous_drag_position !== null) {
             // if available, override with previous drag position
             previous_x = previous_drag_position.left;
             previous_y = previous_drag_position.top;

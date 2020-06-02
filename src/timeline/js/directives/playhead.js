@@ -38,7 +38,7 @@ App.directive("tlPlayhead", function () {
       playhead_y_max = element.position().top;
 
       // get the size of the playhead and line so we can determine the offset
-      var playhead_top_w = parseInt($(".playhead-top").css("width"));
+      var playhead_top_w = parseInt($(".playhead-top").css("width"), 10);
       scope.playheadOffset = 0.0 - (playhead_top_w / 2.0);
 
       // Move playhead to new position (if it's not currently being animated)
