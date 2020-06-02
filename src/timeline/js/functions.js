@@ -228,16 +228,16 @@ function setBoundingBox(scope, item) {
     bounding_box.width = item.width();
   } else {
     //compare and change if item is a better fit for bounding box edges
-    if (item_top < bounding_box.top) { bounding_box.top = item_top };
-    if (item_left < bounding_box.left) { bounding_box.left = item_left };
-    if (item_bottom > bounding_box.bottom) { bounding_box.bottom = item_bottom };
-    if (item_right > bounding_box.right) { bounding_box.right = item_right };
+    if (item_top < bounding_box.top) { bounding_box.top = item_top; }
+    if (item_left < bounding_box.left) { bounding_box.left = item_left; }
+    if (item_bottom > bounding_box.bottom) { bounding_box.bottom = item_bottom; }
+    if (item_right > bounding_box.right) { bounding_box.right = item_right; }
 
     // compare height and width of bounding box (take the largest number)
     var height = bounding_box.bottom - bounding_box.top;
     var width = bounding_box.right - bounding_box.left;
-    if (height > bounding_box.height) { bounding_box.height = height };
-    if (width > bounding_box.width) { bounding_box.width = width };
+    if (height > bounding_box.height) { bounding_box.height = height; }
+    if (width > bounding_box.width) { bounding_box.width = width; }
   }
 
   // Get list of current selected ids (so we can ignore their snapping x coordinates)
