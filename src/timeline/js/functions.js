@@ -299,13 +299,13 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   // Find closest nearby object, if any (for snapping)
   var bounding_box_padding = 3; // not sure why this is needed, but it helps line everything up
-  var results = scope.GetNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, bounding_box.selected_ids);
+  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, bounding_box.selected_ids);
   var nearby_offset = results[0];
   var snapline_position = results[1];
 
   if (snapline_position) {
     // Show snapping line
-    scope.ShowSnapline(snapline_position);
+    scope.showSnapline(snapline_position);
 
     if (scope.enable_snapping) {
       // Snap bounding box to this position
@@ -317,7 +317,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   } else {
     // Hide snapline
-    scope.HideSnapline();
+    scope.hideSnapline();
   }
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};

@@ -85,7 +85,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Move the playhead to a specific time
-  $scope.MovePlayhead = function (position_seconds) {
+  $scope.movePlayhead = function (position_seconds) {
     // Update internal scope (in seconds)
     $scope.project.playhead_position = position_seconds;
     $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
@@ -97,7 +97,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Move the playhead to a specific frame
-  $scope.MovePlayheadToFrame = function (position_frames) {
+  $scope.movePlayheadToFrame = function (position_frames) {
     // Don't move the playhead if it's currently animating
     if ($scope.playhead_animating) {
       return;
@@ -113,11 +113,11 @@ App.controller("TimelineCtrl", function ($scope) {
     }
 
     // Update internal scope (in seconds)
-    $scope.MovePlayhead(position_seconds);
+    $scope.movePlayhead(position_seconds);
   };
 
   // Move the playhead to a specific time
-  $scope.PreviewFrame = function (position_seconds) {
+  $scope.previewFrame = function (position_seconds) {
     // Determine frame
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
     var frame = Math.round(position_seconds * frames_per_second) + 1;
@@ -129,7 +129,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Move the playhead to a specific time
-  $scope.PreviewClipFrame = function (clip_id, position_seconds) {
+  $scope.previewClipFrame = function (clip_id, position_seconds) {
     // Get the nearest starting frame position to the playhead (this helps to prevent cutting
     // in-between frames, and thus less likely to repeat or skip a frame).
     // Determine frame
@@ -368,7 +368,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Change the snapping mode
-  $scope.SetSnappingMode = function (enable_snapping) {
+  $scope.setSnappingMode = function (enable_snapping) {
     $scope.$apply(function () {
       $scope.enable_snapping = enable_snapping;
       if (enable_snapping) {
@@ -381,21 +381,21 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Change the razor mode
-  $scope.SetRazorMode = function (enable_razor) {
+  $scope.setRazorMode = function (enable_razor) {
     $scope.$apply(function () {
       $scope.enable_razor = enable_razor;
     });
   };
 
   // Change playhead follow mode
-  $scope.SetFollow = function (enable_follow) {
+  $scope.setFollow = function (enable_follow) {
     $scope.$apply(function () {
       $scope.enable_playhead_follow = enable_follow;
     });
   };
 
   // Get the color of an effect
-  $scope.GetEffectColor = function (effect_type) {
+  $scope.getEffectColor = function (effect_type) {
     switch (effect_type) {
       case "Blur":
         return "#0095bf";
@@ -417,7 +417,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Add a new clip to the timeline
-  $scope.AddClip = function (x, y, clip_json) {
+  $scope.addClip = function (x, y, clip_json) {
     $scope.$apply(function () {
       // Convert x and y into timeline vars
       var scrolling_tracks_offset = $("#scrolling_tracks").offset().left;
@@ -428,7 +428,7 @@ App.controller("TimelineCtrl", function ($scope) {
       clip_position = (Math.round((clip_position * $scope.project.fps.num) / $scope.project.fps.den) * $scope.project.fps.den ) / $scope.project.fps.num;
 
       clip_json.position = clip_position;
-      clip_json.layer = $scope.GetTrackAtY(y).number;
+      clip_json.layer = $scope.getTrackAtY(y).number;
 
       // Push new clip onto stack
       $scope.project.clips.push(clip_json);
@@ -436,7 +436,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Update cache json
-  $scope.RenderCache = function (cache_json) {
+  $scope.renderCache = function (cache_json) {
     // Push new clip onto stack
     $scope.project.progress = cache_json;
 
@@ -469,10 +469,10 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Clear all selections
-  $scope.ClearAllSelections = function () {
+  $scope.clearAllSelections = function () {
     // Clear the selections on the main window
-    $scope.SelectTransition("", true);
-    $scope.SelectEffect("", true);
+    $scope.selectTransition("", true);
+    $scope.selectEffect("", true);
 
     // Update scope
     $scope.$apply(function () {
@@ -486,7 +486,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Select all clips and transitions
-  $scope.SelectAll = function () {
+  $scope.selectAll = function () {
     $scope.$apply(function () {
       // Select all clips
       for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
@@ -502,19 +502,19 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Select clip in scope
-  $scope.SelectClip = function (clip_id, clear_selections, event) {
+  $scope.selectClip = function (clip_id, clear_selections, event) {
     // Trim clip_id
     var id = clip_id.replace("clip_", "");
 
     // Clear transitions also (if needed)
     if (id != "" && clear_selections) {
-      $scope.SelectTransition("", clear_selections);
-      $scope.SelectEffect("", clear_selections);
+      $scope.selectTransition("", clear_selections);
+      $scope.selectEffect("", clear_selections);
     }
     // Call slice method and exit (don't actually select the clip)
     if (id != "" && $scope.enable_razor) {
       if ($scope.Qt) {
-        var cursor_seconds = $scope.GetJavaScriptPosition(event.clientX);
+        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
         timeline.RazorSliceAtCursor(id, "", cursor_seconds);
       }
       // Don't actually select clip
@@ -544,19 +544,19 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Select transition in scope
-  $scope.SelectTransition = function (tran_id, clear_selections, event) {
+  $scope.selectTransition = function (tran_id, clear_selections, event) {
     // Trim tran_id
     var id = tran_id.replace("transition_", "");
 
     // Clear clips also (if needed)
     if (id != "" && clear_selections) {
-      $scope.SelectClip("", true);
-      $scope.SelectEffect("", true);
+      $scope.selectClip("", true);
+      $scope.selectEffect("", true);
     }
     // Call slice method and exit (don't actually select the transition)
     if (id != "" && $scope.enable_razor) {
       if ($scope.Qt) {
-        var cursor_seconds = $scope.GetJavaScriptPosition(event.clientX);
+        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
         timeline.RazorSliceAtCursor("", id, cursor_seconds);
       }
       // Don't actually select transition
@@ -591,7 +591,7 @@ App.controller("TimelineCtrl", function ($scope) {
    * @return {string}
    * @return {string}
    */
-  $scope.GetThumbPath = function (clip) {
+  $scope.getThumbPath = function (clip) {
     var has_video = clip["reader"]["has_video"];
     var has_audio = clip["reader"]["has_audio"];
     if (!has_video && has_audio) {
@@ -602,14 +602,14 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Select transition in scope
-  $scope.SelectEffect = function (effect_id) {
+  $scope.selectEffect = function (effect_id) {
     if ($scope.Qt) {
       timeline.addSelection(effect_id, "effect", true);
     }
   };
 
 // Find the furthest right edge on the timeline (and resize it if too small)
-  $scope.ResizeTimeline = function () {
+  $scope.resizeTimeline = function () {
     // Unselect all clips
     var furthest_right_edge = 0;
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
@@ -629,59 +629,59 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
 // Show clip context menu
-  $scope.ShowClipMenu = function (clip_id, event) {
+  $scope.showClipMenu = function (clip_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("$scope.ShowClipMenu");
-      $scope.SelectClip(clip_id, false, event);
+      timeline.qt_log("$scope.showClipMenu");
+      $scope.selectClip(clip_id, false, event);
       timeline.ShowClipMenu(clip_id);
     }
   };
 
 // Show clip context menu
-  $scope.ShowEffectMenu = function (effect_id) {
+  $scope.showEffectMenu = function (effect_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("$scope.ShowEffectMenu");
+      timeline.qt_log("$scope.showEffectMenu");
       timeline.ShowEffectMenu(effect_id);
     }
   };
 
 // Show transition context menu
-  $scope.ShowTransitionMenu = function (tran_id, event) {
+  $scope.showTransitionMenu = function (tran_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("$scope.ShowTransitionMenu");
-      $scope.SelectTransition(tran_id, false, event);
+      timeline.qt_log("$scope.showTransitionMenu");
+      $scope.selectTransition(tran_id, false, event);
       timeline.ShowTransitionMenu(tran_id);
     }
   };
 
 // Show track context menu
-  $scope.ShowTrackMenu = function (layer_id) {
+  $scope.showTrackMenu = function (layer_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("$scope.ShowTrackMenu");
+      timeline.qt_log("$scope.showTrackMenu");
       timeline.ShowTrackMenu(layer_id);
     }
   };
 
 // Show marker context menu
-  $scope.ShowMarkerMenu = function (marker_id) {
+  $scope.showMarkerMenu = function (marker_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("$scope.ShowMarkerMenu");
+      timeline.qt_log("$scope.showMarkerMenu");
       timeline.ShowMarkerMenu(marker_id);
     }
   };
 
   // Show playhead context menu
-  $scope.ShowPlayheadMenu = function (position) {
+  $scope.showPlayheadMenu = function (position) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("$scope.ShowPlayheadMenu");
+      timeline.qt_log("$scope.showPlayheadMenu");
       timeline.ShowPlayheadMenu(position);
     }
   };
 
   // Show timeline context menu
-  $scope.ShowTimelineMenu = function (e, layer_number) {
+  $scope.showTimelineMenu = function (e, layer_number) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.ShowTimelineMenu($scope.GetJavaScriptPosition(e.pageX), layer_number);
+      timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX), layer_number);
     }
   };
 
@@ -689,7 +689,7 @@ App.controller("TimelineCtrl", function ($scope) {
   /**
    * @return {string}
    */
-  $scope.GetTrackName = function (layer_label, layer_number) {
+  $scope.getTrackName = function (layer_label, layer_number) {
     // Determine custom label or default track name
     if (layer_label && layer_label.length > 0) {
       return layer_label;
@@ -699,7 +699,7 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
-  $scope.SetTrackLabel = function (label) {
+  $scope.setTrackLabel = function (label) {
     $scope.track_label = label;
   };
 
@@ -707,7 +707,7 @@ App.controller("TimelineCtrl", function ($scope) {
   /**
    * @return {number}
    */
-  $scope.GetTimelineWidth = function (min_value) {
+  $scope.getTimelineWidth = function (min_value) {
     // Adjust for minimim length
     return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
   };
@@ -717,7 +717,7 @@ App.controller("TimelineCtrl", function ($scope) {
   /**
    * @return {number}
    */
-  $scope.GetJavaScriptPosition = function (x) {
+  $scope.getJavaScriptPosition = function (x) {
     // Adjust for scrollbar position
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = scrolling_tracks.scrollLeft();
@@ -735,18 +735,18 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Get Track number of item (used by Qt)
-  $scope.GetJavaScriptTrack = function (y) {
+  $scope.getJavaScriptTrack = function (y) {
     // Adjust for scrollbar position
     var scrolling_tracks = $("#scrolling_tracks");
     var scrolling_tracks_offset_top = scrolling_tracks.offset().top;
     y += scrolling_tracks.scrollTop();
 
     // Return number of track
-    return parseInt($scope.GetTrackAtY(y - scrolling_tracks_offset_top).number, 10);
+    return parseInt($scope.getTrackAtY(y - scrolling_tracks_offset_top).number, 10);
   };
 
   // Get JSON of most recent item (used by Qt)
-  $scope.UpdateRecentItemJSON = function (item_type, item_id) {
+  $scope.updateRecentItemJSON = function (item_type, item_id) {
 
     // Find item in JSON
     var item_object = null;
@@ -763,7 +763,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Get position of item
     var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
     var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
-    var layer_num = $scope.GetTrackAtY(bounding_box.track_position - scrolling_tracks_offset_top).number;
+    var layer_num = $scope.getTrackAtY(bounding_box.track_position - scrolling_tracks_offset_top).number;
 
     // update scope with final position of items
     $scope.$apply(function () {
@@ -781,13 +781,13 @@ App.controller("TimelineCtrl", function ($scope) {
     }
 
     // Resize timeline if it's too small to contain all clips
-    $scope.ResizeTimeline();
+    $scope.resizeTimeline();
 
     // Hide snapline (if any)
-    $scope.HideSnapline();
+    $scope.hideSnapline();
 
     // Check again for missing transitions
-    var missing_transition_details = $scope.GetMissingTransitions(item_object);
+    var missing_transition_details = $scope.getMissingTransitions(item_object);
     if ($scope.Qt && missing_transition_details != null) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
@@ -799,20 +799,20 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Init bounding boxes for manual move
-  $scope.StartManualMove = function (item_type, item_id) {
+  $scope.startManualMove = function (item_type, item_id) {
     // Select the item
     $scope.$apply(function () {
       if (item_type == "clip") {
-        $scope.SelectClip(item_id, true);
+        $scope.selectClip(item_id, true);
       }
       else if (item_type == "transition") {
-        $scope.SelectTransition(item_id, true);
+        $scope.selectTransition(item_id, true);
       }
     });
 
     // Select new clip object (and unselect others)
     // This needs to be done inline due to async issues with the
-    // above calls to SelectClip/SelectTransition
+    // above calls to selectClip/selectTransition
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
       $scope.project.clips[clip_index].selected = $scope.project.clips[clip_index].id == item_id;
     }
@@ -844,7 +844,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Move a new clip to the timeline
-  $scope.MoveItem = function (x, y, item_type) {
+  $scope.moveItem = function (x, y, item_type) {
     var scrolling_tracks = $("#scrolling_tracks");
     x += scrolling_tracks.scrollLeft();
     y += scrolling_tracks.scrollTop();
@@ -887,10 +887,10 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
-  $scope.UpdateLayerIndex = function () {
+  $scope.updateLayerIndex = function () {
 
     if ($scope.Qt) {
-      timeline.qt_log("UpdateLayerIndex");
+      timeline.qt_log("updateLayerIndex");
     }
 
     var scrolling_tracks = $("#scrolling_tracks");
@@ -915,14 +915,14 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Sort clips and transitions by position
-  $scope.SortItems = function () {
+  $scope.sortItems = function () {
     if (!$scope.enable_sorting) {
       // Sorting is disabled, do nothing
       return;
     }
 
     if ($scope.Qt) {
-      timeline.qt_log("SortItems");
+      timeline.qt_log("sortItems");
 
       $scope.$evalAsync(function () {
         // Sort by position second
@@ -960,7 +960,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Find overlapping clips
-  $scope.GetMissingTransitions = function (original_clip) {
+  $scope.getMissingTransitions = function (original_clip) {
 
     var transition_size = null;
 
@@ -1031,7 +1031,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Search through clips and transitions to find the closest element within a given threshold
-  $scope.GetNearbyPosition = function (pixel_positions, threshold, ignore_ids) {
+  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids) {
     // init some vars
     var smallest_diff = 900.0;
     var smallest_abs_diff = 900.0;
@@ -1113,7 +1113,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Show the nearby snapping line
-  $scope.ShowSnapline = function (position) {
+  $scope.showSnapline = function (position) {
     if (position != $scope.snapline_position || !$scope.snapline) {
       // Only update if value has changed
       $scope.$apply(function () {
@@ -1124,7 +1124,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Hide the nearby snapping line
-  $scope.HideSnapline = function () {
+  $scope.hideSnapline = function () {
     if ($scope.snapline) {
       // Only hide if not already hidden
       $scope.$apply(function () {
@@ -1137,7 +1137,7 @@ App.controller("TimelineCtrl", function ($scope) {
   /**
    * @return {object}
    */
-  $scope.GetTrackAtY = function (y) {
+  $scope.getTrackAtY = function (y) {
     // Loop through each layer (looking for the closest track based on Y coordinate)
     for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
       var layer = $scope.project.layers[layer_index];
@@ -1162,7 +1162,7 @@ App.controller("TimelineCtrl", function ($scope) {
    * @return {string}
    * @return {string}
    */
-  $scope.GetTrackStyle = function (lock) {
+  $scope.getTrackStyle = function (lock) {
     if (lock) {
       return "track track_disabled";
     }
@@ -1201,7 +1201,7 @@ App.controller("TimelineCtrl", function ($scope) {
    * @return {boolean}
    * @return {boolean}
    */
-  $scope.ApplyJsonDiff = function (jsonDiff) {
+  $scope.applyJsonDiff = function (jsonDiff) {
 
     // Loop through each UpdateAction
     for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
@@ -1304,13 +1304,13 @@ App.controller("TimelineCtrl", function ($scope) {
           previous_object.splice(current_position, 1);
         }
         // Resize timeline if it's too small to contain all clips
-        $scope.ResizeTimeline();
+        $scope.resizeTimeline();
 
         // Re-sort clips and transitions array
-        $scope.SortItems();
+        $scope.sortItems();
 
         // Re-index Layer Y values
-        $scope.UpdateLayerIndex();
+        $scope.updateLayerIndex();
       }
       $scope.$digest();
     }
@@ -1322,20 +1322,20 @@ App.controller("TimelineCtrl", function ($scope) {
   /**
    * @return {boolean}
    */
-  $scope.LoadJson = function (EntireProjectJson) {
+  $scope.loadJson = function (EntireProjectJson) {
 
     $scope.$apply(function () {
       // Update the entire JSON object for the entire timeline
       $scope.project = EntireProjectJson.value;
       // Un-select any selected items
-      $scope.SelectClip("", true);
+      $scope.selectClip("", true);
     });
 
     // Re-sort clips and transitions array
-    $scope.SortItems();
+    $scope.sortItems();
 
     // Re-index Layer Y values
-    $scope.UpdateLayerIndex();
+    $scope.updateLayerIndex();
 
     // Scroll to top/left when loading a project
     $("#scrolling_tracks").animate({
@@ -1344,7 +1344,7 @@ App.controller("TimelineCtrl", function ($scope) {
     }, "slow");
 
     // Update playhead position and time readout
-    $scope.MovePlayhead($scope.project.playhead_position);
+    $scope.movePlayhead($scope.project.playhead_position);
 
     // return true
     return true;
@@ -1355,7 +1355,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
 // ############ DEBUG STUFFS ################## //
 
-  $scope.ToggleDebug = function () {
+  $scope.toggleDebug = function () {
     $scope.debug = $scope.debug !== true;
   };
 

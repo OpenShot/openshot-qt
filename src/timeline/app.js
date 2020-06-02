@@ -28,7 +28,7 @@
 
 
 // Initialize Angular application
-/*global App, timeline*/
+/*global App, timeline, angular*/
 var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 
 

@@ -191,18 +191,18 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         action = deepcopy(action)
         action.old_values = {}
 
-        # Send a JSON version of the UpdateAction to the timeline webview method: ApplyJsonDiff()
+        # Send a JSON version of the UpdateAction to the timeline webview method: applyJsonDiff()
         if action.type == "load":
             # Initialize translated track name
             _ = get_app()._tr
-            self.eval_js(JS_SCOPE_SELECTOR + ".SetTrackLabel('" + _("Track %s") + "');")
+            self.eval_js(JS_SCOPE_SELECTOR + ".setTrackLabel('" + _("Track %s") + "');")
 
             # Load entire project data
-            code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
+            code = JS_SCOPE_SELECTOR + ".loadJson(" + action.json() + ");"
             self.eval_js(code)
         elif action.key[0] != "files":
             # Apply diff to part of project data
-            code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
+            code = JS_SCOPE_SELECTOR + ".applyJsonDiff([" + action.json() + "]);"
             self.eval_js(code)
 
         # Reset the scale when loading new JSON
@@ -2669,7 +2669,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     def movePlayhead(self, position_frames):
         """ Move the playhead since the position has changed inside OpenShot (probably due to the video player) """
         # Get access to timeline scope and set scale to zoom slider value (passed in)
-        code = JS_SCOPE_SELECTOR + ".MovePlayheadToFrame(%s);" % (str(position_frames))
+        code = JS_SCOPE_SELECTOR + ".movePlayheadToFrame(%s);" % (str(position_frames))
         self.eval_js(code)
 
     @pyqtSlot()
@@ -2684,19 +2684,19 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """ Enable / Disable snapping mode """
 
         # Init snapping state (1 = snapping, 0 = no snapping)
-        self.eval_js(JS_SCOPE_SELECTOR + ".SetSnappingMode(%s);" % int(enable_snapping))
+        self.eval_js(JS_SCOPE_SELECTOR + ".setSnappingMode(%s);" % int(enable_snapping))
 
     @pyqtSlot(int)
     def SetRazorMode(self, enable_razor):
         """ Enable / Disable razor mode """
 
         # Init razor state (1 = razor, 0 = no razor)
-        self.eval_js(JS_SCOPE_SELECTOR + ".SetRazorMode(%s);" % int(enable_razor))
+        self.eval_js(JS_SCOPE_SELECTOR + ".setRazorMode(%s);" % int(enable_razor))
 
     @pyqtSlot(int)
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable playhead follow on seek """
-        self.eval_js(JS_SCOPE_SELECTOR + ".SetFollow({});".format(int(enable_follow)))
+        self.eval_js(JS_SCOPE_SELECTOR + ".setFollow({});".format(int(enable_follow)))
 
     @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
@@ -2850,11 +2850,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             new_clip["end"] = file.data['end']
 
         # Find the closest track (from javascript)
-        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack({});".format(position.y())))
+        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".getJavaScriptTrack({});".format(position.y())))
         new_clip["layer"] = top_layer
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition({});".format(position.x()))
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({});".format(position.x()))
         new_clip["position"] = js_position
 
         # Adjust clip duration, start, and end
@@ -2880,7 +2880,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.item_id = new_clip.get('id')
 
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('{}', '{}');".format(self.item_type, self.item_id)
+        code = JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, self.item_id)
         self.eval_js(code)
 
     # Resize timeline
@@ -2894,10 +2894,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         log.info("addTransition...")
 
         # Find the closest track (from javascript)
-        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack({});".format(position.y())))
+        top_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".getJavaScriptTrack({});".format(position.y())))
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition({});".format(position.x()))
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({});".format(position.x()))
 
         # Get FPS from project
         fps = get_app().project.get("fps")
@@ -2933,7 +2933,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.item_id = transitions_data.get('id')
 
         # Init javascript bounding box (for snapping support)
-        code = JS_SCOPE_SELECTOR + ".StartManualMove('{}','{}');".format(self.item_type, self.item_id)
+        code = JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, self.item_id)
         self.eval_js(code)
 
     # Add Effect
@@ -2943,10 +2943,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         name = effect_names[0]
 
         # Find the closest track (from javascript)
-        closest_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptTrack({});".format(position.y())))
+        closest_layer = int(self.eval_js(JS_SCOPE_SELECTOR + ".getJavaScriptTrack({});".format(position.y())))
 
         # Find position from javascript
-        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".GetJavaScriptPosition({});".format(position.x()))
+        js_position = self.eval_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({});".format(position.x()))
 
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
@@ -2981,7 +2981,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         # Move clip on timeline
         if self.item_type in ["clip", "transition"]:
-            code = JS_SCOPE_SELECTOR + ".MoveItem({}, {}, '{}');".format(pos.x(), pos.y(), self.item_type)
+            code = JS_SCOPE_SELECTOR + ".moveItem({}, {}, '{}');".format(pos.x(), pos.y(), self.item_type)
             self.eval_js(code)
 
     # Drop an item on the timeline
@@ -2993,7 +2993,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
-            self.eval_js(JS_SCOPE_SELECTOR + ".UpdateRecentItemJSON('{}', '{}');".format(self.item_type, self.item_id))
+            self.eval_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}');".format(self.item_type, self.item_id))
 
         elif self.item_type == "effect":
             # Add effect only on drop
@@ -3057,14 +3057,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         """Clear all selections in JavaScript"""
 
         # Call javascript command
-        cmd = JS_SCOPE_SELECTOR + ".ClearAllSelections();"
+        cmd = JS_SCOPE_SELECTOR + ".clearAllSelections();"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
     def SelectAll(self):
         """Select all clips and transitions in JavaScript"""
 
         # Call javascript command
-        cmd = JS_SCOPE_SELECTOR + ".SelectAll();"
+        cmd = JS_SCOPE_SELECTOR + ".selectAll();"
         self.page().mainFrame().evaluateJavaScript(cmd)
 
     def render_cache_json(self):
@@ -3083,7 +3083,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                     # Cache has changed, re-render it
                     self.cache_renderer_version = cache_version
 
-                    cmd = JS_SCOPE_SELECTOR + ".RenderCache({});".format(cache_json)
+                    cmd = JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json)
                     self.page().mainFrame().evaluateJavaScript(cmd)
         finally:
             # ignore any errors inside the cache rendering

@@ -147,7 +147,6 @@ App.directive("tlTransition", function () {
 
           // change the transition end/start based on which side was dragged
           var new_left = scope.transition.position;
-          var new_right = (scope.transition.end - scope.transition.start);
 
           if (dragLoc === "left") {
             // changing the start of the transition
@@ -199,17 +198,17 @@ App.directive("tlTransition", function () {
               clear_selections = true;
             }
 
-            // SelectClip, SelectTransition
+            // selectClip, selectTransition
             var id = $(this).attr("id");
             if (element.hasClass("clip")) {
               // Select this clip, unselect all others
-              scope.SelectTransition("", clear_selections);
-              scope.SelectClip(id, clear_selections);
+              scope.selectTransition("", clear_selections);
+              scope.selectClip(id, clear_selections);
 
             } else if (element.hasClass("transition")) {
               // Select this transition, unselect all others
-              scope.SelectClip("", clear_selections);
-              scope.SelectTransition(id, clear_selections);
+              scope.selectClip("", clear_selections);
+              scope.selectTransition(id, clear_selections);
             }
           }
 
@@ -253,7 +252,7 @@ App.directive("tlTransition", function () {
           });
 
           // Hide snapline (if any)
-          scope.HideSnapline();
+          scope.hideSnapline();
 
           // Clear previous drag position
           previous_drag_position = null;

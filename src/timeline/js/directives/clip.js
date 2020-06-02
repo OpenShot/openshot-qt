@@ -145,7 +145,7 @@ App.directive("tlClip", function ($timeout) {
               scope.clip.position = new_position;
             }
             // Resize timeline if it's too small to contain all clips
-            scope.ResizeTimeline();
+            scope.resizeTimeline();
 
             // update clip in Qt (very important =)
             if (scope.Qt) {
@@ -203,11 +203,11 @@ App.directive("tlClip", function ($timeout) {
           // Preview frame during resize
           if (dragLoc === "left") {
             // Preview the left side of the clip
-            scope.PreviewClipFrame(scope.clip.id, new_left);
+            scope.previewClipFrame(scope.clip.id, new_left);
           }
           else {
             // Preview the right side of the clip
-            scope.PreviewClipFrame(scope.clip.id, new_right);
+            scope.previewClipFrame(scope.clip.id, new_right);
           }
         }
       });
@@ -243,18 +243,18 @@ App.directive("tlClip", function ($timeout) {
               clear_selections = true;
             }
 
-            // SelectClip, SelectTransition
+            // selectClip, selectTransition
             var id = $(this).attr("id");
             if (element.hasClass("clip")) {
               // Select this clip, unselect all others
-              scope.SelectTransition("", clear_selections);
-              scope.SelectClip(id, clear_selections);
+              scope.selectTransition("", clear_selections);
+              scope.selectClip(id, clear_selections);
 
             }
             else if (element.hasClass("transition")) {
               // Select this transition, unselect all others
-              scope.SelectClip("", clear_selections);
-              scope.SelectTransition(id, clear_selections);
+              scope.selectClip("", clear_selections);
+              scope.selectTransition(id, clear_selections);
             }
           }
 
@@ -297,7 +297,7 @@ App.directive("tlClip", function ($timeout) {
           });
 
           // Hide snapline (if any)
-          scope.HideSnapline();
+          scope.hideSnapline();
 
           // Clear previous drag position
           previous_drag_position = null;

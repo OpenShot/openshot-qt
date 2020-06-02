@@ -40,7 +40,7 @@ App.directive("tlTrack", function ($timeout) {
         if (val) {
           $timeout(function () {
             // Update track indexes if tracks change
-            scope.UpdateLayerIndex();
+            scope.updateLayerIndex();
             scope.playhead_height = $("#track-container").height();
             $(".playhead-line").height(scope.playhead_height);
           }, 0);
@@ -146,7 +146,7 @@ App.directive("tlTrack", function ($timeout) {
               });
 
               // Resize timeline if it's too small to contain all clips
-              scope.ResizeTimeline();
+              scope.resizeTimeline();
 
               // Keep track of dropped clips (we'll check for missing transitions in a sec)
               dropped_clips.push(item_data);
@@ -172,8 +172,8 @@ App.directive("tlTrack", function ($timeout) {
               var item_data = dropped_clips[clip_index];
 
               // Check again for missing transitions
-              var missing_transition_details = scope.GetMissingTransitions(item_data);
-              if (scope.Qt && missing_transition_details != null) {
+              var missing_transition_details = scope.getMissingTransitions(item_data);
+              if (scope.Qt && missing_transition_details !== null) {
                 timeline.add_missing_transition(JSON.stringify(missing_transition_details));
               }
             }
@@ -184,7 +184,7 @@ App.directive("tlTrack", function ($timeout) {
 
           // Re-sort clips
           scope.enable_sorting = true;
-          scope.SortItems();
+          scope.sortItems();
         }
       });
     }

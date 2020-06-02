@@ -117,14 +117,14 @@ App.directive("tlRuler", function ($timeout) {
         var playhead_seconds = playhead_left / scope.pixelsPerSecond;
 
         // Immediately preview frame (don't wait for animated playhead)
-        scope.PreviewFrame(playhead_seconds);
+        scope.previewFrame(playhead_seconds);
 
         // Animate to new position (and then update scope)
         scope.playhead_animating = true;
         $(".playhead-line").animate({left: playhead_left + scope.playheadOffset}, 200);
         $(".playhead-top").animate({left: playhead_left + scope.playheadOffset}, 200, function () {
           // Update playhead
-          scope.MovePlayhead(playhead_seconds);
+          scope.movePlayhead(playhead_seconds);
 
           // Animation complete.
           scope.$apply(function () {
@@ -139,8 +139,8 @@ App.directive("tlRuler", function ($timeout) {
         if (e.which === 1 && !scope.playhead_animating) { // left button
           var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
           // Update playhead
-          scope.MovePlayhead(playhead_seconds);
-          scope.PreviewFrame(playhead_seconds);
+          scope.movePlayhead(playhead_seconds);
+          scope.previewFrame(playhead_seconds);
         }
       });
 
@@ -154,7 +154,7 @@ App.directive("tlRuler", function ($timeout) {
             var scale = scope.project.scale;
             var tick_pixels = scope.project.tick_pixels;
             var each_tick = tick_pixels / 2;
-            var pixel_length = scope.GetTimelineWidth(1024);
+            var pixel_length = scope.getTimelineWidth(1024);
 
             //draw the ruler
             var ctx = element[0].getContext("2d");
@@ -215,8 +215,8 @@ App.directive("tlRulertime", function () {
       element.on("mousedown", function () {
         var playhead_seconds = 0.0;
         // Update playhead
-        scope.MovePlayhead(playhead_seconds);
-        scope.PreviewFrame(playhead_seconds);
+        scope.movePlayhead(playhead_seconds);
+        scope.previewFrame(playhead_seconds);
 
       });
 
@@ -225,8 +225,8 @@ App.directive("tlRulertime", function () {
         if (e.which === 1 && !scope.playhead_animating) { // left button
           var playhead_seconds = 0.0;
           // Update playhead
-          scope.MovePlayhead(playhead_seconds);
-          scope.PreviewFrame(playhead_seconds);
+          scope.movePlayhead(playhead_seconds);
+          scope.previewFrame(playhead_seconds);
         }
       });
 
