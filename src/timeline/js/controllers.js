@@ -28,6 +28,7 @@
 
 
 // Initialize the main controller module
+/*global App, timeline */
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)

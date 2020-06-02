@@ -30,6 +30,7 @@
 // Handles the playhead dragging
 var playhead_y_max = null;
 
+/*global App*/
 App.directive("tlPlayhead", function () {
   return {
     link: function (scope, element, attrs) {

@@ -38,7 +38,7 @@ var scroll_left_pixels = 0;
 
 // This container allows for tracks to be scrolled (with synced ruler)
 // and allows for panning of the timeline with the middle mouse button
-/*global App */
+/*global App*/
 App.directive("tlScrollableTracks", function () {
   return {
     restrict: "A",

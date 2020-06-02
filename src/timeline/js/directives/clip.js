@@ -41,7 +41,7 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-/*global App */
+/*global App, timeline*/
 App.directive("tlClip", function ($timeout) {
   return {
     scope: "@",

@@ -28,6 +28,7 @@
 
 
 // Initialize Angular application
+/*global App, timeline*/
 var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 
 
@@ -55,7 +56,6 @@ $(document).ready(function () {
   });
 
   // Check for Qt Integration
-  /*global timeline */
   if (typeof timeline !== "undefined") {
     timeline.qt_log("Qt Found!");
     body_object.scope().enableQt();
