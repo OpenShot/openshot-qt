@@ -558,7 +558,6 @@ App.controller("TimelineCtrl", function ($scope) {
     if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
         var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
-        /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.RazorSliceAtCursor"]}]*/
         timeline.RazorSliceAtCursor("", id, cursor_seconds);
       }
       // Don't actually select transition
@@ -683,7 +682,6 @@ App.controller("TimelineCtrl", function ($scope) {
   // Show timeline context menu
   $scope.showTimelineMenu = function (e, layer_number) {
     if ($scope.Qt && !$scope.enable_razor) {
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowTimelineMenu"]}]*/
       timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX), layer_number);
     }
   };

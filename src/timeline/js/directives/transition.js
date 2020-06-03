@@ -41,7 +41,7 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-/*global App, timeline, hasLockedTrack, moveBoundingBox*/
+/*global App, timeline, moveBoundingBox*/
 App.directive("tlTransition", function () {
   return {
     scope: "@",
