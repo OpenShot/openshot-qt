@@ -46,12 +46,10 @@ import argparse
 
 try:
     from classes import info
-    print("Loaded modules from current directory: %s" % info.PATH)
 except ImportError:
     import openshot_qt
     sys.path.append(openshot_qt.OPENSHOT_PATH)
     from classes import info
-    print("Loaded modules from installed directory: %s" % info.PATH)
 
 
 def main():
@@ -71,6 +69,13 @@ def main():
        action='store_true',
        help="Load Qt's QAbstractItemModelTester into data models "
        '(requires Qt 5.11+)')
+    parser.add_argument('-d', '--debug', action='store_true',
+        help='Enable debugging output')
+    parser.add_argument('--debug-file', action='store_true',
+        help='Debugging output (logfile only)')
+    parser.add_argument('--debug-console', action='store_true',
+        help='Debugging output (console only)')
+    # Hidden processing for short-form '-d' synonym for --debug
     parser.add_argument('-V', '--version', action='store_true')
     parser.add_argument('remain', nargs=argparse.REMAINDER,
        help=argparse.SUPPRESS)
@@ -81,6 +86,12 @@ def main():
     if args.version:
         print("OpenShot version %s" % info.SETUP['version'])
         sys.exit()
+
+    # Set up debugging log level to requested streams
+    if args.debug or args.debug_file:
+            info.LOG_LEVEL_FILE = 'DEBUG'
+    if args.debug or args.debug_console:
+            info.LOG_LEVEL_CONSOLE = 'DEBUG'
 
     if args.list_languages:
         from classes.language import get_all_languages
@@ -113,6 +124,9 @@ def main():
         else:
             print("Unsupported language '{}'! (See --list-languages)".format(args.lang))
             sys.exit(-1)
+
+    # Normal startup, print module path and lauch application
+    print("Loaded modules from: %s" % info.PATH)
 
     # Create Qt application, pass any unprocessed arguments
     from classes.app import OpenShotApp
