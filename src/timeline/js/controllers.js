@@ -28,7 +28,7 @@
 
 
 // Initialize the main controller module
-/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox*/
+/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement*/
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)
@@ -183,15 +183,15 @@ App.controller("TimelineCtrl", function ($scope) {
     if ("effects" in object) {
       for (var effect in object["effects"]) {
         // Loop through properties of an effect, looking for keyframe points
-        for (var child in object["effects"][effect]) {
-          if (!object["effects"][effect].hasOwnProperty(child)) {
+        for (var effect_prop in object["effects"][effect]) {
+          if (!object["effects"][effect].hasOwnProperty(effect_prop)) {
             //The current property is not a direct property of p
             continue;
           }
           // Determine if this property is a Keyframe
-          if (typeof object["effects"][effect][child] === "object" && "Points" in object["effects"][effect][child]) {
-            for (var point = 0; point < object["effects"][effect][child].Points.length; point++) {
-              var co = object["effects"][effect][child].Points[point].co;
+          if (typeof object["effects"][effect][effect_prop] === "object" && "Points" in object["effects"][effect][effect_prop]) {
+            for (var point = 0; point < object["effects"][effect][effect_prop].Points.length; point++) {
+              var co = object["effects"][effect][effect_prop].Points[point].co;
               if (co.X >= clip_start_x && co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
                 keyframes[co.X] = co.Y;
@@ -199,9 +199,9 @@ App.controller("TimelineCtrl", function ($scope) {
             }
           }
           // Determine if this property is a Color Keyframe
-          if (typeof object["effects"][effect][child] === "object" && "red" in object["effects"][effect][child]) {
-            for (var point = 0; point < object["effects"][effect][child]["red"].Points.length; point++) {
-              var co = object["effects"][effect][child]["red"].Points[point].co;
+          if (typeof object["effects"][effect][effect_prop] === "object" && "red" in object["effects"][effect][effect_prop]) {
+            for (var point = 0; point < object["effects"][effect][effect_prop]["red"].Points.length; point++) {
+              var co = object["effects"][effect][effect_prop]["red"].Points[point].co;
               if (co.X >= clip_start_x && co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
                 keyframes[co.X] = co.Y;
@@ -557,6 +557,7 @@ App.controller("TimelineCtrl", function ($scope) {
     if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
         var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
+        /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.RazorSliceAtCursor"]}]*/
         timeline.RazorSliceAtCursor("", id, cursor_seconds);
       }
       // Don't actually select transition
@@ -1090,7 +1091,7 @@ App.controller("TimelineCtrl", function ($scope) {
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
         var diff = diffs[diff_index].diff;
-        var position = diffs[diff_index].position;
+        var diff_position = diffs[diff_index].position;
         var abs_diff = Math.abs(diff);
 
         // Check if this clip is nearby
@@ -1098,7 +1099,7 @@ App.controller("TimelineCtrl", function ($scope) {
           // This one is smaller
           smallest_diff = diff;
           smallest_abs_diff = abs_diff;
-          snapping_position = position;
+          snapping_position = diff_position;
         }
       }
     }

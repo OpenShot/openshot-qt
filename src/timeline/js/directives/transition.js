@@ -68,7 +68,6 @@ App.directive("tlTransition", function () {
           var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
           var track_top = (parseInt(element.position().top, 10) + parseInt(vert_scroll_offset, 10));
           var track_bottom = (parseInt(element.position().top, 10) + parseInt(element.height(), 10) + parseInt(vert_scroll_offset, 10));
-          /*global hasLockedTrack*/
           if (hasLockedTrack(scope, track_top, track_bottom)) {
             resize_disabled = true;
           }
