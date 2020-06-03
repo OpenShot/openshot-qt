@@ -170,11 +170,11 @@ App.controller("TimelineCtrl", function ($scope) {
       }
       // Determine if this property is a Color Keyframe
       if (typeof object[child] === "object" && "red" in object[child]) {
-        for (var point = 0; point < object[child]["red"].Points.length; point++) {
-          var co = object[child]["red"].Points[point].co;
-          if (co.X >= clip_start_x && co.X <= clip_end_x) {
+        for (var color_point = 0; color_point < object[child]["red"].Points.length; color_point++) {
+          var color_co = object[child]["red"].Points[color_point].co;
+          if (color_co.X >= clip_start_x && color_co.X <= clip_end_x) {
             // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[co.X] = co.Y;
+            keyframes[color_co.X] = color_co.Y;
           }
         }
       }
@@ -190,21 +190,21 @@ App.controller("TimelineCtrl", function ($scope) {
           }
           // Determine if this property is a Keyframe
           if (typeof object["effects"][effect][effect_prop] === "object" && "Points" in object["effects"][effect][effect_prop]) {
-            for (var point = 0; point < object["effects"][effect][effect_prop].Points.length; point++) {
-              var co = object["effects"][effect][effect_prop].Points[point].co;
-              if (co.X >= clip_start_x && co.X <= clip_end_x) {
+            for (var effect_point = 0; effect_point < object["effects"][effect][effect_prop].Points.length; effect_point++) {
+              var effect_co = object["effects"][effect][effect_prop].Points[effect_point].co;
+              if (effect_co.X >= clip_start_x && effect_co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[co.X] = co.Y;
+                keyframes[effect_co.X] = effect_co.Y;
               }
             }
           }
           // Determine if this property is a Color Keyframe
           if (typeof object["effects"][effect][effect_prop] === "object" && "red" in object["effects"][effect][effect_prop]) {
-            for (var point = 0; point < object["effects"][effect][effect_prop]["red"].Points.length; point++) {
-              var co = object["effects"][effect][effect_prop]["red"].Points[point].co;
-              if (co.X >= clip_start_x && co.X <= clip_end_x) {
+            for (var effect_color_point = 0; effect_color_point < object["effects"][effect][effect_prop]["red"].Points.length; effect_color_point++) {
+              var effect_color_co = object["effects"][effect][effect_prop]["red"].Points[effect_color_point].co;
+              if (effect_color_co.X >= clip_start_x && effect_color_co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[co.X] = co.Y;
+                keyframes[effect_color_co.X] = effect_color_co.Y;
               }
             }
           }
@@ -682,6 +682,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Show timeline context menu
   $scope.showTimelineMenu = function (e, layer_number) {
     if ($scope.Qt && !$scope.enable_razor) {
+      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowTimelineMenu"]}]*/
       timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX), layer_number);
     }
   };
