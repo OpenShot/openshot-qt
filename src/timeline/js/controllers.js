@@ -28,7 +28,7 @@
 
 
 // Initialize the main controller module
-/*global App, timeline */
+/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox*/
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)
