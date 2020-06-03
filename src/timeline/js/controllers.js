@@ -515,6 +515,7 @@ App.controller("TimelineCtrl", function ($scope) {
     if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
         var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
+        /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.RazorSliceAtCursor"]}]*/
         timeline.RazorSliceAtCursor(id, "", cursor_seconds);
       }
       // Don't actually select clip
