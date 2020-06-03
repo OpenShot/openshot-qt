@@ -124,7 +124,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Update GUI with position (so the preview can be updated)
     if ($scope.Qt) {
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.PlayheadMoved"]}]*/
       timeline.PlayheadMoved(frame);
     }
   };
@@ -140,7 +139,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Update GUI with position (so the preview can be updated)
     if ($scope.Qt) {
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.PreviewClipFrame"]}]*/
       timeline.PreviewClipFrame(clip_id, frame);
     }
   };
@@ -517,7 +515,6 @@ App.controller("TimelineCtrl", function ($scope) {
     if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
         var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
-        /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.RazorSliceAtCursor"]}]*/
         timeline.RazorSliceAtCursor(id, "", cursor_seconds);
       }
       // Don't actually select clip
@@ -636,7 +633,6 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && !$scope.enable_razor) {
       timeline.qt_log("$scope.showClipMenu");
       $scope.selectClip(clip_id, false, event);
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowClipMenu"]}]*/
       timeline.ShowClipMenu(clip_id);
     }
   };
@@ -645,7 +641,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.showEffectMenu = function (effect_id) {
     if ($scope.Qt && !$scope.enable_razor) {
       timeline.qt_log("$scope.showEffectMenu");
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowEffectMenu"]}]*/
       timeline.ShowEffectMenu(effect_id);
     }
   };
@@ -655,7 +650,6 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && !$scope.enable_razor) {
       timeline.qt_log("$scope.showTransitionMenu");
       $scope.selectTransition(tran_id, false, event);
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowTransitionMenu"]}]*/
       timeline.ShowTransitionMenu(tran_id);
     }
   };
@@ -664,7 +658,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.showTrackMenu = function (layer_id) {
     if ($scope.Qt && !$scope.enable_razor) {
       timeline.qt_log("$scope.showTrackMenu");
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowTrackMenu"]}]*/
       timeline.ShowTrackMenu(layer_id);
     }
   };
@@ -673,7 +666,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.showMarkerMenu = function (marker_id) {
     if ($scope.Qt && !$scope.enable_razor) {
       timeline.qt_log("$scope.showMarkerMenu");
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowMarkerMenu"]}]*/
       timeline.ShowMarkerMenu(marker_id);
     }
   };
@@ -682,7 +674,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.showPlayheadMenu = function (position) {
     if ($scope.Qt && !$scope.enable_razor) {
       timeline.qt_log("$scope.showPlayheadMenu");
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowPlayheadMenu"]}]*/
       timeline.ShowPlayheadMenu(position);
     }
   };
@@ -690,7 +681,6 @@ App.controller("TimelineCtrl", function ($scope) {
   // Show timeline context menu
   $scope.showTimelineMenu = function (e, layer_number) {
     if ($scope.Qt && !$scope.enable_razor) {
-      /*eslint new-cap: [2, {"capIsNewExceptions": ["timeline.ShowTimelineMenu"]}]*/
       timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX), layer_number);
     }
   };
