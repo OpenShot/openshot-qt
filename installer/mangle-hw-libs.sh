@@ -3,7 +3,7 @@
 
 usage()
 {
-    progname=$(basename $0)
+    progname="$(basename "$0")"
     cat << __EOM__
 ${progname} - Replace system paths encoded into shared libraries
 
@@ -15,7 +15,7 @@ __EOM__
 }
 
 # Bail with usage information, if the directory path is unset
-[ -z $1 ] && usage && exit -1
+[ -z "$1" ] && usage && exit -1
 
 # We take one argument, the path in which to look for target libraries
 if [ -d "$1" ]; then

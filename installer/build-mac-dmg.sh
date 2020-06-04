@@ -59,7 +59,7 @@ echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
 
 echo "Building Custom DMG"
-appdmg installer/dmg-template.json build/$OS_DMG_NAME
+appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
 
 echo "Code Sign DMG"
 codesign -s "OpenShot Studios, LLC" "build/$OS_DMG_NAME" --force

@@ -132,4 +132,4 @@ class AnimatedTitle(QDialog):
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
             except:
-                pass
+                log.warning('Failed to remove child widget for effect controls')

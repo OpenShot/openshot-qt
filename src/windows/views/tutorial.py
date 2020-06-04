@@ -27,14 +27,18 @@
 
 import functools
 
-from PyQt5.QtCore import Qt, QPoint, QRectF, QEvent
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QLabel, QWidget, QDockWidget, QVBoxLayout, QHBoxLayout, QPushButton, QToolButton, QCheckBox, QAction
-
+from PyQt5.QtCore import Qt, QPoint, QRectF
+from PyQt5.QtGui import (
+    QColor, QPalette, QPen, QPainter, QPainterPath, QKeySequence,
+)
+from PyQt5.QtWidgets import (
+    QAction, QLabel, QWidget, QVBoxLayout, QHBoxLayout,
+    QPushButton, QToolButton, QCheckBox,
+)
 from classes.logger import log
 from classes.settings import get_settings
 from classes.app import get_app
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 
 
 class TutorialDialog(QWidget):
@@ -81,9 +85,9 @@ class TutorialDialog(QWidget):
         """Process click events on tutorial. Especially useful when tutorial messages are partially
         obscured or offscreen (i.e. on small screens). Just click any part of the tutorial, and it will
         move on to the next one."""
-        self.manager.next_tip(self.id)
+        self.manager.next_tip(self.widget_id)
 
-    def __init__(self, id, text, arrow, manager, *args):
+    def __init__(self, widget_id, text, arrow, manager, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -92,7 +96,7 @@ class TutorialDialog(QWidget):
         _ = app._tr
 
         # Keep track of widget to position next to
-        self.id = id
+        self.widget_id = widget_id
         self.arrow = arrow
         self.manager = manager
 
@@ -112,7 +116,7 @@ class TutorialDialog(QWidget):
         # Add error and anonymous metrics checkbox (for ID=0) tooltip
         # This is a bit of a hack, but since it's the only exception, it's
         # probably okay for now.
-        if self.id == "0":
+        if self.widget_id == "0":
             # Get settings
             s = get_settings()
 
@@ -163,7 +167,7 @@ class TutorialDialog(QWidget):
 
         # Connect close action signal
         self.close_action.triggered.connect(
-            functools.partial(self.manager.hide_tips, self.id, True))
+            functools.partial(self.manager.hide_tips, self.widget_id, True))
 
 
 class TutorialManager(object):
@@ -193,8 +197,7 @@ class TutorialManager(object):
 
             # Create tutorial
             self.position_widget = tutorial_object
-            self.x_offset = tutorial_details["x"]
-            self.y_offset = tutorial_details["y"]
+            self.offset = QPoint(tutorial_details["x"], tutorial_details["y"])
             tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"], self)
 
             # Connect signals
@@ -237,16 +240,15 @@ class TutorialManager(object):
         elif object_id == "emojisView":
             return self.win.emojiListView
         elif object_id == "actionPlay":
-            play_button = None
+            # Find play/pause button on transport controls toolbar
             for w in self.win.actionPlay.associatedWidgets():
-                if type(w) == QToolButton:
+                if isinstance(w, QToolButton):
                     return w
         elif object_id == "export_button":
             # Find export toolbar button on main window
-            export_button = None
-            for toolbutton in self.win.toolBar.children():
-                if type(toolbutton) == QToolButton and toolbutton.defaultAction() and toolbutton.defaultAction().objectName() == "actionExportVideo":
-                    return toolbutton
+            for w in self.win.actionExportVideo.associatedWidgets():
+                if isinstance(w, QToolButton):
+                    return w
 
     def next_tip(self, tid):
         """ Mark the current tip completed, and show the next one """
@@ -297,8 +299,7 @@ class TutorialManager(object):
             self.win.dockProperties.visibilityChanged.disconnect()
             self.win.dockVideo.visibilityChanged.disconnect()
         except Exception:
-            # Ignore errors from this
-            pass
+            log.debug('Failed to properly disconnect from dock signals', exc_info=1)
 
         # Close dialog window
         self.close_dialogs()
@@ -317,23 +318,24 @@ class TutorialManager(object):
     def re_position_dialog(self):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:
-            """ Move widget next to its position widget. Padd with 1/4 width of widget, so the tutorial dialog
-            floats a bit, and add custom offets for certain widgets, such as the Export button.
-            """
-            x = self.position_widget.mapToGlobal(self.position_widget.rect().topLeft()).x() + \
-                (self.position_widget.width() / 4) + self.x_offset
-            y = self.position_widget.mapToGlobal(self.position_widget.rect().topLeft()).y() + \
-                (self.position_widget.height() / 4) + self.y_offset
-
-            # Hide / Show tutorial dialog based on if the position widget has valid coordinates
-            # When a dock is invisible, the widgets inside are located in negative coordinate space.
-            if x < 0 or y < 0:
+            # Check if target is visible
+            if self.position_widget.isHidden():
                 self.hide_dialog()
-            else:
-                self.re_show_dialog()
+                return
+
+            # Locate tutorial popup relative to its "target" widget
+            pos_rect = self.position_widget.rect()
+
+            # Start with a 1/4-size offset rectangle, so the tutorial dialog
+            # floats a bit, then apply any custom offset defined for this popup.
+            pos_rect.setSize(pos_rect.size() / 4)
+            pos_rect.translate(self.offset)
+            # Map the new rectangle's bottom-right corner to global coords
+            position = self.position_widget.mapToGlobal(pos_rect.bottomRight())
 
             # Move tutorial widget to the correct position
-            self.dock.move(QPoint(x, y))
+            self.re_show_dialog()
+            self.dock.move(position)
 
     def __init__(self, win):
         """ Constructor """

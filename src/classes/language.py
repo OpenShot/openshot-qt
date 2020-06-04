@@ -1,27 +1,27 @@
-""" 
+"""
  @file
  @brief This file loads the current language based on the computer's locale settings
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -123,7 +123,7 @@ def init_language():
 #  returns True when a match was found.
 #  pattern - a string expected to have one pipe to be filled by locale strings
 #  path - base path for file (pattern may contain more path)
-#  
+#
 def find_language_match(prefix, path, translator, locale_name):
     """ Match all combinations of locale, language, and country """
 
@@ -145,8 +145,7 @@ def get_all_languages():
             country_name = QLocale(locale_name).nativeCountryName().title()
             all_languages.append((locale_name, native_lang_name, country_name))
         except:
-            # Ignore failed parsing of language
-            pass
+            log.warning('Failed to parse language for %s' % locale_name)
 
     # Return list
     return all_languages

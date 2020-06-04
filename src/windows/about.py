@@ -75,8 +75,7 @@ class About(QDialog):
                                 self.btnchangelog.setVisible(True)
                                 break
                     except:
-                        # Ignore decoding errors
-                        pass
+                        log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
         description_text = _('OpenShot Video Editor 2.x is the next generation of the award-winning <br/>OpenShot video editing platform.')
@@ -270,8 +269,7 @@ class Changelog(QDialog):
                                                    'subject': line[45:].strip() })
                         break
                 except:
-                    # Ignore decoding errors
-                    pass
+                    log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
         self.openshot_qt_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/openshot-qt/commit/%s/")
         self.vbox_openshot_qt.addWidget(self.openshot_qt_ListView)
         self.txtChangeLogFilter_openshot_qt.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_openshot_qt, self.openshot_qt_ListView))
@@ -291,8 +289,7 @@ class Changelog(QDialog):
                                                    'subject': line[45:].strip() })
                         break
                 except:
-                    # Ignore decoding errors
-                    pass
+                    log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
         self.libopenshot_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot/commit/%s/")
         self.vbox_libopenshot.addWidget(self.libopenshot_ListView)
         self.txtChangeLogFilter_libopenshot.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot, self.libopenshot_ListView))
@@ -312,8 +309,7 @@ class Changelog(QDialog):
                                                    'subject': line[45:].strip() })
                         break
                 except:
-                    # Ignore decoding errors
-                    pass
+                    log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
         self.libopenshot_audio_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot-audio/commit/%s/")
         self.vbox_libopenshot_audio.addWidget(self.libopenshot_audio_ListView)
         self.txtChangeLogFilter_libopenshot_audio.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot_audio, self.libopenshot_audio_ListView))

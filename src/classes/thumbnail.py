@@ -60,9 +60,12 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
     rotate = 0.0
     try:
         if reader.info.metadata.count("rotate"):
-            rotate = float(reader.info.metadata.find("rotate").value()[1])
+            rotate_data = reader.info.metadata.find("rotate").value()[1]
+            rotate = float(rotate_data)
+    except ValueError as ex:
+        log.warning("Could not parse rotation value {}: {}".format(rotate_data, ex))
     except Exception:
-        pass
+        log.warning("Error reading rotation metadata from {}".format(file_path), exc_info=1)
 
     # Create thumbnail folder (if needed)
     parent_path = os.path.dirname(thumb_path)

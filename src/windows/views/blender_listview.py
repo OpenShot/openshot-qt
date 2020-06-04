@@ -210,6 +210,7 @@ class BlenderListView(QListView):
             if not value:
                 value = widget.toPlainText()
         except Exception:
+            log.debug('Failed to read plain text value from widget')
             return
         self.params[param["name"]] = value.replace("\n", "\\n")
         # XXX: This will log every individual KEYPRESS in the text field.

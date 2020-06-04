@@ -692,7 +692,7 @@ class Export(QDialog):
                     bit_rate_bytes = raw_number
 
         except:
-            pass
+            log.warning('Failed to convert bitrate string to bytes: %s' % BitRateString)
 
         # return the bit rate in bytes
         return str(int(bit_rate_bytes))
