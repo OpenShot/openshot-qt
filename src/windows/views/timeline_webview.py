@@ -1297,11 +1297,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
     def Copy_Triggered(self, action, clip_ids, tran_ids):
         """Callback for copy context menus"""
-        log.info(action)
 
         # Empty previous clipboard
         self.copy_clipboard = {}
         self.copy_transition_clipboard = {}
+
+        position_diff = -1.0
+        layer_diff = -1
 
         # Loop through clip objects
         for clip_id in clip_ids:
@@ -1316,6 +1318,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             if action == MENU_COPY_CLIP or action == MENU_COPY_ALL:
                 self.copy_clipboard[clip_id] = clip.data
+
+                # Locate the block top left position
+                data = self.copy_clipboard[clip_id]
+                if data['position'] < position_diff or position_diff == -1.0:
+                    position_diff = data['position']
+                if data['layer'] > layer_diff or layer_diff == -1.0:
+                    layer_diff = data['layer']
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
@@ -1359,6 +1368,13 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
             if action == MENU_COPY_TRANSITION or action == MENU_COPY_ALL:
                 self.copy_transition_clipboard[tran_id] = tran.data
+
+                # Locate the block top left position
+                data = self.copy_transition_clipboard[clip_id]
+                if data['position'] < position_diff or position_diff == -1.0:
+                    position_diff = data['position']
+                if data['layer'] > layer_diff or layer_diff == -1.0:
+                    layer_diff = data['layer']
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
                 self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
@@ -1367,46 +1383,30 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             elif action == MENU_COPY_KEYFRAMES_CONTRAST:
                 self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
 
+        # Move the copied part to the left side to simple paste later
+        if position_diff > 0 or layer_diff > 0:
+            print("  !!!!! DEBUG: fixing position of clipboard block: %d %d" % (position_diff, layer_diff))
+            # Adjust the copy block position and track
+            for clip_id in clip_ids:
+                self.copy_clipboard[clip_id]['position'] -= position_diff
+                self.copy_clipboard[clip_id]['layer'] -= layer_diff
+            for tran_id in tran_ids:
+                self.copy_transition_clipboard[tran_id]['position'] -= position_diff
+                self.copy_transition_clipboard[tran_id]['layer'] -= layer_diff
+
     def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
         """Callback for paste context menus"""
-        log.info(action)
+
+        # Default layer if not known
+        if layer_id == -1:
+            layer_id = 0
 
         # Get list of clipboard items (that are complete clips or transitions)
         # i.e. ignore partial clipboard items (keyframes / effects / etc...)
         clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
         clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
 
-        # Determine left most copied clip, and top most track (the top left point of the copied objects)
         if len(clipboard_clip_ids) + len(clipboard_tran_ids):
-            left_most_position = -1.0
-            top_most_layer = -1
-            # Loop through each copied clip (looking for top left point)
-            for clip_id in clipboard_clip_ids:
-                # Get existing clip object
-                clip = Clip()
-                clip.data = self.copy_clipboard.get(clip_id, {})
-                if clip.data['position'] < left_most_position or left_most_position == -1.0:
-                    left_most_position = clip.data['position']
-                if clip.data['layer'] > top_most_layer or top_most_layer == -1.0:
-                    top_most_layer = clip.data['layer']
-            # Loop through each copied transition (looking for top left point)
-            for tran_id in clipboard_tran_ids:
-                # Get existing transition object
-                tran = Transition()
-                tran.data = self.copy_transition_clipboard.get(tran_id, {})
-                if tran.data['position'] < left_most_position or left_most_position == -1.0:
-                    left_most_position = tran.data['position']
-                if tran.data['layer'] > top_most_layer or top_most_layer == -1.0:
-                    top_most_layer = tran.data['layer']
-
-            # Default layer if not known
-            if layer_id == -1:
-                layer_id = top_most_layer
-
-            # Determine difference from top left and paste location
-            position_diff = position - left_most_position
-            layer_diff = layer_id - top_most_layer
-
             # Loop through each copied clip
             for clip_id in clipboard_clip_ids:
                 # Get existing clip object
@@ -1418,8 +1418,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data.pop('id')
 
                 # Adjust the position and track
-                clip.data['position'] += position_diff
-                clip.data['layer'] += layer_diff
+                clip.data['position'] += position
+                clip.data['layer'] += layer_id
 
                 # Save changes
                 clip.save()
@@ -1435,8 +1435,8 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 tran.data.pop('id')
 
                 # Adjust the position and track
-                tran.data['position'] += position_diff
-                tran.data['layer'] += layer_diff
+                tran.data['position'] += position
+                tran.data['layer'] += layer_id
 
                 # Save changes
                 tran.save()
