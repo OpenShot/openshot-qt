@@ -225,6 +225,8 @@ class FilesTreeView(QTreeView):
             extension = match[0][3]
 
             full_base_name = os.path.join(dirName, base_name)
+            if self._add_file_to_ignore_sequence == full_base_name:
+                return None
 
             # Check for images which the file names have the different length
             fixlen = fixlen or not (
@@ -266,6 +268,7 @@ class FilesTreeView(QTreeView):
                     }
                     return parameters
                 else:
+                    self._add_file_to_ignore_sequence = full_base_name
                     return None
             else:
                 return None
@@ -397,3 +400,6 @@ class FilesTreeView(QTreeView):
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
         self.files_model.model.itemChanged.connect(self.value_updated)
+
+        # Ignore repeated non-sequence files that was ignored previously
+        self._add_file_to_ignore_sequence = ''
