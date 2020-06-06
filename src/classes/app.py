@@ -107,7 +107,6 @@ class OpenShotApp(QApplication):
         # Setup application
         self.setApplicationName('openshot')
         self.setApplicationVersion(info.SETUP['version'])
-        self.setWindowIcon(QIcon(":/openshot.svg"))
         try:
             # Qt 5.7+ only
             self.setDesktopFile("org.openshot.OpenShot")
