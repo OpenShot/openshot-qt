@@ -54,7 +54,24 @@ class QueryObject:
 
         # Insert or Update this data into the project data store
         if not self.id and self.type == "insert":
+            # Generate new id
+            self.genid(OBJECT_TYPE)
 
+            # Insert into project data
+            app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), self.data)
+
+            # Mark record as 'update' now... so another call to this method won't insert it again
+            self.type = "update"
+
+        elif self.id and self.type == "update":
+
+            # Update existing project data
+            app.updates.update(self.key, self.data)
+
+    def genid(self, OBJECT_TYPE):
+        """ Generate new id for the object """
+
+        if not self.id:
             # Insert record, and Generate id
             self.id = project.generate_id()
 
@@ -65,17 +82,6 @@ class QueryObject:
             if not self.key:
                 self.key = copy.deepcopy(OBJECT_TYPE.object_key)
                 self.key.append({"id": self.id})
-
-            # Insert into project data
-            app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), copy.deepcopy(self.data))
-
-            # Mark record as 'update' now... so another call to this method won't insert it again
-            self.type = "update"
-
-        elif self.id and self.type == "update":
-
-            # Update existing project data
-            app.updates.update(self.key, self.data)
 
     def delete(self, OBJECT_TYPE):
         """ Delete the object from the project data store """
@@ -108,30 +114,33 @@ class QueryObject:
             # Protect against non-iterable/subscriptables
             if not child:
                 continue
+            if not isinstance(child, list):
+                child = [child]
 
             # Loop through all kwargs (and look for matches)
-            match = True
-            for key, value in kwargs.items():
+            for c in child:
+                match = True
+                for key, value in kwargs.items():
 
-                # Equals
-                if key in child and not child[key] == value:
-                    match = False
-                    break
-
-                # Intersection Position
-                if key == "intersect":
-                    if (child.get("position", 0) > value or
-                       child.get("position", 0) + (child.get("end", 0) - child.get("start", 0)) < value):
+                    # Equals
+                    if key in c and not c[key] == value:
                         match = False
+                        break
 
-            # Add matched record
-            if match:
-                object = OBJECT_TYPE()
-                object.id = child["id"]
-                object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
-                object.data = copy.deepcopy(child)  # copy of object
-                object.type = "update"
-                matching_objects.append(object)
+                    # Intersection Position
+                    if key == "intersect":
+                        if (c.get("position", 0) > value or
+                           c.get("position", 0) + (c.get("end", 0) - c.get("start", 0)) < value):
+                            match = False
+
+                # Add matched record
+                if match:
+                    object = OBJECT_TYPE()
+                    object.id = c["id"]
+                    object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
+                    object.data = copy.deepcopy(c)  # copy of object
+                    object.type = "update"
+                    matching_objects.append(object)
 
         # Return matching objects
         return matching_objects
@@ -156,6 +165,10 @@ class Clip(QueryObject):
     def save(self):
         """ Save the object back to the project data store """
         super().save(Clip)
+
+    def genid(self):
+        """ Generate new id for the object """
+        super().genid(Clip)
 
     def delete(self):
         """ Delete the object from the project data store """

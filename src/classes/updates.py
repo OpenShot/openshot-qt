@@ -67,36 +67,42 @@ class UpdateAction:
 
     def json(self, is_array=False, only_value=False):
         """ Get the JSON string representing this UpdateAction """
+        print("  !!!!! DEBUG: Json to send: %s %s" % (is_array, only_value))
+
+        data = self.values
+        if not isinstance(data, list):
+            data = [self.values]
 
         # Build the dictionary to be serialized
-        if only_value:
-            data_dict = copy.deepcopy(self.values)
-        else:
-            data_dict = {"type": self.type,
-                         "key": self.key,
-                         "value": copy.deepcopy(self.values),
-                         "partial": self.partial_update,
-                         "old_values": copy.deepcopy(self.old_values)}
-
-            # Always remove 'history' key (if found). This prevents nested "history"
-            # attributes when a project dict is loaded.
-            try:
-                if isinstance(data_dict.get("value"), dict) and "history" in data_dict.get("value"):
-                    data_dict.get("value").pop("history", None)
-                if isinstance(data_dict.get("old_values"), dict) and "history" in data_dict.get("old_values"):
-                    data_dict.get("old_values").pop("history", None)
-            except Exception as ex:
-                log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
+        out = [copy.deepcopy(val) if only_value else self._prep_value(val) for val in data]
 
         if not is_array:
             # Use a JSON Object as the root object
-            update_action_dict = data_dict
-        else:
-            # Use a JSON Array as the root object
-            update_action_dict = [data_dict]
+            out = out[0]
 
         # Serialize as JSON
-        return json.dumps(update_action_dict)
+        return json.dumps(out)
+
+    def _prep_value(self, value):
+        data_dict = {
+            "type": self.type,
+            "key": self.key,
+            "value": copy.deepcopy(value),
+            "partial": self.partial_update,
+            "old_values": copy.deepcopy(self.old_values),
+        }
+
+        # Always remove 'history' key (if found). This prevents nested "history"
+        # attributes when a project dict is loaded.
+        try:
+            if isinstance(data_dict.get("value"), dict) and "history" in data_dict.get("value"):
+                data_dict.get("value").pop("history", None)
+            if isinstance(data_dict.get("old_values"), dict) and "history" in data_dict.get("old_values"):
+                data_dict.get("old_values").pop("history", None)
+        except Exception as ex:
+            log.warning('Failed to clear history attribute from undo/redo data. {}'.format(ex))
+
+        return data_dict
 
     def load_json(self, value):
         """ Load this UpdateAction from a JSON string """

@@ -203,7 +203,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             code = JS_SCOPE_SELECTOR + ".LoadJson(" + action.json() + ");"
         else:
             # Apply diff to part of project data
-            code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff([" + action.json() + "]);"
+            code = JS_SCOPE_SELECTOR + ".ApplyJsonDiff(" + action.json(is_array=True) + ");"
         self.eval_js(code)
 
         # Reset the scale when loading new JSON
@@ -1408,13 +1408,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
         if len(clipboard_clip_ids) + len(clipboard_tran_ids):
             # Loop through each copied clip
+            batch = []
             for clip_id in clipboard_clip_ids:
                 # Get existing clip object
                 clip = Clip()
                 clip.data = self.copy_clipboard.get(clip_id, {})
 
                 # Remove the ID property from the clip (so it becomes a new one)
-                clip.type = 'insert'
+                clip.type = 'update'
                 clip.data.pop('id')
 
                 # Adjust the position and track
@@ -1422,7 +1423,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 clip.data['layer'] += layer_id
 
                 # Save changes
-                clip.save()
+                clip.genid()
+                batch.append(clip.data)
+            print("  !!!!! DEBUG: Sending batch")
+            get_app().updates.insert(Clip.object_key, batch)
+            print("  !!!!! DEBUG: Batch sent")
 
             # Loop through all copied transitions
             for tran_id in clipboard_tran_ids:

@@ -1355,56 +1355,57 @@ $scope.SetTrackLabel = function (label) {
  // to the timeline. A change can be an insert, update, or delete. The change is passed in
  // as JSON, which represents the change.
  $scope.ApplyJsonDiff = function(jsonDiff) {
+  timeline.qt_log("  !!!! DEBUG: ApplyJsonDiff");
 
-	 // Loop through each UpdateAction
+	// Loop through each UpdateAction
 	for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
 		var action = jsonDiff[action_index];
 
-		 // Iterate through the key levels (looking for a matching element in the $scope.project)
-		 var previous_object = null;
-		 var current_object = $scope.project;
-		 var current_position = 0;
-		 var current_key = "";
-		 for (var key_index = 0; key_index < action.key.length; key_index++) {
-		 	var key_value = action.key[key_index];
+		// Iterate through the key levels (looking for a matching element in the $scope.project)
+		var previous_object = null;
+		var current_object = $scope.project;
+		var current_position = 0;
+		var current_key = "";
+		for (var key_index = 0; key_index < action.key.length; key_index++) {
+			var key_value = action.key[key_index];
 
-		 	// Check the key type
-		 	if (key_value.constructor == String) {
-		 		// Does the key value exist in scope?, No match, bail out
-		 		if (!current_object.hasOwnProperty(key_value)) {
-		 			return false;
-		 		}
-	 			// set current level and previous level
-	 			previous_object = current_object;
-	 			current_object = current_object[key_value];
-	 			current_key = key_value;
+			// Check the key type
+			if (key_value.constructor == String) {
+				// Does the key value exist in scope?, No match, bail out
+				if (!current_object.hasOwnProperty(key_value)) {
+					return false;
+				}
+				// set current level and previous level
+				previous_object = current_object;
+				current_object = current_object[key_value];
+				current_key = key_value;
 
-		 	}
-		 	else if (key_value.constructor == Object) {
-		 		// Get the id from the object (if any)
-		 		var id = null;
-		 		if ("id" in key_value) {
-		 			id = key_value["id"];
-		 		}
-		 		// Be sure the current_object is an Array
-		 		if (current_object.constructor == Array) {
-			 		// Filter the current_object for a specific id
-			 		current_position = 0;
-			 		for (var child_index = 0; child_index < current_object.length; child_index++) {
-			 			var child_object = current_object[child_index];
+			}
+			else if (key_value.constructor == Object) {
+				// Get the id from the object (if any)
+				var id = null;
+				if ("id" in key_value) {
+					id = key_value["id"];
+				}
+				// Be sure the current_object is an Array
+				if (current_object.constructor == Array) {
+					// Filter the current_object for a specific id
+					current_position = 0;
+					for (var child_index = 0; child_index < current_object.length; child_index++) {
+						var child_object = current_object[child_index];
 
 						// Find matching child
 						if (child_object.hasOwnProperty("id") && child_object.id == id) {
-				 			// set current level and previous level
-				 			previous_object = current_object;
-				 			current_object = child_object;
-				 			break; // found child, stop looping
-				 		}
-				 		// increment index
-				 		current_position++;
-			 		}
-		 		}
-		 	}
+							// set current level and previous level
+							previous_object = current_object;
+							current_object = child_object;
+							break; // found child, stop looping
+						}
+						// increment index
+						current_position++;
+					}
+				}
+			}
 		}
 
         // Now that we have a matching object in the $scope.project...
@@ -1455,18 +1456,21 @@ $scope.SetTrackLabel = function (label) {
                 // delete current object from it's parent (previous object)
                 previous_object.splice(current_position, 1);
             }
-            // Resize timeline if it's too small to contain all clips
-            $scope.ResizeTimeline();
-
-            // Re-sort clips and transitions array
-            $scope.SortItems();
-
-            // Re-index Layer Y values
-            $scope.UpdateLayerIndex();
         }
-		$scope.$digest();
 	}
-	// return true
+
+  // Resize timeline if it's too small to contain all clips
+  $scope.ResizeTimeline();
+
+  // Re-sort clips and transitions array
+  $scope.SortItems();
+
+  // Re-index Layer Y values
+  $scope.UpdateLayerIndex();
+
+  $scope.$digest();
+
+  timeline.qt_log("  !!!! DEBUG: ApplyJsonDiff");
 	return true;
  };
 

@@ -737,6 +737,7 @@ class SelectionLabel(QFrame):
 
         # Look up item for more info
         if self.item_type == "clip":
+            print("  !!!! DEBUG: selecting clip: %s" % (self.item_id,))
             clip = Clip.get(id=self.item_id)
             if clip:
                 self.item_name = clip.title()
