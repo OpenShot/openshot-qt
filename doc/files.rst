@@ -20,26 +20,41 @@
 Files
 =====
 
-Before we can begin making a video, we need to import files into OpenShot. Most media file types are
-recognized, such as videos, images, and audio files. Files can be viewed and managed in the **Project Files** panel.
+To create a video, we need to make media files available to our project by importing files
+into OpenShot. Most media file types are recognized, such as videos, images, and audio files.
+Files can be viewed and managed in the **Project Files** panel.
+
+Note that imported files are not copied anywhere, they remain in the physical location they
+were before and are simply being made available to your video project. So, they must not be
+deleted or moved after adding them to your project. The "Show All", "Video", "Audio",
+"Image" filters above the files allows you to only see the file types you are interested in. You can also toggle the view between details and thumbnails view of your files.
+
+
+.. _import_files_ref:
 
 Import Files
 ------------
-There are many ways to import media files into OpenShot.
+These are all possible methods to import media files into OpenShot:
+
+.. |importfiles_icon| image:: ../images/Humanity/actions/16/list-add.svg
 
 .. table::
    :widths: 25
 
-   ====================  ============
-   Name                  Description
-   ====================  ============
-   Drag and Drop         Drag and drop the files from your file manager (file explorer, finder, etc...)
-   Right Click\→Import   Right click in the **Project Files** panel, choose **Import Files...**
-   File Menu\→Import     File menu\→Import Files...
-   Import Files Toolbar  Click the **Import Files...** toolbar button (on the top menu)
-   ====================  ============
+   ===========================  ============
+   Name                         Description
+   ===========================  ============
+   Drag and Drop                Drag and drop the files from your file manager (file explorer, finder, etc...).
+   Context menu (`File Menu`_)  Right click anywhere in the **Project Files** panel and choose :guilabel:`Import Files`.
+   Main Menu                    In the main menu choose: :guilabel:`File\→Import Files`.
+   Toolbar button               Click the |importfiles_icon| toolbar button in the main toolbar.
+   Keyboard shortcut            Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac).
+   ===========================  ============
+
+
 
 .. image:: images/quick-start-drop-files.jpg
+
 
 File Menu
 ---------
@@ -83,6 +98,8 @@ to repeat the steps for your next clip. When you are finished, simply close the 
    4   Create Clip         Create the clip (which resets this dialog, so you can repeat these steps for each clip)
    ==  ==================  ============
 
+Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
+
 Add to Timeline
 ---------------
 In certain cases, you might need to add many files to the timeline at the same time. For example, a photo slide show,
@@ -123,3 +140,10 @@ This will launch the file properties dialog, which displays information about yo
    2   Frame Rate            For image sequences, you can also adjust the frame rate of the animation
    ==  ====================  ============
 
+
+.. _file_remove_ref:
+
+Remove from Project
+-------------------
+
+This will remove a file from the project. It will not delete the underlying physical file though, so removing a file from the project merely makes it unavailable for this video project.
