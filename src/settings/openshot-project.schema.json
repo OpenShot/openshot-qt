@@ -18,12 +18,75 @@
    ]
   },
   "ratio": {
-    "type": "object",
-    "properties": {
-     "num": { "type": "integer", "default": 1 },
-     "den": { "type": "integer", "default": 1 }
-    },
-    "required": ["num", "den"]
+   "type": "object",
+   "properties": {
+    "num": {"type": "integer", "default": 1},
+    "den": {"type": "integer", "default": 1}
+   },
+   "required": ["num", "den"]
+  },
+  "samplerate": {
+   "type": "integer",
+   "default": 44100,
+   "anyOf": [
+    {"multipleOf": 22050, "minimum": 22050, "maximum": 44100},
+    {"multipleOf": 48000, "minimum": 48000, "maximum": 192000}
+   ]
+  },
+  "unique_identifier": {
+   "anyOf": [
+    {"type": "string", "pattern": "^[A-Z0-9]{10}$"},
+    {"type": "string", "pattern": "^[LT][0-9]"}
+   ]
+  },
+  "x_coord": {
+   "type": "number",
+   "multipleOf": 1.0,
+   "minimum": 1.0
+  },
+  "coordinate_pair": {
+   "type": "object",
+   "properties": {
+    "X": {"type": "number"},
+    "Y": {"type": "number"}
+   },
+   "required": ["X", "Y"]
+  },
+  "keyframe_point": {
+   "type": "object",
+   "properties": {
+    "co": {"$ref": "#/definitions/coordinate_pair"},
+    "handle_left": {"$ref": "#/definitions/coordinate_pair"},
+    "handle_right": {"$ref": "#/definitions/coordinate_pair"},
+    "handle_type": {"type": "integer", "minimum": 0, "maximum": 1},
+    "interpolation": {"type": "integer", "minimum": 0, "maximum": 2}
+   },
+   "required": ["co", "interpolation"],
+   "dependencies": {
+    "handle_type": ["handle_left", "handle_right"],
+    "handle_left": ["handle_right", "handle_type"],
+    "handle_right": ["handle_left", "handle_type"]
+   }
+  },
+  "keyframe_list": {
+   "type": "object",
+   "items": { 
+    "Points": {
+     "type": "array",
+     "items": {"$ref": "#definitions/keyframe_point"}
+    }
+   }
+  },
+  "layer_item": {
+   "type": "object",
+   "properties": {
+    "y": {"type": "integer"},
+    "number": {"type": "integer", "minimum": 1},
+    "id": {"$ref": "#/definitions/unique_identifier"},
+    "label": {"type": "string"},
+    "lock": {"type": "boolean"}
+   },
+   "required": ["id", "number"]
   }
  },
  "type": "object",
