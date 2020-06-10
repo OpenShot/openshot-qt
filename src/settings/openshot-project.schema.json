@@ -127,178 +127,30 @@
  ],
  "properties": {
   "settings": {
-   "type": "object",
-   "id": "/properties/settings",
-   "title": "Settings",
-   "options": {
-    "disable_collapse": false,
-    "disable_edit_json": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "defaultProperties": [],
-   "properties": {},
-   "propertyOrder": 10
+   "type": "object"
   },
-  "id": {
-   "type": "string",
-   "id": "/properties/id",
-   "title": "Id",
-   "default": "OQPP4XUQRA",
-   "format": "text",
-   "description": "Description for 'id' Type: 'string' Path: '/properties/id'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 20
-  },
+  "id": {"$ref": "#/definitions/unique_identifier"},
   "tick_pixels": {
    "type": "integer",
-   "id": "/properties/tick_pixels",
-   "title": "Tick Pixels",
-   "default": 100,
-   "description": "A description for 'tick_pixels'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 30
+   "default": 100
   },
   "effects": {
-   "type": "array",
-   "id": "/properties/effects",
-   "title": "Effects",
-   "format": "tabs",
-   "options": {
-    "disable_collapse": false,
-    "disable_array_add": false,
-    "disable_array_delete": false,
-    "disable_array_reorder": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "propertyOrder": 40
+   "type": "array"
   },
   "profile": {
    "type": "string",
-   "id": "/properties/profile",
-   "title": "Profile",
    "default": "HD 1080p 30 fps",
-   "format": "text",
-   "description": "Description for 'profile' Type: 'string' Path: '/properties/profile'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 50
+   "format": "text"
   },
   "fps": { "$ref": "#/definitions/ratio" },
   "export_path": {
    "type": "string",
-   "id": "/properties/export_path",
-   "title": "Export Path",
-   "default": "/var/tmp",
-   "format": "text",
-   "description": "Description for 'export_path' Type: 'string' Path: '/properties/export_path'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 70
+   "default": "",
+   "format": "text"
   },
   "layers": {
    "type": "array",
-   "id": "/properties/layers",
-   "title": "Layers",
-   "format": "tabs",
-   "options": {
-    "disable_collapse": false,
-    "disable_array_add": false,
-    "disable_array_delete": false,
-    "disable_array_reorder": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "items": {
-    "type": "object",
-    "id": "/properties/layers/items",
-    "title": "Title Root Layers ",
-    "options": {
-     "disable_collapse": false,
-     "disable_edit_json": false,
-     "disable_properties": false,
-     "collapsed": false,
-     "hidden": false
-    },
-    "defaultProperties": [
-     "y",
-     "number",
-     "id",
-     "label",
-     "lock"
-    ],
-    "properties": {
-     "y": {
-      "type": "integer",
-      "id": "/properties/layers/items/properties/y",
-      "title": "Y",
-      "default": 0,
-      "description": "A description for 'y'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 10
-     },
-     "number": {
-      "type": "integer",
-      "id": "/properties/layers/items/properties/number",
-      "title": "Number",
-      "default": 1000000,
-      "description": "A description for 'number'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 20
-     },
-     "id": {
-      "type": "string",
-      "id": "/properties/layers/items/properties/id",
-      "title": "Id",
-      "default": "L1",
-      "format": "text",
-      "description": "Description for 'id' Type: 'string' Path: '/properties/layers/items/properties/id'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 30
-     },
-     "label": {
-      "type": "string",
-      "id": "/properties/layers/items/properties/label",
-      "title": "Label",
-      "default": "",
-      "format": "text",
-      "description": "Description for 'label' Type: 'string' Path: '/properties/layers/items/properties/label'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 40
-     },
-     "lock": {
-      "type": "boolean",
-      "id": "/properties/layers/items/properties/lock",
-      "title": "Lock",
-      "format": "checkbox",
-      "default": false,
-      "description": "A description for 'lock'  Type: 'boolean'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 50
-     }
-    }
-   },
-   "propertyOrder": 80
+   "items": {"$ref": "#/definitions/layer_item"}
   },
   "clips": {
    "type": "array",
@@ -5188,25 +5040,9 @@
       "propertyOrder": 440
      }
     }
-   },
-   "propertyOrder": 90
+   }
   },
-  "markers": {
-   "type": "array",
-   "id": "/properties/markers",
-   "title": "Markers",
-   "format": "tabs",
-   "options": {
-    "disable_collapse": false,
-    "disable_array_add": false,
-    "disable_array_delete": false,
-    "disable_array_reorder": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "propertyOrder": 100
-  },
+  "markers": {"type": "array"},
   "files": {
    "type": "array",
    "id": "/properties/files",
@@ -5660,216 +5496,65 @@
    "propertyOrder": 110
   },
   "duration": {
-   "type": "integer",
-   "id": "/properties/duration",
-   "title": "Duration",
-   "default": 644,
-   "description": "A description for 'duration'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 120
+   "type": "number",
+   "default": 0
   },
   "channels": {
    "type": "integer",
-   "id": "/properties/channels",
-   "title": "Channels",
-   "default": 2,
-   "description": "A description for 'channels'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 130
+   "default": 2
   },
   "height": {
    "type": "integer",
-   "id": "/properties/height",
-   "title": "Height",
-   "default": 1080,
-   "description": "A description for 'height'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 140
+   "default": 1080
   },
   "pixel_ratio": { "$ref": "#/definitions/ratio" },
   "version": {
    "type": "object",
-   "id": "/properties/version",
-   "title": "Version",
-   "options": {
-    "disable_collapse": false,
-    "disable_edit_json": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "defaultProperties": [
-    "openshot-qt",
-    "libopenshot"
-   ],
+   "required": ["openshot-qt", "libopenshot"],
    "properties": {
     "openshot-qt": {
      "type": "string",
-     "id": "/properties/version/properties/openshot-qt",
-     "title": "Openshot Qt",
-     "default": "2.5.1-dev2",
-     "format": "text",
-     "description": "Description for 'openshot-qt' Type: 'string' Path: '/properties/version/properties/openshot-qt'",
-     "options": {
-      "hidden": false
-     },
-     "propertyOrder": 10
+     "default": "2.5.1",
+     "format": "text"
     },
     "libopenshot": {
      "type": "string",
-     "id": "/properties/version/properties/libopenshot",
-     "title": "Libopenshot",
-     "default": "0.2.5-dev2",
-     "format": "text",
-     "description": "Description for 'libopenshot' Type: 'string' Path: '/properties/version/properties/libopenshot'",
-     "options": {
-      "hidden": false
-     },
-     "propertyOrder": 20
+     "default": "0.2.5",
+     "format": "text"
     }
-   },
-   "propertyOrder": 160
+   }
   },
-  "progress": {
-   "type": "array",
-   "id": "/properties/progress",
-   "title": "Progress",
-   "format": "tabs",
-   "options": {
-    "disable_collapse": false,
-    "disable_array_add": false,
-    "disable_array_delete": false,
-    "disable_array_reorder": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "propertyOrder": 170
-  },
+  "progress": {"type": "array"},
   "import_path": {
    "type": "string",
-   "id": "/properties/import_path",
-   "title": "Import Path",
-   "default": "/home/ferd/Videos/Edits",
-   "format": "text",
-   "description": "Description for 'import_path' Type: 'string' Path: '/properties/import_path'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 180
+   "default": "",
+   "format": "text"
   },
   "width": {
    "type": "integer",
-   "id": "/properties/width",
-   "title": "Width",
-   "default": 1920,
-   "description": "A description for 'width'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 190
+   "default": 1920
   },
   "scale": {
    "type": "integer",
-   "id": "/properties/scale",
-   "title": "Scale",
-   "default": 1,
-   "description": "A description for 'scale'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 200
+   "default": 1
   },
   "history": {
    "type": "object",
-   "id": "/properties/history",
-   "title": "History",
-   "options": {
-    "disable_collapse": false,
-    "disable_edit_json": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
-   "defaultProperties": [
-    "redo",
-    "undo"
-   ],
+   "required": ["redo", "undo"],
    "properties": {
-    "redo": {
-     "type": "array",
-     "id": "/properties/history/properties/redo",
-     "title": "Redo",
-     "format": "tabs",
-     "options": {
-      "disable_collapse": false,
-      "disable_array_add": false,
-      "disable_array_delete": false,
-      "disable_array_reorder": false,
-      "disable_properties": false,
-      "collapsed": false,
-      "hidden": false
-     },
-     "propertyOrder": 10
-    },
-    "undo": {
-     "type": "array",
-     "id": "/properties/history/properties/undo",
-     "title": "Undo",
-     "format": "tabs",
-     "options": {
-      "disable_collapse": false,
-      "disable_array_add": false,
-      "disable_array_delete": false,
-      "disable_array_reorder": false,
-      "disable_properties": false,
-      "collapsed": false,
-      "hidden": false
-     },
-     "propertyOrder": 20
-    }
-   },
-   "propertyOrder": 210
+    "redo": {"type": "array"},
+    "undo": {"type": "array"}
+   }
   },
   "playhead_position": {
-   "type": "integer",
-   "id": "/properties/playhead_position",
-   "title": "Playhead Position",
-   "default": 0,
-   "description": "A description for 'playhead_position'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 220
+   "type": "number",
+   "default": 0.0
   },
   "channel_layout": {
    "type": "integer",
-   "id": "/properties/channel_layout",
-   "title": "Channel Layout",
-   "default": 3,
-   "description": "A description for 'channel_layout'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 230
+   "default": 3
   },
-  "display_ratio": { "$ref": "#/definitions/ratio" },
-  "sample_rate": {
-   "type": "integer",
-   "id": "/properties/sample_rate",
-   "title": "Sample Rate",
-   "default": 44100,
-   "description": "A description for 'sample_rate'  Type: 'integer'",
-   "options": {
-    "hidden": false
-   },
-   "propertyOrder": 250
-  }
+  "display_ratio": {"$ref": "#/definitions/ratio"},
+  "sample_rate": {"$ref": "#/definitions/samplerate"}
  }
 }
