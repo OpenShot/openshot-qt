@@ -1,22 +1,8 @@
 {
- "$schema": "http://json-schema.org/draft-04/schema#",
- "additionalProperties": true,
- "title": "OpenShot Video Editor project file schema",
+ "$schema": "http://json-schema.org/draft/2019-09/schema#",
+ "additionalProperties": false,
+ "title": "OpenShot Video Editor project",
  "definitions": {
-  "comment": {
-   "title": "Comment:",
-   "type": "string",
-   "format": "textarea",
-   "default": ""
-  },
-  "yesno": {
-   "default": "yes",
-   "type": "string",
-   "enum": [
-    "yes",
-    "no"
-   ]
-  },
   "ratio": {
    "type": "object",
    "properties": {
@@ -29,6 +15,7 @@
    "type": "integer",
    "default": 44100,
    "anyOf": [
+    {"maximum": 0, "minimum": 0},
     {"multipleOf": 22050, "minimum": 22050, "maximum": 44100},
     {"multipleOf": 48000, "minimum": 48000, "maximum": 192000}
    ]
@@ -81,7 +68,7 @@
    "type": "object",
    "properties": {
     "y": {"type": "integer"},
-    "number": {"type": "integer", "minimum": 1},
+    "number": {"type": "integer", "minimum": 0},
     "id": {"$ref": "#/definitions/unique_identifier"},
     "label": {"type": "string"},
     "lock": {"type": "boolean"}
@@ -90,14 +77,6 @@
   }
  },
  "type": "object",
- "id": "https://niebert.github.io/json-editor",
- "options": {
-  "disable_collapse": false,
-  "disable_edit_json": false,
-  "disable_properties": false,
-  "collapsed": false,
-  "hidden": false
- },
  "defaultProperties": [
   "settings",
   "id",
@@ -139,14 +118,12 @@
   },
   "profile": {
    "type": "string",
-   "default": "HD 1080p 30 fps",
-   "format": "text"
+   "default": "HD 1080p 30 fps"
   },
-  "fps": { "$ref": "#/definitions/ratio" },
+  "fps": {"$ref": "#/definitions/ratio"},
   "export_path": {
    "type": "string",
-   "default": "",
-   "format": "text"
+   "default": ""
   },
   "layers": {
    "type": "array",
@@ -238,13 +215,11 @@
         "bottom": {"$ref": "#/definitions/keyframe_list"},
         "class_name": {
          "type": "string",
-         "default": "",
-         "format": "text"
+         "default": ""
         },
         "description": {
          "type": "string",
-         "default": "",
-         "format": "text"
+         "default": ""
         },
         "duration": {
          "type": "number",
@@ -256,12 +231,10 @@
         },
         "has_audio": {
          "type": "boolean",
-         "format": "checkbox",
          "default": false
         },
         "has_video": {
          "type": "boolean",
-         "format": "checkbox",
          "default": true
         },
         "id": {"$ref": "#/definitions/unique_identifier"},
@@ -272,8 +245,7 @@
         "left": {"$ref": "#/definitions/keyframe_list"},
         "name": {
          "type": "string",
-         "default": "",
-         "format": "text"
+         "default": ""
         },
         "order": {
          "type": "integer",
@@ -289,8 +261,7 @@
         "top": {"$ref": "#/definitions/keyframe_list"},
         "type": {
          "type": "string",
-         "default": "",
-         "format": "text"
+         "default": ""
         }
        }
       }
@@ -354,8 +325,7 @@
       "properties": {
        "acodec": {
         "type": "string",
-        "default": "",
-        "format": "text"
+        "default": ""
        },
        "audio_bit_rate": {
         "type": "integer",
@@ -381,23 +351,19 @@
        },
        "file_size": {
         "type": "string",
-        "default": "0",
-        "format": "text"
+        "default": "0"
        },
        "fps": {"$ref": "#/definitions/ratio"},
        "has_audio": {
         "type": "boolean",
-        "format": "checkbox",
         "default": true
        },
        "has_single_image": {
         "type": "boolean",
-        "format": "checkbox",
         "default": false
        },
        "has_video": {
         "type": "boolean",
-        "format": "checkbox",
         "default": true
        },
        "height": {
@@ -406,32 +372,27 @@
        },
        "interlaced_frame": {
         "type": "boolean",
-        "format": "checkbox",
         "default": false
        },
        "metadata": {"type": "object"},
        "path": {
         "type": "string",
-        "default": "",
-        "format": "text"
+        "default": ""
        },
        "pixel_format": {"type": "integer", "default": 0},
        "pixel_ratio": {"$ref": "#/definitions/ratio"},
        "sample_rate": {"$ref": "#/definitions/samplerate"},
        "top_field_first": {
         "type": "boolean",
-        "format": "checkbox",
         "default": true
        },
        "type": {
         "type": "string",
-        "default": "FFmpegReader",
-        "format": "text"
+        "default": "FFmpegReader"
        },
        "vcodec": {
         "type": "string",
-        "default": "",
-        "format": "text"
+        "default": ""
        },
        "video_bit_rate": {
         "type": "integer",
@@ -439,8 +400,7 @@
        },
        "video_length": {
         "type": "string",
-        "default": "",
-        "format": "text"
+        "default": ""
        },
        "video_stream_index": {"type": "integer", "default": 0},
        "video_timebase": {"$ref": "#/definitions/ratio"},
@@ -471,19 +431,16 @@
      },
      "waveform": {
       "type": "boolean",
-      "format": "checkbox",
       "default": false
      },
      "file_id": {"$ref": "#/definitions/unique_identifier"},
      "title": {
       "type": "string",
-      "default": "",
-      "format": "text"
+      "default": ""
      },
      "image": {
       "type": "string",
-      "default": "",
-      "format": "text"
+      "default": ""
      }
     }
    }
@@ -491,7 +448,6 @@
   "markers": {"type": "array"},
   "files": {
    "type": "array",
-   "format": "tabs",
    "items": {
     "type": "object",
     "defaultProperties": [
@@ -530,8 +486,7 @@
     "properties": {
      "acodec": {
       "type": "string",
-      "default": "",
-      "format": "text"
+      "default": ""
      },
      "audio_bit_rate": {
       "type": "integer",
@@ -541,7 +496,7 @@
       "type": "integer",
       "default": 1
      },
-     "audio_timebase": { "$ref": "#/definitions/ratio" },
+     "audio_timebase": {"$ref": "#/definitions/ratio"},
      "channel_layout": {
       "type": "integer",
       "default": 3
@@ -550,30 +505,26 @@
       "type": "integer",
       "default": 2
      },
-     "display_ratio": { "$ref": "#/definitions/ratio" },
+     "display_ratio": {"$ref": "#/definitions/ratio"},
      "duration": {
       "type": "number",
       "default": 0.0
      },
      "file_size": {
       "type": "string",
-      "default": "0",
-      "format": "text"
+      "default": "0"
      },
-     "fps": { "$ref": "#/definitions/ratio" },
+     "fps": {"$ref": "#/definitions/ratio"},
      "has_audio": {
       "type": "boolean",
-      "format": "checkbox",
       "default": true
      },
      "has_single_image": {
       "type": "boolean",
-      "format": "checkbox",
       "default": false
      },
      "has_video": {
       "type": "boolean",
-      "format": "checkbox",
       "default": true
      },
      "height": {
@@ -582,14 +533,12 @@
      },
      "interlaced_frame": {
       "type": "boolean",
-      "format": "checkbox",
       "default": false
      },
      "metadata": {"type": "object"},
      "path": {
       "type": "string",
-      "default": "",
-      "format": "text"
+      "default": ""
      },
      "pixel_format": {
       "type": "integer",
@@ -599,18 +548,15 @@
      "sample_rate": {"$ref": "#/definitions/samplerate"},
      "top_field_first": {
       "type": "boolean",
-      "format": "checkbox",
       "default": true
      },
      "type": {
       "type": "string",
-      "default": "FFmpegReader",
-      "format": "text"
+      "default": "FFmpegReader"
      },
      "vcodec": {
       "type": "string",
-      "default": "",
-      "format": "text"
+      "default": ""
      },
      "video_bit_rate": {
       "type": "integer",
@@ -618,8 +564,7 @@
      },
      "video_length": {
       "type": "string",
-      "default": "0",
-      "format": "text"
+      "default": "0"
      },
      "video_stream_index": {
       "type": "integer",
@@ -638,8 +583,7 @@
      "id": {"$ref": "#/definitions/unique_identifier"},
      "image": {
       "type": "string",
-      "default": "",
-      "format": "text"
+      "default": ""
      }
     }
    }
@@ -656,7 +600,7 @@
    "type": "integer",
    "default": 1080
   },
-  "pixel_ratio": { "$ref": "#/definitions/ratio" },
+  "pixel_ratio": {"$ref": "#/definitions/ratio"},
   "version": {
    "type": "object",
    "required": ["openshot-qt", "libopenshot"],
@@ -664,20 +608,19 @@
     "openshot-qt": {
      "type": "string",
      "default": "2.5.1",
-     "format": "text"
+     "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+"
     },
     "libopenshot": {
      "type": "string",
      "default": "0.2.5",
-     "format": "text"
+     "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+"
     }
    }
   },
   "progress": {"type": "array"},
   "import_path": {
    "type": "string",
-   "default": "",
-   "format": "text"
+   "default": ""
   },
   "width": {
    "type": "integer",
