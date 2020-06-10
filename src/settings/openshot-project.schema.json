@@ -5045,29 +5045,9 @@
   "markers": {"type": "array"},
   "files": {
    "type": "array",
-   "id": "/properties/files",
-   "title": "Files",
    "format": "tabs",
-   "options": {
-    "disable_collapse": false,
-    "disable_array_add": false,
-    "disable_array_delete": false,
-    "disable_array_reorder": false,
-    "disable_properties": false,
-    "collapsed": false,
-    "hidden": false
-   },
    "items": {
     "type": "object",
-    "id": "/properties/files/items",
-    "title": "Title Root Files ",
-    "options": {
-     "disable_collapse": false,
-     "disable_edit_json": false,
-     "disable_properties": false,
-     "collapsed": false,
-     "hidden": false
-    },
     "defaultProperties": [
      "acodec",
      "audio_bit_rate",
@@ -5104,396 +5084,119 @@
     "properties": {
      "acodec": {
       "type": "string",
-      "id": "/properties/files/items/properties/acodec",
-      "title": "Acodec",
-      "default": "aac",
-      "format": "text",
-      "description": "Description for 'acodec' Type: 'string' Path: '/properties/files/items/properties/acodec'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 10
+      "default": "",
+      "format": "text"
      },
      "audio_bit_rate": {
       "type": "integer",
-      "id": "/properties/files/items/properties/audio_bit_rate",
-      "title": "Audio Bit Rate",
-      "default": 133845,
-      "description": "A description for 'audio_bit_rate'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 20
+      "default": 0
      },
      "audio_stream_index": {
       "type": "integer",
-      "id": "/properties/files/items/properties/audio_stream_index",
-      "title": "Audio Stream Index",
-      "default": 1,
-      "description": "A description for 'audio_stream_index'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 30
+      "default": 1
      },
      "audio_timebase": { "$ref": "#/definitions/ratio" },
      "channel_layout": {
       "type": "integer",
-      "id": "/properties/files/items/properties/channel_layout",
-      "title": "Channel Layout",
-      "default": 3,
-      "description": "A description for 'channel_layout'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 50
+      "default": 3
      },
      "channels": {
       "type": "integer",
-      "id": "/properties/files/items/properties/channels",
-      "title": "Channels",
-      "default": 2,
-      "description": "A description for 'channels'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 60
+      "default": 2
      },
      "display_ratio": { "$ref": "#/definitions/ratio" },
      "duration": {
       "type": "number",
-      "id": "/properties/files/items/properties/duration",
-      "title": "Duration",
-      "default": 4.3520002365112305,
-      "description": "A description for 'duration'  Type: 'number'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 80
+      "default": 0.0
      },
      "file_size": {
       "type": "string",
-      "id": "/properties/files/items/properties/file_size",
-      "title": "File Size",
-      "default": "1237231",
-      "format": "text",
-      "description": "Description for 'file_size' Type: 'string' Path: '/properties/files/items/properties/file_size'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 90
+      "default": "0",
+      "format": "text"
      },
      "fps": { "$ref": "#/definitions/ratio" },
      "has_audio": {
       "type": "boolean",
-      "id": "/properties/files/items/properties/has_audio",
-      "title": "Has Audio",
       "format": "checkbox",
-      "default": true,
-      "description": "A description for 'has_audio'  Type: 'boolean'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 110
+      "default": true
      },
      "has_single_image": {
       "type": "boolean",
-      "id": "/properties/files/items/properties/has_single_image",
-      "title": "Has Single Image",
       "format": "checkbox",
-      "default": false,
-      "description": "A description for 'has_single_image'  Type: 'boolean'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 120
+      "default": false
      },
      "has_video": {
       "type": "boolean",
-      "id": "/properties/files/items/properties/has_video",
-      "title": "Has Video",
       "format": "checkbox",
-      "default": true,
-      "description": "A description for 'has_video'  Type: 'boolean'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 130
+      "default": true
      },
      "height": {
       "type": "integer",
-      "id": "/properties/files/items/properties/height",
-      "title": "Height",
-      "default": 720,
-      "description": "A description for 'height'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 140
+      "default": 720
      },
      "interlaced_frame": {
       "type": "boolean",
-      "id": "/properties/files/items/properties/interlaced_frame",
-      "title": "Interlaced Frame",
       "format": "checkbox",
-      "default": false,
-      "description": "A description for 'interlaced_frame'  Type: 'boolean'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 150
+      "default": false
      },
-     "metadata": {
-      "type": "object",
-      "id": "/properties/files/items/properties/metadata",
-      "title": "Metadata",
-      "options": {
-       "disable_collapse": false,
-       "disable_edit_json": false,
-       "disable_properties": false,
-       "collapsed": false,
-       "hidden": false
-      },
-      "defaultProperties": [
-       "compatible_brands",
-       "encoder",
-       "handler_name",
-       "language",
-       "major_brand",
-       "minor_version"
-      ],
-      "properties": {
-       "compatible_brands": {
-        "type": "string",
-        "id": "/properties/files/items/properties/metadata/properties/compatible_brands",
-        "title": "Compatible Brands",
-        "default": "isomiso2avc1mp41",
-        "format": "text",
-        "description": "Description for 'compatible_brands' Type: 'string' Path: '/properties/files/items/properties/metadata/properties/compatible_brands'",
-        "options": {
-         "hidden": false
-        },
-        "propertyOrder": 10
-       },
-       "encoder": {
-        "type": "string",
-        "id": "/properties/files/items/properties/metadata/properties/encoder",
-        "title": "Encoder",
-        "default": "Lavf57.71.100",
-        "format": "text",
-        "description": "Description for 'encoder' Type: 'string' Path: '/properties/files/items/properties/metadata/properties/encoder'",
-        "options": {
-         "hidden": false
-        },
-        "propertyOrder": 20
-       },
-       "handler_name": {
-        "type": "string",
-        "id": "/properties/files/items/properties/metadata/properties/handler_name",
-        "title": "Handler Name",
-        "default": "SoundHandler",
-        "format": "text",
-        "description": "Description for 'handler_name' Type: 'string' Path: '/properties/files/items/properties/metadata/properties/handler_name'",
-        "options": {
-         "hidden": false
-        },
-        "propertyOrder": 30
-       },
-       "language": {
-        "type": "string",
-        "id": "/properties/files/items/properties/metadata/properties/language",
-        "title": "Language",
-        "default": "und",
-        "format": "text",
-        "description": "Description for 'language' Type: 'string' Path: '/properties/files/items/properties/metadata/properties/language'",
-        "options": {
-         "hidden": false
-        },
-        "propertyOrder": 40
-       },
-       "major_brand": {
-        "type": "string",
-        "id": "/properties/files/items/properties/metadata/properties/major_brand",
-        "title": "Major Brand",
-        "default": "isom",
-        "format": "text",
-        "description": "Description for 'major_brand' Type: 'string' Path: '/properties/files/items/properties/metadata/properties/major_brand'",
-        "options": {
-         "hidden": false
-        },
-        "propertyOrder": 50
-       },
-       "minor_version": {
-        "type": "string",
-        "id": "/properties/files/items/properties/metadata/properties/minor_version",
-        "title": "Minor Version",
-        "default": "512",
-        "format": "text",
-        "description": "Description for 'minor_version' Type: 'string' Path: '/properties/files/items/properties/metadata/properties/minor_version'",
-        "options": {
-         "hidden": false
-        },
-        "propertyOrder": 60
-       }
-      },
-      "propertyOrder": 160
-     },
+     "metadata": {"type": "object"},
      "path": {
       "type": "string",
-      "id": "/properties/files/items/properties/path",
-      "title": "Path",
-      "default": "../../home/ferd/Videos/Edits/the.orville-redshirt_FullFrame.mp4",
-      "format": "text",
-      "description": "Description for 'path' Type: 'string' Path: '/properties/files/items/properties/path'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 170
+      "default": "",
+      "format": "text"
      },
      "pixel_format": {
       "type": "integer",
-      "id": "/properties/files/items/properties/pixel_format",
-      "title": "Pixel Format",
-      "default": 0,
-      "description": "A description for 'pixel_format'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 180
+      "default": 0
      },
-     "pixel_ratio": { "$ref": "#/definitions/ratio" },
-     "sample_rate": {
-      "type": "integer",
-      "id": "/properties/files/items/properties/sample_rate",
-      "title": "Sample Rate",
-      "default": 48000,
-      "description": "A description for 'sample_rate'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 200
-     },
+     "pixel_ratio": {"$ref": "#/definitions/ratio"},
+     "sample_rate": {"$ref": "#/definitions/samplerate"},
      "top_field_first": {
       "type": "boolean",
-      "id": "/properties/files/items/properties/top_field_first",
-      "title": "Top Field First",
       "format": "checkbox",
-      "default": true,
-      "description": "A description for 'top_field_first'  Type: 'boolean'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 210
+      "default": true
      },
      "type": {
       "type": "string",
-      "id": "/properties/files/items/properties/type",
-      "title": "Type",
       "default": "FFmpegReader",
-      "format": "text",
-      "description": "Description for 'type' Type: 'string' Path: '/properties/files/items/properties/type'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 220
+      "format": "text"
      },
      "vcodec": {
       "type": "string",
-      "id": "/properties/files/items/properties/vcodec",
-      "title": "Vcodec",
-      "default": "h264",
-      "format": "text",
-      "description": "Description for 'vcodec' Type: 'string' Path: '/properties/files/items/properties/vcodec'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 230
+      "default": "",
+      "format": "text"
      },
      "video_bit_rate": {
       "type": "integer",
-      "id": "/properties/files/items/properties/video_bit_rate",
-      "title": "Video Bit Rate",
-      "default": 279789,
-      "description": "A description for 'video_bit_rate'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 240
+      "default": 0
      },
      "video_length": {
       "type": "string",
-      "id": "/properties/files/items/properties/video_length",
-      "title": "Video Length",
-      "default": "106",
-      "format": "text",
-      "description": "Description for 'video_length' Type: 'string' Path: '/properties/files/items/properties/video_length'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 250
+      "default": "0",
+      "format": "text"
      },
      "video_stream_index": {
       "type": "integer",
-      "id": "/properties/files/items/properties/video_stream_index",
-      "title": "Video Stream Index",
-      "default": 0,
-      "description": "A description for 'video_stream_index'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 260
+      "default": 0
      },
-     "video_timebase": { "$ref": "#/definitions/ratio" },
+     "video_timebase": {"$ref": "#/definitions/ratio"},
      "width": {
       "type": "integer",
-      "id": "/properties/files/items/properties/width",
-      "title": "Width",
-      "default": 1280,
-      "description": "A description for 'width'  Type: 'integer'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 280
+      "default": 1280
      },
      "media_type": {
       "type": "string",
-      "id": "/properties/files/items/properties/media_type",
-      "title": "Media Type",
       "default": "video",
-      "format": "text",
-      "description": "Description for 'media_type' Type: 'string' Path: '/properties/files/items/properties/media_type'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 290
+      "enum": ["video", "audio", "image", "project"]
      },
-     "id": {
-      "type": "string",
-      "id": "/properties/files/items/properties/id",
-      "title": "Id",
-      "default": "5EJC9PY0QW",
-      "format": "text",
-      "description": "Description for 'id' Type: 'string' Path: '/properties/files/items/properties/id'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 300
-     },
+     "id": {"$ref": "#/definitions/unique_identifier"},
      "image": {
       "type": "string",
-      "id": "/properties/files/items/properties/image",
-      "title": "Image",
-      "default": "thumbnail/5EJC9PY0QW.png",
-      "format": "text",
-      "description": "Description for 'image' Type: 'string' Path: '/properties/files/items/properties/image'",
-      "options": {
-       "hidden": false
-      },
-      "propertyOrder": 310
+      "default": "",
+      "format": "text"
      }
     }
-   },
-   "propertyOrder": 110
+   }
   },
   "duration": {
    "type": "number",
