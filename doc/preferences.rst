@@ -33,11 +33,11 @@
 
 Preferences
 ===========
-The Preferences menu is where you modify all settings concerning OpenShot.
-They can be found in the menu under **Edit→Preferences**.
-You will need to restart OpenShot before changes are applied. 
-After installation, you need to set the paths for Blender and Inkscape under the General if you want to use them.  
-Also check if the audio settings under Preview are the same as your system, or you may experience sound issues during playback. 
+The Preferences window is where you modify all settings concerning OpenShot.
+They can be found in the top menu under **Edit→Preferences**.
+You will need to restart OpenShot after your changes are applied. 
+After installation, you need to set the paths for Blender and Inkscape under the General tab if you want to use them.  
+Also, check the audio settings under the Preview tab.  Make sure they are the same as your system, or you may experience sound issues during preview/playback. 
 
 
 General
@@ -45,18 +45,46 @@ General
 
 .. image:: images/preferences-1-general.png
 
+The General tab of the Preferences window allows you to modify the  settings that apply to OpenShot as a whole.
+
+.. table::
+   :widths: 30 15
+
+   ================================  =============  ===========
+   Setting                           Default        Description
+   ================================  =============  ===========
+   Language                          Default        Choose your preferred language for OpenShot menus and windows  
+   Default Theme                     Humanity:Dark  Choose your theme for OpenShot, either Light, Dark or None
+   Image Length (seconds)            10.00          How long the image displays on the screen when added to the timeline
+   Volume                            75.00          The percentage of the volume of the clip when added to the timeline
+   Blender Command (path)            *<blank>*      The path to the binary for Blender
+   Advanced Title Editor (path)      *<blank>*      The path to the binary for Inkscape
+   Show Export Dialog when Finished  *<checked>*    Displays the Export Video windows after the export is finished
+   ================================  =============  ===========
 
 Preview
 -------
 
 .. image:: images/preferences-2-preview.png
 
-Here you can set the default Video Profile, but you can always choose a different one at the start of your project. More about :ref:`profiles`
+Here you can set the Default Profile for your project, but you can always choose a different one when you start a new project. More about :ref:`profiles`
 
 Here you can choose which connected audio device should be used by OpenShot. 
-If you experience sound issues, make sure your audio settings are the same as your audio card.
+If you experience sound issues, make sure that your audio settings match your audio card.
 The default audio sample rate of your sound device can be found under the sound device settings from your operating system. 
 
+.. table::
+   :widths: 30 20
+
+   ================================  ==================  ===========
+   Setting                           Default             Description
+   ================================  ==================  ===========
+   Default Video Profile             HD 720P 30 fps      Select the profile for Preview and Export defaults  
+   Playback Audio Device             Default             
+   Default Audio Sample Rate         44100               
+   Default Audio Channels            Stereo (2 Channel)  
+   ================================  ==================  ===========
+   
 .. TODO:: Add to FAQ, add Link [WIKI tag AUDIO + FAQ ?] here.  
    For more info check our FAQ on the wiki.
    Windows: disable audio enhancements/microphone recognition
@@ -67,13 +95,18 @@ Autosave
 
 .. image:: images/preferences-3-autosave.png
 
-When loading in projects from older versions of OpenShot, you may want to terporary disable Autosave to see if they work. This to prevent them from being automatically overwritten by a broken version. 
+Autosave is a saving function in OpenShot which automatically saves the current changes or progress to your project, helping to reduce the risk or impact of data loss in case of a crash, freeze or user error.
+
+When loading projects from older versions of OpenShot, you may want to terporary disable Autosave to see if they work. This to prevent them from being automatically overwritten by a broken version. 
 .. Advise SuslikV on github https://github.com/OpenShot/openshot-qt/issues/3334
 
 Cache
 -----
 
 .. image:: images/preferences-4-cache.png
+
+A cache is a hardware or software component that stores data so that future requests for that data can be served faster.
+
 .. TODO:: Cache settings
   CacheMode - When to use Disk? Servers?
   Cache Limit (MB): How much % of RAM advised? Different for iGPU vs dedicated GPU?
