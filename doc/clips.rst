@@ -121,7 +121,7 @@ Properties
 Below is a list of clip properties, most of which can be edited, and in most cases, animated over time.  To view a clip's properties,
 right-click the clip then click **Properties**.  The Properties window will appear, where you can change these properties.  The properties and their values appear in ascending alphabetical order.  You can use the Filter box to find only the properties in which you are interested (e.g.: Type “gr” and the Gravity property will display).
 
-.. Note:: Pay close attention to the position of the play-head (the red verticle line on the timeline).  Key frames are automatically created at the current playback position, to help create animations.
+**Note:** Pay close attention to the position of the play-head (the red verticle line on the timeline).  Key frames are automatically created at the current playback position, to help create animations.
 
 To adjust a property, you can either:
 
@@ -142,7 +142,7 @@ Adjusting a property value on the first frame of a clip affects that value for t
    ==================  ============
    Alpha               A point on a line representing the alpha blending of the clip in decimal (0 to 1)
    Channel Filter      A number representing an audio channel to filter that clears all other channels (-1 to 10)
-   Channel Mapping     A number representing an audio channel to output which only works when filtering a channel (-1 to 10)
+   Channel Mapping     A number representing an audio channel to output when Channel Filter is enabled (-1 to 10)
    Crop Height         A point on a line representing the crop height of the clip in decimal (0 to 1)
    Crop Width          A point on a line representing the crop width of the clip in decimal (0 to 1)
    Crop X              A point on a line representing position of the clip on the X axis in decimal (0 to 1)
@@ -171,7 +171,7 @@ Adjusting a property value on the first frame of a clip affects that value for t
    Volume              A point on a line representing the volume of the clip in decimal (0 to 1)
    Volume Mixing       A value representing volume adjustment levels within the clip
    Waveform Color      The color of the audio waveform displayed on the clip in the timeline if enabled
-   Waveform            A value that determines if a waveform should be used instead of the clip's thumbnail in the timeline
+   Waveform            A value that determines if a waveform should be used instead of the clip's thumbnail
    ==================  ============
 
 Descriptions
