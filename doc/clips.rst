@@ -118,10 +118,10 @@ effect, and allow you to edit (and animate) them.
 
 Properties
 ----------
-Below is a list of clip properties which can be edited, and in most cases, animated over time.  To view a clip's properties,
-right-click the clip then choose **Properties**.  The Properties window will appear, where you can change these properties.  The properties and their values appear in ascending alphabetical order.  You can use the Filter box to find only the properties in which you are interested (e.g.: Type “gr” and the Gravity property will display).
+Below is a list of clip properties, most of which can be edited, and in most cases, animated over time.  To view a clip's properties,
+right-click the clip then click **Properties**.  The Properties window will appear, where you can change these properties.  The properties and their values appear in ascending alphabetical order.  You can use the Filter box to find only the properties in which you are interested (e.g.: Type “gr” and the Gravity property will display).
 
-**Note:** Pay close attention to the position of the playhead (the red verticle line on the timeline).  Key frames are automatically created at the current playback position, to help create animations.
+**Note:** Pay close attention to the position of the play-head (the red verticle line on the timeline).  Key frames are automatically created at the current playback position, to help create animations.
 
 To adjust a property, you can either:
 
@@ -153,7 +153,7 @@ To adjust a property, you can either:
    Location Y          Curve representing the relative Y position in percent based on the gravity (-1 to 1)
    Origin X            --
    Origin Y            --
-   Position            --
+   Position            A number representing the location on the timeline where the clip begins (in seconds)
    Rotation            Curve representing the rotation of the clip in degrees (0 to 360)
    Scale               The scale determines how a clip should be resized to fit it's parent
    Scale X             Curve representing the horizontal scaling in percent (0 to 1)
@@ -164,7 +164,7 @@ To adjust a property, you can either:
    Time                Curve representing the frames over time to play (used for speed and direction of video)
    Track               The name of the track on which the clip is placed in the timeline.
    Volume              Curve representing the volume of the clip in percent (0 to 1)
-   Volume Mixing       --
+   Volume Mixing       Adjusting volume levels within a clip
    Waveform Color      Curve representing the color of the audio wave form
    Waveform            Should a waveform be used instead of the clip's image
    ==================  ============
@@ -225,7 +225,7 @@ Descriptions
 
  The time from the beginning of the original clip (ignoring any Start value) at which to stop playing. It is set in seconds to 2 decimal places. Valid values are from the Start value upwards. The duration for image clips can be set with this value.  Once you have adjusted the End value, there appears to be no way to reset it to its original value, other than removing and replacing the clip.
 
-**Frame Number** : (None, Clip, Timeline)
+**Frame Number** : (None, Clip, Timeline, Both)
  *The information or image on a screen or monitor at any one time.*
 
  This property allows you to display the number of the frame in the clip or the timeline in the upper left corner of the screen.
@@ -263,7 +263,7 @@ Descriptions
 **Position** : (0.00 to ∞)
  *A place occupied or to be occupied; site.*
 
- The location of the first frame of the selected clip on the timeline.
+ The location of the first frame of the selected clip on the timeline in seconds
 
 **Rotation** : (-360 to 360)
  *The act of rotating; a turning around as on an axis.*
@@ -320,7 +320,11 @@ Descriptions
 **Volume Mixing** : (Average, None, Reduce)
  *To combine (several tracks).*
 
- Define
+ Mixing audio involves adjusting volume levels so that they maintain a good range within each clip, and then adjusting them in proportion to other clips used in the movie.  Consider the following guidelines when adjusting volume levels:
+
+ - If you combine particularly loud audio clips on multiple tracks, clipping (a staccato distortion) may occur. To avoid clipping, reduce volume levels.
+ - If you need to adjust the volume separately in different parts of a clip (for example, one person’s voice is faint, while later another’s is too loud), you can use keyframes to vary the volume throughout the clip.
+ - If the original level of a clip is much too high or low, you can change the input level. However, adjusting the level will not remove any distortion that may have resulted from recording the clip too high. In those cases, it is best to re-record the clip.
 
 **Wave Color** : (16,777,216 values)
  *The quality of a graphical representation of sound with respect to light reflected by the graphic*
