@@ -914,7 +914,7 @@ class Export(QDialog):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
                         if frame == end_frame_export:
-                            title_message = _("FINALIZING please wait")
+                            title_message = _("Finalizing video export, please wait...")
                         else:
                             title_message = _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % {
                             'hours': seconds_left / 3600,
