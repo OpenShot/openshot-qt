@@ -913,7 +913,10 @@ class Export(QDialog):
                     if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
-                        title_message = _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % {
+                        if frame == end_frame_export:
+                            title_message = _("Finalizing video export, please wait...")
+                        else:
+                            title_message = _("%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % {
                             'hours': seconds_left / 3600,
                             'minutes': (seconds_left / 60) % 60,
                             'seconds': seconds_left % 60,
@@ -1007,6 +1010,16 @@ class Export(QDialog):
 
             # Reveal done button
             self.close_button.setVisible(True)
+
+            # Restore windows title to show elapsed time
+            title_message = _("%(hours)d:%(minutes)02d:%(seconds)02d Elapsed (%(fps)5.2f FPS)") % {
+                'hours': seconds_run / 3600,
+                'minutes': (seconds_run / 60) % 60,
+                'seconds': seconds_run % 60,
+                'fps': fps_encode}
+
+            get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
+                                              video_settings.get("end_frame"), frame)
 
             # Make progress bar green (to indicate we are done)
             from PyQt5.QtGui import QPalette
