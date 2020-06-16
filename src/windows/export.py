@@ -805,7 +805,9 @@ class Export(QDialog):
                             "pixel_ratio": {"num": self.txtPixelRatioNum.value(), "den": self.txtPixelRatioDen.value()},
                             "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
                             "start_frame": self.txtStartFrame.value(),
-                            "end_frame": self.txtEndFrame.value()
+                            "end_frame": self.txtEndFrame.value(),
+                            "interlace": self.cboInterlaced.currentIndex() == 0,
+                            "topfirst": self.cboInterlaced.currentIndex() == 0
                           }
 
         audio_settings = {"acodec": self.txtAudioCodec.text(),
@@ -861,8 +863,8 @@ class Export(QDialog):
                                   video_settings.get("height"),
                                   openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
                                                     video_settings.get("pixel_ratio").get("den")),
-                                  False,
-                                  False,
+                                  video_settings.get("interlace"),
+                                  video_settings.get("topfirst"),
                                   video_settings.get("video_bitrate"))
 
             # Set audio options
