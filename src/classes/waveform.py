@@ -58,12 +58,14 @@ def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1, volume_keyf
 
     # How many samples per second do we need (to approximate the waveform)
     samples_per_second = 20
-    sample_divisor = round(sample_rate / samples_per_second)
+    fps = clip.Reader().info.fps;
+    sample_divisor = round(sample_rate / samples_per_second / (fps.num/fps.den) )
     log.info("Getting waveform for sample rate: %s" % sample_rate)
 
     sample = 0
-    for frame_number in range(1, clip.Reader().info.video_length):
+    for t in range(1, int(clip.Reader().info.duration)):
         # Get frame object
+        frame_number = int(t * fps.num / fps.den)
         frame = clip.Reader().GetFrame(frame_number)
 
         # Get volume for this frame
