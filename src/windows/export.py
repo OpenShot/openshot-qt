@@ -471,8 +471,9 @@ class Export(QDialog):
 
         # Load the interlaced options
         self.cboInterlaced.clear()
-        self.cboInterlaced.addItem(_("Yes"), "Yes")
+        self.cboInterlaced.addItem(_("Yes Top field first"), "Yes")
         self.cboInterlaced.addItem(_("No"), "No")
+        self.cboInterlaced.addItem(_("Yes Bottom field first"), "Yes")
         if profile.info.interlaced_frame:
             self.cboInterlaced.setCurrentIndex(0)
         else:
@@ -797,6 +798,7 @@ class Export(QDialog):
                 return
 
         # Init export settings
+        interlacedIndex = self.cboInterlaced.currentIndex()
         video_settings = {  "vformat": self.txtVideoFormat.text(),
                             "vcodec": self.txtVideoCodec.text(),
                             "fps": { "num" : self.txtFrameRateNum.value(), "den": self.txtFrameRateDen.value()},
@@ -806,8 +808,8 @@ class Export(QDialog):
                             "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
                             "start_frame": self.txtStartFrame.value(),
                             "end_frame": self.txtEndFrame.value(),
-                            "interlace": self.cboInterlaced.currentIndex() == 0,
-                            "topfirst": self.cboInterlaced.currentIndex() == 0
+                            "interlace": ((interlacedIndex == 0) or (interlacedIndex == 2)),
+                            "topfirst": interlacedIndex == 0
                           }
 
         audio_settings = {"acodec": self.txtAudioCodec.text(),
