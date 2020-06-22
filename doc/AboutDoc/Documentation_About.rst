@@ -48,16 +48,16 @@ Is is also allows the the documentation to ger prosessed in other tools before i
 
 Github
 ------
-In the issue tracker, subjects that contain explanations that should probably be included in the documentation can be labeled `docs <https://github.com/OpenShot/openshot-qt/labels/docs>`_\ .
+In the issue tracker, subjects that contain explanations that should probably be included in the documentation can be labeled `docs <https://github.com/OpenShot/openshot-qt/issues?q=label%3Adocs+>`_\ .
+Questions that are answered often in Github  can be tagged `FAQ <https://github.com/OpenShot/openshot-qt/issues?q=label%3AFAQ+>`_ 
+and can be added to the `Wiki FAQ <https://github.com/OpenShot/openshot-qt/wiki/FAQ>`_ or better explained in the manual.
+Reddit has topic `Addressing Common Issues <https://www.reddit.com/r/OpenShot/wiki/commonproblems>`_  pinned on the right.
 
-.. TODO:: Create WIKI FAQ + propose FAQ-tag. Include line: 
-          Questions that are answered often in Github or Reddit can be tagged **FAQ**
-          Add links Reddit + link Github
 
-|  Tutorials for how to add changes to Github: 
-|  Github on Pull requests https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork
-|  Github text howto https://opensource.com/life/16/3/submit-github-pull-request
-|  Github video howto https://www.youtube.com/watch?v=rgbCcBNZcdQ
+ |  Tutorials for how to add changes to Github: 
+ |  Github on Pull requests: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork
+ |  Github text howto: https://opensource.com/life/16/3/submit-github-pull-request
+ |  Github video howto: https://www.youtube.com/watch?v=rgbCcBNZcdQ
 
 It is possible to edit files directly in the Github web interface.
 To edit a file via the web interface,
