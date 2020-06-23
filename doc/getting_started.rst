@@ -24,6 +24,8 @@ Getting Started
 Visit the official OpenShot download page and download the latest and greatest version:
 https://www.openshot.org/download/.
 
+.. _gs-linux_ref: 
+
 Linux
 -----
 Depending on which Linux distribution you use, there are likely many ways to install OpenShot. The
