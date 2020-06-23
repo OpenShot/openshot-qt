@@ -21,7 +21,7 @@
 Quick Tutorial
 ===============
 
-OpenShot is very easy to use, and it has many advanced features.  This tutorial will take you through some basic steps in **under 5 minutes**.  After this tutorial, you will be able to make a simple photo slide-show with music.
+OpenShot is very easy to use, and it has many advanced features.  This tutorial will take you through some basic steps in **less than 5 minutes**.  After this tutorial, you will be able to make a simple photo slide-show with music.
 
 Step 1 – Import Photos & Music
 -------------------------------
