@@ -57,8 +57,8 @@ the basics. Clicking :guilabel:`Next` will jump to the next topic. You can alway
 
 .. _tracks-layers_ref:
 
-Tracks & Layers
-------------------
+Tracks
+------
 
 OpenShot uses tracks to layer videos and images. The top most track is the top
 layer, and the bottom track is the bottom layer. If you are familiar with layers
