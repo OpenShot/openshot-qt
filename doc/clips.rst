@@ -24,7 +24,7 @@ Clips
 
 Each media file you add to the OpenShot timeline is called a clip, and is visualized by a dark, rounded rectangle
 (as seen in the screenshot below). A clip has a large number of properties, which affects how the clip is
-rendered and composited, such as scale, location, rotation, and alpha. These properties can also be animated over time,
+rendered and composited, such as scale, location, rotation, and Alpha. These properties can also be animated over time,
 and when combined together, can create some amazing effects.
 
 Overview
@@ -46,7 +46,7 @@ Overview
 Cutting & Slicing
 -----------------
 OpenShot has many easy ways to adjust the start and end positions of a clip (otherwise known as cutting). The most common
-method is simply grabbing the left (or right) edge of the clip and dragging. Here is a list of methods for cutting clips in OpenShot:
+method is simply clicking the left (or right) edge of the clip and dragging. Here is a list of methods for cutting clips in OpenShot:
 
 .. table::
    :widths: 30
@@ -148,16 +148,16 @@ Adjusting a property value on the first frame of a clip affects that value for t
    Crop X              A point on a line representing position of the clip on the X axis in decimal (0 to 1)
    Crop Y              A point on a line representing the position of the clip on the Y axis in decimal (0 to 1)
    Duration            A number representing the length of the clip (in seconds)
-   Enable Audio        A number that represents if the clip has enabled audio (-1=undefined, 0=no, 1=yes)
-   Enable Video        A number that represents if the clip has enabled video (-1=undefined, 0=no, 1=yes)
+   Enable Audio        A number that represents whether the clip has enabled audio (-1=undefined, 0=no, 1=yes)
+   Enable Video        A number that represents whether the clip has enabled video (-1=undefined, 0=no, 1=yes)
    End                 A number representing the time from the beginning of the original clip (in seconds)
-   Frame Number        A value that displays the curfrent frame number of the selection in the upper left corner of the screen
+   Frame Number        A value that displays the curfrent frame number of the selection in the upper left corner of the video
    Gravity             A value that determines where the clip snaps to its parent
    ID                  A number representing the identifaction of the clip that is automatically created
    Location X          A point on a line representing the relative X position based on the gravity (-1 to 1)
    Location Y          A point on a line representing the relative Y position based on the gravity (-1 to 1)
-   Origin X            A point on a line representing XXXX in decimal (0 to 1)
-   Origin Y            A point on a line representing YYYY in decimal (0 to 1)
+   Origin X            A point on a line representing the X axis center for shearing and rotation in decimal (0 to 1)
+   Origin Y            A point on a line representing the Y axis center for shearing and rotation in decimal (0 to 1)
    Position            A number representing the location on the timeline where the clip begins (in seconds)
    Rotation            A number representing the rotation of the clip in degrees (-360 to 360)
    Scale               A value that determines how a clip should be resized to fit it's parent
@@ -267,6 +267,8 @@ Descriptions
 
 **Origin X & Origin Y** : (0.00 to 1.00)
  *Something from which anything arises or is derived; source*
+ 
+ Coordinate point used as the center/origin for shearing and rotation.
 
 **Position** : (0.00 to ∞)
  *A place occupied or to be occupied; site.*
