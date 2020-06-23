@@ -55,6 +55,7 @@ the basics. Clicking :guilabel:`Next` will jump to the next topic. You can alway
 
 .. image:: images/built-in-tutorial.jpg
 
+.. _tracks-layers_ref:
 
 Tracks & Layers
 ------------------
