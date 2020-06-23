@@ -1,7 +1,6 @@
-.. Copyright (c) 2008-2016 OpenShot Studios, LLC
+.. Copyright (c) 2008-2020 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
- OpenShot Video Editor (http://www.openshot.org), an open-source 
- 
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
@@ -69,13 +68,22 @@ You should now have a basic understanding of how OpenShot works. Importing, Arra
 Definitions
 ------------
 Animation:
-   The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.
-   Here's a better explaination in the `cAnimation <animation.rst#Animations>`_ section of the User Guide.
+   | The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.
+   | Here's a better explanation in the `Animation <animation.rst#Animations>`_ section of the User Guide.
 Clip:
-   Each media file you add to the OpenShot timeline is called a clip.
-   Here's a better explaination in the `Clips <clips.rst#clips>`_ section of the User Guide.
+   | Each media file you add to the OpenShot timeline is called a clip.
+   | Here's a better explanation in the `Clips <clips.rst#clips>`_ section of the User Guide.
+Transition:
+   | A transition is used to gradually fade (or wipe) between two clips.
+   | Here's a better explanation in the `Transitions <transitions.rst#transitions>`_ section of the User Guide.
 Project:
    All of the files, transitions, effects and animations that you make or use within OpenShot. 
-Transition:
-   A transition is used to gradually fade (or wipe) between two clips.
-   Here's a better explaination in the `Transitions <transitions.rst#transitions>`_ section of the User Guide.
+
+.. figure:: images/openshot-logo.svg
+   :height: 40 px
+   :width: 40 px
+   :scale: 100 %
+   :alt: OpenShot Video Editor
+   :align: center
+   
+   Copyright 2020 OpenShot Studios, LLC
