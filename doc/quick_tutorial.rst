@@ -1,6 +1,7 @@
 .. Copyright (c) 2008-2016 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
- OpenShot Video Editor (http://www.openshot.org), an open-source project
+ OpenShot Video Editor (http://www.openshot.org), an open-source 
+ 
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
@@ -33,31 +34,31 @@ Step 2 – Add Photos to Timeline
 --------------------------------
 Next, drag each photo to the timeline (as seen in the illustration).  The timeline represents your final video, so arrange your photos in the order you want them to appear in your video.  If you overlap two `clips <#Definitions>`_, OpenShot will automatically create a smooth fade `transition <#Definitions>`_ between them, displayed by blue rounded rectangles between the `clips <#Definitions>`_.  Remember, you can rearrange the `clips <#Definitions>`_ as many times as needed by simply dragging and dropping.  
 
-OpenShot uses `:ref:`tracks-layers` to layer videos and images. The top most track is the top layer, and the bottom track (by default Track 1) is the bottom layer. The higher track (by default Track 5) will always be visible while the lower tracks will only be visible if the higher tracks don't have any clips above them at that point in the timeline.  Also, lower tracks are visible if the clips on the higher tracks are allowing images to pass through them using the Alpha (transparency) setting.
+OpenShot uses `tracks <main_window.rst#Tracks>`_ to layer videos and images. The top most `track <main_window.rst#Tracks>`_ is the top layer, and the bottom `track <main_window.rst#Tracks>`_ (by default Track 1) is the bottom layer. The highest `track <main_window.rst#Tracks>`_ (by default Track 5) will always be visible while the lower `tracks <main_window.rst#Tracks>`_ will only be visible if the higher `tracks <main_window.rst#Tracks>`_ don't have any `clips <#Definitions>`_ above them at that point in the timeline.  Also, lower `tracks <main_window.rst#Tracks>`_ are visible if the `clips <#Definitions>`_ on the higher `tracks <main_window.rst#Tracks>`_ are allowing images to pass through them using the Alpha (transparency) setting.
 
 .. image:: images/quick-start-timeline-drop.jpg
 
 Step 3 – Add Music to Timeline
 -------------------------------
-To make your photo slide-show more interesting, we need to add some music.  You should have imported a music file in Step 1. Click on the music file, and drag it to the timeline.  If the song is too long, click the right edge of your music clip and drag it to the left to make your clip shorter.
+To make your photo slide-show more interesting, we need to add some music.  You should have imported a music file in Step 1. Click on the music file, and drag it to the timeline.  If the song is too long, click the right edge of your music `clip <#Definitions>`_ and drag it to the left to make your `clip <#Definitions>`_ shorter.
 
 .. image:: images/quick-start-music.jpg
 
 Step 4 – Preview your Project
 ------------------------------
-To preview how your video looks & sounds, click the Play button under the Preview window.  You can also pause, rewind, and fast-forward your video project by clicking the corresponding buttons.
+To preview how your video looks & sounds, click the Play button under the Preview window.  You can also pause, rewind, and fast-forward your video `project <#Definitions>`_ by clicking the corresponding buttons.
 
 .. image:: images/quick-start-play.jpg
 
 Step 5 - Refine and Adjust Your Video
 --------------------------------------
-OpenShot has many advanced features to enhance your project.  You can use :ref:`titles` to add a title screen or text to your clips.  :ref:`transitions` will gradually fade one clip to another.  :ref:`animation_ref`s can change the properties of a clip over time.  These changes can be even more refined using the Properties window (Press **CTRL+I** if the Properties windows is not already visible).  For more information, use the menu to the left to find the related topics.
+OpenShot has many advanced features to enhance your `project <#Definitions>`_.  You can use `titles <titles.rst#titles>` to add a title screen or text to your `clip <#Definitions>`_.  `transition <#Definitions>`_ will gradually fade one `clip <#Definitions>`_ to another.  `Animations <#Definitions>`_ can change the properties of a `clip <#Definitions>`_ over time.  These changes can be even more refined using the Properties window (Press **CTRL+I** if the Properties windows is not already visible).  For more information, use the menu to the left to find the related topics.
 
 Step 6 – Export your Video
 ---------------------------
-Once you have edited your photo slide-show video, the last step is to export the project.  This will convert your OpenShot project into a single video file.  Using the default settings, the video will work on most media players (such as VLC) or websites (such as YouTube, Vimeo, etc.).
+Once you have edited your photo slide-show video, the last step is to export the `project <#Definitions>`_.  This will convert your OpenShot `project <#Definitions>`_ into a single video file.  Using the default settings, the video will work on most media players (such as VLC) or websites (such as YouTube, Vimeo, etc.).
 
-Click the Export Video icon in the top toolbarn (Press CTRL+E or use the **File > Export Video** menu).  Choose from one of the many preset export options, and click the *Export Video* button.  Exporting can take a very long time depending on the length of your project, the video profile that you chose, the quality of the export video and the speed of your computer's Central Processing Unit (CPU).  Please be aware of these factor and be patient as your system creates your video.
+Click the Export Video icon in the top toolbarn (Press CTRL+E or use the **File > Export Video** menu).  Choose from one of the many preset export options, and click the *Export Video* button.  Exporting can take a very long time depending on the length of your `project <#Definitions>`_, the video profile that you chose, the quality of the export video and the speed of your computer's Central Processing Unit (CPU).  Please be aware of these factor and be patient as your system creates your video.
 
 .. image:: images/quick-start-export.jpg
 
@@ -67,13 +68,14 @@ You should now have a basic understanding of how OpenShot works. Importing, Arra
 
 Definitions
 ------------
+Animation:
+   The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.
+   Here's a better explaination in the `cAnimation <animation.rst#Animations>`_ section of the User Guide.
 Clip:
    Each media file you add to the OpenShot timeline is called a clip.
+   Here's a better explaination in the `Clips <clips.rst#clips>`_ section of the User Guide.
 Project:
-   All of the files, transitions, effects and animations that you make or use within OpenShot.
- Profile:
-   A profile is a collection of common video settings (size, frame rate, aspect ratio, etc…).
-Animation:
-   The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.  
+   All of the files, transitions, effects and animations that you make or use within OpenShot. 
 Transition:
    A transition is used to gradually fade (or wipe) between two clips.
+   Here's a better explaination in the `Transitions <transitions.rst#transitions>`_ section of the User Guide.
