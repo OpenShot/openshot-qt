@@ -54,3 +54,5 @@ in your Start menu.
     :height: 40px
 .. |Link| replace:: listed above
 .. _Link: https://www.openshot.org/download/
+
+.. Link the icons to the sections in the document
