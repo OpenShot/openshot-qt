@@ -81,10 +81,11 @@ Project:
 
 
 .. figure:: images/openshot-logo.svg
+   :figclass: align-center
    :height: 60 px
    :width: 60 px
    :scale: 100 %
    :alt: OpenShot Video Editor
    :align: center
-   
+
    Copyright 2020 OpenShot Studios, LLC
