@@ -79,9 +79,10 @@ Transition:
 Project:
    All of the files, transitions, effects and animations that you make or use within OpenShot. 
 
+
 .. figure:: images/openshot-logo.svg
-   :height: 40 px
-   :width: 40 px
+   :height: 60 px
+   :width: 60 px
    :scale: 100 %
    :alt: OpenShot Video Editor
    :align: center
