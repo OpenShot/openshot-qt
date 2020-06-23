@@ -34,11 +34,15 @@ project website (|link|_). Once downloaded, right click the AppImage file, choos
 Properties, and mark the file as **Executable**. Now, go ahead and double click the
 AppImage to launch it.
 
+.. _gs-mac_ref: 
+
 Mac
 ---
 Download the DMG file from the project website (|Link|_), double click it, then drag
 the OpenShot application icon into your **Applications** shortcut. This is very similar to how most
 other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
+
+.. _gs-win_ref:
 
 Windows
 -------
