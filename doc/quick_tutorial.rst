@@ -61,13 +61,17 @@ buttons.
 
 .. image:: images/quick-start-play.jpg
 
-Step 5 – Export your Video
----------------------------
-Once you are happy with your photo slide-show video, the next step is to export your video.
-This will convert your OpenShot project into a single video file, which will work on most
-media players (such as VLC) or websites (such as YouTube, Vimeo, etc...).
+Step 5 - Refine and adjust you video
+------------------------------------
+describe titles, effects and properties window.  link to topics in the guide
 
-Click on the Export Video icon at the top of the screen (or use the **File > Export Video** menu).
+Step 6 – Export your Video
+---------------------------
+Once you have edited your photo slide-show video, the last step is to export the project.
+This will convert your OpenShot project into a single video file.  Using the default settings, the video will work on most
+media players (such as VLC) or websites (such as YouTube, Vimeo, etc.).
+
+Click the Export Video icon in the top toolbarn (Press CTRL+E or use the **File > Export Video** menu).
 Choose from one of the many preset export options, and click the *Export Video* button.
 
 .. image:: images/quick-start-export.jpg
