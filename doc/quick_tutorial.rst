@@ -31,9 +31,9 @@ Before we can begin making a video, we need to import files into OpenShot.  Drag
 
 Step 2 – Add Photos to Timeline
 --------------------------------
-Next, drag each photo to the timeline (as seen in the illustration).  The timeline represents your final video, so arrange your photos in the order you want them to appear in your video.  If you overlap two clips, OpenShot will automatically create a smooth fade transition between them, displayed by blue rounded rectangles between the clips.  Remember, you can rearrange the clips as many times as needed by simply dragging and dropping.  
+Next, drag each photo to the timeline (as seen in the illustration).  The timeline represents your final video, so arrange your photos in the order you want them to appear in your video.  If you overlap two `clips <#Definitions>`_, OpenShot will automatically create a smooth fade `transition <#Definitions>`_ between them, displayed by blue rounded rectangles between the `clips <#Definitions>`_.  Remember, you can rearrange the `clips <#Definitions>`_ as many times as needed by simply dragging and dropping.  
 
-OpenShot uses :ref:`main_window:tracks-layers` to layer videos and images. The top most track is the top layer, and the bottom track is the bottom layer. The higher track (by default Track 5) will always be visible while the lower tracks will only be visible if the higher tracks don't have any clips above them at that point in the timeline.  Also, lower tracks are visible if the clips on the higher tracks are allowing images to pass through them using the Alpha (transparency) setting.
+OpenShot uses `tracks <:ref:`tracks-layers>`_ to layer videos and images. The top most track is the top layer, and the bottom track (by default Track 1) is the bottom layer. The higher track (by default Track 5) will always be visible while the lower tracks will only be visible if the higher tracks don't have any clips above them at that point in the timeline.  Also, lower tracks are visible if the clips on the higher tracks are allowing images to pass through them using the Alpha (transparency) setting.
 
 .. image:: images/quick-start-timeline-drop.jpg
 
