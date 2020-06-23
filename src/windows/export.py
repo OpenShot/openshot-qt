@@ -471,13 +471,13 @@ class Export(QDialog):
 
         # Load the interlaced options
         self.cboInterlaced.clear()
-        self.cboInterlaced.addItem(_("Yes Top field first"), "Yes")
         self.cboInterlaced.addItem(_("No"), "No")
+        self.cboInterlaced.addItem(_("Yes Top field first"), "Yes")
         self.cboInterlaced.addItem(_("Yes Bottom field first"), "Yes")
         if profile.info.interlaced_frame:
-            self.cboInterlaced.setCurrentIndex(0)
-        else:
             self.cboInterlaced.setCurrentIndex(1)
+        else:
+            self.cboInterlaced.setCurrentIndex(0)
 
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
@@ -808,8 +808,8 @@ class Export(QDialog):
                             "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
                             "start_frame": self.txtStartFrame.value(),
                             "end_frame": self.txtEndFrame.value(),
-                            "interlace": ((interlacedIndex == 0) or (interlacedIndex == 2)),
-                            "topfirst": interlacedIndex == 0
+                            "interlace": ((interlacedIndex == 1) or (interlacedIndex == 2)),
+                            "topfirst": interlacedIndex == 1
                           }
 
         audio_settings = {"acodec": self.txtAudioCodec.text(),
