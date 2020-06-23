@@ -25,7 +25,7 @@ OpenShot is very easy to use, and it has many advanced features.  This tutorial 
 
 Step 1 – Import Photos & Music
 -------------------------------
-Before we can begin making a video, we need to import files into OpenShot.  Drag and drop a few images (\*.JPG, \*.PNG, etc.) and a music file (\*.MP3, \*. WAV, etc.) from your file manager or desktop to OpenShot.  You can add your :ref:`def-clip` to the timeline as well as the Project Files list.  Be sure to drop the files to where the arrow in the illustration is pointing.
+Before we can begin making a video, we need to import files into OpenShot.  Drag and drop a few images (\*.JPG, \*.PNG, etc.) and a music file (\*.MP3, \*. WAV, etc.) from your file manager or desktop to OpenShot.  You can add your :ref:`gs-definitions <clips>` to the timeline as well as the Project Files list.  Be sure to drop the files to where the arrow in the illustration is pointing.
 
 .. image:: images/quick-start-drop-files.jpg
 
@@ -63,20 +63,17 @@ In Conclusion
 -------------
 You should now have a basic understanding of how OpenShot works. Importing, Arranging, Previewing, and Exporting.  Hopefully this tutorial took less than 5 minutes for you to complete. Please read the rest of this guide for a more detailed understanding of OpenShot, and it's advanced features. If you have any questions after reading the rest of this User Guide, join our `Reddit Community <https://www.redit.com/OpenShot>`_ and ask others for help with your issue.  If you still have an issued after joining our Reddit Community and believe that you have a bug in OpenShot, check out our `GitHub Repository <https://www.github.com/OpenShot>`_ and see if your issue is resolved or a patch is in progress.  Enjoy!
 
+.. _gs-definitions_ref:
+
 Definitions
 ------------
-.. _def-clip_ref:
 Clip:
    Each media file you add to the OpenShot timeline is called a clip.
-.. _def-project_ref:
 Project:
    All of the files, transitions, effects and animations that you make or use within OpenShot.
-.. _def-profile_ref:
  Profile:
    A profile is a collection of common video settings (size, frame rate, aspect ratio, etc…).
-.. _def-animation_ref:
 Animation:
-   The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.
-.. _def-transition_ref:   
+   The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.  
 Transition:
    A transition is used to gradually fade (or wipe) between two clips.
