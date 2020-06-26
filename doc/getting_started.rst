@@ -20,22 +20,32 @@
 Getting Started
 ===============
 
-|openshot| OpenShot Video Editor is available for most operating systems, including |linux| Linux (most distributions), |mac| Apple Mac OS X, and |win| Microsoft Windows.  View the `System Requirements <#gs-System-Requirements>`_ below before downloading the latest version from the official OpenShot `download page <https://www.openshot.org/download/>`_.
+|openshot| OpenShot Video Editor is available for most operating systems, including |linux| Linux (most distributions), |mac| Apple Mac OS X, and |win| Microsoft Windows.  View the System Requirements section below before downloading the latest version from the official OpenShot `download page <https://www.openshot.org/download/>`_.
 
 .. _gs-System-Requrements_ref:
 
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically,
-you want the best computer you can afford when editing video. Here are the minimum system
-requirements:
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically, you want the best computer you can afford when editing video. Here are the minimum system requirements:
 
-* 64-bit Operating System (Linux, OS X 10.9.5+, Windows 7/8/10+)
-* Multi-core processor with 64-bit support (AMD64)
-* 4GB of RAM (16GB recommended)
-* 500 MB of hard-disk space for installation
-* Optional: Solid-state drive (SSD, PCIe or PCIe NVMe), if utilizing disk-caching
-  and an additional 10GB of hard-disk space)
+.. list-table:: 
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Minimum Requirements
+     - Recommended Requirements
+   * - 64-bit operating system 
+     - | 64-bit operating system
+       | * Linux 
+       | * Mac OS X 10.9.5+ 
+       | * Microsoft Windows 10+
+   * - Multi-core processor
+     - Quad-core 64-bit processor
+   * - 4 GB RAM
+     - 16 GB DDR 4 RAM
+   * - 500 MB HDD 
+     - | 10GB SDD 
+       | (SATA III, PCIe or PCIe NVMe)
 
 .. _gs-linux_ref: 
 
