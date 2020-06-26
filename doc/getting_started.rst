@@ -34,14 +34,14 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
 
    * - Minimum Requirements
      - Recommended Requirements
-   * - 64-bit Operatinng System
+   * - 64-bit Operatinng System 
        | * Linux 
        | * Mac OS X 10.9.5+ 
-       | * Microsoft Windows 7/8/8.1/10
-     - 64-bit Operating System
+       | * Microsoft Windows 7/8/8.1/10 
+     - 64-bit Operating System 
        | * Linux 
        | * Mac OS X 10.15+ 
-       | * Microsoft Windows 10+
+       | * Microsoft Windows 10+ 
    * - Multi-core processor
      - Quad-core 64-bit processor
        | * AMD Ryzen 9
@@ -50,7 +50,7 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
      - 16 GB DDR 4 RAM
    * - 500 MB HDD 
      - | 10GB SDD 
-       | (SATA III, PCIe or PCIe NVMe)
+       | (SATA III, PCIe or PCIe NVMe) 
 
 .. _gs-linux_ref: 
 
