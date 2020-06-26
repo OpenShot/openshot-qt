@@ -20,35 +20,25 @@
 Getting Started
 ===============
 
-|openshot| OpenShot Video Editor is available on most operating systems (including |linux| Linux, |mac| Mac, and |win| Windows).
-Visit the official OpenShot download page and download the latest and greatest version:
-https://www.openshot.org/download/.
+|openshot| OpenShot Video Editor is available on most operating systems (including |linux| Linux, |mac| Mac, and |win| Windows). Visit the official OpenShot [download page](https://www.openshot.org/download/) to download the latest version.
 
 .. _gs-linux_ref: 
 
 Linux
 -----
-Depending on which Linux distribution you use, there are likely many ways to install OpenShot. The
-easiest way to ensure you have the very latest version, is to download an AppImage from the
-project website (|link|_). Once downloaded, right click the AppImage file, choose
-Properties, and mark the file as **Executable**. Now, go ahead and double click the
-AppImage to launch it.
+Download the AppImajge file from the project website (|Link|_).  Once downloaded, right click the AppImage file, choose Properties, and mark the file as **Executable**.  Double click the AppImage to launch it.
 
 .. _gs-mac_ref: 
 
 Mac
 ---
-Download the DMG file from the project website (|Link|_), double click it, then drag
-the OpenShot application icon into your **Applications** shortcut. This is very similar to how most
-other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
+Download the DMG file from the project website (|Link|_), double click it, then drag the OpenShot application icon into your **Applications** shortcut. This is very similar to how most other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
 
 .. _gs-win_ref:
 
 Windows
 -------
-Download the Windows installer executable from the project website (|link|_), double click it,
-and follow the directions on screen. Once completed, OpenShot will be installed and available
-in your Start menu.
+Download the Windows installer executable from the project website (|link|_), double click it, and follow the directions on screen. Once completed, OpenShot will be installed and available in your Start menu.
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
@@ -58,7 +48,7 @@ in your Start menu.
     :height: 20px
 .. |openshot| image:: images/openshot-logo.svg
     :height: 40px
-.. |Link| replace:: listed above
+.. |Link| replace:: download page
 .. _Link: https://www.openshot.org/download/
 
 .. Link the icons to the sections in the document
