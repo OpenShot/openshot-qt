@@ -38,7 +38,7 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
        | * Linux 
        | * Mac OS X 10.9.5+ 
        | * Microsoft Windows 7/8/8.1/10
-   * - | 64-bit Operating System
+   * - 64-bit Operating System
        | * Linux 
        | * Mac OS X 10.15+ 
        | * Microsoft Windows 10+
