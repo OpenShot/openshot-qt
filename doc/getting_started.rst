@@ -20,13 +20,28 @@
 Getting Started
 ===============
 
-|openshot| OpenShot Video Editor is available on most operating systems (including |linux| Linux, |mac| Mac, and |win| Windows). Visit the official OpenShot [download page](https://www.openshot.org/download/) to download the latest version.
+|openshot| OpenShot Video Editor is available for most operating systems, including |linux| Linux (most distributions), |mac| Apple Mac OS X, and |win| Microsoft Windows.  View the `System Requirements <#gs-System-Requirements>`_ below before downloading the latest version from the official OpenShot `download page <https://www.openshot.org/download/>`_.
+
+.. _gs-System-Requrements_ref:
+
+System Requirements
+-------------------
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically,
+you want the best computer you can afford when editing video. Here are the minimum system
+requirements:
+
+* 64-bit Operating System (Linux, OS X 10.9.5+, Windows 7/8/10+)
+* Multi-core processor with 64-bit support (AMD64)
+* 4GB of RAM (16GB recommended)
+* 500 MB of hard-disk space for installation
+* Optional: Solid-state drive (SSD, PCIe or PCIe NVMe), if utilizing disk-caching
+  and an additional 10GB of hard-disk space)
 
 .. _gs-linux_ref: 
 
 Linux
 -----
-Download the AppImajge file from the project website (|Link|_).  Once downloaded, right click the AppImage file, choose Properties, and mark the file as **Executable**.  Double click the AppImage to launch it.
+Download the AppImage file from the project website (|Link|_).  Once downloaded, right click the AppImage file, choose Properties, and mark the file as **Executable**.  Double click the AppImage to launch it.
 
 .. _gs-mac_ref: 
 
