@@ -28,18 +28,18 @@ System Requirements
 -------------------
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically, you want the best computer you can afford when editing video. Here are the minimum system requirements and the recommended system requirements:
 
-.. list-table:: 
-   :widths: 50 50
+.. list-table::
+   :widths: 50 50 
    :header-rows: 1
 
    * - Minimum Requirements
      - Recommended Requirements
    * - 64-bit Operating System 
-        | * Linux 
+        | * Linux 4.15
         | * Mac OS X 10.9.5+ 
         | * Microsoft Windows 7/8/8.1/10 
      - 64-bit Operating System
-        | * Linux
+        | * Linux 5.7+
         | * Mac OS X 10.15+
         | * Microsoft Windows 10+
    * - Multi-core processor
@@ -48,12 +48,17 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
      - Quad-core 64-bit processor
         | * AMD Ryzen 9 3rd Gen
         | * Intel Core i9 10th Gen
-   * - 4 GB RAM
-     - 16 GB DDR 4 RAM
-   * - 500 MB HDD
-     -  | 10GB SDD
-        | (SATA III, PCIe or PCIe NVMe)
-        
+   * - System Memory
+        | * 4 GB RAM
+     - System Memory 
+        | * 16 GB DDR 4 RAM
+   * - Internal Storage
+        | 500 MB HDD
+     - Internal Storage
+        | * 10GB SDD
+        | * (SATA III, PCIe or PCIe NVMe)
+
+
 .. _gs-linux_ref: 
 
 Linux
