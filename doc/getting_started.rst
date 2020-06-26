@@ -26,7 +26,7 @@ Getting Started
 
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically, you want the best computer you can afford when editing video. Here are the minimum system requirements:
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically, you want the best computer you can afford when editing video. Here are the minimum system requirements and the recommended system requirements:
 
 .. list-table:: 
    :widths: 50 50
