@@ -21,7 +21,7 @@
 
 Introduction
 ============
-|openshot| OpenShot Video Editor is an award-winning, open-source video editor, available on
+|openshot| OpenShot Video Editor is an award-winning, open-source video editor, available for
 |linux| Linux, |mac| Mac OS X, and |win| Windows. OpenShot can create stunning videos, films, and animations with an
 easy-to-use interface and a rich feature-set.
 
@@ -53,16 +53,37 @@ Screenshot
 
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically,
-you want the best computer you can afford when editing video. Here are the minimum system
-requirements:
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
 
-* 64-bit Operating System (Linux, OS X 10.9.5, Windows 7/8/10)
-* Multi-core processor with 64-bit support (AMD64)
-* 4GB of RAM (16GB recommended)
-* 500 MB of hard-disk space for installation
-* Optional: Solid-state drive (SSD), if utilizing disk-caching
-  and an additional 10GB of hard-disk space)
+.. list-table::
+   :header-rows: 1
+
+   * - Minimum System Requirements
+     - Recommended System Requirements
+   * - 64-bit Operating System 
+        | Linux Kernel 4.15+
+        | Mac OS X 10.9.5+ 
+        | Microsoft Windows 7/8/8.1/10 
+     - 64-bit Operating System
+        | Linux Kernel 5.7+
+        | Mac OS X 10.15+
+        | Microsoft Windows 10+
+   * - Multi-core processor
+        | AMD Ryzen 3, 1st Gen
+        | Intel Core i3, 3rd Gen
+     - Quad-core 64-bit processor
+        | AMD Ryzen 7, 3rd Gen
+        | Intel Core i7, 10th Gen
+   * - Internal Storage
+        | 500 MB HDD
+        | SATA III
+     - Internal Storage
+        | 10 GB SDD
+        | PCIe or PCIe NVMe
+   * - System Memory
+        | 4 GB RAM
+     - System Memory 
+        | 16 GB DDR 4 RAM
 
 License
 -------
@@ -71,17 +92,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-
-.. figure:: images/openshot-logo.svg
-   :figclass: align-center
-   :height: 60 px
-   :width: 60 px
-   :scale: 100 %
-   :alt: OpenShot Video Editor
-   :align: center
-
-   Copyright 2020 OpenShot Studios, LLC
-
+.. replacements for inline images
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
