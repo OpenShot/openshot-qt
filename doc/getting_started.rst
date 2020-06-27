@@ -20,7 +20,7 @@
 Getting Started
 ===============
 
-OpenShot Video Editor is available for most operating systems, including:
+OpenShot Video Editor is available for most 64-bit operating systems, including:
 
  |  |linux| Linux (most distributions)
  |  |mac| Apple Mac OS X
@@ -35,10 +35,10 @@ System Requirements
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
 
 .. list-table::
-   :header-rows: 1
+   :header-rows: 0
 
-   * - Minimum System Requirements
-     - Recommended System Requirements
+   * - **Minimum System Requirements**
+     - **Recommended System Requirements**
    * - 64-bit Operating System 
         | Linux Kernel 4.15+
         | Mac OS X 10.9.5+ 
@@ -48,39 +48,45 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
         | Mac OS X 10.15+
         | Microsoft Windows 10+
    * - Multi-core processor
-        | AMD Ryzen 3, 1st Gen
-        | Intel Core i3, 3rd Gen
+        | AMD Ryzen 5, 1st Gen
+        | Intel Core i5, 4th Gen
      - Quad-core 64-bit processor
-        | AMD Ryzen 7, 3rd Gen
-        | Intel Core i7, 10th Gen
+        | AMD Ryzen 7, 3rd Gen (or higher)
+        | Intel Core i7, 10th Gen (or higher)
    * - Internal Storage
         | 500 MB HDD
         | SATA III
      - Internal Storage
         | 10 GB SDD
         | PCIe or PCIe NVMe
+   * - Display Screen
+        | 15.6" FHD (1920x1080) Laptop Display
+        | 19" FHD (1920x1080) Desktop Display
+     - Dislay Screen
+        | 17" UHD (3840x2160) Laptop Display
+        | 27" UHD (3840x2160) x2 Desktop Display
    * - System Memory
         | 4 GB RAM
      - System Memory 
         | 16 GB DDR 4 RAM
-   
+        
 .. _gs-linux_ref: 
 
 Linux
 -----
-Download the AppImage file from the project website (|Link|_).  Once downloaded, right click the AppImage file, choose Properties, and mark the file as **Executable**.  Double click the AppImage to launch it.
+Download the AppImage file from the official OpenShot |Link|_.  Once downloaded, right click the AppImage file, choose Properties, and mark the file as **Executable**.  Double click the AppImage to launch it.
 
 .. _gs-mac_ref: 
 
 Mac
 ---
-Download the DMG file from the project website (|Link|_).  Once downloaded, double click the DMG file then drag the OpenShot application icon to your **Applications** folder.  This is very similar to how most other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
+Download the DMG file from the official OpenShot |Link|_.  Once downloaded, double click the DMG file then drag the OpenShot application icon to your **Applications** folder.  This is very similar to how most other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
 
 .. _gs-win_ref:
 
 Windows
 -------
-Download the Windows installer executable from the project website (|link|_), double click it, and follow the directions on screen. Once completed, OpenShot will be installed and available in your Start menu.
+Download the Windows installer executable from the official OpenShot |Link|_.  Once downloaded, double click the EXE file and follow the directions on screen.  When complete, OpenShot is installed and available in your Start menu.
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
@@ -92,5 +98,3 @@ Download the Windows installer executable from the project website (|link|_), do
     :height: 40px
 .. |Link| replace:: download page
 .. _Link: https://www.openshot.org/download/
-
-.. Link the icons to the sections in the document
