@@ -94,6 +94,12 @@ Windows
 -------
 Download the Windows installer executable from the official OpenShot |Link|_.  Once downloaded, double click the EXE file and follow the directions on screen.  When complete, OpenShot is installed and available in your Start menu.
 
+Finding Help
+------------
+Reddit
+Video Tutorials
+GitHub
+
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
 .. |mac| image:: images/mac-logo.svg
