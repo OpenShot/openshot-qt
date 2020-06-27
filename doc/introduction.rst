@@ -22,73 +22,49 @@
 Introduction
 ============
 |openshot| OpenShot Video Editor is an award-winning, open-source video editor, available for
-|linux| Linux, |mac| Mac OS X, and |win| Windows. OpenShot can create stunning videos, films, and animations with an
-easy-to-use interface and a rich feature-set.
+|linux| Linux, |mac| Mac OS X, and |win| Windows. OpenShot can create stunning videos, films, 
+and animations with an easy-to-use interface and a rich feature-set.
 
 Features
 --------
+OpenShot Video Editor has many abilities and features, including:
 
-.. list-table::
-   :header-rows: 0
-
-   * - * Cross-platform (Supports Linux, OS X and Windows)
-     - * Support for many video, audio, and image formats (based on FFmpeg)
-   * - * Powerful curve-based Key frame animations
-     - * Desktop integration (drag and drop support)
-   * - * Unlimited tracks / layers
-     - * Clip resizing, scaling, trimming, snapping, rotation and cutting
-   * - * Video transitions with real-time previews
-     - * Compositing, image overlays, watermarks
-   * - * Title templates, title creation, sub-titles
-     - * 2D animation support (image sequences)
-   * - * 3D animated titles (and effects)
-     - * SVG friendly, to create and include vector titles and credits
-   * - * Scrolling motion picture credits
-     - * Advanced Timeline (including Drag & drop, scrolling, panning, zooming, and snapping)
-   * - * Frame accuracy (step through each frame of video)
-     - * Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
-   * - * Audio mixing and editing
-     - * Digital video effects, including brightness, gamma, hue, greyscale, chroma key (bluescreen / greenscreen)
-   * - * and many more!
-     -
+* Cross-platform (Supports Linux, OS X and Windows)
+* Support for many video, audio, and image formats (based on FFmpeg)
+* Powerful curve-based Key frame animations
+* Desktop integration (drag and drop support)
+* Unlimited tracks / layers
+* Clip resizing, scaling, trimming, snapping, rotation and cutting
+* Video transitions with real-time previews
+* Compositing, image overlays, watermarks
+* Title templates, title creation, sub-titles
+* 2D animation support (image sequences)
+* 3D animated titles (and effects)
+* SVG friendly, to create and include vector titles and credits
+* Scrolling motion picture credits
+* Advanced Timeline (including Drag & drop, scrolling, panning, zooming, and snapping)
+* Frame accuracy (step through each frame of video)
+* Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
+* Audio mixing and editing
+* Digital video effects, including brightness, gamma, hue, greyscale, chroma key (bluescreen / greenscreen)
 
 Screenshot
 ----------
 .. image:: images/ui-example.jpg
-
+   
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  
+When editing video, you want the best computer system that you can afford.  
+Here are the minimum system requirements:
 
-.. list-table::
-   :header-rows: 1
-
-   * - Minimum System Requirements
-     - Recommended System Requirements
-   * - 64-bit Operating System 
-        | Linux Kernel 4.15+
-        | Mac OS X 10.9.5+ 
-        | Microsoft Windows 7/8/8.1/10 
-     - 64-bit Operating System
-        | Linux Kernel 5.7+
-        | Mac OS X 10.15+
-        | Microsoft Windows 10+
-   * - Multi-core processor
-        | AMD Ryzen 3, 1st Gen
-        | Intel Core i3, 3rd Gen
-     - Quad-core 64-bit processor
-        | AMD Ryzen 7, 3rd Gen
-        | Intel Core i7, 10th Gen
-   * - Internal Storage
-        | 500 MB HDD
-        | SATA III
-     - Internal Storage
-        | 10 GB SDD
-        | PCIe or PCIe NVMe
-   * - System Memory
-        | 4 GB RAM
-     - System Memory 
-        | 16 GB DDR 4 RAM
+* 4GB of Random Access Memory (RAM)
+* 64-bit Multi-core processor (AMD64)
+* 500 MB of hard-disk space for installation
+* Internal or  discrete Graphics Processing Unit (GPU)
+* 64-bit Operating System (Linux, Mac OS X, Windows 7/8/10)
+* Moniotor or laptop display capable of 1280x720 (720P) resolution
+* Optional: Solid-state drive (SSD), if utilizing disk-caching (and an additional 10GB of hard-disk space)
 
 License
 -------
