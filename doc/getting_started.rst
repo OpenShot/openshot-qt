@@ -20,7 +20,7 @@
 Getting Started
 ===============
 
-|openshot| OpenShot Video Editor is available for most operating systems, including:
+OpenShot Video Editor is available for most operating systems, including:
 
  |  |linux| Linux (most distributions)
  |  |mac| Apple Mac OS X
@@ -32,7 +32,7 @@ View the System Requirements section below before downloading the latest version
 
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast disks. Basically, you want the best computer you can afford when editing video. Here are the minimum system requirements and the recommended system requirements:
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage. When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
 
 .. list-table::
    :header-rows: 1
