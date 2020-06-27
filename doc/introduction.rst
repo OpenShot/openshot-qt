@@ -29,11 +29,11 @@ Features
 --------
 OpenShot Video Editor has many abilities and features, including:
 
-* Cross-platform (Supports Linux, OS X and Windows)
+* Cross-platform (Supports Linux, Mac OS X and Windows)
 * Support for many video, audio, and image formats (based on FFmpeg)
 * Powerful curve-based Key frame animations
 * Desktop integration (drag and drop support)
-* Unlimited tracks / layers
+* Unlimited tracks / layers for video editing
 * Clip resizing, scaling, trimming, snapping, rotation and cutting
 * Video transitions with real-time previews
 * Compositing, image overlays, watermarks
@@ -47,6 +47,7 @@ OpenShot Video Editor has many abilities and features, including:
 * Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
 * Audio mixing and editing
 * Digital video effects, including brightness, gamma, hue, greyscale, chroma key (bluescreen / greenscreen)
+* and many more!
 
 Screenshot
 ----------
@@ -55,14 +56,13 @@ Screenshot
 System Requirements
 -------------------
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  
-When editing video, you want the best computer system that you can afford.  
-Here are the minimum system requirements:
+When editing video, you want a computer system that meets the minimum system requirements of OpenShot:
 
 * 4GB of Random Access Memory (RAM)
-* 64-bit Multi-core processor (AMD64)
+* 64-bit Multi-core processor (AMD64 or x64)
 * 500 MB of hard-disk space for installation
-* Internal or  discrete Graphics Processing Unit (GPU)
-* 64-bit Operating System (Linux, Mac OS X, Windows 7/8/10)
+* Internal or discrete Graphics Processing Unit (GPU)
+* 64-bit Operating System (Linux, Mac OS X, Windows 64-bit)
 * Moniotor or laptop display capable of 1280x720 (720P) resolution
 * Optional: Solid-state drive (SSD), if utilizing disk-caching (and an additional 10GB of hard-disk space)
 
