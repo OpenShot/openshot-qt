@@ -32,7 +32,7 @@ View the System Requirements section below before downloading the latest version
 
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage. When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
+Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
 
 .. list-table::
    :header-rows: 1
@@ -74,7 +74,7 @@ Download the AppImage file from the project website (|Link|_).  Once downloaded,
 
 Mac
 ---
-Download the DMG file from the project website (|Link|_), double click it, then drag the OpenShot application icon into your **Applications** shortcut. This is very similar to how most other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
+Download the DMG file from the project website (|Link|_).  Once downloaded, double click the DMG file then drag the OpenShot application icon to your **Applications** folder.  This is very similar to how most other Mac applications are installed. Now launch OpenShot by double-clicking the icon.
 
 .. _gs-win_ref:
 
