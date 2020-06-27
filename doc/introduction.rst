@@ -27,25 +27,30 @@ easy-to-use interface and a rich feature-set.
 
 Features
 --------
-* Cross-platform (Supports Linux, OS X and Windows)
-* Support for many video, audio, and image formats (based on FFmpeg)
-* Powerful curve-based Key frame animations
-* Desktop integration (drag and drop support)
-* Unlimited tracks / layers
-* Clip resizing, scaling, trimming, snapping, rotation and cutting
-* Video transitions with real-time previews
-* Compositing, image overlays, watermarks
-* Title templates, title creation, sub-titles
-* 2D animation support (image sequences)
-* 3D animated titles (and effects)
-* SVG friendly, to create and include vector titles and credits
-* Scrolling motion picture credits
-* Advanced Timeline (including Drag & drop, scrolling, panning, zooming, and snapping)
-* Frame accuracy (step through each frame of video)
-* Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
-* Audio mixing and editing
-* Digital video effects, including brightness, gamma, hue, greyscale, chroma key (bluescreen / greenscreen)
-* and many more!
+
+.. list-table::
+   :header-rows: 0
+
+   * - * Cross-platform (Supports Linux, OS X and Windows)
+     - * Support for many video, audio, and image formats (based on FFmpeg)
+   * - * Powerful curve-based Key frame animations
+     - * Desktop integration (drag and drop support)
+   * - * Unlimited tracks / layers
+     - * Clip resizing, scaling, trimming, snapping, rotation and cutting
+   * - * Video transitions with real-time previews
+     - * Compositing, image overlays, watermarks
+   * - * Title templates, title creation, sub-titles
+     - * 2D animation support (image sequences)
+   * - * 3D animated titles (and effects)
+     - * SVG friendly, to create and include vector titles and credits
+   * - * Scrolling motion picture credits
+     - * Advanced Timeline (including Drag & drop, scrolling, panning, zooming, and snapping)
+   * - * Frame accuracy (step through each frame of video)
+     - * Time-mapping and speed changes on clips (slow/fast, forward/backward, etc...)
+   * - * Audio mixing and editing
+     - * Digital video effects, including brightness, gamma, hue, greyscale, chroma key (bluescreen / greenscreen)
+   * - * and many more!
+     -
 
 Screenshot
 ----------
