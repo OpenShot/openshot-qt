@@ -20,7 +20,7 @@
 Getting Started
 ===============
 
-OpenShot Video Editor is available for most 64-bit operating systems, including:
+OpenShot Video Editor is available for the following 64-bit operating systems:
 
  *  |linux| Linux (most distributions)
  *  |mac| Apple Mac OS X
@@ -58,6 +58,8 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
    * - Graphics Processing Unit  
         | AMD
         | NVIDIA
+        | Matrox
+        | S3
      - Graphics Processing Unit
         | AMD
         | NVIDIA
