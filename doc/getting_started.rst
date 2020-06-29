@@ -25,58 +25,6 @@ OpenShot Video Editor is available for the following 64-bit operating systems:
  *  |linux| Linux (most distributions)
  *  |mac| Apple Mac OS X
  *  |win| Microsoft Windows
-
-View the System Requirements section below before downloading the latest version from the official OpenShot `download page <https://www.openshot.org/download/>`_.
-
-.. _gs-System-Requrements_ref:
-
-System Requirements
--------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
-
-.. list-table::
-   :header-rows: 0
-
-   * - **Minimum System Requirements**
-     - **Recommended System Requirements**
-   * - System Memory
-        | 4 GB RAM
-     - System Memory 
-        | 32 GB DDR 4 RAM
-   * - Multi-core processor
-        | AMD Ryzen 5, 1st Gen
-        | Intel Core i5, 4th Gen
-     - Quad-core 64-bit processor
-        | AMD Ryzen 7, 3rd Gen
-        | Intel Core i7, 10th Gen
-   * - Internal Storage
-        | 500 MB HDD
-        | SATA III
-     - Internal Storage
-        | 10 GB SDD
-        | PCIe or PCIe NVMe
-   * - Graphics Processing Unit  
-        | AMD
-        | NVIDIA
-        | Matrox
-        | S3
-     - Graphics Processing Unit
-        | AMD
-        | NVIDIA
-   * - 64-bit Operating System 
-        | Linux Kernel 4.15+
-        | Mac OS X 10.9.5+ 
-        | Microsoft Windows 7/8/8.1/10 
-     - 64-bit Operating System
-        | Linux Kernel 5.7+
-        | Mac OS X 10.15+
-        | Microsoft Windows 10+
-   * - Display Screen
-        | 15.6" FHD (1920x1080) Laptop Display
-        | 19" FHD (1920x1080) Desktop Display
-     - Dislay Screen
-        | 17" UHD (3840x2160) Laptop Display
-        | 27" UHD (3840x2160) x2 Desktop Display
         
 .. _gs-linux_ref: 
 
@@ -98,7 +46,7 @@ Download the Windows installer executable from the official OpenShot |Link|_.  O
 
 Finding Help
 ------------
-Reddit
+OpenShot has a Reddit Community dedicated to users helpng users with questions about the vdeo editor and computer related ssues.m 0--9oijhnu h0n
 Video Tutorials
 GitHub
 
