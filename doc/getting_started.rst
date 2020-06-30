@@ -52,7 +52,7 @@ If, after reading this User Guide, you still need help with your project, OpenSh
  #. OpenShot has a `Reddit Community <https://www.reddit.com/r/OpenShot/>`_ dedicated to users helpng users with questions about the vdeo editor and computer related issues.
  #. OpenShot has several `YouTube videos <https://www.youtube.com/results?search_query=openshot+video+editor+jonathan+thomas>`_ available to help you see how to use the applicatin.
  #. If you've checked Reddit and Youtube and believe that you have a bug, you can visit the `GitHub repository <https://github.com/OpenShot/openshot-qt/issues>`_ and submit a bug report if necessary
- #. If the above did not help you, you can open a ticket with the OpenShot Support Team by sending an E-mail message to `support(at)oenshot(dot)org <mailto://support@openshot.org>`_.
+ #. If the above did not help you, you can open a ticket with the `OpenShot Support Team <mailto://support@openshot.org>`_ by sending an E-mail message.
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
