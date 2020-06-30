@@ -22,9 +22,9 @@
 In-depth Attributes
 ===================
 
-yada yada
+WIP
 
-.. _gs-System-Requrements_ref:
+.. _ia-System-Requrements_ref:
 
 System Requirements
 -------------------
