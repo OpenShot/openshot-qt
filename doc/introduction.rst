@@ -16,20 +16,21 @@
 
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
-
 .. _introduction_ref:
-
 Introduction
 ============
-|openshot| OpenShot Video Editor is an award-winning, open-source video editor, available for
-|linux| Linux, |mac| Mac OS X, and |win| Windows. OpenShot can create stunning videos, films, 
-and animations with an easy-to-use interface and a rich feature-set.
+|openshot| OpenShot™ was created in 2008, in an effort to build a free, simple, 
+open-source video editor for Linux. It is now available for |linux| Linux, 
+|mac| macOS, and |win| Windows®, has been downloaded millions of times, 
+and continues to grow as a project!  OpenShot™ Video Editor is an award-winning, 
+open-source video editor that can create stunning videos, films, and animations 
+with an easy-to-use interface and a rich feature-set.
 
 Features
 --------
 OpenShot Video Editor has many abilities and features, including:
 
-* Cross-platform (Supports Linux, Mac OS X and Windows)
+* Cross-platform (Supports Linux, macOS and Windows)
 * Support for many video, audio, and image formats (based on FFmpeg)
 * Powerful curve-based Key frame animations
 * Desktop integration (drag and drop support)
