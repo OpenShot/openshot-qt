@@ -44,17 +44,6 @@ Windows®
 --------
 Download the Windows installer executable from the official OpenShot |Link|_.  Once downloaded, double-click the EXE file and follow the directions on screen.  When complete, OpenShot is installed and available in your Start menu.
 
-.. _gs-findhelp_ref:
-
-Finding Help
-------------
-If, after reading this User Guide, you still need help with your project, OpenShot has several sources of additional information.
-
- #. OpenShot has several `YouTube videos <https://www.youtube.com/results?search_query=openshot+video+editor+jonathan+thomas>`_ available to help you see how to use the application.
- #. OpenShot has a `Reddit Community <https://www.reddit.com/r/OpenShot/>`_ dedicated to users helping users with questions about the video editor and computer-related issues.
- #. If Reddit and Youtube did not help, and you believe that you have a bug, you can visit the `GitHub repository <https://github.com/OpenShot/openshot-qt/issues>`_.
- #. If all of the above did not help you, you can open a ticket by sending an E-mail message to the `OpenShot Support Team <mailto://support@openshot.org>`_.
-
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
 .. |mac| image:: images/mac-logo.svg
