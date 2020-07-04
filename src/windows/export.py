@@ -314,10 +314,10 @@ class Export(QDialog):
             if profile_path == path:
                 return profile
 
-    def updateProgressBar(self, title_message, start_frame, end_frame, current_frame):
+    def updateProgressBar(self, title_message, start_frame, end_frame, current_frame, progress_format):
         """Update progress bar during exporting"""
         if end_frame - start_frame > 0:
-            percentage_string = "%4.1f%% " % (( current_frame - start_frame ) / ( end_frame - start_frame ) * 100)
+            percentage_string = progress_format % (( current_frame - start_frame ) / ( end_frame - start_frame ) * 100)
         else:
             percentage_string = "100%"
         self.progressExportVideo.setValue(current_frame)
@@ -905,11 +905,21 @@ class Export(QDialog):
             start_time_export = time.time()
             start_frame_export = video_settings.get("start_frame")
             end_frame_export = video_settings.get("end_frame")
+            last_exported_time = time.time()
+            # Precision of the progress bar
+            progress_format = "%4.1f%% "
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
-                if (frame % progressstep) == 0:
-                    end_time_export = time.time()
+                end_time_export = time.time()
+                if ((frame % progressstep) == 0) or ((end_time_export - last_exported_time) > 1):
+                    if (end_time_export - last_exported_time) > 5:
+                        progress_format = "%4.4f%% "
+                    elif (end_time_export - last_exported_time) > 1:
+                        progress_format = "%4.2f%% "
+                    else:
+                        progress_format = "%4.1f%% "
+                    last_exported_time = time.time()
                     if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
@@ -923,7 +933,7 @@ class Export(QDialog):
                             'fps': fps_encode}
 
                     # Emit frame exported
-                    get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"), video_settings.get("end_frame"), frame)
+                    get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"), video_settings.get("end_frame"), frame, progress_format)
 
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
@@ -947,7 +957,7 @@ class Export(QDialog):
                 'fps': fps_encode}
 
             get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
-                                              video_settings.get("end_frame"), frame)
+                                              video_settings.get("end_frame"), frame, progress_format)
 
         except Exception as e:
             # TODO: Find a better way to catch the error. This is the only way I have found that
@@ -1019,7 +1029,7 @@ class Export(QDialog):
                 'fps': fps_encode}
 
             get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
-                                              video_settings.get("end_frame"), frame)
+                                              video_settings.get("end_frame"), frame, progress_format)
 
             # Make progress bar green (to indicate we are done)
             from PyQt5.QtGui import QPalette
