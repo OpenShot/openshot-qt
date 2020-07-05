@@ -904,6 +904,7 @@ class Export(QDialog):
 
             progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 1000))
             start_time_export = time.time()
+            seconds_run = 0
             start_frame_export = video_settings.get("start_frame")
             end_frame_export = video_settings.get("end_frame")
             last_exported_time = time.time()
