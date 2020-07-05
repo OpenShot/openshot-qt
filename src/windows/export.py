@@ -29,6 +29,7 @@ import locale
 import os
 import time
 import tempfile
+import math
 
 import openshot
 
@@ -906,6 +907,9 @@ class Export(QDialog):
             start_frame_export = video_settings.get("start_frame")
             end_frame_export = video_settings.get("end_frame")
             last_exported_time = time.time()
+            old_part = 0.0
+            new_part = 0.0
+            afterpoint = 1
             # Precision of the progress bar
             progress_format = "%4.1f%% "
             # Write each frame in the selected range
@@ -913,12 +917,17 @@ class Export(QDialog):
                 # Update progress bar (emit signal to main window)
                 end_time_export = time.time()
                 if ((frame % progressstep) == 0) or ((end_time_export - last_exported_time) > 1):
-                    if (end_time_export - last_exported_time) > 5:
-                        progress_format = "%4.4f%% "
-                    elif (end_time_export - last_exported_time) > 1:
-                        progress_format = "%4.2f%% "
+                    new_part = (frame - start_frame_export) * 1.0  / (end_frame_export - start_frame_export)
+                    if ((new_part - old_part) > 0.0):
+                        afterpoint = math.ceil( -2.0 - math.log10( new_part - old_part ))
                     else:
-                        progress_format = "%4.1f%% "
+                        afterpoint = 1
+                    if afterpoint < 1:
+                        afterpoint = 1
+                    if afterpoint > 5:
+                        afterpoint = 5
+                    old_part = new_part
+                    progress_format = "%4." + str(afterpoint) + "f%% "
                     last_exported_time = time.time()
                     if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
