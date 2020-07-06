@@ -19,30 +19,34 @@
 .. _getting_started_ref: 
 Getting Started
 ===============
+Knowing how to edit videos is an essential part of creating great videos, and you don't need to be a trained videographer to know how to do it well. Simple editing can keep your viewers watching for longer, and add a professional feel to your videos even if you aren't a professional video editor.
 
-There are many different ways to download and install OpenShot™ Video Editor, which is available for the following 64-bit operating systems:
+On a basic level, video editing is taking footage, cutting it up, removing the pieces you don't want, and keeping the pieces you do. Back in the old days, this was done by literally slicing film reel and piecing it together. Thankfully software makes the whole process a lot easier.
 
- *  |linux| Linux® (most distributions)
- *  |mac| Apple® macOS®
- *  |win| Microsoft® Windows®
-        
-.. _gs-linux_ref: 
+There are three main jobs video editing needs to do:
 
-Linux®
-------
-Download the AppImage file from the official OpenShot |Link|_.  Once downloaded, move the file to the folder where it will reside.  Right-click the AppImage file, click Properties then mark the file as **Executable**.  Double-click the AppImage file to launch the application.
+1. Remove mistakes or unwanted sections
+2. Keep the video moving at an engaging pace
+3. Insert supporting footage, audio or titles
 
-.. _gs-mac_ref: 
+These three points could be seen as a checklist for you as edit.
 
-macOS®
-------
-Download the DMG file from the official OpenShot |Link|_.  Once downloaded, double- click the DMG file then drag the OpenShot application icon to your **Applications** folder.  Double-click the icon to launch the applicaion.
+Practical tips
+--------------
+1. Organize your footage
+    Whether you’re running Linux, on a Mac or a Windows machine, organization is the key to success. Be sure to label video files, audio files, and even still images clearly and keep them on the same drive for easy access.
+ 
+2. Watch everything
+    This is the first step in the editing process. Writer and filmmaker David Andrew Stoler says there’s gold to be found in the unlikeliest of places: "Some of the most beautiful expressions you’re going to get from the actors are after the cut.”
 
-.. _gs-win_ref:
-
-Windows®
---------
-Download the Windows installer executable from the official OpenShot |Link|_.  Once downloaded, double-click the EXE file and follow the directions on screen.  When complete, OpenShot is installed and available in your Start menu.
+3. Assemble, then make a rough cut
+    Drag and drop all of your video footage into a timeline and make sure your frame size and frame rates are consistent. Begin a new timeline and drag and drop the best takes into what will become your assembly cut. Remember to frequently save your work in the cloud and on a hard drive, and to note the date and time of each version.
+ 
+4. Refine
+    This is where your rough cut starts to resemble a cohesive work. Adjust the sound and color, make sure the dialogue is audible, and add music, titles, or graphics in this phase.
+ 
+5. Refine some more.
+    Pacing can make or break a film. A slow scene can ratchet up tension or bore the audience to tears. A fast scene can raise the audience’s heart rates or just give them headaches. Some editors cut scenes several different ways before they find the right pacing, so don’t be disheartened if you have to recut a few 
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
