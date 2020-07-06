@@ -62,13 +62,16 @@ codesign -s "OpenShot Studios, LLC" --force --deep --options runtime --timestamp
 echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
 
-echo "Create Zip of .App for Notarization"
-ditto -c -k --keepParent "build/$OS_APP_NAME" "build/$OS_APP_ZIP"
+echo "Building Custom DMG"
+appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
 
-echo "Notarize Zip file (send to apple)"
+echo "Code Sign DMG"
+codesign -s "OpenShot Studios, LLC" --force --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
+
+echo "Notarize DMG file (send to apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
 # RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-notarize_output=$(xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_APP_ZIP")
+notarize_output=$(xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_DMG_NAME")
 echo "$notarize_output"
 
 echo "Parse Notarize Output and get Notarization RequestUUID"
@@ -100,18 +103,12 @@ while [ $(( $(date +%s) - 3600 )) -lt $START ]; do
       break
     fi
 
-    # Wait 30 seconds
-    sleep 10
+    # Wait a few seconds
+    sleep 30
 done
 
-echo "Staple Notarization Ticket to App"
-xcrun stapler staple "build/$OS_APP_NAME"
-
-echo "Building Custom DMG"
-appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
-
-echo "Code Sign DMG"
-codesign -s "OpenShot Studios, LLC" --force --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
+echo "Check Notarization Progress... (list recent notarization records)"
+xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
 
 echo "Staple Notarization Ticket to DMG"
 xcrun stapler staple "build/$OS_DMG_NAME"
