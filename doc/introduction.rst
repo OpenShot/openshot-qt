@@ -25,6 +25,7 @@ open-source video editor for Linux. It is now available for |linux| Linux,
 and continues to grow as a project!  OpenShot™ Video Editor is an award-winning, 
 open-source video editor that can create stunning videos, films, and animations 
 with an easy-to-use interface and a rich feature-set.
+
 .. _in_features_ref:
 Features
 --------
@@ -49,11 +50,14 @@ OpenShot Video Editor has many abilities and features, including:
 * Audio mixing and editing
 * Digital video effects, including brightness, gamma, hue, greyscale, chroma key (bluescreen / greenscreen)
 * and many more!
+
 .. _in-screenshot_ref:
+
 Screenshot
 ----------
 .. image:: images/ui-example.jpg
- .. _in-sysreqs_ref:
+
+.. _in-sysreqs_ref:
 System Requirements
 -------------------
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  
@@ -66,6 +70,7 @@ When editing video, you want a computer system that meets the minimum system req
 * 64-bit Operating System (Linux, Mac OS X, Windows 64-bit)
 * Moniotor or laptop display capable of 1280x720 (720P) resolution
 * Optional: Solid-state drive (SSD), if utilizing disk-caching (and an additional 10GB of hard-disk space)
+
 .. _in-license_ref:
 License
 -------
@@ -76,36 +81,7 @@ the Free Software Foundation, either version 3 of the License, or
 
 times.
 
-.. _gs_download_ref:
-
-Download OpenShot
------------------
-There are many different ways to download and install OpenShot™ Video Editor, which is available for the following 64-bit operating systems:
-
- *  |linux| Linux® (most distributions)
- *  |mac| Apple® macOS®
- *  |win| Microsoft® Windows®
-        
-.. _gs-linux_ref: 
-
-Linux®
-------
-Download the AppImage file from the official OpenShot |Link|_.  Once downloaded, move the file to the folder where it will reside.  Right-click the AppImage file, click Properties then mark the file as **Executable**.  Double-click the AppImage file to launch the application.
-
-.. _gs-mac_ref: 
-
-macOS®
-------
-Download the DMG file from the official OpenShot |Link|_.  Once downloaded, double- click the DMG file then drag the OpenShot application icon to your **Applications** folder.  Double-click the icon to launch the applicaion.
-
-.. _gs-win_ref:
-
-Windows®
---------
-Download the Windows installer executable from the official OpenShot |Link|_.  Once downloaded, double-click the EXE file and follow the directions on screen.  When complete, OpenShot is installed and available in your Start menu.times.
-
 .. _in_download_ref:
-
 Download OpenShot
 -----------------
 There are many different ways to download and install OpenShot™ Video Editor, which is available for the following 64-bit operating systems:
@@ -114,15 +90,14 @@ There are many different ways to download and install OpenShot™ Video Editor, 
  *  |mac| Apple® macOS®
  *  |win| Microsoft® Windows®
         
-.. _gs-linux_ref: 
 Linux®
 ------
 Download the AppImage file from the official OpenShot |Link|_.  Once downloaded, move the file to the folder where it will reside.  Right-click the AppImage file, click Properties then mark the file as **Executable**.  Double-click the AppImage file to launch the application.
-.. _gs-mac_ref: 
+
 macOS®
 ------
 Download the DMG file from the official OpenShot |Link|_.  Once downloaded, double- click the DMG file then drag the OpenShot application icon to your **Applications** folder.  Double-click the icon to launch the applicaion.
-.. _gs-win_ref:
+
 Windows®
 --------
 Download the Windows installer executable from the official OpenShot |Link|_.  Once downloaded, double-click the EXE file and follow the directions on screen.  When complete, OpenShot is installed and available in your Start menu.
