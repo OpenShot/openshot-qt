@@ -7,6 +7,7 @@ echo "Found Version $VERSION"
 
 # Set path to app bundle
 OS_APP_NAME="OpenShot Video Editor.app"
+OS_APP_ZIP="OpenShot-$VERSION.zip"
 OS_DMG_NAME="OpenShot-$VERSION.dmg"
 OS_PATH="build/$OS_APP_NAME/Contents"
 echo "Fixing App Bundle ($OS_PATH)"
@@ -52,8 +53,12 @@ if [ -d "$OS_PATH/MacOS/python3.6" ]; then
   mv "$OS_PATH/MacOS/python36.zip" "$OS_PATH/Resources/python36.zip"; ln -s "../../Resources/python36.zip" "$OS_PATH/MacOS/lib/python36.zip";
 fi
 
+echo "Loop through bundled files and sign all binary files"
+find "build" \( -iname '*.so' -o -iname '*.so' \) -exec codesign -s "OpenShot Studios, LLC" --timestamp=http://timestamp.apple.com/ts01 --force "{}" \;
+
 echo "Code Sign App Bundle (deep)"
-codesign -s "OpenShot Studios, LLC" "build/$OS_APP_NAME" --deep --force
+codesign -s "OpenShot Studios, LLC" --force --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME/Contents/MacOS/openshot-qt"
+codesign -s "OpenShot Studios, LLC" --force --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
 
 echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
@@ -62,7 +67,27 @@ echo "Building Custom DMG"
 appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
 
 echo "Code Sign DMG"
-codesign -s "OpenShot Studios, LLC" "build/$OS_DMG_NAME" --force
+codesign -s "OpenShot Studios, LLC" --force --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
+
+echo "Create Zip of .App for Notarization"
+ditto -c -k --keepParent "build/$OS_APP_NAME" "build/$OS_APP_ZIP"
+
+echo "Notarize Zip file (send to apple)"
+# No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
+# RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
+xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_APP_ZIP"
+
+echo "Check Notarization Progress..."
+#xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
+
+echo "Check Notarization Info"
+# No errors getting notarization info.
+#
+#        Date: 2020-07-05 21:22:35 +0000
+#        Hash: ef939ddefec14d7f0b7fe467c5761cdccab3414425a33c066a5629dd71eff626
+# RequestUUID: cc285719-823f-4f0b-8e71-2df4bbbdaf72
+#      Status: in progress
+#xcrun altool --notarization-info ****ID**** -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
 
 echo "Verifying DMG Signing"
-spctl -a -vv "build/$OS_DMG_NAME"
+spctl -a -t open --context context:primary-signature -v "build/$OS_DMG_NAME"
