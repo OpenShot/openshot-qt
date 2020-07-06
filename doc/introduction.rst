@@ -20,8 +20,8 @@
 Introduction
 ============
 |openshot| OpenShot™ was created in 2008, in an effort to build a free, simple, 
-open-source video editor for Linux. It is now available for |linux| Linux, 
-|mac| macOS, and |win| Windows®, has been downloaded millions of times, 
+open-source video editor for Linux. It is now available for |linux| Linux®, 
+|mac| macOS®, and |win| Windows®, has been downloaded millions of times, 
 and continues to grow as a project!  OpenShot™ Video Editor is an award-winning, 
 open-source video editor that can create stunning videos, films, and animations 
 with an easy-to-use interface and a rich feature-set.
@@ -65,9 +65,9 @@ When editing video, you want a computer system that meets the minimum system req
 
 * 4GB of Random Access Memory (RAM)
 * 64-bit Multi-core processor (AMD64 or x64)
-* 500 MB of hard-disk space for installation
+* 500 MB of internal storage space for installation
 * Internal or discrete Graphics Processing Unit (GPU)
-* 64-bit Operating System (Linux, Mac OS X, Windows 64-bit)
+* 64-bit Operating System (Linux, macOS, Windows 64-bit)
 * Moniotor or laptop display capable of 1280x720 (720P) resolution
 * Optional: Solid-state drive (SSD), if utilizing disk-caching (and an additional 10GB of hard-disk space)
 
@@ -112,3 +112,5 @@ Download the Windows installer executable from the official OpenShot |Link|_.  O
     :height: 20px
 .. |openshot| image:: images/openshot-logo.svg
     :height: 20px
+.. |Link| replace:: download page
+.. _Link: https://www.openshot.org/download/
