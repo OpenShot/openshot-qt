@@ -72,9 +72,9 @@ notarize_output=$(xcrun altool --notarize-app --primary-bundle-id "org.openshot.
 echo "$notarize_output"
 
 echo "Parse Notarize Output and get Notarization RequestUUID"
-pat='RequestUUID\s=\s(.*)\\'
+pat='RequestUUID = (.*)'
 [[ "$notarize_output" =~ $pat ]]
-REQUEST_UUID="${BASH_REMATCH[0]}"
+REQUEST_UUID="${BASH_REMATCH[1]}"
 echo " RequestUUID Found: $REQUEST_UUID"
 
 echo "Check Notarization Progress... (list recent notarization records)"
@@ -82,7 +82,6 @@ xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:N
 
 echo "Check Notarization Info (loop until status detected)"
 # No errors getting notarization info.
-#
 #        Date: 2020-07-05 21:22:35 +0000
 #        Hash: ef939ddefec14d7f0b7fe467c5761cdccab3414425a33c066a5629dd71eff626
 # RequestUUID: cc285719-823f-4f0b-8e71-2df4bbbdaf72
