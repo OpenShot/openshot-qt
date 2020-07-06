@@ -54,11 +54,10 @@ if [ -d "$OS_PATH/MacOS/python3.6" ]; then
 fi
 
 echo "Loop through bundled files and sign all binary files"
-find "build" \( -iname '*.so' -o -iname '*.so' \) -exec codesign -s "OpenShot Studios, LLC" --timestamp=http://timestamp.apple.com/ts01 --force "{}" \;
+find "build" \( -iname '*.dylib' -o -iname '*.so' \) -exec codesign -s "OpenShot Studios, LLC" --timestamp=http://timestamp.apple.com/ts01 --force "{}" \;
 
 echo "Code Sign App Bundle (deep)"
-codesign -s "OpenShot Studios, LLC" --force --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME/Contents/MacOS/openshot-qt"
-codesign -s "OpenShot Studios, LLC" --force --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
+codesign -s "OpenShot Studios, LLC" --force --deep --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
 
 echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
