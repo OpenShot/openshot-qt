@@ -62,31 +62,60 @@ codesign -s "OpenShot Studios, LLC" --force --deep --options runtime --timestamp
 echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
 
-echo "Building Custom DMG"
-appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
-
-echo "Code Sign DMG"
-codesign -s "OpenShot Studios, LLC" --force --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
-
 echo "Create Zip of .App for Notarization"
 ditto -c -k --keepParent "build/$OS_APP_NAME" "build/$OS_APP_ZIP"
 
 echo "Notarize Zip file (send to apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
 # RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_APP_ZIP"
+notarize_output=$(xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_APP_ZIP")
+echo "$notarize_output"
 
-echo "Check Notarization Progress..."
-#xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
+echo "Parse Notarize Output and get Notarization RequestUUID"
+pat='RequestUUID\s=\s(.*)\\'
+[[ "$notarize_output" =~ $pat ]]
+REQUEST_UUID="${BASH_REMATCH[0]}"
+echo " RequestUUID Found: $REQUEST_UUID"
 
-echo "Check Notarization Info"
+echo "Check Notarization Progress... (list recent notarization records)"
+xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
+
+echo "Check Notarization Info (loop until status detected)"
 # No errors getting notarization info.
 #
 #        Date: 2020-07-05 21:22:35 +0000
 #        Hash: ef939ddefec14d7f0b7fe467c5761cdccab3414425a33c066a5629dd71eff626
 # RequestUUID: cc285719-823f-4f0b-8e71-2df4bbbdaf72
 #      Status: in progress
-#xcrun altool --notarization-info ****ID**** -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
+START=`date +%s`
+while [ $(( $(date +%s) - 3600 )) -lt $START ]; do
+    notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
+    echo "$notarize_info"
+
+    pat='Status:\s(.*)'
+    [[ "$notarize_info" =~ $pat ]]
+    notarize_status="${BASH_REMATCH[1]}"
+
+    if [ "$notarize_status" != "in progress" ]; then
+      echo "Notarization Status Found: $notarize_status"
+      break
+    fi
+
+    # Wait 30 seconds
+    sleep 10
+done
+
+echo "Staple Notarization Ticket to App"
+xcrun stapler staple "build/$OS_APP_NAME"
+
+echo "Building Custom DMG"
+appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
+
+echo "Code Sign DMG"
+codesign -s "OpenShot Studios, LLC" --force --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
+
+echo "Staple Notarization Ticket to DMG"
+xcrun stapler staple "build/$OS_DMG_NAME"
 
 echo "Verifying DMG Signing"
 spctl -a -t open --context context:primary-signature -v "build/$OS_DMG_NAME"
