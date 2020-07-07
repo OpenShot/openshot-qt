@@ -321,7 +321,7 @@ elif sys.platform == "darwin":
 
     # Copy openshot.py Python bindings
     src_files.append((os.path.join(PATH, "openshot.py"), "openshot.py"))
-    src_files.append((os.path.join(PATH, "installer", "launch-mac.sh"), "launch-mac.sh"))
+    src_files.append((os.path.join(PATH, "installer", "launch-mac"), "launch-mac"))
 
     # Append Mac ICON file
     iconFile += ".hqx"
