@@ -84,8 +84,8 @@ least 500 GB is suitable.
 
 When editing video with OpenShot, you want a computer system that meets the **minimum** system requirements:
 
+* 64-bit Multi-core processor
 * 4 GB of Random Access Memory (RAM)
-* 64-bit Multi-core processor (AMD64 or x64)
 * 500 MB of free storage space for installation
 * 500 GB of internal storage space for processing
 * Internal or discrete Graphics Processing Unit (GPU)
