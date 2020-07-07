@@ -400,7 +400,7 @@ try:
         # Build app.bundle and create DMG
         for line in run_command("bash installer/build-mac-dmg.sh"):
             output(line)
-            if "error".encode("UTF-8") in line or "rejected".encode("UTF-8") in line:
+            if ("error".encode("UTF-8") in line and "No errors".encode("UTF-8") not in line) or "rejected".encode("UTF-8") in line:
                 error("Build-Mac-DMG Error: %s" % line)
             if "Your image is ready".encode("UTF-8") in line:
                 app_image_success = True
