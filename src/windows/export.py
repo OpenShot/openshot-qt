@@ -967,7 +967,7 @@ class Export(QDialog):
 
             # Emit final exported frame (with elapsed time)
             seconds_run = round((end_time_export - start_time_export))
-            title_message = titlestring(seconds_left, fps_encode, "Elapsed")
+            title_message = titlestring(seconds_run, fps_encode, "Elapsed")
 
             get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
                                               video_settings.get("end_frame"), frame, progress_format)
@@ -1035,7 +1035,7 @@ class Export(QDialog):
             self.close_button.setVisible(True)
 
             # Restore windows title to show elapsed time
-            title_message = titlestring(seconds_left, fps_encode, "Elapsed")
+            title_message = titlestring(seconds_run, fps_encode, "Elapsed")
 
             get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
                                               video_settings.get("end_frame"), frame, progress_format)
