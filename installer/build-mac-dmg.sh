@@ -17,6 +17,9 @@ cp installer/Info.plist "$OS_PATH"
 sed -e "s/VERSION/$VERSION/g" "$OS_PATH/Info.plist" > "$OS_PATH/Info.plist_version"
 mv  "$OS_PATH/Info.plist_version" "$OS_PATH/Info.plist"
 
+echo "Copying the entitlements file"
+cp "installer/openshot.entitlements" "build"
+
 if [ ! -d "$OS_PATH/MacOS/lib" ]; then
   echo "Creating lib folder"
   mkdir "$OS_PATH/MacOS/lib"
