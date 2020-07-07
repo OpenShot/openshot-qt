@@ -105,11 +105,8 @@ any later version.
 Download OpenShot
 -----------------
 There are many different ways to download and install OpenShot™ Video Editor, which 
-is available for the following 64-bit operating systems:
-
- *  |linux| Linux® (most distributions)
- *  |mac| Apple® macOS®
- *  |win| Microsoft® Windows®
+is available for the following 64-bit operating systems: |linux| Linux® (most distributions), 
+|mac| Apple® macOS® and |win| Microsoft® Windows®.
         
 Linux®
 ------
