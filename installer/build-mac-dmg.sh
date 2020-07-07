@@ -17,9 +17,6 @@ cp installer/Info.plist "$OS_PATH"
 sed -e "s/VERSION/$VERSION/g" "$OS_PATH/Info.plist" > "$OS_PATH/Info.plist_version"
 mv  "$OS_PATH/Info.plist_version" "$OS_PATH/Info.plist"
 
-echo "Copying the entitlements file"
-cp "installer/openshot.entitlements" "build"
-
 if [ ! -d "$OS_PATH/MacOS/lib" ]; then
   echo "Creating lib folder"
   mkdir "$OS_PATH/MacOS/lib"
@@ -58,10 +55,10 @@ if [ -d "$OS_PATH/MacOS/python3.6" ]; then
 fi
 
 echo "Loop through bundled files and sign all binary files"
-find "build" \( -iname '*.dylib' -o -iname '*.so' \) -exec codesign -s "OpenShot Studios, LLC" --timestamp=http://timestamp.apple.com/ts01 --entitlements "openshot.entitlements" --force "{}" \;
+find "build" \( -iname '*.dylib' -o -iname '*.so' \) -exec codesign -s "OpenShot Studios, LLC" --timestamp=http://timestamp.apple.com/ts01 --entitlements "installer/openshot.entitlements" --force "{}" \;
 
 echo "Code Sign App Bundle (deep)"
-codesign -s "OpenShot Studios, LLC" --force --deep --entitlements "openshot.entitlements" --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
+codesign -s "OpenShot Studios, LLC" --force --deep --entitlements "installer/openshot.entitlements" --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
 
 echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
@@ -70,7 +67,7 @@ echo "Building Custom DMG"
 appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
 
 echo "Code Sign DMG"
-codesign -s "OpenShot Studios, LLC" --force --entitlements "openshot.entitlements" --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
+codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/openshot.entitlements" --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
 
 echo "Notarize DMG file (send to apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
