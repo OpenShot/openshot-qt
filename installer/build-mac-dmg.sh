@@ -7,7 +7,6 @@ echo "Found Version $VERSION"
 
 # Set path to app bundle
 OS_APP_NAME="OpenShot Video Editor.app"
-OS_APP_ZIP="OpenShot-$VERSION.zip"
 OS_DMG_NAME="OpenShot-$VERSION.dmg"
 OS_PATH="build/$OS_APP_NAME/Contents"
 echo "Fixing App Bundle ($OS_PATH)"
