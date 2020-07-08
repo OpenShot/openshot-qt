@@ -84,13 +84,9 @@ echo "Check Notarization Progress... (list recent notarization records)"
 xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
 
 echo "Check Notarization Info (loop until status detected)"
-# No errors getting notarization info.
-#        Date: 2020-07-05 21:22:35 +0000
-#        Hash: ef939ddefec14d7f0b7fe467c5761cdccab3414425a33c066a5629dd71eff626
-# RequestUUID: cc285719-823f-4f0b-8e71-2df4bbbdaf72
-#      Status: in progress
-START=`date +%s`
-while [ $(( $(date +%s) - 3600 )) -lt $START ]; do
+# Wait up to 60 minutes for notarization status to change
+START=$(date +%s)
+while [ "$(( "$(date +%s) - 3600" ))" -lt "$START" ]; do
     notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
     echo "$notarize_info"
 
