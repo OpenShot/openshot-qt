@@ -931,12 +931,16 @@ class Export(QDialog):
                 if ((frame % progressstep) == 0) or ((end_time_export - last_exported_time) > 1):
                     new_part = (frame - start_frame_export) * 1.0  / (end_frame_export - start_frame_export)
                     if ((new_part - old_part) > 0.0):
+                        # the log10 of the difference of the fraction of the completed frames is the negativ 
+                        # number of digits after the decimal point after which the first digit is not 0
                         afterpoint = math.ceil( -2.0 - math.log10( new_part - old_part ))
                     else:
                         afterpoint = 1
                     if afterpoint < 1:
+                        # We want at least 1 digit after the decimal point 
                         afterpoint = 1
                     if afterpoint > 5:
+                        # We don't want not more than 5 difits after the decimal point
                         afterpoint = 5
                     old_part = new_part
                     progress_format = "%4." + str(afterpoint) + "f%% "
