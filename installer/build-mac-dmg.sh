@@ -86,7 +86,7 @@ xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:N
 echo "Check Notarization Info (loop until status detected)"
 # Wait up to 60 minutes for notarization status to change
 START=$(date +%s)
-while [ "$(( "$(date +%s) - 3600" ))" -lt "$START" ]; do
+while [ $(( "$(date +%s) - 3600" )) -lt "$START" ]; do
     notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
     echo "$notarize_info"
 
