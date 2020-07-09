@@ -68,7 +68,7 @@ class About(QDialog):
             changelog_path = os.path.join(info.PATH, 'settings', '%s.log' % project)
             if os.path.exists(changelog_path):
                 # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-                for encoding_name in ('utf-8', 'utf_16_le'):
+                for encoding_name in ('utf_8', 'utf_16'):
                     try:
                         with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
                             if changelog_file.read():
@@ -183,7 +183,7 @@ class Credits(QDialog):
 
         # Get list of developers
         developer_list = []
-        with codecs.open(os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf-8') as contributors_file:
+        with codecs.open(os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf_8') as contributors_file:
             developer_string = contributors_file.read()
             developer_list = json.loads(developer_string)
 
@@ -214,7 +214,7 @@ class Credits(QDialog):
 
         # Get list of supporters
         supporter_list = []
-        with codecs.open(os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf-8') as supporter_file:
+        with codecs.open(os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf_8') as supporter_file:
             supporter_string = supporter_file.read()
             supporter_list = json.loads(supporter_string)
 
@@ -259,7 +259,7 @@ class Changelog(QDialog):
         changelog_path = os.path.join(info.PATH, 'settings', 'openshot-qt.log')
         if os.path.exists(changelog_path):
             # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-            for encoding_name in ('utf-8', 'utf_16_le'):
+            for encoding_name in ('utf_8', 'utf_16'):
                 try:
                     with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
                         for line in changelog_file:
@@ -279,7 +279,7 @@ class Changelog(QDialog):
         changelog_path = os.path.join(info.PATH, 'settings', 'libopenshot.log')
         if os.path.exists(changelog_path):
             # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-            for encoding_name in ('utf-8', 'utf_16_le'):
+            for encoding_name in ('utf_8', 'utf_16'):
                 try:
                     with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
                         for line in changelog_file:
@@ -298,8 +298,10 @@ class Changelog(QDialog):
         changelog_list = []
         changelog_path = os.path.join(info.PATH, 'settings', 'libopenshot-audio.log')
         if os.path.exists(changelog_path):
-            # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-            for encoding_name in ('utf-8', 'utf_16_le'):
+            # Attempt to support Linux- and Windows-encoded files by opening
+            # changelog with utf-8, then utf-16 (endianness via the BOM, which
+            # gets filtered out automatically by the decoder)
+            for encoding_name in ('utf_8', 'utf_16'):
                 try:
                     with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
                         for line in changelog_file:
