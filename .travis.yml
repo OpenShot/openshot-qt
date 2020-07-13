@@ -18,7 +18,7 @@ addons:
     - python3-pyqt5.qtmultimedia
     - python3-pyqt5.qtopengl
     - python3-pyqt5.qtsvg
-    - python3-pyqt5.qtwebkit
+    - python3-pyqt5.qtwebengine
     - python3-requests
     - python3-xdg
     - python3-zmq

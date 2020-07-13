@@ -223,7 +223,7 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtWebEngine', 'QtWebEngineWidgets', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))

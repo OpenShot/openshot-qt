@@ -39,6 +39,15 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont, QIcon
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
+# QtWebEngineWidgets must be loaded prior to creating a QApplication
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+
+try:
+    # Solution to solve QtWebEngineWidgets black screen caused by OpenGL not loaded
+    from OpenGL import GL
+except ImportError:
+    pass
+
 try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)

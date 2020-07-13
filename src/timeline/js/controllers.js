@@ -72,11 +72,13 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.enable_sorting = true;
   $scope.ThumbServer = "http://127.0.0.1/";
 
-  // Method to set if Qt is detected (which clears demo data)
+  // Method to set if Qt is detected (which clears demo data
+  // and updates the document_is_ready variable in openshot-qt)
   $scope.Qt = false;
   $scope.enableQt = function () {
     $scope.Qt = true;
     timeline.qt_log("$scope.Qt = true;");
+    timeline.page_ready();
   };
 
   $scope.setThumbAddress = function (url) {
@@ -307,6 +309,15 @@ App.controller("TimelineCtrl", function ($scope) {
     // Find matching clip, update thumbnail to same path (to force reload)
     var clip_selector = $("#clip_" + clip_id + " .thumb");
     var existing_thumb_path = clip_selector.attr("src");
+    thumb_url_parts = existing_thumb_path.split("?");
+    if (thumb_url_parts.length > 1) {
+      // Trim off any previous cache buster
+      existing_thumb_path = thumb_url_parts[0]
+    }
+
+    // Append cache buster, since QtWebEngine seems to aggressively cache images
+    existing_thumb_path += "?" + Math.random();
+
     timeline.qt_log(existing_thumb_path);
     clip_selector.attr("src", existing_thumb_path);
   };
@@ -514,7 +525,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Call slice method and exit (don't actually select the clip)
     if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
-        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
+        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
         timeline.RazorSliceAtCursor(id, "", cursor_seconds);
       }
       // Don't actually select clip
@@ -556,7 +567,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Call slice method and exit (don't actually select the transition)
     if (id !== "" && $scope.enable_razor) {
       if ($scope.Qt) {
-        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX);
+        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
         timeline.RazorSliceAtCursor("", id, cursor_seconds);
       }
       // Don't actually select transition
@@ -681,7 +692,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Show timeline context menu
   $scope.showTimelineMenu = function (e, layer_number) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX), layer_number);
+      timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX, null).position, layer_number);
     }
   };
 
@@ -713,11 +724,11 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
 
-  // Get Position of item (used by Qt)
+  // Get Position of item (used by Qt), both the position and track number.
   /**
-   * @return {number}
+   * @return {object}
    */
-  $scope.getJavaScriptPosition = function (x) {
+  $scope.getJavaScriptPosition = function (x, y) {
     // Adjust for scrollbar position
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = scrolling_tracks.scrollLeft();
@@ -730,8 +741,14 @@ App.controller("TimelineCtrl", function ($scope) {
       clip_position = 0;
     }
 
+    // Get track at y position (if y passed in)
+    var track = 0;
+    if (y) {
+      track = $scope.getJavaScriptTrack(y);
+    }
+
     // Return position in seconds
-    return clip_position;
+    return { 'position': clip_position, 'track': track };
   };
 
   // Get Track number of item (used by Qt)
