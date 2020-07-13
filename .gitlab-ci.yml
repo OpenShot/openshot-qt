@@ -29,7 +29,7 @@ linux-builder:
   except:
   - tags
   tags:
-    - linux
+    - linux-bionic
 
 mac-builder:
   stage: build-openshot-qt
