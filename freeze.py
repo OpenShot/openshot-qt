@@ -218,17 +218,22 @@ elif sys.platform == "linux":
     web_process_path = "/usr/lib/x86_64-linux-gnu/qt5/libexec/QtWebEngineProcess"
     external_so_files.append((web_process_path, os.path.basename(web_process_path)))
 
-    # Add libsoftokn3
-    nss_path = "/usr/lib/x86_64-linux-gnu/nss/"
-    for filename in find_files(nss_path, ["*"]):
-        external_so_files.append((filename, os.path.basename(filename)))
-
     # Add QtWebEngineProcess Resources & Local
     qt5_path = "/usr/share/qt5/"
     for filename in find_files(os.path.join(qt5_path, "resources"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
     for filename in find_files(os.path.join(qt5_path, "translations", "qtwebengine_locales"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
+
+    # Add Qt xcbglintegrations plugin
+    xcbgl_path = "/usr/lib/x86_64-linux-gnu/qt5/"
+    for filename in find_files(os.path.join(xcbgl_path, "plugins", "xcbglintegrations"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=xcbgl_path)))
+
+    # Add libsoftokn3
+    nss_path = "/usr/lib/x86_64-linux-gnu/nss/"
+    for filename in find_files(nss_path, ["*"]):
+        external_so_files.append((filename, os.path.basename(filename)))
 
     # Append Linux ICON file
     iconFile += ".svg"
