@@ -218,6 +218,9 @@ elif sys.platform == "linux":
     web_process_path = "/usr/lib/x86_64-linux-gnu/qt5/libexec/QtWebEngineProcess"
     if os.path.exists(web_process_path):
         external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    web_process_resource_path = "/usr/share/qt5/resources"
+    for filename in find_files(web_process_resource_path, ["*"]):
+        src_files.append((filename, os.path.basename(filename)))
 
     # Append Linux ICON file
     iconFile += ".svg"
