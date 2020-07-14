@@ -20,9 +20,9 @@
 OpenShot User Guide
 ===================
 
-OpenShot Video Editor is an award-winning, open-source video editor, available on
-Linux, Mac, and Windows. OpenShot can create stunning videos, films, and animations with an
-easy-to-use interface and rich set of features.
+OpenShot Video Editor is an award-winning, open-source video editor, available for
+Linux, macOS, and Windows.  OpenShot can create stunning videos, films, and animations 
+with an easy-to-use interface and rich set of features.
 
 Learning to use OpenShot is easy, and with this guide, you will be a master in no
 time at all!
