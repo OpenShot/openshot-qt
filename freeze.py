@@ -216,11 +216,19 @@ elif sys.platform == "linux":
 
     # Add QtWebEngineProcess (if found)
     web_process_path = "/usr/lib/x86_64-linux-gnu/qt5/libexec/QtWebEngineProcess"
-    if os.path.exists(web_process_path):
-        external_so_files.append((web_process_path, os.path.basename(web_process_path)))
-    web_process_resource_path = "/usr/share/qt5/resources"
-    for filename in find_files(web_process_resource_path, ["*"]):
-        src_files.append((filename, os.path.basename(filename)))
+    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+
+    # Add libsoftokn3
+    nss_path = "/usr/lib/x86_64-linux-gnu/nss/"
+    for filename in find_files(nss_path, ["*"]):
+        external_so_files.append((filename, os.path.basename(filename)))
+
+    # Add QtWebEngineProcess Resources & Local
+    qt5_path = "/usr/share/qt5/"
+    for filename in find_files(os.path.join(PATH, "resources"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
+    for filename in find_files(os.path.join(PATH, "translations", "qtwebengine_locales"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
 
     # Append Linux ICON file
     iconFile += ".svg"
