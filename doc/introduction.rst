@@ -20,16 +20,16 @@
 Introduction
 ============
 
-|openshot| OpenShot™ was created in 2008, in an effort to build a free, open-source 
-video editor for Linux.  OpenShot is deisgned to be an easy to use, quick to learn, 
-and surprisingly powerful video editor.  Easily cut, slice, and edit any video or 
+We created |openshot| OpenShot™ in 2008, to build a free, open-source 
+video editor for Linux.  We designed OpenShot to be an easy to use, quick to learn, 
+and powerful video editor.  Easily cut, slice, and edit any video or 
 film.  It is now available for:
 
  *  |linux| Linux® (most distributions)
  *  |mac| Apple® macOS®
  *  |win| Microsoft® Windows®
 
-OpenShot has been downloaded millions of times, and continues to grow as a project!  
+Users have downloaded OpenShot millions of times and it continues to grow as a project!  
 OpenShot™ Video Editor is an award-winning, open-source video editor that can 
 create stunning videos, films, and animations with an easy-to-use interface and a 
 rich feature-set.
@@ -68,21 +68,21 @@ Screenshot
 .. _in-sysreqs_ref:
 System Requirements
 -------------------
-Video editing benefits from large amounts of memory, modern multi-core CPUs, and
-fast internal storage.  There are multiple specifications you’ll want to check 
-when reviewing computers for video editing. This includes the memory, processor, 
+Video editing uses sizeable amounts of memory, modern multi-core CPUs, and
+fast internal storage.  There are multiple specifications you will want to check 
+when reviewing computers for video editing.  This includes the memory, processor, 
 a graphics card, and storage.
 
-Most over the counter computers max out at 32GB RAM, so it’s always best to have 
-as much memory as possible. You’ll also want a powerful processor. The best on the 
-market are the Intel Core series (i7 or higher) and the AMD Ryzen series, but you 
-can manage using any processor with a speed of 2.5 gigahertz (GHz) or higher. 
-Finally, you’ll want to make sure you have plenty of storage available to hold the 
-software and video footage with which you’ll be working. Your best bet is to use a 
-computer that has more than 1.0 TB of storage but, failing that, anything with at 
+Most over-the-counter computers max out at 32GB RAM, so it is always best to have 
+as much memory as possible.  You will also want a powerful processor.  The best on the 
+market are the Intel Core series (i7 and higher) and the AMD Ryzen series(R7 and higher), 
+but you can manage using any processor with a speed of 2.5 gigahertz (GHz) or higher. 
+Finally, you will want to make sure you have plenty of storage available to hold the 
+software and video footage with which you will be working.  Your best bet is to use a 
+computer that has over 1.0 TB of storage but, failing that, anything with at 
 least 500 GB is suitable.
 
-When editing video with OpenShot, you want a computer system that meets the **minimum** system requirements:
+When editing video with OpenShot, you want a computer system that meets these **minimum** system requirements:
 
 * 64-bit Multi-core processor
 * 4 GB of Random Access Memory (RAM)
@@ -90,28 +90,28 @@ When editing video with OpenShot, you want a computer system that meets the **mi
 * 500 GB of internal storage space for processing
 * Internal or discrete Graphics Processing Unit (GPU)
 * 64-bit Operating System (Linux, macOS, Windows 64-bit)
-* Moniotor or laptop display capable of 1280x720 (720P) resolution
-* Optional: Solid-state drive (SSD), if utilizing disk-caching (and an additional 10GB of hard-disk space)
+* Monitor or laptop display capable of 1280x720 (720P) resolution
+* Optional: Solid-state drive (SSD), if using disk-caching (and an additional 10GB of hard-disk space)
 
-.. _in-license_ref:
+.. _in-licensure:
 License
 -------
 OpenShot Video Editor is Free and Open Source Software (FOSS): you can redistribute 
-it and/or modify it under the terms of the GNU General Public License as published 
+it and/or change it under the terms of the GNU General Public License as published 
 by the Free Software Foundation, either version 3 of the License, or (at your option) 
 any later version.
 
-.. _in_download_ref:
+.. _in-download_ref:
 Download OpenShot
 -----------------
-There are many different ways to download and install OpenShot™ Video Editor, which 
+There are many ways to download and install OpenShot™ Video Editor, which 
 is available for the following 64-bit operating systems: |linux| Linux® (most distributions), 
 |mac| Apple® macOS® and |win| Microsoft® Windows®.
         
 Linux®
 ------
 Download the AppImage file from the official OpenShot |Link|_.  Once downloaded, move 
-the file to the folder where it will reside.  Right-click the AppImage file, click 
+the file to the folder where it will live.  Right-click the AppImage file, click 
 Properties then mark the file as **Executable**.  Double-click the AppImage file to 
 launch the application.
 
@@ -124,8 +124,8 @@ Double-click the icon to launch the application.
 Windows®
 --------
 Download the Windows installer executable from the official OpenShot |Link|_.  Once 
-downloaded, double-click the EXE file and follow the directions on screen.  When complete, 
-OpenShot is installed and available in your Start menu.
+downloaded, double-click the EXE file, and follow the directions on screen.  When complete, 
+OpenShot is available in your Start menu.
 
 .. inline replacements for images
 .. |linux| image:: images/linux-logo.svg
