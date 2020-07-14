@@ -302,7 +302,7 @@ elif sys.platform == "linux":
                       ARCHLIB + "libgio-2.0.so",
                       ARCHLIB + "libgmodule-2.0.so",
                       ARCHLIB + "libthread-2.0.so",
-                      ARCHLIB + "libc.so.6",
+                      ARCHLIB + "libc.so",
                       ]:
         if os.path.exists(added_lib):
             external_so_files.append((added_lib, os.path.basename(added_lib)))
