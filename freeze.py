@@ -285,7 +285,7 @@ elif sys.platform == "linux":
                 ]
                 and not libpath_file.startswith("libxcb-")
                 ) \
-               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so", "ld-linux-x86-64.so.2"]:
+               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
 
                 # Ignore missing files
                 if os.path.exists(libpath):
@@ -296,19 +296,18 @@ elif sys.platform == "linux":
     # for certain distros (like Fedora, openSUSE, Debian, etc...)
     # Also add Glib related files (required for some distros)
 
-    for added_lib in [ARCHLIB + "libssl.so",
-                      ARCHLIB + "libcrypto.so",
-                      ARCHLIB + "libglib-2.0.so",
-                      ARCHLIB + "libgio-2.0.so",
-                      ARCHLIB + "libgmodule-2.0.so",
-                      ARCHLIB + "libthread-2.0.so",
-                      ARCHLIB + "libc.so",
-                      ARCHLIB + "ld-linux-x86-64.so",
-                      ]:
-        if os.path.exists(added_lib):
-            external_so_files.append((added_lib, os.path.basename(added_lib)))
-        else:
-            log.warning("{}: not found, skipping".format(added_lib))
+    # for added_lib in [ARCHLIB + "libssl.so",
+    #                   ARCHLIB + "libcrypto.so",
+    #                   ARCHLIB + "libglib-2.0.so",
+    #                   ARCHLIB + "libgio-2.0.so",
+    #                   ARCHLIB + "libgmodule-2.0.so",
+    #                   ARCHLIB + "libthread-2.0.so",
+    #                   ARCHLIB + "libc.so",
+    #                   ]:
+    #     if os.path.exists(added_lib):
+    #         external_so_files.append((added_lib, os.path.basename(added_lib)))
+    #     else:
+    #         log.warning("{}: not found, skipping".format(added_lib))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
