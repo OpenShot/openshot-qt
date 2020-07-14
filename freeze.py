@@ -285,7 +285,7 @@ elif sys.platform == "linux":
                 ]
                 and not libpath_file.startswith("libxcb-")
                 ) \
-               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
+               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so", "ld-linux-x86-64.so.2"]:
 
                 # Ignore missing files
                 if os.path.exists(libpath):
@@ -303,6 +303,7 @@ elif sys.platform == "linux":
                       ARCHLIB + "libgmodule-2.0.so",
                       ARCHLIB + "libthread-2.0.so",
                       ARCHLIB + "libc.so",
+                      ARCHLIB + "ld-linux-x86-64.so",
                       ]:
         if os.path.exists(added_lib):
             external_so_files.append((added_lib, os.path.basename(added_lib)))
