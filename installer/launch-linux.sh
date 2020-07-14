@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Add the current folder the library path
-LD_LIBRARY_PATH="."
+export LD_LIBRARY_PATH="."
 
 # Set some environment variables
 export QT_PLUGIN_PATH="."
