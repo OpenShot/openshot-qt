@@ -38,7 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence
 from PyQt5.QtWebKitWidgets import QWebView
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QMenu, QDialog
 
 from classes import info, updates
 from classes import settings
@@ -2939,6 +2939,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
     # Add Effect
     def addEffect(self, effect_names, position):
         log.info("addEffect: %s at %s" % (effect_names, position))
+        # Translation object
+        _ = get_app()._tr
+
         # Get name of effect
         name = effect_names[0]
 
@@ -2951,12 +2954,22 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         # Loop through clips on the closest layer
         possible_clips = Clip.filter(layer=closest_layer)
         for clip in possible_clips:
-            if js_position == 0 or (
-               clip.data["position"] <= js_position <= clip.data["position"]
-               + (clip.data["end"] - clip.data["start"])
-               ):
+            if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"])):
                 log.info("Applying effect to clip")
                 log.info(clip)
+
+                # Handle custom effect dialogs
+                if name in ["Bars", "Stabilize", "Tracker"]:
+
+                    from windows.process_effect import ProcessEffect
+                    win = ProcessEffect(clip.id, name)
+                    # Run the dialog event loop - blocking interaction on this window during this time
+                    result = win.exec_()
+                    if result == QDialog.Accepted:
+                        log.info('Start processing')
+                    else:
+                        log.info('Cancel processing')
+                        return
 
                 # Create Effect
                 effect = openshot.EffectInfo().CreateEffect(name)
@@ -2970,6 +2983,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Update clip data for project
                 self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+                break
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
