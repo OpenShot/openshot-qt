@@ -225,9 +225,9 @@ elif sys.platform == "linux":
 
     # Add QtWebEngineProcess Resources & Local
     qt5_path = "/usr/share/qt5/"
-    for filename in find_files(os.path.join(PATH, "resources"), ["*"]):
+    for filename in find_files(os.path.join(qt5_path, "resources"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
-    for filename in find_files(os.path.join(PATH, "translations", "qtwebengine_locales"), ["*"]):
+    for filename in find_files(os.path.join(qt5_path, "translations", "qtwebengine_locales"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
 
     # Append Linux ICON file
