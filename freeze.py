@@ -91,6 +91,9 @@ python_packages = ["os",
                    "json"
                    ]
 
+# Modules to include
+python_modules = ["idna.idnadata"]
+
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 
@@ -337,6 +340,7 @@ for filename in find_files("openshot_qt", ["*"]):
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
+build_exe_options["includes"] = python_modules
 
 # Set options
 build_options["build_exe"] = build_exe_options
