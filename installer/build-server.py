@@ -367,7 +367,7 @@ try:
 
         # Create symlink for AppRun
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        os.symlink(launcher_path, app_run_path)
+        os.symlink(os.path.relpath(launcher_path, app_run_path), app_run_path)
 
         # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)
