@@ -2959,20 +2959,25 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 log.info(clip)
 
                 # Handle custom effect dialogs
-                if name in ["Bars", "Stabilize", "Tracker"]:
+                if name in ["Bars", "Stabilizer", "Tracker"]:
 
                     from windows.process_effect import ProcessEffect
-                    win = ProcessEffect(clip.id, name)
+                    win = ProcessEffect(clip.id, "Stabilizer")
                     # Run the dialog event loop - blocking interaction on this window during this time
                     result = win.exec_()
+
                     if result == QDialog.Accepted:
                         log.info('Start processing')
                     else:
                         log.info('Cancel processing')
                         return
 
+                    effect = win.effect
+
+
                 # Create Effect
-                effect = openshot.EffectInfo().CreateEffect(name)
+                else:
+                    effect = openshot.EffectInfo().CreateEffect(name)
 
                 # Get Effect JSON
                 effect.Id(get_app().project.generate_id())
@@ -2980,6 +2985,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                 # Append effect JSON to clip
                 clip.data["effects"].append(effect_json)
+                print(clip.data["effects"])
 
                 # Update clip data for project
                 self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)

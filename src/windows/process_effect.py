@@ -96,15 +96,21 @@ class ProcessEffect(QDialog):
         timeline_instance = get_app().window.timeline_sync.timeline
         for clip_instance in timeline_instance.Clips():
             if clip_instance.Id() == self.clip_id:
+                self.protobufPath = openshot.ClipProcessingJobs(self.effect_name, clip_instance).stabilizeVideo(clip_instance)
+                self.effect = openshot.EffectInfo().CreateEffect(self.effect_name, "/media/brenno/Data/projects/openshot/stabilization.data")
+                # self.effect.SetJson('{"Stabilizer":{"protobuf_data_path": "/home/gustavostahl/LabVisao/VideoEditor/openshot-qt/stabilization.data"}}')
+                # clip_instance.AddEffect(self.effect)
+                # return self.effect
                 print("Apply effect: %s to clip: %s" % (self.effect_name, clip_instance.Id()))
+                
 
         # EXAMPLE progress updates
-        for value in range(1, 100, 4):
-            self.progressBar.setValue(value)
-            time.sleep(0.25)
+        # for value in range(1, 100, 4):
+        #     self.progressBar.setValue(value)
+        #     time.sleep(0.25)
 
-            # Process any queued events
-            QCoreApplication.processEvents()
+        #     # Process any queued events
+        #     QCoreApplication.processEvents()
 
         # Accept dialog
         super(ProcessEffect, self).accept()
