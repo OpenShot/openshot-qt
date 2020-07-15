@@ -37,7 +37,7 @@ matrix:
       python: 3.6
 
 install:
-  - pip3 install cx-freeze
+  - pip3 install 'cx-freeze==6.1'
 
 script:
   - python3 freeze.py build
