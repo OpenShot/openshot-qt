@@ -306,33 +306,13 @@ elif sys.platform == "linux":
                     "libpangocairo-1.0.so.0",
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
-                    "libthai.so.0",
-                ]
-                and not libpath_file.startswith("libxcb-")
-                ) \
-               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
-
+                    "libthai.so.0" ]
+                ) or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0",
+                                      "libbz2.so.1.0", "libqxcb.so", "libxcb-xinerama.so.0"]:
                 # Ignore missing files
                 if os.path.exists(libpath):
                     filepath, filename = os.path.split(libpath)
                     external_so_files.append((libpath, filename))
-
-    # Manually add missing files (that were missed in the above step). These files are required
-    # for certain distros (like Fedora, openSUSE, Debian, etc...)
-    # Also add Glib related files (required for some distros)
-
-    # for added_lib in [ARCHLIB + "libssl.so",
-    #                   ARCHLIB + "libcrypto.so",
-    #                   ARCHLIB + "libglib-2.0.so",
-    #                   ARCHLIB + "libgio-2.0.so",
-    #                   ARCHLIB + "libgmodule-2.0.so",
-    #                   ARCHLIB + "libthread-2.0.so",
-    #                   ARCHLIB + "libc.so",
-    #                   ]:
-    #     if os.path.exists(added_lib):
-    #         external_so_files.append((added_lib, os.path.basename(added_lib)))
-    #     else:
-    #         log.warning("{}: not found, skipping".format(added_lib))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
