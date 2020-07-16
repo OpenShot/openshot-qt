@@ -25,7 +25,10 @@ addons:
     - qttranslations5-l10n
     - xvfb
 
-matrix:
+jobs:
+  allow_failures:
+    - name: "Python 3.5 (Ubuntu 16.04 Xenial)"
+
   include:
     - name: "Python 3.5 (Ubuntu 16.04 Xenial)"
       os: linux
