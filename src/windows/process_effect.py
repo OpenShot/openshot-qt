@@ -30,7 +30,7 @@ import sys
 import time
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QPixmap
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -40,6 +40,53 @@ from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
 
+class BbWindow(QDialog):
+    def __init__(self, frame):
+        super().__init__()
+        self.setWindowModality(Qt.ApplicationModal)
+        self.title = "Bounding Box Selector"
+        self.top = 200
+        self.left = 500
+        self.width = 300
+        self.height = 200
+        self.windowIconName = os.path.join(info.PATH, 'xdg', 'openshot-arrow.png')
+        self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self.InitWindow(frame)
+        self.origin = QPoint()
+
+    def InitWindow(self,frame):
+        self.setWindowIcon(QIcon(self.windowIconName))
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+        vbox = QVBoxLayout()
+        labelImage = QLabel(self)
+        pixmap = QPixmap(frame)
+        labelImage.setPixmap(pixmap)
+        vbox.addWidget(labelImage)
+        self.setLayout(vbox)
+        self.show()
+
+    def closeEvent(self, event):
+        event.accept()
+
+    # Set top left rectangle coordinate
+    def mousePressEvent(self, event):
+    
+        if event.button() == Qt.LeftButton:
+            self.origin = QPoint(event.pos())
+            self.rubberBand.setGeometry(QRect(self.origin, QSize()))
+            self.rubberBand.show()
+    
+    # Change rectangle selection while the mouse moves
+    def mouseMoveEvent(self, event):
+
+        if not self.origin.isNull():
+            self.end = event.pos()
+            self.rubberBand.setGeometry(QRect(self.origin, self.end).normalized())
+
+    # Return bounding box selection coordinates
+    def getBB(self):
+        return self.origin.x(), self.origin.y(), self.end.x() - self.origin.x(), self.end.y() - self.origin.y()
 
 class ProcessEffect(QDialog):
     """ Choose Profile Dialog """
@@ -84,6 +131,10 @@ class ProcessEffect(QDialog):
         self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
 
+        # flag to close the clip processing thread
+        self.cancel_clip_processing = False
+        self.effect = None
+
     def accept(self):
         """ Start processing effect """
         # Disable UI
@@ -96,21 +147,49 @@ class ProcessEffect(QDialog):
         timeline_instance = get_app().window.timeline_sync.timeline
         for clip_instance in timeline_instance.Clips():
             if clip_instance.Id() == self.clip_id:
-                self.protobufPath = openshot.ClipProcessingJobs(self.effect_name, clip_instance).stabilizeVideo(clip_instance)
-                self.effect = openshot.EffectInfo().CreateEffect(self.effect_name, "/media/brenno/Data/projects/openshot/stabilization.data")
-                # self.effect.SetJson('{"Stabilizer":{"protobuf_data_path": "/home/gustavostahl/LabVisao/VideoEditor/openshot-qt/stabilization.data"}}')
-                # clip_instance.AddEffect(self.effect)
-                # return self.effect
-                print("Apply effect: %s to clip: %s" % (self.effect_name, clip_instance.Id()))
-                
+                self.clip_instance = clip_instance
+                break
 
-        # EXAMPLE progress updates
-        # for value in range(1, 100, 4):
-        #     self.progressBar.setValue(value)
-        #     time.sleep(0.25)
+        # Create effect Id and protobuf data path
+        ID = get_app().project.generate_id()
 
-        #     # Process any queued events
-        #     QCoreApplication.processEvents()
+        protobufFolderPath = os.path.join(info.PATH, '..', 'protobuf_data')
+        # Check if protobuf data folder exists, otherwise it will create one
+        if not os.path.exists(protobufFolderPath):
+            os.mkdir(protobufFolderPath)
+
+        # Create protobuf data path
+        protobufPath = os.path.join(protobufFolderPath, ID + '.data')
+
+        # Load into JSON string info abou protobuf data path
+        jsonString = self.generateJson(protobufPath)
+
+        # Generate processed data
+        processing = openshot.ClipProcessingJobs(self.effect_name, jsonString)
+        processing.processClip(self.clip_instance)
+
+        # get processing status
+        while(not processing.IsDone() ):
+            # update progressbar
+            progressionStatus = processing.GetProgress()
+            self.progressBar.setValue(progressionStatus)
+            time.sleep(0.01)
+
+            # Process any queued events
+            QCoreApplication.processEvents()
+
+            # if the cancel button was pressed, close the processing thread
+            if(self.cancel_clip_processing):
+                processing.CancelProcessing()
+
+        if(not self.cancel_clip_processing):
+        
+            # Load processed data into effect
+            self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
+            self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
+            self.effect.Id(ID)
+            
+            print("Applied effect: %s to clip: %s" % (self.effect_name, self.clip_instance.Id()))
 
         # Accept dialog
         super(ProcessEffect, self).accept()
@@ -118,4 +197,38 @@ class ProcessEffect(QDialog):
     def reject(self):
         # Cancel dialog
         self.exporting = False
+        self.cancel_clip_processing = True
         super(ProcessEffect, self).reject()
+
+    def generateJson(self, protobufPath):
+        # Start JSON string with the protobuf data path, necessary for all pre-processing effects
+        jsonString = '{"protobuf_data_path": "%s"' % protobufPath
+
+        if self.effect_name == "Stabilizer":
+            pass
+
+        # Special case where more info is needed for the JSON string
+        if self.effect_name == "Tracker":
+
+            # Create temporary imagem to be shown in PyQt Window
+            temp_img_path = protobufPath.split(".data")[0] + '.png'
+            self.clip_instance.GetFrame(0).Save(temp_img_path, 1)
+
+            # Show bounding box selection window
+            bbWindow = BbWindow(temp_img_path)
+            bbWindow.exec_()
+
+            # Remove temporary image
+            os.remove(temp_img_path)
+
+            # Get bounding box selection coordinates
+            bb = bbWindow.getBB()
+
+            # Set tracker info in JSON string
+            trackerType = "KCF"
+            jsonString += ',"tracker_type": "%s"'%trackerType
+            jsonString += ',"bbox": {"x": %d, "y": %d, "w": %d, "h": %d}'%(bb[0],bb[1],bb[2],bb[3])
+        
+        # Finish JSON string
+        jsonString+='}'
+        return jsonString

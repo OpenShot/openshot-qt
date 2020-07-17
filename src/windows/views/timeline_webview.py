@@ -2962,7 +2962,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 if name in ["Bars", "Stabilizer", "Tracker"]:
 
                     from windows.process_effect import ProcessEffect
-                    win = ProcessEffect(clip.id, "Stabilizer")
+                    win = ProcessEffect(clip.id, name)
                     # Run the dialog event loop - blocking interaction on this window during this time
                     result = win.exec_()
 
@@ -2972,15 +2972,15 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                         log.info('Cancel processing')
                         return
 
-                    effect = win.effect
-
-
                 # Create Effect
+                    effect = win.effect # effect.Id already set
+                    if effect is None:
+                        break
                 else:
                     effect = openshot.EffectInfo().CreateEffect(name)
+                    effect.Id(get_app().project.generate_id())
 
                 # Get Effect JSON
-                effect.Id(get_app().project.generate_id())
                 effect_json = json.loads(effect.Json())
 
                 # Append effect JSON to clip
