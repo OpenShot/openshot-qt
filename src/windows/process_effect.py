@@ -28,9 +28,11 @@
 import os
 import sys
 import time
+import operator
+import functools
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QBrush, QPalette
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -48,14 +50,22 @@ class ProcessEffect(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
-    def __init__(self, clip_id, effect_name):
+    def __init__(self, clip_id, effect_name, effect_params):
 
         # Create dialog class
         QDialog.__init__(self)
 
+        # Track effect details
+        self.clip_id = clip_id
+        self.effect_name = effect_name
+        self.context = {}
+
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui(self)
+
+        # Update window title
+        self.setWindowTitle(self.windowTitle() % self.effect_name)
 
         # get translations
         _ = get_app()._tr
@@ -66,17 +76,110 @@ class ProcessEffect(QDialog):
         # Track metrics
         track_metric_screen("process-effect-screen")
 
-        # Init form
-        self.progressBar.setValue(0)
-        self.txtAdvanced.setText("{}")
-        self.setWindowTitle(_("%s: Initialize Effect") % effect_name)
-        self.clip_id = clip_id
-        self.effect_name = effect_name
+        # Loop through options and create widgets
+        row_count = 0
+        for param in effect_params:
 
-        # Add combo entries
-        self.cboOptions.addItem("Option 1", 1)
-        self.cboOptions.addItem("Option 2", 2)
-        self.cboOptions.addItem("Option 3", 3)
+            # Create Label
+            widget = None
+            label = QLabel()
+            label.setText(_(param["title"]))
+            label.setToolTip(_(param["title"]))
+
+            if param["type"] == "spinner":
+                # create QDoubleSpinBox
+                widget = QDoubleSpinBox()
+                widget.setMinimum(float(param["min"]))
+                widget.setMaximum(float(param["max"]))
+                widget.setValue(float(param["value"]))
+                widget.setSingleStep(1.0)
+                widget.setToolTip(param["title"])
+                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
+
+                # Set initial context
+                self.context[param["setting"]] = float(param["value"])
+
+            if param["type"] == "rect":
+                # create QPushButton which opens up a display of the clip, with ability to select Rectangle
+                widget = QPushButton(_("Click to Select"))
+                widget.setMinimumHeight(80)
+                widget.setToolTip(param["title"])
+                widget.clicked.connect(functools.partial(self.rect_select_clicked, widget, param))
+
+                # Set initial context
+                self.context[param["setting"]] = {"button-clicked": False, "x": 0, "y": 0, "width": 0, "height": 0}
+
+            if param["type"] == "spinner-int":
+                # create QDoubleSpinBox
+                widget = QSpinBox()
+                widget.setMinimum(int(param["min"]))
+                widget.setMaximum(int(param["max"]))
+                widget.setValue(int(param["value"]))
+                widget.setSingleStep(1.0)
+                widget.setToolTip(param["title"])
+                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
+
+                # Set initial context
+                self.context[param["setting"]] = int(param["value"])
+
+            elif param["type"] == "text":
+                # create QLineEdit
+                widget = QLineEdit()
+                widget.setText(_(param["value"]))
+                widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+
+                # Set initial context
+                self.context[param["setting"]] = param["value"]
+
+            elif param["type"] == "bool":
+                # create spinner
+                widget = QCheckBox()
+                if param["value"] == True:
+                    widget.setCheckState(Qt.Checked)
+                    self.context[param["setting"]] = True
+                else:
+                    widget.setCheckState(Qt.Unchecked)
+                    self.context[param["setting"]] = False
+                widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
+
+            elif param["type"] == "dropdown":
+
+                # create spinner
+                widget = QComboBox()
+
+                # Get values
+                value_list = param["values"]
+
+                # Add normal values
+                box_index = 0
+                for value_item in value_list:
+                    k = value_item["name"]
+                    v = value_item["value"]
+                    i = value_item.get("icon", None)
+
+                    # add dropdown item
+                    widget.addItem(_(k), v)
+
+                    # select dropdown (if default)
+                    if v == param["value"]:
+                        widget.setCurrentIndex(box_index)
+
+                        # Set initial context
+                        self.context[param["setting"]] = param["value"]
+                    box_index = box_index + 1
+
+                widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
+
+            # Add Label and Widget to the form
+            if (widget and label):
+                # Add minimum size
+                label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+                widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+                # Create HBoxLayout for each field
+                self.scrollAreaWidgetContents.layout().insertRow(row_count - 1, label, widget)
+
+            row_count += 1
 
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
@@ -84,12 +187,99 @@ class ProcessEffect(QDialog):
         self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
 
+    def spinner_value_changed(self, widget, param, value):
+        """Spinner value change callback"""
+        self.context[param["setting"]] = value
+        log.info(self.context)
+
+    def bool_value_changed(self, widget, param, state):
+        """Boolean value change callback"""
+        if state == Qt.Checked:
+            self.context[param["setting"]] = True
+        else:
+            self.context[param["setting"]] = False
+        log.info(self.context)
+
+    def dropdown_index_changed(self, widget, param, index):
+        """Dropdown value change callback"""
+        value = widget.itemData(index)
+        self.context[param["setting"]] = value
+        log.info(self.context)
+
+    def text_value_changed(self, widget, param, value=None):
+        """Textbox value change callback"""
+        try:
+            # Attempt to load value from QTextEdit (i.e. multi-line)
+            if not value:
+                value = widget.toPlainText()
+        except:
+            log.debug('Failed to get plain text from widget')
+
+        self.context[param["setting"]] = value
+        log.info(self.context)
+
+    def rect_select_clicked(self, widget, param):
+        """Rect select button clicked"""
+        self.context[param["setting"]].update({"button-clicked": True})
+
+        # show dialog
+        from windows.region import SelectRegion
+        from classes.query import File, Clip
+
+        c = Clip.get(id=self.clip_id)
+        reader_path = c.data.get('reader', {}).get('path','')
+        f = File.get(path=reader_path)
+        if f:
+            win = SelectRegion(f, c)
+            # Run the dialog event loop - blocking interaction on this window during that time
+            result = win.exec_()
+            if result == QDialog.Accepted:
+                # Region selected (get coordinates if any)
+                topLeft = win.videoPreview.regionTopLeftHandle
+                bottomRight = win.videoPreview.regionBottomRightHandle
+                viewPortSize = win.viewport_rect
+
+                # Get QImage of region
+                region_qimage = win.videoPreview.region_qimage
+
+                # Resize QImage to match button size
+                resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+
+                # Draw Qimage onto QPushButton (to display region selection to user)
+                palette = widget.palette()
+                palette.setBrush(widget.backgroundRole(), QBrush(resized_qimage))
+                widget.setFlat(True)
+                widget.setAutoFillBackground(True)
+                widget.setPalette(palette)
+
+                # Remove button text (so region QImage is more visible)
+                widget.setText("")
+
+                # If data found, add to context
+                if topLeft and bottomRight:
+                    self.context[param["setting"]].update({"x": topLeft.x(), "y": topLeft.y(),
+                                                           "width": bottomRight.x() - topLeft.x(),
+                                                           "height": bottomRight.y() - topLeft.y(),
+                                                           "scaled_x": topLeft.x() / viewPortSize.width(), "scaled_y": topLeft.y() / viewPortSize.height(),
+                                                           "scaled_width": (bottomRight.x() - topLeft.x()) / viewPortSize.width(),
+                                                           "scaled_height": (bottomRight.y() - topLeft.y()) / viewPortSize.height(),
+                                                           })
+                    log.info(self.context)
+
+        else:
+            log.error('No file found with path: %s' % reader_path)
+
     def accept(self):
         """ Start processing effect """
         # Disable UI
-        self.cboOptions.setEnabled(False)
-        self.txtAdvanced.setEnabled(False)
-        self.process_button.setEnabled(False)
+        for child_widget in self.scrollAreaWidgetContents.children():
+            child_widget.setEnabled(False)
+
+        # Enable ProgressBar
+        self.progressBar.setEnabled(True)
+
+        # Print effect settings
+        log.info(self.context)
 
         # DO WORK HERE, and periodically set progressBar value
         # Access C++ timeline and find the Clip instance which this effect should be applied to
@@ -111,5 +301,4 @@ class ProcessEffect(QDialog):
 
     def reject(self):
         # Cancel dialog
-        self.exporting = False
         super(ProcessEffect, self).reject()

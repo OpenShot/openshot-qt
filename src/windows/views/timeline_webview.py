@@ -47,6 +47,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.conversion import zoomToSeconds, secondsToZoom
+from classes.effect_init import effect_options
 
 import json
 
@@ -2959,10 +2960,14 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 log.info(clip)
 
                 # Handle custom effect dialogs
-                if name in ["Bars", "Stabilize", "Tracker"]:
+                if name in effect_options:
 
+                    # Get effect options
+                    effect_params = effect_options.get(name)
+
+                    # Show effect pre-processing window
                     from windows.process_effect import ProcessEffect
-                    win = ProcessEffect(clip.id, name)
+                    win = ProcessEffect(clip.id, name, effect_params)
                     # Run the dialog event loop - blocking interaction on this window during this time
                     result = win.exec_()
                     if result == QDialog.Accepted:
