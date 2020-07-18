@@ -94,6 +94,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     FoundVersionSignal = pyqtSignal(str)
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
+    SelectRegionSignal = pyqtSignal(str)
     ExportStarted = pyqtSignal(str, int, int)
     ExportFrame = pyqtSignal(str, int, int, int)
     ExportEnded = pyqtSignal(str)
