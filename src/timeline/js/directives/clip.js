@@ -211,21 +211,6 @@ App.directive("tlClip", function ($timeout) {
           }
         }
       });
-
-      //handle hover over on the clip
-      element.hover(
-        function () {
-          if (!dragging) {
-            element.addClass("highlight_clip", 200, "easeInOutCubic");
-          }
-        },
-        function () {
-          if (!dragging) {
-            element.removeClass("highlight_clip", 200, "easeInOutCubic");
-          }
-        }
-      );
-
       //handle draggability of clip
       element.draggable({
         snap: ".track", // snaps to a track

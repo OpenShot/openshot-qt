@@ -7,7 +7,7 @@
   		<META name="license" content="GPLv3">
 		<link rel="icon" type="image/png" href="../images/openshot.png" />
 		<title>OpenShot Timeline</title>
-		
+
 		<!-- JQuery & Angular -->
 		<link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
 		<link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
@@ -15,7 +15,7 @@
 		<script type="text/javascript" src="media/js/jquery-ui.js"></script>
 		<script type="text/javascript" src="media/js/angular.min.js"></script>
 		<script type="text/javascript" src="media/js/angular-animate.min.js"></script>
-		
+
 		<!-- OpenShot JavaScript Sources -->
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
@@ -25,18 +25,18 @@
     	<script type="text/javascript" src="js/directives/track.js"></script>
     	<script type="text/javascript" src="js/directives/clip.js"></script>
     	<script type="text/javascript" src="js/directives/transition.js"></script>
-    	<script type="text/javascript" src="js/directives/misc.js"></script> 	
+    	<script type="text/javascript" src="js/directives/misc.js"></script>
 		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
 
 		<!-- OpenShot StyleSheets -->
 		<link type="text/css" rel="stylesheet" href="media/css/main.css" />
-		<link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
-		
+		<link type="text/css" rel="stylesheet" href="media/css/debug.css" />
+
 		<!-- JQuery & Bootstrap StyleSheets -->
 		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
 	</head>
 	<body tl-body ng-controller="TimelineCtrl" ng-cloak>
-		
+
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
 			<div id="ruler_time">{{playheadTime.hour}}:{{playheadTime.min}}:{{playheadTime.sec}}:{{playheadTime.frame}}</div>
@@ -50,12 +50,12 @@
 			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->
 			<canvas tl-ruler id="ruler" width="{{getTimelineWidth(1024) + 50}}" height="39"></canvas>
 
-			<!-- MARKERS --> 
+			<!-- MARKERS -->
 			<span class="ruler_marker" id="markers_container">
 				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="showMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond) - 6 }}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}" draggable="false"/>
 			</span>
 			<br class="cleared">
-			
+
 			<!-- PROGRESS BAR -->
 			<canvas id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>
  		</div>
@@ -77,9 +77,10 @@
 				<!-- TRACKS -->
 				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="showTimelineMenu($event, layer.number)" class="{{getTrackStyle(layer.lock)}}">
 				</div>
-				
+
 				<!-- CLIPS -->
-				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="selectClip(clip.id, true, $event)" ng-right-click="showClipMenu(clip.id, $event)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
+				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="selectClip(clip.id, true, $event)" ng-right-click="showClipMenu(clip.id, $event)" class="clip timeline_obj droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
+				<div id="clip_border_{{clip.id}}" class="clip_border tl-border">
 					<div class="clip_top">
 						<div tl-clip-menu class="clip_menu" ng-show="!enable_razor" ng-mousedown="showClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
 
@@ -105,9 +106,11 @@
 						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
 					</div>
 				</div>
+				</div>
 
 				<!-- TRANSITIONS -->
-				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="selectTransition(transition.id, true, $event)" ng-right-click="showTransitionMenu(transition.id, $event)" class="transition droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
+				<div ng-hide tl-transition ng-repeat="transition in project.effects" id="transition_{{transition.id}}" ng-click="selectTransition(transition.id, true, $event)" ng-right-click="showTransitionMenu(transition.id, $event)" class="transition timeline_obj droppable" ng-class="getClipStyle(transition)" style="width:{{ (transition.end - transition.start) * pixelsPerSecond}}px; left:{{transition.position * pixelsPerSecond}}px; top:{{getTrackTop(transition.layer)}}px;z-index:{{5000 + $index}};">
+				<div id="transition_border_{{transition.id}}" class="transition_border tl-border">
 					<div class="transition_top">
 						<div tl-clip-menu class="transition_menu" ng-show="!enable_razor" ng-mousedown="showTransitionMenu(transition.id, $event)"></div>
 						<!-- TRANSITION KEYFRAME POINTS -->
@@ -117,6 +120,7 @@
 						<br class="cleared">
 					</div>
 					<br class="cleared">
+				</div>
 				</div>
 
 			</div>
@@ -128,46 +132,46 @@
 			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{ snapline_position}}px;"></div>
 
 		</div>
-		
-		
+
+
 		<!-- HIDDEN DEBUG SECTION -->
 		<script language="javascript">
-			
+
 		</script>
 		
 		<div ng-show="!Qt" class="gear" ng-click="toggleDebug()">
 			<img src="media/images/gear.png" width="40">
 		</div>
-		
+
 		<div ng-show="debug" class="debug-window ui-corner-all">
 				<div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
 				<div class="debug-text ui-corner-all" style="width: 70%;">ACTIONS:<br><br>
 					<div>
-						<p>Add Clips:</p>	
+						<p>Add Clips:</p>
 						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
     					<button ng-click="addClips(numClips)">add clips</button> <br/>
-    				
+
 	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
 	    				<div>
-	    					<p>Scale:</p>	
+	    					<p>Scale:</p>
 	    					<input id="scaleVal" ng-model="project.scale" style="width:100px;"><br><br>
 	    					<div db-slider></div>
 	    				</div>
 	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
 	    				<div>
-							<p>Add Marker:</p>	
+							<p>Add Marker:</p>
 							<input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker"/>
 	    					<button ng-click="addMarker(markLoc)">add marker</button> <br/>
 	    				</div>
 	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
 						<div>
-							<p>Add Effect:</p>	
+							<p>Add Effect:</p>
 							<input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #"/>
 	    					<button ng-click="addEffect(clipNum)">add effect</button> <br/>
 	    				</div>
 	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
 						<div>
-							<p>Change clip image:</p>	
+							<p>Change clip image:</p>
 							<input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3"/>
 	    					<button ng-click="changeImage(startImage)">change img</button> <br/>
 	    				</div>
@@ -178,5 +182,3 @@
 		<!-- END DEBUG SECTION -->
 	</body>
 </html>
-
-
