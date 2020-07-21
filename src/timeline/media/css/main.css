@@ -42,6 +42,22 @@ img {
     max-width: none;
 }
 
+/* Menu icons for tracks, clips, and transitions */
+.menu_button {
+  cursor: pointer;
+  float: left;
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  width: 12px;
+  height: 12px;
+  background-image: url(../images/menu.png);
+}
+
+.menu_button:hover {
+  background-image: url(../images/menu_hover.png);
+}
+
 /* Ruler */
 #scrolling_ruler { overflow: hidden; position: relative;line-height: 4px; }
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
@@ -55,9 +71,6 @@ img {
 
 /* Left-column track labels/controls/etc. */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
-.track_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-.track_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
-.track_menu:hover { background-image: url(../images/menu_hover.png); }
 .track_lock { float: left; background-image: url(../images/lock.png); width:14px;height:14px; margin-top: 2px; }
 .track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; text-shadow: 0 0 10px #ffffff; }
 .track_name { width: 100%; height: 64px; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: 0px 0px 10px #000; box-sizing: border-box; }
@@ -89,8 +102,6 @@ img {
   border-right-width: 2px;
 }
 
-.clip_menu { cursor: pointer; display: -webkit-flex; float:left;margin-top:4px;margin-left:4px;margin-right:4px;min-width:12px;height:12px; background-image: url(../images/menu.png);}
-.clip_menu:hover { background-image: url(../images/menu_hover.png); }
 
 .clip_label { cursor: move; min-width: 0px; float:left; margin-left: 2px; color:#fff;font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -203,9 +214,6 @@ img {
   border-right-width: 2px;
 }
 .transition { cursor: move; z-index:5000; color: #fff; min-width:0px; height: 64px; position: absolute; margin-top:0px; left: 100px; font-size: 9pt; background-color: rgba(#0192c1, 0.5); background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; box-shadow: 0px 0px 10px #000; }
-
-.transition_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
-.transition_menu:hover { background-image: url(../images/menu_hover.png); }
 
 .transition_label { float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}
 
