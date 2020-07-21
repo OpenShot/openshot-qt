@@ -37,7 +37,7 @@ import logging
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
-from PyQt5.QtGui import QCursor, QKeySequence
+from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWidgets import QMenu
@@ -3117,6 +3117,9 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         self.setAcceptDrops(True)
         self.last_position_frames = None
         self.document_is_ready = False
+
+        # Set background color of timeline
+        self.page().setBackgroundColor(QColor("#363636"))
 
         # Delete the webview when closed
         self.setAttribute(Qt.WA_DeleteOnClose)
