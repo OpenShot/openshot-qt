@@ -75,7 +75,6 @@ def main():
         help='Debugging output (logfile only)')
     parser.add_argument('--debug-console', action='store_true',
         help='Debugging output (console only)')
-    # Hidden processing for short-form '-d' synonym for --debug
     parser.add_argument('-V', '--version', action='store_true')
     parser.add_argument('remain', nargs=argparse.REMAINDER,
        help=argparse.SUPPRESS)
