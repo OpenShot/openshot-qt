@@ -79,7 +79,7 @@ $(document).ready(function () {
   });
 
   body_object.keyup(function () {
-    if (body_object.scope().shift_pressed) {
+    if (event.which === 16) {
       if (timeline) {
         timeline.qt_log("Shift released!");
       }
