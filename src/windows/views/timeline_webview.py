@@ -1931,7 +1931,8 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
                     self.waveform_cache[right_clip.id] = self.waveform_cache.get(clip_id, '[]')
 
                     # Pass audio to javascript timeline (and render)
-                    self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('{}',{});".format(right_clip.id, self.waveform_cache.get(right_clip.id)))
+                    self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('{}',{});"
+                        .format(right_clip.id, self.waveform_cache.get(right_clip.id)))
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2883,7 +2884,8 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, self.item_id))
 
         # Find position from javascript
-        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});".format(event_position.x(), event_position.y()), partial(callback, self, data))
+        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+            .format(event_position.x(), event_position.y()), partial(callback, self, data))
 
     # Resize timeline
     @pyqtSlot(float)
@@ -2936,7 +2938,9 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, self.item_id))
 
         # Find position from javascript
-        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});".format(event_position.x(), event_position.y()), partial(callback, self, file_ids))
+        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+            .format(event_position.x(), event_position.y()),
+            partial(callback, self, file_ids))
 
     # Add Effect
     def addEffect(self, effect_names, event_position):
@@ -2952,7 +2956,11 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             # Loop through clips on the closest layer
             possible_clips = Clip.filter(layer=js_nearest_track)
             for clip in possible_clips:
-                if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"])):
+                if js_position == 0 or (
+                    clip.data["position"]
+                    <= js_position
+                    <= clip.data["position"] + (clip.data["end"] - clip.data["start"])
+                ):
                     log.info("Applying effect to clip")
                     log.info(clip)
 
@@ -2970,7 +2978,8 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
                     self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
         # Find position from javascript
-        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});".format(event_position.x(), event_position.y()), partial(callback, self, effect_names))
+        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+            .format(event_position.x(), event_position.y()), partial(callback, self, effect_names))
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
