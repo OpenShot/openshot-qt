@@ -33,6 +33,7 @@ from copy import deepcopy
 from functools import partial
 from random import uniform
 from operator import itemgetter
+import logging
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
@@ -174,13 +175,15 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         thumb_address = "http://%s:%s/thumbnails/" % (thumb_server_details[0], thumb_server_details[1])
         return thumb_address
 
-    def run_js(self, code, callback=None):
+    def run_js(self, code, callback=None, retries=0):
         '''Run JS code async and optionally have a callback for response'''
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few moments
-            log.error("TimelineWebView::run_js() called before document ready event. Script queued: %s" % code)
-            QTimer.singleShot(50, partial(self.run_js, code, callback))
+            if retries > 0 and retries % 5 == 0:
+               log.warning("WebEngine backend still not processing requests, queueing script.")
+            log.debug("TimelineWebView::run_js() called before document ready event. Script queued: %s" % code)
+            QTimer.singleShot(50, partial(self.run_js, code, callback, retries + 1))
             return None
         else:
             # Execute JS code
@@ -2718,6 +2721,21 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
     @pyqtSlot(str)
     def qt_log(self, message=None):
         log.info(message)
+
+    @pyqtSlot(str, str)
+    def qt_log2(self, level="INFO", message=None):
+        levels = {
+            "DEBUG": logging.DEBUG,
+            "INFO": logging.INFO,
+            "WARN": logging.WARNING,
+            "WARNING": logging.WARNING,
+            "ERROR": logging.ERROR,
+            "CRITICAL": logging.CRITICAL,
+            "FATAL": logging.FATAL,
+            }
+        if isinstance(level, str):
+            level = levels.get(level, logging.INFO)
+        log.log(level, message)
 
     # Handle changes to zoom level, update js
     def update_zoom(self, newValue):

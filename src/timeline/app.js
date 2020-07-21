@@ -72,7 +72,7 @@ $(document).ready(function () {
   body_object.keydown(function (event) {
     if (event.which === 16) {
       if (timeline) {
-        timeline.qt_log("Shift pressed!");
+        timeline.qt_log2("DEBUG", "Shift pressed!");
       }
       body_object.scope().shift_pressed = true;
     }
@@ -81,7 +81,7 @@ $(document).ready(function () {
   body_object.keyup(function () {
     if (event.which === 16) {
       if (timeline) {
-        timeline.qt_log("Shift released!");
+        timeline.qt_log2("DEBUG", "Shift released!");
       }
       body_object.scope().shift_pressed = false;
     }
