@@ -308,7 +308,7 @@ elif sys.platform == "linux":
                     "libharfbuzz.so.0",
                     "libthai.so.0" ]
                 ) or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0",
-                                      "libbz2.so.1.0", "libqxcb.so", "libxcb-xinerama.so.0"]:
+                                      "libbz2.so.1.0", "libqxcb.so", "libxcb-xinerama.so.0", "libpcre.so.3"]:
                 # Ignore missing files
                 if os.path.exists(libpath):
                     filepath, filename = os.path.split(libpath)
