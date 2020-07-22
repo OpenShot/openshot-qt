@@ -1157,43 +1157,6 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
-  // Determine which CSS classes are used on a track
-  /**
-   * @return {string}
-   * @return {string}
-   */
-  $scope.getTrackStyle = function (lock) {
-    if (lock) {
-      return "track track_disabled";
-    }
-    else {
-      return "track";
-    }
-  };
-
-  // Determine which CSS classes are used on a clip
-  $scope.getClipStyle = function (clip) {
-
-    var style = "";
-    if (clip.selected) {
-      style += "ui-selected ";
-    }
-    if ($scope.enable_razor) {
-      style += "razor_cursor ";
-    }
-
-    return style;
-  };
-
-  // Determine which CSS classes are used on a clip label
-  $scope.getClipLabelStyle = function (clip) {
-    var style = "";
-    if ($scope.enable_razor) {
-      style += "razor_cursor";
-    }
-    return style;
-  };
-
   // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
   // to the timeline. A change can be an insert, update, or delete. The change is passed in
   // as JSON, which represents the change.
