@@ -7,7 +7,12 @@
   		<META name="license" content="GPLv3">
 		<link rel="icon" type="image/png" href="../images/openshot.png" />
 		<title>OpenShot Timeline</title>
-
+		<!-- Hide content until interface backend is loaded -->
+		<style>
+			[ng-cloak] {
+				display: none;
+			}
+		</style>
 		<!-- JQuery & Angular -->
 		<link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
 		<link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
