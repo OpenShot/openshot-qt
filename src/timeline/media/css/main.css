@@ -5,13 +5,13 @@ html {
 body {
   height: 100%;
   margin: 0;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   background:
     -webkit-gradient(
       linear, left top, left bottom,
       color-stop(0%, rgba(25, 25, 25, 1)),
       color-stop(100%, rgba(53, 53, 53, 1)));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   overflow: hidden;
   /* prevent document scrollbars (the timeline handles it's own overflow) */
   -webkit-user-select: none;
@@ -189,7 +189,6 @@ img {
       color-stop(100%, rgba(6, 6, 6, 1)));
 }
 
-
 /* Playhead */
 .playhead-line {
   z-index: 9998;
@@ -207,7 +206,6 @@ img {
   position: absolute;
   height: 20px;
   top: 32px;
-  ;
   margin-left: 12px;
   width: 1px;
   background-color: #ff0024;
@@ -470,27 +468,28 @@ img {
  * Timeline object outlines (borders) change color to indicate state
  */
 /* Regular unselected border, semi-transparent until hover */
-.timeline_obj>.tl-border {
+.timeline_obj > .tl-border {
   border-color: #4b92ada8;
 }
 
-.timeline_obj:hover>.tl-border {
-  border-color: #4b92adff;
-}
-
 /* Selected item border, semi-transparent unless hovered */
-.ui-selected>.tl-border {
+.ui-selected > .tl-border {
   border-color: #ff0000a8;
-}
-
-.ui-selected:hover>.tl-border {
-  border-color: #ff0000ff;
 }
 
 /* Border while selecting, will always be in :hover state so
  * no point in defining separate states */
-.ui-selecting>.tl-border {
+.ui-selecting > .tl-border {
   border-color: #ffff00ff;
+}
+
+/* Hover states for the above */
+.ui-selected:hover > .tl-border {
+  border-color: #ff0000ff;
+}
+
+.timeline_obj:hover > .tl-border {
+  border-color: #4b92adff;
 }
 
 /* XXX: The idea here is to raise the invisible resize handles
@@ -555,4 +554,3 @@ img {
 ::-webkit-scrollbar-corner {
   background: none;
 }
-
