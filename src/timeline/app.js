@@ -78,7 +78,7 @@ $(document).ready(function () {
     }
   });
 
-  body_object.keyup(function () {
+  body_object.keyup(function (event) {
     if (event.which === 16) {
       if (timeline) {
         timeline.qt_log2("DEBUG", "Shift released!");
