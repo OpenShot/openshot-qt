@@ -26,9 +26,9 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 // Initialize Angular application
 /*global App, timeline, angular*/
+var timeline = null;
 var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 
 
@@ -36,6 +36,19 @@ var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 $(document).ready(function () {
 
   var body_object = $("body");
+
+  // Check for Qt Integration
+  new QWebChannel(qt.webChannelTransport, function (channel) {
+    timeline = channel.objects.timeline;
+    timeline.qt_log2("INFO", "Qt Ready");
+
+    // Only enable Qt once Angular as initialized
+    angular.element(document).ready(function () {
+      timeline.qt_log2("INFO", "Angular Ready");
+      body_object.scope().enableQt();
+    });
+
+  });
 
   /// Capture window resize event, and resize scrollable divs (i.e. track container)
   $(window).resize(function () {
@@ -51,32 +64,29 @@ $(document).ready(function () {
 
     track_controls.height(new_track_height);
     $("#scrolling_tracks").height(new_track_height);
-    body_object.scope().playhead_height = $("#track-container").height();
-    $(".playhead-line").height(body_object.scope().playhead_height);
+      body_object.scope().playhead_height = $("#track-container").height();
+      $(".playhead-line").height(body_object.scope().playhead_height);
   });
-
-  // Check for Qt Integration
-  if (typeof timeline !== "undefined") {
-    timeline.qt_log("Qt Found!");
-    body_object.scope().enableQt();
-    timeline.page_ready();
-    body_object.scope().setThumbAddress(timeline.get_thumb_address());
-  }
-
-  // Manually trigger the window resize code (to verify it runs at least once)
-  $(window).trigger("resize");
 
   // Bind to keydown event (to detect SHIFT)
   body_object.keydown(function (event) {
     if (event.which === 16) {
+      if (timeline) {
+        timeline.qt_log2("DEBUG", "Shift pressed!");
+      }
       body_object.scope().shift_pressed = true;
     }
   });
 
-  body_object.keyup(function () {
-    if (body_object.scope().shift_pressed) {
+  body_object.keyup(function (event) {
+    if (event.which === 16) {
+      if (timeline) {
+        timeline.qt_log2("DEBUG", "Shift released!");
+      }
       body_object.scope().shift_pressed = false;
     }
   });
 
+  // Manually trigger the window resize code (to verify it runs at least once)
+  $(window).trigger("resize");
 });
