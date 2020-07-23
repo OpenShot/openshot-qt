@@ -34,7 +34,6 @@ import shutil
 import re
 import stat
 import subprocess
-import sys
 import tinys3
 import time
 import traceback
@@ -100,12 +99,12 @@ def error(line):
         log.write(line)
 
 
-def truncate(message, max=256):
+def truncate(message, maxlen=256):
     """Truncate the message with ellipses"""
-    if len(message) < max:
+    if len(message) < maxlen:
         return message
     else:
-        return "%s..." % message[:max]
+        return "%s..." % message[:maxlen]
 
 
 def zulip_upload_log(log, title, comment=None):
