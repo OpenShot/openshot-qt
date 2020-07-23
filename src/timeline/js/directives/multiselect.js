@@ -27,6 +27,8 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* global angular, timeline, findElement */
+
 var App = angular.module("openshot-timeline");
 
 // Handle multiple selections
