@@ -2735,7 +2735,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             }
         if isinstance(level, str):
             level = levels.get(level, logging.INFO)
-        log.log(level, message)
+        self.log_fn(level, message)
 
     # Handle changes to zoom level, update js
     def update_zoom(self, newValue):
@@ -3127,8 +3127,9 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         # Enable smooth scrolling on timeline
         self.settings().setAttribute(self.settings().ScrollAnimatorEnabled, True)
 
-        # Get settings
+        # Get settings & logger
         self.settings_obj = settings.get_settings()
+        self.log_fn = log
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)

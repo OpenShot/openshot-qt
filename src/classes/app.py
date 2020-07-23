@@ -36,7 +36,7 @@ import traceback
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont, QIcon
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 # QtWebEngineWidgets must be loaded prior to creating a QApplication
@@ -91,7 +91,6 @@ class OpenShotApp(QApplication):
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
             raise
-            sys.exit()
         except Exception as ex:
             log.error('OpenShotApp::Init Error: %s' % str(ex))
             sys.exit()

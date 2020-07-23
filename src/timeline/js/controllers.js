@@ -309,10 +309,10 @@ App.controller("TimelineCtrl", function ($scope) {
     // Find matching clip, update thumbnail to same path (to force reload)
     var clip_selector = $("#clip_" + clip_id + " .thumb");
     var existing_thumb_path = clip_selector.attr("src");
-    thumb_url_parts = existing_thumb_path.split("?");
+    var thumb_url_parts = existing_thumb_path.split("?");
     if (thumb_url_parts.length > 1) {
       // Trim off any previous cache buster
-      existing_thumb_path = thumb_url_parts[0]
+      existing_thumb_path = thumb_url_parts[0];
     }
 
     // Append cache buster, since QtWebEngine seems to aggressively cache images
@@ -748,7 +748,7 @@ App.controller("TimelineCtrl", function ($scope) {
     }
 
     // Return position in seconds
-    return { 'position': clip_position, 'track': track };
+    return { "position": clip_position, "track": track };
   };
 
   // Get Track number of item (used by Qt)
