@@ -38,7 +38,6 @@ var track_container_height = -1;
 // Treats element as a transition
 // 1: can be dragged
 // 2: can be resized
-// 3: class change when hovered over
 var dragLoc = null;
 
 /*global App, timeline, hasLockedTrack, moveBoundingBox */
@@ -165,21 +164,6 @@ App.directive("tlTransition", function () {
         }
 
       });
-
-      //handle hover over on the transition
-      element.hover(
-        function () {
-          if (!dragging) {
-            element.addClass("highlight_transition", 200, "easeInOutCubic");
-          }
-        },
-        function () {
-          if (!dragging) {
-            element.removeClass("highlight_transition", 200, "easeInOutCubic");
-          }
-        }
-      );
-
 
       //handle draggability of transition
       element.draggable({
