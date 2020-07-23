@@ -40,11 +40,11 @@ $(document).ready(function () {
   // Check for Qt Integration
   new QWebChannel(qt.webChannelTransport, function (channel) {
     timeline = channel.objects.timeline;
-    timeline.qt_log("Qt Ready");
+    timeline.qt_log2("INFO", "Qt Ready");
 
     // Only enable Qt once Angular as initialized
     angular.element(document).ready(function () {
-      timeline.qt_log("Angular Ready");
+      timeline.qt_log2("INFO", "Angular Ready");
       body_object.scope().enableQt();
     });
 
