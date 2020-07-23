@@ -7,9 +7,11 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background: -webkit-gradient(linear, left top, left bottom,
-    color-stop(0%, rgba(25, 25, 25, 1)),
-    color-stop(100%, rgba(53, 53, 53, 1)));
+  background:
+    -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0%, rgba(25, 25, 25, 1)),
+      color-stop(100%, rgba(53, 53, 53, 1)));
   overflow: hidden;
   /* prevent document scrollbars (the timeline handles it's own overflow) */
   -webkit-user-select: none;
@@ -108,6 +110,15 @@ img {
 }
 
 /* Tracks */
+/* Common styling for track containers */
+.track_name, .track {
+  width: 100%;
+  height: 64px;
+  margin-bottom: 8px;
+  box-shadow: 0 0 10px #000;
+  box-sizing: border-box;
+}
+
 /* Left-column track labels/controls/etc. */
 #track_controls {
   width: 140px;
@@ -118,9 +129,11 @@ img {
 }
 
 .track_top {
-  background: -webkit-gradient(linear, left top, left bottom,
-    color-stop(0%, rgba(255, 255, 255, 0.20)),
-    color-stop(100%, rgba(255, 255, 255, 0)));
+  background:
+    -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0%, rgba(255, 255, 255, 0.20)),
+      color-stop(100%, rgba(255, 255, 255, 0)));
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
@@ -141,35 +154,23 @@ img {
 }
 
 .track_name {
-  width: 100%;
-  height: 64px;
   color: #fff;
   font-size: 9pt;
   margin-left: 5px;
-  margin-bottom: 8px;
   background-color: #000;
   border: 1px solid #4b92ad;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  box-shadow: 0 0 10px #000;
-  box-sizing: border-box;
 }
 
 /* Right-column track timeline container */
 .track {
-  height: 64px;
-  width: 100%;
-  margin-bottom: 8px;
-  background: -webkit-gradient(linear, left top, left bottom,
-    color-stop(0%, rgba(50, 50, 50, 1)),
-    color-stop(100%, rgba(6, 6, 6, 1)));
+  background-color: rgba(6, 6, 6, 1);
   border-top: 1px solid #4b92ad;
   border-bottom: 1px solid #4b92ad;
   border-right: 1px solid #4b92ad;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  box-shadow: 0 0 10px #000;
-  box-sizing: border-box;
 }
 
 .track.disabled {
@@ -233,7 +234,11 @@ img {
 /* Clips */
 .clip_top {
   display: -webkit-flex;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.20)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background:
+    -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0%, rgba(255, 255, 255, 0.20)),
+      color-stop(100%, rgba(255, 255, 255, 0)));
   border-radius: 8px;
   overflow: hidden;
 }
@@ -316,9 +321,11 @@ img {
   left: 100px;
   font-size: 9pt;
   background-color: #ef7f00;
-  background: -webkit-gradient(linear, left top, left bottom,
-    color-stop(0%, rgba(82, 82, 82, 1)),
-    color-stop(100%, rgba(34, 38, 40, 1)));
+  background:
+    -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0%, rgba(82, 82, 82, 1)),
+      color-stop(100%, rgba(34, 38, 40, 1)));
   border-radius: 8px;
   box-shadow: 0 0 10px #000;
 }
@@ -380,18 +387,19 @@ img {
   width: 1px;
   height: 6px;
   margin: 0 4px;
-  background: -webkit-gradient(
-    linear, left top, left bottom,
-    color-stop(40%, rgba(0, 255, 0, 1)),
-    color-stop(100%, rgba(0, 255, 0, 0)));
+  background:
+    -webkit-gradient(linear, left top, left bottom,
+      color-stop(40%, rgba(0, 255, 0, 1)),
+      color-stop(100%, rgba(0, 255, 0, 0)));
 }
 
 /* Transitions */
 .transition_top {
-  background: -webkit-gradient(
-    linear, left top, left bottom,
-    color-stop(0%, rgba(255, 255, 255, 0.75)),
-    color-stop(100%, rgba(255, 255, 255, 0)));
+  background:
+    -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0%, rgba(255, 255, 255, 0.75)),
+      color-stop(100%, rgba(255, 255, 255, 0)));
   border-radius: 8px;
   overflow: hidden;
 }
