@@ -33,13 +33,21 @@ import platform
 import shutil
 import webbrowser
 from time import sleep
-from operator import itemgetter
 from uuid import uuid4
 from copy import deepcopy
 
-from PyQt5.QtCore import *
+from PyQt5.QtCore import (
+    Qt, pyqtSignal, QCoreApplication,
+    QTimer, QDateTime, QFileInfo,
+    )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import (
+    QMainWindow, QWidget, QDockWidget,
+    QMessageBox, QDialog, QFileDialog, QInputDialog,
+    QAction, QActionGroup, QSizePolicy,
+    QStatusBar, QToolBar, QToolButton,
+    QLineEdit, QSlider, QLabel, QComboBox,
+    )
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from windows.views.timeline_webview import TimelineWebView
@@ -47,9 +55,12 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.query import File, Clip, Transition, Marker, Track
-from classes.metrics import *
-from classes.version import *
+from classes.query import Clip, Transition, Marker, Track
+from classes.metrics import (
+    track_metric_session, track_metric_screen,
+    track_metric_error, track_exception_stacktrace,
+    )
+from classes.version import get_current_Version
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
@@ -121,7 +132,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             _ = app._tr
 
             # Handle exception
-            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project before closing?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            ret = QMessageBox.question(
+                self,
+                _("Unsaved Changes"),
+                _("Save changes to project before closing?"),
+                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger(event)
@@ -227,10 +242,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                         if "End of Stack Trace" in line:
                             found_stack = True
                             continue
-                        elif "Unhandled Exception: Stack Trace" in line:
+                        if "Unhandled Exception: Stack Trace" in line:
                             found_stack = False
                             continue
-                        elif "libopenshot logging:" in line:
+                        if "libopenshot logging:" in line:
                             log_start_counter += 1
                             if log_start_counter > 1:
                                 # Found the previous log start, too old now
@@ -241,7 +256,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                             last_stack_trace = line + last_stack_trace
 
                         # Ignore certain useless lines
-                        if line.strip() and "---" not in line and "libopenshot logging:" not in line and not last_log_line:
+                        line.strip()
+                        if all(["---" not in line,
+                                "libopenshot logging:" not in line,
+                                not last_log_line,
+                                ]):
                             last_log_line = line
 
             # Split last stack trace (if any)
@@ -266,14 +285,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 last_log_line = last_log_line.replace("()", "")
                 log_parts = last_log_line.split("(")
                 if len(log_parts) == 2:
-                    last_log_line = "-%s" % log_parts[0].replace("logger_libopenshot:INFO ", "").strip()[:64]
+                    last_log_line = "-%s" % log_parts[0].replace(
+                        "logger_libopenshot:INFO ", "").strip()[:64]
                 elif len(log_parts) >= 3:
-                    last_log_line = "-%s (%s" % (log_parts[0].replace("logger_libopenshot:INFO ", "").strip()[:64], log_parts[1])
+                    last_log_line = "-%s (%s" % (log_parts[0].replace(
+                        "logger_libopenshot:INFO ", "").strip()[:64], log_parts[1])
             else:
                 last_log_line = ""
 
             # Throw exception (with last libopenshot line... if found)
-            log.error("Unhandled crash detected... will attempt to recover backup project: %s" % info.BACKUP_FILE)
+            log.error(
+                "Unhandled crash detected... will attempt to recover backup project: %s"
+                % info.BACKUP_FILE)
             track_metric_error("unhandled-crash%s" % last_log_line, True)
 
             # Remove file
@@ -337,7 +360,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Do we have unsaved changes?
         if app.project.needs_save():
-            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            ret = QMessageBox.question(
+                self,
+                _("Unsaved Changes"),
+                _("Save changes to project first?"),
+                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger(event)
@@ -415,7 +442,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         from windows.title_editor import TitleEditor
         win = TitleEditor(file_path)
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
+        win.exec_()
 
         # Update file thumbnail
         self.FileUpdated.emit(file_id)
@@ -502,7 +529,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Do we have unsaved changes?
         if app.project.needs_save():
-            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            ret = QMessageBox.question(
+                self,
+                _("Unsaved Changes"),
+                _("Save changes to project first?"),
+                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave.trigger()
@@ -544,7 +575,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 log.info("Loaded project {}".format(file_path))
             else:
                 log.info("File not found at {}".format(file_path))
-                self.statusBar.showMessage(_("Project {} is missing (it may have been moved or deleted). It has been removed from the Recent Projects menu.".format(file_path)), 5000)
+                self.statusBar.showMessage(
+                    _("Project %s is missing (it may have been moved or deleted). "
+                      "It has been removed from the Recent Projects menu." % file_path),
+                    5000)
                 self.remove_recent_project(file_path)
                 self.load_recent_menu()
 
@@ -596,7 +630,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Do we have unsaved changes?
         if app.project.needs_save():
-            ret = QMessageBox.question(self, _("Unsaved Changes"), _("Save changes to project first?"), QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+            ret = QMessageBox.question(
+                self,
+                _("Unsaved Changes"),
+                _("Save changes to project first?"),
+                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger(event)
@@ -605,7 +643,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 return
 
         # Prompt for open project file
-        file_path = QFileDialog.getOpenFileName(self, _("Open Project..."), recommended_path, _("OpenShot Project (*.osp)"))[0]
+        file_path = QFileDialog.getOpenFileName(
+            self,
+            _("Open Project..."),
+            recommended_path,
+            _("OpenShot Project (*.osp)"))[0]
 
         # Load project file
         self.OpenProjectSignal.emit(file_path)
@@ -618,7 +660,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         file_path = app.project.current_filepath
         if not file_path:
             recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
-            file_path = QFileDialog.getSaveFileName(self, _("Save Project..."), recommended_path, _("OpenShot Project (*.osp)"))[0]
+            file_path = QFileDialog.getSaveFileName(
+                self,
+                _("Save Project..."),
+                recommended_path,
+                _("OpenShot Project (*.osp)"))[0]
 
         if file_path:
             # Append .osp if needed
@@ -649,7 +695,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 file_name, file_ext = os.path.splitext(file_name)
 
                 # Make copy of unsaved project file in 'recovery' folder
-                recover_path_with_timestamp = os.path.join(info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
+                recover_path_with_timestamp = os.path.join(
+                    info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
                 shutil.copy(file_path, recover_path_with_timestamp)
 
                 # Find any recovery file older than X auto-saves
@@ -689,8 +736,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         recommended_path = app.project.current_filepath
         if not recommended_path:
-            recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
-        file_path = QFileDialog.getSaveFileName(self, _("Save Project As..."), recommended_path, _("OpenShot Project (*.osp)"))[0]
+            recommended_path = os.path.join(
+                info.HOME_PATH, "%s.osp" % _("Untitled Project"))
+        file_path = QFileDialog.getSaveFileName(
+            self,
+            _("Save Project As..."),
+            recommended_path,
+            _("OpenShot Project (*.osp)"))[0]
         if file_path:
             # Append .osp if needed
             if ".osp" not in file_path:
@@ -1084,8 +1136,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             framePathTime = QDateTime()
 
-        # Get and Save the frame (return is void, so we cannot check for success/fail here - must use file modification timestamp)
-        openshot.Timeline.GetFrame(self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
+        # Get and Save the frame
+        # (return is void, so we cannot check for success/fail here
+        # - must use file modification timestamp)
+        openshot.Timeline.GetFrame(
+            self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
 
         # Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
@@ -1128,7 +1183,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Collect items to renumber
         targets = []
-        gap_num = None
         for (idx, layer) in enumerate(tracks):
             newnum = (idx + 1) * stride
 
@@ -1327,7 +1381,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         marker.data = {"position": position, "icon": "blue.png"}
         marker.save()
 
-
     def findAllMarkerPositions(self):
         """Build and return a list of all seekable locations for the currently-selected timeline elements"""
 
@@ -1347,15 +1400,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             positions.append(clip_stop_time)
 
             # add all keyframes
-            for property in obj.data :
-                try :
-                    for point in obj.data[property]["Points"] :
+            for property in obj.data:
+                try:
+                    for point in obj.data[property]["Points"]:
                         keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
-                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
+                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time:
                             positions.append(keyframe_time)
                 except (TypeError, KeyError):
                     pass
-
 
             # Add all Effect keyframes
             if "effects" in obj.data:
@@ -1538,16 +1590,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
             self.actionPlay.setChecked(True)
 
-        elif (key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch or
-              key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch or
-              key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch or
-              key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch):
+        elif any([
+                key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch,
+                ]):
             # Toggle playbutton and show properties
             self.actionPlay.trigger()
             self.propertyTableView.select_frame(player.Position())
 
-        elif (key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch or
-              key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch):
+        elif any([
+                key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch,
+                key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch,
+                ]):
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
@@ -1698,7 +1754,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             super(MainWindow, self).keyPressEvent(event)
 
-
     def actionProfile_trigger(self, event):
         # Show dialog
         from windows.profile import Profile
@@ -1707,7 +1762,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         result = win.exec_()
         if result == QDialog.Accepted:
             log.info('Profile add confirmed')
-
 
     def actionSplitClip_trigger(self, event):
         log.info("actionSplitClip_trigger")
@@ -2049,38 +2103,71 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 dock.show()
 
     def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen (prevent them being closed, floated, or moved) """
+        """ Freeze all dockable widgets on the main screen. """
+        """ (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen (allow them to be closed, floated, or moved, as appropriate) """
+        """ Un-freeze all dockable widgets on the main screen. """
+        """ (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 if dock is self.dockTimeline:
-                    dock.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+                    dock.setFeatures(
+                        QDockWidget.DockWidgetFloatable
+                        | QDockWidget.DockWidgetMovable)
                 else:
-                    dock.setFeatures(QDockWidget.DockWidgetClosable | QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+                    dock.setFeatures(
+                        QDockWidget.DockWidgetClosable
+                        | QDockWidget.DockWidgetFloatable
+                        | QDockWidget.DockWidgetMovable)
 
     def actionSimple_View_trigger(self, event):
         """ Switch to the default / simple view  """
         self.removeDocks()
 
         # Add Docks
-        self.addDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockEmojis, self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([
+            self.dockFiles,
+            self.dockTransitions,
+            self.dockEffects,
+            self.dockEmojis,
+            self.dockVideo,
+            ], Qt.TopDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
         self.tabifyDockWidget(self.dockTransitions, self.dockEffects)
         self.tabifyDockWidget(self.dockEffects, self.dockEmojis)
-        self.showDocks([self.dockFiles, self.dockTransitions, self.dockEffects, self.dockEmojis, self.dockVideo])
+        self.showDocks([
+            self.dockFiles,
+            self.dockTransitions,
+            self.dockEffects,
+            self.dockEmojis,
+            self.dockVideo,
+            ])
 
         # Set initial size of docks
-        simple_state = "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACfAP///wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAAAAAACAAAFEgAAAvP8AQAAAAH8AAAAAAAABRIAAAD6AP////wCAAAAAvwAAAAnAAAB0QAAAK0A/////AEAAAAC/AAAAAAAAAHaAAAAewD////6AAAAAAIAAAAE+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACRAP////sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAkQD////7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACRAP////sAAAAUAGQAbwBjAGsARQBtAG8AagBpAHMBAAAAJwAAAdEAAACRAP////sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAeAAAAMyAAAARwD////7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAH+AAABHAAAAJYA////AAAFEgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
+        simple_state = "".join([
+            "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////",
+            "+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////",
+            "AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACfAP///",
+            "wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVg",
+            "AAAAVAAAAAAAAAAAAAAACAAAFEgAAAvP8AQAAAAH8AAAAAAAABRIAAAD6AP////",
+            "wCAAAAAvwAAAAnAAAB0QAAAK0A/////AEAAAAC/AAAAAAAAAHaAAAAewD////",
+            "6AAAAAAIAAAAE+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACRAP////",
+            "sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAkQD////",
+            "7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACRAP////",
+            "sAAAAUAGQAbwBjAGsARQBtAG8AagBpAHMBAAAAJwAAAdEAAACRAP////",
+            "sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAeAAAAMyAAAARwD////",
+            "7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAH+AAABHAAAAJYA////",
+            "AAAFEgAAAAEAAAABAAAAAgAAAAEAAAAC/",
+            "AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
+            ])
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
-
 
     def actionAdvanced_View_trigger(self, event):
         """ Switch to an alternative view """
@@ -2088,15 +2175,42 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Add Docks
         self.addDocks([self.dockFiles, self.dockVideo], Qt.TopDockWidgetArea)
-        self.addDocks([self.dockEffects, self.dockTransitions, self.dockEmojis], Qt.RightDockWidgetArea)
+        self.addDocks([
+            self.dockEffects,
+            self.dockTransitions,
+            self.dockEmojis,
+            ], Qt.RightDockWidgetArea)
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockEmojis, self.dockEffects)
-        self.showDocks([self.dockFiles, self.dockTransitions, self.dockVideo, self.dockEffects, self.dockEmojis, self.dockProperties])
+        self.showDocks([
+            self.dockFiles,
+            self.dockTransitions,
+            self.dockVideo,
+            self.dockEffects,
+            self.dockEmojis,
+            self.dockProperties,
+            ])
 
         # Set initial size of docks
-        advanced_state = "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAAC+vwCAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcwEAAAAnAAAC+gAAAJ8A/////AAAAl4AAACnAAAAAAD////6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAACZAAAC+vwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAJwAAAvoAAACRAP///wAAAAIAAAN8AAAC8/wBAAAAAfwAAAD3AAADfAAAAPoA/////AIAAAAC/AAAACcAAAHZAAABRAD////8AQAAAAL8AAAA9wAAAVsAAAB7AP////wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAADkAAAAkQD////8AAABEQAAAO8AAACtAQAAG/oAAAAAAQAAAAL7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/////wAAAGwA////+wAAABQAZABvAGMAawBFAG0AbwBqAGkAcwEAAAD3AAABHQAAAFgA////+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACWAAAAhsAAABHAP////sAAAAYAGQAbwBjAGsAVABpAG0AZQBsAGkAbgBlAQAAAgYAAAEUAAAAlgD///8AAAN8AAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+        advanced_state = "".join([
+            "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAAC+vwCAAAAAvsAAAAcAGQAbwBjAGsAUAB",
+            "yAG8AcABlAHIAdABpAGUAcwEAAAAnAAAC+gAAAJ8A/////AAAAl4AAACnAAAAAAD////",
+            "6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////",
+            "8AAAAAAAAAAAAAAAEAAACZAAAC+vwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZg",
+            "ByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAY",
+            "wB0AHMBAAAAJwAAAvoAAACRAP///wAAAAIAAAN8AAAC8/wBAAAAAfwAAAD3AAAD",
+            "fAAAAPoA/////AIAAAAC/AAAACcAAAHZAAABRAD////8AQAAAAL8AAAA9wAAAVsAAAB7AP////",
+            "wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAADkAAAAkQD////",
+            "8AAABEQAAAO8AAACtAQAAG/oAAAAAAQAAAAL7AAAAHgBkAG8AYwBrAFQAcg",
+            "BhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/////wAAAGwA////",
+            "+wAAABQAZABvAGMAawBFAG0AbwBqAGkAcwEAAAD3AAABHQAAAFgA////",
+            "+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACWAAAAhsAAABHAP////",
+            "sAAAAYAGQAbwBjAGsAVABpAG0AZQBsAGkAbgBlAQAAAgYAAAEUAAAAlgD///",
+            "8AAAN8AAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0",
+            "AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+            ])
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
@@ -2152,13 +2266,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Is this a saved project?
         if not app.project.current_filepath:
             # Not saved yet
-            self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, "OpenShot Video Editor"))
+            self.setWindowTitle(
+                "%s %s [%s] - %s" % (
+                    save_indicator,
+                    _("Untitled Project"),
+                    profile,
+                    "OpenShot Video Editor",
+                    ))
         else:
             # Yes, project is saved
             # Get just the filename
             filename = os.path.basename(app.project.current_filepath)
             filename = os.path.splitext(filename)[0]
-            self.setWindowTitle("%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor"))
+            self.setWindowTitle(
+                "%s %s [%s] - %s" % (
+                    save_indicator,
+                    filename,
+                    profile,
+                    "OpenShot Video Editor",
+                    ))
 
     # Update undo and redo buttons enabled/disabled to available changes
     def updateStatusChanged(self, undo_status, redo_status):
@@ -2169,7 +2295,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     # Add to the selected items
     def addSelection(self, item_id, item_type, clear_existing=False):
-        log.info('main::addSelection: item_id: %s, item_type: %s, clear_existing: %s' % (item_id, item_type, clear_existing))
+        log.info(
+            'main::addSelection: item_id: %s, item_type: %s, clear_existing: %s'
+            % (item_id, item_type, clear_existing))
         s = settings.get_settings()
 
         # Clear existing selection (if needed)
@@ -2289,7 +2417,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         import functools
         if not self.recent_menu:
             # Create a new recent menu
-            self.recent_menu = self.menuFile.addMenu(QIcon.fromTheme("document-open-recent"), _("Recent Projects"))
+            self.recent_menu = self.menuFile.addMenu(
+                QIcon.fromTheme("document-open-recent"),
+                _("Recent Projects"))
             self.menuFile.insertMenu(self.actionRecent_Placeholder, self.recent_menu)
         else:
             # Clear the existing children
@@ -2571,11 +2701,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         elif s.get("cache-mode") == "CacheDisk":
             # Create CacheDisk object, and set on timeline
-            log.info("Creating CacheDisk object with %s byte limit at %s" % (cache_limit, info.PREVIEW_CACHE_PATH))
+            log.info("Creating CacheDisk object with %s byte limit at %s" % (
+                cache_limit, info.PREVIEW_CACHE_PATH))
             image_format = s.get("cache-image-format")
             image_quality = s.get("cache-quality")
             image_scale = s.get("cache-scale")
-            new_cache_object = openshot.CacheDisk(info.PREVIEW_CACHE_PATH, image_format, image_quality, image_scale, cache_limit)
+            new_cache_object = openshot.CacheDisk(
+                info.PREVIEW_CACHE_PATH,
+                image_format,
+                image_quality,
+                image_scale,
+                cache_limit,
+                )
             self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Clear old cache before it goes out of scope
