@@ -2103,15 +2103,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 dock.show()
 
     def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen. """
-        """ (prevent them being closed, floated, or moved) """
+        """ Freeze all dockable widgets on the main screen.
+            (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen. """
-        """ (allow them to be closed, floated, or moved, as appropriate) """
+        """ Un-freeze all dockable widgets on the main screen.
+            (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 if dock is self.dockTimeline:
@@ -2123,6 +2123,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                         QDockWidget.DockWidgetClosable
                         | QDockWidget.DockWidgetFloatable
                         | QDockWidget.DockWidgetMovable)
+
+    def addViewDocksMenu(self):
+        """ Insert a Docks submenu into the View menu """
+        _ = get_app()._tr
+
+        # self.docks_menu = self.createPopupMenu()
+        # self.docks_menu.setTitle(_("Docks"))
+        # self.menuView.addMenu(self.docks_menu)
+        self.docks_menu = self.menuView.addMenu(_("Docks"))
+
+        for dock in sorted(self.getDocks(), key=lambda d: d.windowTitle()):
+            if (dock.features() & QDockWidget.DockWidgetClosable
+               != QDockWidget.DockWidgetClosable):
+                # Skip non-closable docs
+                continue
+            self.docks_menu.addAction(dock.toggleViewAction())
 
     def actionSimple_View_trigger(self, event):
         """ Switch to the default / simple view  """
@@ -2863,6 +2879,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.emoji_model = EmojisModel()
         self.emojiListView = EmojisListView(self.emoji_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
+
+        # Add Docks submenu to View menu
+        self.addViewDocksMenu()
 
         # Set up status bar
         self.statusBar = QStatusBar()
