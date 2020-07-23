@@ -3129,7 +3129,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
         # Get settings & logger
         self.settings_obj = settings.get_settings()
-        self.log_fn = log
+        self.log_fn = log.log
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
