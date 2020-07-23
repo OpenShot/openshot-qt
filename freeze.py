@@ -130,6 +130,7 @@ log.info("Execution path: %s" % os.path.abspath(__file__))
 def find_files(directory, patterns):
     """ Recursively find all files in a folder tree """
     for root, dirs, files in os.walk(directory):
+        del dirs  # not used
         for basename in files:
             if ".pyc" not in basename and "__pycache__" not in basename:
                 for pattern in patterns:
