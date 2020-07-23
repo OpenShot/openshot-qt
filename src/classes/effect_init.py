@@ -95,6 +95,7 @@ effect_options = {
             "y": 0.05,
             "width": 0.25,
             "height": 0.25,
+            "first-frame": 1,
             "type": "rect"
         },
 

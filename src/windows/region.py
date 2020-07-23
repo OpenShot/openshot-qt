@@ -78,22 +78,30 @@ class SelectRegion(QDialog):
         self.start_image = None
         self.end_frame = 1
         self.end_image = None
+        self.current_frame = 1
+
+        self.clip = clip
+        self.clip.Open()
+        self.clip_position = self.clip.Position()
+        self.clip.Position(0)
 
         # Keep track of file object
-        self.file = file
-        self.file_path = file.absolute_path()
-        self.video_length = int(file.data['video_length'])
-        self.fps_num = int(file.data['fps']['num'])
-        self.fps_den = int(file.data['fps']['den'])
-        self.fps = float(self.fps_num) / float(self.fps_den)
-        self.width = int(file.data['width'])
-        self.height = int(file.data['height'])
-        self.sample_rate = int(file.data['sample_rate'])
-        self.channels = int(file.data['channels'])
-        self.channel_layout = int(file.data['channel_layout'])
+        # self.file = file
+        # self.file_path = file.absolute_path()
+
+        c_info = clip.Reader().info
+        self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
+        self.fps_num = self.fps #int(file.data['fps']['num'])
+        self.fps_den = 1 #int(file.data['fps']['den'])
+        self.width = c_info.width #int(file.data['width'])
+        self.height = c_info.height #int(file.data['height'])
+        self.sample_rate = c_info.sample_rate #int(file.data['sample_rate'])
+        self.channels = c_info.channels #int(file.data['channels'])
+        self.channel_layout = c_info.channel_layout #int(file.data['channel_layout'])
+        self.video_length = int(self.clip.Duration() * self.fps) + 1 #int(file.data['video_length'])
 
         # Open video file with Reader
-        log.info(self.file_path)
+        log.info(self.clip.Reader())
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
@@ -110,7 +118,7 @@ class SelectRegion(QDialog):
 
         try:
             # Add clip for current preview file
-            self.clip = openshot.Clip(self.file_path)
+            # self.clip = openshot.Clip(self.file_path)
 
             # Show waveform for audio files
             if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
@@ -123,6 +131,7 @@ class SelectRegion(QDialog):
             self.r.info.video_length = self.video_length
 
             self.r.AddClip(self.clip)
+
         except:
             log.error('Failed to load media file into region select player: %s' % self.file_path)
             return
@@ -147,8 +156,8 @@ class SelectRegion(QDialog):
 
         # Determine if a start or end attribute is in this file
         start_frame = 1
-        if 'start' in self.file.data.keys():
-            start_frame = (float(self.file.data['start']) * self.fps) + 1
+        # if 'start' in self.file.data.keys():
+        #     start_frame = (float(self.file.data['start']) * self.fps) + 1
 
         # Display start frame (and then the previous frame)
         QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
@@ -166,7 +175,7 @@ class SelectRegion(QDialog):
         self.sliderVideo.valueChanged.connect(self.sliderVideo_valueChanged)
         self.initialized = True
 
-        get_app().window.SelectRegionSignal.emit(clip.id)
+        get_app().window.SelectRegionSignal.emit(clip.Id())
 
     def actionPlay_Triggered(self):
         # Trigger play button (This action is invoked from the preview thread, so it must exist here)
@@ -175,6 +184,7 @@ class SelectRegion(QDialog):
     def movePlayhead(self, frame_number):
         """Update the playhead position"""
 
+        self.current_frame = frame_number
         # Move slider to correct frame position
         self.sliderIgnoreSignal = True
         self.sliderVideo.setValue(frame_number)
@@ -222,10 +232,16 @@ class SelectRegion(QDialog):
 
     def accept(self):
         """ Ok button clicked """
+
+        self.clip.Position(self.clip_position)
+
         self.shutdownPlayer()
         super(SelectRegion, self).accept()
 
     def shutdownPlayer(self):
+
+        self.clip.Position(self.clip_position)
+
         log.info('shutdownPlayer')
 
         # Stop playback
@@ -237,11 +253,15 @@ class SelectRegion(QDialog):
         self.preview_parent.background.wait(5000)
 
         # Close readers
+        self.r.RemoveClip(self.clip)
         self.r.Close()
-        self.clip.Close()
+        # self.clip.Close()
         self.r.ClearAllCache()
 
     def reject(self):
+
+        self.clip.Position(self.clip_position)
+
         # Cancel dialog
         self.shutdownPlayer()
         super(SelectRegion, self).reject()

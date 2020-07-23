@@ -59,6 +59,12 @@ class ProcessEffect(QDialog):
         self.effect_name = effect_name
         self.context = {}
 
+        timeline_instance = get_app().window.timeline_sync.timeline
+        for clip_instance in timeline_instance.Clips():
+            if clip_instance.Id() == self.clip_id:
+                self.clip_instance = clip_instance
+                break
+
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui(self)
@@ -233,10 +239,11 @@ class ProcessEffect(QDialog):
         reader_path = c.data.get('reader', {}).get('path','')
         f = File.get(path=reader_path)
         if f:
-            win = SelectRegion(f, c)
+            win = SelectRegion(f, self.clip_instance)
             # Run the dialog event loop - blocking interaction on this window during that time
             result = win.exec_()
             if result == QDialog.Accepted:
+                # self.first_frame = win.current_frame
                 # Region selected (get coordinates if any)
                 topLeft = win.videoPreview.regionTopLeftHandle
                 bottomRight = win.videoPreview.regionBottomRightHandle
@@ -266,6 +273,7 @@ class ProcessEffect(QDialog):
                                                            "scaled_x": topLeft.x() / viewPortSize.width(), "scaled_y": topLeft.y() / viewPortSize.height(),
                                                            "scaled_width": (bottomRight.x() - topLeft.x()) / viewPortSize.width(),
                                                            "scaled_height": (bottomRight.y() - topLeft.y()) / viewPortSize.height(),
+                                                           "first-frame": win.current_frame
                                                            })
                     log.info(self.context)
 
@@ -286,11 +294,6 @@ class ProcessEffect(QDialog):
 
         # DO WORK HERE, and periodically set progressBar value
         # Access C++ timeline and find the Clip instance which this effect should be applied to
-        timeline_instance = get_app().window.timeline_sync.timeline
-        for clip_instance in timeline_instance.Clips():
-            if clip_instance.Id() == self.clip_id:
-                self.clip_instance = clip_instance
-                break
 
         # Create effect Id and protobuf data path
         ID = get_app().project.generate_id()
@@ -365,6 +368,10 @@ class ProcessEffect(QDialog):
             tracker_dict = self.context["region"]
             bbox = (tracker_dict["x"],tracker_dict["y"],tracker_dict["width"],tracker_dict["height"])
             jsonString += ',"bbox": {"x": %d, "y": %d, "w": %d, "h": %d}' % (bbox)
+
+            # Get processing start frame
+            print(self.context["region"])
+            jsonString +=',"first_frame": %d' % (self.context["region"]["first-frame"])
         
         # Finish JSON string
         jsonString+='}'
