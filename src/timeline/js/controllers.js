@@ -77,13 +77,13 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.Qt = false;
   $scope.enableQt = function () {
     $scope.Qt = true;
-    timeline.qt_log2("DEBUG", "$scope.Qt = true;");
+    timeline.qt_log("DEBUG", "$scope.Qt = true;");
     timeline.page_ready();
   };
 
   $scope.setThumbAddress = function (url) {
     $scope.ThumbServer = url;
-    timeline.qt_log2("DEBUG", "setThumbAddress: " + url);
+    timeline.qt_log("DEBUG", "setThumbAddress: " + url);
   };
 
   // Move the playhead to a specific time
@@ -318,7 +318,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Append cache buster, since QtWebEngine seems to aggressively cache images
     existing_thumb_path += "?" + Math.random();
 
-    timeline.qt_log2("DEBUG", existing_thumb_path);
+    timeline.qt_log("DEBUG", existing_thumb_path);
     clip_selector.attr("src", existing_thumb_path);
   };
 
@@ -332,7 +332,7 @@ App.controller("TimelineCtrl", function ($scope) {
           $scope.project.clips[clip_index].audio_data = audio_data;
           $scope.project.clips[clip_index].show_audio = true;
         });
-        timeline.qt_log2("DEBUG", "Audio data successful set on clip JSON");
+        timeline.qt_log("DEBUG", "Audio data successful set on clip JSON");
         break;
       }
 
@@ -642,7 +642,7 @@ App.controller("TimelineCtrl", function ($scope) {
 // Show clip context menu
   $scope.showClipMenu = function (clip_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log2("DEBUG", "$scope.showClipMenu");
+      timeline.qt_log("DEBUG", "$scope.showClipMenu");
       $scope.selectClip(clip_id, false, event);
       timeline.ShowClipMenu(clip_id);
     }
@@ -651,7 +651,7 @@ App.controller("TimelineCtrl", function ($scope) {
 // Show clip context menu
   $scope.showEffectMenu = function (effect_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log2("DEBUG", "$scope.showEffectMenu");
+      timeline.qt_log("DEBUG", "$scope.showEffectMenu");
       timeline.ShowEffectMenu(effect_id);
     }
   };
@@ -659,7 +659,7 @@ App.controller("TimelineCtrl", function ($scope) {
 // Show transition context menu
   $scope.showTransitionMenu = function (tran_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log2("DEBUG", "$scope.showTransitionMenu");
+      timeline.qt_log("DEBUG", "$scope.showTransitionMenu");
       $scope.selectTransition(tran_id, false, event);
       timeline.ShowTransitionMenu(tran_id);
     }
@@ -668,7 +668,7 @@ App.controller("TimelineCtrl", function ($scope) {
 // Show track context menu
   $scope.showTrackMenu = function (layer_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log2("DEBUG", "$scope.showTrackMenu");
+      timeline.qt_log("DEBUG", "$scope.showTrackMenu");
       timeline.ShowTrackMenu(layer_id);
     }
   };
@@ -676,7 +676,7 @@ App.controller("TimelineCtrl", function ($scope) {
 // Show marker context menu
   $scope.showMarkerMenu = function (marker_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log2("DEBUG", "$scope.showMarkerMenu");
+      timeline.qt_log("DEBUG", "$scope.showMarkerMenu");
       timeline.ShowMarkerMenu(marker_id);
     }
   };
@@ -684,7 +684,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Show playhead context menu
   $scope.showPlayheadMenu = function (position) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log2("DEBUG", "$scope.showPlayheadMenu");
+      timeline.qt_log("DEBUG", "$scope.showPlayheadMenu");
       timeline.ShowPlayheadMenu(position);
     }
   };
@@ -907,7 +907,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.updateLayerIndex = function () {
 
     if ($scope.Qt) {
-      timeline.qt_log2("DEBUG", "updateLayerIndex");
+      timeline.qt_log("DEBUG", "updateLayerIndex");
     }
 
     var scrolling_tracks = $("#scrolling_tracks");
@@ -939,7 +939,7 @@ App.controller("TimelineCtrl", function ($scope) {
     }
 
     if ($scope.Qt) {
-      timeline.qt_log2("DEBUG", "sortItems");
+      timeline.qt_log("DEBUG", "sortItems");
 
       $scope.$evalAsync(function () {
         // Sort by position second
