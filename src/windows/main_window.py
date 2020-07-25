@@ -2726,8 +2726,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Setup emojis view
         self.emojis_model = EmojisModel()
-        self.emojiListView = EmojisListView(self.emojis_model)
         self.emojis_model.update_model()
+        self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
         # Set up status bar
