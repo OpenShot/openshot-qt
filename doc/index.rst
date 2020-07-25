@@ -36,7 +36,7 @@ Table of Contents:
    introduction
    getting_started
    quick_tutorial
-   in-depth_attrbutes
+   in-depth_attributes
    definitions
    main_window
    files
