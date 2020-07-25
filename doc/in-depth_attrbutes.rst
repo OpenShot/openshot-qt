@@ -16,9 +16,7 @@
 
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
-
 .. _in-depth_attributes_ref:
-
 In-depth Attributes
 ===================
 
@@ -31,10 +29,10 @@ System Requirements
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
 
 .. list-table::
-   :header-rows: 0
+   :header-rows: 1
 
-   * - **Minimum System Requirements**
-     - ***Recommended System Requirements***
+   * - Minimum System Requirements
+     - Recommended System Requirements
    * - System Memory
         | 4 GB RAM
      - System Memory 
@@ -59,10 +57,10 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
         | NVIDIA GeForce
    * - 64-bit Operating System 
         | Linux Kernel 4.15+
-        | Mac OS X 10.9.5+ 
+        | Mac OS X 10.9+ 
         | Microsoft Windows 7/8/8.1/10 
      - 64-bit Operating System
-        | Linux Kernel 5.7+ (*Preferred OS*)
+        | Linux Kernel 5.7+
         | Mac OS X 10.15+
         | Microsoft Windows 10+
    * - Display Screen
