@@ -37,6 +37,7 @@ Table of Contents:
    getting_started
    quick_tutorial
    in-depth_attrbutes
+   definitions
    main_window
    files
    clips
