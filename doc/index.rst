@@ -37,7 +37,6 @@ Table of Contents:
    getting_started
    quick_tutorial
    in-depth_attributes
-   definitions
    main_window
    files
    clips
@@ -46,6 +45,8 @@ Table of Contents:
    titles
    profiles
    import_export
-   developers
    contributing
+   developers
    learn_more
+   glossary
+   index
