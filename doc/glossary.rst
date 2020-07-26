@@ -17,7 +17,7 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-Definitions
+Glossary
 ===========
 Animation:
    The technique of making inanimate objects or drawings appear to move in motion pictures or computer graphics.
