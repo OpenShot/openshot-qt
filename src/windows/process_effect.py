@@ -372,7 +372,21 @@ class ProcessEffect(QDialog):
             # Get processing start frame
             print(self.context["region"])
             jsonString +=',"first_frame": %d' % (self.context["region"]["first-frame"])
-        
+
+        # Special case where more info is needed for the JSON string
+        if self.effect_name == "Object Detector":
+            modelweightsPath = self.context["model-weights"]
+            jsonString += ', "model_weights": "%s"' % modelweightsPath
+
+            modelConfigPath = self.context["model-config"]
+            jsonString += ', "model_configuration": "%s"' % modelConfigPath
+                
+            classNamesPath = self.context["class-names"]
+            jsonString += ', "classes_file": "%s"' % classNamesPath
+
+            processingDevice  = self.context["processing-device"]
+            jsonString += ', "processing_device": "%s"' % processingDevice
+
         # Finish JSON string
         jsonString+='}'
         return jsonString

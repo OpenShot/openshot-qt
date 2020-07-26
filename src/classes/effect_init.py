@@ -150,5 +150,42 @@ effect_options = {
             "value": 30,
             "type": "spinner"
         }
+    ],
+
+    "Object Detector": [
+        {
+            "value": "../yolo/yolov3.weights",
+            "title": "Model Weights",
+            "type": "text",
+            "setting": "model-weights"
+        },
+        {
+            "value": "../yolo/yolov3.cfg",
+            "title": "Model Config",
+            "type": "text",
+            "setting": "model-config"
+        },
+        {
+            "value": "../yolo/obj.names",
+            "title": "Class names",
+            "type": "text",
+            "setting": "class-names"
+        },
+        {
+            "title": "Processing Device",
+            "setting": "processing-device",
+            "value": "GPU",
+            "values": [
+                {
+                    "value": "GPU",
+                    "name": "GPU"
+                },
+                {
+                    "value": "CPU",
+                    "name": "CPU"
+                }
+            ],
+            "type": "dropdown",
+        }
     ]
 }

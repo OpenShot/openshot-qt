@@ -2958,10 +2958,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"])):
                 log.info("Applying effect to clip")
                 log.info(clip)
-
+                print(name)
+                print(effect_options)
                 # Handle custom effect dialogs
                 if name in effect_options:
-
+                    
                     # Get effect options
                     effect_params = effect_options.get(name)
 
