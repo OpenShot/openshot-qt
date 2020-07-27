@@ -195,7 +195,7 @@ class ProcessEffect(QDialog):
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
         self.effect = None
-        
+
     def spinner_value_changed(self, widget, param, value):
         """Spinner value change callback"""
         self.context[param["setting"]] = value
@@ -250,20 +250,21 @@ class ProcessEffect(QDialog):
                 viewPortSize = win.viewport_rect
 
                 # Get QImage of region
-                region_qimage = win.videoPreview.region_qimage
+                if win.videoPreview.region_qimage:
+                    region_qimage = win.videoPreview.region_qimage
 
-                # Resize QImage to match button size
-                resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+                    # Resize QImage to match button size
+                    resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
 
-                # Draw Qimage onto QPushButton (to display region selection to user)
-                palette = widget.palette()
-                palette.setBrush(widget.backgroundRole(), QBrush(resized_qimage))
-                widget.setFlat(True)
-                widget.setAutoFillBackground(True)
-                widget.setPalette(palette)
+                    # Draw Qimage onto QPushButton (to display region selection to user)
+                    palette = widget.palette()
+                    palette.setBrush(widget.backgroundRole(), QBrush(resized_qimage))
+                    widget.setFlat(True)
+                    widget.setAutoFillBackground(True)
+                    widget.setPalette(palette)
 
-                # Remove button text (so region QImage is more visible)
-                widget.setText("")
+                    # Remove button text (so region QImage is more visible)
+                    widget.setText("")
 
                 # If data found, add to context
                 if topLeft and bottomRight:
@@ -326,18 +327,17 @@ class ProcessEffect(QDialog):
             # if the cancel button was pressed, close the processing thread
             if(self.cancel_clip_processing):
                 processing.CancelProcessing()
+                break
 
         if(not self.cancel_clip_processing):
-        
+
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
             self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
             self.effect.Id(ID)
-            
-            print("Applied effect: %s to clip: %s" % (self.effect_name, self.clip_instance.Id()))
 
-        # Accept dialog
-        super(ProcessEffect, self).accept()
+            # Accept dialog
+            super(ProcessEffect, self).accept()
 
     def reject(self):
         # Cancel dialog
@@ -364,7 +364,7 @@ class ProcessEffect(QDialog):
             trackerType = self.context["tracker-type"]
             jsonString += ',"tracker_type": "%s"' % trackerType
 
-            # Get bounding box coordinates 
+            # Get bounding box coordinates
             tracker_dict = self.context["region"]
             bbox = (tracker_dict["x"],tracker_dict["y"],tracker_dict["width"],tracker_dict["height"])
             jsonString += ',"bbox": {"x": %d, "y": %d, "w": %d, "h": %d}' % (bbox)
@@ -380,7 +380,7 @@ class ProcessEffect(QDialog):
 
             modelConfigPath = self.context["model-config"]
             jsonString += ', "model_configuration": "%s"' % modelConfigPath
-                
+
             classNamesPath = self.context["class-names"]
             jsonString += ', "classes_file": "%s"' % classNamesPath
 

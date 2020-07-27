@@ -367,9 +367,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Save region image data (as QImage)
         # This can be used other widgets to display the selected region
         if self.region_enabled:
-            # Find centered viewport
-            viewport_rect = self.centeredViewport(self.width(), self.height())
-
             # Get region coordinates
             region_rect = QRectF(self.regionTopLeftHandle.x(), self.regionTopLeftHandle.y(),
                                  self.regionBottomRightHandle.x() - self.regionTopLeftHandle.x(),
@@ -378,9 +375,19 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Map region (due to zooming)
             mapped_region_rect = self.region_transform.mapToPolygon(region_rect.toRect()).boundingRect()
 
-            # Create QImage from videoPreview widget
-            self.region_qimage = QImage(mapped_region_rect.width(), mapped_region_rect.height(), QImage.Format_ARGB32)
+            # Render a scaled version of the region (as a QImage)
+            # TODO: Grab higher quality pixmap from the QWidget, as this method seems to be 1/2 resolution
+            # of the original QWidget video element.
+            scale = 3.0
+
+            # Map rect to transform (for scaling video elements)
+            mapped_region_rect = QRect(mapped_region_rect.x(), mapped_region_rect.y(), mapped_region_rect.width() * scale, mapped_region_rect.height() * scale)
+
+            # Render QWidget onto scaled QImage
+            self.region_qimage = QImage(mapped_region_rect.width(), mapped_region_rect.height(), QImage.Format_RGBA8888)
             region_painter = QPainter(self.region_qimage)
+            region_painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
+            region_painter.scale(scale, scale)
             self.render(region_painter, QPoint(0,0), QRegion(mapped_region_rect, QRegion.Rectangle))
             region_painter.end()
 
