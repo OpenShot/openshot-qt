@@ -21,6 +21,8 @@ Glossary
 ===========
 There is much technical terminology in today’s fast-moving media-centric world.  If you find yourself wondering what a video production term or an acronym means, you are certainly not alone.  Like most industries, video production has a language all its own. Here is a brief list of video editing terms commonly found in editing. Becoming familiar with these terms only makes your job easier.
 
+.. image:: images/ui-example.jpg
+
 Definitions
 -----------
 Alpha:
