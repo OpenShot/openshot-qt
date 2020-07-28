@@ -263,11 +263,12 @@ class FilesModel(QObject, updates.UpdateInterface):
             (dir_path, filename) = os.path.split(filepath)
 
             # Check for this path in our existing project data
-            file = File.get(path=filepath)
+            new_file = File.get(path=filepath)
 
             # If this file is already found, exit
-            if file:
-                return
+            if new_file:
+                del new_file
+                continue
 
             try:
                 # Load filepath in libopenshot clip object (which will try multiple readers to open it)
@@ -289,8 +290,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                     file_data["media_type"] = "video"
 
                 # Save new file to the project data
-                file = File()
-                file.data = file_data
+                new_ile = File()
+                new_file.data = file_data
 
                 # Is this an image sequence / animation?
                 seq_info = image_seq_details or self.get_image_sequence_details(filepath)
@@ -315,16 +316,16 @@ class FilesModel(QObject, updates.UpdateInterface):
                     folderName = os.path.basename(folder_path)
                     if not base_name:
                         # Give alternate name
-                        file.data["name"] = "%s (%s)" % (folderName, pattern)
+                        new_file.data["name"] = "%s (%s)" % (folderName, pattern)
 
                     # Load image sequence (to determine duration and video_length)
                     image_seq = openshot.Clip(os.path.join(folder_path, pattern))
 
                     # Update file details
-                    file.data["path"] = os.path.join(folder_path, pattern)
-                    file.data["media_type"] = "video"
-                    file.data["duration"] = image_seq.Reader().info.duration
-                    file.data["video_length"] = image_seq.Reader().info.video_length
+                    new_file.data["path"] = os.path.join(folder_path, pattern)
+                    new_file.data["media_type"] = "video"
+                    new_file.data["duration"] = image_seq.Reader().info.duration
+                    new_file.data["video_length"] = image_seq.Reader().info.video_length
 
                     log.info('Imported {} as image sequence {}'.format(
                         filepath, pattern))
@@ -342,7 +343,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                     log.info("Imported media file {}".format(filepath))
 
                 # Save file
-                file.save()
+                new_file.save()
 
                 prev_path = app.project.get("import_path")
                 if dir_path != prev_path:
