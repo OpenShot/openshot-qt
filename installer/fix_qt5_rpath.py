@@ -3,44 +3,27 @@ import os
 import subprocess
 from subprocess import call
 
-# # Symbolic Link Qt Frameworks into Python3/PyQt5 Framework
-# # IMPORTANT to run after installing PyQt5
-# PATH = "/usr/local/qt5/5.5/clang_64/lib"
-#
-# # Find files matching patterns
-# for file in os.listdir(PATH):
-#     if file.endswith(".framework"):
-#         file_path = os.path.join(PATH, file)
-#         file_parts = file_path.split("/")
-#         print(os.path.join("/Library/Frameworks/Python.framework/Versions/3.5/lib", file_parts[-1]))
-#         call(["ln", "-s", file_path, os.path.join("/Library/Frameworks/Python.framework/Versions/3.6/lib", file_parts[-1])])
+# Symbolic Link Qt Frameworks into Python3/PyQt5 Framework
+# IMPORTANT to run after installing PyQt5
+PATH = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/lib"
 
+# Find files matching patterns
+for file in os.listdir(PATH):
+    if file.endswith(".framework"):
+        file_path = os.path.join(PATH, file)
+        file_parts = file_path.split("/")
+        new_path = os.path.join("/Library/Frameworks/Python.framework/Versions/3.6/lib", file_parts[-1])
+        print(new_path)
+        if os.path.exists(new_path):
+            # Remove old sym links
+            os.unlink(new_path)
 
+        # Create new symlink to Qt frameworks
+        call(["ln", "-s", file_path, new_path])
 
-# # Find files matching patterns
-# for root, dirs, files in os.walk(PATH):
-#     for basename in files:
-#         file_path = os.path.join(root, basename)
-#         file_parts = file_path.split("/")
-#
-#         if "framework" in file_path and file_parts[-2] == "5" and "_debug" not in file_path:
-#             print ("\nFixing %s" % file_path)
-#             #print ("install_name_tool %s -id %s" % (file_path, file_path))
-#             #call(["install_name_tool", file_path, "-id", file_path])
-#
-#             raw_output = subprocess.Popen(["oTool", "-L", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
-#             if not "is not an object file" in raw_output:
-#                 for output in raw_output.split("\n")[1:-1]:
-#                     dependency_path = output.split('\t')[1].split(' ')[0]
-#                     dependency_version = output.split('\t')[1].split(' (')[1].replace(')','')
-#
-#                     if "@rpath" in dependency_path:
-#                         command = 'install_name_tool "%s" -change "%s" "%s"' % (file_path, dependency_path, dependency_path.replace("@rpath", PATH))
-#                         print (command)
-#                         #call(["install_name_tool", file_path, "-change", dependency_path, dependency_path.replace("@rpath", PATH)])
 
 # FIX PyQt5 library paths
-# This is not required anymore (leaving here as an example)
+# This is NOT required anymore (leaving here as an example)
 PATH = "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/PyQt5/"
 
 # Find files matching patterns
@@ -65,5 +48,3 @@ for root, dirs, files in os.walk(PATH):
                         command = 'install_name_tool "%s" -change "%s" "%s"' % (file_path, dependency_path, dependency_path.replace("@rpath", os.path.join(PATH, "lib")))
                         print (command)
                         call(["install_name_tool", file_path, "-change", dependency_path, dependency_path.replace("@rpath", os.path.join(PATH, "lib"))])
-
-
