@@ -842,6 +842,8 @@ class Export(QDialog):
             # Re-update the timeline FPS again (since the timeline just got clobbered)
             self.updateFrameRate()
 
+        seconds_run = 0
+
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
@@ -903,7 +905,7 @@ class Export(QDialog):
 
             # Notify window of export started
             title_message = ""
-            frame_start, = video_settings.get("start_frame")
+            frame_start = video_settings.get("start_frame")
             frame_end = video_settings.get("end_frame")
             get_app().window.ExportStarted.emit(export_file_path, frame_start, frame_end)
 
@@ -912,32 +914,23 @@ class Export(QDialog):
 
             # Write each frame in the selected range
             for frame in range(frame_start, frame_end + 1):
-                # Write the frame object to the video
-                w.WriteFrame(self.timeline.GetFrame(frame))
-
-                # Check if we need to bail out
-                if not self.exporting:
-                    break
 
                 # Update progress bar (emit signal to main window)
-                if frame != frame_end and (frame % progressstep) != 0:
-                    continue
+                if (frame % progressstep) == 0:
+                    export_duration = time.time() - start_time_export
 
-                export_duration = time.time() - start_time_export
-
-                if frame == frame_end:
-                    title_message = _("Finalizing video export, please wait...")
-                elif frame > frame_start and export_duration > 0:
-                    seconds_left = round(
-                        export_duration * (frame - frame_end) / (frame - frame_start))
-                    fps_encode = (frame - frame_start) / export_duration
-
-                    title_message = _(
-                        "%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % {
-                            'hours': seconds_left / 3600,
-                            'minutes': (seconds_left / 60) % 60,
-                            'seconds': seconds_left % 60,
-                            'fps': fps_encode}
+                    if frame - frame_start != 0 and export_duration != 0:
+                        seconds_left = round(-export_duration * (frame - frame_end) / (frame - frame_start))
+                        fps_encode = (frame - frame_start) / export_duration
+                        if frame == frame_end:
+                            title_message = _("Finalizing video export, please wait...")
+                        else:
+                            title_message = _(
+                                "%(hours)d:%(minutes)02d:%(seconds)02d Remaining (%(fps)5.2f FPS)") % {
+                                    'hours': seconds_left / 3600,
+                                    'minutes': (seconds_left / 60) % 60,
+                                    'seconds': seconds_left % 60,
+                                    'fps': fps_encode}
 
                     # Emit frame exported
                     get_app().window.ExportFrame.emit(
@@ -946,6 +939,12 @@ class Export(QDialog):
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
 
+                # Write the frame object to the video
+                w.WriteFrame(self.timeline.GetFrame(frame))
+
+                # Check if we need to bail out
+                if not self.exporting:
+                    break
             # Close writer
             w.Close()
 

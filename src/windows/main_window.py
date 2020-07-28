@@ -916,7 +916,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.error("Unable to open the download page: {}".format(str(ex)))
 
     def actionPlay_trigger(self, checked, force=None):
-        timeline = app.window.timeline_sync.timeline
+        timeline = get_app().window.timeline_sync.timeline
         fps = timeline.info.fps.ToFloat()
         clips = timeline.Clips()
 
@@ -1008,7 +1008,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionJumpEnd_trigger(self, event):
         log.debug("actionJumpEnd_trigger")
 
-        timeline = app.window.timeline_sync.timeline
+        timeline = get_app().window.timeline_sync.timeline
         fps = timeline.info.fps.ToFloat()
         clips = timeline.Clips()
 
