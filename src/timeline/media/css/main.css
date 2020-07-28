@@ -304,8 +304,14 @@ img {
   margin-right: 1px;
 }
 
-.razor_cursor {
-  cursor: url(../images/razor_line_with_razor.png), default !important;
+/* Overspecify to override all other cursor: styling */
+.razor_cursor,
+.clip.razor_cursor,
+.transition.razor_cursor,
+.menu.razor_cursor,
+.track.razor_cursor,
+.playhead.razor_cursor {
+  cursor: url(../images/razor_cursor.svg), url(../images/razor_cursor.png), default;
 }
 
 .clip {
@@ -318,7 +324,7 @@ img {
   margin-top: 0;
   left: 100px;
   font-size: 9pt;
-  background-color: #ef7f00;
+  background: #ef7f00;  /* fallback */
   background:
     -webkit-gradient(
       linear, left top, left bottom,
