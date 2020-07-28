@@ -40,11 +40,11 @@ $(document).ready(function () {
   // Check for Qt Integration
   new QWebChannel(qt.webChannelTransport, function (channel) {
     timeline = channel.objects.timeline;
-    timeline.qt_log2("INFO", "Qt Ready");
+    timeline.qt_log("INFO", "Qt Ready");
 
     // Only enable Qt once Angular as initialized
     angular.element(document).ready(function () {
-      timeline.qt_log2("INFO", "Angular Ready");
+      timeline.qt_log("INFO", "Angular Ready");
       body_object.scope().enableQt();
     });
 
@@ -72,7 +72,7 @@ $(document).ready(function () {
   body_object.keydown(function (event) {
     if (event.which === 16) {
       if (timeline) {
-        timeline.qt_log2("DEBUG", "Shift pressed!");
+        timeline.qt_log("DEBUG", "Shift pressed!");
       }
       body_object.scope().shift_pressed = true;
     }
@@ -81,7 +81,7 @@ $(document).ready(function () {
   body_object.keyup(function (event) {
     if (event.which === 16) {
       if (timeline) {
-        timeline.qt_log2("DEBUG", "Shift released!");
+        timeline.qt_log("DEBUG", "Shift released!");
       }
       body_object.scope().shift_pressed = false;
     }

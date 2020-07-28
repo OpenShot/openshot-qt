@@ -2718,12 +2718,8 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         # Remove from main window
         self.window.removeSelection(item_id, item_type)
 
-    @pyqtSlot(str)
-    def qt_log(self, message=None):
-        log.info(message)
-
     @pyqtSlot(str, str)
-    def qt_log2(self, level="INFO", message=None):
+    def qt_log(self, level="INFO", message=None):
         levels = {
             "DEBUG": logging.DEBUG,
             "INFO": logging.INFO,
@@ -3129,7 +3125,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
         # Get settings & logger
         self.settings_obj = settings.get_settings()
-        self.log_fn = log
+        self.log_fn = log.log
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)

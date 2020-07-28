@@ -38,6 +38,10 @@ jobs:
       os: linux
       dist: bionic
       python: 3.6
+    - name: "Python 3.8 (Ubuntu 20.04 Focal)"
+      os: linux
+      dist: focal
+      python: 3.8
 
 install:
   - pip3 install 'cx-freeze==6.1'
