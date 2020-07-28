@@ -47,10 +47,13 @@ from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.query import File, Clip, Transition, Marker, Track
-from classes.metrics import *
-from classes.version import *
-from classes.conversion import zoomToSeconds, secondsToZoom
+from classes.query import Clip, Transition, Marker, Track
+from classes.metrics import (
+    track_metric_session, track_metric_screen,
+    track_metric_error, track_exception_stacktrace,
+    )
+from classes.version import get_current_Version
+from classes.conversion import zoomToSeconds, secondsToZoom, getMaxTime
 from classes.thumbnail import httpThumbnailServerThread
 from images import openshot_rc
 from windows.models.files_model import FilesModel
@@ -755,7 +758,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             return False
 
-    def actionAdd_to_Timeline_trigger(self, event):
+    def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files
         files = self.selected_files()
 
@@ -912,20 +915,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page: {}".format(str(ex)))
 
-    def actionPlay_trigger(self, event, force=None):
+    def actionPlay_trigger(self, checked, force=None):
+        timeline = app.window.timeline_sync.timeline
+        fps = timeline.info.fps.ToFloat()
+        clips = timeline.Clips()
 
-        # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        timeline_length_int = round(timeline_length * fps) + 1
+        timeline_length = getMaxTime(clips, fps, frames=True)
 
         if force == "pause":
             self.actionPlay.setChecked(False)
@@ -934,7 +929,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         if self.actionPlay.isChecked():
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.PlaySignal.emit(timeline_length_int)
+            self.PlaySignal.emit(timeline_length)
 
         else:
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
@@ -1005,29 +1000,22 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPlay.trigger()
 
     def actionJumpStart_trigger(self, event):
-        log.info("actionJumpStart_trigger")
+        log.debug("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
     def actionJumpEnd_trigger(self, event):
-        log.info("actionJumpEnd_trigger")
+        log.debug("actionJumpEnd_trigger")
 
-        # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
+        timeline = app.window.timeline_sync.timeline
+        fps = timeline.info.fps.ToFloat()
+        clips = timeline.Clips()
 
-        # Convert to int and round
-        timeline_length_int = round(timeline_length * fps) + 1
+        timeline_length = getMaxTime(clips, fps, frames=True)
 
         # Seek to the 1st frame
-        self.SeekSignal.emit(timeline_length_int)
+        self.SeekSignal.emit(timeline_length)
 
     def actionSaveFrame_trigger(self, event):
         log.info("actionSaveFrame_trigger")
@@ -1347,15 +1335,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             positions.append(clip_stop_time)
 
             # add all keyframes
-            for property in obj.data :
-                try :
-                    for point in obj.data[property]["Points"] :
+            for property in obj.data:
+                try:
+                    for point in obj.data[property]["Points"]:
                         keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
-                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
+                        if clip_start_time < keyframe_time < clip_stop_time:
                             positions.append(keyframe_time)
                 except (TypeError, KeyError):
                     pass
-
 
             # Add all Effect keyframes
             if "effects" in obj.data:
@@ -1364,14 +1351,19 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                         try:
                             for point in effect_data[property]["Points"]:
                                 keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
-                                if keyframe_time > clip_start_time and keyframe_time < clip_stop_time:
+                                if clip_start_time < keyframe_time < clip_stop_time:
                                     positions.append(keyframe_time)
                         except (TypeError, KeyError):
                             pass
 
             return positions
 
-        all_marker_positions = []
+        # We can always jump to the beginning of the timeline
+        all_marker_positions = [0]
+
+        # If nothing is selected, also add the end of the last clip
+        if not self.selected_clips + self.selected_transitions:
+            all_marker_positions.append(getMaxTime(Clip.filter()))
 
         # Get list of marker and important positions (like selected clip bounds)
         for marker in Marker.filter():
