@@ -334,6 +334,17 @@ elif sys.platform == "darwin":
     iconFile += ".hqx"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
+    # Add QtWebEngineProcess (if found)
+    qt_install_path = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/lib/QtWebEngineCore.framework/Versions/5/"
+    web_process_path = os.path.join(qt_install_path, "Helpers", "QtWebEngineProcess")
+    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+
+    # Add QtWebEngineProcess Resources & Local
+    for filename in find_files(os.path.join(qt_install_path, "Resources"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt_install_path)))
+    for filename in find_files(os.path.join(qt_install_path, "Resources", "qtwebengine_locales"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt_install_path)))
+
 # Append all source files
 src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
 for filename in find_files("openshot_qt", ["*"]):
