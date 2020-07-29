@@ -195,7 +195,7 @@ class ProcessEffect(QDialog):
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
         self.effect = None
-
+        
     def spinner_value_changed(self, widget, param, value):
         """Spinner value change callback"""
         self.context[param["setting"]] = value
@@ -327,15 +327,14 @@ class ProcessEffect(QDialog):
             # if the cancel button was pressed, close the processing thread
             if(self.cancel_clip_processing):
                 processing.CancelProcessing()
-                break
 
         if(not self.cancel_clip_processing):
-
+        
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
             self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
             self.effect.Id(ID)
-
+            
             # Accept dialog
             super(ProcessEffect, self).accept()
 
@@ -364,7 +363,7 @@ class ProcessEffect(QDialog):
             trackerType = self.context["tracker-type"]
             jsonString += ',"tracker_type": "%s"' % trackerType
 
-            # Get bounding box coordinates
+            # Get bounding box coordinates 
             tracker_dict = self.context["region"]
             bbox = (tracker_dict["x"],tracker_dict["y"],tracker_dict["width"],tracker_dict["height"])
             jsonString += ',"bbox": {"x": %d, "y": %d, "w": %d, "h": %d}' % (bbox)
@@ -375,15 +374,26 @@ class ProcessEffect(QDialog):
 
         # Special case where more info is needed for the JSON string
         if self.effect_name == "Object Detector":
+
+            # Get model weights path
             modelweightsPath = self.context["model-weights"]
+            if not os.path.exists(modelweightsPath):
+                modelweightsPath = ""
             jsonString += ', "model_weights": "%s"' % modelweightsPath
 
+            # Get model configuration path
             modelConfigPath = self.context["model-config"]
+            if not os.path.exists(modelConfigPath):
+                modelConfigPath = ""
             jsonString += ', "model_configuration": "%s"' % modelConfigPath
-
+                
+            # Get class names file path
             classNamesPath = self.context["class-names"]
+            if not os.path.exists(classNamesPath):
+                classNamesPath = ""
             jsonString += ', "classes_file": "%s"' % classNamesPath
 
+            # Get processing device
             processingDevice  = self.context["processing-device"]
             jsonString += ', "processing_device": "%s"' % processingDevice
 
