@@ -1915,6 +1915,11 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 right_clip.data.pop('id')
                 right_clip.key.pop(1)
 
+                for clip_propertie_name, propertie_value in right_clip.data.items() :
+                    if clip_propertie_name == "effects":
+                        for item in propertie_value:
+                            item['id'] = get_app().project.generate_id()
+
                 # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
                 right_clip.data["position"] = (round(float(playhead_position) * fps_float) + 1) / fps_float
                 right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
