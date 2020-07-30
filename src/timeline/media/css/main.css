@@ -490,13 +490,14 @@ img {
 }
 
 /* Hover states for the above */
+.timeline_obj:hover > .tl-border {
+  border-color: #4b92adff;
+}
+
 .ui-selected:hover > .tl-border {
   border-color: #ff0000ff;
 }
 
-.timeline_obj:hover > .tl-border {
-  border-color: #4b92adff;
-}
 
 /* XXX: The idea here is to raise the invisible resize handles
  * for selected items to a higher z-index than other objects
