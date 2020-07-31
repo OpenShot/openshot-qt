@@ -393,7 +393,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Change the razor mode
   $scope.setRazorMode = function (enable_razor) {
-    if ($scope.enable_razor != enable_razor) {
+    if ($scope.enable_razor !== enable_razor) {
       $scope.$apply(function () {
         $scope.toggleRazor();
       });
@@ -402,7 +402,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
   $scope.toggleRazor = function () {
     $scope.enable_razor = !$scope.enable_razor;
-    if (!!$scope.enable_razor) {
+    if ($scope.enable_razor) {
       $("body").addClass("razor_cursor");
     } else {
       $("body").removeClass("razor_cursor");

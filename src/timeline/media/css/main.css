@@ -488,7 +488,6 @@ img {
   border-color: #ff0000ff;
 }
 
-
 /* XXX: The idea here is to raise the invisible resize handles
  * for selected items to a higher z-index than other objects
  * on the timeline, especially other handles (they start at a
@@ -533,17 +532,18 @@ img {
 
 /* Overspecify to override all other cursor: styling */
 .razor_cursor,
-body.razor_cursor #track-container
-{
-  cursor: url(../images/razor_cursor1.svg) 0 12,
-  url(../images/razor_cursor1.png) 0 12,
-  default;
+body.razor_cursor #track-container {
+  cursor:
+    url(../images/razor_cursor1.svg) 0 12,
+    url(../images/razor_cursor1.png) 0 12,
+    default;
 }
 
 body.razor_cursor div.timeline_obj:hover {
-  cursor: url(../images/razor_cursor2.svg) 0 12,
-  url(../images/razor_cursor2.png) 0 12,
-  default;
+  cursor:
+    url(../images/razor_cursor2.svg) 0 12,
+    url(../images/razor_cursor2.png) 0 12,
+    default;
 }
 
 /* Scrollbar style */
