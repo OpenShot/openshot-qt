@@ -46,7 +46,6 @@ mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"; ln -s "../Resources/qt
 mv "$OS_PATH/MacOS/openshot.py" "$OS_PATH/Resources/openshot.py"; ln -s "../Resources/openshot.py" "$OS_PATH/MacOS/openshot.py";
 mv "$OS_PATH/MacOS/openshot-qt.hqx" "$OS_PATH/Resources/openshot-qt.hqx"; ln -s "../Resources/openshot-qt.hqx" "$OS_PATH/MacOS/openshot-qt.hqx";
 mv "$OS_PATH/MacOS/launch.py" "$OS_PATH/Resources/launch.py"; ln -s "../Resources/launch.py" "$OS_PATH/MacOS/launch.py";
-mv "$OS_PATH/MacOS/PyQt5.uic.widget-plugins" "$OS_PATH/Resources/PyQt5.uic.widget-plugins"; ln -s "../Resources/PyQt5.uic.widget-plugins" "$OS_PATH/MacOS/PyQt5.uic.widget-plugins";
 if [ -d "$OS_PATH/MacOS/python3.6" ]; then
   echo "Symlink python36.zip and python3.6 folder"
   mv "$OS_PATH/MacOS/python3.6" "$OS_PATH/Resources/python3.6"; ln -s "../../Resources/python3.6" "$OS_PATH/MacOS/lib/python3.6";

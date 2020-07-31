@@ -335,15 +335,20 @@ elif sys.platform == "darwin":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
     # Add QtWebEngineProcess (if found)
-    qt_install_path = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/lib/QtWebEngineCore.framework/Versions/5/"
-    web_process_path = os.path.join(qt_install_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
+    qt_install_path = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/"
+    qt_webengine_path = os.path.join(qt_install_path, "lib", "QtWebEngineCore.framework", "Versions", "5")
+    web_process_path = os.path.join(qt_webengine_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
+    web_core_path = os.path.join(qt_webengine_path, "QtWebEngineCore")
     external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    external_so_files.append((web_core_path, os.path.basename(web_core_path)))
 
     # Add QtWebEngineProcess Resources & Local
-    for filename in find_files(os.path.join(qt_install_path, "Resources"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=qt_install_path)))
-    for filename in find_files(os.path.join(qt_install_path, "Resources", "qtwebengine_locales"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=qt_install_path)))
+    for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt_webengine_path)))
+    for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt_webengine_path)))
+    for filename in find_files(os.path.join(qt_install_path, "plugins", "platforms"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))))
 
 # Append all source files
 src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
