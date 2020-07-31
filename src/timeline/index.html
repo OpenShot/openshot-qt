@@ -140,51 +140,53 @@
 		</div>
 
 
-		<!-- HIDDEN DEBUG SECTION -->
-		<script language="javascript">
+<!-- HIDDEN DEBUG SECTION -->
+<script language="javascript"></script>
 
-		</script>
-		
-		<div ng-show="!Qt" class="gear" ng-click="toggleDebug()">
-			<img src="media/images/gear.png" width="40">
-		</div>
+<div ng-show="!Qt" class="gear" ng-click="toggleDebug()">
+  <img src="media/images/gear.png" width="40">
+</div>
 
-		<div ng-show="debug" class="debug-window ui-corner-all">
-				<div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
-				<div class="debug-text ui-corner-all" style="width: 70%;">ACTIONS:<br><br>
-					<div>
-						<p>Add Clips:</p>
-						<input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips"/>
-    					<button ng-click="addClips(numClips)">add clips</button> <br/>
-
-	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-	    				<div>
-	    					<p>Scale:</p>
-	    					<input id="scaleVal" ng-model="project.scale" style="width:100px;"><br><br>
-	    					<div db-slider></div>
-	    				</div>
-	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-	    				<div>
-							<p>Add Marker:</p>
-							<input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker"/>
-	    					<button ng-click="addMarker(markLoc)">add marker</button> <br/>
-	    				</div>
-	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-						<div>
-							<p>Add Effect:</p>
-							<input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #"/>
-	    					<button ng-click="addEffect(clipNum)">add effect</button> <br/>
-	    				</div>
-	    				<div style="height:1px;background-color:#cfcfcf;margin:15px;"></div>
-						<div>
-							<p>Change clip image:</p>
-							<input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3"/>
-	    					<button ng-click="changeImage(startImage)">change img</button> <br/>
-	    				</div>
-					</div>
-					<div class="cleared"></div>
-				</div>
-		</div>
-		<!-- END DEBUG SECTION -->
+<div ng-show="debug" class="debug-window ui-corner-all">
+  <div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA:
+    <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre>
+  </div>
+  <div class="debug-text ui-corner-all" style="width: 70%;">
+    <h3>ACTIONS</h3>
+    <div style="width:auto; float:left;margin: 0 1em;">
+      <p>Add Clips: <button ng-click="addClips(numClips)">+</button><br>
+      <input type="text" name="numClips" ng-model="numClips" size="5" style="width:100px;" placeholder="# of clips" />
+      </p>
+    </div>
+    <div style="width:auto; float:left; margin:0 1em;">
+      <p>Add Marker: <button ng-click="addMarker(markLoc)">+</button><br>
+      <input type="text" name="markLoc" ng-model="markLoc" size="5" style="width:100px;" placeholder="loc of marker" />
+      </p>
+    </div>
+    <div style="width:auto; float:left; margin: 0 1em;">
+      <p>Add Effect: <button ng-click="addEffect(clipNum)">+</button><br>
+      <input type="text" name="clipNum" ng-model="clipNum" size="5" style="width:100px;" placeholder="clip #" />
+      </p>
+    </div>
+    <button ng-click="toggleRazor()">Razor {{enable_razor ? "On" : "Off"}}</button>
+    <div style="clear:both;height:1px;background-color:#cfcfcf;margin:15px;"></div>
+    <div style="margin: 0 1em;">
+      <p>Scale: <input id="scaleVal" ng-model="project.scale" style="width:3em;">
+        <span db-slider style="display:inline-block;width: 60%;vertical-align:center;"></span>
+      </p>
+    </div>
+    <div style="clear:both;height:1px;background-color:#cfcfcf;margin:15px;"></div>
+    <div style="width:auto; float:left; margin:0 1em;">
+        <p>Change clip image:<br>
+            <input type="text" name="startImage" ng-model="startImage" size="5" style="width:100px;" placeholder="start clip for #3" />
+            <button ng-click="changeImage(startImage)">change img</button>
+        </p>
+    </div>
+    <div style="clear:both;height:1px;background-color:#cfcfcf;margin:15px;"></div>
+  </div>
+  <div class="cleared"></div>
+</div>
+</div>
+<!-- END DEBUG SECTION -->
 </body>
 </html>

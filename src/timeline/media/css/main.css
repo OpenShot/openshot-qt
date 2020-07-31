@@ -304,16 +304,6 @@ img {
   margin-right: 1px;
 }
 
-/* Overspecify to override all other cursor: styling */
-.razor_cursor,
-.clip.razor_cursor,
-.transition.razor_cursor,
-.menu.razor_cursor,
-.track.razor_cursor,
-.playhead.razor_cursor {
-  cursor: url(../images/razor_cursor.svg), url(../images/razor_cursor.png), default;
-}
-
 .clip {
   cursor: move;
   z-index: 1000;
@@ -541,6 +531,21 @@ img {
   opacity: 0;
 }
 
+/* Overspecify to override all other cursor: styling */
+.razor_cursor,
+body.razor_cursor #track-container
+{
+  cursor: url(../images/razor_cursor1.svg) 0 12,
+  url(../images/razor_cursor1.png) 0 12,
+  default;
+}
+
+body.razor_cursor div.timeline_obj:hover {
+  cursor: url(../images/razor_cursor2.svg) 0 12,
+  url(../images/razor_cursor2.png) 0 12,
+  default;
+}
+
 /* Scrollbar style */
 ::-webkit-scrollbar {
   width: 0.9em;
@@ -560,4 +565,9 @@ img {
 
 ::-webkit-scrollbar-corner {
   background: none;
+}
+
+.debug input,
+.debug button {
+  vertical-align: baseline;
 }

@@ -23,7 +23,6 @@
     </qresource>
     <qresource prefix="/icons">
         <file>Humanity/actions/custom/arrow.png</file>
-        <file>Humanity/actions/custom/razor_line_with_razor.png</file>
         <file>Humanity/actions/custom/snapshot.png</file>
         <file>Humanity/actions/custom/snap.png</file>
         <file>Humanity/actions/custom/add_marker.png</file>
