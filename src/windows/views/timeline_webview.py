@@ -1915,6 +1915,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 right_clip.data.pop('id')
                 right_clip.key.pop(1)
 
+                # Generate new ID to effects on the right (so they become new ones)
                 for clip_propertie_name, propertie_value in right_clip.data.items() :
                     if clip_propertie_name == "effects":
                         for item in propertie_value:
@@ -2962,18 +2963,25 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         for clip in possible_clips:
             if js_position == 0 or (clip.data["position"] <= js_position <= clip.data["position"] + (clip.data["end"] - clip.data["start"])):
                 log.info("Applying effect to clip")
-                log.info(clip)
-                print(name)
-                print(effect_options)
                 # Handle custom effect dialogs
                 if name in effect_options:
-                    
+
                     # Get effect options
                     effect_params = effect_options.get(name)
 
                     # Show effect pre-processing window
                     from windows.process_effect import ProcessEffect
-                    win = ProcessEffect(clip.id, name, effect_params)
+
+                    try:
+                        win = ProcessEffect(clip.id, name, effect_params)
+
+                    except ModuleNotFoundError as e:
+                        print("[ERROR]: " + str(e))
+                        return
+
+                    print("Effect %s" % name)
+                    print("Effect options: %s" % effect_options)
+                    
                     # Run the dialog event loop - blocking interaction on this window during this time
                     result = win.exec_()
 
@@ -2985,6 +2993,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
 
                     # Create Effect
                     effect = win.effect # effect.Id already set
+
                     if effect is None:
                         break
                 else:

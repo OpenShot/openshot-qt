@@ -51,6 +51,9 @@ class ProcessEffect(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
     def __init__(self, clip_id, effect_name, effect_params):
+        
+        if not openshot.Clip().COMPILED_WITH_CV:
+            raise ModuleNotFoundError("Openshot not compiled with OpenCV")
 
         # Create dialog class
         QDialog.__init__(self)
@@ -59,6 +62,7 @@ class ProcessEffect(QDialog):
         self.effect_name = effect_name
         self.context = {}
 
+        # Access C++ timeline and find the Clip instance which this effect should be applied to
         timeline_instance = get_app().window.timeline_sync.timeline
         for clip_instance in timeline_instance.Clips():
             if clip_instance.Id() == self.clip_id:
@@ -195,7 +199,7 @@ class ProcessEffect(QDialog):
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
         self.effect = None
-        
+
     def spinner_value_changed(self, widget, param, value):
         """Spinner value change callback"""
         self.context[param["setting"]] = value
@@ -293,19 +297,11 @@ class ProcessEffect(QDialog):
         # Print effect settings
         log.info(self.context)
 
-        # DO WORK HERE, and periodically set progressBar value
-        # Access C++ timeline and find the Clip instance which this effect should be applied to
-
         # Create effect Id and protobuf data path
         ID = get_app().project.generate_id()
 
-        protobufFolderPath = os.path.join(info.PATH, '..', 'protobuf_data')
-        # Check if protobuf data folder exists, otherwise it will create one
-        if not os.path.exists(protobufFolderPath):
-            os.mkdir(protobufFolderPath)
-
         # Create protobuf data path
-        protobufPath = os.path.join(protobufFolderPath, ID + '.data')
+        protobufPath = os.path.join(info.PROTOBUF_DATA_PATH, ID + '.data')
 
         # Load into JSON string info abou protobuf data path
         jsonString = self.generateJson(protobufPath)
@@ -359,7 +355,7 @@ class ProcessEffect(QDialog):
         if self.effect_name == "Tracker":
 
             # Set tracker info in JSON string
-            # Get selected tracker [KCF, MIL, TLD, BOOSTING, MEDIANFLOW, GOTURN, MOOSE, CSRT]
+            # Get selected tracker [KCF, MIL, TLD, BOOSTING, MEDIANFLOW, MOOSE, CSRT]
             trackerType = self.context["tracker-type"]
             jsonString += ',"tracker_type": "%s"' % trackerType
 

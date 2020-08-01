@@ -30,8 +30,8 @@
 # solution to providing the pre-processing params needed for these special effects.
 
 effect_options = {
-    # TODO: Remove Bars example options
-    "Bars": [
+    # TODO: Remove Example example options
+    "Example": [
         {
             "title": "Region",
             "setting": "region",
@@ -123,10 +123,6 @@ effect_options = {
                 {
                     "value": "MEDIANFLOW",
                     "name": "MEDIANFLOW"
-                },
-                {
-                    "value": "GOTURN",
-                    "name": "GOTURN"
                 },
                 {
                     "value": "MOSSE",
