@@ -57,12 +57,14 @@ class StreamToLogger(object):
 # Create logger instance
 log = logging.Logger('OpenShot')
 
-# Set up a log formatter
-formatter = logging.Formatter('%(module)12s:%(levelname)s %(message)s', datefmt='%H:%M:%S')
+# Set up log formatters
+template = '%(levelname)s %(module)s: %(message)s'
+console_formatter = logging.Formatter(template)
+file_formatter = logging.Formatter('%(asctime)s ' + template, datefmt='%H:%M:%S')
 
 # Add normal stderr stream handler
 sh = logging.StreamHandler()
-sh.setFormatter(formatter)
+sh.setFormatter(console_formatter)
 sh.setLevel(info.LOG_LEVEL_CONSOLE)
 log.addHandler(sh)
 handlers['stream'] = sh
@@ -70,7 +72,7 @@ handlers['stream'] = sh
 # Add rotating file handler
 fh = logging.handlers.RotatingFileHandler(
     os.path.join(info.USER_PATH, 'openshot-qt.log'), encoding="utf-8", maxBytes=25*1024*1024, backupCount=3)
-fh.setFormatter(formatter)
+fh.setFormatter(file_formatter)
 fh.setLevel(info.LOG_LEVEL_FILE)
 log.addHandler(fh)
 handlers['file'] = fh
