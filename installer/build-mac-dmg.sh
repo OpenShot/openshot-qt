@@ -80,7 +80,7 @@ REQUEST_UUID="${BASH_REMATCH[1]}"
 echo " RequestUUID Found: $REQUEST_UUID"
 
 echo "Check Notarization Progress... (list recent notarization records)"
-xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
+xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | head -n 10
 
 echo "Check Notarization Info (loop until status detected)"
 # Wait up to 60 minutes for notarization status to change
@@ -99,11 +99,11 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
     fi
 
     # Wait a few seconds
-    sleep 30
+    sleep 60
 done
 
 echo "Check Notarization Progress... (list recent notarization records)"
-xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH"
+xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | head -n 10
 
 echo "Staple Notarization Ticket to DMG"
 xcrun stapler staple "build/$OS_DMG_NAME"
