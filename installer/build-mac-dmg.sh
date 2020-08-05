@@ -28,6 +28,7 @@ mv "$OS_PATH/MacOS/effects" "$OS_PATH/Resources/effects"; ln -s "../Resources/ef
 mv "$OS_PATH/MacOS/emojis" "$OS_PATH/Resources/emojis"; ln -s "../Resources/emojis" "$OS_PATH/MacOS/emojis";
 mv "$OS_PATH/MacOS/images" "$OS_PATH/Resources/images"; ln -s "../Resources/images" "$OS_PATH/MacOS/images";
 mv "$OS_PATH/MacOS/language" "$OS_PATH/Resources/language"; ln -s "../Resources/language" "$OS_PATH/MacOS/language";
+mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/qtwebengine_locales"; ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales";
 mv "$OS_PATH/MacOS/presets" "$OS_PATH/Resources/presets"; ln -s "../Resources/presets" "$OS_PATH/MacOS/presets";
 mv "$OS_PATH/MacOS/profiles" "$OS_PATH/Resources/profiles"; ln -s "../Resources/profiles" "$OS_PATH/MacOS/profiles";
 mv "$OS_PATH/MacOS/resources" "$OS_PATH/Resources/resources"; ln -s "../Resources/resources" "$OS_PATH/MacOS/resources";
@@ -52,6 +53,7 @@ find "build" \( -iname '*.dylib' -o -iname '*.so' \) -exec codesign -s "OpenShot
 
 echo "Code Sign App Bundle (deep)"
 codesign -s "OpenShot Studios, LLC" --force --deep --entitlements "installer/openshot.entitlements" --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
+codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/qtwebengine.entitlements" --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME/Contents/MacOS/QtWebEngineProcess"
 
 echo "Verifying App Signing"
 spctl -a -vv "build/$OS_APP_NAME"
