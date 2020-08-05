@@ -21,11 +21,6 @@ if [ ! -d "$OS_PATH/MacOS/lib" ]; then
   mkdir "$OS_PATH/MacOS/lib"
 fi
 
-if [ -f "$OS_PATH/MacOS/QtWebEngineCore" ]; then
-  echo "Removing unused QtWebEngineCore file"
-  rm "$OS_PATH/MacOS/QtWebEngineCore"
-fi
-
 echo "Symlink Non-Code Files to Resources"
 mv "$OS_PATH/MacOS/blender" "$OS_PATH/Resources/blender"; ln -s "../Resources/blender" "$OS_PATH/MacOS/blender";
 mv "$OS_PATH/MacOS/classes" "$OS_PATH/Resources/classes"; ln -s "../Resources/classes" "$OS_PATH/MacOS/classes";
