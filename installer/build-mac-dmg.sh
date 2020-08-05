@@ -93,7 +93,7 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
     [[ "$notarize_info" =~ $pat ]]
     notarize_status="${BASH_REMATCH[1]}"
 
-    if [ "$notarize_status" != "in progress" ]; then
+    if [ "$notarize_status" != "in progress" && "$notarize_status" != "" ]; then
       echo "Notarization Status Found: $notarize_status"
       break
     fi
