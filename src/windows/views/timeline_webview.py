@@ -180,10 +180,14 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few moments
-            if retries > 0 and retries % 5 == 0:
-               log.warning("WebEngine backend still not processing requests, queueing script.")
-            log.debug("TimelineWebView::run_js() called before document ready event. Script queued: %s" % code)
-            QTimer.singleShot(50, partial(self.run_js, code, callback, retries + 1))
+            if retries == 0:
+                # Log the script contents, the first time
+                log.debug("run_js() called before document ready event. Script queued: %s" % code)
+            elif retries % 5 == 0:
+                log.warning("WebEngine backend still not ready after {} retries.".format(retries))
+            else:
+                log.debug("Script queued, {} retries so far".format(retries))
+            QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))
             return None
         else:
             # Execute JS code
