@@ -372,8 +372,8 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             existing_item.data["start"] = transition_data["start"]
             existing_item.data["end"] = transition_data["end"]
 
-            log.info('transition start: %s' % transition_data["start"])
-            log.info('transition end: %s' % transition_data["end"])
+            log.debug('transition start: %s' % transition_data["start"])
+            log.debug('transition end: %s' % transition_data["end"])
 
             if brightness:
                 existing_item.data["brightness"] = brightness
@@ -395,7 +395,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
     # Javascript callable function to show clip or transition content menus, passing in type to show
     @pyqtSlot(float)
     def ShowPlayheadMenu(self, position=None):
-        log.info('ShowPlayheadMenu: %s' % position)
+        log.debug('ShowPlayheadMenu: %s' % position)
 
         # Get translation method
         _ = get_app()._tr
@@ -429,7 +429,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
-        log.info('ShowEffectMenu: %s' % effect_id)
+        log.debug('ShowEffectMenu: %s' % effect_id)
 
         # Set the selected clip (if needed)
         self.window.addSelection(effect_id, 'effect', True)
@@ -445,7 +445,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     @pyqtSlot(float, int)
     def ShowTimelineMenu(self, position, layer_id):
-        log.info('ShowTimelineMenu: position: %s, layer: %s' % (position, layer_id))
+        log.debug('ShowTimelineMenu: position: %s, layer: %s' % (position, layer_id))
 
         # Get translation method
         _ = get_app()._tr
@@ -469,7 +469,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
-        log.info('ShowClipMenu: %s' % clip_id)
+        log.debug('ShowClipMenu: %s' % clip_id)
 
         # Get translation method
         _ = get_app()._tr
@@ -939,7 +939,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         return menu.popup(QCursor.pos())
 
     def Transform_Triggered(self, action, clip_ids):
-        log.info("Transform_Triggered")
+        log.debug("Transform_Triggered")
 
         # Emit signal to transform this clip (for the 1st clip id)
         if clip_ids:
@@ -1020,7 +1020,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Split_Audio_Triggered(self, action, clip_ids):
         """Callback for split audio context menus"""
-        log.info("Split_Audio_Triggered")
+        log.debug("Split_Audio_Triggered")
 
         # Get translation method
         _ = get_app()._tr
@@ -1095,7 +1095,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
                 # Loop through each channel
                 for channel in range(0, channels):
-                    log.info("Adding clip for channel %s" % channel)
+                    log.debug("Adding clip for channel %s" % channel)
 
                     # Each clip is filtered to a different channel
                     p = openshot.Point(1, channel, openshot.CONSTANT)
@@ -1159,7 +1159,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Layout_Triggered(self, action, clip_ids):
         """Callback for the layout context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -1234,7 +1234,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Animate_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for the animate context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -1421,7 +1421,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Copy_Triggered(self, action, clip_ids, tran_ids):
         """Callback for copy context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Empty previous clipboard
         self.copy_clipboard = {}
@@ -1493,7 +1493,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
         """Callback for paste context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Get list of clipboard items (that are complete clips or transitions)
         # i.e. ignore partial clipboard items (keyframes / effects / etc...)
@@ -1605,7 +1605,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
         """Callback for clip nudges"""
-        log.info("Nudging clip(s) and/or transition(s)")
+        log.debug("Nudging clip(s) and/or transition(s)")
         left_edge = -1.0
         right_edge = -1.0
 
@@ -1616,7 +1616,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         nudgeDistance /= 2.0  # 1/2 frame
         if abs(nudgeDistance) < 0.01:
             nudgeDistance = 0.01 * action  # nudge is less than the minimum of +/- 0.01s
-        log.info("Nudging by %s sec" % nudgeDistance)
+        log.debug("Nudging by %s sec" % nudgeDistance)
 
         # Loop through each selected clip (find furthest left and right edge)
         for clip_id in clip_ids:
@@ -1692,7 +1692,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Align_Triggered(self, action, clip_ids, tran_ids):
         """Callback for alignment context menus"""
-        log.info(action)
+        log.debug(action)
 
         left_edge = -1.0
         right_edge = -1.0
@@ -1775,7 +1775,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Fade_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for fade context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Get FPS from project
         fps = get_app().project.get("fps")
@@ -2004,7 +2004,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Volume_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for volume context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Callback function, to redraw audio data after an update
         def callback(self, clip_id, callback_data):
@@ -2141,7 +2141,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Rotate_Triggered(self, action, clip_ids, position="Start of Clip"):
         """Callback for rotate context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -2181,7 +2181,7 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def Time_Triggered(self, action, clip_ids, speed="1X", playhead_position=0.0):
         """Callback for time context menus"""
-        log.info(action)
+        log.debug(action)
 
         # Get FPS from project
         fps = get_app().project.get("fps")
@@ -2219,8 +2219,9 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
                 if "original_data" in clip.data.keys():
                     original_duration = clip.data["original_data"]["duration"]
 
-                log.info('ORIGINAL DURATION: %s' % original_duration)
-                log.info(clip.data)
+                log.info('Updating timing for clip ID {}, original duration: {}'
+                    .format(clip.id, original_duration))
+                log.debug(clip.data)
 
                 # Extend end & duration (due to freeze)
                 clip.data["end"] = float(clip.data["end"]) + freeze_seconds
@@ -2979,8 +2980,8 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
                     <= js_position
                     <= clip.data["position"] + (clip.data["end"] - clip.data["start"])
                 ):
-                    log.info("Applying effect to clip")
-                    log.info(clip)
+                    log.info("Applying effect {} to clip ID {}".format(name, clip.id))
+                    log.debug(clip)
 
                     # Create Effect
                     effect = openshot.EffectInfo().CreateEffect(name)
@@ -3015,6 +3016,9 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
     def dropEvent(self, event):
         log.info("Dropping item on timeline - item_id: %s, item_type: %s" % (self.item_id, self.item_type))
 
+        # Accept event
+        event.accept()
+
         # Get position of cursor
         pos = event.posF()
 
@@ -3034,20 +3038,19 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             # Add clips for each file dropped
             for uri in event.mimeData().urls():
                 filepath = uri.toLocalFile()
-                if os.path.exists(filepath) and os.path.isfile(filepath):
-                    # Valid file, so create clip for it
-                    log.info('Adding clip for {}'.format(os.path.basename(filepath)))
-                    for file in File.filter(path=filepath):
-                        # Insert clip for this file at this position
-                        self.addClip([file.id], pos)
+                if not os.path.exists(filepath) or not os.path.isfile(filepath):
+                    continue
+
+                # Valid file, so create clip for it
+                log.debug('Adding clip for {}'.format(os.path.basename(filepath)))
+                for file in File.filter(path=filepath):
+                    # Insert clip for this file at this position
+                    self.addClip([file.id], pos)
 
         # Clear new clip
         self.new_item = False
         self.item_type = None
         self.item_id = None
-
-        # Accept event
-        event.accept()
 
         # Update the preview and reselct current frame in properties
         get_app().window.refreshFrameSignal.emit()
@@ -3055,7 +3058,11 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
     def dragLeaveEvent(self, event):
         """A drag is in-progress and the user moves mouse outside of timeline"""
-        log.info('dragLeaveEvent - Undo drop')
+        log.debug('dragLeaveEvent - Undo drop')
+
+        # Accept event
+        event.accept()
+
         if self.item_type == "clip":
             get_app().window.actionRemoveClip.trigger()
         elif self.item_type == "transition":
@@ -3066,12 +3073,9 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
         self.item_type = None
         self.item_id = None
 
-        # Accept event
-        event.accept()
-
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
-        log.info('redraw_audio_onTimeout')
+        log.debug('redraw_audio_onTimeout')
 
         # Stop timer
         self.redraw_audio_timer.stop()
