@@ -5,7 +5,7 @@ from subprocess import call
 
 # Symbolic Link Qt Frameworks into Python3/PyQt5 Framework
 # IMPORTANT to run after installing PyQt5
-PATH = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/lib"
+PATH = "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64/lib"
 
 # Find files matching patterns
 for file in os.listdir(PATH):
@@ -23,7 +23,7 @@ for file in os.listdir(PATH):
 
 # Symbolic Link Qt Frameworks into Python3/PyQt5 Framework
 # IMPORTANT to run after installing PyQt5
-PATH = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/lib"
+PATH = "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64/lib"
 
 # Find files matching patterns
 for file in os.listdir(PATH):

@@ -334,7 +334,7 @@ elif sys.platform == "darwin":
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
     # Add QtWebEngineProcess (if found)
-    qt_install_path = "/usr/local/qt5.12.x/Qt5.12.9/5.12.9/clang_64/"
+    qt_install_path = "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64/"
     qt_webengine_path = os.path.join(qt_install_path, "lib", "QtWebEngineCore.framework", "Versions", "5")
     web_process_path = os.path.join(qt_webengine_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
     web_core_path = os.path.join(qt_webengine_path, "QtWebEngineCore")
