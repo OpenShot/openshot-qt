@@ -80,7 +80,7 @@ class OpenShotApp(QApplication):
             log.info('Starting new session'.center(48))
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
-            from images import openshot_rc
+            from . import openshot_rc
             import openshot
 
             # Re-route stdout and stderr to logger

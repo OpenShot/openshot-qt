@@ -52,7 +52,7 @@ from classes.metrics import *
 from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
-from images import openshot_rc
+from classes import openshot_rc
 from windows.models.files_model import FilesModel
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
