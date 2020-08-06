@@ -346,7 +346,7 @@ elif sys.platform == "darwin":
         external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
     for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_install_path, "plugins", "platforms"), ["*"]):
+    for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))))
 
 # Append all source files

@@ -2,6 +2,7 @@
 import os
 import subprocess
 from subprocess import call
+import re
 
 # Symbolic Link Qt Frameworks into Python3/PyQt5 Framework
 # IMPORTANT to run after installing PyQt5
@@ -39,6 +40,7 @@ for file in os.listdir(PATH):
         # Create new symlink to Qt frameworks
         call(["ln", "-s", file_path, new_path])
 
+
 # FIX PyQt5 library paths
 # This is NOT required anymore (leaving here as an example)
 #PATH = "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/PyQt5/"
@@ -65,3 +67,23 @@ for file in os.listdir(PATH):
 #                        command = 'install_name_tool "%s" -change "%s" "%s"' % (file_path, dependency_path, dependency_path.replace("@rpath", os.path.join(PATH, "lib")))
 #                        print (command)
 #                        call(["install_name_tool", file_path, "-change", dependency_path, dependency_path.replace("@rpath", os.path.join(PATH, "lib"))])
+
+
+# Print ALL MINIMUM and SDK VERSIONS for files in OpenShot build folder
+# This does not list all dependent libraries though, and sometimes one of those can cause issues.
+# PATH = "/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/exe.macosx-10.6-intel-3.6"
+# REGEX_SDK_MATCH = re.compile(r'.*(LC_VERSION_MIN_MACOSX).*version (\d+\.\d+).*sdk (\d+\.\d+).*(cmd)', re.DOTALL)
+#
+# # Find files matching patterns
+# for root, dirs, files in os.walk(PATH):
+#    for basename in files:
+#        file_path = os.path.join(root, basename)
+#        file_parts = file_path.split("/")
+#
+#        raw_output = subprocess.Popen(["oTool", "-l", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
+#        matches = REGEX_SDK_MATCH.findall(raw_output)
+#        if matches and len(matches[0]) == 4:
+#            min_version = matches[0][1]
+#            sdk_version = matches[0][2]
+#            if min_version in ['10.14', '10.15']:
+#                print("%s: min: %s, sdk: %s" % (file_path, min_version, sdk_version))
