@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 
 from classes import settings
-from classes import info, ui_util, time_parts
+from classes import info, ui_util, time_parts, openshot_rc
 from classes.logger import log
 from classes.query import Track, Clip, Transition
 from classes.app import get_app

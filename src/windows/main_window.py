@@ -43,7 +43,7 @@ from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from windows.views.timeline_webview import TimelineWebView
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, openshot_rc, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
@@ -52,7 +52,6 @@ from classes.metrics import *
 from classes.version import *
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
-from classes import openshot_rc
 from windows.models.files_model import FilesModel
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
