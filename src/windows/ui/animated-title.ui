@@ -14,7 +14,7 @@
    <string>Animated Titles (Powered by Blender)</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../images/openshot.qrc">
+   <iconset resource="../../../images/openshot.qrc">
     <normaloff>:/about/blender.svg</normaloff>:/about/blender.svg</iconset>
   </property>
   <property name="autoFillBackground">
