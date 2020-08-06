@@ -347,7 +347,10 @@ elif sys.platform == "darwin":
     for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
     for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))))
+        relative_filepath = os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))
+        plugin_name = os.path.split(relative_filepath)[0]
+        if plugin_name not in ["sqldrivers", "playlistformats", "gamepads", "bearer"]:
+            external_so_files.append((filename, relative_filepath))
 
 # Append all source files
 src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
