@@ -1994,6 +1994,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             # Save changes (left side)
             self.update_transition_data(trans.data, only_basic_props=False)
 
+        # New parts of the Clip may be placed on track that has skip stream setting
+        get_app().window.upd_track_skipping()
+
     def Volume_Triggered(self, action, clip_ids, position="Entire Clip"):
         """Callback for volume context menus"""
         log.info(action)
