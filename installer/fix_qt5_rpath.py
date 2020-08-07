@@ -85,5 +85,6 @@ for file in os.listdir(PATH):
 #        if matches and len(matches[0]) == 4:
 #            min_version = matches[0][1]
 #            sdk_version = matches[0][2]
+#            print("min: %s\tsdk: %s\t%s" % (min_version, sdk_version, file_path))
 #            if min_version in ['10.14', '10.15']:
-#                print("%s: min: %s, sdk: %s" % (file_path, min_version, sdk_version))
+#                print("ERROR!!!! Minimum OS X version not met for %s" % file_path)
