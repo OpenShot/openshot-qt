@@ -77,7 +77,7 @@ def parse_new_changelog(changelog_path):
                 matches = re.findall(
                     r"^-\s?([0-9a-f]{40})\s(\d{4,4}-\d{2,2}-\d{2,2})\s(.*)\s\[(.*)\]\s*$",
                     changelog_file.read(), re.MULTILINE)
-                log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_file))
+                log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_path))
                 changelog_list = [{
                     "hash": entry[0],
                     "date": entry[1],
