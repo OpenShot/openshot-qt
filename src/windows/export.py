@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QIcon
 
 from classes import info
-from classes import ui_util
+from classes import ui_util, openshot_rc
 from classes import settings
 from classes.logger import log
 from classes.app import get_app

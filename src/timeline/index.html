@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="openshot-timeline">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<META name="author" content="OpenShot Studios, LLC">
-  		<META name="copyright" content="Copyright (c) 2008-2018 OpenShot Studios, LLC">
-  		<META name="license" content="GPLv3">
-		<link rel="icon" type="image/png" href="../images/openshot.png" />
-		<title>OpenShot Timeline</title>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <META name="author" content="OpenShot Studios, LLC">
+        <META name="copyright" content="Copyright (c) 2008-2018 OpenShot Studios, LLC">
+        <META name="license" content="GPLv3">
+        <link rel="icon" type="image/png" href="../images/openshot.png" />
+        <title>OpenShot Timeline</title>
+        
+        <!-- JQuery & Angular -->
+        <link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
+        <link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
+        <script type="text/javascript" src="media/js/jquery.js"></script>
+        <script type="text/javascript" src="media/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="media/js/angular.min.js"></script>
+        <script type="text/javascript" src="media/js/angular-animate.min.js"></script>
 		
-		<!-- JQuery & Angular -->
-		<link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
-		<link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
-		<script type="text/javascript" src="media/js/jquery.js"></script>
-		<script type="text/javascript" src="media/js/jquery-ui.js"></script>
-		<script type="text/javascript" src="media/js/angular.min.js"></script>
-		<script type="text/javascript" src="media/js/angular-animate.min.js"></script>
-		
-		<!-- OpenShot JavaScript Sources -->
-		<script type="text/javascript" src="app.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
+        <!-- OpenShot JavaScript Sources -->
+        <script type="text/javascript" src="js/qwebchannel.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
     	<script type="text/javascript" src="js/controllers.js"></script>
     	<script type="text/javascript" src="js/directives/ruler.js"></script>
     	<script type="text/javascript" src="js/directives/playhead.js"></script>
@@ -26,16 +27,15 @@
     	<script type="text/javascript" src="js/directives/clip.js"></script>
     	<script type="text/javascript" src="js/directives/transition.js"></script>
     	<script type="text/javascript" src="js/directives/misc.js"></script> 	
-		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
+        <script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
 
-		<!-- OpenShot StyleSheets -->
-		<link type="text/css" rel="stylesheet" href="media/css/main.css" />
-		<link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
-		
-		<!-- JQuery & Bootstrap StyleSheets -->
-		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
-	</head>
-	<body tl-body ng-controller="TimelineCtrl" ng-cloak>
+        <!-- OpenShot StyleSheets -->
+        <link type="text/css" rel="stylesheet" href="media/css/main.css" />
+        <link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
+        <!-- JQuery & Bootstrap StyleSheets -->
+        <link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
+</head>
+<body tl-body ng-controller="TimelineCtrl" ng-cloak>
 		
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
@@ -99,7 +99,7 @@
 					</div>
 					<br class="cleared">
 					<div ng-show="!clip.show_audio" class="thumb-container">
-						<img class="thumb thumb-start" ng-show="{{ getThumbPath(clip) }}" ng-src="{{ getThumbPath(clip) }}"/>
+						<img class="thumb thumb-start" ng-show="getThumbPath(clip)" ng-src="{{ getThumbPath(clip) }}"/>
 					</div>
 					<div ng-show="clip.show_audio" class="audio-container">
 						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
@@ -176,7 +176,7 @@
 				</div>
 		</div>
 		<!-- END DEBUG SECTION -->
-	</body>
+</body>
 </html>
 
 

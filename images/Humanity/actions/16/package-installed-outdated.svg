@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2714" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2716">
+  <linearGradient id="linearGradient2492" y2="1039.7" gradientUnits="userSpaceOnUse" x2="8" gradientTransform="translate(0 -1036.4)" y1="1052.4" x1="8">
+   <stop id="stop2418" style="stop-color:#fff" offset="0"/>
+   <stop id="stop2420" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2489-735-841" y2="1037.4" gradientUnits="userSpaceOnUse" x2="11.375" gradientTransform="translate(0 -1036.4)" y1="1051.4" x1="11.375">
+   <stop id="stop2650" style="stop-color:#767676" offset="0"/>
+   <stop id="stop2652" style="stop-color:#a8a8a8" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2487-569-96" y2="1050.3" gradientUnits="userSpaceOnUse" x2="5.6815" gradientTransform="translate(0 -1036.4)" y1="1038.6" x1="5.6815">
+   <stop id="stop2644" style="stop-color:#d2d2d2" offset="0"/>
+   <stop id="stop2646" style="stop-color:#9b9b9b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2483" y2="1051.4" gradientUnits="userSpaceOnUse" x2="8" gradientTransform="matrix(.84615 0 0 .84615 1.2308 -875.69)" y1="1037.4" x1="8">
+   <stop id="stop2436" style="stop-color:#fff" offset="0"/>
+   <stop id="stop2438" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <rect id="rect3180" style="opacity:.3;stroke:url(#linearGradient2492);fill:none" rx="3.0207" ry="3.0207" height="15" width="15" y=".49998" x=".5"/>
+  <rect id="rect7169" style="stroke:url(#linearGradient2489-735-841);fill:url(#linearGradient2487-569-96)" rx="2" ry="2" height="13" width="13" y="1.5" x="1.5"/>
+  <rect id="rect3419" style="opacity:.3;stroke:url(#linearGradient2483);fill:none" rx="1.0365" ry="1.0365" height="11" width="11" y="2.5" x="2.5"/>
+  <rect id="rect4230" style="opacity:.6" rx="1" ry="1" height="2" width="2" y="11" x="7"/>
+  <rect id="rect4232" style="opacity:.6" rx=".94366" ry="1" height="7" width="2" y="3" x="7"/>
+ </g>
+</svg>
