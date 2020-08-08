@@ -51,9 +51,6 @@ class ProcessEffect(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
     def __init__(self, clip_id, effect_name, effect_params):
-        
-        if not openshot.Clip().COMPILED_WITH_CV:
-            raise ModuleNotFoundError("Openshot not compiled with OpenCV")
 
         # Create dialog class
         QDialog.__init__(self)
@@ -68,6 +65,9 @@ class ProcessEffect(QDialog):
             if clip_instance.Id() == self.clip_id:
                 self.clip_instance = clip_instance
                 break
+        
+        if not clip_instance.COMPILED_WITH_CV:
+            super(ProcessEffect, self).reject()
 
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
@@ -199,7 +199,7 @@ class ProcessEffect(QDialog):
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
         self.effect = None
-
+        
     def spinner_value_changed(self, widget, param, value):
         """Spinner value change callback"""
         self.context[param["setting"]] = value

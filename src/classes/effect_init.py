@@ -30,8 +30,8 @@
 # solution to providing the pre-processing params needed for these special effects.
 
 effect_options = {
-    # TODO: Remove Example example options
-    "Example": [
+    # TODO: Remove Bars example options
+    "Bars": [
         {
             "title": "Region",
             "setting": "region",

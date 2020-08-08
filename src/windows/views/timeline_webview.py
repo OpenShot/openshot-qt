@@ -1915,6 +1915,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 right_clip.data.pop('id')
                 right_clip.key.pop(1)
 
+                # Generate new ID to effects on the right (so they become new ones)
                 for clip_propertie_name, propertie_value in right_clip.data.items() :
                     if clip_propertie_name == "effects":
                         for item in propertie_value:
@@ -2967,7 +2968,7 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
                 print(effect_options)
                 # Handle custom effect dialogs
                 if name in effect_options:
-                    
+
                     # Get effect options
                     effect_params = effect_options.get(name)
 
