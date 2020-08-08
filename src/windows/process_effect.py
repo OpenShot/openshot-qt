@@ -51,154 +51,155 @@ class ProcessEffect(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
     def __init__(self, clip_id, effect_name, effect_params):
+        if openshot.Clip().COMPILED_WITH_CV:
 
-        # Create dialog class
-        QDialog.__init__(self)
-        # Track effect details
-        self.clip_id = clip_id
-        self.effect_name = effect_name
-        self.context = {}
+            # Create dialog class
+            QDialog.__init__(self)
+            # Track effect details
+            self.clip_id = clip_id
+            self.effect_name = effect_name
+            self.context = {}
 
-        # Access C++ timeline and find the Clip instance which this effect should be applied to
-        timeline_instance = get_app().window.timeline_sync.timeline
-        for clip_instance in timeline_instance.Clips():
-            if clip_instance.Id() == self.clip_id:
-                self.clip_instance = clip_instance
-                break
-        
-        if not clip_instance.COMPILED_WITH_CV:
-            super(ProcessEffect, self).reject()
+            # Access C++ timeline and find the Clip instance which this effect should be applied to
+            timeline_instance = get_app().window.timeline_sync.timeline
+            for clip_instance in timeline_instance.Clips():
+                if clip_instance.Id() == self.clip_id:
+                    self.clip_instance = clip_instance
+                    break
 
-        # Load UI from designer & init
-        ui_util.load_ui(self, self.ui_path)
-        ui_util.init_ui(self)
+            # Load UI from designer & init
+            ui_util.load_ui(self, self.ui_path)
+            ui_util.init_ui(self)
 
-        # Update window title
-        self.setWindowTitle(self.windowTitle() % self.effect_name)
+            # Update window title
+            self.setWindowTitle(self.windowTitle() % self.effect_name)
 
-        # get translations
-        _ = get_app()._tr
+            # get translations
+            _ = get_app()._tr
 
-        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        get_app().window.actionPlay_trigger(None, force="pause")
+            # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
+            get_app().window.actionPlay_trigger(None, force="pause")
 
-        # Track metrics
-        track_metric_screen("process-effect-screen")
+            # Track metrics
+            track_metric_screen("process-effect-screen")
 
-        # Loop through options and create widgets
-        row_count = 0
-        for param in effect_params:
+            # Loop through options and create widgets
+            row_count = 0
+            for param in effect_params:
 
-            # Create Label
-            widget = None
-            label = QLabel()
-            label.setText(_(param["title"]))
-            label.setToolTip(_(param["title"]))
+                # Create Label
+                widget = None
+                label = QLabel()
+                label.setText(_(param["title"]))
+                label.setToolTip(_(param["title"]))
 
-            if param["type"] == "spinner":
-                # create QDoubleSpinBox
-                widget = QDoubleSpinBox()
-                widget.setMinimum(float(param["min"]))
-                widget.setMaximum(float(param["max"]))
-                widget.setValue(float(param["value"]))
-                widget.setSingleStep(1.0)
-                widget.setToolTip(param["title"])
-                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
+                if param["type"] == "spinner":
+                    # create QDoubleSpinBox
+                    widget = QDoubleSpinBox()
+                    widget.setMinimum(float(param["min"]))
+                    widget.setMaximum(float(param["max"]))
+                    widget.setValue(float(param["value"]))
+                    widget.setSingleStep(1.0)
+                    widget.setToolTip(param["title"])
+                    widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
 
-                # Set initial context
-                self.context[param["setting"]] = float(param["value"])
+                    # Set initial context
+                    self.context[param["setting"]] = float(param["value"])
 
-            if param["type"] == "rect":
-                # create QPushButton which opens up a display of the clip, with ability to select Rectangle
-                widget = QPushButton(_("Click to Select"))
-                widget.setMinimumHeight(80)
-                widget.setToolTip(param["title"])
-                widget.clicked.connect(functools.partial(self.rect_select_clicked, widget, param))
+                if param["type"] == "rect":
+                    # create QPushButton which opens up a display of the clip, with ability to select Rectangle
+                    widget = QPushButton(_("Click to Select"))
+                    widget.setMinimumHeight(80)
+                    widget.setToolTip(param["title"])
+                    widget.clicked.connect(functools.partial(self.rect_select_clicked, widget, param))
 
-                # Set initial context
-                self.context[param["setting"]] = {"button-clicked": False, "x": 0, "y": 0, "width": 0, "height": 0}
+                    # Set initial context
+                    self.context[param["setting"]] = {"button-clicked": False, "x": 0, "y": 0, "width": 0, "height": 0}
 
-            if param["type"] == "spinner-int":
-                # create QDoubleSpinBox
-                widget = QSpinBox()
-                widget.setMinimum(int(param["min"]))
-                widget.setMaximum(int(param["max"]))
-                widget.setValue(int(param["value"]))
-                widget.setSingleStep(1.0)
-                widget.setToolTip(param["title"])
-                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
+                if param["type"] == "spinner-int":
+                    # create QDoubleSpinBox
+                    widget = QSpinBox()
+                    widget.setMinimum(int(param["min"]))
+                    widget.setMaximum(int(param["max"]))
+                    widget.setValue(int(param["value"]))
+                    widget.setSingleStep(1.0)
+                    widget.setToolTip(param["title"])
+                    widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
 
-                # Set initial context
-                self.context[param["setting"]] = int(param["value"])
+                    # Set initial context
+                    self.context[param["setting"]] = int(param["value"])
 
-            elif param["type"] == "text":
-                # create QLineEdit
-                widget = QLineEdit()
-                widget.setText(_(param["value"]))
-                widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+                elif param["type"] == "text":
+                    # create QLineEdit
+                    widget = QLineEdit()
+                    widget.setText(_(param["value"]))
+                    widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
-                # Set initial context
-                self.context[param["setting"]] = param["value"]
+                    # Set initial context
+                    self.context[param["setting"]] = param["value"]
 
-            elif param["type"] == "bool":
-                # create spinner
-                widget = QCheckBox()
-                if param["value"] == True:
-                    widget.setCheckState(Qt.Checked)
-                    self.context[param["setting"]] = True
-                else:
-                    widget.setCheckState(Qt.Unchecked)
-                    self.context[param["setting"]] = False
-                widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
+                elif param["type"] == "bool":
+                    # create spinner
+                    widget = QCheckBox()
+                    if param["value"] == True:
+                        widget.setCheckState(Qt.Checked)
+                        self.context[param["setting"]] = True
+                    else:
+                        widget.setCheckState(Qt.Unchecked)
+                        self.context[param["setting"]] = False
+                    widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
 
-            elif param["type"] == "dropdown":
+                elif param["type"] == "dropdown":
 
-                # create spinner
-                widget = QComboBox()
+                    # create spinner
+                    widget = QComboBox()
 
-                # Get values
-                value_list = param["values"]
+                    # Get values
+                    value_list = param["values"]
 
-                # Add normal values
-                box_index = 0
-                for value_item in value_list:
-                    k = value_item["name"]
-                    v = value_item["value"]
-                    i = value_item.get("icon", None)
+                    # Add normal values
+                    box_index = 0
+                    for value_item in value_list:
+                        k = value_item["name"]
+                        v = value_item["value"]
+                        i = value_item.get("icon", None)
 
-                    # add dropdown item
-                    widget.addItem(_(k), v)
+                        # add dropdown item
+                        widget.addItem(_(k), v)
 
-                    # select dropdown (if default)
-                    if v == param["value"]:
-                        widget.setCurrentIndex(box_index)
+                        # select dropdown (if default)
+                        if v == param["value"]:
+                            widget.setCurrentIndex(box_index)
 
-                        # Set initial context
-                        self.context[param["setting"]] = param["value"]
-                    box_index = box_index + 1
+                            # Set initial context
+                            self.context[param["setting"]] = param["value"]
+                        box_index = box_index + 1
 
-                widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
+                    widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
 
-            # Add Label and Widget to the form
-            if (widget and label):
-                # Add minimum size
-                label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-                widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                # Add Label and Widget to the form
+                if (widget and label):
+                    # Add minimum size
+                    label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+                    widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-                # Create HBoxLayout for each field
-                self.scrollAreaWidgetContents.layout().insertRow(row_count - 1, label, widget)
+                    # Create HBoxLayout for each field
+                    self.scrollAreaWidgetContents.layout().insertRow(row_count - 1, label, widget)
 
-            row_count += 1
+                row_count += 1
 
-        # Add buttons
-        self.cancel_button = QPushButton(_('Cancel'))
-        self.process_button = QPushButton(_('Process Effect'))
-        self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+            # Add buttons
+            self.cancel_button = QPushButton(_('Cancel'))
+            self.process_button = QPushButton(_('Process Effect'))
+            self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
+            self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
 
-        # flag to close the clip processing thread
-        self.cancel_clip_processing = False
-        self.effect = None
+            # flag to close the clip processing thread
+            self.cancel_clip_processing = False
+            self.effect = None
+
+        else:
+            raise ModuleNotFoundError("Openshot not compiled with OpenCV")
         
     def spinner_value_changed(self, widget, param, value):
         """Spinner value change callback"""
