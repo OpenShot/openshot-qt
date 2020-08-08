@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs4">
+  <linearGradient id="linearGradient3170" y2="1050.4" gradientUnits="userSpaceOnUse" x2="7.2048" y1="1038.4" x1="7.2048">
+   <stop id="stop3166" offset="0"/>
+   <stop id="stop3168" style="stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3178" y2="1051.4" gradientUnits="userSpaceOnUse" x2="7.7862" y1="1037.4" x1="7.7862">
+   <stop id="stop3174" style="stop-color:#6e6e6e" offset="0"/>
+   <stop id="stop3176" style="stop-color:#808080" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3201" y2="1039.7" gradientUnits="userSpaceOnUse" x2="8" y1="1052.4" x1="8">
+   <stop id="stop3197" style="stop-color:#fff" offset="0"/>
+   <stop id="stop3199" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1" transform="translate(0 -1036.4)">
+  <rect id="rect7169" style="stroke:url(#linearGradient3178);fill:#fff" rx="2" ry="2" height="13" width="13" y="1037.9" x="1.5"/>
+  <rect id="rect2392" style="opacity:.2;stroke:url(#linearGradient3170);fill:none" rx=".98130" ry=".98130" height="11" width="11" y="1038.9" x="2.5"/>
+  <rect id="rect3180" style="opacity:.3;stroke:url(#linearGradient3201);fill:none" rx="3.0207" ry="3.0207" height="15" width="15" y="1036.9" x=".5"/>
+  <path id="path1307" style="opacity:.4" d="m7.9998 1039.9c0.29477 0.1889 0.4076 0.5827 0.5843 0.8813 0.30733 0.6003 0.55015 1.2379 0.89799 1.8146 0.30112 0.2321 0.72523 0.1914 1.0826 0.278 0.6236 0.1102 1.2703 0.1448 1.8668 0.377 0.25429 0.2527-0.27221 0.5764-0.40244 0.7969-0.48821 0.5436-1.0442 1.0202-1.5031 1.592-0.11811 0.371 0.04995 0.78 0.08156 1.162 0.09247 0.6539 0.26085 1.3074 0.23382 1.9721-0.15137 0.3308-0.60858-0.092-0.84946-0.1538-0.64554-0.3173-1.2511-0.7227-1.9131-1.0021-0.37411 0-0.69436 0.2907-1.0322 0.4402-0.56645 0.2939-1.1091 0.6632-1.7223 0.8418-0.34784-0.048-0.15654-0.5812-0.12256-0.8919 0.08924-0.7397 0.271-1.4669 0.3207-2.2113-0.11311-0.3727-0.47909-0.6004-0.7195-0.89-0.44256-0.4722-0.9463-0.8975-1.2983-1.4518-0.06361-0.3607 0.54436-0.2991 0.77372-0.3975 0.7007-0.1398 1.4186-0.1839 2.1113-0.3645 0.3042-0.2276 0.39826-0.6618 0.58753-0.9902 0.29293-0.5858 0.52425-1.218 0.91995-1.7391 0.02871-0.028 0.06066-0.062 0.10263-0.064h-0.000001z"/>
+ </g>
+</svg>

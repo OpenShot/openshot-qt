@@ -44,6 +44,8 @@ from PyQt5 import uic
 from classes.logger import log
 from classes import settings
 
+from . import openshot_rc
+
 DEFAULT_THEME_NAME = "Humanity"
 
 

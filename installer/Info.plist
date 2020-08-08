@@ -11,7 +11,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>launch-mac.sh</string>
+	<string>launch-mac</string>
 	<key>CFBundleIconFile</key>
 	<string>icon.icns</string>
 	<key>LSApplicationCategoryType</key>

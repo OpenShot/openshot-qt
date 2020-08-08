@@ -30,11 +30,10 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
+from classes import info, updates, openshot_rc
 from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip
-from classes import updates
-from classes import info
 
 import os
 import json
@@ -924,16 +923,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.resize_button.setMouseTracking(True)
 
         # Initialize cursors
-        self.cursors = { "move": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_move.png")),
-                         "resize_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_x.png")),
-                         "resize_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_y.png")),
-                         "resize_bdiag": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_bdiag.png")),
-                         "resize_fdiag": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_resize_fdiag.png")),
-                         "rotate": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_rotate.png")),
-                         "shear_x": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_x.png")),
-                         "shear_y": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_shear_y.png")),
-                         "hand": QPixmap(os.path.join(info.IMAGES_PATH, "cursor_hand.png")),
-                       }
+        self.cursors = {
+            "move": QPixmap(":/cursors/cursor_move.png"),
+            "resize_x": QPixmap(":/cursors/cursor_resize_x.png"),
+            "resize_y": QPixmap(":/cursors/cursor_resize_y.png"),
+            "resize_bdiag": QPixmap(":/cursors/cursor_resize_bdiag.png"),
+            "resize_fdiag": QPixmap(":/cursors/cursor_resize_fdiag.png"),
+            "rotate": QPixmap(":/cursors/cursor_rotate.png"),
+            "shear_x": QPixmap(":/cursors/cursor_shear_x.png"),
+            "shear_y": QPixmap(":/cursors/cursor_shear_y.png"),
+            "hand": QPixmap(":/cursors/cursor_hand.png"),
+            }
 
         # Mutex lock
         self.mutex = QMutex()

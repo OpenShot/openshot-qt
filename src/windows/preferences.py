@@ -35,7 +35,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QKeySequence, QIcon
 from PyQt5 import uic
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, openshot_rc, settings
 from classes.app import get_app
 from classes.language import get_all_languages
 from classes.logger import log

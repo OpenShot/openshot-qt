@@ -90,6 +90,10 @@ BLENDER_MIN_VERSION = "2.80"
 # Data-model debugging enabler
 MODEL_TEST = False
 
+# Default/initial logging levels
+LOG_LEVEL_FILE = 'INFO'
+LOG_LEVEL_CONSOLE = 'INFO'
+
 # Languages
 CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
