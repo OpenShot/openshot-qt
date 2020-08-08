@@ -302,6 +302,7 @@ class ProcessEffect(QDialog):
 
         # Create protobuf data path
         protobufPath = os.path.join(info.PROTOBUF_DATA_PATH, ID + '.data')
+        if os.name == 'nt' : protobufPath = protobufPath.replace("\\", "/")
 
         # Load into JSON string info abou protobuf data path
         jsonString = self.generateJson(protobufPath)
@@ -395,4 +396,5 @@ class ProcessEffect(QDialog):
 
         # Finish JSON string
         jsonString+='}'
+        if os.name == 'nt' : jsonString = jsonString.replace("\\", "/")
         return jsonString

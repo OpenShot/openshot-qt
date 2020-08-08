@@ -80,10 +80,17 @@ class SelectRegion(QDialog):
         self.end_image = None
         self.current_frame = 1
 
-        self.clip = clip
+        # Create region clip with Reader
+        self.clip = openshot.Clip(clip.Reader())
+
         self.clip.Open()
-        self.clip_position = self.clip.Position()
-        self.clip.Position(0)
+
+        # Set region clip start and end 
+        self.clip.Start(clip.Start())
+        self.clip.End(clip.End())
+        self.clip.Id( get_app().project.generate_id() )
+
+        print("IDS {} {}".format(clip.Id(), self.clip.Id()))
 
         # Keep track of file object
         # self.file = file
@@ -100,6 +107,10 @@ class SelectRegion(QDialog):
         self.channel_layout = c_info.channel_layout #int(file.data['channel_layout'])
         self.video_length = int(self.clip.Duration() * self.fps) + 1 #int(file.data['video_length'])
 
+        # Apply effects to region frames
+        for effect in clip.Effects():
+            self.clip.AddEffect(effect)
+            
         # Open video file with Reader
         log.info(self.clip.Reader())
 
@@ -233,14 +244,10 @@ class SelectRegion(QDialog):
     def accept(self):
         """ Ok button clicked """
 
-        self.clip.Position(self.clip_position)
-
         self.shutdownPlayer()
         super(SelectRegion, self).accept()
 
     def shutdownPlayer(self):
-
-        self.clip.Position(self.clip_position)
 
         log.info('shutdownPlayer')
 
@@ -253,14 +260,13 @@ class SelectRegion(QDialog):
         self.preview_parent.background.wait(5000)
 
         # Close readers
-        self.r.RemoveClip(self.clip)
+        self.clip.Close()
+        # self.r.RemoveClip(self.clip)
         self.r.Close()
         # self.clip.Close()
         self.r.ClearAllCache()
 
     def reject(self):
-
-        self.clip.Position(self.clip_position)
 
         # Cancel dialog
         self.shutdownPlayer()
