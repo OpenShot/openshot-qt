@@ -34,9 +34,9 @@ import openshot
 
 # Try to get the security-patched XML functions from defusedxml
 try:
-  from defusedxml import minidom as xml
+    from defusedxml import minidom as xml
 except ImportError:
-  from xml.dom import minidom as xml
+    from xml.dom import minidom as xml
 
 from xml.parsers.expat import ExpatError
 
@@ -101,8 +101,8 @@ class Export(QDialog):
         self.delayed_fps_timer = None
         self.delayed_fps_timer = QTimer()
         self.delayed_fps_timer.setInterval(200)
+        self.delayed_fps_timer.setSingleShot(True)
         self.delayed_fps_timer.timeout.connect(self.delayed_fps_callback)
-        self.delayed_fps_timer.stop()
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         get_app().window.actionPlay_trigger(None, force="pause")
@@ -288,10 +288,8 @@ class Export(QDialog):
         self.updateFrameRate()
 
     def delayed_fps_callback(self):
-        """Callback for fps/profile changed event timer (to delay the timeline mapping so we don't spam libopenshot)"""
-        # Stop timer
-        self.delayed_fps_timer.stop()
-
+        """Callback for fps/profile changed event timer
+        (to delay the timeline mapping so we don't spam libopenshot)"""
         # Calculate fps
         fps_double = self.timeline.info.fps.ToDouble()
 
@@ -355,7 +353,8 @@ class Export(QDialog):
         self.timeline.info.channels = self.txtChannels.value()
         self.timeline.info.channel_layout = self.cboChannelLayout.currentData()
 
-        # Send changes to libopenshot (apply mappings to all framemappers)... after a small delay
+        # Send changes to libopenshot (apply mappings to all framemappers)
+        # Start or restart timer to process changes after a small delay
         self.delayed_fps_timer.start()
 
         # Determine max frame (based on clips)

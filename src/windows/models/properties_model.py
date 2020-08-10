@@ -549,9 +549,6 @@ class PropertiesModel(updates.UpdateInterface):
         app = get_app()
         _ = app._tr
 
-        # Stop QTimer
-        self.update_timer.stop()
-
         # Check for a selected clip
         if self.selected and self.selected[0]:
             c, item_type = self.selected[0]
@@ -824,8 +821,8 @@ class PropertiesModel(updates.UpdateInterface):
         # to update the property model hundreds of times)
         self.update_timer = QTimer()
         self.update_timer.setInterval(100)
+        self.update_timer.setSingleShot(True)
         self.update_timer.timeout.connect(self.update_item_timeout)
-        self.update_timer.stop()
         self.next_item_id = None
         self.next_item_type = None
 
