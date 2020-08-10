@@ -285,24 +285,39 @@ elif sys.platform == "linux":
                 ]
                 and not libpath_file.startswith("libxcb-")
                 ) \
-               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
+               or libpath_file in [
+                    "libgcrypt.so.11",
+                    "libQt5DBus.so.5",
+                    "libpng12.so.0",
+                    "libbz2.so.1.0",
+                    "libqxcb.so",
+                    "libselinux.so.1",
+                    ]:
 
                 # Ignore missing files
                 if os.path.exists(libpath):
                     filepath, filename = os.path.split(libpath)
                     external_so_files.append((libpath, filename))
+                else:
+                    # This shouldn't really happen, since `ldd` is showing
+                    # these files as linked into ones we're packaging
+                    log.error(
+                        "Skipped missing shared library: {}".format(libpath))
 
-    # Manually add missing files (that were missed in the above step). These files are required
-    # for certain distros (like Fedora, openSUSE, Debian, etc...)
+    # Manually add missing files (that were missed in the above step).
+    # These files are required for certain distros
+    # (like Fedora, openSUSE, Debian, etc...)
+    #
     # Also add Glib related files (required for some distros)
 
-    for added_lib in [ARCHLIB + "libssl.so",
-                      ARCHLIB + "libcrypto.so",
-                      ARCHLIB + "libglib-2.0.so",
-                      ARCHLIB + "libgio-2.0.so",
-                      ARCHLIB + "libgmodule-2.0.so",
-                      ARCHLIB + "libthread-2.0.so"
-                      ]:
+    for added_lib in [
+            ARCHLIB + "libssl.so",
+            ARCHLIB + "libcrypto.so",
+            ARCHLIB + "libglib-2.0.so",
+            ARCHLIB + "libgio-2.0.so",
+            ARCHLIB + "libgmodule-2.0.so",
+            ARCHLIB + "libthread-2.0.so"
+            ]:
         if os.path.exists(added_lib):
             external_so_files.append((added_lib, os.path.basename(added_lib)))
         else:
