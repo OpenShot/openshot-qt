@@ -30,16 +30,20 @@ from collections import OrderedDict
 from operator import itemgetter
 
 from PyQt5.QtCore import QMimeData, Qt, QLocale, QTimer
-from PyQt5.QtGui import *
+from PyQt5.QtGui import (
+    QStandardItemModel, QStandardItem,
+    QPixmap, QColor,
+    )
 
 from classes import updates
 from classes import info
-from classes.query import Clip, Transition, Effect, File
+from classes.query import Clip, Transition, Effect
 from classes.logger import log
 from classes.app import get_app
 import openshot
 
 import json
+
 
 class ClipStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
@@ -128,7 +132,6 @@ class PropertiesModel(updates.UpdateInterface):
             # Append to selected items
             self.selected.append((e, item_type))
 
-
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
 
@@ -199,7 +202,6 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
-        property_name = property[1]["name"]
         property_type = property[1]["type"]
         closest_point_x = property[1]["closest_point_x"]
         property_type = property[1]["type"]
@@ -228,7 +230,10 @@ class PropertiesModel(updates.UpdateInterface):
                 # Determine type of keyframe (normal or color)
                 keyframe_list = []
                 if property_type == "color":
-                    keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
+                    keyframe_list = [
+                        c.data[property_key]["red"],
+                        c.data[property_key]["blue"],
+                        c.data[property_key]["green"]]
                 else:
                     keyframe_list = [c.data[property_key]]
 
@@ -304,7 +309,11 @@ class PropertiesModel(updates.UpdateInterface):
                     log.info("color update: %s" % c.data)
 
                     # Loop through each keyframe (red, blue, and green)
-                    for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()),  ("green", new_color.green())]:
+                    for color, new_value in [
+                            ("red", new_color.red()),
+                            ("blue", new_color.blue()),
+                            ("green", new_color.green()),
+                            ]:
 
                         # Keyframe
                         # Loop through points, find a matching points on this frame
@@ -317,7 +326,9 @@ class PropertiesModel(updates.UpdateInterface):
                                 clip_updated = True
                                 # Update point
                                 point["co"]["Y"] = new_value
-                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                log.info(
+                                    "updating point: co.X = %s to value: %s"
+                                    % (point["co"]["X"], float(new_value)))
                                 break
 
                             elif interpolation > -1 and point["co"]["X"] == previous_point_x:
@@ -330,7 +341,9 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_right"]["X"] = interpolation_details[0]
                                     point["handle_right"]["Y"] = interpolation_details[1]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                                log.info(
+                                    "updating interpolation mode point: co.X = %s to %s"
+                                    % (point["co"]["X"], interpolation))
                                 log.info("use interpolation preset: %s" % str(interpolation_details))
 
                             elif interpolation > -1 and point["co"]["X"] == closest_point_x:
@@ -343,14 +356,18 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_left"]["X"] = interpolation_details[2]
                                     point["handle_left"]["Y"] = interpolation_details[3]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                                log.info(
+                                    "updating interpolation mode point: co.X = %s to %s"
+                                    % (point["co"]["X"], interpolation))
                                 log.info("use interpolation preset: %s" % str(interpolation_details))
 
                         # Create new point (if needed)
                         if not found_point:
                             clip_updated = True
                             log.info("Created new point at X=%s" % self.frame_number)
-                            c.data[property_key][color]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
+                            c.data[property_key][color]["Points"].append({
+                                'co': {'X': self.frame_number, 'Y': new_value},
+                                'interpolation': 1})
 
                 # Reduce # of clip properties we are saving (performance boost)
                 c.data = {property_key: c.data[property_key]}
@@ -377,7 +394,6 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
-        property_name = property[1]["name"]
         closest_point_x = property[1]["closest_point_x"]
         previous_point_x = property[1]["previous_point_x"]
         property_type = property[1]["type"]
@@ -387,7 +403,7 @@ class PropertiesModel(updates.UpdateInterface):
         # Get value (if any)
         if item.text():
             # Set and format value based on property type
-            if value != None:
+            if value is not None:
                 # Override value
                 new_value = value
             elif property_type == "string":
@@ -408,8 +424,9 @@ class PropertiesModel(updates.UpdateInterface):
         else:
             new_value = None
 
-        log.info("%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
-
+        log.info(
+            "%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s"
+            % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
 
         # Find this clip
         c = None
@@ -443,9 +460,11 @@ class PropertiesModel(updates.UpdateInterface):
                             found_point = True
                             clip_updated = True
                             # Update or delete point
-                            if new_value != None:
+                            if new_value is not None:
                                 point["co"]["Y"] = float(new_value)
-                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                log.info(
+                                    "updating point: co.X = %s to value: %s"
+                                    % (point["co"]["X"], float(new_value)))
                             else:
                                 point_to_delete = point
                             break
@@ -460,7 +479,9 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_right"]["X"] = interpolation_details[0]
                                 point["handle_right"]["Y"] = interpolation_details[1]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                            log.info(
+                                "updating interpolation mode point: co.X = %s to %s"
+                                % (point["co"]["X"], interpolation))
                             log.info("use interpolation preset: %s" % str(interpolation_details))
 
                         elif interpolation > -1 and point["co"]["X"] == closest_point_x:
@@ -473,7 +494,9 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_left"]["X"] = interpolation_details[2]
                                 point["handle_left"]["Y"] = interpolation_details[3]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                            log.info(
+                                "updating interpolation mode point: co.X = %s to %s"
+                                % (point["co"]["X"], interpolation))
                             log.info("use interpolation preset: %s" % str(interpolation_details))
 
                     # Delete point (if needed)
@@ -483,10 +506,12 @@ class PropertiesModel(updates.UpdateInterface):
                         c.data[property_key]["Points"].remove(point_to_delete)
 
                     # Create new point (if needed)
-                    elif not found_point and new_value != None:
-                        clip_updated = True
-                        log.info("Created new point at X=%s" % self.frame_number)
-                        c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
+                elif not found_point and new_value is not None:
+                    clip_updated = True
+                    log.info("Created new point at X=%s" % self.frame_number)
+                    c.data[property_key]["Points"].append({
+                        'co': {'X': self.frame_number, 'Y': new_value},
+                        'interpolation': 1})
 
             if not clip_updated:
                 # If no keyframe was found, set a basic property
@@ -579,7 +604,6 @@ class PropertiesModel(updates.UpdateInterface):
                 # Add Headers
                 self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
 
-
             # Loop through properties, and build a model
             for property in all_properties.items():
                 label = property[1]["name"]
@@ -591,15 +615,14 @@ class PropertiesModel(updates.UpdateInterface):
                 keyframe = property[1]["keyframe"]
                 points = property[1]["points"]
                 interpolation = property[1]["interpolation"]
-                closest_point_x = property[1]["closest_point_x"]
                 choices = property[1]["choices"]
 
                 # Adding Transparency to translation file
-                transparency_label = _("Transparency")
+                transparency_label = _("Transparency")  # noqa
 
                 selected_choice = None
                 if choices:
-                    selected_choice = [c for c in choices if c["selected"] == True][0]["name"]
+                    selected_choice = [c for c in choices if c["selected"] is True][0]["name"]
 
                 # Hide filtered out properties
                 if filter and filter.lower() not in _(label).lower():
@@ -688,7 +711,11 @@ class PropertiesModel(updates.UpdateInterface):
                     if readonly or type == "color" or choices or label == "Track":
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
-                        col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsEditable)
+                        col.setFlags(
+                            Qt.ItemIsSelectable
+                            | Qt.ItemIsEnabled
+                            | Qt.ItemIsUserCheckable
+                            | Qt.ItemIsEditable)
                     row.append(col)
 
                     # Append ROW to MODEL (if does not already exist in model)
@@ -794,7 +821,6 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Add Headers
             self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
-
 
         # Done updating model
         self.ignore_update_signal = False
