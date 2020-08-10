@@ -38,8 +38,6 @@ import logging
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWidgets import QMenu
 
 from classes import info, updates
@@ -49,6 +47,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.conversion import zoomToSeconds, secondsToZoom
+from .timeline_mixins import TimelineMixin
 
 import json
 
@@ -152,7 +151,7 @@ MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
 
-class TimelineWebView(QWebEngineView, updates.UpdateInterface):
+class TimelineWebView(TimelineMixin, updates.UpdateInterface):
     """ A Web(Engine)View QWidget used to load the Timeline """
 
     # Path to html file
@@ -174,27 +173,6 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
         thumb_address = "http://%s:%s/thumbnails/" % (thumb_server_details[0], thumb_server_details[1])
         return thumb_address
-
-    def run_js(self, code, callback=None, retries=0):
-        '''Run JS code async and optionally have a callback for response'''
-        # Check if document.Ready has fired in JS
-        if not self.document_is_ready:
-            # Not ready, try again in a few moments
-            if retries == 0:
-                # Log the script contents, the first time
-                log.debug("run_js() called before document ready event. Script queued: %s" % code)
-            elif retries % 5 == 0:
-                log.warning("WebEngine backend still not ready after {} retries.".format(retries))
-            else:
-                log.debug("Script queued, {} retries so far".format(retries))
-            QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))
-            return None
-        else:
-            # Execute JS code
-            if callback:
-                return self.page().runJavaScript(code, callback)
-            else:
-                return self.page().runJavaScript(code)
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -2793,13 +2771,6 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             # Otherwise pass on to implement default functionality (scroll in QWebEngineView)
             super(type(self), self).wheelEvent(event)
 
-    def setup_js_data(self):
-        # Export self as a javascript object in webview
-        self.webchannel.registerObject('timeline', self)
-
-        # Initialize snapping mode
-        self.SetSnappingMode(self.window.actionSnappingTool.isChecked())
-
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
 
@@ -3116,20 +3087,10 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
             pass
 
     def __init__(self, window):
-        QWebEngineView.__init__(self)
+        TimelineMixin.__init__(self)
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
-        self.document_is_ready = False
-
-        # Set background color of timeline
-        self.page().setBackgroundColor(QColor("#363636"))
-
-        # Delete the webview when closed
-        self.setAttribute(Qt.WA_DeleteOnClose)
-
-        # Enable smooth scrolling on timeline
-        self.settings().setAttribute(self.settings().ScrollAnimatorEnabled, True)
 
         # Get settings & logger
         self.settings_obj = settings.get_settings()
@@ -3137,14 +3098,6 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
-
-        self.webchannel = QWebChannel(self.page())
-        # set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
-        self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
-        self.page().setWebChannel(self.webchannel)
-
-        # Connect signal of javascript initialization to our javascript reference init function
-        self.page().loadStarted.connect(self.setup_js_data)
 
         # Connect zoom functionality
         window.sliderZoom.valueChanged.connect(self.update_zoom)
