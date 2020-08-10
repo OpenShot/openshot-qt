@@ -40,6 +40,7 @@ try:
     from PyQt5.QtWebChannel import QWebChannel
     IS_WEBENGINE_VALID = True
 except ImportError:
+    QWebEngineView = object # Prevent inheritance errors
     IS_WEBENGINE_VALID = False
 
 try:
@@ -47,6 +48,7 @@ try:
     from PyQt5.QtWebKitWidgets import QWebView
     IS_WEBKIT_VALID = True
 except ImportError:
+    QWebView = object # Prevent inheritance errors
     IS_WEBKIT_VALID = False
 
 
