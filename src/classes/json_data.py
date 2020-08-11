@@ -39,7 +39,7 @@ from classes import info
 from classes.app import get_app
 
 # Compiled path regex
-path_regex = re.compile(r'"(image|path)"\s*:\s*"(.*?)"')
+path_regex = re.compile(r'"(image|path)"\s*:\s*(".*?")')
 path_context = {}
 
 
@@ -217,7 +217,7 @@ class JsonDataStore:
     def replace_string_to_absolute(self, match):
         """Replace matched string for converting paths to relative paths"""
         key = match.groups(0)[0]
-        path = match.groups(0)[1]
+        path = json.loads(match.groups(0)[1])
 
         # Find absolute path of file (if needed)
         if "@transitions" in path:
