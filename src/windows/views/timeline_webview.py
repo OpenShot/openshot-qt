@@ -40,7 +40,7 @@ from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QMenu, QDialog
 
 from classes import info, updates
 from classes import settings
@@ -49,6 +49,7 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.conversion import zoomToSeconds, secondsToZoom
+from classes.effect_init import effect_options
 
 import json
 
@@ -1923,6 +1924,12 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
                 right_clip.data.pop('id')
                 right_clip.key.pop(1)
 
+                # Generate new ID to effects on the right (so they become new ones)
+                for clip_propertie_name, propertie_value in right_clip.data.items() :
+                    if clip_propertie_name == "effects":
+                        for item in propertie_value:
+                            item['id'] = get_app().project.generate_id()
+
                 # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
                 right_clip.data["position"] = (round(float(playhead_position) * fps_float) + 1) / fps_float
                 right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
@@ -2983,11 +2990,45 @@ class TimelineWebView(QWebEngineView, updates.UpdateInterface):
                     log.info("Applying effect {} to clip ID {}".format(name, clip.id))
                     log.debug(clip)
 
-                    # Create Effect
-                    effect = openshot.EffectInfo().CreateEffect(name)
+                    # Handle custom effect dialogs
+                    if name in effect_options:
 
-                    # Get Effect JSON
-                    effect.Id(get_app().project.generate_id())
+                        # Get effect options
+                        effect_params = effect_options.get(name)
+
+                        # Show effect pre-processing window
+                        from windows.process_effect import ProcessEffect
+
+                        try:
+                            win = ProcessEffect(clip.id, name, effect_params)
+
+                        except ModuleNotFoundError as e:
+                            print("[ERROR]: " + str(e))
+                            return
+
+                        print("Effect %s" % name)
+                        print("Effect options: %s" % effect_options)
+                        
+                        # Run the dialog event loop - blocking interaction on this window during this time
+                        result = win.exec_()
+
+                        if result == QDialog.Accepted:
+                            log.info('Start processing')
+                        else:
+                            log.info('Cancel processing')
+                            return
+
+                        # Create Effect
+                        effect = win.effect # effect.Id already set
+
+                        if effect is None:
+                            break
+                    else:
+                        # Create Effect
+                        effect = openshot.EffectInfo().CreateEffect(name)
+
+                        # Get Effect JSON
+                        effect.Id(get_app().project.generate_id())
                     effect_json = json.loads(effect.Json())
 
                     # Append effect JSON to clip

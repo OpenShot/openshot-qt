@@ -61,6 +61,7 @@ PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
 USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
+PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
@@ -70,7 +71,8 @@ USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 for folder in [
     USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
     BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
-    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH ]:
+    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH,
+    PROTOBUF_DATA_PATH ]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
