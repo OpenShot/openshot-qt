@@ -25,13 +25,13 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*global timeline*/
+/*global timeline, angular, QWebChannel*/
 var timeline = null;
 
 function init_mixin() {
 
   // Check for Qt Integration
-  new QWebChannel(qt.webChannelTransport, function (channel) {
+  var channel = new QWebChannel(qt.webChannelTransport, function (channel) {
     timeline = channel.objects.timeline;
     timeline.qt_log("INFO", "Qt Ready");
 

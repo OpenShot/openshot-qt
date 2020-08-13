@@ -25,8 +25,7 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// undef global timeline var
-//timeline = undefined;
+/*global timeline, angular*/
 
 function init_mixin() {
 
