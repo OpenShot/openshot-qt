@@ -2748,18 +2748,6 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             get_app().updates.update(["scale"], newScale)
             get_app().updates.ignore_history = False
 
-    def keyPressEvent(self, event):
-        """ Keypress callback for timeline """
-        key_value = event.key()
-        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
-
-            # Only pass a few keystrokes to the webview (CTRL and SHIFT)
-            return QWebEngineView.keyPressEvent(self, event)
-
-        else:
-            # Ignore most keypresses
-            event.ignore()
-
     # Capture wheel event to alter zoom slider control
     def wheelEvent(self, event):
         if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:

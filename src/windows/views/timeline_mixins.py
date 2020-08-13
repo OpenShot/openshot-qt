@@ -36,8 +36,8 @@ from functools import partial
 
 try:
     # Attempt to import QtWebEngine
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
     from PyQt5.QtWebChannel import QWebChannel
+    from PyQt5.QtWebEngineWidgets import QWebEngineView
     IS_WEBENGINE_VALID = True
 except ImportError:
     QWebEngineView = object # Prevent inheritance errors
@@ -45,7 +45,7 @@ except ImportError:
 
 try:
     # Attempt to import QtWebKit
-    from PyQt5.QtWebKitWidgets import QWebView
+    from PyQt5.QtWebKitWidgets import QWebView, QWebPage
     IS_WEBKIT_VALID = True
 except ImportError:
     QWebView = object # Prevent inheritance errors
@@ -62,6 +62,10 @@ class TimelineBaseMixin(object):
     def run_js(self, code, callback=None, retries=0):
         """Run javascript code snippet"""
         raise Exception("run_js not implemented")
+
+    def get_html(self):
+        """Get HTML for Timeline, adjusted for mixin"""
+        raise Exception("get_html not implemented")
 
 
 class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
@@ -83,7 +87,7 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
         self.webchannel = QWebChannel(self.page())
-        self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
+        self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
         self.page().setWebChannel(self.webchannel)
 
         # Connect signal of javascript initialization to our javascript reference init function
@@ -114,6 +118,34 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
         # Export self as a javascript object in webview
         self.webchannel.registerObject('timeline', self)
 
+    def get_html(self):
+        """Get HTML for Timeline, adjusted for mixin"""
+        html = open(self.html_path, 'r', encoding='utf-8').read()
+        html = html.replace('{{MIXIN_JS_INCLUDE}}',
+        '''
+                <script type="text/javascript" src="js/qwebchannel.js"></script>
+                <script type="text/javascript" src="js/mixin_webengine.js"></script>
+
+        ''')
+        return html
+
+    def keyPressEvent(self, event):
+        """ Keypress callback for timeline """
+        key_value = event.key()
+        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
+
+            # Only pass a few keystrokes to the webview (CTRL and SHIFT)
+            return QWebEngineView.keyPressEvent(self, event)
+
+        else:
+            # Ignore most keypresses
+            event.ignore()
+
+
+class LoggingWebPage(QWebPage):
+    """Override console.log message to display messages"""
+    def javaScriptConsoleMessage(self, msg, line, source):
+        log.warning('JS: %s line %d: %s' % (source, line, msg))
 
 class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
     """QtWebKit Timeline Widget"""
@@ -126,11 +158,15 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
         # Delete the webview when closed
         self.setAttribute(Qt.WA_DeleteOnClose)
 
+        # Connect logging web page (for console.log)
+        page = LoggingWebPage()
+        self.setPage(page)
+
         # Disable image caching on timeline
         self.settings().setObjectCacheCapacities(0, 0, 0)
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
-        self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
+        self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
 
         # Connect signal of javascript initialization to our javascript reference init function
         self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
@@ -152,7 +188,8 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
         else:
             # Execute JS code
             if callback:
-                return self.page().mainFrame().evaluateJavaScript(code, callback)
+                # Pass output to callback
+                callback(self.page().mainFrame().evaluateJavaScript(code))
             else:
                 return self.page().mainFrame().evaluateJavaScript(code)
 
@@ -161,6 +198,27 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
         self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
         self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
 
+    def get_html(self):
+        """Get HTML for Timeline, adjusted for mixin"""
+        html = open(self.html_path, 'r', encoding='utf-8').read()
+        html = html.replace('{{MIXIN_JS_INCLUDE}}',
+        '''
+                <script type="text/javascript" src="js/mixin_webkit.js"></script>
+
+        ''')
+        return html
+
+    def keyPressEvent(self, event):
+        """ Keypress callback for timeline """
+        key_value = event.key()
+        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
+
+            # Only pass a few keystrokes to the webview (CTRL and SHIFT)
+            return QWebView.keyPressEvent(self, event)
+
+        else:
+            # Ignore most keypresses
+            event.ignore()
 
 # Set correct Mixin (with QtWebEngine preference)
 if IS_WEBENGINE_VALID:
