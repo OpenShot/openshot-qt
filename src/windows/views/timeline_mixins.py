@@ -49,6 +49,7 @@ try:
     IS_WEBKIT_VALID = True
 except ImportError:
     QWebView = object # Prevent inheritance errors
+    QWebPage = object
     IS_WEBKIT_VALID = False
 
 
