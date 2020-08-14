@@ -36,7 +36,7 @@ Table of Contents:
    introduction
    getting_started
    quick_tutorial
-   in-depth_attributes
+   manual
    main_window
    files
    clips
