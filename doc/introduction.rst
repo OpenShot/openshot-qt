@@ -20,7 +20,7 @@
 Introduction
 ============
 
-We created |openshot| OpenShot™ in 2008, to build a free, open-source video editor for Linux.  We designed OpenShot to be easy to use, quick to learn and a powerful video editor. Quickly cut, slice, and edit any video or film.  It is now available for:
+We created |openshot| OpenShot™ in 2008, to build a free, open-source video editor for Linux.  We designed OpenShot to be easy to use, quick to learn and a powerful video editor. Quickly cut, slice, and edit any clip or video.  OpenShot is now available for:
 
  *  |linux| Linux® (most distributions)
  *  |mac| Apple® macOS®
