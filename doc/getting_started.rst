@@ -25,9 +25,9 @@ On a basic level, video editing is taking footage, cutting it up, removing the p
 
 There are three main jobs video editing needs to do:
 
-1. Remove mistakes or unwanted sections
-2. Keep the video moving at an engaging pace
-3. Insert supporting footage, audio, or titles
+1.	Remove mistakes or unwanted sections
+2.	Keep the video moving at an engaging pace
+3.	Insert supporting footage, audio, or titles
 
 Use these three points as a checklist as you edit.
 
@@ -43,23 +43,52 @@ It would help if you had several cables, usually Firewire or USB, to connect you
 
 Practical Tips
 --------------
-#. Keep Shooting
+Becoming a great video editor isn’t easy, but with practice and patience you’ll be editing like a pro in no time. Here are a few of the most important tips and techniques you need to know to become a skilled video editor.
+
+#. Pick the right computer
+    While having a great computer won’t necessarily make you a great video editor, a faster computer will allow you to focus more of your time on the story you’re trying to tell rather than your computer rendering. Everyone has their own opinions about what computer is best for editing, but it all depends on your own preferences.
+
+#. Keep shooting
     Shoot more footage than you think you'll need. Include footage that enhances the story or sets the scene. You can use it for smooth transitions in your movie.
 
 #. Organize your footage
-    Composition is the key to success, whether you are running Linux, on a Mac, or a Windows machine.  Be sure to label video files, audio files, and even still images clearly and keep them on the same drive for easy access.
+    Composition is the key to success, whether you are running Linux, on a Mac, or a Windows machine.  Be sure to label video files, audio files, and even still images clearly and keep them on the same drive and in the same folder for easy access.
  
 #. Watch everything
     The first step in the editing process is to watch everything.  Writer and filmmaker David Andrew Stoler says there is gold in the unlikeliest of places: "Some of the most beautiful expressions you're going to get from the actors are after the cut."
 
+#. Edit for a story
+    Remember that as an editor you are a storyteller! Editing is so much more than simply cutting footage. It’s an opportunity to take your audience on a journey. Whether you’re editing a complex narrative film or simply putting together a corporate video, there is a deeper story being told.
+    
+#. Keyboard shortcuts
+    One of the fastest ways to tell the difference between a professional and novice video editor is to simply look at how much they use the keyboard. Editors who have been in the industry a while know that a few seconds saved here or there add up over time. 
+
+#. Learn the lingo
+    Video editing isn’t just a hobby or a profession, it’s an industry. And just like any industry, there’s a ton of lingo to learn. Practically speaking, you don’t need to learn all of the terms on this list to become a better video editor, but a fundamental knowledge of the concepts may help you communicate better with other video editors or clients.
+ 
 #. Assemble, then make a rough cut
     Drag and drop all your video footage into a timeline and make sure your frame size and frame rates are consistent.  Begin a new timeline and drag-and-drop the best takes into what becomes your assembly cut.  Remember to save your work frequently.  Note the date and time of each version.
- 
-#. Refine
+    
+#. Refine your video
     Your rough cut starts to resemble a cohesive work.  Adjust the sound and color, make sure the dialogue is audible, and add music, titles, or graphics in this phase.
  
-#. Refine some more.
+#. Refine some more
     A slow scene can ratchet up tension or bore the audience to tears.  A fast scene can raise the audience's heart rates or give them headaches.  Some editors cut scenes several different ways before they find the right pacing, so do not be disheartened if you must recut a few times.
+    
+Exporting
+=========
+In reality, people view most of their projects on phones, iPads, computers, or TVs, so it’s essential to know the proper way to export for the web. The goal when exporting a video for the web is to create the highest quality possible without ending up with massive file sizes. Four main factors determine the file size of your finished video:
+
+* Codec: 
+   A codec determines the type of file format (MP4, AVI, MOV). The more compression performed by the codec, the smaller your video’s size. However, smaller file sizes tend to be lower in quality.
+* Resolution: 
+   Resolution refers to the actual number of horizontal and vertical pixels your video contains. For example, a 4K video has 4 times the resolution of FHD (1080P) video.
+* Bit Rate: 
+   Bit rate is the amount of data dedicated to a second of video. A higher bit rate means higher-quality video and larger files. Some programs allow you to set a minimum and maximum bit rate.
+* Frame Rate: 
+   Frame rate (expressed in frames per second or FPS) is the frequency (rate expressed in Hz) at which consecutive images called frames appear on display.  Typically, you export your video in the film standard (24fps) or the TV broadcast standard of 30fps (or 25fps in PAL). While there isn’t much wiggle room here, you should note that if you decide to export your video in 48fps, 50fps, or 60fps, your file size doubles.
+
+Over time you’ll learn which export settings are best for you. But if you’re starting, don’t worry — a lot of the online distributors have created recommended export settings.  You can ensure your videos are the highest quality possible.
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
