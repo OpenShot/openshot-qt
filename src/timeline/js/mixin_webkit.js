@@ -25,7 +25,7 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*global timeline, angular*/
+/*global timeline, qt, angular*/
 
 function init_mixin() {
 
