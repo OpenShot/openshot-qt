@@ -33,7 +33,7 @@ Use these three points as a checklist as you edit.
 
 Computer
 --------
-Video editing does not require an expensive machine, especially if you are a beginner.  It would be best if you had a decent monitor and graphics card, both of which come installed on most new computers.  If you have an older computer, check it against OpenShot's minimum requirements to make sure it works for video editing.  Unfortunately, many older computers are not fast enough for video editing, and you should upgrade your whole system.
+Video editing does not require an expensive machine, especially if you are a beginner.  It would be best if you had a decent monitor and graphics card, both of which come installed on most new computers.  If you have an older computer, check it against :ref:`OpenShot's minimum requirements <man-System-Requirements>` to make sure it works for video editing.  Unfortunately, many older computers are not fast enough for video editing, and you should upgrade your whole system.
 
 Accessories
 -----------
@@ -64,7 +64,7 @@ Becoming a great video editor isn’t easy, but with practice and patience you�
     One of the fastest ways to tell the difference between a professional and novice video editor is to simply look at how much they use the keyboard. Editors who have been in the industry a while know that a few seconds saved here or there add up over time. 
 
 #. Learn the lingo
-    Video editing isn’t just a hobby or a profession, it’s an industry. And just like any industry, there’s a ton of lingo to learn. Practically speaking, you don’t need to learn all of the terms on `this list <glossary.rst:glosssary_ref>`_ to become a better video editor, but a fundamental knowledge of the concepts may help you communicate better with other video editors or clients.
+    Video editing isn’t just a hobby or a profession, it’s an industry. And just like any industry, there’s a ton of lingo to learn. Practically speaking, you don’t need to learn all of the terms on :ref:`this list <glosssary_ref>` to become a better video editor, but a fundamental knowledge of the concepts may help you communicate better with other video editors or clients.
  
 #. Assemble, then make a rough cut
     Drag and drop all your video footage into a timeline and make sure your frame size and frame rates are consistent.  Begin a new timeline and drag-and-drop the best takes into what becomes your assembly cut.  Remember to save your work frequently.  Note the date and time of each version.
@@ -74,7 +74,8 @@ Becoming a great video editor isn’t easy, but with practice and patience you�
  
 #. Refine some more
     A slow scene can ratchet up tension or bore the audience to tears.  A fast scene can raise the audience's heart rates or give them headaches.  Some editors cut scenes several different ways before they find the right pacing, so do not be disheartened if you must recut a few times.
-    
+
+.. _exporting_ref:
 Exporting
 =========
 In reality, people view most of their projects on phones, iPads, computers, or TVs, so it’s essential to know the proper way to export for the web. The goal when exporting a video for the web is to create the highest quality possible without ending up with massive file sizes. Four main factors determine the file size of your finished video:
@@ -88,15 +89,4 @@ In reality, people view most of their projects on phones, iPads, computers, or T
 * Frame Rate: 
    Frame rate (expressed in frames per second or FPS) is the frequency (rate expressed in Hz) at which consecutive images called frames appear on display.  Typically, you export your video in the film standard (24fps) or the TV broadcast standard of 30fps (or 25fps in PAL). While there isn’t much wiggle room here, you should note that if you decide to export your video in 48fps, 50fps, or 60fps, your file size doubles.
 
-Over time you’ll learn which export settings are best for you. But if you’re starting, don’t worry — a lot of the online distributors have created `recommended export settings <https://support.google.com/youtube/answer/1722171?hl=en>`_.  You can ensure your videos are the highest quality possible.
-
-.. |linux| image:: images/linux-logo.svg
-    :height: 20px
-.. |mac| image:: images/mac-logo.svg
-    :height: 20px
-.. |win| image:: images/win-logo.svg
-    :height: 20px
-.. |openshot| image:: images/openshot-logo.svg
-    :height: 40px
-.. |Link| replace:: download page
-.. _Link: https://www.openshot.org/download/
+Over time you’ll learn which export settings are best for you. But if you’re starting, don’t worry — a lot of the online distributors have created `recommended export settings <https://support.google.com/youtube/answer/1722171?hl=en>`_.  Using these tips, you can ensure your videos are the highest quality possible.
