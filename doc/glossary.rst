@@ -27,7 +27,7 @@ Definitions
 -----------
 These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot.org <mailto:support@openshot.org>`_.
 
-:ref:`-A- <gl-a_ref>`_ B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+:ref:`A <gl-a_ref>` :ref:`B <gl-b_ref>` C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
 .. _gl-a_ref:
 -A-
