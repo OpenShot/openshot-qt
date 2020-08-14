@@ -16,13 +16,13 @@
 
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
-.. _in-depth_attributes_ref:
-In-depth Attributes
+.. _manual_ref:
+User Manual
 ===================
 
-WIP
+The following pages provide more in-depth explainations of the features and functions of OpenShot Video Editor.
 
-.. _ia-System-Requrements_ref:
+.. _man-System-Requirements_ref:
 
 System Requirements
 -------------------
@@ -48,16 +48,16 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
         | SATA III
      - Internal Storage
         | 10 GB SDD
-        | PCIe or PCIe NVMe
+        | M.2 PCIe or PCIe NVMe
    * - Graphics Processing Unit 
         | Nvidia, AMD, Asus, 
         | Intel, S3 Graphics, Matrox
      - Graphics Processing Unit
-        | AMD Radeon RX
-        | NVIDIA GeForce
+        | AMD Radeon or Radeon Pro
+        | NVIDIA TITAN, GeForce or Quadro
    * - 64-bit Operating System 
         | Linux Kernel 4.15+
-        | Mac OS X 10.9+ 
+        | Mac OS X 10.13+ 
         | Microsoft Windows 7/8/8.1/10 
      - 64-bit Operating System
         | Linux Kernel 5.7+
@@ -66,6 +66,6 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
    * - Display Screen
         | 15.6" FHD (1920x1080) Laptop Display
         | 19" FHD (1920x1080) Desktop Display
-     - Dislay Screen
+     - Display Screen
         | 17" UHD (3840x2160) Laptop Display
         | 27" UHD (3840x2160) x2 Desktop Display
