@@ -27,8 +27,6 @@ Definitions
 -----------
 These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot.org <mailto:support@openshot.org>`_.
 
-:ref:`A <gl-a_ref>` :ref:`B <gl-b_ref>` C D E F G H I J K L M N O P Q R S T U V W X Y Z
-
 .. _gl-a_ref:
 -A-
 ---
@@ -102,6 +100,8 @@ Cut:
    A cut is an instantaneous change from one shot to another.
 Cut-in (Insert Shot): 
    It is a type of shot that most often shows the objects the subject is in contact with or manipulating.  Cut-in shots are correspondingly helpful to b-roll because they stray from the subject for a short time.
+Cutting on Action:
+   Cutting on action is a technique used to create a more interesting scene. The concept is simple… when you cut in the middle of an action, it will appear less jarring and more visual interesting. 
 
 .. _gl-d_ref:
 -D-
