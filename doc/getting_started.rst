@@ -64,13 +64,13 @@ Becoming a great video editor isn’t easy, but with practice and patience you�
     One of the fastest ways to tell the difference between a professional and novice video editor is to simply look at how much they use the keyboard. Editors who have been in the industry a while know that a few seconds saved here or there add up over time. 
 
 #. Learn the lingo
-    Video editing isn’t just a hobby or a profession, it’s an industry. And just like any industry, there’s a ton of lingo to learn. Practically speaking, you don’t need to learn all of the terms on this list to become a better video editor, but a fundamental knowledge of the concepts may help you communicate better with other video editors or clients.
+    Video editing isn’t just a hobby or a profession, it’s an industry. And just like any industry, there’s a ton of lingo to learn. Practically speaking, you don’t need to learn all of the terms on `this list <glossary.rst:glosssary_ref>`_ to become a better video editor, but a fundamental knowledge of the concepts may help you communicate better with other video editors or clients.
  
 #. Assemble, then make a rough cut
     Drag and drop all your video footage into a timeline and make sure your frame size and frame rates are consistent.  Begin a new timeline and drag-and-drop the best takes into what becomes your assembly cut.  Remember to save your work frequently.  Note the date and time of each version.
     
 #. Refine your video
-    Your rough cut starts to resemble a cohesive work.  Adjust the sound and color, make sure the dialogue is audible, and add music, titles, or graphics in this phase.
+    Your rough cut starts to resemble a cohesive work.  Adjust the sound and color, make sure the dialogue is audible, and add music, titles, or graphics in this phase.  Color correction is the process of getting your footage to a color baseline. No matter how great your footage looks on set, you will almost always need to do some basic post-processing to get all of your footage consistent.  
  
 #. Refine some more
     A slow scene can ratchet up tension or bore the audience to tears.  A fast scene can raise the audience's heart rates or give them headaches.  Some editors cut scenes several different ways before they find the right pacing, so do not be disheartened if you must recut a few times.
@@ -82,13 +82,13 @@ In reality, people view most of their projects on phones, iPads, computers, or T
 * Codec: 
    A codec determines the type of file format (MP4, AVI, MOV). The more compression performed by the codec, the smaller your video’s size. However, smaller file sizes tend to be lower in quality.
 * Resolution: 
-   Resolution refers to the actual number of horizontal and vertical pixels your video contains. For example, a 4K video has 4 times the resolution of FHD (1080P) video.
+   Resolution refers to the actual number of horizontal and vertical pixels your video contains. For example, a 4K video has 4 times the resolution of FHD (1080P) video.  A higher resolutions means more information to store so you will have larger file sizes.
 * Bit Rate: 
-   Bit rate is the amount of data dedicated to a second of video. A higher bit rate means higher-quality video and larger files. Some programs allow you to set a minimum and maximum bit rate.
+   Bit rate is the amount of data dedicated to a second of video. A higher bit rate means higher-quality video and larger files. OpenShot allows you to manually set the Bit Rate / Quality in the Advanced Tab of the Export Video window.
 * Frame Rate: 
    Frame rate (expressed in frames per second or FPS) is the frequency (rate expressed in Hz) at which consecutive images called frames appear on display.  Typically, you export your video in the film standard (24fps) or the TV broadcast standard of 30fps (or 25fps in PAL). While there isn’t much wiggle room here, you should note that if you decide to export your video in 48fps, 50fps, or 60fps, your file size doubles.
 
-Over time you’ll learn which export settings are best for you. But if you’re starting, don’t worry — a lot of the online distributors have created recommended export settings.  You can ensure your videos are the highest quality possible.
+Over time you’ll learn which export settings are best for you. But if you’re starting, don’t worry — a lot of the online distributors have created `recommended export settings <https://support.google.com/youtube/answer/1722171?hl=en>`_.  You can ensure your videos are the highest quality possible.
 
 .. |linux| image:: images/linux-logo.svg
     :height: 20px
