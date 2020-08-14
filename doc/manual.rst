@@ -19,11 +19,9 @@
 .. _manual_ref:
 User Manual
 ===================
-
 The following pages provide more in-depth explainations of the features and functions of OpenShot Video Editor.
 
 .. _man-System-Requirements_ref:
-
 System Requirements
 -------------------
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
@@ -36,17 +34,17 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
    * - System Memory
         | 4 GB RAM
      - System Memory 
-        | 32 GB DDR 4 3600 MHz RAM
+        | 32 GB DDR4 RAM
    * - Multi-core processor
         | AMD x86-64 (2003 - present)
         | Intel Core i3 (2006 - present)
-     - Quad-core 64-bit processor
-        | AMD Ryzen Threadripper, 3rd Gen
-        | Intel Core i7 or i9, 10th Gen
+     - Multi-core 64-bit processor
+        | AMD Ryzen Threadripper
+        | Intel Core i7 or i9
    * - Internal Storage Space
         | 500 MB HDD
         | SATA III
-     - Internal Storage
+     - Internal Storage Space
         | 10 GB SDD
         | M.2 PCIe or PCIe NVMe
    * - Graphics Processing Unit 
@@ -69,3 +67,4 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
      - Display Screen
         | 17" UHD (3840x2160) Laptop Display
         | 27" UHD (3840x2160) x2 Desktop Display
+        
