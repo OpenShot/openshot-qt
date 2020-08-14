@@ -27,6 +27,9 @@ Definitions
 -----------
 These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot.org <mailto:support@openshot.org>`_.
 
+|A| B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+.. _gl-a_ref:
 -A-
 ---
 A-Roll:
@@ -51,7 +54,8 @@ ATSC:
    ATSC is a digital broadcast standard that replaced the older analog NTSC standard.  The standard covers both standard and high-definition formats.
 Audio Sample Rate:
    The number of samples taken per second to reproduce audio digitally.  The higher the sample rate, the higher the quality of the digital audio.  A rate of 44,100 samples per second produces CD-quality audio and captures the range of human hearing.
-   
+
+.. _gl-b_ref:
 -B-
 ---
 B-roll: 
@@ -66,6 +70,8 @@ Blue Screen:
    A blue screen is a blue background that the subject stands in front of that the computer later replaces with another background in post-production.  See also blue screen compositing and green screen.
 Blue Screen Compositing:
    The process of making all blue elements in an image transparent and placing a different background underneath.   
+   
+.. _gl-c_ref:
 -C-
 ---
 Capture:
@@ -97,6 +103,7 @@ Cut:
 Cut-in (Insert Shot): 
    It is a type of shot that most often shows the objects the subject is in contact with or manipulating.  Cut-in shots are correspondingly helpful to b-roll because they stray from the subject for a short time.
 
+.. _gl-d_ref:
 -D-
 ---
 Data Rate:
@@ -110,6 +117,7 @@ Digitize:
 Dissolve:
    Dissolve is an image transition effect where one picture gradually disappears as another appears.  Also called a cross-fade.
    
+.. _gl-e_ref:
 -E-
 ---
 Editing:
@@ -120,7 +128,8 @@ Encode:
    To merge the individual video signals (for example, red, green, and blue) into a combined signal, or to convert a video file to a different format using a codec.
 Export:
    Export refers to the process of assembling your edited video project into a single file that then plays back on its own, shared, or uploaded.
-   
+
+.. _gl-f_ref:
 -F-
 ---
 Fade:
@@ -146,6 +155,7 @@ Frame Rate:
 Frequency:
    The number of audio cycles per second, expressed in hertz (Hz).  Frequency determines the pitch of a sound.
 
+.. _gl-g_ref:
 -G-
 ---
 Gamma:
@@ -159,6 +169,7 @@ Green screen
 Green Screen Compositing
    The process of making all green elements in an image transparent and placing a different background underneath, so it appears that the subject is in a different location.
 
+.. _gl-h_ref:
 -H-
 ---
 High Definition (HD):
@@ -178,6 +189,7 @@ Hiss:
 Hue:
    The shade of a color.  This is the general color category into which the color falls.  For example, pink, crimson, and plum are different colors, but they all fall under the hue of red.  White, black, and gray tones are not hues.
 
+.. _gl-i_ref:
 -I-
 ---
 Image Stabilizer:
@@ -191,6 +203,7 @@ Interpolation:
 Intertitles:
    Titles that appear on their own between footage.  Commonly seen in silent movies to substitute dialogue, also used as chapter headings.
 
+.. _gl-j_ref:
 -J-
 ---
 J-Cut:
@@ -200,6 +213,7 @@ Jog
 Jump Cut:
    A jump cut is an unnatural, abrupt switch between shots identical in the subject but slightly different in screen location, so the subject appears to jump from one screen location to another.
    
+.. _gl-k_ref:
 -K-
 ---
 Key:
@@ -207,6 +221,7 @@ Key:
 Keyframe:
    A keyframe is a frame that contains a record of specific settings (e.g., scale, rotation, brightness).  Start and endpoints for animated effects.  By setting multiple keyframes, you can adjust these parameters as the video plays to animate certain aspects.
 
+.. _gl-l_ref:
 -L-
 ---
 L-Cut:
@@ -222,12 +237,15 @@ Lossless:
 Lossy:
    Lossy compression is a compression scheme that degrades quality.  Lossy algorithms compress digital data by eliminating the data least sensitive to the human eye and offer the highest compression rates available.
 
+.. _gl-m_ref:
 -M-
 ---
 Mark In:
    Placing a marker at the beginning of where you want your clip to start.
 Mark Out:
    Placing a marker at the beginning of where you want your clip to end.
+Match Action:
+   Match action (or match cut) is a technique where an editor will cut from one visually similar scene to another.
 Memory Bank: 
    A Memory Bank is a video that documents specific periods or events in someone's life.  It can be set to music, make use of natural sound, record vacations, or just capture moments in everyday life.
 Marker:
@@ -240,7 +258,8 @@ Montage:
    A montage is a self-contained sequence of shots assembled in juxtaposition to each other to communicate an idea or mood.  The implied relationship between seemingly unrelated material creates a new message.
 Motion Artifact:
    Visual interference caused by the difference between the frame rate of the camera and the motion of the object.  The most common display of this is when filming a computer or television screen.  The screen flickers or a line scans down it, which is the difference in frame rates and a lack of synchronization between the camera and television.
-   
+
+.. _gl-n_ref:
 -N-
 ---
 Noise:
@@ -252,6 +271,7 @@ Numerator:
 NTSC:
    NTSC is an abbreviation for National Television Standards Committee.  NTSC is the group that initially developed the black & white and subsequently color television system.  The United States, Japan, and many other countries use NTSC.  Five-hundred twenty-five interlaced lines make up NTSC that display at a rate of 29.97 frames per second.  ATSC Has now superseded by NTSC.
 
+.. _gl-o_ref:
 -O-
 ---
 Offline Editing:
@@ -261,6 +281,7 @@ Online Editing:
 Opacity:
    An inverse measure of the level of transparency in an image, which is of importance when compositing.  An image's alpha channel stores its opacity information.
 
+.. _gl-p_ref:
 -P-
 ---
 PAL:
@@ -286,6 +307,7 @@ Poster Frame:
 Project:
    A project is all the files, transitions, effects, and animations that you make or use within OpenShot.
    
+.. _gl-r_ref:
 -R-
 ---
 Raw Footage:
@@ -306,7 +328,8 @@ Roll:
    Roll is a text effect commonly seen in end credits, where text typically moves from the bottom to the top of the screen.
 Rough cut:
    A rough cut is a preliminary edit of footage in the approximate sequence, length, and content of a finished program.
-   
+
+.. _gl-s_ref:
 -S-
 ---
 Sample Rate:
@@ -347,7 +370,8 @@ Sync (Synchronization):
    Synchronization refers to the relative timing of audio (sound) and video (image) parts during creation, post-production (mixing), transmission, reception, and play-back processing.
 SECAM:
    Systeme Electronique Couleur Avec Memoire, a TV format used mainly in Eastern Europe, Russia, and Africa. 
-   
+
+.. _gl-t_ref:
 -T-
 ---
 Tilt:
@@ -373,6 +397,7 @@ Transition:
 Trim:
    Removing frames from the beginning, middle, or end of a clip.
 
+.. _gl-v_ref:
 -V-
 ---
 Video Format:
@@ -381,7 +406,8 @@ Voiceover:
    A term used to describe off-camera narration that is not part of a scene (non-diegetic).
 VTR:
    A Videotape recorder also referred to as a 'deck'.  Decks duplicate videotapes and inputting and outputting from a computer.
-   
+
+.. _gl-w_ref:
 -W-
 ---
 Widescreen:
@@ -389,7 +415,11 @@ Widescreen:
 Wipe:
    A wipe is a transition from one shot to another.  The edge of the transition moves across the original image as a line or a pattern, revealing the new shot.
 
+.. _gl-z_ref:
 -Z-
 ---
 Zoom:
    A shot where the image grows more substantial or smaller by adjusting the focal length of the lens instead of physically moving the camera.
+   
+.. |A| replace:: -A-
+.. _A: :ref:`gl-a_ref`
