@@ -26,7 +26,7 @@ Step 1 – Import Photos & Music
 -------------------------------
 Before we can begin making a video, we need to import files into OpenShot.  Drag-and-drop two or three images (photos) (\*.JPG, \*.PNG, or another type) and a music file (\*.MP3, \*.WAV, or another type) from your file manager or desktop to OpenShot.  You can add your clips to the timeline as well as the Project Files list.  Be sure to drop the files to where the arrow in the illustration is pointing.
 
-.. image:: images/quick-start-drop-files.png
+.. image:: images/quick-start-drop-files.jpg
 
 Step 2 – Add Photos to Timeline
 --------------------------------
