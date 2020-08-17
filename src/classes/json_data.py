@@ -305,7 +305,7 @@ class JsonDataStore:
             orig_abs_path = os.path.abspath(path)
 
             # Remove file from abs path
-            orig_abs_folder = os.path.split(orig_abs_path)[0]
+            orig_abs_folder = os.path.dirname(orig_abs_path)
 
             # Calculate new relateive path
             new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))

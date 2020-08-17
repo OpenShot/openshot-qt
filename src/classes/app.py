@@ -36,12 +36,22 @@ import traceback
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont, QIcon
+from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
+
+# QtWebEngineWidgets must be loaded prior to creating a QApplication
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+
+try:
+    # Solution to solve QtWebEngineWidgets black screen caused by OpenGL not loaded
+    from OpenGL import GL
+except ImportError:
+    pass
 
 try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 except AttributeError:
     pass # Quietly fail for older Qt5 versions
 
@@ -70,7 +80,7 @@ class OpenShotApp(QApplication):
             log.info('Starting new session'.center(48))
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
-            from images import openshot_rc
+            from . import openshot_rc
             import openshot
 
             # Re-route stdout and stderr to logger
@@ -82,7 +92,6 @@ class OpenShotApp(QApplication):
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
             raise
-            sys.exit()
         except Exception as ex:
             log.error('OpenShotApp::Init Error: %s' % str(ex))
             sys.exit()

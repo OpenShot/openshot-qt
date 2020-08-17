@@ -18,14 +18,17 @@ addons:
     - python3-pyqt5.qtmultimedia
     - python3-pyqt5.qtopengl
     - python3-pyqt5.qtsvg
-    - python3-pyqt5.qtwebkit
+    - python3-pyqt5.qtwebengine
     - python3-requests
     - python3-xdg
     - python3-zmq
     - qttranslations5-l10n
     - xvfb
 
-matrix:
+jobs:
+  allow_failures:
+    - name: "Python 3.5 (Ubuntu 16.04 Xenial)"
+
   include:
     - name: "Python 3.5 (Ubuntu 16.04 Xenial)"
       os: linux
