@@ -297,11 +297,13 @@ class Preferences(QDialog):
                                 value_list.remove(value_item)
 
                         # Remove hardware mode items which cannot decode the example video
+                        log.debug("Preparing to test hardware decoding: %s" % (value_list))
                         for value_item in list(value_list):
                             v = value_item["value"]
-                            if not self.testHardwareDecode(v, 0) and \
-                                not self.testHardwareDecode(v, 1):
+                            if not self.testHardwareDecode(value_list, v, 0) and \
+                                not self.testHardwareDecode(value_list, v, 1):
                                 value_list.remove(value_item)
+                        log.debug("Completed hardware decoding testing")
 
                     # Replace %s dropdown values for hardware acceleration
                     if param["setting"] in ("graca_number_en", "graca_number_de"):
@@ -536,10 +538,11 @@ class Preferences(QDialog):
         # Check for restart
         self.check_for_restart(param)
 
-    def testHardwareDecode(self, decoder, decoder_card="0"):
+    def testHardwareDecode(self, all_decoders, decoder, decoder_card="0"):
         """Test specific settings for hardware decode, so the UI can remove unsupported options."""
         is_supported = False
         example_media = os.path.join(info.RESOURCES_PATH, "hardware-example.mp4")
+        decoder_name = next(item for item in all_decoders if item["value"] == str(decoder)).get("name", "Unknown")
 
         # Persist decoder card results
         if decoder_card not in self.hardware_tests_cards:
@@ -552,6 +555,9 @@ class Preferences(QDialog):
         # Keep track of previous settings
         current_decoder = openshot.Settings.Instance().HARDWARE_DECODER
         current_decoder_card = openshot.Settings.Instance().HW_DE_DEVICE_SET
+        current_decoder_name = \
+            next(item for item in all_decoders if item["value"] == str(current_decoder)).get("name", "Unknown")
+        log.debug("Current hardware decoder: %s (%s-%s)" % (current_decoder_name, current_decoder, current_decoder_card))
 
         try:
             # Temp override hardware settings (to test them)
@@ -566,17 +572,21 @@ class Preferences(QDialog):
             reader.Open()
 
             # Test decoded pixel values for a valid decode (based on hardware-example.mp4)
+            log.debug("Testing hardware decoder: %s (%s-%s)" % (decoder_name, decoder, decoder_card))
             if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255, 5):
                 is_supported = True
                 self.hardware_tests_cards[decoder_card].append(int(decoder))
+                log.debug("Successful hardware decoder! %s (%s-%s)" % (decoder_name, decoder, decoder_card))
             else:
-                log.warning("CheckPixel failed testing hardware decoding in preferences (i.e. wrong color found): %s-%s" % (decoder, decoder_card))
+                log.debug("CheckPixel failed testing hardware decoding (i.e. wrong color found): %s (%s-%s)" %
+                            (decoder_name, decoder, decoder_card))
 
             reader.Close()
             clip.Close()
 
         except:
-            log.warning("Exception trying to test hardware decoding in preferences (this is expected): %s-%s" % (decoder, decoder_card))
+            log.debug("Exception trying to test hardware decoding (this is expected): %s (%s-%s)" %
+                        (decoder_name, decoder, decoder_card))
 
         # Resume current settings
         openshot.Settings.Instance().HARDWARE_DECODER = current_decoder
