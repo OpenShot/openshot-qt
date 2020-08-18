@@ -46,10 +46,11 @@ class PropertyDelegate(QItemDelegate):
         QItemDelegate.__init__(self, parent, *args)
 
         # pixmaps for curve icons
-        self.curve_pixmaps = {openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
-                              openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
-                              openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
-                              }
+        self.curve_pixmaps = {
+            openshot.BEZIER: QPixmap(":/curves/keyframe-%s.png" % openshot.BEZIER),
+            openshot.LINEAR: QPixmap(":/curves/keyframe-%s.png" % openshot.LINEAR),
+            openshot.CONSTANT: QPixmap(":/curves/keyframe-%s.png" % openshot.CONSTANT),
+            }
 
     def paint(self, painter, option, index):
         painter.save()
