@@ -284,6 +284,7 @@ elif sys.platform == "linux":
             libpath = libdetailsparts[0].strip()
             libpath_file = os.path.basename(libpath)
             if (libpath
+                and os.path.exists(libpath)
                 and not libpath.startswith("/lib")
                 and "libnvidia-glcore.so" not in libpath
                 and libpath_file not in [
@@ -307,7 +308,8 @@ elif sys.platform == "linux":
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
                     "libthai.so.0",
-                ]) or libpath_file in [
+                    ]
+               ) or libpath_file in [
                     "libgcrypt.so.11",
                     "libQt5DBus.so.5",
                     "libpng12.so.0",
@@ -317,16 +319,9 @@ elif sys.platform == "linux":
                     "libpcre.so.3",
                     "libselinux.so.1",
                     ]:
-
-                # Ignore missing files
-                if os.path.exists(libpath):
-                    filepath, filename = os.path.split(libpath)
-                    external_so_files.append((libpath, filename))
-                else:
-                    # This shouldn't really happen, since `ldd` is showing
-                    # these files as linked into ones we're packaging
-                    log.error(
-                        "Skipped missing shared library: {}".format(libpath))
+                external_so_files.append((libpath, libpath_file))
+                # Any other lib deps that fail to meet the inclusion
+                # criteria above will be silently skipped over
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
