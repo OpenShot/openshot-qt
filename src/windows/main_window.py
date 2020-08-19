@@ -284,16 +284,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.clear_all_thumbnails()
 
         # Write lock file (try a few times if failure)
-        attempts = 5
-        while attempts > 0:
+        for attempt in range(5):
             try:
                 # Create lock file
                 with open(lock_path, 'w') as f:
                     f.write(lock_value)
+                log.debug("Wrote value {} to lock file {}".format(
+                    lock_value, lock_path))
                 break
-            except Exception:
-                log.debug('Failed to write lock file (attempt: %s)' % attempts)
-                attempts -= 1
+            except OSError:
+                log.debug('Failed to write lock file (attempt: {})'.format(
+                    attempt), exc_info=1)
                 sleep(0.25)
 
     def destroy_lock_file(self):
@@ -301,14 +302,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         lock_path = os.path.join(info.USER_PATH, ".lock")
 
         # Remove file (try a few times if failure)
-        attempts = 5
-        while attempts > 0:
+        for attempt in range(5):
             try:
                 os.remove(lock_path)
+                log.debug("Removed lock file {}".format(lock_path))
                 break
-            except Exception:
-                log.debug('Failed to destroy lock file (attempt: %s)' % attempts)
-                attempts -= 1
+            except FileNotFoundError:
+                break
+            except OSError:
+                log.debug('Failed to destroy lock file (attempt: %s)' % attempt, exc_info=1)
                 sleep(0.25)
 
     def tail_file(self, f, n, offset=None):

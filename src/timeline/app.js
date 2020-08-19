@@ -27,8 +27,7 @@
  */
 
 // Initialize Angular application
-/*global App, timeline, angular*/
-var timeline = null;
+/*global App, angular, timeline, init_mixin*/
 var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 
 
@@ -37,18 +36,8 @@ $(document).ready(function () {
 
   var body_object = $("body");
 
-  // Check for Qt Integration
-  new QWebChannel(qt.webChannelTransport, function (channel) {
-    timeline = channel.objects.timeline;
-    timeline.qt_log("INFO", "Qt Ready");
-
-    // Only enable Qt once Angular as initialized
-    angular.element(document).ready(function () {
-      timeline.qt_log("INFO", "Angular Ready");
-      body_object.scope().enableQt();
-    });
-
-  });
+  // Initialize Qt Mixin (WebEngine or WebKit)
+  init_mixin();
 
   /// Capture window resize event, and resize scrollable divs (i.e. track container)
   $(window).resize(function () {
@@ -64,8 +53,8 @@ $(document).ready(function () {
 
     track_controls.height(new_track_height);
     $("#scrolling_tracks").height(new_track_height);
-      body_object.scope().playhead_height = $("#track-container").height();
-      $(".playhead-line").height(body_object.scope().playhead_height);
+    body_object.scope().playhead_height = $("#track-container").height();
+    $(".playhead-line").height(body_object.scope().playhead_height);
   });
 
   // Bind to keydown event (to detect SHIFT)
