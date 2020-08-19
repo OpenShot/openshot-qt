@@ -40,7 +40,10 @@ from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 # QtWebEngineWidgets must be loaded prior to creating a QApplication
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+try:
+    from PyQt5.QtWebEngineWidgets import QWebEngineView
+except ImportError:
+    pass
 
 try:
     # Solution to solve QtWebEngineWidgets black screen caused by OpenGL not loaded
