@@ -24,7 +24,6 @@ linux-builder:
     - ~/auto-update-sphinx "$CI_PROJECT_DIR/build" "$CI_COMMIT_REF_NAME"
     - python3 -u freeze.py build
     - for dir in "build/*/"; do /bin/sh ./installer/mangle-hw-libs.sh $(realpath "${dir}"); done 
-    - 
     - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   except:
