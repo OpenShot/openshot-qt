@@ -23,7 +23,8 @@ linux-builder:
     - cd doc; make html SPHINXOPTS="-D html_theme_options.analytics_id=UA-4381101-5"; cd ..;
     - ~/auto-update-sphinx "$CI_PROJECT_DIR/build" "$CI_COMMIT_REF_NAME"
     - python3 -u freeze.py build
-    - /bin/sh ./installer/mangle-hw-libs.sh "build/exe.linux-x86_64-3.4/"
+    - for dir in "build/*/"; do /bin/sh ./installer/mangle-hw-libs.sh $(realpath "${dir}"); done 
+    - 
     - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   except:
