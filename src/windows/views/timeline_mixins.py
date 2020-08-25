@@ -70,7 +70,7 @@ if IS_WEBENGINE_VALID:
         def javaScriptConsoleMessage(self, level, msg, line, source):
             log.log(
                 self.levels[level],
-                '%s@%d: %s' % (os.path.basename(source), line, msg))
+                '%s@L%d: %s' % (os.path.basename(source), line, msg))
 
         def __init__(self, parent=None):
             super().__init__(parent=parent)
