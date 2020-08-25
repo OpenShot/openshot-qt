@@ -76,7 +76,6 @@ if IS_WEBENGINE_VALID:
             super().__init__(parent=parent)
             self.setObjectName("LoggingWebEnginePage")
             self.levels = [logging.INFO, logging.WARNING, logging.ERROR]
-
 else:
     LoggingWebEnginePage = object
 
