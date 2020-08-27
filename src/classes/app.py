@@ -47,15 +47,8 @@ except ImportError:
     pass
 
 try:
-    # Solution to solve QtWebEngineWidgets black screen caused by OpenGL not loaded
-    from OpenGL import GL
-except ImportError:
-    pass
-
-try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 except AttributeError:
     pass # Quietly fail for older Qt5 versions
 
@@ -82,6 +75,15 @@ class OpenShotApp(QApplication):
             log.info("------------------------------------------------")
             log.info(time.asctime().center(48))
             log.info('Starting new session'.center(48))
+
+            if mode != "unittest" and (
+                    not info.WEB_BACKEND
+                    or info.WEB_BACKEND in ["auto", "webengine"]):
+                try:
+                    from OpenGL import GL
+                    self.setAttribute(Qt.AA_ShareOpenGLContexts)
+                except (ImportError, AttributeError):
+                    pass
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
             from . import openshot_rc

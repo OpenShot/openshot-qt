@@ -47,7 +47,6 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.conversion import zoomToSeconds, secondsToZoom
-from .timeline_mixins import TimelineMixin
 
 import json
 
@@ -150,8 +149,35 @@ MENU_SLICE_KEEP_RIGHT = 2
 MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
+# Import shenanigans
+WEBVIEW_LOADED = None
 
-class TimelineWebView(TimelineMixin, updates.UpdateInterface):
+if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
+    from .timeline.webkit import TimelineWebKitView
+    WebViewClass = TimelineWebKitView
+    WEBVIEW_LOADED = True
+elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
+    from .timeline.webengine import TimelineWebEngineView
+    WebViewClass = TimelineWebEngineView
+    WEBVIEW_LOADED = True
+else:
+    try:
+        from .timeline.webengine import TimelineWebEngineView as WebViewClass
+        WEBVIEW_LOADED = True
+    except ImportError as ex:
+        try:
+            from .timeline.webkit import TimelineWebKitView as WebViewClass
+            WEBVIEW_LOADED = True
+        except ImportError:
+            pass
+        finally:
+            if not WEBVIEW_LOADED:
+                raise RuntimeError(
+                    "Need PyQt5.QtWebEngine (or PyQt5.QtWebView on Win32)"
+                    ) from ex
+
+
+class TimelineWebView(WebViewClass, updates.UpdateInterface):
     """ A Web(Engine)View QWidget used to load the Timeline """
 
     # Path to html file
@@ -3075,7 +3101,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             pass
 
     def __init__(self, window):
-        TimelineMixin.__init__(self)
+        super().__init__()
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
