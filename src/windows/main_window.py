@@ -156,17 +156,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
 
-        # Shut down the webview
-        self.timeline.close()
-
         # Close Timeline
         self.timeline_sync.timeline.Close()
         self.timeline_sync.timeline = None
-
-        # Close & Stop libopenshot logger
-        openshot.ZmqLogger.Instance().Close()
-        app.logger_libopenshot.kill()
-        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
