@@ -242,7 +242,7 @@ class OpenShotApp(QApplication):
 
         # Create main window
         from windows.main_window import MainWindow
-        self.window = MainWindow(mode)
+        self.window = MainWindow(self, mode=mode)
 
         # Reset undo/redo history
         self.updates.reset()
