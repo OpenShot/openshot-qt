@@ -1689,7 +1689,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # If we didn't act on the event, forward it to the base class
         else:
-            super(MainWindow, self).keyPressEvent(event)
+            super().keyPressEvent(event)
 
 
     def actionProfile_trigger(self, event):
@@ -2602,10 +2602,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         except Exception:
             log.debug('Failed to notify unity launcher of export progress. Completed.')
 
-    def __init__(self, mode=None):
+    def __init__(self, *args, mode=None):
 
         # Create main window base class
-        QMainWindow.__init__(self)
+        super().__init__(*args)
         self.mode = mode    # None or unittest (None is normal usage)
         self.initialized = False
 

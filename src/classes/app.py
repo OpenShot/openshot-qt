@@ -292,5 +292,6 @@ def onLogTheEnd():
         log.info(time.asctime().center(48))
         log.info("================================================")
     except Exception:
-        from classes.logger import log
+        import logging
+        log = logging.getLogger("OpenShot")
         log.warning('Failed to write session ended log')

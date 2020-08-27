@@ -3102,6 +3102,8 @@ class TimelineWebView(WebViewClass, updates.UpdateInterface):
 
     def __init__(self, window):
         super().__init__()
+        self.setObjectName("TimelineWebView")
+
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
