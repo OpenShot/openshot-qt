@@ -153,20 +153,20 @@ MENU_SPLIT_AUDIO_MULTIPLE = 1
 WEBVIEW_LOADED = None
 
 if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
-    from .timeline.webkit import TimelineWebKitView
+    from .webview_backend.webkit import TimelineWebKitView
     WebViewClass = TimelineWebKitView
     WEBVIEW_LOADED = True
 elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
-    from .timeline.webengine import TimelineWebEngineView
+    from .webview_backend.webengine import TimelineWebEngineView
     WebViewClass = TimelineWebEngineView
     WEBVIEW_LOADED = True
 else:
     try:
-        from .timeline.webengine import TimelineWebEngineView as WebViewClass
+        from .webview_backend.webengine import TimelineWebEngineView as WebViewClass
         WEBVIEW_LOADED = True
     except ImportError as ex:
         try:
-            from .timeline.webkit import TimelineWebKitView as WebViewClass
+            from .webview_backend.webkit import TimelineWebKitView as WebViewClass
             WEBVIEW_LOADED = True
         except ImportError:
             pass

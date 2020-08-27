@@ -42,7 +42,7 @@ from PyQt5.QtGui import QIcon, QCursor, QKeySequence
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from windows.views.timeline_webview import TimelineWebView
+from windows.views.webview import TimelineWebView
 from classes import info, ui_util, openshot_rc, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
