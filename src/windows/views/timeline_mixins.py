@@ -26,6 +26,7 @@
  """
 
 import os
+import sys
 from classes import info
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
@@ -33,24 +34,28 @@ from PyQt5.QtWidgets import QMenu
 from classes.logger import log
 from functools import partial
 
+try:
+    # Attempt to import QtWebKit
+    from PyQt5.QtWebKitWidgets import QWebView
+    IS_WEBKIT_VALID = True
+except ImportError as ex:
+    QWebView = object # Prevent inheritance errors
+    IS_WEBKIT_VALID = False
+    if sys.platform == "win32":
+        log.error("Need PyQt5.QtWebKit on Win32!", exc_info=1)
 
 try:
     # Attempt to import QtWebEngine
-    from PyQt5.QtWebChannel import QWebChannel
     from PyQt5.QtWebEngineWidgets import QWebEngineView
+    from PyQt5.QtWebChannel import QWebChannel
     IS_WEBENGINE_VALID = True
 except ImportError:
     QWebEngineView = object # Prevent inheritance errors
     IS_WEBENGINE_VALID = False
-
-try:
-    # Attempt to import QtWebKit
-    from PyQt5.QtWebKitWidgets import QWebView, QWebPage
-    IS_WEBKIT_VALID = True
-except ImportError:
-    QWebView = object # Prevent inheritance errors
-    QWebPage = object
-    IS_WEBKIT_VALID = False
+    if not IS_WEBKIT_VALID:
+        # Raise the exception, if we have _neither_ backend
+        log.error("Missing PyQt5.QtWebEngine (or PyQt5.QtWebKit on Win32)")
+        raise
 
 
 class TimelineBaseMixin(object):
