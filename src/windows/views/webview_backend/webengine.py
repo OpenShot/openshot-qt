@@ -34,8 +34,21 @@ from classes.logger import log
 
 from PyQt5.QtCore import QFileInfo, QUrl, Qt, QTimer
 from PyQt5.QtGui import QColor
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
 from PyQt5.QtWebChannel import QWebChannel
+
+
+class LoggingWebEnginePage(QWebEnginePage):
+    """Override console.log message to display messages"""
+    def javaScriptConsoleMessage(self, level, msg, line, source):
+        log.log(
+            self.levels[level],
+            '%s@%Ld: %s' % (os.path.basename(source), line, msg))
+
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.setObjectName("LoggingWebEnginePage")
+        self.levels = [logging.INFO, logging.WARNING, logging.ERROR]
 
 
 class TimelineWebEngineView(QWebEngineView):
@@ -44,8 +57,14 @@ class TimelineWebEngineView(QWebEngineView):
     def __init__(self):
         """Initialization code required for widget"""
         super().__init__()
+        self.setObjectName("TimelineWebEngineView")
+
         self.document_is_ready = False
         self.html_path = os.path.join(info.PATH, 'timeline', 'index.html')
+
+        # Connect logging web page (for console.log)
+        self.new_page = LoggingWebEnginePage(self)
+        self.setPage(self.new_page)
 
         # Set background color of timeline
         self.page().setBackgroundColor(QColor("#363636"))

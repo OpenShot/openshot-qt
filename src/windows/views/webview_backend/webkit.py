@@ -36,10 +36,14 @@ from PyQt5.QtCore import QFileInfo, QUrl, Qt, QTimer
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 
 
-class LoggingWebPage(QWebPage):
+class LoggingWebKitPage(QWebPage):
     """Override console.log message to display messages"""
-    def javaScriptConsoleMessage(self, msg, line, source):
-        log.warning('JS: %s line %d: %s' % (source, line, msg))
+    def javaScriptConsoleMessage(self, msg, line, source, *args):
+        log.warning('%s@L%d: %s' % (os.path.basename(source), line, msg))
+
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.setObjectName("LoggingWebKitPage")
 
 
 class TimelineWebKitView(QWebView):
@@ -48,6 +52,8 @@ class TimelineWebKitView(QWebView):
     def __init__(self):
         """Initialization code required for widget"""
         super().__init__()
+        self.setObjectName("TimeWebKitView")
+
         self.document_is_ready = False
         self.html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
@@ -55,8 +61,8 @@ class TimelineWebKitView(QWebView):
         self.setAttribute(Qt.WA_DeleteOnClose)
 
         # Connect logging web page (for console.log)
-        page = LoggingWebPage()
-        self.setPage(page)
+        self.new_page = LoggingWebPage(self)
+        self.setPage(self.new_page)
 
         # Disable image caching on timeline
         self.settings().setObjectCacheCapacities(0, 0, 0)
