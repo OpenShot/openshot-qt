@@ -242,7 +242,7 @@ class OpenShotApp(QApplication):
 
         # Create main window
         from windows.main_window import MainWindow
-        self.window = MainWindow(self, mode=mode)
+        self.window = MainWindow(mode=mode)
 
         # Reset undo/redo history
         self.updates.reset()
@@ -292,6 +292,5 @@ def onLogTheEnd():
         log.info(time.asctime().center(48))
         log.info("================================================")
     except Exception:
-        import logging
-        log = logging.getLogger("OpenShot")
+        from classes.logger import log
         log.warning('Failed to write session ended log')
