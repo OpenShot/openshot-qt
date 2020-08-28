@@ -289,11 +289,11 @@ class Preferences(QDialog):
                         for value_item in list(value_list):
                             v = value_item["value"]
                             # Remove items that are operating system specific
-                            if os_platform == "Darwin" and v not in ("0", "5", "7", "2"):
+                            if os_platform == "Darwin" and v not in ("0", "5", "2"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Windows" and v not in ("0", "3", "4", "7"):
+                            elif os_platform == "Windows" and v not in ("0", "3", "4"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6", "7"):
+                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6"):
                                 value_list.remove(value_item)
 
                         # Remove hardware mode items which cannot decode the example video
@@ -561,6 +561,7 @@ class Preferences(QDialog):
 
         try:
             # Temp override hardware settings (to test them)
+            log.debug("Testing hardware decoder: %s (%s-%s)" % (decoder_name, decoder, decoder_card))
             openshot.Settings.Instance().HARDWARE_DECODER = int(decoder)
             openshot.Settings.Instance().HW_DE_DEVICE_SET = int(decoder_card)
 
@@ -572,7 +573,6 @@ class Preferences(QDialog):
             reader.Open()
 
             # Test decoded pixel values for a valid decode (based on hardware-example.mp4)
-            log.debug("Testing hardware decoder: %s (%s-%s)" % (decoder_name, decoder, decoder_card))
             if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255, 5):
                 is_supported = True
                 self.hardware_tests_cards[decoder_card].append(int(decoder))
