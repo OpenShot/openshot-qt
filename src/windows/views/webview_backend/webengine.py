@@ -27,6 +27,7 @@
  """
 
 import os
+import logging
 from functools import partial
 
 from classes import info
