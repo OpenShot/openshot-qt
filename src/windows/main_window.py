@@ -1190,7 +1190,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Get # of tracks
         all_tracks = get_app().project.get("layers")
-        track_number = reversed(sorted(all_tracks, key=lambda x: x['number']))[0].get("number") + 1000000
+        all_tracks.sort(key=lambda x: x['number'], reverse=True)
+        track_number = all_tracks[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
         track = Track()
