@@ -248,10 +248,23 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtWebEngine', 'QtWebEngineWidgets', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))
+    # Optional additions
+    for mod_name in [
+            'PyQt5.QtWebEngine',
+            'PyQt5.QtWebEngineWidgets',
+            'PyQt5.QtWebKit',
+            'PyQt5.QtWebKitWidgets',
+            ]:
+        try:
+            mod = import_module(mod_name)
+            pyqt5_mod_files.append(inspect.getfile(mod))
+        except ImportError as ex;
+            log.warning("Skipping {}: {}".format(mod_name, ex)
+
 
     lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
                 "/usr/local/lib/libresvg.so",
