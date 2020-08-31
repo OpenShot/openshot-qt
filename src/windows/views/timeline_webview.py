@@ -3116,7 +3116,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # QTimer for cache rendering
         self.cache_renderer_version = None
         self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(0.5 * 1000)
+        self.cache_renderer.setInterval(500)
         self.cache_renderer.timeout.connect(self.render_cache_json)
 
         # Delay the start of cache rendering
