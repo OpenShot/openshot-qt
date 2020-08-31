@@ -27,6 +27,8 @@ Definitions
 -----------
 These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot.org <mailto:support@openshot.org>`_.
 
+:ref:`B <gl-b_ref>`
+
 .. _gl-a_ref:
 -A-
 ---
