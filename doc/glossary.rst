@@ -19,7 +19,7 @@
 .. _glossary_ref:
 Glossary
 ===========
-There is much technical terminology in today's fast-moving media-centric world.  If you find yourself wondering what a video production term or an acronym means, you are certainly not alone.  Like most industries, video production has a language all its own.  Here is a brief list of video editing terms commonly found in video editing.  Becoming familiar with these terms only makes your job easier.
+There is much technical terminology in today's fast-moving media-centric world.  If you find yourself wondering what a video production term or an acronym means, you are certainly not alone.  Like most industries, video production has a language all its own.  Here is a list of terms commonly found in video editing.  Becoming familiar with these terms only makes your job easier.
 
 .. image:: images/ui-example.jpg
 
@@ -27,7 +27,32 @@ Definitions
 -----------
 These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot.org <mailto:support@openshot.org>`_.
 
-:ref:`B <gl-b_ref>`
+`-A- <glossary.rst#-A->`__
+`-B- <glossary.rst#-B->`__
+`-C- <glossary.rst#-C->`__
+`-D- <glossary.rst#-D->`__
+`-E- <glossary.rst#-E->`__
+`-F- <glossary.rst#-F->`__
+`-G- <glossary.rst#-G->`__
+`-H- <glossary.rst#-H->`__
+`-I- <glossary.rst#-I->`__
+`-J- <glossary.rst#-J->`__
+`-K- <glossary.rst#-K->`__
+`-L- <glossary.rst#-L->`__
+`-M- <glossary.rst#-M->`__
+`-N- <glossary.rst#-N->`__
+`-O- <glossary.rst#-O->`__
+`-P- <glossary.rst#-P->`__
+-Q-
+`-R- <glossary.rst#-R->`__
+`-S- <glossary.rst#-S->`__
+`-T- <glossary.rst#-T->`__
+-U-
+`-V- <glossary.rst#-V->`__
+`-W- <glossary.rst#-W->`__
+-X-
+-Y-
+`-Z- <glossary.rst#-Z->`__
 
 .. _gl-a_ref:
 -A-
