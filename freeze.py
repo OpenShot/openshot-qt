@@ -216,7 +216,9 @@ elif sys.platform == "linux":
 
     # Add QtWebEngineProcess (if found)
     web_process_path = ARCHLIB + "qt5/libexec/QtWebEngineProcess"
-    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    if os.path.exists(web_process_path):
+        external_so_files.append(
+            (web_process_path, os.path.basename(web_process_path)))
 
     # Add QtWebEngineProcess Resources & Local
     qt5_path = "/usr/share/qt5/"
@@ -266,10 +268,14 @@ elif sys.platform == "linux":
             log.warning("Skipping {}: {}".format(mod_name, ex))
 
 
-    lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
-                "/usr/local/lib/libresvg.so",
-                ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
-                ] + pyqt5_mod_files
+    lib_list = pyqt5_mod_files
+    for lib_name in [
+            os.path.join(libopenshot_path, "libopenshot.so"),
+            "/usr/local/lib/libresvg.so",
+            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
+            ]:
+        if os.path.exists(lib_name):
+            lib_list.append(lib_name)
 
     import subprocess
     for library in lib_list:
