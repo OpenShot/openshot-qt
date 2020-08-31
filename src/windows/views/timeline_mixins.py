@@ -125,7 +125,6 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
             html = f.read()
         html = html.replace('<!--MIXIN_JS_INCLUDE-->',
             """
-            <script type="text/javascript" src="js/qwebchannel.js"></script>
             <script type="text/javascript" src="js/mixin_webengine.js"></script>
             """)
         return html
