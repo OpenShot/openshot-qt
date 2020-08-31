@@ -262,8 +262,8 @@ elif sys.platform == "linux":
         try:
             mod = import_module(mod_name)
             pyqt5_mod_files.append(inspect.getfile(mod))
-        except ImportError as ex;
-            log.warning("Skipping {}: {}".format(mod_name, ex)
+        except ImportError as ex:
+            log.warning("Skipping {}: {}".format(mod_name, ex))
 
 
     lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
