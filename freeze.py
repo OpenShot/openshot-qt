@@ -216,7 +216,9 @@ elif sys.platform == "linux":
 
     # Add QtWebEngineProcess (if found)
     web_process_path = ARCHLIB + "qt5/libexec/QtWebEngineProcess"
-    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    if os.path.exists(web_process_path):
+        external_so_files.append(
+            (web_process_path, os.path.basename(web_process_path)))
 
     # Add QtWebEngineProcess Resources & Local
     qt5_path = "/usr/share/qt5/"
@@ -248,15 +250,32 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtWebEngine', 'QtWebEngineWidgets', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))
+    # Optional additions
+    for mod_name in [
+            'PyQt5.QtWebEngine',
+            'PyQt5.QtWebEngineWidgets',
+            'PyQt5.QtWebKit',
+            'PyQt5.QtWebKitWidgets',
+            ]:
+        try:
+            mod = import_module(mod_name)
+            pyqt5_mod_files.append(inspect.getfile(mod))
+        except ImportError as ex:
+            log.warning("Skipping {}: {}".format(mod_name, ex))
 
-    lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
-                "/usr/local/lib/libresvg.so",
-                ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
-                ] + pyqt5_mod_files
+
+    lib_list = pyqt5_mod_files
+    for lib_name in [
+            os.path.join(libopenshot_path, "libopenshot.so"),
+            "/usr/local/lib/libresvg.so",
+            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
+            ]:
+        if os.path.exists(lib_name):
+            lib_list.append(lib_name)
 
     import subprocess
     for library in lib_list:
