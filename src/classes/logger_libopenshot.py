@@ -34,6 +34,9 @@ import zmq
 
 
 class LoggerLibOpenShot(Thread):
+    def __init__(self):
+        super().__init__()
+        self.daemon = True
 
     def kill(self):
         self.running = False

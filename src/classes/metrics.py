@@ -99,6 +99,7 @@ def track_metric_screen(screen_name):
     metric_params["cid"] = s.get("unique_install_id")
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
@@ -113,6 +114,7 @@ def track_metric_event(event_action, event_label, event_category="General", even
     metric_params["cid"] = s.get("unique_install_id")
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
@@ -126,12 +128,14 @@ def track_metric_error(error_name, is_fatal=False):
         metric_params["exf"] = 1
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
 def track_exception_stacktrace(stacktrace, source):
     """Track an exception/stacktrace has occurred"""
     t = threading.Thread(target=send_exception, args=[stacktrace, source])
+    t.daemon = True
     t.start()
 
 
@@ -147,6 +151,7 @@ def track_metric_session(is_start=True):
         metric_params["cd"] = "close-app"
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
