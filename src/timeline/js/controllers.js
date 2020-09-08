@@ -467,8 +467,8 @@ App.controller("TimelineCtrl", function ($scope) {
       var stop_second = parseFloat(progress[p]["end"]) / fps;
 
       //figure out the actual pixel position, constrained by max width
-      var start_pixel = canvasMaxWidth(start_second * $scope.pixelsPerSecond);
-      var stop_pixel = canvasMaxWidth(stop_second * $scope.pixelsPerSecond);
+      var start_pixel = $scope.canvasMaxWidth(start_second * $scope.pixelsPerSecond);
+      var stop_pixel = $scope.canvasMaxWidth(stop_second * $scope.pixelsPerSecond);
       var rect_length = stop_pixel - start_pixel;
       if (rect_length < 1) {
         break;
@@ -620,6 +620,12 @@ App.controller("TimelineCtrl", function ($scope) {
       timeline.addSelection(effect_id, "effect", true);
     }
   };
+
+  // Constrain canvas width values to under 32Kpixels
+  $scope.canvasMaxWidth = function (desired_width) {
+    return Math.min(32767, desired_width);
+  };
+
 
 // Find the furthest right edge on the timeline (and resize it if too small)
   $scope.resizeTimeline = function () {

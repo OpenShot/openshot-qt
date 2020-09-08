@@ -108,7 +108,7 @@ function drawAudio(scope, clip_id) {
     // (If we try to go over the max width, the whole canvas disappears)
     var final_sample = end_sample;
     var audio_width = (end_sample - start_sample) / sample_divisor;
-    var usable_width = canvasMaxWidth(audio_width);
+    var usable_width = scope.canvasMaxWidth(audio_width);
     if (audio_width > usable_width) {
       // Just go as far as we can, then cut off the remaining waveform
       final_sample = (usable_width * sample_divisor) - 1;
@@ -176,11 +176,6 @@ function secondsToTime(secs, fps_num, fps_den) {
     "milli": padNumber(milli, 2),
     "frame": padNumber(frame, 2)
   };
-}
-
-// Constrain canvas width values to under 32Kpixels
-function canvasMaxWidth(desired_width) {
-  return Math.min(32767, desired_width);
 }
 
 // Find the closest track number (based on a Y coordinate)
