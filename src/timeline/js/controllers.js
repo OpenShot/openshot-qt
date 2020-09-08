@@ -466,11 +466,13 @@ App.controller("TimelineCtrl", function ($scope) {
       var start_second = parseFloat(progress[p]["start"]) / fps;
       var stop_second = parseFloat(progress[p]["end"]) / fps;
 
-      //figure out the actual pixel position
-      var start_pixel = start_second * $scope.pixelsPerSecond;
-      var stop_pixel = stop_second * $scope.pixelsPerSecond;
+      //figure out the actual pixel position, constrained by max width
+      var start_pixel = canvasMaxWidth(start_second * $scope.pixelsPerSecond);
+      var stop_pixel = canvasMaxWidth(stop_second * $scope.pixelsPerSecond);
       var rect_length = stop_pixel - start_pixel;
-
+      if (rect_length < 1) {
+        break;
+      }
       //get the element and draw the rects
       ctx.beginPath();
       ctx.rect(start_pixel, 0, rect_length, 5);

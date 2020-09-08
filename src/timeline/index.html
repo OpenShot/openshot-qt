@@ -48,7 +48,7 @@
 				<div class="playhead-line-small"></div>
 			</div>
 			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->
-			<canvas tl-ruler id="ruler" width="{{(getTimelineWidth(1024) < 32717) ? (getTimelineWidth(1024) + 50) : 32767}}px" height="39"></canvas>
+			<canvas tl-ruler id="ruler" width="{{canvasMaxWidth(getTimelineWidth(1024) + 50)}}px" height="39"></canvas>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
@@ -57,7 +57,7 @@
 			<br class="cleared">
 			
 			<!-- PROGRESS BAR -->
-			<canvas id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>
+			<canvas id="progress" width="{{canvasMaxWidth(project.duration * pixelsPerSecond)}}px" height="3px"></canvas>
  		</div>
  		<div class="cleared"></div>
 
@@ -102,7 +102,7 @@
 						<img class="thumb thumb-start" ng-show="getThumbPath(clip)" ng-src="{{ getThumbPath(clip) }}"/>
 					</div>
 					<div ng-show="clip.show_audio" class="audio-container">
-						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
+						<canvas tl-audio height="46px" width="{{canvasMaxWidth((clip.end - clip.start) * pixelsPerSecond)}}px" class="audio"></canvas>
 					</div>
 				</div>
 
@@ -178,5 +178,3 @@
 		<!-- END DEBUG SECTION -->
 </body>
 </html>
-
-
