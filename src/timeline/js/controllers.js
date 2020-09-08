@@ -56,7 +56,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-  $scope.playheadOffset = 0;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime = secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
@@ -93,8 +92,8 @@ App.controller("TimelineCtrl", function ($scope) {
     $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
-    $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
-    $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+    $(".playhead-top").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
+    $(".playhead-line").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
     $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
   };
 
