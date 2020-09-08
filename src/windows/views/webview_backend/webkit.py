@@ -61,7 +61,7 @@ class TimelineWebKitView(QWebView):
         self.setAttribute(Qt.WA_DeleteOnClose)
 
         # Connect logging web page (for console.log)
-        self.new_page = LoggingWebPage(self)
+        self.new_page = LoggingWebKitPage(self)
         self.setPage(self.new_page)
 
         # Disable image caching on timeline
