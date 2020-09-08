@@ -606,7 +606,7 @@ App.controller("TimelineCtrl", function ($scope) {
     var has_video = clip["reader"]["has_video"];
     var has_audio = clip["reader"]["has_audio"];
     if (!has_video && has_audio) {
-      return "../images/AudioThumbnail.png";
+      return "../images/AudioThumbnail.svg";
     }
     var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
     return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
