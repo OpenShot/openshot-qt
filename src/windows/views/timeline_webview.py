@@ -1284,10 +1284,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["scale_x"]["Points"].append(start_object)
-                clip.data["scale_x"]["Points"].append(end_object)
-                clip.data["scale_y"]["Points"].append(start_object)
-                clip.data["scale_y"]["Points"].append(end_object)
+                self.AddPoint(clip.data["scale_x"], start_object)
+                self.AddPoint(clip.data["scale_x"], end_object)
+                self.AddPoint(clip.data["scale_y"], start_object)
+                self.AddPoint(clip.data["scale_y"], end_object)
 
             if action in [
                 MENU_ANIMATE_CENTER_TOP,
@@ -1352,10 +1352,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["location_x"]["Points"].append(start_x_object)
-                clip.data["location_x"]["Points"].append(end_x_object)
-                clip.data["location_y"]["Points"].append(start_y_object)
-                clip.data["location_y"]["Points"].append(end_y_object)
+                self.AddPoint(clip.data["location_x"], start_x_object)
+                self.AddPoint(clip.data["location_x"], end_x_object)
+                self.AddPoint(clip.data["location_y"], start_y_object)
+                self.AddPoint(clip.data["location_y"], end_y_object)
 
             if action == MENU_ANIMATE_RANDOM:
                 # Location animation
@@ -1374,10 +1374,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["scale_x"]["Points"].append(start_object)
-                clip.data["scale_x"]["Points"].append(end_object)
-                clip.data["scale_y"]["Points"].append(start_object)
-                clip.data["scale_y"]["Points"].append(end_object)
+                self.AddPoint(clip.data["scale_x"], start_object)
+                self.AddPoint(clip.data["scale_x"], end_object)
+                self.AddPoint(clip.data["scale_y"], start_object)
+                self.AddPoint(clip.data["scale_y"], end_object)
 
                 # Add keyframes
                 start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
@@ -1389,13 +1389,24 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["location_x"]["Points"].append(start_x_object)
-                clip.data["location_x"]["Points"].append(end_x_object)
-                clip.data["location_y"]["Points"].append(start_y_object)
-                clip.data["location_y"]["Points"].append(end_y_object)
+                self.AddPoint(clip.data["location_x"], start_x_object)
+                self.AddPoint(clip.data["location_x"], end_x_object)
+                self.AddPoint(clip.data["location_y"], start_y_object)
+                self.AddPoint(clip.data["location_y"], end_y_object)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+    def AddPoint(self, keyframe, new_point):
+        """Add a Point to a Keyframe dict. Always remove existing points,
+        if any collisions are found"""
+        # Get all points that don't match new point coordinate
+        cleaned_points = [point for point in keyframe["Points"] if not point.get("co", {}).get("X") == new_point.get("co", {}).get("X")]
+        cleaned_points.append(new_point)
+
+        # Replace points with new list
+        keyframe["Points"] = cleaned_points
+
 
     def Copy_Triggered(self, action, clip_ids, tran_ids):
         """Callback for copy context menus"""
@@ -1812,8 +1823,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['alpha']["Points"].append(start_object)
-                clip.data['alpha']["Points"].append(end_object)
+                self.AddPoint(clip.data['alpha'], start_object)
+                self.AddPoint(clip.data['alpha'], end_object)
 
             if action in [MENU_FADE_OUT_FAST, MENU_FADE_OUT_SLOW]:
                 # Add keyframes
@@ -1821,8 +1832,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['alpha']["Points"].append(start_object)
-                clip.data['alpha']["Points"].append(end_object)
+                self.AddPoint(clip.data['alpha'], start_object)
+                self.AddPoint(clip.data['alpha'], end_object)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2078,8 +2089,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['volume']["Points"].append(start_object)
-                clip.data['volume']["Points"].append(end_object)
+                self.AddPoint(clip.data['volume'], start_object)
+                self.AddPoint(clip.data['volume'], end_object)
 
             if action in [
                 MENU_VOLUME_FADE_OUT_FAST,
@@ -2090,8 +2101,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['volume']["Points"].append(start_object)
-                clip.data['volume']["Points"].append(end_object)
+                self.AddPoint(clip.data['volume'], start_object)
+                self.AddPoint(clip.data['volume'], end_object)
 
             if action in [
                 MENU_VOLUME_LEVEL_100,
@@ -2109,7 +2120,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Add keyframes
                 p = openshot.Point(start_animation, float(action) / 100.0, openshot.BEZIER)
                 p_object = json.loads(p.Json())
-                clip.data['volume']["Points"].append(p_object)
+                self.AddPoint(clip.data['volume'], p_object)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2252,51 +2263,51 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Create Time Freeze keyframe points
                 p = openshot.Point(start_animation_frames, start_animation_frames_value, openshot.LINEAR)
                 p_object = json.loads(p.Json())
-                clip.data['time']["Points"].append(p_object)
+                self.AddPoint(clip.data['time'], p_object)
                 p1 = openshot.Point(end_animation_frames, start_animation_frames_value, openshot.LINEAR)
                 p1_object = json.loads(p1.Json())
-                clip.data['time']["Points"].append(p1_object)
+                self.AddPoint(clip.data['time'], p1_object)
                 p2 = openshot.Point(end_of_clip_frames, end_of_clip_frames_value, openshot.LINEAR)
                 p2_object = json.loads(p2.Json())
-                clip.data['time']["Points"].append(p2_object)
+                self.AddPoint(clip.data['time'], p2_object)
 
                 # Create Volume mute keyframe points (so the freeze is silent)
                 p = openshot.Point(start_animation_frames - 1, start_volume_value, openshot.LINEAR)
                 p_object = json.loads(p.Json())
-                clip.data['volume']["Points"].append(p_object)
+                self.AddPoint(clip.data['volume'], p_object)
                 p = openshot.Point(start_animation_frames, 0.0, openshot.LINEAR)
                 p_object = json.loads(p.Json())
-                clip.data['volume']["Points"].append(p_object)
+                self.AddPoint(clip.data['volume'], p_object)
                 p2 = openshot.Point(end_animation_frames - 1, 0.0, openshot.LINEAR)
                 p2_object = json.loads(p2.Json())
-                clip.data['volume']["Points"].append(p2_object)
+                self.AddPoint(clip.data['volume'], p2_object)
                 p3 = openshot.Point(end_animation_frames, start_volume_value, openshot.LINEAR)
                 p3_object = json.loads(p3.Json())
-                clip.data['volume']["Points"].append(p3_object)
+                self.AddPoint(clip.data['volume'], p3_object)
 
                 # Create zoom keyframe points
                 if action == MENU_TIME_FREEZE_ZOOM:
                     p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
                     p_object = json.loads(p.Json())
-                    clip.data['scale_x']["Points"].append(p_object)
+                    self.AddPoint(clip.data['scale_x'], p_object)
                     p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
                     p_object = json.loads(p.Json())
-                    clip.data['scale_y']["Points"].append(p_object)
+                    self.AddPoint(clip.data['scale_y'], p_object)
 
                     diff_halfed = (end_animation_frames - start_animation_frames) / 2.0
                     p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_x']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_x'], p1_object)
                     p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_y']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_y'], p1_object)
 
                     p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_x']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_x'], p1_object)
                     p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_y']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_y'], p1_object)
 
             else:
 
@@ -2332,7 +2343,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     end = openshot.Point(
                         start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
                     end_object = json.loads(end.Json())
-                    clip.data['time']["Points"].append(end_object)
+                    self.AddPoint(clip.data['time'], end_object)
 
                     # Adjust end & duration
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
@@ -2348,7 +2359,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     end = openshot.Point(
                         start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
                     end_object = json.loads(end.Json())
-                    clip.data['time']["Points"].append(end_object)
+                    self.AddPoint(clip.data['time'], end_object)
 
                     # Adjust end & duration
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
