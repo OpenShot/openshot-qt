@@ -2686,6 +2686,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.files_model = FilesModel()
         self.filesTreeView = FilesTreeView(self.files_model)
         self.filesListView = FilesListView(self.files_model)
+        self.files_model.update_model()
         self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
         self.tabFiles.layout().insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
@@ -2702,6 +2703,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.transition_model = TransitionsModel()
         self.transitionsTreeView = TransitionsTreeView(self.transition_model)
         self.transitionsListView = TransitionsListView(self.transition_model)
+        self.transition_model.update_model()
         self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
         self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
         if s.get("transitions_view") == "details":
@@ -2718,6 +2720,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effects_model = EffectsModel()
         self.effectsTreeView = EffectsTreeView(self.effects_model)
         self.effectsListView = EffectsListView(self.effects_model)
+        self.effects_model.update_model()
         self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
         self.tabEffects.layout().insertWidget(-1, self.effectsListView)
         if s.get("effects_view") == "details":
@@ -2731,8 +2734,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effectsView.setFocus()
 
         # Setup emojis view
-        self.emoji_model = EmojisModel()
-        self.emojiListView = EmojisListView(self.emoji_model)
+        self.emojis_model = EmojisModel()
+        self.emojis_model.update_model()
+        self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
         # Set up status bar
