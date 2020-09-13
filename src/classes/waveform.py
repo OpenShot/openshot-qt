@@ -49,6 +49,7 @@ def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):
 
     log.info("Clip loaded, start thread")
     t = threading.Thread(target=get_waveform_thread, args=[clip, clip_id, file_path, channel_filter, volume_keyframe])
+    t.daemon = True
     t.start()
 
 def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1, volume_keyframe=None):

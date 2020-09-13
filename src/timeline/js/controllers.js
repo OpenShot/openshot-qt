@@ -943,7 +943,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
         // Find element on screen (bound to this layer)
         var layer_elem = $("#track_" + layer.number);
-        if (layer_elem) {
+        if (layer_elem.offset()) {
           // Update the top offset
           layer.y = layer_elem.offset().top + vert_scroll_offset;
         }
