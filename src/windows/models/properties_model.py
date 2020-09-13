@@ -91,42 +91,24 @@ class PropertiesModel(updates.UpdateInterface):
         log.info("Update item: %s" % item_type)
 
         if item_type == "clip":
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                if clip.Id() == item_id:
-                    c = clip
-                    break
-
-            # Append to selected clips
-            self.selected.append((c, item_type))
+            c = get_app().window.timeline_sync.timeline.GetClip(item_id)
+            if c:
+                # Append to selected items
+                self.selected.append((c, item_type))
 
         if item_type == "transition":
-            t = None
-            trans = get_app().window.timeline_sync.timeline.Effects()
-            for tran in trans:
-                if tran.Id() == item_id:
-                    t = tran
-                    break
-
-            # Append to selected clips
-            self.selected.append((t, item_type))
+            t = get_app().window.timeline_sync.timeline.GetTimelineEffect(item_id)
+            if t:
+                # Append to selected items
+                self.selected.append((t, item_type))
 
         if item_type == "effect":
-            e = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                for effect in clip.Effects():
-                    if effect.Id() == item_id:
-                        e = effect
-                        break
-
-            # Filter out basic properties, since this is an effect on a clip
-            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-
-            # Append to selected items
-            self.selected.append((e, item_type))
-
+            e = get_app().window.timeline_sync.timeline.GetClipEffect(item_id)
+            if e:
+                # Filter out basic properties, since this is an effect on a clip
+                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+                # Append to selected items
+                self.selected.append((e, item_type))
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
@@ -159,12 +141,10 @@ class PropertiesModel(updates.UpdateInterface):
                 parent_clip_id = effect.parent["id"]
 
                 # Find this clip object
-                clips = get_app().window.timeline_sync.timeline.Clips()
-                for c in clips:
-                    if c.Id() == parent_clip_id:
-                        # Override the selected clip object (so the effect gets the correct starting position)
-                        clip = c
-                        break
+                c = get_app().window.timeline_sync.timeline.GetClip(parent_clip_id)
+                if c:
+                    # Override the selected clip object (so the effect gets the correct starting position)
+                    clip = c
 
             # Get FPS from project
             fps = get_app().project.get("fps")

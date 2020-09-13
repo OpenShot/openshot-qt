@@ -942,12 +942,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             file_path = clip.data["reader"]["path"]
 
             # Find actual clip object from libopenshot
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip_object in clips:
-                if clip_object.Id() == clip_id:
-                    c = clip_object
-
+            c = get_app().window.timeline_sync.timeline.GetClip(clip_id)
             if c and c.Reader() and not c.Reader().info.has_single_image:
                 # Find frame 1 channel_filter property
                 channel_filter = c.channel_filter.GetInt(1)
@@ -2209,7 +2204,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     original_duration = clip.data["original_data"]["duration"]
 
                 log.info('Updating timing for clip ID {}, original duration: {}'
-                    .format(clip.id, original_duration))
+                         .format(clip.id, original_duration))
                 log.debug(clip.data)
 
                 # Extend end & duration (due to freeze)
@@ -2237,12 +2232,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     del clip.data["time"]["Points"][-1]
 
                     # Find actual clip object from libopenshot
-                    c = None
-                    clips = get_app().window.timeline_sync.timeline.Clips()
-                    for clip_object in clips:
-                        if clip_object.Id() == clip_id:
-                            c = clip_object
-                            break
+                    c = get_app().window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
                         # Look up correct position from time curve
                         start_animation_frames_value = c.time.GetLong(start_animation_frames)
@@ -2250,12 +2240,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Do we already have a volume curve? Look up intersecting frame # from volume curve
                 if len(clip.data["volume"]["Points"]) > 1:
                     # Find actual clip object from libopenshot
-                    c = None
-                    clips = get_app().window.timeline_sync.timeline.Clips()
-                    for clip_object in clips:
-                        if clip_object.Id() == clip_id:
-                            c = clip_object
-                            break
+                    c = get_app().window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
                         # Look up correct volume from time curve
                         start_volume_value = c.volume.GetValue(start_animation_frames)

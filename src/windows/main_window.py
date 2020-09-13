@@ -914,28 +914,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.error("Unable to open the download page: {}".format(str(ex)))
 
     def actionPlay_trigger(self, event, force=None):
-
-        # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        timeline_length_int = round(timeline_length * fps) + 1
-
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
             self.actionPlay.setChecked(True)
 
         if self.actionPlay.isChecked():
+            # Determine max frame (based on clips)
+            max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.PlaySignal.emit(timeline_length_int)
+            self.PlaySignal.emit(max_frame)
 
         else:
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
@@ -1014,21 +1002,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionJumpEnd_trigger(self, event):
         log.info("actionJumpEnd_trigger")
 
-        # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        timeline_length_int = round(timeline_length * fps) + 1
-
-        # Seek to the 1st frame
-        self.SeekSignal.emit(timeline_length_int)
+        # Determine last frame (based on clips) & seek there
+        max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+        self.SeekSignal.emit(max_frame)
 
     def actionSaveFrame_trigger(self, event):
         log.info("actionSaveFrame_trigger")

@@ -679,7 +679,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def transformTriggered(self, clip_id):
         """Handle the transform signal when it's emitted"""
+        win = get_app().window
         need_refresh = False
+
         # Disable Transform UI
         if self and self.transforming_clip:
             # Is this the same clip_id already being transformed?
@@ -691,20 +693,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Get new clip for transform
         if clip_id:
             self.transforming_clip = Clip.get(id=clip_id)
+            self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
+            if self.transforming_clip and self.transforming_clip_object:
+                needs_refresh = True
 
-            if self.transforming_clip:
-                self.transforming_clip_object = None
-                clips = get_app().window.timeline_sync.timeline.Clips()
-                for clip in clips:
-                    if clip.Id() == self.transforming_clip.id:
-                        self.transforming_clip_object = clip
-                        need_refresh = True
-                        break
 
         # Update the preview and reselct current frame in properties
         if need_refresh:
-            get_app().window.refreshFrameSignal.emit()
-            get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
+            win.refreshFrameSignal.emit()
+            win.propertyTableView.select_frame(win.preview_thread.player.Position())
 
     def resizeEvent(self, event):
         """Widget resize event"""
