@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg11300" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs3">
+  <radialGradient id="radialGradient2852" gradientUnits="userSpaceOnUse" cy="13" cx="12" gradientTransform="matrix(1.5 0 0 .8 -7 -3.4)" r="10">
+   <stop id="stop3909" style="stop-color:#fff;stop-opacity:.70588" offset="0"/>
+   <stop id="stop3911" style="stop-color:#fff;stop-opacity:.23529" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient2855" y2="16" gradientUnits="userSpaceOnUse" x2="16" gradientTransform="matrix(.65219 0 0 .69231 .17389 -1.6924)" y1="2" x1="13">
+   <stop id="stop4576" style="stop-color:#282828" offset="0"/>
+   <stop id="stop4578" style="stop-color:#5a5c58" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2861" y2="84.22" gradientUnits="userSpaceOnUse" x2="-104.76" gradientTransform="matrix(0.12 0 0 .18037 19.295 -2.4767)" y1="74.24" x1="-104.53">
+   <stop id="stop6546" style="stop-color:#ebebeb" offset="0"/>
+   <stop id="stop6548" style="stop-color:#b4b4b4" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2863" y2="40" gradientUnits="userSpaceOnUse" x2="15.031" gradientTransform="matrix(.31916 0 0 .42858 .34038 -4.4288)" y1="18" x1="15.114">
+   <stop id="stop7605" style="stop-color:#b4b4b4" offset="0"/>
+   <stop id="stop7607" style="stop-color:#8c8c8c" offset="1"/>
+  </linearGradient>
+ </defs>
+ <rect id="rect6674" style="stroke-width:.99992;stroke:url(#linearGradient2863);enable-background:new;fill:url(#linearGradient2861)" rx=".48936" ry=".59091" height="9.0001" width="15" y="3.4999" x=".49996"/>
+ <path id="rect5550" style="fill:url(#linearGradient2855)" d="m1 5v5h9v-5h-9zm10 0v3h1v-3h-1zm2 0v5h2v-5h-2zm-2 4v1h1v-1h-1z"/>
+ <path id="rect2340" style="opacity:.6;fill:url(#radialGradient2852)" d="m2 5v1h1v-1h-1zm1 1v1h1v-1h-1zm1 0h1v-1h-1v1zm1 0v1h1v-1h-1zm1 0h1v-1h-1v1zm1 0v1h1v-1h-1zm1 0h1v-1h-1v1zm1 0v1h1v-1h-1zm1 0h1-1zm1 0v1h1v-1h-1zm1 0h1-1zm1 0v1h1v-1h-1zm0 1h-1v1h1v-1zm0 1v1h1v-1h-1zm0 1h-1 1zm-1 0v-1h-1v1h1zm-1 0h-1 1zm-1 0v-1h-1v1h1zm-1 0h-1v1h1v-1zm-1 0v-1h-1v1h1zm-1 0h-1v1h1v-1zm-1 0v-1h-1v1h1zm-1 0h-1v1h1v-1zm-1 0v-1h-1v1h1zm-1 0h-1v1h1v-1zm-1 1zm0-1v-1h-1v1h1zm0-1h1v-1h-1v1zm0-1v-1h-1v1h1zm2 1h1v-1h-1v1zm2 0h1v-1h-1v1zm2 0h1v-1h-1v1zm2 0h1v-1h-1v1zm4-1zh1v1h-1v-1zm0 1zm0 1v1h1v-1h-1zm1 1z"/>
+</svg>
