@@ -200,9 +200,6 @@ class FilesListView(QListView):
 
         self.files_model.ModelRefreshed.connect(self.refresh_view)
 
-        # Load initial files model data
-        self.files_model.update_model()
-
         # setup filter events
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)

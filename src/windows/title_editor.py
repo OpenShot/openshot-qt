@@ -43,7 +43,7 @@ from PyQt5.QtWidgets import (
 
 import openshot
 
-from classes import info, ui_util, settings
+from classes import info, ui_util, settings, openshot_rc
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
@@ -249,13 +249,19 @@ class TitleEditor(QDialog):
             if self.duplicate and self.edit_file_path:
                 # Re-use current name
                 name = os.path.basename(self.edit_file_path)
-                # Splits the filename into "[base-part][optional space]([number]).svg
-                match = re.match(r"^(.*?)(\s*)\(([0-9]*)\)\.svg$", name)
+                # Splits the filename into:
+                #  [base-part][optional space][([number])].svg
+                # Match groups are:
+                #  1: Base name ("title", "Title-2", "Title number 3000")
+                #  2: Space(s) preceding groups 3+4, IFF 3/4 are a match
+                #  3: The entire parenthesized number ("(1)", "(20)", "(1000)")
+                #  4: Just the number inside the parens ("1", "20", "1000")
+                match = re.match(r"^(.+?)(\s*)(\(([0-9]*)\))?\.svg$", name)
                 # Make sure the new title has " (%d)" appended by default
                 name = match.group(1) + " (%d)"
-                if match.group(3):
+                if match.group(4):
                     # Filename already contained a number -> start counting from there
-                    offset = int(match.group(3))
+                    offset = int(match.group(4))
                     # -> only include space(s) if there before
                     name = match.group(1) + match.group(2) + "(%d)"
             # Find an unused file name

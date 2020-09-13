@@ -43,7 +43,7 @@ from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from windows.views.timeline_webview import TimelineWebView
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, openshot_rc, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
@@ -55,7 +55,6 @@ from classes.metrics import (
 from classes.version import get_current_Version
 from classes.conversion import zoomToSeconds, secondsToZoom, getMaxTime
 from classes.thumbnail import httpThumbnailServerThread
-from images import openshot_rc
 from windows.models.files_model import FilesModel
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -287,16 +286,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.clear_all_thumbnails()
 
         # Write lock file (try a few times if failure)
-        attempts = 5
-        while attempts > 0:
+        for attempt in range(5):
             try:
                 # Create lock file
                 with open(lock_path, 'w') as f:
                     f.write(lock_value)
+                log.debug("Wrote value {} to lock file {}".format(
+                    lock_value, lock_path))
                 break
-            except Exception:
-                log.debug('Failed to write lock file (attempt: %s)' % attempts)
-                attempts -= 1
+            except OSError:
+                log.debug('Failed to write lock file (attempt: {})'.format(
+                    attempt), exc_info=1)
                 sleep(0.25)
 
     def destroy_lock_file(self):
@@ -304,14 +304,15 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         lock_path = os.path.join(info.USER_PATH, ".lock")
 
         # Remove file (try a few times if failure)
-        attempts = 5
-        while attempts > 0:
+        for attempt in range(5):
             try:
                 os.remove(lock_path)
+                log.debug("Removed lock file {}".format(lock_path))
                 break
-            except Exception:
-                log.debug('Failed to destroy lock file (attempt: %s)' % attempts)
-                attempts -= 1
+            except FileNotFoundError:
+                break
+            except OSError:
+                log.debug('Failed to destroy lock file (attempt: %s)' % attempt, exc_info=1)
                 sleep(0.25)
 
     def tail_file(self, f, n, offset=None):
@@ -1177,7 +1178,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Get # of tracks
         all_tracks = get_app().project.get("layers")
-        track_number = reversed(sorted(all_tracks, key=lambda x: x['number']))[0].get("number") + 1000000
+        all_tracks.sort(key=lambda x: x['number'], reverse=True)
+        track_number = all_tracks[0].get("number") + 1000000
 
         # Create new track above existing layer(s)
         track = Track()
@@ -2159,9 +2161,16 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.actionRedo.setEnabled(redo_status)
         self.SetWindowTitle()
 
-    # Add to the selected items
     def addSelection(self, item_id, item_type, clear_existing=False):
-        log.info('main::addSelection: item_id: %s, item_type: %s, clear_existing: %s' % (item_id, item_type, clear_existing))
+        """ Add to (or clear) the selected items list for a given type. """
+
+        if not item_id:
+            log.debug('addSelection: item_type: {}, clear_existing: {}'.format(
+                item_type, clear_existing))
+        else:
+            log.info('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
+                item_id, item_type, clear_existing))
+
         s = settings.get_settings()
 
         # Clear existing selection (if needed)
@@ -2670,6 +2679,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.files_model = FilesModel()
         self.filesTreeView = FilesTreeView(self.files_model)
         self.filesListView = FilesListView(self.files_model)
+        self.files_model.update_model()
         self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
         self.tabFiles.layout().insertWidget(-1, self.filesListView)
         if s.get("file_view") == "details":
@@ -2686,6 +2696,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.transition_model = TransitionsModel()
         self.transitionsTreeView = TransitionsTreeView(self.transition_model)
         self.transitionsListView = TransitionsListView(self.transition_model)
+        self.transition_model.update_model()
         self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
         self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
         if s.get("transitions_view") == "details":
@@ -2702,6 +2713,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effects_model = EffectsModel()
         self.effectsTreeView = EffectsTreeView(self.effects_model)
         self.effectsListView = EffectsListView(self.effects_model)
+        self.effects_model.update_model()
         self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
         self.tabEffects.layout().insertWidget(-1, self.effectsListView)
         if s.get("effects_view") == "details":
@@ -2715,8 +2727,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.effectsView.setFocus()
 
         # Setup emojis view
-        self.emoji_model = EmojisModel()
-        self.emojiListView = EmojisListView(self.emoji_model)
+        self.emojis_model = EmojisModel()
+        self.emojis_model.update_model()
+        self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
         # Set up status bar

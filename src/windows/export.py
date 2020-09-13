@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QIcon
 
 from classes import info
-from classes import ui_util
+from classes import ui_util, openshot_rc
 from classes import settings
 from classes.logger import log
 from classes.app import get_app
@@ -655,12 +655,15 @@ class Export(QDialog):
                 raw_number = locale.atof(raw_number_string)
 
                 if "kb" in raw_measurement:
+                    # Kbit to bytes
                     bit_rate_bytes = raw_number * 1000.0
 
                 elif "mb" in raw_measurement:
+                    # Mbit to bytes
                     bit_rate_bytes = raw_number * 1000.0 * 1000.0
 
-                elif "crf" in raw_measurement:
+                elif ("crf" in raw_measurement) or ("cqp" in raw_measurement):
+                    # Just a number
                     if raw_number > 63:
                         raw_number = 63
                     if raw_number < 0:
@@ -668,6 +671,7 @@ class Export(QDialog):
                     bit_rate_bytes = raw_number
 
                 elif "qp" in raw_measurement:
+                    # Just a number
                     if raw_number > 255:
                         raw_number = 255
                     if raw_number < 0:
@@ -747,7 +751,10 @@ class Export(QDialog):
             if not file_name_with_ext.endswith(file_ext):
                 file_name_with_ext = '{}.{}'.format(file_name_with_ext, file_ext)
 
-        export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
+        export_file_path = os.path.join(
+            self.txtExportFolder.text().strip() or default_folder,
+            file_name_with_ext
+            )
         log.info("Export path: %s" % export_file_path)
 
         # Check if filename is valid (by creating a blank file in a temporary place)
@@ -756,7 +763,10 @@ class Export(QDialog):
         except OSError:
             # Invalid path detected, so use default file name instead
             file_name_with_ext = "%s.%s" % (default_filename, self.txtVideoFormat.text().strip())
-            export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
+            export_file_path = os.path.join(
+                self.txtExportFolder.text().strip() or default_folder,
+                file_name_with_ext
+                )
             log.info("Invalid export path detected, changing to: %s" % export_file_path)
 
         file = File.get(path=export_file_path)
@@ -771,7 +781,11 @@ class Export(QDialog):
             return
 
         # Handle exception
-        if os.path.exists(export_file_path) and export_type in [_("Video & Audio"), _("Video Only"), _("Audio Only")]:
+        if os.path.exists(export_file_path) and export_type in [
+                _("Video & Audio"),
+                _("Video Only"),
+                _("Audio Only")
+                ]:
             # File already exists! Prompt user
             ret = QMessageBox.question(
                 self,
@@ -887,14 +901,18 @@ class Export(QDialog):
             else:
                 # Muxing options for mp4/mov
                 w.SetOption(openshot.VIDEO_STREAM, "muxing_preset", "mp4_faststart")
-                # Set the quality in case crf was selected
+                # Set the quality in case crf, cqp or qp was selected
                 if "crf" in self.txtVideoBitRate.text():
                     w.SetOption(
                         openshot.VIDEO_STREAM, "crf",
                         str(int(video_settings.get("video_bitrate")))
                         )
-                # Set the quality in case qp was selected
-                if "qp" in self.txtVideoBitRate.text():
+                elif "cqp" in self.txtVideoBitRate.text():
+                    w.SetOption(
+                        openshot.VIDEO_STREAM, "cqp",
+                        str(int(video_settings.get("video_bitrate")))
+                        )
+                elif "qp" in self.txtVideoBitRate.text():
                     w.SetOption(
                         openshot.VIDEO_STREAM, "qp",
                         str(int(video_settings.get("video_bitrate")))
