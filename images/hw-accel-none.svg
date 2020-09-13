@@ -1,0 +1,6 @@
+<svg width="67" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(.51)" opacity=".7" stroke="#f2d27b">
+  <rect x=".43" y=".94" width="65" height="18" rx="7.8" ry="7.2" fill="none" opacity="1" stroke-width="1.9"/>
+  <text x="33.21394" y="14.271135" fill="#f2d27b" font-family="sans-serif" font-size="12px" font-weight="bold" letter-spacing="0px" opacity="1" stroke-width=".3" text-align="center" text-anchor="middle" word-spacing="0px" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:0%" xml:space="preserve"><tspan x="33.21394" y="14.271135">CPU</tspan></text>
+ </g>
+</svg>

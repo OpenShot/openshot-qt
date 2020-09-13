@@ -622,17 +622,18 @@ copy of the Program in return for a fee.
   18. Exceptions
 
   The OpenShot Video Editor project hereby grants permission for non-GPL 
-compatible GStreamer, FFMPEG, and libopenshot to be used and distributed together with 
-GStreamer, FFMPEG, MLT, and OpenShot Video Editor. This permission is above and beyond 
-the permissions granted by the GPL license by which OpenShot Video Editor 
-is covered. If you modify this code, you may extend this exception to 
-your version of the code, but you are not obligated to do so. If you do 
-not wish to do so, delete this exception statement from your version.
+compatible GStreamer, FFMPEG, and libopenshot to be used and distributed
+together with GStreamer, FFMPEG, MLT, and OpenShot Video Editor. This
+permission is above and beyond the permissions granted by the GPL license
+by which OpenShot Video Editor is covered. If you modify this code, you
+may extend this exception to your version of the code, but you are not
+obligated to do so. If you do not wish to do so, delete this exception
+statement from your version.
 
-  OpenShot Video Editor does not contain or use any proprietary codecs.  We support 
-free and open-source codecs, such as Ogg Vorbis and Theora. However, since we use 
-the ffmpeg library, it is possible to use any ffmpeg supported codec, assuming
-you have legal permission to do so.
+  OpenShot Video Editor does not contain or use any proprietary codecs.
+We support free and open-source codecs, such as Ogg Vorbis and Theora.
+However, since we use the ffmpeg library, it is possible to use any
+ffmpeg supported codec, assuming you have legal permission to do so.
   
 
                      END OF TERMS AND CONDITIONS

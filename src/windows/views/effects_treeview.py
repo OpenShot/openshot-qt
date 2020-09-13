@@ -110,6 +110,4 @@ class EffectsTreeView(QTreeView):
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.effects_model.ModelRefreshed.connect(self.refresh_columns)
 
-        # Load initial effects model data
-        self.effects_model.update_model()
         self.refresh_columns()

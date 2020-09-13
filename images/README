@@ -1,0 +1,8 @@
+To compile a Qt resource file with new icons, follow these steps:
+
+1) Edit the resource file, and add files to it (the *.qrc files) using QtCreator
+2) Compile this into a Python file, either:
+     $ make
+   or, if make is unavailable:
+     $ pyrcc5 openshot.qrc -o openshot_rc.py
+
