@@ -2878,7 +2878,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 from gi.repository import Unity
                 self.unity_launcher = Unity.LauncherEntry.get_for_desktop_id(info.DESKTOP_ID)
             except Exception:
-                log.warning('Failed to connect to Unity launcher (Linux only) for updating export progress.')
+                log.debug('Failed to connect to Unity launcher (Linux only) for updating export progress.')
             else:
                 self.ExportFrame.connect(self.FrameExported)
                 self.ExportEnded.connect(self.ExportFinished)

@@ -60,15 +60,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
     def needs_save(self):
-        """Returns if project data Has unsaved changes"""
+        """Returns if project data has unsaved changes"""
         return self.has_unsaved_changes
 
     def get(self, key):
-        """ Get copied value of a given key in data store """
+        """Get copied value of a given key in data store"""
 
         # Verify key is valid type
         if not key:
-            log.warning("Cannot get empty key.")
+            log.debug("ProjectDataStore cannot get empty key (%s)", key)
             return None
         if not isinstance(key, list):
             key = [key]
@@ -149,10 +149,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Verify key is valid type
         if not isinstance(key, list):
-            log.warning("_set() key must be a list. key: {}".format(key))
+            log.debug("_set() key must be a list. key=%s", key)
             return None
         if not key:
-            log.warning("Cannot set empty key.")
+            log.debug("Cannot set empty key (key=%s)", key)
             return None
 
         # Get reference to internal data structure
@@ -256,7 +256,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             try:
                 self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
             except (FileNotFoundError, PermissionError) as ex:
-                log.warning("Unable to load user project defaults from {}: {}".format(info.USER_DEFAULT_PROJECT, ex))
+                log.debug("Unable to load user project defaults from %s: %s", info.USER_DEFAULT_PROJECT, ex)
             except Exception:
                 raise
             else:

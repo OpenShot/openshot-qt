@@ -115,7 +115,7 @@ class OpenShotApp(QApplication):
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except Exception:
-            log.warning("Error displaying dependency/system details", exc_info=1)
+            log.debug("Error displaying dependency/system details", exc_info=1)
 
         # Setup application
         self.setApplicationName('openshot')
@@ -200,7 +200,7 @@ class OpenShotApp(QApplication):
                 font.setPointSizeF(10.5)
                 QApplication.setFont(font)
             except Exception as ex:
-                log.error("Error setting Ubuntu-R.ttf QFont: %s" % str(ex))
+                log.debug("Error setting Ubuntu-R.ttf QFont: %s", ex)
 
         # Set Experimental Dark Theme
         if self.settings.get("theme") == "Humanity: Dark":
@@ -291,4 +291,4 @@ def onLogTheEnd():
         log.info("================================================")
     except Exception:
         from classes.logger import log
-        log.warning('Failed to write session ended log')
+        log.debug('Failed to write session ended log')

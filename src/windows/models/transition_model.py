@@ -180,7 +180,7 @@ class TransitionsModel(QObject):
 
                     except Exception as ex:
                         # Handle exception
-                        log.warning('Invalid transition image file {}: {}'.format(filename, ex))
+                        log.debug('Invalid transition image file %s: %s', filename, ex)
                         msg = QMessageBox()
                         msg.setText(_("{} is not a valid transition file.".format(filename)))
                         msg.exec_()

@@ -104,7 +104,7 @@ class FilesTreeView(QTreeView):
 
         if not current.isValid():
             # We can't find anything to drag
-            log.warning("No draggable items found in model!")
+            log.warning("No draggable items found in FilesTreeView model!")
             return False
 
         # Get icon from column 0 on same row as current item
