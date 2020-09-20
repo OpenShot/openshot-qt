@@ -202,4 +202,4 @@ def send_exception(stacktrace, source):
             log.info("Track exception: [%s] %s | %s", r.status_code, r.url, r.text)
 
         except Exception as ex:
-            log.warning("Failed to Track exception: %s", ex)
+            log.warning("Failed to track exception", exc_info=1)
