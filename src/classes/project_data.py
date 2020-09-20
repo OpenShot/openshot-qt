@@ -255,7 +255,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         if os.path.exists(info.USER_DEFAULT_PROJECT):
             try:
                 self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
-            except (FileNotFoundError, PermissionError) as ex:
+            except (FileNotFoundError, PermissionError):
                 log.warning("Unable to load user project defaults from %s", info.USER_DEFAULT_PROJECT, exc_info=1)
             except Exception:
                 raise
@@ -533,10 +533,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Keep track of new ids and old ids
                             file_lookup[item.unique_id] = file
 
-                        except Exception as ex:
-                            # Handle exception quietly
-                            msg = ("%s is not a valid video, audio, or image file: %s" % (item.name, str(ex)))
-                            log.error(msg)
+                        except Exception:
+                            log.error("%s is not a valid video, audio, or image file",
+                                      item.name,
+                                      exc_info=1)
                             failed_files.append(item.name)
 
                 # Delete all tracks
@@ -696,7 +696,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             except Exception as ex:
                 # Error parsing legacy contents
                 msg = "Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex}
-                log.error(msg)
+                log.error(msg, exc_info=1)
                 raise RuntimeError(msg) from ex
 
         # Show warning if some files failed to load
@@ -891,8 +891,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     clip["reader"]["path"] = reader_paths[file_id]
                     log.info("Updated clip {} path for file {}".format(clip["id"], file_id))
 
-        except Exception as ex:
-            log.error("Error while moving temp paths to project assets folder {}: {}".format(asset_path, ex))
+        except Exception:
+            log.error("Error while moving temp paths to project assets folder %s", asset_path, exc_info=1)
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """

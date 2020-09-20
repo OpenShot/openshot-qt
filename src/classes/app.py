@@ -91,13 +91,13 @@ class OpenShotApp(QApplication):
             reroute_output()
         except ImportError as ex:
             tb = traceback.format_exc()
-            log.error('OpenShotApp::Import Error: %s' % str(ex))
+            log.error('OpenShotApp::Import Error', exc_info=1)
             QMessageBox.warning(None, "Import Error",
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
             raise
-        except Exception as ex:
-            log.error('OpenShotApp::Init Error: %s' % str(ex))
+        except Exception:
+            log.error('OpenShotApp::Init Error', exc_info=1)
             sys.exit()
 
         # Log some basic system info
@@ -199,8 +199,8 @@ class OpenShotApp(QApplication):
                 font = QFont(font_family)
                 font.setPointSizeF(10.5)
                 QApplication.setFont(font)
-            except Exception as ex:
-                log.debug("Error setting Ubuntu-R.ttf QFont: %s", ex)
+            except Exception:
+                log.debug("Error setting Ubuntu-R.ttf QFont", exc_info=1)
 
         # Set Experimental Dark Theme
         if self.settings.get("theme") == "Humanity: Dark":
@@ -272,8 +272,8 @@ class OpenShotApp(QApplication):
         try:
             from classes.logger import log
             self.settings.save()
-        except Exception as ex:
-            log.error("Couldn't save user settings on exit.\n{}".format(ex))
+        except Exception:
+            log.error("Couldn't save user settings on exit.", exc_info=1)
 
         # return exit result
         return res

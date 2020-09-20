@@ -200,6 +200,5 @@ def send_exception(stacktrace, source):
         try:
             r = requests.post(url, data=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"}, verify=False)
             log.info("Track exception: [%s] %s | %s", r.status_code, r.url, r.text)
-
-        except Exception as ex:
+        except Exception:
             log.warning("Failed to track exception", exc_info=1)

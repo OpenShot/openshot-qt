@@ -178,9 +178,9 @@ class TransitionsModel(QObject):
                         reader.Close()
                         clip.Close()
 
-                    except Exception as ex:
+                    except Exception:
                         # Handle exception
-                        log.debug('Invalid transition image file %s: %s', filename, ex)
+                        log.debug('Invalid transition image file %s', filename, exc_info=1)
                         msg = QMessageBox()
                         msg.setText(_("{} is not a valid transition file.".format(filename)))
                         msg.exec_()
