@@ -74,7 +74,7 @@ class About(QDialog):
                             if changelog_file.read():
                                 self.btnchangelog.setVisible(True)
                                 break
-                    except:
+                    except Exception:
                         log.debug('Failed to parse log file %s with encoding %s', changelog_path, encoding_name)
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
