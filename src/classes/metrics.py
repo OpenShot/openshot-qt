@@ -65,7 +65,7 @@ try:
         linux_distro = "-".join(platform.linux_distribution())
 
 except Exception:
-    log.debug("Error determining OS version in metrics.py")
+    log.debug("Error determining OS version", exc_info=1)
 
 # Build user-agent
 user_agent = "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36" % os_version
