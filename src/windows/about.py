@@ -310,7 +310,7 @@ class Changelog(QDialog):
                                                    'author': line[20:45].strip(),
                                                    'subject': line[45:].strip() })
                         break
-                except:
+                except Exception:
                     log.debug('Failed to parse log file %s with encoding %s', changelog_path, encoding_name)
         self.libopenshot_audio_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot-audio/commit/%s/")
         self.vbox_libopenshot_audio.addWidget(self.libopenshot_audio_ListView)
