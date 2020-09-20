@@ -175,7 +175,7 @@ class OpenShotApp(QApplication):
             os.unlink(TEST_PATH_FILE)
             os.rmdir(TEST_PATH_DIR)
         except PermissionError as ex:
-            log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE)
+            log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE, exc_info=1)
             QMessageBox.warning(None, _("Permission Error"),
                                       _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH}))
             # Stop launching and exit

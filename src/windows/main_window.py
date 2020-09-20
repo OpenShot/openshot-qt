@@ -481,7 +481,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info("Saved project {}".format(file_path))
 
         except Exception as ex:
-            log.error("Couldn't save project %s. %s" % (file_path, str(ex)))
+            log.error("Couldn't save project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
     def open_project(self, file_path, clear_thumbnails=True):
@@ -550,7 +550,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.load_recent_menu()
 
         except Exception as ex:
-            log.error("Couldn't open project {}".format(file_path))
+            log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
 
         # Restore normal cursor
@@ -561,32 +561,32 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             clear_path = os.path.join(info.USER_PATH, "thumbnail")
             if os.path.exists(clear_path):
-                log.info("Clear all thumbnails: %s" % clear_path)
+                log.info("Clear all thumbnails: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any blender animations
             clear_path = os.path.join(info.USER_PATH, "blender")
             if os.path.exists(clear_path):
-                log.info("Clear all animations: %s" % clear_path)
+                log.info("Clear all animations: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any title animations
             clear_path = os.path.join(info.USER_PATH, "title")
             if os.path.exists(clear_path):
-                log.info("Clear all titles: %s" % clear_path)
+                log.info("Clear all titles: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any backups
             if os.path.exists(info.BACKUP_FILE):
-                log.info("Clear backup: %s" % info.BACKUP_FILE)
+                log.info("Clear backup: %s", info.BACKUP_FILE)
                 # Remove backup file
                 os.unlink(info.BACKUP_FILE)
 
-        except Exception as ex:
-            log.info("Failed to clear {}: {}".format(clear_path, ex))
+        except Exception:
+            log.info("Failed to clear %s", clear_path, exc_info=1)
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -667,7 +667,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     os.unlink(backup_filepath)
 
                 # Save project
-                log.info("Auto save project file: %s" % file_path)
+                log.info("Auto save project file: %s", file_path)
                 self.save_project(file_path)
 
                 # Remove backup.osp (if any)
@@ -677,7 +677,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
             else:
                 # No saved project found
-                log.info("Creating backup of project file: %s" % info.BACKUP_FILE)
+                log.info("Creating backup of project file: %s", info.BACKUP_FILE)
                 app.project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
 
                 # Clear the file_path (which is set by saving the project)
@@ -867,9 +867,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionHelpContents_trigger(self, event):
         try:
             webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the online help")
-            log.error("Unable to open the Help Contents: {}".format(str(ex)))
+            log.error("Unable to open the Help Contents", exc_info=1)
 
     def actionAbout_trigger(self, event):
         """Show about dialog"""
@@ -881,37 +881,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionReportBug_trigger(self, event):
         try:
             webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
-            log.error("Unable to open the Bug Report page: {}".format(str(ex)))
+            log.error("Unable to open the Bug Report page", exc_info=1)
 
     def actionAskQuestion_trigger(self, event):
         try:
             webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
-            log.error("Unable to open the subreddit page: {}".format(str(ex)))
+            log.error("Unable to open the subreddit page", exc_info=1)
 
     def actionTranslate_trigger(self, event):
         try:
             webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
-            log.error("Unable to open the translation page: {}".format(str(ex)))
+            log.error("Unable to open the translation page", exc_info=1)
 
     def actionDonate_trigger(self, event):
         try:
             webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
-            log.error("Unable to open the donation page: {}".format(str(ex)))
+            log.error("Unable to open the donation page", exc_info=1)
 
     def actionUpdate_trigger(self, event):
         try:
             webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
-            log.error("Unable to open the download page: {}".format(str(ex)))
+            log.error("Unable to open the download page", exc_info=1)
 
     def actionPlay_trigger(self, event, force=None):
 
@@ -1065,7 +1065,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             framePath = "%s.png" % framePath
 
         app.updates.update_untracked(["export_path"], os.path.dirname(framePath))
-        log.info("Saving frame to %s" % framePath)
+        log.info("Saving frame to %s", framePath)
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         app.window.actionPlay_trigger(None, force="pause")
@@ -1142,7 +1142,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             oldnum = layer.get('number')
             cur_track = Track.get(number=oldnum)
             if not cur_track:
-                log.error('Track number {} not found'.format(oldnum))
+                log.error('Track number %s not found', oldnum)
                 continue
 
             # Find track elements
@@ -1203,13 +1203,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
-        log.info("adding track above {}".format(selected_layer_id))
+        log.info("adding track above %s", selected_layer_id)
 
         # Get track data for selected track
         existing_track = Track.get(id=selected_layer_id)
         if not existing_track:
             # Log error and fail silently
-            log.error('No track object found with id: %s' % selected_layer_id)
+            log.error('No track object found with id: %s', selected_layer_id)
             return
         selected_layer_num = int(existing_track.data["number"])
 
@@ -1217,8 +1217,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             tracks = sorted(all_tracks, key=lambda x: x['number'])
             existing_index = tracks.index(existing_track.data)
-        except ValueError as ex:
-            log.warning("Could not find track {}: {}".format(selected_layer_num, ex))
+        except ValueError:
+            log.warning("Could not find track %s", selected_layer_num, exc_info=1)
             return
         try:
             next_index = existing_index + 1
@@ -1250,13 +1250,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
-        log.info("adding track below {}".format(selected_layer_id))
+        log.info("adding track below %s", selected_layer_id)
 
         # Get track data for selected track
         existing_track = Track.get(id=selected_layer_id)
         if not existing_track:
             # Log error and fail silently
-            log.error('No track object found with id: %s' % selected_layer_id)
+            log.error('No track object found with id: %s', selected_layer_id)
             return
         selected_layer_num = int(existing_track.data["number"])
 
@@ -1264,8 +1264,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             tracks = sorted(all_tracks, key=lambda x: x['number'])
             existing_index = tracks.index(existing_track.data)
-        except ValueError as ex:
-            log.warning("Could not find track {}: {}".format(selected_layer_num, ex))
+        except ValueErrorx:
+            log.warning("Could not find track %s", selected_layer_num, exc_info=1)
             return
 
         if existing_index > 0:
@@ -1280,7 +1280,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # New track number (pick mid point in track number gap)
             new_track_num = selected_layer_num - int(round(delta / 2.0))
 
-            log.info("New track num {} (delta {})".format(new_track_num, delta))
+            log.info("New track num %s (delta %s)",new_track_num, delta)
 
             # Create new track and insert
             track = Track()
@@ -1594,7 +1594,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
         elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
-            log.info("Duplicating title, {}".format(event))
+            log.info("Duplicating title, %s", event)
             self.actionDuplicateTitle.trigger()
         elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
             self.actionEditTitle.trigger()
