@@ -174,7 +174,7 @@ def send_metric(params):
                 log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
 
             except Exception as ex:
-                log.warning("Failed to Track metric: %s", ex)
+                log.warning("Failed to track metric", exc_info=1)
 
             # Wait a moment, so we don't spam the requests
             time.sleep(0.25)
