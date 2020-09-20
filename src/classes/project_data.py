@@ -68,7 +68,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Verify key is valid type
         if not key:
-            log.debug("ProjectDataStore cannot get empty key (%s)", key)
+            log.warning("ProjectDataStore cannot get empty key.")
             return None
         if not isinstance(key, list):
             key = [key]
@@ -149,10 +149,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Verify key is valid type
         if not isinstance(key, list):
-            log.debug("_set() key must be a list. key=%s", key)
+            log.warning("_set() key must be a list. key=%s", key)
             return None
         if not key:
-            log.debug("Cannot set empty key (key=%s)", key)
+            log.warning("Cannot set empty key (key=%s)", key)
             return None
 
         # Get reference to internal data structure
@@ -256,7 +256,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             try:
                 self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
             except (FileNotFoundError, PermissionError) as ex:
-                log.debug("Unable to load user project defaults from %s: %s", info.USER_DEFAULT_PROJECT, ex)
+                log.warning("Unable to load user project defaults from %s", info.USER_DEFAULT_PROJECT, exc_info=1)
             except Exception:
                 raise
             else:
