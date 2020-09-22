@@ -1264,7 +1264,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             tracks = sorted(all_tracks, key=lambda x: x['number'])
             existing_index = tracks.index(existing_track.data)
-        except ValueErrorx:
+        except ValueError:
             log.warning("Could not find track %s", selected_layer_num, exc_info=1)
             return
 
