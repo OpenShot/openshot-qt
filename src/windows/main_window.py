@@ -1626,7 +1626,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if self.selected_clips:
                 self.TransformSignal.emit(self.selected_clips[0])
         elif key.matches(self.getShortcutByName("actionInsertKeyframe")) == QKeySequence.ExactMatch:
-            print("actionInsertKeyframe")
+            log.debug("actionInsertKeyframe")
             if self.selected_clips or self.selected_transitions:
                 self.InsertKeyframe.emit(event)
 
