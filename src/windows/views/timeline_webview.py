@@ -36,7 +36,8 @@ from operator import itemgetter
 import logging
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
+from PyQt5.QtCore import QFileInfo, QUrl, Qt, QCoreApplication, QTimer
+from PyQt5.QtCore import pyqtSlot as Slot
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWidgets import QMenu
 
@@ -157,12 +158,12 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
-    @pyqtSlot()
+    @Slot()
     def page_ready(self):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
 
-    @pyqtSlot(result=str)
+    @Slot(result=str)
     def get_thumb_address(self):
         """Return the thumbnail HTTP server address"""
         thumb_server_details = get_app().window.http_server_thread.server_address
@@ -207,7 +208,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(initial_scale) + ", 0);")
 
     # Javascript callable function to update the project data when a clip changes
-    @pyqtSlot(str, bool, bool, bool)
+    @Slot(str, bool, bool, bool)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False, ignore_refresh=False):
         """ Create an updateAction and send it to the update manager """
 
@@ -253,7 +254,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Add missing transition
-    @pyqtSlot(str)
+    @Slot(str)
     def add_missing_transition(self, transition_json):
 
         transition_details = json.loads(transition_json)
@@ -294,7 +295,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         self.update_transition_data(transitions_data, only_basic_props=False)
 
     # Javascript callable function to update the project data when a transition changes
-    @pyqtSlot(str, bool, bool)
+    @Slot(str, bool, bool)
     def update_transition_data(self, transition_json, only_basic_props=True, ignore_refresh=False):
         """ Create an updateAction and send it to the update manager """
 
@@ -371,7 +372,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         event.ignore()
 
     # Javascript callable function to show clip or transition content menus, passing in type to show
-    @pyqtSlot(float)
+    @Slot(float)
     def ShowPlayheadMenu(self, position=None):
         log.debug('ShowPlayheadMenu: %s' % position)
 
@@ -405,7 +406,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             menu.addMenu(Slice_Menu)
             return menu.popup(QCursor.pos())
 
-    @pyqtSlot(str)
+    @Slot(str)
     def ShowEffectMenu(self, effect_id=None):
         log.debug('ShowEffectMenu: %s' % effect_id)
 
@@ -421,7 +422,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         menu.addAction(self.window.actionRemoveEffect)
         return menu.popup(QCursor.pos())
 
-    @pyqtSlot(float, int)
+    @Slot(float, int)
     def ShowTimelineMenu(self, position, layer_id):
         log.debug('ShowTimelineMenu: position: %s, layer: %s' % (position, layer_id))
 
@@ -445,7 +446,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
                 return menu.popup(QCursor.pos())
 
-    @pyqtSlot(str)
+    @Slot(str)
     def ShowClipMenu(self, clip_id=None):
         log.debug('ShowClipMenu: %s' % clip_id)
 
@@ -1838,7 +1839,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    @pyqtSlot(str, str, float)
+    @Slot(str, str, float)
     def RazorSliceAtCursor(self, clip_id, trans_id, cursor_position):
         """Callback from javascript that the razor tool was clicked"""
 
@@ -2482,7 +2483,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Save changes
             self.update_transition_data(tran_data_copy, only_basic_props=False)
 
-    @pyqtSlot(str)
+    @Slot(str)
     def ShowTransitionMenu(self, tran_id=None):
         log.info('ShowTransitionMenu: %s' % tran_id)
 
@@ -2598,7 +2599,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Show menu
         return menu.popup(QCursor.pos())
 
-    @pyqtSlot(str)
+    @Slot(str)
     def ShowTrackMenu(self, layer_id=None):
         log.info('ShowTrackMenu: %s' % layer_id)
 
@@ -2623,7 +2624,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         menu.addAction(self.window.actionRemoveTrack)
         return menu.popup(QCursor.pos())
 
-    @pyqtSlot(str)
+    @Slot(str)
     def ShowMarkerMenu(self, marker_id=None):
         log.info('ShowMarkerMenu: %s' % marker_id)
 
@@ -2634,7 +2635,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         menu.addAction(self.window.actionRemoveMarker)
         return menu.popup(QCursor.pos())
 
-    @pyqtSlot(str, int)
+    @Slot(str, int)
     def PreviewClipFrame(self, clip_id, frame_number):
 
         # Get existing clip object
@@ -2656,7 +2657,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Seek to frame
         self.window.SeekSignal.emit(frame_number)
 
-    @pyqtSlot(int)
+    @Slot(int)
     def PlayheadMoved(self, position_frames):
 
         # Load the timeline into the Player (ignored if this has already happened)
@@ -2669,50 +2670,50 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Notify main window of current frame
             self.window.previewFrame(position_frames)
 
-    @pyqtSlot(int)
+    @Slot(int)
     def movePlayhead(self, position_frames):
         """ Move the playhead since the position has changed inside OpenShot (probably due to the video player) """
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         self.run_js(JS_SCOPE_SELECTOR + ".movePlayheadToFrame(%s);" % (str(position_frames)))
 
-    @pyqtSlot()
+    @Slot()
     def centerOnPlayhead(self):
         """ Center the timeline on the current playhead position """
         # Execute JavaScript to center the timeline
         self.run_js(JS_SCOPE_SELECTOR + '.centerOnPlayhead();')
 
-    @pyqtSlot(int)
+    @Slot(int)
     def SetSnappingMode(self, enable_snapping):
         """ Enable / Disable snapping mode """
         # Init snapping state (1 = snapping, 0 = no snapping)
         self.run_js(JS_SCOPE_SELECTOR + ".setSnappingMode(%s);" % int(enable_snapping))
 
-    @pyqtSlot(int)
+    @Slot(int)
     def SetRazorMode(self, enable_razor):
         """ Enable / Disable razor mode """
         # Init razor state (1 = razor, 0 = no razor)
         self.run_js(JS_SCOPE_SELECTOR + ".setRazorMode(%s);" % int(enable_razor))
 
-    @pyqtSlot(int)
+    @Slot(int)
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable playhead follow on seek """
         self.run_js(JS_SCOPE_SELECTOR + ".setFollow({});".format(int(enable_follow)))
 
-    @pyqtSlot(str, str, bool)
+    @Slot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """
 
         # Add to main window
         self.window.addSelection(item_id, item_type, clear_existing)
 
-    @pyqtSlot(str, str)
+    @Slot(str, str)
     def removeSelection(self, item_id, item_type):
         """ Remove the selected clip from the selection """
 
         # Remove from main window
         self.window.removeSelection(item_id, item_type)
 
-    @pyqtSlot(str, str)
+    @Slot(str, str)
     def qt_log(self, level="INFO", message=None):
         levels = {
             "DEBUG": logging.DEBUG,
@@ -2877,7 +2878,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             .format(event_position.x(), event_position.y()), partial(callback, self, data))
 
     # Resize timeline
-    @pyqtSlot(float)
+    @Slot(float)
     def resizeTimeline(self, new_duration):
         """Resize the duration of the timeline"""
         get_app().updates.update(["duration"], new_duration)

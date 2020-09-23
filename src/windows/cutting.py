@@ -31,6 +31,7 @@ import functools
 import math
 
 from PyQt5.QtCore import *
+from PyQt5.QtCore import pyqtSignal as Signal
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -50,14 +51,14 @@ class Cutting(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'cutting.ui')
 
     # Signals for preview thread
-    previewFrameSignal = pyqtSignal(int)
-    refreshFrameSignal = pyqtSignal()
-    LoadFileSignal = pyqtSignal(str)
-    PlaySignal = pyqtSignal(int)
-    PauseSignal = pyqtSignal()
-    SeekSignal = pyqtSignal(int)
-    SpeedSignal = pyqtSignal(float)
-    StopSignal = pyqtSignal()
+    previewFrameSignal = Signal(int)
+    refreshFrameSignal = Signal()
+    LoadFileSignal = Signal(str)
+    PlaySignal = Signal(int)
+    PauseSignal = Signal()
+    SeekSignal = Signal(int)
+    SpeedSignal = Signal(float)
+    StopSignal = Signal()
 
     def __init__(self, file=None, preview=False):
         _ = get_app()._tr

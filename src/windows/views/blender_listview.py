@@ -40,7 +40,9 @@ except ImportError:
     from xml.dom import minidom as xml
 
 from PyQt5.QtCore import (
-    Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
+    Qt, QObject, QMetaObject, Q_ARG, QThread, QTimer, QSize,
+    pyqtSlot as Slot,
+    pyqtSignal as Signal,
 )
 from PyQt5.QtWidgets import (
     QApplication, QListView, QMessageBox, QColorDialog,
@@ -264,7 +266,7 @@ class BlenderListView(QListView):
         if cursor:
             QApplication.setOverrideCursor(Qt.WaitCursor)
 
-    @pyqtSlot()
+    @Slot()
     def enable_interface(self):
         """ Disable all controls on interface """
         self.win.btnRefresh.setEnabled(True)
@@ -308,7 +310,7 @@ class BlenderListView(QListView):
         # Render current frame
         self.preview_timer.start()
 
-    @pyqtSlot()
+    @Slot()
     def render_finished(self):
         # Compose image sequence data
         seq_params = {
@@ -329,7 +331,7 @@ class BlenderListView(QListView):
         # We're done here
         self.win.close()
 
-    @pyqtSlot(int)
+    @Slot(int)
     def update_progress_bar(self, current_frame):
 
         # update label and preview slider
@@ -542,7 +544,7 @@ Blender Path: {}
         with open(path, "w", encoding="UTF-8", errors="strict") as f:
             f.write(script_body)
 
-    @pyqtSlot(str)
+    @Slot(str)
     def update_image(self, image_path):
 
         # get the pixbuf
@@ -658,17 +660,17 @@ Blender Path: {}
         self.background.start()
 
     # Error from blender (with version number) (1003)
-    @pyqtSlot(str)
+    @Slot(str)
     def onBlenderVersionError(self, version):
         self.error_with_blender(version)
 
     # Error from blender (with no data) (1004)
-    @pyqtSlot()
+    @Slot()
     def onBlenderErrorNoData(self):
         self.error_with_blender()
 
     # Signal error from blender (with custom message) (1007)
-    @pyqtSlot(str)
+    @Slot(str)
     def onBlenderErrorMessage(self, error):
         self.error_with_blender(None, error)
 
@@ -676,16 +678,16 @@ Blender Path: {}
 class Worker(QObject):
     """ Background Worker Object (to run the Blender commands) """
 
-    closed = pyqtSignal()  # 1001
-    finished = pyqtSignal()  # 1002
-    blender_version_error = pyqtSignal(str)  # 1003
-    blender_error_nodata = pyqtSignal()  # 1004
-    progress = pyqtSignal(int)  # 1005
-    image_updated = pyqtSignal(str)  # 1006
-    blender_error_with_data = pyqtSignal(str)  # 1007
-    enable_interface = pyqtSignal()  # 1008
+    closed = Signal()  # 1001
+    finished = Signal()  # 1002
+    blender_version_error = Signal(str)  # 1003
+    blender_error_nodata = Signal()  # 1004
+    progress = Signal(int)  # 1005
+    image_updated = Signal(str)  # 1006
+    blender_error_with_data = Signal(str)  # 1007
+    enable_interface = Signal()  # 1008
 
-    @pyqtSlot()
+    @Slot()
     def Cancel(self):
         """Cancel worker render"""
         self.is_running = False
@@ -693,7 +695,7 @@ class Worker(QObject):
             # Stop blender process if running
             self.process.terminate()
 
-    @pyqtSlot(str, str, bool)
+    @Slot(str, str, bool)
     def Render(self, blend_file_path, target_script, preview_mode=False):
         """ Worker's Render method which invokes the Blender rendering commands """
 

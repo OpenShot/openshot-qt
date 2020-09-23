@@ -32,8 +32,9 @@ import re
 import glob
 
 from PyQt5.QtCore import (
-    QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
+    QMimeData, Qt, QEventLoop, QObject,
     QSortFilterProxyModel, QItemSelectionModel, QPersistentModelIndex,
+    pyqtSignal as Signal,
 )
 from PyQt5.QtGui import (
     QIcon, QStandardItem, QStandardItemModel
@@ -107,7 +108,7 @@ class FileFilterProxyModel(QSortFilterProxyModel):
 
 
 class FilesModel(QObject, updates.UpdateInterface):
-    ModelRefreshed = pyqtSignal()
+    ModelRefreshed = Signal()
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):

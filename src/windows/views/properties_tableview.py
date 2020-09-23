@@ -28,7 +28,8 @@
 import os
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QObject, QTimer
+from PyQt5.QtCore import Qt, QRectF, QLocale, QObject, QTimer
+from PyQt5.QtCore import pyqtSignal as Signal
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
 
@@ -149,7 +150,7 @@ class PropertyDelegate(QItemDelegate):
 
 class PropertiesTableView(QTableView):
     """ A Properties Table QWidget used on the main window """
-    loadProperties = pyqtSignal(str, str)
+    loadProperties = Signal(str, str)
 
     def mouseMoveEvent(self, event):
         # Get data model and selection

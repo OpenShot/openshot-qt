@@ -26,7 +26,8 @@
  """
 
 import os
-from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, pyqtSlot, QRegExp
+from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, QRegExp
+from PyQt5.QtCore import pyqtSlot as Slot
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QListView
 
@@ -110,7 +111,7 @@ class EmojisListView(QListView):
             # Log exception
             log.warning("Failed to import file: {}".format(str(ex)))
 
-    @pyqtSlot(int)
+    @Slot(int)
     def group_changed(self, index=-1):
         item = get_app().window.emojiFilterGroup.itemData(index)
         self.group_model.setFilterFixedString(item)
@@ -124,7 +125,7 @@ class EmojisListView(QListView):
 
         self.refresh_view()
 
-    @pyqtSlot(str)
+    @Slot(str)
     def filter_changed(self, filter_text=None):
         """Filter emoji with proxy class"""
 

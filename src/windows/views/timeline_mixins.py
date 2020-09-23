@@ -27,9 +27,8 @@
 
 import os
 from classes import info
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
-from PyQt5.QtGui import QCursor, QKeySequence, QColor
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtCore import QFileInfo, QUrl, Qt, QTimer
+from PyQt5.QtGui import QColor
 from classes.logger import log
 from functools import partial
 

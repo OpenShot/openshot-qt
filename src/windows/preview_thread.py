@@ -28,7 +28,11 @@
 import time
 import sip
 
-from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal, QCoreApplication
+from PyQt5.QtCore import (
+    QObject, QThread, QCoreApplication,
+    pyqtSignal as Signal,
+    pyqtSlot as Slot,
+    )
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -72,7 +76,7 @@ class PreviewParent(QObject):
         if not get_app().window.mode == "unittest":
             QMessageBox.warning(self.parent, _("Audio Error"), _("Please fix the following error and restart OpenShot\n%s") % error)
 
-    @pyqtSlot(object, object)
+    @Slot(object, object)
     def Init(self, parent, timeline, video_widget):
         # Important vars
         self.parent = parent
@@ -110,12 +114,12 @@ class PreviewParent(QObject):
 class PlayerWorker(QObject):
     """ QT Player Worker Object (to preview video on a separate thread) """
 
-    position_changed = pyqtSignal(int)
-    mode_changed = pyqtSignal(object)
-    error_found = pyqtSignal(object)
-    finished = pyqtSignal()
+    position_changed = Signal(int)
+    mode_changed = Signal(object)
+    error_found = Signal(object)
+    finished = Signal()
 
-    @pyqtSlot(object, object)
+    @Slot(object, object)
     def Init(self, parent, timeline, videoPreview):
         self.parent = parent
         self.timeline = timeline
@@ -135,7 +139,7 @@ class PlayerWorker(QObject):
         # Create QtPlayer class from libopenshot
         self.player = openshot.QtPlayer()
 
-    @pyqtSlot()
+    @Slot()
     def Start(self):
         """ This method starts the video player """
         log.info("QThread Start Method Invoked")
@@ -180,7 +184,7 @@ class PlayerWorker(QObject):
         self.finished.emit()
         log.info('exiting thread')
 
-    @pyqtSlot()
+    @Slot()
     def initPlayer(self):
         log.info("initPlayer")
 

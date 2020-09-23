@@ -28,8 +28,9 @@
 import os
 
 from PyQt5.QtCore import (
-    QObject, QMimeData, Qt, pyqtSignal,
+    QObject, QMimeData, Qt,
     QSortFilterProxyModel, QPersistentModelIndex, QItemSelectionModel,
+    pyqtSignal as Signal,
 )
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMessageBox
@@ -86,7 +87,7 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
 
 
 class TransitionsModel(QObject):
-    ModelRefreshed = pyqtSignal()
+    ModelRefreshed = Signal()
 
     def update_model(self, clear=True):
         log.info("updating transitions model.")

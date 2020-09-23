@@ -38,6 +38,9 @@ from uuid import uuid4
 from copy import deepcopy
 
 from PyQt5.QtCore import *
+from PyQt5.QtCore import (
+    pyqtSignal as Signal,
+    )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -79,28 +82,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'main-window.ui')
 
-    previewFrameSignal = pyqtSignal(int)
-    refreshFrameSignal = pyqtSignal()
-    refreshFilesSignal = pyqtSignal()
-    refreshTransitionsSignal = pyqtSignal()
-    LoadFileSignal = pyqtSignal(str)
-    PlaySignal = pyqtSignal(int)
-    PauseSignal = pyqtSignal()
-    StopSignal = pyqtSignal()
-    SeekSignal = pyqtSignal(int)
-    SpeedSignal = pyqtSignal(float)
-    RecoverBackup = pyqtSignal()
-    FoundVersionSignal = pyqtSignal(str)
-    WaveformReady = pyqtSignal(str, list)
-    TransformSignal = pyqtSignal(str)
-    ExportStarted = pyqtSignal(str, int, int)
-    ExportFrame = pyqtSignal(str, int, int, int)
-    ExportEnded = pyqtSignal(str)
-    MaxSizeChanged = pyqtSignal(object)
-    InsertKeyframe = pyqtSignal(object)
-    OpenProjectSignal = pyqtSignal(str)
-    ThumbnailUpdated = pyqtSignal(str)
-    FileUpdated = pyqtSignal(str)
+    previewFrameSignal = Signal(int)
+    refreshFrameSignal = Signal()
+    refreshFilesSignal = Signal()
+    refreshTransitionsSignal = Signal()
+    LoadFileSignal = Signal(str)
+    PlaySignal = Signal(int)
+    PauseSignal = Signal()
+    StopSignal = Signal()
+    SeekSignal = Signal(int)
+    SpeedSignal = Signal(float)
+    RecoverBackup = Signal()
+    FoundVersionSignal = Signal(str)
+    WaveformReady = Signal(str, list)
+    TransformSignal = Signal(str)
+    ExportStarted = Signal(str, int, int)
+    ExportFrame = Signal(str, int, int, int)
+    ExportEnded = Signal(str)
+    MaxSizeChanged = Signal(object)
+    InsertKeyframe = Signal(object)
+    OpenProjectSignal = Signal(str)
+    ThumbnailUpdated = Signal(str)
+    FileUpdated = Signal(str)
 
     # Docks are closable, movable and floatable
     docks_frozen = False

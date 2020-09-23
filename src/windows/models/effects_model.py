@@ -28,8 +28,9 @@
 import os
 
 from PyQt5.QtCore import (
-    QObject, QMimeData, Qt, QSize, pyqtSignal,
+    QObject, QMimeData, Qt, QSize,
     QSortFilterProxyModel, QPersistentModelIndex, QItemSelectionModel,
+    pyqtSignal as Signal,
 )
 from PyQt5.QtGui import QIcon, QPixmap, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMessageBox
@@ -61,7 +62,7 @@ class EffectsProxyModel(QSortFilterProxyModel):
 
 
 class EffectsModel(QObject):
-    ModelRefreshed = pyqtSignal()
+    ModelRefreshed = Signal()
 
     def update_model(self, clear=True):
         log.info("updating effects model.")
