@@ -1998,7 +1998,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Callback function, to redraw audio data after an update
         def callback(self, clip_id, callback_data):
             has_audio_data = callback_data
-            print('has_audio_data: %s' % has_audio_data)
+            log.info('has_audio_data: %s', has_audio_data)
 
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed

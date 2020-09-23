@@ -103,7 +103,6 @@ class FilesTreeView(QTreeView):
             current = selected[0]
 
         if not current.isValid():
-            # We can't find anything to drag
             log.warning("No draggable items found in model!")
             return False
 
