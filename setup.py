@@ -58,7 +58,7 @@ ROOT = os.geteuid() == 0
 # For Debian packaging it could be a fakeroot so reset flag to prevent execution of
 # system update services for Mime and Desktop registrations.
 # The debian/openshot.postinst script must do those.
-if not os.getenv("FAKEROOTKEY") == None:
+if os.getenv("FAKEROOTKEY") is not None:
     log.info("NOTICE: Detected execution in a FakeRoot so disabling calls to system update services.")
     ROOT = False
 

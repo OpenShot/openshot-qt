@@ -114,7 +114,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
-        if app.project.needs_save() and not self.mode == "unittest":
+        if app.project.needs_save() and self.mode != "unittest":
             log.info('Prompt user to save project')
             # Translate object
             _ = app._tr
@@ -751,10 +751,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             _("Would you like to import %s as an image sequence?") % filename,
             QMessageBox.No | QMessageBox.Yes
         )
-        if ret == QMessageBox.Yes:
-            return True
-        else:
-            return False
+        return ret == QMessageBox.Yes
 
     def actionAdd_to_Timeline_trigger(self, event):
         # Loop through selected files
@@ -2663,7 +2660,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_current_Version()
 
         # Connect signals
-        if not self.mode == "unittest":
+        if self.mode != "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 
         # Initialize and start the thumbnail HTTP server
@@ -2860,7 +2857,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.OpenProjectSignal.connect(self.open_project)
 
         # Show window
-        if not self.mode == "unittest":
+        if self.mode != "unittest":
             self.show()
         else:
             log.info('Hiding UI for unittests')

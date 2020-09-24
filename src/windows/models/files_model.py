@@ -69,15 +69,12 @@ class FileFilterProxyModel(QSortFilterProxyModel):
             index = self.sourceModel().index(sourceRow, 2, sourceParent)
             tags = self.sourceModel().data(index)  # tags (i.e. intro, custom, etc...)
 
-            if get_app().window.actionFilesShowVideo.isChecked():
-                if not media_type == "video":
-                    return False
-            elif get_app().window.actionFilesShowAudio.isChecked():
-                if not media_type == "audio":
-                    return False
-            elif get_app().window.actionFilesShowImage.isChecked():
-                if not media_type == "image":
-                    return False
+            if get_app().window.actionFilesShowVideo.isChecked() and media_type != "video":
+                return False
+            elif get_app().window.actionFilesShowAudio.isChecked() and media_type != "audio":
+                return False
+            elif get_app().window.actionFilesShowImage.isChecked() and media_type != "image":
+                return False
 
             # Match against regex pattern
             return self.filterRegExp().indexIn(file_name) >= 0 or self.filterRegExp().indexIn(tags) >= 0

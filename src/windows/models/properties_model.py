@@ -219,57 +219,55 @@ class PropertiesModel(updates.UpdateInterface):
             # Get effect object
             c = Effect.get(id=clip_id)
 
-        if c:
-            # Update clip attribute
-            if property_key in c.data:
-                log.info("remove keyframe: %s" % c.data)
+        if c and property_key in c.data:  # Update clip attribute
+            log.info("remove keyframe: %s" % c.data)
 
-                # Determine type of keyframe (normal or color)
-                keyframe_list = []
-                if property_type == "color":
-                    keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
-                else:
-                    keyframe_list = [c.data[property_key]]
+            # Determine type of keyframe (normal or color)
+            keyframe_list = []
+            if property_type == "color":
+                keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
+            else:
+                keyframe_list = [c.data[property_key]]
 
-                # Loop through each keyframe (red, blue, and green)
-                for keyframe in keyframe_list:
+            # Loop through each keyframe (red, blue, and green)
+            for keyframe in keyframe_list:
 
-                    # Keyframe
-                    # Loop through points, find a matching points on this frame
-                    closest_point = None
-                    point_to_delete = None
-                    for point in keyframe["Points"]:
-                        if point["co"]["X"] == self.frame_number:
-                            # Found point, Update value
-                            clip_updated = True
-                            point_to_delete = point
-                            break
-                        if point["co"]["X"] == closest_point_x:
-                            closest_point = point
-
-                    # If no point found, use closest point x
-                    if not point_to_delete:
-                        point_to_delete = closest_point
-
-                    # Delete point (if needed)
-                    if point_to_delete:
+                # Keyframe
+                # Loop through points, find a matching points on this frame
+                closest_point = None
+                point_to_delete = None
+                for point in keyframe["Points"]:
+                    if point["co"]["X"] == self.frame_number:
+                        # Found point, Update value
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                        keyframe["Points"].remove(point_to_delete)
+                        point_to_delete = point
+                        break
+                    if point["co"]["X"] == closest_point_x:
+                        closest_point = point
 
-                # Reduce # of clip properties we are saving (performance boost)
-                c.data = {property_key: c.data[property_key]}
+                # If no point found, use closest point x
+                if not point_to_delete:
+                    point_to_delete = closest_point
 
-                # Save changes
-                if clip_updated:
-                    # Save
-                    c.save()
+                # Delete point (if needed)
+                if point_to_delete:
+                    clip_updated = True
+                    log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                    keyframe["Points"].remove(point_to_delete)
 
-                    # Update the preview
-                    get_app().window.refreshFrameSignal.emit()
+            # Reduce # of clip properties we are saving (performance boost)
+            c.data = {property_key: c.data[property_key]}
 
-                # Clear selection
-                self.parent.clearSelection()
+            # Save changes
+            if clip_updated:
+                # Save
+                c.save()
+
+                # Update the preview
+                get_app().window.refreshFrameSignal.emit()
+
+            # Clear selection
+            self.parent.clearSelection()
 
     def color_update(self, item, new_color, interpolation=-1, interpolation_details=[]):
         """Insert/Update a color keyframe for the selected row"""

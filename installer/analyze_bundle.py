@@ -11,11 +11,10 @@ for root, dirs, files in os.walk(os.path.join(PATH, 'build', 'OpenShot Video Edi
         file_path = os.path.join(root, basename)
 
         output = str(subprocess.Popen(["oTool", "-L", file_path], stdout=subprocess.PIPE).communicate()[0])
-        if not "is not an object file" in output:
+        if "is not an object file" not in output:
             dependency_path = output.replace('\\n','').split('\\t')[1].split(' ')[0]
             dependency_version = output.replace('\\n','').split('\\t')[1].split(' (')[1].replace(')','')
 
-            if "@executable_path" not in dependency_path:
-                if not dependency_path in unique_dependencies.keys():
-                    unique_dependencies[dependency_path] = file_path
-                    print("%s => %s (%s)" % (basename, dependency_path, dependency_version))
+            if "@executable_path" not in dependency_path and dependency_path not in unique_dependencies.keys():
+                unique_dependencies[dependency_path] = file_path
+                print("%s => %s (%s)" % (basename, dependency_path, dependency_version))
