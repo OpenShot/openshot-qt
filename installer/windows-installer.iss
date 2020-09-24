@@ -112,7 +112,7 @@ Name: "slovak"; MessagesFile: "compiler:Languages\Slovak.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; GroupDescription: "{cm:AdditionalIcons}";
-Name: "firewall"; Description: "Add an exception to the Windows Firewall to send anonymized usage and error information."; GroupDescription: "{cm:AdditionalIcons}";
+Name: "firewall"; Description: "Add an exception to the Windows Firewall for optionally sending anonymized usage and error information."; GroupDescription: "{cm:AdditionalIcons}";
 
 [InstallDelete]
 ; Remove previous installed versions of OpenShot
