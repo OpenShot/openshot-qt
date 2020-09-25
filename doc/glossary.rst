@@ -16,47 +16,50 @@
 
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+
 .. _glossary_ref:
+
 Glossary
-===========
+========
+
 There is much technical terminology in today's fast-moving media-centric world.  If you find yourself wondering what a video production term or an acronym means, you are certainly not alone.  Like most industries, video production has a language all its own.  Here is a list of terms commonly found in video editing.  Becoming familiar with these terms only makes your job easier.
 
 .. image:: images/ui-example.jpg
 
 Definitions
 -----------
-These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot.org <mailto:support@openshot.org>`_.
 
-`-A- <glossary.rst#-A->`__
-`-B- <glossary.rst#-B->`__
-`-C- <glossary.rst#-C->`__
-`-D- <glossary.rst#-D->`__
-`-E- <glossary.rst#-E->`__
-`-F- <glossary.rst#-F->`__
-`-G- <glossary.rst#-G->`__
-`-H- <glossary.rst#-H->`__
-`-I- <glossary.rst#-I->`__
-`-J- <glossary.rst#-J->`__
-`-K- <glossary.rst#-K->`__
-`-L- <glossary.rst#-L->`__
-`-M- <glossary.rst#-M->`__
-`-N- <glossary.rst#-N->`__
-`-O- <glossary.rst#-O->`__
-`-P- <glossary.rst#-P->`__
+These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot(dot)org <mailto:support@openshot.org>`_.
+
+`-A- <glossary.html#a>`__
+`-B- <glossary.html#b>`__
+`-C- <glossary.html#c>`__
+`-D- <glossary.html#d>`__
+`-E- <glossary.html#e>`__
+`-F- <glossary.html#f>`__
+`-G- <glossary.html#g>`__
+`-H- <glossary.html#h>`__
+`-I- <glossary.html#i>`__
+`-J- <glossary.html#j>`__
+`-K- <glossary.html#k>`__
+`-L- <glossary.html#l>`__
+`-M- <glossary.html#m>`__
+`-N- <glossary.html#n>`__
+`-O- <glossary.html#o>`__
+`-P- <glossary.html#p>`__
 -Q-
-`-R- <glossary.rst#-R->`__
-`-S- <glossary.rst#-S->`__
-`-T- <glossary.rst#-T->`__
+`-R- <glossary.html#r>`__
+`-S- <glossary.html#s>`__
+`-T- <glossary.html#t>`__
 -U-
-`-V- <glossary.rst#-V->`__
-`-W- <glossary.rst#-W->`__
+`-V- <glossary.html#v>`__
+`-W- <glossary.html#w>`__
 -X-
 -Y-
-`-Z- <glossary.rst#-Z->`__
+`-Z- <glossary.html#z>`__
 
-.. _gl-a_ref:
 -A-
----
+~~~
 A-Roll:
    The Principal video that is usually someone speaking. 
 Aliasing:
@@ -80,9 +83,8 @@ ATSC:
 Audio Sample Rate:
    The number of samples taken per second to reproduce audio digitally.  The higher the sample rate, the higher the quality of the digital audio.  A rate of 44,100 samples per second produces CD-quality audio and captures the range of human hearing.
 
-.. _gl-b_ref:
 -B-
----
+~~~
 B-roll: 
    B-roll is supplemental footage that provides supporting details and greater flexibility when editing video.  Common examples include the footage used to cut away from an interview or news report to help tell the story.
 Bit:
@@ -96,9 +98,8 @@ Blue Screen:
 Blue Screen Compositing:
    The process of making all blue elements in an image transparent and placing a different background underneath.   
    
-.. _gl-c_ref:
 -C-
----
+~~~
 Capture:
    The process of transferring source video from a camcorder or tape deck to a computer.  If the source video is analog, the capture process converts the video to digital.
 Channel:
@@ -130,9 +131,8 @@ Cut-in (Insert Shot):
 Cutting on Action:
    Cutting on action is a technique used to create a more interesting scene. The concept is simple… when you cut in the middle of an action, it will appear less jarring and more visual interesting. 
 
-.. _gl-d_ref:
 -D-
----
+~~~
 Data Rate:
    The amount of data moved over time (for example, 10 MB per second).  Often used to describe a hard drive's ability to retrieve and deliver information.
 Denominator:
@@ -144,9 +144,8 @@ Digitize:
 Dissolve:
    Dissolve is an image transition effect where one picture gradually disappears as another appears.  Also called a cross-fade.
    
-.. _gl-e_ref:
 -E-
----
+~~~
 Editing:
    Editing is the process or result of selectively sequencing video and audio clips into a new video file.  Typically involves reviewing raw footage and transferring desired segments from source footage into a new predetermined sequence.
 Effect:
@@ -156,9 +155,8 @@ Encode:
 Export:
    Export refers to the process of assembling your edited video project into a single file that then plays back on its own, shared, or uploaded.
 
-.. _gl-f_ref:
 -F-
----
+~~~
 Fade:
    A fade is the gradual diminishing or heightening of visual or audio intensity.  Usage: fade-out, fade to black, fade-in, or fade up from black.
 Fade-in:
@@ -182,9 +180,8 @@ Frame Rate:
 Frequency:
    The number of audio cycles per second, expressed in hertz (Hz).  Frequency determines the pitch of a sound.
 
-.. _gl-g_ref:
 -G-
----
+~~~
 Gamma:
    A measurement of the intensity of mid-tones in an image.  Adjusting the gamma adjusts the level of the mid-tones while leaving the blacks and whites untouched. 
 GPU:
@@ -196,9 +193,8 @@ Green screen
 Green Screen Compositing
    The process of making all green elements in an image transparent and placing a different background underneath, so it appears that the subject is in a different location.
 
-.. _gl-h_ref:
 -H-
----
+~~~
 High Definition (HD):
    A general term for a video signal with a significantly higher resolution than standard definition.
 HDMI:
@@ -216,9 +212,8 @@ Hiss:
 Hue:
    The shade of a color.  This is the general color category into which the color falls.  For example, pink, crimson, and plum are different colors, but they all fall under the hue of red.  White, black, and gray tones are not hues.
 
-.. _gl-i_ref:
 -I-
----
+~~~
 Image Stabilizer:
    Also referred to as an electronic image stabilizer.  A technique used to remove the movement caused by camera shake.
 Importing:
@@ -230,9 +225,8 @@ Interpolation:
 Intertitles:
    Titles that appear on their own between footage.  Commonly seen in silent movies to substitute dialogue, also used as chapter headings.
 
-.. _gl-j_ref:
 -J-
----
+~~~
 J-Cut:
    An edit in which the audio starts before the video, giving the video a dramatic introduction.  Also known as an audio lead.
 Jog
@@ -240,17 +234,15 @@ Jog
 Jump Cut:
    A jump cut is an unnatural, abrupt switch between shots identical in the subject but slightly different in screen location, so the subject appears to jump from one screen location to another.
    
-.. _gl-k_ref:
 -K-
----
+~~~
 Key:
    A method for creating transparency, such as a bluescreen key or a chroma key.
 Keyframe:
    A keyframe is a frame that contains a record of specific settings (e.g., scale, rotation, brightness).  Start and endpoints for animated effects.  By setting multiple keyframes, you can adjust these parameters as the video plays to animate certain aspects.
 
-.. _gl-l_ref:
 -L-
----
+~~~
 L-Cut:
    An L-cut is an edit in which the video ends before the audio.  L-cuts act as a subtle transition from one scene to the next.
 Letterbox:
@@ -264,9 +256,8 @@ Lossless:
 Lossy:
    Lossy compression is a compression scheme that degrades quality.  Lossy algorithms compress digital data by eliminating the data least sensitive to the human eye and offer the highest compression rates available.
 
-.. _gl-m_ref:
 -M-
----
+~~~
 Mark In:
    Placing a marker at the beginning of where you want your clip to start.
 Mark Out:
@@ -286,9 +277,8 @@ Montage:
 Motion Artifact:
    Visual interference caused by the difference between the frame rate of the camera and the motion of the object.  The most common display of this is when filming a computer or television screen.  The screen flickers or a line scans down it, which is the difference in frame rates and a lack of synchronization between the camera and television.
 
-.. _gl-n_ref:
 -N-
----
+~~~
 Noise:
    Undesired data in a video or audio signal.  See also artifact.
 Non-linear Editing:
@@ -298,9 +288,8 @@ Numerator:
 NTSC:
    NTSC is an abbreviation for National Television Standards Committee.  NTSC is the group that initially developed the black & white and subsequently color television system.  The United States, Japan, and many other countries use NTSC.  Five-hundred twenty-five interlaced lines make up NTSC that display at a rate of 29.97 frames per second.  ATSC Has now superseded by NTSC.
 
-.. _gl-o_ref:
 -O-
----
+~~~
 Offline Editing:
    Editing a rough cut using low-quality clips, and then producing the final cut with high-quality clips, usually on a more sophisticated editing system than that used for developing the rough.
 Online Editing:
@@ -308,9 +297,8 @@ Online Editing:
 Opacity:
    An inverse measure of the level of transparency in an image, which is of importance when compositing.  An image's alpha channel stores its opacity information.
 
-.. _gl-p_ref:
 -P-
----
+~~~
 PAL:
    PAL is an abbreviation for Phase Alternate Line.  This is the video format standard used in many European countries.  Six-hundred twenty-five lines make up a PAL picture that displays at a rate of 25 frames per second.
 Pan:
@@ -334,9 +322,8 @@ Poster Frame:
 Project:
    A project is all the files, transitions, effects, and animations that you make or use within OpenShot.
    
-.. _gl-r_ref:
 -R-
----
+~~~
 Raw Footage:
    Raw footage is pre-edited footage, usually direct from the camera.
 Real-time:
@@ -356,9 +343,8 @@ Roll:
 Rough cut:
    A rough cut is a preliminary edit of footage in the approximate sequence, length, and content of a finished program.
 
-.. _gl-s_ref:
 -S-
----
+~~~
 Sample Rate:
    In digital audio, the number of samples per second.  The higher the number, the better the sound quality.
 Scene:
@@ -398,9 +384,8 @@ Sync (Synchronization):
 SECAM:
    Systeme Electronique Couleur Avec Memoire, a TV format used mainly in Eastern Europe, Russia, and Africa. 
 
-.. _gl-t_ref:
 -T-
----
+~~~
 Tilt:
    Tilting is a cinematographic technique in which the camera stays in a fixed position but rotates up/down in a vertical plane.
 Timecode:
@@ -424,9 +409,8 @@ Transition:
 Trim:
    Removing frames from the beginning, middle, or end of a clip.
 
-.. _gl-v_ref:
 -V-
----
+~~~
 Video Format:
    The video format is a standard that determines the way a video signal records on videotape.  Standards include DV, 8-mm, Beta, and VHS.
 Voiceover:
@@ -434,19 +418,15 @@ Voiceover:
 VTR:
    A Videotape recorder also referred to as a 'deck'.  Decks duplicate videotapes and inputting and outputting from a computer.
 
-.. _gl-w_ref:
 -W-
----
+~~~
 Widescreen:
    A format in which the width-to-height ratio of the frame is greater than 4:3 so that it is significantly wider than it is tall.
 Wipe:
    A wipe is a transition from one shot to another.  The edge of the transition moves across the original image as a line or a pattern, revealing the new shot.
 
-.. _gl-z_ref:
 -Z-
----
+~~~
 Zoom:
    A shot where the image grows more substantial or smaller by adjusting the focal length of the lens instead of physically moving the camera.
-   
-.. |A| replace:: -A-
-.. _A: :ref:`gl-a_ref`
+

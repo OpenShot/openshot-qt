@@ -21,47 +21,45 @@
 
 Profiles
 ========
-
 A profile is a collection of common video settings (size, frame rate, aspect ratio, etc...). Profiles are used
 during editing, previewing, and exporting to provide a quick way to switch between common combinations of these settings.
 
 If you often use the same profile, you can set a default under:
-**Edit>Preferences>Preview>Default Profile**
+**Edit >> Preferences >> Preview >> Default Profile**
 
 Project Profile
----------------
-
+-----------------------------
 The project profile is used when previewing your project and editing. The default project profile is "HD 720p 30fps".
 It is best practice to always switch to your target profile before you begin editing. For example, if you are targeting
 1080p 30fps, switch to that profile before you begin editing your project.
 
 .. image:: images/profiles-choose-profile.png
 
-==  ==================  ============
-#   Name                Description
-==  ==================  ============
-1   Title Bar           The title bar of OpenShot displays the current profile
-2   Profile Button      Launch the profiles dialog
-3   Choose Profile      Select a profile for editing and preview
-==  ==================  ============
+==  ==============  ============
+#   Name            Description
+==  ==============  ============
+1   Title Bar       The title bar of OpenShot displays the current profile
+2   Profile Button  Launch the profiles dialog
+3   Choose Profile  Select a profile for editing and preview
+==  ==============  ============
+
 
 Export Profile
 --------------
-
 The export profile always defaults to your current project profile, but can be changed to target different profiles.
 
 .. image:: images/profiles-export.png
 
-==  ==================  ============
-#   Name                Description
-==  ==================  ============
-1   Choose Profile      Select a profile for export
-==  ==================  ============
+==  ==============  =========================
+#   Name            Description
+==  ==============  =========================
+1   Choose Profile  Select a profile for export
+==  ==============  =========================
 
 Custom Profile
 --------------
 Although OpenShot has more than 70 profiles included by default, you can also create your own custom profiles. Create a
-new file in the C:\\Users\\*USERNAME*\\.openshot_qt\\profiles folder. Use the following text as your template (i.e. copy and paste this into the file):
+new file in the C:\\Users\\*(USERNAME)*\\.openshot_qt\\profiles folder. Use the following text as your template (i.e. copy and paste this into the file):
 
 .. code-block:: python
 
@@ -79,13 +77,13 @@ new file in the C:\\Users\\*USERNAME*\\.openshot_qt\\profiles folder. Use the fo
 
 Once you restart OpenShot, you will see your custom profile appear in the list of Profiles.
 
-By reversing the values for 'width' and 'height', you can create a vertical profile. 
-The line 'progressive' is a  boolean value. 
+By reversing the values for 'width' and 'height', you can create a vertical profile.
+The line 'progressive' is a  boolean value.
 Set 1 for Progressive or 0 for interlaced.
 
-While there is a line for "colorspace", this is currently not supported. 
+While there is a line for "colorspace", this is currently not supported.
 
-.. TODO:: Colorspace is currently  broken, re-enable table when fixed. 
+.. Colorspace is currently  broken, re-enable table when fixed.
   see  https://github.com/OpenShot/openshot-qt/issues/3427
 
   =====  =====  =========
@@ -93,10 +91,10 @@ While there is a line for "colorspace", this is currently not supported.
   =====  =====  =========
   601    SD     Legacy. Use only if all source video is in this format
   709    HD     Normal mode for most cases
-  2020   UHD    Not supported. 
+  2020   UHD    Not supported.
   =====  =====  =========
 
-Frame rate is defined as fraction, calculated by deviding frame_rate_num by frame_rate_den. 
+Frame rate is defined as fraction, calculated by deviding frame_rate_num by frame_rate_den.
 
 ================  ==============  ==============
 Frame rate (fps)  frame_rate_num  frame_rate_den

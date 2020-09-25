@@ -4,8 +4,8 @@
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
-.. OpenShot Video Editor is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
+.. OpenShot Video Editor is free software: you can redistribute it and/or 
+ modify it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
@@ -16,77 +16,165 @@
 
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
-.. _getting_started_ref: 
+
+.. Edited September 25, 2020 - [USA]TechDude
+ 
 Getting Started
 ===============
-Knowing how to edit videos is an essential part of creating great videos, and you do not need to be a trained videographer to understand how to do it well.  Simple editing can keep your viewers watching for longer, and add a professional feel to your videos even if you are not a professional video editor.
 
-On a basic level, video editing is taking footage, cutting it up, removing the pieces you do not want, and keeping the bits you do.  Back in the old days, this was done by literally slicing film reel and piecing it together.  Thankfully software makes the whole process a lot easier.
+.. image:: images/getting-started.png
 
-There are three main jobs video editing needs to do:
+Creating great videos is essentially knowing how to edit videos, and 
+you do not need to be a trained videographer to understand how to do it well.  
+Simple editing can keep your viewers engaged longer, and add a 
+professional feel, even if you are not a professional video 
+editor.
 
-1.	Remove mistakes or unwanted sections
-2.	Keep the video moving at an engaging pace
-3.	Insert supporting footage, audio, or titles
+Basically, video editing is taking footage, cutting it up, removing the 
+pieces you do not want, and keeping the bits you do.  Back in the old days, 
+editing was slicing reels of film and piecing it together.  Thankfully software 
+makes the whole process much more manageable.
+
+There are three main jobs of video editing:
+
+1.  Remove mistakes or unwanted sections
+2.  Keep the video moving at an engaging pace
+3.  Insert supporting footage, audio, or titles
 
 Use these three points as a checklist as you edit.
 
 Computer
 --------
-Video editing does not require an expensive machine, especially if you are a beginner.  It would be best if you had a decent monitor and graphics card, both of which come installed on most new computers.  If you have an older computer, check it against :ref:`OpenShot's minimum requirements <man-System-Requirements>` to make sure it works for video editing.  Unfortunately, many older computers are not fast enough for video editing, and you should upgrade your whole system.
+Video editing does not require an expensive machine, especially if you are a 
+beginner.  It would be best if you had a decent monitor and graphics card.  If 
+you have an older computer, check your system specifications against OpenShot's 
+`minimum system requirements <introduction.html#system-requirements>`_ 
+to make sure it works for video editing.  Unfortunately, many older computers 
+are not fast enough for video editing, and you should upgrade your whole 
+system, if possible.
+
 
 Accessories
 -----------
-Before beginning a video project, make sure there is enough space on your computer to save all the necessary file footage.  For example, one hour of 1080i video like you get from a mini-DV camcorder takes up nearly 42 GB of file storage.  If your computer's internal hard drive or flash memory cannot store all the footage, the solution is to buy an external drive.
+Before beginning a video project, ensure there is enough storage space on your 
+computer to save all the necessary clips.  For example, one hour of 
+1080i video, such as from a mini-DV camcorder, takes up nearly 42 GB of 
+storage.  If your computer's internal storage device cannot store all the 
+clips, the solution is to buy an external drive.
 
-It would help if you had several cables, usually Firewire or USB, to connect your computer, external hard drive, and a camera.  Different computers and cameras accept different connectors, so check your manuals before buying anything.
+It would help if you had several cables, usually Firewire or USB, to connect 
+your computer, external hard drive, and a camera.  Different computers and 
+cameras accept other connectors, so check your manuals before buying 
+anything.
 
 Practical Tips
 --------------
-Becoming a great video editor isn’t easy, but with practice and patience you’ll be editing like a pro in no time. Here are a few of the most important tips and techniques you need to know to become a skilled video editor.
+Becoming a great video editor isn’t effortless, but with practice and patience, 
+you’ll be editing like a professional in no time. Here are a few of the 
+essential tips and techniques you need to know to become a skilled video editor.
 
-#. Pick the right computer
-    While having a great computer won’t necessarily make you a great video editor, a faster computer will allow you to focus more of your time on the story you’re trying to tell rather than your computer rendering. Everyone has their own opinions about what computer is best for editing, but it all depends on your own preferences.
 
-#. Keep shooting
-    Shoot more footage than you think you'll need. Include footage that enhances the story or sets the scene. You can use it for smooth transitions in your movie.
+#. Pick the Right Computer
+    While having a great computer won’t necessarily make you a great video 
+    editor, a faster computer will allow you to focus more of your time on the 
+    story you’re trying to tell rather than your computer rendering. Everyone 
+    has their own opinions about what computer is best for editing, but it all 
+    depends on your own preferences.
 
-#. Organize your footage
-    Composition is the key to success, whether you are running Linux, on a Mac, or a Windows machine.  Be sure to label video files, audio files, and even still images clearly and keep them on the same drive and in the same folder for easy access.
+#. Keep Shooting
+    Record more video that you think you will need for your project.  Include 
+    video that enhances the scene, sets a mood, or tells a story.  You can use 
+    the extra video for smooth transitions in your project.  If you are 
+    comfortable using multiple devices, use two devices simultaneously the 
+    insert video from either device into your project.
+
+#. Organize Your Project Files
+    Composition is the key to success, whether you are running Linux, on a Mac, 
+    or a Windows machine.  Be sure to label video files, audio files, and even 
+    still images clearly and keep all your clips on the same device and in the 
+    same folder for easy access.  OpenShot tries to keep up with your clips, 
+    but if you move them after your project is saved, you could lose your 
+    entire project.  Organizing before you begin editing can be very 
+    advantageous.
  
-#. Watch everything
-    The first step in the editing process is to watch everything.  Writer and filmmaker David Andrew Stoler says there is gold in the unlikeliest of places: "Some of the most beautiful expressions you're going to get from the actors are after the cut."
+#. Watch Everything
+    Watching everything is the first step in the editing process.  Writer and 
+    filmmaker David Andrew Stoler says there is gold in the most unlikely of 
+    places: "Some of the most beautiful expressions you're going to get from 
+    the actors are after the cut."
 
-#. Edit for a story
-    Remember that as an editor you are a storyteller! Editing is so much more than simply cutting footage. It’s an opportunity to take your audience on a journey. Whether you’re editing a complex narrative film or simply putting together a corporate video, there is a deeper story being told.
+#. Edit for a Story
+    Remember that as you edit, you are telling a story.  Editing is so much
+    more than merely cutting footage and adding effects.  It is an opportunity 
+    to take your audience on a journey.  Whether you are editing a complex 
+    narrative film or only putting together a personal video, you tell a more 
+    in-depth story.
+
+#. Keyboard Shortcuts
+    One of the easiest ways to tell the difference between and professional 
+    video editor and a novice is to simply look at how much they use the 
+    keyboard.  Editors that have been in the business for some time know that a 
+    few seconds saved add up over the length of the project.
+
+#. Learn the Lingo
+    Video editing is not just a hobby or a profession; it is an industry.  And 
+    just like any industry, there is a ton of jargon to learn.  Practically 
+    speaking, you do not need to know all the terms on 
+    `this list <glossary.html#definitions>`_  to become a better video editor, 
+    but a fundamental knowledge of the terms may help you communicate better 
+    with other video editors or clients.
+
+#. Assemble, Then Make a Rough Cut
+    Drag and drop all your video footage into a timeline and make sure your 
+    frame size and frame rates are consistent.  Begin a new timeline and 
+    drag-and-drop the best clips into what becomes your assembly cut.  Remember 
+    to save your work frequently, and notate the date and time of each version.
     
-#. Keyboard shortcuts
-    One of the fastest ways to tell the difference between a professional and novice video editor is to simply look at how much they use the keyboard. Editors who have been in the industry a while know that a few seconds saved here or there add up over time. 
-
-#. Learn the lingo
-    Video editing isn’t just a hobby or a profession, it’s an industry. And just like any industry, there’s a ton of lingo to learn. Practically speaking, you don’t need to learn all of the terms on :ref:`this list <glosssary_ref>` to become a better video editor, but a fundamental knowledge of the concepts may help you communicate better with other video editors or clients.
+#. Refine Your Video
+    In this phase, your rough cut begins to resemble a cohesive project.
+    Adjust the sound and color, make sure the dialog is audible, and add music,
+    titles, or graphics in this phase.  Color correction is the process of 
+    setting your footage to a color baseline.  No matter how great your subject 
+    looks on set, you will almost always need to do some basic post-processing 
+    for a consistent video.
  
-#. Assemble, then make a rough cut
-    Drag and drop all your video footage into a timeline and make sure your frame size and frame rates are consistent.  Begin a new timeline and drag-and-drop the best takes into what becomes your assembly cut.  Remember to save your work frequently.  Note the date and time of each version.
+#. Refine Some More
+    A slow scene can set the mood and add tension or it can bore an audience.  
+    A fast scene can add adrenaline to your audience’s systems or it can give 
+    them headaches.  Some editors cut their projects several different ways 
+    before they find the right pace.  Do not let cutting your project several 
+    times discourage you.
     
-#. Refine your video
-    Your rough cut starts to resemble a cohesive work.  Adjust the sound and color, make sure the dialogue is audible, and add music, titles, or graphics in this phase.  Color correction is the process of getting your footage to a color baseline. No matter how great your footage looks on set, you will almost always need to do some basic post-processing to get all of your footage consistent.  
- 
-#. Refine some more
-    A slow scene can ratchet up tension or bore the audience to tears.  A fast scene can raise the audience's heart rates or give them headaches.  Some editors cut scenes several different ways before they find the right pacing, so do not be disheartened if you must recut a few times.
-
-.. _exporting_ref:
 Exporting
-=========
-In reality, people view most of their projects on phones, iPads, computers, or TVs, so it’s essential to know the proper way to export for the web. The goal when exporting a video for the web is to create the highest quality possible without ending up with massive file sizes. Four main factors determine the file size of your finished video:
+---------
+People view most of their projects on phones, tablets, or computers, so it is 
+essential to know how to export for the web.  The goal when exporting a video 
+for the web is to create the highest quality possible with the smallest file 
+size.  Four main factors determine the file size of your finished video:
 
 * Codec: 
-   A codec determines the type of file format (MP4, AVI, MOV). The more compression performed by the codec, the smaller your video’s size. However, smaller file sizes tend to be lower in quality.
+   A codec determines the type of file format (MP4, AVI, MOV).  The more 
+   compression performed by the codec, the smaller your video’s size.  Videos 
+   that are smaller in file size tend to be lower in visual quality.
 * Resolution: 
-   Resolution refers to the actual number of horizontal and vertical pixels your video contains. For example, a 4K video has 4 times the resolution of FHD (1080P) video.  A higher resolutions means more information to store so you will have larger file sizes.
+   Resolution refers to the number of horizontal and vertical pixels (dots on 
+   display) your video contains.  For example, a 4K UHD (2160P) video has four 
+   times the resolution of FHD (1080P) video.  A higher resolution means more 
+   information to store so that you will have larger file sizes.
 * Bit Rate: 
-   Bit rate is the amount of data dedicated to a second of video. A higher bit rate means higher-quality video and larger files. OpenShot allows you to manually set the Bit Rate / Quality in the Advanced Tab of the Export Video window.
+   The Bit Rate is the measure of the speed of data processing of your video.
+   A higher bit rate means higher-quality video and larger files.  OpenShot 
+   allows you to manually set the Bit Rate / Quality in the Advanced tab of the 
+   Export Video window.
 * Frame Rate: 
-   Frame rate (expressed in frames per second or FPS) is the frequency (rate expressed in Hz) at which consecutive images called frames appear on display.  Typically, you export your video in the film standard (24fps) or the TV broadcast standard of 30fps (or 25fps in PAL). While there isn’t much wiggle room here, you should note that if you decide to export your video in 48fps, 50fps, or 60fps, your file size doubles.
+   The frequency (in Hz) at which consecutive images, called frames, appear on 
+   the display is the Frame Rate.  Typically, you export your video in the film 
+   standard (24fps) or the TV broadcast standard of 30fps (or 25fps in PAL).  
+   While there is not much wiggle room here, you should note that if you decide 
+   to export your video in 48fps, 50fps, or 60fps, your file size doubles.
 
-Over time you’ll learn which export settings are best for you. But if you’re starting, don’t worry — a lot of the online distributors have created `recommended export settings <https://support.google.com/youtube/answer/1722171?hl=en>`_.  Using these tips, you can ensure your videos are the highest quality possible.
+Over time you’ll learn which export settings are best for you. But if you’re 
+starting, don’t worry — most of the online distributors have created 
+`recommended export settings 
+<https://support.google.com/youtube/answer/1722171?hl=en>`_.  Using these tips, 
+you can ensure your videos are the highest quality possible.

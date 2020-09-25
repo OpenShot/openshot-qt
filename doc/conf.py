@@ -166,7 +166,7 @@ html_theme_path = ["_themes", ]
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = 'OpenShot Video Editor v2.1.0'
+# html_title = 'OpenShot Video Editor v2.5.1'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #

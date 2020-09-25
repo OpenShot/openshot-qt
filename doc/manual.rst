@@ -16,12 +16,15 @@
 
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+
 .. _manual_ref:
+
 User Manual
 ===================
 The following pages provide more in-depth explainations of the features and functions of OpenShot Video Editor.
 
-.. _man-System-Requirements_ref:
+.. _mansysreqs_ref:
+
 System Requirements
 -------------------
 Video editing benefits from large amounts of memory, modern multi-core CPUs, and fast internal storage.  When editing video, you want the best computer system that you can afford.  Here are the minimum and the recommended system requirements:
@@ -40,7 +43,7 @@ Video editing benefits from large amounts of memory, modern multi-core CPUs, and
         | Intel Core i3 (2006 - present)
      - Multi-core 64-bit processor
         | AMD Ryzen Threadripper
-        | Intel Core i7 or i9
+        | Intel Core i9
    * - Internal Storage Space
         | 500 MB HDD
         | SATA III

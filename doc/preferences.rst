@@ -55,7 +55,7 @@ Preview
 
 .. image:: images/preferences-2-preview.png
 
-Here you can set the Default Profile for your project, but you can always choose a different one when you start a new project. More about :ref:`profiles`
+Here you can set the Default Profile for your project, but you can always choose a different one when you start a new project. More about `profiles <profiles.html>`_.
 
 Here you can choose which connected audio device should be used by OpenShot. 
 If you experience sound issues, make sure that your audio settings match your audio card.
@@ -73,7 +73,7 @@ The default audio sample rate of your sound device can be found under the sound 
    Default Audio Channels            Stereo (2 Channel)  
    ================================  ==================  ===========
    
-.. TODO:: Add to FAQ, add Link [WIKI tag AUDIO + FAQ ?] here.  
+.. TODO Add to FAQ, add Link [WIKI tag AUDIO + FAQ ?] here.  
    For more info check our FAQ on the wiki.
    Windows: disable audio enhancements/microphone recognition
 
@@ -95,7 +95,7 @@ Cache
 
 A cache is a hardware or software component that stores data so that future requests for that data can be served faster.
 
-.. TODO:: Cache settings
+.. TODO Cache settings
   CacheMode - When to use Disk? Servers?
   Cache Limit (MB): How much % of RAM advised? Different for iGPU vs dedicated GPU?
   Image Format: What is PPM/XMB/XPM? Where is this used for? 
@@ -106,6 +106,7 @@ Debug
 -----
 
 .. image:: images/preferences-5-debug.png
+
 Here you can modify how much data should be logged. Normally, *Debug Mode (verbose)* is off.
 The default port is 5556
 If you want to help improve the program you can enable **Send Anonymous Metrics and Errors**.
@@ -115,10 +116,10 @@ Performance
 .. image:: images/preferences-6-performance.png
 
 Please keep in mind that hardware accelleration is experimental at the moment.
-For more information take a look at our `Github<https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_
+For more information take a look at our `Github <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_
 It may be best to test each modification directly after changing so you remember what was changed if you experience issues.
 
-.. TODO:: Performance settings
+.. TODO Performance settings
   Process Video Frame Rates in Parallel
   OMP Threads = Open Multi-Processing? https://en.wikipedia.org/wiki/OpenMP
   FFmpeg Threads 

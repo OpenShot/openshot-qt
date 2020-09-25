@@ -4,8 +4,8 @@
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
-.. OpenShot Video Editor is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
+.. OpenShot Video Editor is free software: you can redistribute it and/or 
+ modify  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
@@ -17,15 +17,17 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
+.. Edited September 25, 2020 - [USA]TechDude
+
 OpenShot User Guide
 ===================
 
-OpenShot Video Editor is an award-winning, open-source video editor, available for
-Linux, macOS, and Windows.  OpenShot can create stunning videos, films, and animations 
-with an easy-to-use interface and rich set of features.
+OpenShot Video Editor is an award-winning, open-source video editor, available 
+for Linux, macOS, and Windows.  OpenShot can create stunning videos, films, and 
+animations with an easy-to-use interface and rich set of features.
 
-Learning to use OpenShot is easy, and with this guide, you will be a master in no
-time at all!
+Learning to use OpenShot is easy, and with this guide, you will be an expert in no time at all!
+
 
 Table of Contents:
 ------------------
@@ -38,6 +40,7 @@ Table of Contents:
    quick_tutorial
    manual
    main_window
+   preferences
    files
    clips
    transitions
@@ -49,4 +52,3 @@ Table of Contents:
    developers
    learn_more
    glossary
-   index
