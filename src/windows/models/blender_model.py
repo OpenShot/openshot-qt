@@ -149,7 +149,7 @@ class BlenderModel():
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
-                if not path in self.model_paths:
+                if path not in self.model_paths:
                     self.model.appendRow(row)
                     self.model_paths[path] = path
 

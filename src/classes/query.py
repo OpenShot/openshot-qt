@@ -113,16 +113,17 @@ class QueryObject:
             match = True
             for key, value in kwargs.items():
 
-                # Equals
-                if key in child and not child[key] == value:
+                if key in child and child[key] != value:
                     match = False
                     break
 
                 # Intersection Position
-                if key == "intersect":
-                    if (child.get("position", 0) > value or
-                       child.get("position", 0) + (child.get("end", 0) - child.get("start", 0)) < value):
-                        match = False
+                if key == "intersect" and (
+                    child.get("position", 0) > value
+                    or child.get("position", 0) + (child.get("end", 0) - child.get("start", 0)) < value
+                ):
+                    match = False
+
 
             # Add matched record
             if match:
@@ -341,7 +342,7 @@ class Effect(QueryObject):
                         # Loop through all kwargs (and look for matches)
                         match = True
                         for key, value in kwargs.items():
-                            if key in child and not child[key] == value:
+                            if key in child and child[key] != value:
                                 match = False
                                 break
 

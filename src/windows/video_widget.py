@@ -681,12 +681,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Handle the transform signal when it's emitted"""
         need_refresh = False
         # Disable Transform UI
-        if self and self.transforming_clip:
-            # Is this the same clip_id already being transformed?
-            if not clip_id:
-                # Clear transform
-                self.transforming_clip = None
-                need_refresh = True
+        # Is this the same clip_id already being transformed?
+        if self and self.transforming_clip and not clip_id:
+            # Clear transform
+            self.transforming_clip = None
+            need_refresh = True
 
         # Get new clip for transform
         if clip_id:
