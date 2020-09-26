@@ -140,9 +140,9 @@ class Preferences(QDialog):
             if sort_category:
                 self.category_sort[category] = sort_category
 
-            if not setting_type == "hidden":
+            if setting_type != "hidden":
                 # Load setting
-                if not category in self.category_names:
+                if category not in self.category_names:
                     self.category_names[category] = []
 
                     # Create scrollarea

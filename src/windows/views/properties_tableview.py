@@ -213,10 +213,9 @@ class PropertiesTableView(QTableView):
                     # Get effect object
                     c = Effect.get(id=item_id)
 
-                if c:
-                    if property_key in c.data:
-                        # Grab the original data for this item/property
-                        self.original_data = c.data
+                if c and property_key in c.data:
+                    # Grab the original data for this item/property
+                    self.original_data = c.data
 
             # For numeric values, apply percentage within parameter's allowable range
             if property_type in ["float", "int"] and property_name != "Track":

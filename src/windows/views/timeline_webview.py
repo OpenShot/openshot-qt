@@ -434,16 +434,22 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
 
         # Paste Menu (if entire clips or transitions are copied)
-        if self.copy_clipboard or self.copy_transition_clipboard:
-            if len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0:
-                menu = QMenu(self)
-                Paste_Clip = menu.addAction(_("Paste"))
-                Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
-                Paste_Clip.triggered.connect(
-                    partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
-                )
+        have_clipboard = (
+            (self.copy_clipboard or self.copy_transition_clipboard)
+            and (len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0)
+        )
 
-                return menu.popup(QCursor.pos())
+        if not have_clipboard:
+            return
+
+        menu = QMenu(self)
+        Paste_Clip = menu.addAction(_("Paste"))
+        Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
+        Paste_Clip.triggered.connect(
+            partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
+        )
+
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -1401,7 +1407,11 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         """Add a Point to a Keyframe dict. Always remove existing points,
         if any collisions are found"""
         # Get all points that don't match new point coordinate
-        cleaned_points = [point for point in keyframe["Points"] if not point.get("co", {}).get("X") == new_point.get("co", {}).get("X")]
+        cleaned_points = [
+            point
+            for point in keyframe["Points"]
+            if point.get("co", {}).get("X") != new_point.get("co", {}).get("X")
+        ]
         cleaned_points.append(new_point)
 
         # Replace points with new list
@@ -2367,13 +2377,14 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     clip.data["reader"]["video_length"] = self.round_to_multiple(
                         float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
 
-                if action == MENU_TIME_NONE:
+                if action == MENU_TIME_NONE and "original_data" in clip.data:
                     # Reset original end & duration (if available)
-                    if "original_data" in clip.data.keys():
-                        clip.data["end"] = clip.data["original_data"]["end"]
-                        clip.data["duration"] = clip.data["original_data"]["duration"]
-                        clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-                        clip.data.pop("original_data")
+                    orig = clip.data.pop("original_data")
+                    clip.data.update({
+                        "end": orig["end"],
+                        "duration": orig["duration"],
+                    })
+                    clip.data["reader"]["video_length"] = orig["video_length"]
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
