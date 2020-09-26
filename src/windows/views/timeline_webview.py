@@ -2372,12 +2372,14 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     clip.data["reader"]["video_length"] = self.round_to_multiple(
                         float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
 
-                if action == MENU_TIME_NONE and "original_data" in clip.data.keys():
+                if action == MENU_TIME_NONE and "original_data" in clip.data:
                     # Reset original end & duration (if available)
-                    clip.data["end"] = clip.data["original_data"]["end"]
-                    clip.data["duration"] = clip.data["original_data"]["duration"]
-                    clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-                    clip.data.pop("original_data")
+                    orig = clip.data.pop("original_data")
+                    clip.data.update({
+                        "end": orig["end"],
+                        "duration": orig["duration"],
+                    })
+                    clip.data["reader"]["video_length"] = orig["video_length"]
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
