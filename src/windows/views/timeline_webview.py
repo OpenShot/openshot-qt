@@ -434,17 +434,22 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
 
         # Paste Menu (if entire clips or transitions are copied)
-        if (self.copy_clipboard or self.copy_transition_clipboard) and (
-            len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0
-        ):
-            menu = QMenu(self)
-            Paste_Clip = menu.addAction(_("Paste"))
-            Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
-            Paste_Clip.triggered.connect(
-                partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
-            )
+        have_clipboard = (
+            (self.copy_clipboard or self.copy_transition_clipboard)
+            and (len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0)
+        )
 
-            return menu.popup(QCursor.pos())
+        if not have_clipboard:
+            return
+
+        menu = QMenu(self)
+        Paste_Clip = menu.addAction(_("Paste"))
+        Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
+        Paste_Clip.triggered.connect(
+            partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
+        )
+
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
