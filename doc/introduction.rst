@@ -24,8 +24,8 @@ User Guide
 
 This guide is a simple how-to to get the user started with enough information 
 to create a small, quick video by the end of the Quick Tutorial.  For more 
-in-depth information regarding |ops| OpenShot™, please refer to the `User Manual 
-<manual.html>`_ later in this document.
+in-depth information regarding |ops| OpenShot™, please refer to the 
+`User Manual <manual.html>`__.
 
 .. image:: images/title-ops.png
 
@@ -82,11 +82,11 @@ System Requirements
 Video editing uses sizable amounts of memory, modern multi-core CPUs, and 
 fast internal storage.  It is always best to have as much memory as possible.  
 You will also want a powerful processor.  You can manage using any processor 
-with a speed of 2.5 gigahertz (GHz) or higher.  Finally, you will want to make 
+with a speed of 2.4 gigahertz (GHz) or higher.  Finally, you will want to make 
 sure you have plenty of storage available to hold the software and video 
 with which you will be working.  A Solid State Device (SSD) provides faster 
-disk access which helps when finalizing your project.  Most modern computers s
-hould work well with OpenShot™.
+disk access which helps when finalizing your project.  Most modern computers 
+should work well with OpenShot™.
 
 When editing video with OpenShot™, you want a computer system that meets these 
 **minimum system requirements**:
@@ -99,7 +99,7 @@ When editing video with OpenShot™, you want a computer system that meets these
 - Monitor or laptop display capable of 1280x720 (720P) resolution
 
 A more in depth version of the System Requirements is available in the 
-`User Manual <manual.html#system-requirements>`__.
+`User Manual <manual.html#system-requirements>`_.
 
 License
 -------

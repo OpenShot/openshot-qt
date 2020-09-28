@@ -72,8 +72,8 @@ requirements:
         | macOS 10.15+
         | Microsoft Windows 10+
    * - Display Screen
-        | 15.6" FHD (1920x1080) Laptop Display
-        | 19" FHD (1920x1080) Desktop Display
+        | 14" FHD (1280x720) Laptop Display
+        | 17" FHD (1280x720) Desktop Display
      - Display Screen
         | 17" UHD (3840x2160) Laptop Display
         | 27" UHD (3840x2160) x2 Desktop Displays
