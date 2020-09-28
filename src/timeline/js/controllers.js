@@ -626,7 +626,6 @@ App.controller("TimelineCtrl", function ($scope) {
     return Math.min(32767, desired_width);
   };
 
-
 // Find the furthest right edge on the timeline (and resize it if too small)
   $scope.resizeTimeline = function () {
     // Unselect all clips
