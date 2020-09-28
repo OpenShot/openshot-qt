@@ -4,8 +4,8 @@
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
-.. OpenShot Video Editor is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
+.. OpenShot Video Editor is free software: you can redistribute it and/or 
+ modify it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
@@ -17,15 +17,34 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. Edited September 25, 2020 - [USA]TechDude
+.. Edited September 26, 2020 - [USA]TechDude
 
 Quick Tutorial
 ===============
-
 OpenShot is easy to use, and it has many advanced features.  This introductory 
-tutorial shows you how to make a simple photo slide-show with music in **less 
-than 5 minutes**.  After this tutorial, you can make a simple photo slide-show 
-with music.
+tutorial shows you how to make a simple photo slide-show with music in 
+**less than 5 minutes**.  After this tutorial, you can make a simple photo 
+slide-show with music.
+
+Basic Terminology
+-----------------
+To help understand the steps below, here are some definitions of a few basic 
+terms used in this Quick Tutorial.
+
+Clip:
+   A digitized or captured portion of video, audio, or both.  Clips are media 
+   files added to the Timeline, usually part of a more extensive recording.
+Project:
+   A project is all the files, transitions, effects, and animations that you 
+   make or use within OpenShot.
+Timeline:
+   The Timeline is an editing interface that lays out a video project in a 
+   linear fashion consisting of clips laid horizontally across the screen.
+Track:
+   A separate audio or video layer on a timeline.
+Transition:
+   A method of juxtaposing two scenes.  Transitions can take many forms, 
+   including cuts, dissolves, and wipes.
 
 Step 1 – Import Photos & Music
 -------------------------------
@@ -43,7 +62,7 @@ box, you cannot drag the files to the Project Files list in OpenShot.
 
 Step 2 – Add Photos to Timeline
 --------------------------------
-Next, drag each photo to the timeline (as seen in the illustration).  The 
+Next, drag each photo to the Timeline (as seen in the illustration).  The 
 Timeline represents your final video, so arrange your photos as you want them 
 to appear in your video.  If you overlap two images, OpenShot smoothly fades 
 between them.  The overlap is called a transition, which is displayed by 
@@ -54,9 +73,7 @@ OpenShot uses tracks to layer videos and images.  The topmost track is the top
 layer.  The bottom track is the bottom layer (the default is Track 1).  The 
 highest track (by default Track 5) is visible while the lower tracks will only 
 be visible if the higher tracks don't have any clips above them at that point 
-in the timeline.  Also, lower tracks are visible if the clips on the higher 
-tracks are allowing images to pass through them using the Alpha (transparency) 
-setting.
+in the timeline.
 
 .. image:: images/quick-start-timeline-drop.png
 
@@ -77,7 +94,7 @@ the corresponding buttons.
 
 .. image:: images/quick-start-play.png
 
-Step 5 – Refine and Adjust Your Video
+Step 5 – Refine and Adjust
 --------------------------------------
 OpenShot has many advanced features to enhance your project.  You can use 
 Titles to add a title screen or text to your clip.  Transitions gradually fade 

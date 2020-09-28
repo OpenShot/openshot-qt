@@ -4,8 +4,8 @@
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
-.. OpenShot Video Editor is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
+.. OpenShot Video Editor is free software: you can redistribute it and/or 
+ modify  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
@@ -17,19 +17,24 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _glossary_ref:
+.. Edited September 26, 2020 - [USA]TechDude
 
 Glossary
 ========
 
-There is much technical terminology in today's fast-moving media-centric world.  If you find yourself wondering what a video production term or an acronym means, you are certainly not alone.  Like most industries, video production has a language all its own.  Here is a list of terms commonly found in video editing.  Becoming familiar with these terms only makes your job easier.
+There is much technical terminology in today's fast-moving media-centric world.  
+If you find yourself wondering what a video production term or an acronym 
+means, you are certainly not alone.  Like most industries, video production has 
+a language all its own.  Here is a list of terms commonly found in video 
+editing.  Becoming familiar with these terms only makes your job easier.
 
 .. image:: images/ui-example.jpg
 
 Definitions
 -----------
 
-These are a Work in Progress.  Please let us know if you need a term defined by contacting `support(at)openshot(dot)org <mailto:support@openshot.org>`_.
+These are a Work in Progress.  Please let us know if you need a term defined by 
+contacting `support(at)openshot(dot)org <mailto:support@openshot.org>`_.
 
 `-A- <glossary.html#a>`__
 `-B- <glossary.html#b>`__

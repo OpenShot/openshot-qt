@@ -39,7 +39,7 @@ There are many ways to import media files into OpenShot.
    Import Files Toolbar  Click the **Import Files...** toolbar button (on the top menu)
    ====================  ============
 
-.. image:: images/quick-start-drop-files.jpg
+.. image:: images/quick-start-drop-files.png
 
 File Menu
 ---------
