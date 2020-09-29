@@ -83,9 +83,9 @@ Download and Install
 If you do not yet have OpenShot Video Editor, you can download it from the 
 official |Link|_ for most 64-bit operating systems.  OpenShot is available for
 
- -  |win| Microsoft® Windows®
- -  |lin| Linux® (most distributions)
- -  |mac| Apple® macOS®
+ -  |win| `Microsoft® Windows® <install.html#win-windows>`_
+ -  |lin| `Linux® (most distributions) <install.html#lin-linux>`_
+ -  |mac| `Apple® macOS® <install.html#mac-macos>`_
 
 The latest stable release is version 2.5.1.  With faster performance, huge 
 optimizations with effects, and improved UTF-8 character support, OpenShot 

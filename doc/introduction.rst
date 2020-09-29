@@ -37,9 +37,9 @@ for Linux.  We designed OpenShot™ to be easy to use, quick to learn, and a
 powerful video editor.  Quickly cut, slice, and edit any clip or video.  
 OpenShot™ is available for the following 64-bit operating systems:
 
- -  |win| `Microsoft® Windows® <#win-windows>`_
- -  |lin| `Linux® (most distributions) <#lin-linux>`_
- -  |mac| `Apple® macOS® <#mac-macos>`_
+ -  |win| `Microsoft® Windows® <install.html#win-windows>`_
+ -  |lin| `Linux® (most distributions) <install.html#lin-linux>`_
+ -  |mac| `Apple® macOS® <install.html#mac-macos>`_
  
 Users have downloaded OpenShot™ millions of times, and it continues to grow as 
 a project.  OpenShot™ Video Editor is an award-winning, open-source video 
