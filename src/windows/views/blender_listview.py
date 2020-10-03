@@ -570,10 +570,12 @@ Blender Path: {}
         self.inject_params(target_script, frame)
 
         # Create new thread to launch Blender (and read the output)
-        QMetaObject.invokeMethod(self.worker, 'Render', Qt.QueuedConnection,
-                                 Q_ARG(str, blend_file_path),
-                                 Q_ARG(str, target_script),
-                                 Q_ARG(bool, bool(frame)))
+        QMetaObject.invokeMethod(
+            self.worker, 'Render', Qt.QueuedConnection,
+            Q_ARG(str, blend_file_path),
+            Q_ARG(str, target_script),
+            Q_ARG(int, int(frame or 0))
+        )
 
     def __init__(self, *args):
         # Invoke parent init
@@ -676,8 +678,8 @@ class Worker(QObject):
             # Stop blender process if running
             self.process.terminate()
 
-    @pyqtSlot(str, str, bool)
-    def Render(self, blend_file_path, target_script, preview_mode=False):
+    @pyqtSlot(str, str, int)
+    def Render(self, blend_file_path, target_script, preview_frame=0):
         """ Worker's Render method which invokes the Blender rendering commands """
 
         # Init regex expression used to determine blender's render progress
@@ -687,7 +689,9 @@ class Worker(QObject):
 
         # get the blender executable path
         self.blender_exec_path = s.get("blender_command")
-        self.preview_mode = preview_mode
+        self.blend_file_path = blend_file_path
+        self.target_script = target_script
+        self.preview_mode = bool(preview_frame > 0)
         self.frame_detected = False
         self.last_frame = 0
         self.version = None
@@ -707,7 +711,17 @@ class Worker(QObject):
         try:
             # Shell the blender command to create the image sequence
             command_get_version = [self.blender_exec_path, '-v']
-            command_render = [self.blender_exec_path, '-b', blend_file_path, '-P', target_script]
+            command_render = [
+                self.blender_exec_path, '-b', self.blend_file_path,
+                '-y', '-P', self.target_script
+            ]
+
+            if preview_frame > 0:
+                # Render specific frame
+                command_render.extend(['-f', str(preview_frame)])
+            else:
+                # Render entire animation
+                command_render.extend(['-a'])
 
             # Check the version of Blender
             import shlex

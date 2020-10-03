@@ -84,7 +84,6 @@ params = {
 # ----------------------------------------------------------------------------
 
 # Modify Text / Curve settings
-#print (bpy.data.curves.keys())
 text_object = bpy.data.curves["Text"]
 text_object.extrude = params["extrude"]
 text_object.bevel_depth = params["bevel_depth"]
@@ -138,12 +137,5 @@ bpy.context.scene.render.frame_map_old = 1
 bpy.context.scene.render.frame_map_new = length_multiplier
 
 # Set render length/position
-if "preview_frame" in params:
-    bpy.context.scene.frame_start = params["preview_frame"]
-    bpy.context.scene.frame_end = params["preview_frame"]
-else:
-    bpy.context.scene.frame_start = params["start_frame"]
-    bpy.context.scene.frame_end = new_length
-
-# Render the current animation to the params["output_path"] folder
-bpy.ops.render.render(animation=params["animation"])
+bpy.context.scene.frame_start = params["start_frame"]
+bpy.context.scene.frame_end = new_length

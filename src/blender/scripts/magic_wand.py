@@ -128,6 +128,9 @@ bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
 
+# Clear particle cache before remapping
+bpy.ops.ptcache.free_bake_all()
+
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
@@ -135,12 +138,8 @@ bpy.context.scene.render.frame_map_old = 1
 bpy.context.scene.render.frame_map_new = length_multiplier
 
 # Set render length/position
-if "preview_frame" in params:
-    bpy.context.scene.frame_start = params["preview_frame"]
-    bpy.context.scene.frame_end = params["preview_frame"]
-else:
-    bpy.context.scene.frame_start = params["start_frame"]
-    bpy.context.scene.frame_end = new_length
+bpy.context.scene.frame_start = params["start_frame"]
+bpy.context.scene.frame_end = new_length
 
-# Render the current animation to the params["output_path"] folder
-bpy.ops.render.render(animation=params["animation"])
+if "preview_frame" not in params:
+    bpy.ops.ptcache.bake_all()
