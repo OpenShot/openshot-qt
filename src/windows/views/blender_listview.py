@@ -500,12 +500,11 @@ Blender Path: {}
                 user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'").replace("\\", "\\\\"))
         user_params += "#END INJECTING PARAMS\n"
 
-        # Force the Frame to 1 frame (for previewing)
+        # Insert the single frame number to render for preview
         if frame:
-            user_params += "\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
-            user_params += "params['{}'] = {}\n".format("start_frame", frame)
-            user_params += "params['{}'] = {}\n".format("end_frame", frame)
-            user_params += "#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
+            user_params += "\n#RENDER FRAME FOR PREVIEW\n"
+            user_params += "params['{}'] = {}\n".format("preview_frame", frame)
+            user_params += "#END RENDER FRAME FOR PREVIEW\n"
 
         # If GPU rendering is selected, see if GPU enable code is available
         s = settings.get_settings()
@@ -570,20 +569,11 @@ Blender Path: {}
         # Open new temp .py file, and inject the user parameters
         self.inject_params(target_script, frame)
 
-        # Create new thread to launch the Blender executable (and read the output)
-        if frame:
-            # preview mode
-            QMetaObject.invokeMethod(self.worker, 'Render', Qt.QueuedConnection,
-                                     Q_ARG(str, blend_file_path),
-                                     Q_ARG(str, target_script),
-                                     Q_ARG(bool, True))
-        else:
-            # render mode
-            # self.my_blender = BlenderCommand(self, blend_file_path, target_script, False)
-            QMetaObject.invokeMethod(self.worker, 'Render', Qt.QueuedConnection,
-                                     Q_ARG(str, blend_file_path),
-                                     Q_ARG(str, target_script),
-                                     Q_ARG(bool, False))
+        # Create new thread to launch Blender (and read the output)
+        QMetaObject.invokeMethod(self.worker, 'Render', Qt.QueuedConnection,
+                                 Q_ARG(str, blend_file_path),
+                                 Q_ARG(str, target_script),
+                                 Q_ARG(bool, bool(frame)))
 
     def __init__(self, *args):
         # Invoke parent init

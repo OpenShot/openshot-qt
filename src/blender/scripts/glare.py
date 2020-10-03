@@ -114,6 +114,8 @@ bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
+if "fps_base" in params:
+    bpy.context.scene.render.fps_base = params["fps_base"]
 bpy.context.scene.render.image_settings.file_format = params["file_format"]
 if params["use_alpha"] == "No":
     bpy.context.scene.render.image_settings.color_mode = "RGB"
@@ -125,18 +127,20 @@ else:
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
-bpy.context.scene.frame_start = params["start_frame"]
-bpy.context.scene.frame_end = params["end_frame"]
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-bpy.context.scene.frame_end = new_length
 bpy.context.scene.render.frame_map_old = 1
 bpy.context.scene.render.frame_map_new = length_multiplier
-if params["start_frame"] == params["end_frame"]:
-    bpy.context.scene.frame_start = params["end_frame"]
-    bpy.context.scene.frame_end = params["end_frame"]
+
+# Set render length/position
+if "preview_frame" in params:
+    bpy.context.scene.frame_start = params["preview_frame"]
+    bpy.context.scene.frame_end = params["preview_frame"]
+else:
+    bpy.context.scene.frame_start = params["start_frame"]
+    bpy.context.scene.frame_end = new_length
 
 # Render the current animation to the params["output_path"] folder
 bpy.ops.render.render(animation=params["animation"])
