@@ -40,10 +40,9 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, metrics, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
 from windows.views.blender_listview import BlenderListView
 
 import json
@@ -66,7 +65,7 @@ class AnimatedTitle(QDialog):
         ui_util.init_ui(self)
 
         # Track metrics
-        track_metric_screen("animated-title-screen")
+        metrics.track_metric_screen("animated-title-screen")
 
         # Add render button
         app = get_app()

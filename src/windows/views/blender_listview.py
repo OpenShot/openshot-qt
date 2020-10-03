@@ -31,7 +31,6 @@ import subprocess
 import sys
 import re
 import functools
-import json
 
 # Try to get the security-patched XML functions from defusedxml
 try:
@@ -463,13 +462,16 @@ class BlenderListView(QListView):
         msg = QMessageBox()
         msg.setText(_("""
 Blender, the free open source 3D content creation suite, is required for this action. (http://www.blender.org)
+
 Please check the preferences in OpenShot and be sure the Blender executable is correct.
 This setting should be the path of the 'blender' executable on your computer.
 Also, please be sure that it is pointing to Blender version {} or greater.
+
 Blender Path: {}
 {}""").format(info.BLENDER_MIN_VERSION,
               s.get("blender_command"),
               version_message))
+
         msg.exec_()
 
         # Enable the Render button again
