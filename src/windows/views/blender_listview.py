@@ -658,6 +658,71 @@ class Worker(QObject):
     blender_error_with_data = pyqtSignal(str)  # 1007
     enable_interface = pyqtSignal()  # 1008
 
+    def __init__(self):
+        super().__init__()
+        s = settings.get_settings()
+        self.blender_exec_path = s.get("blender_command")
+
+        # Init regex expression used to determine blender's render progress
+        self.blender_frame_re = re.compile(r"Fra:([0-9,]*)")
+        self.blender_saved_re = re.compile(r"Saved: '(.*\.png)")
+        self.blender_version_re = re.compile(
+            r"^Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
+
+        self.version = None
+        self.process = None
+        self.is_running = False
+
+        self.startupinfo = None
+        if sys.platform == 'win32':
+            self.startupinfo = subprocess.STARTUPINFO()
+            self.startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+    def blender_version_check(self):
+        # Check the version of Blender
+        command_get_version = [self.blender_exec_path, '-v']
+        log.debug("Checking Blender version, command: {}".format(
+            " ".join([shlex.quote(x) for x in command_get_version])))
+
+        try:
+            if self.process:
+                self.process.terminate()
+            self.process = subprocess.Popen(
+                command_get_version,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                startupinfo=self.startupinfo,
+            )
+            # Give Blender up to 10 seconds to respond
+            (out, err) = self.process.communicate(timeout=10)
+        except subprocess.SubprocessError:
+            # Error running command.  Most likely the blender executable path in
+            # the settings is incorrect, or is not a supported Blender version
+            self.blender_error_nodata.emit()
+            return False
+        except subprocess.TimeoutExpired:
+            self.process.kill()
+            self.blender_error_nodata.emit()
+            return False
+        except Exception:
+            log.error("Version check exception", exc_info=1)
+            return
+
+        ver_string = out.decode('utf-8')
+        log.debug("Blender output:\n%s", ver_string)
+
+        ver_match = self.blender_version_re.search(ver_string)
+        if not ver_match:
+            raise Exception("No Blender version detected in output")
+        log.debug("Matched %s in output", str(ver_match))
+
+        self.version = ver_match.group(1)
+        log.info("Found Blender version {}".format(self.version))
+
+        if self.version < info.BLENDER_MIN_VERSION:
+            # Wrong version of Blender.
+            self.blender_version_error.emit(self.version)
+        return (self.version >= info.BLENDER_MIN_VERSION)
+
     @pyqtSlot()
     def Cancel(self):
         """Cancel worker render"""
@@ -670,35 +735,20 @@ class Worker(QObject):
     def Render(self, blend_file_path, target_script, preview_frame=0):
         """ Worker's Render method which invokes the Blender rendering commands """
 
-        # Init regex expression used to determine blender's render progress
-        s = settings.get_settings()
-
         _ = get_app()._tr
 
         # get the blender executable path
-        self.blender_exec_path = s.get("blender_command")
         self.blend_file_path = blend_file_path
         self.target_script = target_script
-        self.preview_mode = bool(preview_frame > 0)
-        self.frame_detected = False
-        self.last_frame = 0
-        self.version = None
-        self.command_output = ""
-        self.process = None
-        self.is_running = False
+        preview_mode = bool(preview_frame > 0)
+        command_output = ""
 
-        blender_frame_re = re.compile(r"Fra:([0-9,]*)")
-        blender_saved_re = re.compile(r"Saved: '(.*\.png)")
-        blender_version_re = re.compile(r"Blender (.*?) ")
-
-        startupinfo = None
-        if sys.platform == 'win32':
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        if not self.version:
+            if not self.blender_version_check():
+                return
 
         try:
             # Shell the blender command to create the image sequence
-            command_get_version = [self.blender_exec_path, '-v']
             command_render = [
                 self.blender_exec_path, '-b', self.blend_file_path,
                 '-y', '-P', self.target_script
@@ -711,49 +761,18 @@ class Worker(QObject):
                 # Render entire animation
                 command_render.extend(['-a'])
 
-            # Check the version of Blender
-            import shlex
-            log.info("Checking Blender version, command: {}".format(
-                " ".join([shlex.quote(x) for x in command_get_version])))
-
-            self.process = subprocess.Popen(
-                command_get_version,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=startupinfo,
-            )
-
-            # Check the version of Blender
-            try:
-                # Give Blender up to 10 seconds to respond
-                (out, err) = self.process.communicate(timeout=10)
-            except subprocess.TimeoutExpired:
-                self.blender_error_nodata.emit()
-                return
-
-            ver_string = out.decode('utf-8')
-            ver_match = blender_version_re.search(ver_string)
-
-            if not ver_match:
-                raise Exception("No Blender version detected in output")
-
-            self.version = ver_match.group(1)
-            log.info("Found Blender version {}".format(self.version))
-
-            if self.version < info.BLENDER_MIN_VERSION:
-                # Wrong version of Blender.
-                self.blender_version_error.emit(self.version)
-                return
-
             # debug info
-            log.info("Running Blender, command: {}".format(
+            log.debug("Running Blender, command: {}".format(
                 " ".join([shlex.quote(x) for x in command_render])))
-            log.info("Blender output:")
+            log.debug("Blender output:")
 
-            # Run real command to render Blender project
+            # Run command to render Blender frame(s)
+            if self.process:
+                self.process.terminate()
             self.process = subprocess.Popen(
                 command_render, bufsize=512,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=startupinfo,
+                startupinfo=self.startupinfo,
             )
             self.is_running = True
 
@@ -763,42 +782,41 @@ class Worker(QObject):
             self.is_running = False
             self.blender_error_nodata.emit()
             raise
-        except Exception as ex:
-            log.error("Worker exception: {}".format(ex))
+        except Exception:
+            log.error("Worker exception", exc_info=1)
             return
 
+        last_frame = 0
+        frame_saved = False
         while self.is_running and self.process.poll() is None:
-            for outline in iter(self.process.stdout.readline, b''):
-                line = outline.decode('utf-8').strip()
+            for out_line in iter(self.process.stdout.readline, b''):
+                line = out_line.decode('utf-8').strip()
 
                 # Skip blank output
                 if not line:
                     continue
 
                 # append all output into a variable, and log
-                self.command_output = self.command_output + line + "\n"
-                log.info("  {}".format(line))
+                command_output += line + "\n"
+                log.debug("  {}".format(line))
 
                 # Look for progress info in the Blender Output
-                output_frame = blender_frame_re.search(line)
-                output_saved = blender_saved_re.search(line)
-
-                # Does it have a match?
-                if output_frame or output_saved:
-                    # Yes, we have a match
-                    self.frame_detected = True
+                output_frame = self.blender_frame_re.search(line)
+                output_saved = self.blender_saved_re.search(line)
 
                 if output_frame:
                     current_frame = int(output_frame.group(1))
 
                     # Update progress bar
-                    if current_frame != self.last_frame and not self.preview_mode:
+                    if current_frame != last_frame and not preview_mode:
                         # update progress on frame change, if in 'render' mode
                         self.progress.emit(current_frame)
 
-                    self.last_frame = current_frame
+                    last_frame = current_frame
 
                 if output_saved:
+                    frame_saved = True
+                    log.debug("Saved frame %d", last_frame)
                     # Update preview image
                     self.image_updated.emit(output_saved.group(1))
 
@@ -808,13 +826,13 @@ class Worker(QObject):
         self.enable_interface.emit()
 
         # Check if NO FRAMES are detected
-        if not self.frame_detected:
+        if not frame_saved:
             # Show Error that no frames are detected.  This is likely caused by
             # the wrong command being executed... or an error in Blender.
             self.blender_error_with_data.emit(_("No frame was found in the output from Blender"))
 
         # Done with render (i.e. close window)
-        elif self.is_running and not self.preview_mode:
+        elif self.is_running and not preview_mode:
             # only add file to project data if in 'render' mode and not canceled
             self.finished.emit()
 
