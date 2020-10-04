@@ -26,26 +26,16 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys
 import os
-import time
 import uuid
-import shutil
-import subprocess
-import re
-import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
+from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QPushButton
 
-from classes import info, metrics, ui_util, settings, qt_types, updates
+from classes import info, ui_util, metrics
 from classes.app import get_app
 from classes.logger import log
 from windows.views.blender_listview import BlenderListView
 
-import json
 
 class AnimatedTitle(QDialog):
     """ Animated Title Dialog """

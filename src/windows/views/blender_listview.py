@@ -31,6 +31,7 @@ import subprocess
 import sys
 import re
 import functools
+import shlex
 
 # Try to get the security-patched XML functions from defusedxml
 try:
@@ -66,10 +67,7 @@ class BlenderListView(QListView):
         # Get translation object
         _ = self.app._tr
 
-        # Clear existing settings
         self.win.clear_effect_controls()
-
-        # Get animation details
         animation = self.get_animation_details()
         self.selected_template = animation.get("service")
 
@@ -83,17 +81,15 @@ class BlenderListView(QListView):
 
         # Loop through params
         for param in animation.get("params", []):
-            log.info('Using parameter %s: %s' % (param["name"], param["title"]))
+            log.debug('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
-            if param["name"] == "start_frame" or param["name"] == "end_frame":
+            if param["name"] in ["start_frame", "end_frame"]:
                 # add value to dictionary
                 self.params[param["name"]] = int(param["default"])
-
-                # skip to next param without rendering the controls
+                # skip to next param without rendering a control
                 continue
 
-            # Create Label
             widget = None
             label = QLabel()
             label.setText(_(param["title"]))
@@ -162,15 +158,13 @@ class BlenderListView(QListView):
                         )
 
                 # Add normal values
-                box_index = 0
-                for k, v in sorted(param["values"].items()):
+                for i, (k, v) in enumerate(sorted(param["values"].items())):
                     # add dropdown item
                     widget.addItem(_(k), v)
 
                     # select dropdown (if default)
                     if v == param["default"]:
-                        widget.setCurrentIndex(box_index)
-                    box_index = box_index + 1
+                        widget.setCurrentIndex(i)
 
                 if not param["values"]:
                     widget.addItem(_("No Files Found"), "")
@@ -193,10 +187,7 @@ class BlenderListView(QListView):
             elif (label):
                 self.win.settingsContainer.layout().addRow(label)
 
-        # Enable interface
         self.enable_interface()
-
-        # Init slider values
         self.init_slider_values()
 
     def spinner_value_changed(self, param, value):
@@ -393,7 +384,7 @@ class BlenderListView(QListView):
                     )
                 ])
             except (TypeError, AttributeError) as ex:
-                log.warn("XML parser: {}".format(ex))
+                log.warn("XML parser: %s", ex)
                 pass
 
             # Append param object to list
@@ -439,8 +430,10 @@ class BlenderListView(QListView):
         project_params["alpha_mode"] = 1
         project_params["horizon_color"] = (0.57, 0.57, 0.57)
         project_params["animation"] = True
-        project_params["output_path"] = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
-                                                     self.params["file_name"])
+        project_params["output_path"] = os.path.join(
+            info.BLENDER_PATH,
+            self.unique_folder_name,
+            self.params["file_name"])
 
         # return the dictionary
         return project_params
@@ -487,17 +480,13 @@ Blender Path: {}
 
         # prepare string to inject
         user_params = "\n#BEGIN INJECTING PARAMS\n"
-        for k, v in self.params.items():
-            if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
+        param_data = self.params.items()
+        param_data.update(self.get_project_params(is_preview))
+        for k, v in param_data.items():
+            if isinstance(v, (int, float, list, bool)):
                 user_params += "params['{}'] = {}\n".format(k, v)
-            if type(v) == str:
-                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'"))
-
-        for k, v in self.get_project_params(is_preview).items():
-            if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
-                user_params += "params['{}'] = {}\n".format(k, v)
-            if type(v) == str:
-                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'").replace("\\", "\\\\"))
+            if isinstance(v, str):
+                user_params += "params['{}'] = '{}'\n".format(k, v.replace("'", r"\'").replace("\\", "\\\\"))
         user_params += "#END INJECTING PARAMS\n"
 
         # Insert the single frame number to render for preview
@@ -577,13 +566,12 @@ Blender Path: {}
             Q_ARG(int, int(frame or 0))
         )
 
-    def __init__(self, *args):
-        # Invoke parent init
+    def __init__(self, parent, *args):
+        # Invoke base class init
         super().__init__(*args)
 
-        # Get a reference to the window object
+        self.win = parent
         self.app = get_app()
-        self.win = args[0]
 
         # Get Model data
         self.blender_model = BlenderModel()
