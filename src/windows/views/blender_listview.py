@@ -26,7 +26,7 @@
  """
 
 import os
-import shutil
+import copy
 import subprocess
 import sys
 import re
@@ -331,8 +331,6 @@ class BlenderListView(QListView):
 
     def preview_timer_onTimeout(self):
         """Timer is ready to Render frame"""
-        self.preview_timer.stop()
-
         # Update preview label
         preview_frame_number = self.win.sliderPreview.value()
         log.info('Previewing frame %s' % preview_frame_number)
@@ -470,7 +468,7 @@ Blender Path: {}
         # Enable the Render button again
         self.enable_interface()
 
-    def inject_params(self, path, frame=None):
+    def inject_params(self, source_path, out_path, frame=None):
         # determine if this is 'preview' mode?
         is_preview = False
         if frame:
@@ -480,7 +478,7 @@ Blender Path: {}
 
         # prepare string to inject
         user_params = "\n#BEGIN INJECTING PARAMS\n"
-        param_data = self.params.items()
+        param_data = copy.deepcopy(self.params)
         param_data.update(self.get_project_params(is_preview))
         for k, v in param_data.items():
             if isinstance(v, (int, float, list, bool)):
@@ -501,27 +499,29 @@ Blender Path: {}
         if s.get("blender_gpu_enabled"):
             gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py")
             try:
-                f = open(gpu_enable_py, 'r')
-                gpu_code_body = f.read()
+                with open(gpu_enable_py, 'r') as f:
+                    gpu_code_body = f.read()
+                if gpu_code_body:
+                    log.info("Injecting GPU enable code from {}".format(gpu_enable_py))
+                    user_params += "\n#ENABLE GPU RENDERING\n"
+                    user_params += gpu_code_body
+                    user_params += "\n#END ENABLE GPU RENDERING\n"
             except IOError as e:
-                log.error("Could not load GPU enable code! {}".format(e))
+                log.error("Could not load GPU enable code! %s", e)
 
-        if gpu_code_body:
-            log.info("Injecting GPU enable code from {}".format(gpu_enable_py))
-            user_params += "\n#ENABLE GPU RENDERING\n"
-            user_params += gpu_code_body
-            user_params += "\n#END ENABLE GPU RENDERING\n"
-
-        # Open new temp .py file, and inject the user parameters
-        with open(path, 'r') as f:
+        # Read Python source from script file
+        with open(source_path, 'r') as f:
             script_body = f.read()
 
-        # modify script variable
+        # insert our modifications to script source
         script_body = script_body.replace("# INJECT_PARAMS_HERE", user_params)
 
-        # Write update script
-        with open(path, "w", encoding="UTF-8", errors="strict") as f:
-            f.write(script_body)
+        # Write final script to output dir
+        try:
+            with open(out_path, "w", encoding="UTF-8", errors="strict") as f:
+                f.write(script_body)
+        except Exception:
+            log.error("Could not write blender script to %s", out_path, exc_info=1)
 
     @pyqtSlot(str)
     def update_image(self, image_path):
@@ -549,14 +549,8 @@ Blender Path: {}
         target_script = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
                                      self.selected_template.replace(".blend", ".py"))
 
-        # Copy the .py script associated with this template to the temp folder.  This will allow
-        # OpenShot to inject the user-entered params into the Python script.
-        # XXX: Note that copyfile() is used instead of copy(), as the original
-        #      file may be readonly, and we don't want to duplicate those permissions
-        shutil.copyfile(source_script, target_script)
-
-        # Open new temp .py file, and inject the user parameters
-        self.inject_params(target_script, frame)
+        # Read .py file, inject user parameters, and write to output path
+        self.inject_params(source_script, target_script, frame)
 
         # Create new thread to launch Blender (and read the output)
         QMetaObject.invokeMethod(
@@ -583,6 +577,7 @@ Blender Path: {}
         # Preview render timer
         self.preview_timer = QTimer(self)
         self.preview_timer.setInterval(300)
+        self.preview_timer.setSingleShot(True)
         self.preview_timer.timeout.connect(self.preview_timer_onTimeout)
 
         # Init dictionary which holds the values to the template parameters
