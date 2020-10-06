@@ -44,26 +44,25 @@ class AnimatedTitle(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'animated-title.ui')
 
     def __init__(self):
+        super().__init__()
 
-        # Create dialog class
-        QDialog.__init__(self)
-
-        # Load UI from designer
+        # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
-
-        # Init UI
         ui_util.init_ui(self)
 
-        # Track metrics
         metrics.track_metric_screen("animated-title-screen")
 
-        # Add render button
         app = get_app()
         _ = app._tr
+
+        # Add render controls
         self.btnRender = QPushButton(_('Render'))
         self.btnCancel = QPushButton(_('Cancel'))
         self.buttonBox.addButton(self.btnRender, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.btnCancel, QDialogButtonBox.RejectRole)
+
+        # Hide render progress until needed
+        self.statusContainer.hide()
 
         # Add blender treeview
         self.blenderView = BlenderListView(self)
@@ -81,38 +80,28 @@ class AnimatedTitle(QDialog):
 
     def accept(self):
         """ Start rendering animation, but don't close window """
-
         # Render
         self.blenderView.Render()
 
     def close(self):
         """ Actually close window and accept dialog """
-
-        # Re-enable interface
-        self.blenderView.enable_interface()
-
-        # Accept dialog
+        self.blenderView.end_processing()
         super().accept()
 
     def closeEvent(self, event):
-
+        self.blenderView.end_processing()
         # Stop threads
         self.blenderView.background.quit()
-
-        # Re-enable interface
-        self.blenderView.enable_interface()
 
     def reject(self):
-
         # Stop threads
-        self.blenderView.Cancel()
         self.blenderView.background.quit()
-
-        # Cancel dialog
+        self.blenderView.Cancel()
         super().reject()
 
     def clear_effect_controls(self):
         """ Clear all child widgets used for settings """
+        self.statusContainer.hide()
 
         # Loop through child widgets
         for child in self.settingsContainer.children():
