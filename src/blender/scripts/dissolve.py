@@ -21,7 +21,6 @@
 # run from the context of Blender.  Blender contains its own version of Python
 # with this library pre-installed.
 import bpy
-
 from math import pi
 
 
@@ -41,57 +40,49 @@ def load_font(font_path):
     # no new font was added
     return None
 
+def deselect():
+    bpy.ops.object.select_all(action='DESELECT')
 
-# the stuff
-#
-#  name: createDissolveText
-#  @param
-#  @return
-#
-def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font, frame_count):
+def select(obj):
+    deselect()
+    bpy.context.view_layer.objects.active = obj
+
+def acquireAndName(name):
+    obj = bpy.context.view_layer.objects.active
+    obj.name = name
+    return obj
+
+def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font):
     """ Create aned animate the exploding texte """
 
     # create text
     bpy.ops.object.text_add(
-        radius=1.0, enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0)
+        radius=1.0,
+        enter_editmode=False, align='WORLD',
+        location=(0.0, 0.0, 0.0),
+        rotation=(pi / 2, 0.0, 0.0),
     )
-    ActiveObjectText = bpy.context.view_layer.objects.active
+    Text = acquireAndName('Text')
 
-    # naming/renaming the text element
-    ActiveObjectText.name = 'Text'
-
-    # placing text in position
-    ActiveObjectText.rotation_euler[0] = pi / 2  # xaxis
-    ActiveObjectText.rotation_euler[1] = 0.0  # yaxis
-    ActiveObjectText.rotation_euler[2] = 0.0  # zaxis
-    ActiveObjectText.location[0] = 0
-    ActiveObjectText.location[1] = 0
-    ActiveObjectText.location[2] = 0
-    # changing text
-    ActiveObjectText.data.body = title
+    Text.data.body = title
 
     # text size
-    ActiveObjectText.data.size = textsize
-    ActiveObjectText.data.space_character = width
-    ActiveObjectText.data.font = font
+    Text.data.size = textsize
+    Text.data.space_character = width
+    Text.data.font = font
     # centering text
-    ActiveObjectText.data.align_x = spacemode
+    Text.data.align_x = spacemode
     # extrude text
-    ActiveObjectText.data.extrude = extrude  # 0.04
+    Text.data.extrude = extrude
 
     # bevel text
-    ActiveObjectText.data.bevel_depth = bevel_depth  # 0.005
-    ActiveObjectText.data.bevel_resolution = 5
+    Text.data.bevel_depth = bevel_depth
+    Text.data.bevel_resolution = 5
     # adjust text position
-    ActiveObjectText.location.z = -ActiveObjectText.dimensions[1] / 3
+    Text.location.z = -Text.dimensions[1] / 3
 
     # affect dissolve material
-    ActiveObjectText.data.materials.append(bpy.data.materials['DissolveMaterial'])
-    ActiveObjectText = bpy.context.view_layer.objects.active
-
-    # selecting Text
-    bpy.context.view_layer.objects.active = ActiveObjectText
+    Text.data.materials.append(bpy.data.materials['DissolveMaterial'])
 
     # convert to mesh to apply effect
     bpy.ops.object.convert(target='MESH', keep_original=False)
@@ -99,126 +90,125 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     # add remesh modifier to text
     bpy.ops.object.modifier_add(type='REMESH')
     # modifying parameters
-    ActiveObjectText.modifiers['Remesh'].octree_depth = 9  # 10 best quality but vertices number too high
-    ActiveObjectText.modifiers['Remesh'].scale = 0.99
-    ActiveObjectText.modifiers['Remesh'].mode = 'SMOOTH'
-    ActiveObjectText.modifiers['Remesh'].use_remove_disconnected = False
+    Text.modifiers['Remesh'].octree_depth = 9  # 10 best quality but vertices number too high
+    Text.modifiers['Remesh'].scale = 0.99
+    Text.modifiers['Remesh'].mode = 'SMOOTH'
+    Text.modifiers['Remesh'].use_remove_disconnected = False
     # apply this modifier
-    bpy.ops.object.modifier_apply(apply_as='DATA', modifier="Remesh")
+    bpy.ops.object.modifier_apply(modifier="Remesh")
 
     # Nb quads for particle system
-    NbQuads = len(ActiveObjectText.data.polygons.values())
+    NbQuads = len(Text.data.polygons.values())
 
     # Add Particle System
     bpy.ops.object.particle_system_add()
+    ParticleSystem = Text.particle_systems[0]
+    PSSettings = ParticleSystem.settings
+
     # Particle parameters
-    ActiveObjectText.particle_systems[0].settings.count = NbQuads
-    ActiveObjectText.particle_systems[0].settings.frame_start = 10
-    ActiveObjectText.particle_systems[0].settings.frame_end = 60
-    ActiveObjectText.particle_systems[0].settings.lifetime = 80
-    ActiveObjectText.particle_systems[0].point_cache.frame_step = 1
-    ActiveObjectText.particle_systems[0].settings.normal_factor = 0.0
+    PSSettings.count = NbQuads
+    PSSettings.frame_start = 10
+    PSSettings.frame_end = 60
+    PSSettings.lifetime = 80
+    ParticleSystem.point_cache.frame_step = 1
+    PSSettings.normal_factor = 0.0
     # not useful
-    ActiveObjectText.particle_systems[0].settings.use_dynamic_rotation = True
-    ActiveObjectText.particle_systems[0].settings.render_type = 'NONE'
-    ActiveObjectText.particle_systems[0].settings.render_type = 'OBJECT'
-    ActiveObjectText.particle_systems[0].settings.instance_object = bpy.data.objects['Sphere']
-    ActiveObjectText.particle_systems[0].settings.effector_weights.gravity = 0
-    ActiveObjectText.particle_systems[0].settings.use_adaptive_subframes = True
-    ActiveObjectText.particle_systems[0].settings.courant_target = 0.2
+    PSSettings.render_type = 'OBJECT'
+    PSSettings.instance_object = bpy.data.objects['Sphere']
+    PSSettings.effector_weights.gravity = 0
+    PSSettings.use_dynamic_rotation = True
+    PSSettings.use_adaptive_subframes = True
+    PSSettings.courant_target = 0.2
 
     # Adding Wind force field on center and rotate it -90 on Y
     bpy.ops.object.effector_add(
-        type='WIND', radius=1.0, enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0), rotation=(0, -pi / 2, 0)
+        type='WIND', radius=1.0,
+        enter_editmode=False, align='WORLD',
+        location=(0.0, 0.0, 0.0),
+        rotation=(0, -pi / 2, 0),
     )
-    ActiveObjectWindField = bpy.context.view_layer.objects.active
-    ActiveObjectWindField.name = 'WindField'
+    WindField = acquireAndName('WindField')
+
     # settings
-    ActiveObjectWindField.field.strength = 1.0
-    ActiveObjectWindField.field.flow = 1.0
-    ActiveObjectWindField.field.noise = 0.0
-    ActiveObjectWindField.field.seed = 27
-    ActiveObjectWindField.field.apply_to_location = True
-    ActiveObjectWindField.field.apply_to_rotation = True
-    ActiveObjectWindField.field.use_absorption = False
+    WindField.field.strength = 1.0
+    WindField.field.flow = 1.0
+    WindField.field.noise = 0.0
+    WindField.field.seed = 27
+    WindField.field.apply_to_location = True
+    WindField.field.apply_to_rotation = True
+    WindField.field.use_absorption = False
 
     # Adding Turbulence Force Field
     bpy.ops.object.effector_add(
-        type='TURBULENCE', radius=1.0, enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0), rotation=(0, 0, 0)
+        type='TURBULENCE', radius=1.0,
+        enter_editmode=False, align='WORLD',
+        location=(0.0, 0.0, 0.0),
+        rotation=(0, 0, 0),
     )
-    ActiveObjectTurbulenceField = bpy.context.view_layer.objects.active
-    ActiveObjectTurbulenceField.name = 'TurbulenceField'
+    TurbulenceField = acquireAndName('TurbulenceField')
+
     # settings
-    ActiveObjectTurbulenceField.field.strength = 15
-    ActiveObjectTurbulenceField.field.size = 0.75
-    ActiveObjectTurbulenceField.field.flow = 0.5
-    ActiveObjectTurbulenceField.field.seed = 23
-    ActiveObjectTurbulenceField.field.apply_to_location = True
-    ActiveObjectTurbulenceField.field.apply_to_rotation = True
-    ActiveObjectTurbulenceField.field.use_absorption = False
+    TurbulenceField.field.strength = 15
+    TurbulenceField.field.size = 0.75
+    TurbulenceField.field.flow = 0.5
+    TurbulenceField.field.seed = 23
+    TurbulenceField.field.apply_to_location = True
+    TurbulenceField.field.apply_to_rotation = True
+    TurbulenceField.field.use_absorption = False
 
-    # Don't forget to deselect before select!
-    bpy.ops.object.select_all(action='DESELECT')
-
-    # selecting Text
-    bpy.context.view_layer.objects.active = ActiveObjectText
+    select(Text)
 
     # adding wipe texture to text
-
     sTex = bpy.data.textures.new('Wipe', type='BLEND')
     sTex.use_color_ramp = True
 
-    TexSlot = ActiveObjectText.particle_systems[0].settings.texture_slots.add()
+    TexSlot = PSSettings.texture_slots.add()
     TexSlot.texture = sTex
     TexSlot.use_map_time = True
 
-    bpy.ops.object.select_all(action='DESELECT')
+    deselect()
 
     # Create plane for controlling action of particle system (based on time)
     # if text is created on the fly 'Wipe' texture does not work! don't know really why!
     # so use of an existing plane, and resize it to the text x dimension
     bpy.ops.mesh.primitive_plane_add(
-        size=2.0, calc_uvs=True, enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0), rotation=(pi / 2, 0, 0)
+        size=2.0, calc_uvs=True,
+        enter_editmode=False, align='WORLD',
+        location=(0.0, 0.0, 0.0),
+        rotation=(pi / 2, 0, 0),
     )
-    ActiveObjectPlane = bpy.context.view_layer.objects.active
-    ActiveObjectPlane.name = 'Plane'
+    Plane = acquireAndName('Plane')
     # Change dimensions
-    ActiveObjectPlane.dimensions = ((ActiveObjectText.dimensions[0] * 1.2), (ActiveObjectText.dimensions[1] * 1.2), 0)
+    Plane.dimensions = (
+        (Text.dimensions[0] * 1.2),
+        (Text.dimensions[1] * 1.2),
+        0)
     # hide plane for render
-    ActiveObjectPlane.hide_render = True
+    Plane.hide_render = True
 
-    bpy.ops.object.select_all(action='DESELECT')
-
-    # selecting Text
-    bpy.context.view_layer.objects.active = ActiveObjectText
+    select(Text)
 
     TexSlot.texture_coords = 'OBJECT'
-    TexSlot.object = ActiveObjectPlane
+    TexSlot.object = Plane
     TexSlot.use_map_time = True
 
-    ActiveObjectText.data.update()
+    Text.data.update()
 
     bpy.ops.object.modifier_add(type='EXPLODE')
     bpy.ops.mesh.uv_texture_add()  # name UVMap by default
-    ActiveObjectText.modifiers['Explode'].particle_uv = 'UVMap'
-    ActiveObjectText.modifiers['Explode'].show_dead = False
-    ActiveObjectText.data.update()
+    Text.modifiers['Explode'].particle_uv = 'UVMap'
+    Text.modifiers['Explode'].show_dead = False
+    Text.data.update()
 
-    # Don't forget to deselect before select!
-    bpy.ops.object.select_all(action='DESELECT')
+    select(Text)
 
-    # selecting Text
-    bpy.context.view_layer.objects.active = ActiveObjectText
     TexSlot.texture_coords = 'OBJECT'
-    TexSlot.object = ActiveObjectPlane
+    TexSlot.object = Plane
 
     TexSlot.use_map_time = False
     TexSlot.use_map_time = True
 
-    ActiveObjectText.data.update()
+    Text.data.update()
 
 
 # Debug Info:
@@ -240,6 +230,7 @@ params = {
 
     'color': [0.8, 0.8, 0.8],
     'alpha': 1.0,
+    'alpha_mode': 1,
 
     'output_path': '/tmp/',
     'fps': 24,
@@ -250,10 +241,11 @@ params = {
     'resolution_x': 1920,
     'resolution_y': 1080,
     'resolution_percentage': 100,
-    'start_frame': 20,
-    'end_frame': 25,
+    'start_frame': 1,
+    'end_frame': 120,
     'animation': True,
-    'diffuse_color': [0.57, 0.57, 0.57, 1.0]
+    'length_multiplier': 1,
+    'diffuse_color': [0.57, 0.57, 0.57, 1.0],
 }
 
 # INJECT_PARAMS_HERE
@@ -272,36 +264,33 @@ else:
     # Get default font
     font = bpy.data.fonts["Bfont"]
 
-# Compute animation length
-length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
-frame_count = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-
 # Create dissolve text changes (slow)
 createDissolveText(
     params["title"], params["extrude"], params["bevel_depth"],
-    params["spacemode"], params["text_size"], params["width"], font, frame_count
+    params["spacemode"], params["text_size"], params["width"], font,
 )
 
 # Change the material settings (color, alpha, etc...)
-material_object = bpy.data.materials["DissolveMaterial"]
-material_object.node_tree.nodes[1].inputs[17].default_value = params["diffuse_color"]
-material_object = bpy.data.materials["TextMaterial"]
-material_object.node_tree.nodes[1].inputs[17].default_value = params["diffuse_color"]
+DissolveMaterial = bpy.data.materials["DissolveMaterial"]
+DissolveMaterial.node_tree.nodes["Principled BSDF"].inputs['Emission'].default_value = params["diffuse_color"]
+TextMaterial = bpy.data.materials["TextMaterial"]
+TextMaterial.node_tree.nodes["Principled BSDF"].inputs['Emission'].default_value = params["diffuse_color"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
-bpy.context.scene.render.filepath = params["output_path"]
-bpy.context.scene.render.fps = params["fps"]
+render = bpy.context.scene.render
+render.filepath = params["output_path"]
+render.fps = params["fps"]
 if "fps_base" in params:
-    bpy.context.scene.render.fps_base = params["fps_base"]
-bpy.context.scene.render.image_settings.file_format = params["file_format"]
-bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.film_transparent = params["alpha_mode"]
-bpy.data.worlds[0].color = params["horizon_color"]
-bpy.context.scene.render.resolution_x = params["resolution_x"]
-bpy.context.scene.render.resolution_y = params["resolution_y"]
-bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
+    render.fps_base = params["fps_base"]
+render.image_settings.file_format = params["file_format"]
+render.image_settings.color_mode = params["color_mode"]
+render.film_transparent = params["alpha_mode"]
+bpy.data.worlds['World'].color = params["horizon_color"]
+render.resolution_x = params["resolution_x"]
+render.resolution_y = params["resolution_y"]
+render.resolution_percentage = params["resolution_percentage"]
 
 # Unbake particle cache
 bpy.ops.ptcache.free_bake_all()
@@ -309,14 +298,13 @@ bpy.ops.ptcache.free_bake_all()
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = length_multiplier
+render.frame_map_old = 1
+render.frame_map_new = length_multiplier
 
 # Set render length/position
 bpy.context.scene.frame_start = params["start_frame"]
 bpy.context.scene.frame_end = new_length
 
-# Set render length/position
 if "preview_frame" not in params:
     # bake dynamics : take time but needed before rendering animation
     bpy.ops.ptcache.bake_all()

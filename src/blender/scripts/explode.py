@@ -18,7 +18,7 @@
 
 
 # Import Blender's python API.  This only works when the script is being
-# run from the context of Blender.  Blender contains it's own version of Python
+# run from the context of Blender.  Blender contains its own version of Python
 # with this library pre-installed.
 import bpy
 from math import pi
@@ -40,33 +40,43 @@ def load_font(font_path):
     # no new font was added
     return None
 
+def deselect():
+    bpy.ops.object.select_all(action='DESELECT')
+
+def select(obj):
+    deselect()
+    bpy.context.view_layer.objects.active = obj
+
+def acquireAndName(name):
+    obj = bpy.context.view_layer.objects.active
+    obj.name = name
+    return obj
 
 def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode,
-                     textsize, width, font, ground, frame_count):
+                     textsize, width, font, show_ground):
     """ Create aned animate the exploding texte """
 
-    newText = title
     # create text
     bpy.ops.object.text_add(
         radius=1.0, enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0)
+        location=(0.0, 0.0, 0.0), rotation=(pi / 2, 0.0, 0.0)
     )
-    newtext = bpy.context.view_layer.objects.active
+    Text = acquireAndName('Text')
 
-    # modifying the text
-    newtext.data.size = textsize
-    newtext.data.space_character = width
-    newtext.data.font = font
+    Text.data.body = title
 
+    # text size
+    Text.data.size = textsize
+    Text.data.space_character = width
+    Text.data.font = font
     # centering text
-    newtext.data.align_x = spacemode
-
+    Text.data.align_x = spacemode
     # extrude text
-    newtext.data.extrude = extrude
+    Text.data.extrude = extrude
 
     # bevel text
-    newtext.data.bevel_depth = bevel_depth
-    newtext.data.bevel_resolution = 10
+    Text.data.bevel_depth = bevel_depth
+    Text.data.bevel_resolution = 10
 
     # rotating text
     # angles are in radians
@@ -74,18 +84,6 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode,
     # constraint_orientation='GLOBAL', mirror=False, proportional='DISABLED', proportional_edit_falloff='SMOOTH',
     # proportional_size=1, snap=False, snap_target='CLOSEST', snap_point=(0, 0, 0), snap_align=False,
     # snap_normal=(0, 0, 0), release_confirm=False)
-
-    # second solution
-    newtext.rotation_euler[0] = pi / 2  # xaxis
-    newtext.rotation_euler[1] = 0.0  # yaxis
-    newtext.rotation_euler[2] = 0.0  # zaxis
-
-    # changing text
-    bpy.ops.object.editmode_toggle()
-    for x in range(20):
-        bpy.ops.font.delete()
-    bpy.ops.font.text_insert(text=newText, accent=False)
-    bpy.ops.object.editmode_toggle()
 
     # convert to mesh to apply effect
     bpy.ops.object.convert(target='MESH', keep_original=False)
@@ -100,48 +98,46 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode,
     )
 
     # modifying Particle System
+    ParticleSystem = Text.particle_systems[0]
+    PSSettings = ParticleSystem.settings
     # emitfrom
-    newtext.particle_systems[0].settings.emit_from = 'VERT'
+    PSSettings.emit_from = 'VERT'
     # particle number
-    newtext.particle_systems[0].settings.count = particle_number
+    PSSettings.count = particle_number
     # particle lifetime
-    newtext.particle_systems[0].settings.lifetime = 200  # 200 + 48 > 150
+    PSSettings.lifetime = 200  # 200 + 48 > 150
     # start/end explosion
-    newtext.particle_systems[0].settings.frame_end = 48
-    newtext.particle_systems[0].settings.frame_start = 48
+    PSSettings.frame_end = 48
+    PSSettings.frame_start = 48
     # explosion power
-    newtext.particle_systems[0].settings.normal_factor = 5.5
+    PSSettings.normal_factor = 5.5
     # integration method
     # aa'MIDPOINT' #'RK4'
-    newtext.particle_systems[0].settings.integrator = 'RK4'
+    PSSettings.integrator = 'RK4'
     # size of particles
-    newtext.particle_systems[0].settings.particle_size = 0.1
+    PSSettings.particle_size = 0.1
     # particles time step
-    newtext.particle_systems[0].settings.timestep = 0.02
+    PSSettings.timestep = 0.02
     # mass of particles
-    newtext.particle_systems[0].settings.mass = 2.0
-    newtext.particle_systems[0].settings.use_multiply_size_mass = True
+    PSSettings.mass = 2.0
+    PSSettings.use_multiply_size_mass = True
 
     # affect an existing material
-    newtext.material_slots[0].material = bpy.data.materials['TextMaterial']
+    Text.material_slots[0].material = bpy.data.materials['TextMaterial']
 
     # solidify parameter
-    newtext.modifiers['Solidify'].edge_crease_inner = 0.01
-    newtext.modifiers['Solidify'].thickness = 0.02
+    Text.modifiers['Solidify'].edge_crease_inner = 0.01
+    Text.modifiers['Solidify'].thickness = 0.02
+
     # ground management
-    newtext.particle_systems[0].point_cache.frame_step = 1
-    if ground == '1':
-        bpy.ops.object.select_all(action='DESELECT')
-        # selecting Text
-        bpy.context.view_layer.objects.active = bpy.data.objects['Ground']
+    ParticleSystem.point_cache.frame_step = 1
+
+    select(bpy.data.objects['Ground'])
+    if show_ground == 1:
         if bpy.data.objects['Ground'].modifiers.keys()[0] != 'Collision':
             bpy.ops.object.modifier_add(type="COLLISION")
         bpy.data.objects['Ground'].hide_render = False
-
     else:
-        bpy.ops.object.select_all(action='DESELECT')
-        # selecting Text
-        bpy.context.view_layer.objects.active = bpy.data.objects['Ground']
         bpy.ops.object.modifier_remove(modifier="Collision")
         bpy.data.objects['Ground'].hide_render = True
 
@@ -177,9 +173,13 @@ params = {
     'resolution_x': 1920,
     'resolution_y': 1080,
     'resolution_percentage': 100,
-    'start_frame': 20,
-    'end_frame': 25,
+    'start_frame': 1,
+    'end_frame': 120,
     'animation': True,
+    'length_multiplier': 1,
+    'diffuse_color': [0.57, 0.57, 0.57, 1.0],
+    'specular_color': [1.0, 1.0, 1.0],
+    'specular_intensity': 0.5,
 }
 
 # INJECT_PARAMS_HERE
@@ -188,9 +188,6 @@ params = {
 # file, and adjust the settings.  The .blend file is specified in the XML file
 # that defines this template in OpenShot.
 # ----------------------------------------------------------------------------
-
-# Modify Text / Curve settings
-# print (bpy.data.curves.keys())
 
 # Get font object
 font = None
@@ -201,45 +198,43 @@ else:
     # Get default font
     font = bpy.data.fonts["Bfont"]
 
-# Compute animation length
-length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
-frame_count = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-
 createExplodeTxt(
     params["title"], params["particle_number"], params["extrude"],
     params["bevel_depth"], params["spacemode"], params["text_size"],
-    params["width"], font, params["ground_on_off"], frame_count
+    params["width"], font, int(params["ground_on_off"]),
 )
 
 # Change the material settings (color, alpha, etc...)
-material_object = bpy.data.materials["TextMaterial"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
+TextMaterial = bpy.data.materials["TextMaterial"]
+TextMaterial.diffuse_color = params["diffuse_color"]
+TextMaterial.specular_color = params["specular_color"]
+TextMaterial.specular_intensity = params["specular_intensity"]
 
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
-bpy.context.scene.render.filepath = params["output_path"]
-bpy.context.scene.render.fps = params["fps"]
+render = bpy.context.scene.render
+render.filepath = params["output_path"]
+render.fps = params["fps"]
 if "fps_base" in params:
-    bpy.context.scene.render.fps_base = params["fps_base"]
-bpy.context.scene.render.image_settings.file_format = params["file_format"]
-bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.film_transparent = params["alpha_mode"]
-bpy.data.worlds[0].color = params["horizon_color"]
-bpy.context.scene.render.resolution_x = params["resolution_x"]
-bpy.context.scene.render.resolution_y = params["resolution_y"]
-bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
+    render.fps_base = params["fps_base"]
+render.image_settings.file_format = params["file_format"]
+render.image_settings.color_mode = params["color_mode"]
+render.film_transparent = params["alpha_mode"]
+bpy.data.worlds['World'].color = params["horizon_color"]
+render.resolution_x = params["resolution_x"]
+render.resolution_y = params["resolution_y"]
+render.resolution_percentage = params["resolution_percentage"]
 
-bpy.ops.ptcache.free_bake_all()   # erase baked dynamics
+# Unbake particle cache
+bpy.ops.ptcache.free_bake_all()
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = length_multiplier
+render.frame_map_old = 1
+render.frame_map_new = length_multiplier
 
 # Set render length/position
 bpy.context.scene.frame_start = params["start_frame"]
