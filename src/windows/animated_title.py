@@ -83,19 +83,13 @@ class AnimatedTitle(QDialog):
         # Render
         self.blenderView.Render()
 
-    def close(self):
+    def closeEvent(self, event):
         """ Actually close window and accept dialog """
         self.blenderView.end_processing()
         super().accept()
 
-    def closeEvent(self, event):
-        self.blenderView.end_processing()
-        # Stop threads
-        self.blenderView.background.quit()
-
     def reject(self):
         # Stop threads
-        self.blenderView.background.quit()
         self.blenderView.Cancel()
         super().reject()
 
