@@ -510,7 +510,7 @@ Also, please be sure that it is pointing to Blender version {} or greater.
 Blender Path: {}
 {}""").format(info.BLENDER_MIN_VERSION,
               s.get("blender_command"),
-              version_message))
+              error_message))
 
         msg.exec_()
 
@@ -771,13 +771,13 @@ class Worker(QObject):
             )
             # Give Blender up to 10 seconds to respond
             (out, err) = self.process.communicate(timeout=10)
+        except subprocess.TimeoutExpired:
+            self.process.kill()
+            self.blender_error_nodata.emit()
+            return False
         except subprocess.SubprocessError:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
-            self.blender_error_nodata.emit()
-            return False
-        except subprocess.TimeoutExpired:
-            self.process.kill()
             self.blender_error_nodata.emit()
             return False
         except Exception:
