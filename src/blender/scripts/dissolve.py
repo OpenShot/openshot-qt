@@ -242,7 +242,7 @@ params = {
     'resolution_y': 1080,
     'resolution_percentage': 100,
     'start_frame': 1,
-    'end_frame': 120,
+    'end_frame': 128,
     'animation': True,
     'length_multiplier': 1,
     'diffuse_color': [0.57, 0.57, 0.57, 1.0],
