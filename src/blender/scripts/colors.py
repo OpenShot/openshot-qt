@@ -69,8 +69,8 @@ params = {
     'resolution_x': 1920,
     'resolution_y': 1080,
     'resolution_percentage': 100,
-    'start_frame': 20,
-    'end_frame': 25,
+    'start_frame': 1,
+    'end_frame': 300,
     'animation': True,
 }
 
@@ -81,14 +81,6 @@ params = {
 # that defines this template in OpenShot.
 # ----------------------------------------------------------------------------
 
-# TITLE 1 - Modify Text / Curve settings
-text_object1 = bpy.data.curves["Title1"]
-text_object1.extrude = params["extrude"]
-text_object1.bevel_depth = params["bevel_depth"]
-text_object1.body = params["title1"]
-text_object1.align_x = params["spacemode"]
-text_object1.size = params["text_size"]
-text_object1.space_character = params["width"]
 # Get font object
 font = None
 if params["fontname"] != "Bfont":
@@ -97,50 +89,43 @@ if params["fontname"] != "Bfont":
 else:
     # Get default font
     font = bpy.data.fonts["Bfont"]
-text_object1.font = font
+
+# TITLE 1 - Modify Text / Curve settings
+text_object1 = bpy.data.curves["Title1"]
+text_object1.body = params["title1"]
 
 # TITLE 2 - Modify Text / Curve settings
 text_object2 = bpy.data.curves["Title2"]
-text_object2.extrude = params["extrude"]
-text_object2.bevel_depth = params["bevel_depth"]
 text_object2.body = params["title2"]
-text_object2.align_x = params["spacemode"]
-text_object2.size = params["text_size"]
-text_object2.space_character = params["width"]
-text_object2.font = font
 
 # TITLE 3 - Modify Text / Curve settings
 text_object3 = bpy.data.curves["Title3"]
-text_object3.extrude = params["extrude"]
-text_object3.bevel_depth = params["bevel_depth"]
 text_object3.body = params["title3"]
-text_object3.align_x = params["spacemode"]
-text_object3.size = params["text_size"]
-text_object3.space_character = params["width"]
-text_object3.font = font
 
-# TITLE 1 - Change the material settings (color, alpha, etc...)
-material_object1 = bpy.data.materials["Title1.Material"]
-material_object1.diffuse_color = params["diffuse_color"]
-material_object1.specular_color = params["specular_color"]
-material_object1.specular_intensity = params["specular_intensity"]
+# Set common text properties
+for ob in [text_object1, text_object2, text_object3]:
+    ob.extrude = params["extrude"]
+    ob.bevel_depth = params["bevel_depth"]
+    ob.align_x = params["spacemode"]
+    ob.size = params["text_size"]
+    ob.space_character = params["width"]
+    ob.font = font
 
-# TITLE 2 - Change the material settings (color, alpha, etc...)
-material_object2 = bpy.data.materials["Title2.Material"]
-material_object2.diffuse_color = params["diffuse_color"]
-material_object2.specular_color = params["specular_color"]
-material_object2.specular_intensity = params["specular_intensity"]
-
-# TITLE 3 - Change the material settings (color, alpha, etc...)
-material_object3 = bpy.data.materials["Title3.Material"]
-material_object3.diffuse_color = params["diffuse_color"]
-material_object3.specular_color = params["specular_color"]
-material_object3.specular_intensity = params["specular_intensity"]
+# Change the title material settings (color, alpha, etc...)
+for mat in [
+        "Title1.Material",
+        "Title2.Material",
+        "Title3.Material",
+        ]:
+    ob = bpy.data.materials[mat]
+    ob.diffuse_color = params["diffuse_color"]
+    ob.specular_color = params["specular_color"]
+    ob.specular_intensity = params["specular_intensity"]
 
 # BACKGROUND - Change the material settings (color, alpha, etc...)
-material_object4 = bpy.data.materials["Background.Material"]
-material_object4.specular_color = params["specular_color_bg"]
-material_object4.specular_intensity = params["specular_intensity_bg"]
+bg_mat = bpy.data.materials["Background.Material"]
+bg_mat.specular_color = params["specular_color_bg"]
+bg_mat.specular_intensity = params["specular_intensity_bg"]
 
 # Shadeless Background
 # TODO: Unsupported in Blender 2.8 (not sure of workaround yet)
@@ -149,116 +134,60 @@ material_object4.specular_intensity = params["specular_intensity_bg"]
 # else:
 # material_object4.use_shadeless = False
 
+
+def update_keyframe(point, coord):
+    point.co = coord
+    point.handle_left.y = coord[1]
+    point.handle_right.y = coord[1]
+
+
+def update_curves(action, point, frame, color):
+    for i in range(0, 3):
+        coord = (frame, color[i])
+        update_keyframe(
+            action.fcurves[i].keyframe_points[point],
+            coord)
+
+
 # BACKGROUND COLORS (KEYFRAMES) ----------------------
+action = bpy.data.actions["Background.MaterialAc"]
+
 # TILE 1
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[0].co = (1.0, params["diffuse_color_t1"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[0].handle_left.y = params["diffuse_color_t1"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[0].handle_right.y = params["diffuse_color_t1"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[0].co = (1.0, params["diffuse_color_t1"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[0].handle_left.y = params["diffuse_color_t1"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[0].handle_right.y = params["diffuse_color_t1"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[0].co = (1.0, params["diffuse_color_t1"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[0].handle_left.y = params["diffuse_color_t1"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[0].handle_right.y = params["diffuse_color_t1"][2]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[1].co = (70.0, params["diffuse_color_t1"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[1].handle_left.y = params["diffuse_color_t1"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[1].handle_right.y = params["diffuse_color_t1"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[1].co = (70.0, params["diffuse_color_t1"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[1].handle_left.y = params["diffuse_color_t1"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[1].handle_right.y = params["diffuse_color_t1"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[1].co = (70.0, params["diffuse_color_t1"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[1].handle_left.y = params["diffuse_color_t1"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[1].handle_right.y = params["diffuse_color_t1"][2]
+update_curves(action, 0, 1.0, params["diffuse_color_t1"])
+update_curves(action, 1, 70.0, params["diffuse_color_t1"])
 
 # TILE 2
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[2].co = (120.0, params["diffuse_color_t2"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[2].handle_left.y = params["diffuse_color_t2"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[2].handle_right.y = params["diffuse_color_t2"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[2].co = (120.0, params["diffuse_color_t2"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[2].handle_left.y = params["diffuse_color_t2"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[2].handle_right.y = params["diffuse_color_t2"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[2].co = (120.0, params["diffuse_color_t2"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[2].handle_left.y = params["diffuse_color_t2"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[2].handle_right.y = params["diffuse_color_t2"][2]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[3].co = (160.0, params["diffuse_color_t2"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[3].handle_left.y = params["diffuse_color_t2"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[3].handle_right.y = params["diffuse_color_t2"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[3].co = (160.0, params["diffuse_color_t2"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[3].handle_left.y = params["diffuse_color_t2"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[3].handle_right.y = params["diffuse_color_t2"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[3].co = (160.0, params["diffuse_color_t2"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[3].handle_left.y = params["diffuse_color_t2"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[3].handle_right.y = params["diffuse_color_t2"][2]
+update_curves(action, 2, 120.0, params["diffuse_color_t2"])
+update_curves(action, 3, 160.0, params["diffuse_color_t2"])
 
 # TILE 3
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[4].co = (200.0, params["diffuse_color_t3"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[4].handle_left.y = params["diffuse_color_t3"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[4].handle_right.y = params["diffuse_color_t3"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[4].co = (200.0, params["diffuse_color_t3"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[4].handle_left.y = params["diffuse_color_t3"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[4].handle_right.y = params["diffuse_color_t3"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[4].co = (200.0, params["diffuse_color_t3"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[4].handle_left.y = params["diffuse_color_t3"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[4].handle_right.y = params["diffuse_color_t3"][2]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[5].co = (240.0, params["diffuse_color_t3"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[5].handle_left.y = params["diffuse_color_t3"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[5].handle_right.y = params["diffuse_color_t3"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[5].co = (240.0, params["diffuse_color_t3"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[5].handle_left.y = params["diffuse_color_t3"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[5].handle_right.y = params["diffuse_color_t3"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[5].co = (240.0, params["diffuse_color_t3"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[5].handle_left.y = params["diffuse_color_t3"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[5].handle_right.y = params["diffuse_color_t3"][2]
+update_curves(action, 4, 200.0, params["diffuse_color_t3"])
+update_curves(action, 5, 240.0, params["diffuse_color_t3"])
 
 # TILE 4
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[6].co = (300.0, params["diffuse_color_t4"][0])
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[6].handle_left.y = params["diffuse_color_t4"][0]
-bpy.data.actions["Background.MaterialAc"].fcurves[0].keyframe_points[6].handle_right.y = params["diffuse_color_t4"][0]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[6].co = (300.0, params["diffuse_color_t4"][1])
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[6].handle_left.y = params["diffuse_color_t4"][1]
-bpy.data.actions["Background.MaterialAc"].fcurves[1].keyframe_points[6].handle_right.y = params["diffuse_color_t4"][1]
-
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[6].co = (300.0, params["diffuse_color_t4"][2])
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[6].handle_left.y = params["diffuse_color_t4"][2]
-bpy.data.actions["Background.MaterialAc"].fcurves[2].keyframe_points[6].handle_right.y = params["diffuse_color_t4"][2]
-
+update_curves(action, 6, 300.0, params["diffuse_color_t4"])
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
-bpy.context.scene.render.filepath = params["output_path"]
-bpy.context.scene.render.fps = params["fps"]
+render = bpy.context.scene.render
+render.filepath = params["output_path"]
+render.fps = params["fps"]
 if "fps_base" in params:
-    bpy.context.scene.render.fps_base = params["fps_base"]
-bpy.context.scene.render.image_settings.file_format = params["file_format"]
-bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.film_transparent = params["alpha_mode"]
+    render.fps_base = params["fps_base"]
+render.image_settings.file_format = params["file_format"]
+render.image_settings.color_mode = params["color_mode"]
+render.film_transparent = params["alpha_mode"]
 bpy.data.worlds[0].color = params["horizon_color"]
-bpy.context.scene.render.resolution_x = params["resolution_x"]
-bpy.context.scene.render.resolution_y = params["resolution_y"]
-bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
+render.resolution_x = params["resolution_x"]
+render.resolution_y = params["resolution_y"]
+render.resolution_percentage = params["resolution_percentage"]
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = length_multiplier
+render.frame_map_old = 1
+render.frame_map_new = length_multiplier
 
 # Set render length/position
 bpy.context.scene.frame_start = params["start_frame"]
