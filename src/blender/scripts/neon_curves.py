@@ -87,7 +87,6 @@ params = {
 # ----------------------------------------------------------------------------
 
 # Modify Text / Curve settings
-#print (bpy.data.curves.keys())
 text_object = bpy.data.curves["Text.001"]
 text_object.extrude = params["extrude"]
 text_object.bevel_depth = params["bevel_depth"]
