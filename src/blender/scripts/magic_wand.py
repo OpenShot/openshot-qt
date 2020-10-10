@@ -31,29 +31,38 @@ import bpy
 # this script, OpenShot will inject a dictionary of the required parameters
 # before this script is executed.
 params = {
-    'title': 'Oh Yeah! OpenShot!',
-    'extrude': 0.1,
-    'bevel_depth': 0.02,
-    'spacemode': 'CENTER',
-    'text_size': 1.5,
-    'width': 1.0,
-    'fontname': 'Bfont',
-
-    'color': [0.8, 0.8, 0.8],
-    'alpha': 1.0,
-
     'output_path': '/tmp/',
+    'file_format': 'PNG',
     'fps': 24,
     'quality': 90,
-    'file_format': 'PNG',
-    'color_mode': 'RGBA',
-    'horizon_color': [0.57, 0.57, 0.57],
     'resolution_x': 1920,
     'resolution_y': 1080,
     'resolution_percentage': 100,
-    'start_frame': 20,
-    'end_frame': 25,
-    'animation': True,
+    'start_frame': 1,
+    'end_frame': 250,
+    'length_multiplier': 1,
+
+    'color_mode': 'RGBA',
+    'alpha_mode': 1.0,
+    'horizon_color': (0.57, 0.57, 0.57),
+    'diffuse_color': (1.0, 0.9, 0.0, 1.0),
+
+    'particles_count': 5000,
+    'particles_lifetime': 50,
+    'particles_gravity': 1.0,
+    'particle_scale': 0.03,
+    'strength': 1,
+    'glare_type': 'STREAKS',
+
+    'velocity_x': 1.0,
+    'velocity_y': 0.0,
+    'velocity_z': 0.0,
+    'start_x': 0,
+    'start_y': 0,
+    'start_z': 3,
+    'end_x': 20,
+    'end_y': 0,
+    'end_z': 3,
 }
 
 # INJECT_PARAMS_HERE
@@ -63,70 +72,67 @@ params = {
 # that defines this template in OpenShot.
 # ----------------------------------------------------------------------------
 
+
+def update_curve(curve, start, end):
+    coords = [
+        (1.0, start),
+        (250.0, end),
+        ]
+    for i, coord in enumerate(coords):
+        p = curve.keyframe_points[i]
+        p.co = coord
+        p.handle_left.y = coord[1]
+        p.handle_right.y = coord[1]
+
+
 # Modify the Location of the Wand
 wand_object = bpy.data.objects["Wand"]
-wand_object.location = [params["start_x"], params["start_y"], params["start_z"]]
+wand_object.location = (params["start_x"], params["start_y"], params["start_z"])
 
 # Modify the Start and End keyframes
-bpy.data.actions["CubeAction"].fcurves[0].keyframe_points[0].co = (1.0, params["start_x"])
-bpy.data.actions["CubeAction"].fcurves[0].keyframe_points[0].handle_left.y = params["start_x"]
-bpy.data.actions["CubeAction"].fcurves[0].keyframe_points[0].handle_right.y = params["start_x"]
-
-bpy.data.actions["CubeAction"].fcurves[1].keyframe_points[0].co = (1.0, params["start_y"])
-bpy.data.actions["CubeAction"].fcurves[1].keyframe_points[0].handle_left.y = params["start_y"]
-bpy.data.actions["CubeAction"].fcurves[1].keyframe_points[0].handle_right.y = params["start_y"]
-
-bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[0].co = (1.0, params["start_z"])
-bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[0].handle_left.y = params["start_z"]
-bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[0].handle_right.y = params["start_z"]
-#################
-bpy.data.actions["CubeAction"].fcurves[0].keyframe_points[1].co = (250.0, params["end_x"])
-bpy.data.actions["CubeAction"].fcurves[0].keyframe_points[1].handle_left.y = params["end_x"]
-bpy.data.actions["CubeAction"].fcurves[0].keyframe_points[1].handle_right.y = params["end_x"]
-
-bpy.data.actions["CubeAction"].fcurves[1].keyframe_points[1].co = (250.0, params["end_y"])
-bpy.data.actions["CubeAction"].fcurves[1].keyframe_points[1].handle_left.y = params["end_y"]
-bpy.data.actions["CubeAction"].fcurves[1].keyframe_points[1].handle_right.y = params["end_y"]
-
-bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[1].co = (250.0, params["end_z"])
-bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[1].handle_left.y = params["end_z"]
-bpy.data.actions["CubeAction"].fcurves[2].keyframe_points[1].handle_right.y = params["end_z"]
+action = bpy.data.actions["CubeAction"]
+update_curve(action.fcurves[0], params["start_x"], params["end_x"])
+update_curve(action.fcurves[1], params["start_y"], params["end_y"])
+update_curve(action.fcurves[2], params["start_z"], params["end_z"])
 
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material"]
-material_object.node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
-material_object.node_tree.nodes[1].inputs[1].default_value = params["strength"]
+mat_emission = material_object.node_tree.nodes["Emission"]
+mat_emission.inputs[0].default_value = params["diffuse_color"]
+mat_emission.inputs[1].default_value = params["strength"]
 material_object.diffuse_color = params["diffuse_color"]
 
 # Change size of particle
-bpy.data.objects["Sphere"].scale[0] = params["particle_scale"]
-bpy.data.objects["Sphere"].scale[1] = params["particle_scale"]
-bpy.data.objects["Sphere"].scale[2] = params["particle_scale"]
+sval = params["particle_scale"]
+bpy.data.objects["Sphere"].scale = (sval, sval, sval)
 
 # Change glare type
-bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
+bpy.data.scenes["Scene"].node_tree.nodes["Glare"].glare_type = params["glare_type"]
 
 # Change particle settings
-particle_object = bpy.data.particles[0]
-particle_object.count = params["particles_count"]
-particle_object.lifetime = params["particles_lifetime"]
-particle_object.effector_weights.gravity = params["particles_gravity"]
-particle_object.object_align_factor = (params["velocity_x"], params["velocity_y"], params["velocity_z"])
+psettings = bpy.data.particles["ParticleSettings"]
+psettings.count = params["particles_count"]
+psettings.lifetime = params["particles_lifetime"]
+psettings.effector_weights.gravity = params["particles_gravity"]
+psettings.object_align_factor = (
+    params["velocity_x"], params["velocity_y"], params["velocity_z"])
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
-bpy.context.scene.render.filepath = params["output_path"]
-bpy.context.scene.render.fps = params["fps"]
+render = bpy.context.scene.render
+render.filepath = params["output_path"]
+render.fps = params["fps"]
 if "fps_base" in params:
-    bpy.context.scene.render.fps_base = params["fps_base"]
-bpy.context.scene.render.image_settings.file_format = params["file_format"]
-bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.film_transparent = params["alpha_mode"]
-bpy.data.worlds[0].color = params["horizon_color"]
-bpy.context.scene.render.resolution_x = params["resolution_x"]
-bpy.context.scene.render.resolution_y = params["resolution_y"]
-bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
+    render.fps_base = params["fps_base"]
+render.image_settings.file_format = params["file_format"]
+render.image_settings.color_mode = params["color_mode"]
+render.film_transparent = params["alpha_mode"]
+render.resolution_x = params["resolution_x"]
+render.resolution_y = params["resolution_y"]
+render.resolution_percentage = params["resolution_percentage"]
+
+bpy.data.worlds["World"].color = params["horizon_color"]
 
 # Clear particle cache before remapping
 bpy.ops.ptcache.free_bake_all()
@@ -134,8 +140,8 @@ bpy.ops.ptcache.free_bake_all()
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
 length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
 new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
-bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = length_multiplier
+render.frame_map_old = 1
+render.frame_map_new = length_multiplier
 
 # Set render length/position
 bpy.context.scene.frame_start = params["start_frame"]
