@@ -31,7 +31,6 @@ import os
 import time
 import uuid
 import shutil
-import threading
 import subprocess
 import re
 import math
@@ -131,5 +130,5 @@ class AnimatedTitle(QDialog):
             try:
                 self.settingsContainer.layout().removeWidget(child)
                 child.deleteLater()
-            except:
-                log.warning('Failed to remove child widget for effect controls')
+            except Exception:
+                log.debug('Failed to remove child widget for effect controls')

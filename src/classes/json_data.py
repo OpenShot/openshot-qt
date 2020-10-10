@@ -193,8 +193,8 @@ class JsonDataStore:
             log.error(str(ex))
             raise
         except Exception as ex:
-            msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
-            log.error(msg)
+            msg = "Couldn't load {} file".format(self.data_type)
+            log.error(msg, exc_info=1)
             raise Exception(msg) from ex
         msg = ()
         log.warning(msg)
@@ -210,7 +210,7 @@ class JsonDataStore:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(contents)
         except Exception as ex:
-            msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
+            msg = "Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex)
             log.error(msg)
             raise Exception(msg)
 
@@ -305,7 +305,7 @@ class JsonDataStore:
             orig_abs_path = os.path.abspath(path)
 
             # Remove file from abs path
-            orig_abs_folder = os.path.split(orig_abs_path)[0]
+            orig_abs_folder = os.path.dirname(orig_abs_path)
 
             # Calculate new relateive path
             new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))

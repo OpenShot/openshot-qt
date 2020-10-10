@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, openshot_rc
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
@@ -81,11 +81,11 @@ class Profile(QDialog):
                     profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
                     self.profile_names.append(profile_name)
                     self.profile_paths[profile_name] = profile_path
-                
+
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
-                    
+
         # Sort list
         self.profile_names.sort()
 

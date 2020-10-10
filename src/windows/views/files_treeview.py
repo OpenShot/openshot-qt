@@ -103,7 +103,6 @@ class FilesTreeView(QTreeView):
             current = selected[0]
 
         if not current.isValid():
-            # We can't find anything to drag
             log.warning("No draggable items found in model!")
             return False
 
@@ -241,9 +240,6 @@ class FilesTreeView(QTreeView):
         self.setTextElideMode(Qt.ElideRight)
 
         self.files_model.ModelRefreshed.connect(self.refresh_view)
-
-        # Load initial files model data
-        self.files_model.update_model()
 
         # setup filter events
         # self.files_model.model.itemChanged.connect(self.value_updated)

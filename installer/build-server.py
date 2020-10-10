@@ -34,7 +34,6 @@ import shutil
 import re
 import stat
 import subprocess
-import sys
 import tinys3
 import time
 import traceback
@@ -100,12 +99,12 @@ def error(line):
         log.write(line)
 
 
-def truncate(message, max=256):
+def truncate(message, maxlen=256):
     """Truncate the message with ellipses"""
-    if len(message) < max:
+    if len(message) < maxlen:
         return message
     else:
-        return "%s..." % message[:max]
+        return "%s..." % message[:maxlen]
 
 
 def zulip_upload_log(log, title, comment=None):
@@ -328,11 +327,6 @@ try:
         # Recursively create AppDir /usr folder
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
-        # Create AppRun file
-        app_run_path = os.path.join(app_dir_path, "AppRun")
-        # XXX: Temporary: Use new AppRun binary in project repo
-        shutil.copyfile(os.path.join(PATH, "installer", "AppRun.64"), app_run_path)
-
         # Install program icon
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
                         os.path.join(app_dir_path, "openshot-qt.svg"))
@@ -369,6 +363,10 @@ try:
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
+
+        # Create symlink for AppRun
+        app_run_path = os.path.join(app_dir_path, "AppRun")
+        os.symlink(os.path.relpath(launcher_path, app_dir_path), app_run_path)
 
         # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)

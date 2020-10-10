@@ -84,9 +84,13 @@ class CreditsModel():
             if "icons" in person.keys():
                 icons = person["icons"]
 
-            if filter:
-                if not (filter.lower() in name.lower() or filter.lower() in email.lower() or filter.lower() in website.lower()):
-                    continue
+            if filter and not (
+                filter.lower() in name.lower()
+                or filter.lower() in email.lower()
+                or filter.lower() in website.lower()
+            ):
+                continue
+
             if len(name) < 2:
                 # Skip blank names
                 continue

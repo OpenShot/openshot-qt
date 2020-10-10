@@ -34,6 +34,8 @@ from classes import info
 
 # Dictionary of logging handlers we create, keyed by type
 handlers = {}
+# Another dictionary of streams we've redirected (stdout, stderr)
+streams = {}
 
 
 class StreamToLogger(object):
@@ -79,9 +81,14 @@ handlers['file'] = fh
 def reroute_output():
     """Route stdout and stderr to logger (custom handler)"""
     if not getattr(sys, 'frozen', False):
+        # Hang on to the original objects
+        streams.update({
+            'stderr': sys.stderr,
+            'stdout': sys.stdout,
+            })
+        # Re-route output streams
         handlers['stdout'] = StreamToLogger(log, logging.INFO)
         sys.stdout = handlers['stdout']
-
         handlers['stderr'] = StreamToLogger(log, logging.ERROR)
         sys.stderr = handlers['stderr']
 
@@ -92,3 +99,4 @@ def set_level_file(level=logging.INFO):
 
 def set_level_console(level=logging.INFO):
     handlers['stream'].setLevel(level)
+
