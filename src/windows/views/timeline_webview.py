@@ -1183,11 +1183,11 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 clip.data["location_x"] = {"Points": [p_object]}
                 clip.data["location_y"] = {"Points": [p_object]}
 
-            if action == MENU_LAYOUT_CENTER or \
-               action == MENU_LAYOUT_TOP_LEFT or \
-               action == MENU_LAYOUT_TOP_RIGHT or \
-               action == MENU_LAYOUT_BOTTOM_LEFT or \
-               action == MENU_LAYOUT_BOTTOM_RIGHT:
+            if action in [MENU_LAYOUT_CENTER,
+                          MENU_LAYOUT_TOP_LEFT,
+                          MENU_LAYOUT_TOP_RIGHT,
+                          MENU_LAYOUT_BOTTOM_LEFT,
+                          MENU_LAYOUT_BOTTOM_RIGHT]:
                 # Reset scale mode
                 clip.data["scale"] = openshot.SCALE_FIT
                 clip.data["gravity"] = new_gravity
@@ -1437,7 +1437,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
             self.copy_clipboard[clip_id] = {}
 
-            if action == MENU_COPY_CLIP or action == MENU_COPY_ALL:
+            if action in [MENU_COPY_CLIP, MENU_COPY_ALL]:
                 self.copy_clipboard[clip_id] = clip.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
@@ -1480,7 +1480,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
             self.copy_transition_clipboard[tran_id] = {}
 
-            if action == MENU_COPY_TRANSITION or action == MENU_COPY_ALL:
+            if action in [MENU_COPY_TRANSITION, MENU_COPY_ALL]:
                 self.copy_transition_clipboard[tran_id] = tran.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
@@ -1891,7 +1891,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Determine if waveform needs to be redrawn
             has_audio_data = clip_id in self.waveform_cache
 
-            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
                 start_of_clip = float(clip.data["start"])
@@ -1954,7 +1954,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Invalid transition, skip to next item
                 continue
 
-            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original transition
                 position_of_tran = float(trans.data["position"])
 

@@ -242,7 +242,7 @@ class AddToTimeline(QDialog):
                     position = max(start_position, new_clip["position"] - fade_length)
                     new_clip["position"] = position
 
-                if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
+                if fade_value in ['Fade In', 'Fade In & Out']:
                     start = openshot.Point(round(start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
                     end = openshot.Point(min(round((start_time + fade_length) * fps_float) + 1, round(end_time * fps_float) + 1), 1.0, openshot.BEZIER)
@@ -250,7 +250,7 @@ class AddToTimeline(QDialog):
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
-                if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
+                if fade_value in ['Fade Out', 'Fade In & Out']:
                     start = openshot.Point(max(round((end_time * fps_float) + 1) - (round(fade_length * fps_float) + 1), round(start_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
                     end = openshot.Point(round(end_time * fps_float) + 1, 0.0, openshot.BEZIER)
