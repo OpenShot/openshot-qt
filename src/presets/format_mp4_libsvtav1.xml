@@ -4,7 +4,7 @@
 	<type translatable="True">All Formats</type>
 	<title translatable="True">MP4 (AV1 svt)</title>
 	<videoformat>mp4</videoformat>
-	<videocodec>libsvt_av1</videocodec>
+	<videocodec>libsvtav1</videocodec>
 	<audiocodec>libvorbis</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>

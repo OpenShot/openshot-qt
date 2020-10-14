@@ -117,7 +117,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
-        if app.project.needs_save() and not self.mode == "unittest":
+        if app.project.needs_save() and self.mode != "unittest":
             log.info('Prompt user to save project')
             # Translate object
             _ = app._tr
@@ -484,7 +484,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info("Saved project {}".format(file_path))
 
         except Exception as ex:
-            log.error("Couldn't save project %s. %s" % (file_path, str(ex)))
+            log.error("Couldn't save project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
     def open_project(self, file_path, clear_thumbnails=True):
@@ -553,7 +553,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 self.load_recent_menu()
 
         except Exception as ex:
-            log.error("Couldn't open project {}".format(file_path))
+            log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
 
         # Restore normal cursor
@@ -564,32 +564,32 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             clear_path = os.path.join(info.USER_PATH, "thumbnail")
             if os.path.exists(clear_path):
-                log.info("Clear all thumbnails: %s" % clear_path)
+                log.info("Clear all thumbnails: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any blender animations
             clear_path = os.path.join(info.USER_PATH, "blender")
             if os.path.exists(clear_path):
-                log.info("Clear all animations: %s" % clear_path)
+                log.info("Clear all animations: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any title animations
             clear_path = os.path.join(info.USER_PATH, "title")
             if os.path.exists(clear_path):
-                log.info("Clear all titles: %s" % clear_path)
+                log.info("Clear all titles: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any backups
             if os.path.exists(info.BACKUP_FILE):
-                log.info("Clear backup: %s" % info.BACKUP_FILE)
+                log.info("Clear backup: %s", info.BACKUP_FILE)
                 # Remove backup file
                 os.unlink(info.BACKUP_FILE)
 
-        except Exception as ex:
-            log.info("Failed to clear {}: {}".format(clear_path, ex))
+        except Exception:
+            log.info("Failed to clear %s", clear_path, exc_info=1)
 
     def actionOpen_trigger(self, event):
         app = get_app()
@@ -670,7 +670,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     os.unlink(backup_filepath)
 
                 # Save project
-                log.info("Auto save project file: %s" % file_path)
+                log.info("Auto save project file: %s", file_path)
                 self.save_project(file_path)
 
                 # Remove backup.osp (if any)
@@ -680,7 +680,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
             else:
                 # No saved project found
-                log.info("Creating backup of project file: %s" % info.BACKUP_FILE)
+                log.info("Creating backup of project file: %s", info.BACKUP_FILE)
                 app.project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
 
                 # Clear the file_path (which is set by saving the project)
@@ -754,10 +754,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             _("Would you like to import %s as an image sequence?") % filename,
             QMessageBox.No | QMessageBox.Yes
         )
-        if ret == QMessageBox.Yes:
-            return True
-        else:
-            return False
+        return bool(ret == QMessageBox.Yes)
 
     def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files
@@ -870,9 +867,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionHelpContents_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the online help")
-            log.error("Unable to open the Help Contents: {}".format(str(ex)))
+            log.error("Unable to open the Help Contents", exc_info=1)
 
     def actionAbout_trigger(self, checked=True):
         """Show about dialog"""
@@ -884,61 +881,49 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionReportBug_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
-            log.error("Unable to open the Bug Report page: {}".format(str(ex)))
+            log.error("Unable to open the Bug Report page", exc_info=1)
 
     def actionAskQuestion_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
-            log.error("Unable to open the subreddit page: {}".format(str(ex)))
+            log.error("Unable to open the subreddit page", exc_info=1)
 
     def actionTranslate_trigger(self, checked=True):
         try:
             webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
-            log.error("Unable to open the translation page: {}".format(str(ex)))
+            log.error("Unable to open the translation page", exc_info=1)
 
     def actionDonate_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
-            log.error("Unable to open the donation page: {}".format(str(ex)))
+            log.error("Unable to open the donation page", exc_info=1)
 
     def actionUpdate_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
-        except Exception as ex:
+        except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
-            log.error("Unable to open the download page: {}".format(str(ex)))
+            log.error("Unable to open the download page", exc_info=1)
 
     def actionPlay_trigger(self, checked, force=None):
-
-        # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        timeline_length_int = round(timeline_length * fps) + 1
-
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
             self.actionPlay.setChecked(True)
 
         if self.actionPlay.isChecked():
+            # Determine max frame (based on clips)
+            max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.PlaySignal.emit(timeline_length_int)
+            self.PlaySignal.emit(max_frame)
 
         else:
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
@@ -1017,21 +1002,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionJumpEnd_trigger(self, checked=True):
         log.info("actionJumpEnd_trigger")
 
-        # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = get_app().window.timeline_sync.timeline.info.fps.ToFloat()
-        clips = get_app().window.timeline_sync.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        timeline_length_int = round(timeline_length * fps) + 1
-
-        # Seek to the 1st frame
-        self.SeekSignal.emit(timeline_length_int)
+        # Determine last frame (based on clips) & seek there
+        max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+        self.SeekSignal.emit(max_frame)
 
     def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
@@ -1068,7 +1041,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             framePath = "%s.png" % framePath
 
         app.updates.update_untracked(["export_path"], os.path.dirname(framePath))
-        log.info("Saving frame to %s" % framePath)
+        log.info("Saving frame to %s", framePath)
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         app.window.actionPlay_trigger(None, force="pause")
@@ -1145,7 +1118,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             oldnum = layer.get('number')
             cur_track = Track.get(number=oldnum)
             if not cur_track:
-                log.error('Track number {} not found'.format(oldnum))
+                log.error('Track number %s not found', oldnum)
                 continue
 
             # Find track elements
@@ -1206,13 +1179,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
-        log.info("adding track above {}".format(selected_layer_id))
+        log.info("adding track above %s", selected_layer_id)
 
         # Get track data for selected track
         existing_track = Track.get(id=selected_layer_id)
         if not existing_track:
             # Log error and fail silently
-            log.error('No track object found with id: %s' % selected_layer_id)
+            log.error('No track object found with id: %s', selected_layer_id)
             return
         selected_layer_num = int(existing_track.data["number"])
 
@@ -1220,8 +1193,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             tracks = sorted(all_tracks, key=lambda x: x['number'])
             existing_index = tracks.index(existing_track.data)
-        except ValueError as ex:
-            log.warning("Could not find track {}: {}".format(selected_layer_num, ex))
+        except ValueError:
+            log.warning("Could not find track %s", selected_layer_num, exc_info=1)
             return
         try:
             next_index = existing_index + 1
@@ -1253,13 +1226,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
 
-        log.info("adding track below {}".format(selected_layer_id))
+        log.info("adding track below %s", selected_layer_id)
 
         # Get track data for selected track
         existing_track = Track.get(id=selected_layer_id)
         if not existing_track:
             # Log error and fail silently
-            log.error('No track object found with id: %s' % selected_layer_id)
+            log.error('No track object found with id: %s', selected_layer_id)
             return
         selected_layer_num = int(existing_track.data["number"])
 
@@ -1267,8 +1240,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         try:
             tracks = sorted(all_tracks, key=lambda x: x['number'])
             existing_index = tracks.index(existing_track.data)
-        except ValueError as ex:
-            log.warning("Could not find track {}: {}".format(selected_layer_num, ex))
+        except ValueError:
+            log.warning("Could not find track %s", selected_layer_num, exc_info=1)
             return
 
         if existing_index > 0:
@@ -1283,7 +1256,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # New track number (pick mid point in track number gap)
             new_track_num = selected_layer_num - int(round(delta / 2.0))
 
-            log.info("New track num {} (delta {})".format(new_track_num, delta))
+            log.info("New track num %s (delta %s)",new_track_num, delta)
 
             # Create new track and insert
             track = Track()
@@ -1601,7 +1574,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
         elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
-            log.info("Duplicating title, {}".format(event))
+            log.info("Duplicating title, %s", event)
             self.actionDuplicateTitle.trigger()
         elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
             self.actionEditTitle.trigger()
@@ -1633,7 +1606,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if self.selected_clips:
                 self.TransformSignal.emit(self.selected_clips[0])
         elif key.matches(self.getShortcutByName("actionInsertKeyframe")) == QKeySequence.ExactMatch:
-            print("actionInsertKeyframe")
+            log.debug("actionInsertKeyframe")
             if self.selected_clips or self.selected_transitions:
                 self.InsertKeyframe.emit(event)
 
@@ -2670,7 +2643,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_current_Version()
 
         # Connect signals
-        if not self.mode == "unittest":
+        if self.mode != "unittest":
             self.RecoverBackup.connect(self.recover_backup)
 
         # Initialize and start the thumbnail HTTP server
@@ -2867,7 +2840,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.OpenProjectSignal.connect(self.open_project)
 
         # Show window
-        if not self.mode == "unittest":
+        if self.mode != "unittest":
             self.show()
         else:
             log.info('Hiding UI for unittests')
@@ -2885,7 +2858,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 from gi.repository import Unity
                 self.unity_launcher = Unity.LauncherEntry.get_for_desktop_id(info.DESKTOP_ID)
             except Exception:
-                log.warning('Failed to connect to Unity launcher (Linux only) for updating export progress.')
+                log.debug('Failed to connect to Unity launcher (Linux only) for updating export progress.')
             else:
                 self.ExportFrame.connect(self.FrameExported)
                 self.ExportEnded.connect(self.ExportFinished)

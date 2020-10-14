@@ -146,24 +146,21 @@ bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].handle_right.y = pa
 # params are automatically set by OpenShot
 bpy.context.scene.render.filepath = params["output_path"]
 bpy.context.scene.render.fps = params["fps"]
+if "fps_base" in params:
+    bpy.context.scene.render.fps_base = params["fps_base"]
 bpy.context.scene.render.image_settings.file_format = params["file_format"]
 bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
 bpy.context.scene.render.film_transparent = params["alpha_mode"]
 bpy.context.scene.render.resolution_x = params["resolution_x"]
 bpy.context.scene.render.resolution_y = params["resolution_y"]
 bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
-bpy.context.scene.frame_start = params["start_frame"]
-bpy.context.scene.frame_end = params["end_frame"]
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
-animation_speed = int(params["animation_speed"])  # time remapping multiplier
-new_length = int(params["end_frame"]) * animation_speed  # new length (in frames)
-bpy.context.scene.frame_end = new_length
+length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
+new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
 bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = animation_speed
-if params["start_frame"] == params["end_frame"]:
-    bpy.context.scene.frame_start = params["end_frame"]
-    bpy.context.scene.frame_end = params["end_frame"]
+bpy.context.scene.render.frame_map_new = length_multiplier
 
-# Render the current animation to the params["output_path"] folder
-bpy.ops.render.render(animation=params["animation"])
+# Set render length/position
+bpy.context.scene.frame_start = params["start_frame"]
+bpy.context.scene.frame_end = new_length

@@ -55,7 +55,7 @@ def load_theme():
     s = settings.get_settings()
 
     # If theme not reported by OS
-    if QIcon.themeName() == '' and not s.get("theme") == "No Theme":
+    if QIcon.themeName() == '' and s.get("theme") != "No Theme":
 
         # Address known Ubuntu bug of not reporting configured theme name, use default ubuntu theme
         if os.getenv('DESKTOP_SESSION') == 'ubuntu':

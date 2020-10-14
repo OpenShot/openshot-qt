@@ -91,42 +91,24 @@ class PropertiesModel(updates.UpdateInterface):
         log.info("Update item: %s" % item_type)
 
         if item_type == "clip":
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                if clip.Id() == item_id:
-                    c = clip
-                    break
-
-            # Append to selected clips
-            self.selected.append((c, item_type))
+            c = get_app().window.timeline_sync.timeline.GetClip(item_id)
+            if c:
+                # Append to selected items
+                self.selected.append((c, item_type))
 
         if item_type == "transition":
-            t = None
-            trans = get_app().window.timeline_sync.timeline.Effects()
-            for tran in trans:
-                if tran.Id() == item_id:
-                    t = tran
-                    break
-
-            # Append to selected clips
-            self.selected.append((t, item_type))
+            t = get_app().window.timeline_sync.timeline.GetTimelineEffect(item_id)
+            if t:
+                # Append to selected items
+                self.selected.append((t, item_type))
 
         if item_type == "effect":
-            e = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                for effect in clip.Effects():
-                    if effect.Id() == item_id:
-                        e = effect
-                        break
-
-            # Filter out basic properties, since this is an effect on a clip
-            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-
-            # Append to selected items
-            self.selected.append((e, item_type))
-
+            e = get_app().window.timeline_sync.timeline.GetClipEffect(item_id)
+            if e:
+                # Filter out basic properties, since this is an effect on a clip
+                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+                # Append to selected items
+                self.selected.append((e, item_type))
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
@@ -159,12 +141,10 @@ class PropertiesModel(updates.UpdateInterface):
                 parent_clip_id = effect.parent["id"]
 
                 # Find this clip object
-                clips = get_app().window.timeline_sync.timeline.Clips()
-                for c in clips:
-                    if c.Id() == parent_clip_id:
-                        # Override the selected clip object (so the effect gets the correct starting position)
-                        clip = c
-                        break
+                c = get_app().window.timeline_sync.timeline.GetClip(parent_clip_id)
+                if c:
+                    # Override the selected clip object (so the effect gets the correct starting position)
+                    clip = c
 
             # Get FPS from project
             fps = get_app().project.get("fps")
@@ -219,57 +199,55 @@ class PropertiesModel(updates.UpdateInterface):
             # Get effect object
             c = Effect.get(id=clip_id)
 
-        if c:
-            # Update clip attribute
-            if property_key in c.data:
-                log.info("remove keyframe: %s" % c.data)
+        if c and property_key in c.data:  # Update clip attribute
+            log.info("remove keyframe: %s" % c.data)
 
-                # Determine type of keyframe (normal or color)
-                keyframe_list = []
-                if property_type == "color":
-                    keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
-                else:
-                    keyframe_list = [c.data[property_key]]
+            # Determine type of keyframe (normal or color)
+            keyframe_list = []
+            if property_type == "color":
+                keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
+            else:
+                keyframe_list = [c.data[property_key]]
 
-                # Loop through each keyframe (red, blue, and green)
-                for keyframe in keyframe_list:
+            # Loop through each keyframe (red, blue, and green)
+            for keyframe in keyframe_list:
 
-                    # Keyframe
-                    # Loop through points, find a matching points on this frame
-                    closest_point = None
-                    point_to_delete = None
-                    for point in keyframe["Points"]:
-                        if point["co"]["X"] == self.frame_number:
-                            # Found point, Update value
-                            clip_updated = True
-                            point_to_delete = point
-                            break
-                        if point["co"]["X"] == closest_point_x:
-                            closest_point = point
-
-                    # If no point found, use closest point x
-                    if not point_to_delete:
-                        point_to_delete = closest_point
-
-                    # Delete point (if needed)
-                    if point_to_delete:
+                # Keyframe
+                # Loop through points, find a matching points on this frame
+                closest_point = None
+                point_to_delete = None
+                for point in keyframe["Points"]:
+                    if point["co"]["X"] == self.frame_number:
+                        # Found point, Update value
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                        keyframe["Points"].remove(point_to_delete)
+                        point_to_delete = point
+                        break
+                    if point["co"]["X"] == closest_point_x:
+                        closest_point = point
 
-                # Reduce # of clip properties we are saving (performance boost)
-                c.data = {property_key: c.data[property_key]}
+                # If no point found, use closest point x
+                if not point_to_delete:
+                    point_to_delete = closest_point
 
-                # Save changes
-                if clip_updated:
-                    # Save
-                    c.save()
+                # Delete point (if needed)
+                if point_to_delete:
+                    clip_updated = True
+                    log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                    keyframe["Points"].remove(point_to_delete)
 
-                    # Update the preview
-                    get_app().window.refreshFrameSignal.emit()
+            # Reduce # of clip properties we are saving (performance boost)
+            c.data = {property_key: c.data[property_key]}
 
-                # Clear selection
-                self.parent.clearSelection()
+            # Save changes
+            if clip_updated:
+                # Save
+                c.save()
+
+                # Update the preview
+                get_app().window.refreshFrameSignal.emit()
+
+            # Clear selection
+            self.parent.clearSelection()
 
     def color_update(self, item, new_color, interpolation=-1, interpolation_details=[]):
         """Insert/Update a color keyframe for the selected row"""

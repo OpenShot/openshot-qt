@@ -56,7 +56,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-  $scope.playheadOffset = 0;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime = secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
@@ -93,8 +92,8 @@ App.controller("TimelineCtrl", function ($scope) {
     $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
-    $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
-    $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+    $(".playhead-top").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
+    $(".playhead-line").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
     $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
   };
 
@@ -466,11 +465,13 @@ App.controller("TimelineCtrl", function ($scope) {
       var start_second = parseFloat(progress[p]["start"]) / fps;
       var stop_second = parseFloat(progress[p]["end"]) / fps;
 
-      //figure out the actual pixel position
-      var start_pixel = start_second * $scope.pixelsPerSecond;
-      var stop_pixel = stop_second * $scope.pixelsPerSecond;
+      //figure out the actual pixel position, constrained by max width
+      var start_pixel = $scope.canvasMaxWidth(start_second * $scope.pixelsPerSecond);
+      var stop_pixel = $scope.canvasMaxWidth(stop_second * $scope.pixelsPerSecond);
       var rect_length = stop_pixel - start_pixel;
-
+      if (rect_length < 1) {
+        break;
+      }
       //get the element and draw the rects
       ctx.beginPath();
       ctx.rect(start_pixel, 0, rect_length, 5);
@@ -629,7 +630,7 @@ App.controller("TimelineCtrl", function ($scope) {
     var has_video = clip["reader"]["has_video"];
     var has_audio = clip["reader"]["has_audio"];
     if (!has_video && has_audio) {
-      return "../images/AudioThumbnail.png";
+      return "../images/AudioThumbnail.svg";
     }
     var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
     return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";
@@ -640,6 +641,11 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt) {
       timeline.addSelection(effect_id, "effect", true);
     }
+  };
+
+  // Constrain canvas width values to under 32Kpixels
+  $scope.canvasMaxWidth = function (desired_width) {
+    return Math.min(32767, desired_width);
   };
 
 // Find the furthest right edge on the timeline (and resize it if too small)
