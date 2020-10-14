@@ -359,17 +359,7 @@ class Export(QDialog):
         self.delayed_fps_timer.start()
 
         # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = self.timeline.info.fps.ToFloat()
-        clips = self.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        self.timeline_length_int = round(timeline_length * fps) + 1
+        self.timeline_length_int = self.timeline.GetMaxFrame()
 
         # Set the min and max frame numbers for this project
         self.txtStartFrame.setValue(1)
