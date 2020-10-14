@@ -168,11 +168,9 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
-
+        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebEngineView.keyPressEvent(self, event)
-
         else:
             # Ignore most keypresses
             event.ignore()
@@ -245,7 +243,7 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
+        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebView.keyPressEvent(self, event)
         else:

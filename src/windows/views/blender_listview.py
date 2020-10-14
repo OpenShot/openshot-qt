@@ -839,9 +839,8 @@ class Worker(QObject):
 
         _ = get_app()._tr
 
-        if not self.version:
-            if not self.blender_version_check():
-                return
+        if not self.version and not self.blender_version_check():
+            return
 
         self.command_output = ""
         self.current_frame = 0
