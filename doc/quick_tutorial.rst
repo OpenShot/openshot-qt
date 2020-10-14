@@ -17,7 +17,7 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. Edited September 26, 2020 - [USA]TechDude
+.. Edited October 1, 2020 - [USA]TechDude
 
 Quick Tutorial
 ===============
@@ -94,18 +94,7 @@ the corresponding buttons.
 
 .. image:: images/quick-start-play.png
 
-Step 5 – Refine and Adjust
---------------------------------------
-OpenShot has many advanced features to enhance your project.  You can use 
-Titles to add a title screen or text to your clip.  Transitions gradually fade 
-one clip to another.  Animations change the properties of a clip over time.  
-These changes can be even more refined using the Properties window (Press 
-**CTRL+I** if the Properties window is not already visible).  For more 
-information, use the menu to the left to find the related topics.
-
-.. image:: images/quick-start-properties.png
-
-Step 6 – Export your Video
+Step 5 – Export your Video
 ---------------------------
 Once you have edited your photo slide-show video, the last step is to export 
 the project.  Exporting converts your OpenShot project into a single video 

@@ -32,10 +32,10 @@ in-depth information regarding |ops| OpenShot™, please refer to the
 Introduction
 ------------
 
-We created |ops| OpenShot™ in 2008 to build a free, open-source video editor 
-for Linux.  We designed OpenShot™ to be easy to use, quick to learn, and a 
-powerful video editor.  Quickly cut, slice, and edit any clip or video.  
-OpenShot™ is available for the following 64-bit operating systems:
+Jonathan Thomas created |ops| OpenShot™ in 2008 to build a free, open-source 
+video editor for Linux.  We designed OpenShot™ to be easy to use, quick to 
+learn, and a powerful video editor.  OpenShot™ is available for the following 
+64-bit operating systems:
 
  -  |win| `Microsoft® Windows® <install.html#win-windows>`_
  -  |lin| `Linux® (most distributions) <install.html#lin-linux>`_

@@ -123,17 +123,16 @@ you can correct this issue. Apple macOS needs permission to run the file that
 you downloaded from the Internet. There are a couple of methods that may work. 
 Please try the procedures below (in order) to see if one of them works for you.
 
-1. Go to System Preferences >> Security & Privacy >> General >> Click the lock 
+Go to System Preferences >> Security & Privacy >> General >> Click the lock 
 in the bottom left corner >> Enter your password >> Click Unlock >> Click Open 
-anyway near the bottom >> Open.
-
-2. Go to System Preferences >> Security & Privacy >> General. You might see one 
-or more alerts near the bottom that says:
+Anyway.  Also, ensure that you select the "App Store and identified developers" 
+radio button on the same tab.
 
 .. image:: images/error-mac2.png
 
-Click "Open".  Also, ensure that you select the "App Store and identified 
-developers" radio button on the same tab.
+Relaunch OpenShot.  If you see the error message below, click Open.
+
+.. image:: images/error-mac3.png
 
 
 .. inline replacements for images

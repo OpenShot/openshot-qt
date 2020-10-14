@@ -24,11 +24,9 @@ Getting Started
 
 .. image:: images/getting-started.png
 
-Creating great videos is essentially knowing how to edit videos, and 
-you do not need to be a trained videographer to understand how to do it well.  
-Simple editing can keep your viewers engaged longer, and add a 
-professional feel, even if you are not a professional video 
-editor.
+You do not need to be a trained videographer to understand how to create videos 
+well.  Simple editing can keep your viewers engaged longer, and add a 
+professional feel, even if you are not a professional video editor.
 
 Basically, video editing is taking footage, cutting it up, removing the 
 pieces you do not want, and keeping the bits you do.  Back in the old days, 

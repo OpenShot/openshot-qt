@@ -38,9 +38,9 @@ Table of Contents:
 
    introduction
    install
-   getting_started
    quick_tutorial
    manual
+   getting_started   
    main_window
    preferences
    files
