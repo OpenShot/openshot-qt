@@ -21,6 +21,7 @@
 # run from the context of Blender.  Blender contains its own version of Python
 # with this library pre-installed.
 import bpy
+import json
 from math import pi
 
 
@@ -254,6 +255,13 @@ params = {
 # file, and adjust the settings.  The .blend file is specified in the XML file
 # that defines this template in OpenShot.
 # ----------------------------------------------------------------------------
+
+# Process parameters supplied as JSON serialization
+try:
+    injected_params = json.loads(params_json)
+    params.update(injected_params)
+except NameError:
+    pass
 
 # Get font object
 font = None

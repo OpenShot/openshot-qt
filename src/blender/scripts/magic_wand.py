@@ -21,6 +21,7 @@
 # run from the context of Blender.  Blender contains it's own version of Python
 # with this library pre-installed.
 import bpy
+import json
 
 # Debug Info:
 # ./blender -b test.blend -P demo.py
@@ -71,6 +72,13 @@ params = {
 # file, and adjust the settings.  The .blend file is specified in the XML file
 # that defines this template in OpenShot.
 # ----------------------------------------------------------------------------
+
+# Process parameters supplied as JSON serialization
+try:
+    injected_params = json.loads(params_json)
+    params.update(injected_params)
+except NameError:
+    pass
 
 
 def update_curve(curve, start, end):
