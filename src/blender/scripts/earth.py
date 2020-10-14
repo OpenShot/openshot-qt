@@ -110,6 +110,7 @@ try:
 except NameError:
     pass
 
+
 depart = {
     "lat_deg": params["depart_lat_deg"],
     "lat_min": params["depart_lat_min"],
