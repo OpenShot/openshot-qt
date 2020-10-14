@@ -197,7 +197,6 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
     def setup_js_data(self):
         # Export self as a javascript object in webview
         self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
-        self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""

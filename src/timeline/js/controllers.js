@@ -56,7 +56,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
-  $scope.playheadOffset = 0;
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime = secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
@@ -93,8 +92,8 @@ App.controller("TimelineCtrl", function ($scope) {
     $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
-    $(".playhead-top").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
-    $(".playhead-line").css("left", (($scope.project.playhead_position * $scope.pixelsPerSecond) + $scope.playheadOffset) + "px");
+    $(".playhead-top").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
+    $(".playhead-line").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
     $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
   };
 
@@ -631,7 +630,7 @@ App.controller("TimelineCtrl", function ($scope) {
     var has_video = clip["reader"]["has_video"];
     var has_audio = clip["reader"]["has_audio"];
     if (!has_video && has_audio) {
-      return "../images/AudioThumbnail.png";
+      return "../images/AudioThumbnail.svg";
     }
     var file_fps = clip["reader"]["fps"]["num"] / clip["reader"]["fps"]["den"];
     return $scope.ThumbServer + clip.file_id + "/" + ((file_fps * clip.start) + 1) + "/";

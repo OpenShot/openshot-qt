@@ -191,7 +191,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 thumb_path = self.get_thumb_path(file.id, thumbnail_frame)
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
 
             row = []
 
