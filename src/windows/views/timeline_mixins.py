@@ -26,10 +26,10 @@
  """
 
 import os
+import logging
 from classes import info
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
-from PyQt5.QtGui import QCursor, QKeySequence, QColor
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtCore import Qt, QObject, QFileInfo, QUrl, QTimer
+from PyQt5.QtGui import QColor
 from classes.logger import log
 from functools import partial
 
@@ -37,10 +37,10 @@ from functools import partial
 try:
     # Attempt to import QtWebEngine
     from PyQt5.QtWebChannel import QWebChannel
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
+    from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
     IS_WEBENGINE_VALID = True
 except ImportError:
-    QWebEngineView = object # Prevent inheritance errors
+    QWebEngineView = QObject  # Prevent inheritance errors
     IS_WEBENGINE_VALID = False
 
 try:
@@ -48,17 +48,44 @@ try:
     from PyQt5.QtWebKitWidgets import QWebView, QWebPage
     IS_WEBKIT_VALID = True
 except ImportError:
-    QWebView = object # Prevent inheritance errors
-    QWebPage = object
+    QWebView = QObject  # Prevent inheritance errors
     IS_WEBKIT_VALID = False
+
+if IS_WEBKIT_VALID:
+    class LoggingWebKitPage(QWebPage):
+        """Override console.log message to display messages"""
+        def javaScriptConsoleMessage(self, msg, line, source, *args):
+            log.warning('%s@L%d: %s' % (os.path.basename(source), line, msg))
+
+        def __init__(self, parent=None):
+            super().__init__(parent=parent)
+            self.setObjectName("LoggingWebKitPage")
+else:
+    LoggingWebKitPage = object
+
+
+if IS_WEBENGINE_VALID:
+    class LoggingWebEnginePage(QWebEnginePage):
+        """Override console.log message to display messages"""
+        def javaScriptConsoleMessage(self, level, msg, line, source):
+            log.log(
+                self.levels[level],
+                '%s@L%d: %s' % (os.path.basename(source), line, msg))
+
+        def __init__(self, parent=None):
+            super().__init__(parent=parent)
+            self.setObjectName("LoggingWebEnginePage")
+            self.levels = [logging.INFO, logging.WARNING, logging.ERROR]
+else:
+    LoggingWebEnginePage = object
 
 
 class TimelineBaseMixin(object):
     """OpenShot Timeline Base Mixin Class"""
-    def __init__(self):
+    def __init__(self, *args):
         """Initialization code required for parent widget"""
         self.document_is_ready = False
-        self.html_path = html_path = os.path.join(info.PATH, 'timeline', 'index.html')
+        self.html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
     def run_js(self, code, callback=None, retries=0):
         """Run javascript code snippet"""
@@ -74,8 +101,14 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
 
     def __init__(self):
         """Initialization code required for widget"""
+        super(QWebEngineView, self).__init__()
         TimelineBaseMixin.__init__(self)
-        QWebEngineView.__init__(self)
+        self.setObjectName("TimelineQtWebEngineMixin")
+
+        # Connect logging web page (for console.log)
+        if IS_WEBENGINE_VALID:
+            self.new_page = LoggingWebEnginePage(self)
+            self.setPage(self.new_page)
 
         # Set background color of timeline
         self.page().setBackgroundColor(QColor("#363636"))
@@ -92,6 +125,7 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
         self.page().setWebChannel(self.webchannel)
 
         # Connect signal of javascript initialization to our javascript reference init function
+        log.info("WebEngine backend initializing")
         self.page().loadStarted.connect(self.setup_js_data)
 
     def run_js(self, code, callback=None, retries=0):
@@ -117,6 +151,7 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
+        log.info("Registering WebChannel connection with WebEngine")
         self.webchannel.registerObject('timeline', self)
 
     def get_html(self):
@@ -141,25 +176,22 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
             event.ignore()
 
 
-class LoggingWebPage(QWebPage):
-    """Override console.log message to display messages"""
-    def javaScriptConsoleMessage(self, msg, line, source):
-        log.warning('JS: %s line %d: %s' % (source, line, msg))
-
 class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
     """QtWebKit Timeline Widget"""
 
     def __init__(self):
         """Initialization code required for widget"""
+        super(QWebView, self).__init__()
         TimelineBaseMixin.__init__(self)
-        QWebView.__init__(self)
+        self.setObjectName("TimelineQtWebKitMixin")
 
         # Delete the webview when closed
         self.setAttribute(Qt.WA_DeleteOnClose)
 
         # Connect logging web page (for console.log)
-        page = LoggingWebPage()
-        self.setPage(page)
+        if IS_WEBKIT_VALID:
+            self.new_page = LoggingWebKitPage(self)
+            self.setPage(self.new_page)
 
         # Disable image caching on timeline
         self.settings().setObjectCacheCapacities(0, 0, 0)
@@ -168,6 +200,7 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
         self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
 
         # Connect signal of javascript initialization to our javascript reference init function
+        log.info("WebKit backend initializing")
         self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
 
     def run_js(self, code, callback=None, retries=0):
@@ -194,8 +227,8 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
+        log.info("Registering objects with WebKit")
         self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
-        self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""
@@ -216,6 +249,7 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
         else:
             # Ignore most keypresses
             event.ignore()
+
 
 # Set correct Mixin (with QtWebEngine preference)
 if IS_WEBENGINE_VALID:

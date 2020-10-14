@@ -37,10 +37,6 @@ App.directive("tlPlayhead", function () {
       // get the default top position so we can lock it in place vertically
       playhead_y_max = element.position().top;
 
-      // get the size of the playhead and line so we can determine the offset
-      var playhead_top_w = parseInt($(".playhead-top").css("width"), 10);
-      scope.playheadOffset = 0.0 - (playhead_top_w / 2.0);
-
       // Move playhead to new position (if it's not currently being animated)
       element.on("mousemove", function (e) {
         if (e.which === 1 && !scope.playhead_animating) { // left button

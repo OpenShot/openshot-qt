@@ -32,6 +32,7 @@ import sys
 import re
 import functools
 import shlex
+import json
 
 # Try to get the security-patched XML functions from defusedxml
 try:
@@ -527,20 +528,15 @@ Blender Path: {}
 
         # prepare string to inject
         user_params = "\n#BEGIN INJECTING PARAMS\n"
+
         param_data = copy.deepcopy(self.params)
         param_data.update(self.get_project_params(is_preview))
-        for k, v in param_data.items():
-            if isinstance(v, (int, float, list, bool)):
-                user_params += "params['{}'] = {}\n".format(k, v)
-            if isinstance(v, str):
-                user_params += "params['{}'] = '{}'\n".format(k, v.replace("'", r"\'").replace("\\", "\\\\"))
-        user_params += "#END INJECTING PARAMS\n"
 
-        # Insert the single frame number to render for preview
-        if frame:
-            user_params += "\n#RENDER FRAME FOR PREVIEW\n"
-            user_params += "params['{}'] = {}\n".format("preview_frame", frame)
-            user_params += "#END RENDER FRAME FOR PREVIEW\n"
+        param_serialization = json.dumps(param_data)
+        user_params += r'params_json = """{}"""'.format(
+            param_serialization)
+
+        user_params += "\n#END INJECTING PARAMS\n"
 
         # If GPU rendering is selected, see if GPU enable code is available
         s = settings.get_settings()
