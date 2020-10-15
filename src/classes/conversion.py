@@ -3,6 +3,7 @@
  @brief This file deals with value conversions
  @author Jonathan Thomas <jonathan@openshot.org>
  @author Frank Dana <ferdnyc AT gmail com>
+ @author Ronit Shirvastava<ronitshrivastava@outlook.com>
 
  @section LICENSE
 
