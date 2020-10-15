@@ -41,7 +41,7 @@ except ImportError:
     from xml.dom import minidom as xml
 
 from PyQt5.QtCore import (
-    Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
+    Qt, QObject, pyqtSlot, pyqtSignal, QThread, QTimer, QSize,
 )
 from PyQt5.QtWidgets import (
     QApplication, QListView, QMessageBox, QColorDialog,
@@ -207,7 +207,7 @@ class BlenderListView(QListView):
         except Exception:
             log.debug('Failed to read plain text value from widget')
             return
-        self.params[param["name"]] = value.replace("\n", "\\n")
+        self.params[param["name"]] = value
         # XXX: This will log every individual KEYPRESS in the text field.
         # log.info('Animation param %s set to %s' % (param["name"], value))
 
@@ -483,22 +483,19 @@ class BlenderListView(QListView):
     def onBlenderError(self, error=None):
         self.error_with_blender(None, error)
 
-    def error_with_blender(self, version=None, command_output=None, log_text=None):
+    def error_with_blender(self, version=None, worker_message=None):
         """ Show a friendly error message regarding the blender executable or version. """
         _ = self.app._tr
         s = settings.get_settings()
-
-        if log_text:
-            log.error("Blender output:\n%s", log_text)
 
         error_message = ""
         if version:
             error_message = _("Version Detected: {}").format(version)
             log.info("Blender version detected: {}".format(version))
 
-        if command_output:
-            error_message = _("Error Output:\n{}").format(command_output)
-            log.error("Blender error output:\n{}".format(command_output))
+        if worker_message:
+            error_message = _("Error Output:\n{}").format(worker_message)
+            log.error("Blender error: {}".format(worker_message))
 
         msg = QMessageBox()
         msg.setText(_("""
@@ -512,7 +509,6 @@ Blender Path: {}
 {}""").format(info.BLENDER_MIN_VERSION,
               s.get("blender_command"),
               error_message))
-
         msg.exec_()
 
         # Enable the Render button again
@@ -533,7 +529,7 @@ Blender Path: {}
         param_data.update(self.get_project_params(is_preview))
 
         param_serialization = json.dumps(param_data)
-        user_params += r'params_json = """{}"""'.format(
+        user_params += 'params_json = r' + '"""{}"""'.format(
             param_serialization)
 
         user_params += "\n#END INJECTING PARAMS\n"
@@ -631,7 +627,7 @@ Blender Path: {}
 
         # Cleanup signals all 'round
         self.worker.finished.connect(self.worker.deleteLater)
-        self.worker.finished.connect(self.background.quit)
+        self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
         self.background.finished.connect(self.background.deleteLater)
         self.background.finished.connect(self.worker.deleteLater)
 
@@ -745,7 +741,7 @@ class Worker(QObject):
             # Stop blender process if running
             self.process.terminate()
         self.canceled = True
-        self.closed.emit()
+        self.finished.emit()
 
     def blender_version_check(self):
         # Check the version of Blender
@@ -786,7 +782,7 @@ class Worker(QObject):
         ver_match = self.blender_version_re.search(ver_string)
         if not ver_match:
             raise Exception("No Blender version detected in output")
-        log.debug("Matched %s in output", str(ver_match))
+        log.debug("Matched %s in output", str(ver_match.group(0)))
 
         self.version = ver_match.group(1)
         log.info("Found Blender version {}".format(self.version))
@@ -879,10 +875,10 @@ class Worker(QObject):
             # Signal UI that background task is running
             self.start_processing.emit()
 
-        except subprocess.SubprocessError:
+        except subprocess.SubprocessError as ex:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
-            self.blender_error_nodata.emit()
+            self.blender_error_with_data.emit(str(ex))
             raise
         except Exception:
             log.error("Worker exception", exc_info=1)
@@ -899,6 +895,9 @@ class Worker(QObject):
             if self.canceled:
                 return
             if self.frame_count < 1:
+                log.error("No frame detected from Blender!")
+                log.error("Blender output:\n{}".format(
+                    self.command_output))
                 # Show Error that no frames are detected.  This is likely caused by
                 # the wrong command being executed... or an error in Blender.
                 self.blender_error_with_data.emit(_("No frame was found in the output from Blender"))

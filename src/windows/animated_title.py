@@ -29,7 +29,9 @@
 import os
 import uuid
 
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QPushButton
+from PyQt5.QtWidgets import (
+    QApplication, QDialog, QDialogButtonBox, QPushButton
+)
 
 from classes import info, ui_util, metrics
 from classes.app import get_app
@@ -64,7 +66,7 @@ class AnimatedTitle(QDialog):
         # Hide render progress until needed
         self.statusContainer.hide()
 
-        # Add blender treeview
+        # Add blender view
         self.blenderView = BlenderListView(self)
         self.verticalLayout.addWidget(self.blenderView)
 
@@ -86,11 +88,13 @@ class AnimatedTitle(QDialog):
     def closeEvent(self, event):
         """ Actually close window and accept dialog """
         self.blenderView.end_processing()
+        QApplication.restoreOverrideCursor()
         super().accept()
 
     def reject(self):
         # Stop threads
         self.blenderView.Cancel()
+        QApplication.restoreOverrideCursor()
         super().reject()
 
     def clear_effect_controls(self):
