@@ -3029,10 +3029,20 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Accept event
         event.accept()
 
+        # Clear selected clips
+        get_app().window.removeSelection(self.item_id, self.item_type)
+
         if self.item_type == "clip":
-            get_app().window.actionRemoveClip.trigger()
+            # Delete dragging clip
+            clips = Clip.filter(id=self.item_id)
+            for c in clips:
+                c.delete()
+
         elif self.item_type == "transition":
-            get_app().window.actionRemoveTransition.trigger()
+            # Delete dragging transitions
+            transitions = Transition.filter(id=self.item_id)
+            for t in transitions:
+                t.delete()
 
         # Clear new clip
         self.new_item = False
