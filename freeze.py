@@ -76,6 +76,7 @@ python_packages = ["os",
                    "openshot",
                    "time",
                    "uuid",
+                   "idna",
                    "shutil",
                    "threading",
                    "subprocess",
@@ -89,6 +90,9 @@ python_packages = ["os",
                    "webbrowser",
                    "json"
                    ]
+
+# Modules to include
+python_modules = ["idna.idnadata"]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -210,6 +214,29 @@ elif sys.platform == "linux":
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
+    # Add QtWebEngineProcess (if found)
+    web_process_path = ARCHLIB + "qt5/libexec/QtWebEngineProcess"
+    if os.path.exists(web_process_path):
+        external_so_files.append(
+            (web_process_path, os.path.basename(web_process_path)))
+
+    # Add QtWebEngineProcess Resources & Local
+    qt5_path = "/usr/share/qt5/"
+    for filename in find_files(os.path.join(qt5_path, "resources"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
+    for filename in find_files(os.path.join(qt5_path, "translations", "qtwebengine_locales"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=qt5_path)))
+
+    # Add Qt xcbglintegrations plugin
+    xcbgl_path = ARCHLIB + "qt5/"
+    for filename in find_files(os.path.join(xcbgl_path, "plugins", "xcbglintegrations"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=xcbgl_path)))
+
+    # Add libsoftokn3
+    nss_path = ARCHLIB + "nss/"
+    for filename in find_files(nss_path, ["*"]):
+        external_so_files.append((filename, os.path.basename(filename)))
+
     # Append Linux ICON file
     iconFile += ".svg"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
@@ -223,15 +250,32 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtWebKit', 'QtSvg', 'QtWebKitWidgets', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))
+    # Optional additions
+    for mod_name in [
+            'PyQt5.QtWebEngine',
+            'PyQt5.QtWebEngineWidgets',
+            'PyQt5.QtWebKit',
+            'PyQt5.QtWebKitWidgets',
+            ]:
+        try:
+            mod = import_module(mod_name)
+            pyqt5_mod_files.append(inspect.getfile(mod))
+        except ImportError as ex:
+            log.warning("Skipping {}: {}".format(mod_name, ex))
 
-    lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
-                "/usr/local/lib/libresvg.so",
-                ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
-                ] + pyqt5_mod_files
+
+    lib_list = pyqt5_mod_files
+    for lib_name in [
+            os.path.join(libopenshot_path, "libopenshot.so"),
+            "/usr/local/lib/libresvg.so",
+            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
+            ]:
+        if os.path.exists(lib_name):
+            lib_list.append(lib_name)
 
     import subprocess
     for library in lib_list:
@@ -259,6 +303,7 @@ elif sys.platform == "linux":
             libpath = libdetailsparts[0].strip()
             libpath_file = os.path.basename(libpath)
             if (libpath
+                and os.path.exists(libpath)
                 and not libpath.startswith("/lib")
                 and "libnvidia-glcore.so" not in libpath
                 and libpath_file not in [
@@ -282,31 +327,20 @@ elif sys.platform == "linux":
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
                     "libthai.so.0",
-                ]
-                and not libpath_file.startswith("libxcb-")
-                ) \
-               or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0", "libbz2.so.1.0", "libqxcb.so"]:
-
-                # Ignore missing files
-                if os.path.exists(libpath):
-                    filepath, filename = os.path.split(libpath)
-                    external_so_files.append((libpath, filename))
-
-    # Manually add missing files (that were missed in the above step). These files are required
-    # for certain distros (like Fedora, openSUSE, Debian, etc...)
-    # Also add Glib related files (required for some distros)
-
-    for added_lib in [ARCHLIB + "libssl.so",
-                      ARCHLIB + "libcrypto.so",
-                      ARCHLIB + "libglib-2.0.so",
-                      ARCHLIB + "libgio-2.0.so",
-                      ARCHLIB + "libgmodule-2.0.so",
-                      ARCHLIB + "libthread-2.0.so"
-                      ]:
-        if os.path.exists(added_lib):
-            external_so_files.append((added_lib, os.path.basename(added_lib)))
-        else:
-            log.warning("{}: not found, skipping".format(added_lib))
+                    ]
+               ) or libpath_file in [
+                    "libgcrypt.so.11",
+                    "libQt5DBus.so.5",
+                    "libpng12.so.0",
+                    "libbz2.so.1.0",
+                    "libqxcb.so",
+                    "libxcb-xinerama.so.0",
+                    "libpcre.so.3",
+                    "libselinux.so.1",
+                    ]:
+                external_so_files.append((libpath, libpath_file))
+                # Any other lib deps that fail to meet the inclusion
+                # criteria above will be silently skipped over
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
@@ -327,6 +361,25 @@ elif sys.platform == "darwin":
     iconFile += ".hqx"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
+    # Add QtWebEngineProcess (if found)
+    qt_install_path = "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64/"
+    qt_webengine_path = os.path.join(qt_install_path, "lib", "QtWebEngineCore.framework", "Versions", "5")
+    web_process_path = os.path.join(qt_webengine_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
+    web_core_path = os.path.join(qt_webengine_path, "QtWebEngineCore")
+    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    external_so_files.append((web_core_path, os.path.basename(web_core_path)))
+
+    # Add QtWebEngineProcess Resources & Local
+    for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
+    for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
+        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
+    for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
+        relative_filepath = os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))
+        plugin_name = os.path.dirname(relative_filepath)
+        if plugin_name not in ["sqldrivers", "playlistformats", "gamepads", "bearer"]:
+            external_so_files.append((filename, relative_filepath))
+
 # Append all source files
 src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
 for filename in find_files("openshot_qt", ["*"]):
@@ -335,6 +388,7 @@ for filename in find_files("openshot_qt", ["*"]):
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
+build_exe_options["includes"] = python_modules
 
 # Set options
 build_options["build_exe"] = build_exe_options

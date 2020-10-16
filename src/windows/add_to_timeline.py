@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 
 from classes import settings
-from classes import info, ui_util, time_parts
+from classes import info, ui_util, time_parts, openshot_rc
 from classes.logger import log
 from classes.query import Track, Clip, Transition
 from classes.app import get_app
@@ -184,7 +184,7 @@ class AddToTimeline(QDialog):
                 thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
 
             # Get file name
             filename = os.path.basename(file.data["path"])
@@ -242,7 +242,7 @@ class AddToTimeline(QDialog):
                     position = max(start_position, new_clip["position"] - fade_length)
                     new_clip["position"] = position
 
-                if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
+                if fade_value in ['Fade In', 'Fade In & Out']:
                     start = openshot.Point(round(start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
                     end = openshot.Point(min(round((start_time + fade_length) * fps_float) + 1, round(end_time * fps_float) + 1), 1.0, openshot.BEZIER)
@@ -250,7 +250,7 @@ class AddToTimeline(QDialog):
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
-                if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
+                if fade_value in ['Fade Out', 'Fade In & Out']:
                     start = openshot.Point(max(round((end_time * fps_float) + 1) - (round(fade_length * fps_float) + 1), round(start_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
                     end = openshot.Point(round(end_time * fps_float) + 1, 0.0, openshot.BEZIER)

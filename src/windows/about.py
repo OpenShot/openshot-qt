@@ -28,12 +28,13 @@
 
 import os
 import codecs
+import re
 from functools import partial
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-from classes import info, ui_util
+from classes import info, ui_util, openshot_rc
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import *
@@ -42,6 +43,54 @@ from windows.views.changelog_treeview import ChangelogTreeView
 
 import json
 import datetime
+
+
+def parse_changelog(changelog_path):
+    """Read changelog entries from provided file path."""
+    changelog_list = []
+    if not os.path.exists(changelog_path):
+        return None
+    # Attempt to open changelog with utf-8, and then utf-16 (for unix / windows support)
+    for encoding_name in ('utf_8', 'utf_16'):
+        try:
+            with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
+                for line in changelog_file:
+                    changelog_list.append({'hash': line[:9].strip(),
+                                           'date': line[9:20].strip(),
+                                           'author': line[20:45].strip(),
+                                           'subject': line[45:].strip() })
+                break
+        except:
+            log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
+    return changelog_list
+
+
+def parse_new_changelog(changelog_path):
+    """Parse changelog data from specified new-format file."""
+    if not os.path.exists(changelog_path):
+        return None
+    changelog_list = None
+    for encoding_name in ('utf_8', 'utf_16'):
+        try:
+            with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
+                # Generate match object with fields from all matching lines
+                matches = re.findall(
+                    r"^-\s?([0-9a-f]{40})\s(\d{4,4}-\d{2,2}-\d{2,2})\s(.*)\s\[(.*)\]\s*$",
+                    changelog_file.read(), re.MULTILINE)
+                log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_path))
+                changelog_list = [{
+                    "hash": entry[0],
+                    "date": entry[1],
+                    "subject": entry[2],
+                    "author": entry[3],
+                    } for entry in matches]
+        except UnicodeError:
+            log.debug('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
+            continue
+        except Exception:
+            log.warning("Parse error reading {}".format(changelog_path), exc_info=1)
+            return None
+    return changelog_list
 
 class About(QDialog):
     """ About Dialog """
@@ -64,18 +113,16 @@ class About(QDialog):
 
         # Hide chnagelog button by default
         self.btnchangelog.setVisible(False)
-        for project in ['openshot-qt', 'libopenshot', 'libopenshot-audio']:
-            changelog_path = os.path.join(info.PATH, 'settings', '%s.log' % project)
-            if os.path.exists(changelog_path):
-                # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-                for encoding_name in ('utf_8', 'utf_16'):
-                    try:
-                        with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
-                            if changelog_file.read():
-                                self.btnchangelog.setVisible(True)
-                                break
-                    except:
-                        log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
+        
+        projects = ['openshot-qt', 'libopenshot', 'libopenshot-audio']
+        # Old paths
+        paths = [os.path.join(info.PATH, 'settings', '{}.log'.format(p)) for p in projects]
+        # New paths
+        paths.extend([os.path.join(info.PATH, 'resources', '{}.log'.format(p)) for p in projects])
+        if any([os.path.exists(path) for path in paths]):
+            self.btnchangelog.setVisible(True)
+        else:
+            log.warn("No changelog files found, disabling button")
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
         description_text = _('OpenShot Video Editor 2.x is the next generation of the award-winning <br/>OpenShot video editing platform.')
@@ -222,7 +269,7 @@ class Credits(QDialog):
         self.supportersListView = CreditsTreeView(supporter_list, columns=["website"])
         self.vboxSupporters.addWidget(self.supportersListView)
         self.txtSupporterFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtSupporterFilter, self.supportersListView))
-
+7
 
 class Changelog(QDialog):
     """ Changelog Dialog """
@@ -246,72 +293,54 @@ class Changelog(QDialog):
         ui_util.init_ui(self)
 
         # get translations
-        self.app = get_app()
-        _ = self.app._tr
+        _ = get_app()._tr
+
+        # Connections to objects imported from .ui file
+        tab = {
+            "openshot-qt": self.tab_openshot_qt,
+            "libopenshot": self.tab_libopenshot,
+            "libopenshot-audio": self.tab_libopenshot_audio,
+        }
+        vbox = {
+            "openshot-qt": self.vbox_openshot_qt,
+            "libopenshot": self.vbox_libopenshot,
+            "libopenshot-audio": self.vbox_libopenshot_audio,
+        }
+        filter = {
+            "openshot-qt": self.txtChangeLogFilter_openshot_qt,
+            "libopenshot": self.txtChangeLogFilter_libopenshot,
+            "libopenshot-audio": self.txtChangeLogFilter_libopenshot_audio,
+        }
 
         # Update github link button
         github_text = _("OpenShot on GitHub")
         github_html = '<html><head/><body><p align="center"><a href="https://github.com/OpenShot/"><span style=" text-decoration: underline; color:#55aaff;">%s</span></a></p></body></html>' % (github_text)
         self.lblGitHubLink.setText(github_html)
 
-        # Get changelog for openshot-qt (if any)
-        changelog_list = []
-        changelog_path = os.path.join(info.PATH, 'settings', 'openshot-qt.log')
-        if os.path.exists(changelog_path):
-            # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-            for encoding_name in ('utf_8', 'utf_16'):
-                try:
-                    with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
-                        for line in changelog_file:
-                            changelog_list.append({'hash': line[:9].strip(),
-                                                   'date': line[9:20].strip(),
-                                                   'author': line[20:45].strip(),
-                                                   'subject': line[45:].strip() })
-                        break
-                except:
-                    log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
-        self.openshot_qt_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/openshot-qt/commit/%s/")
-        self.vbox_openshot_qt.addWidget(self.openshot_qt_ListView)
-        self.txtChangeLogFilter_openshot_qt.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_openshot_qt, self.openshot_qt_ListView))
-
-        # Get changelog for libopenshot (if any)
-        changelog_list = []
-        changelog_path = os.path.join(info.PATH, 'settings', 'libopenshot.log')
-        if os.path.exists(changelog_path):
-            # Attempt to open changelog with utf-8, and then utf-16-le (for unix / windows support)
-            for encoding_name in ('utf_8', 'utf_16'):
-                try:
-                    with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
-                        for line in changelog_file:
-                            changelog_list.append({'hash': line[:9].strip(),
-                                                   'date': line[9:20].strip(),
-                                                   'author': line[20:45].strip(),
-                                                   'subject': line[45:].strip() })
-                        break
-                except:
-                    log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
-        self.libopenshot_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot/commit/%s/")
-        self.vbox_libopenshot.addWidget(self.libopenshot_ListView)
-        self.txtChangeLogFilter_libopenshot.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot, self.libopenshot_ListView))
-
-        # Get changelog for libopenshot-audio (if any)
-        changelog_list = []
-        changelog_path = os.path.join(info.PATH, 'settings', 'libopenshot-audio.log')
-        if os.path.exists(changelog_path):
-            # Attempt to support Linux- and Windows-encoded files by opening
-            # changelog with utf-8, then utf-16 (endianness via the BOM, which
-            # gets filtered out automatically by the decoder)
-            for encoding_name in ('utf_8', 'utf_16'):
-                try:
-                    with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
-                        for line in changelog_file:
-                            changelog_list.append({'hash': line[:9].strip(),
-                                                   'date': line[9:20].strip(),
-                                                   'author': line[20:45].strip(),
-                                                   'subject': line[45:].strip() })
-                        break
-                except:
-                    log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
-        self.libopenshot_audio_ListView = ChangelogTreeView(commits=changelog_list, commit_url="https://github.com/OpenShot/libopenshot-audio/commit/%s/")
-        self.vbox_libopenshot_audio.addWidget(self.libopenshot_audio_ListView)
-        self.txtChangeLogFilter_libopenshot_audio.textChanged.connect(partial(self.Filter_Triggered, self.txtChangeLogFilter_libopenshot_audio, self.libopenshot_audio_ListView))
+        # Read changelog file for each project
+        for project in ['openshot-qt', 'libopenshot', 'libopenshot-audio']:
+            new_changelog_path = os.path.join(info.PATH, 'resources', '{}.log'.format(project))
+            old_changelog_path = os.path.join(info.PATH, 'settings', '{}.log'.format(project))
+            if os.path.exists(new_changelog_path):
+                log.debug("Reading changelog file: {}".format(new_changelog_path))
+                changelog_list = parse_new_changelog(new_changelog_path)
+            elif os.path.isfile(old_changelog_path):
+                log.debug("Reading legacy changelog file: {}".format(old_changelog_path))
+                changelog_list = parse_changelog(old_changelog_path)
+            else:
+                changelog_list = None
+            # Hopefully we found ONE of the two
+            if changelog_list is None:
+                log.warn("Could not load changelog for {}".format(project))
+                # Hide the tab for this changelog
+                tabindex = self.tabChangelog.indexOf(tab[project])
+                if tabindex >= 0:
+                    self.tabChangelog.removeTab(tabindex)
+                continue
+            # Populate listview widget with changelog data
+            cl_treeview = ChangelogTreeView(
+                commits=changelog_list,
+                commit_url="https://github.com/OpenShot/{}/commit/%s/".format(project))
+            vbox[project].addWidget(cl_treeview)
+            filter[project].textChanged.connect(
+                partial(self.Filter_Triggered, filter[project], cl_treeview))

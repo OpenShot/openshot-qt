@@ -32,8 +32,7 @@ from operator import itemgetter
 from PyQt5.QtCore import QMimeData, Qt, QLocale, QTimer
 from PyQt5.QtGui import *
 
-from classes import updates
-from classes import info
+from classes import info, updates, openshot_rc
 from classes.query import Clip, Transition, Effect, File
 from classes.logger import log
 from classes.app import get_app
@@ -66,7 +65,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Handle change
         if action.key and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
-            log.info(action.values)
+            log.debug(action.values)
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
 
@@ -89,45 +88,27 @@ class PropertiesModel(updates.UpdateInterface):
         self.selected = []
         self.filter_base_properties = []
 
-        log.info("Update item: %s" % item_type)
+        log.debug("Update item: %s" % item_type)
 
         if item_type == "clip":
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                if clip.Id() == item_id:
-                    c = clip
-                    break
-
-            # Append to selected clips
-            self.selected.append((c, item_type))
+            c = get_app().window.timeline_sync.timeline.GetClip(item_id)
+            if c:
+                # Append to selected items
+                self.selected.append((c, item_type))
 
         if item_type == "transition":
-            t = None
-            trans = get_app().window.timeline_sync.timeline.Effects()
-            for tran in trans:
-                if tran.Id() == item_id:
-                    t = tran
-                    break
-
-            # Append to selected clips
-            self.selected.append((t, item_type))
+            t = get_app().window.timeline_sync.timeline.GetTimelineEffect(item_id)
+            if t:
+                # Append to selected items
+                self.selected.append((t, item_type))
 
         if item_type == "effect":
-            e = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                for effect in clip.Effects():
-                    if effect.Id() == item_id:
-                        e = effect
-                        break
-
-            # Filter out basic properties, since this is an effect on a clip
-            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-
-            # Append to selected items
-            self.selected.append((e, item_type))
-
+            e = get_app().window.timeline_sync.timeline.GetClipEffect(item_id)
+            if e:
+                # Filter out basic properties, since this is an effect on a clip
+                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+                # Append to selected items
+                self.selected.append((e, item_type))
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
@@ -160,12 +141,10 @@ class PropertiesModel(updates.UpdateInterface):
                 parent_clip_id = effect.parent["id"]
 
                 # Find this clip object
-                clips = get_app().window.timeline_sync.timeline.Clips()
-                for c in clips:
-                    if c.Id() == parent_clip_id:
-                        # Override the selected clip object (so the effect gets the correct starting position)
-                        clip = c
-                        break
+                c = get_app().window.timeline_sync.timeline.GetClip(parent_clip_id)
+                if c:
+                    # Override the selected clip object (so the effect gets the correct starting position)
+                    clip = c
 
             # Get FPS from project
             fps = get_app().project.get("fps")
@@ -220,57 +199,55 @@ class PropertiesModel(updates.UpdateInterface):
             # Get effect object
             c = Effect.get(id=clip_id)
 
-        if c:
-            # Update clip attribute
-            if property_key in c.data:
-                log.info("remove keyframe: %s" % c.data)
+        if c and property_key in c.data:  # Update clip attribute
+            log.debug("remove keyframe: %s" % c.data)
 
-                # Determine type of keyframe (normal or color)
-                keyframe_list = []
-                if property_type == "color":
-                    keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
-                else:
-                    keyframe_list = [c.data[property_key]]
+            # Determine type of keyframe (normal or color)
+            keyframe_list = []
+            if property_type == "color":
+                keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
+            else:
+                keyframe_list = [c.data[property_key]]
 
-                # Loop through each keyframe (red, blue, and green)
-                for keyframe in keyframe_list:
+            # Loop through each keyframe (red, blue, and green)
+            for keyframe in keyframe_list:
 
-                    # Keyframe
-                    # Loop through points, find a matching points on this frame
-                    closest_point = None
-                    point_to_delete = None
-                    for point in keyframe["Points"]:
-                        if point["co"]["X"] == self.frame_number:
-                            # Found point, Update value
-                            clip_updated = True
-                            point_to_delete = point
-                            break
-                        if point["co"]["X"] == closest_point_x:
-                            closest_point = point
-
-                    # If no point found, use closest point x
-                    if not point_to_delete:
-                        point_to_delete = closest_point
-
-                    # Delete point (if needed)
-                    if point_to_delete:
+                # Keyframe
+                # Loop through points, find a matching points on this frame
+                closest_point = None
+                point_to_delete = None
+                for point in keyframe["Points"]:
+                    if point["co"]["X"] == self.frame_number:
+                        # Found point, Update value
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                        keyframe["Points"].remove(point_to_delete)
+                        point_to_delete = point
+                        break
+                    if point["co"]["X"] == closest_point_x:
+                        closest_point = point
 
-                # Reduce # of clip properties we are saving (performance boost)
-                c.data = {property_key: c.data[property_key]}
+                # If no point found, use closest point x
+                if not point_to_delete:
+                    point_to_delete = closest_point
 
-                # Save changes
-                if clip_updated:
-                    # Save
-                    c.save()
+                # Delete point (if needed)
+                if point_to_delete:
+                    clip_updated = True
+                    log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                    keyframe["Points"].remove(point_to_delete)
 
-                    # Update the preview
-                    get_app().window.refreshFrameSignal.emit()
+            # Reduce # of clip properties we are saving (performance boost)
+            c.data = {property_key: c.data[property_key]}
 
-                # Clear selection
-                self.parent.clearSelection()
+            # Save changes
+            if clip_updated:
+                # Save
+                c.save()
+
+                # Update the preview
+                get_app().window.refreshFrameSignal.emit()
+
+            # Clear selection
+            self.parent.clearSelection()
 
     def color_update(self, item, new_color, interpolation=-1, interpolation_details=[]):
         """Insert/Update a color keyframe for the selected row"""
@@ -301,7 +278,7 @@ class PropertiesModel(updates.UpdateInterface):
             if c:
                 # Update clip attribute
                 if property_key in c.data:
-                    log.info("color update: %s" % c.data)
+                    log.debug("color update: %s" % c.data)
 
                     # Loop through each keyframe (red, blue, and green)
                     for color, new_value in [("red", new_color.red()), ("blue", new_color.blue()),  ("green", new_color.green())]:
@@ -310,14 +287,14 @@ class PropertiesModel(updates.UpdateInterface):
                         # Loop through points, find a matching points on this frame
                         found_point = False
                         for point in c.data[property_key][color]["Points"]:
-                            log.info("looping points: co.X = %s" % point["co"]["X"])
+                            log.debug("looping points: co.X = %s" % point["co"]["X"])
                             if interpolation == -1 and point["co"]["X"] == self.frame_number:
                                 # Found point, Update value
                                 found_point = True
                                 clip_updated = True
                                 # Update point
                                 point["co"]["Y"] = new_value
-                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                log.debug("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
                                 break
 
                             elif interpolation > -1 and point["co"]["X"] == previous_point_x:
@@ -330,8 +307,8 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_right"]["X"] = interpolation_details[0]
                                     point["handle_right"]["Y"] = interpolation_details[1]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                                log.info("use interpolation preset: %s" % str(interpolation_details))
+                                log.debug("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                                log.debug("use interpolation preset: %s" % str(interpolation_details))
 
                             elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                                 # Only update interpolation type (and the RIGHT side of the curve)
@@ -343,13 +320,13 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_left"]["X"] = interpolation_details[2]
                                     point["handle_left"]["Y"] = interpolation_details[3]
 
-                                log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                                log.info("use interpolation preset: %s" % str(interpolation_details))
+                                log.debug("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                                log.debug("use interpolation preset: %s" % str(interpolation_details))
 
                         # Create new point (if needed)
                         if not found_point:
                             clip_updated = True
-                            log.info("Created new point at X=%s" % self.frame_number)
+                            log.debug("Created new point at X=%s" % self.frame_number)
                             c.data[property_key][color]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 
                 # Reduce # of clip properties we are saving (performance boost)
@@ -408,7 +385,7 @@ class PropertiesModel(updates.UpdateInterface):
         else:
             new_value = None
 
-        log.info("%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
+        log.debug("Changing value for %s in clip %s to %s at frame %s with interpolation: %s at closest x: %s" % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
 
 
         # Find this clip
@@ -428,7 +405,7 @@ class PropertiesModel(updates.UpdateInterface):
         if c:
             # Update clip attribute
             if property_key in c.data:
-                log.info("value updated: %s" % c.data)
+                log.debug("value updated: %s" % c.data)
 
                 # Check the type of property (some are keyframe, and some are not)
                 if property_type != "reader" and type(c.data[property_key]) == dict:
@@ -437,7 +414,7 @@ class PropertiesModel(updates.UpdateInterface):
                     found_point = False
                     point_to_delete = None
                     for point in c.data[property_key]["Points"]:
-                        log.info("looping points: co.X = %s" % point["co"]["X"])
+                        log.debug("looping points: co.X = %s" % point["co"]["X"])
                         if interpolation == -1 and point["co"]["X"] == self.frame_number:
                             # Found point, Update value
                             found_point = True
@@ -445,7 +422,7 @@ class PropertiesModel(updates.UpdateInterface):
                             # Update or delete point
                             if new_value != None:
                                 point["co"]["Y"] = float(new_value)
-                                log.info("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
+                                log.debug("updating point: co.X = %s to value: %s" % (point["co"]["X"], float(new_value)))
                             else:
                                 point_to_delete = point
                             break
@@ -460,8 +437,8 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_right"]["X"] = interpolation_details[0]
                                 point["handle_right"]["Y"] = interpolation_details[1]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                            log.info("use interpolation preset: %s" % str(interpolation_details))
+                            log.debug("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                            log.debug("use interpolation preset: %s" % str(interpolation_details))
 
                         elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                             # Only update interpolation type (and the RIGHT side of the curve)
@@ -473,19 +450,19 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_left"]["X"] = interpolation_details[2]
                                 point["handle_left"]["Y"] = interpolation_details[3]
 
-                            log.info("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
-                            log.info("use interpolation preset: %s" % str(interpolation_details))
+                            log.debug("updating interpolation mode point: co.X = %s to %s" % (point["co"]["X"], interpolation))
+                            log.debug("use interpolation preset: %s" % str(interpolation_details))
 
                     # Delete point (if needed)
                     if point_to_delete:
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                        log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
                         c.data[property_key]["Points"].remove(point_to_delete)
 
                     # Create new point (if needed)
                     elif not found_point and new_value != None:
                         clip_updated = True
-                        log.info("Created new point at X=%s" % self.frame_number)
+                        log.debug("Created new point at X=%s" % self.frame_number)
                         c.data[property_key]["Points"].append({'co': {'X': self.frame_number, 'Y': new_value}, 'interpolation': 1})
 
             if not clip_updated:
@@ -541,11 +518,13 @@ class PropertiesModel(updates.UpdateInterface):
                 # Update the preview
                 get_app().window.refreshFrameSignal.emit()
 
+                log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (clip_id, property_key, new_value, self.frame_number, closest_point_x))
+
             # Clear selection
             self.parent.clearSelection()
 
     def update_model(self, filter=""):
-        log.info("updating clip properties model.")
+        log.debug("updating clip properties model.")
         app = get_app()
         _ = app._tr
 
@@ -672,7 +651,7 @@ class PropertiesModel(updates.UpdateInterface):
                     col.setData((c.Id(), item_type))
                     if points > 1:
                         # Apply icon to cell
-                        my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
+                        my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
                         col.setData(my_icon, Qt.DecorationRole)
 
                         # Set the background color of the cell
@@ -755,7 +734,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                     if points > 1:
                         # Apply icon to cell
-                        my_icon = QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % interpolation))
+                        my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
                         col.setData(my_icon, Qt.DecorationRole)
 
                         # Set the background color of the cell

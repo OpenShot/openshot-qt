@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html ng-app="openshot-timeline">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<META name="author" content="OpenShot Studios, LLC">
-  		<META name="copyright" content="Copyright (c) 2008-2018 OpenShot Studios, LLC">
-  		<META name="license" content="GPLv3">
-		<link rel="icon" type="image/png" href="../images/openshot.png" />
-		<title>OpenShot Timeline</title>
-		
-		<!-- JQuery & Angular -->
-		<link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
-		<link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
-		<script type="text/javascript" src="media/js/jquery.js"></script>
-		<script type="text/javascript" src="media/js/jquery-ui.js"></script>
-		<script type="text/javascript" src="media/js/angular.min.js"></script>
-		<script type="text/javascript" src="media/js/angular-animate.min.js"></script>
-		
-		<!-- OpenShot JavaScript Sources -->
-		<script type="text/javascript" src="app.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <META name="author" content="OpenShot Studios, LLC">
+        <META name="copyright" content="Copyright (c) 2008-2018 OpenShot Studios, LLC">
+        <META name="license" content="GPLv3">
+        <link rel="icon" type="image/png" href="../images/openshot.png" />
+        <title>OpenShot Timeline</title>
+        
+        <!-- JQuery & Angular -->
+        <link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
+        <link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
+        <script type="text/javascript" src="media/js/jquery.js"></script>
+        <script type="text/javascript" src="media/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="media/js/angular.min.js"></script>
+        <script type="text/javascript" src="media/js/angular-animate.min.js"></script>
+
+        <!-- Qt WebChannel support for two-way data bindings -->
+        <script type="text/javascript" src="qrc:/qtwebchannel/qwebchannel.js"></script>
+
+        <!-- OpenShot JavaScript Sources -->
+        <!--MIXIN_JS_INCLUDE-->
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
     	<script type="text/javascript" src="js/controllers.js"></script>
     	<script type="text/javascript" src="js/directives/ruler.js"></script>
     	<script type="text/javascript" src="js/directives/playhead.js"></script>
@@ -26,16 +30,15 @@
     	<script type="text/javascript" src="js/directives/clip.js"></script>
     	<script type="text/javascript" src="js/directives/transition.js"></script>
     	<script type="text/javascript" src="js/directives/misc.js"></script> 	
-		<script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
+        <script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
 
-		<!-- OpenShot StyleSheets -->
-		<link type="text/css" rel="stylesheet" href="media/css/main.css" />
-		<link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
-		
-		<!-- JQuery & Bootstrap StyleSheets -->
-		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
-	</head>
-	<body tl-body ng-controller="TimelineCtrl" ng-cloak>
+        <!-- OpenShot StyleSheets -->
+        <link type="text/css" rel="stylesheet" href="media/css/main.css" />
+        <link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
+        <!-- JQuery & Bootstrap StyleSheets -->
+        <link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
+</head>
+<body tl-body ng-controller="TimelineCtrl" ng-cloak>
 		
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
@@ -44,11 +47,11 @@
 		<!-- RULER (right of screen) -->
 		<div id="scrolling_ruler">
 			<!-- PLAYHEAD TOP -->
-			<div tl-playhead class="playhead playhead-top" ng-right-click="showPlayheadMenu(project.playhead_position)" style="left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;">
+			<div tl-playhead class="playhead playhead-top" ng-right-click="showPlayheadMenu(project.playhead_position)" style="left:{{project.playhead_position * pixelsPerSecond}}px;">
 				<div class="playhead-line-small"></div>
 			</div>
 			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->
-			<canvas tl-ruler id="ruler" width="{{getTimelineWidth(1024) + 50}}" height="39"></canvas>
+			<canvas tl-ruler id="ruler" width="{{canvasMaxWidth(getTimelineWidth(1024) + 50)}}px" height="39"></canvas>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
@@ -57,7 +60,7 @@
 			<br class="cleared">
 			
 			<!-- PROGRESS BAR -->
-			<canvas id="progress" width="{{project.duration * pixelsPerSecond}}px" height="3px"></canvas>
+			<canvas id="progress" width="{{canvasMaxWidth(project.duration * pixelsPerSecond)}}px" height="3px"></canvas>
  		</div>
  		<div class="cleared"></div>
 
@@ -99,10 +102,10 @@
 					</div>
 					<br class="cleared">
 					<div ng-show="!clip.show_audio" class="thumb-container">
-						<img class="thumb thumb-start" ng-show="{{ getThumbPath(clip) }}" ng-src="{{ getThumbPath(clip) }}"/>
+						<img class="thumb thumb-start" ng-show="getThumbPath(clip)" ng-src="{{ getThumbPath(clip) }}"/>
 					</div>
 					<div ng-show="clip.show_audio" class="audio-container">
-						<canvas tl-audio height="46px" width="{{ (clip.end - clip.start) * pixelsPerSecond}}px" class="audio"></canvas>
+						<canvas tl-audio height="46px" width="{{canvasMaxWidth((clip.end - clip.start) * pixelsPerSecond)}}px" class="audio"></canvas>
 					</div>
 				</div>
 
@@ -122,7 +125,7 @@
 			</div>
 
 			<!-- FLOATING PLAYHEAD LINE -->
-			<div class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{(project.playhead_position * pixelsPerSecond) + playheadOffset}}px;"></div>
+			<div class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{project.playhead_position * pixelsPerSecond}}px;"></div>
 
 			<!-- SNAPPING HINT LINE -->
 			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{ snapline_position}}px;"></div>
@@ -140,7 +143,7 @@
 		</div>
 		
 		<div ng-show="debug" class="debug-window ui-corner-all">
-				<div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}} <br> playhead offset: {{playheadOffset}} <br> {{project | json}}</pre></div>
+				<div class="debug-text ui-corner-all" style="width: 20%;">PROJECT DATA: <pre>pixels per second: {{pixelsPerSecond}}<br> {{project | json}}</pre></div>
 				<div class="debug-text ui-corner-all" style="width: 70%;">ACTIONS:<br><br>
 					<div>
 						<p>Add Clips:</p>	
@@ -176,7 +179,5 @@
 				</div>
 		</div>
 		<!-- END DEBUG SECTION -->
-	</body>
+</body>
 </html>
-
-

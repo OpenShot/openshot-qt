@@ -169,9 +169,6 @@ class EmojisListView(QListView):
         s = get_settings()
         default_type = s.get('emoji_group_filter') or 'smileys-emotion'
 
-        # Load initial emoji model data
-        self.emojis_model.update_model()
-
         # setup filter events
         self.win.emojisFilter.textChanged.connect(self.filter_changed)
 
@@ -186,7 +183,7 @@ class EmojisListView(QListView):
                 # Off by one, due to 'show all' choice above
                 dropdown_index = index + 1
 
-        if not self.win.mode == "unittest":
+        if self.win.mode != "unittest":
             self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
         self.win.emojiFilterGroup.setCurrentIndex(dropdown_index)
 
