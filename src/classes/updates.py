@@ -172,6 +172,9 @@ class UpdateManager:
         # Loop through each updateAction object and serialize
         # Ignore any load actions or history update actions
         history_length_int = int(history_length)
+        if history_length_int == 0:
+            self.update_untracked(["history"], {"redo": [], "undo": []})
+            return
         for action in self.redoHistory[-history_length_int:]:
             if action.type != "load" and action.key[0] != "history":
                 actionDict = json.loads(action.json(), strict=False)

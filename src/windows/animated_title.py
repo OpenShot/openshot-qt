@@ -26,27 +26,18 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys
 import os
-import time
 import uuid
-import shutil
-import subprocess
-import re
-import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
+from PyQt5.QtWidgets import (
+    QApplication, QDialog, QDialogButtonBox, QPushButton
+)
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, metrics
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
 from windows.views.blender_listview import BlenderListView
 
-import json
 
 class AnimatedTitle(QDialog):
     """ Animated Title Dialog """
@@ -55,28 +46,27 @@ class AnimatedTitle(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'animated-title.ui')
 
     def __init__(self):
+        super().__init__()
 
-        # Create dialog class
-        QDialog.__init__(self)
-
-        # Load UI from designer
+        # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
-
-        # Init UI
         ui_util.init_ui(self)
 
-        # Track metrics
-        track_metric_screen("animated-title-screen")
+        metrics.track_metric_screen("animated-title-screen")
 
-        # Add render button
         app = get_app()
         _ = app._tr
+
+        # Add render controls
         self.btnRender = QPushButton(_('Render'))
         self.btnCancel = QPushButton(_('Cancel'))
         self.buttonBox.addButton(self.btnRender, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.btnCancel, QDialogButtonBox.RejectRole)
 
-        # Add blender treeview
+        # Hide render progress until needed
+        self.statusContainer.hide()
+
+        # Add blender view
         self.blenderView = BlenderListView(self)
         self.verticalLayout.addWidget(self.blenderView)
 
@@ -92,38 +82,24 @@ class AnimatedTitle(QDialog):
 
     def accept(self):
         """ Start rendering animation, but don't close window """
-
         # Render
         self.blenderView.Render()
 
-    def close(self):
+    def closeEvent(self, event):
         """ Actually close window and accept dialog """
-
-        # Re-enable interface
-        self.blenderView.enable_interface()
-
-        # Accept dialog
+        self.blenderView.end_processing()
+        QApplication.restoreOverrideCursor()
         super().accept()
 
-    def closeEvent(self, event):
-
-        # Stop threads
-        self.blenderView.background.quit()
-
-        # Re-enable interface
-        self.blenderView.enable_interface()
-
     def reject(self):
-
         # Stop threads
         self.blenderView.Cancel()
-        self.blenderView.background.quit()
-
-        # Cancel dialog
+        QApplication.restoreOverrideCursor()
         super().reject()
 
     def clear_effect_controls(self):
         """ Clear all child widgets used for settings """
+        self.statusContainer.hide()
 
         # Loop through child widgets
         for child in self.settingsContainer.children():

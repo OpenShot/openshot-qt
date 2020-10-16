@@ -121,8 +121,8 @@ App.directive("tlRuler", function ($timeout) {
 
         // Animate to new position (and then update scope)
         scope.playhead_animating = true;
-        $(".playhead-line").animate({left: playhead_left + scope.playheadOffset}, 200);
-        $(".playhead-top").animate({left: playhead_left + scope.playheadOffset}, 200, function () {
+        $(".playhead-line").animate({left: playhead_left}, 200);
+        $(".playhead-top").animate({left: playhead_left}, 200, function () {
           // Update playhead
           scope.movePlayhead(playhead_seconds);
 

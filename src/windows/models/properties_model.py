@@ -69,7 +69,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Handle change
         if action.key and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
-            log.info(action.values)
+            log.debug(action.values)
             # Update the model data
             self.update_model(get_app().window.txtPropertyFilter.text())
 
@@ -92,44 +92,27 @@ class PropertiesModel(updates.UpdateInterface):
         self.selected = []
         self.filter_base_properties = []
 
-        log.info("Update item: %s" % item_type)
+        log.debug("Update item: %s" % item_type)
 
         if item_type == "clip":
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                if clip.Id() == item_id:
-                    c = clip
-                    break
-
-            # Append to selected clips
-            self.selected.append((c, item_type))
+            c = get_app().window.timeline_sync.timeline.GetClip(item_id)
+            if c:
+                # Append to selected items
+                self.selected.append((c, item_type))
 
         if item_type == "transition":
-            t = None
-            trans = get_app().window.timeline_sync.timeline.Effects()
-            for tran in trans:
-                if tran.Id() == item_id:
-                    t = tran
-                    break
-
-            # Append to selected clips
-            self.selected.append((t, item_type))
+            t = get_app().window.timeline_sync.timeline.GetTimelineEffect(item_id)
+            if t:
+                # Append to selected items
+                self.selected.append((t, item_type))
 
         if item_type == "effect":
-            e = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip in clips:
-                for effect in clip.Effects():
-                    if effect.Id() == item_id:
-                        e = effect
-                        break
-
-            # Filter out basic properties, since this is an effect on a clip
-            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-
-            # Append to selected items
-            self.selected.append((e, item_type))
+            e = get_app().window.timeline_sync.timeline.GetClipEffect(item_id)
+            if e:
+                # Filter out basic properties, since this is an effect on a clip
+                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+                # Append to selected items
+                self.selected.append((e, item_type))
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
@@ -162,12 +145,10 @@ class PropertiesModel(updates.UpdateInterface):
                 parent_clip_id = effect.parent["id"]
 
                 # Find this clip object
-                clips = get_app().window.timeline_sync.timeline.Clips()
-                for c in clips:
-                    if c.Id() == parent_clip_id:
-                        # Override the selected clip object (so the effect gets the correct starting position)
-                        clip = c
-                        break
+                c = get_app().window.timeline_sync.timeline.GetClip(parent_clip_id)
+                if c:
+                    # Override the selected clip object (so the effect gets the correct starting position)
+                    clip = c
 
             # Get FPS from project
             fps = get_app().project.get("fps")
@@ -222,7 +203,7 @@ class PropertiesModel(updates.UpdateInterface):
             c = Effect.get(id=clip_id)
 
         if c and property_key in c.data:  # Update clip attribute
-            log.info("remove keyframe: %s" % c.data)
+            log.debug("remove keyframe: %s" % c.data)
 
             # Determine type of keyframe (normal or color)
             keyframe_list = []
@@ -254,7 +235,7 @@ class PropertiesModel(updates.UpdateInterface):
                 # Delete point (if needed)
                 if point_to_delete:
                     clip_updated = True
-                    log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                    log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
                     keyframe["Points"].remove(point_to_delete)
 
             # Reduce # of clip properties we are saving (performance boost)
@@ -300,7 +281,7 @@ class PropertiesModel(updates.UpdateInterface):
             if c:
                 # Update clip attribute
                 if property_key in c.data:
-                    log.info("color update: %s" % c.data)
+                    log.debug("color update: %s" % c.data)
 
                     # Loop through each keyframe (red, blue, and green)
                     for color, new_value in [
@@ -313,7 +294,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Loop through points, find a matching points on this frame
                         found_point = False
                         for point in c.data[property_key][color]["Points"]:
-                            log.info("looping points: co.X = %s" % point["co"]["X"])
+                            log.debug("looping points: co.X = %s" % point["co"]["X"])
                             if interpolation == -1 and point["co"]["X"] == self.frame_number:
                                 # Found point, Update value
                                 found_point = True
@@ -439,7 +420,7 @@ class PropertiesModel(updates.UpdateInterface):
         if c:
             # Update clip attribute
             if property_key in c.data:
-                log.info("value updated: %s" % c.data)
+                log.debug("value updated: %s" % c.data)
 
                 # Check the type of property (some are keyframe, and some are not)
                 if property_type != "reader" and type(c.data[property_key]) == dict:
@@ -448,7 +429,7 @@ class PropertiesModel(updates.UpdateInterface):
                     found_point = False
                     point_to_delete = None
                     for point in c.data[property_key]["Points"]:
-                        log.info("looping points: co.X = %s" % point["co"]["X"])
+                        log.debug("looping points: co.X = %s" % point["co"]["X"])
                         if interpolation == -1 and point["co"]["X"] == self.frame_number:
                             # Found point, Update value
                             found_point = True
@@ -496,16 +477,16 @@ class PropertiesModel(updates.UpdateInterface):
                     # Delete point (if needed)
                     if point_to_delete:
                         clip_updated = True
-                        log.info("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                        log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
                         c.data[property_key]["Points"].remove(point_to_delete)
 
                     # Create new point (if needed)
-                elif not found_point and new_value is not None:
-                    clip_updated = True
-                    log.info("Created new point at X=%s" % self.frame_number)
-                    c.data[property_key]["Points"].append({
-                        'co': {'X': self.frame_number, 'Y': new_value},
-                        'interpolation': 1})
+                    elif not found_point and new_value is not None:
+                        clip_updated = True
+                        log.info("Created new point at X=%s" % self.frame_number)
+                        c.data[property_key]["Points"].append({
+                            'co': {'X': self.frame_number, 'Y': new_value},
+                            'interpolation': 1})
 
             if not clip_updated:
                 # If no keyframe was found, set a basic property
@@ -560,11 +541,13 @@ class PropertiesModel(updates.UpdateInterface):
                 # Update the preview
                 get_app().window.refreshFrameSignal.emit()
 
+                log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (clip_id, property_key, new_value, self.frame_number, closest_point_x))
+
             # Clear selection
             self.parent.clearSelection()
 
     def update_model(self, filter=""):
-        log.info("updating clip properties model.")
+        log.debug("updating clip properties model.")
         app = get_app()
         _ = app._tr
 

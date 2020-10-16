@@ -358,17 +358,7 @@ class Export(QDialog):
         self.delayed_fps_timer.start()
 
         # Determine max frame (based on clips)
-        timeline_length = 0.0
-        fps = self.timeline.info.fps.ToFloat()
-        clips = self.timeline.Clips()
-        for clip in clips:
-            clip_last_frame = clip.Position() + clip.Duration()
-            if clip_last_frame > timeline_length:
-                # Set max length of timeline
-                timeline_length = clip_last_frame
-
-        # Convert to int and round
-        self.timeline_length_int = round(timeline_length * fps) + 1
+        self.timeline_length_int = self.timeline.GetMaxFrame()
 
         # Set the min and max frame numbers for this project
         self.txtStartFrame.setValue(1)
@@ -470,12 +460,13 @@ class Export(QDialog):
 
         # Load the interlaced options
         self.cboInterlaced.clear()
-        self.cboInterlaced.addItem(_("Yes"), "Yes")
         self.cboInterlaced.addItem(_("No"), "No")
+        self.cboInterlaced.addItem(_("Yes Top field first"), "Yes")
+        self.cboInterlaced.addItem(_("Yes Bottom field first"), "Yes")
         if profile.info.interlaced_frame:
-            self.cboInterlaced.setCurrentIndex(0)
-        else:
             self.cboInterlaced.setCurrentIndex(1)
+        else:
+            self.cboInterlaced.setCurrentIndex(0)
 
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
@@ -796,6 +787,7 @@ class Export(QDialog):
                 return
 
         # Init export settings
+        interlacedIndex = self.cboInterlaced.currentIndex()
         video_settings = {  "vformat": self.txtVideoFormat.text(),
                             "vcodec": self.txtVideoCodec.text(),
                             "fps": { "num" : self.txtFrameRateNum.value(), "den": self.txtFrameRateDen.value()},
@@ -804,7 +796,9 @@ class Export(QDialog):
                             "pixel_ratio": {"num": self.txtPixelRatioNum.value(), "den": self.txtPixelRatioDen.value()},
                             "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
                             "start_frame": self.txtStartFrame.value(),
-                            "end_frame": self.txtEndFrame.value()
+                            "end_frame": self.txtEndFrame.value(),
+                            "interlace": ((interlacedIndex == 1) or (interlacedIndex == 2)),
+                            "topfirst": interlacedIndex == 1
                           }
 
         audio_settings = {"acodec": self.txtAudioCodec.text(),
@@ -860,8 +854,8 @@ class Export(QDialog):
                                   video_settings.get("height"),
                                   openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
                                                     video_settings.get("pixel_ratio").get("den")),
-                                  False,
-                                  False,
+                                  video_settings.get("interlace"),
+                                  video_settings.get("topfirst"),
                                   video_settings.get("video_bitrate"))
 
             # Set audio options
