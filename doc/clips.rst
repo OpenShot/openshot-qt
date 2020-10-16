@@ -17,18 +17,42 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _clips_ref:
-
 Clips
 =====
 
-Each media file you add to the OpenShot timeline is called a clip, and is visualized by a dark, rounded rectangle
-(as seen in the screenshot below). A clip has a large number of properties, which affects how the clip is
-rendered and composited, such as scale, location, rotation, and Alpha. These properties can also be animated over time,
-and when combined together, can create some amazing effects.
+Each media file you add to the OpenShot timeline is called a clip and is 
+visualized by a dark, rounded rectangle (as seen in the screenshot below). A 
+clip has many properties, which affect how the clip is rendered 
+and composited, such as scale, location, rotation, and Alpha. OpenShot can 
+animate these properties over time, and when combined, can create some 
+fantastic effects.
+
+To display all the properties, either right-click and choose “Properties” or 
+carefully double click on the clip on the timeline.  Clip properties appear in 
+the properties pane, in alphabetical order. You can use the Filter box to find 
+just the properties you are interested in – for example, type in “gr” and the 
+Gravity property will display.
 
 Overview
 --------
+
+For most needs, you can play with the settings to get the result you desire – 
+for example, a change to the Position X property moves the clip horizontally.  
+This page explains each property in considerable detail, with properties listed 
+in functional groups.
+
+To adjust a property, you can:
+
+*	click on its value and drag the slider from side to side for a coarse adjustment
+*	double click on its value and enter a value.  Numerical values display to 2 decimal places, but you can enter more precise numbers (e.g., 0.4756), which OpenShot uses in the calculation, even if they show to 2 decimal places.  You can often enter valid values that are outside the range offered by the slider adjustment.
+*	right-click to select an option
+
+Clip properties are part of the animation system.  If you change a clip 
+property, you create a keyframe at the current position of the playhead.  If 
+you wish a changed property to apply throughout the clip, you must place the 
+playhead at or before starting the clip before making the change.  An easy way 
+to locate the start of a clip is to use ‘next/previous marker’ on the Timeline 
+toolbar – OpenShot treats the beginning of the clip as a marker.
 
 .. image:: images/clip-overview.jpg
 
