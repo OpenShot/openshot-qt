@@ -351,9 +351,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
-            # Corner size
-            cs = 14.0
-
             # Determine frame # of clip
             start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
             position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
@@ -634,12 +631,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         self.mutex.unlock()
 
-    def updateProperty(self, id, frame_number, property_key, new_value, refresh=True):
+    def updateProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
         """Update a keyframe property to a new value, adding or updating keyframes as needed"""
         found_point = False
         clip_updated = False
 
-        c = Clip.get(id=id)
+        c = Clip.get(id=clip_id)
         if not c:
             # No clip found
             return
@@ -661,11 +658,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Reduce # of clip properties we are saving (performance boost)
         c.data = {property_key: c.data.get(property_key)}
 
-        # Save changes
         if clip_updated:
-            # Save
             c.save()
-
             # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
@@ -679,32 +673,27 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def transformTriggered(self, clip_id):
         """Handle the transform signal when it's emitted"""
+        win = get_app().window
         need_refresh = False
+
         # Disable Transform UI
-        if self and self.transforming_clip:
-            # Is this the same clip_id already being transformed?
-            if not clip_id:
-                # Clear transform
-                self.transforming_clip = None
-                need_refresh = True
+        # Is this the same clip_id already being transformed?
+        if self and self.transforming_clip and not clip_id:
+            # Clear transform
+            self.transforming_clip = None
+            need_refresh = True
 
         # Get new clip for transform
         if clip_id:
             self.transforming_clip = Clip.get(id=clip_id)
-
-            if self.transforming_clip:
-                self.transforming_clip_object = None
-                clips = get_app().window.timeline_sync.timeline.Clips()
-                for clip in clips:
-                    if clip.Id() == self.transforming_clip.id:
-                        self.transforming_clip_object = clip
-                        need_refresh = True
-                        break
+            self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
+            if self.transforming_clip and self.transforming_clip_object:
+                need_refresh = True
 
         # Update the preview and reselct current frame in properties
         if need_refresh:
-            get_app().window.refreshFrameSignal.emit()
-            get_app().window.propertyTableView.select_frame(get_app().window.preview_thread.player.Position())
+            win.refreshFrameSignal.emit()
+            win.propertyTableView.select_frame(win.preview_thread.player.Position())
 
     def resizeEvent(self, event):
         """Widget resize event"""
@@ -768,12 +757,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         _ = get_app()._tr
 
         # Init aspect ratio settings (default values)
-        self.aspect_ratio = openshot.Fraction()
-        self.pixel_ratio = openshot.Fraction()
-        self.aspect_ratio.num = 16
-        self.aspect_ratio.den = 9
-        self.pixel_ratio.num = 1
-        self.pixel_ratio.den = 1
+        self.aspect_ratio = openshot.Fraction(16, 9)
+        self.pixel_ratio = openshot.Fraction(1, 1)
         self.transforming_clip = None
         self.transforming_clip_object = None
         self.transform = None

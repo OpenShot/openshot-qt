@@ -22,6 +22,7 @@
 # with this library pre-installed.
 import math
 import bpy
+import json
 
 
 def load_font(font_path):
@@ -50,7 +51,6 @@ def load_font(font_path):
 # this script, OpenShot will inject a dictionary of the required parameters
 # before this script is executed.
 params = {
-    'title': 'Oh Yeah! OpenShot!',
     'extrude': 0.1,
     'bevel_depth': 0.02,
     'spacemode': 'CENTER',
@@ -70,10 +70,31 @@ params = {
     'resolution_x': 1920,
     'resolution_y': 1080,
     'resolution_percentage': 100,
-    'start_frame': 20,
-    'end_frame': 25,
-    'animation': True,
+    'start_frame': 1,
+    'end_frame': 250,
+    'length_multiplier': 1,
+
+    'depart_title': 'Paris',
+    'depart_lat_deg': 48,
+    'depart_lat_min': 51,
+    'depart_lat_sec': 24,
+    'depart_lat_dir': "N",
+    'depart_lon_deg': 2,
+    'depart_lon_min': 21,
+    'depart_lon_sec': 7,
+    'depart_lon_dir': "E",
+
+    'arrive_title': 'New York',
+    'arrive_lat_deg': 40,
+    'arrive_lat_min': 42,
+    'arrive_lat_sec': 51,
+    'arrive_lat_dir': "N",
+    'arrive_lon_deg': 74,
+    'arrive_lon_min': 0,
+    'arrive_lon_sec': 23,
+    'arrive_lon_dir': "E",
 }
+
 
 # INJECT_PARAMS_HERE
 
@@ -82,62 +103,61 @@ params = {
 # that defines this template in OpenShot.
 # ----------------------------------------------------------------------------
 
+# Process parameters supplied as JSON serialization
+try:
+    injected_params = json.loads(params_json)
+    params.update(injected_params)
+except NameError:
+    pass
 
-# depart = {"title":"Paris",
-#    "lat_deg": 48, "lat_min": 51, "lat_sec": 24, "lat_dir": "N",
-#    "lon_deg": 2, "lon_min": 21, "lon_sec": 7, "lon_dir": "E",
-# }
-#
-# arrive = {"title":"New York",
-#    "lat_deg": 40, "lat_min": 42, "lat_sec": 51, "lat_dir": "N",
-#    "lon_deg": 74, "lon_min": 0, "lon_sec": 23, "lon_dir": "O",
-# }
 
 depart = {
-    "lat_deg": params["depart_lat_deg"], "lat_min": params["depart_lat_min"], "lat_sec": params["depart_lat_sec"], "lat_dir": params["depart_lat_dir"],
-    "lon_deg": params["depart_lon_deg"], "lon_min": params["depart_lon_min"], "lon_sec": params["depart_lon_sec"], "lon_dir": params["depart_lon_dir"],
+    "lat_deg": params["depart_lat_deg"],
+    "lat_min": params["depart_lat_min"],
+    "lat_sec": params["depart_lat_sec"],
+    "lat_dir": params["depart_lat_dir"],
+
+    "lon_deg": params["depart_lon_deg"],
+    "lon_min": params["depart_lon_min"],
+    "lon_sec": params["depart_lon_sec"],
+    "lon_dir": params["depart_lon_dir"],
 }
 
 arrive = {
-    "lat_deg": params["arrive_lat_deg"], "lat_min": params["arrive_lat_min"], "lat_sec": params["arrive_lat_sec"], "lat_dir": params["arrive_lat_dir"],
-    "lon_deg": params["arrive_lon_deg"], "lon_min": params["arrive_lon_min"], "lon_sec": params["arrive_lon_sec"], "lon_dir": params["arrive_lon_dir"],
-}
+    "lat_deg": params["arrive_lat_deg"],
+    "lat_min": params["arrive_lat_min"],
+    "lat_sec": params["arrive_lat_sec"],
+    "lat_dir": params["arrive_lat_dir"],
 
-point_a = {}
-point_b = {}
-point_c = {}
-point_d = {}
+    "lon_deg": params["arrive_lon_deg"],
+    "lon_min": params["arrive_lon_min"],
+    "lon_sec": params["arrive_lon_sec"],
+    "lon_dir": params["arrive_lon_dir"],
+}
 
 
 def get_latitude(direction, degrees, minutes, seconds):
-
-    latitude = 0.0
+    lat = degrees + minutes / 60.0 + seconds / 3600.0
     if direction == "N":
         # North of the equator
-        latitude = -(degrees + minutes / 60.0 + seconds / 3600.0)
+        return -lat
     else:
         # South of the equator
-        latitude = degrees + minutes / 60.0 + seconds / 3600.0
-
-    return latitude
+        return lat
 
 
 def get_longitude(direction, degrees, minutes, seconds):
-
-    longitude = 0.0
+    lon = degrees + minutes / 60.0 + seconds / 3600.0
     if direction == "E":
-        # North of the equator
-        longitude = degrees + minutes / 60.0 + seconds / 3600.0
+        # East of prime meridian
+        return lon
     else:
-        # South of the equator
-        longitude = - (degrees + minutes / 60.0 + seconds / 3600.0)
-
-    return longitude
+        # West of prime meridian
+        return -lon
 
 
-def check_longitude(depart_longitude, arrive_longitude):
-
-    if -180 < (arrive_longitude - depart_longitude) and (arrive_longitude - depart_longitude) < 180:
+def correct_longitude(depart_longitude, arrive_longitude):
+    if -180 < (arrive_longitude - depart_longitude) < 180:
         return depart_longitude
     else:
         if depart_longitude < 0:
@@ -146,70 +166,120 @@ def check_longitude(depart_longitude, arrive_longitude):
             return depart_longitude - 360
 
 
+class Point:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+
+class Coord(Point):
+    def __init__(self, latitude, longitude, radius):
+        self.lat = latitude
+        self.lon = longitude
+        self.radius = radius
+        p_x = (
+            radius
+            * math.cos(math.radians(latitude))
+            * math.sin(math.radians(longitude))
+            )
+        p_y = (
+            radius
+            * math.cos(math.radians(latitude))
+            * math.cos(math.radians(longitude))
+        )
+        p_z = (radius * math.sin(math.radians(latitude)))
+        super().__init__(p_x, p_y, p_z)
+
+
 # Calculate latitude / longitude for depart and arrive points
 sphere_radius = 10.0
-point_a["lat"] = get_latitude(depart["lat_dir"], depart["lat_deg"], depart["lat_min"], depart["lat_sec"])
-point_a["lon"] = get_longitude(depart["lon_dir"], depart["lon_deg"], depart["lon_min"], depart["lon_sec"])
-point_b["lat"] = get_latitude(arrive["lat_dir"], arrive["lat_deg"], arrive["lat_min"], arrive["lat_sec"])
-point_b["lon"] = get_longitude(arrive["lon_dir"], arrive["lon_deg"], arrive["lon_min"], arrive["lon_sec"])
-point_a["lon_Z"] = check_longitude(point_a["lon"], point_b["lon"])
-point_b["lon_Z"] = point_b["lon"]
+point_a = Coord(
+    get_latitude(
+        depart["lat_dir"], depart["lat_deg"],
+        depart["lat_min"], depart["lat_sec"]),
+    get_longitude(
+        depart["lon_dir"], depart["lon_deg"],
+        depart["lon_min"], depart["lon_sec"]),
+    sphere_radius
+)
+point_b = Coord(
+    get_latitude(
+        arrive["lat_dir"], arrive["lat_deg"],
+        arrive["lat_min"], arrive["lat_sec"]),
+    get_longitude(
+        arrive["lon_dir"], arrive["lon_deg"],
+        arrive["lon_min"], arrive["lon_sec"]),
+    sphere_radius
+)
 
-point_a["x"] = sphere_radius * math.cos(math.radians(point_a["lat"])) * math.sin(math.radians(point_a["lon"]))
-point_b["x"] = sphere_radius * math.cos(math.radians(point_b["lat"])) * math.sin(math.radians(point_b["lon"]))
-point_a["y"] = sphere_radius * math.cos(math.radians(point_a["lat"])) * math.cos(math.radians(point_a["lon"]))
-point_b["y"] = sphere_radius * math.cos(math.radians(point_b["lat"])) * math.cos(math.radians(point_b["lon"]))
-point_a["z"] = sphere_radius * math.sin(math.radians(point_a["lat"]))
-point_b["z"] = sphere_radius * math.sin(math.radians(point_b["lat"]))
+# Correct longitude if necessary
+orig_point_a_lon = point_a.lon
+point_a.lon = correct_longitude(orig_point_a_lon, point_b.lon)
 
 # Get angle between A & B points
-ab_angle_radians = math.acos((point_a["x"] * point_b["x"] + point_a["y"] * point_b["y"]
-                              + point_a["z"] * point_b["z"]) / (sphere_radius * sphere_radius))
+ab_angle_radians = math.acos(
+    (point_a.x * point_b.x + point_a.y * point_b.y + point_a.z * point_b.z)
+    / (sphere_radius * sphere_radius)
+)
 ab_angle_degrees = ab_angle_radians * 180 / math.pi
 
 # calculate points C & D
-point_c["lat"] = point_a["lat"] + 0.25 * (point_b["lat"] - point_a["lat"])
-point_c["lon"] = point_a["lon_Z"] + 0.25 * (point_b["lon_Z"] - point_a["lon_Z"])
-point_d["lat"] = point_a["lat"] + 0.75 * (point_b["lat"] - point_a["lat"])
-point_d["lon"] = point_a["lon_Z"] + 0.75 * (point_b["lon_Z"] - point_a["lon_Z"])
+point_c = Coord(
+    point_a.lat + 0.25 * (point_b.lat - point_a.lat),
+    point_a.lon + 0.25 * (point_b.lon - point_a.lon),
+    sphere_radius
+)
+point_d = Coord(
+    point_a.lat + 0.75 * (point_b.lat - point_a.lat),
+    point_a.lon + 0.75 * (point_b.lon - point_a.lon),
+    sphere_radius
+)
 
 # radius of CD line segment
 location_CD = (sphere_radius + 1.0) / math.cos(ab_angle_radians / 4.0)
 
-print("EmptyPointA Transform Rotation: Y= %f Z= %f" % (point_a["lat"], point_a["lon_Z"]))
-print("EmptyPointB Transform Rotation: Y= %f Z= %f" % (point_b["lat"], point_b["lon_Z"]))
-print("EmptyPointC Transform Rotation: Y= %f Z= %f" % (point_c["lat"], point_c["lon"]))
-print("EmptyPointD Transform Rotation: Y= %f Z= %f" % (point_d["lat"], point_d["lon"]))
+print("EmptyPointA Transform Rotation: Y= %f Z= %f" % (point_a.lat, point_a.lon))
+print("EmptyPointB Transform Rotation: Y= %f Z= %f" % (point_b.lat, point_b.lon))
+print("EmptyPointC Transform Rotation: Y= %f Z= %f" % (point_c.lat, point_c.lon))
+print("EmptyPointD Transform Rotation: Y= %f Z= %f" % (point_d.lat, point_d.lon))
 print("EmptyPointC.001 Transform Location: X= %f" % location_CD)
 print("EmptyPointD.001 Transform Location: X= %f" % location_CD)
-print("EmptyCam Frame 20 ->Transform Rotation: Y= %f Z= %f  And press I key" % (point_a["lat"], point_a["lon_Z"]))
-print("EmptyCam Frame 80 ->Transform Rotation: Y= %f Z= %f  And press I key" % (point_b["lat"], point_b["lon_Z"]))
+print("EmptyCam Frame 20 ->Transform Rotation: Y= %f Z= %f" % (point_a.lat, point_a.lon))
+print("EmptyCam Frame 80 ->Transform Rotation: Y= %f Z= %f" % (point_b.lat, point_b.lon))
 
 # Set Blender properties
-bpy.data.objects["EmptyPointA"].rotation_euler = (0.0, math.radians(point_a["lat"]), math.radians(point_a["lon_Z"]))
-bpy.data.objects["EmptyPointB"].rotation_euler = (0.0, math.radians(point_b["lat"]), math.radians(point_b["lon_Z"]))
-bpy.data.objects["EmptyPointC"].rotation_euler = (0.0, math.radians(point_c["lat"]), math.radians(point_c["lon"]))
-bpy.data.objects["EmptyPointD"].rotation_euler = (0.0, math.radians(point_d["lat"]), math.radians(point_d["lon"]))
+for pname, point in [
+        ("EmptyPointA", point_a),
+        ("EmptyPointB", point_b),
+        ("EmptyPointC", point_c),
+        ("EmptyPointD", point_d),
+        ]:
+    bpy.data.objects[pname].rotation_euler = (
+        0.0, math.radians(point.lat), math.radians(point.lon)
+    )
 bpy.data.objects["EmptyPointC.001"].location.x = location_CD
 bpy.data.objects["EmptyPointD.001"].location.x = location_CD
 
+
+def update_curve(curve, start, end):
+    coords = [
+        (20.0, start),
+        (80.0, end),
+        ]
+    for i, coord in enumerate(coords):
+        p = curve.keyframe_points[i]
+        p.co = coord
+        p.handle_left.y = coord[1]
+        p.handle_right.y = coord[1]
+
+
 # set Y rotation on the camera
-bpy.data.actions["EmptyCamAction"].fcurves[1].keyframe_points[0].co = (20.0, math.radians(point_a["lat"]))
-bpy.data.actions["EmptyCamAction"].fcurves[1].keyframe_points[0].handle_left.y = math.radians(point_a["lat"])
-bpy.data.actions["EmptyCamAction"].fcurves[1].keyframe_points[0].handle_right.y = math.radians(point_a["lat"])
-
-bpy.data.actions["EmptyCamAction"].fcurves[1].keyframe_points[1].co = (80.0, math.radians(point_b["lat"]))
-bpy.data.actions["EmptyCamAction"].fcurves[1].keyframe_points[1].handle_left.y = math.radians(point_b["lat"])
-bpy.data.actions["EmptyCamAction"].fcurves[1].keyframe_points[1].handle_right.y = math.radians(point_b["lat"])
-
-# set Z rotation on the camera
-bpy.data.actions["EmptyCamAction"].fcurves[2].keyframe_points[0].co = (20.0, math.radians(point_a["lon_Z"]))
-bpy.data.actions["EmptyCamAction"].fcurves[2].keyframe_points[0].handle_left.y = math.radians(point_a["lon_Z"])
-bpy.data.actions["EmptyCamAction"].fcurves[2].keyframe_points[0].handle_right.y = math.radians(point_a["lon_Z"])
-
-bpy.data.actions["EmptyCamAction"].fcurves[2].keyframe_points[1].co = (80.0, math.radians(point_b["lon_Z"]))
-bpy.data.actions["EmptyCamAction"].fcurves[2].keyframe_points[1].handle_left.y = math.radians(point_b["lon_Z"])
-bpy.data.actions["EmptyCamAction"].fcurves[2].keyframe_points[1].handle_right.y = math.radians(point_b["lon_Z"])
+action = bpy.data.actions["EmptyCamAction"]
+update_curve(
+    action.fcurves[1], math.radians(point_a.lat), math.radians(point_b.lat))
+update_curve(
+    action.fcurves[2], math.radians(point_a.lon), math.radians(point_b.lon))
 
 # set world texture (i.e. the globe texture)
 if params["map_texture"]:
@@ -227,65 +297,52 @@ else:
 # Modify Text for Departure
 text_object = bpy.data.curves["Text"]
 text_object.body = params["depart_title"]
-text_object.extrude = params["extrude"]
-text_object.bevel_depth = params["bevel_depth"]
-text_object.size = params["text_size"]
-text_object.space_character = params["width"]
-text_object.font = font
-material_object = bpy.data.materials["Material.001"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
 
 # Modify Text for Arrival
 text_object = bpy.data.curves["Text.001"]
 text_object.body = params["arrive_title"]
-text_object.extrude = params["extrude"]
-text_object.bevel_depth = params["bevel_depth"]
-text_object.size = params["text_size"]
-text_object.space_character = params["width"]
-text_object.font = font
-material_object = bpy.data.materials["Material.003"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
 
-# Modify the Line Material and Pins
-material_object = bpy.data.materials["Material.002"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
-material_object = bpy.data.materials["Material.004"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
-material_object = bpy.data.materials["Material.005"]
-material_object.diffuse_color = params["diffuse_color"]
-material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
+# Set common text parameters
+for ob in [bpy.data.curves["Text"], bpy.data.curves["Text.001"]]:
+    ob.extrude = params["extrude"]
+    ob.bevel_depth = params["bevel_depth"]
+    ob.size = params["text_size"]
+    ob.space_character = params["width"]
+    ob.font = font
+
+# Modify the Materials for Text, Lines, and Pins
+for material in [
+        "Material.001",
+        "Material.002",
+        "Material.003",
+        "Material.004",
+        "Material.005",
+        ]:
+    ob = bpy.data.materials[material]
+    ob.diffuse_color = params["diffuse_color"]
+    ob.specular_color = params["specular_color"]
+    ob.specular_intensity = params["specular_intensity"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
 # params are automatically set by OpenShot
-bpy.context.scene.render.filepath = params["output_path"]
-bpy.context.scene.render.fps = params["fps"]
-bpy.context.scene.render.image_settings.file_format = params["file_format"]
-bpy.context.scene.render.image_settings.color_mode = params["color_mode"]
-bpy.context.scene.render.resolution_x = params["resolution_x"]
-bpy.context.scene.render.resolution_y = params["resolution_y"]
-bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
-bpy.context.scene.frame_start = params["start_frame"]
-bpy.context.scene.frame_end = params["end_frame"]
+render = bpy.context.scene.render
+render.filepath = params["output_path"]
+render.fps = params["fps"]
+if "fps_base" in params:
+    render.fps_base = params["fps_base"]
+render.image_settings.file_format = params["file_format"]
+render.image_settings.color_mode = params["color_mode"]
+render.resolution_x = params["resolution_x"]
+render.resolution_y = params["resolution_y"]
+render.resolution_percentage = params["resolution_percentage"]
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
-animation_speed = int(params["animation_speed"])  # time remapping multiplier
-new_length = int(params["end_frame"]) * animation_speed  # new length (in frames)
-bpy.context.scene.frame_end = new_length
-bpy.context.scene.render.frame_map_old = 1
-bpy.context.scene.render.frame_map_new = animation_speed
-if params["start_frame"] == params["end_frame"]:
-    bpy.context.scene.frame_start = params["end_frame"]
-    bpy.context.scene.frame_end = params["end_frame"]
+length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
+new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
+render.frame_map_old = 1
+render.frame_map_new = length_multiplier
 
-# Render the current animation to the params["output_path"] folder
-bpy.ops.render.render(animation=params["animation"])
+# Set render length/position
+bpy.context.scene.frame_start = params["start_frame"]
+bpy.context.scene.frame_end = new_length

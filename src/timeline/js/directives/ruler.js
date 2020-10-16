@@ -121,8 +121,8 @@ App.directive("tlRuler", function ($timeout) {
 
         // Animate to new position (and then update scope)
         scope.playhead_animating = true;
-        $(".playhead-line").animate({left: playhead_left + scope.playheadOffset}, 200);
-        $(".playhead-top").animate({left: playhead_left + scope.playheadOffset}, 200, function () {
+        $(".playhead-line").animate({left: playhead_left}, 200);
+        $(".playhead-top").animate({left: playhead_left}, 200, function () {
           // Update playhead
           scope.movePlayhead(playhead_seconds);
 
@@ -154,7 +154,8 @@ App.directive("tlRuler", function ($timeout) {
             var scale = scope.project.scale;
             var tick_pixels = scope.project.tick_pixels;
             var each_tick = tick_pixels / 2;
-            var pixel_length = scope.getTimelineWidth(1024);
+            // Don't go over the max supported canvas size
+            var pixel_length = Math.min(32767,scope.getTimelineWidth(1024));
 
             //draw the ruler
             var ctx = element[0].getContext("2d");

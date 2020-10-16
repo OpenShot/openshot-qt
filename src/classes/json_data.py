@@ -39,7 +39,7 @@ from classes import info
 from classes.app import get_app
 
 # Compiled path regex
-path_regex = re.compile(r'"(image|path)"\s*:\s*"(.*?)"')
+path_regex = re.compile(r'"(image|path)"\s*:\s*(".*?")')
 path_context = {}
 
 
@@ -193,8 +193,8 @@ class JsonDataStore:
             log.error(str(ex))
             raise
         except Exception as ex:
-            msg = ("Couldn't load {} file: {}".format(self.data_type, ex))
-            log.error(msg)
+            msg = "Couldn't load {} file".format(self.data_type)
+            log.error(msg, exc_info=1)
             raise Exception(msg) from ex
         msg = ()
         log.warning(msg)
@@ -210,14 +210,14 @@ class JsonDataStore:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(contents)
         except Exception as ex:
-            msg = ("Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex))
+            msg = "Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex)
             log.error(msg)
             raise Exception(msg)
 
     def replace_string_to_absolute(self, match):
         """Replace matched string for converting paths to relative paths"""
         key = match.groups(0)[0]
-        path = match.groups(0)[1]
+        path = json.loads(match.groups(0)[1])
 
         # Find absolute path of file (if needed)
         if "@transitions" in path:
