@@ -461,12 +461,13 @@ class Export(QDialog):
 
         # Load the interlaced options
         self.cboInterlaced.clear()
-        self.cboInterlaced.addItem(_("Yes"), "Yes")
         self.cboInterlaced.addItem(_("No"), "No")
+        self.cboInterlaced.addItem(_("Yes Top field first"), "Yes")
+        self.cboInterlaced.addItem(_("Yes Bottom field first"), "Yes")
         if profile.info.interlaced_frame:
-            self.cboInterlaced.setCurrentIndex(0)
-        else:
             self.cboInterlaced.setCurrentIndex(1)
+        else:
+            self.cboInterlaced.setCurrentIndex(0)
 
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
@@ -787,6 +788,7 @@ class Export(QDialog):
                 return
 
         # Init export settings
+        interlacedIndex = self.cboInterlaced.currentIndex()
         video_settings = {  "vformat": self.txtVideoFormat.text(),
                             "vcodec": self.txtVideoCodec.text(),
                             "fps": { "num" : self.txtFrameRateNum.value(), "den": self.txtFrameRateDen.value()},
@@ -795,7 +797,9 @@ class Export(QDialog):
                             "pixel_ratio": {"num": self.txtPixelRatioNum.value(), "den": self.txtPixelRatioDen.value()},
                             "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
                             "start_frame": self.txtStartFrame.value(),
-                            "end_frame": self.txtEndFrame.value()
+                            "end_frame": self.txtEndFrame.value(),
+                            "interlace": ((interlacedIndex == 1) or (interlacedIndex == 2)),
+                            "topfirst": interlacedIndex == 1
                           }
 
         audio_settings = {"acodec": self.txtAudioCodec.text(),
@@ -851,8 +855,8 @@ class Export(QDialog):
                                   video_settings.get("height"),
                                   openshot.Fraction(video_settings.get("pixel_ratio").get("num"),
                                                     video_settings.get("pixel_ratio").get("den")),
-                                  False,
-                                  False,
+                                  video_settings.get("interlace"),
+                                  video_settings.get("topfirst"),
                                   video_settings.get("video_bitrate"))
 
             # Set audio options
