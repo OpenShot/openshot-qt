@@ -25,7 +25,6 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 import time
 import sip
 
@@ -35,9 +34,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 
 from classes.app import get_app
 from classes.logger import log
-from classes import settings
 
-import json
 
 class PreviewParent(QObject):
     """ Class which communicates with the PlayerWorker Class (running on a separate thread) """
@@ -72,7 +69,7 @@ class PreviewParent(QObject):
         _ = get_app()._tr
 
         # Only JUCE audio errors bubble up here now
-        if not get_app().window.mode == "unittest":
+        if get_app().window.mode != "unittest":
             QMessageBox.warning(self.parent, _("Audio Error"), _("Please fix the following error and restart OpenShot\n%s") % error)
 
     @pyqtSlot(object, object)
@@ -226,7 +223,6 @@ class PlayerWorker(QObject):
             return
 
         log.info("LoadFile %s" % path)
-        s = settings.get_settings()
 
         # Determine the current frame of the timeline (when switching to a clip)
         seek_position = 1
@@ -248,7 +244,6 @@ class PlayerWorker(QObject):
             seek_position = self.original_position
         else:
             # Create new timeline reader (to preview selected clip)
-            s = settings.get_settings()
             project = get_app().project
 
             # Get some settings from the project

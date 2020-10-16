@@ -43,7 +43,7 @@ from PyQt5.QtWidgets import (
 
 import openshot
 
-from classes import info, ui_util, settings
+from classes import info, ui_util, settings, openshot_rc
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
@@ -94,6 +94,7 @@ class TitleEditor(QDialog):
 
         self.font_weight = 'normal'
         self.font_style = 'normal'
+        self.font_size_pixel = 20
 
         self.new_title_text = ""
         self.sub_title_text = ""
@@ -249,13 +250,19 @@ class TitleEditor(QDialog):
             if self.duplicate and self.edit_file_path:
                 # Re-use current name
                 name = os.path.basename(self.edit_file_path)
-                # Splits the filename into "[base-part][optional space]([number]).svg
-                match = re.match(r"^(.*?)(\s*)\(([0-9]*)\)\.svg$", name)
+                # Splits the filename into:
+                #  [base-part][optional space][([number])].svg
+                # Match groups are:
+                #  1: Base name ("title", "Title-2", "Title number 3000")
+                #  2: Space(s) preceding groups 3+4, IFF 3/4 are a match
+                #  3: The entire parenthesized number ("(1)", "(20)", "(1000)")
+                #  4: Just the number inside the parens ("1", "20", "1000")
+                match = re.match(r"^(.+?)(\s*)(\(([0-9]*)\))?\.svg$", name)
                 # Make sure the new title has " (%d)" appended by default
                 name = match.group(1) + " (%d)"
-                if match.group(3):
+                if match.group(4):
                     # Filename already contained a number -> start counting from there
-                    offset = int(match.group(3))
+                    offset = int(match.group(4))
                     # -> only include space(s) if there before
                     name = match.group(1) + match.group(2) + "(%d)"
             # Find an unused file name
@@ -273,7 +280,16 @@ class TitleEditor(QDialog):
         for i in range(0, self.text_fields):
             if len(self.tspan_node[i].childNodes) > 0:
                 text = self.tspan_node[i].childNodes[0].data
+                ar = self.tspan_node[i].attributes["style"].value.split(";")
                 title_text.append(text)
+
+                # Set font size (for possible font dialog)
+                fs = self.find_in_list(ar, "font-size:")
+                fs_value = ar[fs][10:]
+                if fs_value.endswith("px"):
+                    self.qfont.setPixelSize(float(fs_value[:-2]))
+                elif fs_value.endswith("pt"):
+                    self.qfont.setPointSizeF(float(fs_value[:-2]))
 
                 # Create Label
                 label = QLabel()
@@ -408,6 +424,7 @@ class TitleEditor(QDialog):
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
+            self.font_size_pixel = fontinfo.pixelSize()
             self.set_font_style()
 
             # Something changed, so update temp SVG
@@ -426,7 +443,7 @@ class TitleEditor(QDialog):
         """Updates the color shown on the font color button"""
 
         # Loop through each TEXT element
-        for node in self.text_node:
+        for node in self.text_node + self.tspan_node:
 
             # Get the value in the style attribute
             s = node.attributes["style"].value
@@ -442,6 +459,14 @@ class TitleEditor(QDialog):
             except Exception:
                 # If the color was in an invalid format, try the next text element
                 log.debug('Failed to parse {} as color value'.format(txt))
+
+            # Look up color if needed
+            # Some colors are located in a different node
+            if color.startswith("url(#") and self.xmldoc.getElementsByTagName("defs").length == 1:
+                color_ref_id = color[5:-1]
+                ref_color = self.get_ref_color(color_ref_id)
+                if ref_color:
+                    color = ref_color
 
             opacity = self.find_in_list(ar, "opacity:")
 
@@ -478,6 +503,31 @@ class TitleEditor(QDialog):
             # Store the opacity as the color's alpha level
             color.setAlphaF(opacity)
             self.font_color_code = color
+
+    def get_ref_color(self, id):
+        """Get the color value from a reference id (i.e. linearGradient3267)"""
+        found_color = ""
+        for ref_node in self.xmldoc.getElementsByTagName("defs")[0].childNodes:
+            if ref_node.attributes and "id" in ref_node.attributes:
+                ref_node_id = ref_node.attributes["id"].value
+                if id == ref_node_id:
+                    # Found a matching color reference
+                    if "xlink:href" in ref_node.attributes:
+                        # look up color reference again
+                        xlink_ref_id = ref_node.attributes["xlink:href"].value[1:]
+                        return self.get_ref_color(xlink_ref_id)
+                    if "href" in ref_node.attributes:
+                        # look up color reference again
+                        xlink_ref_id = ref_node.attributes["href"].value[1:]
+                        return self.get_ref_color(xlink_ref_id)
+                    elif ref_node.childNodes:
+                        for stop_node in ref_node.childNodes:
+                            if "stop" == stop_node.nodeName:
+                                # get color from stop
+                                ar = stop_node.attributes["style"].value.split(";")
+                                sc = self.find_in_list(ar, "stop-color:")
+                                return ar[sc][11:]
+        return found_color
 
     def update_background_color_button(self):
         """Updates the color shown on the background color button"""
@@ -539,9 +589,8 @@ class TitleEditor(QDialog):
 
     def set_font_style(self):
         '''sets the font properties'''
-
         # Loop through each TEXT element
-        for text_child in self.text_node:
+        for text_child in self.text_node + self.tspan_node:
             # set the style elements for the main text node
             s = text_child.attributes["style"].value
             # split the text node so we can access each part
@@ -552,39 +601,19 @@ class TitleEditor(QDialog):
             # ignoring font-weight, as not sure what it represents in Qt.
             fs = self.find_in_list(ar, "font-style:")
             ff = self.find_in_list(ar, "font-family:")
+            fp = self.find_in_list(ar, "font-size:")
             if fs:
                 ar[fs] = "font-style:" + self.font_style
             if ff:
                 ar[ff] = "font-family:" + self.font_family
+            if fp:
+                ar[fp] = "font-size:%spx" % self.font_size_pixel
             # rejoin the modified parts
             t = ";"
             self.title_style_string = t.join(ar)
 
             # set the text node
             text_child.setAttribute("style", self.title_style_string)
-
-        # Loop through each TSPAN
-        for tspan_child in self.tspan_node:
-            # set the style elements for the main text node
-            s = tspan_child.attributes["style"].value
-            # split the text node so we can access each part
-            ar = s.split(";")
-            # we need to find each element that we are changing, shouldn't assume
-            # they are in the same position in any given template.
-
-            # ignoring font-weight, as not sure what it represents in Qt.
-            fs = self.find_in_list(ar, "font-style:")
-            ff = self.find_in_list(ar, "font-family:")
-            if fs:
-                ar[fs] = "font-style:" + self.font_style
-            if ff:
-                ar[ff] = "font-family:" + self.font_family
-            # rejoin the modified parts
-            t = ";"
-            self.title_style_string = t.join(ar)
-
-            # set the text node
-            tspan_child.setAttribute("style", self.title_style_string)
 
     def set_bg_style(self, color, alpha):
         '''sets the background color'''
@@ -614,7 +643,7 @@ class TitleEditor(QDialog):
     def set_font_color_elements(self, color, alpha):
 
         # Loop through each TEXT element
-        for text_child in self.text_node:
+        for text_child in self.text_node + self.tspan_node:
 
             # SET TEXT PROPERTIES
             s = text_child.attributes["style"].value
@@ -634,21 +663,6 @@ class TitleEditor(QDialog):
 
             t = ";"
             text_child.setAttribute("style", t.join(ar))
-
-            # Loop through each TSPAN
-            for tspan_child in self.tspan_node:
-
-                # SET TSPAN PROPERTIES
-                s = tspan_child.attributes["style"].value
-                # split the text node so we can access each part
-                ar = s.split(";")
-                fill = self.find_in_list(ar, "fill:")
-                if fill is None:
-                    ar.append("fill:" + color)
-                else:
-                    ar[fill] = "fill:" + color
-                t = ";"
-                tspan_child.setAttribute("style", t.join(ar))
 
     def accept(self):
         app = get_app()

@@ -66,9 +66,14 @@ class ChangelogModel():
             author_str = commit.get("author", "")
             subject_str = commit.get("subject", "")
 
-            if filter:
-                if not (filter.lower() in hash_str.lower() or filter.lower() in date_str.lower() or filter.lower() in author_str.lower() or filter.lower() in subject_str.lower()):
-                    continue
+            if filter and not (
+                filter.lower() in hash_str.lower()
+                or filter.lower() in date_str.lower()
+                or filter.lower() in author_str.lower()
+                or filter.lower() in subject_str.lower()
+            ):
+                continue
+
 
             row = []
 

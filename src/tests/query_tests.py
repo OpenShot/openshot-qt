@@ -28,7 +28,7 @@
 import sys, os
 # Import parent folder (so it can find other imports)
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-if not PATH in sys.path:
+if PATH not in sys.path:
     sys.path.append(PATH)
 
 import random
@@ -304,7 +304,7 @@ class TestQueryClass(unittest.TestCase):
         # Insert into project data
         query_file = File()
         query_file.data = file_data
-        query_file.data["path"] = os.path.join(PATH, "images", "openshot.png")
+        query_file.data["path"] = os.path.join(info.IMAGES_PATH, "AboutLogo.png")
         query_file.data["media_type"] = "image"
         query_file.save()
 

@@ -46,10 +46,11 @@ class PropertyDelegate(QItemDelegate):
         QItemDelegate.__init__(self, parent, *args)
 
         # pixmaps for curve icons
-        self.curve_pixmaps = {openshot.BEZIER: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)),
-                              openshot.LINEAR: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)),
-                              openshot.CONSTANT: QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT))
-                              }
+        self.curve_pixmaps = {
+            openshot.BEZIER: QPixmap(":/curves/keyframe-%s.png" % openshot.BEZIER),
+            openshot.LINEAR: QPixmap(":/curves/keyframe-%s.png" % openshot.LINEAR),
+            openshot.CONSTANT: QPixmap(":/curves/keyframe-%s.png" % openshot.CONSTANT),
+            }
 
     def paint(self, painter, option, index):
         painter.save()
@@ -212,10 +213,9 @@ class PropertiesTableView(QTableView):
                     # Get effect object
                     c = Effect.get(id=item_id)
 
-                if c:
-                    if property_key in c.data:
-                        # Grab the original data for this item/property
-                        self.original_data = c.data
+                if c and property_key in c.data:
+                    # Grab the original data for this item/property
+                    self.original_data = c.data
 
             # For numeric values, apply percentage within parameter's allowable range
             if property_type in ["float", "int"] and property_name != "Track":

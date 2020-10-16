@@ -61,7 +61,6 @@ class TransitionsListView(QListView):
             current = selected[0]
 
         if not current.isValid():
-            # We can't find anything to drag
             log.warning("No draggable items found in model!")
             return False
 
@@ -117,9 +116,6 @@ class TransitionsListView(QListView):
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
-
-        # Load initial transition model data
-        self.transition_model.update_model()
 
         # setup filter events
         app = get_app()

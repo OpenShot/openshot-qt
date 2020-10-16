@@ -34,7 +34,7 @@ from functools import partial
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-from classes import info, ui_util
+from classes import info, ui_util, openshot_rc
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import *
@@ -113,6 +113,7 @@ class About(QDialog):
 
         # Hide chnagelog button by default
         self.btnchangelog.setVisible(False)
+        
         projects = ['openshot-qt', 'libopenshot', 'libopenshot-audio']
         # Old paths
         paths = [os.path.join(info.PATH, 'settings', '{}.log'.format(p)) for p in projects]

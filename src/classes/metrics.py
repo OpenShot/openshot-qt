@@ -64,8 +64,8 @@ try:
         # Get the distro name and version (if any)
         linux_distro = "-".join(platform.linux_distribution())
 
-except Exception as Ex:
-    log.error("Error determining OS version in metrics.py")
+except Exception:
+    log.debug("Error determining OS version", exc_info=1)
 
 # Build user-agent
 user_agent = "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36" % os_version
@@ -99,6 +99,7 @@ def track_metric_screen(screen_name):
     metric_params["cid"] = s.get("unique_install_id")
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
@@ -113,6 +114,7 @@ def track_metric_event(event_action, event_label, event_category="General", even
     metric_params["cid"] = s.get("unique_install_id")
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
@@ -126,12 +128,14 @@ def track_metric_error(error_name, is_fatal=False):
         metric_params["exf"] = 1
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
 def track_exception_stacktrace(stacktrace, source):
     """Track an exception/stacktrace has occurred"""
     t = threading.Thread(target=send_exception, args=[stacktrace, source])
+    t.daemon = True
     t.start()
 
 
@@ -147,6 +151,7 @@ def track_metric_session(is_start=True):
         metric_params["cd"] = "close-app"
 
     t = threading.Thread(target=send_metric, args=[metric_params])
+    t.daemon = True
     t.start()
 
 
@@ -168,8 +173,8 @@ def send_metric(params):
                 r = requests.get(url, headers={"user-agent": user_agent}, verify=False)
                 log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
 
-            except Exception as Ex:
-                log.error("Failed to Track metric: %s" % (Ex))
+            except Exception as ex:
+                log.warning("Failed to track metric", exc_info=1)
 
             # Wait a moment, so we don't spam the requests
             time.sleep(0.25)
@@ -194,7 +199,6 @@ def send_exception(stacktrace, source):
         # Send exception HTTP data
         try:
             r = requests.post(url, data=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"}, verify=False)
-            log.info("Track exception: [%s] %s | %s" % (r.status_code, r.url, r.text))
-
-        except Exception as Ex:
-            log.error("Failed to Track exception: %s" % (Ex))
+            log.info("Track exception: [%s] %s | %s", r.status_code, r.url, r.text)
+        except Exception:
+            log.warning("Failed to track exception", exc_info=1)

@@ -21,9 +21,24 @@
         <file>hw-accel-vaapi.svg</file>
         <file>hw-accel-vdpau.svg</file>
     </qresource>
+    <qresource prefix="/cursors">
+        <file>cursor_hand.png</file>
+        <file>cursor_move.png</file>
+        <file>cursor_resize_bdiag.png</file>
+        <file>cursor_resize_fdiag.png</file>
+        <file>cursor_resize_x.png</file>
+        <file>cursor_resize_y.png</file>
+        <file>cursor_rotate.png</file>
+        <file>cursor_shear_x.png</file>
+        <file>cursor_shear_y.png</file>
+    </qresource>
+    <qresource prefix="/curves">
+        <file>keyframe-0.png</file>
+        <file>keyframe-1.png</file>
+        <file>keyframe-2.png</file>
+    </qresource>
     <qresource prefix="/icons">
         <file>Humanity/actions/custom/arrow.png</file>
-        <file>Humanity/actions/custom/razor_line_with_razor.png</file>
         <file>Humanity/actions/custom/snapshot.png</file>
         <file>Humanity/actions/custom/snap.png</file>
         <file>Humanity/actions/custom/add_marker.png</file>

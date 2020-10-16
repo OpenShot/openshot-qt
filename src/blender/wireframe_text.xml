@@ -94,7 +94,7 @@
 	</param>
 
 	<!-- SPEED -->
-	<param name="animation_speed" type="dropdown" title="Animation Length" description="">
+	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
 		<values>
 			<value name="Default" num="1"/>
 			<value name="2X" num="2"/>

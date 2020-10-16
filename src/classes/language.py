@@ -145,7 +145,7 @@ def get_all_languages():
             country_name = QLocale(locale_name).nativeCountryName().title()
             all_languages.append((locale_name, native_lang_name, country_name))
         except:
-            log.warning('Failed to parse language for %s' % locale_name)
+            log.debug('Failed to parse language for %s', locale_name)
 
     # Return list
     return all_languages
