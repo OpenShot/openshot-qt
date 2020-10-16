@@ -103,9 +103,20 @@ function drawAudio(scope, clip_id) {
       max = 0.0,
       last_x = 0;
 
+    // Ensure that the waveform canvas doesn't exceed its max
+    // dimensions, even if it means we can't draw the full audio.
+    // (If we try to go over the max width, the whole canvas disappears)
+    var final_sample = end_sample;
+    var audio_width = (end_sample - start_sample) / sample_divisor;
+    var usable_width = scope.canvasMaxWidth(audio_width);
+    if (audio_width > usable_width) {
+      // Just go as far as we can, then cut off the remaining waveform
+      final_sample = (usable_width * sample_divisor) - 1;
+    }
+
     // Go through all of the (reduced) samples
     // And whenever enough are "collected", draw a block
-    for (var i = start_sample; i < end_sample; i++) {
+    for (var i = start_sample; i < final_sample; i++) {
       // Flip negative values up
       sample = Math.abs(clip.audio_data[i]);
       // X-Position of *next* sample
@@ -115,7 +126,7 @@ function drawAudio(scope, clip_id) {
       avg_cnt++;
       max = Math.max(max, sample);
 
-      if (x >= last_x + block_width || i === end_sample - 1) {
+      if (x >= last_x + block_width || i === final_sample - 1) {
         // Block wide enough or last block -> draw it
 
         // Draw the slightly transparent max-bar

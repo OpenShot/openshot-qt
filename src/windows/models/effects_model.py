@@ -107,10 +107,13 @@ class EffectsModel(QObject):
                 category = "Video"
 
             # Filter out effect (if needed)
-            if win.effectsFilter.text() != "":
-                if (not win.effectsFilter.text().lower() in self.app._tr(title).lower()
-                   and not win.effectsFilter.text().lower() in self.app._tr(description).lower()):
-                    continue
+            if (
+                win.effectsFilter.text() != ""
+                and win.effectsFilter.text().lower() not in self.app._tr(title).lower()
+                and win.effectsFilter.text().lower() not in self.app._tr(description).lower()
+            ):
+                continue
+
 
             # Check for thumbnail path (in build-in cache)
             thumb_path = os.path.join(info.IMAGES_PATH, "cache", icon_name)

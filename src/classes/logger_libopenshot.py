@@ -34,6 +34,9 @@ import zmq
 
 
 class LoggerLibOpenShot(Thread):
+    def __init__(self):
+        super().__init__()
+        self.daemon = True
 
     def kill(self):
         self.running = False
@@ -74,10 +77,8 @@ class LoggerLibOpenShot(Thread):
 
             # Receive all debug message sent from libopenshot (if any)
             socks = dict(poller.poll(1000))
-            if socks:
-                if socks.get(socket) == zmq.POLLIN:
-                    msg = socket.recv(zmq.NOBLOCK)
+            if socks and socks.get(socket) == zmq.POLLIN:
+                msg = socket.recv(zmq.NOBLOCK)
 
-            # Log the message (if any)
             if msg:
                 log.info(msg.strip().decode('UTF-8'))
