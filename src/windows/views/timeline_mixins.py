@@ -156,13 +156,12 @@ class TimelineQtWebEngineMixin(TimelineBaseMixin, QWebEngineView):
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""
-        html = open(self.html_path, 'r', encoding='utf-8').read()
-        html = html.replace('{{MIXIN_JS_INCLUDE}}',
-        '''
-                <script type="text/javascript" src="js/qwebchannel.js"></script>
-                <script type="text/javascript" src="js/mixin_webengine.js"></script>
-
-        ''')
+        with open(self.html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        html = html.replace('<!--MIXIN_JS_INCLUDE-->',
+            """
+            <script type="text/javascript" src="js/mixin_webengine.js"></script>
+            """)
         return html
 
     def keyPressEvent(self, event):
@@ -232,12 +231,12 @@ class TimelineQtWebKitMixin(TimelineBaseMixin, QWebView):
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""
-        html = open(self.html_path, 'r', encoding='utf-8').read()
-        html = html.replace('{{MIXIN_JS_INCLUDE}}',
-        '''
-                <script type="text/javascript" src="js/mixin_webkit.js"></script>
-
-        ''')
+        with open(self.html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        html = html.replace('<!--MIXIN_JS_INCLUDE-->',
+            """
+            <script type="text/javascript" src="js/mixin_webkit.js"></script>
+            """)
         return html
 
     def keyPressEvent(self, event):

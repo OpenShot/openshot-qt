@@ -2769,7 +2769,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # QTimer for Autosave
         self.auto_save_timer = QTimer(self)
-        self.auto_save_timer.setInterval(s.get("autosave-interval") * 1000 * 60)
+        self.auto_save_timer.setInterval(int(s.get("autosave-interval") * 1000 * 60))
         self.auto_save_timer.timeout.connect(self.auto_save_project)
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()

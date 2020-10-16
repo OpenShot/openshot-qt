@@ -473,7 +473,7 @@ class Preferences(QDialog):
 
         if param["setting"] == "autosave-interval":
             # Update autosave interval (# of minutes)
-            get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
+            get_app().window.auto_save_timer.setInterval(int(value * 1000 * 60))
 
         elif param["setting"] == "omp_threads_number":
             openshot.Settings.Instance().OMP_THREADS = max(2,int(str(value)))
