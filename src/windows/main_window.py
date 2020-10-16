@@ -47,9 +47,12 @@ from classes import info, ui_util, openshot_rc, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
-from classes.query import File, Clip, Transition, Marker, Track
-from classes.metrics import *
-from classes.version import *
+from classes.query import Clip, Transition, Marker, Track
+from classes.metrics import (
+    track_metric_session, track_metric_screen,
+    track_metric_error, track_exception_stacktrace,
+    )
+from classes.version import get_current_Version
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
 from windows.models.files_model import FilesModel
@@ -753,7 +756,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         )
         return bool(ret == QMessageBox.Yes)
 
-    def actionAdd_to_Timeline_trigger(self, event):
+    def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files
         files = self.selected_files()
 
@@ -776,7 +779,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('canceled')
 
-    def actionExportVideo_trigger(self, event):
+    def actionExportVideo_trigger(self, checked=True):
         # show window
         from windows.export import Export
         win = Export()
@@ -787,37 +790,37 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('Export Video add cancelled')
 
-    def actionExportEDL_trigger(self, event):
+    def actionExportEDL_trigger(self, checked=True):
         """Export EDL File"""
         export_edl()
 
-    def actionExportFCPXML_trigger(self, event):
+    def actionExportFCPXML_trigger(self, checked=True):
         """Export XML (Final Cut Pro) File"""
         export_xml()
 
-    def actionImportEDL_trigger(self, event):
+    def actionImportEDL_trigger(self, checked=True):
         """Import EDL File"""
         import_edl()
 
-    def actionImportFCPXML_trigger(self, event):
+    def actionImportFCPXML_trigger(self, checked=True):
         """Import XML (Final Cut Pro) File"""
         import_xml()
 
-    def actionUndo_trigger(self, event):
+    def actionUndo_trigger(self, checked=True):
         log.info('actionUndo_trigger')
         get_app().updates.undo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
-    def actionRedo_trigger(self, event):
+    def actionRedo_trigger(self, checked=True):
         log.info('actionRedo_trigger')
         get_app().updates.redo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
-    def actionPreferences_trigger(self, event):
+    def actionPreferences_trigger(self, checked=True):
         # Stop preview thread
         self.SpeedSignal.emit(0)
         ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
@@ -843,74 +846,74 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
-    def actionFilesShowAll_trigger(self, event):
+    def actionFilesShowAll_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowVideo_trigger(self, event):
+    def actionFilesShowVideo_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowAudio_trigger(self, event):
+    def actionFilesShowAudio_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowImage_trigger(self, event):
+    def actionFilesShowImage_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionTransitionsShowAll_trigger(self, event):
+    def actionTransitionsShowAll_trigger(self, checked=True):
         self.refreshTransitionsSignal.emit()
 
-    def actionTransitionsShowCommon_trigger(self, event):
+    def actionTransitionsShowCommon_trigger(self, checked=True):
         self.refreshTransitionsSignal.emit()
 
-    def actionHelpContents_trigger(self, event):
+    def actionHelpContents_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the online help")
             log.error("Unable to open the Help Contents", exc_info=1)
 
-    def actionAbout_trigger(self, event):
+    def actionAbout_trigger(self, checked=True):
         """Show about dialog"""
         from windows.about import About
         win = About()
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 
-    def actionReportBug_trigger(self, event):
+    def actionReportBug_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
             log.error("Unable to open the Bug Report page", exc_info=1)
 
-    def actionAskQuestion_trigger(self, event):
+    def actionAskQuestion_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
             log.error("Unable to open the subreddit page", exc_info=1)
 
-    def actionTranslate_trigger(self, event):
+    def actionTranslate_trigger(self, checked=True):
         try:
             webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
             log.error("Unable to open the translation page", exc_info=1)
 
-    def actionDonate_trigger(self, event):
+    def actionDonate_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
             log.error("Unable to open the donation page", exc_info=1)
 
-    def actionUpdate_trigger(self, event):
+    def actionUpdate_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
-    def actionPlay_trigger(self, event, force=None):
+    def actionPlay_trigger(self, checked, force=None):
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
@@ -926,7 +929,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
             self.PauseSignal.emit()
 
-    def actionPreview_File_trigger(self, event):
+    def actionPreview_File_trigger(self, checked=True):
         """ Preview the selected media file """
         log.info('actionPreview_File_trigger')
 
@@ -964,7 +967,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         """ Enable / Disable follow mode """
         self.timeline.SetPlayheadFollow(enable_follow)
 
-    def actionFastForward_trigger(self, event):
+    def actionFastForward_trigger(self, checked=True):
 
         # Get the video player object
         player = self.preview_thread.player
@@ -977,7 +980,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
 
-    def actionRewind_trigger(self, event):
+    def actionRewind_trigger(self, checked=True):
 
         # Get the video player object
         player = self.preview_thread.player
@@ -990,20 +993,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
 
-    def actionJumpStart_trigger(self, event):
+    def actionJumpStart_trigger(self, checked=True):
         log.info("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
-    def actionJumpEnd_trigger(self, event):
+    def actionJumpEnd_trigger(self, checked=True):
         log.info("actionJumpEnd_trigger")
 
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
         self.SeekSignal.emit(max_frame)
 
-    def actionSaveFrame_trigger(self, event):
+    def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
 
         # Translate object
@@ -1158,7 +1161,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             " (inserted {} at {})".format(insert_num, insert_at) if insert_at else "")
         )
 
-    def actionAddTrack_trigger(self, event):
+    def actionAddTrack_trigger(self, checked=True):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
@@ -1171,7 +1174,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
-    def actionAddTrackAbove_trigger(self, event):
+    def actionAddTrackAbove_trigger(self, checked=True):
         # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
@@ -1218,7 +1221,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionAddTrackBelow_trigger(self, event):
+    def actionAddTrackBelow_trigger(self, checked=True):
         # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
@@ -1268,23 +1271,23 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionArrowTool_trigger(self, event):
+    def actionArrowTool_trigger(self, checked=True):
         log.info("actionArrowTool_trigger")
 
-    def actionSnappingTool_trigger(self, event):
+    def actionSnappingTool_trigger(self, checked=True):
         log.info("actionSnappingTool_trigger")
 
         # Enable / Disable snapping mode
         self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
 
-    def actionRazorTool_trigger(self, event):
+    def actionRazorTool_trigger(self, checked=True):
         """Toggle razor tool on and off"""
         log.info('actionRazorTool_trigger')
 
         # Enable / Disable razor mode
-        self.timeline.SetRazorMode(self.actionRazorTool.isChecked())
+        self.timeline.SetRazorMode(checked)
 
-    def actionAddMarker_trigger(self, event):
+    def actionAddMarker_trigger(self, checked=True):
         log.info("actionAddMarker_trigger")
 
         # Get player object
@@ -1301,7 +1304,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         marker = Marker()
         marker.data = {"position": position, "icon": "blue.png"}
         marker.save()
-
 
     def findAllMarkerPositions(self):
         """Build and return a list of all seekable locations for the currently-selected timeline elements"""
@@ -1322,15 +1324,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             positions.append(clip_stop_time)
 
             # add all keyframes
-            for property in obj.data :
-                try :
-                    for point in obj.data[property]["Points"] :
+            for property in obj.data:
+                try:
+                    for point in obj.data[property]["Points"]:
                         keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
-                        if keyframe_time > clip_start_time and keyframe_time < clip_stop_time :
+                        if clip_start_time < keyframe_time < clip_stop_time:
                             positions.append(keyframe_time)
                 except (TypeError, KeyError):
                     pass
-
 
             # Add all Effect keyframes
             if "effects" in obj.data:
@@ -1339,14 +1340,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                         try:
                             for point in effect_data[property]["Points"]:
                                 keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
-                                if keyframe_time > clip_start_time and keyframe_time < clip_stop_time:
+                                if clip_start_time < keyframe_time < clip_stop_time:
                                     positions.append(keyframe_time)
                         except (TypeError, KeyError):
                             pass
 
             return positions
 
-        all_marker_positions = []
+        # We can always jump to the beginning of the timeline
+        all_marker_positions = [0]
+
+        # If nothing is selected, also add the end of the last clip
+        if not self.selected_clips + self.selected_transitions:
+            all_marker_positions.append(
+                get_app().window.timeline_sync.timeline.GetMaxTime())
 
         # Get list of marker and important positions (like selected clip bounds)
         for marker in Marker.filter():
@@ -1371,7 +1378,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         return all_marker_positions
 
-    def actionPreviousMarker_trigger(self, event):
+    def actionPreviousMarker_trigger(self, checked=True):
         log.info("actionPreviousMarker_trigger")
 
         # Calculate current position (in seconds)
@@ -1403,7 +1410,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
-    def actionNextMarker_trigger(self, event):
+    def actionNextMarker_trigger(self, checked=True):
         log.info("actionNextMarker_trigger")
 
         # Calculate current position (in seconds)
@@ -1435,7 +1442,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
-    def actionCenterOnPlayhead_trigger(self, event):
+    def actionCenterOnPlayhead_trigger(self, checked=True):
         """ Center the timeline on the current playhead position """
         self.timeline.centerOnPlayhead()
 
