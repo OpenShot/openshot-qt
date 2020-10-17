@@ -38,7 +38,7 @@ from copy import deepcopy
 
 from PyQt5.QtCore import (
     Qt, pyqtSignal, QCoreApplication,
-    QTimer, QDateTime, QFileInfo,
+    QTimer, QDateTime, QFileInfo, QUrl,
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
 from PyQt5.QtWidgets import (
