@@ -2663,11 +2663,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def show_property_timeout(self):
         """Callback for show property timer"""
 
-        # Stop timer
-        self.show_property_timer.stop()
-
         # Emit load properties signal
-        self.propertyTableView.loadProperties.emit(self.show_property_id, self.show_property_type)
+        self.propertyTableView.loadProperties.emit(
+            self.show_property_id,
+            self.show_property_type)
 
     def InitKeyboardShortcuts(self):
         """Initialize all keyboard shortcuts from the settings file"""
@@ -2897,8 +2896,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.show_property_type = None
         self.show_property_timer = QTimer()
         self.show_property_timer.setInterval(100)
+        self.show_property_timer.setSingleShot(True)
         self.show_property_timer.timeout.connect(self.show_property_timeout)
-        self.show_property_timer.stop()
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()

@@ -705,9 +705,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def delayed_resize_callback(self):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
-        # Stop timer
-        self.delayed_resize_timer.stop()
-
         # Ensure width & height are divisible by 2 (round decimals).
         # Trying to find the closest even number to the requested aspect ratio
         # so that both width and height are divisible by 2. This is to prevent some
@@ -823,8 +820,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.delayed_size = None
         self.delayed_resize_timer = QTimer()
         self.delayed_resize_timer.setInterval(200)
+        self.delayed_resize_timer.setSingleShot(True)
         self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
-        self.delayed_resize_timer.stop()
 
         # Connect to signals
         self.win.TransformSignal.connect(self.transformTriggered)
