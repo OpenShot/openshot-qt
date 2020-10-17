@@ -287,7 +287,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                     file_data["media_type"] = "video"
 
                 # Save new file to the project data
-                new_ile = File()
+                new_file = File()
                 new_file.data = file_data
 
                 # Is this an image sequence / animation?
