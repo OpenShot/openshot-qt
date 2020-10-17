@@ -755,22 +755,27 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionImportFiles_trigger(self, event):
         app = get_app()
         _ = app._tr
+
         recommended_path = app.project.get("import_path")
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
-        files = QFileDialog.getOpenFileNames(self, _("Import File..."), recommended_path)[0]
+
+        qurl_list = QFileDialog.getOpenFileUrls(
+            self, _("Import Files..."),
+            QUrl.fromLocalFile(recommended_path))[0]
 
         # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
-        # Import list of files
-        self.files_model.add_files(files)
+        try:
+            # Import list of files
+            self.files_model.process_urls(qurl_list)
 
-        # Restore cursor
-        get_app().restoreOverrideCursor()
-
-        # Refresh files views
-        self.refreshFilesSignal.emit()
+            # Refresh files views
+            self.refreshFilesSignal.emit()
+        finally:
+            # Restore cursor
+            app.restoreOverrideCursor()
 
     def invalidImage(self, filename=None):
         """ Show a popup when an image file can't be loaded """
@@ -1387,9 +1392,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Add all Effect keyframes
             if "effects" in obj.data:
                 for effect_data in obj.data["effects"]:
-                    for property in effect_data:
+                    for prop in effect_data:
                         try:
-                            for point in effect_data[property]["Points"]:
+                            for point in effect_data[prop]["Points"]:
                                 keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
                                 if clip_start_time < keyframe_time < clip_stop_time:
                                     positions.append(keyframe_time)
@@ -1773,12 +1778,12 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             if not f:
                 continue
 
-            id = f.data["id"]
+            f_id = f.data["id"]
             # Remove file
             f.delete()
 
             # Find matching clips (if any)
-            clips = Clip.filter(file_id=id)
+            clips = Clip.filter(file_id=f_id)
             for c in clips:
                 # Remove clip
                 c.delete()
@@ -2084,14 +2089,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 dock.show()
 
     def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen.
+        """ Freeze all dockable widgets on the main screen
             (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
 
     def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen.
+        """ Un-freeze all dockable widgets on the main screen
             (allow them to be closed, floated, or moved, as appropriate) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
@@ -2393,7 +2398,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if s.get('window_geometry_v2'):
             self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
         if s.get('docks_frozen'):
-            """ Freeze all dockable widgets on the main screen """
+            # Freeze all dockable widgets on the main screen
             self.freezeDocks()
             self.actionFreeze_View.setVisible(False)
             self.actionUn_Freeze_View.setVisible(True)
