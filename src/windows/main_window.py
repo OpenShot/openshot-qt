@@ -2090,7 +2090,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
     def freezeDocks(self):
         """ Freeze all dockable widgets on the main screen
-            prevent them being closed, floated, or moved) """
+            (prevent them being closed, floated, or moved) """
         for dock in self.getDocks():
             if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 dock.setFeatures(QDockWidget.NoDockWidgetFeatures)

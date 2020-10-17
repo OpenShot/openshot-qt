@@ -437,9 +437,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                 log.info("Recursively importing {}".format(filepath))
                 try:
                     for r, _, f in os.walk(filepath):
-                        media_paths.extend([
-                            os.path.join(r, p) for p in f
-                            ])
+                        media_paths.extend(
+                            [os.path.join(r, p) for p in f])
                 except OSError:
                     log.warning("Directory recursion failed", exc_info=1)
             elif os.path.isfile(filepath):
