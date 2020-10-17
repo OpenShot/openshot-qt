@@ -140,9 +140,9 @@ class Preferences(QDialog):
             if sort_category:
                 self.category_sort[category] = sort_category
 
-            if not setting_type == "hidden":
+            if setting_type != "hidden":
                 # Load setting
-                if not category in self.category_names:
+                if category not in self.category_names:
                     self.category_names[category] = []
 
                     # Create scrollarea
@@ -473,7 +473,7 @@ class Preferences(QDialog):
 
         if param["setting"] == "autosave-interval":
             # Update autosave interval (# of minutes)
-            get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
+            get_app().window.auto_save_timer.setInterval(int(value * 1000 * 60))
 
         elif param["setting"] == "omp_threads_number":
             openshot.Settings.Instance().OMP_THREADS = max(2,int(str(value)))

@@ -127,11 +127,6 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         log.error(msg_format % args)
 
     def do_GET(self):
-        # Pause processing of request (since we don't currently use thread pooling, this allows
-        # the threads to be processed without choking the CPU as much
-        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
-        time.sleep(0.01)
-
         """ Process each GET request and return a value (image or file path)"""
         # Parse URL
         url_output = REGEX_THUMBNAIL_URL.match(self.path)
@@ -196,4 +191,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 self.wfile.write(open(thumb_path, 'rb').read())
             else:
                 self.wfile.write(bytes(thumb_path, "utf-8"))
-        return
+
+        # Pause processing of request (since we don't currently use thread pooling, this allows
+        # the threads to be processed without choking the CPU as much
+        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
+        time.sleep(0.01)
+

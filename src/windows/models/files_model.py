@@ -30,6 +30,7 @@ import os
 import json
 import re
 import glob
+import functools
 
 from PyQt5.QtCore import (
     QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
@@ -69,15 +70,12 @@ class FileFilterProxyModel(QSortFilterProxyModel):
             index = self.sourceModel().index(sourceRow, 2, sourceParent)
             tags = self.sourceModel().data(index)  # tags (i.e. intro, custom, etc...)
 
-            if get_app().window.actionFilesShowVideo.isChecked():
-                if not media_type == "video":
-                    return False
-            elif get_app().window.actionFilesShowAudio.isChecked():
-                if not media_type == "audio":
-                    return False
-            elif get_app().window.actionFilesShowImage.isChecked():
-                if not media_type == "image":
-                    return False
+            if any([
+                get_app().window.actionFilesShowVideo.isChecked() and media_type != "video",
+                get_app().window.actionFilesShowAudio.isChecked() and media_type != "audio",
+                get_app().window.actionFilesShowImage.isChecked() and media_type != "image",
+            ]):
+                return False
 
             # Match against regex pattern
             return self.filterRegExp().indexIn(file_name) >= 0 or self.filterRegExp().indexIn(tags) >= 0
@@ -129,7 +127,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 self.update_model(clear=True)
 
     def update_model(self, clear=True, delete_file_id=None):
-        log.info("updating files model.")
+        log.debug("updating files model.")
         app = get_app()
 
         self.ignore_updates = True
@@ -194,7 +192,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 thumb_path = self.get_thumb_path(file.id, thumbnail_frame)
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
 
             row = []
 
@@ -249,7 +247,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
-    def add_files(self, files, image_seq_details=None):
+    def add_files(self, files, image_seq_details=None, quiet=False):
         # Access translations
         app = get_app()
         _ = app._tr
@@ -262,11 +260,12 @@ class FilesModel(QObject, updates.UpdateInterface):
             (dir_path, filename) = os.path.split(filepath)
 
             # Check for this path in our existing project data
-            file = File.get(path=filepath)
+            new_file = File.get(path=filepath)
 
             # If this file is already found, exit
-            if file:
-                return
+            if new_file:
+                del new_file
+                continue
 
             try:
                 # Load filepath in libopenshot clip object (which will try multiple readers to open it)
@@ -288,21 +287,19 @@ class FilesModel(QObject, updates.UpdateInterface):
                     file_data["media_type"] = "video"
 
                 # Save new file to the project data
-                file = File()
-                file.data = file_data
-
-                if not image_seq_details:
-                    # Try to discover image sequence, if not supplied
-                    image_seq_details = self.get_image_sequence_details(filepath)
+                new_file = File()
+                new_file.data = file_data
 
                 # Is this an image sequence / animation?
-                if image_seq_details:
+                seq_info = image_seq_details or self.get_image_sequence_details(filepath)
+
+                if seq_info:
                     # Update file with correct path
-                    folder_path = image_seq_details["folder_path"]
-                    base_name = image_seq_details["base_name"]
-                    fixlen = image_seq_details["fixlen"]
-                    digits = image_seq_details["digits"]
-                    extension = image_seq_details["extension"]
+                    folder_path = seq_info["folder_path"]
+                    base_name = seq_info["base_name"]
+                    fixlen = seq_info["fixlen"]
+                    digits = seq_info["digits"]
+                    extension = seq_info["extension"]
 
                     if not fixlen:
                         zero_pattern = "%d"
@@ -316,32 +313,34 @@ class FilesModel(QObject, updates.UpdateInterface):
                     folderName = os.path.basename(folder_path)
                     if not base_name:
                         # Give alternate name
-                        file.data["name"] = "%s (%s)" % (folderName, pattern)
+                        new_file.data["name"] = "%s (%s)" % (folderName, pattern)
 
                     # Load image sequence (to determine duration and video_length)
                     image_seq = openshot.Clip(os.path.join(folder_path, pattern))
 
                     # Update file details
-                    file.data["path"] = os.path.join(folder_path, pattern)
-                    file.data["media_type"] = "video"
-                    file.data["duration"] = image_seq.Reader().info.duration
-                    file.data["video_length"] = image_seq.Reader().info.video_length
+                    new_file.data["path"] = os.path.join(folder_path, pattern)
+                    new_file.data["media_type"] = "video"
+                    new_file.data["duration"] = image_seq.Reader().info.duration
+                    new_file.data["video_length"] = image_seq.Reader().info.video_length
 
                     log.info('Imported {} as image sequence {}'.format(
                         filepath, pattern))
 
                     # Remove any other image sequence files from the list we're processing
                     match_glob = "{}{}.{}".format(base_name, '[0-9]*', extension)
+                    log.debug("Removing files from import list with glob: {}".format(match_glob))
                     for seq_file in glob.iglob(os.path.join(folder_path, match_glob)):
-                        if seq_file in files:
+                        # Don't remove the current file, or we mess up the for loop
+                        if seq_file in files and seq_file != filepath:
                             files.remove(seq_file)
 
-                if not image_seq_details:
+                if not seq_info:
                     # Log our not-an-image-sequence import
                     log.info("Imported media file {}".format(filepath))
 
                 # Save file
-                file.save()
+                new_file.save()
 
                 prev_path = app.project.get("import_path")
                 if dir_path != prev_path:
@@ -351,8 +350,9 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Log exception
                 log.warning("Failed to import {}: {}".format(filepath, ex))
 
-                # Show message box to user
-                app.window.invalidImage(filename)
+                if not quiet:
+                    # Show message box to user
+                    app.window.invalidImage(filename)
 
         # Reset list of ignored paths
         self.ignore_image_sequence_paths = []
@@ -362,6 +362,11 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Get just the file name
         (dirName, fileName) = os.path.split(file_path)
+
+        # Image sequence imports are one per directory per run
+        if dirName in self.ignore_image_sequence_paths:
+            return None
+
         extensions = ["png", "jpg", "jpeg", "gif", "tif", "svg"]
         match = re.findall(r"(.*[^\d])?(0*)(\d+)\.(%s)" % "|".join(extensions), fileName, re.I)
 
@@ -388,34 +393,67 @@ class FilesModel(QObject, updates.UpdateInterface):
         for x in range(max(0, number - 100), min(number + 101, 50000)):
             if x != number and os.path.exists(
                "%s%s.%s" % (full_base_name, str(x).rjust(digits, "0") if fixlen else str(x), extension)):
-                is_sequence = True
-                break
+                break  # found one!
         else:
-            is_sequence = False
+            # We didn't discover an image sequence
+            return None
 
-        if is_sequence and dirName not in self.ignore_image_sequence_paths:
-            log.info('Prompt user to import image sequence from {}'.format(dirName))
-            # Ignore this path (temporarily)
-            self.ignore_image_sequence_paths.append(dirName)
+        # Found a sequence, ignore this path (no matter what the user answers)
+        # To avoid issues with overlapping/conflicting sets of files,
+        # we only attempt one image sequence match per directory
+        log.debug("Ignoring path for image sequence imports: {}".format(dirName))
+        self.ignore_image_sequence_paths.append(dirName)
 
-            if not get_app().window.promptImageSequence(fileName):
-                # User said no, don't import as a sequence
-                return None
+        log.info('Prompt user to import sequence starting from {}'.format(fileName))
+        if not get_app().window.promptImageSequence(fileName):
+            # User said no, don't import as a sequence
+            return None
 
-            # Yes, import image sequence
-            parameters = {
-                "folder_path": dirName,
-                "base_name": base_name,
-                "fixlen": fixlen,
-                "digits": digits,
-                "extension": extension
-            }
-            return parameters
+        # Yes, import image sequence
+        parameters = {
+            "folder_path": dirName,
+            "base_name": base_name,
+            "fixlen": fixlen,
+            "digits": digits,
+            "extension": extension
+        }
+        return parameters
 
-        # We didn't discover an image sequence
-        return None
+    def process_urls(self, qurl_list):
+        """Recursively process QUrls from a QDropEvent"""
+        import_quietly = False
+        media_paths = []
 
-    def get_thumb_path(self, file_id, thumbnail_frame, clear_cache=False):
+        for uri in qurl_list:
+            filepath = uri.toLocalFile()
+            if not os.path.exists(filepath):
+                continue
+            if filepath.endswith(".osp") and os.path.isfile(filepath):
+                # Auto load project passed as argument
+                self.win.OpenProjectSignal.emit(filepath)
+                return True
+            if os.path.isdir(filepath):
+                import_quietly = True
+                log.info("Recursively importing {}".format(filepath))
+                try:
+                    for r, _, f in os.walk(filepath):
+                        media_paths.extend(
+                            [os.path.join(r, p) for p in f])
+                except OSError:
+                    log.warning("Directory recursion failed", exc_info=1)
+            elif os.path.isfile(filepath):
+                media_paths.append(filepath)
+
+        # Import all new media files
+        if media_paths:
+            media_paths.sort()
+            log.debug("Importing file list: {}".format(media_paths))
+            return self.add_files(media_paths, quiet=import_quietly)
+        else:
+            return False
+
+    def get_thumb_path(
+            self, file_id, thumbnail_frame, clear_cache=False):
         """Get thumbnail path by invoking HTTP thumbnail request"""
 
         # Clear thumb cache (if requested)
@@ -426,7 +464,11 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Connect to thumbnail server and get image
         thumb_server_details = get_app().window.http_server_thread.server_address
         thumb_address = "http://%s:%s/thumbnails/%s/%s/path/%s" % (
-        thumb_server_details[0], thumb_server_details[1], file_id, thumbnail_frame, thumb_cache)
+            thumb_server_details[0],
+            thumb_server_details[1],
+            file_id,
+            thumbnail_frame,
+            thumb_cache)
         r = get(thumb_address)
         if r.ok:
             # Update thumbnail path to real one
@@ -522,6 +564,8 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Connect signal
         app.window.FileUpdated.connect(self.update_file_thumbnail)
+        app.window.refreshFilesSignal.connect(
+            functools.partial(self.update_model, clear=False))
 
         # Call init for superclass QObject
         super(QObject, FilesModel).__init__(self, *args)

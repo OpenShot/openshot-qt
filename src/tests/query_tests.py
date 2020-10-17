@@ -28,7 +28,7 @@
 import sys, os
 # Import parent folder (so it can find other imports)
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-if not PATH in sys.path:
+if PATH not in sys.path:
     sys.path.append(PATH)
 
 import random
