@@ -36,6 +36,7 @@ from PyQt5.QtGui import (
     )
 
 from classes import info, updates
+from classes import openshot_rc  # noqa
 from classes.query import Clip, Transition, Effect
 from classes.logger import log
 from classes.app import get_app
@@ -301,9 +302,9 @@ class PropertiesModel(updates.UpdateInterface):
                                 clip_updated = True
                                 # Update point
                                 point["co"]["Y"] = new_value
-                                log.info(
-                                    "updating point: co.X = %s to value: %s"
-                                    % (point["co"]["X"], float(new_value)))
+                                log.debug(
+                                    "updating point: co.X = %d to value: %.3f",
+                                    point["co"]["X"], float(new_value))
                                 break
 
                             elif interpolation > -1 and point["co"]["X"] == previous_point_x:
@@ -316,10 +317,10 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_right"]["X"] = interpolation_details[0]
                                     point["handle_right"]["Y"] = interpolation_details[1]
 
-                                log.info(
-                                    "updating interpolation mode point: co.X = %s to %s"
-                                    % (point["co"]["X"], interpolation))
-                                log.info("use interpolation preset: %s" % str(interpolation_details))
+                                log.debug(
+                                    "updating interpolation mode point: co.X = %d to %d",
+                                    point["co"]["X"], interpolation)
+                                log.debug("use interpolation preset: %s", str(interpolation_details))
 
                             elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                                 # Only update interpolation type (and the RIGHT side of the curve)
@@ -331,18 +332,19 @@ class PropertiesModel(updates.UpdateInterface):
                                     point["handle_left"]["X"] = interpolation_details[2]
                                     point["handle_left"]["Y"] = interpolation_details[3]
 
-                                log.info(
-                                    "updating interpolation mode point: co.X = %s to %s"
-                                    % (point["co"]["X"], interpolation))
-                                log.info("use interpolation preset: %s" % str(interpolation_details))
+                                log.debug(
+                                    "updating interpolation mode point: co.X = %d to %d",
+                                    point["co"]["X"], interpolation)
+                                log.debug("use interpolation preset: %s", str(interpolation_details))
 
                         # Create new point (if needed)
                         if not found_point:
                             clip_updated = True
-                            log.info("Created new point at X=%s" % self.frame_number)
+                            log.debug("Created new point at X=%d", self.frame_number)
                             c.data[property_key][color]["Points"].append({
                                 'co': {'X': self.frame_number, 'Y': new_value},
-                                'interpolation': 1})
+                                'interpolation': 1,
+                                })
 
                 # Reduce # of clip properties we are saving (performance boost)
                 c.data = {property_key: c.data[property_key]}
@@ -437,9 +439,9 @@ class PropertiesModel(updates.UpdateInterface):
                             # Update or delete point
                             if new_value is not None:
                                 point["co"]["Y"] = float(new_value)
-                                log.info(
-                                    "updating point: co.X = %s to value: %s"
-                                    % (point["co"]["X"], float(new_value)))
+                                log.debug(
+                                    "updating point: co.X = %d to value: %.3f",
+                                    point["co"]["X"], float(new_value))
                             else:
                                 point_to_delete = point
                             break
@@ -454,10 +456,10 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_right"]["X"] = interpolation_details[0]
                                 point["handle_right"]["Y"] = interpolation_details[1]
 
-                            log.info(
-                                "updating interpolation mode point: co.X = %s to %s"
-                                % (point["co"]["X"], interpolation))
-                            log.info("use interpolation preset: %s" % str(interpolation_details))
+                            log.debug(
+                                "updating interpolation mode point: co.X = %d to %d",
+                                point["co"]["X"], interpolation)
+                            log.debug("use interpolation preset: %s", str(interpolation_details))
 
                         elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                             # Only update interpolation type (and the RIGHT side of the curve)
@@ -469,10 +471,10 @@ class PropertiesModel(updates.UpdateInterface):
                                 point["handle_left"]["X"] = interpolation_details[2]
                                 point["handle_left"]["Y"] = interpolation_details[3]
 
-                            log.info(
-                                "updating interpolation mode point: co.X = %s to %s"
-                                % (point["co"]["X"], interpolation))
-                            log.info("use interpolation preset: %s" % str(interpolation_details))
+                            log.debug(
+                                "updating interpolation mode point: co.X = %d to %d",
+                                point["co"]["X"], interpolation)
+                            log.debug("use interpolation preset: %s", str(interpolation_details))
 
                     # Delete point (if needed)
                     if point_to_delete:
@@ -483,7 +485,7 @@ class PropertiesModel(updates.UpdateInterface):
                     # Create new point (if needed)
                     elif not found_point and new_value is not None:
                         clip_updated = True
-                        log.info("Created new point at X=%s" % self.frame_number)
+                        log.debug("Created new point at X=%d", self.frame_number)
                         c.data[property_key]["Points"].append({
                             'co': {'X': self.frame_number, 'Y': new_value},
                             'interpolation': 1})
