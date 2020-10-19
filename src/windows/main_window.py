@@ -106,7 +106,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
     ExportStarted = pyqtSignal(str, int, int)
-    ExportFrame = pyqtSignal(str, int, int, int)
+    ExportFrame = pyqtSignal(str, int, int, int, str)
     ExportEnded = pyqtSignal(str)
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
