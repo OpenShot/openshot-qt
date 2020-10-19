@@ -38,7 +38,7 @@ from copy import deepcopy
 
 from PyQt5.QtCore import (
     Qt, pyqtSignal, QCoreApplication,
-    QTimer, QDateTime, QFileInfo,
+    QTimer, QDateTime, QFileInfo, QUrl,
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
 from PyQt5.QtWidgets import (
@@ -2303,7 +2303,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
                 item_id, item_type, clear_existing))
-            
+
         s = settings.get_settings()
 
         # Clear existing selection (if needed)
