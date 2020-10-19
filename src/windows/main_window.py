@@ -51,7 +51,8 @@ from PyQt5.QtWidgets import (
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from windows.views.timeline_webview import TimelineWebView
-from classes import info, ui_util, openshot_rc, settings, qt_types, updates
+from classes import info, ui_util, settings, qt_types, updates
+from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
@@ -760,9 +761,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not recommended_path or not os.path.exists(recommended_path):
             recommended_path = os.path.join(info.HOME_PATH)
 
+        # PyQt through 5.13.0 had the 'directory' argument mis-typed as str
+        if get_app().pyqt_version < '5.13.1':
+            dir_type = "str"
+            start_location = str(recommended_path)
+        else:
+            dir_type = "QUrl"
+            start_location = QUrl.fromLocalFile(recommended_path)
+
+        log.debug("Calling getOpenFileURLs() with %s directory argument", dir_type)
         qurl_list = QFileDialog.getOpenFileUrls(
-            self, _("Import Files..."),
-            QUrl.fromLocalFile(recommended_path))[0]
+            self,
+            _("Import Files..."),
+            start_location,
+            )[0]
 
         # Set cursor to waiting
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
