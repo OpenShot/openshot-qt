@@ -37,7 +37,7 @@ from uuid import uuid4
 from copy import deepcopy
 
 from PyQt5.QtCore import (
-    Qt, pyqtSignal, QCoreApplication,
+    Qt, pyqtSignal, QCoreApplication, PYQT_VERSION_STR,
     QTimer, QDateTime, QFileInfo, QUrl,
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence
@@ -762,7 +762,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             recommended_path = os.path.join(info.HOME_PATH)
 
         # PyQt through 5.13.0 had the 'directory' argument mis-typed as str
-        if get_app().pyqt_version < '5.13.1':
+        if PYQT_VERSION_STR < '5.13.1':
             dir_type = "str"
             start_location = str(recommended_path)
         else:
