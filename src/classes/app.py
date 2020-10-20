@@ -32,7 +32,6 @@ import os
 import platform
 import sys
 import traceback
-from distutils.version import LooseVersion
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
@@ -130,10 +129,6 @@ class OpenShotApp(QApplication):
         # Init settings
         self.settings = settings.SettingStore()
         self.settings.load()
-
-        # Set up distutils Version instance for PyQt version checks
-        self.pyqt_version = LooseVersion(PYQT_VERSION_STR)
-        log.debug("Stored PyQt version as %s", repr(self.pyqt_version))
 
         # Init and attach exception handler
         from classes import exceptions
