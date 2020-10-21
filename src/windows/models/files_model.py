@@ -443,14 +443,12 @@ class FilesModel(QObject, updates.UpdateInterface):
                     log.warning("Directory recursion failed", exc_info=1)
             elif os.path.isfile(filepath):
                 media_paths.append(filepath)
-
+        if not media_paths:
+            return
         # Import all new media files
-        if media_paths:
-            media_paths.sort()
-            log.debug("Importing file list: {}".format(media_paths))
-            return self.add_files(media_paths, quiet=import_quietly)
-        else:
-            return False
+        media_paths.sort()
+        log.debug("Importing file list: {}".format(media_paths))
+        self.add_files(media_paths, quiet=import_quietly)
 
     def get_thumb_path(
             self, file_id, thumbnail_frame, clear_cache=False):
