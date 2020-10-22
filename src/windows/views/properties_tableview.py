@@ -30,7 +30,9 @@ from functools import partial
 from operator import itemgetter
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QObject, QTimer
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
+from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, \
+    QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, \
+    QHBoxLayout, QFrame, QFontDialog
 
 from classes.logger import log
 from classes.app import get_app
@@ -316,7 +318,38 @@ class PropertiesTableView(QTableView):
                                                  QColorDialog.DontUseNativeDialog)
 
                 # Set the new color keyframe
-                self.clip_properties_model.color_update(self.selected_item, newColor)
+                if newColor.isValid():
+                    self.clip_properties_model.color_update(self.selected_item, newColor)
+
+            elif property_type == "font":
+                # Get font from user
+                current_font_name = cur_property[1].get("memo", "sans")
+                current_font = QFont(current_font_name)
+                font, ok = QFontDialog.getFont(current_font, caption=("Change Font"))
+
+                # Update font
+                if ok and font:
+                    fontinfo = QFontInfo(font)
+                    # TODO: pass font details to value_updated so we can set multiple values
+                    font_details = { "font_family": fontinfo.family(),
+                                     "font_style": fontinfo.styleName(),
+                                     "font_weight": fontinfo.weight(),
+                                     "font_size_pixel": fontinfo.pixelSize() }
+                    self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
+
+    def caption_text_updated(self, new_caption_text, caption_model_row):
+        """Caption text has been updated in the caption editor, and needs saving"""
+        if not caption_model_row:
+            # Ignore blank selections
+            return
+
+        # Get data model and selection
+        cur_property = caption_model_row[0].data()
+        property_type = cur_property[1]["type"]
+
+        # Save caption text
+        if property_type == "caption" and cur_property[1].get('memo') != new_caption_text:
+            self.clip_properties_model.value_updated(caption_model_row[1], value=new_caption_text)
 
     def select_item(self, item_id, item_type):
         """ Update the selected item in the properties window """
@@ -437,6 +470,34 @@ class PropertiesTableView(QTableView):
                     track_name = track.get("label") or _("Track %s") % display_count
                     self.choices.append({"name": track_name, "value": track.get("number"), "selected": False})
                     display_count -= 1
+
+            elif self.property_type == "font":
+                # Get font from user
+                current_font_name = cur_property[1].get("memo", "sans")
+                current_font = QFont(current_font_name)
+                font, ok = QFontDialog.getFont(current_font, caption=("Change Font"))
+
+                # Update font
+                if ok and font:
+                    fontinfo = QFontInfo(font)
+                    self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
+                return self.contextMenuEvent(event, release=True)
+
+            elif self.property_type == "color":
+                # Get current value of color
+                red = cur_property[1]["red"]["value"]
+                green = cur_property[1]["green"]["value"]
+                blue = cur_property[1]["blue"]["value"]
+
+                # Show color dialog
+                currentColor = QColor(red, green, blue)
+                newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
+                                                 QColorDialog.DontUseNativeDialog)
+
+                # Set the new color keyframe
+                if newColor.isValid():
+                    self.clip_properties_model.color_update(self.selected_item, newColor)
+                return self.contextMenuEvent(event, release=True)
 
             # Define bezier presets
             bezier_presets = [
@@ -648,6 +709,7 @@ class PropertiesTableView(QTableView):
         get_app().window.InsertKeyframe.connect(self.Insert_Action_Triggered)
         self.doubleClicked.connect(self.doubleClickedCB)
         self.loadProperties.connect(self.select_item)
+        get_app().window.CaptionTextUpdated.connect(self.caption_text_updated)
 
 
 class SelectionLabel(QFrame):
