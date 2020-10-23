@@ -1051,17 +1051,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPlay.trigger()
 
     def actionRewind_trigger(self, checked=True):
-
         # Get the video player object
         player = self.preview_thread.player
 
-        if player.Speed() - 1 != 0:
-            self.SpeedSignal.emit(player.Speed() - 1)
-        else:
-            self.SpeedSignal.emit(player.Speed() - 2)
+        new_speed = player.Speed() - 1
+        if new_speed == 0:
+            new_speed -= 1
+        log.debug("Setting speed to %s", new_speed)
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
+        self.SpeedSignal.emit(new_speed)
 
     def actionJumpStart_trigger(self, checked=True):
         log.info("actionJumpStart_trigger")
