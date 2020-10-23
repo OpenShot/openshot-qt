@@ -189,43 +189,43 @@ class FilesModel(QObject, updates.UpdateInterface):
                     thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
                 # Get thumb path
-                thumb_path = self.get_thumb_path(file.id, thumbnail_frame)
+                thumb_icon = QIcon(self.get_thumb_path(file.id, thumbnail_frame))
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
+                thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
 
             row = []
+            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt. ItemNeverHasChildren
 
             # Append thumbnail
-            col = QStandardItem(name)
-            col.setIcon(QIcon(thumb_path))
+            col = QStandardItem(thumb_icon, name)
             col.setToolTip(filename)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled)
+            col.setFlags(flags)
             row.append(col)
 
             # Append Filename
             col = QStandardItem(name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
+            col.setFlags(flags | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Tags
             col = QStandardItem(tags)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
+            col.setFlags(flags | Qt.ItemIsEditable)
             row.append(col)
 
             # Append Media Type
             col = QStandardItem(media_type)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsEditable)
+            col.setFlags(flags)
             row.append(col)
 
             # Append Path
             col = QStandardItem(path)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(flags)
             row.append(col)
 
             # Append ID
             col = QStandardItem(id)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(flags | Qt.ItemIsUserCheckable)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
@@ -256,7 +256,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         if not isinstance(files, (list, tuple)):
             files = [files]
 
-        for filepath in files:
+        start_count = len(files)
+        for count, filepath in enumerate(files):
             (dir_path, filename) = os.path.split(filepath)
 
             # Check for this path in our existing project data
@@ -342,6 +343,16 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Save file
                 new_file.save()
 
+                if start_count > 15:
+                    message = _("Importing %(count)d / %(total)d") % {
+                            "count": count,
+                            "total": len(files) - 1
+                            }
+                    app.window.statusBar.showMessage(message, 15000)
+
+                # Let the event loop run to update the status bar
+                get_app().processEvents()
+
                 prev_path = app.project.get("import_path")
                 if dir_path != prev_path:
                     app.updates.update_untracked(["import_path"], dir_path)
@@ -356,6 +367,9 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Reset list of ignored paths
         self.ignore_image_sequence_paths = []
+
+        message = _("Imported %(count)d files") % {"count": len(files) - 1}
+        app.window.statusBar.showMessage(message, 3000)
 
     def get_image_sequence_details(self, file_path):
         """Inspect a file path and determine if this is an image sequence"""
