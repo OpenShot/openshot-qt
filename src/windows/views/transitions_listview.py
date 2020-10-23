@@ -49,7 +49,7 @@ class TransitionsListView(QListView):
         # Ignore event, propagate to parent
         event.ignore()
 
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
         # Get first column indexes for all selected rows

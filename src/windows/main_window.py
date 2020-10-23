@@ -139,7 +139,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
-                self.actionSave_trigger(event)
+                self.actionSave_trigger()
                 event.accept()
             elif ret == QMessageBox.Cancel:
                 # Show tutorial again, if any
@@ -355,7 +355,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 return lines[-to_read:offset and -offset or None]
             avg_line_length *= 2
 
-    def actionNew_trigger(self, event):
+    def actionNew_trigger(self):
 
         app = get_app()
         _ = app._tr  # Get translation function
@@ -369,7 +369,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
-                self.actionSave_trigger(event)
+                self.actionSave_trigger()
             elif ret == QMessageBox.Cancel:
                 # User canceled prompt
                 return
@@ -395,7 +395,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Seek to frame 0
         self.SeekSignal.emit(1)
 
-    def actionAnimatedTitle_trigger(self, event):
+    def actionAnimatedTitle_trigger(self):
         # show dialog
         from windows.animated_title import AnimatedTitle
         win = AnimatedTitle()
@@ -406,7 +406,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('animated title add cancelled')
 
-    def actionAnimation_trigger(self, event):
+    def actionAnimation_trigger(self):
         # show dialog
         from windows.animation import Animation
         win = Animation()
@@ -417,7 +417,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('animation cancelled')
 
-    def actionTitle_trigger(self, event):
+    def actionTitle_trigger(self):
         # show dialog
         from windows.title_editor import TitleEditor
         win = TitleEditor()
@@ -428,7 +428,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('title editor add cancelled')
 
-    def actionEditTitle_trigger(self, event):
+    def actionEditTitle_trigger(self):
 
         # Loop through selected files (set 1 selected file if more than 1)
         for f in self.selected_files():
@@ -461,7 +461,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Update preview
         self.refreshFrameSignal.emit()
 
-    def actionDuplicateTitle_trigger(self, event):
+    def actionDuplicateTitle_trigger(self):
 
         file_path = None
 
@@ -480,7 +480,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
 
-    def actionClearHistory_trigger(self, event):
+    def actionClearHistory_trigger(self):
         """Clear history for current project"""
         project = get_app().project
         project.has_unsaved_changes = True
@@ -623,7 +623,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         except Exception:
             log.info("Failed to clear %s", clear_path, exc_info=1)
 
-    def actionOpen_trigger(self, event):
+    def actionOpen_trigger(self):
         app = get_app()
         _ = app._tr
         recommended_path = app.project.current_filepath
@@ -639,7 +639,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
-                self.actionSave_trigger(event)
+                self.actionSave_trigger()
             elif ret == QMessageBox.Cancel:
                 # User canceled prompt
                 return
@@ -654,7 +654,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Load project file
         self.OpenProjectSignal.emit(file_path)
 
-    def actionSave_trigger(self, event):
+    def actionSave_trigger(self):
         app = get_app()
         _ = app._tr
 
@@ -732,7 +732,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 app.project.current_filepath = None
                 app.project.has_unsaved_changes = True
 
-    def actionSaveAs_trigger(self, event):
+    def actionSaveAs_trigger(self):
         app = get_app()
         _ = app._tr
 
@@ -753,7 +753,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             # Save new project
             self.save_project(file_path)
 
-    def actionImportFiles_trigger(self, event):
+    def actionImportFiles_trigger(self):
         app = get_app()
         _ = app._tr
 
@@ -1554,7 +1554,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Basic shortcuts i.e just a letter
         if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
             # Pause video
-            self.actionPlay_trigger(event, force="pause")
+            self.actionPlay_trigger(force="pause")
             # Set speed to 0
             if player.Speed() != 0:
                 self.SpeedSignal.emit(0)
@@ -1566,7 +1566,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
             # Pause video
-            self.actionPlay_trigger(event, force="pause")
+            self.actionPlay_trigger(force="pause")
             # Set speed to 0
             if player.Speed() != 0:
                 self.SpeedSignal.emit(0)
@@ -1752,7 +1752,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             super(MainWindow, self).keyPressEvent(event)
 
-    def actionProfile_trigger(self, event):
+    def actionProfile_trigger(self):
         # Show dialog
         from windows.profile import Profile
         win = Profile()
@@ -1761,7 +1761,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if result == QDialog.Accepted:
             log.info('Profile add confirmed')
 
-    def actionSplitClip_trigger(self, event):
+    def actionSplitClip_trigger(self):
         log.info("actionSplitClip_trigger")
 
         # Loop through selected files (set 1 selected file if more than 1)
@@ -1782,7 +1782,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('Cutting Cancelled')
 
-    def actionRemove_from_Project_trigger(self, event):
+    def actionRemove_from_Project_trigger(self):
         log.info("actionRemove_from_Project_trigger")
 
         # Loop through selected files
@@ -1803,7 +1803,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
-    def actionRemoveClip_trigger(self, event):
+    def actionRemoveClip_trigger(self):
         log.info('actionRemoveClip_trigger')
 
         # Loop through selected clips
@@ -1820,14 +1820,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
-    def actionProperties_trigger(self, event):
+    def actionProperties_trigger(self):
         log.info('actionProperties_trigger')
 
         # Show properties dock
         if not self.dockProperties.isVisible():
             self.dockProperties.show()
 
-    def actionRemoveEffect_trigger(self, event):
+    def actionRemoveEffect_trigger(self):
         log.info('actionRemoveEffect_trigger')
 
         # Loop through selected clips
@@ -1862,7 +1862,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
-    def actionRemoveTransition_trigger(self, event):
+    def actionRemoveTransition_trigger(self):
         log.info('actionRemoveTransition_trigger')
 
         # Loop through selected clips
@@ -1879,7 +1879,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
-    def actionRemoveTrack_trigger(self, event):
+    def actionRemoveTrack_trigger(self):
         log.info('actionRemoveTrack_trigger')
 
         # Get translation function
@@ -1915,7 +1915,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
-    def actionLockTrack_trigger(self, event):
+    def actionLockTrack_trigger(self):
         """Callback for locking a track"""
         log.info('actionLockTrack_trigger')
 
@@ -1927,7 +1927,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         selected_track.data['lock'] = True
         selected_track.save()
 
-    def actionUnlockTrack_trigger(self, event):
+    def actionUnlockTrack_trigger(self):
         """Callback for unlocking a track"""
         log.info('actionUnlockTrack_trigger')
 
@@ -1939,7 +1939,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         selected_track.data['lock'] = False
         selected_track.save()
 
-    def actionRenameTrack_trigger(self, event):
+    def actionRenameTrack_trigger(self):
         """Callback for renaming track"""
         log.info('actionRenameTrack_trigger')
 
@@ -1966,7 +1966,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             selected_track.data["label"] = text
             selected_track.save()
 
-    def actionRemoveMarker_trigger(self, event):
+    def actionRemoveMarker_trigger(self):
         log.info('actionRemoveMarker_trigger')
 
         for marker_id in self.selected_markers:
@@ -1975,17 +1975,17 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Remove track
                 m.delete()
 
-    def actionTimelineZoomIn_trigger(self, event):
+    def actionTimelineZoomIn_trigger(self):
         self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
 
-    def actionTimelineZoomOut_trigger(self, event):
+    def actionTimelineZoomOut_trigger(self):
         self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
 
-    def actionFullscreen_trigger(self, event):
+    def actionFullscreen_trigger(self):
         # Toggle fullscreen state (current state mask XOR WindowFullScreen)
         self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
 
-    def actionFile_Properties_trigger(self, event):
+    def actionFile_Properties_trigger(self):
         log.info("Show file properties")
 
         # Get current selected file (corresponding to menu, if possible)
@@ -2012,7 +2012,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         else:
             log.info('File Properties Cancelled')
 
-    def actionDetailsView_trigger(self, event):
+    def actionDetailsView_trigger(self):
         log.info("Switch to Details View")
 
         # Get settings
@@ -2040,7 +2040,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.effectsView = self.effectsTreeView
             self.effectsView.show()
 
-    def actionThumbnailView_trigger(self, event):
+    def actionThumbnailView_trigger(self):
         log.info("Switch to Thumbnail View")
 
         # Get settings
@@ -2138,7 +2138,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 continue
             self.docks_menu.addAction(dock.toggleViewAction())
 
-    def actionSimple_View_trigger(self, event):
+    def actionSimple_View_trigger(self):
         """ Switch to the default / simple view  """
         self.removeDocks()
 
@@ -2183,7 +2183,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
 
-    def actionAdvanced_View_trigger(self, event):
+    def actionAdvanced_View_trigger(self):
         """ Switch to an alternative view """
         self.removeDocks()
 
@@ -2228,25 +2228,25 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
 
-    def actionFreeze_View_trigger(self, event):
+    def actionFreeze_View_trigger(self):
         """ Freeze all dockable widgets on the main screen """
         self.freezeDocks()
         self.actionFreeze_View.setVisible(False)
         self.actionUn_Freeze_View.setVisible(True)
         self.docks_frozen = True
 
-    def actionUn_Freeze_View_trigger(self, event):
+    def actionUn_Freeze_View_trigger(self):
         """ Un-Freeze all dockable widgets on the main screen """
         self.unFreezeDocks()
         self.actionFreeze_View.setVisible(True)
         self.actionUn_Freeze_View.setVisible(False)
         self.docks_frozen = False
 
-    def actionShow_All_trigger(self, event):
+    def actionShow_All_trigger(self):
         """ Show all dockable widgets """
         self.showDocks(self.getDocks())
 
-    def actionTutorial_trigger(self, event):
+    def actionTutorial_trigger(self):
         """ Show tutorial again """
         s = settings.get_settings()
 

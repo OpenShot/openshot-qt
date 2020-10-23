@@ -549,7 +549,7 @@ class PropertiesTableView(QTableView):
             # Update colors interpolation mode
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=0, interpolation_details=preset)
 
-    def Linear_Action_Triggered(self, event):
+    def Linear_Action_Triggered(self):
         log.info("Linear_Action_Triggered")
         if self.property_type != "color":
             # Update keyframe interpolation mode
@@ -558,7 +558,7 @@ class PropertiesTableView(QTableView):
             # Update colors interpolation mode
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=1, interpolation_details=[])
 
-    def Constant_Action_Triggered(self, event):
+    def Constant_Action_Triggered(self):
         log.info("Constant_Action_Triggered")
         if self.property_type != "color":
             # Update keyframe interpolation mode
@@ -567,17 +567,17 @@ class PropertiesTableView(QTableView):
             # Update colors interpolation mode
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=2, interpolation_details=[])
 
-    def Insert_Action_Triggered(self, event):
+    def Insert_Action_Triggered(self):
         log.info("Insert_Action_Triggered")
         if self.selected_item:
             current_value = QLocale().system().toDouble(self.selected_item.text())[0]
             self.clip_properties_model.value_updated(self.selected_item, value=current_value)
 
-    def Remove_Action_Triggered(self, event):
+    def Remove_Action_Triggered(self):
         log.info("Remove_Action_Triggered")
         self.clip_properties_model.remove_keyframe(self.selected_item)
 
-    def Choice_Action_Triggered(self, event):
+    def Choice_Action_Triggered(self):
         log.info("Choice_Action_Triggered")
         choice_value = self.sender().data()
 
@@ -585,7 +585,7 @@ class PropertiesTableView(QTableView):
         self.clip_properties_model.value_updated(self.selected_item, value=choice_value)
 
     def refresh_menu(self):
-        """ Ensure we update the meun when our source models change """
+        """ Ensure we update the menu when our source models change """
         self.menu_reset = True
 
     def __init__(self, *args):
@@ -725,7 +725,7 @@ class SelectionLabel(QFrame):
         # Return the menu object
         return menu
 
-    def Action_Triggered(self, event):
+    def Action_Triggered(self):
         # Switch selection
         item_id = self.sender().data()['item_id']
         item_type = self.sender().data()['item_type']
