@@ -342,27 +342,19 @@ class PropertiesTableView(QTableView):
         # Update model
         self.clip_properties_model.update_model(value)
 
-    def contextMenuEvent(self, event=None, release=False):
+    def contextMenuEvent(self, event):
         """ Display context menu, or release lock when menu displays """
-        if release:
-            # Just clear the menu lock and exit
-            self.menu_lock = False
+        # Get property being acted on
+        index = self.indexAt(event.pos())
+        if not index.isValid():
+            event.ignore()
             return
-
-        if self.menu_lock or not event:
-            # If we're locked, ignore this menu request
-            # But set a 100ms timer to release the lock, just in case
-            QTimer.singleShot(100, partial(self.contextMenuEvent, release=True))
-            return
-
-        # Lock against repeated calls until we've displayed the menu
-        self.menu_lock = True
 
         # Get data model and selection
-        model = self.clip_properties_model.model
-        row = self.indexAt(event.pos()).row()
-        selected_label = model.item(row, 0)
-        selected_value = model.item(row, 1)
+        idx = self.indexAt(event.pos())
+        row = idx.row()
+        selected_label = idx.model().item(row, 0)
+        selected_value = idx.model().item(row, 1)
         self.selected_item = selected_value
         frame_number = self.clip_properties_model.frame_number
 
@@ -389,7 +381,6 @@ class PropertiesTableView(QTableView):
 
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
-
                 # Add all files
                 file_choices = []
                 for i in range(self.files_model.rowCount()):
@@ -397,8 +388,8 @@ class PropertiesTableView(QTableView):
                     if not idx.isValid():
                         continue
                     icon = idx.data(Qt.DecorationRole)
-                    name = idx.sibling(idx.row(), 1).data()
-                    path = os.path.join(idx.sibling(idx.row(), 4).data(), name)
+                    name = idx.sibling(i, 1).data()
+                    path = os.path.join(idx.sibling(i, 4).data(), name)
 
                     # Append file choice
                     file_choices.append({"name": name,
@@ -408,7 +399,7 @@ class PropertiesTableView(QTableView):
                                          })
 
                 # Add root file choice
-                self.choices.append({"name": _("Files"), "value": file_choices, "selected": False})
+                self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
 
                 # Add all transitions
                 trans_choices = []
@@ -417,8 +408,8 @@ class PropertiesTableView(QTableView):
                     if not idx.isValid():
                         continue
                     icon = idx.data(Qt.DecorationRole)
-                    name = idx.sibling(idx.row(), 1).data()
-                    path = idx.sibling(idx.row(), 3).data()
+                    name = idx.sibling(i, 1).data()
+                    path = idx.sibling(i, 3).data()
 
                     # Append transition choice
                     trans_choices.append({"name": name,
@@ -438,7 +429,7 @@ class PropertiesTableView(QTableView):
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
                     # Append track choice
                     track_name = track.get("label") or _("Track %s") % display_count
-                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False})
+                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False, "icon": None})
                     display_count -= 1
 
             # Define bezier presets
@@ -476,25 +467,17 @@ class PropertiesTableView(QTableView):
                 (0.680, -0.550, 0.265, 1.550, _("Ease In/Out (Back)"))
             ]
 
-            bezier_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)))
-            linear_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)))
-            constant_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT)))
-
             # Add menu options for keyframes
             menu = QMenu(self)
             if points > 1:
                 # Menu items only for multiple points
-                Bezier_Menu = QMenu(_("Bezier"), self)
-                Bezier_Menu.setIcon(bezier_icon)
+                Bezier_Menu = menu.AddMenu(self.bezier_icon, _("Bezier"))
                 for bezier_preset in bezier_presets:
                     preset_action = Bezier_Menu.addAction(bezier_preset[4])
                     preset_action.triggered.connect(partial(self.Bezier_Action_Triggered, bezier_preset))
-                menu.addMenu(Bezier_Menu)
-                Linear_Action = menu.addAction(_("Linear"))
-                Linear_Action.setIcon(linear_icon)
+                Linear_Action = menu.addAction(self.linear_icon, _("Linear"))
                 Linear_Action.triggered.connect(self.Linear_Action_Triggered)
-                Constant_Action = menu.addAction(_("Constant"))
-                Constant_Action.setIcon(constant_icon)
+                Constant_Action = menu.addAction(self.constant_icon, _("Constant"))
                 Constant_Action.triggered.connect(self.Constant_Action_Triggered)
                 menu.addSeparator()
             if points >= 1:
@@ -520,28 +503,24 @@ class PropertiesTableView(QTableView):
                 # Divide into smaller QMenus (since large lists cover the entire screen)
                 # For example: Transitions -> 1 -> sub items
                 SubMenu = None
-                SubMenuRoot = QMenu(_(choice["name"]), self)
-                SubMenuSize = 24
+                SubMenuRoot = menu.addMenu(_(choice["name"]))
+                SubMenuSize = 25
                 SubMenuNumber = 0
-                for sub_choice in choice["value"]:
-                    if len(choice["value"]) > SubMenuSize:
-                        if not SubMenu or len(SubMenu.children()) == SubMenuSize or sub_choice == choice["value"][-1]:
-                            SubMenuNumber += 1
-                            if SubMenu:
-                                SubMenuRoot.addMenu(SubMenu)
-                            SubMenu = QMenu(str(SubMenuNumber), self)
-                        Choice_Action = SubMenu.addAction(_(sub_choice["name"]))
-                    else:
-                        Choice_Action = SubMenuRoot.addAction(_(sub_choice["name"]))
+                if len(choice["value"]) > SubMenuSize:
+                    SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
+                else:
+                    SubMenu = SubMenuRoot
+                for i, sub_choice in enumerate(choice["value"], 1):
+                    if i % SubMenuSize == 0:
+                        SubMenuNumber += 1
+                        SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
+                    Choice_Action = SubMenu.addAction(
+                        sub_choice["icon"], _(sub_choice["name"]))
                     Choice_Action.setData(sub_choice["value"])
-                    if "icon" in sub_choice:
-                        Choice_Action.setIcon(sub_choice["icon"])
                     Choice_Action.triggered.connect(self.Choice_Action_Triggered)
-                menu.addMenu(SubMenuRoot)
 
-            # Show choice menu and release lock
-            menu.popup(QCursor.pos())
-            self.contextMenuEvent(event, release=True)
+            # Show choice menuk
+            menu.popup(event.globalPos())
 
     def Bezier_Action_Triggered(self, preset=[]):
         log.info("Bezier_Action_Triggered: %s" % str(preset))
@@ -619,8 +598,10 @@ class PropertiesTableView(QTableView):
         self.lock_selection = False
         self.prev_row = None
 
-        # Context menu concurrency lock
-        self.menu_lock = False
+        # Context menu icons
+        self.bezier_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)))
+        self.linear_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.LINEAR)))
+        self.constant_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.CONSTANT)))
 
         # Setup header columns
         self.setModel(self.clip_properties_model.model)
@@ -687,8 +668,7 @@ class SelectionLabel(QFrame):
             if clip:
                 item_name = clip.title()
                 item_icon = QIcon(QPixmap(clip.data.get('image')))
-                action = menu.addAction(item_name)
-                action.setIcon(item_icon)
+                action = menu.addAction(item_icon, item_name)
                 action.setData({'item_id': item_id, 'item_type': 'clip'})
                 action.triggered.connect(self.Action_Triggered)
 
@@ -698,8 +678,7 @@ class SelectionLabel(QFrame):
                     if effect:
                         item_name = effect.title()
                         item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
-                        action = menu.addAction('  >  %s' % _(item_name))
-                        action.setIcon(item_icon)
+                        action = menu.addAction(item_icon, '  >  %s' % _(item_name))
                         action.setData({'item_id': effect.id, 'item_type': 'effect'})
                         action.triggered.connect(self.Action_Triggered)
 
@@ -709,8 +688,7 @@ class SelectionLabel(QFrame):
             if trans:
                 item_name = _(trans.title())
                 item_icon = QIcon(QPixmap(trans.data.get('reader', {}).get('path')))
-                action = menu.addAction(_(item_name))
-                action.setIcon(item_icon)
+                action = menu.addAction(item_icon, _(item_name))
                 action.setData({'item_id': item_id, 'item_type': 'transition'})
                 action.triggered.connect(self.Action_Triggered)
 
@@ -720,8 +698,7 @@ class SelectionLabel(QFrame):
             if effect:
                 item_name = _(effect.title())
                 item_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect.data.get('class_name').lower())))
-                action = menu.addAction(_(item_name))
-                action.setIcon(item_icon)
+                action = menu.addAction(item_icon, _(item_name))
                 action.setData({'item_id': item_id, 'item_type': 'effect'})
                 action.triggered.connect(self.Action_Triggered)
 
@@ -784,7 +761,7 @@ class SelectionLabel(QFrame):
 
     def __init__(self, *args):
         # Invoke parent init
-        QFrame.__init__(self, *args)
+        super().__init__(*args)
         self.item_id = None
         self.item_type = None
 
