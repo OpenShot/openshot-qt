@@ -166,6 +166,8 @@ class PropertiesTableView(QTableView):
         if row is None:
             return
 
+        event.accept()
+
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
@@ -268,6 +270,7 @@ class PropertiesTableView(QTableView):
 
     def mouseReleaseEvent(self, event):
         # Inform UpdateManager to accept updates, and only store our final update
+        event.accept()
         get_app().updates.ignore_history = False
 
         # Add final update to undo/redo history
@@ -500,7 +503,7 @@ class PropertiesTableView(QTableView):
                 Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
-                menu.popup(QCursor.pos())
+                menu.popup(event.globalPos())
 
             # Menu for choices
             if not self.choices:

@@ -48,6 +48,7 @@ class FilesTreeView(QTreeView):
         app = get_app()
         app.context_menu_object = "files"
 
+        event.accept()
         index = self.indexAt(event.pos())
 
         # Build menu
@@ -83,7 +84,7 @@ class FilesTreeView(QTreeView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
@@ -118,13 +119,13 @@ class FilesTreeView(QTreeView):
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
-        pass
+        event.accept()
 
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
         if not event.mimeData().hasUrls():
             # Nothing we're interested in
-            event.reject()
+            event.ignore()
             return
         event.accept()
         # Use try/finally so we always reset the cursor

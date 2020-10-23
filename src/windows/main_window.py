@@ -811,9 +811,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             return False
 
         # Get translations
-        _ = get_app()._tr
+        app = get_app()
+        _ = app._tr
 
-        # Handle exception
+        # Process the event queue first, since we've been ignoring input
+        app.processEvents()
+
+        # Display prompt dialog
         ret = QMessageBox.question(
             self,
             _("Import Image Sequence"),
@@ -1541,6 +1545,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             return
 
         # A valid keysequence was detected
+        event.accept()
         key = QKeySequence(modifiers + key_value)
 
         # Get the video player object
@@ -1646,7 +1651,6 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
             self.actionAnimatedTitle.trigger()
         elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
-            log.info("Duplicating title, %s", event)
             self.actionDuplicateTitle.trigger()
         elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
             self.actionEditTitle.trigger()
@@ -1750,7 +1754,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # If we didn't act on the event, forward it to the base class
         else:
-            super(MainWindow, self).keyPressEvent(event)
+            QMainWindow.keyPressEvent(self, event)
 
     def actionProfile_trigger(self):
         # Show dialog
