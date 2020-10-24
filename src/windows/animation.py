@@ -31,7 +31,6 @@ import os
 from PyQt5.QtWidgets import QDialog
 
 from classes import info, ui_util
-from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.metrics import track_metric_screen
 

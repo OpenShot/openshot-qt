@@ -33,7 +33,6 @@ from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, time_parts
-from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen

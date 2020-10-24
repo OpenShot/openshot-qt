@@ -35,7 +35,6 @@ from PyQt5.QtGui import QIcon
 
 from classes import settings
 from classes import info, ui_util, time_parts
-from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.query import Clip, Transition
 from classes.app import get_app

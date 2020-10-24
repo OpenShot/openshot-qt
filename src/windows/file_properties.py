@@ -36,7 +36,6 @@ from PyQt5.QtWidgets import (
 import openshot
 
 from classes import info, ui_util, settings
-from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen

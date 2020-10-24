@@ -52,7 +52,6 @@ import openshot  # Python module for libopenshot (required video editing module 
 
 from windows.views.timeline_webview import TimelineWebView
 from classes import info, ui_util, settings, qt_types, updates
-from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.logger import log
 from classes.timeline import TimelineSync
