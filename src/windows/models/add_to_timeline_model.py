@@ -28,7 +28,7 @@
 import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
 
 from classes import info
 from classes.logger import log
@@ -41,7 +41,6 @@ class TimelineModel():
         app = get_app()
 
         # Get window to check filters
-        win = app.window
         _ = app._tr
 
         # Set files list (if found)
@@ -61,7 +60,6 @@ class TimelineModel():
         for file in self.files:
             # Get attributes from file
             path, filename = os.path.split(file.data["path"])
-            title = filename
 
             # Get thumbnail path
             if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):

@@ -42,13 +42,13 @@ from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 try:
     # QtWebEngineWidgets must be loaded prior to creating a QApplication
     # But on systems with only WebKit, this will fail (and we ignore the failure)
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
+    from PyQt5.QtWebEngineWidgets import QWebEngineView  # noqa
 except ImportError:
     pass
 
 try:
     # Solution to solve QtWebEngineWidgets black screen caused by OpenGL not loaded
-    from OpenGL import GL
+    from OpenGL import GL  # noqa
 except ImportError:
     pass
 
@@ -142,8 +142,11 @@ class OpenShotApp(QApplication):
         libopenshot_version = openshot.OPENSHOT_VERSION_FULL
         if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
             QMessageBox.warning(
-                None, _("Wrong Version of libopenshot Detected"),
-                _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") % {
+                None,
+                _("Wrong Version of libopenshot Detected"),
+                _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. \
+                Please update libopenshot or download our latest installer.")
+                % {
                     "minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION,
                     "current_version": libopenshot_version,
                     })

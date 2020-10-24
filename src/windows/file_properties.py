@@ -26,27 +26,20 @@
  """
 
 import os
-import locale
-import functools
 import json
 
-# Try to get the security-patched XML functions from defusedxml
-try:
-  from defusedxml import minidom as xml
-except ImportError:
-  from xml.dom import minidom as xml
-
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QPushButton
+from PyQt5.QtWidgets import (
+    QDialog, QFileDialog, QDialogButtonBox, QPushButton,
+    )
 
 # Python module for libopenshot (required video editing module installed separately)
 import openshot
 
-from classes import info, ui_util, openshot_rc, settings
+from classes import info, ui_util, settings
+from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen
-
 
 
 class FileProperties(QDialog):

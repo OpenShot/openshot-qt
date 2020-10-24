@@ -28,9 +28,16 @@
 import os
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QObject, QTimer
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QTableView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel, QPushButton, QHBoxLayout, QFrame
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QTimer
+from PyQt5.QtGui import (
+    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QPainter, QPainterPath, QLinearGradient,
+)
+from PyQt5.QtWidgets import (
+    QTableView, QAbstractItemView, QMenu, QSizePolicy,
+    QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel,
+    QPushButton, QHBoxLayout, QFrame,
+)
 
 from classes.logger import log
 from classes.app import get_app
