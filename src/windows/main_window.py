@@ -983,7 +983,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
-    def actionPlay_trigger(self, checked, force=None):
+    def actionPlay_trigger(self, checked=True, force=None):
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
@@ -1114,7 +1114,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         log.info("Saving frame to %s", framePath)
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        app.window.actionPlay_trigger(None, force="pause")
+        self.actionPlay_trigger(force="pause")
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
@@ -1759,14 +1759,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def actionProfile_trigger(self):
         # Show dialog
         from windows.profile import Profile
+        log.debug("Showing preferences dialog")
         win = Profile()
         # Run the dialog event loop - blocking interaction on this window during this time
         result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('Profile add confirmed')
+        log.debug("Preferences dialog closed")
 
     def actionSplitClip_trigger(self):
-        log.info("actionSplitClip_trigger")
+        log.debug("actionSplitClip_trigger")
 
         # Loop through selected files (set 1 selected file if more than 1)
         f = self.files_model.current_file()
@@ -1787,7 +1787,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             log.info('Cutting Cancelled')
 
     def actionRemove_from_Project_trigger(self):
-        log.info("actionRemove_from_Project_trigger")
+        log.debug("actionRemove_from_Project_trigger")
 
         # Loop through selected files
         for f in self.selected_files():
@@ -1808,7 +1808,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_app().window.refreshFrameSignal.emit()
 
     def actionRemoveClip_trigger(self):
-        log.info('actionRemoveClip_trigger')
+        log.debug('actionRemoveClip_trigger')
 
         # Loop through selected clips
         for clip_id in deepcopy(self.selected_clips):
@@ -1825,14 +1825,14 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         get_app().window.refreshFrameSignal.emit()
 
     def actionProperties_trigger(self):
-        log.info('actionProperties_trigger')
+        log.debug('actionProperties_trigger')
 
         # Show properties dock
         if not self.dockProperties.isVisible():
             self.dockProperties.show()
 
     def actionRemoveEffect_trigger(self):
-        log.info('actionRemoveEffect_trigger')
+        log.debug('actionRemoveEffect_trigger')
 
         # Loop through selected clips
         for effect_id in deepcopy(self.selected_effects):
@@ -1864,10 +1864,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                     self.removeSelection(effect_id, "effect")
 
         # Refresh preview
-        get_app().window.refreshFrameSignal.emit()
+        self.refreshFrameSignal.emit()
 
     def actionRemoveTransition_trigger(self):
-        log.info('actionRemoveTransition_trigger')
+        log.debug('actionRemoveTransition_trigger')
 
         # Loop through selected clips
         for tran_id in deepcopy(self.selected_transitions):
@@ -1881,10 +1881,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 t.delete()
 
         # Refresh preview
-        get_app().window.refreshFrameSignal.emit()
+        self.refreshFrameSignal.emit()
 
     def actionRemoveTrack_trigger(self):
-        log.info('actionRemoveTrack_trigger')
+        log.debug('actionRemoveTrack_trigger')
 
         # Get translation function
         _ = get_app()._tr
@@ -1917,11 +1917,11 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.selected_tracks = []
 
         # Refresh preview
-        get_app().window.refreshFrameSignal.emit()
+        self.refreshFrameSignal.emit()
 
     def actionLockTrack_trigger(self):
         """Callback for locking a track"""
-        log.info('actionLockTrack_trigger')
+        log.debug('actionLockTrack_trigger')
 
         # Get details of track
         track_id = self.selected_tracks[0]
@@ -2100,7 +2100,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     def showDocks(self, docks):
         """ Show all dockable widgets on the main screen """
         for dock in docks:
-            if get_app().window.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
 
@@ -2361,7 +2361,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         if not self.selected_clips:
             # Clear transform (if no other clips are selected)
-            get_app().window.TransformSignal.emit("")
+            self.TransformSignal.emit("")
 
         # Move selection to next selected clip (if any)
         self.show_property_id = ""
