@@ -26,8 +26,6 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
-
 from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
 from PyQt5.QtGui import QDrag, QCursor
 from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
@@ -121,28 +119,22 @@ class FilesListView(QListView):
 
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
-        # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        # Use try/finally so we always reset the cursor
+        try:
+            # Set cursor to waiting
+            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
-        media_paths = []
-        for uri in event.mimeData().urls():
-            log.info('Processing drop event for {}'.format(uri))
-            filepath = uri.toLocalFile()
-            if os.path.exists(filepath) and os.path.isfile(filepath):
-                log.info('Adding file: {}'.format(filepath))
-                if ".osp" in filepath:
-                    # Auto load project passed as argument
-                    self.win.OpenProjectSignal.emit(filepath)
-                    event.accept()
-                else:
-                    media_paths.append(filepath)
+            if not event.mimeData().hasUrls():
+                return
 
-        # Import all new media files
-        if media_paths and self.files_model.add_files(media_paths):
-            event.accept()
-
-        # Restore cursor
-        get_app().restoreOverrideCursor()
+            qurl_list = event.mimeData().urls()
+            log.info("Processing drop event for {} urls".format(len(qurl_list)))
+            result = self.files_model.process_urls(qurl_list)
+            if result:
+                event.accept()
+        finally:
+            # Restore cursor
+            get_app().restoreOverrideCursor()
 
     # Pass file add requests to the model
     def add_file(self, filepath):
@@ -202,4 +194,3 @@ class FilesListView(QListView):
         # setup filter events
         app = get_app()
         app.window.filesFilter.textChanged.connect(self.filter_changed)
-        app.window.refreshFilesSignal.connect(self.refresh_view)

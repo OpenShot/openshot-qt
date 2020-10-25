@@ -1964,7 +1964,7 @@ class TimelineWebView(WebViewClass, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-        # Start timer to redraw audio waveforms
+        # Start or restart timer to redraw audio waveforms
         self.redraw_audio_timer.start()
 
         # Loop through each transition (using the list of ids)
@@ -2769,7 +2769,7 @@ class TimelineWebView(WebViewClass, updates.UpdateInterface):
         # Get access to timeline scope and set scale to new computed value
         self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");")
 
-        # Start timer to redraw audio
+        # Start or restart timer to redraw audio
         self.redraw_audio_timer.start()
 
         # Only update scale if different
@@ -3079,9 +3079,6 @@ class TimelineWebView(WebViewClass, updates.UpdateInterface):
         """Timer is ready to redraw audio (if any)"""
         log.debug('redraw_audio_onTimeout')
 
-        # Stop timer
-        self.redraw_audio_timer.stop()
-
         # Pass to javascript timeline (and render)
         self.run_js(JS_SCOPE_SELECTOR + ".reDrawAllAudioData();")
 
@@ -3156,6 +3153,7 @@ class TimelineWebView(WebViewClass, updates.UpdateInterface):
         # Delayed zoom audio redraw
         self.redraw_audio_timer = QTimer(self)
         self.redraw_audio_timer.setInterval(300)
+        self.redraw_audio_timer.setSingleShot(True)
         self.redraw_audio_timer.timeout.connect(self.redraw_audio_onTimeout)
 
         # QTimer for cache rendering

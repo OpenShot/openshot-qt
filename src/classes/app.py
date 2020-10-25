@@ -50,7 +50,7 @@ try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
 except AttributeError:
-    pass # Quietly fail for older Qt5 versions
+    pass  # Quietly fail for older Qt5 versions
 
 
 def get_app():
@@ -86,7 +86,7 @@ class OpenShotApp(QApplication):
                     pass
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
-            from . import openshot_rc
+            from . import openshot_rc  # noqa
             import openshot
 
             # Re-route stdout and stderr to logger
@@ -143,9 +143,12 @@ class OpenShotApp(QApplication):
         _ = self._tr
         libopenshot_version = openshot.OPENSHOT_VERSION_FULL
         if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
-            QMessageBox.warning(None, _("Wrong Version of libopenshot Detected"),
-                                      _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") %
-                                {"minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION, "current_version": libopenshot_version})
+            QMessageBox.warning(
+                None, _("Wrong Version of libopenshot Detected"),
+                _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") % {
+                    "minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION,
+                    "current_version": libopenshot_version,
+                    })
             # Stop launching and exit
             sys.exit()
 
@@ -177,9 +180,13 @@ class OpenShotApp(QApplication):
             os.unlink(TEST_PATH_FILE)
             os.rmdir(TEST_PATH_DIR)
         except PermissionError as ex:
-            log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE, exc_info=1)
-            QMessageBox.warning(None, _("Permission Error"),
-                                      _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH}))
+            log.error('Failed to create file %s', TEST_PATH_FILE, exc_info=1)
+            QMessageBox.warning(
+                None, _("Permission Error"),
+                _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {
+                    "error": str(ex),
+                    "path": info.USER_PATH,
+                }))
             # Stop launching and exit
             raise
             sys.exit()
