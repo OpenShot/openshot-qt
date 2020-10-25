@@ -103,12 +103,8 @@ class TimelineWebEngineView(QWebEngineView):
                 log.debug("Script queued, %d retries so far", retries)
             QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))
             return None
-        else:
-            # Execute JS code
-            if callback:
-                return self.page().runJavaScript(code, callback)
-            else:
-                return self.page().runJavaScript(code)
+        # Execute JS code
+        return self.page().runJavaScript(code, callback)
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
@@ -119,12 +115,11 @@ class TimelineWebEngineView(QWebEngineView):
         """Get HTML for Timeline, adjusted for mixin"""
         with open(self.html_path, 'r', encoding='utf-8') as f:
             html = f.read()
-        html = html.replace(
+        return html.replace(
             '<!--MIXIN_JS_INCLUDE-->',
             """
                 <script type="text/javascript" src="js/mixin_webengine.js"></script>
             """)
-        return html
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
@@ -132,6 +127,5 @@ class TimelineWebEngineView(QWebEngineView):
         if key_value in [Qt.Key_Shift, Qt.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebEngineView.keyPressEvent(self, event)
-        else:
-            # Ignore most keypresses
-            event.ignore()
+        # Ignore most keypresses
+        event.ignore()
