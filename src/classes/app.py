@@ -130,7 +130,7 @@ class OpenShotApp(QApplication):
             pass
 
         # Init settings
-        self.settings = settings.SettingStore()
+        self.settings = settings.SettingStore(parent=self)
         self.settings.load()
 
         # Init and attach exception handler
@@ -273,6 +273,16 @@ class OpenShotApp(QApplication):
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
             self.window.RecoverBackup.emit()
 
+    def settings_load_error(self, filepath=None):
+        """Use QMessageBox to warn the user of a settings load issue"""
+        _ = self._tr
+        QMessageBox.warning(
+            None,
+            _("Settings Error"),
+            _("Error loading settings file: %(file_path)s. Settings will be reset.")
+            % {"file_path": filepath}
+            )
+
     def _tr(self, message):
         return self.translate("", message)
 
@@ -289,7 +299,6 @@ class OpenShotApp(QApplication):
             self.settings.save()
         except Exception:
             log.error("Couldn't save user settings on exit.", exc_info=1)
-
 
 
 # Log the session's end
