@@ -104,7 +104,10 @@ class TimelineWebEngineView(QWebEngineView):
             QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))
             return None
         # Execute JS code
-        return self.page().runJavaScript(code, callback)
+        if callback:
+            return self.page().runJavaScript(code, callback)
+        # else
+        return self.page().runJavaScript(code)
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
