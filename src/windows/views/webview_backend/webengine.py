@@ -44,7 +44,7 @@ class LoggingWebEnginePage(QWebEnginePage):
     def javaScriptConsoleMessage(self, level, msg, line, source):
         log.log(
             self.levels[level],
-            '%s@%Ld: %s' % (os.path.basename(source), line, msg))
+            '%s@L%d: %s', os.path.basename(source), line, msg)
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -82,20 +82,25 @@ class TimelineWebEngineView(QWebEngineView):
         self.page().setWebChannel(self.webchannel)
 
         # Connect signal of javascript initialization to our javascript reference init function
+        log.info("WebEngine backend initializing")
         self.page().loadStarted.connect(self.setup_js_data)
 
     def run_js(self, code, callback=None, retries=0):
-        '''Run JS code async and optionally have a callback for response'''
+        """Run JS code async and optionally have a callback for response"""
         # Check if document.Ready has fired in JS
         if not self.document_is_ready:
             # Not ready, try again in a few moments
             if retries == 0:
                 # Log the script contents, the first time
-                log.debug("run_js() called before document ready event. Script queued: %s" % code)
+                log.debug(
+                    "run_js() called before document ready event. Script queued: %s",
+                    code)
             elif retries % 5 == 0:
-                log.warning("WebEngine backend still not ready after {} retries.".format(retries))
+                log.warning(
+                    "WebEngine backend still not ready after %d retries.",
+                    retries)
             else:
-                log.debug("Script queued, {} retries so far".format(retries))
+                log.debug("Script queued, %d retries so far", retries)
             QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))
             return None
         else:
@@ -107,27 +112,26 @@ class TimelineWebEngineView(QWebEngineView):
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
+        log.info("Registering WebChannel connection with WebEngine")
         self.webchannel.registerObject('timeline', self)
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""
-        html = open(self.html_path, 'r', encoding='utf-8').read()
-        html = html.replace('{{MIXIN_JS_INCLUDE}}',
-        '''
-                <script type="text/javascript" src="js/qwebchannel.js"></script>
+        with open(self.html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        html = html.replace(
+            '<!--MIXIN_JS_INCLUDE-->',
+            """
                 <script type="text/javascript" src="js/mixin_webengine.js"></script>
-
-        ''')
+            """)
         return html
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
-
+        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebEngineView.keyPressEvent(self, event)
-
         else:
             # Ignore most keypresses
             event.ignore()

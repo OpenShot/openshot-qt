@@ -71,6 +71,7 @@ class TimelineWebKitView(QWebView):
         self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
 
         # Connect signal of javascript initialization to our javascript reference init function
+        log.info("WebKit backend initializing")
         self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
 
     def run_js(self, code, callback=None, retries=0):
@@ -97,27 +98,26 @@ class TimelineWebKitView(QWebView):
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
+        log.info("Registering objects with WebKit")
         self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
-        self.page().mainFrame().addToJavaScriptWindowObject('mainWindow', self.window)
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""
-        html = open(self.html_path, 'r', encoding='utf-8').read()
-        html = html.replace('{{MIXIN_JS_INCLUDE}}',
-        '''
+        with open(self.html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        html = html.replace(
+            '<!--MIXIN_JS_INCLUDE-->',
+            """
                 <script type="text/javascript" src="js/mixin_webkit.js"></script>
-
-        ''')
+            """)
         return html
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if (key_value == Qt.Key_Shift or key_value == Qt.Key_Control):
-
+        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebView.keyPressEvent(self, event)
-
         else:
             # Ignore most keypresses
             event.ignore()
