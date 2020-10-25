@@ -50,7 +50,6 @@ from PyQt5.QtWidgets import (
     )
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from windows.views.timeline_webview import TimelineWebView
 from classes import info, ui_util, settings, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
@@ -63,6 +62,9 @@ from classes.metrics import (
 from classes.version import get_current_Version
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.thumbnail import httpThumbnailServerThread
+
+from windows.views.webview import TimelineWebView
+
 from windows.models.files_model import FilesModel
 from windows.views.files_treeview import FilesTreeView
 from windows.views.files_listview import FilesListView
@@ -76,8 +78,10 @@ from windows.views.effects_treeview import EffectsTreeView
 from windows.views.effects_listview import EffectsListView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
 from windows.views.tutorial import TutorialManager
+
 from windows.video_widget import VideoWidget
 from windows.preview_thread import PreviewParent
+
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
