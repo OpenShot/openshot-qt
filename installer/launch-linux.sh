@@ -13,4 +13,4 @@ export QT_PLUGIN_PATH="${HERE}"
 export OPENSSL_CONF="/dev/null"
 
 # Launch application
-exec "${HERE}"/openshot-qt "$@"
+exec "${HERE}"/AppRun.64 "$@"
