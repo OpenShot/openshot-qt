@@ -365,8 +365,12 @@ try:
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
         # Create symlink for AppRun
+        # app_run_path = os.path.join(app_dir_path, "AppRun")
+        # os.symlink(os.path.relpath(launcher_path, app_dir_path), app_run_path)
+
+        # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        os.symlink(os.path.relpath(launcher_path, app_dir_path), app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)
