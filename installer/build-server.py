@@ -350,7 +350,7 @@ try:
 
         # Copy .desktop file, replacing Exec= commandline
         desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-        desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+        desk_out = os.path.join(app_dir_path, "openshot-qt.desktop")
         with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
             for line in inf:
                 if line.startswith("Exec="):
@@ -364,9 +364,9 @@ try:
         desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
-        # Create symlink for AppRun
-        # app_run_path = os.path.join(app_dir_path, "AppRun")
-        # os.symlink(os.path.relpath(launcher_path, app_dir_path), app_run_path)
+        # Copy encodings folder
+        #shutil.copytree(os.path.join(app_dir_path, "usr", "bin", "lib", "encodings"),
+        #                os.path.join(app_dir_path, "usr", "bin", "encodings"))
 
         # Create AppRun file
         app_run_path = os.path.join(app_dir_path, "AppRun")
