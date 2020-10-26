@@ -2872,7 +2872,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Adjust clip duration, start, and end
             new_clip["duration"] = new_clip["reader"]["duration"]
             if file.data["media_type"] == "image":
-                new_clip["end"] = self.settings_obj.get("default-image-length")  # default to 8 seconds
+                new_clip["end"] = settings.get_settings().get("default-image-length")  # default to 8 seconds
 
             # Overwrite frame rate (incase the user changed it in the File Properties)
             file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
@@ -3100,19 +3100,22 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Get final cache object from timeline
         try:
             cache_object = self.window.timeline_sync.timeline.GetCache()
-            if cache_object and cache_object.Count() > 0:
-                # Get the JSON from the cache object (i.e. which frames are cached)
-                cache_json = self.window.timeline_sync.timeline.GetCache().Json()
-                cache_dict = json.loads(cache_json)
-                cache_version = cache_dict["version"]
+            if not cache_object or cache_object.Count() <= 0:
+                return
+            # Get the JSON from the cache object (i.e. which frames are cached)
+            cache_json = self.window.timeline_sync.timeline.GetCache().Json()
+            cache_dict = json.loads(cache_json)
+            cache_version = cache_dict["version"]
 
-                if self.cache_renderer_version != cache_version:
-                    # Cache has changed, re-render it
-                    self.cache_renderer_version = cache_version
-                    self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
-        finally:
-            # ignore any errors inside the cache rendering
-            pass
+            if self.cache_renderer_version == cache_version:
+                # Nothing has changed, ignore
+                return
+            # Cache has changed, re-render it
+            self.cache_renderer_version = cache_version
+            self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
+        except Exception as ex:
+            # Log the exception and ignore
+            log.warning("Exception processing timeline cache: %s", ex)
 
     def __init__(self, window):
         super().__init__()
@@ -3123,8 +3126,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.setAcceptDrops(True)
         self.last_position_frames = None
 
-        # Get settings & logger
-        self.settings_obj = get_settings()
+        # Get logger
         self.log_fn = log.log
 
         # Add self as listener to project data updates (used to update the timeline)
@@ -3166,5 +3168,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Connect shutdown signals
         app.aboutToQuit.connect(self.redraw_audio_timer.stop)
         app.aboutToQuit.connect(self.cache_renderer.stop)
+
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
