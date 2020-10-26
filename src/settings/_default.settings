@@ -939,7 +939,7 @@
     "type": "text"
   },
   {
-    "value": false,
+    "value": true,
     "title": "Auto-Transform Selection",
     "type": "bool",
     "category": "General",
