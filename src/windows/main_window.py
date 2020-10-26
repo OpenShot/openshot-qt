@@ -1055,13 +1055,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             self.actionPlay.trigger()
 
     def actionJumpStart_trigger(self, checked=True):
-        log.info("actionJumpStart_trigger")
+        log.debug("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
     def actionJumpEnd_trigger(self, checked=True):
-        log.info("actionJumpEnd_trigger")
+        log.debug("actionJumpEnd_trigger")
 
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
