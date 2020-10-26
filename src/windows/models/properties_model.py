@@ -102,7 +102,7 @@ class PropertiesModel(updates.UpdateInterface):
                 self.selected.append((c, item_type))
 
         if item_type == "transition":
-            t = get_app().window.timeline_sync.timeline.GetTimelineEffect(item_id)
+            t = get_app().window.timeline_sync.timeline.GetEffect(item_id)
             if t:
                 # Append to selected items
                 self.selected.append((t, item_type))
