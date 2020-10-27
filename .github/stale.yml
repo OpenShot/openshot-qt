@@ -10,7 +10,7 @@ exemptLabels:
 # Label to use when marking an issue as stale
 staleLabel: stale
 # Comment to post when marking an issue as stale. Set to `false` to disable
-markComment: >
+markComment: |
   Thank you so much for submitting an issue to help improve OpenShot Video Editor. We are sorry about this, but this particular issue has gone unnoticed for quite some time. To help keep the OpenShot GitHub Issue Tracker organized and focused, we must ensure that every issue is correctly labelled and triaged, to get the proper attention.
 
   This issue will be closed, as it meets the following criteria:
