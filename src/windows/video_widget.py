@@ -73,6 +73,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
+        event.accept()
         self.mutex.lock()
 
         # Paint custom frame image on QWidget
@@ -309,6 +310,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
+        event.accept()
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = event.pos()
@@ -318,6 +320,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         get_app().updates.ignore_history = True
 
     def mouseReleaseEvent(self, event):
+        event.accept()
         """Capture mouse release event on video preview window"""
         self.mouse_pressed = False
         self.mouse_dragging = False
@@ -342,6 +345,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
         self.mutex.lock()
+        event.accept()
 
         if self.mouse_pressed:
             self.mouse_dragging = True
@@ -697,11 +701,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def resizeEvent(self, event):
         """Widget resize event"""
+        event.accept()
         self.delayed_size = self.size()
         self.delayed_resize_timer.start()
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        self.win.actionPlay_trigger(event, force="pause")
+        self.win.actionPlay_trigger(force="pause")
 
     def delayed_resize_callback(self):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
@@ -722,6 +727,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
+        event.accept()
         # For each 120 (standard scroll unit) adjust the zoom slider
         tick_scale = 1024
         self.zoom += event.angleDelta().y() / tick_scale
