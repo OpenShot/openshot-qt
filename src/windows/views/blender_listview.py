@@ -26,11 +26,12 @@
  """
 
 import os
-import shutil
+import copy
 import subprocess
 import sys
 import re
 import functools
+import shlex
 import json
 
 # Try to get the security-patched XML functions from defusedxml
@@ -40,7 +41,7 @@ except ImportError:
     from xml.dom import minidom as xml
 
 from PyQt5.QtCore import (
-    Qt, QObject, pyqtSlot, pyqtSignal, QMetaObject, Q_ARG, QThread, QTimer, QSize,
+    Qt, QObject, pyqtSlot, pyqtSignal, QThread, QTimer, QSize,
 )
 from PyQt5.QtWidgets import (
     QApplication, QListView, QMessageBox, QColorDialog,
@@ -59,6 +60,10 @@ from windows.models.blender_model import BlenderModel
 class BlenderListView(QListView):
     """ A ListView QWidget used on the animated title window """
 
+    # Our signals
+    start_render = pyqtSignal(str, str, int)
+    cancel_render = pyqtSignal()
+
     def currentChanged(self, selected, deselected):
         # Get selected item
         self.selected = selected
@@ -67,10 +72,7 @@ class BlenderListView(QListView):
         # Get translation object
         _ = self.app._tr
 
-        # Clear existing settings
         self.win.clear_effect_controls()
-
-        # Get animation details
         animation = self.get_animation_details()
         self.selected_template = animation.get("service")
 
@@ -84,17 +86,15 @@ class BlenderListView(QListView):
 
         # Loop through params
         for param in animation.get("params", []):
-            log.info('Using parameter %s: %s' % (param["name"], param["title"]))
+            log.debug('Using parameter %s: %s' % (param["name"], param["title"]))
 
             # Is Hidden Param?
-            if param["name"] == "start_frame" or param["name"] == "end_frame":
+            if param["name"] in ["start_frame", "end_frame"]:
                 # add value to dictionary
                 self.params[param["name"]] = int(param["default"])
-
-                # skip to next param without rendering the controls
+                # skip to next param without rendering a control
                 continue
 
-            # Create Label
             widget = None
             label = QLabel()
             label.setText(_(param["title"]))
@@ -163,15 +163,13 @@ class BlenderListView(QListView):
                         )
 
                 # Add normal values
-                box_index = 0
-                for k, v in sorted(param["values"].items()):
+                for i, (k, v) in enumerate(sorted(param["values"].items())):
                     # add dropdown item
                     widget.addItem(_(k), v)
 
                     # select dropdown (if default)
                     if v == param["default"]:
-                        widget.setCurrentIndex(box_index)
-                    box_index = box_index + 1
+                        widget.setCurrentIndex(i)
 
                 if not param["values"]:
                     widget.addItem(_("No Files Found"), "")
@@ -194,10 +192,7 @@ class BlenderListView(QListView):
             elif (label):
                 self.win.settingsContainer.layout().addRow(label)
 
-        # Enable interface
-        self.enable_interface()
-
-        # Init slider values
+        self.end_processing()
         self.init_slider_values()
 
     def spinner_value_changed(self, param, value):
@@ -212,7 +207,7 @@ class BlenderListView(QListView):
         except Exception:
             log.debug('Failed to read plain text value from widget')
             return
-        self.params[param["name"]] = value.replace("\n", "\\n")
+        self.params[param["name"]] = value
         # XXX: This will log every individual KEYPRESS in the text field.
         # log.info('Animation param %s set to %s' % (param["name"], value))
 
@@ -220,6 +215,8 @@ class BlenderListView(QListView):
         value = widget.itemData(index)
         self.params[param["name"]] = value
         log.info('Animation param %s set to %s' % (param["name"], value))
+        if param["name"] == "length_multiplier":
+            self.init_slider_values()
 
     def color_button_clicked(self, widget, param, index):
         # Get translation object
@@ -250,7 +247,7 @@ class BlenderListView(QListView):
         if not os.path.exists(os.path.join(info.BLENDER_PATH, self.unique_folder_name)):
             os.mkdir(os.path.join(info.BLENDER_PATH, self.unique_folder_name))
 
-    def disable_interface(self, cursor=True):
+    def processing_mode(self, cursor=True):
         """ Disable all controls on interface """
 
         # Store keyboard-focused widget
@@ -265,11 +262,12 @@ class BlenderListView(QListView):
             QApplication.setOverrideCursor(Qt.WaitCursor)
 
     @pyqtSlot()
-    def enable_interface(self):
-        """ Disable all controls on interface """
+    def end_processing(self):
+        """ Enable all controls on interface """
         self.win.btnRefresh.setEnabled(True)
         self.win.sliderPreview.setEnabled(True)
         self.win.btnRender.setEnabled(True)
+        self.win.statusContainer.hide()
 
         # Restore normal cursor and keyboard focus
         QApplication.restoreOverrideCursor()
@@ -280,15 +278,7 @@ class BlenderListView(QListView):
         """ Init the slider and preview frame label to the currently selected animation """
 
         # Get current preview slider frame
-        preview_frame_number = self.win.sliderPreview.value()
-        length = int(self.params.get("end_frame", 1))
-
-        # Get the animation speed (if any)
-        if not self.params.get("animation_speed"):
-            self.params["animation_speed"] = 1
-        else:
-            # Adjust length (based on animation speed multiplier)
-            length *= int(self.params["animation_speed"])
+        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
 
         # Update the preview slider
         middle_frame = int(length / 2)
@@ -297,19 +287,15 @@ class BlenderListView(QListView):
         self.win.sliderPreview.setMaximum(length)
         self.win.sliderPreview.setValue(middle_frame)
 
-        # Update preview label
-        self.win.lblFrame.setText("{}/{}".format(middle_frame, length))
-
-        # Click the refresh button
-        self.btnRefresh_clicked(None)
-
-    def btnRefresh_clicked(self, checked):
-
-        # Render current frame
+        # Trigger a refresh of the preview
         self.preview_timer.start()
 
     @pyqtSlot()
     def render_finished(self):
+        # Don't try to capture image sequences for preview frames
+        if not self.final_render:
+            return
+
         # Compose image sequence data
         seq_params = {
             "folder_path": os.path.join(info.BLENDER_PATH, self.unique_folder_name),
@@ -329,29 +315,59 @@ class BlenderListView(QListView):
         # We're done here
         self.win.close()
 
+    @pyqtSlot(str)
+    def render_stage(self, stage=None):
+        _ = get_app()._tr
+        self.win.frameProgress.setRange(0, 0)
+        self.win.frameStatus.setText(_("Generating"))
+        log.debug("Set Blender progress to Generating step")
+
+    @pyqtSlot(int, int)
+    def render_progress(self, step_value, step_max):
+        _ = get_app()._tr
+        self.win.frameProgress.setRange(0, step_max)
+        self.win.frameProgress.setValue(step_value)
+        self.win.frameStatus.setText(_("Rendering"))
+        log.debug(
+            "set Blender progress to Rendering step, %d of %d complete",
+            step_value, step_max)
+
+    @pyqtSlot(int)
+    def render_saved(self, frame=None):
+        _ = get_app()._tr
+        self.win.frameProgress.setValue(self.win.frameProgress.maximum() + 1)
+        self.win.frameStatus.setText(_("Saved"))
+        log.debug("Set Blender progress to Saved step")
+
+    @pyqtSlot()
+    def render_initialize(self):
+        _ = get_app()._tr
+        self.win.frameProgress.setRange(0, 0)
+        self.win.frameStatus.setText(_("Initializing"))
+        self.win.statusContainer.show()
+        log.debug("Set Blender progress to Initializing step")
+
     @pyqtSlot(int)
     def update_progress_bar(self, current_frame):
 
         # update label and preview slider
         self.win.sliderPreview.setValue(current_frame)
 
-        length = int(self.params["end_frame"])
+        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
         self.win.lblFrame.setText("{}/{}".format(current_frame, length))
 
+    @pyqtSlot(int)
     def sliderPreview_valueChanged(self, new_value):
         """Get new value of preview slider, and start timer to Render frame"""
         if self.win.sliderPreview.isEnabled():
             self.preview_timer.start()
 
         # Update preview label
-        preview_frame_number = new_value
-        length = int(self.params["end_frame"])
-        self.win.lblFrame.setText("{}/{}".format(preview_frame_number, length))
+        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
+        self.win.lblFrame.setText("{}/{}".format(new_value, length))
 
     def preview_timer_onTimeout(self):
         """Timer is ready to Render frame"""
-        self.preview_timer.stop()
-
         # Update preview label
         preview_frame_number = self.win.sliderPreview.value()
         log.info('Previewing frame %s' % preview_frame_number)
@@ -403,7 +419,7 @@ class BlenderListView(QListView):
                     )
                 ])
             except (TypeError, AttributeError) as ex:
-                log.warn("XML parser: {}".format(ex))
+                log.warn("XML parser: %s", ex)
                 pass
 
             # Append param object to list
@@ -416,7 +432,6 @@ class BlenderListView(QListView):
         return animation
 
     def mousePressEvent(self, event):
-
         # Ignore event, propagate to parent
         event.ignore()
         super().mousePressEvent(event)
@@ -449,42 +464,56 @@ class BlenderListView(QListView):
         project_params["alpha_mode"] = 1
         project_params["horizon_color"] = (0.57, 0.57, 0.57)
         project_params["animation"] = True
-        project_params["output_path"] = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
-                                                     self.params["file_name"])
+        project_params["output_path"] = os.path.join(
+            info.BLENDER_PATH,
+            self.unique_folder_name,
+            self.params["file_name"])
 
         # return the dictionary
         return project_params
 
-    def error_with_blender(self, version=None, command_output=None):
+    # Error from blender (with version number)
+    @pyqtSlot(str)
+    def onBlenderVersionError(self, version):
+        self.error_with_blender(version, None)
+
+    # Signal error from blender (with custom message)
+    @pyqtSlot()
+    @pyqtSlot(str)
+    def onBlenderError(self, error=None):
+        self.error_with_blender(None, error)
+
+    def error_with_blender(self, version=None, worker_message=None):
         """ Show a friendly error message regarding the blender executable or version. """
         _ = self.app._tr
         s = settings.get_settings()
 
-        version_message = ""
+        error_message = ""
         if version:
-            version_message = _("Version Detected: {}").format(version)
+            error_message = _("Version Detected: {}").format(version)
             log.info("Blender version detected: {}".format(version))
 
-        if command_output:
-            version_message = _("Error Output:\n{}").format(command_output)
-            log.error("Blender error output:\n{}".format(command_output))
+        if worker_message:
+            error_message = _("Error Output:\n{}").format(worker_message)
+            log.error("Blender error: {}".format(worker_message))
 
-        msg = QMessageBox()
-        msg.setText(_("""
+        QMessageBox.critical(self, error_message,
+            _("""
 Blender, the free open source 3D content creation suite, is required for this action. (http://www.blender.org)
+
 Please check the preferences in OpenShot and be sure the Blender executable is correct.
 This setting should be the path of the 'blender' executable on your computer.
 Also, please be sure that it is pointing to Blender version {} or greater.
+
 Blender Path: {}
 {}""").format(info.BLENDER_MIN_VERSION,
               s.get("blender_command"),
-              version_message))
-        msg.exec_()
+              error_message))
 
-        # Enable the Render button again
-        self.enable_interface()
+        # Close the blender interface
+        self.win.close()
 
-    def inject_params(self, path, frame=None):
+    def inject_params(self, source_path, out_path, frame=None):
         # determine if this is 'preview' mode?
         is_preview = False
         if frame:
@@ -494,25 +523,15 @@ Blender Path: {}
 
         # prepare string to inject
         user_params = "\n#BEGIN INJECTING PARAMS\n"
-        for k, v in self.params.items():
-            if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
-                user_params += "params['{}'] = {}\n".format(k, v)
-            if type(v) == str:
-                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'"))
 
-        for k, v in self.get_project_params(is_preview).items():
-            if type(v) == int or type(v) == float or type(v) == list or type(v) == bool:
-                user_params += "params['{}'] = {}\n".format(k, v)
-            if type(v) == str:
-                user_params += "params['{}'] = u'{}'\n".format(k, v.replace("'", r"\'").replace("\\", "\\\\"))
-        user_params += "#END INJECTING PARAMS\n"
+        param_data = copy.deepcopy(self.params)
+        param_data.update(self.get_project_params(is_preview))
 
-        # Force the Frame to 1 frame (for previewing)
-        if frame:
-            user_params += "\n#ONLY RENDER 1 FRAME FOR PREVIEW\n"
-            user_params += "params['{}'] = {}\n".format("start_frame", frame)
-            user_params += "params['{}'] = {}\n".format("end_frame", frame)
-            user_params += "#END ONLY RENDER 1 FRAME FOR PREVIEW\n"
+        param_serialization = json.dumps(param_data)
+        user_params += 'params_json = r' + '"""{}"""'.format(
+            param_serialization)
+
+        user_params += "\n#END INJECTING PARAMS\n"
 
         # If GPU rendering is selected, see if GPU enable code is available
         s = settings.get_settings()
@@ -520,96 +539,125 @@ Blender Path: {}
         if s.get("blender_gpu_enabled"):
             gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py")
             try:
-                f = open(gpu_enable_py, 'r')
-                gpu_code_body = f.read()
+                with open(gpu_enable_py, 'r') as f:
+                    gpu_code_body = f.read()
+                if gpu_code_body:
+                    log.info("Injecting GPU enable code from {}".format(gpu_enable_py))
+                    user_params += "\n#ENABLE GPU RENDERING\n"
+                    user_params += gpu_code_body
+                    user_params += "\n#END ENABLE GPU RENDERING\n"
             except IOError as e:
-                log.error("Could not load GPU enable code! {}".format(e))
+                log.error("Could not load GPU enable code! %s", e)
 
-        if gpu_code_body:
-            log.info("Injecting GPU enable code from {}".format(gpu_enable_py))
-            user_params += "\n#ENABLE GPU RENDERING\n"
-            user_params += gpu_code_body
-            user_params += "\n#END ENABLE GPU RENDERING\n"
-
-        # Open new temp .py file, and inject the user parameters
-        with open(path, 'r') as f:
+        # Read Python source from script file
+        with open(source_path, 'r') as f:
             script_body = f.read()
 
-        # modify script variable
+        # insert our modifications to script source
         script_body = script_body.replace("# INJECT_PARAMS_HERE", user_params)
 
-        # Write update script
-        with open(path, "w", encoding="UTF-8", errors="strict") as f:
-            f.write(script_body)
+        # Write final script to output dir
+        try:
+            with open(out_path, "w", encoding="UTF-8", errors="strict") as f:
+                f.write(script_body)
+        except Exception:
+            log.error("Could not write blender script to %s", out_path, exc_info=1)
 
     @pyqtSlot(str)
     def update_image(self, image_path):
 
         # get the pixbuf
         image = QImage(image_path)
-        scaled_image = image.scaledToHeight(self.win.imgPreview.height(), Qt.SmoothTransformation)
+        scaled_image = image.scaled(
+            self.win.imgPreview.size(),
+            Qt.KeepAspectRatio,
+            Qt.SmoothTransformation)
         pixmap = QPixmap.fromImage(scaled_image)
         self.win.imgPreview.setPixmap(pixmap)
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
+        #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
+        self.cancel_render.emit()
 
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
         Blender Python API. """
 
-        # Enable the Render button again
-        self.disable_interface()
+        self.processing_mode()
 
         # Init blender paths
-        blend_file_path = os.path.join(info.PATH, "blender", "blend", self.selected_template)
-        source_script = os.path.join(info.PATH, "blender", "scripts", self.selected_template.replace(".blend", ".py"))
-        target_script = os.path.join(info.BLENDER_PATH, self.unique_folder_name,
-                                     self.selected_template.replace(".blend", ".py"))
+        blend_file_path = os.path.join(
+            info.PATH, "blender", "blend", self.selected_template)
+        source_script = os.path.join(
+            info.PATH, "blender", "scripts",
+            self.selected_template.replace(".blend", ".py"))
+        target_script = os.path.join(
+            info.BLENDER_PATH, self.unique_folder_name,
+            self.selected_template.replace(".blend", ".py"))
 
-        # Copy the .py script associated with this template to the temp folder.  This will allow
-        # OpenShot to inject the user-entered params into the Python script.
-        # XXX: Note that copyfile() is used instead of copy(), as the original
-        #      file may be readonly, and we don't want to duplicate those permissions
-        shutil.copyfile(source_script, target_script)
+        # Background Worker Thread (for Blender process)
+        self.background = QThread(self)
+        self.background.setObjectName("openshot_renderer")
+        self.worker = Worker(blend_file_path, target_script, int(frame or 0))  # no parent!
+        self.worker.setObjectName("render_worker")
+        # Move Worker to new thread
+        self.worker.moveToThread(self.background)
 
-        # Open new temp .py file, and inject the user parameters
-        self.inject_params(target_script, frame)
+        # Hook up signals to/from Background Worker
+        self.background.started.connect(self.worker.Render)
 
-        # Create new thread to launch the Blender executable (and read the output)
-        if frame:
-            # preview mode
-            QMetaObject.invokeMethod(self.worker, 'Render', Qt.QueuedConnection,
-                                     Q_ARG(str, blend_file_path),
-                                     Q_ARG(str, target_script),
-                                     Q_ARG(bool, True))
-        else:
-            # render mode
-            # self.my_blender = BlenderCommand(self, blend_file_path, target_script, False)
-            QMetaObject.invokeMethod(self.worker, 'Render', Qt.QueuedConnection,
-                                     Q_ARG(str, blend_file_path),
-                                     Q_ARG(str, target_script),
-                                     Q_ARG(bool, False))
+        self.worker.render_complete.connect(self.render_finished)
+        self.cancel_render.connect(self.worker.Cancel)
 
-    def __init__(self, *args):
-        # Invoke parent init
+        # State changes
+        self.worker.end_processing.connect(self.end_processing)
+        self.worker.start_processing.connect(self.render_initialize)
+
+        # Actual communication between the worker and front-end
+        self.worker.blender_version_error.connect(self.onBlenderVersionError)
+        self.worker.blender_error_nodata.connect(self.onBlenderError)
+        self.worker.blender_error_with_data.connect(self.onBlenderError)
+        self.worker.progress.connect(self.update_progress_bar)
+        self.worker.image_updated.connect(self.update_image)
+        self.worker.frame_saved.connect(self.render_saved)
+        self.worker.frame_stage.connect(self.render_stage)
+        self.worker.frame_render.connect(self.render_progress)
+
+        # Cleanup signals all 'round
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
+        self.background.finished.connect(self.background.deleteLater)
+        self.background.finished.connect(self.worker.deleteLater)
+
+        # Read .py file, inject user parameters, and write to output path
+        self.inject_params(source_script, target_script, frame)
+
+        # Note whether we're rendering a preview or an animation
+        self.final_render = bool(frame is None)
+
+        # Run worker in background thread
+        self.background.start()
+
+    def __init__(self, parent, *args):
+        # Invoke base class init
         super().__init__(*args)
 
-        # Get a reference to the window object
+        self.win = parent
         self.app = get_app()
-        self.win = args[0]
 
         # Get Model data
         self.blender_model = BlenderModel()
 
-        # Keep track of mouse press start position to determine when to start drag
         self.selected = None
         self.deselected = None
+        self.selected_template = ""
+        self.final_render = False
 
         # Preview render timer
         self.preview_timer = QTimer(self)
         self.preview_timer.setInterval(300)
+        self.preview_timer.setSingleShot(True)
         self.preview_timer.timeout.connect(self.preview_timer_onTimeout)
 
         # Init dictionary which holds the values to the template parameters
@@ -619,8 +667,7 @@ Blender Path: {}
         self.unique_folder_name = None
 
         # Disable interface
-        self.disable_interface(cursor=False)
-        self.selected_template = ""
+        self.processing_mode(cursor=False)
 
         # Setup header columns
         self.setModel(self.blender_model.model)
@@ -632,211 +679,228 @@ Blender Path: {}
         self.setWordWrap(True)
         self.setTextElideMode(Qt.ElideRight)
 
-        # Hook up button
-        self.win.btnRefresh.clicked.connect(functools.partial(self.btnRefresh_clicked))
+        # Hook up controls
+        self.win.btnRefresh.clicked.connect(self.preview_timer.start)
         self.win.sliderPreview.valueChanged.connect(functools.partial(self.sliderPreview_valueChanged))
 
         # Refresh view
         self.refresh_view()
 
-        # Background Worker Thread (for Blender process)
-        self.background = QThread(self)
-        self.worker = Worker()  # no parent!
-
-        # Hook up signals to Background Worker
-        self.worker.closed.connect(self.close)
-        self.worker.finished.connect(self.render_finished)
-        self.worker.blender_version_error.connect(self.onBlenderVersionError)
-        self.worker.blender_error_nodata.connect(self.onBlenderErrorNoData)
-        self.worker.progress.connect(self.update_progress_bar)
-        self.worker.image_updated.connect(self.update_image)
-        self.worker.blender_error_with_data.connect(self.onBlenderErrorMessage)
-        self.worker.enable_interface.connect(self.enable_interface)
-
-        # Move Worker to new thread, and Start
-        self.worker.moveToThread(self.background)
-        self.background.start()
-
-    # Error from blender (with version number) (1003)
-    @pyqtSlot(str)
-    def onBlenderVersionError(self, version):
-        self.error_with_blender(version)
-
-    # Error from blender (with no data) (1004)
-    @pyqtSlot()
-    def onBlenderErrorNoData(self):
-        self.error_with_blender()
-
-    # Signal error from blender (with custom message) (1007)
-    @pyqtSlot(str)
-    def onBlenderErrorMessage(self, error):
-        self.error_with_blender(None, error)
-
 
 class Worker(QObject):
     """ Background Worker Object (to run the Blender commands) """
 
-    closed = pyqtSignal()  # 1001
-    finished = pyqtSignal()  # 1002
-    blender_version_error = pyqtSignal(str)  # 1003
-    blender_error_nodata = pyqtSignal()  # 1004
-    progress = pyqtSignal(int)  # 1005
-    image_updated = pyqtSignal(str)  # 1006
-    blender_error_with_data = pyqtSignal(str)  # 1007
-    enable_interface = pyqtSignal()  # 1008
+    finished = pyqtSignal()
+    blender_version_error = pyqtSignal(str)
+    blender_error_nodata = pyqtSignal()
+    blender_error_with_data = pyqtSignal(str)
+    progress = pyqtSignal(int)
+    image_updated = pyqtSignal(str)
+    frame_stage = pyqtSignal(str)
+    frame_render = pyqtSignal(int, int)
+    frame_saved = pyqtSignal(int)
+    start_processing = pyqtSignal()
+    end_processing = pyqtSignal()
+    render_complete = pyqtSignal()
+
+    def __init__(self, blend_file_path, target_script, preview_frame=0):
+        super().__init__()
+
+        # Capture arguments
+        self.blend_file_path = blend_file_path
+        self.target_script = target_script
+        self.preview_frame = preview_frame
+
+        s = settings.get_settings()
+        self.blender_exec_path = s.get("blender_command")
+
+        # Init regex expression used to determine blender's render progress
+        self.blender_version_re = re.compile(
+            r"^Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
+        self.blender_frame_re = re.compile(r"Fra:([0-9,]+)")
+        self.blender_saved_re = re.compile(r"Saved: '(.*\.png)")
+        self.blender_syncing_re = re.compile(
+            r"\| Syncing (.*)$", flags=re.MULTILINE)
+        self.blender_rendering_re = re.compile(
+            r"Rendering ([0-9]*) / ([0-9]*) samples")
+
+        self.version = None
+        self.process = None
+        self.canceled = False
+
+        self.startupinfo = None
+        if sys.platform == 'win32':
+            self.startupinfo = subprocess.STARTUPINFO()
+            self.startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
     @pyqtSlot()
     def Cancel(self):
         """Cancel worker render"""
-        self.is_running = False
         if self.process:
             # Stop blender process if running
             self.process.terminate()
+        self.canceled = True
+        self.finished.emit()
 
-    @pyqtSlot(str, str, bool)
-    def Render(self, blend_file_path, target_script, preview_mode=False):
-        """ Worker's Render method which invokes the Blender rendering commands """
-
-        # Init regex expression used to determine blender's render progress
-        s = settings.get_settings()
-
-        _ = get_app()._tr
-
-        # get the blender executable path
-        self.blender_exec_path = s.get("blender_command")
-        self.preview_mode = preview_mode
-        self.frame_detected = False
-        self.last_frame = 0
-        self.version = None
-        self.command_output = ""
-        self.process = None
-        self.is_running = False
-
-        blender_frame_re = re.compile(r"Fra:([0-9,]*)")
-        blender_saved_re = re.compile(r"Saved: '(.*\.png)")
-        blender_version_re = re.compile(r"Blender (.*?) ")
-
-        startupinfo = None
-        if sys.platform == 'win32':
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    def blender_version_check(self):
+        # Check the version of Blender
+        command_get_version = [
+            self.blender_exec_path,
+            '--factory-startup',
+            '-v',
+            ]
+        log.debug("Checking Blender version, command: {}".format(
+            " ".join([shlex.quote(x) for x in command_get_version])))
 
         try:
-            # Shell the blender command to create the image sequence
-            command_get_version = [self.blender_exec_path, '-v']
-            command_render = [self.blender_exec_path, '-b', blend_file_path, '-P', target_script]
-
-            # Check the version of Blender
-            import shlex
-            log.info("Checking Blender version, command: {}".format(
-                " ".join([shlex.quote(x) for x in command_get_version])))
-
+            if self.process:
+                self.process.terminate()
             self.process = subprocess.Popen(
                 command_get_version,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=startupinfo,
+                startupinfo=self.startupinfo,
+            )
+            # Give Blender up to 10 seconds to respond
+            (out, err) = self.process.communicate(timeout=10)
+        except subprocess.TimeoutExpired:
+            self.process.kill()
+            self.blender_error_nodata.emit()
+            return False
+        except Exception:
+            # Error running command.  Most likely the blender executable path in
+            # the settings is incorrect, or is not a supported Blender version
+            log.error("Version check exception", exc_info=1)
+            self.blender_error_nodata.emit()
+            return False
+
+        ver_string = out.decode('utf-8')
+        log.debug("Blender output:\n%s", ver_string)
+
+        ver_match = self.blender_version_re.search(ver_string)
+        if not ver_match:
+            raise Exception("No Blender version detected in output")
+        log.debug("Matched %s in output", str(ver_match.group(0)))
+
+        self.version = ver_match.group(1)
+        log.info("Found Blender version {}".format(self.version))
+
+        if self.version < info.BLENDER_MIN_VERSION:
+            # Wrong version of Blender.
+            self.blender_version_error.emit(self.version)
+        return (self.version >= info.BLENDER_MIN_VERSION)
+
+    def process_line(self, out_line):
+        line = out_line.decode('utf-8').strip()
+
+        # Skip blank output lines
+        if not line:
+            return
+
+        # append all output into a variable, and log
+        self.command_output += line + "\n"
+        log.debug("  {}".format(line))
+
+        # Look for progress info in the Blender Output
+        output_frame = self.blender_frame_re.search(line)
+        if output_frame and self.current_frame != int(output_frame.group(1)):
+            self.current_frame = int(output_frame.group(1))
+            # update progress on frame change
+            self.progress.emit(self.current_frame)
+
+        output_syncing = self.blender_syncing_re.search(line)
+        if output_syncing:
+            self.frame_stage.emit(output_syncing.group(1))
+
+        output_rendering = self.blender_rendering_re.search(line)
+        if output_rendering:
+            self.frame_render.emit(
+                int(output_rendering.group(1)),
+                int(output_rendering.group(2)),
             )
 
-            # Check the version of Blender
-            try:
-                # Give Blender up to 10 seconds to respond
-                (out, err) = self.process.communicate(timeout=10)
-            except subprocess.TimeoutExpired:
-                self.blender_error_nodata.emit()
-                return
+        output_saved = self.blender_saved_re.search(line)
+        if output_saved:
+            self.frame_count += 1
+            log.debug("Saved frame %d", self.current_frame)
+            self.frame_saved.emit(self.current_frame)
+            # Update preview image
+            self.image_updated.emit(output_saved.group(1))
 
-            ver_string = out.decode('utf-8')
-            ver_match = blender_version_re.search(ver_string)
+    @pyqtSlot()
+    def Render(self):
+        """ Worker's Render method which invokes the Blender rendering commands """
 
-            if not ver_match:
-                raise Exception("No Blender version detected in output")
+        _ = get_app()._tr
 
-            self.version = ver_match.group(1)
-            log.info("Found Blender version {}".format(self.version))
+        if not self.version and not self.blender_version_check():
+            self.finished.emit()
+            return
 
-            if self.version < info.BLENDER_MIN_VERSION:
-                # Wrong version of Blender.
-                self.blender_version_error.emit(self.version)
-                return
+        self.command_output = ""
+        self.current_frame = 0
+        self.frame_count = 0
+        try:
+            # Shell the blender command to create the image sequence
+            command_render = [
+                self.blender_exec_path,
+                '--factory-startup',
+                '-b',  # run in background (no UI)
+                self.blend_file_path,
+                '-y',  # automatically execute Python script
+                '-P', self.target_script,
+            ]
+
+            if self.preview_frame > 0:
+                # Render specific frame
+                command_render.extend(['-f', str(self.preview_frame)])
+            else:
+                # Render entire animation
+                command_render.extend(['-a'])
 
             # debug info
-            log.info("Running Blender, command: {}".format(
+            log.debug("Running Blender, command: {}".format(
                 " ".join([shlex.quote(x) for x in command_render])))
-            log.info("Blender output:")
+            log.debug("Blender output:")
 
-            # Run real command to render Blender project
+            # Run command to render Blender frame(s)
+            if self.process:
+                self.process.terminate()
             self.process = subprocess.Popen(
                 command_render, bufsize=512,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=startupinfo,
+                startupinfo=self.startupinfo,
             )
-            self.is_running = True
+            # Signal UI that background task is running
+            self.start_processing.emit()
 
-        except subprocess.SubprocessError:
+        except subprocess.SubprocessError as ex:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
-            self.is_running = False
-            self.blender_error_nodata.emit()
+            self.blender_error_with_data.emit(str(ex))
             raise
-        except Exception as ex:
-            log.error("Worker exception: {}".format(ex))
+        except Exception:
+            log.error("Worker exception", exc_info=1)
             return
+        else:
+            while not self.canceled and self.process.poll() is None:
+                for out_line in iter(self.process.stdout.readline, b''):
+                    self.process_line(out_line)
 
-        while self.is_running and self.process.poll() is None:
-            for outline in iter(self.process.stdout.readline, b''):
-                line = outline.decode('utf-8').strip()
+            # Signal UI that background task is complete
+            self.end_processing.emit()
+            log.info("Blender process exited, %d frames saved.", self.frame_count)
 
-                # Skip blank output
-                if not line:
-                    continue
-
-                # append all output into a variable, and log
-                self.command_output = self.command_output + line + "\n"
-                log.info("  {}".format(line))
-
-                # Look for progress info in the Blender Output
-                output_frame = blender_frame_re.search(line)
-                output_saved = blender_saved_re.search(line)
-
-                # Does it have a match?
-                if output_frame or output_saved:
-                    # Yes, we have a match
-                    self.frame_detected = True
-
-                if output_frame:
-                    current_frame = int(output_frame.group(1))
-
-                    # Update progress bar
-                    if current_frame != self.last_frame and not self.preview_mode:
-                        # update progress on frame change, if in 'render' mode
-                        self.progress.emit(current_frame)
-
-                    self.last_frame = current_frame
-
-                if output_saved:
-                    # Update preview image
-                    self.image_updated.emit(output_saved.group(1))
-
-        log.info("Blender process exited.")
-
-        # Re-enable the interface
-        self.enable_interface.emit()
-
-        # Check if NO FRAMES are detected
-        if not self.frame_detected:
-            # Show Error that no frames are detected.  This is likely caused by
-            # the wrong command being executed... or an error in Blender.
-            self.blender_error_with_data.emit(_("No frame was found in the output from Blender"))
-
-        # Done with render (i.e. close window)
-        elif self.is_running and not self.preview_mode:
-            # only add file to project data if in 'render' mode and not canceled
+            if self.canceled:
+                return
+            if self.frame_count < 1:
+                log.error("No frame detected from Blender!")
+                log.error("Blender output:\n{}".format(
+                    self.command_output))
+                # Show Error that no frames are detected.  This is likely caused by
+                # the wrong command being executed... or an error in Blender.
+                self.blender_error_with_data.emit(_("No frame was found in the output from Blender"))
+            else:
+                self.render_complete.emit()
+        finally:
+            # Done with render (i.e. shut down worker and thread)
             self.finished.emit()
-
-        # Thread finished
-        if not self.is_running:
-            # close window if thread was killed
-            self.closed.emit()
-
-        # mark thread as finished
-        self.is_running = False

@@ -435,16 +435,22 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
 
         # Paste Menu (if entire clips or transitions are copied)
-        if self.copy_clipboard or self.copy_transition_clipboard:
-            if len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0:
-                menu = QMenu(self)
-                Paste_Clip = menu.addAction(_("Paste"))
-                Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
-                Paste_Clip.triggered.connect(
-                    partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
-                )
+        have_clipboard = (
+            (self.copy_clipboard or self.copy_transition_clipboard)
+            and (len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0)
+        )
 
-                return menu.popup(QCursor.pos())
+        if not have_clipboard:
+            return
+
+        menu = QMenu(self)
+        Paste_Clip = menu.addAction(_("Paste"))
+        Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
+        Paste_Clip.triggered.connect(
+            partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
+        )
+
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -943,12 +949,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             file_path = clip.data["reader"]["path"]
 
             # Find actual clip object from libopenshot
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip_object in clips:
-                if clip_object.Id() == clip_id:
-                    c = clip_object
-
+            c = get_app().window.timeline_sync.timeline.GetClip(clip_id)
             if c and c.Reader() and not c.Reader().info.has_single_image:
                 # Find frame 1 channel_filter property
                 channel_filter = c.channel_filter.GetInt(1)
@@ -1178,11 +1179,11 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 clip.data["location_x"] = {"Points": [p_object]}
                 clip.data["location_y"] = {"Points": [p_object]}
 
-            if action == MENU_LAYOUT_CENTER or \
-               action == MENU_LAYOUT_TOP_LEFT or \
-               action == MENU_LAYOUT_TOP_RIGHT or \
-               action == MENU_LAYOUT_BOTTOM_LEFT or \
-               action == MENU_LAYOUT_BOTTOM_RIGHT:
+            if action in [MENU_LAYOUT_CENTER,
+                          MENU_LAYOUT_TOP_LEFT,
+                          MENU_LAYOUT_TOP_RIGHT,
+                          MENU_LAYOUT_BOTTOM_LEFT,
+                          MENU_LAYOUT_BOTTOM_RIGHT]:
                 # Reset scale mode
                 clip.data["scale"] = openshot.SCALE_FIT
                 clip.data["gravity"] = new_gravity
@@ -1285,10 +1286,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["scale_x"]["Points"].append(start_object)
-                clip.data["scale_x"]["Points"].append(end_object)
-                clip.data["scale_y"]["Points"].append(start_object)
-                clip.data["scale_y"]["Points"].append(end_object)
+                self.AddPoint(clip.data["scale_x"], start_object)
+                self.AddPoint(clip.data["scale_x"], end_object)
+                self.AddPoint(clip.data["scale_y"], start_object)
+                self.AddPoint(clip.data["scale_y"], end_object)
 
             if action in [
                 MENU_ANIMATE_CENTER_TOP,
@@ -1353,10 +1354,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["location_x"]["Points"].append(start_x_object)
-                clip.data["location_x"]["Points"].append(end_x_object)
-                clip.data["location_y"]["Points"].append(start_y_object)
-                clip.data["location_y"]["Points"].append(end_y_object)
+                self.AddPoint(clip.data["location_x"], start_x_object)
+                self.AddPoint(clip.data["location_x"], end_x_object)
+                self.AddPoint(clip.data["location_y"], start_y_object)
+                self.AddPoint(clip.data["location_y"], end_y_object)
 
             if action == MENU_ANIMATE_RANDOM:
                 # Location animation
@@ -1375,10 +1376,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
                 end_object = json.loads(end.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["scale_x"]["Points"].append(start_object)
-                clip.data["scale_x"]["Points"].append(end_object)
-                clip.data["scale_y"]["Points"].append(start_object)
-                clip.data["scale_y"]["Points"].append(end_object)
+                self.AddPoint(clip.data["scale_x"], start_object)
+                self.AddPoint(clip.data["scale_x"], end_object)
+                self.AddPoint(clip.data["scale_y"], start_object)
+                self.AddPoint(clip.data["scale_y"], end_object)
 
                 # Add keyframes
                 start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
@@ -1390,13 +1391,28 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
                 end_y_object = json.loads(end_y.Json())
                 clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["location_x"]["Points"].append(start_x_object)
-                clip.data["location_x"]["Points"].append(end_x_object)
-                clip.data["location_y"]["Points"].append(start_y_object)
-                clip.data["location_y"]["Points"].append(end_y_object)
+                self.AddPoint(clip.data["location_x"], start_x_object)
+                self.AddPoint(clip.data["location_x"], end_x_object)
+                self.AddPoint(clip.data["location_y"], start_y_object)
+                self.AddPoint(clip.data["location_y"], end_y_object)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+    def AddPoint(self, keyframe, new_point):
+        """Add a Point to a Keyframe dict. Always remove existing points,
+        if any collisions are found"""
+        # Get all points that don't match new point coordinate
+        cleaned_points = [
+            point
+            for point in keyframe["Points"]
+            if point.get("co", {}).get("X") != new_point.get("co", {}).get("X")
+        ]
+        cleaned_points.append(new_point)
+
+        # Replace points with new list
+        keyframe["Points"] = cleaned_points
+
 
     def Copy_Triggered(self, action, clip_ids, tran_ids):
         """Callback for copy context menus"""
@@ -1417,7 +1433,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
             self.copy_clipboard[clip_id] = {}
 
-            if action == MENU_COPY_CLIP or action == MENU_COPY_ALL:
+            if action in [MENU_COPY_CLIP, MENU_COPY_ALL]:
                 self.copy_clipboard[clip_id] = clip.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
@@ -1460,7 +1476,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
             self.copy_transition_clipboard[tran_id] = {}
 
-            if action == MENU_COPY_TRANSITION or action == MENU_COPY_ALL:
+            if action in [MENU_COPY_TRANSITION, MENU_COPY_ALL]:
                 self.copy_transition_clipboard[tran_id] = tran.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
@@ -1813,8 +1829,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['alpha']["Points"].append(start_object)
-                clip.data['alpha']["Points"].append(end_object)
+                self.AddPoint(clip.data['alpha'], start_object)
+                self.AddPoint(clip.data['alpha'], end_object)
 
             if action in [MENU_FADE_OUT_FAST, MENU_FADE_OUT_SLOW]:
                 # Add keyframes
@@ -1822,8 +1838,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['alpha']["Points"].append(start_object)
-                clip.data['alpha']["Points"].append(end_object)
+                self.AddPoint(clip.data['alpha'], start_object)
+                self.AddPoint(clip.data['alpha'], end_object)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -1871,7 +1887,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Determine if waveform needs to be redrawn
             has_audio_data = clip_id in self.waveform_cache
 
-            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
                 start_of_clip = float(clip.data["start"])
@@ -1929,7 +1945,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-        # Start timer to redraw audio waveforms
+        # Start or restart timer to redraw audio waveforms
         self.redraw_audio_timer.start()
 
         # Loop through each transition (using the list of ids)
@@ -1940,7 +1956,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Invalid transition, skip to next item
                 continue
 
-            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original transition
                 position_of_tran = float(trans.data["position"])
 
@@ -1994,7 +2010,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Callback function, to redraw audio data after an update
         def callback(self, clip_id, callback_data):
             has_audio_data = callback_data
-            print('has_audio_data: %s' % has_audio_data)
+            log.info('has_audio_data: %s', has_audio_data)
 
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
@@ -2085,8 +2101,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['volume']["Points"].append(start_object)
-                clip.data['volume']["Points"].append(end_object)
+                self.AddPoint(clip.data['volume'], start_object)
+                self.AddPoint(clip.data['volume'], end_object)
 
             if action in [
                 MENU_VOLUME_FADE_OUT_FAST,
@@ -2097,8 +2113,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 start_object = json.loads(start.Json())
                 end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
                 end_object = json.loads(end.Json())
-                clip.data['volume']["Points"].append(start_object)
-                clip.data['volume']["Points"].append(end_object)
+                self.AddPoint(clip.data['volume'], start_object)
+                self.AddPoint(clip.data['volume'], end_object)
 
             if action in [
                 MENU_VOLUME_LEVEL_100,
@@ -2116,7 +2132,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Add keyframes
                 p = openshot.Point(start_animation, float(action) / 100.0, openshot.BEZIER)
                 p_object = json.loads(p.Json())
-                clip.data['volume']["Points"].append(p_object)
+                self.AddPoint(clip.data['volume'], p_object)
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2205,7 +2221,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     original_duration = clip.data["original_data"]["duration"]
 
                 log.info('Updating timing for clip ID {}, original duration: {}'
-                    .format(clip.id, original_duration))
+                         .format(clip.id, original_duration))
                 log.debug(clip.data)
 
                 # Extend end & duration (due to freeze)
@@ -2233,12 +2249,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     del clip.data["time"]["Points"][-1]
 
                     # Find actual clip object from libopenshot
-                    c = None
-                    clips = get_app().window.timeline_sync.timeline.Clips()
-                    for clip_object in clips:
-                        if clip_object.Id() == clip_id:
-                            c = clip_object
-                            break
+                    c = get_app().window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
                         # Look up correct position from time curve
                         start_animation_frames_value = c.time.GetLong(start_animation_frames)
@@ -2246,12 +2257,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Do we already have a volume curve? Look up intersecting frame # from volume curve
                 if len(clip.data["volume"]["Points"]) > 1:
                     # Find actual clip object from libopenshot
-                    c = None
-                    clips = get_app().window.timeline_sync.timeline.Clips()
-                    for clip_object in clips:
-                        if clip_object.Id() == clip_id:
-                            c = clip_object
-                            break
+                    c = get_app().window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
                         # Look up correct volume from time curve
                         start_volume_value = c.volume.GetValue(start_animation_frames)
@@ -2259,51 +2265,51 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Create Time Freeze keyframe points
                 p = openshot.Point(start_animation_frames, start_animation_frames_value, openshot.LINEAR)
                 p_object = json.loads(p.Json())
-                clip.data['time']["Points"].append(p_object)
+                self.AddPoint(clip.data['time'], p_object)
                 p1 = openshot.Point(end_animation_frames, start_animation_frames_value, openshot.LINEAR)
                 p1_object = json.loads(p1.Json())
-                clip.data['time']["Points"].append(p1_object)
+                self.AddPoint(clip.data['time'], p1_object)
                 p2 = openshot.Point(end_of_clip_frames, end_of_clip_frames_value, openshot.LINEAR)
                 p2_object = json.loads(p2.Json())
-                clip.data['time']["Points"].append(p2_object)
+                self.AddPoint(clip.data['time'], p2_object)
 
                 # Create Volume mute keyframe points (so the freeze is silent)
                 p = openshot.Point(start_animation_frames - 1, start_volume_value, openshot.LINEAR)
                 p_object = json.loads(p.Json())
-                clip.data['volume']["Points"].append(p_object)
+                self.AddPoint(clip.data['volume'], p_object)
                 p = openshot.Point(start_animation_frames, 0.0, openshot.LINEAR)
                 p_object = json.loads(p.Json())
-                clip.data['volume']["Points"].append(p_object)
+                self.AddPoint(clip.data['volume'], p_object)
                 p2 = openshot.Point(end_animation_frames - 1, 0.0, openshot.LINEAR)
                 p2_object = json.loads(p2.Json())
-                clip.data['volume']["Points"].append(p2_object)
+                self.AddPoint(clip.data['volume'], p2_object)
                 p3 = openshot.Point(end_animation_frames, start_volume_value, openshot.LINEAR)
                 p3_object = json.loads(p3.Json())
-                clip.data['volume']["Points"].append(p3_object)
+                self.AddPoint(clip.data['volume'], p3_object)
 
                 # Create zoom keyframe points
                 if action == MENU_TIME_FREEZE_ZOOM:
                     p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
                     p_object = json.loads(p.Json())
-                    clip.data['scale_x']["Points"].append(p_object)
+                    self.AddPoint(clip.data['scale_x'], p_object)
                     p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
                     p_object = json.loads(p.Json())
-                    clip.data['scale_y']["Points"].append(p_object)
+                    self.AddPoint(clip.data['scale_y'], p_object)
 
                     diff_halfed = (end_animation_frames - start_animation_frames) / 2.0
                     p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_x']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_x'], p1_object)
                     p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_y']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_y'], p1_object)
 
                     p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_x']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_x'], p1_object)
                     p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
                     p1_object = json.loads(p1.Json())
-                    clip.data['scale_y']["Points"].append(p1_object)
+                    self.AddPoint(clip.data['scale_y'], p1_object)
 
             else:
 
@@ -2339,7 +2345,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     end = openshot.Point(
                         start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
                     end_object = json.loads(end.Json())
-                    clip.data['time']["Points"].append(end_object)
+                    self.AddPoint(clip.data['time'], end_object)
 
                     # Adjust end & duration
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
@@ -2355,7 +2361,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     end = openshot.Point(
                         start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
                     end_object = json.loads(end.Json())
-                    clip.data['time']["Points"].append(end_object)
+                    self.AddPoint(clip.data['time'], end_object)
 
                     # Adjust end & duration
                     clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
@@ -2363,13 +2369,14 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     clip.data["reader"]["video_length"] = self.round_to_multiple(
                         float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
 
-                if action == MENU_TIME_NONE:
+                if action == MENU_TIME_NONE and "original_data" in clip.data:
                     # Reset original end & duration (if available)
-                    if "original_data" in clip.data.keys():
-                        clip.data["end"] = clip.data["original_data"]["end"]
-                        clip.data["duration"] = clip.data["original_data"]["duration"]
-                        clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-                        clip.data.pop("original_data")
+                    orig = clip.data.pop("original_data")
+                    clip.data.update({
+                        "end": orig["end"],
+                        "duration": orig["duration"],
+                    })
+                    clip.data["reader"]["video_length"] = orig["video_length"]
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2743,7 +2750,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Get access to timeline scope and set scale to new computed value
         self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");")
 
-        # Start timer to redraw audio
+        # Start or restart timer to redraw audio
         self.redraw_audio_timer.start()
 
         # Only update scale if different
@@ -3063,10 +3070,20 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Accept event
         event.accept()
 
+        # Clear selected clips
+        get_app().window.removeSelection(self.item_id, self.item_type)
+
         if self.item_type == "clip":
-            get_app().window.actionRemoveClip.trigger()
+            # Delete dragging clip
+            clips = Clip.filter(id=self.item_id)
+            for c in clips:
+                c.delete()
+
         elif self.item_type == "transition":
-            get_app().window.actionRemoveTransition.trigger()
+            # Delete dragging transitions
+            transitions = Transition.filter(id=self.item_id)
+            for t in transitions:
+                t.delete()
 
         # Clear new clip
         self.new_item = False
@@ -3076,9 +3093,6 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
         log.debug('redraw_audio_onTimeout')
-
-        # Stop timer
-        self.redraw_audio_timer.stop()
 
         # Pass to javascript timeline (and render)
         self.run_js(JS_SCOPE_SELECTOR + ".reDrawAllAudioData();")
@@ -3152,12 +3166,13 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Delayed zoom audio redraw
         self.redraw_audio_timer = QTimer(self)
         self.redraw_audio_timer.setInterval(300)
+        self.redraw_audio_timer.setSingleShot(True)
         self.redraw_audio_timer.timeout.connect(self.redraw_audio_onTimeout)
 
         # QTimer for cache rendering
         self.cache_renderer_version = None
         self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(0.5 * 1000)
+        self.cache_renderer.setInterval(500)
         self.cache_renderer.timeout.connect(self.render_cache_json)
 
         # Delay the start of cache rendering

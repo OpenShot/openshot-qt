@@ -216,7 +216,9 @@ elif sys.platform == "linux":
 
     # Add QtWebEngineProcess (if found)
     web_process_path = ARCHLIB + "qt5/libexec/QtWebEngineProcess"
-    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    if os.path.exists(web_process_path):
+        external_so_files.append(
+            (web_process_path, os.path.basename(web_process_path)))
 
     # Add QtWebEngineProcess Resources & Local
     qt5_path = "/usr/share/qt5/"
@@ -248,15 +250,32 @@ elif sys.platform == "linux":
     # Get a list of all openshot.so dependencies (scan these libraries for their dependencies)
     pyqt5_mod_files = []
     from importlib import import_module
-    for submod in ['Qt', 'QtWebEngine', 'QtWebEngineWidgets', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
+    for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
         mod_name  = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))
+    # Optional additions
+    for mod_name in [
+            'PyQt5.QtWebEngine',
+            'PyQt5.QtWebEngineWidgets',
+            'PyQt5.QtWebKit',
+            'PyQt5.QtWebKitWidgets',
+            ]:
+        try:
+            mod = import_module(mod_name)
+            pyqt5_mod_files.append(inspect.getfile(mod))
+        except ImportError as ex:
+            log.warning("Skipping {}: {}".format(mod_name, ex))
 
-    lib_list = [os.path.join(libopenshot_path, "libopenshot.so"),
-                "/usr/local/lib/libresvg.so",
-                ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
-                ] + pyqt5_mod_files
+
+    lib_list = pyqt5_mod_files
+    for lib_name in [
+            os.path.join(libopenshot_path, "libopenshot.so"),
+            "/usr/local/lib/libresvg.so",
+            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
+            ]:
+        if os.path.exists(lib_name):
+            lib_list.append(lib_name)
 
     import subprocess
     for library in lib_list:
@@ -284,6 +303,7 @@ elif sys.platform == "linux":
             libpath = libdetailsparts[0].strip()
             libpath_file = os.path.basename(libpath)
             if (libpath
+                and os.path.exists(libpath)
                 and not libpath.startswith("/lib")
                 and "libnvidia-glcore.so" not in libpath
                 and libpath_file not in [
@@ -306,13 +326,21 @@ elif sys.platform == "linux":
                     "libpangocairo-1.0.so.0",
                     "libpangoft2-1.0.so.0",
                     "libharfbuzz.so.0",
-                    "libthai.so.0" ]
-                ) or libpath_file in ["libgcrypt.so.11", "libQt5DBus.so.5", "libpng12.so.0",
-                                      "libbz2.so.1.0", "libqxcb.so", "libxcb-xinerama.so.0", "libpcre.so.3"]:
-                # Ignore missing files
-                if os.path.exists(libpath):
-                    filepath, filename = os.path.split(libpath)
-                    external_so_files.append((libpath, filename))
+                    "libthai.so.0",
+                    ]
+               ) or libpath_file in [
+                    "libgcrypt.so.11",
+                    "libQt5DBus.so.5",
+                    "libpng12.so.0",
+                    "libbz2.so.1.0",
+                    "libqxcb.so",
+                    "libxcb-xinerama.so.0",
+                    "libpcre.so.3",
+                    "libselinux.so.1",
+                    ]:
+                external_so_files.append((libpath, libpath_file))
+                # Any other lib deps that fail to meet the inclusion
+                # criteria above will be silently skipped over
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses

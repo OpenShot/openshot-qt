@@ -354,19 +354,19 @@ try:
         with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
             for line in inf:
                 if line.startswith("Exec="):
-                    outf.write("Exec=openshot-qt.wrapper %F\n")
+                    outf.write("Exec=openshot-qt-launch.wrapper %F\n")
                 else:
                     outf.write(line)
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
-        desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
+        desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
-        # Create symlink for AppRun
+        # Create AppRun.64 file (the real one)
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        os.symlink(os.path.relpath(launcher_path, app_dir_path), app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)

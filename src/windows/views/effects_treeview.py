@@ -39,14 +39,15 @@ class EffectsTreeView(QTreeView):
 
     def contextMenuEvent(self, event):
         # Set context menu mode
+        event.accept()
         app = get_app()
         app.context_menu_object = "effects"
 
         menu = QMenu(self)
         menu.addAction(self.win.actionThumbnailView)
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
         # Get first column indexes for all selected rows
@@ -110,6 +111,4 @@ class EffectsTreeView(QTreeView):
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.effects_model.ModelRefreshed.connect(self.refresh_columns)
 
-        # Load initial effects model data
-        self.effects_model.update_model()
         self.refresh_columns()

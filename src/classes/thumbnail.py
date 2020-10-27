@@ -106,10 +106,12 @@ class httpThumbnailServerThread(Thread):
         # Start listening for HTTP requests (and check for shutdown every 0.5 seconds)
         self.server_address = ('127.0.0.1', self.find_free_port())
         self.thumbServer = httpThumbnailServer(self.server_address, httpThumbnailHandler)
+        self.thumbServer.daemon_threads = True
         self.thumbServer.serve_forever(0.5)
 
     def __init__(self):
         Thread.__init__(self)
+        self.daemon = True
         self.server_address = None
 
 
@@ -125,11 +127,6 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         log.error(msg_format % args)
 
     def do_GET(self):
-        # Pause processing of request (since we don't currently use thread pooling, this allows
-        # the threads to be processed without choking the CPU as much
-        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
-        time.sleep(0.01)
-
         """ Process each GET request and return a value (image or file path)"""
         # Parse URL
         url_output = REGEX_THUMBNAIL_URL.match(self.path)
@@ -194,4 +191,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 self.wfile.write(open(thumb_path, 'rb').read())
             else:
                 self.wfile.write(bytes(thumb_path, "utf-8"))
-        return
+
+        # Pause processing of request (since we don't currently use thread pooling, this allows
+        # the threads to be processed without choking the CPU as much
+        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
+        time.sleep(0.01)
+

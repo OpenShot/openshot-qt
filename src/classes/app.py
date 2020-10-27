@@ -39,8 +39,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
-# QtWebEngineWidgets must be loaded prior to creating a QApplication
 try:
+    # QtWebEngineWidgets must be loaded prior to creating a QApplication
+    # But on systems with only WebKit, this will fail (and we ignore the failure)
     from PyQt5.QtWebEngineWidgets import QWebEngineView
 except ImportError:
     pass
@@ -56,7 +57,7 @@ try:
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 except AttributeError:
-    pass # Quietly fail for older Qt5 versions
+    pass  # Quietly fail for older Qt5 versions
 
 
 def get_app():
@@ -83,20 +84,20 @@ class OpenShotApp(QApplication):
             log.info('Starting new session'.center(48))
 
             from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
-            from . import openshot_rc
+            from . import openshot_rc  # noqa
             import openshot
 
             # Re-route stdout and stderr to logger
             reroute_output()
         except ImportError as ex:
             tb = traceback.format_exc()
-            log.error('OpenShotApp::Import Error: %s' % str(ex))
+            log.error('OpenShotApp::Import Error', exc_info=1)
             QMessageBox.warning(None, "Import Error",
                                 "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
             # Stop launching and exit
             raise
-        except Exception as ex:
-            log.error('OpenShotApp::Init Error: %s' % str(ex))
+        except Exception:
+            log.error('OpenShotApp::Init Error', exc_info=1)
             sys.exit()
 
         # Log some basic system info
@@ -114,7 +115,7 @@ class OpenShotApp(QApplication):
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
         except Exception:
-            log.warning("Error displaying dependency/system details", exc_info=1)
+            log.debug("Error displaying dependency/system details", exc_info=1)
 
         # Setup application
         self.setApplicationName('openshot')
@@ -140,9 +141,12 @@ class OpenShotApp(QApplication):
         _ = self._tr
         libopenshot_version = openshot.OPENSHOT_VERSION_FULL
         if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
-            QMessageBox.warning(None, _("Wrong Version of libopenshot Detected"),
-                                      _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") %
-                                {"minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION, "current_version": libopenshot_version})
+            QMessageBox.warning(
+                None, _("Wrong Version of libopenshot Detected"),
+                _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. Please update libopenshot or download our latest installer.") % {
+                    "minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION,
+                    "current_version": libopenshot_version,
+                    })
             # Stop launching and exit
             sys.exit()
 
@@ -174,9 +178,13 @@ class OpenShotApp(QApplication):
             os.unlink(TEST_PATH_FILE)
             os.rmdir(TEST_PATH_DIR)
         except PermissionError as ex:
-            log.error('Failed to create PERMISSION/test.osp file (likely permissions error): %s' % TEST_PATH_FILE)
-            QMessageBox.warning(None, _("Permission Error"),
-                                      _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {"error": str(ex), "path": info.USER_PATH}))
+            log.error('Failed to create file %s', TEST_PATH_FILE, exc_info=1)
+            QMessageBox.warning(
+                None, _("Permission Error"),
+                _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {
+                    "error": str(ex),
+                    "path": info.USER_PATH,
+                }))
             # Stop launching and exit
             raise
             sys.exit()
@@ -198,8 +206,8 @@ class OpenShotApp(QApplication):
                 font = QFont(font_family)
                 font.setPointSizeF(10.5)
                 QApplication.setFont(font)
-            except Exception as ex:
-                log.error("Error setting Ubuntu-R.ttf QFont: %s" % str(ex))
+            except Exception:
+                log.debug("Error setting Ubuntu-R.ttf QFont", exc_info=1)
 
         # Set Experimental Dark Theme
         if self.settings.get("theme") == "Humanity: Dark":
@@ -271,8 +279,8 @@ class OpenShotApp(QApplication):
         try:
             from classes.logger import log
             self.settings.save()
-        except Exception as ex:
-            log.error("Couldn't save user settings on exit.\n{}".format(ex))
+        except Exception:
+            log.error("Couldn't save user settings on exit.", exc_info=1)
 
         # return exit result
         return res
@@ -290,4 +298,4 @@ def onLogTheEnd():
         log.info("================================================")
     except Exception:
         from classes.logger import log
-        log.warning('Failed to write session ended log')
+        log.debug('Failed to write session ended log')

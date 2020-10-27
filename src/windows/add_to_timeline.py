@@ -49,7 +49,7 @@ class AddToTimeline(QDialog):
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'add-to-timeline.ui')
 
-    def btnMoveUpClicked(self, event):
+    def btnMoveUpClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnMoveUpClicked")
 
@@ -78,7 +78,7 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
-    def btnMoveDownClicked(self, event):
+    def btnMoveDownClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnMoveDownClicked")
 
@@ -107,7 +107,7 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
-    def btnShuffleClicked(self, event):
+    def btnShuffleClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnShuffleClicked")
 
@@ -117,7 +117,7 @@ class AddToTimeline(QDialog):
         # Refresh tree
         self.treeFiles.refresh_view()
 
-    def btnRemoveClicked(self, event):
+    def btnRemoveClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnRemoveClicked")
 
@@ -184,7 +184,7 @@ class AddToTimeline(QDialog):
                 thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
 
             # Get file name
             filename = os.path.basename(file.data["path"])
@@ -242,7 +242,7 @@ class AddToTimeline(QDialog):
                     position = max(start_position, new_clip["position"] - fade_length)
                     new_clip["position"] = position
 
-                if fade_value == 'Fade In' or fade_value == 'Fade In & Out':
+                if fade_value in ['Fade In', 'Fade In & Out']:
                     start = openshot.Point(round(start_time * fps_float) + 1, 0.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
                     end = openshot.Point(min(round((start_time + fade_length) * fps_float) + 1, round(end_time * fps_float) + 1), 1.0, openshot.BEZIER)
@@ -250,7 +250,7 @@ class AddToTimeline(QDialog):
                     new_clip['alpha']["Points"].append(start_object)
                     new_clip['alpha']["Points"].append(end_object)
 
-                if fade_value == 'Fade Out' or fade_value == 'Fade In & Out':
+                if fade_value in ['Fade Out', 'Fade In & Out']:
                     start = openshot.Point(max(round((end_time * fps_float) + 1) - (round(fade_length * fps_float) + 1), round(start_time * fps_float) + 1), 1.0, openshot.BEZIER)
                     start_object = json.loads(start.Json())
                     end = openshot.Point(round(end_time * fps_float) + 1, 0.0, openshot.BEZIER)

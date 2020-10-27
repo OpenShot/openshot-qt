@@ -44,7 +44,7 @@ class EffectsListView(QListView):
 
         menu = QMenu(self)
         menu.addAction(self.win.actionDetailsView)
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
     def startDrag(self, event):
         """ Override startDrag method to display custom icon """
@@ -114,9 +114,6 @@ class EffectsListView(QListView):
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
-
-        # Load initial effects model data
-        self.effects_model.update_model()
 
         # setup filter events
         app = get_app()

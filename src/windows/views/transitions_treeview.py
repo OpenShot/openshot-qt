@@ -44,7 +44,7 @@ class TransitionsTreeView(QTreeView):
 
         menu = QMenu(self)
         menu.addAction(self.win.actionThumbnailView)
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
     def startDrag(self, event):
         """ Override startDrag method to display custom icon """
@@ -58,7 +58,6 @@ class TransitionsTreeView(QTreeView):
             current = selected[0]
 
         if not current.isValid():
-            # We can't find anything to drag
             log.warning("No draggable items found in model!")
             return False
 
@@ -110,6 +109,4 @@ class TransitionsTreeView(QTreeView):
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.transition_model.ModelRefreshed.connect(self.refresh_columns)
 
-        # Load initial transition model data
-        self.transition_model.update_model()
         self.refresh_columns()
