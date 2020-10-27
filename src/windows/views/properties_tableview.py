@@ -30,13 +30,13 @@ from functools import partial
 from operator import itemgetter
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QTimer
 from PyQt5.QtGui import (
-    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
-    QPainter, QPainterPath, QLinearGradient,
+    QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
 )
 from PyQt5.QtWidgets import (
     QTableView, QAbstractItemView, QMenu, QSizePolicy,
     QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel,
-    QPushButton, QHBoxLayout, QFrame, QFontDialog,
+    QPushButton, QHBoxLayout, QFrame, QFontDialog
 )
 
 from classes.logger import log

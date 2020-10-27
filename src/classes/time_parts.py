@@ -71,5 +71,4 @@ def secondsToTimecode(time_in_seconds=0.0, fps_num=30, fps_den=1, use_millisecon
     """Return a formatted time code HH:MM:SS:FRAME"""
     if use_milliseconds:
         return "%(hour)s:%(min)s:%(sec)s:%(milli)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
-    else:
-        return "%(hour)s:%(min)s:%(sec)s:%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
+    return "%(hour)s:%(min)s:%(sec)s:%(frame)s" % secondsToTime(time_in_seconds, fps_num, fps_den)
