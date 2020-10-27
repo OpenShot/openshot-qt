@@ -497,8 +497,8 @@ class BlenderListView(QListView):
             error_message = _("Error Output:\n{}").format(worker_message)
             log.error("Blender error: {}".format(worker_message))
 
-        msg = QMessageBox()
-        msg.setText(_("""
+        QMessageBox.critical(self, error_message,
+            _("""
 Blender, the free open source 3D content creation suite, is required for this action. (http://www.blender.org)
 
 Please check the preferences in OpenShot and be sure the Blender executable is correct.
@@ -509,10 +509,9 @@ Blender Path: {}
 {}""").format(info.BLENDER_MIN_VERSION,
               s.get("blender_command"),
               error_message))
-        msg.exec_()
 
-        # Enable the Render button again
-        self.end_processing()
+        # Close the blender interface
+        self.win.close()
 
     def inject_params(self, source_path, out_path, frame=None):
         # determine if this is 'preview' mode?
@@ -767,14 +766,12 @@ class Worker(QObject):
             self.process.kill()
             self.blender_error_nodata.emit()
             return False
-        except subprocess.SubprocessError:
+        except Exception:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version
+            log.error("Version check exception", exc_info=1)
             self.blender_error_nodata.emit()
             return False
-        except Exception:
-            log.error("Version check exception", exc_info=1)
-            return
 
         ver_string = out.decode('utf-8')
         log.debug("Blender output:\n%s", ver_string)
@@ -836,6 +833,7 @@ class Worker(QObject):
         _ = get_app()._tr
 
         if not self.version and not self.blender_version_check():
+            self.finished.emit()
             return
 
         self.command_output = ""

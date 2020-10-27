@@ -51,7 +51,7 @@ class PreviewParent(QObject):
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
-        log.info('onModeChanged')
+        log.debug('Playback mode changed to %s', current_mode)
         try:
             if current_mode is openshot.PLAYBACK_PLAY:
                 self.parent.SetPlayheadFollow(False)
@@ -63,7 +63,7 @@ class PreviewParent(QObject):
 
     # Signal when the playback encounters an error
     def onError(self, error):
-        log.info('onError: %s' % error)
+        log.warning('Player error: %s', error)
 
         # Get translation object
         _ = get_app()._tr
@@ -178,11 +178,11 @@ class PlayerWorker(QObject):
             QCoreApplication.processEvents()
 
         self.finished.emit()
-        log.info('exiting thread')
+        log.debug('exiting playback thread')
 
     @pyqtSlot()
     def initPlayer(self):
-        log.info("initPlayer")
+        log.debug("initPlayer")
 
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()
@@ -196,16 +196,16 @@ class PlayerWorker(QObject):
 
     def previewFrame(self, number):
         """ Preview a certain frame """
-        log.info("previewFrame: %s" % number)
-
         # Mark frame number for processing
         self.Seek(number)
 
-        log.info("self.player.Position(): %s" % self.player.Position())
+        log.info(
+            "previewFrame: %s, player Position(): %s",
+            number, self.player.Position())
 
     def refreshFrame(self):
         """ Refresh a certain frame """
-        log.info("refreshFrame")
+        log.debug("refreshFrame")
 
         # Always load back in the timeline reader
         self.parent.LoadFileSignal.emit('')
@@ -213,7 +213,7 @@ class PlayerWorker(QObject):
         # Mark frame number for processing (if parent is done initializing)
         self.Seek(self.player.Position())
 
-        log.info("self.player.Position(): %s" % self.player.Position())
+        log.info("player Position(): %s", self.player.Position())
 
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
@@ -233,7 +233,7 @@ class PlayerWorker(QObject):
         # If blank path, switch back to self.timeline reader
         if not path:
             # Return to self.timeline reader
-            log.info("Set timeline reader again in player: %s" % self.timeline)
+            log.debug("Set timeline reader again in player: %s" % self.timeline)
             self.player.Reader(self.timeline)
 
             # Clear clip reader reference
@@ -285,7 +285,7 @@ class PlayerWorker(QObject):
 
         # Close and destroy old clip readers (leaving the 3 most recent)
         while len(self.previous_clip_readers) > 3:
-            log.info('Removing old clips from preview: %s' % self.previous_clip_readers[0])
+            log.debug('Removing old clips from preview: %s' % self.previous_clip_readers[0])
             previous_clip = self.previous_clips.pop(0)
             previous_clip.Close()
             previous_reader = self.previous_clip_readers.pop(0)
