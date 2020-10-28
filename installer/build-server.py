@@ -330,10 +330,10 @@ try:
 
         # XDG Freedesktop icon paths
         icons = [ ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
-                  ("64x64", os.path.join(PATH, "icon", "64", "openshot-qt.png")),
-                  ("128x128", os.path.join(PATH, "icon", "128", "openshot-qt.png")),
-                  ("256x256", os.path.join(PATH, "icon", "256", "openshot-qt.png")),
-                  ("512x512", os.path.join(PATH, "icon", "512", "openshot-qt.png")),
+                  ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png")),
+                  ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")),
+                  ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")),
+                  ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")),
                 ]
 
         # Copy desktop icons
