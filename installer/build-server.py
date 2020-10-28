@@ -326,25 +326,35 @@ try:
 
         # Recursively create AppDir /usr folder
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
+        os.makedirs(os.path.join(app_dir_path, "usr", "share", "icons", "hicolor", "scalable", "apps", "xdg"), exist_ok=True)
 
-        # Install program icon (as a 128x128 PNG & SVG)
-        icon_svg = os.path.join(PATH, "xdg", "openshot-qt.svg")
-        icon_128_png = os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")
-        shutil.copyfile(icon_128_png, os.path.join(app_dir_path, "openshot-qt.png"))
-        shutil.copyfile(icon_svg, os.path.join(app_dir_path, "openshot-qt.svg"))
+        # XDG Freedesktop icon paths
+        icons = [ ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
+                  ("64x64", os.path.join(PATH, "icon", "64", "openshot-qt.png")),
+                  ("128x128", os.path.join(PATH, "icon", "128", "openshot-qt.png")),
+                  ("256x256", os.path.join(PATH, "icon", "256", "openshot-qt.png")),
+                  ("512x512", os.path.join(PATH, "icon", "512", "openshot-qt.png")),
+                ]
 
-        # Install .DirIcon AppImage icon
+        # Copy desktop icons
+        icon_theme_path = os.path.join(app_dir_path, "usr", "share", "icons", "hicolor")
+
+        # Copy each icon
+        for icon_size, icon_path in icons:
+            dest_icon_path = os.path.join(icon_theme_path, icon_size, "apps", os.path.split(icon_path)[-1])
+            os.makedirs(os.path.split(dest_icon_path)[0], exist_ok=True)
+            shutil.copyfile(icon_path, dest_icon_path)
+
+        # Install .DirIcon AppImage icon (256x256)
         # See: https://docs.appimage.org/reference/appdir.html
-        # SVG icon not supported on Chrome OS (with AppImage desktop integration)
-        # PNG is assumed with desktop integration
-        shutil.copyfile(icon_128_png, os.path.join(app_dir_path, ".DirIcon"))
+        shutil.copyfile(icons[3][1], os.path.join(app_dir_path, ".DirIcon"))
 
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
-        # Copy pixmaps (as a 128x128 PNG & SVG)
-        shutil.copyfile(icon_128_png, os.path.join(dest, "openshot-qt.png"))
-        shutil.copyfile(icon_svg, os.path.join(dest, "openshot-qt.svg"))
+        # Copy pixmaps (as a 64x64 PNG & SVG)
+        shutil.copyfile(icons[0][1], os.path.join(dest, "openshot-qt.svg"))
+        shutil.copyfile(icons[1][1], os.path.join(dest, "openshot-qt.png"))
 
         # Install MIME handler
         dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
