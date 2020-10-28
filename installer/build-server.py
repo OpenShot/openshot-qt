@@ -328,19 +328,19 @@ try:
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
         # Install program icon
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
-                        os.path.join(app_dir_path, "openshot-qt.svg"))
+        icon_256_png = os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")
+        shutil.copyfile(icon_256_png, os.path.join(app_dir_path, "openshot-qt.png"))
 
-        # Install .DirIcon AppImage icon (used on some distros such as Chrome OS)
+        # Install .DirIcon AppImage icon
         # See: https://docs.appimage.org/reference/appdir.html
-        shutil.copyfile(os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png"),
-                        os.path.join(app_dir_path, ".DirIcon"))
+        # SVG icon not supported on Chrome OS (with AppImage desktop integration)
+        # PNG is assumed with desktop integration
+        shutil.copyfile(icon_256_png, os.path.join(app_dir_path, ".DirIcon"))
 
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
-                        os.path.join(dest, "openshot-qt.svg"))
+        shutil.copyfile(icon_256_png, os.path.join(dest, "openshot-qt.png"))
 
         # Install MIME handler
         dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
