@@ -331,6 +331,11 @@ try:
         shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
                         os.path.join(app_dir_path, "openshot-qt.svg"))
 
+        # Install .DirIcon AppImage icon (used on some distros such as Chrome OS)
+        # See: https://docs.appimage.org/reference/appdir.html
+        shutil.copyfile(os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png"),
+                        os.path.join(app_dir_path, ".DirIcon"))
+
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
