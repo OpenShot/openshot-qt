@@ -349,6 +349,9 @@ try:
         # See: https://docs.appimage.org/reference/appdir.html
         shutil.copyfile(icons[3][1], os.path.join(app_dir_path, ".DirIcon"))
 
+        # Install program icon
+        shutil.copyfile(icons[0][1], os.path.join(app_dir_path, "openshot-qt.svg"))
+
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
