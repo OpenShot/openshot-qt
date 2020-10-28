@@ -327,20 +327,24 @@ try:
         # Recursively create AppDir /usr folder
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
-        # Install program icon
-        icon_256_png = os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")
-        shutil.copyfile(icon_256_png, os.path.join(app_dir_path, "openshot-qt.png"))
+        # Install program icon (as a 128x128 PNG & SVG)
+        icon_svg = os.path.join(PATH, "xdg", "openshot-qt.svg")
+        icon_128_png = os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")
+        shutil.copyfile(icon_128_png, os.path.join(app_dir_path, "openshot-qt.png"))
+        shutil.copyfile(icon_svg, os.path.join(app_dir_path, "openshot-qt.svg"))
 
         # Install .DirIcon AppImage icon
         # See: https://docs.appimage.org/reference/appdir.html
         # SVG icon not supported on Chrome OS (with AppImage desktop integration)
         # PNG is assumed with desktop integration
-        shutil.copyfile(icon_256_png, os.path.join(app_dir_path, ".DirIcon"))
+        shutil.copyfile(icon_128_png, os.path.join(app_dir_path, ".DirIcon"))
 
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
-        shutil.copyfile(icon_256_png, os.path.join(dest, "openshot-qt.png"))
+        # Copy pixmaps (as a 128x128 PNG & SVG)
+        shutil.copyfile(icon_128_png, os.path.join(dest, "openshot-qt.png"))
+        shutil.copyfile(icon_svg, os.path.join(dest, "openshot-qt.svg"))
 
         # Install MIME handler
         dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
