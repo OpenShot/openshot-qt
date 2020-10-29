@@ -326,7 +326,6 @@ try:
 
         # Recursively create AppDir /usr folder
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
-        os.makedirs(os.path.join(app_dir_path, "usr", "share", "icons", "hicolor", "scalable", "apps", "xdg"), exist_ok=True)
 
         # XDG Freedesktop icon paths
         icons = [ ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
