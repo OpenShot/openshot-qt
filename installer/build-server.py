@@ -327,27 +327,43 @@ try:
         # Recursively create AppDir /usr folder
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
-        # Install program icon
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
-                        os.path.join(app_dir_path, "openshot-qt.svg"))
+        # XDG Freedesktop icon paths
+        icons = [ ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
+                  ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png")),
+                  ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")),
+                  ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")),
+                  ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")),
+                ]
 
-        # Install .DirIcon AppImage icon (used on some distros such as Chrome OS)
+        # Copy desktop icons
+        icon_theme_path = os.path.join(app_dir_path, "usr", "share", "icons", "hicolor")
+
+        # Copy each icon
+        for icon_size, icon_path in icons:
+            dest_icon_path = os.path.join(icon_theme_path, icon_size, "apps", os.path.split(icon_path)[-1])
+            os.makedirs(os.path.split(dest_icon_path)[0], exist_ok=True)
+            shutil.copyfile(icon_path, dest_icon_path)
+
+        # Install .DirIcon AppImage icon (256x256)
         # See: https://docs.appimage.org/reference/appdir.html
-        shutil.copyfile(os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png"),
-                        os.path.join(app_dir_path, ".DirIcon"))
+        shutil.copyfile(icons[3][1], os.path.join(app_dir_path, ".DirIcon"))
+
+        # Install program icon
+        shutil.copyfile(icons[0][1], os.path.join(app_dir_path, "openshot-qt.svg"))
 
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
-                        os.path.join(dest, "openshot-qt.svg"))
+        # Copy pixmaps (as a 64x64 PNG & SVG)
+        shutil.copyfile(icons[0][1], os.path.join(dest, "openshot-qt.svg"))
+        shutil.copyfile(icons[1][1], os.path.join(dest, "openshot-qt.png"))
 
         # Install MIME handler
         dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
         os.makedirs(dest, exist_ok=True)
 
         shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
-                        os.path.join(dest, "org.openshot.OpenShot.xml"))
+                        os.path.join(dest, "openshot-qt.xml"))
 
         # Copy the entire frozen app
         shutil.copytree(os.path.join(PATH, "build", exe_dir),
@@ -355,7 +371,7 @@ try:
 
         # Copy .desktop file, replacing Exec= commandline
         desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-        desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+        desk_out = os.path.join(app_dir_path, "openshot-qt.desktop")
         with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
             for line in inf:
                 if line.startswith("Exec="):
