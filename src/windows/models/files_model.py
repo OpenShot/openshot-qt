@@ -444,7 +444,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 continue
             if filepath.endswith(".osp") and os.path.isfile(filepath):
                 # Auto load project passed as argument
-                self.win.OpenProjectSignal.emit(filepath)
+                get_app().window.OpenProjectSignal.emit(filepath)
                 return True
             if os.path.isdir(filepath):
                 import_quietly = True
