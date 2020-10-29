@@ -363,7 +363,7 @@ try:
         os.makedirs(dest, exist_ok=True)
 
         shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
-                        os.path.join(dest, "org.openshot.OpenShot.xml"))
+                        os.path.join(dest, "openshot-qt.xml"))
 
         # Copy the entire frozen app
         shutil.copytree(os.path.join(PATH, "build", exe_dir),
@@ -371,7 +371,7 @@ try:
 
         # Copy .desktop file, replacing Exec= commandline
         desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-        desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+        desk_out = os.path.join(app_dir_path, "openshot-qt.desktop")
         with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
             for line in inf:
                 if line.startswith("Exec="):
