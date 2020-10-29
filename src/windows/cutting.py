@@ -360,7 +360,8 @@ class Cutting(QDialog):
         log.info('close')
 
     def closeEvent(self, event):
-        log.info('closeEvent')
+        log.debug('closeEvent')
+        event.accept()
 
         # Stop playback
         self.preview_parent.worker.Stop()

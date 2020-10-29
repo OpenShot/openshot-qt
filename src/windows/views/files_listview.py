@@ -40,6 +40,7 @@ class FilesListView(QListView):
     drag_item_size = 48
 
     def contextMenuEvent(self, event):
+        event.accept()
 
         # Set context menu mode
         app = get_app()
@@ -80,13 +81,15 @@ class FilesListView(QListView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
-        if event.mimeData().hasUrls():
-            event.setDropAction(Qt.CopyAction)
-            event.accept()
+        if not event.mimeData().hasUrls():
+            event.ignore()
+            return
+        event.accept()
+        event.setDropAction(Qt.CopyAction)
 
     def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
@@ -115,23 +118,23 @@ class FilesListView(QListView):
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
-        pass
+        event.accept()
 
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
+        if not event.mimeData().hasUrls():
+            # Nothing we're interested in
+            event.reject()
+            return
+        event.accept()
         # Use try/finally so we always reset the cursor
         try:
             # Set cursor to waiting
             get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
-            if not event.mimeData().hasUrls():
-                return
-
             qurl_list = event.mimeData().urls()
             log.info("Processing drop event for {} urls".format(len(qurl_list)))
-            result = self.files_model.process_urls(qurl_list)
-            if result:
-                event.accept()
+            self.files_model.process_urls(qurl_list)
         finally:
             # Restore cursor
             get_app().restoreOverrideCursor()

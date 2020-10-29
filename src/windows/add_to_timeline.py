@@ -50,7 +50,7 @@ class AddToTimeline(QDialog):
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'add-to-timeline.ui')
 
-    def btnMoveUpClicked(self, event):
+    def btnMoveUpClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnMoveUpClicked")
 
@@ -79,7 +79,7 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
-    def btnMoveDownClicked(self, event):
+    def btnMoveDownClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnMoveDownClicked")
 
@@ -108,7 +108,7 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
-    def btnShuffleClicked(self, event):
+    def btnShuffleClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnShuffleClicked")
 
@@ -118,7 +118,7 @@ class AddToTimeline(QDialog):
         # Refresh tree
         self.treeFiles.refresh_view()
 
-    def btnRemoveClicked(self, event):
+    def btnRemoveClicked(self, checked):
         """Callback for move up button click"""
         log.info("btnRemoveClicked")
 
