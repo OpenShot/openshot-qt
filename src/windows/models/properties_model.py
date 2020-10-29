@@ -102,7 +102,7 @@ class PropertiesModel(updates.UpdateInterface):
                 self.selected.append((c, item_type))
 
         if item_type == "transition":
-            t = get_app().window.timeline_sync.timeline.GetTimelineEffect(item_id)
+            t = get_app().window.timeline_sync.timeline.GetEffect(item_id)
             if t:
                 # Append to selected items
                 self.selected.append((t, item_type))
@@ -520,6 +520,13 @@ class PropertiesModel(updates.UpdateInterface):
                     except Exception as ex:
                         log.warn('Invalid String value passed to property: %s' % ex)
 
+                elif property_type in ["font", "caption"]:
+                    clip_updated = True
+                    try:
+                        c.data[property_key] = str(new_value)
+                    except Exception as ex:
+                        log.warn('Invalid Font/Caption value passed to property: %s' % ex)
+
                 elif property_type == "reader":
                     # Transition
                     clip_updated = True
@@ -583,6 +590,9 @@ class PropertiesModel(updates.UpdateInterface):
                 # Add Headers
                 self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
 
+                # Clear caption editor
+                get_app().window.CaptionTextLoaded.emit("", None)
+
             # Loop through properties, and build a model
             for property in all_properties.items():
                 label = property[1]["name"]
@@ -623,7 +633,7 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setBackground(QColor("green"))  # Highlight keyframe background
                     elif points > 1:
                         col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-                    if readonly or type == "color" or choices or label == "Track":
+                    if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
                         col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
@@ -636,6 +646,14 @@ class PropertiesModel(updates.UpdateInterface):
                     elif type == "string":
                         # Use string value
                         col.setText(memo)
+                    elif type == "font":
+                        # Use font value
+                        col.setText(memo)
+                    elif type == "caption":
+                        # Use caption value
+                        col.setText(memo)
+                        # Load caption editor also
+                        get_app().window.CaptionTextLoaded.emit(memo, row)
                     elif type == "bool":
                         # Use boolean value
                         if value:
@@ -687,7 +705,7 @@ class PropertiesModel(updates.UpdateInterface):
                         blue = property[1]["blue"]["value"]
                         col.setBackground(QColor(red, green, blue))
 
-                    if readonly or type == "color" or choices or label == "Track":
+                    if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
                         col.setFlags(Qt.ItemIsEnabled)
                     else:
                         col.setFlags(
@@ -723,6 +741,12 @@ class PropertiesModel(updates.UpdateInterface):
                         col.setText(_(selected_choice))
                     elif type == "string":
                         # Use string value
+                        col.setText(memo)
+                    elif type == "font":
+                        # Use font value
+                        col.setText(memo)
+                    elif type == "caption":
+                        # Use caption value
                         col.setText(memo)
                     elif type == "bool":
                         # Use boolean value
