@@ -28,64 +28,64 @@
  """
 
 import os
-import sys
 import platform
 import shutil
+import sys
 import webbrowser
+from copy import deepcopy
 from time import sleep
 from uuid import uuid4
-from copy import deepcopy
 
+import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
     Qt, pyqtSignal, QCoreApplication, PYQT_VERSION_STR,
     QTimer, QDateTime, QFileInfo, QUrl,
     )
-from PyQt5.QtGui import QIcon, QCursor, QKeySequence
+from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QDockWidget,
     QMessageBox, QDialog, QFileDialog, QInputDialog,
     QAction, QActionGroup, QSizePolicy,
     QStatusBar, QToolBar, QToolButton,
-    QLineEdit, QSlider, QLabel, QComboBox,
-    )
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+    QLineEdit, QSlider, QLabel, QComboBox, QTextEdit
+)
 
-from windows.views.timeline_webview import TimelineWebView
 from classes import info, ui_util, settings, qt_types, updates
-from classes import openshot_rc  # noqa
 from classes.app import get_app
-from classes.logger import log
-from classes.timeline import TimelineSync
-from classes.query import Clip, Transition, Marker, Track
-from classes.metrics import (
-    track_metric_session, track_metric_screen,
-    track_metric_error, track_exception_stacktrace,
-    )
-from classes.version import get_current_Version
 from classes.conversion import zoomToSeconds, secondsToZoom
-from classes.thumbnail import httpThumbnailServerThread
-from windows.models.files_model import FilesModel
-from windows.views.files_treeview import FilesTreeView
-from windows.views.files_listview import FilesListView
-from windows.models.transition_model import TransitionsModel
-from windows.views.transitions_treeview import TransitionsTreeView
-from windows.views.transitions_listview import TransitionsListView
-from windows.models.emoji_model import EmojisModel
-from windows.views.emojis_listview import EmojisListView
-from windows.models.effects_model import EffectsModel
-from windows.views.effects_treeview import EffectsTreeView
-from windows.views.effects_listview import EffectsListView
-from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
-from windows.views.tutorial import TutorialManager
-from windows.video_widget import VideoWidget
-from windows.preview_thread import PreviewParent
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
+from classes.logger import log
+from classes.metrics import (
+    track_metric_session, track_metric_screen,
+    track_metric_error, track_exception_stacktrace,
+    )
+from classes.query import Clip, Transition, Marker, Track
+from classes.thumbnail import httpThumbnailServerThread
+from classes.time_parts import secondsToTimecode
+from classes.timeline import TimelineSync
+from classes.version import get_current_Version
+from windows.models.effects_model import EffectsModel
+from windows.models.emoji_model import EmojisModel
+from windows.models.files_model import FilesModel
+from windows.models.transition_model import TransitionsModel
+from windows.preview_thread import PreviewParent
+from windows.video_widget import VideoWidget
+from windows.views.effects_listview import EffectsListView
+from windows.views.effects_treeview import EffectsTreeView
+from windows.views.emojis_listview import EmojisListView
+from windows.views.files_listview import FilesListView
+from windows.views.files_treeview import FilesTreeView
+from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
+from windows.views.webview import TimelineWebView
+from windows.views.transitions_listview import TransitionsListView
+from windows.views.transitions_treeview import TransitionsTreeView
+from windows.views.tutorial import TutorialManager
 
 
-class MainWindow(QMainWindow, updates.UpdateWatcher):
+class MainWindow(updates.UpdateWatcher, QMainWindow):
     """ This class contains the logic for the main window widget """
 
     # Path to ui file
@@ -114,6 +114,8 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
     FileUpdated = pyqtSignal(str)
+    CaptionTextUpdated = pyqtSignal(str, object)
+    CaptionTextLoaded = pyqtSignal(str, object)
 
     # Docks are closable, movable and floatable
     docks_frozen = False
@@ -173,17 +175,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
 
-        # Shut down the webview
-        self.timeline.close()
-
         # Close Timeline
         self.timeline_sync.timeline.Close()
         self.timeline_sync.timeline = None
-
-        # Close & Stop libopenshot logger
-        openshot.ZmqLogger.Instance().Close()
-        app.logger_libopenshot.kill()
-        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -1065,13 +1059,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.SpeedSignal.emit(new_speed)
 
     def actionJumpStart_trigger(self, checked=True):
-        log.info("actionJumpStart_trigger")
+        log.debug("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
     def actionJumpEnd_trigger(self, checked=True):
-        log.info("actionJumpEnd_trigger")
+        log.debug("actionJumpEnd_trigger")
 
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
@@ -1755,7 +1749,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # If we didn't act on the event, forward it to the base class
         else:
-            QMainWindow.keyPressEvent(self, event)
+            super().keyPressEvent(event)
 
     def actionProfile_trigger(self):
         # Show dialog
@@ -2170,21 +2164,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Set initial size of docks
         simple_state = "".join([
-            "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAAvwAAAJeAAAApwAAAAAA////",
-            "+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////",
-            "AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAACfAP///",
-            "wAAAAEAAAEcAAABQPwCAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAQAAAVg",
-            "AAAAVAAAAAAAAAAAAAAACAAAFEgAAAvP8AQAAAAH8AAAAAAAABRIAAAD6AP////",
-            "wCAAAAAvwAAAAnAAAB0QAAAK0A/////AEAAAAC/AAAAAAAAAHaAAAAewD////",
-            "6AAAAAAIAAAAE+wAAABIAZABvAGMAawBGAGkAbABlAHMBAAAAAP////8AAACRAP////",
-            "sAAAAeAGQAbwBjAGsAVAByAGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAkQD////",
-            "7AAAAFgBkAG8AYwBrAEUAZgBmAGUAYwB0AHMBAAAAAP////8AAACRAP////",
-            "sAAAAUAGQAbwBjAGsARQBtAG8AagBpAHMBAAAAJwAAAdEAAACRAP////",
-            "sAAAASAGQAbwBjAGsAVgBpAGQAZQBvAQAAAeAAAAMyAAAARwD////",
-            "7AAAAGABkAG8AYwBrAFQAaQBtAGUAbABpAG4AZQEAAAH+AAABHAAAAJYA////",
-            "AAAFEgAAAAEAAAABAAAAAgAAAAEAAAAC/",
-            "AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
-            ])
+            "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAA/wAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAA"
+            "YAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAH"
+            "AAZQByAHQAaQBlAHMAAAAAJwAAAt8AAAChAP////sAAAAYAGQAbwBjAGsAVAB1AHQAbwByAGkAYQBsAgAAA"
+            "AAAAAAAAAAAyAAAAGQAAAABAAABHAAAAUD8AgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEA"
+            "AAFYAAAAFQAAAAAAAAAAAAAAAgAABEYAAALY/AEAAAAC/AAAAAAAAANnAAAA+gD////8AgAAAAL8AAAAJwA"
+            "AAcAAAACvAP////wBAAAAAvwAAAAAAAABFQAAAHsA////+gAAAAACAAAAA/sAAAASAGQAbwBjAGsARgBpAG"
+            "wAZQBzAQAAAAD/////AAAAkgD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/"
+            "////wAAAJIA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAAD/////AAAAkgD////7AAAAEgBk"
+            "AG8AYwBrAFYAaQBkAGUAbwEAAAEbAAACTAAAAEcA////+wAAABgAZABvAGMAawBUAGkAbQBlAGwAaQBuAGU"
+            "BAAAB7QAAARIAAACWAP////wAAANtAAAA2QAAAIIA////+gAAAAECAAAAAvsAAAAiAGQAbwBjAGsAQwBhAH"
+            "AAdABpAG8AbgBFAGQAaQB0AG8AcgAAAAAA/////wAAAJgA////+wAAABQAZABvAGMAawBFAG0AbwBqAGkAc"
+            "wEAAADFAAACOgAAAJIA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABv"
+            "AG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
+        ])
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
 
@@ -2214,21 +2207,18 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Set initial size of docks
         advanced_state = "".join([
-            "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAAC+vwCAAAAAvsAAAAcAGQAbwBjAGsAUAB",
-            "yAG8AcABlAHIAdABpAGUAcwEAAAAnAAAC+gAAAJ8A/////AAAAl4AAACnAAAAAAD////",
-            "6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBmAHIAYQBtAGUAAAAAAP////",
-            "8AAAAAAAAAAAAAAAEAAACZAAAC+vwCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZg",
-            "ByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD7AAAAFgBkAG8AYwBrAEUAZgBmAGUAY",
-            "wB0AHMBAAAAJwAAAvoAAACRAP///wAAAAIAAAN8AAAC8/wBAAAAAfwAAAD3AAAD",
-            "fAAAAPoA/////AIAAAAC/AAAACcAAAHZAAABRAD////8AQAAAAL8AAAA9wAAAVsAAAB7AP////",
-            "wCAAAAAvsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAACcAAADkAAAAkQD////",
-            "8AAABEQAAAO8AAACtAQAAG/oAAAAAAQAAAAL7AAAAHgBkAG8AYwBrAFQAcg",
-            "BhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/////wAAAGwA////",
-            "+wAAABQAZABvAGMAawBFAG0AbwBqAGkAcwEAAAD3AAABHQAAAFgA////",
-            "+wAAABIAZABvAGMAawBWAGkAZABlAG8BAAACWAAAAhsAAABHAP////",
-            "sAAAAYAGQAbwBjAGsAVABpAG0AZQBsAGkAbgBlAQAAAgYAAAEUAAAAlgD///",
-            "8AAAN8AAAAAQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAABAAAADgB0",
-            "AG8AbwBsAEIAYQByAQAAAAD/////AAAAAAAAAAA="
+            "AAAA/wAAAAD9AAAAAwAAAAAAAADxAAAC3/wCAAAAAvsAAAAcAGQAbwBjAGsAUAByAG8AcABlAHIAdABpAGUAcw"
+            "EAAAAnAAAC3wAAAKEA/////AAAAl4AAACnAAAAAAD////6AAAAAAIAAAAB+wAAABgAZABvAGMAawBLAGUAeQBm"
+            "AHIAYQBtAGUAAAAAAP////8AAAAAAAAAAAAAAAEAAACZAAAC3/wCAAAAAvsAAAAYAGQAbwBjAGsASwBlAHkAZg"
+            "ByAGEAbQBlAQAAAVgAAAAVAAAAAAAAAAD8AAAAJwAAAt8AAAC1AQAAHPoAAAAAAQAAAAL7AAAAFgBkAG8AYwBr"
+            "AEUAZgBmAGUAYwB0AHMBAAADrQAAAJkAAABYAP////sAAAAiAGQAbwBjAGsAQwBhAHAAdABpAG8AbgBFAGQAaQ"
+            "B0AG8AcgEAAAAA/////wAAAFgA////AAAAAgAAArAAAALY/AEAAAAB/AAAAPcAAAKwAAAA+gD////8AgAAAAL8"
+            "AAAAJwAAAcgAAAFHAP////wBAAAAAvwAAAD3AAAArgAAAIIA/////AIAAAAC+wAAABIAZABvAGMAawBGAGkAbA"
+            "BlAHMBAAAAJwAAAOQAAACSAP////wAAAERAAAA3gAAAK8BAAAc+gAAAAABAAAAAvsAAAAeAGQAbwBjAGsAVABy"
+            "AGEAbgBzAGkAdABpAG8AbgBzAQAAAAD/////AAAAbAD////7AAAAFABkAG8AYwBrAEUAbQBvAGoAaQBzAQAAAP"
+            "cAAAEdAAAAggD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAGrAAAB/AAAAEcA////+wAAABgAZABvAGMA"
+            "awBUAGkAbQBlAGwAaQBuAGUBAAAB9QAAAQoAAACWAP///wAAArAAAAABAAAAAQAAAAIAAAABAAAAAvwAAAABAA"
+            "AAAgAAAAEAAAAOAHQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAA=="
             ])
         self.restoreState(qt_types.str_to_bytes(advanced_state))
         QCoreApplication.processEvents()
@@ -2263,6 +2253,57 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if self.tutorial_manager:
             self.tutorial_manager.exit_manager()
             self.tutorial_manager = TutorialManager(self)
+
+    def actionInsertTimestamp_trigger(self, event):
+        """Insert the current timestamp into the caption editor
+        In the format: 00:00:23,000 --> 00:00:24,500. first click to set the initial timestamp,
+        move the playehad, second click to set the end timestamp.
+        """
+        # Get translation function
+        app = get_app()
+        _ = app._tr
+
+        if self.captionTextEdit.isReadOnly():
+            return
+
+        # Calculate fps / current seconds
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        current_position = (self.preview_thread.current_frame - 1) / fps_float
+
+        # Get cursor / current line of text (where cursor is located)
+        cursor = self.captionTextEdit.textCursor()
+        self.captionTextEdit.moveCursor(QTextCursor.StartOfLine)
+        line_text = cursor.block().text()
+        self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
+
+        # Insert text at cursor position
+        current_timestamp = secondsToTimecode(current_position, fps["num"], fps["den"], use_milliseconds=True)
+        if "-->" in line_text:
+            self.captionTextEdit.insertPlainText("%s\n%s" % (current_timestamp, _("Enter caption text...")))
+        else:
+            self.captionTextEdit.insertPlainText("%s --> " % (current_timestamp))
+
+    def captionTextEdit_TextChanged(self):
+        """Caption text was edited, start the save timer (to prevent spamming saves)"""
+        self.caption_save_timer.start()
+
+    def caption_editor_save(self):
+        """Emit the CaptionTextUpdated signal (and if that property is active/selected, it will be saved)"""
+        self.CaptionTextUpdated.emit(self.captionTextEdit.toPlainText(), self.caption_model_row)
+
+    def caption_editor_load(self, new_caption_text, caption_model_row):
+        """Load the caption editor with text, or disable it if empty string detected"""
+        self.caption_model_row = caption_model_row
+        self.captionTextEdit.setPlainText(new_caption_text.strip())
+        if not caption_model_row:
+            self.captionTextEdit.setReadOnly(True)
+        else:
+            self.captionTextEdit.setReadOnly(False)
+
+            # Show this dock
+            self.dockCaptionEditor.show()
+            self.dockCaptionEditor.raise_()
 
     def SetWindowTitle(self, profile=None):
         """ Set the window title based on a variety of factors """
@@ -2333,6 +2374,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             elif item_type == "effect":
                 self.selected_effects.clear()
 
+            # Clear caption editor (if nothing is selected)
+            get_app().window.CaptionTextLoaded.emit("", None)
+
         if item_id:
             # If item_id is not blank, store it
             if item_type == "clip" and item_id not in self.selected_clips:
@@ -2363,6 +2407,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         if not self.selected_clips:
             # Clear transform (if no other clips are selected)
             self.TransformSignal.emit("")
+
+            # Clear caption editor (if nothing is selected)
+            get_app().window.CaptionTextLoaded.emit("", None)
 
         # Move selection to next selected clip (if any)
         self.show_property_id = ""
@@ -2595,6 +2642,27 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
+        # Add Video Preview toolbar
+        self.captionToolbar = QToolBar(_("Caption Toolbar"))
+
+        # Add Caption text editor widget
+        self.captionTextEdit = QTextEdit()
+        self.captionTextEdit.setReadOnly(True)
+
+        # Playback controls (centered)
+        self.captionToolbar.addAction(self.actionInsertTimestamp)
+        self.tabCaptions.layout().addWidget(self.captionToolbar)
+        self.tabCaptions.layout().addWidget(self.captionTextEdit)
+
+        # Hook up caption editor signal
+        self.captionTextEdit.textChanged.connect(self.captionTextEdit_TextChanged)
+        self.caption_save_timer = QTimer()
+        self.caption_save_timer.setInterval(100)
+        self.caption_save_timer.setSingleShot(True)
+        self.caption_save_timer.timeout.connect(self.caption_editor_save)
+        self.CaptionTextLoaded.connect(self.caption_editor_load)
+        self.caption_model_row = None
+
         # Get project's initial zoom value
         initial_scale = get_app().project.get("scale") or 15
         # Round non-exponential scale down to next lowest power of 2
@@ -2761,10 +2829,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         except Exception:
             log.debug('Failed to notify unity launcher of export progress. Completed.')
 
-    def __init__(self, mode=None):
+    def __init__(self, *args, mode=None):
 
         # Create main window base class
-        QMainWindow.__init__(self)
+        super().__init__(*args)
         self.mode = mode    # None or unittest (None is normal usage)
         self.initialized = False
 

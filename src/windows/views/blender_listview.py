@@ -222,20 +222,41 @@ class BlenderListView(QListView):
         # Get translation object
         _ = get_app()._tr
 
-        # Show color dialog
         color_value = self.params[param["name"]]
         currentColor = QColor("#FFFFFF")
         if len(color_value) >= 3:
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
-        newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
-                                         QColorDialog.DontUseNativeDialog)
-        if newColor.isValid():
-            widget.setStyleSheet("background-color: {}".format(newColor.name()))
-            self.params[param["name"]] = [newColor.redF(), newColor.greenF(), newColor.blueF()]
-            if "diffuse_color" in param.get("name"):
-                self.params[param["name"]].append(newColor.alphaF())
+        # Store our arguments for the callback to pick up again
+        self._color_scratchpad = (widget, param)
 
-            log.info('Animation param %s set to %s' % (param["name"], newColor.name()))
+        # Set up non-modal color dialog (to avoid blocking the eyedropper)
+        self.newColorDialog = QColorDialog(currentColor, self.win)
+        self.newColorDialog.setWindowTitle(_("Select a Color"))
+        self.newColorDialog.setWindowFlags(Qt.Tool)
+        self.newColorDialog.setOptions(QColorDialog.DontUseNativeDialog)
+        # Avoid signal loops
+        self.newColorDialog.blockSignals(True)
+        self.newColorDialog.colorSelected.connect(self.color_selected)
+        self.newColorDialog.finished.connect(self.newColorDialog.deleteLater)
+        self.newColorDialog.blockSignals(False)
+        self.newColorDialog.open()
+
+    @pyqtSlot(QColor)
+    def color_selected(self, newColor):
+        """QColorDialog callback when the user chooses a color"""
+        if not self._color_scratchpad:
+            log.warning("QColorDialog callback called without parameter to set")
+            return
+        (widget, param) = self._color_scratchpad
+        if not newColor or not newColor.isValid():
+            return
+        widget.setStyleSheet("background-color: {}".format(newColor.name()))
+        self.params[param["name"]] = [
+            newColor.redF(), newColor.greenF(), newColor.blueF()
+            ]
+        if "diffuse_color" in param.get("name"):
+            self.params[param["name"]].append(newColor.alphaF())
+        log.info('Animation param %s set to %s', param["name"], newColor.name())
 
     def generateUniqueFolder(self):
         """ Generate a new, unique folder name to contain Blender frames """
@@ -651,6 +672,8 @@ Blender Path: {}
 
         self.selected = None
         self.deselected = None
+        self._color_scratchpad = None
+        self.newColorDialog = None
         self.selected_template = ""
         self.final_render = False
 

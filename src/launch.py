@@ -66,9 +66,12 @@ def main():
         help='Additional locations to search for modules '
               '(PYTHONPATH). Can be used multiple times.')
     parser.add_argument('--test-models', dest='modeltest',
-       action='store_true',
-       help="Load Qt's QAbstractItemModelTester into data models "
-       '(requires Qt 5.11+)')
+        action='store_true',
+        help="Load Qt's QAbstractItemModelTester into data models "
+        '(requires Qt 5.11+)')
+    parser.add_argument('-b', '--web-backend', action='store',
+        choices=['auto', 'webkit', 'webengine'], default='auto',
+        help="Web backend to use for Timeline")
     parser.add_argument('-d', '--debug', action='store_true',
         help='Enable debugging output')
     parser.add_argument('--debug-file', action='store_true',
@@ -116,7 +119,8 @@ def main():
         # Set default logging rules, if the user didn't
         if os.getenv('QT_LOGGING_RULES') is None:
             os.putenv('QT_LOGGING_RULES', 'qt.modeltest.debug=true')
-
+    if args.web_backend:
+        info.WEB_BACKEND = args.web_backend.lower()
     if args.lang:
         if args.lang in info.SUPPORTED_LANGUAGES:
             info.CMDLINE_LANGUAGE = args.lang

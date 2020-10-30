@@ -94,6 +94,9 @@ MODEL_TEST = False
 LOG_LEVEL_FILE = 'INFO'
 LOG_LEVEL_CONSOLE = 'INFO'
 
+# Web backend selection, overridable at launch
+WEB_BACKEND = 'auto'
+
 # Languages
 CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
