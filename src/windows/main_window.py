@@ -85,7 +85,7 @@ from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
 
 
-class MainWindow(QMainWindow, updates.UpdateWatcher):
+class MainWindow(updates.UpdateWatcher, QMainWindow):
     """ This class contains the logic for the main window widget """
 
     # Path to ui file
