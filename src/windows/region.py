@@ -85,7 +85,7 @@ class SelectRegion(QDialog):
 
         self.clip.Open()
 
-        # Set region clip start and end 
+        # Set region clip start and end
         self.clip.Start(clip.Start())
         self.clip.End(clip.End())
         self.clip.Id( get_app().project.generate_id() )
@@ -93,8 +93,8 @@ class SelectRegion(QDialog):
         print("IDS {} {}".format(clip.Id(), self.clip.Id()))
 
         # Keep track of file object
-        # self.file = file
-        # self.file_path = file.absolute_path()
+        self.file = file
+        self.file_path = file.absolute_path()
 
         c_info = clip.Reader().info
         self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
@@ -110,7 +110,7 @@ class SelectRegion(QDialog):
         # Apply effects to region frames
         for effect in clip.Effects():
             self.clip.AddEffect(effect)
-            
+
         # Open video file with Reader
         log.info(self.clip.Reader())
 
@@ -129,7 +129,7 @@ class SelectRegion(QDialog):
 
         try:
             # Add clip for current preview file
-            # self.clip = openshot.Clip(self.file_path)
+            self.clip = openshot.Clip(self.file_path)
 
             # Show waveform for audio files
             if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
