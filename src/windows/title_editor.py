@@ -540,7 +540,7 @@ class TitleEditor(QDialog):
             s = text_child.attributes["style"].value
             ard = style_to_dict(s)
             set_if_existing(ard, "font-style", self.font_style)
-            set_if_existing(ard, "font-family", self.font_family)
+            set_if_existing(ard, "font-family", f"'{self.font_family}'")
             set_if_existing(ard, "font-size", f"{self.font_size_pixel}px")
             self.title_style_string = dict_to_style(ard)
 
