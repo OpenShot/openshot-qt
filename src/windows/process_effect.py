@@ -28,6 +28,7 @@
 import os
 import sys
 import time
+import json
 import operator
 import functools
 
@@ -190,6 +191,11 @@ class ProcessEffect(QDialog):
 
             row_count += 1
 
+        # Add error field
+        self.error_label = QLabel("", self)
+        self.error_label.setStyleSheet("color: red;")
+        self.scrollAreaWidgetContents.layout().insertRow(row_count, self.error_label)
+
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
         self.process_button = QPushButton(_('Process Effect'))
@@ -288,8 +294,8 @@ class ProcessEffect(QDialog):
     def accept(self):
         """ Start processing effect """
         # Disable UI
-        for child_widget in self.scrollAreaWidgetContents.children():
-            child_widget.setEnabled(False)
+        # for child_widget in self.scrollAreaWidgetContents.children():
+        #     child_widget.setEnabled(False)
 
         # Enable ProgressBar
         self.progressBar.setEnabled(True)
@@ -304,13 +310,29 @@ class ProcessEffect(QDialog):
         protobufPath = os.path.join(info.PROTOBUF_DATA_PATH, ID + '.data')
         if os.name == 'nt' : protobufPath = protobufPath.replace("\\", "/")
 
-        # Load into JSON string info abou protobuf data path
-        jsonString = self.generateJson(protobufPath)
+        self.context["protobuf_data_path"] = protobufPath
+
+        # Load into JSON string info about protobuf data path
+        jsonString = json.dumps(self.context)
 
         # Generate processed data
         processing = openshot.ClipProcessingJobs(self.effect_name, jsonString)
-        processing.processClip(self.clip_instance)
+        processing.processClip(self.clip_instance, jsonString)
 
+        # TODO: This is just a temporary fix. We need to find a better way to allow the user to fix the error 
+        # The while loop is handling the error message. If pre-processing returns an error, a message 
+        # will be displayed for 3 seconds and the effect will be closed.
+        start = time.time()
+        while processing.GetError():
+            self.error_label.setText(processing.GetErrorMessage())
+            self.error_label.repaint()
+            if (time.time()-start)>3:
+                self.exporting = False
+                processing.CancelProcessing()
+                while(not processing.IsDone() ):
+                    continue
+                super(ProcessEffect, self).reject()
+            
         # get processing status
         while(not processing.IsDone() ):
             # update progressbar
@@ -340,61 +362,3 @@ class ProcessEffect(QDialog):
         self.exporting = False
         self.cancel_clip_processing = True
         super(ProcessEffect, self).reject()
-
-    def generateJson(self, protobufPath):
-        # Start JSON string with the protobuf data path, necessary for all pre-processing effects
-        jsonString = '{"protobuf_data_path": "%s"' % protobufPath
-
-        # Obs: Following redundant variables were created for better code visualization (e.g. smoothingWindow)
-
-        # Special case where more info is needed for the JSON string
-        if self.effect_name == "Stabilizer":
-            smoothingWindow = self.context["smoothing-window"]
-            jsonString += ', "smoothing_window": %d' % (smoothingWindow)
-
-        # Special case where more info is needed for the JSON string
-        if self.effect_name == "Tracker":
-
-            # Set tracker info in JSON string
-            # Get selected tracker [KCF, MIL, TLD, BOOSTING, MEDIANFLOW, MOOSE, CSRT]
-            trackerType = self.context["tracker-type"]
-            jsonString += ',"tracker_type": "%s"' % trackerType
-
-            # Get bounding box coordinates 
-            tracker_dict = self.context["region"]
-            bbox = (tracker_dict["x"],tracker_dict["y"],tracker_dict["width"],tracker_dict["height"])
-            jsonString += ',"bbox": {"x": %d, "y": %d, "w": %d, "h": %d}' % (bbox)
-
-            # Get processing start frame
-            print(self.context["region"])
-            jsonString +=',"first_frame": %d' % (self.context["region"]["first-frame"])
-
-        # Special case where more info is needed for the JSON string
-        if self.effect_name == "Object Detector":
-
-            # Get model weights path
-            modelweightsPath = self.context["model-weights"]
-            if not os.path.exists(modelweightsPath):
-                modelweightsPath = ""
-            jsonString += ', "model_weights": "%s"' % modelweightsPath
-
-            # Get model configuration path
-            modelConfigPath = self.context["model-config"]
-            if not os.path.exists(modelConfigPath):
-                modelConfigPath = ""
-            jsonString += ', "model_configuration": "%s"' % modelConfigPath
-                
-            # Get class names file path
-            classNamesPath = self.context["class-names"]
-            if not os.path.exists(classNamesPath):
-                classNamesPath = ""
-            jsonString += ', "classes_file": "%s"' % classNamesPath
-
-            # Get processing device
-            processingDevice  = self.context["processing-device"]
-            jsonString += ', "processing_device": "%s"' % processingDevice
-
-        # Finish JSON string
-        jsonString+='}'
-        if os.name == 'nt' : jsonString = jsonString.replace("\\", "/")
-        return jsonString
