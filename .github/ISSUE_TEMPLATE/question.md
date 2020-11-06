@@ -1,7 +1,7 @@
 ---
 name: Question
 about: Ask a question about OpenShot
-title: Give your question a descriptive title
+title:
 labels: question
 assignees: ''
 
