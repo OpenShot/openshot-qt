@@ -10,37 +10,48 @@
 
 #### Reproducing a bug & collecting logs
 
-  1. _Please download our latest daily installer:_
-     www.openshot.org/download - click the '**Daily Builds**' button, then grab the latest build from the list.
-     (Use the buttons below the list to download installers for a different Operating System.)
-  2. **Only if the bug involves video playback or Export**, or if you were asked to by the OpenShot developers, enable 'Debug Mode (Verbose)' in the Preferences. Debug Mode adds no additional information for user interface or project-editing bugs.
-  3. Quit OpenShot and delete your log files, to ensure the files you submit contain only necessary information. (See below for logfile paths.)
-  4. Re-launch OpenShot and trigger the problem as quickly as possible, then immediately quit the program. This helps keeps the log files small and relevant.
-  5. Attach both log files to your issue. Github issue comments permit attaching `.log` files up to 2MB in size. You can insert the file(s) either by drag-and-drop, or using the link at the bottom of the comment edit field.
+1.  _Please download our latest daily installer:_
+    <openshot.org/download#daily> - the latest builds are at the top of the list.
+    (Use the buttons below the list to download installers for a different Operating System.)
+2.  **Only if the bug involves video playback or Export**,
+    or if you were asked to by the OpenShot developers, enable 'Debug Mode (Verbose)' in the Preferences.
+    Debug Mode adds no additional information for user interface or project-editing bugs.
+3.  Quit OpenShot and delete your log files, to ensure the files you submit contain only necessary information.
+    (See below for logfile paths.)
+4.  Re-launch OpenShot and trigger the problem as quickly as possible, then immediately quit the program.
+    This helps keeps the log files small and relevant.
+5.  Attach both log files to your issue.
+    Github issue comments permit attaching `.log` files up to 2MB in size.
+    You can insert the file(s) either by drag-and-drop, or using the link at the bottom of the comment edit field.
   
 #### OpenShot log file locations  
 
 ##### Windows
-  * OpenShot stores its logs in your user profile directory (`%USERPROFILE%`, e.g. `C:\Users\username\`)
-    * **<code><var>%USERPROFILE%</var>\.openshot_qt\openshot-qt.log</code>**
-    * **<code><var>%USERPROFILE%</var>\.openshot_qt\libopenshot.log</code>**
+*   OpenShot stores its logs in your user profile directory (`%USERPROFILE%`, e.g. `C:\Users\username\`)
+    *   **<code><var>%USERPROFILE%</var>\.openshot_qt\openshot-qt.log</code>**
+    *   **<code><var>%USERPROFILE%</var>\.openshot_qt\libopenshot.log</code>**
 
 ##### Linux/MacOS
-  * OpenShot stores its logs in your home directory (`$HOME`, e.g. `/home/username/`)
-    * **<code><var>$HOME</var>/.openshot_qt/openshot-qt.log</code>**
-    * **<code><var>$HOME</var>/.openshot_qt/libopenshot.log</code>**
+*   OpenShot stores its logs in your home directory (`$HOME`, e.g. `/home/username/`)
+    *   **<code><var>$HOME</var>/.openshot_qt/openshot-qt.log</code>**
+    *   **<code><var>$HOME</var>/.openshot_qt/libopenshot.log</code>**
 
 ### Submitting a Pull Request (source code patch / bug fix)
 
-* Fork the repository on Github, then create a new branch for your changes. Commit the patch(es), and finally open a new GitHub Pull Request from that branch.
+1.  First, prepare your changes to submit as a Pull Request:
 
-* Ensure the PR description clearly describes the problem and your solution. If the patch is related to an existing issue report, include the issue number in your description. Github recognizes trigger phrases such as "fixes #1234" or "closes #9999", and will automatically link your PR with the referenced issue(s).
+    1.  If necessary, register for a Github user account, and sign in.
+    2.  Fork the project repository. (This will be done automatically if you use the web interface's "Edit file" links.)
+    3.  Make your changes in a new branch based on `develop`. (If you edit on the website, you'll have the option to create and name a branch when you save your changes.)
+    4.  Finally, open a new GitHub Pull Request from that branch.
 
-* After submitting, your PR will be run through a test build and various code-quality and style checks. Try to address any problems flagged by these checks. If OpenShot fails to build successfully with your changes, the PR cannot be merged until the problem is resolved.
+2.  Ensure the PR description clearly describes the problem and your solution. If the patch is related to an existing issue report, include the issue number in your description. Github recognizes trigger phrases such as "fixes #1234" or "closes #9999", and will automatically link your PR with the referenced issue(s).
 
-  Submitting "in-progress" code is fine, and can often be a good way to solicit feedback from other developers. Consider marking PRs that are unfinished or still under development with a the title that begins with "WIP", or convert the PR to draft status, to indicate to the developers that your changes are not yet ready for review.
+3.  After you submit your PR, a test build and various code-quality and style checks will be run on your branch, with the results displayed at the bottom of the page. Try to address any issues flagged by these checks, especially any issues with the test build. If OpenShot cannot be built successfully with your changes, the PR is blocked from being merged until the problem is resolved.
 
-OpenShot Video Editor is a volunteer effort, and a labor of love. Please be patient with any issues you find, and feel free to get involved and help us fix them! 
+    Submitting "in-progress" code is fine, and can often be a good way to solicit feedback from other developers. Consider marking PRs that are unfinished or still under development with "WIP" at the start of the title, or convert the PR to draft status. This will indicate to the developers that your changes are not quite ready for inclusion in OpenShot.
+
+OpenShot Video Editor is a volunteer effort, and a labor of love. Please be patient with any issues you find, and feel free to get involved and help us fix them!
 
 Thanks!
 
