@@ -198,7 +198,9 @@ def parse_version_info(version_path):
         "CI_PROJECT_NAME": None,
         "CI_COMMIT_REF_NAME": None,
         "CI_COMMIT_SHA": None,
-        "CI_JOB_ID": None}
+        "CI_JOB_ID": None,
+        "COMMIT_DATE_UNIX": None,
+        }
 
     if os.path.exists(version_path):
         with open(version_path, "r") as f:
@@ -263,7 +265,10 @@ try:
     # If not an official release
     if git_branch_name == "develop":
         # Make filename more descriptive for daily builds (add time epoch)
-        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
+        build_date = int(
+            version_info.get('openshot-qt').get('COMMIT_DATE_UNIX', 0)
+            ) or int(time.time())
+        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, build_date)
         openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
         # Get daily git_release object
         github_release = get_release(repo, "daily")
