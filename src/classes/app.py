@@ -143,8 +143,9 @@ class OpenShotApp(QApplication):
             QMessageBox.warning(
                 None,
                 _("Wrong Version of libopenshot Detected"),
-                _("<b>Version %(minimum_version)s is required</b>, but %(current_version)s was detected. \
-                Please update libopenshot or download our latest installer.")
+                _("<b>Version %(minimum_version)s is required</b>, "
+                  "but %(current_version)s was detected. "
+                  "Please update libopenshot or download our latest installer.")
                 % {
                     "minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION,
                     "current_version": libopenshot_version,
