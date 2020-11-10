@@ -35,27 +35,28 @@ import traceback
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 try:
-    # QtWebEngineWidgets must be loaded prior to creating a QApplication
-    # But on systems with only WebKit, this will fail (and we ignore the failure)
-    from PyQt5.QtWebEngineWidgets import QWebEngineView  # noqa
-except ImportError:
+    # This apparently has to be done before loading QtQuick
+    # (via QtWebEgine) AND before creating the QApplication instance
+    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
+    from OpenGL import GL  # noqa
+except (ImportError, AttributeError):
     pass
 
 try:
-    # Solution to solve QtWebEngineWidgets black screen caused by OpenGL not loaded
-    from OpenGL import GL  # noqa
+    # QtWebEngineWidgets must be loaded prior to creating a QApplication
+    # But on systems with only WebKit, this will fail (and we ignore the failure)
+    from PyQt5.QtWebEngineWidgets import QWebEngineView
 except ImportError:
     pass
 
 try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 except AttributeError:
     pass  # Quietly fail for older Qt5 versions
 
@@ -83,7 +84,10 @@ class OpenShotApp(QApplication):
             log.info(time.asctime().center(48))
             log.info('Starting new session'.center(48))
 
-            from classes import settings, project_data, updates, language, ui_util, logger_libopenshot
+            from classes import (
+                settings, project_data, updates, language, ui_util,
+                logger_libopenshot
+                )
             import openshot
 
             # Re-route stdout and stderr to logger
@@ -126,7 +130,7 @@ class OpenShotApp(QApplication):
             pass
 
         # Init settings
-        self.settings = settings.SettingStore()
+        self.settings = settings.SettingStore(parent=self)
         self.settings.load()
 
         # Init and attach exception handler
@@ -250,11 +254,14 @@ class OpenShotApp(QApplication):
 
         # Create main window
         from windows.main_window import MainWindow
-        self.window = MainWindow(mode)
+        self.window = MainWindow(mode=mode)
 
         # Reset undo/redo history
         self.updates.reset()
         self.window.updateStatusChanged(False, False)
+
+        # Connect our exit signals
+        self.aboutToQuit.connect(self.cleanup)
 
         log.info('Process command-line arguments: %s' % args)
         if len(args[0]) == 2:
@@ -270,23 +277,32 @@ class OpenShotApp(QApplication):
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
             self.window.RecoverBackup.emit()
 
+    def settings_load_error(self, filepath=None):
+        """Use QMessageBox to warn the user of a settings load issue"""
+        _ = self._tr
+        QMessageBox.warning(
+            None,
+            _("Settings Error"),
+            _("Error loading settings file: %(file_path)s. Settings will be reset.")
+            % {"file_path": filepath}
+            )
+
     def _tr(self, message):
         return self.translate("", message)
 
     # Start event loop
     def run(self):
         """ Start the primary Qt event loop for the interface """
+        return self.exec_()
 
-        res = self.exec_()
-
+    @pyqtSlot()
+    def cleanup(self):
+        """aboutToQuit signal handler for application exit"""
         try:
             from classes.logger import log
             self.settings.save()
         except Exception:
             log.error("Couldn't save user settings on exit.", exc_info=1)
-
-        # return exit result
-        return res
 
 
 # Log the session's end

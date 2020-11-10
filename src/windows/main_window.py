@@ -79,13 +79,13 @@ from windows.views.emojis_listview import EmojisListView
 from windows.views.files_listview import FilesListView
 from windows.views.files_treeview import FilesTreeView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
-from windows.views.timeline_webview import TimelineWebView
+from windows.views.webview import TimelineWebView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
 
 
-class MainWindow(QMainWindow, updates.UpdateWatcher):
+class MainWindow(updates.UpdateWatcher, QMainWindow):
     """ This class contains the logic for the main window widget """
 
     # Path to ui file
@@ -174,17 +174,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.preview_parent.background.exit()
         self.preview_parent.background.wait(5000)
 
-        # Shut down the webview
-        self.timeline.close()
-
         # Close Timeline
         self.timeline_sync.timeline.Close()
         self.timeline_sync.timeline = None
-
-        # Close & Stop libopenshot logger
-        openshot.ZmqLogger.Instance().Close()
-        app.logger_libopenshot.kill()
-        self.http_server_thread.kill()
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -1066,13 +1058,13 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.SpeedSignal.emit(new_speed)
 
     def actionJumpStart_trigger(self, checked=True):
-        log.info("actionJumpStart_trigger")
+        log.debug("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
     def actionJumpEnd_trigger(self, checked=True):
-        log.info("actionJumpEnd_trigger")
+        log.debug("actionJumpEnd_trigger")
 
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
@@ -1756,7 +1748,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # If we didn't act on the event, forward it to the base class
         else:
-            QMainWindow.keyPressEvent(self, event)
+            super().keyPressEvent(event)
 
     def actionProfile_trigger(self):
         # Show dialog
@@ -2836,10 +2828,10 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         except Exception:
             log.debug('Failed to notify unity launcher of export progress. Completed.')
 
-    def __init__(self, mode=None):
+    def __init__(self, *args, mode=None):
 
         # Create main window base class
-        QMainWindow.__init__(self)
+        super().__init__(*args)
         self.mode = mode    # None or unittest (None is normal usage)
         self.initialized = False
 
