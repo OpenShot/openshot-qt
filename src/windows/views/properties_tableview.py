@@ -537,7 +537,7 @@ class PropertiesTableView(QTableView):
             menu = QMenu(self)
             if points > 1:
                 # Menu items only for multiple points
-                Bezier_Menu = menu.AddMenu(self.bezier_icon, _("Bezier"))
+                Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
                 for bezier_preset in bezier_presets:
                     preset_action = Bezier_Menu.addAction(bezier_preset[4])
                     preset_action.triggered.connect(partial(self.Bezier_Action_Triggered, bezier_preset))
