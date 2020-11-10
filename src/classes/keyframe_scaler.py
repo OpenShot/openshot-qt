@@ -1,9 +1,7 @@
 """
  @file
  @brief Process project data, scaling keyframe X coordinates by the given factor
- @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- @author Olivier Girard <eolinwen@gmail.com>
  @author FeRD (Frank Dana) <ferdnyc@gmail.com>
 
  @section LICENSE
@@ -36,7 +34,7 @@ class KeyframeScaler:
     multiplied by the scaling factor, except X=1 (because the first
     frame never changes)"""
 
-    def _scale_value(self, value: float) -> int:
+    def _scale_x_value(self, value: float) -> int:
         """Scale value by some factor, except for 1 (leave that alone)"""
         if value == 1.0:
             return value
@@ -55,7 +53,7 @@ class KeyframeScaler:
         for k in keyframes:
             # Scale the X coordinate (frame #) by the stored factor
             [point["co"].update({
-                "X": self._scale_value(point["co"].get("X", 0.0))
+                "X": self._scale_x_value(point["co"].get("X", 0.0))
                 })
                 for point in k if "co" in point]
 
