@@ -204,9 +204,9 @@ def parse_version_info(version_path):
 
     if os.path.exists(version_path):
         with open(version_path, "r") as f:
-            for line in f.readlines():
-                line_details = line.split(":")
-                version_info[version_name][line_details[0]] = line_details[1].strip()
+            # Parse each line in f as a 'key:value' string
+            version_info[version_name].update(
+                (l.strip().split(':') for l in f.readlines()))
     else:
         # Fail
         raise Exception("Missing version artifacts: %s (%s)" % (version_path, str(version_info)))
@@ -266,8 +266,10 @@ try:
     if git_branch_name == "develop":
         # Make filename more descriptive for daily builds (add time epoch)
         build_date = int(
-            version_info.get('openshot-qt').get('COMMIT_DATE_UNIX', 0)
-            ) or int(time.time())
+            version_info.get('openshot-qt').get('COMMIT_DATE_UNIX', 0))
+        if not build_date:
+            log.error("Could not find commit date! %s", version_info)
+            build_date = int(time.time())
         openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, build_date)
         openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
         # Get daily git_release object
