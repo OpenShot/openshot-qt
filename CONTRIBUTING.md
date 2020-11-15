@@ -28,8 +28,8 @@
 
 ##### Windows
 *   OpenShot stores its logs in your user profile directory (`%USERPROFILE%`, e.g. `C:\Users\username\`)
-    *   **<code><var>%USERPROFILE%</var>\.openshot_qt\openshot-qt.log</code>**
-    *   **<code><var>%USERPROFILE%</var>\.openshot_qt\libopenshot.log</code>**
+    *   **<code><var>%USERPROFILE%</var>\\.openshot_qt\openshot-qt.log</code>**
+    *   **<code><var>%USERPROFILE%</var>\\.openshot_qt\libopenshot.log</code>**
 
 ##### Linux/MacOS
 *   OpenShot stores its logs in your home directory (`$HOME`, e.g. `/home/username/`)
