@@ -317,7 +317,13 @@ elif sys.platform == "linux":
                     "libICE.so.6",
                     "libp11-kit.so.0",
                     "libSM.so.6",
+                    # Next 5 are all part of glib2
+                    "libglib-2.0.so.0",
                     "libgobject-2.0.so.0",
+                    "libgio-2.0.so.0",
+                    "libgmodule-2.0.so.0",
+                    "libgthread-2.0.so.0",
+
                     "libdrm.so.2",
                     "libfreetype.so.6",
                     "libfontconfig.so.1",
