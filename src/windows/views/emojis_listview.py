@@ -25,9 +25,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, pyqtSlot, QRegExp
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QListView
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -61,7 +60,6 @@ class EmojisListView(QListView):
         drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
         drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
 
-
         # Create emoji file before drag starts
         data = json.loads(drag.mimeData().text())
         file = self.add_file(data[0])
@@ -76,13 +74,14 @@ class EmojisListView(QListView):
         drag.exec_()
 
     def add_file(self, filepath):
-        filename = os.path.basename(filepath)
-
         # Add file into project
-        app = get_app()
-        _ = get_app()._tr
 
-        # Check for this path in our existing project data["1F595-1F3FE", "/home/jonathan/apps/openshot-qt-git/src/emojis/color/svg/1F595-1F3FE.svg"]
+        app = get_app()
+        _ = app._tr
+
+        # Check for this path in our existing project data
+        # ["1F595-1F3FE",
+        # "openshot-qt-git/src/emojis/color/svg/1F595-1F3FE.svg"]
         file = File.get(path=filepath)
 
         # If this file is already found, exit
@@ -186,4 +185,3 @@ class EmojisListView(QListView):
         if self.win.mode != "unittest":
             self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
         self.win.emojiFilterGroup.setCurrentIndex(dropdown_index)
-
