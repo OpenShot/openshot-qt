@@ -116,13 +116,13 @@ img {
     bottom: 0px;
     height: 8px;
     width: 10px;
-    margin-left: -7px;
+    margin-left: -5px;
 }
 .point_icon {
-    width: 1px;
+    width: 2px;
     height: 6px;
-    margin: 0 4px;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(40%,rgba(0,255,0,1)), color-stop(100%,rgba(0,255,0,0)));
+    margin: 0 3px;
 }
 
 /* Transitions */
