@@ -316,7 +316,7 @@ class PropertiesModel(updates.UpdateInterface, QObject):
         points.sort(key=lambda p: p["co"]["X"])
         return True
 
-    def update_interpolation(self, item, interpolation=-1, curves=[0, 0, 0, 0]):
+    def update_interpolation(self, item, interpolation=-1, handles=[0, 0, 0, 0]):
         """Change the interpolation type of the current curve segment"""
         # Determine what will be changed
         prop_key, prop_data = self.model.item(item.row(), 0).data()
@@ -346,7 +346,7 @@ class PropertiesModel(updates.UpdateInterface, QObject):
                 prop_data.get("previous_point_x"),
                 prop_data.get("closest_point_x"),
                 interpolation,
-                curves,
+                handles,
             ) for points in points_to_update])
         if not updated:
             return
@@ -358,10 +358,15 @@ class PropertiesModel(updates.UpdateInterface, QObject):
         self.parent().clearSelection()
 
     @staticmethod
-    def set_interpolation(points: list, prev_x: float, closest_x: float, interp: int, curves: list):
+    def set_interpolation(points: list, prev_x: float, closest_x: float, interp: int, handles: list):
         """Set the interpolation between two keyframe points"""
         if len(points) < 1 or "co" not in points[0]:
             log.warning("Cannot interpret points list!")
+            return False
+        if prev_x == closest_x:
+            log.warning(
+                "Can't set interpolation: Both endpoints at co.X = %d, segment too short",
+                closest_x)
             return False
         for point in sorted(points, key=lambda p: p["co"]["X"]):
             log.debug("Searching for segment endpoints, co.X = %s", point["co"]["X"])
@@ -370,9 +375,9 @@ class PropertiesModel(updates.UpdateInterface, QObject):
             if point["co"]["X"] == prev_x and interp == openshot.BEZIER:
                 log.debug(
                     "Setting co.X = %s handle_right(X, Y): %s",
-                    point["co"]["X"], str(curves[0:2]))
+                    point["co"]["X"], str(handles[0:2]))
                 point.update({
-                    "handle_right": {"X": curves[0], "Y": curves[1]},
+                    "handle_right": {"X": handles[0], "Y": handles[1]},
                     })
                 continue
             if point["co"]["X"] == closest_x:
@@ -383,9 +388,9 @@ class PropertiesModel(updates.UpdateInterface, QObject):
                 if interp == openshot.BEZIER:
                     log.debug(
                         "Setting co.X = %s handle_left(X, Y): %s",
-                        point["co"]["X"], str(curves[2:4]))
+                        point["co"]["X"], str(handles[2:4]))
                     point.update({
-                        "handle_left": {"X": curves[2], "Y": curves[3]},
+                        "handle_left": {"X": handles[2], "Y": handles[3]},
                     })
                 break
             if point["co"]["X"] > closest_x:
