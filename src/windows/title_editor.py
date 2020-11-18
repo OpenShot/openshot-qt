@@ -47,13 +47,10 @@ from PyQt5.QtWidgets import (
 import openshot
 
 from classes import info, ui_util, settings
-from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
-
-from windows.views.titles_listview import TitlesListView
 
 
 class TitleEditor(QDialog):
