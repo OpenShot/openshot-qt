@@ -1,3 +1,4 @@
+name: Conflict Adviser
 on:
   push:
     branches:
