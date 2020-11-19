@@ -1,0 +1,30 @@
+# Number of days of inactivity before an issue becomes stale
+daysUntilStale: 180
+# Number of days of inactivity before a stale issue is closed
+daysUntilClose: 10
+# Issues with these labels will never be considered stale
+exemptLabels:
+  - pinned
+  - security
+  - enhancement
+# Label to use when marking an issue as stale
+staleLabel: stale
+# Comment to post when marking an issue as stale. Set to `false` to disable
+markComment: |
+  Thank you so much for submitting an issue to help improve OpenShot Video Editor. We are sorry about this, but this particular issue has gone unnoticed for quite some time. To help keep the OpenShot GitHub Issue Tracker organized and focused, we must ensure that every issue is correctly labelled and triaged, to get the proper attention.
+
+  This issue will be closed, as it meets the following criteria:
+  - No activity in the past 180 days
+  - No one is assigned to this issue
+
+  We'd like to ask you to help us out and determine whether this issue should be reopened.
+  - If this issue is reporting a bug, please can you attempt to reproduce on the [latest daily build](https://www.openshot.org/download/#daily) to help us to understand whether the bug still needs our attention.
+  - If this issue is proposing a new feature, please can you verify whether the feature proposal is still relevant.
+
+  Thanks again for your help!
+# Comment to post when closing a stale issue. Set to `false` to disable
+closeComment: false
+# Only close issues
+only: issues
+# Don't close issues which are assigned to somebody
+exemptAssignees: true

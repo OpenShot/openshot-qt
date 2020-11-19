@@ -1,26 +1,26 @@
-""" 
+"""
  @file
  @brief This file contains the add to timeline model
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -28,7 +28,7 @@
 import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
 
 from classes import info
 from classes.logger import log
@@ -41,7 +41,6 @@ class TimelineModel():
         app = get_app()
 
         # Get window to check filters
-        win = app.window
         _ = app._tr
 
         # Set files list (if found)
@@ -61,7 +60,6 @@ class TimelineModel():
         for file in self.files:
             # Get attributes from file
             path, filename = os.path.split(file.data["path"])
-            title = filename
 
             # Get thumbnail path
             if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
@@ -69,7 +67,7 @@ class TimelineModel():
                 thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
 
             row = []
 

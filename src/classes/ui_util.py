@@ -32,19 +32,19 @@ import time
 
 # Try to get the security-patched XML functions from defusedxml
 try:
-  from defusedxml import ElementTree
+    from defusedxml import ElementTree
 except ImportError:
-  from xml.etree import ElementTree
+    from xml.etree import ElementTree
 
 from PyQt5.QtCore import QDir, QLocale
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication, QWidget, QTabWidget, QAction
 from PyQt5 import uic
 
 from classes.logger import log
 from classes import settings
 
-from . import openshot_rc
+from . import openshot_rc  # noqa
 
 DEFAULT_THEME_NAME = "Humanity"
 
@@ -55,7 +55,7 @@ def load_theme():
     s = settings.get_settings()
 
     # If theme not reported by OS
-    if QIcon.themeName() == '' and not s.get("theme") == "No Theme":
+    if QIcon.themeName() == '' and s.get("theme") != "No Theme":
 
         # Address known Ubuntu bug of not reporting configured theme name, use default ubuntu theme
         if os.getenv('DESKTOP_SESSION') == 'ubuntu':
@@ -73,7 +73,7 @@ def load_ui(window, path):
     # race condition. [zipimport.ZipImportError: can't decompress data; zlib not available]
     # This error only happens when cx_Freeze is used, and the app is launched.
     error = None
-    for attempt in range(1,6):
+    for attempt in range(1, 6):
         try:
             # Load ui from configured path
             uic.loadUi(path, window)
@@ -143,14 +143,19 @@ def get_icon(theme_name):
 
 
 def setup_icon(window, elem, name, theme_name=None):
-    """Using the window xml, set the icon on the given element, or if theme_name passed load that icon."""
+    """Using the window xml, set the icon on the given element,
+    or if theme_name passed load that icon."""
 
     type_filter = 'action'
     if isinstance(elem, QWidget):  # Search for widget with name instead
         type_filter = 'widget'
     # Find iconset in tree (if any)
-    iconset = window.uiTree.find('.//' + type_filter + '[@name="' + name + '"]/property[@name="icon"]/iconset')
-    if iconset != None or theme_name:  # For some reason "if iconset:" doesn't work the same as "!= None"
+    iconset = window.uiTree.find(
+        './/' + type_filter + '[@name="' + name
+        + '"]/property[@name="icon"]/iconset'
+        )
+    # For some reason "if iconset:" doesn't work the same
+    if iconset is not None or theme_name:
         if not theme_name:
             theme_name = iconset.get('theme', '')
         # Get Icon (either current theme or fallback)
@@ -170,15 +175,31 @@ def init_element(window, elem):
         connect_auto_events(window, elem, name)
 
     # Handle generic translatable properties
-    if hasattr(elem, 'setText') and hasattr(elem, 'text') and elem.text() != "":
+    if (
+            hasattr(elem, 'setText')
+            and hasattr(elem, 'text')
+            and elem.text() != ""
+            ):
         elem.setText(_translate("", elem.text()))
     if hasattr(elem, 'setToolTip') and hasattr(elem, 'toolTip') and elem.toolTip() != "":
         elem.setToolTip(_translate("", elem.toolTip()))
-    if hasattr(elem, 'setWindowTitle') and hasattr(elem, 'windowTitle') and elem.windowTitle() != "":
+    if (
+            hasattr(elem, 'setWindowTitle')
+            and hasattr(elem, 'windowTitle')
+            and elem.windowTitle() != ""
+            ):
         elem.setWindowTitle(_translate("", elem.windowTitle()))
-    if hasattr(elem, 'setTitle') and hasattr(elem, 'title') and  elem.title() != "":
+    if (
+            hasattr(elem, 'setTitle')
+            and hasattr(elem, 'title')
+            and elem.title() != ""
+            ):
         elem.setTitle(_translate("", elem.title()))
-    if hasattr(elem, 'setPlaceholderText') and hasattr(elem, 'placeholderText') and  elem.placeholderText() != "":
+    if (
+            hasattr(elem, 'setPlaceholderText')
+            and hasattr(elem, 'placeholderText')
+            and elem.placeholderText() != ""
+            ):
         elem.setPlaceholderText(_translate("", elem.placeholderText()))
     if hasattr(elem, 'setLocale'):
         elem.setLocale(QLocale().system())
@@ -226,8 +247,10 @@ def init_ui(window):
         # Loop through all actions
         for action in window.findChildren(QAction):
             init_element(window, action)
-    except:
-        log.info('Failed to initialize an element on {}'.format(window.objectName()))
+    except Exception:
+        log.info(
+            'Failed to initialize an element on %s', window.objectName())
+
 
 def center(window):
     """Center a window on the main window"""
@@ -237,6 +260,7 @@ def center(window):
     centerPoint = get_app().window.frameGeometry().center()
     frameGm.moveCenter(centerPoint)
     window.move(frameGm.topLeft())
+
 
 def transfer_children(from_widget, to_widget):
     log.info("Transferring children from '{}' to '{}'".format(from_widget.objectName(), to_widget.objectName()))

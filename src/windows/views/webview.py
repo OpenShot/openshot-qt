@@ -48,7 +48,6 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.conversion import zoomToSeconds, secondsToZoom
-from .timeline_mixins import TimelineMixin
 
 import json
 
@@ -151,8 +150,35 @@ MENU_SLICE_KEEP_RIGHT = 2
 MENU_SPLIT_AUDIO_SINGLE = 0
 MENU_SPLIT_AUDIO_MULTIPLE = 1
 
+# Import shenanigans
+WEBVIEW_LOADED = None
 
-class TimelineWebView(TimelineMixin, updates.UpdateInterface):
+if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
+    from .webview_backend.webkit import TimelineWebKitView
+    WebViewClass = TimelineWebKitView
+    WEBVIEW_LOADED = True
+elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
+    from .webview_backend.webengine import TimelineWebEngineView
+    WebViewClass = TimelineWebEngineView
+    WEBVIEW_LOADED = True
+else:
+    try:
+        from .webview_backend.webengine import TimelineWebEngineView as WebViewClass
+        WEBVIEW_LOADED = True
+    except ImportError as ex:
+        try:
+            from .webview_backend.webkit import TimelineWebKitView as WebViewClass
+            WEBVIEW_LOADED = True
+        except ImportError:
+            pass
+        finally:
+            if not WEBVIEW_LOADED:
+                raise RuntimeError(
+                    "Need PyQt5.QtWebEngine (or PyQt5.QtWebView on Win32)"
+                    ) from ex
+
+
+class TimelineWebView(updates.UpdateInterface, WebViewClass):
     """ A Web(Engine)View QWidget used to load the Timeline """
 
     # Path to html file
@@ -166,11 +192,11 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
     @Slot(result=str)
     def get_thumb_address(self):
         """Return the thumbnail HTTP server address"""
-        thumb_server_details = get_app().window.http_server_thread.server_address
+        thumb_server_details = self.window.http_server_thread.server_address
         while not thumb_server_details:
             log.info('No HTTP thumbnail server found yet... keep waiting...')
             time.sleep(0.25)
-            thumb_server_details = get_app().window.http_server_thread.server_address
+            thumb_server_details = self.window.http_server_thread.server_address
 
         thumb_address = "http://%s:%s/thumbnails/" % (thumb_server_details[0], thumb_server_details[1])
         return thumb_address
@@ -201,7 +227,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         if action.type == "load":
             # Set the scale again (to project setting)
             initial_scale = get_app().project.get("scale") or 15
-            get_app().window.sliderZoom.setValue(secondsToZoom(initial_scale))
+            self.window.sliderZoom.setValue(secondsToZoom(initial_scale))
 
             # The setValue() above doesn't trigger update_zoom when a project file is
             # loaded on the command line (too early?), so also call the JS directly
@@ -250,8 +276,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
         # Update the preview and reselect current frame in properties
         if not ignore_refresh:
-            get_app().window.refreshFrameSignal.emit()
-            get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+            self.window.refreshFrameSignal.emit()
+            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Add missing transition
     @Slot(str)
@@ -364,8 +390,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
         # Update the preview and reselct current frame in properties
         if not ignore_refresh:
-            get_app().window.refreshFrameSignal.emit()
-            get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+            self.window.refreshFrameSignal.emit()
+            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     # Prevent default context menu, and ignore, so that javascript can intercept
     def contextMenuEvent(self, event):
@@ -435,16 +461,22 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
 
         # Paste Menu (if entire clips or transitions are copied)
-        if self.copy_clipboard or self.copy_transition_clipboard:
-            if len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0:
-                menu = QMenu(self)
-                Paste_Clip = menu.addAction(_("Paste"))
-                Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
-                Paste_Clip.triggered.connect(
-                    partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
-                )
+        have_clipboard = (
+            (self.copy_clipboard or self.copy_transition_clipboard)
+            and (len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0)
+        )
 
-                return menu.popup(QCursor.pos())
+        if not have_clipboard:
+            return
+
+        menu = QMenu(self)
+        Paste_Clip = menu.addAction(_("Paste"))
+        Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
+        Paste_Clip.triggered.connect(
+            partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
+        )
+
+        return menu.popup(QCursor.pos())
 
     @Slot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -923,10 +955,10 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Emit signal to transform this clip (for the 1st clip id)
         if clip_ids:
             # Transform first clip in list
-            get_app().window.TransformSignal.emit(clip_ids[0])
+            self.window.TransformSignal.emit(clip_ids[0])
         else:
             # Clear transform
-            get_app().window.TransformSignal.emit("")
+            self.window.TransformSignal.emit("")
 
     def Show_Waveform_Triggered(self, clip_ids):
         """Show a waveform for the selected clip"""
@@ -943,12 +975,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             file_path = clip.data["reader"]["path"]
 
             # Find actual clip object from libopenshot
-            c = None
-            clips = get_app().window.timeline_sync.timeline.Clips()
-            for clip_object in clips:
-                if clip_object.Id() == clip_id:
-                    c = clip_object
-
+            c = self.window.timeline_sync.timeline.GetClip(clip_id)
             if c and c.Reader() and not c.Reader().info.has_single_image:
                 # Find frame 1 channel_filter property
                 channel_filter = c.channel_filter.GetInt(1)
@@ -1178,11 +1205,11 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 clip.data["location_x"] = {"Points": [p_object]}
                 clip.data["location_y"] = {"Points": [p_object]}
 
-            if action == MENU_LAYOUT_CENTER or \
-               action == MENU_LAYOUT_TOP_LEFT or \
-               action == MENU_LAYOUT_TOP_RIGHT or \
-               action == MENU_LAYOUT_BOTTOM_LEFT or \
-               action == MENU_LAYOUT_BOTTOM_RIGHT:
+            if action in [MENU_LAYOUT_CENTER,
+                          MENU_LAYOUT_TOP_LEFT,
+                          MENU_LAYOUT_TOP_RIGHT,
+                          MENU_LAYOUT_BOTTOM_LEFT,
+                          MENU_LAYOUT_BOTTOM_RIGHT]:
                 # Reset scale mode
                 clip.data["scale"] = openshot.SCALE_FIT
                 clip.data["gravity"] = new_gravity
@@ -1402,7 +1429,11 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         """Add a Point to a Keyframe dict. Always remove existing points,
         if any collisions are found"""
         # Get all points that don't match new point coordinate
-        cleaned_points = [point for point in keyframe["Points"] if not point.get("co", {}).get("X") == new_point.get("co", {}).get("X")]
+        cleaned_points = [
+            point
+            for point in keyframe["Points"]
+            if point.get("co", {}).get("X") != new_point.get("co", {}).get("X")
+        ]
         cleaned_points.append(new_point)
 
         # Replace points with new list
@@ -1428,7 +1459,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
             self.copy_clipboard[clip_id] = {}
 
-            if action == MENU_COPY_CLIP or action == MENU_COPY_ALL:
+            if action in [MENU_COPY_CLIP, MENU_COPY_ALL]:
                 self.copy_clipboard[clip_id] = clip.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
@@ -1471,7 +1502,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
             self.copy_transition_clipboard[tran_id] = {}
 
-            if action == MENU_COPY_TRANSITION or action == MENU_COPY_ALL:
+            if action in [MENU_COPY_TRANSITION, MENU_COPY_ALL]:
                 self.copy_transition_clipboard[tran_id] = tran.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
@@ -1882,7 +1913,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Determine if waveform needs to be redrawn
             has_audio_data = clip_id in self.waveform_cache
 
-            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
                 start_of_clip = float(clip.data["start"])
@@ -1934,7 +1965,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-        # Start timer to redraw audio waveforms
+        # Start or restart timer to redraw audio waveforms
         self.redraw_audio_timer.start()
 
         # Loop through each transition (using the list of ids)
@@ -1945,7 +1976,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Invalid transition, skip to next item
                 continue
 
-            if action == MENU_SLICE_KEEP_LEFT or action == MENU_SLICE_KEEP_BOTH:
+            if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original transition
                 position_of_tran = float(trans.data["position"])
 
@@ -1999,7 +2030,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Callback function, to redraw audio data after an update
         def callback(self, clip_id, callback_data):
             has_audio_data = callback_data
-            print('has_audio_data: %s' % has_audio_data)
+            log.info('has_audio_data: %s', has_audio_data)
 
             if has_audio_data:
                 # Re-generate waveform since volume curve has changed
@@ -2210,7 +2241,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     original_duration = clip.data["original_data"]["duration"]
 
                 log.info('Updating timing for clip ID {}, original duration: {}'
-                    .format(clip.id, original_duration))
+                         .format(clip.id, original_duration))
                 log.debug(clip.data)
 
                 # Extend end & duration (due to freeze)
@@ -2238,12 +2269,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     del clip.data["time"]["Points"][-1]
 
                     # Find actual clip object from libopenshot
-                    c = None
-                    clips = get_app().window.timeline_sync.timeline.Clips()
-                    for clip_object in clips:
-                        if clip_object.Id() == clip_id:
-                            c = clip_object
-                            break
+                    c = self.window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
                         # Look up correct position from time curve
                         start_animation_frames_value = c.time.GetLong(start_animation_frames)
@@ -2251,12 +2277,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                 # Do we already have a volume curve? Look up intersecting frame # from volume curve
                 if len(clip.data["volume"]["Points"]) > 1:
                     # Find actual clip object from libopenshot
-                    c = None
-                    clips = get_app().window.timeline_sync.timeline.Clips()
-                    for clip_object in clips:
-                        if clip_object.Id() == clip_id:
-                            c = clip_object
-                            break
+                    c = self.window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
                         # Look up correct volume from time curve
                         start_volume_value = c.volume.GetValue(start_animation_frames)
@@ -2368,13 +2389,14 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
                     clip.data["reader"]["video_length"] = self.round_to_multiple(
                         float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
 
-                if action == MENU_TIME_NONE:
+                if action == MENU_TIME_NONE and "original_data" in clip.data:
                     # Reset original end & duration (if available)
-                    if "original_data" in clip.data.keys():
-                        clip.data["end"] = clip.data["original_data"]["end"]
-                        clip.data["duration"] = clip.data["original_data"]["duration"]
-                        clip.data["reader"]["video_length"] = clip.data["original_data"]["video_length"]
-                        clip.data.pop("original_data")
+                    orig = clip.data.pop("original_data")
+                    clip.data.update({
+                        "end": orig["end"],
+                        "duration": orig["duration"],
+                    })
+                    clip.data["reader"]["video_length"] = orig["video_length"]
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2748,7 +2770,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Get access to timeline scope and set scale to new computed value
         self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");")
 
-        # Start timer to redraw audio
+        # Start or restart timer to redraw audio
         self.redraw_audio_timer.start()
 
         # Only update scale if different
@@ -2851,7 +2873,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
             # Adjust clip duration, start, and end
             new_clip["duration"] = new_clip["reader"]["duration"]
             if file.data["media_type"] == "image":
-                new_clip["end"] = self.settings_obj.get("default-image-length")  # default to 8 seconds
+                new_clip["end"] = settings.get_settings().get("default-image-length")  # default to 8 seconds
 
             # Overwrite frame rate (incase the user changed it in the File Properties)
             file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
@@ -3004,7 +3026,7 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
         elif self.item_type == "os_drop":
             # Add new files to project
-            get_app().window.filesView.dropEvent(event)
+            self.window.filesView.dropEvent(event)
 
             # Add clips for each file dropped
             for uri in event.mimeData().urls():
@@ -3024,8 +3046,8 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         self.item_id = None
 
         # Update the preview and reselct current frame in properties
-        get_app().window.refreshFrameSignal.emit()
-        get_app().window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        self.window.refreshFrameSignal.emit()
+        self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
 
     def dragLeaveEvent(self, event):
         """A drag is in-progress and the user moves mouse outside of timeline"""
@@ -3034,10 +3056,20 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Accept event
         event.accept()
 
+        # Clear selected clips
+        self.window.removeSelection(self.item_id, self.item_type)
+
         if self.item_type == "clip":
-            get_app().window.actionRemoveClip.trigger()
+            # Delete dragging clip
+            clips = Clip.filter(id=self.item_id)
+            for c in clips:
+                c.delete()
+
         elif self.item_type == "transition":
-            get_app().window.actionRemoveTransition.trigger()
+            # Delete dragging transitions
+            transitions = Transition.filter(id=self.item_id)
+            for t in transitions:
+                t.delete()
 
         # Clear new clip
         self.new_item = False
@@ -3047,9 +3079,6 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
         log.debug('redraw_audio_onTimeout')
-
-        # Stop timer
-        self.redraw_audio_timer.stop()
 
         # Pass to javascript timeline (and render)
         self.run_js(JS_SCOPE_SELECTOR + ".reDrawAllAudioData();")
@@ -3071,45 +3100,50 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
 
         # Get final cache object from timeline
         try:
-            cache_object = get_app().window.timeline_sync.timeline.GetCache()
-            if cache_object and cache_object.Count() > 0:
-                # Get the JSON from the cache object (i.e. which frames are cached)
-                cache_json = get_app().window.timeline_sync.timeline.GetCache().Json()
-                cache_dict = json.loads(cache_json)
-                cache_version = cache_dict["version"]
+            cache_object = self.window.timeline_sync.timeline.GetCache()
+            if not cache_object or cache_object.Count() <= 0:
+                return
+            # Get the JSON from the cache object (i.e. which frames are cached)
+            cache_json = self.window.timeline_sync.timeline.GetCache().Json()
+            cache_dict = json.loads(cache_json)
+            cache_version = cache_dict["version"]
 
-                if self.cache_renderer_version != cache_version:
-                    # Cache has changed, re-render it
-                    self.cache_renderer_version = cache_version
-                    self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
-        finally:
-            # ignore any errors inside the cache rendering
-            pass
+            if self.cache_renderer_version == cache_version:
+                # Nothing has changed, ignore
+                return
+            # Cache has changed, re-render it
+            self.cache_renderer_version = cache_version
+            self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
+        except Exception as ex:
+            # Log the exception and ignore
+            log.warning("Exception processing timeline cache: %s", ex)
 
     def __init__(self, window):
-        TimelineMixin.__init__(self)
+        super().__init__()
+        self.setObjectName("TimelineWebView")
+
+        app = get_app()
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
 
-        # Get settings & logger
-        self.settings_obj = settings.get_settings()
+        # Get logger
         self.log_fn = log.log
 
         # Add self as listener to project data updates (used to update the timeline)
-        get_app().updates.add_listener(self)
+        app.updates.add_listener(self)
 
         # Connect zoom functionality
         window.sliderZoom.valueChanged.connect(self.update_zoom)
 
         # Connect waveform generation signal
-        get_app().window.WaveformReady.connect(self.Waveform_Ready)
+        window.WaveformReady.connect(self.Waveform_Ready)
 
         # Local audio waveform cache
         self.waveform_cache = {}
 
         # Connect update thumbnail signal
-        get_app().window.ThumbnailUpdated.connect(self.Thumbnail_Updated)
+        window.ThumbnailUpdated.connect(self.Thumbnail_Updated)
 
         # Copy clipboard
         self.copy_clipboard = {}
@@ -3123,13 +3157,18 @@ class TimelineWebView(TimelineMixin, updates.UpdateInterface):
         # Delayed zoom audio redraw
         self.redraw_audio_timer = QTimer(self)
         self.redraw_audio_timer.setInterval(300)
+        self.redraw_audio_timer.setSingleShot(True)
         self.redraw_audio_timer.timeout.connect(self.redraw_audio_onTimeout)
 
         # QTimer for cache rendering
         self.cache_renderer_version = None
         self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(0.5 * 1000)
+        self.cache_renderer.setInterval(500)
         self.cache_renderer.timeout.connect(self.render_cache_json)
+
+        # Connect shutdown signals
+        app.aboutToQuit.connect(self.redraw_audio_timer.stop)
+        app.aboutToQuit.connect(self.cache_renderer.stop)
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)

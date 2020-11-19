@@ -38,18 +38,17 @@ class TransitionsListView(QListView):
     drag_item_size = 48
 
     def contextMenuEvent(self, event):
+        event.accept()
+
         # Set context menu mode
         app = get_app()
         app.context_menu_object = "transitions"
 
         menu = QMenu(self)
         menu.addAction(self.win.actionDetailsView)
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
-        # Ignore event, propagate to parent
-        event.ignore()
-
-    def startDrag(self, event):
+    def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
 
         # Get first column indexes for all selected rows
@@ -61,7 +60,6 @@ class TransitionsListView(QListView):
             current = selected[0]
 
         if not current.isValid():
-            # We can't find anything to drag
             log.warning("No draggable items found in model!")
             return False
 

@@ -35,7 +35,6 @@ import re
 import stat
 import subprocess
 import tinys3
-import time
 import traceback
 from github3 import login
 from requests.auth import HTTPBasicAuth
@@ -193,18 +192,20 @@ def upload(file_path, github_release):
 def parse_version_info(version_path):
     """Parse version info from gitlab artifacts"""
     # Get name of version file
-    version_name = os.path.split(version_path)[1]
+    version_name = os.path.basename(version_path)
     version_info[version_name] = {
         "CI_PROJECT_NAME": None,
         "CI_COMMIT_REF_NAME": None,
         "CI_COMMIT_SHA": None,
-        "CI_JOB_ID": None}
+        "CI_JOB_ID": None,
+        "CI_PIPELINE_ID": None,
+        }
 
     if os.path.exists(version_path):
         with open(version_path, "r") as f:
-            for line in f.readlines():
-                line_details = line.split(":")
-                version_info[version_name][line_details[0]] = line_details[1].strip()
+            # Parse each line in f as a 'key:value' string
+            version_info[version_name].update(
+                (l.strip().split(':') for l in f.readlines()))
     else:
         # Fail
         raise Exception("Missing version artifacts: %s (%s)" % (version_path, str(version_info)))
@@ -259,17 +260,12 @@ try:
     openshot_qt_git_desc = ""
     needs_upload = True
 
-    # Add num of commits from libopenshot and libopenshot-audio (for naming purposes)
-    # If not an official release
-    if git_branch_name == "develop":
-        # Make filename more descriptive for daily builds (add time epoch)
-        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-        openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+    pipeline_id = version_info.get('openshot-qt').get('CI_PIPELINE_ID')
+    if git_branch_name.startswith("release"):
+        # Name release candidates with pipeline ID for uniqueness
+        openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%s" % (
+            info.VERSION, pipeline_id)
         # Get daily git_release object
-        github_release = get_release(repo, "daily")
-    elif git_branch_name.startswith("release"):
-        # Get daily git_release object
-        openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%d" % (info.VERSION, int(time.time()))
         github_release = get_release(repo, "daily")
     elif git_branch_name == "master":
         # Get official version release (i.e. v2.1.0, v2.x.x)
@@ -282,12 +278,18 @@ try:
             # Create a new release if one if missing
             github_release = repo.create_release(github_release_name, target_commitish="master", prerelease=True)
     else:
-        # Make filename more descriptive for daily builds
-        openshot_qt_git_desc = "OpenShot-v%s-%d" % (info.VERSION, int(time.time()))
-        openshot_qt_git_desc = "%s-%s-%s" % (openshot_qt_git_desc, version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8], version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8])
+        # Generate unique name using library commit SHAs and pipeline ID
+        openshot_qt_git_desc = "OpenShot-v%s-%s-%s-%s" % (
+            info.VERSION,
+            pipeline_id,
+            version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8],
+            version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8],
+            )
         # Get daily git_release object
         github_release = get_release(repo, "daily")
-        needs_upload = False
+        if git_branch_name != "develop":
+            # Only upload develop-branch pipelines as Daily Builds
+            needs_upload = False
 
     # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
@@ -327,22 +329,43 @@ try:
         # Recursively create AppDir /usr folder
         os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
+        # XDG Freedesktop icon paths
+        icons = [ ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
+                  ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png")),
+                  ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")),
+                  ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")),
+                  ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")),
+                ]
+
+        # Copy desktop icons
+        icon_theme_path = os.path.join(app_dir_path, "usr", "share", "icons", "hicolor")
+
+        # Copy each icon
+        for icon_size, icon_path in icons:
+            dest_icon_path = os.path.join(icon_theme_path, icon_size, "apps", os.path.split(icon_path)[-1])
+            os.makedirs(os.path.split(dest_icon_path)[0], exist_ok=True)
+            shutil.copyfile(icon_path, dest_icon_path)
+
+        # Install .DirIcon AppImage icon (256x256)
+        # See: https://docs.appimage.org/reference/appdir.html
+        shutil.copyfile(icons[3][1], os.path.join(app_dir_path, ".DirIcon"))
+
         # Install program icon
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
-                        os.path.join(app_dir_path, "openshot-qt.svg"))
+        shutil.copyfile(icons[0][1], os.path.join(app_dir_path, "openshot-qt.svg"))
 
         dest = os.path.join(app_dir_path, "usr", "share", "pixmaps")
         os.makedirs(dest, exist_ok=True)
 
-        shutil.copyfile(os.path.join(PATH, "xdg", "openshot-qt.svg"),
-                        os.path.join(dest, "openshot-qt.svg"))
+        # Copy pixmaps (as a 64x64 PNG & SVG)
+        shutil.copyfile(icons[0][1], os.path.join(dest, "openshot-qt.svg"))
+        shutil.copyfile(icons[1][1], os.path.join(dest, "openshot-qt.png"))
 
         # Install MIME handler
         dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
         os.makedirs(dest, exist_ok=True)
 
         shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
-                        os.path.join(dest, "org.openshot.OpenShot.xml"))
+                        os.path.join(dest, "openshot-qt.xml"))
 
         # Copy the entire frozen app
         shutil.copytree(os.path.join(PATH, "build", exe_dir),
@@ -350,23 +373,23 @@ try:
 
         # Copy .desktop file, replacing Exec= commandline
         desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-        desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
+        desk_out = os.path.join(app_dir_path, "openshot-qt.desktop")
         with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
             for line in inf:
                 if line.startswith("Exec="):
-                    outf.write("Exec=openshot-qt.wrapper %F\n")
+                    outf.write("Exec=openshot-qt-launch.wrapper %F\n")
                 else:
                     outf.write(line)
 
         # Copy desktop integration wrapper (prompts users to install shortcut)
         launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
         os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
-        desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt.wrapper")
+        desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch.wrapper")
         shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
-        # Create symlink for AppRun
+        # Create AppRun.64 file (the real one)
         app_run_path = os.path.join(app_dir_path, "AppRun")
-        os.symlink(os.path.relpath(launcher_path, app_dir_path), app_run_path)
+        shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
         # Add execute bit to file mode for AppRun and scripts
         st = os.stat(app_run_path)

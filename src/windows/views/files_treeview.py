@@ -48,6 +48,7 @@ class FilesTreeView(QTreeView):
         app = get_app()
         app.context_menu_object = "files"
 
+        event.accept()
         index = self.indexAt(event.pos())
 
         # Build menu
@@ -83,7 +84,7 @@ class FilesTreeView(QTreeView):
             menu.addSeparator()
 
         # Show menu
-        menu.exec_(event.globalPos())
+        menu.popup(event.globalPos())
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
@@ -103,7 +104,6 @@ class FilesTreeView(QTreeView):
             current = selected[0]
 
         if not current.isValid():
-            # We can't find anything to drag
             log.warning("No draggable items found in model!")
             return False
 
@@ -119,35 +119,26 @@ class FilesTreeView(QTreeView):
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
-        pass
+        event.accept()
 
     # Handle a drag and drop being dropped on widget
     def dropEvent(self, event):
-        # Reset list of ignored image sequences paths
-        self.ignore_image_sequence_paths = []
+        if not event.mimeData().hasUrls():
+            # Nothing we're interested in
+            event.ignore()
+            return
+        event.accept()
+        # Use try/finally so we always reset the cursor
+        try:
+            # Set cursor to waiting
+            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
-        # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
-
-        media_paths = []
-        for uri in event.mimeData().urls():
-            log.info('Processing drop event for {}'.format(uri))
-            filepath = uri.toLocalFile()
-            if os.path.exists(filepath) and os.path.isfile(filepath):
-                log.info('Adding file: {}'.format(filepath))
-                if ".osp" in filepath:
-                    # Auto load project passed as argument
-                    self.win.OpenProjectSignal.emit(filepath)
-                    event.accept()
-                else:
-                    media_paths.append(filepath)
-
-        # Import all new media files
-        if media_paths and self.files_model.add_files(media_paths):
-            event.accept()
-
-        # Restore cursor
-        get_app().restoreOverrideCursor()
+            qurl_list = event.mimeData().urls()
+            log.info("Processing drop event for {} urls".format(len(qurl_list)))
+            self.files_model.process_urls(qurl_list)
+        finally:
+            # Restore cursor
+            get_app().restoreOverrideCursor()
 
     # Forward file-add requests to the model, for legacy code (previous API)
     def add_file(self, filepath):
@@ -192,10 +183,10 @@ class FilesTreeView(QTreeView):
 
         # Get file object and update friendly name and tags attribute
         f = File.get(id=file_id)
-        if name and name != os.path.split(f.data["path"])[-1]:
+        if name and name != os.path.basename(f.data["path"]):
             f.data["name"] = name
         else:
-            f.data["name"] = os.path.split(f.data["path"])[-1]
+            f.data["name"] = os.path.basename(f.data["path"])
 
         if "tags" in f.data.keys():
             if tags != f.data["tags"]:
@@ -226,7 +217,6 @@ class FilesTreeView(QTreeView):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionModel(self.files_model.selection_model)
 
-        # Keep track of mouse press start position to determine when to start drag
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)

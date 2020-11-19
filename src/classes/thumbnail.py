@@ -107,6 +107,9 @@ class httpThumbnailServerThread(Thread):
         self.server_address = ('127.0.0.1', self.find_free_port())
         self.thumbServer = httpThumbnailServer(self.server_address, httpThumbnailHandler)
         self.thumbServer.daemon_threads = True
+        log.info(
+            "Starting thumbnail server listening on port %d",
+            self.server_address[1])
         self.thumbServer.serve_forever(0.5)
 
     def __init__(self):
@@ -127,12 +130,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         log.error(msg_format % args)
 
     def do_GET(self):
-        # Pause processing of request (since we don't currently use thread pooling, this allows
-        # the threads to be processed without choking the CPU as much
-        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
-        time.sleep(0.01)
-
         """ Process each GET request and return a value (image or file path)"""
+        mask_path = os.path.join(info.IMAGES_PATH, "mask.png")
+
         # Parse URL
         url_output = REGEX_THUMBNAIL_URL.match(self.path)
         if url_output and len(url_output.groups()) == 4:
@@ -152,6 +152,10 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         only_path = url_output.group('only_path')
         no_cache = url_output.group('no_cache')
 
+        log.debug(
+            "Processing thumbnail request for %s frame %d",
+            file_id, file_frame)
+
         try:
             # Look up file data
             file = File.get(id=file_id)
@@ -160,6 +164,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             file_path = file.absolute_path()
         except AttributeError:
             # Couldn't match file ID
+            log.debug("No ID match, returning 404")
             self.send_error(404)
             return
 
@@ -188,7 +193,13 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
 
             # Create thumbnail image
-            GenerateThumbnail(file_path, thumb_path, file_frame, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path)
+            GenerateThumbnail(
+                file_path,
+                thumb_path,
+                file_frame,
+                98, 64,
+                mask_path,
+                overlay_path)
 
         # Send message back to client
         if os.path.exists(thumb_path):
@@ -196,4 +207,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 self.wfile.write(open(thumb_path, 'rb').read())
             else:
                 self.wfile.write(bytes(thumb_path, "utf-8"))
-        return
+
+        # Pause processing of request (since we don't currently use thread pooling, this allows
+        # the threads to be processed without choking the CPU as much
+        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
+        time.sleep(0.01)
+
