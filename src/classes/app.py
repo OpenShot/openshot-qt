@@ -35,7 +35,8 @@ import traceback
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import Qt, pyqtSlot
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import pyqtSlot as Slot
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
@@ -295,7 +296,7 @@ class OpenShotApp(QApplication):
         """ Start the primary Qt event loop for the interface """
         return self.exec_()
 
-    @pyqtSlot()
+    @Slot()
     def cleanup(self):
         """aboutToQuit signal handler for application exit"""
         try:

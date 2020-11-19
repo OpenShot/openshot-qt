@@ -40,12 +40,8 @@ try:
 except ImportError:
     from xml.dom import minidom as xml
 
-from PyQt5.QtCore import (
-    Qt, QObject, QThread, QTimer, QSize,
-)
-from PyQt5.QtCore import (
-    pyqtSlot as Slot, pyqtSignal as Signal,
-    )
+from PyQt5.QtCore import Qt, QObject, QThread, QTimer, QSize
+from PyQt5.QtCore import pyqtSlot as Slot, pyqtSignal as Signal
 from PyQt5.QtWidgets import (
     QApplication, QListView, QMessageBox, QColorDialog,
     QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
@@ -64,8 +60,8 @@ class BlenderListView(QListView):
     """ A ListView QWidget used on the animated title window """
 
     # Our signals
-    start_render = pyqtSignal(str, str, int)
-    cancel_render = pyqtSignal()
+    start_render = Signal(str, str, int)
+    cancel_render = Signal()
 
     def currentChanged(self, selected, deselected):
         # Get selected item
@@ -244,7 +240,7 @@ class BlenderListView(QListView):
         self.newColorDialog.blockSignals(False)
         self.newColorDialog.open()
 
-    @pyqtSlot(QColor)
+    @Slot(QColor)
     def color_selected(self, newColor):
         """QColorDialog callback when the user chooses a color"""
         if not self._color_scratchpad:
@@ -497,13 +493,13 @@ class BlenderListView(QListView):
         return project_params
 
     # Error from blender (with version number)
-    @pyqtSlot(str)
+    @Slot(str)
     def onBlenderVersionError(self, version):
         self.error_with_blender(version, None)
 
     # Signal error from blender (with custom message)
-    @pyqtSlot()
-    @pyqtSlot(str)
+    @Slot()
+    @Slot(str)
     def onBlenderError(self, error=None):
         self.error_with_blender(None, error)
 
