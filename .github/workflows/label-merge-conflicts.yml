@@ -15,7 +15,7 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - uses: eps1lon/actions-label-merge-conflict@v2.0.0
+      - uses: eps1lon/actions-label-merge-conflict@v2.0.1
         with:
           # Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}
           repoToken: ${{ secrets.GITHUB_TOKEN }}
