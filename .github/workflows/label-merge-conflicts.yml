@@ -22,9 +22,9 @@ jobs:
           # Name of the label which indicates that the branch is dirty
           dirtyLabel: 'conflicts'
           # Number of seconds after which the action runs again if the mergable state is unknown.
-          retryAfter: 300
+          retryAfter: 60
           # Number of times the action retries calculating the mergable state
-          retryMax: 2
+          retryMax: 5
           # String. Comment to add when the pull request is conflicting. Supports markdown.
           commentOnDirty: 'Merge conflicts have been detected on this PR, please resolve.'
   
