@@ -416,14 +416,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.title_editor import TitleEditor
         win = TitleEditor()
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
-            log.info('title editor add confirmed')
-        else:
-            log.info('title editor add cancelled')
+        win.exec_()
 
     def actionEditTitle_trigger(self):
-
         # Loop through selected files (set 1 selected file if more than 1)
         for f in self.selected_files():
             if f.data.get("path").endswith(".svg"):
@@ -436,7 +431,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
-        win = TitleEditor(file_path)
+        win = TitleEditor(edit_file_path=file_path)
         # Run the dialog event loop - blocking interaction on this window during that time
         win.exec_()
 
@@ -470,7 +465,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
-        win = TitleEditor(file_path, duplicate=True)
+        win = TitleEditor(edit_file_path=file_path, duplicate=True)
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
 
