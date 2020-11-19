@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Marr11317/ConflictAdviser@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          conflict_label: "conflicts"
+          comment: 'Merge conflicts have been detected on this PR, please resolve.'
