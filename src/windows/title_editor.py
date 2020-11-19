@@ -53,6 +53,9 @@ from classes.app import get_app
 from classes.metrics import track_metric_screen
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
 
+from windows.views.titles_listview import TitlesListView
+
+
 class TitleEditor(QDialog):
     """ Title Editor Dialog """
 
@@ -281,16 +284,16 @@ class TitleEditor(QDialog):
             if len(node.childNodes) < 1:
                 continue
             text = node.childNodes[0].data
-            ar = node.attributes["style"].value.split(";")
             title_text.append(text)
 
             # Set font size (for possible font dialog)
-            fs = self.find_in_list(ar, "font-size:")
-            fs_value = ar[fs][10:]
-            if fs_value.endswith("px"):
-                self.qfont.setPixelSize(float(fs_value[:-2]))
-            elif fs_value.endswith("pt"):
-                self.qfont.setPointSizeF(float(fs_value[:-2]))
+            s = node.attributes["style"].value
+            ard = style_to_dict(s)
+            fs = ard.get("font_size")
+            if fs and fs.endswith("px"):
+                self.qfont.setPixelSize(float(fs[:-2]))
+            elif fs and fs.endswith("pt"):
+                self.qfont.setPointSizeF(float(fs[:-2]))
 
             # Create Label
             label_line_text = _("Line %s:") % str(i + 1)
@@ -434,12 +437,6 @@ class TitleEditor(QDialog):
             self.set_font_style()
             self.save_and_reload()
 
-    def find_in_list(self, l, value):
-        '''when passed a partial value, function will return the list index'''
-        for i, item in enumerate(l):
-            if item.startswith(value):
-                return i
-
     def update_font_color_button(self):
         """Updates the color shown on the font color button"""
 
@@ -474,7 +471,6 @@ class TitleEditor(QDialog):
 
     def get_ref_color(self, id):
         """Get the color value from a reference id (i.e. linearGradient3267)"""
-        found_color = ""
         for ref_node in self.xmldoc.getElementsByTagName("defs")[0].childNodes:
             if ref_node.attributes and "id" in ref_node.attributes:
                 ref_node_id = ref_node.attributes["id"].value
@@ -492,10 +488,10 @@ class TitleEditor(QDialog):
                         for stop_node in ref_node.childNodes:
                             if "stop" == stop_node.nodeName:
                                 # get color from stop
-                                ar = stop_node.attributes["style"].value.split(";")
-                                sc = self.find_in_list(ar, "stop-color:")
-                                return ar[sc][11:]
-        return found_color
+                                ard = style_to_dict(stop_node.attributes["style"].value)
+                                if "stop-color" in ard:
+                                    return ard.get("stop-color")
+        return ""
 
     def update_background_color_button(self):
         """Updates the color shown on the background color button"""
