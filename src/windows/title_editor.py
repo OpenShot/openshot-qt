@@ -37,7 +37,8 @@ from xml.dom import minidom
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import (
-    QGraphicsScene, QMessageBox, QDialog, QColorDialog, QFontDialog,
+    QWidget, QGraphicsScene,
+    QMessageBox, QDialog, QColorDialog, QFontDialog,
     QPushButton, QTextEdit, QLabel
 )
 
@@ -50,17 +51,16 @@ from classes.metrics import track_metric_screen
 from windows.views.titles_listview import TitlesListView
 
 
-
 class TitleEditor(QDialog):
     """ Title Editor Dialog """
 
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'title-editor.ui')
 
-    def __init__(self, edit_file_path=None, duplicate=False):
+    def __init__(self, *args, edit_file_path=None, duplicate=False, **kwargs):
 
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(*args, **kwargs)
 
         self.app = get_app()
         self.project = self.app.project
@@ -101,13 +101,13 @@ class TitleEditor(QDialog):
 
         self.display_name = ""
         self.font_family = "Bitstream Vera Sans"
-        self.tspan_node = None
+        self.tspan_nodes = None
 
         self.qfont = QtGui.QFont(self.font_family)
 
         # Add titles list view
-        self.titlesTreeView = TitlesListView(self)
-        self.verticalLayout.addWidget(self.titlesTreeView)
+        self.titlesView = TitlesListView(parent=self, window=self)
+        self.verticalLayout.addWidget(self.titlesView)
 
         # Disable Save button on window load
         self.buttonBox.button(self.buttonBox.Save).setEnabled(False)
@@ -135,13 +135,13 @@ class TitleEditor(QDialog):
                 text_list.append(child.toPlainText())
 
         # Update text values in the SVG
-        for i in range(0, self.text_fields):
-            if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
+        for i, node in enumerate(self.tspan_nodes):
+            if len(node.childNodes) > 0 and i <= (len(text_list) - 1):
                 new_text_node = self.xmldoc.createTextNode(text_list[i])
-                old_text_node = self.tspan_node[i].childNodes[0]
-                self.tspan_node[i].removeChild(old_text_node)
+                old_text_node = node.childNodes[0]
+                node.removeChild(old_text_node)
                 # add new text node
-                self.tspan_node[i].appendChild(new_text_node)
+                node.appendChild(new_text_node)
 
         # Something changed, so update temp SVG
         self.writeToFile(self.xmldoc)
@@ -188,27 +188,26 @@ class TitleEditor(QDialog):
         os.unlink(tmp_filename)
 
     def create_temp_title(self, template_path):
-
-        # Set temp file path
+        """Set temp file path & make copy of template"""
         self.filename = os.path.join(info.USER_PATH, "title", "temp.svg")
-
-        # Copy template to temp file
+        # Copy template to temp file (NOT preserving attributes)
         shutil.copyfile(template_path, self.filename)
-
-        # return temp path
         return self.filename
 
-    def load_svg_template(self):
+    def load_svg_template(self, filename_field=None):
         """ Load an SVG title and init all textboxes and controls """
 
+        log.debug("Loading SVG file %s as title template", self.filename)
         # Get translation object
         _ = get_app()._tr
+
+        # The container for all our widgets
+        layout = self.settingsContainer.layout()
 
         # parse the svg object
         self.xmldoc = minidom.parse(self.filename)
         # get the text elements
-        self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
-        self.text_fields = len(self.tspan_node)
+        self.tspan_nodes = self.xmldoc.getElementsByTagName('tspan')
 
         # Reset default font
         self.font_family = "Bitstream Vera Sans"
@@ -219,27 +218,30 @@ class TitleEditor(QDialog):
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
             try:
-                self.settingsContainer.layout().removeWidget(child)
-                child.deleteLater()
-            except Exception:
-                log.debug('Failed to delete child settings widget')
+                if isinstance(child, QWidget):
+                    layout.removeWidget(child)
+                    child.deleteLater()
+            except Exception as ex:
+                log.debug('Failed to delete child settings widget: %s', ex)
 
         # Get text nodes and rect nodes
-        self.text_node = self.xmldoc.getElementsByTagName('text')
+        self.text_nodes = self.xmldoc.getElementsByTagName('text')
         self.rect_node = self.xmldoc.getElementsByTagName('rect')
 
         # Create Label
-        label = QLabel()
+        label = QLabel(self)
         label_line_text = _("File Name:")
         label.setText(label_line_text)
         label.setToolTip(label_line_text)
 
         # create text editor for file name
-        self.txtFileName = QTextEdit()
+        self.txtFileName = QTextEdit(self)
         self.txtFileName.setObjectName("txtFileName")
 
-        # If edit mode, set file name
-        if self.edit_file_path and not self.duplicate:
+        # If edit mode or reload, set file name
+        if filename_field:
+            self.txtFileName.setText(filename_field)
+        elif self.edit_file_path and not self.duplicate:
             # Use existing name (and prevent editing name)
             self.txtFileName.setText(os.path.basename(self.edit_file_path))
             self.txtFileName.setEnabled(False)
@@ -272,71 +274,62 @@ class TitleEditor(QDialog):
                     self.txtFileName.setText(curname)
                     break
         self.txtFileName.setFixedHeight(28)
-        self.settingsContainer.layout().addRow(label, self.txtFileName)
+        layout.addRow(label, self.txtFileName)
 
         # Get text values
         title_text = []
-        for i in range(0, self.text_fields):
-            if len(self.tspan_node[i].childNodes) > 0:
-                text = self.tspan_node[i].childNodes[0].data
-                ar = self.tspan_node[i].attributes["style"].value.split(";")
-                title_text.append(text)
+        for i, node in enumerate(self.tspan_nodes):
+            if len(node.childNodes) < 1:
+                continue
+            text = node.childNodes[0].data
+            ar = node.attributes["style"].value.split(";")
+            title_text.append(text)
 
-                # Set font size (for possible font dialog)
-                fs = self.find_in_list(ar, "font-size:")
-                fs_value = ar[fs][10:]
-                if fs_value.endswith("px"):
-                    self.qfont.setPixelSize(float(fs_value[:-2]))
-                elif fs_value.endswith("pt"):
-                    self.qfont.setPointSizeF(float(fs_value[:-2]))
+            # Set font size (for possible font dialog)
+            fs = self.find_in_list(ar, "font-size:")
+            fs_value = ar[fs][10:]
+            if fs_value.endswith("px"):
+                self.qfont.setPixelSize(float(fs_value[:-2]))
+            elif fs_value.endswith("pt"):
+                self.qfont.setPointSizeF(float(fs_value[:-2]))
 
-                # Create Label
-                label = QLabel()
-                label_line_text = _("Line %s:") % str(i + 1)
-                label.setText(label_line_text)
-                label.setToolTip(label_line_text)
+            # Create Label
+            label_line_text = _("Line %s:") % str(i + 1)
+            label = QLabel(label_line_text)
+            label.setToolTip(label_line_text)
 
-                # create text editor for each text element in title
-                widget = QTextEdit()
-                widget.setText(_(text))
-                widget.setFixedHeight(28)
-                widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
-                self.settingsContainer.layout().addRow(label, widget)
+            # create text editor for each text element in title
+            widget = QTextEdit(_(text))
+            widget.setFixedHeight(28)
+            widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
+            layout.addRow(label, widget)
 
         # Add Font button
-        label = QLabel()
-        label.setText(_("Font:"))
+        label = QLabel(_("Font:"))
         label.setToolTip(_("Font:"))
-        self.btnFont = QPushButton()
-        self.btnFont.setText(_("Change Font"))
-        self.settingsContainer.layout().addRow(label, self.btnFont)
+        self.btnFont = QPushButton(_("Change Font"))
+        layout.addRow(label, self.btnFont)
         self.btnFont.clicked.connect(self.btnFont_clicked)
 
         # Add Text color button
-        label = QLabel()
-        label.setText(_("Text:"))
+        label = QLabel(_("Text:"))
         label.setToolTip(_("Text:"))
-        self.btnFontColor = QPushButton()
-        self.btnFontColor.setText(_("Text Color"))
-        self.settingsContainer.layout().addRow(label, self.btnFontColor)
+        self.btnFontColor = QPushButton(_("Text Color"))
+        layout.addRow(label, self.btnFontColor)
         self.btnFontColor.clicked.connect(self.btnFontColor_clicked)
 
         # Add Background color button
-        label = QLabel()
-        label.setText(_("Background:"))
+        label = QLabel(_("Background:"))
         label.setToolTip(_("Background:"))
-        self.btnBackgroundColor = QPushButton()
-        self.btnBackgroundColor.setText(_("Background Color"))
-        self.settingsContainer.layout().addRow(label, self.btnBackgroundColor)
+        self.btnBackgroundColor = QPushButton(_("Background Color"))
+        layout.addRow(label, self.btnBackgroundColor)
         self.btnBackgroundColor.clicked.connect(self.btnBackgroundColor_clicked)
 
         # Add Advanced Editor button
-        label = QLabel()
-        label.setText(_("Advanced:"))
+        label = QLabel(_("Advanced:"))
         label.setToolTip(_("Advanced:"))
-        self.btnAdvanced = QPushButton()
-        self.btnAdvanced.setText(_("Use Advanced Editor"))
-        self.settingsContainer.layout().addRow(label, self.btnAdvanced)
+        self.btnAdvanced = QPushButton(_("Use Advanced Editor"))
+        layout.addRow(label, self.btnAdvanced)
         self.btnAdvanced.clicked.connect(self.btnAdvanced_clicked)
 
         # Update color buttons
@@ -442,7 +435,7 @@ class TitleEditor(QDialog):
         """Updates the color shown on the font color button"""
 
         # Loop through each TEXT element
-        for node in self.text_node + self.tspan_node:
+        for node in self.text_nodes + self.tspan_nodes:
 
             # Get the value in the style attribute
             s = node.attributes["style"].value
@@ -589,7 +582,7 @@ class TitleEditor(QDialog):
     def set_font_style(self):
         '''sets the font properties'''
         # Loop through each TEXT element
-        for text_child in self.text_node + self.tspan_node:
+        for text_child in self.text_nodes + self.tspan_nodes:
             # set the style elements for the main text node
             s = text_child.attributes["style"].value
             # split the text node so we can access each part
@@ -642,7 +635,7 @@ class TitleEditor(QDialog):
     def set_font_color_elements(self, color, alpha):
 
         # Loop through each TEXT element
-        for text_child in self.text_node + self.tspan_node:
+        for text_child in self.text_nodes + self.tspan_nodes:
 
             # SET TEXT PROPERTIES
             s = text_child.attributes["style"].value
@@ -705,29 +698,22 @@ class TitleEditor(QDialog):
         super().accept()
 
     def btnAdvanced_clicked(self):
-        _ = self.app._tr
-        # use an external editor to edit the image
+        """Use an external editor to edit the image"""
+        # Get editor executable from settings
+        s = settings.get_settings()
+        prog = s.get("title_editor")
+        # Store filename field to display on reload
+        filename_text = self.txtFileName.toPlainText().strip()
         try:
-            # Get settings
-            s = settings.get_settings()
-
-            # get the title editor executable path
-            prog = s.get("title_editor")
-
             # launch advanced title editor
-            # debug info
-            log.info("Advanced title editor command: {} {} ".format(prog, self.filename))
-
+            log.info("Advanced title editor command: %s", str([prog, self.filename]))
             p = subprocess.Popen([prog, self.filename])
-
-            # wait for process to finish (so we can update the preview)
+            # wait for process to finish, then update preview
             p.communicate()
-
-            # update image preview
-            self.load_svg_template()
+            self.load_svg_template(filename_field=filename_text)
             self.display_svg()
-
         except OSError:
-            msg = QMessageBox()
+            _ = self.app._tr
+            msg = QMessageBox(self)
             msg.setText(_("Please install %s to use this function" % prog))
             msg.exec_()
