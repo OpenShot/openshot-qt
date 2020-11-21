@@ -2703,6 +2703,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Execute JavaScript to center the timeline
         self.run_js(JS_SCOPE_SELECTOR + '.centerOnPlayhead();')
 
+    @pyqtSlot()
+    def scrollLeft(self, scroll_value):
+        """ --------------------------- """
+        # Execute JavaScript to -----------------
+        self.run_js(JS_SCOPE_SELECTOR + '.scrollLeft(%s);' % int(scroll_value))
+
     @pyqtSlot(int)
     def SetSnappingMode(self, enable_snapping):
         """ Enable / Disable snapping mode """
@@ -2781,13 +2787,18 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             get_app().updates.update(["scale"], newScale)
             get_app().updates.ignore_history = False
 
-    # Capture wheel event to alter zoom slider control
+    # Capture wheel event to alter zoom slider control or to use SHIFT+scroll for horizontal scroll
     def wheelEvent(self, event):
         if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
             # For each 120 (standard scroll unit) adjust the zoom slider
             tick_scale = 120
             steps = int(event.angleDelta().y() / tick_scale)
             self.window.sliderZoom.setValue(self.window.sliderZoom.value() - self.window.sliderZoom.pageStep() * steps)
+        elif int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:            
+            # For each 120 (standard scroll unit) scroll horizontally
+            tick_scale = 120
+            steps = int(event.angleDelta().y() / tick_scale)
+            self.scrollLeft(-steps*100)
         else:
             # Otherwise pass on to implement default functionality (scroll in QWebEngineView)
             super(type(self), self).wheelEvent(event)
