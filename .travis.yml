@@ -6,7 +6,7 @@ virtualenv:
 addons:
   apt:
     sources:
-    - sourceline: 'ppa:openshot.developers/libopenshot-daily'
+    - sourceline: 'ppa:openshot.developers/ppa'
     packages: &p_common
     - libopenshot-audio-dev
     - libopenshot-dev
