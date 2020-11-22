@@ -7,7 +7,7 @@ addons:
   apt:
     sources:
     - sourceline: 'ppa:openshot.developers/libopenshot-daily'
-    packages:
+    packages: &p_common
     - libopenshot-audio-dev
     - libopenshot-dev
     - libssl-dev
@@ -15,8 +15,6 @@ addons:
     - python3-pip
     - python3-setuptools
     - python3-pyqt5
-    - python3-pyqt5.qtmultimedia
-    - python3-pyqt5.qtopengl
     - python3-pyqt5.qtsvg
     - python3-pyqt5.qtwebkit
     - python3-requests
@@ -25,7 +23,7 @@ addons:
     - qttranslations5-l10n
     - xvfb
 
-matrix:
+jobs:
   include:
     - name: "Python 3.5 (Ubuntu 16.04 Xenial)"
       os: linux
@@ -35,9 +33,13 @@ matrix:
       os: linux
       dist: bionic
       python: 3.6
+    - name: "Python 3.8 (Ubuntu 20.04 Focal)"
+      os: linux
+      dist: focal
+      python: 3.8
 
 install:
-  - pip3 install cx-freeze
+  - pip3 install 'cx-freeze==6.1'
 
 script:
   - python3 freeze.py build
