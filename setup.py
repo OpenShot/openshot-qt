@@ -58,7 +58,7 @@ ROOT = os.geteuid() == 0
 # For Debian packaging it could be a fakeroot so reset flag to prevent execution of
 # system update services for Mime and Desktop registrations.
 # The debian/openshot.postinst script must do those.
-if not os.getenv("FAKEROOTKEY") == None:
+if os.getenv("FAKEROOTKEY") is not None:
     log.info("NOTICE: Detected execution in a FakeRoot so disabling calls to system update services.")
     ROOT = False
 
@@ -71,7 +71,9 @@ os_files = [
     ('share/pixmaps', ['xdg/openshot-qt.svg']),
     # XDG Freedesktop icon paths
     ('share/icons/hicolor/scalable/apps', ['xdg/openshot-qt.svg']),
+    ('share/icons/hicolor/scalable/mimetypes', ['xdg/openshot-qt-doc.svg']),
     ('share/icons/hicolor/64x64/apps', ['xdg/icon/64/openshot-qt.png']),
+    ('share/icons/hicolor/128x128/apps', ['xdg/icon/128/openshot-qt.png']),
     ('share/icons/hicolor/256x256/apps', ['xdg/icon/256/openshot-qt.png']),
     ('share/icons/hicolor/512x512/apps', ['xdg/icon/512/openshot-qt.png']),
     # XDG desktop mime types cache
