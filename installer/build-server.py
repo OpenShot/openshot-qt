@@ -83,7 +83,7 @@ def output(line):
 
 def run_command(command, working_dir=None):
     """Utility function to return output from command line"""
-    short_command = command.split('" ')[0] # We don't need to print args
+    short_command = command.split('" ')[0]  # We don't need to print args
     output("Running %s... (%s)" % (short_command, working_dir))
     p = subprocess.Popen(command, shell=True, cwd=working_dir,
                          stdout=subprocess.PIPE,
@@ -229,7 +229,7 @@ try:
         gh = login(github_user, github_pass)
         repo = gh.repository("OpenShot", "openshot-qt")
 
-    if len(sys.argv) >=9:
+    if len(sys.argv) >= 9:
         windows_32bit = False
         if sys.argv[8] == 'True':
             windows_32bit = True
@@ -288,7 +288,7 @@ try:
         github_release = get_release(repo, "daily")
         if git_branch_name != "develop":
             # Only upload develop-branch pipelines as Daily Builds
-        needs_upload = False
+            needs_upload = False
 
     # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
@@ -323,7 +323,6 @@ try:
                 exe_dir = exe_path
                 break
 
-        # Create AppDir folder
         app_dir_path = os.path.join(PATH, "build", "OpenShot.AppDir")
 
         # Recursively create AppDir /usr folder
@@ -368,7 +367,7 @@ try:
 
         # Copy the entire frozen app
         shutil.copytree(os.path.join(PATH, "build", exe_dir),
-            os.path.join(app_dir_path, "usr", "bin"))
+                        os.path.join(app_dir_path, "usr", "bin"))
 
         # Copy .desktop file, replacing Exec= commandline
         desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
