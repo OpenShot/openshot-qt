@@ -2705,8 +2705,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     @pyqtSlot()
     def scrollLeft(self, scroll_value):
-        """ Horizontally scroll the timeline of scroll_value """
-        # Execute JavaScript to scroll the timeline
+        """ --------------------------- """
+        # Execute JavaScript to -----------------
         self.run_js(JS_SCOPE_SELECTOR + '.scrollLeft(%s);' % int(scroll_value))
 
     @pyqtSlot(int)
