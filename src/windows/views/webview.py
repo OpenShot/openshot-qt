@@ -429,7 +429,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             Slice_Keep_Right.triggered.connect(partial(
                 self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
-            return menu.popup(QCursor.pos())
+            return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
@@ -445,7 +445,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Remove Effect Menu
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveEffect)
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @pyqtSlot(float, int)
     def ShowTimelineMenu(self, position, layer_id):
@@ -475,7 +475,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
         )
 
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -946,7 +946,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         menu.addAction(self.window.actionRemoveClip)
 
         # Show Context menu
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     def Transform_Triggered(self, action, clip_ids):
         log.debug("Transform_Triggered")
@@ -2618,7 +2618,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         menu.addAction(self.window.actionRemoveTransition)
 
         # Show menu
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowTrackMenu(self, layer_id=None):
@@ -2643,7 +2643,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             self.window.actionRemoveTrack.setEnabled(True)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowMarkerMenu(self, marker_id=None):
@@ -2654,7 +2654,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         menu = QMenu(self)
         menu.addAction(self.window.actionRemoveMarker)
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str, int)
     def PreviewClipFrame(self, clip_id, frame_number):
