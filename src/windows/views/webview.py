@@ -2783,14 +2783,17 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # Capture wheel event to alter zoom slider control
     def wheelEvent(self, event):
-        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+        if event.modifiers() & Qt.ControlModifier:
+            event.accept()
+            zoom = self.window.sliderZoom
             # For each 120 (standard scroll unit) adjust the zoom slider
             tick_scale = 120
             steps = int(event.angleDelta().y() / tick_scale)
-            self.window.sliderZoom.setValue(self.window.sliderZoom.value() - self.window.sliderZoom.pageStep() * steps)
+            delta = zoom.pageStep() * steps
+            log.debug("Zooming by %d steps", -steps)
+            zoom.setValue(zoom.value() - delta)
         else:
-            # Otherwise pass on to implement default functionality (scroll in QWebEngineView)
-            super(type(self), self).wheelEvent(event)
+            super().wheelEvent(event)
 
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
