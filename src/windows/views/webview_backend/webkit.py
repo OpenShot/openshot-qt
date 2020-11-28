@@ -123,3 +123,20 @@ class TimelineWebKitView(QWebView):
         else:
             # Ignore most keypresses
             event.ignore()
+
+    def wheelEvent(self, event):
+        """ Mousewheel scrolling """
+        if event.modifiers() & Qt.ShiftModifier:
+            event.accept()
+            frame = self.page().mainFrame()
+            # Compute scroll offset from wheel motion
+            tick_scale = 120
+            steps = int(event.angleDelta().y() / tick_scale)
+            delta = -(steps * 100)
+            log.debug("Scrolling horizontally by %d pixels", delta)
+            # Update the scroll position using AngularJS
+            js = f"$('body').scope().scrollLeft({delta});"
+            frame.evaluateJavaScript(js)
+        else:
+            super().wheelEvent(event)
+
