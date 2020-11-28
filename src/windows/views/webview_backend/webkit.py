@@ -135,8 +135,7 @@ class TimelineWebKitView(QWebView):
             delta = -(steps * 100)
             log.debug("Scrolling horizontally by %d pixels", delta)
             # Update the scroll position using AngularJS
-            js = f"$('body').scope().scrollLeft({delta});"
+            js = "$('body').scope().scrollLeft({});".format(delta)
             frame.evaluateJavaScript(js)
         else:
             super().wheelEvent(event)
-
