@@ -27,6 +27,7 @@
 
 import os
 from collections import OrderedDict
+from typing import Sequence
 from operator import itemgetter
 
 from PyQt5.QtCore import Qt, pyqtSlot, QObject, QLocale, QTimer, QMimeData
@@ -316,7 +317,8 @@ class PropertiesModel(updates.UpdateInterface, QObject):
         points.sort(key=lambda p: p["co"]["X"])
         return True
 
-    def update_interpolation(self, item, interpolation=-1, handles=[0, 0, 0, 0]):
+    def update_interpolation(
+            self, item, interpolation=-1, handles=(0.0, 0.0, 0.0, 0.0)):
         """Change the interpolation type of the current curve segment"""
         # Determine what will be changed
         prop_key, prop_data = self.model.item(item.row(), 0).data()
@@ -358,7 +360,9 @@ class PropertiesModel(updates.UpdateInterface, QObject):
         self.parent().clearSelection()
 
     @staticmethod
-    def set_interpolation(points: list, prev_x: float, closest_x: float, interp: int, handles: list):
+    def set_interpolation(
+            points: list, prev_x: float, closest_x: float,
+            interp: int, handles: Sequence[float]):
         """Set the interpolation between two keyframe points"""
         if len(points) < 1 or "co" not in points[0]:
             log.warning("Cannot interpret points list!")
@@ -745,8 +749,8 @@ class PropertiesModel(updates.UpdateInterface, QObject):
         # Done updating model
         self.ignore_update_signal = False
 
-    def __init__(self, parent=None, *args, **kwargs):
-        super().__init__(parent, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         # Keep track of the selected items (clips, transitions, etc...)
         self.selected = []
