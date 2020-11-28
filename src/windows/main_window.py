@@ -62,7 +62,7 @@ from classes.metrics import (
     track_metric_session, track_metric_screen,
     track_metric_error, track_exception_stacktrace,
     )
-from classes.query import Clip, Transition, Marker, Track
+from classes.query import Clip, Transition, Marker, Track, Effect
 from classes.thumbnail import httpThumbnailServerThread
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
@@ -105,6 +105,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     FoundVersionSignal = pyqtSignal(str)
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
+    KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)
     ExportStarted = pyqtSignal(str, int, int)
     ExportFrame = pyqtSignal(str, int, int, int, str)
@@ -2388,10 +2389,22 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             elif item_type == "effect" and item_id not in self.selected_effects:
                 self.selected_effects.append(item_id)
 
+                effect = Effect.get(id=item_id)
+                if effect:
+                    item_name = effect.title() 
+                    print("item_name: ", item_name)
+                    if item_name == "Tracker":
+                        # Show bounding boxes transform on preview
+                        clip_id = effect.parent['id']
+                        self.KeyFrameTransformSignal.emit(item_id, clip_id)
+
+
             # Change selected item in properties view
             self.show_property_id = item_id
             self.show_property_type = item_type
             self.show_property_timer.start()
+
+            
 
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):

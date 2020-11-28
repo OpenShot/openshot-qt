@@ -436,7 +436,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             for point in effect.get(attribute).get(color).get("Points"):
                                 if "co" in point:
                                     point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-
+                if effect.get("class_name") == "Tracker":
+                        effect["TimeScale"] = effect["TimeScale"] * scale_factor
+        
+        
         # Loop through all effects/transitions (and look for Keyframe objects)
         # Scale the X coordinate by factor (which represents the frame #)
         for effect in data.get('effects', []):
@@ -450,6 +453,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         for point in effect.get(attribute).get(color).get("Points"):
                             if "co" in point:
                                 point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
+            if effect.get("class_name") == "Tracker":
+                effect["TimeScale"] = effect["TimeScale"] * scale_factor
+
 
         # return the copied and scaled project data
         return data

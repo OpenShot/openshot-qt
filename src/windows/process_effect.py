@@ -347,11 +347,21 @@ class ProcessEffect(QDialog):
             if(self.cancel_clip_processing):
                 processing.CancelProcessing()
 
+        fps = get_app().project.get("fps")
+
         if(not self.cancel_clip_processing):
         
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
+            print("effect {}".format(self.effect.Json()))
+            # if self.effect_name == "Tracker":
+            #     self.effect.SetJson( '{"protobuf_data_path": "%s" , "BaseFPS": {  "num": %d, "den": %d }  }' % (protobufPath, fps["num"], fps["den"]) )
+            #     # self.effect.SetJson('\{\{ "protobuf_data_path":  {} , "BaseFPS": \{\{  "num": {}, "den": {} \}\} \}\}'.format(protobufPath, fps["num"], fps["den"]))
+            # else:
             self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
+
+            
+            print("effect {}".format(self.effect.Json()))
             self.effect.Id(ID)
             
             # Accept dialog
