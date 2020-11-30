@@ -811,7 +811,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def regionTriggered(self, clip_id):
         """Handle the 'select region' signal when it's emitted"""
-        self.region_enabled = True
+        if self and not clip_id:
+            # Clear transform
+            self.region_enabled = False
+        else:
+            self.region_enabled = True
+        
         get_app().window.refreshFrameSignal.emit()
 
     def resizeEvent(self, event):

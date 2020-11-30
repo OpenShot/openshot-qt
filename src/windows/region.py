@@ -245,6 +245,7 @@ class SelectRegion(QDialog):
         """ Ok button clicked """
 
         self.shutdownPlayer()
+        get_app().window.SelectRegionSignal.emit("")
         super(SelectRegion, self).accept()
 
     def shutdownPlayer(self):
@@ -270,6 +271,7 @@ class SelectRegion(QDialog):
 
         # Cancel dialog
         self.shutdownPlayer()
+        get_app().window.SelectRegionSignal.emit("")
         super(SelectRegion, self).reject()
 
 
