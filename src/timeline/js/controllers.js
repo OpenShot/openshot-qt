@@ -1424,7 +1424,10 @@ App.controller("TimelineCtrl", function ($scope) {
         images: {start: 3, end: 7},
         show_audio: false,
         alpha: {Points: []},
-        location_x: {Points: []},
+        location_x: {Points: [
+				  {co: {X: 1.0, Y: -0.5}},
+          {co: {X: 30.0, Y: -0.4}}
+        ]},
         location_y: {Points: []},
         scale_x: {Points: []},
         scale_y: {Points: []},
