@@ -43,25 +43,33 @@ Overview
    3   Clip 2              An image clip
    ==  ==================  ============
 
+.. _clips_cutting_slicing_ref:
+
 Cutting & Slicing
 -----------------
 OpenShot has many easy ways to adjust the start and end positions of a clip (otherwise known as cutting). The most common
 method is simply grabbing the left (or right) edge of the clip and dragging. Here is a list of methods for cutting clips in OpenShot:
 
+.. |razortool_icon| image:: ../images/Humanity/actions/16/edit-cut.svg
+
 .. table::
    :widths: 30
    
-   ==================  ============
-   Name                Description
-   ==================  ============
-   Slice               When the play-head (i.e. red playback line) is overlapping a clip, right click on the clip, and choose Slice
-   Slice All           When the play-head is overlapping many clips, right click on the play-head, and choose Slice All (it will cut all intersecting clips)
-   Resizing Edge       Mouse over the edge of a clip, and resize the edge
-   Split Dialog        Right click on a file, and choose **Split Clip**. A dialog will appear which allows for creating lots of small cuts in a single video file.
-   Razor Tool          The razor tool cuts a clip wherever you click, so be careful. Easy and dangerous.
-   ==================  ============
+   ======================  ============
+   Name                    Description
+   ======================  ============
+   **Slice**               When the play-head (i.e. vertical red playback line) is overlapping a clip, right click on the clip,
+                           and choose :guilabel:`Slice`.
+   **Slice All**           When the play-head is overlapping many clips, right click on the play-head, and choose
+                           :guilabel:`Slice All` (it will cut all intersecting clips on all tracks).
+   **Resizing Edge**       Mouse over the edge of a clip, and resize the edge.
+   **Split Dialog**        Right click on a file, and choose :guilabel:`Split Clip`. A dialog will appear which allows
+                           for creating lots of small cuts in a single video file.
+   **Razor Tool**          The razor tool |razortool_icon| from the **Edit Toolbar** cuts a clip wherever you click on it.
+                           So be careful, it is easy and dangerous!
+   ======================  ============
 
-Keep in mind that all of the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
+Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
 
 .. _clip_presets_ref:
 

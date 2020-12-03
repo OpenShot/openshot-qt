@@ -55,6 +55,7 @@ the basics. Clicking **Next** will jump to the next topic. You can always view t
 
 .. image:: images/built-in-tutorial.jpg
 
+.. _tracks_ref:
 
 Tracks & Layers
 ------------------
