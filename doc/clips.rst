@@ -50,7 +50,7 @@ Cutting & Slicing
 OpenShot has many easy ways to adjust the start and end positions of a clip (otherwise known as cutting). The most common
 method is simply grabbing the left (or right) edge of the clip and dragging. Here is a list of methods for cutting clips in OpenShot:
 
-.. |razortool_icon| image:: ../src/images/Humanity/actions/16/edit-cut.svg
+.. |razortool_icon| image:: ../images/Humanity/actions/16/edit-cut.svg
 
 .. table::
    :widths: 30
