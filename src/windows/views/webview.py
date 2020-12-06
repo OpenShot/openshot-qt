@@ -1462,6 +1462,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 self.copy_clipboard[clip_id] = clip.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
+                self.copy_clipboard[clip_id]['crop_height'] = clip.data['crop_height']
+                self.copy_clipboard[clip_id]['crop_width'] = clip.data['crop_width']
+                self.copy_clipboard[clip_id]['crop_x'] = clip.data['crop_x']
+                self.copy_clipboard[clip_id]['crop_y'] = clip.data['crop_y']
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
