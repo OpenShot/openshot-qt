@@ -2882,6 +2882,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect signals
         if self.mode != "unittest":
             self.RecoverBackup.connect(self.recover_backup)
+        app.aboutToQuit.connect(self.close)
 
         # Initialize and start the thumbnail HTTP server
         self.http_server_thread = httpThumbnailServerThread()
