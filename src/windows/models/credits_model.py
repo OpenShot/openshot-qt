@@ -56,7 +56,7 @@ class CreditsModel():
 
         for person in self.credits_list:
             # Get details of person
-            data = defaultdict("")
+            data = defaultdict(list)
             data.update({
                 "name": person.get("name"),
                 "email": person.get("email"),
@@ -82,9 +82,9 @@ class CreditsModel():
             # Append type icon (PayPal, Kickstarter, Bitcoin, or Patreon)
             item = QStandardItem()
             for contrib in [n for n in self.icon_mapping if n in data["icons"]]:
-                (icon, tooltip) = self.icon_mapping.get(contrib, (None, None))
+                (tooltip, icon) = self.icon_mapping.get(contrib, (None, None))
                 item.setIcon(icon)
-                item.setToolTip(tooltip)
+                item.setToolTip(_(tooltip))
             item.setFlags(flags)
             row.append(item)
 
