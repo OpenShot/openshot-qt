@@ -56,7 +56,7 @@ class CreditsModel():
 
         for person in self.credits_list:
             # Get details of person
-            data = defaultdict(list)
+            data = defaultdict(str)
             data.update({
                 "name": person.get("name"),
                 "email": person.get("email"),
@@ -84,7 +84,7 @@ class CreditsModel():
             for contrib in [n for n in self.icon_mapping if n in data["icons"]]:
                 (tooltip, icon) = self.icon_mapping.get(contrib, (None, None))
                 item.setIcon(icon)
-                item.setToolTip(_(tooltip))
+                item.setToolTip(tooltip)
             item.setFlags(flags)
             row.append(item)
 
