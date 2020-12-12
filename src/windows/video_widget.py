@@ -1018,12 +1018,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         found_point = False
         effect_updated = False
 
+        raw_properties = json.loads(self.transforming_effect_object.Json(frame_number))
         c = Effect.get(id=effect_id)
         if not c:
             # No clip found
             return
 
-        for point in c.data[property_key]["Points"]:
+        for point in raw_properties[property_key]["Points"]:
             log.info("looping points: co.X = %s" % point["co"]["X"])
 
             if point["co"]["X"] == frame_number:
@@ -1035,16 +1036,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not found_point and new_value != None:
             effect_updated = True
             log.info("Created new point at X=%s" % frame_number)
-            c.data[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
+            raw_properties[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
 
         # Reduce # of clip properties we are saving (performance boost)
-        c.data = {property_key: c.data.get(property_key)}
+        # raw_properties = {property_key: raw_properties.get(property_key)}
+        raw_properties_string = json.dumps(raw_properties)
 
-        if effect_updated:
+        self.transforming_effect_object.SetJson(frame_number, raw_properties_string)
+
+        if refresh:
             c.save()
             # Update the preview
-            if refresh:
-                get_app().window.refreshFrameSignal.emit()
+            get_app().window.refreshFrameSignal.emit()
 
     def refreshTriggered(self):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
@@ -1263,3 +1266,4 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.win.KeyFrameTransformSignal.connect(self.keyFrameTransformTriggered)
         self.win.SelectRegionSignal.connect(self.regionTriggered)
         self.win.refreshFrameSignal.connect(self.refreshTriggered)
+
