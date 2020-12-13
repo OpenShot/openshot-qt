@@ -2509,6 +2509,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         self.TransformSignal.connect(self.transformTriggered)
         if not self.mode == "unittest":
             self.RecoverBackup.connect(self.recover_backup)
+        app.aboutToQuit.connect(self.close)
 
         # Initialize and start the thumbnail HTTP server
         self.http_server_thread = httpThumbnailServerThread()

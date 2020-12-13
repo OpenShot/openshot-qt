@@ -3000,5 +3000,10 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
         self.cache_renderer.setInterval(0.5 * 1000)
         self.cache_renderer.timeout.connect(self.render_cache_json)
 
+        # Connect shutdown signals
+        get_app().aboutToQuit.connect(self.redraw_audio_timer.stop)
+        get_app().aboutToQuit.connect(self.cache_renderer.stop)
+        get_app().aboutToQuit.connect(self.deleteLater)
+
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
