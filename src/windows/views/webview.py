@@ -169,7 +169,7 @@ else:
             from .webview_backend.webkit import TimelineWebKitView as WebViewClass
             WEBVIEW_LOADED = True
         except ImportError:
-            pass
+            log.error("Import failure loading WebKit backend", exc_info=1)
         finally:
             if not WEBVIEW_LOADED:
                 raise RuntimeError(
