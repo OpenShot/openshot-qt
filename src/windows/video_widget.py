@@ -73,12 +73,20 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
 
     def drawTransformHandler(self, painter, sx, sy, source_width, source_height, origin_x, origin_y,
-     x1=None, y1=None, x2=None, y2=None):
+     x1=None, y1=None, x2=None, y2=None, rotation = None):
         # Draw transform corners and center origin circle
         # Corner size
         cs = 14.0
         os = 12.0
 
+        # Rotate the transform handler
+        if rotation:
+            bbox_center_x = (((x1*source_width + x2*source_width) / 2.0) ) - ( (os/2) /sx)
+            bbox_center_y = (((y1*source_height + y2*source_height) / 2.0) ) - ( (os/2) /sy)
+            painter.translate(bbox_center_x, bbox_center_y)
+            painter.rotate(rotation)
+            painter.translate(-bbox_center_x, -bbox_center_y)
+            
         if(x1 and y1 and x2 and y2):
             # Calculate bounds of clip
             self.clipBounds = QRectF(QPointF(x1*source_width, y1*source_height), QPointF(x2*source_width, y2*source_height))    
@@ -300,8 +308,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 y1 = raw_properties_effect.get('y1').get('value')
                 x2 = raw_properties_effect.get('x2').get('value')
                 y2 = raw_properties_effect.get('y2').get('value')
+                rotation_effect = raw_properties_effect.get('rotation').get('value')
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
-                    x1, y1, x2, y2)
+                    x1, y1, x2, y2, rotation_effect)
             else:
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
@@ -605,7 +614,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         origin_y = 0.0
                     if origin_y > 1.0:
                         origin_y = 1.0
-
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'origin_x', origin_x, refresh=False)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'origin_y', origin_y)
@@ -951,7 +959,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     elif self.transform_mode == 'scale_bottom':
                         scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                     elif self.transform_mode == 'scale_left':
-                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)        
                     elif self.transform_mode == 'scale_right':
                         scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
 
@@ -1040,14 +1048,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Reduce # of clip properties we are saving (performance boost)
         # raw_properties = {property_key: raw_properties.get(property_key)}
+
         raw_properties_string = json.dumps(raw_properties)
 
         self.transforming_effect_object.SetJson(frame_number, raw_properties_string)
 
-        if refresh:
+        if effect_updated:
             c.save()
-            # Update the preview
-            get_app().window.refreshFrameSignal.emit()
+            if refresh:
+                get_app().window.refreshFrameSignal.emit()
+
+        self.transforming_effect_object.SetJson(frame_number, raw_properties_string)
 
     def refreshTriggered(self):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
