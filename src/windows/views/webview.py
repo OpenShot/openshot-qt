@@ -169,7 +169,7 @@ else:
             from .webview_backend.webkit import TimelineWebKitView as WebViewClass
             WEBVIEW_LOADED = True
         except ImportError:
-            pass
+            log.error("Import failure loading WebKit backend", exc_info=1)
         finally:
             if not WEBVIEW_LOADED:
                 raise RuntimeError(
@@ -3175,6 +3175,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Connect shutdown signals
         app.aboutToQuit.connect(self.redraw_audio_timer.stop)
         app.aboutToQuit.connect(self.cache_renderer.stop)
+        app.aboutToQuit.connect(self.deleteLater)
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)

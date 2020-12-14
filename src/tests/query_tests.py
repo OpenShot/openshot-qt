@@ -34,6 +34,7 @@ if PATH not in sys.path:
 import random
 import unittest
 import uuid
+from PyQt5.QtGui import QGuiApplication
 from classes.app import OpenShotApp
 from classes import info
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -46,7 +47,7 @@ class TestQueryClass(unittest.TestCase):
     def setUpClass(TestQueryClass):
         """ Init unit test data """
         # Create Qt application
-        TestQueryClass.app = OpenShotApp(sys.argv, mode="unittest")
+        TestQueryClass.app = OpenShotApp([], mode="unittest")
         TestQueryClass.clip_ids = []
         TestQueryClass.file_ids = []
         TestQueryClass.transition_ids = []
@@ -318,4 +319,5 @@ class TestQueryClass(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    app = QGuiApplication(sys.argv)
     unittest.main()
