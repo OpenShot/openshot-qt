@@ -1,14 +1,11 @@
 
 name: Label merge conflicts
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the develop branch
-on:
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
-    types: [opened, synchronize, reopened]
+# Controls when the action will run. Triggers the workflow on push to repo
+# branches.
+# (It shouldn't run on pull requests, as it won't have the right credentials
+# to edit labels on other PRs.)
+on: push
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
