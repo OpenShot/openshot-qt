@@ -137,8 +137,8 @@ position, to help create animations.
    ==================  ============
    Name                Description
    ==================  ============
-   Gravity Type        The gravity of a clip determines where it snaps to it's parent
-   Scale Type          The scale determines how a clip should be resized to fit it's parent
+   Gravity Type        The gravity of a clip determines where it snaps to its parent
+   Scale Type          The scale determines how a clip should be resized to fit its parent
    Frame Display Type  The format to display the frame number (if any)
    Scale X             Curve representing the horizontal scaling in percent (0 to 1)
    Scale Y             Curve representing the vertical scaling in percent (0 to 1)
