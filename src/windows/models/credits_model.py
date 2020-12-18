@@ -55,25 +55,22 @@ class CreditsModel():
         self.model.setHorizontalHeaderLabels(["", "", _("Name"), _("Email"), _("Website")])
 
         for person in self.credits_list:
-            # Get details of person
-            data = defaultdict(str)
-            data.update({
-                "name": person.get("name"),
-                "email": person.get("email"),
-                "website": person.get("website"),
-                "amount": person.get("amount", 0.0),
-                "icons": person.get("icons"),
-            })
+            log.debug("Processing details for %s", person)
 
-            if filter and not (
-                filter.lower() in data["name"].lower()
-                or filter.lower() in data["email"].lower()
-                or filter.lower() in data["website"].lower()
-            ):
+            # Remove any person string keys that explicitly contain a value of None
+            for field in ["name", "email", "website"]:
+                if field in person and person.get(field) is None:
+                    person.pop(field)
+
+            if len(person.get("name", "")) < 2:
+                # Skip blank names
                 continue
 
-            if len(data["name"]) < 2:
-                # Skip blank names
+            if filter and not (
+                filter.lower() in person.get("name", "").lower()
+                or filter.lower() in person.get("email", "").lower()
+                or filter.lower() in person.get("website", "").lower()
+            ):
                 continue
 
             row = []
@@ -81,7 +78,7 @@ class CreditsModel():
 
             # Append type icon (PayPal, Kickstarter, Bitcoin, or Patreon)
             item = QStandardItem()
-            for contrib in [n for n in self.icon_mapping if n in data["icons"]]:
+            for contrib in [n for n in self.icon_mapping if n in person.get("icons", "")]:
                 (tooltip, icon) = self.icon_mapping.get(contrib, (None, None))
                 item.setIcon(icon)
                 item.setToolTip(tooltip)
@@ -90,14 +87,14 @@ class CreditsModel():
 
             # Append Star icon (Multiple donations, big donations, five-timer kickstarter group, etc...)
             item = QStandardItem()
-            if "s" in data["icons"]:
+            if "s" in person.get("icons", ""):
                 item.setIcon(QIcon(":/about/star-icon.png"))
                 item.setToolTip(_("Multiple Contributions!"))
             item.setFlags(flags)
             row.append(item)
 
             for field in ["name", "email", "website"]:
-                item = QStandardItem(data[field])
+                item = QStandardItem(person.get(field, ""))
                 item.setFlags(flags)
                 row.append(item)
 
