@@ -3020,7 +3020,15 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                         # Get Effect JSON
                         effect.Id(get_app().project.generate_id())
+                        
                     effect_json = json.loads(effect.Json())
+
+                    # Generate box_id to Tracker Effect
+                    if "box_id" in effect_json:
+                        boxId = get_app().project.generate_id()
+                        effect_json["box_id"] = boxId
+
+                    print(effect_json)
 
                     # Append effect JSON to clip
                     clip.data["effects"].append(effect_json)

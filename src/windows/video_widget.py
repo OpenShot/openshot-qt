@@ -1025,9 +1025,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Update a keyframe property to a new value, adding or updating keyframes as needed"""
         found_point = False
         effect_updated = False
+        
+        raw_properties = json.loads(self.transforming_effect_object.Json())
 
-        raw_properties = json.loads(self.transforming_effect_object.Json(frame_number))
         c = Effect.get(id=effect_id)
+
         if not c:
             # No clip found
             return
@@ -1046,19 +1048,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             log.info("Created new point at X=%s" % frame_number)
             raw_properties[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
 
-        # Reduce # of clip properties we are saving (performance boost)
-        # raw_properties = {property_key: raw_properties.get(property_key)}
-
         raw_properties_string = json.dumps(raw_properties)
-
-        self.transforming_effect_object.SetJson(frame_number, raw_properties_string)
 
         if effect_updated:
             c.save()
+            # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
-        self.transforming_effect_object.SetJson(frame_number, raw_properties_string)
+        self.transforming_effect_object.SetJson(raw_properties_string)
 
     def refreshTriggered(self):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
@@ -1277,4 +1275,3 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.win.KeyFrameTransformSignal.connect(self.keyFrameTransformTriggered)
         self.win.SelectRegionSignal.connect(self.regionTriggered)
         self.win.refreshFrameSignal.connect(self.refreshTriggered)
-
