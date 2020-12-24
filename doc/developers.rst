@@ -32,7 +32,7 @@ OpenShot Video Editor has 3 main components, a Python & PyQt user interface
 (:openshot-github:`libopenshot`). If you are not familiar with Python,
 PyQt, or C++, those would be great topics to research and learn more about at this point.
 
-However, many bugs and new features can be added with only Python knowledge, since the C++
+However, many bugs can be fixed and new features added with only Python knowledge, since the C++
 components are not involved in the user interface at all. Python is an amazing language, and
 is super fun to learn, and is the only prerequisite skill needed to become an OpenShot
 developer!
