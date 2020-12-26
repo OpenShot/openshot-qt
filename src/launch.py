@@ -70,7 +70,7 @@ def main():
         help="Load Qt's QAbstractItemModelTester into data models "
         '(requires Qt 5.11+)')
     parser.add_argument('-b', '--web-backend', action='store',
-        choices=['auto', 'webkit', 'webengine'], default='auto',
+        choices=['auto', 'webkit', 'webengine', 'dummy'], default='auto',
         help="Web backend to use for Timeline")
     parser.add_argument('-d', '--debug', action='store_true',
         help='Enable debugging output')

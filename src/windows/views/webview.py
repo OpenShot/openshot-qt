@@ -152,7 +152,11 @@ MENU_SPLIT_AUDIO_MULTIPLE = 1
 # Import shenanigans
 WEBVIEW_LOADED = None
 
-if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
+if info.WEB_BACKEND and info.WEB_BACKEND == "dummy":
+    from .webview_backend.dummy import DummyWebView
+    WebViewClass = DummyWebView
+    WEBVIEW_LOADED = True
+elif info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
     from .webview_backend.webkit import TimelineWebKitView
     WebViewClass = TimelineWebKitView
     WEBVIEW_LOADED = True
