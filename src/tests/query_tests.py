@@ -25,20 +25,28 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys, os
-# Import parent folder (so it can find other imports)
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-if PATH not in sys.path:
-    sys.path.append(PATH)
-
-import random
+import sys
+import os
 import unittest
-import uuid
-from PyQt5.QtGui import QGuiApplication
-from classes.app import OpenShotApp
-from classes import info
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 import json
+import logging
+
+import openshot
+
+# Import parent folder (so it can find other imports)
+try:
+    from classes import info
+except ImportError:
+    PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    if PATH not in sys.path:
+        sys.path.append(PATH)
+    from classes import info
+
+# Configure for unit testing, no Timeline web view and minimal log output
+info.LAUNCH_MODE = "unittest"
+info.WEB_BACKEND = "dummy"
+info.LOG_LEVEL_CONSOLE = logging.WARNING
+
 
 class TestQueryClass(unittest.TestCase):
     """ Unit test class for Query class """
@@ -46,8 +54,10 @@ class TestQueryClass(unittest.TestCase):
     @classmethod
     def setUpClass(TestQueryClass):
         """ Init unit test data """
+        from classes.app import OpenShotApp
+
         # Create Qt application
-        TestQueryClass.app = OpenShotApp([], mode="unittest")
+        TestQueryClass.app = OpenShotApp([])
         TestQueryClass.clip_ids = []
         TestQueryClass.file_ids = []
         TestQueryClass.transition_ids = []
@@ -319,5 +329,4 @@ class TestQueryClass(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    app = QGuiApplication(sys.argv)
     unittest.main()
