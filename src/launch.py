@@ -51,6 +51,26 @@ except ImportError:
     sys.path.append(openshot_qt.OPENSHOT_PATH)
     from classes import info
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QGuiApplication
+
+try:
+    # This apparently has to be done before loading QtQuick
+    # (via QtWebEgine) AND before creating the QApplication instance
+    QGuiApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
+    from OpenGL import GL  # noqa
+    # Enable High-DPI resolutions
+    QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+except (ImportError, AttributeError):
+    pass
+
+try:
+    # QtWebEngineWidgets must be loaded prior to creating a QApplication
+    # But on systems with only WebKit, this will fail (and we ignore the failure)
+    from PyQt5.QtWebEngineWidgets import QWebEngineView  # noqa
+except ImportError:
+    pass
+
 
 def main():
     """"Initialize settings (not implemented) and create main window/application."""

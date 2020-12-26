@@ -39,27 +39,6 @@ from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
-try:
-    # This apparently has to be done before loading QtQuick
-    # (via QtWebEgine) AND before creating the QApplication instance
-    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
-    from OpenGL import GL  # noqa
-except (ImportError, AttributeError):
-    pass
-
-try:
-    # QtWebEngineWidgets must be loaded prior to creating a QApplication
-    # But on systems with only WebKit, this will fail (and we ignore the failure)
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
-except ImportError:
-    pass
-
-try:
-    # Enable High-DPI resolutions
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-except AttributeError:
-    pass  # Quietly fail for older Qt5 versions
-
 
 def get_app():
     """ Returns the current QApplication instance of OpenShot """
@@ -67,12 +46,10 @@ def get_app():
 
 
 class OpenShotApp(QApplication):
-    """ This class is the primary QApplication for OpenShot.
-            mode=None (normal), mode=unittest (testing)"""
+    """ This class is the primary QApplication for OpenShot."""
 
-    def __init__(self, *args, mode=None):
-        QApplication.__init__(self, *args)
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         try:
             # Import modules
             from classes import info
@@ -143,7 +120,7 @@ class OpenShotApp(QApplication):
         # Detect minimum libopenshot version
         _ = self._tr
         libopenshot_version = openshot.OPENSHOT_VERSION_FULL
-        if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
+        if info.LAUNCH_MODE == "gui" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
             QMessageBox.warning(
                 None,
                 _("Wrong Version of libopenshot Detected"),
@@ -169,32 +146,31 @@ class OpenShotApp(QApplication):
         # It is important that the project is the first listener if the key gets update
         self.updates.add_listener(self.project)
 
-        # Load ui theme if not set by OS
-        ui_util.load_theme()
-
         # Test for permission issues (and display message if needed)
-        try:
-            # Create test paths
-            TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
-            TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.osp')
-            os.makedirs(TEST_PATH_DIR, exist_ok=True)
-            with open(TEST_PATH_FILE, 'w') as f:
-                f.write('{}')
-                f.flush()
-            # Delete test paths
-            os.unlink(TEST_PATH_FILE)
-            os.rmdir(TEST_PATH_DIR)
-        except PermissionError as ex:
-            log.error('Failed to create file %s', TEST_PATH_FILE, exc_info=1)
-            QMessageBox.warning(
-                None, _("Permission Error"),
-                _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {
-                    "error": str(ex),
-                    "path": info.USER_PATH,
-                }))
-            # Stop launching and exit
-            raise
-            sys.exit()
+        if info.LAUNCH_MODE == "gui":
+            try:
+                # Create test paths
+                TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
+                TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.osp')
+                os.makedirs(TEST_PATH_DIR, exist_ok=True)
+                with open(TEST_PATH_FILE, 'w') as f:
+                    f.write('{}')
+                    f.flush()
+                # Delete test paths
+                os.unlink(TEST_PATH_FILE)
+                os.rmdir(TEST_PATH_DIR)
+            except PermissionError as ex:
+                log.error('Failed to create file %s', TEST_PATH_FILE, exc_info=1)
+                QMessageBox.warning(
+                    None,
+                    _("Permission Error"),
+                    _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {
+                        "error": str(ex),
+                        "path": info.USER_PATH,
+                    }))
+                # Stop launching and exit
+                raise
+                sys.exit()
 
         # Start libopenshot logging thread
         self.logger_libopenshot = logger_libopenshot.LoggerLibOpenShot()
@@ -203,11 +179,77 @@ class OpenShotApp(QApplication):
         # Track which dockable window received a context menu
         self.context_menu_object = None
 
+        if info.LAUNCH_MODE == "gui":
+            self.configure_gui()
+
+        # Create main window
+        from windows.main_window import MainWindow
+        self.window = MainWindow()
+
+        # Reset undo/redo history
+        self.updates.reset()
+        self.window.updateStatusChanged(False, False)
+
+        # Connect our exit signals
+        self.aboutToQuit.connect(self.cleanup)
+
+        log.info('Process command-line arguments: %s' % args)
+        if len(args[0]) == 2:
+            path = args[0][1]
+            if ".osp" in path:
+                # Auto load project passed as argument
+                self.window.OpenProjectSignal.emit(path)
+            else:
+                # Apply the default settings and Auto import media file
+                self.project.load("")
+                self.window.filesView.add_file(path)
+        else:
+            if info.LAUNCH_MODE != "unittest":
+                # Recover backup file (this can't happen until after the Main Window has completely loaded)
+                self.window.RecoverBackup.emit()
+
+    def settings_load_error(self, filepath=None):
+        """Use QMessageBox to warn the user of a settings load issue"""
+        _ = self._tr
+        from classes import info
+        if info.LAUNCH_MODE == "gui":
+            QMessageBox.warning(
+                None,
+                _("Settings Error"),
+                _("Error loading settings file: %(file_path)s. Settings will be reset.")
+                % {"file_path": filepath}
+            )
+
+    def _tr(self, message):
+        return self.translate("", message)
+
+    # Start event loop
+    def run(self):
+        """ Start the primary Qt event loop for the interface """
+        return self.exec_()
+
+    @pyqtSlot()
+    def cleanup(self):
+        """aboutToQuit signal handler for application exit"""
+        try:
+            from classes.logger import log
+            self.settings.save()
+        except Exception:
+            log.error("Couldn't save user settings on exit.", exc_info=1)
+
+    def configure_gui(self):
+        """Apply application GUI settings for fonts and colors"""
+        from classes import info, ui_util
+        from classes.logger import log
+
+        # Load ui theme if not set by OS
+        ui_util.load_theme(self.settings)
+
         # Set Font for any theme
         if self.settings.get("theme") != "No Theme":
             # Load embedded font
             try:
-                log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
+                log.info("Setting font to %s", os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
                 font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
                 font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
                 font = QFont(font_family)
@@ -251,58 +293,6 @@ class OpenShotApp(QApplication):
 
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
-
-        # Create main window
-        from windows.main_window import MainWindow
-        self.window = MainWindow(mode=mode)
-
-        # Reset undo/redo history
-        self.updates.reset()
-        self.window.updateStatusChanged(False, False)
-
-        # Connect our exit signals
-        self.aboutToQuit.connect(self.cleanup)
-
-        log.info('Process command-line arguments: %s' % args)
-        if len(args[0]) == 2:
-            path = args[0][1]
-            if ".osp" in path:
-                # Auto load project passed as argument
-                self.window.OpenProjectSignal.emit(path)
-            else:
-                # Apply the default settings and Auto import media file
-                self.project.load("")
-                self.window.filesView.add_file(path)
-        else:
-            # Recover backup file (this can't happen until after the Main Window has completely loaded)
-            self.window.RecoverBackup.emit()
-
-    def settings_load_error(self, filepath=None):
-        """Use QMessageBox to warn the user of a settings load issue"""
-        _ = self._tr
-        QMessageBox.warning(
-            None,
-            _("Settings Error"),
-            _("Error loading settings file: %(file_path)s. Settings will be reset.")
-            % {"file_path": filepath}
-            )
-
-    def _tr(self, message):
-        return self.translate("", message)
-
-    # Start event loop
-    def run(self):
-        """ Start the primary Qt event loop for the interface """
-        return self.exec_()
-
-    @pyqtSlot()
-    def cleanup(self):
-        """aboutToQuit signal handler for application exit"""
-        try:
-            from classes.logger import log
-            self.settings.save()
-        except Exception:
-            log.error("Couldn't save user settings on exit.", exc_info=1)
 
 
 # Log the session's end

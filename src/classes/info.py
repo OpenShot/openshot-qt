@@ -82,6 +82,9 @@ JT = {"name": "Jonathan Thomas",
 # Desktop launcher ID, for Linux
 DESKTOP_ID = "org.openshot.OpenShot.desktop"
 
+# Mode of execution, will be adjusted to 'unittest' by test runner
+LAUNCH_MODE = 'gui'
+
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "2.80"
 

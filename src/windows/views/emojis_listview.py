@@ -30,6 +30,7 @@ from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QListView
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
+from classes import info
 from classes.query import File
 from classes.app import get_app
 from classes.settings import get_settings
@@ -182,6 +183,6 @@ class EmojisListView(QListView):
                 # Off by one, due to 'show all' choice above
                 dropdown_index = index + 1
 
-        if self.win.mode != "unittest":
+        if info.LAUNCH_MODE != "unittest":
             self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
         self.win.emojiFilterGroup.setCurrentIndex(dropdown_index)
