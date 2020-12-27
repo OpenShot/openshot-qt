@@ -105,9 +105,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     FoundVersionSignal = pyqtSignal(str)
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
-    ExportStarted = pyqtSignal(str, int, int)
-    ExportFrame = pyqtSignal(str, int, int, int, str)
-    ExportEnded = pyqtSignal(str)
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
@@ -2810,24 +2807,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Update cache reference, so it doesn't go out of scope
         self.cache_object = new_cache_object
 
-    def FrameExported(self, title_message, start_frame, end_frame, current_frame):
-        """Update progress in Unity Launcher (if connected)"""
-        try:
-            # Set progress and show progress bar
-            self.unity_launcher.set_property("progress", current_frame / (end_frame - start_frame))
-            self.unity_launcher.set_property("progress_visible", True)
-        except Exception:
-            log.debug('Failed to notify unity launcher of export progress. Frame: %s' % current_frame)
-
-    def ExportFinished(self, path):
-        """Show completion in Unity Launcher (if connected)"""
-        try:
-            # Set progress on Unity launcher and hide progress bar
-            self.unity_launcher.set_property("progress", 0.0)
-            self.unity_launcher.set_property("progress_visible", False)
-        except Exception:
-            log.debug('Failed to notify unity launcher of export progress. Completed.')
-
     def initModels(self):
         """Set up model/view classes for MainWindow"""
         s = settings.get_settings()
@@ -2943,7 +2922,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect signals
         if self.mode != "unittest":
             self.RecoverBackup.connect(self.recover_backup)
-        app.aboutToQuit.connect(self.close)
 
         # Initialize and start the thumbnail HTTP server
         self.http_server_thread = httpThumbnailServerThread()
@@ -3094,21 +3072,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
-
-        # Connect to Unity DBus signal (if linux)
-        self.unity_launcher = None
-        if "linux" in sys.platform:
-            try:
-                # Get connection to Unity Launcher
-                import gi
-                gi.require_version('Unity', '7.0')
-                from gi.repository import Unity
-                self.unity_launcher = Unity.LauncherEntry.get_for_desktop_id(info.DESKTOP_ID)
-            except Exception:
-                log.debug('Failed to connect to Unity launcher (Linux only) for updating export progress.')
-            else:
-                self.ExportFrame.connect(self.FrameExported)
-                self.ExportEnded.connect(self.ExportFinished)
 
         # Save settings
         s.save()
