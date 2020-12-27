@@ -33,6 +33,8 @@ import logging
 
 import openshot
 
+from PyQt5.QtWidgets import QApplication
+
 # Import parent folder (so it can find other imports)
 try:
     from classes import info
@@ -47,7 +49,6 @@ info.LAUNCH_MODE = "unittest"
 info.WEB_BACKEND = "dummy"
 info.LOG_LEVEL_CONSOLE = logging.WARNING
 
-
 class TestQueryClass(unittest.TestCase):
     """ Unit test class for Query class """
 
@@ -57,7 +58,7 @@ class TestQueryClass(unittest.TestCase):
         from classes.app import OpenShotApp
 
         # Create Qt application
-        TestQueryClass.app = OpenShotApp([])
+        TestQueryClass.app = OpenShotApp(sys.argv)
         TestQueryClass.clip_ids = []
         TestQueryClass.file_ids = []
         TestQueryClass.transition_ids = []
@@ -329,4 +330,5 @@ class TestQueryClass(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    app = QApplication(sys.argv)
     unittest.main()
