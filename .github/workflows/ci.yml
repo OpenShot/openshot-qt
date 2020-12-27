@@ -30,4 +30,4 @@ jobs:
 
     - name: Test
       shell: bash
-      run: python3 ./src/tests/query_tests.py
+      run: python3 ./src/tests/query_tests.py -platform minimal
