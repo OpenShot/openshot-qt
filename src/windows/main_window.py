@@ -1322,7 +1322,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # New track number (pick mid point in track number gap)
             new_track_num = selected_layer_num - int(round(delta / 2.0))
 
-            log.info("New track num %s (delta %s)",new_track_num, delta)
+            log.info("New track num %s (delta %s)", new_track_num, delta)
 
             # Create new track and insert
             track = Track()
@@ -1756,7 +1756,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug("Showing preferences dialog")
         win = Profile()
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
+        win.exec_()
         log.debug("Preferences dialog closed")
 
     def actionSplitClip_trigger(self):
@@ -2828,77 +2828,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception:
             log.debug('Failed to notify unity launcher of export progress. Completed.')
 
-    def __init__(self, *args, mode=None):
-
-        # Create main window base class
-        super().__init__(*args)
-        self.mode = mode    # None or unittest (None is normal usage)
-        self.initialized = False
-
-        # set window on app for reference during initialization of children
-        app = get_app()
-        app.window = self
-        _ = app._tr
-
-        # Load user settings for window
+    def initModels(self):
+        """Set up model/view classes for MainWindow"""
         s = settings.get_settings()
-        self.recent_menu = None
-
-        # Track metrics
-        track_metric_session()  # start session
-
-        # Set unique install id (if blank)
-        if not s.get("unique_install_id"):
-            s.set("unique_install_id", str(uuid4()))
-
-            # Track 1st launch metric
-            track_metric_screen("initial-launch-screen")
-
-        # Track main screen
-        track_metric_screen("main-screen")
-
-        # Create blank tutorial manager
-        self.tutorial_manager = None
-
-        # Load UI from designer
-        ui_util.load_ui(self, self.ui_path)
-
-        # Set all keyboard shortcuts from the settings file
-        self.InitKeyboardShortcuts()
-
-        # Init UI
-        ui_util.init_ui(self)
-
-        # Setup toolbars that aren't on main window, set initial state of items, etc
-        self.setup_toolbars()
-
-        # Add window as watcher to receive undo/redo status updates
-        app.updates.add_watcher(self)
-
-        # Get current version of OpenShot via HTTP
-        self.FoundVersionSignal.connect(self.foundCurrentVersion)
-        get_current_Version()
-
-        # Connect signals
-        if self.mode != "unittest":
-            self.RecoverBackup.connect(self.recover_backup)
-
-        # Initialize and start the thumbnail HTTP server
-        self.http_server_thread = httpThumbnailServerThread()
-        self.http_server_thread.start()
-
-        # Create the timeline sync object (used for previewing timeline)
-        self.timeline_sync = TimelineSync(self)
-
-        # Setup timeline
-        self.timeline = TimelineWebView(self)
-        self.frameWeb.layout().addWidget(self.timeline)
-
-        # Configure the side docks to full-height
-        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
         # Setup files tree and list view (both share a model)
         self.files_model = FilesModel()
@@ -2956,6 +2888,81 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.emojis_model.update_model()
         self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
+
+    def __init__(self, *args, mode=None):
+
+        # Create main window base class
+        super().__init__(*args)
+        self.mode = mode    # None or unittest (None is normal usage)
+        self.initialized = False
+
+        # set window on app for reference during initialization of children
+        app = get_app()
+        app.window = self
+        _ = app._tr
+
+        # Load user settings for window
+        s = settings.get_settings()
+        self.recent_menu = None
+
+        # Track metrics
+        track_metric_session()  # start session
+
+        # Set unique install id (if blank)
+        if not s.get("unique_install_id"):
+            s.set("unique_install_id", str(uuid4()))
+
+            # Track 1st launch metric
+            track_metric_screen("initial-launch-screen")
+
+        # Track main screen
+        track_metric_screen("main-screen")
+
+        # Create blank tutorial manager
+        self.tutorial_manager = None
+
+        # Load UI from designer
+        ui_util.load_ui(self, self.ui_path)
+
+        # Set all keyboard shortcuts from the settings file
+        self.InitKeyboardShortcuts()
+
+        # Init UI
+        ui_util.init_ui(self)
+
+        # Setup toolbars that aren't on main window, set initial state of items, etc
+        self.setup_toolbars()
+
+        # Add window as watcher to receive undo/redo status updates
+        app.updates.add_watcher(self)
+
+        # Get current version of OpenShot via HTTP
+        self.FoundVersionSignal.connect(self.foundCurrentVersion)
+        get_current_Version()
+
+        # Connect signals
+        if self.mode != "unittest":
+            self.RecoverBackup.connect(self.recover_backup)
+        app.aboutToQuit.connect(self.close)
+
+        # Initialize and start the thumbnail HTTP server
+        self.http_server_thread = httpThumbnailServerThread()
+        self.http_server_thread.start()
+
+        # Create the timeline sync object (used for previewing timeline)
+        self.timeline_sync = TimelineSync(self)
+
+        # Setup timeline
+        self.timeline = TimelineWebView(self)
+        self.frameWeb.layout().addWidget(self.timeline)
+
+        # Configure the side docks to full-height
+        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+
+        self.initModels()
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
