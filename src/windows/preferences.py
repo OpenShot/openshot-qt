@@ -437,7 +437,10 @@ class Preferences(QDialog):
             if prev_val and os.path.exists(prev_val):
                 startpath = prev_val
 
-        fileName = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))[0]
+        fileName = QFileDialog.getOpenFileName(
+            self,
+            _("Select executable file"),
+            startpath)[0]
         if fileName:
             if platform.system() == "Darwin":
                 # Check for Mac specific app-bundle executable file (if any)
