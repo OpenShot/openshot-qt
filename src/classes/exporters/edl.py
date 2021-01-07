@@ -92,11 +92,10 @@ def export_edl():
             f.write("FCM: NON-DROP FRAME\n\n")
 
             # Loop through each track
-            edit_index = 1
             export_position = 0.0
 
             # Loop through clips on this track
-            for clip in clips_on_track:
+            for edit_index, clip in enumerate(clips_on_track, start=1):
                 # Do we need a blank clip?
                 if clip.data.get('position', 0.0) > export_position:
                     # Blank clip (i.e. 00:00:00:00)
@@ -164,8 +163,6 @@ def export_edl():
                 # Update export position
                 export_position = clip.data.get('position') + (clip.data.get('end') - clip.data.get('start'))
                 f.write("\n")
-
-                edit_index += 1
 
             # Update counters
             track_count -= 1
