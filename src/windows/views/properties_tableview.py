@@ -26,6 +26,8 @@
  """
 
 import os
+import json
+
 from functools import partial
 from operator import itemgetter
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QTimer
@@ -417,6 +419,65 @@ class PropertiesTableView(QTableView):
                 self.choices = []
                 self.menu_reset = False
 
+            # Handle clip attach options
+            if property_key == "attached_id" and not self.choices:
+                # Add all Clips as choices - initialize with None
+                clips_choices = [{
+                    "name": "None",
+                    "value": "None",
+                    "selected": False,
+                    "icon": QIcon()
+                }]
+                # Instantiate the timeline
+                timeline_instance = get_app().window.timeline_sync.timeline
+                # Loop through timeline's clips
+                for clip_instance in timeline_instance.Clips():
+                    clip_instance_id = clip_instance.Id()
+                    # Avoid attach a clip to it's own object
+                    if (clip_instance_id != clip_id):
+                        # Clip's propertyJSON data
+                        clip_instance_data = Clip.get(id = clip_instance_id).data
+                        # Path to the clip file
+                        clip_instance_path = clip_instance_data["reader"]["path"]
+                        # Iterate through all clip files on the timeline
+                        for clip_number in range(self.files_model.rowCount()):
+                            clip_index = self.files_model.index(clip_number, 0)
+                            clip_name = clip_index.sibling(clip_number, 1).data()
+                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
+                            # Check if the timeline's clip file name matches the clip the user selected
+                            if (clip_path == clip_instance_path):
+                                # Generate the clip icon to show in the selection menu
+                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
+                        # Get the pixmap of the clip icon
+                        icon_size = 64
+                        icon_pixmap = clip_instance_icon.pixmap(icon_size)
+                        # Add tracked objects to the selection menu
+                        tracked_objects = []
+                        for effect in clip_instance_data["effects"]:
+                            # Check if the effect has the "box_id" property, i.e., is the Tracker effect
+                            if (effect["box_id"]):
+                                # Get the Tracker properties from the timeline
+                                tracker_effect = timeline_instance.GetClipEffect(effect["id"])
+                                tracker_effect_properties = json.loads(tracker_effect.PropertiesJSON(0))
+                                x1 = tracker_effect_properties["x1"]["value"]
+                                x2 = tracker_effect_properties["x2"]["value"]
+                                y1 = tracker_effect_properties["y1"]["value"]
+                                y2 = tracker_effect_properties["y2"]["value"]
+                                # Get the tracked object's icon from the clip's icon - different adjustment if it's an image or video file
+                                if clip_instance_data["reader"]["has_single_image"]:
+                                    tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size*(2/3)))
+                                else:
+                                    tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2))
+                                tracked_objects.append({"name": effect["box_id"],
+                                                        "value": effect["box_id"],
+                                                        "selected": False,
+                                                        "icon": tracked_object_icon})
+                        clips_choices.append({"name": clip_instance_data["title"],
+                                              "value": tracked_objects,
+                                              "selected": False,
+                                              "icon": clip_instance_icon})
+                self.choices.append({"name": _("Clips"), "value": clips_choices, "selected": False, "icon": None})
+
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
                 # Add all files
@@ -577,13 +638,23 @@ class PropertiesTableView(QTableView):
                 else:
                     SubMenu = SubMenuRoot
                 for i, sub_choice in enumerate(choice["value"], 1):
-                    if i % SubMenuSize == 0:
-                        SubMenuNumber += 1
-                        SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
-                    Choice_Action = SubMenu.addAction(
-                        sub_choice["icon"], _(sub_choice["name"]))
-                    Choice_Action.setData(sub_choice["value"])
-                    Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+                    # Divide SubMenu if it's item is a list
+                    if type(sub_choice["value"]) == list:
+                        SubSubMenu = SubMenu.addMenu(sub_choice["icon"], sub_choice["name"])
+                        for subsub_choice in sub_choice["value"]:
+                            SubChoice_Action = SubSubMenu.addAction(
+                                subsub_choice["icon"], subsub_choice["name"]
+                            )
+                            SubChoice_Action.setData(subsub_choice["value"])
+                            SubChoice_Action.triggered.connect(self.Choice_Action_Triggered)
+                    else:                    
+                        if i % SubMenuSize == 0:
+                            SubMenuNumber += 1
+                            SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
+                        Choice_Action = SubMenu.addAction(
+                            sub_choice["icon"], _(sub_choice["name"]))
+                        Choice_Action.setData(sub_choice["value"])
+                        Choice_Action.triggered.connect(self.Choice_Action_Triggered)
 
             # Show choice menuk
             menu.popup(event.globalPos())
