@@ -63,8 +63,8 @@ mac-builder:
     - export DYLD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:DYLD_LIBRARY_PATH
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID" > "build/install-x64/share/$CI_PROJECT_NAME"
     - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
-    - /Library/Frameworks/Python.Framework/Versions/3.6/bin/python3.6 -u freeze.py bdist_mac --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
-    - /Library/Frameworks/Python.Framework/Versions/3.6/bin/python3.6 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
+    - python3 -u freeze.py bdist_mac --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
+    - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   except:
   - tags
