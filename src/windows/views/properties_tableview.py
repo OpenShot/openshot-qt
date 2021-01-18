@@ -30,7 +30,7 @@ import json
 
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QTimer
+from PyQt5.QtCore import Qt, QRectF, QRect, QPoint, QLocale, pyqtSignal, QTimer
 from PyQt5.QtGui import (
     QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
@@ -455,10 +455,10 @@ class PropertiesTableView(QTableView):
                         tracked_objects = []
                         for effect in clip_instance_data["effects"]:
                             # Check if the effect has the "box_id" property, i.e., is the Tracker effect
-                            if (effect["box_id"]):
+                            if ("box_id" in effect.keys()):
                                 # Get the Tracker properties from the timeline
                                 tracker_effect = timeline_instance.GetClipEffect(effect["id"])
-                                tracker_effect_properties = json.loads(tracker_effect.PropertiesJSON(0))
+                                tracker_effect_properties = json.loads(tracker_effect.PropertiesJSON(1))
                                 x1 = tracker_effect_properties["x1"]["value"]
                                 x2 = tracker_effect_properties["x2"]["value"]
                                 y1 = tracker_effect_properties["y1"]["value"]
@@ -467,7 +467,7 @@ class PropertiesTableView(QTableView):
                                 if clip_instance_data["reader"]["has_single_image"]:
                                     tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size*(2/3)))
                                 else:
-                                    tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2))
+                                  tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2))
                                 tracked_objects.append({"name": effect["box_id"],
                                                         "value": effect["box_id"],
                                                         "selected": False,
@@ -641,12 +641,11 @@ class PropertiesTableView(QTableView):
                     # Divide SubMenu if it's item is a list
                     if type(sub_choice["value"]) == list:
                         SubSubMenu = SubMenu.addMenu(sub_choice["icon"], sub_choice["name"])
-                        for subsub_choice in sub_choice["value"]:
-                            SubChoice_Action = SubSubMenu.addAction(
-                                subsub_choice["icon"], subsub_choice["name"]
-                            )
-                            SubChoice_Action.setData(subsub_choice["value"])
-                            SubChoice_Action.triggered.connect(self.Choice_Action_Triggered)
+                        for sub_sub_choice in sub_choice["value"]:
+                            Choice_Action = SubSubMenu.addAction(
+                                sub_sub_choice["icon"], sub_sub_choice["name"])
+                            Choice_Action.setData(sub_sub_choice["value"])
+                            Choice_Action.triggered.connect(self.Choice_Action_Triggered)
                     else:                    
                         if i % SubMenuSize == 0:
                             SubMenuNumber += 1
