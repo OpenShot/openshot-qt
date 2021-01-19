@@ -30,7 +30,7 @@ import json
 
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QRect, QPoint, QLocale, pyqtSignal, QTimer
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QTimer
 from PyQt5.QtGui import (
     QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
