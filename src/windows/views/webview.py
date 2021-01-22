@@ -3023,10 +3023,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                         
                     effect_json = json.loads(effect.Json())
 
-                    # Generate box_id for the Tracker Keyframe
-                    if "box_id" in effect_json:
-                        boxId = get_app().project.generate_id()
-                        effect_json["box_id"] = boxId
+                    # Generate box_id for the TrackedObjectBBox object
+                    for effect_key in effect_json.keys():
+                        if effect_key.startswith("box_id"):
+                            boxId = get_app().project.generate_id()
+                            effect_json[effect_key] = boxId
 
                     # Append effect JSON to clip
                     clip.data["effects"].append(effect_json)

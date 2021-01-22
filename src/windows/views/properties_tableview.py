@@ -30,7 +30,7 @@ import json
 
 from functools import partial
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, QTimer
+from PyQt5.QtCore import Qt, QRectF, QRect, QLocale, pyqtSignal, QTimer
 from PyQt5.QtGui import (
     QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
@@ -450,28 +450,26 @@ class PropertiesTableView(QTableView):
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
                         # Get the pixmap of the clip icon
                         icon_size = 64
-                        icon_pixmap = clip_instance_icon.pixmap(icon_size)
+                        icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
                         # Add tracked objects to the selection menu
                         tracked_objects = []
                         for effect in clip_instance_data["effects"]:
-                            # Check if the effect has the "box_id" property, i.e., is the Tracker effect
-                            if ("box_id" in effect.keys()):
-                                # Get the Tracker properties from the timeline
-                                tracker_effect = timeline_instance.GetClipEffect(effect["id"])
-                                tracker_effect_properties = json.loads(tracker_effect.PropertiesJSON(1))
-                                x1 = tracker_effect_properties["x1"]["value"]
-                                x2 = tracker_effect_properties["x2"]["value"]
-                                y1 = tracker_effect_properties["y1"]["value"]
-                                y2 = tracker_effect_properties["y2"]["value"]
-                                # Get the tracked object's icon from the clip's icon - different adjustment if it's an image or video file
-                                if clip_instance_data["reader"]["has_single_image"]:
-                                    tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size*(2/3)))
-                                else:
-                                  tracked_object_icon = QIcon(icon_pixmap.copy(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2))
-                                tracked_objects.append({"name": effect["box_id"],
-                                                        "value": effect["box_id"],
-                                                        "selected": False,
-                                                        "icon": tracked_object_icon})
+                            # Iterate through the effect properties
+                            for effect_key in effect.keys():
+                                # Check if the effect has the "box_id" property, i.e., is the Tracker or ObjectDetection effect
+                                if effect_key.startswith("box_id"):
+                                    # Get the Tracked Object properties from the timeline
+                                    tracked_object_properties = json.loads(timeline_instance.GetTrackedObjectValues(effect[effect_key]))
+                                    x1 = tracked_object_properties["x1"]
+                                    x2 = tracked_object_properties["x2"]
+                                    y1 = tracked_object_properties["y1"]
+                                    y2 = tracked_object_properties["y2"]
+                                    # Get the tracked object's icon from the clip's icon
+                                    tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2)).scaled(icon_size, icon_size)
+                                    tracked_objects.append({"name": effect[effect_key],
+                                                            "value": effect[effect_key],
+                                                            "selected": False,
+                                                            "icon": QIcon(tracked_object_icon)})
                         clips_choices.append({"name": clip_instance_data["title"],
                                               "value": tracked_objects,
                                               "selected": False,
