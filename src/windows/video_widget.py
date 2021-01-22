@@ -309,13 +309,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.transforming_effect:
                 # Get properties of clip at current frame
                 raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
-                x1 = raw_properties_effect.get('x1').get('value')
-                y1 = raw_properties_effect.get('y1').get('value')
-                x2 = raw_properties_effect.get('x2').get('value')
-                y2 = raw_properties_effect.get('y2').get('value')
-                rotation_effect = raw_properties_effect.get('rotation').get('value')
-                self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
-                    x1, y1, x2, y2, rotation_effect)
+                for effect_key in raw_properties_effect.keys():
+                    if effect_key.startswith("box_id"):
+                        # Get current tracked object index
+                        tracked_obj_idx = effect_key.split("-", 2)[1]
+                        # Get current bounding box values
+                        r = raw_properties_effect.get('rotation-'+tracked_obj_idx).get('value')
+                        x1 = raw_properties_effect.get('x1-'+tracked_obj_idx).get('value')
+                        y1 = raw_properties_effect.get('y1-'+tracked_obj_idx).get('value')
+                        x2 = raw_properties_effect.get('x2-'+tracked_obj_idx).get('value')
+                        y2 = raw_properties_effect.get('y2-'+tracked_obj_idx).get('value')
+                        self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
+                            x1, y1, x2, y2, r)
             else:
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
@@ -807,16 +812,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             playhead_position_frame = float(get_app().window.preview_thread.current_frame)
             clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
 
-            # Get properties of effect at current frame
-            raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
-
-            # Get current bounding box tracked values
-            rotation = raw_properties.get('rotation').get('value')
-            x1 = raw_properties.get('x1').get('value')
-            y1 = raw_properties.get('y1').get('value')
-            x2 = raw_properties.get('x2').get('value')
-            y2 = raw_properties.get('y2').get('value')
-
             # Get the rect where the video is actually drawn (without the black borders, etc...)
             viewport_rect = self.centeredViewport(self.width(), self.height())
 
@@ -826,163 +821,100 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             _ = self.getTransformMode(0, 0, 0, event)
 
-            # Transform effect object
-            if self.transform_mode:
-                # if self.transform_mode == 'origin':
-                #     # Get current keyframe value
-                #     origin_x = raw_properties.get('origin_x').get('value')
-                #     origin_y = raw_properties.get('origin_y').get('value')
-                #     scale_x = raw_properties.get('scale_x').get('value')
-                #     scale_y = raw_properties.get('scale_y').get('value')
-                #     # Get bounding box displacement
-                #     delta_x = raw_properties.get('delta_x').get('value')
-                #     delta_y = raw_properties.get('delta_y').get('value')
-                #     scale_x = raw_properties.get('scale_x').get('value')
-                #     scale_y = raw_properties.get('scale_y').get('value')
+            # Get properties of effect at current frame
+            raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
 
-                #     # Calculate new location coordinates
-                #     delta_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() * scale_x)
-                #     delta_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y)
+            for raw_property_key in raw_properties.keys():
+                if raw_property_key.startswith("box_id"):
+                    # Get current tracked object index
+                    tracked_obj_idx = raw_property_key.split("-", 2)[1]
+                    # Get current bounding box values
+                    rotation = raw_properties.get('rotation-'+tracked_obj_idx).get('value')
+                    x1 = raw_properties.get('x1-'+tracked_obj_idx).get('value')
+                    y1 = raw_properties.get('y1-'+tracked_obj_idx).get('value')
+                    x2 = raw_properties.get('x2-'+tracked_obj_idx).get('value')
+                    y2 = raw_properties.get('y2-'+tracked_obj_idx).get('value')
 
-                #     # Constrain to clip
-                #     if delta_x < 0.0:
-                #         delta_x = 0.0
-                #     if delta_x > 1.0:
-                #         delta_x = 1.0
-                #     if delta_y < 0.0:
-                #         delta_y = 0.0
-                #     if delta_y > 1.0:
-                #         delta_y = 1.0
+                    # Transform effect object
+                    if self.transform_mode:
 
-                #     # Update keyframe value (or create new one)
-                #     self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_x', delta_x, refresh=False)
-                #     self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_y', delta_y)
+                        if self.transform_mode == 'location':
+                            # Get current keyframe value
+                            location_x = raw_properties.get('delta_x-'+tracked_obj_idx).get('value')
+                            location_y = raw_properties.get('delta_y-'+tracked_obj_idx).get('value')
 
-                if self.transform_mode == 'location':
-                    # Get current keyframe value
-                    location_x = raw_properties.get('delta_x').get('value')
-                    location_y = raw_properties.get('delta_y').get('value')
+                            # Calculate new location coordinates
+                            location_x += (event.pos().x() - self.mouse_position.x()) / viewport_rect.width()
+                            location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
 
-                    # Calculate new location coordinates
-                    location_x += (event.pos().x() - self.mouse_position.x()) / viewport_rect.width()
-                    location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
+                            # Update keyframe value (or create new one)
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_x-'+tracked_obj_idx, location_x, refresh=False)
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_y-'+tracked_obj_idx, location_y)
 
-                    # Update keyframe value (or create new one)
-                    self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_x', location_x, refresh=False)
-                    self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_y', location_y)
+                        elif self.transform_mode == 'rotation':
+                            # Get current rotation keyframe value
+                            rotation = raw_properties.get('rotation-'+tracked_obj_idx).get('value')
+                            scale_x = max(float(raw_properties.get('scale_x-'+tracked_obj_idx).get('value')), 0.001)
+                            scale_y = max(float(raw_properties.get('scale_y-'+tracked_obj_idx).get('value')), 0.001)
 
-                # elif self.transform_mode == 'shear_top':
-                #     # Get current keyframe shear value
-                #     shear_x = raw_properties.get('shear_x').get('value')
-                #     scale_x = raw_properties.get('scale_x').get('value')
+                            # Calculate new location coordinates
+                            is_on_left = event.pos().x() < self.originHandle.x()
+                            is_on_top = event.pos().y() < self.originHandle.y()
 
-                #     # Calculate new location coordinates
-                #     aspect_ratio = (self.clipBounds.width() / self.clipBounds.height()) * 2.0
-                #     shear_x -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / aspect_ratio)
+                            if is_on_top:
+                                rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                            else:
+                                rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
 
-                #     # Update keyframe value (or create new one)
-                #     self.updateEffectProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
+                            if is_on_left:
+                                rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                            else:
+                                rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
 
-                # elif self.transform_mode == 'shear_bottom':
-                #     # Get current keyframe shear value
-                #     scale_x = raw_properties.get('scale_x').get('value')
-                #     shear_x = raw_properties.get('shear_x').get('value')
+                            # Update keyframe value (or create new one)
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'rotation-'+tracked_obj_idx, rotation)
 
-                #     # Calculate new location coordinates
-                #     aspect_ratio = (self.clipBounds.width() / self.clipBounds.height()) * 2.0
-                #     shear_x += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / aspect_ratio)
+                        elif self.transform_mode.startswith('scale_'):
+                            # Get current scale keyframe value
+                            scale_x = max(float(raw_properties.get('scale_x-'+tracked_obj_idx).get('value')), 0.001)
+                            scale_y = max(float(raw_properties.get('scale_y-'+tracked_obj_idx).get('value')), 0.001)
 
-                #     # Update keyframe value (or create new one)
-                #     self.updateEffectProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
+                            if self.transform_mode == 'scale_top_right':
+                                scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                                scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                            elif self.transform_mode == 'scale_bottom_right':
+                                scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                                scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                            elif self.transform_mode == 'scale_top_left':
+                                scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                                scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                            elif self.transform_mode == 'scale_bottom_left':
+                                scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                                scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                            elif self.transform_mode == 'scale_top':
+                                scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                            elif self.transform_mode == 'scale_bottom':
+                                scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                            elif self.transform_mode == 'scale_left':
+                                scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)        
+                            elif self.transform_mode == 'scale_right':
+                                scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
 
-                # elif self.transform_mode == 'shear_left':
-                #     # Get current keyframe shear value
-                #     shear_y = raw_properties.get('shear_y').get('value')
-                #     scale_y = raw_properties.get('scale_y').get('value')
+                            if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                                # If CTRL key is pressed, fix the scale_y to the correct aspect ration
+                                if scale_x and scale_y:
+                                    scale_y = scale_x
+                                elif scale_y:
+                                    scale_x = scale_y
+                                elif scale_x:
+                                    scale_y = scale_x
 
-                #     # Calculate new location coordinates
-                #     aspect_ratio = (self.clipBounds.height() / self.clipBounds.width()) * 2.0
-                #     shear_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y / aspect_ratio)
-
-                #     # Update keyframe value (or create new one)
-                #     self.updateEffectProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
-
-                # elif self.transform_mode == 'shear_right':
-                #     # Get current keyframe shear value
-                #     scale_y = raw_properties.get('scale_y').get('value')
-                #     shear_y = raw_properties.get('shear_y').get('value')
-
-                #     # Calculate new location coordinates
-                #     aspect_ratio = (self.clipBounds.height() / self.clipBounds.width()) * 2.0
-                #     shear_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y / aspect_ratio)
-
-                #     # Update keyframe value (or create new one)
-                #     self.updateEffectProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
-
-                elif self.transform_mode == 'rotation':
-                    # Get current rotation keyframe value
-                    rotation = raw_properties.get('rotation').get('value')
-                    scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
-                    scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
-
-                    # Calculate new location coordinates
-                    is_on_left = event.pos().x() < self.originHandle.x()
-                    is_on_top = event.pos().y() < self.originHandle.y()
-
-                    if is_on_top:
-                        rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
-                    else:
-                        rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
-
-                    if is_on_left:
-                        rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
-                    else:
-                        rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
-
-                    # Update keyframe value (or create new one)
-                    self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'rotation', rotation)
-
-                elif self.transform_mode.startswith('scale_'):
-                    # Get current scale keyframe value
-                    scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
-                    scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
-
-                    if self.transform_mode == 'scale_top_right':
-                        scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                        scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                    elif self.transform_mode == 'scale_bottom_right':
-                        scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                        scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                    elif self.transform_mode == 'scale_top_left':
-                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                        scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                    elif self.transform_mode == 'scale_bottom_left':
-                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                        scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                    elif self.transform_mode == 'scale_top':
-                        scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                    elif self.transform_mode == 'scale_bottom':
-                        scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                    elif self.transform_mode == 'scale_left':
-                        scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)        
-                    elif self.transform_mode == 'scale_right':
-                        scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-
-                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
-                        # If CTRL key is pressed, fix the scale_y to the correct aspect ration
-                        if scale_x and scale_y:
-                            scale_y = scale_x
-                        elif scale_y:
-                            scale_x = scale_y
-                        elif scale_x:
-                            scale_y = scale_x
-
-                    # Update keyframe value (or create new one)
-                    both_scaled = scale_x != 0.001 and scale_y != 0.001
-                    if scale_x != 0.001:
-                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_x', scale_x, refresh=(not both_scaled))
-                    if scale_y != 0.001:
-                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_y', scale_y)
+                            # Update keyframe value (or create new one)
+                            both_scaled = scale_x != 0.001 and scale_y != 0.001
+                            if scale_x != 0.001:
+                                self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_x-'+tracked_obj_idx, scale_x, refresh=(not both_scaled))
+                            if scale_y != 0.001:
+                                self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_y-'+tracked_obj_idx, scale_y)
 
             # Force re-paint
             self.update()
