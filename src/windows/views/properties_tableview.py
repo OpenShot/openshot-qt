@@ -449,7 +449,7 @@ class PropertiesTableView(QTableView):
                                 # Generate the clip icon to show in the selection menu
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
                         # Get the pixmap of the clip icon
-                        icon_size = 64
+                        icon_size = 72
                         icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
                         # Add tracked objects to the selection menu
                         tracked_objects = []
@@ -458,18 +458,25 @@ class PropertiesTableView(QTableView):
                             for effect_key in effect.keys():
                                 # Check if the effect has the "box_id" property, i.e., is the Tracker or ObjectDetection effect
                                 if effect_key.startswith("box_id"):
-                                    # Get the Tracked Object properties from the timeline
-                                    tracked_object_properties = json.loads(timeline_instance.GetTrackedObjectValues(effect[effect_key]))
-                                    x1 = tracked_object_properties["x1"]
-                                    x2 = tracked_object_properties["x2"]
-                                    y1 = tracked_object_properties["y1"]
-                                    y2 = tracked_object_properties["y2"]
-                                    # Get the tracked object's icon from the clip's icon
-                                    tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2)).scaled(icon_size, icon_size)
-                                    tracked_objects.append({"name": effect[effect_key],
-                                                            "value": effect[effect_key],
-                                                            "selected": False,
-                                                            "icon": QIcon(tracked_object_icon)})
+                                    # Get effect's JSON properties for this frame
+                                    effect_instance = timeline_instance.GetClipEffect(effect["id"])
+                                    raw_properties_effect = json.loads(effect_instance.PropertiesJSON(frame_number))
+                                    # Get current tracked object index
+                                    tracked_obj_idx = effect_key.split("-", 2)[1]
+                                    # Check if the tracked object is visible in this frame
+                                    visible = raw_properties_effect.get('visible-'+tracked_obj_idx).get('value')
+                                    if visible:
+                                        # Get the Tracked Object properties
+                                        x1 = raw_properties_effect.get('x1-'+tracked_obj_idx).get('value')
+                                        y1 = raw_properties_effect.get('y1-'+tracked_obj_idx).get('value')
+                                        x2 = raw_properties_effect.get('x2-'+tracked_obj_idx).get('value')
+                                        y2 = raw_properties_effect.get('y2-'+tracked_obj_idx).get('value')
+                                        # Get the tracked object's icon from the clip's icon
+                                        tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2)).scaled(icon_size, icon_size)
+                                        tracked_objects.append({"name": effect[effect_key],
+                                                                "value": effect[effect_key],
+                                                                "selected": False,
+                                                                "icon": QIcon(tracked_object_icon)})
                         clips_choices.append({"name": clip_instance_data["title"],
                                               "value": tracked_objects,
                                               "selected": False,
