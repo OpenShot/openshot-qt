@@ -195,6 +195,11 @@ if sys.platform == "win32":
     for filename in find_files(zmq_path, ["*"]):
         src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
 
+    # Append all source files
+    src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
+    for filename in find_files("openshot_qt", ["*"]):
+        src_files.append((filename, os.path.join(os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
+
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
     libopenshot_path = os.path.join(PATH, "build", "install-x64", "lib")
@@ -348,19 +353,19 @@ elif sys.platform == "linux":
                 # Any other lib deps that fail to meet the inclusion
                 # criteria above will be silently skipped over
 
+    # Append all source files
+    src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
+    for filename in find_files("openshot_qt", ["*"]):
+        src_files.append((filename, os.path.join(os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
+
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-    # JPEG library
-    for filename in find_files("/usr/local/Cellar/jpeg/8d/lib", ["libjpeg.8.dylib"]):
-        external_so_files.append((filename, filename.replace("/usr/local/Cellar/jpeg/8d/lib/", "")))
-
-    # Add libresvg (if found)
-    resvg_path = "/usr/local/lib/libresvg.dylib"
+   # Add libresvg (if found)
+    resvg_path = "/usr/local/lib/librsvg-2.dylib"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
 
     # Copy openshot.py Python bindings
-    src_files.append((os.path.join(PATH, "openshot.py"), "openshot.py"))
     src_files.append((os.path.join(PATH, "installer", "launch-mac"), "launch-mac"))
 
     # Append Mac ICON file
@@ -383,18 +388,23 @@ elif sys.platform == "darwin":
     for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
         relative_filepath = os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))
         plugin_name = os.path.dirname(relative_filepath)
-        if plugin_name not in ["sqldrivers", "playlistformats", "gamepads", "bearer"]:
+        if plugin_name in ["imageformats", "platforms"]:
             external_so_files.append((filename, relative_filepath))
 
-# Append all source files
-src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
-for filename in find_files("openshot_qt", ["*"]):
-    src_files.append((filename, filename.replace("openshot_qt/", "").replace("openshot_qt\\", "")))
+    # Append all source files
+    src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
+    for filename in find_files("openshot_qt", ["*"]):
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
+
+    # Exclude gif library which crashes on Mac
+    build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
+                                         "/usr/local/opt/giflib/lib/libgif.dylib"]
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
 build_exe_options["includes"] = python_modules
+build_exe_options["excludes"] = ["distutils", "numpy", "setuptools", "tkinter", "pydoc_data", "pycparser", "pkg_resources"]
 
 # Set options
 build_options["build_exe"] = build_exe_options
@@ -428,3 +438,16 @@ setup(name=info.PRODUCT_NAME,
 # Remove temporary folder (if SRC folder present)
 if os.path.exists(os.path.join(PATH, "src")):
     rmtree(os.path.join(PATH, "openshot_qt"), True)
+
+# Fix a few things on the frozen folder(s)
+if sys.platform == "darwin":
+    # Mac issues with frozen folder and *.app folder
+    # We need to rewrite many dependency paths and library IDs
+    from installer.fix_qt5_rpath import *
+    build_path = os.path.join(PATH, "build")
+    for frozen_path in os.listdir(build_path):
+            if frozen_path.startswith("exe"):
+                fix_rpath(os.path.join(build_path, frozen_path))
+            elif frozen_path.endswith(".app"):
+                fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+                print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
