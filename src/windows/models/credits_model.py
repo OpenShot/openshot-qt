@@ -25,16 +25,13 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
-
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 
-from classes import info
 from classes.logger import log
 from classes.app import get_app
 
-import json
+from collections import defaultdict
 
 
 class CreditsStandardItemModel(QStandardItemModel):
@@ -43,110 +40,89 @@ class CreditsStandardItemModel(QStandardItemModel):
 
 
 class CreditsModel():
-    star_icon = QIcon(":/about/star-icon.png")
-    paypal_icon = QIcon(":/about/paypal-icon.png")
-    kickstarter_icon = QIcon(":/about/kickstarter-icon.png")
-    bitcoin_icon = QIcon(":/about/bitcoin-icon.png")
-    patreon_icon = QIcon(":/about/patreon-icon.png")
-    developer_icon = QIcon(":/about/python-icon.png")
 
     def update_model(self, filter=None, clear=True):
-        log.info("updating credits model.")
+        log.debug("updating credits model.")
         app = get_app()
         _ = app._tr
 
-        # Get window to check filters
-        win = app.window
-
         # Clear all items
         if clear:
-            log.info('cleared credits model')
+            log.debug('cleared credits model')
             self.model.clear()
 
         # Add Headers
         self.model.setHorizontalHeaderLabels(["", "", _("Name"), _("Email"), _("Website")])
 
         for person in self.credits_list:
-            # Get details of person
-            name = ""
-            if "name" in person.keys():
-                name = person["name"] or ""
-            email = ""
-            if "email" in person.keys():
-                email = person["email"] or ""
-            website = ""
-            if "website" in person.keys():
-                website = person["website"] or ""
-            amount = 0.0
-            if "amount" in person.keys():
-                amount = person["amount"]
-            icons = []
-            if "icons" in person.keys():
-                icons = person["icons"]
+            log.debug("Processing details for %s", person)
 
-            if filter and not (
-                filter.lower() in name.lower()
-                or filter.lower() in email.lower()
-                or filter.lower() in website.lower()
-            ):
-                continue
+            # Remove any person string keys that explicitly contain a value of None
+            for field in ["name", "email", "website"]:
+                if field in person and person.get(field) is None:
+                    person.pop(field)
 
-            if len(name) < 2:
+            if len(person.get("name", "")) < 2:
                 # Skip blank names
                 continue
 
+            if filter and not (
+                filter.lower() in person.get("name", "").lower()
+                or filter.lower() in person.get("email", "").lower()
+                or filter.lower() in person.get("website", "").lower()
+            ):
+                continue
+
             row = []
+            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
             # Append type icon (PayPal, Kickstarter, Bitcoin, or Patreon)
-            col = QStandardItem()
-            if "p" in icons:
-                col.setIcon(QIcon(self.paypal_icon))
-                col.setToolTip(_("PayPal Supporter!"))
-            elif "k" in icons:
-                col.setIcon(QIcon(self.kickstarter_icon))
-                col.setToolTip(_("Kickstarter Supporter!"))
-            elif "b" in icons:
-                col.setIcon(QIcon(self.bitcoin_icon))
-                col.setToolTip(_("Bitcoin Supporter!"))
-            elif "n" in icons:
-                col.setIcon(QIcon(self.patreon_icon))
-                col.setToolTip(_("Patreon Supporter!"))
-            elif "d" in icons:
-                col.setIcon(QIcon(self.developer_icon))
-                col.setToolTip(_("Developer!"))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            row.append(col)
+            item = QStandardItem()
+            for contrib in [n for n in self.icon_mapping if n in person.get("icons", "")]:
+                (tooltip, icon) = self.icon_mapping.get(contrib, (None, None))
+                item.setIcon(icon)
+                item.setToolTip(tooltip)
+            item.setFlags(flags)
+            row.append(item)
 
             # Append Star icon (Multiple donations, big donations, five-timer kickstarter group, etc...)
-            col = QStandardItem()
-            if "s" in icons:
-                col.setIcon(QIcon(self.star_icon))
-                col.setToolTip(_("Multiple Contributions!"))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            row.append(col)
+            item = QStandardItem()
+            if "s" in person.get("icons", ""):
+                item.setIcon(QIcon(":/about/star-icon.png"))
+                item.setToolTip(_("Multiple Contributions!"))
+            item.setFlags(flags)
+            row.append(item)
 
-            # Append name
-            col = QStandardItem("Name")
-            col.setText(name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            row.append(col)
+            for field in ["name", "email", "website"]:
+                item = QStandardItem(person.get(field, ""))
+                item.setFlags(flags)
+                row.append(item)
 
-            # Append email
-            col = QStandardItem("Email")
-            col.setText(email)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            row.append(col)
-
-            # Append website
-            col = QStandardItem("Website")
-            col.setText(website)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            row.append(col)
-
-            # Append row to model
             self.model.appendRow(row)
 
     def __init__(self, credits, *args):
+
+        _ = get_app()._tr
+
+        # Supporter icons
+        self.icon_mapping = {
+            "p": (
+                _("PayPal Supporter!"), QIcon(":/about/paypal-icon.png")
+                ),
+            "k": (
+                _("Kickstarter Supporter!"),
+                QIcon(":/about/kickstarter-icon.png")
+                ),
+            "b": (
+                _("Bitcoin Supporter!"), QIcon(":/about/bitcoin-icon.png")
+                ),
+            "n": (
+                _("Patreon Supporter!"), QIcon(":/about/patreon-icon.png")
+                ),
+            "d": (
+                _("Developer!"), QIcon(":/about/python-icon.png")
+                ),
+        }
 
         # Create standard model
         self.app = get_app()

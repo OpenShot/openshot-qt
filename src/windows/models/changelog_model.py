@@ -1,4 +1,4 @@
-""" 
+"""
  @file
  @brief This file contains the git changelog model, used by the about window
  @author Jonathan Thomas <jonathan@openshot.org>
@@ -25,16 +25,12 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
-
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
-from classes import info
 from classes.logger import log
 from classes.app import get_app
 
-import json
 
 class ChangelogStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
@@ -48,16 +44,14 @@ class ChangelogModel():
         app = get_app()
         _ = app._tr
 
-        # Get window to check filters
-        win = app.window
-
         # Clear all items
         if clear:
             log.info('cleared changelog model')
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Hash"), _("Date"), _("Author"), _("Subject")])
+        self.model.setHorizontalHeaderLabels(
+            [_("Hash"), _("Date"), _("Author"), _("Subject")])
 
         for commit in self.commit_list:
             # Get details of person
@@ -74,35 +68,29 @@ class ChangelogModel():
             ):
                 continue
 
-
             row = []
+            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
-            # Append name
-            col = QStandardItem("Hash")
-            col.setText(hash_str)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            col = QStandardItem(hash_str)
             col.setToolTip(hash_str)
+            col.setFlags(flags)
             row.append(col)
 
-            # Append email
-            col = QStandardItem("Date")
-            col.setText(date_str)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            col = QStandardItem(date_str)
             col.setToolTip(date_str)
+            col.setFlags(flags)
             row.append(col)
 
             # Append website
-            col = QStandardItem("Author")
-            col.setText(author_str)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            col = QStandardItem(author_str)
             col.setToolTip(author_str)
+            col.setFlags(flags)
             row.append(col)
 
             # Append website
-            col = QStandardItem("Subject")
-            col.setText(subject_str)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            col = QStandardItem(subject_str)
             col.setToolTip(subject_str)
+            col.setFlags(flags)
             row.append(col)
 
             # Append row to model

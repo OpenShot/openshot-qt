@@ -29,7 +29,7 @@ import os
 import fnmatch
 
 from PyQt5.QtCore import QMimeData, Qt, QSize
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon, QPixmap
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -65,8 +65,6 @@ class TitlesModel():
         log.info("updating title model.")
         app = get_app()
 
-        # Get window to check filters
-        win = app.window
         _ = app._tr
 
         # Clear all items
