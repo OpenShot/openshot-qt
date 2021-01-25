@@ -392,7 +392,10 @@ elif sys.platform == "darwin":
         src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
 
     # Exclude gif library which crashes on Mac
-    build_exe_options["bin_excludes"] = ["/usr/local/opt/giflib/lib/libgif.dylib"]
+    build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
+                                         "/usr/local/opt/giflib/lib/libgif.dylib",
+                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
+                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
