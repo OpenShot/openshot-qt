@@ -307,23 +307,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             painter.setTransform(self.transform)
 
             if self.transforming_effect:
-                # Get properties of clip at current frame
-                raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
-                for effect_key in raw_properties_effect.keys():
-                    if effect_key.startswith("x1-"):
-                        # Get current tracked object index
-                        tracked_obj_idx = effect_key.split("-", 2)[1]
-                        # Check if the tracked object is visible in this frame
-                        visible = raw_properties_effect['visible-'+tracked_obj_idx]['value']
-                        if visible:
-                            # Get current bounding box values
-                            rotation = raw_properties_effect['rotation-'+tracked_obj_idx]['value']
-                            x1 = raw_properties_effect['x1-'+tracked_obj_idx]['value']
-                            y1 = raw_properties_effect['y1-'+tracked_obj_idx]['value']
-                            x2 = raw_properties_effect['x2-'+tracked_obj_idx]['value']
-                            y2 = raw_properties_effect['y2-'+tracked_obj_idx]['value']
-                            self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
-                                x1, y1, x2, y2, rotation)
+                # Check if the effect has a tracked object
+                if self.transforming_effect_object.info.has_tracked_object:
+                    # Get properties of clip at current frame
+                    raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                    # Get the selected bounding box values
+                    rotation = raw_properties_effect['rotation']['value']
+                    x1 = raw_properties_effect['x1']['value']
+                    y1 = raw_properties_effect['y1']['value']
+                    x2 = raw_properties_effect['x2']['value']
+                    y2 = raw_properties_effect['y2']['value']
+                    self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
+                        x1, y1, x2, y2, rotation)
             else:
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
@@ -823,104 +818,91 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 self.original_clip_data = self.transforming_clip.data
 
             _ = self.getTransformMode(0, 0, 0, event)
+            
+            if self.transforming_effect_object.info.has_tracked_object:
+                # Get properties of effect at current frame
+                raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
 
-            # Get properties of effect at current frame
-            raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                # Transform effect object
+                if self.transform_mode:
 
-            for raw_property_key in raw_properties.keys():
-                if raw_property_key.startswith("x1-"):
-                    # Get current tracked object index
-                    tracked_obj_idx = raw_property_key.split("-", 2)[1]
-                    # Check if the tracked object is visible in this frame
-                    visible = raw_properties.get('visible-'+tracked_obj_idx).get('value')
-                    if visible:
-                        # Get current bounding box values
-                        rotation = raw_properties.get('rotation-'+tracked_obj_idx).get('value')
-                        x1 = raw_properties.get('x1-'+tracked_obj_idx).get('value')
-                        y1 = raw_properties.get('y1-'+tracked_obj_idx).get('value')
-                        x2 = raw_properties.get('x2-'+tracked_obj_idx).get('value')
-                        y2 = raw_properties.get('y2-'+tracked_obj_idx).get('value')
+                    if self.transform_mode == 'location':
+                        # Get current keyframe value
+                        location_x = raw_properties.get('delta_x').get('value')
+                        location_y = raw_properties.get('delta_y').get('value')
 
-                        # Transform effect object
-                        if self.transform_mode:
+                        # Calculate new location coordinates
+                        location_x += (event.pos().x() - self.mouse_position.x()) / viewport_rect.width()
+                        location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
 
-                            if self.transform_mode == 'location':
-                                # Get current keyframe value
-                                location_x = raw_properties.get('delta_x-'+tracked_obj_idx).get('value')
-                                location_y = raw_properties.get('delta_y-'+tracked_obj_idx).get('value')
+                        # Update keyframe value (or create new one)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_x', location_x, refresh=False)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_y', location_y)
 
-                                # Calculate new location coordinates
-                                location_x += (event.pos().x() - self.mouse_position.x()) / viewport_rect.width()
-                                location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
+                    elif self.transform_mode == 'rotation':
+                        # Get current rotation keyframe value
+                        rotation = raw_properties.get('rotation').get('value')
+                        scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+                        scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
 
-                                # Update keyframe value (or create new one)
-                                self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_x-'+tracked_obj_idx, location_x, refresh=False)
-                                self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_y-'+tracked_obj_idx, location_y)
+                        # Calculate new location coordinates
+                        is_on_left = event.pos().x() < self.originHandle.x()
+                        is_on_top = event.pos().y() < self.originHandle.y()
 
-                            elif self.transform_mode == 'rotation':
-                                # Get current rotation keyframe value
-                                rotation = raw_properties.get('rotation-'+tracked_obj_idx).get('value')
-                                scale_x = max(float(raw_properties.get('scale_x-'+tracked_obj_idx).get('value')), 0.001)
-                                scale_y = max(float(raw_properties.get('scale_y-'+tracked_obj_idx).get('value')), 0.001)
+                        if is_on_top:
+                            rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                        else:
+                            rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
 
-                                # Calculate new location coordinates
-                                is_on_left = event.pos().x() < self.originHandle.x()
-                                is_on_top = event.pos().y() < self.originHandle.y()
+                        if is_on_left:
+                            rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                        else:
+                            rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
 
-                                if is_on_top:
-                                    rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
-                                else:
-                                    rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                        # Update keyframe value (or create new one)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'rotation', rotation)
 
-                                if is_on_left:
-                                    rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
-                                else:
-                                    rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                    elif self.transform_mode.startswith('scale_'):
+                        # Get current scale keyframe value
+                        scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+                        scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
 
-                                # Update keyframe value (or create new one)
-                                self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'rotation-'+tracked_obj_idx, rotation)
+                        if self.transform_mode == 'scale_top_right':
+                            scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_bottom_right':
+                            scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_top_left':
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_bottom_left':
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_top':
+                            scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_bottom':
+                            scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_left':
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)        
+                        elif self.transform_mode == 'scale_right':
+                            scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
 
-                            elif self.transform_mode.startswith('scale_'):
-                                # Get current scale keyframe value
-                                scale_x = max(float(raw_properties.get('scale_x-'+tracked_obj_idx).get('value')), 0.001)
-                                scale_y = max(float(raw_properties.get('scale_y-'+tracked_obj_idx).get('value')), 0.001)
+                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                            # If CTRL key is pressed, fix the scale_y to the correct aspect ration
+                            if scale_x and scale_y:
+                                scale_y = scale_x
+                            elif scale_y:
+                                scale_x = scale_y
+                            elif scale_x:
+                                scale_y = scale_x
 
-                                if self.transform_mode == 'scale_top_right':
-                                    scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                                    scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                                elif self.transform_mode == 'scale_bottom_right':
-                                    scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                                    scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                                elif self.transform_mode == 'scale_top_left':
-                                    scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                                    scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                                elif self.transform_mode == 'scale_bottom_left':
-                                    scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-                                    scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                                elif self.transform_mode == 'scale_top':
-                                    scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                                elif self.transform_mode == 'scale_bottom':
-                                    scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
-                                elif self.transform_mode == 'scale_left':
-                                    scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)        
-                                elif self.transform_mode == 'scale_right':
-                                    scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
-
-                                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
-                                    # If CTRL key is pressed, fix the scale_y to the correct aspect ration
-                                    if scale_x and scale_y:
-                                        scale_y = scale_x
-                                    elif scale_y:
-                                        scale_x = scale_y
-                                    elif scale_x:
-                                        scale_y = scale_x
-
-                                # Update keyframe value (or create new one)
-                                both_scaled = scale_x != 0.001 and scale_y != 0.001
-                                if scale_x != 0.001:
-                                    self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_x-'+tracked_obj_idx, scale_x, refresh=(not both_scaled))
-                                if scale_y != 0.001:
-                                    self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_y-'+tracked_obj_idx, scale_y)
+                        # Update keyframe value (or create new one)
+                        both_scaled = scale_x != 0.001 and scale_y != 0.001
+                        if scale_x != 0.001:
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_x', scale_x, refresh=(not both_scaled))
+                        if scale_y != 0.001:
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_y', scale_y)
 
             # Force re-paint
             self.update()

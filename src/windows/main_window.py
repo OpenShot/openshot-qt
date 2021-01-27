@@ -2391,12 +2391,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
                 effect = Effect.get(id=item_id)
                 if effect:
-                    has_tracked_object = False
-                    for effect_key in effect.data.keys():
-                        if effect_key.startswith("box_id"):
-                                has_tracked_object = True
-                                break
-                    if has_tracked_object:
+                    if effect.data["has_tracked_object"]:
                         # Show bounding boxes transform on preview
                         clip_id = effect.parent['id']
                         self.KeyFrameTransformSignal.emit(item_id, clip_id)
