@@ -28,7 +28,6 @@
  """
 
 import os
-import platform
 import shutil
 import sys
 import webbrowser
@@ -50,7 +49,7 @@ from PyQt5.QtWidgets import (
     QLineEdit, QSlider, QLabel, QComboBox, QTextEdit
 )
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import exceptions, info, settings, qt_types, ui_util, updates
 from classes.app import get_app
 from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.exporters.edl import export_edl
@@ -58,10 +57,7 @@ from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
 from classes.logger import log
-from classes.metrics import (
-    track_metric_session, track_metric_screen,
-    track_metric_error, track_exception_stacktrace,
-    )
+from classes.metrics import track_metric_session, track_metric_screen
 from classes.query import Clip, Transition, Marker, Track
 from classes.thumbnail import httpThumbnailServerThread
 from classes.time_parts import secondsToTimecode
@@ -214,101 +210,26 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def create_lock_file(self):
         """Create a lock file"""
         lock_path = os.path.join(info.USER_PATH, ".lock")
-        lock_value = str(uuid4())
-
         # Check if it already exists
         if os.path.exists(lock_path):
-            # Walk the libopenshot log (if found), and try and find last line before this launch
-            log_path = os.path.join(info.USER_PATH, "libopenshot.log")
-            last_log_line = ""
-            last_stack_trace = ""
-            found_stack = False
-            log_start_counter = 0
-            if os.path.exists(log_path):
-                with open(log_path, "rb") as f:
-                    # Read from bottom up
-                    for raw_line in reversed(self.tail_file(f, 500)):
-                        line = str(raw_line, 'utf-8')
-                        # Detect stack trace
-                        if "End of Stack Trace" in line:
-                            found_stack = True
-                            continue
-                        if "Unhandled Exception: Stack Trace" in line:
-                            found_stack = False
-                            continue
-                        if "libopenshot logging:" in line:
-                            log_start_counter += 1
-                            if log_start_counter > 1:
-                                # Found the previous log start, too old now
-                                break
-
-                        if found_stack:
-                            # Append line to beginning of stacktrace
-                            last_stack_trace = line + last_stack_trace
-
-                        # Ignore certain useless lines
-                        line.strip()
-                        if all(["---" not in line,
-                                "libopenshot logging:" not in line,
-                                not last_log_line,
-                                ]):
-                            last_log_line = line
-
-            # Split last stack trace (if any)
-            if last_stack_trace:
-                # Get top line of stack trace (for metrics)
-                last_log_line = last_stack_trace.split("\n")[0].strip()
-
-                # Send stacktrace for debugging (if send metrics is enabled)
-                track_exception_stacktrace(last_stack_trace, "libopenshot")
-
-            # Clear / normalize log line (so we can roll them up in the analytics)
-            if last_log_line:
-                # Format last log line based on OS (since each OS can be formatted differently)
-                if platform.system() == "Darwin":
-                    last_log_line = "mac-%s" % last_log_line[58:].strip()
-                elif platform.system() == "Windows":
-                    last_log_line = "windows-%s" % last_log_line
-                elif platform.system() == "Linux":
-                    last_log_line = "linux-%s" % last_log_line.replace("/usr/local/lib/", "")
-
-                # Remove '()' from line, and split. Trying to grab the beginning of the log line.
-                last_log_line = last_log_line.replace("()", "")
-                log_parts = last_log_line.split("(")
-                if len(log_parts) == 2:
-                    last_log_line = "-%s" % log_parts[0].replace(
-                        "logger_libopenshot:INFO ", "").strip()[:64]
-                elif len(log_parts) >= 3:
-                    last_log_line = "-%s (%s" % (log_parts[0].replace(
-                        "logger_libopenshot:INFO ", "").strip()[:64], log_parts[1])
-            else:
-                last_log_line = ""
-
-            # Throw exception (with last libopenshot line... if found)
-            log.error(
-                "Unhandled crash detected... will attempt to recover backup project: %s"
-                % info.BACKUP_FILE)
-            track_metric_error("unhandled-crash%s" % last_log_line, True)
-
-            # Remove file
+            exceptions.libopenshot_crash_recovery()
+            log.error("Unhandled crash detected. Preserving cache.")
             self.destroy_lock_file()
-
         else:
             # Normal startup, clear thumbnails
             self.clear_all_thumbnails()
 
         # Write lock file (try a few times if failure)
+        lock_value = str(uuid4())
         for attempt in range(5):
             try:
                 # Create lock file
                 with open(lock_path, 'w') as f:
                     f.write(lock_value)
-                log.debug("Wrote value {} to lock file {}".format(
-                    lock_value, lock_path))
+                log.debug("Wrote value %s to lock file %s", lock_value, lock_path)
                 break
             except OSError:
-                log.debug('Failed to write lock file (attempt: {})'.format(
-                    attempt), exc_info=1)
+                log.debug("Failed to write lock file (attempt: %d)", attempt, exc_info=1)
                 sleep(0.25)
 
     def destroy_lock_file(self):
@@ -326,25 +247,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             except OSError:
                 log.debug('Failed to destroy lock file (attempt: %s)' % attempt, exc_info=1)
                 sleep(0.25)
-
-    def tail_file(self, f, n, offset=None):
-        """Read the end of a file (n number of lines)"""
-        avg_line_length = 90
-        to_read = n + (offset or 0)
-
-        while True:
-            try:
-                # Seek to byte position
-                f.seek(-(avg_line_length * to_read), 2)
-            except IOError:
-                # Byte position not found
-                f.seek(0)
-            pos = f.tell()
-            lines = f.read().splitlines()
-            if len(lines) >= to_read or pos == 0:
-                # Return the lines
-                return lines[-to_read:offset and -offset or None]
-            avg_line_length *= 2
 
     def actionNew_trigger(self):
 
