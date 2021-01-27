@@ -59,7 +59,10 @@ def fix_rpath(PATH):
 def print_min_versions(PATH):
     """Print ALL MINIMUM and SDK VERSIONS for files in OpenShot build folder.
     This does not list all dependent libraries though, and sometimes one of those can cause issues."""
+    # Use 2 different matches, due to different output from different libraries (depending on compiler)
     REGEX_SDK_MATCH = re.compile(r'.*(LC_VERSION_MIN_MACOSX).*version (\d+\.\d+).*sdk (\d+\.\d+).*(cmd)', re.DOTALL)
+    REGEX_SDK_MATCH2 = re.compile(r'.*sdk\s(.*)\s*minos\s(.*)')
+
     VERSIONS = {}
 
     # Find files matching patterns
@@ -74,19 +77,27 @@ def print_min_versions(PATH):
 
            raw_output = subprocess.Popen(["oTool", "-l", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
            matches = REGEX_SDK_MATCH.findall(raw_output)
+           matches2 = REGEX_SDK_MATCH2.findall(raw_output)
+           min_version = None
+           sdk_version = None
            if matches and len(matches[0]) == 4:
                min_version = matches[0][1]
                sdk_version = matches[0][2]
+           elif matches2 and len(matches2[0]) == 2:
+               sdk_version = matches2[0][0]
+               min_version = matches2[0][1]
+
+           if min_version and sdk_version:
                print("... scanning %s for min version (min: %s, sdk: %s)" % (file_path.replace(PATH, ""),
                                                                              min_version, sdk_version))
-
                # Organize by MIN version
                if min_version in VERSIONS:
                    if file_path not in VERSIONS[min_version]:
                        VERSIONS[min_version].append(file_path)
                else:
                    VERSIONS[min_version] = [file_path]
-               if min_version in ['10.14', '10.15']:
+
+               if min_version in ['11.0']:
                    print("ERROR!!!! Minimum OS X version not met for %s" % file_path)
 
     print("\nSummary of Minimum Mac SDKs for Dependencies:")
@@ -94,6 +105,10 @@ def print_min_versions(PATH):
         print("\n%s" % key)
         for file_path in VERSIONS[key]:
             print("  %s" % file_path)
+
+    print("\nCount of Minimum Mac SDKs for Dependencies:")
+    for key in sorted(VERSIONS.keys()):
+        print("%s (%d)" % (key, len(VERSIONS[key])))
 
 
 if __name__ == "__main__":
