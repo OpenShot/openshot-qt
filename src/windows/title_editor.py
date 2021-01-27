@@ -32,12 +32,16 @@ import shutil
 import functools
 import subprocess
 import tempfile
+
+# TODO: Is there a defusedxml substitute for getDOMImplementation?
+# Is one even necessary, or is it safe to use xml.dom.minidom for that?
 from xml.dom import minidom
 
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import (
-    QGraphicsScene, QMessageBox, QDialog, QColorDialog, QFontDialog,
+    QWidget, QGraphicsScene,
+    QMessageBox, QDialog, QColorDialog, QFontDialog,
     QPushButton, QTextEdit, QLabel
 )
 
@@ -47,8 +51,9 @@ from classes import info, ui_util, settings
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
-from windows.views.titles_listview import TitlesListView
+from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
 
+from windows.views.titles_listview import TitlesListView
 
 
 class TitleEditor(QDialog):
@@ -57,10 +62,10 @@ class TitleEditor(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'title-editor.ui')
 
-    def __init__(self, edit_file_path=None, duplicate=False):
+    def __init__(self, *args, edit_file_path=None, duplicate=False, **kwargs):
 
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(*args, **kwargs)
 
         self.app = get_app()
         self.project = self.app.project
@@ -101,13 +106,13 @@ class TitleEditor(QDialog):
 
         self.display_name = ""
         self.font_family = "Bitstream Vera Sans"
-        self.tspan_node = None
+        self.tspan_nodes = None
 
         self.qfont = QtGui.QFont(self.font_family)
 
         # Add titles list view
-        self.titlesTreeView = TitlesListView(self)
-        self.verticalLayout.addWidget(self.titlesTreeView)
+        self.titlesView = TitlesListView(parent=self, window=self)
+        self.verticalLayout.addWidget(self.titlesView)
 
         # Disable Save button on window load
         self.buttonBox.button(self.buttonBox.Save).setEnabled(False)
@@ -135,19 +140,16 @@ class TitleEditor(QDialog):
                 text_list.append(child.toPlainText())
 
         # Update text values in the SVG
-        for i in range(0, self.text_fields):
-            if len(self.tspan_node[i].childNodes) > 0 and i <= (len(text_list) - 1):
+        for i, node in enumerate(self.tspan_nodes):
+            if len(node.childNodes) > 0 and i <= (len(text_list) - 1):
                 new_text_node = self.xmldoc.createTextNode(text_list[i])
-                old_text_node = self.tspan_node[i].childNodes[0]
-                self.tspan_node[i].removeChild(old_text_node)
+                old_text_node = node.childNodes[0]
+                node.removeChild(old_text_node)
                 # add new text node
-                self.tspan_node[i].appendChild(new_text_node)
+                node.appendChild(new_text_node)
 
         # Something changed, so update temp SVG
-        self.writeToFile(self.xmldoc)
-
-        # Display SVG again
-        self.display_svg()
+        self.save_and_reload()
 
     def display_svg(self):
         # Create a temp file for this thumbnail image
@@ -188,27 +190,26 @@ class TitleEditor(QDialog):
         os.unlink(tmp_filename)
 
     def create_temp_title(self, template_path):
-
-        # Set temp file path
+        """Set temp file path & make copy of template"""
         self.filename = os.path.join(info.USER_PATH, "title", "temp.svg")
-
-        # Copy template to temp file
+        # Copy template to temp file (NOT preserving attributes)
         shutil.copyfile(template_path, self.filename)
-
-        # return temp path
         return self.filename
 
-    def load_svg_template(self):
+    def load_svg_template(self, filename_field=None):
         """ Load an SVG title and init all textboxes and controls """
 
+        log.debug("Loading SVG file %s as title template", self.filename)
         # Get translation object
         _ = get_app()._tr
+
+        # The container for all our widgets
+        layout = self.settingsContainer.layout()
 
         # parse the svg object
         self.xmldoc = minidom.parse(self.filename)
         # get the text elements
-        self.tspan_node = self.xmldoc.getElementsByTagName('tspan')
-        self.text_fields = len(self.tspan_node)
+        self.tspan_nodes = self.xmldoc.getElementsByTagName('tspan')
 
         # Reset default font
         self.font_family = "Bitstream Vera Sans"
@@ -219,27 +220,30 @@ class TitleEditor(QDialog):
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
             try:
-                self.settingsContainer.layout().removeWidget(child)
-                child.deleteLater()
-            except Exception:
-                log.debug('Failed to delete child settings widget')
+                if isinstance(child, QWidget):
+                    layout.removeWidget(child)
+                    child.deleteLater()
+            except Exception as ex:
+                log.debug('Failed to delete child settings widget: %s', ex)
 
         # Get text nodes and rect nodes
-        self.text_node = self.xmldoc.getElementsByTagName('text')
+        self.text_nodes = self.xmldoc.getElementsByTagName('text')
         self.rect_node = self.xmldoc.getElementsByTagName('rect')
 
         # Create Label
-        label = QLabel()
+        label = QLabel(self)
         label_line_text = _("File Name:")
         label.setText(label_line_text)
         label.setToolTip(label_line_text)
 
         # create text editor for file name
-        self.txtFileName = QTextEdit()
+        self.txtFileName = QTextEdit(self)
         self.txtFileName.setObjectName("txtFileName")
 
-        # If edit mode, set file name
-        if self.edit_file_path and not self.duplicate:
+        # If edit mode or reload, set file name
+        if filename_field:
+            self.txtFileName.setText(filename_field)
+        elif self.edit_file_path and not self.duplicate:
             # Use existing name (and prevent editing name)
             self.txtFileName.setText(os.path.basename(self.edit_file_path))
             self.txtFileName.setEnabled(False)
@@ -272,71 +276,62 @@ class TitleEditor(QDialog):
                     self.txtFileName.setText(curname)
                     break
         self.txtFileName.setFixedHeight(28)
-        self.settingsContainer.layout().addRow(label, self.txtFileName)
+        layout.addRow(label, self.txtFileName)
 
         # Get text values
         title_text = []
-        for i in range(0, self.text_fields):
-            if len(self.tspan_node[i].childNodes) > 0:
-                text = self.tspan_node[i].childNodes[0].data
-                ar = self.tspan_node[i].attributes["style"].value.split(";")
-                title_text.append(text)
+        for i, node in enumerate(self.tspan_nodes):
+            if len(node.childNodes) < 1:
+                continue
+            text = node.childNodes[0].data
+            title_text.append(text)
 
-                # Set font size (for possible font dialog)
-                fs = self.find_in_list(ar, "font-size:")
-                fs_value = ar[fs][10:]
-                if fs_value.endswith("px"):
-                    self.qfont.setPixelSize(float(fs_value[:-2]))
-                elif fs_value.endswith("pt"):
-                    self.qfont.setPointSizeF(float(fs_value[:-2]))
+            # Set font size (for possible font dialog)
+            s = node.attributes["style"].value
+            ard = style_to_dict(s)
+            fs = ard.get("font_size")
+            if fs and fs.endswith("px"):
+                self.qfont.setPixelSize(float(fs[:-2]))
+            elif fs and fs.endswith("pt"):
+                self.qfont.setPointSizeF(float(fs[:-2]))
 
-                # Create Label
-                label = QLabel()
-                label_line_text = _("Line %s:") % str(i + 1)
-                label.setText(label_line_text)
-                label.setToolTip(label_line_text)
+            # Create Label
+            label_line_text = _("Line %s:") % str(i + 1)
+            label = QLabel(label_line_text)
+            label.setToolTip(label_line_text)
 
-                # create text editor for each text element in title
-                widget = QTextEdit()
-                widget.setText(_(text))
-                widget.setFixedHeight(28)
-                widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
-                self.settingsContainer.layout().addRow(label, widget)
+            # create text editor for each text element in title
+            widget = QTextEdit(_(text))
+            widget.setFixedHeight(28)
+            widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
+            layout.addRow(label, widget)
 
         # Add Font button
-        label = QLabel()
-        label.setText(_("Font:"))
+        label = QLabel(_("Font:"))
         label.setToolTip(_("Font:"))
-        self.btnFont = QPushButton()
-        self.btnFont.setText(_("Change Font"))
-        self.settingsContainer.layout().addRow(label, self.btnFont)
+        self.btnFont = QPushButton(_("Change Font"))
+        layout.addRow(label, self.btnFont)
         self.btnFont.clicked.connect(self.btnFont_clicked)
 
         # Add Text color button
-        label = QLabel()
-        label.setText(_("Text:"))
+        label = QLabel(_("Text:"))
         label.setToolTip(_("Text:"))
-        self.btnFontColor = QPushButton()
-        self.btnFontColor.setText(_("Text Color"))
-        self.settingsContainer.layout().addRow(label, self.btnFontColor)
+        self.btnFontColor = QPushButton(_("Text Color"))
+        layout.addRow(label, self.btnFontColor)
         self.btnFontColor.clicked.connect(self.btnFontColor_clicked)
 
         # Add Background color button
-        label = QLabel()
-        label.setText(_("Background:"))
+        label = QLabel(_("Background:"))
         label.setToolTip(_("Background:"))
-        self.btnBackgroundColor = QPushButton()
-        self.btnBackgroundColor.setText(_("Background Color"))
-        self.settingsContainer.layout().addRow(label, self.btnBackgroundColor)
+        self.btnBackgroundColor = QPushButton(_("Background Color"))
+        layout.addRow(label, self.btnBackgroundColor)
         self.btnBackgroundColor.clicked.connect(self.btnBackgroundColor_clicked)
 
         # Add Advanced Editor button
-        label = QLabel()
-        label.setText(_("Advanced:"))
+        label = QLabel(_("Advanced:"))
         label.setToolTip(_("Advanced:"))
-        self.btnAdvanced = QPushButton()
-        self.btnAdvanced.setText(_("Use Advanced Editor"))
-        self.settingsContainer.layout().addRow(label, self.btnAdvanced)
+        self.btnAdvanced = QPushButton(_("Use Advanced Editor"))
+        layout.addRow(label, self.btnAdvanced)
         self.btnAdvanced.clicked.connect(self.btnAdvanced_clicked)
 
         # Update color buttons
@@ -367,6 +362,21 @@ class TitleEditor(QDialog):
             file.close()
         except IOError as inst:
             log.error("Error writing SVG title: {}".format(inst))
+
+    def save_and_reload(self):
+        """Something changed, so update temp SVG and redisplay"""
+        self.writeToFile(self.xmldoc)
+        self.display_svg()
+
+    @staticmethod
+    def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
+        """Choose text color for best contrast against a background"""
+        colrgb = bg.getRgbF()
+        # Compute perceptive luminance of background color
+        lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
+        if (lum < 0.5):
+            return QtGui.QColor(Qt.white)
+        return QtGui.QColor(Qt.black)
 
     def btnFontColor_clicked(self):
         app = get_app()
@@ -425,40 +435,19 @@ class TitleEditor(QDialog):
             self.font_weight = fontinfo.weight()
             self.font_size_pixel = fontinfo.pixelSize()
             self.set_font_style()
-
-            # Something changed, so update temp SVG
-            self.writeToFile(self.xmldoc)
-
-            # Display SVG again
-            self.display_svg()
-
-    def find_in_list(self, l, value):
-        '''when passed a partial value, function will return the list index'''
-        for item in l:
-            if item.startswith(value):
-                return l.index(item)
+            self.save_and_reload()
 
     def update_font_color_button(self):
         """Updates the color shown on the font color button"""
 
         # Loop through each TEXT element
-        for node in self.text_node + self.tspan_node:
+        for node in self.text_nodes + self.tspan_nodes:
 
-            # Get the value in the style attribute
+            # Get the value in the style attribute and turn into a dict
             s = node.attributes["style"].value
-
-            # split the node so we can access each part
-            ar = s.split(";")
-            color = self.find_in_list(ar, "fill:")
-
-            try:
-                # Parse the result
-                txt = ar[color]
-                color = txt[5:]
-            except Exception:
-                # If the color was in an invalid format, try the next text element
-                log.debug('Failed to parse {} as color value'.format(txt))
-
+            ard = style_to_dict(s)
+            # Get fill color or default to white
+            color = ard.get("fill", "#FFF")
             # Look up color if needed
             # Some colors are located in a different node
             if color.startswith("url(#") and self.xmldoc.getElementsByTagName("defs").length == 1:
@@ -466,46 +455,22 @@ class TitleEditor(QDialog):
                 ref_color = self.get_ref_color(color_ref_id)
                 if ref_color:
                     color = ref_color
-
-            opacity = self.find_in_list(ar, "opacity:")
-
-            try:
-                # Parse the result
-                txt = ar[opacity]
-                opacity = float(txt[8:])
-            except Exception:
-                log.debug('Failed to parse {} as opacity value'.format(txt))
-
-            # Default the font color to white if non-existing
-            if color is None:
-                color = "#FFFFFF"
-
-            # Default the opacity to fully visible if non-existing
-            if opacity is None:
-                opacity = 1.0
+            # Get opacity or default to opaque
+            opacity = float(ard.get("opacity", 1.0))
 
             color = QtGui.QColor(color)
-
-            # Compute perceptive luminance of background color
-            colrgb = color.getRgbF()
-            lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
-            if (lum < 0.5):
-                text_color = QtGui.QColor(Qt.white)
-            else:
-                text_color = QtGui.QColor(Qt.black)
-
+            text_color = self.best_contrast(color)
             # Set the color of the button, ignoring alpha
             self.btnFontColor.setStyleSheet(
                 "background-color: %s; opacity: %s; color: %s;"
                 % (color.name(), 1, text_color.name()))
-
             # Store the opacity as the color's alpha level
             color.setAlphaF(opacity)
             self.font_color_code = color
+            log.debug("Set color of font-color button to %s", color.name())
 
     def get_ref_color(self, id):
         """Get the color value from a reference id (i.e. linearGradient3267)"""
-        found_color = ""
         for ref_node in self.xmldoc.getElementsByTagName("defs")[0].childNodes:
             if ref_node.attributes and "id" in ref_node.attributes:
                 ref_node_id = ref_node.attributes["id"].value
@@ -523,59 +488,25 @@ class TitleEditor(QDialog):
                         for stop_node in ref_node.childNodes:
                             if "stop" == stop_node.nodeName:
                                 # get color from stop
-                                ar = stop_node.attributes["style"].value.split(";")
-                                sc = self.find_in_list(ar, "stop-color:")
-                                return ar[sc][11:]
-        return found_color
+                                ard = style_to_dict(stop_node.attributes["style"].value)
+                                if "stop-color" in ard:
+                                    return ard.get("stop-color")
+        return ""
 
     def update_background_color_button(self):
         """Updates the color shown on the background color button"""
 
         if self.rect_node:
-
             # All backgrounds should be the first (index 0) rect tag in the svg
             s = self.rect_node[0].attributes["style"].value
+            ard = style_to_dict(s)
 
-            # split the node so we can access each part
-            ar = s.split(";")
-
-            color = self.find_in_list(ar, "fill:")
-
-            try:
-                # Parse the result
-                txt = ar[color]
-                color = txt[5:]
-            except ValueError:
-                pass
-
-            opacity = self.find_in_list(ar, "opacity:")
-
-            try:
-                # Parse the result
-                txt = ar[opacity]
-                opacity = float(txt[8:])
-            except ValueError:
-                pass
-            except TypeError:
-                pass
-
-            # Default the background color to black if non-existing
-            if color is None:
-                color = "#000000"
-
-            # Default opacity to fully visible if non-existing
-            if opacity is None:
-                opacity = 1.0
+            # Get fill color or default to black + full opacity
+            color = ard.get("fill", "#000")
+            opacity = float(ard.get("opacity", 1.0))
 
             color = QtGui.QColor(color)
-
-            # Compute perceptive luminance of background color
-            colrgb = color.getRgbF()
-            lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
-            if (lum < 0.5):
-                text_color = QtGui.QColor(Qt.white)
-            else:
-                text_color = QtGui.QColor(Qt.black)
+            text_color = self.best_contrast(color)
 
             # Set the colors of the button, ignoring opacity
             self.btnBackgroundColor.setStyleSheet(
@@ -585,83 +516,52 @@ class TitleEditor(QDialog):
             # Store the opacity as the color's alpha level
             color.setAlphaF(opacity)
             self.bg_color_code = color
+            log.debug("Set color of background-color button to %s", color.name())
 
     def set_font_style(self):
         '''sets the font properties'''
         # Loop through each TEXT element
-        for text_child in self.text_node + self.tspan_node:
+        for text_child in self.text_nodes + self.tspan_nodes:
             # set the style elements for the main text node
             s = text_child.attributes["style"].value
-            # split the text node so we can access each part
-            ar = s.split(";")
-            # we need to find each element that we are changing, shouldn't assume
-            # they are in the same position in any given template.
-
-            # ignoring font-weight, as not sure what it represents in Qt.
-            fs = self.find_in_list(ar, "font-style:")
-            ff = self.find_in_list(ar, "font-family:")
-            fp = self.find_in_list(ar, "font-size:")
-            if fs:
-                ar[fs] = "font-style:" + self.font_style
-            if ff:
-                ar[ff] = "font-family:" + self.font_family
-            if fp:
-                ar[fp] = "font-size:%spx" % self.font_size_pixel
-            # rejoin the modified parts
-            t = ";"
-            self.title_style_string = t.join(ar)
+            ard = style_to_dict(s)
+            set_if_existing(ard, "font-style", self.font_style)
+            set_if_existing(ard, "font-family", f"'{self.font_family}'")
+            set_if_existing(ard, "font-size", f"{self.font_size_pixel}px")
+            self.title_style_string = dict_to_style(ard)
 
             # set the text node
             text_child.setAttribute("style", self.title_style_string)
+        log.debug("Updated font styles to %s", self.title_style_string)
 
     def set_bg_style(self, color, alpha):
         '''sets the background color'''
 
         if self.rect_node:
-            # split the node so we can access each part
+            # Turn the style attribute into a dict for modification
             s = self.rect_node[0].attributes["style"].value
-            ar = s.split(";")
-            fill = self.find_in_list(ar, "fill:")
-            if fill is None:
-                ar.append("fill:" + color)
-            else:
-                ar[fill] = "fill:" + color
-
-            opacity = self.find_in_list(ar, "opacity:")
-            if opacity is None:
-                ar.append("opacity:" + str(alpha))
-            else:
-                ar[opacity] = "opacity:" + str(alpha)
-
-            # rejoin the modified parts
-            t = ";"
-            self.bg_style_string = t.join(ar)
-            # set the node in the xml doc
+            ard = style_to_dict(s)
+            ard.update({
+                "fill": color,
+                "opacity": str(alpha),
+                })
+            # Convert back to a string and update the node in the xml doc
+            self.bg_style_string = dict_to_style(ard)
             self.rect_node[0].setAttribute("style", self.bg_style_string)
+            log.debug("Updated background style to %s", self.bg_style_string)
 
     def set_font_color_elements(self, color, alpha):
-
         # Loop through each TEXT element
-        for text_child in self.text_node + self.tspan_node:
-
+        for text_child in self.text_nodes + self.tspan_nodes:
             # SET TEXT PROPERTIES
             s = text_child.attributes["style"].value
-            # split the text node so we can access each part
-            ar = s.split(";")
-            fill = self.find_in_list(ar, "fill:")
-            if fill is None:
-                ar.append("fill:" + color)
-            else:
-                ar[fill] = "fill:" + color
-
-            opacity = self.find_in_list(ar, "opacity:")
-            if opacity is None:
-                ar.append("opacity:" + str(alpha))
-            else:
-                ar[opacity] = "opacity:" + str(alpha)
-
-            t = ";"
-            text_child.setAttribute("style", t.join(ar))
+            ard = style_to_dict(s)
+            ard.update({
+                "fill": color,
+                "opacity": str(alpha),
+                })
+            text_child.setAttribute("style", dict_to_style(ard))
+        log.debug("Set text node style, fill:%s opacity:%s", color, alpha)
 
     def accept(self):
         app = get_app()
@@ -705,29 +605,22 @@ class TitleEditor(QDialog):
         super().accept()
 
     def btnAdvanced_clicked(self):
-        _ = self.app._tr
-        # use an external editor to edit the image
+        """Use an external editor to edit the image"""
+        # Get editor executable from settings
+        s = settings.get_settings()
+        prog = s.get("title_editor")
+        # Store filename field to display on reload
+        filename_text = self.txtFileName.toPlainText().strip()
         try:
-            # Get settings
-            s = settings.get_settings()
-
-            # get the title editor executable path
-            prog = s.get("title_editor")
-
             # launch advanced title editor
-            # debug info
-            log.info("Advanced title editor command: {} {} ".format(prog, self.filename))
-
+            log.info("Advanced title editor command: %s", str([prog, self.filename]))
             p = subprocess.Popen([prog, self.filename])
-
-            # wait for process to finish (so we can update the preview)
+            # wait for process to finish, then update preview
             p.communicate()
-
-            # update image preview
-            self.load_svg_template()
+            self.load_svg_template(filename_field=filename_text)
             self.display_svg()
-
         except OSError:
-            msg = QMessageBox()
+            _ = self.app._tr
+            msg = QMessageBox(self)
             msg.setText(_("Please install %s to use this function" % prog))
             msg.exec_()

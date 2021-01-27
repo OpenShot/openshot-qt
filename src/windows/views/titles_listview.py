@@ -25,55 +25,36 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QTimer, Qt
+from PyQt5.QtCore import QSize, QTimer, Qt, QModelIndex
 from PyQt5.QtWidgets import QListView
 
-from classes.app import get_app
-from windows.models.titles_model import TitlesModel
+from windows.models.titles_model import TitlesModel, TitleRoles
 
 
 class TitlesListView(QListView):
     """ A QListView QWidget used on the title editor window """
 
-    def currentChanged(self, selected, deselected):
-        # Get selected item
-        self.selected = selected
-        self.deselected = deselected
-
-        # Get translation object
-        _ = get_app()._tr
-
-        # Get all selected rows items
-        if self.title_model.model.itemFromIndex(self.selected):
-            ItemRow = self.title_model.model.itemFromIndex(self.selected).row()
-            title_path = self.title_model.model.item(ItemRow, 2).text()
-
-            # Display title in graphicsView
-            self.win.filename = title_path
-
-            # Create temp version of title
-            self.win.create_temp_title(title_path)
-
-            # Add all widgets for editing
-            self.win.load_svg_template()
-
-            # Display temp image (slight delay to allow screen to be shown first)
-            QTimer.singleShot(50, self.win.display_svg)
+    def currentChanged(self, current: QModelIndex, previous: QModelIndex):
+        # Get current model item
+        if not current.isValid():
+            return
+        item = self.model().itemFromIndex(current)
+        # Display title in graphicsView
+        self.win.filename = item.data(TitleRoles.PathRole)
+        self.win.create_temp_title(self.win.filename)
+        self.win.load_svg_template()
+        # Display temp image (slight delay to allow screen to be shown first)
+        QTimer.singleShot(50, self.win.display_svg)
 
     def refresh_view(self):
         self.title_model.update_model()
 
-    def __init__(self, *args):
+    def __init__(self, *args, window=None, **kwargs):
         # Invoke parent init
-        QListView.__init__(self, *args)
-
-        # Get a reference to the window object
-        self.app = get_app()
-        self.win = args[0]
-
+        super().__init__(*args, **kwargs)
         # Get Model data
-        self.title_model = TitlesModel()
-
+        self.win = window or self.parent()
+        self.title_model = TitlesModel(self.win)
         # Setup header columns
         self.setModel(self.title_model.model)
         self.setIconSize(QSize(131, 108))
@@ -84,5 +65,4 @@ class TitlesListView(QListView):
         self.setWordWrap(True)
         self.setTextElideMode(Qt.ElideRight)
 
-        # Refresh view
         self.refresh_view()
