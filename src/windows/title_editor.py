@@ -486,7 +486,7 @@ class TitleEditor(QDialog):
                         return self.get_ref_color(xlink_ref_id)
                     elif ref_node.childNodes:
                         for stop_node in ref_node.childNodes:
-                            if "stop" == stop_node.nodeName:
+                            if stop_node.nodeName == "stop":
                                 # get color from stop
                                 ard = style_to_dict(stop_node.attributes["style"].value)
                                 if "stop-color" in ard:

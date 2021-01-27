@@ -89,18 +89,13 @@ class Profile(QDialog):
         self.profile_names.sort()
 
         # Loop through sorted profiles
-        box_index = 0
-        for profile_name in self.profile_names:
-
+        for box_index, profile_name in enumerate(self.profile_names):
             # Add to dropdown
             self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
 
             # Set default (if it matches the project)
             if get_app().project.get(['profile']) in profile_name:
                 self.initial_index = box_index
-
-            # increment item counter
-            box_index += 1
 
         # Connect signals
         self.cboProfile.currentIndexChanged.connect(self.dropdown_index_changed)

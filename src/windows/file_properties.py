@@ -135,24 +135,23 @@ class FileProperties(QDialog):
         self.txtOutput.setText(json.dumps(file.data, sort_keys=True, indent=2))
 
         # Add channel layouts
-        channel_layout_index = 0
         selected_channel_layout_index = 0
         current_channel_layout = 0
         if self.file.data["has_audio"]:
             current_channel_layout = int(self.file.data["channel_layout"])
         self.channel_layout_choices = []
-        for layout in [(0, _("Unknown")),
-                       (openshot.LAYOUT_MONO, _("Mono (1 Channel)")),
-                       (openshot.LAYOUT_STEREO, _("Stereo (2 Channel)")),
-                       (openshot.LAYOUT_SURROUND, _("Surround (3 Channel)")),
-                       (openshot.LAYOUT_5POINT1, _("Surround (5.1 Channel)")),
-                       (openshot.LAYOUT_7POINT1, _("Surround (7.1 Channel)"))]:
+        layouts = [(0, _("Unknown")),
+                   (openshot.LAYOUT_MONO, _("Mono (1 Channel)")),
+                   (openshot.LAYOUT_STEREO, _("Stereo (2 Channel)")),
+                   (openshot.LAYOUT_SURROUND, _("Surround (3 Channel)")),
+                   (openshot.LAYOUT_5POINT1, _("Surround (5.1 Channel)")),
+                   (openshot.LAYOUT_7POINT1, _("Surround (7.1 Channel)"))]
+        for channel_layout_index, layout in enumerate(layouts):
             log.info(layout)
             self.channel_layout_choices.append(layout[0])
             self.cboChannelLayout.addItem(layout[1], layout[0])
             if current_channel_layout == layout[0]:
                 selected_channel_layout_index = channel_layout_index
-            channel_layout_index += 1
 
         # Select matching channel layout
         self.cboChannelLayout.setCurrentIndex(selected_channel_layout_index)

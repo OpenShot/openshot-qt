@@ -233,20 +233,14 @@ class Export(QDialog):
         self.profile_names.sort()
 
         # Loop through sorted profiles
-        box_index = 0
         self.selected_profile_index = 0
-        for profile_name in self.profile_names:
-
+        for box_index, profile_name in enumerate(self.profile_names):
             # Add to dropdown
             self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
 
             # Set default (if it matches the project)
             if get_app().project.get(['profile']) in profile_name:
                 self.selected_profile_index = box_index
-
-            # increment item counter
-            box_index += 1
-
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
@@ -265,14 +259,12 @@ class Export(QDialog):
                     log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
         # Exclude duplicates
-        type_index = 0
         selected_type = 0
         presets = list(set(presets))
-        for item in sorted(presets):
+        for type_index, item in enumerate(sorted(presets)):
             self.cboSimpleProjectType.addItem(item, item)
             if item == _("All Formats"):
                 selected_type = type_index
-            type_index += 1
 
         # Always select 'All Formats' option
         self.cboSimpleProjectType.setCurrentIndex(selected_type)
@@ -566,12 +558,10 @@ class Export(QDialog):
 
                                 self.txtAudioCodec.setText(audio_codec_name)
 
-                            layout_index = 0
-                            for layout in self.channel_layout_choices:
+                            for layout_index, layout in enumerate(self.channel_layout_choices):
                                 if layout == int(c[0].childNodes[0].data):
                                     self.cboChannelLayout.setCurrentIndex(layout_index)
                                     break
-                                layout_index += 1
 
                         # Free up DOM memory
                         xmldoc.unlink()
@@ -613,16 +603,12 @@ class Export(QDialog):
     def populateAllProfiles(self, selected_profile_path):
         """Populate the full list of profiles"""
         # Look for matching profile in advanced options
-        profile_index = 0
-        for profile_name in self.profile_names:
+        for profile_index, profile_name in enumerate(self.profile_names):
             # Check for matching profile
             if self.getProfilePath(profile_name) == selected_profile_path:
                 # Matched!
                 self.cboProfile.setCurrentIndex(profile_index)
                 break
-
-            # increment index
-            profile_index += 1
 
     def cboSimpleQuality_index_changed(self, widget, index):
         selected_quality = widget.itemData(index)
@@ -814,7 +800,7 @@ class Export(QDialog):
                             "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
                             "start_frame": self.txtStartFrame.value(),
                             "end_frame": self.txtEndFrame.value(),
-                            "interlace": ((interlacedIndex == 1) or (interlacedIndex == 2)),
+                            "interlace": interlacedIndex in [1, 2],
                             "topfirst": interlacedIndex == 1
                           }
 
