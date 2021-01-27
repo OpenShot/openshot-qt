@@ -441,7 +441,13 @@ class PropertiesTableView(QTableView):
             # Handle clip attach options
             if property_key == "attached_id" and not self.choices:
                 # Add all Clips as choices - initialize with None
-                clips_choices = [{
+                tracked_choices = [{
+                    "name": "None",
+                    "value": "None",
+                    "selected": False,
+                    "icon": QIcon()
+                }]
+                clip_choices = [{
                     "name": "None",
                     "value": "None",
                     "selected": False,
@@ -467,13 +473,16 @@ class PropertiesTableView(QTableView):
                             if (clip_path == clip_instance_path):
                                 # Generate the clip icon to show in the selection menu
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
+                                clip_choices.append({"name": clip_instance_data["title"],
+                                              "value": clip_instance_id,
+                                              "selected": False,
+                                              "icon": clip_instance_icon})
                         # Get the pixmap of the clip icon
                         icon_size = 72
                         icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
                         # Add tracked objects to the selection menu
                         tracked_objects = []
                         for effect in clip_instance_data["effects"]:
-                            
                             # Check if effect has a tracked object
                             if effect["has_tracked_object"]:
                                 # Instantiate the effect
@@ -493,11 +502,12 @@ class PropertiesTableView(QTableView):
                                                             "value": str(object_id),
                                                             "selected": False,
                                                             "icon": QIcon(tracked_object_icon)})
-                        clips_choices.append({"name": clip_instance_data["title"],
+                        tracked_choices.append({"name": clip_instance_data["title"],
                                               "value": tracked_objects,
                                               "selected": False,
                                               "icon": clip_instance_icon})
-                self.choices.append({"name": _("Clips"), "value": clips_choices, "selected": False, "icon": None})
+                self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
+                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
