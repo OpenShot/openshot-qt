@@ -170,7 +170,7 @@ else:
             from .webview_backend.webkit import TimelineWebKitView as WebViewClass
             WEBVIEW_LOADED = True
         except ImportError:
-            pass
+            log.error("Import failure loading WebKit backend", exc_info=1)
         finally:
             if not WEBVIEW_LOADED:
                 raise RuntimeError(
@@ -430,7 +430,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             Slice_Keep_Right.triggered.connect(partial(
                 self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
-            return menu.popup(QCursor.pos())
+            return menu.exec_(QCursor.pos())
 
     @Slot(str)
     def ShowEffectMenu(self, effect_id=None):
@@ -446,7 +446,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Remove Effect Menu
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveEffect)
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @Slot(float, int)
     def ShowTimelineMenu(self, position, layer_id):
@@ -476,7 +476,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             partial(self.Paste_Triggered, MENU_PASTE, float(position), int(layer_id), [], [])
         )
 
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @Slot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -947,7 +947,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         menu.addAction(self.window.actionRemoveClip)
 
         # Show Context menu
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     def Transform_Triggered(self, action, clip_ids):
         log.debug("Transform_Triggered")
@@ -1463,6 +1463,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 self.copy_clipboard[clip_id] = clip.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
+                self.copy_clipboard[clip_id]['crop_height'] = clip.data['crop_height']
+                self.copy_clipboard[clip_id]['crop_width'] = clip.data['crop_width']
+                self.copy_clipboard[clip_id]['crop_x'] = clip.data['crop_x']
+                self.copy_clipboard[clip_id]['crop_y'] = clip.data['crop_y']
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
@@ -2619,7 +2623,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         menu.addAction(self.window.actionRemoveTransition)
 
         # Show menu
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @Slot(str)
     def ShowTrackMenu(self, layer_id=None):
@@ -2644,7 +2648,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             self.window.actionRemoveTrack.setEnabled(True)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @Slot(str)
     def ShowMarkerMenu(self, marker_id=None):
@@ -2655,7 +2659,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         menu = QMenu(self)
         menu.addAction(self.window.actionRemoveMarker)
-        return menu.popup(QCursor.pos())
+        return menu.exec_(QCursor.pos())
 
     @Slot(str, int)
     def PreviewClipFrame(self, clip_id, frame_number):
@@ -2784,14 +2788,17 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # Capture wheel event to alter zoom slider control
     def wheelEvent(self, event):
-        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+        if event.modifiers() & Qt.ControlModifier:
+            event.accept()
+            zoom = self.window.sliderZoom
             # For each 120 (standard scroll unit) adjust the zoom slider
             tick_scale = 120
             steps = int(event.angleDelta().y() / tick_scale)
-            self.window.sliderZoom.setValue(self.window.sliderZoom.value() - self.window.sliderZoom.pageStep() * steps)
+            delta = zoom.pageStep() * steps
+            log.debug("Zooming by %d steps", -steps)
+            zoom.setValue(zoom.value() - delta)
         else:
-            # Otherwise pass on to implement default functionality (scroll in QWebEngineView)
-            super(type(self), self).wheelEvent(event)
+            super().wheelEvent(event)
 
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
@@ -3169,6 +3176,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Connect shutdown signals
         app.aboutToQuit.connect(self.redraw_audio_timer.stop)
         app.aboutToQuit.connect(self.cache_renderer.stop)
+        app.aboutToQuit.connect(self.deleteLater)
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
