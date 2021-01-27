@@ -28,6 +28,8 @@ mv "$OS_PATH/MacOS/lib/presets" "$OS_PATH/Resources/presets"; ln -s "../../Resou
 mv "$OS_PATH/MacOS/lib/profiles" "$OS_PATH/Resources/profiles"; ln -s "../../Resources/profiles" "$OS_PATH/MacOS/lib/profiles";
 mv "$OS_PATH/MacOS/lib/resources" "$OS_PATH/Resources/resources"; ln -s "../../Resources/resources" "$OS_PATH/MacOS/lib/resources";
 mv "$OS_PATH/MacOS/lib/settings" "$OS_PATH/Resources/settings"; ln -s "../../Resources/settings" "$OS_PATH/MacOS/lib/settings";
+mv "$OS_PATH/MacOS/settings/*.log" "$OS_PATH/Resources/settings"; # Copy *.log files into settings
+rmdir "$OS_PATH/MacOS/settings/"; # remove settings dir (created by freeze, *.log files)
 mv "$OS_PATH/MacOS/lib/tests" "$OS_PATH/Resources/tests"; ln -s "../../Resources/tests" "$OS_PATH/MacOS/lib/tests";
 mv "$OS_PATH/MacOS/lib/timeline" "$OS_PATH/Resources/timeline"; ln -s "../../Resources/timeline" "$OS_PATH/MacOS/lib/timeline";
 mv "$OS_PATH/MacOS/lib/titles" "$OS_PATH/Resources/titles"; ln -s "../../Resources/titles" "$OS_PATH/MacOS/lib/titles";
