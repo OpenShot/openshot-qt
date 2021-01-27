@@ -310,20 +310,20 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 # Get properties of clip at current frame
                 raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
                 for effect_key in raw_properties_effect.keys():
-                    if effect_key.startswith("box_id"):
+                    if effect_key.startswith("x1-"):
                         # Get current tracked object index
                         tracked_obj_idx = effect_key.split("-", 2)[1]
                         # Check if the tracked object is visible in this frame
-                        visible = raw_properties_effect.get('visible-'+tracked_obj_idx).get('value')
+                        visible = raw_properties_effect['visible-'+tracked_obj_idx]['value']
                         if visible:
                             # Get current bounding box values
-                            r = raw_properties_effect.get('rotation-'+tracked_obj_idx).get('value')
-                            x1 = raw_properties_effect.get('x1-'+tracked_obj_idx).get('value')
-                            y1 = raw_properties_effect.get('y1-'+tracked_obj_idx).get('value')
-                            x2 = raw_properties_effect.get('x2-'+tracked_obj_idx).get('value')
-                            y2 = raw_properties_effect.get('y2-'+tracked_obj_idx).get('value')
+                            rotation = raw_properties_effect['rotation-'+tracked_obj_idx]['value']
+                            x1 = raw_properties_effect['x1-'+tracked_obj_idx]['value']
+                            y1 = raw_properties_effect['y1-'+tracked_obj_idx]['value']
+                            x2 = raw_properties_effect['x2-'+tracked_obj_idx]['value']
+                            y2 = raw_properties_effect['y2-'+tracked_obj_idx]['value']
                             self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
-                                x1, y1, x2, y2, r)
+                                x1, y1, x2, y2, rotation)
             else:
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
@@ -828,7 +828,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
 
             for raw_property_key in raw_properties.keys():
-                if raw_property_key.startswith("box_id"):
+                if raw_property_key.startswith("x1-"):
                     # Get current tracked object index
                     tracked_obj_idx = raw_property_key.split("-", 2)[1]
                     # Check if the tracked object is visible in this frame

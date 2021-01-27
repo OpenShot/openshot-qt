@@ -419,6 +419,34 @@ class PropertiesTableView(QTableView):
                 self.choices = []
                 self.menu_reset = False
 
+            # Handle selected object options (ObjectDetection effect)
+            if property_key == "selected_object_index" and not self.choices:
+                # Add visible objects as choices - initialize with the first visible object
+                object_index_choices = [{
+                    "name": str(0),
+                    "value": str(0),
+                    "selected": False,
+                    "icon": QIcon()
+                }]
+                # Get all visible object's indexes
+                timeline_instance = get_app().window.timeline_sync.timeline
+                # Instantiate the effect
+                effect = timeline_instance.GetClipEffect(clip_id)
+                # Get effect's properties JSON
+                effect_properties = json.loads(effect.PropertiesJSON(frame_number))
+                for effect_key in effect_properties.keys():
+                    if effect_key.startswith("visible-"):
+                        if effect_properties[effect_key]["value"]:
+                            # Get visible object index
+                            object_index = effect_key.split("-", 2)[1]
+                            object_index_choices.append({
+                                "name": object_index,
+                                "value": object_index,
+                                "selected": False,
+                                "icon": QIcon()
+                            })
+                self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
+
             # Handle clip attach options
             if property_key == "attached_id" and not self.choices:
                 # Add all Clips as choices - initialize with None
@@ -457,20 +485,21 @@ class PropertiesTableView(QTableView):
                             # Iterate through the effect properties
                             for effect_key in effect.keys():
                                 # Check if the effect has the "box_id" property, i.e., is the Tracker or ObjectDetection effect
-                                if effect_key.startswith("box_id"):
-                                    # Get effect's JSON properties for this frame
-                                    effect_instance = timeline_instance.GetClipEffect(effect["id"])
-                                    raw_properties_effect = json.loads(effect_instance.PropertiesJSON(frame_number))
+                                if effect_key.startswith("box_id-"):
                                     # Get current tracked object index
                                     tracked_obj_idx = effect_key.split("-", 2)[1]
-                                    # Check if the tracked object is visible in this frame
+                                    effect_instance = timeline_instance.GetClipEffect(effect["id"])
+                                    raw_properties_effect = json.loads(effect_instance.PropertiesJSON(frame_number))
                                     visible = raw_properties_effect.get('visible-'+tracked_obj_idx).get('value')
+                                    # Check if the tracked object is visible in this frame
                                     if visible:
                                         # Get the Tracked Object properties
-                                        x1 = raw_properties_effect.get('x1-'+tracked_obj_idx).get('value')
-                                        y1 = raw_properties_effect.get('y1-'+tracked_obj_idx).get('value')
-                                        x2 = raw_properties_effect.get('x2-'+tracked_obj_idx).get('value')
-                                        y2 = raw_properties_effect.get('y2-'+tracked_obj_idx).get('value')
+                                        tracked_obj_id = effect['box_id-'+tracked_obj_idx]
+                                        tracked_obj_properties = json.loads(timeline_instance.GetTrackedObjectValues(tracked_obj_id, 0))
+                                        x1 = tracked_obj_properties['x1']
+                                        y1 = tracked_obj_properties['y1']
+                                        x2 = tracked_obj_properties['x2']
+                                        y2 = tracked_obj_properties['y2']
                                         # Get the tracked object's icon from the clip's icon
                                         tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2)).scaled(icon_size, icon_size)
                                         tracked_objects.append({"name": effect[effect_key],
