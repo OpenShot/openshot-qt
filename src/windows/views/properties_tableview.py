@@ -439,7 +439,7 @@ class PropertiesTableView(QTableView):
                 self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})  
 
             # Handle clip attach options
-            if property_key == "attached_id" and not self.choices:
+            if property_key == "parentObjectId" and not self.choices:
                 # Add all Clips as choices - initialize with None
                 tracked_choices = [{
                     "name": "None",
@@ -497,7 +497,7 @@ class PropertiesTableView(QTableView):
                                     x2 = object_properties['x2']
                                     y2 = object_properties['y2']
                                     # Get the tracked object's icon from the clip's icon
-                                    tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size/2)).scaled(icon_size, icon_size)
+                                    tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size)).scaled(icon_size, icon_size)
                                     tracked_objects.append({"name": str(object_id),
                                                             "value": str(object_id),
                                                             "selected": False,

@@ -213,7 +213,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             scale = self.transforming_clip.data['scale']
 
             # Set scale as STRETCH if the clip is attached to an object
-            if (raw_properties.get('attached_id').get('value') != 'None'):
+            if (raw_properties.get('parentObjectId').get('value') != 'None'):
                 scale = openshot.SCALE_STRETCH
 
             if scale == openshot.SCALE_FIT:
