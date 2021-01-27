@@ -105,9 +105,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     FoundVersionSignal = pyqtSignal(str)
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
-    ExportStarted = pyqtSignal(str, int, int)
-    ExportFrame = pyqtSignal(str, int, int, int, str)
-    ExportEnded = pyqtSignal(str)
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
@@ -1322,7 +1319,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # New track number (pick mid point in track number gap)
             new_track_num = selected_layer_num - int(round(delta / 2.0))
 
-            log.info("New track num %s (delta %s)",new_track_num, delta)
+            log.info("New track num %s (delta %s)", new_track_num, delta)
 
             # Create new track and insert
             track = Track()
@@ -1756,7 +1753,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug("Showing preferences dialog")
         win = Profile()
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
+        win.exec_()
         log.debug("Preferences dialog closed")
 
     def actionSplitClip_trigger(self):
@@ -2810,23 +2807,66 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Update cache reference, so it doesn't go out of scope
         self.cache_object = new_cache_object
 
-    def FrameExported(self, title_message, start_frame, end_frame, current_frame):
-        """Update progress in Unity Launcher (if connected)"""
-        try:
-            # Set progress and show progress bar
-            self.unity_launcher.set_property("progress", current_frame / (end_frame - start_frame))
-            self.unity_launcher.set_property("progress_visible", True)
-        except Exception:
-            log.debug('Failed to notify unity launcher of export progress. Frame: %s' % current_frame)
+    def initModels(self):
+        """Set up model/view classes for MainWindow"""
+        s = settings.get_settings()
 
-    def ExportFinished(self, path):
-        """Show completion in Unity Launcher (if connected)"""
-        try:
-            # Set progress on Unity launcher and hide progress bar
-            self.unity_launcher.set_property("progress", 0.0)
-            self.unity_launcher.set_property("progress_visible", False)
-        except Exception:
-            log.debug('Failed to notify unity launcher of export progress. Completed.')
+        # Setup files tree and list view (both share a model)
+        self.files_model = FilesModel()
+        self.filesTreeView = FilesTreeView(self.files_model)
+        self.filesListView = FilesListView(self.files_model)
+        self.files_model.update_model()
+        self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
+        self.tabFiles.layout().insertWidget(-1, self.filesListView)
+        if s.get("file_view") == "details":
+            self.filesView = self.filesTreeView
+            self.filesListView.hide()
+        else:
+            self.filesView = self.filesListView
+            self.filesTreeView.hide()
+        # Show our currently-enabled project files view
+        self.filesView.show()
+        self.filesView.setFocus()
+
+        # Setup transitions tree and list views
+        self.transition_model = TransitionsModel()
+        self.transitionsTreeView = TransitionsTreeView(self.transition_model)
+        self.transitionsListView = TransitionsListView(self.transition_model)
+        self.transition_model.update_model()
+        self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
+        self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
+        if s.get("transitions_view") == "details":
+            self.transitionsView = self.transitionsTreeView
+            self.transitionsListView.hide()
+        else:
+            self.transitionsView = self.transitionsListView
+            self.transitionsTreeView.hide()
+        # Show our currently-enabled transitions view
+        self.transitionsView.show()
+        self.transitionsView.setFocus()
+
+        # Setup effects tree
+        self.effects_model = EffectsModel()
+        self.effectsTreeView = EffectsTreeView(self.effects_model)
+        self.effectsListView = EffectsListView(self.effects_model)
+        self.effects_model.update_model()
+        self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
+        self.tabEffects.layout().insertWidget(-1, self.effectsListView)
+        if s.get("effects_view") == "details":
+            self.effectsView = self.effectsTreeView
+            self.effectsListView.hide()
+        else:
+            self.effectsView = self.effectsListView
+            self.effectsTreeView.hide()
+        # Show our currently-enabled effects view
+        self.effectsView.show()
+        self.effectsView.setFocus()
+
+        # Setup emojis view
+        self.emojis_model = EmojisModel()
+        self.emojis_model.update_model()
+        self.emojiListView = EmojisListView(self.emojis_model)
+        self.tabEmojis.layout().addWidget(self.emojiListView)
 
     def __init__(self, *args, mode=None):
 
@@ -2900,62 +2940,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
 
-        # Setup files tree and list view (both share a model)
-        self.files_model = FilesModel()
-        self.filesTreeView = FilesTreeView(self.files_model)
-        self.filesListView = FilesListView(self.files_model)
-        self.files_model.update_model()
-        self.tabFiles.layout().insertWidget(-1, self.filesTreeView)
-        self.tabFiles.layout().insertWidget(-1, self.filesListView)
-        if s.get("file_view") == "details":
-            self.filesView = self.filesTreeView
-            self.filesListView.hide()
-        else:
-            self.filesView = self.filesListView
-            self.filesTreeView.hide()
-        # Show our currently-enabled project files view
-        self.filesView.show()
-        self.filesView.setFocus()
-
-        # Setup transitions tree and list views
-        self.transition_model = TransitionsModel()
-        self.transitionsTreeView = TransitionsTreeView(self.transition_model)
-        self.transitionsListView = TransitionsListView(self.transition_model)
-        self.transition_model.update_model()
-        self.tabTransitions.layout().insertWidget(-1, self.transitionsTreeView)
-        self.tabTransitions.layout().insertWidget(-1, self.transitionsListView)
-        if s.get("transitions_view") == "details":
-            self.transitionsView = self.transitionsTreeView
-            self.transitionsListView.hide()
-        else:
-            self.transitionsView = self.transitionsListView
-            self.transitionsTreeView.hide()
-        # Show our currently-enabled transitions view
-        self.transitionsView.show()
-        self.transitionsView.setFocus()
-
-        # Setup effects tree
-        self.effects_model = EffectsModel()
-        self.effectsTreeView = EffectsTreeView(self.effects_model)
-        self.effectsListView = EffectsListView(self.effects_model)
-        self.effects_model.update_model()
-        self.tabEffects.layout().insertWidget(-1, self.effectsTreeView)
-        self.tabEffects.layout().insertWidget(-1, self.effectsListView)
-        if s.get("effects_view") == "details":
-            self.effectsView = self.effectsTreeView
-            self.effectsListView.hide()
-        else:
-            self.effectsView = self.effectsListView
-            self.effectsTreeView.hide()
-        # Show our currently-enabled effects view
-        self.effectsView.show()
-        self.effectsView.setFocus()
-
-        # Setup emojis view
-        self.emojis_model = EmojisModel()
-        self.emojis_model.update_model()
-        self.emojiListView = EmojisListView(self.emojis_model)
-        self.tabEmojis.layout().addWidget(self.emojiListView)
+        self.initModels()
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
@@ -3087,21 +3072,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
-
-        # Connect to Unity DBus signal (if linux)
-        self.unity_launcher = None
-        if "linux" in sys.platform:
-            try:
-                # Get connection to Unity Launcher
-                import gi
-                gi.require_version('Unity', '7.0')
-                from gi.repository import Unity
-                self.unity_launcher = Unity.LauncherEntry.get_for_desktop_id(info.DESKTOP_ID)
-            except Exception:
-                log.debug('Failed to connect to Unity launcher (Linux only) for updating export progress.')
-            else:
-                self.ExportFrame.connect(self.FrameExported)
-                self.ExportEnded.connect(self.ExportFinished)
 
         # Save settings
         s.save()

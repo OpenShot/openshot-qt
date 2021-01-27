@@ -31,7 +31,7 @@ from operator import itemgetter
 
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
-    QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
 )
 from PyQt5.QtWidgets import (
@@ -544,7 +544,7 @@ class PropertiesTableView(QTableView):
             menu = QMenu(self)
             if points > 1:
                 # Menu items only for multiple points
-                Bezier_Menu = menu.AddMenu(self.bezier_icon, _("Bezier"))
+                Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
                 for bezier_preset in bezier_presets:
                     preset_action = Bezier_Menu.addAction(bezier_preset[4])
                     preset_action.triggered.connect(functools.partial(

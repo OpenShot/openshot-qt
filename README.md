@@ -129,7 +129,7 @@ python3 src/launch.py
 
 ## Copyright
 
-Copyright (c) 2008-2020 OpenShot Studios, LLC. This file is part of
+Copyright (c) 2008-2021 OpenShot Studios, LLC. This file is part of
 OpenShot Video Editor (https://www.openshot.org), an open-source project
 dedicated to delivering high quality video editing and animation solutions
 to the world.

@@ -109,8 +109,8 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     # Particle parameters
     PSSettings.count = NbQuads
     PSSettings.frame_start = 10
-    PSSettings.frame_end = 60
-    PSSettings.lifetime = 80
+    PSSettings.frame_end = 30
+    PSSettings.lifetime = 90
     ParticleSystem.point_cache.frame_step = 1
     PSSettings.normal_factor = 0.0
     # not useful
@@ -165,6 +165,7 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
 
     TexSlot = PSSettings.texture_slots.add()
     TexSlot.texture = sTex
+    TexSlot.texture_coords = 'OBJECT'
     TexSlot.use_map_time = True
 
     deselect()
@@ -187,28 +188,14 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     # hide plane for render
     Plane.hide_render = True
 
-    select(Text)
-
-    TexSlot.texture_coords = 'OBJECT'
     TexSlot.object = Plane
-    TexSlot.use_map_time = True
-
+    select(Text)
     Text.data.update()
 
     bpy.ops.object.modifier_add(type='EXPLODE')
     bpy.ops.mesh.uv_texture_add()  # name UVMap by default
     Text.modifiers['Explode'].particle_uv = 'UVMap'
     Text.modifiers['Explode'].show_dead = False
-    Text.data.update()
-
-    select(Text)
-
-    TexSlot.texture_coords = 'OBJECT'
-    TexSlot.object = Plane
-
-    TexSlot.use_map_time = False
-    TexSlot.use_map_time = True
-
     Text.data.update()
 
 

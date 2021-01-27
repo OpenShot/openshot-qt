@@ -16,6 +16,8 @@
 	<string>icon.icns</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.15.0</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 </dict>

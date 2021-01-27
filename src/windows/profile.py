@@ -26,18 +26,16 @@
  """
 
 import os
-import sys
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, ui_util, openshot_rc
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QDialog
+
+from classes import info, ui_util
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 
 
 class Profile(QDialog):

@@ -26,35 +26,45 @@ Using OpenShot is very easy, and this tutorial will take you through the basics 
 **under 5 minutes**. After this tutorial, you will be able to make a simple photo
 slide-show with music.
 
-Step 1 – Import Photos & Music
-------------------------------
-Before we can begin making a video, we need to import files into OpenShot. Drag and
-drop a few images (\*.JPG, \*.PNG, etc...) and a music file (most formats will work)
+Step 1 – Import media files
+---------------------------
+
+Before we can begin making a video, we need to import media files into OpenShot. Most video,
+image and music file formats will work. Drag and drop a few videos or images and a music file
 from your Desktop to OpenShot. Be sure to drop the files where the
 arrow in the illustration is pointing to.
 
 .. image:: images/quick-start-drop-files.jpg
 
-Step 2 – Arrange Photos on Timeline
-------------------------------------
-Next, drag each photo onto the timeline (as seen in the illustration). The timeline represents
-your final video, so arrange your photos in whatever sequence you want them to appear in your
-video. If you overlap two clips, OpenShot will automatically create a smooth fade between them,
-displayed by blue rounded rectangles between the clips. Remember, you can rearrange the clips
-as many times as needed by simply dragging and dropping them.
+Alternative methods to add files to your projects are described in the section
+:ref:`import_files_ref`.
+The "Show All", "Video", "Audio", "Image" filters above the added files
+allows you to only see the file types you are interested in.
+
+Step 2 – Arrange Videos and Photos on Timeline
+----------------------------------------------
+
+Next, drag each video or photo onto a track in the timeline (as seen in the illustration).
+The timeline represents your final video, so arrange your photos in whatever sequence you want
+them to appear in your video. If you overlap two clips, OpenShot will automatically create a
+smooth fade between them, displayed by blue rounded rectangles between the clips. Remember,
+you can rearrange the clips as many times as needed by simply dragging and dropping them.
 
 .. image:: images/quick-start-timeline-drop.jpg
 
 Step 3 – Add Music to Timeline
 ------------------------------
-To make our photo slide-show more interesting, we need to add some music. You should have
-imported a music file in step 1. Click on the music file, and drag it onto the timeline. If
-the song is too long, grab the right edge of your music clip, and resize it smaller.
+
+To make our creation more interesting, we need to add some music. Click on the music
+file that you imported in step 1, and drag it onto the timeline. If the song is too long, grab
+the right edge of your music clip, and resize it smaller (that will make it end earlier). You
+could also insert the same file multiple times, if your music is too short.
 
 .. image:: images/quick-start-music.jpg
 
 Step 4 – Preview your Project
 ------------------------------
+
 To preview what our video looks & sounds like, click the Play button under the preview window.
 You can also pause, rewind, and fast-forward your video project by clicking the corresponding
 buttons.
@@ -63,7 +73,8 @@ buttons.
 
 Step 5 – Export your Video
 ---------------------------
-Once you are happy with your photo slide-show video, the next step is to export your video.
+
+Once you are happy with your project, the next step is to export your video.
 This will convert your OpenShot project into a single video file, which will work on most
 media players (such as VLC) or websites (such as YouTube, Vimeo, etc...).
 

@@ -41,14 +41,15 @@ except ImportError:
 
 from xml.parsers.expat import ExpatError
 
-from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize
+from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
 )
 from PyQt5.QtGui import QIcon
 
 from classes import info
-from classes import ui_util, openshot_rc
+from classes import ui_util
+from classes import openshot_rc  # noqa
 from classes import settings
 from classes.logger import log
 from classes.app import get_app
@@ -63,6 +64,10 @@ class Export(QDialog):
 
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'export.ui')
+
+    ExportStarted = pyqtSignal(str, int, int)
+    ExportFrame = pyqtSignal(str, int, int, int, str)
+    ExportEnded = pyqtSignal(str)        
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -198,7 +203,7 @@ class Export(QDialog):
         self.cboSimpleQuality.currentIndexChanged.connect(
             functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
-        get_app().window.ExportFrame.connect(self.updateProgressBar)
+        self.ExportFrame.connect(self.updateProgressBar)
 
         # ********* Advanced Profile List **********
         # Loop through profiles
@@ -309,6 +314,7 @@ class Export(QDialog):
             if profile_path == path:
                 return profile
 
+    @pyqtSlot(str, int, int, int, str)
     def updateProgressBar(self, title_message, start_frame, end_frame, current_frame, format_of_progress_string):
         """Update progress bar during exporting"""
         if end_frame - start_frame > 0:
@@ -717,7 +723,6 @@ class Export(QDialog):
                 'fps': fps}
             return title_mes
 
-
         # get translations
         _ = get_app()._tr
 
@@ -901,7 +906,7 @@ class Export(QDialog):
 
             # Notify window of export started
             title_message = ""
-            get_app().window.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
+            self.ExportStarted.emit(export_file_path, video_settings.get("start_frame"), video_settings.get("end_frame"))
 
             progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 1000))
             start_time_export = time.time()
@@ -944,7 +949,13 @@ class Export(QDialog):
                             title_message = titlestring(seconds_left, fps_encode, "Remaining")
 
                     # Emit frame exported
-                    get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"), video_settings.get("end_frame"), frame, format_of_progress_string)
+                    self.ExportFrame.emit(
+                        title_message,
+                        video_settings.get("start_frame"),
+                        video_settings.get("end_frame"),
+                        frame,
+                        format_of_progress_string
+                    )
 
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
@@ -963,8 +974,13 @@ class Export(QDialog):
             seconds_run = round((end_time_export - start_time_export))
             title_message = titlestring(seconds_run, fps_encode, "Elapsed")
 
-            get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
-                                              video_settings.get("end_frame"), frame, format_of_progress_string)
+            self.ExportFrame.emit(
+                title_message,
+                video_settings.get("start_frame"),
+                video_settings.get("end_frame"),
+                frame,
+                format_of_progress_string
+            )
 
         except Exception as e:
             # TODO: Find a better way to catch the error. This is the only way I have found that
@@ -1002,7 +1018,7 @@ class Export(QDialog):
             msg.exec_()
 
         # Notify window of export started
-        get_app().window.ExportEnded.emit(export_file_path)
+        self.ExportEnded.emit(export_file_path)
 
         # Close timeline object
         self.timeline.Close()
@@ -1031,8 +1047,13 @@ class Export(QDialog):
             # Restore windows title to show elapsed time
             title_message = titlestring(seconds_run, fps_encode, "Elapsed")
 
-            get_app().window.ExportFrame.emit(title_message, video_settings.get("start_frame"),
-                                              video_settings.get("end_frame"), frame, format_of_progress_string)
+            self.ExportFrame.emit(
+                title_message,
+                video_settings.get("start_frame"),
+                video_settings.get("end_frame"),
+                frame,
+                format_of_progress_string
+            )
 
             # Make progress bar green (to indicate we are done)
             from PyQt5.QtGui import QPalette
@@ -1050,7 +1071,8 @@ class Export(QDialog):
         if self.exporting and not self.close_button.isVisible():
             # Show confirmation dialog
             _ = get_app()._tr
-            result = QMessageBox.question(self,
+            result = QMessageBox.question(
+                self,
                 _("Export Video"),
                 _("Are you sure you want to cancel the export?"),
                 QMessageBox.No | QMessageBox.Yes)
