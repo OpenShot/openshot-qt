@@ -62,6 +62,7 @@ def print_min_versions(PATH):
     # Use 2 different matches, due to different output from different libraries (depending on compiler)
     REGEX_SDK_MATCH = re.compile(r'.*(LC_VERSION_MIN_MACOSX).*version (\d+\.\d+).*sdk (\d+\.\d+).*(cmd)', re.DOTALL)
     REGEX_SDK_MATCH2 = re.compile(r'.*sdk\s(.*)\s*minos\s(.*)')
+
     VERSIONS = {}
 
     # Find files matching patterns
@@ -89,13 +90,13 @@ def print_min_versions(PATH):
            if min_version and sdk_version:
                print("... scanning %s for min version (min: %s, sdk: %s)" % (file_path.replace(PATH, ""),
                                                                              min_version, sdk_version))
-
                # Organize by MIN version
                if min_version in VERSIONS:
                    if file_path not in VERSIONS[min_version]:
                        VERSIONS[min_version].append(file_path)
                else:
                    VERSIONS[min_version] = [file_path]
+
                if min_version in ['11.0']:
                    print("ERROR!!!! Minimum OS X version not met for %s" % file_path)
 
@@ -108,6 +109,7 @@ def print_min_versions(PATH):
     print("\nCount of Minimum Mac SDKs for Dependencies:")
     for key in sorted(VERSIONS.keys()):
         print("%s (%d)" % (key, len(VERSIONS[key])))
+
 
 if __name__ == "__main__":
     """Run these methods manually for testing"""

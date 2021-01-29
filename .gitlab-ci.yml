@@ -85,7 +85,7 @@ windows-builder-x64:
     - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
     - Expand-Archive -Path artifacts.zip -DestinationPath .
     - Copy-Item "$CI_PROJECT_DIR/build/install-x64/python/*" -Destination "$CI_PROJECT_DIR"
-    - $env:Path = "$CI_PROJECT_DIR\build\install-x64\lib;$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\bin;C:\msys64\mingw64\lib;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;C:\msys64\usr\lib\cmake\UnitTest++;C:\msys64\usr;C:\msys64\usr\lib;" + $env:Path;
+    - $env:Path = "$CI_PROJECT_DIR\build\install-x64\lib;$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\bin;C:\msys64\mingw64\lib;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;C:\msys64\usr\lib\cmake\UnitTest++;C:\msys64\usr;C:\msys64\usr\lib;C:\msys64\usr\local\x64\mingw\bin;C:\msys64\usr\local;" + $env:Path;
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\usr\lib;C:\msys64\usr\lib\site-packages\;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;";
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
@@ -112,7 +112,7 @@ windows-builder-x86:
     - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
     - Expand-Archive -Path artifacts.zip -DestinationPath .
     - Copy-Item "$CI_PROJECT_DIR/build/install-x86/python/*" -Destination "$CI_PROJECT_DIR"
-    - $env:Path = "$CI_PROJECT_DIR\build\install-x86\lib;$CI_PROJECT_DIR\build\install-x86\python;C:\msys32\mingw32\bin;C:\msys32\mingw32\lib;C:\msys32\mingw32\lib\python3.7\;C:\msys32\mingw32\lib\python3.7\site-packages\;C:\msys32\mingw32\lib\python3.7\site-packages\PyQt5;C:\msys32\usr\lib\cmake\UnitTest++;C:\msys32\usr;C:\msys32\usr\lib;" + $env:Path;
+    - $env:Path = "$CI_PROJECT_DIR\build\install-x86\lib;$CI_PROJECT_DIR\build\install-x86\python;C:\msys32\mingw32\bin;C:\msys32\mingw32\lib;C:\msys32\mingw32\lib\python3.7\;C:\msys32\mingw32\lib\python3.7\site-packages\;C:\msys32\mingw32\lib\python3.7\site-packages\PyQt5;C:\msys32\usr\lib\cmake\UnitTest++;C:\msys32\usr;C:\msys32\usr\lib;C:\msys32\usr\local\x64\mingw\bin;C:\msys32\usr\local;" + $env:Path;
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;C:\msys32\usr\lib;C:\msys32\usr\lib\site-packages\;C:\msys32\mingw32\lib\python3.7\;C:\msys32\mingw32\lib\python3.7\site-packages\;C:\msys32\mingw32\lib\python3.7\site-packages\PyQt5;";
     - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
