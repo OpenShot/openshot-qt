@@ -67,26 +67,19 @@ class Export(QDialog):
 
     ExportStarted = pyqtSignal(str, int, int)
     ExportFrame = pyqtSignal(str, int, int, int, str)
-    ExportEnded = pyqtSignal(str)
+    ExportEnded = pyqtSignal(str)        
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        # Create dialog class
-        QDialog.__init__(self)
-
-        # Load UI from designer
+        # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
-
-        # Init UI
         ui_util.init_ui(self)
 
-        # get translations
+        # get translations & settings
         _ = get_app()._tr
-
-        # Get settings
         self.s = settings.get_settings()
 
-        # Track metrics
         track_metric_screen("export-screen")
 
         # Dynamically load tabs from settings data
@@ -113,9 +106,6 @@ class Export(QDialog):
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         get_app().window.actionPlay_trigger(None, force="pause")
 
-        # Clear timeline preview cache (to get more available memory)
-        get_app().window.timeline_sync.timeline.ClearAllCache()
-
         # Hide audio channels
         self.lblChannels.setVisible(False)
         self.txtChannels.setVisible(False)
@@ -124,25 +114,31 @@ class Export(QDialog):
         openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
 
+        project_timeline = get_app().window.timeline_sync.timeline
+
+        # Clear timeline preview cache (to get more available memory)
+        project_timeline.ClearAllCache()
+
         # Get the original timeline settings
-        width = get_app().window.timeline_sync.timeline.info.width
-        height = get_app().window.timeline_sync.timeline.info.height
-        fps = get_app().window.timeline_sync.timeline.info.fps
-        sample_rate = get_app().window.timeline_sync.timeline.info.sample_rate
-        channels = get_app().window.timeline_sync.timeline.info.channels
-        channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
+        width = project_timeline.info.width
+        height = project_timeline.info.height
+        fps = project_timeline.info.fps
+        sample_rate = project_timeline.info.sample_rate
+        channels = project_timeline.info.channels
+        channel_layout = project_timeline.info.channel_layout
 
         # Create new "export" openshot.Timeline object
-        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps.num, fps.den),
-                                          sample_rate, channels, channel_layout)
+        self.timeline = openshot.Timeline(
+            width, height, openshot.Fraction(fps.num, fps.den),
+            sample_rate, channels, channel_layout)
         # Init various properties
-        self.timeline.info.channel_layout = get_app().window.timeline_sync.timeline.info.channel_layout
-        self.timeline.info.has_audio = get_app().window.timeline_sync.timeline.info.has_audio
-        self.timeline.info.has_video = get_app().window.timeline_sync.timeline.info.has_video
-        self.timeline.info.video_length = get_app().window.timeline_sync.timeline.info.video_length
-        self.timeline.info.duration = get_app().window.timeline_sync.timeline.info.duration
-        self.timeline.info.sample_rate = get_app().window.timeline_sync.timeline.info.sample_rate
-        self.timeline.info.channels = get_app().window.timeline_sync.timeline.info.channels
+        self.timeline.info.sample_rate = sample_rate
+        self.timeline.info.channels = channels
+        self.timeline.info.channel_layout = channel_layout
+        self.timeline.info.has_audio = project_timeline.info.has_audio
+        self.timeline.info.has_video = project_timeline.info.has_video
+        self.timeline.info.video_length = project_timeline.info.video_length
+        self.timeline.info.duration = project_timeline.info.duration
 
         # Load the "export" Timeline reader with the JSON from the real timeline
         json_timeline = json.dumps(get_app().project._data)

@@ -37,7 +37,7 @@ import tempfile
 # Is one even necessary, or is it safe to use xml.dom.minidom for that?
 from xml.dom import minidom
 
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt, pyqtSlot, QTimer
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import (
     QWidget, QGraphicsScene,
@@ -51,8 +51,9 @@ from classes import info, ui_util, settings
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
+from windows.views.titles_listview import TitlesListView
+from windows.color_picker import ColorPicker
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
-
 from windows.views.titles_listview import TitlesListView
 
 
@@ -368,6 +369,15 @@ class TitleEditor(QDialog):
         self.writeToFile(self.xmldoc)
         self.display_svg()
 
+    @pyqtSlot(QtGui.QColor)
+    def color_callback(self, save_fn, refresh_fn, color):
+        """Update SVG color after user selection"""
+        if not color or not color.isValid():
+            return
+        save_fn(color.name(), color.alphaF())
+        refresh_fn()
+        self.save_and_reload()
+
     @staticmethod
     def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
         """Choose text color for best contrast against a background"""
@@ -382,39 +392,33 @@ class TitleEditor(QDialog):
         app = get_app()
         _ = app._tr
 
+        callback_func = functools.partial(
+            self.color_callback,
+            self.set_font_color_elements,
+            self.update_font_color_button)
         # Get color from user
-        col = QColorDialog.getColor(self.font_color_code, self, _("Select a Color"),
-                                    QColorDialog.DontUseNativeDialog | QColorDialog.ShowAlphaChannel)
-
-        # Update SVG colors
-        if col.isValid():
-            self.set_font_color_elements(col.name(), col.alphaF())
-            self.update_font_color_button()
-
-            # Something changed, so update temp SVG
-            self.writeToFile(self.xmldoc)
-
-            # Display SVG again
-            self.display_svg()
+        log.debug("Launching color picker for %s", self.font_color_code.name())
+        ColorPicker(
+            self.font_color_code, parent=self,
+            title=_("Select a Color"),
+            extra_options=QColorDialog.ShowAlphaChannel,
+            callback=callback_func)
 
     def btnBackgroundColor_clicked(self):
         app = get_app()
         _ = app._tr
 
+        callback_func = functools.partial(
+            self.color_callback,
+            self.set_bg_style,
+            self.update_background_color_button)
         # Get color from user
-        col = QColorDialog.getColor(self.bg_color_code, self, _("Select a Color"),
-                                    QColorDialog.DontUseNativeDialog | QColorDialog.ShowAlphaChannel)
-
-        # Update SVG colors
-        if col.isValid():
-            self.set_bg_style(col.name(), col.alphaF())
-            self.update_background_color_button()
-
-            # Something changed, so update temp SVG
-            self.writeToFile(self.xmldoc)
-
-            # Display SVG again
-            self.display_svg()
+        log.debug("Launching color picker for %s", self.bg_color_code.name())
+        ColorPicker(
+            self.bg_color_code, parent=self,
+            title=_("Select a Color"),
+            extra_options=QColorDialog.ShowAlphaChannel,
+            callback=callback_func)
 
     def btnFont_clicked(self):
         app = get_app()
