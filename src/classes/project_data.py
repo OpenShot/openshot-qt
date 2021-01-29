@@ -41,6 +41,8 @@ from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
 
+from .keyframe_scaler import KeyframeScaler
+
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
     """ This class allows advanced searching of data structure, implements changes interface """
@@ -394,65 +396,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.app import get_app
         get_app().updates.load(self._data)
 
-    def scale_keyframe_value(self, original_value, scale_factor):
-        """Scale keyframe X coordinate by some factor, except for 1 (leave that alone)"""
-        if original_value == 1.0:
-            # This represents the first frame of a clip (so we want to maintain that)
-            return original_value
-        else:
-            # Round to nearest INT
-            return round(original_value * scale_factor)
-
     def rescale_keyframes(self, scale_factor):
         """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
            and return scaled project data without modifing the current project."""
-        log.info('Scale all keyframes by a factor of %s' % scale_factor)
-
-        # Create copy of active project data
-        data = copy.deepcopy(self._data)
-
-        # Rescale the the copied project data
-        # Loop through all clips (and look for Keyframe objects)
-        # Scale the X coordinate by factor (which represents the frame #)
-        for clip in data.get('clips', []):
-            for attribute in clip:
-                if type(clip.get(attribute)) == dict and "Points" in clip.get(attribute):
-                    for point in clip.get(attribute).get("Points"):
-                        if "co" in point:
-                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if type(clip.get(attribute)) == dict and "red" in clip.get(attribute):
-                    for color in clip.get(attribute):
-                        for point in clip.get(attribute).get(color).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-            for effect in clip.get("effects", []):
-                for attribute in effect:
-                    if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
-                        for point in effect.get(attribute).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                    if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
-                        for color in effect.get(attribute):
-                            for point in effect.get(attribute).get(color).get("Points"):
-                                if "co" in point:
-                                    point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-
-        # Loop through all effects/transitions (and look for Keyframe objects)
-        # Scale the X coordinate by factor (which represents the frame #)
-        for effect in data.get('effects', []):
-            for attribute in effect:
-                if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
-                    for point in effect.get(attribute).get("Points"):
-                        if "co" in point:
-                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
-                    for color in effect.get(attribute):
-                        for point in effect.get(attribute).get(color).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-
-        # return the copied and scaled project data
-        return data
+        #
+        log.info('Scale all keyframes by a factor of %s', scale_factor)
+        # Create a scaler instance
+        scaler = KeyframeScaler(factor=scale_factor)
+        # Create copy of active project data and scale
+        scaled = scaler(copy.deepcopy(self._data))
+        return scaled
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
