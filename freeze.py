@@ -55,11 +55,13 @@ import inspect
 import os
 import sys
 import fnmatch
+import json
 from shutil import copytree, rmtree, copy
 from cx_Freeze import setup, Executable
 import cx_Freeze
 from PyQt5.QtCore import QLibraryInfo
 import shutil
+from installer.version_parser import parse_version_info, parse_build_name
 
 
 print (str(cx_Freeze))
@@ -97,19 +99,27 @@ python_modules = ["idna.idnadata"]
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 
+# Look for optional --git-branch arg, and remove it
+git_branch_name = "develop"
+for arg in sys.argv:
+    if arg.startswith("--git-branch"):
+        sys.argv.remove(arg)
+        git_branch_name = arg.split("=")[-1].strip()
+
 # Make a copy of the src tree (temporary for naming reasons only)
+openshot_copy_path = os.path.join(PATH, "openshot_qt")
 if os.path.exists(os.path.join(PATH, "src")):
-    print("Copying modules to openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
+    print("Copying modules to openshot_qt directory: %s" % openshot_copy_path)
     # Only make a copy if the SRC directory is present (otherwise ignore this)
-    copytree(os.path.join(PATH, "src"), os.path.join(PATH, "openshot_qt"))
+    copytree(os.path.join(PATH, "src"), openshot_copy_path)
 
     # Make a copy of the launch.py script (to name it more appropriately)
     copy(os.path.join(PATH, "src", "launch.py"), os.path.join(PATH, "openshot_qt", "launch-openshot"))
 
-if os.path.exists(os.path.join(PATH, "openshot_qt")):
+if os.path.exists(openshot_copy_path):
     # Append path to system path
-    sys.path.append(os.path.join(PATH, "openshot_qt"))
-    print("Loaded modules from openshot_qt directory: %s" % os.path.join(PATH, "openshot_qt"))
+    sys.path.append(openshot_copy_path)
+    print("Loaded modules from openshot_qt directory: %s" % openshot_copy_path)
 
 # Append possible build server paths
 sys.path.insert(0, os.path.join(PATH, "build", "install-x86", "lib"))
@@ -155,15 +165,26 @@ if os.path.exists(qt_system_path):
         if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
-# Copy git log files into src files (if found)
-for project in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
-    git_log_path = os.path.join(PATH, "build", "install-x64", "share", "%s.log" % project)
-    if os.path.exists(git_log_path):
-        src_files.append((git_log_path, "settings/%s.log" % project))
-    else:
-        git_log_path = os.path.join(PATH, "build", "install-x86", "share", "%s.log" % project)
-        if os.path.exists(git_log_path):
-            src_files.append((git_log_path, "settings/%s.log" % project))
+# Copy git log files into src/settings files (if found)
+version_info = {}
+for share_name in ["install-x64", "install-x86"]:
+    share_path = os.path.join(PATH, "build", share_name, "share")
+    if os.path.exists(share_path):
+        for git_log_filename in os.listdir(share_path):
+            git_log_filepath = os.path.join(share_path, git_log_filename)
+            if os.path.isfile(git_log_filepath):
+                src_files.append((git_log_filepath, "settings/%s" % git_log_filename))
+                if os.path.splitext(git_log_filepath)[1] == "":
+                    # No extension, parse version info
+                    version_info.update(parse_version_info(git_log_filepath))
+
+# If version info found (create src/settings/version.json file)
+if version_info:
+    # Calculate build name from version info
+    version_info["build_name"] = parse_build_name(version_info, git_branch_name)
+    version_path = os.path.join(openshot_copy_path, "settings", "version.json")
+    with open(version_path, "w") as f:
+        f.write(json.dumps(version_info, indent=4))
 
 if sys.platform == "win32":
     # Define alternate terminal-based executable
@@ -193,7 +214,7 @@ if sys.platform == "win32":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
+        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
@@ -351,7 +372,7 @@ elif sys.platform == "linux":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
+        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
@@ -389,7 +410,7 @@ elif sys.platform == "darwin":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=os.path.join(PATH, "openshot_qt")))))
+        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
     # Exclude gif library which crashes on Mac
     build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
@@ -434,7 +455,7 @@ setup(name=info.PRODUCT_NAME,
 
 # Remove temporary folder (if SRC folder present)
 if os.path.exists(os.path.join(PATH, "src")):
-    rmtree(os.path.join(PATH, "openshot_qt"), True)
+    rmtree(openshot_copy_path, True)
 
 # Fix a few things on the frozen folder(s)
 if sys.platform == "darwin":
