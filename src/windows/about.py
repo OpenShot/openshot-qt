@@ -179,11 +179,21 @@ class About(QDialog):
         self.btnlicense.clicked.connect(self.load_license)
         self.btnchangelog.clicked.connect(self.load_changelog)
 
+        # Look for frozen version info
+        frozen_version_label = ""
+        version_path = os.path.join(info.PATH, "settings", "version.json")
+        if os.path.exists(version_path):
+            with open(version_path, "r", encoding="UTF-8") as f:
+                version_info = json.loads(f.read())
+                if version_info:
+                    frozen_version_label = "<br/><br/><b>%s</b><br/>Build Date: %s" % \
+                        (version_info.get('build_name'), version_info.get('date'))
+
         # Init some variables
         openshot_qt_version = _("Version: %s") % info.VERSION
         libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
         self.txtversion.setText(
-            "<b>%s</b><br/>%s" % (openshot_qt_version, libopenshot_version))
+            "<b>%s</b><br/>%s%s" % (openshot_qt_version, libopenshot_version, frozen_version_label))
         self.txtversion.setAlignment(Qt.AlignCenter)
 
         # Track metrics

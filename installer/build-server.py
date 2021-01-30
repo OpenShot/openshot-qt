@@ -39,6 +39,7 @@ import traceback
 from github3 import login
 from requests.auth import HTTPBasicAuth
 from requests import post
+from version_parser import parse_version_info, parse_build_name
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 
@@ -189,28 +190,6 @@ def upload(file_path, github_release):
     return url
 
 
-def parse_version_info(version_path):
-    """Parse version info from gitlab artifacts"""
-    # Get name of version file
-    version_name = os.path.basename(version_path)
-    version_info[version_name] = {
-        "CI_PROJECT_NAME": None,
-        "CI_COMMIT_REF_NAME": None,
-        "CI_COMMIT_SHA": None,
-        "CI_JOB_ID": None,
-        "CI_PIPELINE_ID": None,
-        }
-
-    if os.path.exists(version_path):
-        with open(version_path, "r") as f:
-            # Parse each line in f as a 'key:value' string
-            version_info[version_name].update(
-                (l.strip().split(':') for l in f.readlines()))
-    else:
-        # Fail
-        raise Exception("Missing version artifacts: %s (%s)" % (version_path, str(version_info)))
-
-
 try:
     # Validate command-line arguments
     if len(sys.argv) >= 2:
@@ -251,25 +230,17 @@ try:
         artifact_path = ""
 
     # Parse artifact version files (if found)
-    parse_version_info(os.path.join(artifact_path, "share", "libopenshot-audio"))
-    parse_version_info(os.path.join(artifact_path, "share", "libopenshot"))
-    parse_version_info(os.path.join(artifact_path, "share", "openshot-qt"))
+    version_info.update(parse_version_info(os.path.join(artifact_path, "share", "libopenshot-audio")))
+    version_info.update(parse_version_info(os.path.join(artifact_path, "share", "libopenshot")))
+    version_info.update(parse_version_info(os.path.join(artifact_path, "share", "openshot-qt")))
     output(str(version_info))
 
     # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
-    openshot_qt_git_desc = ""
+    openshot_qt_git_desc = parse_build_name(version_info, git_branch_name)
     needs_upload = True
 
-    pipeline_id = version_info.get('openshot-qt').get('CI_PIPELINE_ID')
-    if git_branch_name.startswith("release"):
-        # Name release candidates with pipeline ID for uniqueness
-        openshot_qt_git_desc = "OpenShot-v%s-release-candidate-%s" % (
-            info.VERSION, pipeline_id)
-        # Get daily git_release object
-        github_release = get_release(repo, "daily")
-    elif git_branch_name == "master":
+    if git_branch_name == "master":
         # Get official version release (i.e. v2.1.0, v2.x.x)
-        openshot_qt_git_desc = "OpenShot-v%s" % info.VERSION
         github_release_name = "v%s" % info.VERSION
         github_release = get_release(repo, github_release_name)
 
@@ -278,16 +249,9 @@ try:
             # Create a new release if one if missing
             github_release = repo.create_release(github_release_name, target_commitish="master", prerelease=True)
     else:
-        # Generate unique name using library commit SHAs and pipeline ID
-        openshot_qt_git_desc = "OpenShot-v%s-%s-%s-%s" % (
-            info.VERSION,
-            pipeline_id,
-            version_info.get('libopenshot').get('CI_COMMIT_SHA')[:8],
-            version_info.get('libopenshot-audio').get('CI_COMMIT_SHA')[:8],
-            )
         # Get daily git_release object
         github_release = get_release(repo, "daily")
-        if git_branch_name != "develop":
+        if git_branch_name != "develop" and not git_branch_name.startswith("release"):
             # Only upload develop-branch pipelines as Daily Builds
             needs_upload = False
 

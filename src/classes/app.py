@@ -32,6 +32,7 @@ import os
 import platform
 import sys
 import traceback
+import json
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
@@ -117,6 +118,15 @@ class OpenShotApp(QApplication):
             log.info("python version: %s" % platform.python_version())
             log.info("qt5 version: %s" % QT_VERSION_STR)
             log.info("pyqt5 version: %s" % PYQT_VERSION_STR)
+
+            # Look for frozen version info
+            version_path = os.path.join(info.PATH, "settings", "version.json")
+            if os.path.exists(version_path):
+                with open(version_path, "r", encoding="UTF-8") as f:
+                    version_info = json.loads(f.read())
+                    log.info("Frozen version info from build server:\n%s" %
+                             json.dumps(version_info, indent=4, sort_keys=True))
+
         except Exception:
             log.debug("Error displaying dependency/system details", exc_info=1)
 
