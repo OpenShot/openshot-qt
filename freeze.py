@@ -484,7 +484,7 @@ elif sys.platform == "linux":
                          "locales/",
                          "libQt5WebKit.so.5"]
                 for path in paths:
-                    full_path = os.path.join(build_path, path)
+                    full_path = os.path.join(frozen_path, path)
                     for remove_path in glob.glob(full_path):
                         if os.path.isfile(remove_path):
                             log.info("Removing unneeded file: %s" % remove_path)
