@@ -977,7 +977,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.region_enabled = False
         else:
             self.region_enabled = True
-        
+
         get_app().window.refreshFrameSignal.emit()
 
     def resizeEvent(self, event):
@@ -995,16 +995,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Trying to find the closest even number to the requested aspect ratio
         # so that both width and height are divisible by 2. This is to prevent some
         # strange phantom scaling lines on the edges of the preview window.
-        ratio = float(get_app().project.get("width")) / float(get_app().project.get("height"))
-        width = round(self.delayed_size.width() / 2.0) * 2
+
+        # Scale project size (with aspect ratio) to the delayed widget size
+        project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
+        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
+
+        # Calculate height/width divisible by 2
+        ratio = float(project_size.width()) / float(project_size.height())
+        width = round(project_size.width() / 2.0) * 2
         height = (round(width / ratio) / 2.0) * 2
 
-        # Override requested size
-        self.delayed_size.setWidth(width)
-        self.delayed_size.setHeight(height)
-
         # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(self.delayed_size)
+        self.win.MaxSizeChanged.emit(project_size)
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
