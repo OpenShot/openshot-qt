@@ -26,9 +26,13 @@
  """
 
 import os
+import sys
 import json
 import datetime
-from classes import info
+
+PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+sys.path.append(os.path.join(PATH, 'src', 'classes'))
+import info
 
 
 def parse_version_info(version_path):
