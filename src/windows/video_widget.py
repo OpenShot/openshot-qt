@@ -29,7 +29,7 @@ from PyQt5.QtCore import (
     Qt, QCoreApplication, QPointF, QPoint, QRect, QRectF, QSize, QMutex, QTimer
 )
 from PyQt5.QtGui import (
-    QTransform, QPainter, QPixmap, QColor, QPen, QBrush, QCursor,
+    QTransform, QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
 
