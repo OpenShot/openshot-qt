@@ -52,6 +52,7 @@
 #  signtool sign /v /f OSStudiosSPC.pfx "OpenShot Video Editor-2.0.0-win32.msi"
 
 import inspect
+import glob
 import os
 import sys
 import fnmatch
@@ -469,3 +470,25 @@ if sys.platform == "darwin":
             elif frozen_path.endswith(".app"):
                 fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
                 print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+
+elif sys.platform == "linux":
+    # Linux issues with frozen folder
+    # We need to remove some excess folders/files that are unneeded bloat
+    build_path = os.path.join(PATH, "build")
+    for frozen_path in os.listdir(build_path):
+            if frozen_path.startswith("exe"):
+                paths = ["lib/openshot_qt/",
+                         "lib/*opencv*",
+                         "lib/libopenshot*",
+                         "translations/",
+                         "locales/",
+                         "libQt5WebKit.so.5"]
+                for path in paths:
+                    full_path = os.path.join(build_path, frozen_path, path)
+                    for remove_path in glob.glob(full_path):
+                        if os.path.isfile(remove_path):
+                            log.info("Removing unneeded file: %s" % remove_path)
+                            os.unlink(remove_path)
+                        elif os.path.isdir(remove_path):
+                            log.info("Removing unneeded folder: %s" % remove_path)
+                            rmtree(remove_path)
