@@ -438,6 +438,40 @@ class PropertiesTableView(QTableView):
                             })
                 self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})  
 
+            # Handle property to set the Tracked Object's child clip
+            if property_key == "child_clip_id" and not self.choices:
+                clip_choices = [{
+                    "name": "None",
+                    "value": "None",
+                    "selected": False,
+                    "icon": QIcon()
+                }]
+                # Instantiate the timeline
+                timeline_instance = get_app().window.timeline_sync.timeline
+                # Loop through timeline's clips
+                for clip_instance in timeline_instance.Clips():
+                    clip_instance_id = clip_instance.Id()
+                    # Avoid attach a clip to it's own object
+                    if (clip_instance_id != clip_id):
+                        # Clip's propertyJSON data
+                        clip_instance_data = Clip.get(id = clip_instance_id).data
+                        # Path to the clip file
+                        clip_instance_path = clip_instance_data["reader"]["path"]
+                        # Iterate through all clip files on the timeline
+                        for clip_number in range(self.files_model.rowCount()):
+                            clip_index = self.files_model.index(clip_number, 0)
+                            clip_name = clip_index.sibling(clip_number, 1).data()
+                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
+                            # Check if the timeline's clip file name matches the clip the user selected
+                            if (clip_path == clip_instance_path):
+                                # Generate the clip icon to show in the selection menu
+                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
+                                clip_choices.append({"name": clip_instance_data["title"],
+                                              "value": clip_instance_id,
+                                              "selected": False,
+                                              "icon": clip_instance_icon})
+                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
+
             # Handle clip attach options
             if property_key == "parentObjectId" and not self.choices:
                 # Add all Clips as choices - initialize with None
