@@ -213,7 +213,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             scale = self.transforming_clip.data['scale']
 
             # Set scale as STRETCH if the clip is attached to an object
-            if (raw_properties.get('parentObjectId').get('value') != 'None'):
+            if (raw_properties.get('parentObjectId').get('memo') != 'None'):
                 scale = openshot.SCALE_STRETCH
 
             if scale == openshot.SCALE_FIT:
@@ -311,14 +311,16 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 if self.transforming_effect_object.info.has_tracked_object:
                     # Get properties of clip at current frame
                     raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
-                    # Get the selected bounding box values
-                    rotation = raw_properties_effect['rotation']['value']
-                    x1 = raw_properties_effect['x1']['value']
-                    y1 = raw_properties_effect['y1']['value']
-                    x2 = raw_properties_effect['x2']['value']
-                    y2 = raw_properties_effect['y2']['value']
-                    self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
-                        x1, y1, x2, y2, rotation)
+                    # Check if the tracked object is visible in this frame
+                    if raw_properties_effect['visible']['value'] == 1:
+                        # Get the selected bounding box values
+                        rotation = raw_properties_effect['rotation']['value']
+                        x1 = raw_properties_effect['x1']['value']
+                        y1 = raw_properties_effect['y1']['value']
+                        x2 = raw_properties_effect['x2']['value']
+                        y2 = raw_properties_effect['y2']['value']
+                        self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
+                            x1, y1, x2, y2, rotation)
             else:
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
