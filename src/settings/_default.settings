@@ -423,14 +423,6 @@
     "restart": true
   },
   {
-    "value": true,
-    "title": "Process Video Frames in Parallel (Experimental)",
-    "type": "bool",
-    "restart": false,
-    "category": "Performance",
-    "setting": "omp_threads_enabled"
-  },
-  {
     "min": 0,
     "max": 128,
     "value": 12,

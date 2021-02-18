@@ -67,7 +67,7 @@ class Export(QDialog):
 
     ExportStarted = pyqtSignal(str, int, int)
     ExportFrame = pyqtSignal(str, int, int, int, str)
-    ExportEnded = pyqtSignal(str)        
+    ExportEnded = pyqtSignal(str)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -111,7 +111,6 @@ class Export(QDialog):
         self.txtChannels.setVisible(False)
 
         # Set OMP thread disabled flag (for stability)
-        openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
 
         project_timeline = get_app().window.timeline_sync.timeline
@@ -1012,12 +1011,6 @@ class Export(QDialog):
         # Clear all cache
         self.timeline.ClearAllCache()
 
-        # Re-set OMP thread enabled flag
-        if self.s.get("omp_threads_enabled"):
-            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
-        else:
-            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
-
         # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
@@ -1065,14 +1058,6 @@ class Export(QDialog):
             if result == QMessageBox.No:
                 # Resume export
                 return
-
-        # Re-set OMP thread enabled flag
-        # NOTE: This is always called when closing the export modal, and thus
-        # the keyframes are always scaled back to the original FPS if needed.
-        if self.s.get("omp_threads_enabled"):
-            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
-        else:
-            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
 
         # Return scale mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False

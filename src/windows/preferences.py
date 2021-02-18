@@ -485,14 +485,6 @@ class Preferences(QDialog):
                 # Stop autosave timer
                 get_app().window.auto_save_timer.stop()
 
-        elif param["setting"] == "omp_threads_enabled":
-            if (state == Qt.Checked):
-                # Enable OMP multi-threading
-                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
-            else:
-                # Disable OMP multi-threading
-                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
-
         # Check for restart
         self.check_for_restart(param)
 

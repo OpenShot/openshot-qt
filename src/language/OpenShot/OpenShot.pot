@@ -2231,10 +2231,6 @@ msgstr ""
 msgid "Debug Mode (Verbose)"
 msgstr ""
 
-#: Settings for omp_threads_enabled
-msgid "Process Video Frames in Parallel (Experimental)"
-msgstr ""
-
 #: Settings for debug-port
 msgid "Debug Mode (Port)"
 msgstr ""
