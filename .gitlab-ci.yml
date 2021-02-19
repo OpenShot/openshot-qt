@@ -142,6 +142,6 @@ deployer:
   except:
     - tags
   only:
-    - release*
+    - /^release.*$/
   tags:
     - linux-bionic
