@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - publish
 
 linux-builder:
   stage: build
@@ -135,9 +136,28 @@ deployer:
     - deploy/*
   script:
     - mkdir -p deploy;
-    - touch deploy/TEST;
+    - touch deploy/TEST-DEPLOY;
     - ls
     - echo "Deploy me please"
+  when: manual
+  except:
+    - tags
+  only:
+    - /^release.*$/
+  tags:
+    - linux-bionic
+
+publisher:
+  stage: publish
+  artifacts:
+    expire_in: 4 weeks
+    paths:
+    - publish/*
+  script:
+    - mkdir -p publish;
+    - touch publish/TEST-PUBLISH;
+    - ls
+    - echo "Publish me please"
   when: manual
   except:
     - tags
