@@ -239,21 +239,11 @@ try:
     openshot_qt_git_desc = parse_build_name(version_info, git_branch_name)
     needs_upload = True
 
-    if git_branch_name == "master":
-        # Get official version release (i.e. v2.1.0, v2.x.x)
-        github_release_name = "v%s" % info.VERSION
-        github_release = get_release(repo, github_release_name)
-
-        # If no release is found, create a new one
-        if not github_release:
-            # Create a new release if one if missing
-            github_release = repo.create_release(github_release_name, target_commitish="master", prerelease=True)
-    else:
-        # Get daily git_release object
-        github_release = get_release(repo, "daily")
-        if git_branch_name != "develop" and not git_branch_name.startswith("release"):
-            # Only upload develop-branch pipelines as Daily Builds
-            needs_upload = False
+    # Get daily git_release object
+    github_release = get_release(repo, "daily")
+    if git_branch_name != "develop" and not git_branch_name.startswith("release"):
+        # Only upload develop-branch pipelines as Daily Builds
+        needs_upload = False
 
     # Output git description
     output("git description of openshot-qt-git: %s" % openshot_qt_git_desc)
