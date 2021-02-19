@@ -1,8 +1,9 @@
 stages:
-  - build-openshot-qt
+  - build
+  - deploy
 
 linux-builder:
-  stage: build-openshot-qt
+  stage: build
   artifacts:
     expire_in: 4 weeks
     paths:
@@ -32,7 +33,7 @@ linux-builder:
     - linux-bionic
 
 mac-builder:
-  stage: build-openshot-qt
+  stage: build
   artifacts:
     expire_in: 4 weeks
     paths:
@@ -72,7 +73,7 @@ mac-builder:
     - mac
 
 windows-builder-x64:
-  stage: build-openshot-qt
+  stage: build
   artifacts:
     expire_in: 4 weeks
     paths:
@@ -99,7 +100,7 @@ windows-builder-x64:
     - windows
 
 windows-builder-x86:
-  stage: build-openshot-qt
+  stage: build
   artifacts:
     expire_in: 4 weeks
     paths:
@@ -126,3 +127,21 @@ windows-builder-x86:
   tags:
     - windows
 
+deployer:
+  stage: deploy
+  artifacts:
+    expire_in: 4 weeks
+    paths:
+    - deploy/*
+  script:
+    - mkdir -p deploy;
+    - touch deploy/TEST;
+    - ls
+    - echo "Deploy me please"
+  when: manual
+  except:
+    - tags
+  only:
+    - release*
+  tags:
+    - linux-bionic
