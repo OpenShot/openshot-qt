@@ -73,7 +73,7 @@ class TimelineModel():
 
             # Look for friendly name attribute (optional)
             name = filename
-            if 'name' in file.data.keys():
+            if 'name' in file.data:
                 name = file.data['name']
 
             # Append thumbnail

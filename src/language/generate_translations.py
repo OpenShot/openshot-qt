@@ -189,9 +189,9 @@ for object in objects:
     # Loop through props
     for key in props.keys():
         object = props[key]
-        if "name" in object.keys():
+        if "name" in object:
             effects_text[object["name"]] = "libopenshot (Clip Properties)"
-        if "choices" in object.keys():
+        if "choices" in object:
             for choice in object["choices"]:
                 effects_text[choice["name"]] = "libopenshot (Clip Properties)"
 

@@ -216,10 +216,10 @@ class AddToTimeline(QDialog):
             start_time = 0
             end_time = new_clip["reader"]["duration"]
 
-            if 'start' in file.data.keys():
+            if 'start' in file.data:
                 start_time = file.data['start']
                 new_clip["start"] = start_time
-            if 'end' in file.data.keys():
+            if 'end' in file.data:
                 end_time = file.data['end']
                 new_clip["end"] = end_time
 

@@ -188,7 +188,7 @@ class FilesTreeView(QTreeView):
         else:
             f.data["name"] = os.path.basename(f.data["path"])
 
-        if "tags" in f.data.keys():
+        if "tags" in f.data:
             if tags != f.data["tags"]:
                 f.data["tags"] = tags
         elif tags:

@@ -83,10 +83,10 @@ class FileProperties(QDialog):
         fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
 
         tags = ""
-        if "tags" in self.file.data.keys():
+        if "tags" in self.file.data:
             tags = self.file.data["tags"]
         name = filename
-        if "name" in self.file.data.keys():
+        if "name" in self.file.data:
             name = self.file.data["name"]
 
         # Populate fields

@@ -41,7 +41,7 @@ def fix_rpath(PATH):
            # Loop through all dependencies of each library/executable
            raw_output = subprocess.Popen(["oTool", "-L", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
            for output in raw_output.split("\n")[1:-1]:
-               if output and not "is not an object file" in output and ".o):" not in output:
+               if output and "is not an object file" not in output and ".o):" not in output:
                    dependency_path = output.split('\t')[1].split(' ')[0]
                    dependency_version = output.split('\t')[1].split(' (')[1].replace(')', '')
                    dependency_base_path, dependency_name = os.path.split(dependency_path)
