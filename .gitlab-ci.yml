@@ -21,12 +21,12 @@ linux-builder:
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID" > "build/install-x64/share/$CI_PROJECT_NAME"
-    - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
+    - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - cd doc; make html SPHINXOPTS="-D html_theme_options.analytics_id=UA-4381101-5"; cd ..;
     - ~/auto-update-sphinx "$CI_PROJECT_DIR/build" "$CI_COMMIT_REF_NAME"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
     - for dir in "build/*/"; do /bin/sh ./installer/mangle-hw-libs.sh $(realpath "${dir}"); done 
-    - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
+    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   except:
   - tags
@@ -64,9 +64,9 @@ mac-builder:
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - export DYLD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:DYLD_LIBRARY_PATH
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID" > "build/install-x64/share/$CI_PROJECT_NAME"
-    - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
+    - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py bdist_mac --git-branch=$CI_COMMIT_REF_NAME --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
-    - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
+    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   except:
   - tags
@@ -91,9 +91,9 @@ windows-builder-x64:
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\usr\lib;C:\msys64\usr\lib\site-packages\;C:\msys64\mingw64\lib\python3.7\;C:\msys64\mingw64\lib\python3.7\site-packages\;C:\msys64\mingw64\lib\python3.7\site-packages\PyQt5;";
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
-    - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
+    - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
-    - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
+    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
   when: always
   except:
   - tags
@@ -118,10 +118,10 @@ windows-builder-x86:
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;C:\msys32\usr\lib;C:\msys32\usr\lib\site-packages\;C:\msys32\mingw32\lib\python3.7\;C:\msys32\mingw32\lib\python3.7\site-packages\;C:\msys32\mingw32\lib\python3.7\site-packages\PyQt5;";
     - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
-    - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"%C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x86/share/$CI_PROJECT_NAME.log"
+    - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x86/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
     - editbin /LARGEADDRESSAWARE "$CI_PROJECT_DIR\build\exe.mingw-3.7\openshot-qt.exe"
-    - python3 -u installer/build-server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME"
+    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$S3_ACCESS_KEY" "$S3_SECRET_KEY" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME"
   when: always
   except:
   - tags
@@ -133,12 +133,9 @@ deployer:
   artifacts:
     expire_in: 4 weeks
     paths:
-    - deploy/*
+    - build\build-server.log
   script:
-    - mkdir -p deploy;
-    - touch deploy/TEST-DEPLOY;
-    - ls
-    - echo "Deploy me please"
+    - python3 -u installer/deploy.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "$CI_COMMIT_REF_NAME" "False"
   when: manual
   except:
     - tags
@@ -152,12 +149,9 @@ publisher:
   artifacts:
     expire_in: 4 weeks
     paths:
-    - publish/*
+    - build\build-server.log
   script:
-    - mkdir -p publish;
-    - touch publish/TEST-PUBLISH;
-    - ls
-    - echo "Publish me please"
+    - python3 -u installer/deploy.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "$CI_COMMIT_REF_NAME" "True"
   when: manual
   except:
     - tags
