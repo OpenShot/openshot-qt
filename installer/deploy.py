@@ -39,7 +39,7 @@ from build_server import output, run_command, error, truncate, zulip_upload_log,
                          errors_detected, log, version_info, parse_version_info
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
-RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)\.')
+RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?-x86[_64]*)')
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
