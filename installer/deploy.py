@@ -30,6 +30,7 @@ import sys
 import datetime
 import platform
 import traceback
+import re
 from github3 import login
 from requests.auth import HTTPBasicAuth
 from requests import post, get
@@ -37,6 +38,7 @@ from build_server import output, run_command, error, truncate, zulip_upload_log,
                          errors_detected, log, version_info, parse_version_info
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)\.')
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
@@ -163,9 +165,23 @@ if __name__ == "__main__":
             # NOTE: ONLY for `openshot-qt` repo
             # github_release_url = github_release.html_url
             github_release = releases.get('openshot-qt')
-            for artifact_name in os.listdir(artifact_dir):
-                artifact_path = os.path.join(artifact_dir, artifact_name)
-                if os.path.exists(artifact_path) and os.path.splitext(artifact_name)[-1] in ['.exe', '.dmg', '.AppImage', '.torrent']:
+            for artifact_orig_name in os.listdir(artifact_dir):
+                artifact_path_orig = os.path.join(artifact_dir, artifact_orig_name)
+                match = RELEASE_NAME_REGEX.match(artifact_orig_name)
+                if match and match.groups():
+                    # Rename artifact before uploading
+                    file_name_pattern = match.groups()[0]
+                    artifact_name = artifact_orig_name.replace(file_name_pattern, "")
+                    artifact_path = os.path.join(artifact_dir, artifact_name)
+                    os.rename(artifact_path_orig, artifact_path)
+                else:
+                    # Leave artifact with the original name
+                    artifact_name = artifact_orig_name
+                    artifact_path = artifact_path_orig
+                artifact_base, artifact_ext = os.path.splitext(artifact_name)
+
+                if os.path.exists(artifact_path) and artifact_ext in ['.exe', '.dmg', '.AppImage', '.torrent',
+                                                                      '.verify', '.sha256sum']:
                     # Valid artifact/installer - Upload to GitHub Release
                     output("GitHub: Uploading %s to GitHub Release: %s" % (artifact_path, github_release.tag_name))
                     download_url = upload(artifact_path, github_release)

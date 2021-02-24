@@ -32,7 +32,6 @@ import datetime
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
-import info
 
 
 def parse_version_info(version_path):
@@ -68,9 +67,6 @@ def parse_build_name(version_info, git_branch_name=""):
     if git_branch_name.startswith("release"):
         # Release candidate
         release_label = "release-candidate"
-    elif git_branch_name == "master":
-        # Release
-        release_label = ""
     else:
         # Daily
         release_label = "daily"
@@ -80,7 +76,7 @@ def parse_build_name(version_info, git_branch_name=""):
         if release_label:
             # Daily and Release Candidates
             build_name = "OpenShot-v%s-%s-%s-%s-%s" % (
-                info.VERSION,
+                version_info.get('openshot-qt', {}).get('VERSION'),
                 release_label,
                 version_info.get('openshot-qt', {}).get('CI_PIPELINE_ID', 'NA'),
                 version_info.get('libopenshot', {}).get('CI_COMMIT_SHA', 'NA')[:8],
@@ -88,7 +84,7 @@ def parse_build_name(version_info, git_branch_name=""):
             )
         else:
             # Official releases
-            build_name = "OpenShot-v%s" % info.VERSION
+            build_name = "OpenShot-v%s" % version_info.get('openshot-qt', {}).get('VERSION')
 
     return build_name
 
