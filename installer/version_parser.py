@@ -47,6 +47,8 @@ def parse_version_info(version_path):
         "CI_COMMIT_SHA": None,
         "CI_JOB_ID": None,
         "CI_PIPELINE_ID": None,
+        "VERSION": None,
+        "SO": None,
         }
 
     if os.path.exists(version_path):

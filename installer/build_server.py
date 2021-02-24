@@ -226,9 +226,8 @@ if __name__ == "__main__":
             artifact_path = ""
 
         # Parse artifact version files (if found)
-        version_info.update(parse_version_info(os.path.join(artifact_path, "share", "libopenshot-audio")))
-        version_info.update(parse_version_info(os.path.join(artifact_path, "share", "libopenshot")))
-        version_info.update(parse_version_info(os.path.join(artifact_path, "share", "openshot-qt")))
+        for repo_name in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
+            version_info.update(parse_version_info(os.path.join(artifact_path, "share", repo_name)))
         output(str(version_info))
 
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
