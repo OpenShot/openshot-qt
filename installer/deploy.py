@@ -31,6 +31,7 @@ import datetime
 import platform
 import traceback
 import re
+import urllib3
 from github3 import login
 from requests.auth import HTTPBasicAuth
 from requests import post, get
@@ -42,6 +43,9 @@ RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)\.')
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
+
+# Disable SSL warnings
+urllib3.disable_warnings()
 
 
 if __name__ == "__main__":
@@ -180,14 +184,20 @@ if __name__ == "__main__":
                     artifact_path = artifact_path_orig
                 artifact_base, artifact_ext = os.path.splitext(artifact_name)
 
-                if os.path.exists(artifact_path) and artifact_ext in ['.exe', '.dmg', '.AppImage', '.torrent',
+                if artifact_ext == '.torrent':
+                    # Delete torrent and continue (we'll recreate the torrents below when needed)
+                    # The artifact torrents have the incorrect URL inside them
+                    os.unlink(artifact_path)
+                    continue
+
+                if os.path.exists(artifact_path) and artifact_ext in ['.exe', '.dmg', '.AppImage',
                                                                       '.verify', '.sha256sum']:
                     # Valid artifact/installer - Upload to GitHub Release
                     output("GitHub: Uploading %s to GitHub Release: %s" % (artifact_path, github_release.tag_name))
                     download_url = upload(artifact_path, github_release)
 
-                    # Create shasum for installer
-                    if not artifact_name.endswith(".torrent"):
+                    # Create shasum and torrents for installers-only
+                    if artifact_ext in ['.exe', '.dmg', '.AppImage']:
                         output("Generating file hash for %s" % artifact_path)
                         shasum_output = ''
                         for line in run_command('shasum -a 256 "%s"' % artifact_name, artifact_dir):
@@ -229,6 +239,22 @@ if __name__ == "__main__":
                             f.write('You should get the following output:%s' % os.linesep)
                             f.write('  %s: OK' % artifact_name)
                         upload(sha256sum_instructions_path, github_release)
+
+                        # Create torrent and upload
+                        torrent_path = "%s.torrent" % artifact_path
+                        torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (github_release.tag_name, download_url, "%s.torrent" % artifact_name, artifact_name)
+                        torrent_output = ""
+                        for line in run_command(torrent_command, artifact_dir):
+                            output(line)
+                            if line:
+                                torrent_output = line.decode('UTF-8').strip()
+
+                        if not torrent_output.endswith("Writing metainfo file... done."):
+                            # Torrent failed
+                            raise Exception("Failed to create .torrent for %s" % download_url)
+                        else:
+                            # Torrent succeeded! Upload the torrent to github
+                            url = upload(torrent_path, github_release)
 
             # Submit blog post (if it doesn't already exist) (in draft mode)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
