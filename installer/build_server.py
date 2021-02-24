@@ -172,6 +172,7 @@ def upload(file_path, github_release):
             # Attempt the upload
             with open(file_path, "rb") as f:
                 # Upload to GitHub
+                output("GitHub: Uploading asset from %s: %s" % (github_release.tag_name, file_name))
                 asset = github_release.upload_asset("application/octet-stream", file_name, f)
                 url = asset.to_json()["browser_download_url"]
             # Successfully uploaded!

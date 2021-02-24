@@ -169,7 +169,8 @@ if __name__ == "__main__":
             # NOTE: ONLY for `openshot-qt` repo
             # github_release_url = github_release.html_url
             github_release = releases.get('openshot-qt')
-            for artifact_orig_name in os.listdir(artifact_dir):
+            for artifact_orig_name in os.listdir(artifact_dir).copy():
+                print("--- %s" % artifact_orig_name)
                 artifact_path_orig = os.path.join(artifact_dir, artifact_orig_name)
                 match = RELEASE_NAME_REGEX.match(artifact_orig_name)
                 if match and match.groups():
@@ -184,14 +185,13 @@ if __name__ == "__main__":
                     artifact_path = artifact_path_orig
                 artifact_base, artifact_ext = os.path.splitext(artifact_name)
 
-                if artifact_ext == '.torrent':
+                if artifact_ext in ['.torrent', '.verify', '.sha256sum']:
                     # Delete torrent and continue (we'll recreate the torrents below when needed)
                     # The artifact torrents have the incorrect URL inside them
                     os.unlink(artifact_path)
                     continue
 
-                if os.path.exists(artifact_path) and artifact_ext in ['.exe', '.dmg', '.AppImage',
-                                                                      '.verify', '.sha256sum']:
+                if os.path.exists(artifact_path) and artifact_ext in ['.exe', '.dmg', '.AppImage']:
                     # Valid artifact/installer - Upload to GitHub Release
                     output("GitHub: Uploading %s to GitHub Release: %s" % (artifact_path, github_release.tag_name))
                     download_url = upload(artifact_path, github_release)
