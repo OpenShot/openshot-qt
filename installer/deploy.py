@@ -241,8 +241,9 @@ if __name__ == "__main__":
                         upload(sha256sum_instructions_path, github_release)
 
                         # Create torrent and upload
-                        torrent_path = "%s.torrent" % artifact_path
-                        torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (github_release.tag_name, download_url, "%s.torrent" % artifact_name, artifact_name)
+                        torrent_name = "%s.torrent" % artifact_name
+                        torrent_path = os.path.join(artifact_dir, torrent_name)
+                        torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (github_release.tag_name, download_url, torrent_name, artifact_dir)
                         torrent_output = ""
                         for line in run_command(torrent_command, artifact_dir):
                             output(line)
