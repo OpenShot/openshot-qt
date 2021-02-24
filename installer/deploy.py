@@ -216,12 +216,16 @@ if __name__ == "__main__":
 
             # Submit blog post (if it doesn't already exist) (in draft mode)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            post("http://www.openshot.org/api/release/submit/", auth=auth, data={ "version": github_release.tag_name,
+            r = post("https://www.openshot.org/api/release/submit/", auth=auth, data={ "version": github_release.tag_name,
                                                                  "changelog": combined_log_markdown })
+            if not r.ok:
+                raise Exception("HTTP post to openshot.org/api/release/submit/ failed: %s (user: %s)" % (r.status_code, os.getenv('OPENSHOT_ORG_USER')))
         else:
             # Publish the release (make new version visible on openshot.org, and make blog post visible)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            post("http://www.openshot.org/api/release/publish/", auth=auth, data={"version": github_release.tag_name })
+            r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": github_release.tag_name })
+            if not r.ok:
+                raise Exception("HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s)" % (r.status_code, os.getenv('OPENSHOT_ORG_USER')))
 
             for repo_name in repo_names:
                 # If NO release is found, create a new one
