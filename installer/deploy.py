@@ -82,7 +82,8 @@ if __name__ == "__main__":
                 script_mode = "publish"
 
         # Start log
-        output("%s %s Log for %s" % (platform.system(), script_mode, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        output("%s %s Log for %s" % (platform.system(), script_mode,
+                                     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
         # Detect artifact folder (if any)
         artifact_dir = os.path.join(PATH, "build")
@@ -119,7 +120,8 @@ if __name__ == "__main__":
                 releases[repo_name] = get_release(repos.get(repo_name), github_release_name)
                 if releases.get(repo_name) and releases.get(repo_name).prerelease is False:
                     raise Exception("GitHub release for version %s is already released. Did we forget to bump a "
-                                    "version? (repo: %s, branch: %s)" % (github_release_name, repo_name, git_branch_name))
+                                    "version? (repo: %s, branch: %s)" % (github_release_name, repo_name,
+                                                                         git_branch_name))
             else:
                 # ignore all branches that don't start with 'release*'
                 raise Exception("%s only allowed for branch names that start with 'release*'"
@@ -268,9 +270,12 @@ if __name__ == "__main__":
                                 (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
                                  r.json().get('message', 'no error message found')))
         else:
+            # Get release object
+            openshot_qt_version = version_info.get('openshot-qt', {}).get('VERSION', 'N/A')
+
             # Publish the release (make new version visible on openshot.org, and make blog post visible)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": github_release.tag_name })
+            r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": openshot_qt_version })
             if not r.ok:
                 raise Exception("HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s): %s" %
                                 (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
@@ -284,7 +289,8 @@ if __name__ == "__main__":
                     # Publish github release also
                     github_release.edit(prerelease=False)
                 else:
-                    raise Exception("Cannot publish missing GitHub release: %s" % github_release.tag_name)
+                    raise Exception("Cannot publish missing GitHub release: %s, version: %s" %
+                                    (repo_name, openshot_qt_version))
 
             # Verify download links on openshot.org are correct (and include the new release version)
             r = get("https://www.openshot.org/download/")
@@ -300,9 +306,9 @@ if __name__ == "__main__":
                         raise Exception("Validation of URL FAILED: %s, %s, %s" % (url, r.status_code, r.reason))
 
                     # Validate the current version is found in each URL
-                    if version_info.get('openshot-qt', {}).get('VERSION', 'N/A') not in url:
+                    if openshot_qt_version not in url:
                         raise Exception("Validation of URL FAILED. Missing version %s: %s, %s, %s" %
-                                        (version_info.get('openshot-qt', {}).get('VERSION', 'N/A'), url,
+                                        (openshot_qt_version, url,
                                          r.status_code, r.reason))
             else:
                 raise Exception("Failed to GET openshot.org/download for URL validation: %s" % r.status_code)
@@ -314,10 +320,11 @@ if __name__ == "__main__":
     if not errors_detected:
         output("Successfully completed %s script!" % script_mode)
         zulip_upload_log(zulip_token, log,
-                         "%s: %s **success** log for *%s*" % (platform.system(), script_mode, git_branch_name),
+                         "%s: %s **success** log" % (platform.system(), script_mode),
                          ":congratulations:  successful %s" % script_mode)
     else:
         # Report any errors detected
         output("%s script failed!" % script_mode)
-        zulip_upload_log(zulip_token, log, "%s: %s error log for *%s*" % (platform.system(), script_mode, git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
+        zulip_upload_log(zulip_token, log, "%s: %s error log" % (platform.system(), script_mode),
+                         ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
         exit(1)
