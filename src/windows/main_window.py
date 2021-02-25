@@ -2927,12 +2927,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = ""
 
-        # Set OMP thread enabled flag (for stability)
-        if s.get("omp_threads_enabled"):
-            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
-        else:
-            openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
-
         # Set scaling mode to lower quality scaling (for faster previews)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
