@@ -34,12 +34,14 @@ import re
 import urllib3
 from github3 import login
 from requests.auth import HTTPBasicAuth
-from requests import post, get
+from requests import post, get, head
 from build_server import output, run_command, error, truncate, zulip_upload_log, get_release, upload, \
                          errors_detected, log, version_info, parse_version_info
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)-x86[_64]*')
+DOWNLOAD_PAGE_URLS = re.compile(r'"(//github.com/OpenShot/openshot-qt/releases/download/v.*?/OpenShot-.*?)"',
+                                re.MULTILINE)
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
@@ -266,6 +268,27 @@ if __name__ == "__main__":
                                 (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
                                  r.json().get('message', 'no error message found')))
         else:
+            # Verify download links on openshot.org are correct (and include the new release version)
+            r = get("https://www.openshot.org/download/")
+            if r.ok:
+                # Find all release download URLs on openshot.org
+                urls = DOWNLOAD_PAGE_URLS.findall(r.content.decode('UTF-8'))
+                for url in urls:
+                    # Only GET the header of each URL, to validate it is valid and found
+                    r = head("https:" + url)
+                    if r.ok and r.reason == "Found":
+                        output("Validation of URL successful: %s" % url)
+                    else:
+                        raise Exception("Validation of URL FAILED: %s, %s, %s" % (url, r.status_code, r.reason))
+
+                    # Validate the current version is found in each URL
+                    if version_info.get('openshot-qt', {}).get('VERSION', 'N/A') not in url:
+                        raise Exception("Validation of URL FAILED. Missing version %s: %s, %s, %s" %
+                                        (version_info.get('openshot-qt', {}).get('VERSION', 'N/A'), url,
+                                         r.status_code, r.reason))
+            else:
+                raise Exception("Failed to GET openshot.org/download for URL validation: %s" % r.status_code)
+
             # Publish the release (make new version visible on openshot.org, and make blog post visible)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
             r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": github_release.tag_name })
@@ -274,6 +297,7 @@ if __name__ == "__main__":
                                 (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
                                  r.json().get('message', 'no error message found')))
 
+            # Publish GitHub Release objects (in all 3 repos)
             for repo_name in repo_names:
                 # If NO release is found, create a new one
                 github_release = releases.get(repo_name)

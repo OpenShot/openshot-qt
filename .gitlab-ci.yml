@@ -137,7 +137,10 @@ deployer:
   artifacts:
     expire_in: 4 weeks
     paths:
-    - build\build-server.log
+    - build/*.log
+    - build/*.sha256sum
+    - build/*.verify
+    - build/*.torrent
   script:
     - python3 -u installer/deploy.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "False"
   when: manual
@@ -153,7 +156,7 @@ publisher:
   artifacts:
     expire_in: 4 weeks
     paths:
-    - build\build-server.log
+    - build/*.log
   script:
     - python3 -u installer/deploy.py "$SLACK_TOKEN" "$GITHUB_USER" "$GITHUB_PASS" "True"
   when: manual
