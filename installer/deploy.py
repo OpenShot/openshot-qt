@@ -268,6 +268,24 @@ if __name__ == "__main__":
                                 (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
                                  r.json().get('message', 'no error message found')))
         else:
+            # Publish the release (make new version visible on openshot.org, and make blog post visible)
+            auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
+            r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": github_release.tag_name })
+            if not r.ok:
+                raise Exception("HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s): %s" %
+                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
+                                 r.json().get('message', 'no error message found')))
+
+            # Publish GitHub Release objects (in all 3 repos)
+            for repo_name in repo_names:
+                # If NO release is found, create a new one
+                github_release = releases.get(repo_name)
+                if github_release:
+                    # Publish github release also
+                    github_release.edit(prerelease=False)
+                else:
+                    raise Exception("Cannot publish missing GitHub release: %s" % github_release.tag_name)
+
             # Verify download links on openshot.org are correct (and include the new release version)
             r = get("https://www.openshot.org/download/")
             if r.ok:
@@ -288,24 +306,6 @@ if __name__ == "__main__":
                                          r.status_code, r.reason))
             else:
                 raise Exception("Failed to GET openshot.org/download for URL validation: %s" % r.status_code)
-
-            # Publish the release (make new version visible on openshot.org, and make blog post visible)
-            auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": github_release.tag_name })
-            if not r.ok:
-                raise Exception("HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s): %s" %
-                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
-                                 r.json().get('message', 'no error message found')))
-
-            # Publish GitHub Release objects (in all 3 repos)
-            for repo_name in repo_names:
-                # If NO release is found, create a new one
-                github_release = releases.get(repo_name)
-                if github_release:
-                    # Publish github release also
-                    github_release.edit(prerelease=False)
-                else:
-                    raise Exception("Cannot publish missing GitHub release: %s" % github_release.tag_name)
 
     except Exception as ex:
         tb = traceback.format_exc()
