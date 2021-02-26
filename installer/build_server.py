@@ -100,8 +100,7 @@ def truncate(message, maxlen=256):
     """Truncate the message with ellipses"""
     if len(message) < maxlen:
         return message
-    else:
-        return "%s..." % message[:maxlen]
+    return "%s..." % message[:maxlen]
 
 
 def zulip_upload_log(zulip_token, log, title, comment=None):
@@ -189,8 +188,8 @@ def upload(file_path, github_release):
 
 
 if __name__ == "__main__":
-    """Only run this code when directly executing this script. Parts of this file
-        are also used in the deploy.py script. """
+    # Only run this code when directly executing this script. Parts of this file
+    # are also used in the deploy.py script.
     try:
         # Validate command-line arguments
         if len(sys.argv) >= 2:

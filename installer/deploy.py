@@ -51,7 +51,7 @@ urllib3.disable_warnings()
 
 
 if __name__ == "__main__":
-    """Only run this code when directly executing this script. """
+    # Only run this code when directly executing this script.
 
     zulip_token = None
     github_user = None
@@ -214,7 +214,6 @@ if __name__ == "__main__":
 
                         # Download the installer we just uploaded (so we can check the shasum)
                         r = get(download_url)
-                        assert (r.ok is True)
                         check_artifact_path = artifact_path + ".tmp"
                         with open(check_artifact_path, "wb") as f:
                             f.write(r.content)
@@ -260,9 +259,9 @@ if __name__ == "__main__":
                         if not torrent_output.endswith("Writing metainfo file... done."):
                             # Torrent failed
                             raise Exception("Failed to create .torrent for %s" % download_url)
-                        else:
-                            # Torrent succeeded! Upload the torrent to github
-                            url = upload(torrent_path, github_release)
+
+                        # Torrent succeeded! Upload the torrent to github
+                        url = upload(torrent_path, github_release)
 
             # Submit blog post (if it doesn't already exist) (in draft mode)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
