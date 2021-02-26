@@ -93,6 +93,9 @@ if __name__ == "__main__":
             version_info.update(parse_version_info(os.path.join(artifact_dir, "install-x64", "share", repo_name)))
         output(str(version_info))
 
+        # Get version info
+        openshot_qt_version = version_info.get('openshot-qt', {}).get('VERSION', 'N/A')
+
         # Verify branch names are all the same (across the 3 repos)
         original_git_branch = ''
         for repo_name in repo_names:
@@ -263,23 +266,18 @@ if __name__ == "__main__":
 
             # Submit blog post (if it doesn't already exist) (in draft mode)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            r = post("https://www.openshot.org/api/release/submit/", auth=auth, data={ "version": github_release.tag_name,
+            r = post("https://www.openshot.org/api/release/submit/", auth=auth, data={ "version": openshot_qt_version,
                                                                  "changelog": log_title + combined_log_markdown })
             if not r.ok:
                 raise Exception("HTTP post to openshot.org/api/release/submit/ failed: %s (user: %s): %s" %
-                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
-                                 r.json().get('message', 'no error message found')))
+                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'), r.content.decode('UTF-8')))
         else:
-            # Get release object
-            openshot_qt_version = version_info.get('openshot-qt', {}).get('VERSION', 'N/A')
-
             # Publish the release (make new version visible on openshot.org, and make blog post visible)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
             r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": openshot_qt_version })
             if not r.ok:
                 raise Exception("HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s): %s" %
-                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'),
-                                 r.json().get('message', 'no error message found')))
+                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'), r.content.decode('UTF-8')))
 
             # Publish GitHub Release objects (in all 3 repos)
             for repo_name in repo_names:
