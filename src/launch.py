@@ -86,7 +86,7 @@ def main():
 
     # Display version and exit (if requested)
     if args.version:
-        print("OpenShot version %s" % info.SETUP['version'])
+        print(info.SETUP['version'])
         sys.exit()
 
     # Set up debugging log level to requested streams

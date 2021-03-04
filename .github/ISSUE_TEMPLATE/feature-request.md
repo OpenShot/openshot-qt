@@ -1,7 +1,7 @@
 ---
 name: Feature Request
 about: Suggest a new idea to improve OpenShot
-title: Give your feature request a descriptive title
+title:
 labels: '💡 enhancement'
 assignees: ''
 

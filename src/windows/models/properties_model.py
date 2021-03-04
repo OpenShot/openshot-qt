@@ -95,25 +95,24 @@ class PropertiesModel(updates.UpdateInterface):
 
         log.debug("Update item: %s" % item_type)
 
+        timeline = get_app().window.timeline_sync.timeline
         if item_type == "clip":
-            c = get_app().window.timeline_sync.timeline.GetClip(item_id)
-            if c:
-                # Append to selected items
-                self.selected.append((c, item_type))
+            item = timeline.GetClip(item_id)
+        elif item_type == "transition":
+            item = timeline.GetEffect(item_id)
+        elif item_type == "effect":
+            item = timeline.GetClipEffect(item_id)
+            # Filter out basic properties, since this is an effect on a clip
+            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+            if item:
+                # We also need the parent
+                self.selected_parent = item.ParentClip()
+        else:
+            item = None
 
-        if item_type == "transition":
-            t = get_app().window.timeline_sync.timeline.GetEffect(item_id)
-            if t:
-                # Append to selected items
-                self.selected.append((t, item_type))
-
-        if item_type == "effect":
-            e = get_app().window.timeline_sync.timeline.GetClipEffect(item_id)
-            if e:
-                # Filter out basic properties, since this is an effect on a clip
-                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-                # Append to selected items
-                self.selected.append((e, item_type))
+        if not item:
+            return
+        self.selected.append((item, item_type))
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
@@ -135,21 +134,9 @@ class PropertiesModel(updates.UpdateInterface):
                 # Ignore null clip
                 return
 
-            # If effect, find the position of the parent clip
+            # If effect, we really care about the position of the parent clip
             if item_type == "effect":
-                # find parent clip
-                effect = Effect.get(id=clip.Id())
-                if not effect:
-                    # Invalid effect
-                    return
-
-                parent_clip_id = effect.parent["id"]
-
-                # Find this clip object
-                c = get_app().window.timeline_sync.timeline.GetClip(parent_clip_id)
-                if c:
-                    # Override the selected clip object (so the effect gets the correct starting position)
-                    clip = c
+                clip = self.selected_parent
 
             # Get FPS from project
             fps = get_app().project.get("fps")

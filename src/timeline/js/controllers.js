@@ -284,6 +284,13 @@ App.controller("TimelineCtrl", function ($scope) {
     scrolling_tracks.scrollLeft(new_cursor_x);
   };
 
+  // Scroll the timeline horizontally of a certain amount (scrol_value)
+  $scope.scrollLeft = function (scroll_value) {
+    var scrolling_tracks = $("#scrolling_tracks");
+    var horz_scroll_offset = scrolling_tracks.scrollLeft();
+    scrolling_tracks.scrollLeft(horz_scroll_offset + scroll_value);
+  };
+
   // Center the timeline on a given time position
   $scope.centerOnTime = function (centerTime) {
     // Get the width of the timeline
@@ -1424,7 +1431,10 @@ App.controller("TimelineCtrl", function ($scope) {
         images: {start: 3, end: 7},
         show_audio: false,
         alpha: {Points: []},
-        location_x: {Points: []},
+        location_x: {Points: [
+				  {co: {X: 1.0, Y: -0.5}},
+          {co: {X: 30.0, Y: -0.4}}
+        ]},
         location_y: {Points: []},
         scale_x: {Points: []},
         scale_y: {Points: []},

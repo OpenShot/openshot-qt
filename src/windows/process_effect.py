@@ -26,16 +26,13 @@
  """
 
 import os
-import sys
 import time
 import json
-import operator
 import functools
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem, QBrush, QPalette
+from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import *
-from PyQt5 import uic
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, settings, qt_types, updates
@@ -52,7 +49,7 @@ class ProcessEffect(QDialog):
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
     def __init__(self, clip_id, effect_name, effect_params):
-        
+
         if not openshot.Clip().COMPILED_WITH_CV:
             raise ModuleNotFoundError("Openshot not compiled with OpenCV")
 
@@ -319,20 +316,20 @@ class ProcessEffect(QDialog):
         processing = openshot.ClipProcessingJobs(self.effect_name, jsonString)
         processing.processClip(self.clip_instance, jsonString)
 
-        # TODO: This is just a temporary fix. We need to find a better way to allow the user to fix the error 
-        # The while loop is handling the error message. If pre-processing returns an error, a message 
+        # TODO: This is just a temporary fix. We need to find a better way to allow the user to fix the error
+        # The while loop is handling the error message. If pre-processing returns an error, a message
         # will be displayed for 3 seconds and the effect will be closed.
         start = time.time()
         while processing.GetError():
             self.error_label.setText(processing.GetErrorMessage())
             self.error_label.repaint()
-            if (time.time()-start)>3:
+            if (time.time() - start) > 3:
                 self.exporting = False
                 processing.CancelProcessing()
                 while(not processing.IsDone() ):
                     continue
                 super(ProcessEffect, self).reject()
-            
+
         # get processing status
         while(not processing.IsDone() ):
             # update progressbar
@@ -350,14 +347,14 @@ class ProcessEffect(QDialog):
         fps = get_app().project.get("fps")
 
         if(not self.cancel_clip_processing):
-        
+
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
             
             self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
 
             self.effect.Id(ID)
-            
+
             # Accept dialog
             super(ProcessEffect, self).accept()
 

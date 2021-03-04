@@ -27,17 +27,17 @@
 
 import os
 import json
-
-from functools import partial
+import functools
 from operator import itemgetter
-from PyQt5.QtCore import Qt, QRectF, QRect, QLocale, pyqtSignal, QTimer
+
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
-    QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
 )
 from PyQt5.QtWidgets import (
     QTableView, QAbstractItemView, QMenu, QSizePolicy,
-    QHeaderView, QColorDialog, QItemDelegate, QStyle, QLabel,
+    QHeaderView, QItemDelegate, QStyle, QLabel,
     QPushButton, QHBoxLayout, QFrame, QFontDialog
 )
 
@@ -45,7 +45,9 @@ from classes.logger import log
 from classes.app import get_app
 from classes import info
 from classes.query import Clip, Effect, Transition
+
 from windows.models.properties_model import PropertiesModel
+from windows.color_picker import ColorPicker
 
 import openshot
 
@@ -299,6 +301,13 @@ class PropertiesTableView(QTableView):
         self.lock_selection = False
         self.previous_x = -1
 
+    @pyqtSlot(QColor)
+    def color_callback(self, newColor: QColor):
+        # Set the new color keyframe
+        if newColor.isValid():
+            self.clip_properties_model.color_update(
+                self.selected_item, newColor)
+
     def doubleClickedCB(self, model_index):
         """Double click handler for the property table"""
 
@@ -324,12 +333,11 @@ class PropertiesTableView(QTableView):
 
                 # Show color dialog
                 currentColor = QColor(red, green, blue)
-                newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
-                                                 QColorDialog.DontUseNativeDialog)
-
-                # Set the new color keyframe
-                if newColor.isValid():
-                    self.clip_properties_model.color_update(self.selected_item, newColor)
+                log.debug("Launching ColorPicker for %s", currentColor.name())
+                ColorPicker(
+                    currentColor, parent=self, title=_("Select a Color"),
+                    callback=self.color_callback)
+                return
 
             elif property_type == "font":
                 # Get font from user
@@ -383,7 +391,7 @@ class PropertiesTableView(QTableView):
         self.clip_properties_model.update_model(value)
 
     def contextMenuEvent(self, event):
-        """ Display context menu, or release lock when menu displays """
+        """ Display context menu """
         # Get property being acted on
         index = self.indexAt(event.pos())
         if not index.isValid():
@@ -649,6 +657,7 @@ class PropertiesTableView(QTableView):
                     track_name = track.get("label") or _("Track %s") % display_count
                     self.choices.append({"name": track_name, "value": track.get("number"), "selected": False, "icon": None})
                     display_count -= 1
+                return
 
             elif self.property_type == "font":
                 # Get font from user
@@ -660,7 +669,6 @@ class PropertiesTableView(QTableView):
                 if ok and font:
                     fontinfo = QFontInfo(font)
                     self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
-                return self.contextMenuEvent(event, release=True)
 
             elif self.property_type == "color":
                 # Get current value of color
@@ -670,13 +678,11 @@ class PropertiesTableView(QTableView):
 
                 # Show color dialog
                 currentColor = QColor(red, green, blue)
-                newColor = QColorDialog.getColor(currentColor, self, _("Select a Color"),
-                                                 QColorDialog.DontUseNativeDialog)
-
-                # Set the new color keyframe
-                if newColor.isValid():
-                    self.clip_properties_model.color_update(self.selected_item, newColor)
-                return self.contextMenuEvent(event, release=True)
+                log.debug("Launching ColorPicker for %s", currentColor.name())
+                ColorPicker(
+                    currentColor, parent=self, title=_("Select a Color"),
+                    callback=self.color_callback)
+                return
 
             # Define bezier presets
             bezier_presets = [
@@ -720,7 +726,8 @@ class PropertiesTableView(QTableView):
                 Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
                 for bezier_preset in bezier_presets:
                     preset_action = Bezier_Menu.addAction(bezier_preset[4])
-                    preset_action.triggered.connect(partial(self.Bezier_Action_Triggered, bezier_preset))
+                    preset_action.triggered.connect(functools.partial(
+                        self.Bezier_Action_Triggered, bezier_preset))
                 Linear_Action = menu.addAction(self.linear_icon, _("Linear"))
                 Linear_Action.triggered.connect(self.Linear_Action_Triggered)
                 Constant_Action = menu.addAction(self.constant_icon, _("Constant"))

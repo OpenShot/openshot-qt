@@ -45,8 +45,8 @@ class AnimatedTitle(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'animated-title.ui')
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)

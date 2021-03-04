@@ -41,6 +41,8 @@ from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
 
+from .keyframe_scaler import KeyframeScaler
+
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
     """ This class allows advanced searching of data structure, implements changes interface """
@@ -394,19 +396,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.app import get_app
         get_app().updates.load(self._data)
 
-    def scale_keyframe_value(self, original_value, scale_factor):
-        """Scale keyframe X coordinate by some factor, except for 1 (leave that alone)"""
-        if original_value == 1.0:
-            # This represents the first frame of a clip (so we want to maintain that)
-            return original_value
-        else:
-            # Round to nearest INT
-            return round(original_value * scale_factor)
-
     def rescale_keyframes(self, scale_factor):
         """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
            and return scaled project data without modifing the current project."""
-        log.info('Scale all keyframes by a factor of %s' % scale_factor)
+        #
+        log.info('Scale all keyframes by a factor of %s', scale_factor)
+        # Create a scaler instance
+        scaler = KeyframeScaler(factor=scale_factor)
+        # Create copy of active project data and scale
+        scaled = scaler(copy.deepcopy(self._data))
+        return scaled
 
         # Create copy of active project data
         data = copy.deepcopy(self._data)

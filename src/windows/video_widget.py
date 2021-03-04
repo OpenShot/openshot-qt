@@ -25,18 +25,24 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, Qt, QCoreApplication, QPointF, QPoint, QRect, QRectF, QMutex, QTimer
-from PyQt5.QtGui import *
+from PyQt5.QtCore import (
+    Qt, QCoreApplication, QPointF, QPoint, QRect, QRectF, QSize, QMutex, QTimer
+)
+from PyQt5.QtGui import (
+    QTransform, QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QImage, QRegion
+)
 from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
+
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, updates, openshot_rc
+from classes import updates
+from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip, Effect
 
-import os
 import json
+
 
 class VideoWidget(QWidget, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
@@ -46,30 +52,52 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Handle change
         display_ratio_changed = False
         pixel_ratio_changed = False
-        if action.key and action.key[0] in ["display_ratio", "pixel_ratio"] or action.type in ["load"]:
+        if (action.key and action.key[0] in [
+                "display_ratio", "pixel_ratio"
+                ] or action.type in ["load"]):
             # Update display ratio (if found)
             if action.type == "load" and action.values.get("display_ratio"):
                 display_ratio_changed = True
-                self.aspect_ratio = openshot.Fraction(action.values.get("display_ratio", {}).get("num", 16), action.values.get("display_ratio", {}).get("den", 9))
-                log.info("Load: Set video widget display aspect ratio to: %s" % self.aspect_ratio.ToFloat())
+                self.aspect_ratio = openshot.Fraction(
+                    action.values.get("display_ratio", {}).get("num", 16),
+                    action.values.get("display_ratio", {}).get("den", 9))
+                log.info(
+                    "Load: Set video widget display aspect ratio to: %s",
+                    self.aspect_ratio.ToFloat())
             elif action.key and action.key[0] == "display_ratio":
                 display_ratio_changed = True
-                self.aspect_ratio = openshot.Fraction(action.values.get("num", 16), action.values.get("den", 9))
-                log.info("Update: Set video widget display aspect ratio to: %s" % self.aspect_ratio.ToFloat())
+                self.aspect_ratio = openshot.Fraction(
+                    action.values.get("num", 16),
+                    action.values.get("den", 9))
+                log.info(
+                    "Update: Set video widget display aspect ratio to: %s",
+                    self.aspect_ratio.ToFloat())
 
             # Update pixel ratio (if found)
             if action.type == "load" and action.values.get("pixel_ratio"):
                 pixel_ratio_changed = True
-                self.pixel_ratio = openshot.Fraction(action.values.get("pixel_ratio").get("num", 16), action.values.get("pixel_ratio").get("den", 9))
-                log.info("Set video widget pixel aspect ratio to: %s" % self.pixel_ratio.ToFloat())
+                self.pixel_ratio = openshot.Fraction(
+                    action.values.get("pixel_ratio").get("num", 16),
+                    action.values.get("pixel_ratio").get("den", 9))
+                log.info(
+                    "Set video widget pixel aspect ratio to: %s",
+                    self.pixel_ratio.ToFloat())
             elif action.key and action.key[0] == "pixel_ratio":
                 pixel_ratio_changed = True
-                self.pixel_ratio = openshot.Fraction(action.values.get("num", 16), action.values.get("den", 9))
-                log.info("Update: Set video widget pixel aspect ratio to: %s" % self.pixel_ratio.ToFloat())
+                self.pixel_ratio = openshot.Fraction(
+                    action.values.get("num", 16),
+                    action.values.get("den", 9))
+                log.info(
+                    "Update: Set video widget pixel aspect ratio to: %s",
+                    self.pixel_ratio.ToFloat())
 
             # Update max size (to size of video preview viewport)
             if display_ratio_changed or pixel_ratio_changed:
-                get_app().window.timeline_sync.timeline.SetMaxSize(round(self.width() * self.pixel_ratio.ToFloat()), round(self.height() * self.pixel_ratio.ToFloat()))
+                timeline = get_app().window.timeline_sync.timeline
+                timeline.SetMaxSize(
+                    round(self.width() * self.pixel_ratio.ToFloat()),
+                    round(self.height() * self.pixel_ratio.ToFloat())
+                    )
 
 
     def drawTransformHandler(self, painter, sx, sy, source_width, source_height, origin_x, origin_y,
@@ -249,25 +277,25 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if gravity == openshot.GRAVITY_TOP_LEFT:
                 pass
             elif gravity == openshot.GRAVITY_TOP:
-                x += (player_width - scaled_source_width) / 2.0 # center
+                x += (player_width - scaled_source_width) / 2.0  # center
             elif gravity == openshot.GRAVITY_TOP_RIGHT:
-                x += player_width - scaled_source_width # right
+                x += player_width - scaled_source_width  # right
             elif gravity == openshot.GRAVITY_LEFT:
-                y += (player_height - scaled_source_height) / 2.0 # center
+                y += (player_height - scaled_source_height) / 2.0  # center
             elif gravity == openshot.GRAVITY_CENTER:
-                x += (player_width - scaled_source_width) / 2.0 # center
-                y += (player_height - scaled_source_height) / 2.0 # center
+                x += (player_width - scaled_source_width) / 2.0  # center
+                y += (player_height - scaled_source_height) / 2.0  # center
             elif gravity == openshot.GRAVITY_RIGHT:
-                x += player_width - scaled_source_width # right
-                y += (player_height - scaled_source_height) / 2.0 # center
+                x += player_width - scaled_source_width  # right
+                y += (player_height - scaled_source_height) / 2.0  # center
             elif gravity == openshot.GRAVITY_BOTTOM_LEFT:
-                y += (player_height - scaled_source_height) # bottom
+                y += (player_height - scaled_source_height)  # bottom
             elif gravity == openshot.GRAVITY_BOTTOM:
-                x += (player_width - scaled_source_width) / 2.0 # center
-                y += (player_height - scaled_source_height) # bottom
+                x += (player_width - scaled_source_width) / 2.0  # center
+                y += (player_height - scaled_source_height)  # bottom
             elif gravity == openshot.GRAVITY_BOTTOM_RIGHT:
-                x += player_width - scaled_source_width # right
-                y += (player_height - scaled_source_height) # bottom
+                x += player_width - scaled_source_width  # right
+                y += (player_height - scaled_source_height)  # bottom
 
             # Track gravity starting coordinate
             self.gravity_point = QPointF(x, y)
@@ -648,7 +676,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
                     # Calculate new location coordinates
                     aspect_ratio = (self.clipBounds.width() / self.clipBounds.height()) * 2.0
-                    shear_x -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / aspect_ratio)
+                    shear_x -= (
+                        event.pos().x() - self.mouse_position.x()) / (
+                        (self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
@@ -660,7 +690,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
                     # Calculate new location coordinates
                     aspect_ratio = (self.clipBounds.width() / self.clipBounds.height()) * 2.0
-                    shear_x += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / aspect_ratio)
+                    shear_x += (
+                        event.pos().x() - self.mouse_position.x()) / (
+                        (self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
@@ -671,8 +703,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     scale_y = raw_properties.get('scale_y').get('value')
 
                     # Calculate new location coordinates
-                    aspect_ratio = (self.clipBounds.height() / self.clipBounds.width()) * 2.0
-                    shear_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y / aspect_ratio)
+                    aspect_ratio = (
+                        self.clipBounds.height() / self.clipBounds.width()) * 2.0
+                    shear_y -= (
+                        event.pos().y() - self.mouse_position.y()) / (
+                        self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
@@ -684,7 +719,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
                     # Calculate new location coordinates
                     aspect_ratio = (self.clipBounds.height() / self.clipBounds.width()) * 2.0
-                    shear_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() * scale_y / aspect_ratio)
+                    shear_y += (
+                        event.pos().y() - self.mouse_position.y()) / (
+                        self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
@@ -700,14 +737,22 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     is_on_top = event.pos().y() < self.originHandle.y()
 
                     if is_on_top:
-                        rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                        rotation += (
+                            event.pos().x() - self.mouse_position.x()) / (
+                            (self.clipBounds.width() * scale_x) / 90)
                     else:
-                        rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                        rotation -= (
+                            event.pos().x() - self.mouse_position.x()) / (
+                            (self.clipBounds.width() * scale_x) / 90)
 
                     if is_on_left:
-                        rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                        rotation -= (
+                            event.pos().y() - self.mouse_position.y()) / (
+                            (self.clipBounds.height() * scale_y) / 90)
                     else:
-                        rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                        rotation += (
+                            event.pos().y() - self.mouse_position.y()) / (
+                            (self.clipBounds.height() * scale_y) / 90)
 
                     # Update keyframe value (or create new one)
                     self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'rotation', rotation)
@@ -934,10 +979,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 point["interpolation"] = openshot.BEZIER
                 point["co"]["Y"] = float(new_value)
 
-        if not found_point and new_value != None:
+        if not found_point and new_value is not None:
             clip_updated = True
-            log.info("Created new point at X=%s" % frame_number)
-            c.data[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
+            log.info("Created new point at X=%s", frame_number)
+            c.data[property_key]["Points"].append({
+                'co': {'X': frame_number, 'Y': new_value},
+                'interpolation': openshot.BEZIER
+                })
 
         # Reduce # of clip properties we are saving (performance boost)
         c.data = {property_key: c.data.get(property_key)}
@@ -1056,7 +1104,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.region_enabled = False
         else:
             self.region_enabled = True
-        
+
         get_app().window.refreshFrameSignal.emit()
 
     def resizeEvent(self, event):
@@ -1074,16 +1122,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Trying to find the closest even number to the requested aspect ratio
         # so that both width and height are divisible by 2. This is to prevent some
         # strange phantom scaling lines on the edges of the preview window.
-        ratio = float(get_app().project.get("width")) / float(get_app().project.get("height"))
-        width = round(self.delayed_size.width() / 2.0) * 2
+
+        # Scale project size (with aspect ratio) to the delayed widget size
+        project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
+        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
+
+        # Calculate height/width divisible by 2
+        ratio = float(project_size.width()) / float(project_size.height())
+        width = round(project_size.width() / 2.0) * 2
         height = (round(width / ratio) / 2.0) * 2
 
-        # Override requested size
-        self.delayed_size.setWidth(width)
-        self.delayed_size.setHeight(height)
-
         # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(self.delayed_size)
+        self.win.MaxSizeChanged.emit(project_size)
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):

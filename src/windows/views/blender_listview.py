@@ -44,7 +44,7 @@ from PyQt5.QtCore import (
     Qt, QObject, pyqtSlot, pyqtSignal, QThread, QTimer, QSize,
 )
 from PyQt5.QtWidgets import (
-    QApplication, QListView, QMessageBox, QColorDialog,
+    QApplication, QListView, QMessageBox,
     QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
 )
 from PyQt5.QtGui import QColor, QImage, QPixmap
@@ -54,7 +54,9 @@ from classes.logger import log
 from classes import settings
 from classes.query import File
 from classes.app import get_app
+
 from windows.models.blender_model import BlenderModel
+from windows.color_picker import ColorPicker
 
 
 class BlenderListView(QListView):
@@ -228,24 +230,13 @@ class BlenderListView(QListView):
             currentColor.setRgbF(color_value[0], color_value[1], color_value[2])
         # Store our arguments for the callback to pick up again
         self._color_scratchpad = (widget, param)
-
-        # Set up non-modal color dialog (to avoid blocking the eyedropper)
-        self.newColorDialog = QColorDialog(currentColor, self.win)
-        self.newColorDialog.setWindowTitle(_("Select a Color"))
-        self.newColorDialog.setWindowFlags(Qt.Tool)
-        self.newColorDialog.setOptions(QColorDialog.DontUseNativeDialog)
-        # Avoid signal loops
-        self.newColorDialog.blockSignals(True)
-        self.newColorDialog.colorSelected.connect(self.color_selected)
-        self.newColorDialog.finished.connect(self.newColorDialog.deleteLater)
-        self.newColorDialog.blockSignals(False)
-        self.newColorDialog.open()
+        ColorPicker(currentColor, callback=self.color_selected, parent=self.win)
 
     @pyqtSlot(QColor)
     def color_selected(self, newColor):
-        """QColorDialog callback when the user chooses a color"""
+        """Callback when the user chooses a color in the dialog"""
         if not self._color_scratchpad:
-            log.warning("QColorDialog callback called without parameter to set")
+            log.warning("ColorPicker callback called without parameter to set")
             return
         (widget, param) = self._color_scratchpad
         if not newColor or not newColor.isValid():
@@ -558,7 +549,7 @@ Blender Path: {}
         s = settings.get_settings()
         gpu_code_body = None
         if s.get("blender_gpu_enabled"):
-            gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py")
+            gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py.in")
             try:
                 with open(gpu_enable_py, 'r') as f:
                     gpu_code_body = f.read()
@@ -612,7 +603,7 @@ Blender Path: {}
             info.PATH, "blender", "blend", self.selected_template)
         source_script = os.path.join(
             info.PATH, "blender", "scripts",
-            self.selected_template.replace(".blend", ".py"))
+            self.selected_template.replace(".blend", ".py.in"))
         target_script = os.path.join(
             info.BLENDER_PATH, self.unique_folder_name,
             self.selected_template.replace(".blend", ".py"))
@@ -673,7 +664,6 @@ Blender Path: {}
         self.selected = None
         self.deselected = None
         self._color_scratchpad = None
-        self.newColorDialog = None
         self.selected_template = ""
         self.final_render = False
 

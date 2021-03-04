@@ -58,7 +58,7 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
             trans_name = self.sourceModel().data(index)  # transition name (i.e. Fade In)
 
             # Return, if regExp match in displayed format.
-            return "common" == group_name and self.filterRegExp().indexIn(trans_name) >= 0
+            return group_name == "common" and self.filterRegExp().indexIn(trans_name) >= 0
 
         # Continue running built-in parent filter logic
         return super(TransitionFilterProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)

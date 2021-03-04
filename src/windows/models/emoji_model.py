@@ -28,14 +28,13 @@
 import os
 
 from PyQt5.QtCore import QMimeData, Qt, QSortFilterProxyModel
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info
 from classes.logger import log
 from classes.app import get_app
-from classes.settings import get_settings
 
 import json
 
@@ -66,8 +65,6 @@ class EmojisModel():
         log.info("updating emoji model.")
         app = get_app()
 
-        # Get window to check filters
-        win = app.window
         _ = app._tr
 
         # Clear all items
@@ -87,14 +84,12 @@ class EmojisModel():
         # get a list of files in the OpenShot /emojis directory
         emojis_dir = os.path.join(info.PATH, "emojis", "color", "svg")
         emoji_paths = [{"type": "common", "dir": emojis_dir, "files": os.listdir(emojis_dir)}, ]
-        emoji_groups = {}
 
         # Add optional user-defined transitions folder
         if os.path.exists(info.EMOJIS_PATH) and os.listdir(info.EMOJIS_PATH):
             emoji_paths.append({"type": "user", "dir": info.EMOJIS_PATH, "files": os.listdir(info.EMOJIS_PATH)})
 
         for group in emoji_paths:
-            type = group["type"]
             dir = group["dir"]
             files = group["files"]
 
@@ -143,7 +138,7 @@ class EmojisModel():
                         reader.Close()
                         clip.Close()
 
-                    except:
+                    except Exception:
                         # Handle exception
                         log.info('Invalid emoji image file: %s' % filename)
                         msg = QMessageBox()

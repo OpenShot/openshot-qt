@@ -31,18 +31,20 @@ import codecs
 import re
 from functools import partial
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QDialog
 
-from classes import info, ui_util, openshot_rc
+from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 from windows.views.credits_treeview import CreditsTreeView
 from windows.views.changelog_treeview import ChangelogTreeView
 
 import json
 import datetime
+
+import openshot
 
 
 def parse_changelog(changelog_path):
@@ -53,14 +55,18 @@ def parse_changelog(changelog_path):
     # Attempt to open changelog with utf-8, and then utf-16 (for unix / windows support)
     for encoding_name in ('utf_8', 'utf_16'):
         try:
-            with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
+            with codecs.open(
+                    changelog_path, 'r', encoding=encoding_name
+                    ) as changelog_file:
                 for line in changelog_file:
-                    changelog_list.append({'hash': line[:9].strip(),
-                                           'date': line[9:20].strip(),
-                                           'author': line[20:45].strip(),
-                                           'subject': line[45:].strip() })
+                    changelog_list.append({
+                        'hash': line[:9].strip(),
+                        'date': line[9:20].strip(),
+                        'author': line[20:45].strip(),
+                        'subject': line[45:].strip(),
+                        })
                 break
-        except:
+        except Exception:
             log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
     return changelog_list
 
@@ -92,6 +98,7 @@ def parse_new_changelog(changelog_path):
             return None
     return changelog_list
 
+
 class About(QDialog):
     """ About Dialog """
 
@@ -101,10 +108,8 @@ class About(QDialog):
         # Create dialog class
         QDialog.__init__(self)
 
-        # Load UI from designer
+        # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)
-
-        # Init Ui
         ui_util.init_ui(self)
 
         # get translations
@@ -113,7 +118,7 @@ class About(QDialog):
 
         # Hide chnagelog button by default
         self.btnchangelog.setVisible(False)
-        
+
         projects = ['openshot-qt', 'libopenshot', 'libopenshot-audio']
         # Old paths
         paths = [os.path.join(info.PATH, 'settings', '{}.log'.format(p)) for p in projects]
@@ -125,11 +130,45 @@ class About(QDialog):
             log.warn("No changelog files found, disabling button")
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
-        description_text = _('OpenShot Video Editor 2.x is the next generation of the award-winning <br/>OpenShot video editing platform.')
+        description_text = _(
+            "OpenShot Video Editor 2.x is the next generation of the award-winning <br/>"
+            "OpenShot video editing platform.")
         learnmore_text = _('Learn more')
-        copyright_text = _('Copyright &copy; %(begin_year)s-%(current_year)s') % {'begin_year': '2008', 'current_year': str(datetime.datetime.today().year) }
-        about_html = '<html><head/><body><hr/><p align="center"><span style=" font-size:10pt; font-weight:600;">%s</span></p><p align="center"><span style=" font-size:10pt;">%s </span><a href="https://www.openshot.org/%s?r=about-us"><span style=" font-size:10pt; text-decoration: none; color:#55aaff;">%s</span></a><span style=" font-size:10pt;">.</span></p></body></html>' % (create_text, description_text, info.website_language(), learnmore_text)
-        company_html = '<html><head/><body style="font-size:11pt; font-weight:400; font-style:normal;">\n<hr />\n<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:10pt; font-weight:600;">%s </span><a href="http://www.openshotstudios.com?r=about-us"><span style=" font-size:10pt; font-weight:600; text-decoration: none; color:#55aaff;">OpenShot Studios, LLC<br /></span></a></p></body></html>' % (copyright_text)
+        copyright_text = _('Copyright &copy; %(begin_year)s-%(current_year)s') % {
+            'begin_year': '2008',
+            'current_year': str(datetime.datetime.today().year)
+            }
+        about_html = '''
+            <html><head/><body><hr/>
+            <p align="center">
+            <span style=" font-size:10pt; font-weight:600;">%s</span>
+            </p>
+            <p align="center">
+            <span style=" font-size:10pt;">%s </span>
+            <a href="https://www.openshot.org/%s?r=about-us">
+                <span style=" font-size:10pt; text-decoration: none; color:#55aaff;">%s</span>
+            </a>
+            <span style=" font-size:10pt;">.</span>
+            </p>
+            </body></html>
+            ''' % (
+                create_text,
+                description_text,
+                info.website_language(),
+                learnmore_text)
+        company_html = '''
+            <html><head/>
+            <body style="font-size:11pt; font-weight:400; font-style:normal;">
+            <hr />
+            <p align="center"
+               style="margin:12px 12px 0 0; -qt-block-indent:0; text-indent:0;">
+               <span style="font-size:10pt; font-weight:600;">%s </span>
+               <a href="http://www.openshotstudios.com?r=about-us">
+               <span style="font-size:10pt; font-weight:600; text-decoration: none; color:#55aaff;">
+               OpenShot Studios, LLC<br /></span></a>
+            </p>
+            </body></html>
+            ''' % (copyright_text)
 
         # Set description and company labels
         self.lblAboutDescription.setText(about_html)
@@ -140,10 +179,21 @@ class About(QDialog):
         self.btnlicense.clicked.connect(self.load_license)
         self.btnchangelog.clicked.connect(self.load_changelog)
 
+        # Look for frozen version info
+        frozen_version_label = ""
+        version_path = os.path.join(info.PATH, "settings", "version.json")
+        if os.path.exists(version_path):
+            with open(version_path, "r", encoding="UTF-8") as f:
+                version_info = json.loads(f.read())
+                if version_info:
+                    frozen_version_label = "<br/><br/><b>%s</b><br/>Build Date: %s" % \
+                        (version_info.get('build_name'), version_info.get('date'))
+
         # Init some variables
         openshot_qt_version = _("Version: %s") % info.VERSION
         libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
-        self.txtversion.setText("<b>%s</b><br/>%s" % (openshot_qt_version, libopenshot_version))
+        self.txtversion.setText(
+            "<b>%s</b><br/>%s%s" % (openshot_qt_version, libopenshot_version, frozen_version_label))
         self.txtversion.setAlignment(Qt.AlignCenter)
 
         # Track metrics
@@ -151,19 +201,19 @@ class About(QDialog):
 
     def load_credit(self):
         """ Load Credits for everybody who has contributed in several domain for Openshot """
-        log.info('Credit screen has been opened')
+        log.debug('Credit screen has been opened')
         windo = Credits()
         windo.exec_()
 
     def load_license(self):
         """ Load License of the project """
-        log.info('License screen has been opened')
+        log.debug('License screen has been opened')
         windo = License()
         windo.exec_()
 
     def load_changelog(self):
         """ Load the changelog window """
-        log.info('Changelog screen has been opened')
+        log.debug('Changelog screen has been opened')
         windo = Changelog()
         windo.exec_()
 
@@ -225,22 +275,38 @@ class Credits(QDialog):
 
         # Update supporter button
         supporter_text = _("Become a Supporter")
-        supporter_html = '<html><head/><body><p align="center"><a href="https://www.openshot.org/%sdonate/?app-about-us"><span style=" text-decoration: underline; color:#55aaff;">%s</span></a></p></body></html>' % (info.website_language(), supporter_text)
+        supporter_html = '''
+            <html><head/><body>
+            <p align="center">
+                <a href="https://www.openshot.org/%sdonate/?app-about-us">
+                <span style="text-decoration: underline; color:#55aaff;">%s</span>
+                </a>
+            </p>
+            </body></html>
+            ''' % (info.website_language(), supporter_text)
         self.lblBecomeSupporter.setText(supporter_html)
 
         # Get list of developers
         developer_list = []
-        with codecs.open(os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf_8') as contributors_file:
+        with codecs.open(
+                os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf_8'
+                ) as contributors_file:
             developer_string = contributors_file.read()
             developer_list = json.loads(developer_string)
 
-        self.developersListView = CreditsTreeView(credits=developer_list, columns=["email", "website"])
+        self.developersListView = CreditsTreeView(
+            credits=developer_list, columns=["email", "website"])
         self.vboxDevelopers.addWidget(self.developersListView)
-        self.txtDeveloperFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtDeveloperFilter, self.developersListView))
+        self.txtDeveloperFilter.textChanged.connect(partial(
+            self.Filter_Triggered,
+            self.txtDeveloperFilter,
+            self.developersListView))
 
         # Get string of translators for the current language
         translator_credits = []
-        translator_credits_string = _("translator-credits").replace("Launchpad Contributions:\n", "").replace("translator-credits","")
+        translator_credits_string = _("translator-credits").replace(
+            "Launchpad Contributions:\n", ""
+            ).replace("translator-credits", "")
         if translator_credits_string:
             # Parse string into a list of dictionaries
             translator_rows = translator_credits_string.split("\n")
@@ -249,27 +315,40 @@ class Credits(QDialog):
                 translator_parts = row.split("https://launchpad.net/")
                 name = translator_parts[0].strip()
                 username = translator_parts[1].strip()
-                translator_credits.append({"name":name, "website":"https://launchpad.net/%s" % username})
+                translator_credits.append({
+                    "name": name,
+                    "website": "https://launchpad.net/%s" % username
+                    })
 
             # Add translators listview
-            self.translatorsListView = CreditsTreeView(translator_credits, columns=["website"])
+            self.translatorsListView = CreditsTreeView(
+                translator_credits, columns=["website"])
             self.vboxTranslators.addWidget(self.translatorsListView)
-            self.txtTranslatorFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtTranslatorFilter, self.translatorsListView))
+            self.txtTranslatorFilter.textChanged.connect(partial(
+                self.Filter_Triggered,
+                self.txtTranslatorFilter,
+                self.translatorsListView))
         else:
             # No translations for this language, hide credits
             self.tabCredits.removeTab(1)
 
         # Get list of supporters
         supporter_list = []
-        with codecs.open(os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf_8') as supporter_file:
+        with codecs.open(
+                os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf_8'
+                ) as supporter_file:
             supporter_string = supporter_file.read()
             supporter_list = json.loads(supporter_string)
 
         # Add supporters listview
-        self.supportersListView = CreditsTreeView(supporter_list, columns=["website"])
+        self.supportersListView = CreditsTreeView(
+            supporter_list, columns=["website"])
         self.vboxSupporters.addWidget(self.supportersListView)
-        self.txtSupporterFilter.textChanged.connect(partial(self.Filter_Triggered, self.txtSupporterFilter, self.supportersListView))
-7
+        self.txtSupporterFilter.textChanged.connect(partial(
+            self.Filter_Triggered,
+            self.txtSupporterFilter,
+            self.supportersListView))
+
 
 class Changelog(QDialog):
     """ Changelog Dialog """
@@ -314,7 +393,15 @@ class Changelog(QDialog):
 
         # Update github link button
         github_text = _("OpenShot on GitHub")
-        github_html = '<html><head/><body><p align="center"><a href="https://github.com/OpenShot/"><span style=" text-decoration: underline; color:#55aaff;">%s</span></a></p></body></html>' % (github_text)
+        github_html = '''
+            <html><head/><body>
+            <p align="center">
+                <a href="https://github.com/OpenShot/">
+                <span style=" text-decoration: underline; color:#55aaff;">%s</span>
+                </a>
+            </p>
+            </body></html>
+            ''' % (github_text)
         self.lblGitHubLink.setText(github_html)
 
         # Read changelog file for each project
