@@ -119,8 +119,13 @@ class SelectRegion(QDialog):
         self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
+        # Set aspect ratio to match source content
+        aspect_ratio = openshot.Fraction(self.width, self.height)
+        aspect_ratio.Reduce()
+        self.videoPreview.aspect_ratio = aspect_ratio
+
         # Set max size of video preview (for speed)
-        self.viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        self.viewport_rect = self.videoPreview.centeredViewport(self.width, self.height)
 
         # Create an instance of a libopenshot Timeline object
         self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)

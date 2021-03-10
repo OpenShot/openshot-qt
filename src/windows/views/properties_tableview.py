@@ -30,7 +30,7 @@ import json
 import functools
 from operator import itemgetter
 
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot, QRect
 from PyQt5.QtGui import (
     QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
@@ -426,7 +426,7 @@ class PropertiesTableView(QTableView):
             if self.menu_reset:
                 self.choices = []
                 self.menu_reset = False
-            
+
             # Handle parent effect options
             if property_key == "parent_effect_id" and not self.choices:
                 clip_choices = [{
@@ -498,7 +498,7 @@ class PropertiesTableView(QTableView):
                                 "selected": False,
                                 "icon": QIcon()
                             })
-                self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})  
+                self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
 
             # Handle property to set the Tracked Object's child clip
             if property_key == "child_clip_id" and not self.choices:
@@ -772,7 +772,7 @@ class PropertiesTableView(QTableView):
                                 sub_sub_choice["icon"], sub_sub_choice["name"])
                             Choice_Action.setData(sub_sub_choice["value"])
                             Choice_Action.triggered.connect(self.Choice_Action_Triggered)
-                    else:                    
+                    else:
                         if i % SubMenuSize == 0:
                             SubMenuNumber += 1
                             SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))

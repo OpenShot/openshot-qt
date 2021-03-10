@@ -114,10 +114,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             painter.translate(bbox_center_x, bbox_center_y)
             painter.rotate(rotation)
             painter.translate(-bbox_center_x, -bbox_center_y)
-            
+
         if(x1 and y1 and x2 and y2):
             # Calculate bounds of clip
-            self.clipBounds = QRectF(QPointF(x1*source_width, y1*source_height), QPointF(x2*source_width, y2*source_height))    
+            self.clipBounds = QRectF(QPointF(x1*source_width, y1*source_height), QPointF(x2*source_width, y2*source_height))
             # Calculate 4 corners coordinates
             self.topLeftHandle = QRectF(x1*source_width -(cs/sx/2.0), y1*source_height-(cs/sy/2.0), cs/sx, cs/sy)
             self.topRightHandle = QRectF(x2*source_width-(cs/sx/2.0), y1*source_height-(cs/sy/2.0), cs/sx, cs/sy)
@@ -865,7 +865,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 self.original_clip_data = self.transforming_clip.data
 
             _ = self.getTransformMode(0, 0, 0, event)
-            
+
             if self.transforming_effect_object.info.has_tracked_object:
                 # Get properties of effect at current frame
                 raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
@@ -931,7 +931,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         elif self.transform_mode == 'scale_bottom':
                             scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
                         elif self.transform_mode == 'scale_left':
-                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)        
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
                         elif self.transform_mode == 'scale_right':
                             scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
 
@@ -1000,7 +1000,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Update a keyframe property to a new value, adding or updating keyframes as needed"""
         found_point = False
         effect_updated = False
-        
+
         raw_properties = json.loads(self.transforming_effect_object.Json())
 
         c = Effect.get(id=effect_id)
@@ -1088,7 +1088,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.transforming_effect = Effect.get(id=effect_id)
             self.transforming_effect_object = win.timeline_sync.timeline.GetClipEffect(effect_id)
 
-            if (self.transforming_clip and self.transforming_clip_object and 
+            if (self.transforming_clip and self.transforming_clip_object and
                 self.transforming_effect and self.transforming_effect_object):
                 need_refresh = True
 
@@ -1162,7 +1162,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Repaint widget on zoom
         self.repaint()
 
-    def __init__(self, *args):
+    def __init__(self, watch_project=True, *args):
+        """watch_project: watch for changes in project size / widget size, and
+        continue to match the current project's aspect ratio."""
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -1245,7 +1247,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.delayed_resize_timer = QTimer()
         self.delayed_resize_timer.setInterval(200)
         self.delayed_resize_timer.setSingleShot(True)
-        self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
+        if watch_project:
+            self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
 
         # Connect to signals
         self.win.TransformSignal.connect(self.transformTriggered)
