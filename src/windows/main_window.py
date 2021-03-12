@@ -2285,7 +2285,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
                 effect = Effect.get(id=item_id)
                 if effect:
-                    if effect.data["has_tracked_object"]:
+                    if effect.data.get("has_tracked_object"):
                         # Show bounding boxes transform on preview
                         clip_id = effect.parent['id']
                         self.KeyFrameTransformSignal.emit(item_id, clip_id)
@@ -2295,8 +2295,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.show_property_id = item_id
             self.show_property_type = item_type
             self.show_property_timer.start()
-
-            
 
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):
