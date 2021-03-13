@@ -256,6 +256,9 @@ class ProcessEffect(QDialog):
                 bottomRight = win.videoPreview.regionBottomRightHandle
                 viewPortSize = win.viewport_rect
 
+                # Rectangle corner size 
+                offset = win.videoPreview.cs/2
+
                 # Get QImage of region
                 if win.videoPreview.region_qimage:
                     region_qimage = win.videoPreview.region_qimage
@@ -275,7 +278,7 @@ class ProcessEffect(QDialog):
 
                 # If data found, add to context
                 if topLeft and bottomRight:
-                    self.context[param["setting"]].update({"x": topLeft.x(), "y": topLeft.y(),
+                    self.context[param["setting"]].update({"x": topLeft.x()-offset, "y": topLeft.y()-offset,
                                                            "width": bottomRight.x() - topLeft.x(),
                                                            "height": bottomRight.y() - topLeft.y(),
                                                            "scaled_x": topLeft.x() / viewPortSize.width(), "scaled_y": topLeft.y() / viewPortSize.height(),

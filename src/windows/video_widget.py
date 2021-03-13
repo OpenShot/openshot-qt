@@ -104,7 +104,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
      x1=None, y1=None, x2=None, y2=None, rotation = None):
         # Draw transform corners and center origin circle
         # Corner size
-        cs = 14.0
+        cs = self.cs
         os = 12.0
 
         # Rotate the transform handler
@@ -374,7 +374,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Draw transform corners and center origin circle
             # Corner size
-            cs = 14.0
+            cs = self.cs
 
             if self.regionTopLeftHandle and self.regionBottomRightHandle:
                 # Draw 2 corners and bounding box
@@ -805,7 +805,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.region_enabled:
             # Modify region selection (x, y, width, height)
             # Corner size
-            cs = 14.0
+            cs = self.cs
 
             # Adjust existing region coordinates (if any)
             if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
@@ -1203,6 +1203,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
         self.zoom = 1.0 # Zoom of widget (does not affect video, only workspace)
+        self.cs = 14.0 # Corner size of Transform Handler rectangles
         self.resize_button = QPushButton(_('Reset Zoom'), self)
         self.resize_button.hide()
         self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
