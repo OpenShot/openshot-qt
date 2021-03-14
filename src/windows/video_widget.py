@@ -206,6 +206,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Calculate new frame image size, maintaining aspect ratio
             pixSize = self.current_image.size()
             pixSize.scale(event.rect().width(), event.rect().height(), Qt.KeepAspectRatio)
+            self.curr_frame_size = pixSize
 
             # Scale image
             scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -1199,6 +1200,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.region_mode = None
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
+        self.curr_frame_size = None # Frame size
         self.zoom = 1.0 # Zoom of widget (does not affect video, only workspace)
         self.cs = 14.0 # Corner size of Transform Handler rectangles
         self.resize_button = QPushButton(_('Reset Zoom'), self)

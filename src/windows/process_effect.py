@@ -255,9 +255,13 @@ class ProcessEffect(QDialog):
                 topLeft = win.videoPreview.regionTopLeftHandle
                 bottomRight = win.videoPreview.regionBottomRightHandle
                 viewPortSize = win.viewport_rect
+                curr_frame_size = win.videoPreview.curr_frame_size
 
-                # Rectangle corner size 
-                offset = win.videoPreview.cs/2
+
+                x1 = topLeft.x() / curr_frame_size.width() *viewPortSize.width()
+                y1 = topLeft.y() / curr_frame_size.width()*viewPortSize.width()
+                x2 = bottomRight.x() / curr_frame_size.width() *viewPortSize.width()
+                y2 = bottomRight.y() / curr_frame_size.width()*viewPortSize.width()
 
                 # Get QImage of region
                 if win.videoPreview.region_qimage:
@@ -278,12 +282,9 @@ class ProcessEffect(QDialog):
 
                 # If data found, add to context
                 if topLeft and bottomRight:
-                    self.context[param["setting"]].update({"x": topLeft.x()-offset, "y": topLeft.y()-offset,
-                                                           "width": bottomRight.x() - topLeft.x(),
-                                                           "height": bottomRight.y() - topLeft.y(),
-                                                           "scaled_x": topLeft.x() / viewPortSize.width(), "scaled_y": topLeft.y() / viewPortSize.height(),
-                                                           "scaled_width": (bottomRight.x() - topLeft.x()) / viewPortSize.width(),
-                                                           "scaled_height": (bottomRight.y() - topLeft.y()) / viewPortSize.height(),
+                    self.context[param["setting"]].update({"x": x1, "y": y1,
+                                                           "width": x2-x1,
+                                                           "height": y2-y1,
                                                            "first-frame": win.current_frame
                                                            })
                     log.info(self.context)
