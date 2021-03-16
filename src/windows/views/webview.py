@@ -3027,11 +3027,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                         # Get Effect JSON
                         effect.Id(get_app().project.generate_id())
-                        
+
                     effect_json = json.loads(effect.Json())
 
                     # Generate box_id for the TrackedObjectBBox object
-                    if effect_json["has_tracked_object"]:
+                    if effect_json.get("has_tracked_object"):
                         for object_id_index in range(len(effect_json["objects_id"])):
                             boxId = get_app().project.generate_id()
                             effect_json["objects_id"][object_id_index] = boxId

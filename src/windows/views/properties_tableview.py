@@ -580,7 +580,7 @@ class PropertiesTableView(QTableView):
                         tracked_objects = []
                         for effect in clip_instance_data["effects"]:
                             # Check if effect has a tracked object
-                            if effect["has_tracked_object"]:
+                            if effect.get("has_tracked_object"):
                                 # Instantiate the effect
                                 effect_instance = timeline_instance.GetClipEffect(effect["id"])
                                 # Get the visible object's ids
