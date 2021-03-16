@@ -104,7 +104,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
      x1=None, y1=None, x2=None, y2=None, rotation = None):
         # Draw transform corners and center origin circle
         # Corner size
-        cs = 14.0
+        cs = self.cs
         os = 12.0
 
         # Rotate the transform handler
@@ -206,6 +206,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Calculate new frame image size, maintaining aspect ratio
             pixSize = self.current_image.size()
             pixSize.scale(event.rect().width(), event.rect().height(), Qt.KeepAspectRatio)
+            self.curr_frame_size = pixSize
 
             # Scale image
             scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -374,7 +375,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Draw transform corners and center origin circle
             # Corner size
-            cs = 14.0
+            cs = self.cs
 
             if self.regionTopLeftHandle and self.regionBottomRightHandle:
                 # Draw 2 corners and bounding box
@@ -805,7 +806,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.region_enabled:
             # Modify region selection (x, y, width, height)
             # Corner size
-            cs = 14.0
+            cs = self.cs
 
             # Adjust existing region coordinates (if any)
             if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
@@ -1001,15 +1002,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         found_point = False
         effect_updated = False
 
-        raw_properties = json.loads(self.transforming_effect_object.Json())
-
         c = Effect.get(id=effect_id)
 
         if not c:
             # No clip found
             return
 
-        for point in raw_properties[property_key]["Points"]:
+        for point in c.data[property_key]["Points"]:
             log.info("looping points: co.X = %s" % point["co"]["X"])
 
             if point["co"]["X"] == frame_number:
@@ -1021,17 +1020,16 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not found_point and new_value != None:
             effect_updated = True
             log.info("Created new point at X=%s" % frame_number)
-            raw_properties[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
+            c.data[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
 
-        raw_properties_string = json.dumps(raw_properties)
+        # Reduce # of clip properties we are saving (performance boost)
+        c.data = {property_key: c.data.get(property_key)}
 
         if effect_updated:
             c.save()
             # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
-
-        self.transforming_effect_object.SetJson(raw_properties_string)
 
     def refreshTriggered(self):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
@@ -1202,7 +1200,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.region_mode = None
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
+        self.curr_frame_size = None # Frame size
         self.zoom = 1.0 # Zoom of widget (does not affect video, only workspace)
+        self.cs = 14.0 # Corner size of Transform Handler rectangles
         self.resize_button = QPushButton(_('Reset Zoom'), self)
         self.resize_button.hide()
         self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
