@@ -256,12 +256,11 @@ class ProcessEffect(QDialog):
                 bottomRight = win.videoPreview.regionBottomRightHandle
                 viewPortSize = win.viewport_rect
                 curr_frame_size = win.videoPreview.curr_frame_size
-
-
-                x1 = topLeft.x() / curr_frame_size.width() *viewPortSize.width()
-                y1 = topLeft.y() / curr_frame_size.width()*viewPortSize.width()
-                x2 = bottomRight.x() / curr_frame_size.width() *viewPortSize.width()
-                y2 = bottomRight.y() / curr_frame_size.width()*viewPortSize.width()
+                
+                x1 = topLeft.x() / curr_frame_size.width()
+                y1 = topLeft.y() / curr_frame_size.height()
+                x2 = bottomRight.x() / curr_frame_size.width()
+                y2 = bottomRight.y() / curr_frame_size.height()
 
                 # Get QImage of region
                 if win.videoPreview.region_qimage:
@@ -282,10 +281,10 @@ class ProcessEffect(QDialog):
 
                 # If data found, add to context
                 if topLeft and bottomRight:
-                    self.context[param["setting"]].update({"x": x1, "y": y1,
-                                                           "width": x2-x1,
-                                                           "height": y2-y1,
-                                                           "first-frame": win.current_frame
+                    self.context[param["setting"]].update({"normalized_x": x1, "normalized_y": y1,
+                                                           "normalized_width": x2-x1,
+                                                           "normalized_height": y2-y1,
+                                                           "first-frame": win.current_frame,
                                                            })
                     log.info(self.context)
 
