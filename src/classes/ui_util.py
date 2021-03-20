@@ -36,8 +36,8 @@ try:
 except ImportError:
     from xml.etree import ElementTree
 
-from PyQt5.QtCore import QDir, QLocale
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QDir, QLocale
+from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtWidgets import QApplication, QWidget, QTabWidget, QAction
 from PyQt5 import uic
 
@@ -250,6 +250,16 @@ def init_ui(window):
     except Exception:
         log.info(
             'Failed to initialize an element on %s', window.objectName())
+
+
+def best_contrast(background: QColor) -> QColor:
+    """Choose text color for best contrast against a background color"""
+    colrgb = background.getRgbF()
+    # Compute perceptive luminance of background color
+    lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
+    if (lum < 0.5):
+        return QColor(Qt.white)
+    return QColor(Qt.black)
 
 
 def center(window):

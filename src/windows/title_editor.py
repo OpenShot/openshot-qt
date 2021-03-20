@@ -378,16 +378,6 @@ class TitleEditor(QDialog):
         refresh_fn()
         self.save_and_reload()
 
-    @staticmethod
-    def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
-        """Choose text color for best contrast against a background"""
-        colrgb = bg.getRgbF()
-        # Compute perceptive luminance of background color
-        lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
-        if (lum < 0.5):
-            return QtGui.QColor(Qt.white)
-        return QtGui.QColor(Qt.black)
-
     def btnFontColor_clicked(self):
         app = get_app()
         _ = app._tr
@@ -463,7 +453,7 @@ class TitleEditor(QDialog):
             opacity = float(ard.get("opacity", 1.0))
 
             color = QtGui.QColor(color)
-            text_color = self.best_contrast(color)
+            text_color = ui_util.best_contrast(color)
             # Set the color of the button, ignoring alpha
             self.btnFontColor.setStyleSheet(
                 "background-color: %s; opacity: %s; color: %s;"
@@ -510,7 +500,7 @@ class TitleEditor(QDialog):
             opacity = float(ard.get("opacity", 1.0))
 
             color = QtGui.QColor(color)
-            text_color = self.best_contrast(color)
+            text_color = ui_util.best_contrast(color)
 
             # Set the colors of the button, ignoring opacity
             self.btnBackgroundColor.setStyleSheet(

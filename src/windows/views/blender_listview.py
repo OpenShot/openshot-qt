@@ -49,7 +49,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QColor, QImage, QPixmap
 
-from classes import info
+from classes import info, ui_util
 from classes.logger import log
 from classes import settings
 from classes.query import File
@@ -86,11 +86,12 @@ class BlenderListView(QListView):
         # Assign a new unique id for each template selected
         self.generateUniqueFolder()
 
-        # Loop through params
+        layout = self.win.settingsContainer.layout()
+
+        # Loop through params, adding widgets to layout
         for param in animation.get("params", []):
             log.debug('Using parameter %s: %s' % (param["name"], param["title"]))
 
-            # Is Hidden Param?
             if param["name"] in ["start_frame", "end_frame"]:
                 # add value to dictionary
                 self.params[param["name"]] = int(param["default"])
@@ -106,7 +107,6 @@ class BlenderListView(QListView):
                 # add value to dictionary
                 self.params[param["name"]] = float(param["default"])
 
-                # create spinner
                 widget = QDoubleSpinBox()
                 widget.setMinimum(float(param["min"]))
                 widget.setMaximum(float(param["max"]))
@@ -119,7 +119,6 @@ class BlenderListView(QListView):
                 # add value to dictionary
                 self.params[param["name"]] = _(param["default"])
 
-                # create spinner
                 widget = QLineEdit()
                 widget.setText(_(param["default"]))
                 widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
@@ -128,7 +127,6 @@ class BlenderListView(QListView):
                 # add value to dictionary
                 self.params[param["name"]] = _(param["default"])
 
-                # create spinner
                 widget = QPlainTextEdit()
                 widget.setPlainText(_(param["default"]).replace("\\n", "\n"))
                 widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
@@ -137,7 +135,6 @@ class BlenderListView(QListView):
                 # add value to dictionary
                 self.params[param["name"]] = param["default"]
 
-                # create spinner
                 widget = QComboBox()
                 widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
 
@@ -180,19 +177,21 @@ class BlenderListView(QListView):
             elif param["type"] == "color":
                 # add value to dictionary
                 color = QColor(param["default"])
+                text_color = ui_util.best_contrast(color)
                 self.params[param["name"]] = [color.redF(), color.greenF(), color.blueF()]
                 if "diffuse_color" in param.get("name"):
                     self.params[param["name"]].append(color.alphaF())
                 widget = QPushButton()
-                widget.setText("")
-                widget.setStyleSheet("background-color: {}".format(param["default"]))
+                widget.setText(color.name())
+                widget.setStyleSheet("background-color: {}; color: {};".format(
+                    color.name(), text_color.name()))
                 widget.clicked.connect(functools.partial(self.color_button_clicked, widget, param))
 
             # Add Label and Widget to the form
-            if (widget and label):
-                self.win.settingsContainer.layout().addRow(label, widget)
-            elif (label):
-                self.win.settingsContainer.layout().addRow(label)
+            if widget and label:
+                layout.addRow(label, widget)
+            elif label:
+                layout.addRow(label)
 
         self.end_processing()
         self.init_slider_values()
@@ -241,7 +240,10 @@ class BlenderListView(QListView):
         (widget, param) = self._color_scratchpad
         if not newColor or not newColor.isValid():
             return
-        widget.setStyleSheet("background-color: {}".format(newColor.name()))
+        text_color = ui_util.best_contrast(newColor)
+        widget.setStyleSheet("background-color: {}; color: {};".format(
+            newColor.name(), text_color.name()))
+        widget.setText(newColor.name())
         self.params[param["name"]] = [
             newColor.redF(), newColor.greenF(), newColor.blueF()
             ]
@@ -414,7 +416,7 @@ class BlenderListView(QListView):
 
             # Get details of param
             for att in ["title", "description", "name", "type"]:
-                if param.attributes[att]:
+                if att in param.attributes:
                     param_item[att] = param.attributes[att].value
 
             for tag in ["min", "max", "step", "digits", "default"]:
