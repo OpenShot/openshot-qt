@@ -111,12 +111,14 @@ class BlenderListView(QListView):
                 self.params[param["name"]] = float(param["default"])
 
                 widget = QDoubleSpinBox()
-                widget.setMinimum(float(param["min"]))
-                widget.setMaximum(float(param["max"]))
+                widget.setRange(float(param["min"]), float(param["max"]))
                 widget.setValue(float(param["default"]))
-                widget.setSingleStep(0.01)
+                step = param.get("step", 0.01)
+                widget.setSingleStep(float(step))
+                digits = param.get("digits", 2)
+                widget.setDecimals(int(digits))
                 widget.setToolTip(param["title"])
-                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
+                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
 
             elif param["type"] == "text":
                 # add value to dictionary
@@ -199,9 +201,9 @@ class BlenderListView(QListView):
         self.end_processing()
         self.init_slider_values()
 
-    def spinner_value_changed(self, param, value):
+    def spinner_value_changed(self, widget, param, value):
         self.params[param["name"]] = value
-        log.info('Animation param %s set to %s' % (param["name"], value))
+        log.info('Animation param %s set to %0.2f' % (param["name"], value))
 
     def text_value_changed(self, widget, param, value=None):
         try:
