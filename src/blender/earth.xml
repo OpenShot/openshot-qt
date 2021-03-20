@@ -12,130 +12,130 @@
 	</param>
 
 	<!-- DEPART COORDINATES -->
-	<param name="depart_title" type="text" title="Depart Title" description="">
+	<param name="depart_section_label" type="bold_label" title="Departure Location"/>
+	<param name="depart_title" type="text" title="Departure Title" description="">
 		<default>New York</default>
 	</param>
-	<param name="depart_lat_dir" type="dropdown" title="Depart Latitude (Equator)" description="">
+	<param name="depart_lat_label" type="label" title="Departure Coordinates, Latitude"/>
+	<param name="depart_lat_dir" type="dropdown" title="• Direction" description="">
 		<values>
 			<value name="North" num="N"/>
 			<value name="South" num="S"/>
 		</values>
 		<default>N</default>
 	</param>
-	<param name="depart_lat_deg" type="spinner" title="Depart Latitude (degrees)" description="">
+	<param name="depart_lat_deg" type="spinner" title="• Degrees" description="">
 		<min>0</min>
 		<max>90</max>
 		<default>40</default>
 	</param>
-	<param name="depart_lat_min" type="spinner" title="Depart Latitude (minutes)" description="">
+	<param name="depart_lat_min" type="spinner" title="• Minutes" description="">
 		<min>0</min>
 		<max>60</max>
 		<default>42</default>
 	</param>
-	<param name="depart_lat_sec" type="spinner" title="Depart Latitude (seconds)" description="">
+	<param name="depart_lat_sec" type="spinner" title="• Seconds" description="">
 		<min>0</min>
 		<max>60</max>
 		<default>51</default>
 	</param>
-	<param name="depart_lon_dir" type="dropdown" title="Depart Longitude (Prime Meridian)" description="">
+	<param name="depart_lon_label" type="label" title="Departure Coordinates, Longitude"/>
+	<param name="depart_lon_dir" type="dropdown" title="• Direction" description="">
 		<values>
 			<value name="East" num="E"/>
 			<value name="West" num="W"/>
 		</values>
 		<default>W</default>
 	</param>
-	<param name="depart_lon_deg" type="spinner" title="Depart Longitude (degrees)" description="">
+	<param name="depart_lon_deg" type="spinner" title="• Degrees" description="">
 		<min>0</min>
 		<max>180</max>
 		<default>74</default>
 	</param>
-	<param name="depart_lon_min" type="spinner" title="Depart Longitude (minutes)" description="">
+	<param name="depart_lon_min" type="spinner" title="• Minutes" description="">
 		<min>0</min>
 		<max>180</max>
 		<default>0</default>
 	</param>
-	<param name="depart_lon_sec" type="spinner" title="Depart Longitude (seconds)" description="">
+	<param name="depart_lon_sec" type="spinner" title="• Seconds" description="">
 		<min>0</min>
 		<max>180</max>
 		<default>23</default>
 	</param>
 
 	<!-- ARRIVAL COORDINATES -->
+	<param name="arrive_section_label" type="bold_label" title="Arrival Location"/>
 	<param name="arrive_title" type="text" title="Arrival Title" description="">
 		<default>Paris</default>
 	</param>
-	<param name="arrive_lat_dir" type="dropdown" title="Arrival Latitude (Equator)" description="">
+	<param name="arrive_lat_label" type="label" title="Arrival Coordinates, Latitude"/>
+	<param name="arrive_lat_dir" type="dropdown" title="• Direction" description="">
 		<values>
 			<value name="North" num="N"/>
 			<value name="South" num="S"/>
 		</values>
 		<default>N</default>
 	</param>
-	<param name="arrive_lat_deg" type="spinner" title="Arrival Latitude (degrees)" description="">
+	<param name="arrive_lat_deg" type="spinner" title="• Deegrees" description="">
 		<min>0</min>
 		<max>90</max>
 		<default>48</default>
 	</param>
-	<param name="arrive_lat_min" type="spinner" title="Arrival Latitude (minutes)" description="">
+	<param name="arrive_lat_min" type="spinner" title="• Minutes" description="">
 		<min>0</min>
 		<max>60</max>
 		<default>51</default>
 	</param>
-	<param name="arrive_lat_sec" type="spinner" title="Arrival Latitude (seconds)" description="">
+	<param name="arrive_lat_sec" type="spinner" title="• Seconds" description="">
 		<min>0</min>
 		<max>60</max>
 		<default>24</default>
 	</param>
-	<param name="arrive_lon_dir" type="dropdown" title="Arrival Longitude (Prime Meridian)" description="">
+	<param name="arrive_lon_label" type="label" title="Arrival Coordinates, Longitude"/>
+	<param name="arrive_lon_dir" type="dropdown" title="• Direction" description="">
 		<values>
 			<value name="East" num="E"/>
 			<value name="West" num="W"/>
 		</values>
 		<default>E</default>
 	</param>
-	<param name="arrive_lon_deg" type="spinner" title="Arrival Longitude (degrees)" description="">
+	<param name="arrive_lon_deg" type="spinner" title="• Degrees" description="">
 		<min>0</min>
 		<max>180</max>
 		<default>2</default>
 	</param>
-	<param name="arrive_lon_min" type="spinner" title="Arrival Longitude (minutes)" description="">
+	<param name="arrive_lon_min" type="spinner" title="• Minutes" description="">
 		<min>0</min>
 		<max>180</max>
 		<default>21</default>
 	</param>
-	<param name="arrive_lon_sec" type="spinner" title="Arrival Longitude (seconds)" description="">
+	<param name="arrive_lon_sec" type="spinner" title="• Seconds" description="">
 		<min>0</min>
 		<max>180</max>
 		<default>7</default>
 	</param>
 	
-	
-	<!-- TEXTURE SETTINGS -->
-	<param name="map_texture" type="text" title="Custom Texture (Equirectangular)" description="">
-		<default></default>
-	</param>
-	
-	
 	<!-- FONT / MATERIAL SETTINGS -->
-	<param name="extrude" type="spinner" title="Extrude" description="">
+	<param name="font_section_label" type="bold_label" title="Text and Graphics"/>
+	<param name="extrude" type="spinner" title="• Extrusion depth" description="">
 		<min>0.0</min>
 		<max>1.0</max>
 		<default>0.1</default>
 	</param>
 
-	<param name="bevel_depth" type="spinner" title="Bevel Depth" description="">
+	<param name="bevel_depth" type="spinner" title="• Bevel depth" description="">
 		<min>0.0</min>
 		<max>1.0</max>
 		<default>0.02</default>
 	</param>
 
-	<param name="text_size" type="spinner" title="Text Size" description="">
+	<param name="text_size" type="spinner" title="• Text size" description="">
 		<min>0.0</min>
 		<max>10.0</max>
 		<default>1.0</default>
 	</param>
 	
-	<param name="fontname" type="dropdown" title="Font Name" description="">
+	<param name="fontname" type="dropdown" title="• Font Name" description="">
 		<values>
 			<value name="Bfont" num="Bfont"/>
 			<value name="WenQuanYiMicroHei (Unicode)" num="WenQuanYiMicroHei"/>
@@ -143,27 +143,50 @@
 		<default>Bfont</default>
 	</param>
 	
-	<param name="width" type="spinner" title="Text Width" description="">
+	<param name="width" type="spinner" title="• Text width" description="">
 		<min>0.0</min>
 		<max>10.0</max>
 		<default>1.0</default>
 	</param>
 
-	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
+	<param name="diffuse_color" type="color" title="• Diffuse Color" description="">
 		<default>#FF0000</default>
 	</param>
 	
-	<param name="specular_color" type="color" title="Specular Color" description="">
+	<param name="specular_color" type="color" title="• Specular Color" description="">
 		<default>#ffffff</default>
 	</param>
 	
-	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="">
+	<param name="specular_intensity" type="spinner" title="• Specular Intensity" description="">
 		<min>0.0</min>
 		<max>1.0</max>
 		<default>0.5</default>
 	</param>
+
+	<param name="sun_intensity" type="spinner" title="Sunlight Intensity" description="">
+		<min>0.0</min>
+		<max>20.0</max>
+		<default>1.0</default>
+		<step>0.1</step>
+	</param>
+
+	<!-- TEXTURE SETTINGS - NOT NORMALLY USED -->
+	<param name="map_texture" type="text" title="Custom Texture File" description="">
+		<default></default>
+	</param>
 	
-	
+	<!-- SPEED -->
+	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+
 	<param name="start_frame" type="spinner" title="Start Frame" description="">
 		<min>1</min>
 		<max>1</max>
@@ -176,15 +199,4 @@
 		<default>100</default>
 	</param>
 
-	<!-- SPEED -->
-	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
-		<values>
-			<value name="Default" num="1"/>
-			<value name="2X" num="2"/>
-			<value name="3X" num="3"/>
-			<value name="4X" num="4"/>
-			<value name="5X" num="5"/>
-		</values>
-		<default>1</default>
-	</param>
 </effect>

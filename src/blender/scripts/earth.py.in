@@ -20,8 +20,9 @@
 # Import Blender's python API.  This only works when the script is being
 # run from the context of Blender.  Blender contains it's own version of Python
 # with this library pre-installed.
-import math
 import bpy
+import os
+import math
 import json
 
 
@@ -73,6 +74,7 @@ params = {
     'start_frame': 1,
     'end_frame': 250,
     'length_multiplier': 1,
+    'sun_intensity': 1.0,
 
     'depart_title': 'Paris',
     'depart_lat_deg': 48,
@@ -282,8 +284,13 @@ update_curve(
     action.fcurves[2], math.radians(point_a.lon), math.radians(point_b.lon))
 
 # set world texture (i.e. the globe texture)
-if params["map_texture"]:
+if "map_texture" in params and os.path.exists(params["map_texture"]):
     bpy.data.textures["Texture.002"].image.filepath = params["map_texture"]
+
+# Configure light source (sunlight)
+bpy.data.lights["Lamp"].specular_factor = 0.0
+if "sun_intensity" in params:
+    bpy.data.lights["Lamp"].energy = float(params["sun_intensity"])
 
 # Get font object
 font = None
