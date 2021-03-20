@@ -103,6 +103,9 @@ class BlenderListView(QListView):
             label.setText(_(param["title"]))
             label.setToolTip(_(param["title"]))
 
+            if "bold_label" in param["type"]:
+                label.setStyleSheet(r"* { font-weight: bold; font-size: 120%; }")
+
             if param["type"] == "spinner":
                 # add value to dictionary
                 self.params[param["name"]] = float(param["default"])
