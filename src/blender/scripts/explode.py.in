@@ -104,7 +104,7 @@ def createExplodeTxt(title, particle_number, extrude, bevel_depth, spacemode,
     # emitfrom
     PSSettings.emit_from = 'VERT'
     # particle number
-    PSSettings.count = particle_number
+    PSSettings.count = int(particle_number)
     # particle lifetime
     PSSettings.lifetime = 200  # 200 + 48 > 150
     # start/end explosion

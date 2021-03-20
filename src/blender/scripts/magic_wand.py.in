@@ -119,8 +119,8 @@ bpy.data.scenes["Scene"].node_tree.nodes["Glare"].glare_type = params["glare_typ
 
 # Change particle settings
 psettings = bpy.data.particles["ParticleSettings"]
-psettings.count = params["particles_count"]
-psettings.lifetime = params["particles_lifetime"]
+psettings.count = int(params["particles_count"])
+psettings.lifetime = int(params["particles_lifetime"])
 psettings.effector_weights.gravity = params["particles_gravity"]
 psettings.object_align_factor = (
     params["velocity_x"], params["velocity_y"], params["velocity_z"])
