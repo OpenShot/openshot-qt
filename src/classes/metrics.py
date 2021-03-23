@@ -91,6 +91,7 @@ params = {
 # incase the user enables metrics later
 metric_queue = []
 
+
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
     metric_params = deepcopy(params)
