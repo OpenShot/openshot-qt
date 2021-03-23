@@ -170,12 +170,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                 continue
 
             path, filename = os.path.split(file.data["path"])
-            tags = ""
-            if "tags" in file.data:
-                tags = file.data["tags"]
-            name = filename
-            if "name" in file.data:
-                name = file.data["name"]
+            tags = file.data.get("tags", "")
+            name = file.data.get("name", filename)
 
             media_type = file.data.get("media_type")
 
@@ -492,9 +488,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         """Update/re-generate the thumbnail of a specific file"""
         file = File.get(id=file_id)
         path, filename = os.path.split(file.data["path"])
-        name = filename
-        if "name" in file.data:
-            name = file.data["name"]
+        name = file.data.get("name", filename)
 
         # Refresh thumbnail for updated file
         self.ignore_updates = True

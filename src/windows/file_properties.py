@@ -82,12 +82,8 @@ class FileProperties(QDialog):
         file_extension = os.path.splitext(filename)[1]
         fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
 
-        tags = ""
-        if "tags" in self.file.data:
-            tags = self.file.data["tags"]
-        name = filename
-        if "name" in self.file.data:
-            name = self.file.data["name"]
+        tags = self.file.data.get("tags", "")
+        name = file.data.get("name", filename)
 
         # Populate fields
         self.txtFileName.setText(name)

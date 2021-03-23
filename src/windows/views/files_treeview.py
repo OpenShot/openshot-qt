@@ -183,16 +183,9 @@ class FilesTreeView(QTreeView):
 
         # Get file object and update friendly name and tags attribute
         f = File.get(id=file_id)
-        if name and name != os.path.basename(f.data["path"]):
-            f.data["name"] = name
-        else:
-            f.data["name"] = os.path.basename(f.data["path"])
-
-        if "tags" in f.data:
-            if tags != f.data["tags"]:
-                f.data["tags"] = tags
-        elif tags:
-            f.data["tags"] = tags
+        f.data.update({"name": name or os.path.basename(f.data.get("path"))})
+        if "tags" in f.data or tags:
+            f.data.update({"tags": tags})
 
         # Save File
         f.save()
