@@ -72,9 +72,7 @@ class TimelineModel():
             row = []
 
             # Look for friendly name attribute (optional)
-            name = filename
-            if 'name' in file.data:
-                name = file.data['name']
+            name = file.data.get("name", filename)
 
             # Append thumbnail
             col = QStandardItem()
