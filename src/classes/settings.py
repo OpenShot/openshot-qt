@@ -37,7 +37,7 @@ from classes.json_data import JsonDataStore
 
 def get_settings():
     """ Get the current application's settings instance """
-    return SettingStore.get_app().settings
+    return SettingStore.get_app().get_settings()
 
 
 class SettingStore(JsonDataStore):
@@ -72,20 +72,22 @@ class SettingStore(JsonDataStore):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
         key = key.lower()
 
-        # Load user setting's values (for easy merging)
-        user_values = {}
-        for item in self._data:
-            if "setting" in item and "value" in item:
-                user_values[item["setting"].lower()] = item
+        # Index settings values (for easy updates)
+        user_values = {
+            item["setting"].lower(): item
+            for item in self._data
+            if all(["setting" in item, "value" in item])
+        }
 
         # Save setting
         if key in user_values:
-            user_values[key]["value"] = value
+            user_values[key].update({"value": value})
         else:
             log.warn(
                 "{} key '{}' not valid. The following are valid: {}".format(
-                self.data_type, key,
-                list(self._data.keys()),
+                    self.data_type,
+                    key,
+                    list(self._data.keys()),
                 ))
 
     def load(self):

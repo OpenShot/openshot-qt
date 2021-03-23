@@ -55,16 +55,21 @@ try:
 except ImportError:
     pass
 
+def get_app():
+    """ Get the current QApplication instance of OpenShot """
+    return QApplication.instance()
+
+
+def get_settings():
+    """Get a reference to the app's settings object"""
+    return get_app().get_settings()
+
 try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
 except AttributeError:
     pass  # Quietly fail for older Qt5 versions
 
-
-def get_app():
-    """ Returns the current QApplication instance of OpenShot """
-    return QApplication.instance()
 
 
 class OpenShotApp(QApplication):
@@ -296,6 +301,11 @@ class OpenShotApp(QApplication):
             _("Error loading settings file: %(file_path)s. Settings will be reset.")
             % {"file_path": filepath}
             )
+
+    def get_settings(self):
+        if not hasattr(self, "settings"):
+            return None
+        return self.settings
 
     def _tr(self, message):
         return self.translate("", message)
