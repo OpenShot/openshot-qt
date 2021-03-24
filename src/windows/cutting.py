@@ -162,7 +162,7 @@ class Cutting(QDialog):
 
         # Determine if a start or end attribute is in this file
         start_frame = 1
-        if 'start' in self.file.data.keys():
+        if 'start' in self.file.data:
             start_frame = (float(self.file.data['start']) * self.fps) + 1
 
         # Display start frame (and then the previous frame)
@@ -334,7 +334,7 @@ class Cutting(QDialog):
         log.info('btnAddClip_clicked')
 
         # Remove unneeded attributes
-        if 'name' in self.file.data.keys():
+        if 'name' in self.file.data:
             self.file.data.pop('name')
 
         # Save new file
