@@ -360,5 +360,6 @@ def onLogTheEnd():
         log.info(time.asctime().center(48))
         log.info("=" * 48)
     except Exception:
-        from logging import log
-        log.debug('Failed to write session ended log')
+        import logging
+        log = logging.getLogger(".")
+        log.debug('Failed to write session ended log', exc_info=1)

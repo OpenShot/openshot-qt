@@ -336,8 +336,8 @@ def main():
     try:
         app = OpenShotApp(sys.argv, mode="unittest")
     except Exception:
-        from logging import logger
-        log = logger.getlog(".")
+        import logging
+        log = logging.getLogger(".")
         log.error("Failed to instantiate OpenShotApp", exc_info=1)
         sys.exit()
     unittest.main()
