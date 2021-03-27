@@ -474,11 +474,10 @@ class PropertiesTableView(QTableView):
                                                 "value": effect_id,
                                                 "selected": False,
                                                 "icon": effect_icon})
-                        clip_choices.append({"name": clip_instance_data["title"],
+                        self.choices.append({"name": _(clip_instance_data["title"]),
                                             "value": effect_choices,
                                             "selected": False,
                                             "icon": clip_instance_icon})
-                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
 
             # Handle selected object options (ObjectDetection effect)
@@ -528,11 +527,10 @@ class PropertiesTableView(QTableView):
                             if (clip_path == clip_instance_path):
                                 # Generate the clip icon to show in the selection menu
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                                clip_choices.append({"name": clip_instance_data["title"],
+                                self.choices.append({"name": clip_instance_data["title"],
                                               "value": clip_instance_id,
                                               "selected": False,
                                               "icon": clip_instance_icon})
-                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle clip attach options
             if property_key == "parentObjectId" and not self.choices:
@@ -756,7 +754,11 @@ class PropertiesTableView(QTableView):
                 # Divide into smaller QMenus (since large lists cover the entire screen)
                 # For example: Transitions -> 1 -> sub items
                 SubMenu = None
-                SubMenuRoot = menu.addMenu(_(choice["name"]))
+                if choice["icon"] is not None:
+                    SubMenuRoot = menu.addMenu(choice["icon"], _(choice["name"]))
+                else:
+                    SubMenuRoot = menu.addMenu(_(choice["name"]))
+                    
                 SubMenuSize = 25
                 SubMenuNumber = 0
                 if len(choice["value"]) > SubMenuSize:
