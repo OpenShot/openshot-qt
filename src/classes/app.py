@@ -79,7 +79,7 @@ class OpenShotApp(QApplication):
     def __init__(self, *args, mode=None):
         QApplication.__init__(self, *args)
         self.mode = mode or "normal"
-        self.args = list(*args)
+        self.args = super().arguments()
         self.errors = []
 
         try:

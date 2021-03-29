@@ -121,7 +121,7 @@ def main():
     parser.add_argument(
         'remain', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
 
-    args = parser.parse_args()
+    args, extra_args = parser.parse_known_args()
 
     # Display version and exit (if requested)
     if args.version:
@@ -174,6 +174,7 @@ def main():
     from classes.app import OpenShotApp
 
     argv = [sys.argv[0]]
+    argv.extend(extra_args)
     argv.extend(args.remain)
     try:
         app = OpenShotApp(argv)
