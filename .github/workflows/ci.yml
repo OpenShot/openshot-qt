@@ -1,4 +1,4 @@
-name: CI Build
+name: openshot-qt CI Build
 on: [push, pull_request]
 jobs:
   build:
