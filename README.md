@@ -2,10 +2,6 @@ OpenShot Video Editor is an award-winning free and open-source video editor
 for Linux, Mac, and Windows, and is dedicated to delivering high quality 
 video editing and animation solutions to the world.
 
-## Build Status
-
-[![Build Status](https://img.shields.io/travis/OpenShot/openshot-qt/develop.svg?label=openshot-qt)](https://travis-ci.org/OpenShot/openshot-qt) [![Build Status](https://img.shields.io/travis/OpenShot/libopenshot/develop.svg?label=libopenshot)](https://travis-ci.org/OpenShot/libopenshot) [![Build Status](https://img.shields.io/travis/OpenShot/libopenshot-audio/develop.svg?label=libopenshot-audio)](https://travis-ci.org/OpenShot/libopenshot-audio)
-
 ## Features
 
 * Cross-platform (Linux, Mac, and Windows)
