@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Ruler directives (dragging playhead functionality, progress bars, tick marks, etc...)
+ * @brief Ruler directives (playhead functionality, markers, tick marks, etc...)
  * @author Jonathan Thomas <jonathan@openshot.org>
  * @author Cody Parker <cody@yourcodepro.com>
  *
@@ -52,7 +52,6 @@ App.directive("tlScrollableTracks", function () {
 
         $("#track_controls").scrollTop(element.scrollTop());
         $("#scrolling_ruler").scrollLeft(element.scrollLeft());
-        $("#progress_container").scrollLeft(element.scrollLeft());
       });
 
       // Initialize panning when middle mouse is clicked

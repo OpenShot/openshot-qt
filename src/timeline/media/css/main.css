@@ -1,7 +1,7 @@
 html {
     height: 100%;
 }
-body { 
+body {
 	height: 100%;
     margin: 0;
     background-repeat: no-repeat;
@@ -48,7 +48,6 @@ img {
 #ruler_label { height: 39px; width: 140px; float: left; margin-bottom: 4px; }
 #ruler_ticks { background-color:#000; }
 #ruler_time { font-size: 13pt; color: #c8c8c8; padding-top: 14px; padding-left: 17px; }
-#progress_container {margin-left:140px; overflow: hidden; height: 13px;}
 .drag_cursor { cursor: move; }
 
 /* Tracks */
@@ -166,7 +165,7 @@ img {
 
 ::-webkit-scrollbar-track {
   background: #000000;
-  box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0); 
+  box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0);
   border-radius: 0.45em;
 }
 

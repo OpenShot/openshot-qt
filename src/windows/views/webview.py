@@ -3141,29 +3141,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Call javascript command
         self.run_js(JS_SCOPE_SELECTOR + ".selectAll();")
 
-    def render_cache_json(self):
-        """Render the cached frames to the timeline (called every X seconds), and only if changed"""
-
-        # Get final cache object from timeline
-        try:
-            cache_object = self.window.timeline_sync.timeline.GetCache()
-            if not cache_object or cache_object.Count() <= 0:
-                return
-            # Get the JSON from the cache object (i.e. which frames are cached)
-            cache_json = self.window.timeline_sync.timeline.GetCache().Json()
-            cache_dict = json.loads(cache_json)
-            cache_version = cache_dict["version"]
-
-            if self.cache_renderer_version == cache_version:
-                # Nothing has changed, ignore
-                return
-            # Cache has changed, re-render it
-            self.cache_renderer_version = cache_version
-            self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
-        except Exception as ex:
-            # Log the exception and ignore
-            log.warning("Exception processing timeline cache: %s", ex)
-
     def __init__(self, window):
         super().__init__()
         self.setObjectName("TimelineWebView")
@@ -3206,16 +3183,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.redraw_audio_timer.setSingleShot(True)
         self.redraw_audio_timer.timeout.connect(self.redraw_audio_onTimeout)
 
-        # QTimer for cache rendering
-        self.cache_renderer_version = None
-        self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(500)
-        self.cache_renderer.timeout.connect(self.render_cache_json)
-
         # Connect shutdown signals
         app.aboutToQuit.connect(self.redraw_audio_timer.stop)
-        app.aboutToQuit.connect(self.cache_renderer.stop)
         app.aboutToQuit.connect(self.deleteLater)
-
-        # Delay the start of cache rendering
-        QTimer.singleShot(1500, self.cache_renderer.start)

@@ -58,9 +58,8 @@
 				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="showMarkerMenu(marker.id)" style="position: absolute; bottom: 0px; left: {{(marker.position * pixelsPerSecond) - 6 }}px;" class="marker_icon" ng-src="media/images/markers/{{ marker.icon }}" draggable="false"/>
 			</span>
 			<br class="cleared">
-			
-			<!-- PROGRESS BAR -->
-			<canvas id="progress" width="{{canvasMaxWidth(project.duration * pixelsPerSecond)}}px" height="3px"></canvas>
+			<!-- former PROGRESS BAR -->
+			<div style="height: 3px;"></div>
  		</div>
  		<div class="cleared"></div>
 
