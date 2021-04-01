@@ -2710,7 +2710,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     @pyqtSlot()
     def centerOnPlayhead(self):
         """ Center the timeline on the current playhead position """
-        # Execute JavaScript to center the timeline
         self.run_js(JS_SCOPE_SELECTOR + '.centerOnPlayhead();')
 
     @pyqtSlot(int)
@@ -2834,8 +2833,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Track that a new item is being 'added'
             self.new_item = True
             self.item_type = "os_drop"
-
-            # accept event
             event.accept()
 
     # Add Clip
@@ -2854,10 +2851,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 # File not found, do nothing
                 return
 
-            # Get file name
             filename = os.path.basename(file.data["path"])
-
-            # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
 
             # Create clip object for this file
@@ -3041,9 +3035,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
-        # Accept all move events
         event.accept()
-
         # Get cursor position
         pos = event.posF()
 
@@ -3055,9 +3047,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def dropEvent(self, event):
         log.info("Dropping item on timeline - item_id: %s, item_type: %s" % (self.item_id, self.item_type))
 
-        # Accept event
         event.accept()
-
         # Get position of cursor
         pos = event.posF()
 
@@ -3099,9 +3089,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         """A drag is in-progress and the user moves mouse outside of timeline"""
         log.debug('dragLeaveEvent - Undo drop')
 
-        # Accept event
         event.accept()
-
         # Clear selected clips
         self.window.removeSelection(self.item_id, self.item_type)
 
@@ -3125,25 +3113,19 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
         log.debug('redraw_audio_onTimeout')
-
         # Pass to javascript timeline (and render)
         self.run_js(JS_SCOPE_SELECTOR + ".reDrawAllAudioData();")
 
     def ClearAllSelections(self):
         """Clear all selections in JavaScript"""
-
-        # Call javascript command
         self.run_js(JS_SCOPE_SELECTOR + ".clearAllSelections();")
 
     def SelectAll(self):
         """Select all clips and transitions in JavaScript"""
-
-        # Call javascript command
         self.run_js(JS_SCOPE_SELECTOR + ".selectAll();")
 
-    def __init__(self, window):
-        super().__init__()
-        self.setObjectName("TimelineWebView")
+    def __init__(self, *args, window=None, **kwargs):
+        super().__init__(*args, **kwargs)
 
         app = get_app()
         self.window = window
@@ -3156,17 +3138,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Add self as listener to project data updates (used to update the timeline)
         app.updates.add_listener(self)
 
-        # Connect zoom functionality
-        window.sliderZoom.valueChanged.connect(self.update_zoom)
-
-        # Connect waveform generation signal
-        window.WaveformReady.connect(self.Waveform_Ready)
-
         # Local audio waveform cache
         self.waveform_cache = {}
-
-        # Connect update thumbnail signal
-        window.ThumbnailUpdated.connect(self.Thumbnail_Updated)
 
         # Copy clipboard
         self.copy_clipboard = {}

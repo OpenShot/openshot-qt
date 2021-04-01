@@ -2828,9 +2828,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
 
-        # Setup timeline
-        self.timeline = TimelineWebView(self)
+        # Setup timeline view
+        self.timeline = TimelineWebView(window=self)
+        self.timeline.setObjectName("main_window.timeline")
         self.frameWeb.layout().addWidget(self.timeline)
+
+        # Connect webview signals
+        self.sliderZoom.valueChanged.connect(self.timeline.update_zoom)
+        self.WaveformReady.connect(self.timeline.Waveform_Ready)
+        self.ThumbnailUpdated.connect(self.timeline.Thumbnail_Updated)
 
         # Configure the side docks to full-height
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
