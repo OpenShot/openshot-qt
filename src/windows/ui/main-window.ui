@@ -884,6 +884,9 @@
    <property name="toolTip">
     <string>Razor Tool</string>
    </property>
+   <property name="shortcut">
+    <string>R</string>
+   </property>
   </action>
   <action name="actionSnappingTool">
    <property name="checkable">

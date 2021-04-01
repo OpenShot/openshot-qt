@@ -520,6 +520,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Toggle Razor",
+    "restart": true,
+    "setting": "actionRazorTool",
+    "value": "R",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Previous Marker",
     "restart": true,
     "setting": "actionPreviousMarker",
