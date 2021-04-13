@@ -755,9 +755,9 @@ class PropertiesTableView(QTableView):
                 # For example: Transitions -> 1 -> sub items
                 SubMenu = None
                 if choice["icon"] is not None:
-                    SubMenuRoot = menu.addMenu(choice["icon"], _(choice["name"]))
+                    SubMenuRoot = menu.addMenu(choice["icon"], choice["name"])
                 else:
-                    SubMenuRoot = menu.addMenu(_(choice["name"]))
+                    SubMenuRoot = menu.addMenu(choice["name"])
                     
                 SubMenuSize = 25
                 SubMenuNumber = 0

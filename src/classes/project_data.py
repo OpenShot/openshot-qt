@@ -407,58 +407,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         scaled = scaler(copy.deepcopy(self._data))
         return scaled
 
-        # Create copy of active project data
-        data = copy.deepcopy(self._data)
-
-        # Rescale the the copied project data
-        # Loop through all clips (and look for Keyframe objects)
-        # Scale the X coordinate by factor (which represents the frame #)
-        for clip in data.get('clips', []):
-            for attribute in clip:
-                if type(clip.get(attribute)) == dict and "Points" in clip.get(attribute):
-                    for point in clip.get(attribute).get("Points"):
-                        if "co" in point:
-                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if type(clip.get(attribute)) == dict and "red" in clip.get(attribute):
-                    for color in clip.get(attribute):
-                        for point in clip.get(attribute).get(color).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-            for effect in clip.get("effects", []):
-                for attribute in effect:
-                    if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
-                        for point in effect.get(attribute).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                    if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
-                        for color in effect.get(attribute):
-                            for point in effect.get(attribute).get(color).get("Points"):
-                                if "co" in point:
-                                    point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if effect.get("class_name") == "Tracker":
-                        effect["TimeScale"] = effect["TimeScale"] * scale_factor
-        
-        
-        # Loop through all effects/transitions (and look for Keyframe objects)
-        # Scale the X coordinate by factor (which represents the frame #)
-        for effect in data.get('effects', []):
-            for attribute in effect:
-                if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
-                    for point in effect.get(attribute).get("Points"):
-                        if "co" in point:
-                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
-                    for color in effect.get(attribute):
-                        for point in effect.get(attribute).get(color).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-            if effect.get("class_name") == "Tracker":
-                effect["TimeScale"] = effect["TimeScale"] * scale_factor
-
-
-        # return the copied and scaled project data
-        return data
-
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
         import sys

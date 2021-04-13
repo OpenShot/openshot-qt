@@ -25,7 +25,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-from classes.info import USER_PATH
+from classes.info import YOLO_PATH
 import os
 # Not all Effects support pre-processing, so for now, this is a hard-coded
 # solution to providing the pre-processing params needed for these special effects.
@@ -151,19 +151,19 @@ effect_options = {
 
     "Object Detector": [
         {
-            "value": os.path.join(USER_PATH,"yolo/yolov3.weights"),
+            "value": os.path.join(YOLO_PATH,"yolov3.weights"),
             "title": "Model Weights",
             "type": "text",
             "setting": "model-weights"
         },
         {
-            "value": os.path.join(USER_PATH,"yolo/yolov3.cfg"),
+            "value": os.path.join(YOLO_PATH,"yolov3.cfg"),
             "title": "Model Config",
             "type": "text",
             "setting": "model-config"
         },
         {
-            "value": os.path.join(USER_PATH,"yolo/obj.names"),
+            "value": os.path.join(YOLO_PATH,"obj.names"),
             "title": "Class names",
             "type": "text",
             "setting": "class-names"
