@@ -341,15 +341,16 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     # Get properties of clip at current frame
                     raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
                     # Check if the tracked object is visible in this frame
-                    if raw_properties_effect['visible']['value'] == 1:
-                        # Get the selected bounding box values
-                        rotation = raw_properties_effect['rotation']['value']
-                        x1 = raw_properties_effect['x1']['value']
-                        y1 = raw_properties_effect['y1']['value']
-                        x2 = raw_properties_effect['x2']['value']
-                        y2 = raw_properties_effect['y2']['value']
-                        self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
-                            x1, y1, x2, y2, rotation)
+                    if raw_properties_effect.get('visible'): 
+                        if raw_properties_effect.get('visible').get('value') == 1:
+                            # Get the selected bounding box values
+                            rotation = raw_properties_effect['rotation']['value']
+                            x1 = raw_properties_effect['x1']['value']
+                            y1 = raw_properties_effect['y1']['value']
+                            x2 = raw_properties_effect['x2']['value']
+                            y2 = raw_properties_effect['y2']['value']
+                            self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
+                                x1, y1, x2, y2, rotation)
             else:
                 self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
@@ -865,11 +866,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.mouse_dragging and not self.transform_mode:
                 self.original_clip_data = self.transforming_clip.data
 
-            _ = self.getTransformMode(0, 0, 0, event)
+            
 
             if self.transforming_effect_object.info.has_tracked_object:
                 # Get properties of effect at current frame
                 raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                
+                if not raw_properties.get('visible'):
+                    self.mouse_position = event.pos()
+                    self.mutex.unlock()
+                    return
+
+                _ = self.getTransformMode(0, 0, 0, event)
 
                 # Transform effect object
                 if self.transform_mode:
