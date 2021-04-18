@@ -96,7 +96,7 @@ windows-builder-x64:
     - $PY_ABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
     - $NewPath = $NewPath + "C:\msys64\mingw64\lib\python" + $PY_ABI + "\;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\PyQt5;";
     - $env:Path = $NewPath + $originalPath
-    - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;"
+    - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
     - $VERSION=(python3 src/launch.py -V)
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
@@ -130,7 +130,7 @@ windows-builder-x86:
     - $PY_ABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
     - $NewPath = $NewPath + "C:\msys64\mingw32\lib\python" + $PY_ABI + "\;C:\msys64\mingw32\lib\python" + $PY_ABI + "\site-packages\;C:\msys64\mingw32\lib\python " + $PY_ABI+ "\site-packages\PyQt5;";
     - $env:Path = $NewPath + $originalPath
-    - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;"
+    - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;C:\msys64\mingw32\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
     - $VERSION=(python3 src/launch.py -V)
     - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
