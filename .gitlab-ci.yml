@@ -93,8 +93,8 @@ windows-builder-x64:
     - $originalPath = $env:Path
     - $NewPath = "$CI_PROJECT_DIR\build\install-x64\bin;$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\bin;"
     - $env:Path = $NewPath + $env:Path
-    - $PyABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
-    - $NewPath = $NewPath + "C:\msys64\mingw64\lib\python$PyABI\;C:\msys64\mingw64\lib\python$PyABI\site-packages\;C:\msys64\mingw64\lib\python$PyABI\site-packages\PyQt5;";
+    - $env:PY_ABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
+    - $NewPath = $NewPath + "C:\msys64\mingw64\lib\python$PY_ABI\;C:\msys64\mingw64\lib\python$PY_ABI\site-packages\;C:\msys64\mingw64\lib\python$PY_ABI\site-packages\PyQt5;";
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;"
     - $VERSION=(python3 src/launch.py -V)
@@ -127,8 +127,8 @@ windows-builder-x86:
     - $originalPath = $env:Path
     - $NewPath = "$CI_PROJECT_DIR\build\install-x86\bin;$CI_PROJECT_DIR\build\install-x86\python;C:\msys64\mingw32\bin;"
     - $env:Path = $NewPath + $env:Path
-    - $PyABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
-    - $NewPath = $NewPath + "C:\msys64\mingw32\lib\python$PyABI\;C:\msys64\mingw32\lib\python$PyABI\site-packages\;C:\msys64\mingw32\lib\python$PyABI\site-packages\PyQt5;";
+    - $env:PY_ABI = (python3 -c "import sysconfig; print(sysconfig.get_config_var('py_version_short'))")
+    - $NewPath = $NewPath + "C:\msys64\mingw32\lib\python$PY_ABI\;C:\msys64\mingw32\lib\python$PY_ABI\site-packages\;C:\msys64\mingw32\lib\python$PY_ABI\site-packages\PyQt5;";
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;"
     - $VERSION=(python3 src/launch.py -V)
@@ -136,7 +136,7 @@ windows-builder-x86:
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
     - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x86/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
-    - editbin /LARGEADDRESSAWARE "$CI_PROJECT_DIR\build\exe.mingw-$PyABI\openshot-qt.exe"
+    - editbin /LARGEADDRESSAWARE "$CI_PROJECT_DIR\build\exe.mingw-$PY_ABI\openshot-qt.exe"
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME"
   when: always
   except:
