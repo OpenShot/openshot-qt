@@ -58,7 +58,7 @@ from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
 from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
-from classes.query import Clip, Transition, Marker, Track
+from classes.query import File, Clip, Transition, Marker, Track
 from classes.thumbnail import httpThumbnailServerThread
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
@@ -1675,6 +1675,104 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('Cutting Cancelled')
 
+    def actionReplace_File_trigger(self):
+        log.debug("actionReplace_File_trigger")
+
+        app = get_app()
+        _ = app._tr
+
+        recommended_path = app.project.get("import_path")
+        if not recommended_path or not os.path.exists(recommended_path):
+            recommended_path = os.path.join(info.HOME_PATH)
+
+        # PyQt through 5.13.0 had the 'directory' argument mis-typed as str
+        if PYQT_VERSION_STR < '5.13.1':
+            dir_type = "str"
+            start_location = str(recommended_path)
+        else:
+            dir_type = "QUrl"
+            start_location = QUrl.fromLocalFile(recommended_path)
+
+        log.debug("Calling getOpenFileURLs() with %s directory argument", dir_type)
+        qurl_list = QFileDialog.getOpenFileUrls(
+            self,
+            _("Import Files..."),
+            start_location,
+            )[0]
+
+        # Set cursor to waiting
+        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+
+        try:
+            # Import list of files
+            self.files_model.process_urls(qurl_list)
+            
+            # Get replacement file
+            # Loops through the importing files and finds the first one with an existing path
+            for uri in qurl_list:
+                replace_filepath = uri.toLocalFile()
+                if not os.path.exists(replace_filepath):
+                    continue
+                else:
+                    break
+            
+            # Loop through selected files (set 1 selected file if more than 1)
+            f = self.files_model.current_file()
+            
+            # Bail out if no file selected
+            if not f:
+                log.info("Couldn't find current file for replace file")
+                return
+            
+            f_id = f.data["id"]
+            # Remove file
+            f.delete()
+            
+            # Loop through selected files
+            #for f in self.selected_files():
+            #    if not f:
+            #        continue
+
+            #    f_id = f.data["id"]
+            #    # Remove file
+            #    f.delete()
+            
+            # Refresh files views
+            self.refreshFilesSignal.emit()
+            
+            #replace_file = File.get(data.get("path")==replace_filepath)
+            
+            for f2 in File.filter():
+            	if f2 and f2.data.get("path")==replace_filepath:
+            	    replace_file_id = f2.data["id"]
+            
+            # Force update of clips
+            for c in Clip.filter(file_id=f_id):
+                # update clip
+                c.data["reader"]["id"] = replace_file_id
+                c.data["reader"]["path"] = replace_filepath
+                c.save()
+
+                # Emit thumbnail update signal (to update timeline thumb image)
+                self.ThumbnailUpdated.emit(c.id)
+            
+            # Refresh preview
+            get_app().window.refreshFrameSignal.emit()
+            
+            #replace_file = File.get(data.get("path")=replace_filepath)
+            
+            # Find matching clips (if any)
+            #clips = Clip.filter(file_id=f_id)
+            #for c in clips:
+            #    # Update file ID
+            #    c["file_id"] = replace_file.id
+        finally:
+            # Restore cursor
+            app.restoreOverrideCursor()
+        
+        # Update preview
+        self.refreshFrameSignal.emit()
+
     def actionRemove_from_Project_trigger(self):
         log.debug("actionRemove_from_Project_trigger")
 
@@ -2225,7 +2323,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     save_indicator,
                     _("Untitled Project"),
                     profile,
-                    "OpenShot Video Editor",
+                    "Julk's OpenShot Video Editor",
                     ))
         else:
             # Yes, project is saved
@@ -2237,7 +2335,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     save_indicator,
                     filename,
                     profile,
-                    "OpenShot Video Editor",
+                    "Julk's OpenShot Video Editor",
                     ))
 
     # Update undo and redo buttons enabled/disabled to available changes

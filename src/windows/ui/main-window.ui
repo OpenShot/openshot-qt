@@ -1385,6 +1385,18 @@
     <string>Preview File</string>
    </property>
   </action>
+  <action name="actionReplace_File">
+   <property name="icon">
+    <iconset theme="list-add" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/list-add.svg</normaloff>:/icons/Humanity/actions/16/list-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Replace File...</string>
+   </property>
+   <property name="toolTip">
+    <string>Replace File</string>
+   </property>
+  </action>
   <action name="actionRemove_from_Project">
    <property name="icon">
     <iconset theme="list-remove" resource="../../../images/openshot.qrc">
@@ -1394,7 +1406,7 @@
     <string>Remove from Project</string>
    </property>
    <property name="toolTip">
-    <string>Remove from </string>
+    <string>Remove from Project</string>
    </property>
   </action>
   <action name="actionFile_Properties">
