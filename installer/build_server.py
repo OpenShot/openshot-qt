@@ -445,7 +445,7 @@ def main():
             for replace_name in paths_to_replace:
                 if windows_32bit:
                     shutil.copytree(
-                        os.path.join('C:\\msys32\\mingw32\\share\\qt5\\plugins', replace_name),
+                        os.path.join('C:\\msys64\\mingw32\\share\\qt5\\plugins', replace_name),
                         os.path.join(exe_dir, replace_name))
                 else:
                     shutil.copytree(
@@ -459,8 +459,8 @@ def main():
                 ]
             if windows_32bit:
                 paths_to_copy = [
-                    ("Qt5Core.dll", "C:\\msys32\\mingw32\\bin\\"),
-                    ("Qt5Svg.dll", "C:\\msys32\\mingw32\\bin\\"),
+                    ("Qt5Core.dll", "C:\\msys64\\mingw32\\bin\\"),
+                    ("Qt5Svg.dll", "C:\\msys64\\mingw32\\bin\\"),
                     ]
             for qt_file_name, qt_parent_path in paths_to_copy:
                 qt5_path = os.path.join(qt_parent_path, qt_file_name)
