@@ -112,7 +112,9 @@ def print_min_versions(PATH):
 
 
 if __name__ == "__main__":
-    """Run these methods manually for testing"""
+    # Run these methods manually for testing
+
+    # XXX: This path should be set programmatically, somehow
     PATH = "/Users/jonathanthomas/apps/openshot-qt/build/exe.macosx-10.15-x86_64-3.7"
     fix_rpath(PATH)
     print_min_versions(PATH)

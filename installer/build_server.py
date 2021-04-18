@@ -34,6 +34,7 @@ import shutil
 import re
 import stat
 import subprocess
+import sysconfig
 import traceback
 from github3 import login
 from requests.auth import HTTPBasicAuth
@@ -41,6 +42,7 @@ from requests import post
 from version_parser import parse_version_info, parse_build_name
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+PY_ABI = sysconfig.get_config_var('py_version_short')
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
@@ -410,8 +412,8 @@ def main():
 
         if platform.system() == "Windows":
             # Move python folder structure, since Cx_Freeze doesn't put it in the correct place
-            exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.7')
-            python_dir = os.path.join(exe_dir, 'lib', 'python3.7')
+            exe_dir = os.path.join(PATH, 'build', 'exe.mingw-{}'.format(PY_ABI))
+            python_dir = os.path.join(exe_dir, 'lib', 'python{}'.format(PY_ABI))
 
             # Remove a redundant openshot_qt module folder (duplicates lots of files)
             duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
@@ -521,6 +523,7 @@ def main():
                 '/Q',
                 '/DVERSION=%s' % version,
                 '/DONLY_64_BIT=%s' % only_64_bit,
+                '/DPY_EXE_DIR=%s' % "exe.mingw-{}".format(PY_ABI),
                 '"%s"' % os.path.join(PATH, 'installer', 'windows-installer.iss'),
                 ])
             inno_output = ""
