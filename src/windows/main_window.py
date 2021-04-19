@@ -678,6 +678,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Restore cursor
             app.restoreOverrideCursor()
 
+    def actionReplace_File_trigger(self):
+        log.debug("actionRemove_from_Project_trigger")
+        #TODO: make hide this option until a file is selected
+        #Using the technique from Remove_from_Project
+
+        f = self.files_model.current_file()
+        f.delete()
+
+        # if not f:
+        #     log.warn("Replace File Failed")
+        #     return #TODO: default to import_file
+        self.actionImportFiles_trigger()
+
     def invalidImage(self, filename=None):
         """ Show a popup when an image file can't be loaded """
         if not filename:

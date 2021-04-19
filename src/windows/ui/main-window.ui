@@ -1409,6 +1409,18 @@
     <string>File Properties</string>
    </property>
   </action>
+  <action name="actionReplace_File">
+   <property name="icon">
+    <iconset theme="video-x-generic" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-copy.svg</normaloff>:/icons/Humanity/actions/16/edit-copy.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Replace File</string>
+   </property>
+   <property name="toolTip">
+    <string>Replace File</string>
+   </property>
+  </action>
   <action name="actionPropertyFilterClear">
    <property name="icon">
     <iconset theme="edit-clear" resource="../../../images/openshot.qrc">

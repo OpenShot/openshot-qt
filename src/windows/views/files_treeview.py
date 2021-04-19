@@ -75,6 +75,7 @@ class FilesTreeView(QTreeView):
                 menu.addAction(self.win.actionDuplicateTitle)
                 menu.addSeparator()
 
+            menu.addAction(self.win.actionReplace_File)
             menu.addAction(self.win.actionPreview_File)
             menu.addAction(self.win.actionSplitClip)
             menu.addAction(self.win.actionAdd_to_Timeline)
