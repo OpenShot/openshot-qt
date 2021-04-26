@@ -10,7 +10,8 @@ linux-builder:
     paths:
     - build/*.AppImage
     - build/*.torrent
-    - build/install-x64/share/
+    - build/install-x64/share/*.env
+    - build/install-x64/share/*.log
     - build/build-server.log
   script:
     - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=linux-builder"
@@ -21,7 +22,7 @@ linux-builder:
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - VERSION=$(python3 src/launch.py -V)
-    - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME"
+    - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
     - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - cd doc; make html SPHINXOPTS="-D html_theme_options.analytics_id=UA-4381101-5"; cd ..;
     - ~/auto-update-sphinx "$CI_PROJECT_DIR/build" "$CI_COMMIT_REF_NAME"
@@ -41,7 +42,8 @@ mac-builder:
     paths:
     - build/*.dmg
     - build/*.torrent
-    - build/install-x64/share/
+    - build/install-x64/share/*.env
+    - build/install-x64/share/*.log
     - build/build-server.log
   script:
     - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=mac-builder"
@@ -65,7 +67,7 @@ mac-builder:
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - export DYLD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:DYLD_LIBRARY_PATH
     - VERSION=$(python3 src/launch.py -V)
-    - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME"
+    - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
     - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py bdist_mac --git-branch=$CI_COMMIT_REF_NAME --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
@@ -82,7 +84,8 @@ windows-builder-x64:
     paths:
     - build\*.exe
     - build\*.torrent
-    - build\install-x64\share\
+    - build\install-x64\share\*.env
+    - build\install-x64\share\*.log
     - build\build-server.log
   script:
     - try { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
@@ -98,7 +101,7 @@ windows-builder-x64:
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
     - $VERSION=(python3 src/launch.py -V)
-    - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
+    - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
     - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
@@ -116,7 +119,8 @@ windows-builder-x86:
     paths:
     - build\*.exe
     - build\*.torrent
-    - build\install-x86\share\
+    - build\install-x86\share\*.env
+    - build\install-x86\share\*.log
     - build\build-server.log
   script:
     - try { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
@@ -132,7 +136,7 @@ windows-builder-x86:
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;C:\msys64\mingw32\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
     - $VERSION=(python3 src/launch.py -V)
-    - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
+    - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
     - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x86/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME

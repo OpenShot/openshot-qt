@@ -35,8 +35,11 @@ import urllib3
 from github3 import login
 from requests.auth import HTTPBasicAuth
 from requests import post, get, head
-from build_server import output, run_command, error, truncate, zulip_upload_log, get_release, upload, \
-                         errors_detected, log, version_info, parse_version_info
+from build_server import (
+    output, run_command, error, truncate,
+    zulip_upload_log, get_release, upload,
+    errors_detected, log,
+    version_info, parse_version_info)
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)-x86[_64]*')
@@ -92,8 +95,9 @@ def main():
 
         # Parse artifact version files (if found)
         for repo_name in repo_names:
+            data_file = f"{repo_name}.env"
             version_info.update(parse_version_info(
-                os.path.join(artifact_dir, "install-x64", "share", repo_name)))
+                os.path.join(artifact_dir, "install-x64", "share", data_file)))
         output(str(version_info))
 
         # Get version info

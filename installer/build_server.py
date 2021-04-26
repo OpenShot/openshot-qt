@@ -242,8 +242,9 @@ def main():
 
         # Parse artifact version files (if found)
         for repo_name in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
+            data_file = f"{repo_name}.env"
             version_info.update(
-                parse_version_info(os.path.join(artifact_path, "share", repo_name)))
+                parse_version_info(os.path.join(artifact_path, "share", data_file)))
         output(str(version_info))
 
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)

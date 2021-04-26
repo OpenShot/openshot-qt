@@ -36,7 +36,7 @@ sys.path.append(os.path.join(PATH, 'src', 'classes'))
 
 def parse_version_info(version_path):
     """Parse version info from gitlab artifacts"""
-    version_info = { "date": f'{datetime.datetime.now():%Y-%m-%d %H:%M}' }
+    version_info = {"date": f'{datetime.datetime.now():%Y-%m-%d %H:%M}'}
 
     # Get name of version file
     version_name = os.path.basename(version_path)
@@ -53,9 +53,12 @@ def parse_version_info(version_path):
     if os.path.exists(version_path):
         with open(version_path, "r") as f:
             # Parse each line in f as a 'key:value' string
-            version_info[version_name].update((l.strip().split(':') for l in f.readlines()))
+            version_info[version_name].update(
+                (ln.strip().split(':') for ln in f.readlines())
+            )
 
     return version_info
+
 
 def parse_build_name(version_info, git_branch_name=""):
     """Calculate the build name used in URLs and Installers from the version_info dict"""
