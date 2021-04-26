@@ -30,8 +30,9 @@ import sys
 
 import datetime
 import platform
-import shutil
 import re
+import shutil
+import shlex
 import stat
 import subprocess
 import sysconfig
@@ -80,7 +81,7 @@ def output(line):
 
 def run_command(command, working_dir=None):
     """Utility function to return output from command line"""
-    short_command = command.split('" ')[0]  # We don't need to print args
+    short_command = shlex.split(command)[0]  # We don't need to print args
     output("Running %s... (%s)" % (short_command, working_dir))
     p = subprocess.Popen(
         command,
