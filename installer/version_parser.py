@@ -39,7 +39,8 @@ def parse_version_info(version_path):
     version_info = {"date": f'{datetime.datetime.now():%Y-%m-%d %H:%M}'}
 
     # Get name of version file
-    version_name = os.path.basename(version_path)
+    file_name = os.path.basename(version_path)
+    version_name = os.path.splitext(file_name)[0]
     version_info[version_name] = {
         "CI_PROJECT_NAME": None,
         "CI_COMMIT_REF_NAME": None,
@@ -102,9 +103,9 @@ if __name__ == "__main__":
 
     # Parse all version info (if found)
     for git_log_filename in os.listdir(settings_path):
-        git_log_filepath = os.path.join(settings_path, git_log_filename)
-        if os.path.splitext(git_log_filepath)[1] == "":
-            # No extension, parse version info
+        if git_log_filename.endswith(".env"):
+            # Metadata file, parse version info
+            git_log_filepath = os.path.join(settings_path, git_log_filename)
             version_info.update(parse_version_info(git_log_filepath))
 
     # Calculate build name from version info
