@@ -38,8 +38,7 @@ DELETE_DELAY = 0.5
 MAXIMUM_ASSET_AGE_DAYS = 180
 
 # Calculate current date (with timezone)
-utc=pytz.UTC
-now = utc.localize(datetime.datetime.now())
+now = pytz.UTC.localize(datetime.datetime.now())
 
 
 def get_release(repo, tag_name):
@@ -47,7 +46,7 @@ def get_release(repo, tag_name):
     @param repo:        github3 repository object
     @returns:           github3 release object or None
     """
-    for release in repo.iter_releases():
+    for release in repo.releases():
         if release.tag_name == tag_name:
             return release
 
