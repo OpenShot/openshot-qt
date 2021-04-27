@@ -1269,44 +1269,52 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def findAllMarkerPositions(self):
         """Build and return a list of all seekable locations for the currently-selected timeline elements"""
 
+        def collect_x_coords(props: dict) -> list:
+            colors = ["red", "green", "blue", "alpha"]
+
+            points = []
+            for p in props.values():
+                if isinstance(p, dict) and "Points" in p:
+                    points.extend(p["Points"])
+                elif isinstance(p, dict) and "red" in p:
+                    [points.extend(p[c].get("Points", []))
+                     for c in colors if c in p]
+            x_positions = [
+                pt["co"]["X"] for pt in points
+            ]
+            return x_positions
+
         def getTimelineObjectPositions(obj):
             """ Add boundaries & all keyframes of a timeline object (clip, transition...) to all_marker_positions """
-            positions = []
 
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
-            clip_start_time = obj.data["position"]
-            clip_orig_time = clip_start_time - obj.data["start"]
-            clip_stop_time = clip_orig_time + obj.data["end"]
+            clip_start = obj.data["position"]
+            clip_orig = clip_start - obj.data["start"]
+            clip_end = clip_orig + obj.data["end"]
 
-            # add clip boundaries
-            positions.append(clip_start_time)
-            positions.append(clip_stop_time)
+            # mark clip boundaries
+            positions = {clip_start: 1, clip_end: 1}
 
             # add all keyframes
-            for property in obj.data:
-                try:
-                    for point in obj.data[property]["Points"]:
-                        keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
-                        if clip_start_time < keyframe_time < clip_stop_time:
-                            positions.append(keyframe_time)
-                except (TypeError, KeyError):
-                    pass
+            kf_xes = collect_x_coords(obj.data)
+            for pos in sorted(kf_xes):
+                keyframe_time = (pos - 1) / fps_float + clip_orig
+                if clip_start < keyframe_time < clip_end:
+                    positions.update({keyframe_time: 1})
 
             # Add all Effect keyframes
             if "effects" in obj.data:
                 for effect_data in obj.data["effects"]:
-                    for prop in effect_data:
-                        try:
-                            for point in effect_data[prop]["Points"]:
-                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
-                                if clip_start_time < keyframe_time < clip_stop_time:
-                                    positions.append(keyframe_time)
-                        except (TypeError, KeyError):
-                            pass
+                    kf_xes = collect_x_coords(effect_data)
+                    for pos in sorted(kf_xes):
+                        keyframe_time = (pos - 1) / fps_float + clip_orig
+                        if clip_start < keyframe_time < clip_end:
+                            positions.update({keyframe_time: 1})
 
-            return positions
+            log.debug("%s positions: %s", obj.data["id"], sorted(positions.keys()))
+            return positions.keys()
 
         # We can always jump to the beginning of the timeline
         all_marker_positions = [0]
