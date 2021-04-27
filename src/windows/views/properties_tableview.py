@@ -28,10 +28,11 @@
 import os
 import functools
 from operator import itemgetter
+import pprint
 
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
-    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
 )
 from PyQt5.QtWidgets import (
@@ -421,8 +422,9 @@ class PropertiesTableView(QTableView):
             self.choices = cur_property[1]["choices"]
             property_key = cur_property[0]
             clip_id, item_type = selected_value.data()
-            log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
-            log.info("Points: %s" % points)
+            log.info(
+                "Context menu shown for %s (%s) for clip %s on frame %s",
+                property_name, property_key, clip_id, frame_number)
 
             # Clear menu if models updated
             if self.menu_reset:
@@ -442,14 +444,19 @@ class PropertiesTableView(QTableView):
                     path = os.path.join(idx.sibling(i, 4).data(), name)
 
                     # Append file choice
-                    file_choices.append({"name": name,
-                                         "value": path,
-                                         "selected": False,
-                                         "icon": icon
-                                         })
+                    file_choices.append({
+                        "name": name,
+                        "value": path,
+                        "selected": False,
+                        "icon": icon,
+                    })
 
                 # Add root file choice
-                self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
+                self.choices.append({
+                    "name": _("Files"),
+                    "value": file_choices,
+                    "selected": False,
+                })
 
                 # Add all transitions
                 trans_choices = []
@@ -462,14 +469,19 @@ class PropertiesTableView(QTableView):
                     path = idx.sibling(i, 3).data()
 
                     # Append transition choice
-                    trans_choices.append({"name": name,
-                                          "value": path,
-                                          "selected": False,
-                                          "icon": icon
-                                          })
+                    trans_choices.append({
+                        "name": name,
+                        "value": path,
+                        "selected": False,
+                        "icon": icon,
+                    })
 
                 # Add root transitions choice
-                self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
+                self.choices.append({
+                    "name": _("Transitions"),
+                    "value": trans_choices,
+                    "selected": False,
+                })
 
             # Handle reader type values
             if property_name == "Track" and self.property_type == "int" and not self.choices:
@@ -483,29 +495,6 @@ class PropertiesTableView(QTableView):
                     display_count -= 1
                 return
 
-            elif self.property_type == "font":
-                # Get font from user
-                current_font_name = cur_property[1].get("memo", "sans")
-                current_font = QFont(current_font_name)
-                font, ok = QFontDialog.getFont(current_font, caption=("Change Font"))
-
-                # Update font
-                if ok and font:
-                    fontinfo = QFontInfo(font)
-                    self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
-
-            elif self.property_type == "color":
-                # Get current value of color
-                red = cur_property[1]["red"]["value"]
-                green = cur_property[1]["green"]["value"]
-                blue = cur_property[1]["blue"]["value"]
-
-                # Show color dialog
-                currentColor = QColor(red, green, blue)
-                log.debug("Launching ColorPicker for %s", currentColor.name())
-                ColorPicker(
-                    currentColor, parent=self, title=_("Select a Color"),
-                    callback=self.color_callback)
                 return
 
             # Define bezier presets
@@ -545,6 +534,16 @@ class PropertiesTableView(QTableView):
 
             # Add menu options for keyframes
             menu = QMenu(self)
+
+            if self.property_type == "font":
+                font_action = menu.addAction(_("Select font"))
+                font_action.triggered.connect(functools.partial(
+                    self.font_select_callback, cur_property))
+            if self.property_type == "color":
+                color_action = menu.addAction(_("Select color"))
+                color_action.triggered.connect(functools.partial(
+                    self.color_select_callback, cur_property))
+
             if points > 1:
                 # Menu items only for multiple points
                 Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
@@ -563,10 +562,10 @@ class PropertiesTableView(QTableView):
                 Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
-                menu.popup(event.globalPos())
 
             # Menu for choices
             if not self.choices:
+                menu.popup(event.globalPos())
                 return
             for choice in self.choices:
                 if type(choice["value"]) != list:
@@ -596,7 +595,7 @@ class PropertiesTableView(QTableView):
                     Choice_Action.setData(sub_choice["value"])
                     Choice_Action.triggered.connect(self.Choice_Action_Triggered)
 
-            # Show choice menuk
+            # Show choice menu
             menu.popup(event.globalPos())
 
     def Bezier_Action_Triggered(self, preset=[]):
@@ -616,6 +615,33 @@ class PropertiesTableView(QTableView):
         else:
             # Update colors interpolation mode
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=1, interpolation_details=[])
+
+    def color_select_callback(self, cur_property):
+        _ = get_app()._tr
+        # Get current value of color
+        red = cur_property[1]["red"]["value"]
+        green = cur_property[1]["green"]["value"]
+        blue = cur_property[1]["blue"]["value"]
+
+        # Show color dialog
+        currentColor = QColor(red, green, blue)
+        log.debug("Launching ColorPicker for %s", currentColor.name())
+        ColorPicker(
+            currentColor, parent=self, title=_("Select a Color"),
+            callback=self.color_callback)
+        return
+
+    def font_select_callback(self, cur_property):
+        _ = get_app()._tr
+        # Get font from user
+        current_font_name = cur_property[1].get("memo", "sans")
+        current_font = QFont(current_font_name)
+        font, ok = QFontDialog.getFont(current_font, caption=_("Change Font"))
+
+        # Update font
+        if ok and font:
+            fontinfo = QFontInfo(font)
+            self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
 
     def Constant_Action_Triggered(self):
         log.info("Constant_Action_Triggered")
