@@ -36,8 +36,7 @@ import json
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 
@@ -191,6 +190,7 @@ class OpenShotApp(QApplication):
 
     def gui(self):
         from classes import language, ui_util, logger_libopenshot
+        from PyQt5.QtGui import QFont, QFontDatabase as QFD
 
         _ = self._tr
         info = self.info
@@ -240,49 +240,23 @@ class OpenShotApp(QApplication):
         log.debug("Loading UI theme")
         if self.settings.get("theme") != "No Theme":
             # Load embedded font
-            try:
-                log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
-                font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
-                font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
-                font = QFont(font_family)
-                font.setPointSizeF(10.5)
-                QApplication.setFont(font)
-            except Exception:
-                log.debug("Error setting Ubuntu-R.ttf QFont", exc_info=1)
+            font_path = os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf")
+            if os.path.exists(font_path):
+                log.info("Setting font to %s", font_path)
+                try:
+                    font_id = QFD.addApplicationFont(font_path)
+                    font_family = QFD.applicationFontFamilies(font_id)[0]
+                    font = QFont(font_family)
+                    font.setPointSizeF(10.5)
+                    QApplication.setFont(font)
+                except Exception:
+                    log.warning("Error setting Ubuntu-R.ttf QFont", exc_info=1)
 
-        # Set Experimental Dark Theme
+        # Set Dark Theme, if selected
         if self.settings.get("theme") == "Humanity: Dark":
-            # Only set if dark theme selected
             log.info("Setting custom dark theme")
             self.setStyle(QStyleFactory.create("Fusion"))
-
-            darkPalette = self.palette()
-
-            darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.WindowText, Qt.white)
-            darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
-            darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
-            darkPalette.setColor(QPalette.Text, Qt.white)
-            darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.ButtonText, Qt.white)
-            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
-            darkPalette.setColor(QPalette.HighlightedText, Qt.black)
-            #
-            # Disabled palette
-            #
-            darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
-            darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
-
-            # Tooltips
-            darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
-            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
-
+            darkPalette = ui_util.make_dark_palette(self.palette())
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 

@@ -36,13 +36,14 @@ try:
 except ImportError:
     from xml.etree import ElementTree
 
-from PyQt5.QtCore import QDir, QLocale
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QWidget, QTabWidget, QAction
+from PyQt5.QtCore import Qt, QDir, QLocale
+from PyQt5.QtGui import QIcon, QPalette, QColor
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QStyleFactory, QTabWidget, QAction)
 from PyQt5 import uic
 
+from classes.app import get_app
 from classes.logger import log
-from classes import settings
 
 from . import openshot_rc  # noqa
 
@@ -52,7 +53,7 @@ DEFAULT_THEME_NAME = "Humanity"
 def load_theme():
     """ Load the current OS theme, or fallback to a default one """
 
-    s = settings.get_settings()
+    s = get_app().get_settings()
 
     # If theme not reported by OS
     if QIcon.themeName() == '' and s.get("theme") != "No Theme":
@@ -102,6 +103,35 @@ def get_default_icon(theme_name):
     start_path = ":/icons/" + DEFAULT_THEME_NAME + "/"
     icon_path = search_dir(start_path, theme_name)
     return QIcon(icon_path), icon_path
+
+
+def make_dark_palette(darkPalette: QPalette) -> QPalette:
+    darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
+    darkPalette.setColor(QPalette.WindowText, Qt.white)
+    darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
+    darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+    darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
+    darkPalette.setColor(QPalette.Text, Qt.white)
+    darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
+    darkPalette.setColor(QPalette.ButtonText, Qt.white)
+    darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
+    darkPalette.setColor(QPalette.HighlightedText, Qt.black)
+    #
+    # Disabled palette
+    #
+    darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
+    darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
+    darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
+
+    # Tooltips
+    darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
+    darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+
+    return darkPalette
 
 
 def search_dir(base_path, theme_name):
