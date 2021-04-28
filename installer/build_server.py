@@ -170,10 +170,17 @@ def upload(file_path, github_release):
 
     # Delete any matching assets already in this github release
     # so we don't have any collisions.
-    for asset in github_release.assets:
+    if hasattr(github_release, 'original_assets'):
+        asset_list = github_release.original_assets
+    else:
+        asset_list = github_release.assets
+    for asset in asset_list:
         if asset.name == file_name:
             output("GitHub: Removing conflicting installer asset from %s: %s" % (github_release.tag_name, file_name))
-            asset._delete(asset._api)
+            if hasattr(asset, 'delete'):
+                asset.delete()
+            else:
+                asset._delete(asset._api)
             break
 
     for attempt in range(3):
@@ -183,7 +190,10 @@ def upload(file_path, github_release):
                 # Upload to GitHub
                 output("GitHub: Uploading asset from %s: %s" % (github_release.tag_name, file_name))
                 asset = github_release.upload_asset("application/octet-stream", file_name, f)
-                url = asset.to_json()["browser_download_url"]
+                if hasattr(asset, 'browser_download_url'):
+                    url = asset.browser_download_url
+                else:
+                    url = asset.to_json()["browser_download_url"]
             # Successfully uploaded!
             break
         except Exception as ex:
