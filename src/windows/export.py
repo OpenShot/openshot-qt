@@ -50,7 +50,6 @@ from PyQt5.QtGui import QIcon
 from classes import info
 from classes import ui_util
 from classes import openshot_rc  # noqa
-from classes import settings
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
@@ -78,12 +77,12 @@ class Export(QDialog):
 
         # get translations & settings
         _ = get_app()._tr
-        self.s = settings.get_settings()
+        self.s = get_app().get_settings()
 
         track_metric_screen("export-screen")
 
         # Dynamically load tabs from settings data
-        self.settings_data = settings.get_settings().get_all_settings()
+        self.settings_data = self.s.get_all_settings()
 
         # Add buttons to interface
         self.cancel_button = QPushButton(_('Cancel'))

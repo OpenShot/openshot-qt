@@ -42,7 +42,6 @@ from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWidgets import QMenu, QDialog
 
 from classes import info, updates
-from classes import settings
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track
@@ -2885,7 +2884,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Adjust clip duration, start, and end
             new_clip["duration"] = new_clip["reader"]["duration"]
             if file.data["media_type"] == "image":
-                new_clip["end"] = settings.get_settings().get("default-image-length")  # default to 8 seconds
+                new_clip["end"] = get_app().get_settings().get("default-image-length")  # default to 8 seconds
 
             # Overwrite frame rate (incase the user changed it in the File Properties)
             file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])

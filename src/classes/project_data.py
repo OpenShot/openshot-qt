@@ -33,7 +33,8 @@ import os
 import random
 import shutil
 
-from classes import info, settings
+from classes import info
+from classes.app import get_app
 from classes.image_types import is_image
 from classes.json_data import JsonDataStore
 from classes.logger import log
@@ -276,7 +277,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         info.BLENDER_PATH = os.path.join(info.USER_PATH, "blender")
 
         # Get default profile
-        s = settings.get_settings()
+        s = get_app().get_settings()
         default_profile = s.get("default-profile")
 
         # Loop through profiles
@@ -853,7 +854,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Ignore backup recovery project
             return
 
-        s = settings.get_settings()
+        s = get_app().get_settings()
         recent_projects = s.get("recent_projects")
 
         # Make sure file_path is absolute

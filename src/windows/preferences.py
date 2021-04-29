@@ -40,7 +40,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QKeySequence, QIcon
 
-from classes import info, ui_util, settings
+from classes import info, ui_util
 from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.language import get_all_languages
@@ -68,10 +68,10 @@ class Preferences(QDialog):
         ui_util.init_ui(self)
 
         # Get settings
-        self.s = settings.get_settings()
+        self.s = get_app().get_settings()
 
         # Dynamically load tabs from settings data
-        self.settings_data = settings.get_settings().get_all_settings()
+        self.settings_data = self.s.get_all_settings()
 
         # Track metrics
         track_metric_screen("preferences-screen")

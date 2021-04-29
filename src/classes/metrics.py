@@ -35,15 +35,15 @@ import urllib.parse
 from copy import deepcopy
 from classes import info
 from classes import language
+from classes.app import get_app
 from classes.logger import log
-from classes import settings
 import openshot
 
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import PYQT_VERSION_STR
 
 # Get settings
-s = settings.get_settings()
+s = get_app().get_settings()
 
 # Determine OS version
 os_version = "X11; Linux %s" % platform.machine()

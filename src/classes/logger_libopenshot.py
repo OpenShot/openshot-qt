@@ -26,8 +26,9 @@
  """
 
 from threading import Thread
-from classes import settings, info
+from classes import info
 from classes.logger import log
+from classes.app import get_app
 import openshot
 import os
 import zmq
@@ -46,7 +47,7 @@ class LoggerLibOpenShot(Thread):
         self.running = True
 
         # Get settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Get port from settings
         port = s.get("debug-port")
