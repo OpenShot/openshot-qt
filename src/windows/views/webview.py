@@ -47,7 +47,6 @@ from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
-from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.effect_init import effect_options
 
 # Constants used by this file

@@ -36,7 +36,6 @@ from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import updates
-from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.query import Clip, Track, Transition, Marker
 
@@ -154,7 +153,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             project_duration = get_app().project.get("duration")
             pixels_per_second = event.rect().width() / project_duration
             project_pixel_width = max(0, project_duration * pixels_per_second)
-            timeline_max_width = self.scrollbar_position[2]
             scroll_width = (self.scrollbar_position[1] - self.scrollbar_position[0]) * event.rect().width()
 
             # Get FPS info
