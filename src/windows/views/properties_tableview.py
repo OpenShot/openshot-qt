@@ -272,6 +272,9 @@ class PropertiesTableView(QTableView):
                 self.new_value = max(property_min, self.new_value)
                 self.new_value = min(property_max, self.new_value)
 
+                if property_type == "int":
+                    self.new_value = round(self.new_value, 0)
+
                 # Update value of this property
                 self.clip_properties_model.value_updated(self.selected_item, -1, self.new_value)
 

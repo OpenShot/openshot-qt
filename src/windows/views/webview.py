@@ -2226,7 +2226,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 continue
 
             # Keep original 'end' and 'duration'
-            if "original_data" not in clip.data.keys():
+            if "original_data" not in clip.data:
                 clip.data["original_data"] = {
                     "end": clip.data["end"],
                     "duration": clip.data["duration"],
@@ -2245,7 +2245,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 freeze_seconds = float(speed)
 
                 original_duration = clip.data["duration"]
-                if "original_data" in clip.data.keys():
+                if "original_data" in clip.data:
                     original_duration = clip.data["original_data"]["duration"]
 
                 log.info('Updating timing for clip ID {}, original duration: {}'
@@ -2872,9 +2872,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 return  # Do nothing
 
             # Check for optional start and end attributes
-            if 'start' in file.data.keys():
+            if 'start' in file.data:
                 new_clip["start"] = file.data['start']
-            if 'end' in file.data.keys():
+            if 'end' in file.data:
                 new_clip["end"] = file.data['end']
 
             # Set position and closet track
