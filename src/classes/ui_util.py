@@ -39,7 +39,7 @@ except ImportError:
 from PyQt5.QtCore import Qt, QDir, QLocale
 from PyQt5.QtGui import QIcon, QPalette, QColor
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QStyleFactory, QTabWidget, QAction)
+    QApplication, QWidget, QTabWidget, QAction)
 from PyQt5 import uic
 
 from classes.app import get_app
@@ -284,8 +284,6 @@ def init_ui(window):
 
 def center(window):
     """Center a window on the main window"""
-    from classes.app import get_app
-
     frameGm = window.frameGeometry()
     centerPoint = get_app().window.frameGeometry().center()
     frameGm.moveCenter(centerPoint)
@@ -293,4 +291,7 @@ def center(window):
 
 
 def transfer_children(from_widget, to_widget):
-    log.info("Transferring children from '{}' to '{}'".format(from_widget.objectName(), to_widget.objectName()))
+    log.info(
+        "Transferring children from '%s' to '%s'",
+        from_widget.objectName(), to_widget.objectName())
+
