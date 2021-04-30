@@ -130,6 +130,7 @@ Ctrl+K              Slice All: Keep Both Sides
 Ctrl+L              Slice All: Keep Left Side
 Ctrl+J              Slice All: Keep Right Side
 Ctrl+G              Toggle Snapping
+R                   Toggle Razor tool
 Ctrl+X              Split Clip
 Ctrl+Shift+D        Thumbnail View
 Ctrl+T              Title Editor

@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# XXX: These paths should be set using `brew prefix` commands,
+#      for future-proofing against upgrades
 PATH=/usr/local/Cellar/python@3.7/3.7.9_2/Frameworks/Python.framework/Versions/3.7/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
 
 # Get Version
