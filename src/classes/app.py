@@ -171,8 +171,8 @@ class OpenShotApp(QApplication):
         """Detect minimum libopenshot version"""
         _ = self._tr
         ver = openshot.OPENSHOT_VERSION_FULL
-        min = info.MINIMUM_LIBOPENSHOT_VERSION
-        if ver >= min:
+        min_ver = info.MINIMUM_LIBOPENSHOT_VERSION
+        if ver >= min_ver:
             return True
 
         self.errors.append(StartupError(
@@ -180,13 +180,13 @@ class OpenShotApp(QApplication):
             _("<b>Version %(minimum_version)s is required</b>, "
               "but %(current_version)s was detected. "
               "Please update libopenshot or download our latest installer.") % {
-                "minimum_version": min,
+                "minimum_version": min_ver,
                 "current_version": ver,
                 },
             level="error",
         ))
         raise RuntimeError(
-            "libopenshot version {} found, minimum is {}".format(ver, min))
+            "libopenshot version {} found, minimum is {}".format(ver, min_ver))
 
     def gui(self):
         from classes import language, ui_util, logger_libopenshot
