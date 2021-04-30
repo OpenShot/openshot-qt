@@ -225,8 +225,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
-            initial_scale = get_app().project.get("scale") or 15
-            self.window.sliderZoom.setValue(secondsToZoom(initial_scale))
+            initial_scale = get_app().project.get("scale") or 15.0
+            self.window.sliderZoomWidget.setZoomFactor(initial_scale)
 
             # The setValue() above doesn't trigger update_zoom when a project file is
             # loaded on the command line (too early?), so also call the JS directly
@@ -436,7 +436,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         log.debug('ShowEffectMenu: %s' % effect_id)
 
         # Set the selected clip (if needed)
-        self.window.addSelection(effect_id, 'effect', True)
+        self.addSelection(effect_id, 'effect', True)
 
         menu = QMenu(self)
         # Properties
@@ -492,7 +492,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Set the selected clip (if needed)
         if clip_id not in self.window.selected_clips:
-            self.window.addSelection(clip_id, 'clip')
+            self.addSelection(clip_id, 'clip')
         # Get list of selected clips
         clip_ids = self.window.selected_clips
         tran_ids = self.window.selected_transitions
@@ -2529,7 +2529,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Set the selected transition (if needed)
         if tran_id not in self.window.selected_transitions:
-            self.window.addSelection(tran_id, 'transition')
+            self.addSelection(tran_id, 'transition')
         # Get list of all selected transitions
         tran_ids = self.window.selected_transitions
         clip_ids = self.window.selected_clips
@@ -2733,16 +2733,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """
-
-        # Add to main window
-        self.window.addSelection(item_id, item_type, clear_existing)
+        self.window.SelectionAdded.emit(item_id, item_type, clear_existing)
 
     @pyqtSlot(str, str)
     def removeSelection(self, item_id, item_type):
         """ Remove the selected clip from the selection """
-
-        # Remove from main window
-        self.window.removeSelection(item_id, item_type)
+        self.window.SelectionRemoved.emit(item_id, item_type)
 
     @pyqtSlot(str, str)
     def qt_log(self, level="INFO", message=None):
@@ -2759,15 +2755,14 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             level = levels.get(level, logging.INFO)
         self.log_fn(level, message)
 
+    def update_scroll(self, newScroll):
+        """Force a scroll event on the timeline (i.e. the zoom slider is moving, so we need to scroll the timeline)"""
+        # Get access to timeline scope and set scale to new computed value
+        self.run_js(JS_SCOPE_SELECTOR + ".setScroll(" + str(newScroll) + ");")
+
     # Handle changes to zoom level, update js
-    def update_zoom(self, newValue):
+    def update_zoom(self, newScale):
         _ = get_app()._tr
-
-        # Convert slider value (passed in) to a scale (in seconds)
-        newScale = zoomToSeconds(newValue)
-
-        # Set zoom label
-        self.window.zoomScaleLabel.setText(_("{} seconds").format(newScale))
 
         # Determine X coordinate of cursor (to center zoom on)
         cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
@@ -2795,13 +2790,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def wheelEvent(self, event):
         if event.modifiers() & Qt.ControlModifier:
             event.accept()
-            zoom = self.window.sliderZoom
-            # For each 120 (standard scroll unit) adjust the zoom slider
-            tick_scale = 120
-            steps = int(event.angleDelta().y() / tick_scale)
-            delta = zoom.pageStep() * steps
-            log.debug("Zooming by %d steps", -steps)
-            zoom.setValue(zoom.value() - delta)
+
+            # Modify zooms factor
+            if event.angleDelta().y() > 0:
+                get_app().window.sliderZoomWidget.zoomIn()
+            else:
+                get_app().window.sliderZoomWidget.zoomOut()
+
         else:
             super().wheelEvent(event)
 
@@ -2910,6 +2905,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Find position from javascript
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
             .format(event_position.x(), event_position.y()), partial(callback, self, data))
+
+    @pyqtSlot(list)
+    def ScrollbarChanged(self, new_positions):
+        """Timeline scrollbars changed"""
+        get_app().window.TimelineScrolled.emit(new_positions)
 
     # Resize timeline
     @pyqtSlot(float)
@@ -3180,7 +3180,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         app.updates.add_listener(self)
 
         # Connect zoom functionality
-        window.sliderZoom.valueChanged.connect(self.update_zoom)
+        window.TimelineZoom.connect(self.update_zoom)
+        window.TimelineScroll.connect(self.update_scroll)
+        window.TimelineCenter.connect(self.centerOnPlayhead)
 
         # Connect waveform generation signal
         window.WaveformReady.connect(self.Waveform_Ready)

@@ -53,6 +53,18 @@ App.directive("tlScrollableTracks", function () {
         $("#track_controls").scrollTop(element.scrollTop());
         $("#scrolling_ruler").scrollLeft(element.scrollLeft());
         $("#progress_container").scrollLeft(element.scrollLeft());
+
+        // Send scrollbar position to Qt
+        if (scope.Qt) {
+           // Calculate scrollbar positions (left and right edge of scrollbar)
+           var timeline_length = Math.min(32767, scope.getTimelineWidth(0));
+           var left_scrollbar_edge = scroll_left_pixels / timeline_length;
+           var right_scrollbar_edge = (scroll_left_pixels + element.width()) / timeline_length;
+
+           // Send normalized scrollbar positions to Qt
+           timeline.ScrollbarChanged([left_scrollbar_edge, right_scrollbar_edge, timeline_length, element.width()]);
+        }
+
       });
 
       // Initialize panning when middle mouse is clicked

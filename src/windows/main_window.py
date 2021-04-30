@@ -109,6 +109,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     FileUpdated = pyqtSignal(str)
     CaptionTextUpdated = pyqtSignal(str, object)
     CaptionTextLoaded = pyqtSignal(str, object)
+    TimelineZoom = pyqtSignal(float)     # Signal to zoom into timeline from zoom slider
+    TimelineScrolled = pyqtSignal(list)  # Scrollbar changed signal from timeline
+    TimelineScroll = pyqtSignal(float)   # Signal to force scroll timeline to specific point
+    TimelineCenter = pyqtSignal()        # Signal to force center scroll on playhead
+    SelectionAdded = pyqtSignal(str, str, bool)  # Signal to add a selection
+    SelectionRemoved = pyqtSignal(str, str)      # Signal to remove a selection
+    SelectionChanged = pyqtSignal()      # Signal after selections have been changed (added/removed)
 
     # Docks are closable, movable and floatable
     docks_frozen = False
@@ -1869,10 +1876,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 m.delete()
 
     def actionTimelineZoomIn_trigger(self):
-        self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
+        self.sliderZoomWidget.zoomIn()
 
     def actionTimelineZoomOut_trigger(self):
-        self.sliderZoom.setValue(self.sliderZoom.value() + self.sliderZoom.singleStep())
+        self.sliderZoomWidget.zoomOut()
 
     def actionFullscreen_trigger(self):
         # Toggle fullscreen state (current state mask XOR WindowFullScreen)
@@ -2287,6 +2294,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.show_property_type = item_type
             self.show_property_timer.start()
 
+        # Notify UI that selection has been potentially changed
+        self.SelectionChanged.emit()
+
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):
         # Remove existing selection (if any)
@@ -2320,6 +2330,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Change selected item in properties view
         self.show_property_timer.start()
+
+        # Notify UI that selection has been potentially changed
+        self.SelectionChanged.emit()
 
     def selected_files(self):
         """ Return a list of File objects for the Project Files dock's selection """
@@ -2558,27 +2571,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.caption_model_row = None
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get("scale") or 15
-        # Round non-exponential scale down to next lowest power of 2
-        initial_zoom = secondsToZoom(initial_scale)
+        initial_scale = get_app().project.get("scale") or 15.0
 
-        # Setup Zoom slider
-        self.sliderZoom = QSlider(Qt.Horizontal, self)
-        self.sliderZoom.setPageStep(1)
-        self.sliderZoom.setRange(0, 30)
-        self.sliderZoom.setValue(initial_zoom)
-        self.sliderZoom.setInvertedControls(True)
-        self.sliderZoom.resize(100, 16)
-
-        self.zoomScaleLabel = QLabel(
-            _("{} seconds").format(zoomToSeconds(self.sliderZoom.value()))
-        )
+        # Setup Zoom Slider widget
+        from windows.views.zoom_slider import ZoomSlider
+        self.sliderZoomWidget = ZoomSlider(self)
+        self.sliderZoomWidget.setMinimumSize(200, 20)
+        self.sliderZoomWidget.setZoomFactor(initial_scale)
 
         # add zoom widgets
-        self.timelineToolbar.addAction(self.actionTimelineZoomIn)
-        self.timelineToolbar.addWidget(self.sliderZoom)
-        self.timelineToolbar.addAction(self.actionTimelineZoomOut)
-        self.timelineToolbar.addWidget(self.zoomScaleLabel)
+        self.timelineToolbar.addWidget(self.sliderZoomWidget)
 
         # Add timeline toolbar to web frame
         self.frameWeb.addWidget(self.timelineToolbar)
@@ -2886,6 +2888,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent = PreviewParent()
         self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
+        self.sliderZoomWidget.connect_playback()
 
         # Set pause callback
         self.PauseSignal.connect(self.handlePausedVideo)
@@ -2955,6 +2958,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Connect OpenProject Signal
         self.OpenProjectSignal.connect(self.open_project)
+
+        # Connect Selection signals
+        self.SelectionAdded.connect(self.addSelection)
+        self.SelectionRemoved.connect(self.removeSelection)
 
         # Show window
         if self.mode != "unittest":

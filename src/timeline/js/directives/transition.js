@@ -121,13 +121,12 @@ App.directive("tlTransition", function () {
               scope.transition.position = new_left;
               scope.transition.end -= delta_time;
             }
-
-            // update transition in Qt (very important =)
-            if (scope.Qt) {
-              timeline.update_transition_data(JSON.stringify(scope.transition), true, false);
-            }
-
           });
+
+          // update transition in Qt (very important =)
+          if (scope.Qt) {
+            timeline.update_transition_data(JSON.stringify(scope.transition), true, false);
+          }
 
           dragLoc = null;
 

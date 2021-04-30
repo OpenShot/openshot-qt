@@ -108,11 +108,6 @@ App.controller("TimelineCtrl", function ($scope) {
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
     var position_seconds = ((position_frames - 1) / frames_per_second);
 
-    // Center on the playhead if it has moved out of view and the timeline should follow it
-    if ($scope.enable_playhead_follow && !$scope.isTimeVisible(position_seconds)) {
-      $scope.centerOnTime(position_seconds);
-    }
-
     // Update internal scope (in seconds)
     $scope.movePlayhead(position_seconds);
   };
@@ -274,6 +269,13 @@ App.controller("TimelineCtrl", function ($scope) {
       cursor_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
     }
 
+    // Compare to previous scale (and ignore tiny differences)
+    if (Math.abs(parseFloat(scaleVal) - $scope.project.scale) < 0.00001) {
+      // Do not change scale if the value is this tiny
+      // This can cause the Ruler $watch to fail, and will leave the Ruler blank
+      return;
+    }
+
     $scope.$apply(function () {
       $scope.project.scale = parseFloat(scaleVal);
       $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
@@ -282,6 +284,14 @@ App.controller("TimelineCtrl", function ($scope) {
     // Scroll back to correct cursor time (minus the difference of the cursor location)
     var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
     scrolling_tracks.scrollLeft(new_cursor_x);
+  };
+
+  // Change the scale and apply to scope
+  $scope.setScroll = function (normalizedScrollValue) {
+    var timeline_length = Math.min(32767, $scope.getTimelineWidth(0));
+    var scrolling_tracks = $("#scrolling_tracks");
+    var horz_scroll_offset = normalizedScrollValue * timeline_length;
+    scrolling_tracks.scrollLeft(horz_scroll_offset);
   };
 
   // Scroll the timeline horizontally of a certain amount (scrol_value)
@@ -949,22 +959,20 @@ App.controller("TimelineCtrl", function ($scope) {
     var scrolling_tracks = $("#scrolling_tracks");
     var vert_scroll_offset = scrolling_tracks.scrollTop();
 
-    $scope.$apply(function () {
-      // Loop through each layer
-      for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
-        var layer = $scope.project.layers[layer_index];
+    // Loop through each layer
+    for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
+      var layer = $scope.project.layers[layer_index];
 
-        // Find element on screen (bound to this layer)
-        var layer_elem = $("#track_" + layer.number);
-        if (layer_elem.offset()) {
-          // Update the top offset
-          layer.y = layer_elem.offset().top + vert_scroll_offset;
-        }
+      // Find element on screen (bound to this layer)
+      var layer_elem = $("#track_" + layer.number);
+      if (layer_elem.offset()) {
+        // Update the top offset
+        layer.y = layer_elem.offset().top + vert_scroll_offset;
       }
-      // Update playhead height
-      $scope.playhead_height = $("#track-container").height();
-      $(".playhead-line").height($scope.playhead_height);
-    });
+    }
+    // Update playhead height
+    $scope.playhead_height = $("#track-container").height();
+    $(".playhead-line").height($scope.playhead_height);
   };
 
   // Sort clips and transitions by position
@@ -1389,6 +1397,9 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Re-index Layer Y values
     $scope.updateLayerIndex();
+
+    // Force a scroll event (from 1 to 0, to send the geometry to zoom slider)
+    $("#scrolling_tracks").scrollLeft(1);
 
     // Scroll to top/left when loading a project
     $("#scrolling_tracks").animate({
