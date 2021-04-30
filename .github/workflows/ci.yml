@@ -32,4 +32,4 @@ jobs:
       run: python3 freeze.py build
 
     - name: Test
-      run: python3 ./src/tests/query_tests.py -platform offscreen
+      run: python3 ./src/tests/query_tests.py -platform minimal
