@@ -29,7 +29,6 @@
 
 import os
 import shutil
-import sys
 import webbrowser
 from copy import deepcopy
 from time import sleep
@@ -46,12 +45,11 @@ from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QInputDialog,
     QAction, QActionGroup, QSizePolicy,
     QStatusBar, QToolBar, QToolButton,
-    QLineEdit, QSlider, QLabel, QComboBox, QTextEdit
+    QLineEdit, QComboBox, QTextEdit
 )
 
 from classes import exceptions, info, settings, qt_types, ui_util, updates
 from classes.app import get_app
-from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl

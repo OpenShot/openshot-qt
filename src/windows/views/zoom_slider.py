@@ -31,7 +31,7 @@ from PyQt5.QtCore import (
 from PyQt5.QtGui import (
     QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath
 )
-from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
+from PyQt5.QtWidgets import QSizePolicy, QWidget
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 

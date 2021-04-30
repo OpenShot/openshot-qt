@@ -270,7 +270,7 @@ App.controller("TimelineCtrl", function ($scope) {
     }
 
     // Compare to previous scale (and ignore tiny differences)
-    if (Math.abs(parseFloat(scaleVal) - $scope.project.scale) < 0.00001) {
+    if (Math.abs(parseFloat(scaleVal) - $scope.project.scale) < 1.0e-5) {
       // Do not change scale if the value is this tiny
       // This can cause the Ruler $watch to fail, and will leave the Ruler blank
       return;
