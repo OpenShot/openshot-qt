@@ -52,7 +52,7 @@ except ImportError:
     from classes import info
 
 
-def main():
+if __name__ == "__main__":
     """"Initialize settings (not implemented) and create main window/application."""
 
     parser = argparse.ArgumentParser(description = 'OpenShot version ' + info.SETUP['version'])
@@ -141,7 +141,3 @@ def main():
 
     # Run and return result
     sys.exit(app.run())
-
-
-if __name__ == "__main__":
-    main()

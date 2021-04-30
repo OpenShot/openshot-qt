@@ -3145,20 +3145,21 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Get final cache object from timeline
         try:
-            cache_object = self.window.timeline_sync.timeline.GetCache()
-            if not cache_object or cache_object.Count() <= 0:
-                return
-            # Get the JSON from the cache object (i.e. which frames are cached)
-            cache_json = self.window.timeline_sync.timeline.GetCache().Json()
-            cache_dict = json.loads(cache_json)
-            cache_version = cache_dict["version"]
+            if self.window.timeline_sync and self.window.timeline_sync.timeline:
+                cache_object = self.window.timeline_sync.timeline.GetCache()
+                if not cache_object or cache_object.Count() <= 0:
+                    return
+                # Get the JSON from the cache object (i.e. which frames are cached)
+                cache_json = self.window.timeline_sync.timeline.GetCache().Json()
+                cache_dict = json.loads(cache_json)
+                cache_version = cache_dict["version"]
 
-            if self.cache_renderer_version == cache_version:
-                # Nothing has changed, ignore
-                return
-            # Cache has changed, re-render it
-            self.cache_renderer_version = cache_version
-            self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
+                if self.cache_renderer_version == cache_version:
+                    # Nothing has changed, ignore
+                    return
+                # Cache has changed, re-render it
+                self.cache_renderer_version = cache_version
+                self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
         except Exception as ex:
             # Log the exception and ignore
             log.warning("Exception processing timeline cache: %s", ex)
