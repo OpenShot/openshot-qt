@@ -40,7 +40,6 @@ class TimelineSync(UpdateInterface):
         self.app = get_app()
         self.window = window
         project = self.app.project
-        s = self.app.get_settings()
 
         # Get some settings from the project
         fps = project.get("fps")
