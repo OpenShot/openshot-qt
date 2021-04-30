@@ -1,18 +1,24 @@
-name: CI Build
+name: openshot-qt CI Build
 on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.allowed-to-fail }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04]
+        include:
+          - os: ubuntu-18.04
+            allowed-to-fail: false
+          - os: ubuntu-20.04
+            allowed-to-fail: true
+    defaults:
+      run:
+        shell: bash
     steps:
     - uses: actions/checkout@v2
 
     - name: Install dependencies
-      # Some projects don't allow in-source building, so create a separate build directory
-      # We'll use this as our working directory for all subsequent commands
-      shell: bash
       run: |
         sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
         sudo apt update
@@ -23,12 +29,7 @@ jobs:
         pip3 install cx_Freeze==6.1 distro defusedxml requests certifi chardet urllib3
 
     - name: Build Python package
-      # Use a bash shell so we can use the same syntax for environment variable
-      # access regardless of the host operating system
-      shell: bash
       run: python3 freeze.py build
 
     - name: Test
-      shell: bash
       run: python3 ./src/tests/query_tests.py -platform offscreen
-
