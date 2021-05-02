@@ -237,6 +237,26 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.right_handle_dragging = False
         self.scroll_bar_dragging = False
 
+    def set_handle_limits(self, left_handle, right_handle, is_left=False):
+        """Set min/max limits on the bounds of the handles (to prevent invalid values)"""
+        if left_handle < 0.0:
+            left_handle = 0.0
+            right_handle = self.scroll_bar_rect.width() / self.width()
+        if right_handle > 1.0:
+            left_handle = 1.0 - (self.scroll_bar_rect.width() / self.width())
+            right_handle = 1.0
+
+        # Don't allow handles to extend past each other
+        diff = right_handle - left_handle
+
+        # Adjust currently dragged handle (if exceeding min distance)
+        if is_left and diff < self.min_distance:
+            left_handle = right_handle - self.min_distance
+        elif not is_left and diff < self.min_distance:
+            right_handle = left_handle + self.min_distance
+
+        return left_handle, right_handle
+
     def mouseMoveEvent(self, event):
         """Capture mouse events"""
         event.accept()
@@ -278,18 +298,16 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 # Update scrollbar position
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 new_left_pos = self.scrollbar_position[0] - delta
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
-                    # SHIFT key pressed (move both handles)
+                is_left = True
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0 and \
+                        (self.scrollbar_position[1] + delta) - new_left_pos > self.min_distance:
+                    # SHIFT key pressed (move both handles if we don't exceed min distance)
                     new_right_pos = self.scrollbar_position[1] + delta
                 else:
                     new_right_pos = self.scrollbar_position[1]
 
-                if new_left_pos < 0.0:
-                    new_left_pos = 0.0
-                    new_right_pos = self.scroll_bar_rect.width() / self.width()
-                elif new_right_pos > 1.0:
-                    new_left_pos = 1.0 - (self.scroll_bar_rect.width() / self.width())
-                    new_right_pos = 1.0
+                # Enforce limits (don't allow handles to go past each other, or out of bounds)
+                new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
 
                 self.scrollbar_position = [new_left_pos,
                                            new_right_pos,
@@ -299,19 +317,17 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             elif self.right_handle_dragging:
                 delta = (self.mouse_position - mouse_pos) / self.width()
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
-                    # SHIFT key pressed (move both handles)
+                is_left = False
+                new_right_pos = self.scrollbar_position[1] - delta
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0 and \
+                        new_right_pos - (self.scrollbar_position[0] + delta) > self.min_distance:
+                    # SHIFT key pressed (move both handles if we don't exceed min distance)
                     new_left_pos = self.scrollbar_position[0] + delta
                 else:
                     new_left_pos = self.scrollbar_position[0]
-                new_right_pos = self.scrollbar_position[1] - delta
 
-                if new_left_pos < 0.0:
-                    new_left_pos = 0.0
-                    new_right_pos = self.scroll_bar_rect.width() / self.width()
-                elif new_right_pos > 1.0:
-                    new_left_pos = 1.0 - (self.scroll_bar_rect.width() / self.width())
-                    new_right_pos = 1.0
+                # Enforce limits (don't allow handles to go past each other, or out of bounds)
+                new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
 
                 self.scrollbar_position = [new_left_pos,
                                            new_right_pos,
@@ -325,12 +341,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 new_left_pos = self.scrollbar_position[0] - delta
                 new_right_pos = self.scrollbar_position[1] - delta
 
-                if new_left_pos < 0.0:
-                    new_left_pos = 0.0
-                    new_right_pos = self.scroll_bar_rect.width() / self.width()
-                elif new_right_pos > 1.0:
-                    new_left_pos = 1.0 - (self.scroll_bar_rect.width() / self.width())
-                    new_right_pos = 1.0
+                # Enforce limits (don't allow handles to go past each other, or out of bounds)
+                new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
 
                 self.scrollbar_position = [new_left_pos,
                                            new_right_pos,
@@ -467,6 +479,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.marker_rects = []
         self.current_frame = 0
         self.is_auto_center = True
+        self.min_distance = 0.02
 
         # Initialize cursors
         self.cursors = {
