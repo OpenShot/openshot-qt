@@ -119,28 +119,23 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         clip_pen.setCosmetic(True)
         painter.setPen(clip_pen)
 
-        clip_pen = QPen(QBrush(QColor("#53a0ed")), 1.5)
-        clip_pen.setCosmetic(True)
         selected_clip_pen = QPen(QBrush(QColor("Red")), 1.5)
         selected_clip_pen.setCosmetic(True)
 
-        scroll_color = QColor("#53a0ed")
-        scroll_color.setAlphaF(0.25)
+        scroll_color = QColor("#4053a0ed")
         scroll_pen = QPen(QBrush(scroll_color), 2.0)
         scroll_pen.setCosmetic(True)
 
-        marker_color = QColor("#53a0ed")
-        marker_color.setAlphaF(0.25)
+        marker_color = QColor("#4053a0ed")
         marker_pen = QPen(QBrush(marker_color), 1.0)
         marker_pen.setCosmetic(True)
 
-        playhead_color = QColor("Red")
+        playhead_color = QColor(Qt.red)
         playhead_color.setAlphaF(0.5)
         playhead_pen = QPen(QBrush(playhead_color), 1.0)
         playhead_pen.setCosmetic(True)
 
-        handle_color = QColor("#53a0ed")
-        handle_color.setAlphaF(0.65)
+        handle_color = QColor("#a653a0ed")
         handle_pen = QPen(QBrush(handle_color), 1.5)
         handle_pen.setCosmetic(True)
 
@@ -365,7 +360,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         scroll_width_seconds = normalized_scroll_width * project_duration
         tick_pixels = 100
         if self.scrollbar_position[3] > 0.0:
-            # Calculate the new zoom factor, based on 100 pixels per tick
+            # Calculate the new zoom factor, based on pixels per tick
             zoom_factor = scroll_width_seconds / (self.scrollbar_position[3] / tick_pixels)
 
             # Set scroll width (and send signal)

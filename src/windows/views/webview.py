@@ -3150,7 +3150,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 if not cache_object or cache_object.Count() <= 0:
                     return
                 # Get the JSON from the cache object (i.e. which frames are cached)
-                cache_json = self.window.timeline_sync.timeline.GetCache().Json()
+                cache_json = cache_object.Json()
                 cache_dict = json.loads(cache_json)
                 cache_version = cache_dict["version"]
 
