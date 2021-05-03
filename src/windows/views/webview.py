@@ -227,14 +227,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             initial_scale = get_app().project.get("scale") or 15.0
             self.window.sliderZoomWidget.setZoomFactor(initial_scale)
 
-            # The setValue() above doesn't trigger update_zoom when a project file is
-            # loaded on the command line (too early?), so also call the JS directly
-            self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(initial_scale) + ", 0);")
-
-    # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str, bool, bool, bool)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False, ignore_refresh=False):
-        """ Create an updateAction and send it to the update manager """
+        """ Javascript callable function to update the project data when a clip changes.
+        Create an updateAction and send it to the update manager """
 
         # read clip json
         try:
