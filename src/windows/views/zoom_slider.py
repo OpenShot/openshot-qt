@@ -526,7 +526,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
         self.delayed_size = None
-        self.delayed_resize_timer = QTimer()
+        self.delayed_resize_timer = QTimer(self)
         self.delayed_resize_timer.setInterval(200)
         self.delayed_resize_timer.setSingleShot(True)
         self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)

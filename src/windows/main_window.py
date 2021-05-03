@@ -2564,7 +2564,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Hook up caption editor signal
         self.captionTextEdit.textChanged.connect(self.captionTextEdit_TextChanged)
-        self.caption_save_timer = QTimer()
+        self.caption_save_timer = QTimer(self)
         self.caption_save_timer.setInterval(100)
         self.caption_save_timer.setSingleShot(True)
         self.caption_save_timer.timeout.connect(self.caption_editor_save)
@@ -2869,7 +2869,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # to update the property model hundreds of times)
         self.show_property_id = None
         self.show_property_type = None
-        self.show_property_timer = QTimer()
+        self.show_property_timer = QTimer(self)
         self.show_property_timer.setInterval(100)
         self.show_property_timer.setSingleShot(True)
         self.show_property_timer.timeout.connect(self.show_property_timeout)
@@ -2877,7 +2877,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Selection timer
         # Timer to use a delay before emitting selection signal (to prevent a mass selection from trying
         # to update the zoom slider widget hundreds of times)
-        self.selection_timer = QTimer()
+        self.selection_timer = QTimer(self)
         self.selection_timer.setInterval(100)
         self.selection_timer.setSingleShot(True)
         self.selection_timer.timeout.connect(self.emit_selection_signal)
