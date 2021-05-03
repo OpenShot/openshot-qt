@@ -56,22 +56,20 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             layers[layer.data.get('number')] = count
 
         # Wait for timeline object and valid scrollbar positions
-        if get_app().window.timeline and self.scrollbar_position[2] != 0.0:
+        if hasattr(get_app().window, "timeline") and self.scrollbar_position[2] != 0.0:
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
             pixels_per_second = self.width() / project_duration
-            project_pixel_width = max(0, project_duration * pixels_per_second)
 
             # Determine scale factor
-            horizontal_factor = self.width() / project_pixel_width
             vertical_factor = self.height() / len(layers.keys())
 
             for clip in Clip.filter():
                 # Calculate clip geometry (and cache it)
-                clip_x = (clip.data.get('position', 0.0) * pixels_per_second) * horizontal_factor
+                clip_x = (clip.data.get('position', 0.0) * pixels_per_second)
                 clip_y = layers.get(clip.data.get('layer', 0), 0) * vertical_factor
-                clip_width = ((clip.data.get('end', 0.0) - clip.data.get('start',0.0))
-                              * pixels_per_second) * horizontal_factor
+                clip_width = ((clip.data.get('end', 0.0) - clip.data.get('start', 0.0))
+                              * pixels_per_second)
                 clip_rect = QRectF(clip_x, clip_y, clip_width, 1.0 * vertical_factor)
                 if clip.id in get_app().window.selected_clips:
                     # selected clip
@@ -82,10 +80,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             for clip in Transition.filter():
                 # Calculate clip geometry (and cache it)
-                clip_x = (clip.data.get('position', 0.0) * pixels_per_second) * horizontal_factor
+                clip_x = (clip.data.get('position', 0.0) * pixels_per_second)
                 clip_y = layers.get(clip.data.get('layer', 0), 0) * vertical_factor
-                clip_width = ((clip.data.get('end', 0.0) - clip.data.get('start',0.0))
-                              * pixels_per_second) * horizontal_factor
+                clip_width = ((clip.data.get('end', 0.0) - clip.data.get('start', 0.0))
+                              * pixels_per_second)
                 clip_rect = QRectF(clip_x, clip_y, clip_width, 1.0 * vertical_factor)
                 if clip.id in get_app().window.selected_transitions:
                     # selected clip
@@ -96,7 +94,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             for marker in Marker.filter():
                 # Calculate clip geometry (and cache it)
-                marker_x = (marker.data.get('position', 0.0) * pixels_per_second) * horizontal_factor
+                marker_x = (marker.data.get('position', 0.0) * pixels_per_second)
                 marker_rect = QRectF(marker_x, 0, 0.5, len(layers) * vertical_factor)
                 self.marker_rects.append(marker_rect)
 
@@ -156,7 +154,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             fps_float = float(fps_num / fps_den)
 
             # Determine scale factor
-            horizontal_factor = event.rect().width() / project_pixel_width
             vertical_factor = event.rect().height() / len(layers)
 
             # Loop through each clip
@@ -173,7 +170,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 painter.drawRect(marker_rect)
 
             painter.setPen(playhead_pen)
-            playhead_x = ((self.current_frame / fps_float) * pixels_per_second) * horizontal_factor
+            playhead_x = ((self.current_frame / fps_float) * pixels_per_second)
             playhead_rect = QRectF(playhead_x, 0, 0.5, len(layers) * vertical_factor)
             painter.drawRect(playhead_rect)
 
@@ -391,6 +388,21 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def setZoomFactor(self, zoom_factor):
         """Set the current zoom factor"""
+        # Get max width of timeline
+        project_duration = get_app().project.get("duration")
+        tick_pixels = 100
+        min_zoom_factor = 1.0
+        max_zoom_factor = 64.0
+        if self.scrollbar_position[3] > 0.0:
+            # Calculate the new zoom factor, based on pixels per tick
+            max_zoom_factor = project_duration / (self.scrollbar_position[3] / tick_pixels)
+
+        # Constrain zoom factor to min/max limits
+        if zoom_factor < min_zoom_factor:
+            zoom_factor = min_zoom_factor
+        if zoom_factor > max_zoom_factor:
+            zoom_factor = max_zoom_factor
+
         # Force recalculation of clips
         self.zoom_factor = zoom_factor
 
@@ -403,16 +415,20 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def zoomIn(self):
         """Zoom into timeline"""
-        new_factor = self.zoom_factor - 10.0
-        if new_factor < 1:
-            new_factor = 1
+        if self.zoom_factor >= 10.0:
+            new_factor = self.zoom_factor - 5.0
+        else:
+            new_factor = self.zoom_factor - 2.0
 
         # Emit zoom signal
         self.setZoomFactor(new_factor)
 
     def zoomOut(self):
         """Zoom out of timeline"""
-        new_factor = self.zoom_factor + 10.0
+        if self.zoom_factor >= 10.0:
+            new_factor = self.zoom_factor + 5.0
+        else:
+            new_factor = self.zoom_factor + 2.0
 
         # Emit zoom signal
         self.setZoomFactor(new_factor)

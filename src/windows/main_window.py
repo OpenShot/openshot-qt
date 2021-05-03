@@ -2293,7 +2293,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.show_property_timer.start()
 
         # Notify UI that selection has been potentially changed
-        self.SelectionChanged.emit()
+        self.selection_timer.start()
 
     # Remove from the selected items
     def removeSelection(self, item_id, item_type):
@@ -2326,9 +2326,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.show_property_id = self.selected_effects[0]
             self.show_property_type = item_type
 
-        # Change selected item in properties view
+        # Change selected item
         self.show_property_timer.start()
+        self.selection_timer.start()
 
+    def emit_selection_signal(self):
+        """Emit a signal for selection changed. Callback for selection timer."""
         # Notify UI that selection has been potentially changed
         self.SelectionChanged.emit()
 
@@ -2870,6 +2873,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.show_property_timer.setInterval(100)
         self.show_property_timer.setSingleShot(True)
         self.show_property_timer.timeout.connect(self.show_property_timeout)
+
+        # Selection timer
+        # Timer to use a delay before emitting selection signal (to prevent a mass selection from trying
+        # to update the zoom slider widget hundreds of times)
+        self.selection_timer = QTimer()
+        self.selection_timer.setInterval(100)
+        self.selection_timer.setSingleShot(True)
+        self.selection_timer.timeout.connect(self.emit_selection_signal)
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()

@@ -269,20 +269,14 @@ App.controller("TimelineCtrl", function ($scope) {
       cursor_time = parseFloat(horz_scroll_offset) / $scope.pixelsPerSecond;
     }
 
-    // Compare to previous scale (and ignore tiny differences)
-    if (Math.abs(parseFloat(scaleVal) - $scope.project.scale) < 1.0e-5) {
-      // Do not change scale if the value is this tiny
-      // This can cause the Ruler $watch to fail, and will leave the Ruler blank
-      return;
-    }
-
     $scope.$apply(function () {
       $scope.project.scale = parseFloat(scaleVal);
       $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
     });
 
     // Scroll back to correct cursor time (minus the difference of the cursor location)
-    var new_cursor_x = Math.round((cursor_time * $scope.pixelsPerSecond) - center_x);
+    var new_cursor_x = Math.max(0, Math.round((cursor_time * $scope.pixelsPerSecond) - center_x));
+    scrolling_tracks.scrollLeft(new_cursor_x + 1); // force scroll event
     scrolling_tracks.scrollLeft(new_cursor_x);
   };
 

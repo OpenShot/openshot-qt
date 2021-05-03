@@ -217,33 +217,3 @@ App.directive("tlRuler", function ($timeout) {
 
   };
 });
-
-
-// The HTML5 canvas ruler
-App.directive("tlRulertime", function () {
-  return {
-    restrict: "A",
-    link: function (scope, element, attrs) {
-      //on click of the ruler canvas, jump playhead to the clicked spot
-      element.on("mousedown", function () {
-        var playhead_seconds = 0.0;
-        // Update playhead
-        scope.movePlayhead(playhead_seconds);
-        scope.previewFrame(playhead_seconds);
-
-      });
-
-      // Move playhead to new position (if it's not currently being animated)
-      element.on("mousemove", function (e) {
-        if (e.which === 1 && !scope.playhead_animating) { // left button
-          var playhead_seconds = 0.0;
-          // Update playhead
-          scope.movePlayhead(playhead_seconds);
-          scope.previewFrame(playhead_seconds);
-        }
-      });
-
-
-    }
-  };
-});
