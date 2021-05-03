@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">All Formats</type>
+	<title translatable="True">WEBM (vp9)</title>
+	<videoformat>webm</videoformat>
+	<videocodec>libvpx-vp9</videocodec>
+	<audiocodec>libvorbis</audiocodec>
+	<audiochannels>2</audiochannels>
+	<audiochannellayout>3</audiochannellayout>
+	<videobitrate
+	 low="50 crf"
+	 med="30 crf"
+	 high="5 crf"></videobitrate>
+	<audiobitrate
+	 low="96 kb/s"
+	 med="128 kb/s"
+	 high="192 kb/s"></audiobitrate>
+	<samplerate>48000</samplerate>
+</export-option>

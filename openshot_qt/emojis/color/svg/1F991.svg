@@ -1,0 +1,32 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#FFFFFF" stroke="none" d="M43.5,42.5c0,3.866-3.134,4-7,4s-7-0.134-7-4s3.134-7,7-7S43.5,38.634,43.5,42.5z"/>
+    <path fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M25.2835,62.4614C29.1914,59.6942,32.9108,47.2868,32,45"/>
+    <path fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M32,58c0,0,3-7,2-13"/>
+    <path fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M37,45c0,0,1,9.5-1.7449,14.0283c0,0,0.7449,5.0725,0.7449,6.3118"/>
+    <line x1="38" x2="38" y1="62" y2="47" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M38.7413,45.6518c0,0,5.0712,17.5829,1.3744,22.1837"/>
+    <line x1="40.1157" x2="45.1481" y1="45" y2="62" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M48.3081,62.915c-2.276,0-7.1197-14.2912-7.6003-15.915"/>
+    <rect x="31" y="44.3851" width="11" height="11.6149" fill="#FFFFFF" stroke="none"/>
+    <path fill="#F4AA41" stroke="#F4AA41" stroke-miterlimit="10" stroke-width="2" d="M34.3784,10 c-5.79,12.9984-4.5556,22.9931-4.1231,25.429c0.0639,0.3599,0.3185,0.6466,0.6698,0.7476 c1.4744,0.4242,5.7267,1.3672,10.8636-0.0046c0.3743-0.1,0.6502-0.4197,0.6987-0.8041c0.37-2.934,1.4-15.6638-6.1921-29.3488 c-0.2941-0.5301-1.0076-0.6542-1.4644-0.2558c-1.5776,1.3762-5.0568,4.4713-8.7078,8.1138 c-0.0849,0.0847-0.1513,0.1793-0.1999,0.2889C25.4067,15.3311,22.68,22.34,30,26"/>
+    <path fill="#E27022" stroke="#E27022" stroke-miterlimit="10" d="M41.4704,22c0,0,5.5151-4.1668,2.7575-8.3336l-1.2444-2.1155 c-0.0092-0.0156-0.0167-0.0306-0.0237-0.0476C41.986,9.1324,40.079,4.797,37.3341,4.5c-1.4972-0.162-2.0674-0.0963-1.8384,0.3119 L36.4149,6.5"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M33.375,36.6875"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M32.6875,49.6875C32.6875,49.6875,33,54,31,57"/>
+    <line x1="42" x2="43.8125" y1="55" y2="62.5" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M38,48c0,0,4,18,1,20"/>
+    <line x1="37" x2="37" y1="58" y2="62" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M36,48c0,0-1,8-2,10s1,8,1,8"/>
+    <circle cx="32.2222" cy="42" r="1.2222" fill="#000000" stroke="none"/>
+    <circle cx="40.7778" cy="42" r="1.2222" fill="#000000" stroke="none"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34.3784,10c-6.6815,15-4.0089,26-4.0089,26s5.3452,2,12.0268,0c0,0,2.6726-15-6.6816-31C35.7147,5,31,9,26,14c0,0-5.6816,6,1,10"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M42,22c0,0,6-4,3-8l-4-6"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M31.0625,37.3125c0,0-1.6875,4.0625-0.375,6.875C32,47,25,62,24,62"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M42,37.3125c0,0,1.6875,4.0625,0.375,6.875S48.0625,62,49.0625,62"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+description=QCIF PAL
+frame_rate_num=25
+frame_rate_den=1
+width=176
+height=144
+progressive=1
+sample_aspect_num=59
+sample_aspect_den=54
+display_aspect_num=4
+display_aspect_den=3
+colorspace=601

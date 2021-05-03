@@ -1428,6 +1428,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         key_value = event.key()
         modifiers = int(event.modifiers())
 
+        if (event.key() == Qt.Key_Up):
+            print("KeyUP")
         # Abort handling if the key sequence is invalid
         if (key_value <= 0 or key_value in
            [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):

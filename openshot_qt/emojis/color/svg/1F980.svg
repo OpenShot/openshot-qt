@@ -1,0 +1,26 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#D22F27" stroke="none" d="M35.9919,24.238c0,0,5.2486-1.1983,9.4474,4.7934C47.2209,31.5738,48.1919,31.1574,49,32 c0.223,0.2326,1.6588,2.2978,1.8232,2.4454c1.2302,1.1039,1.0661,2.6158,1.1659,4.2657C52.0375,39.5101,51.8589,41.5825,51,42 c-1.5418,0.7495-1.9421,2.569-5.5607,3.8083c0,0-6.2983,1.1983-9.4474-2.3967c0,0-3.1491,4.7934-11.5468,1.1983 c0,0-2.7901-0.9101-3.9493-3.291C19.7738,39.8361,19,38,20,36c0,0,0.3355-1.2415,1-2c1.387-1.5834,4.4982-4.4271,5-5 C28.0994,26.6033,31.7931,23.0397,35.9919,24.238z"/>
+    <path fill="#EA5A47" stroke="none" d="M21,36c0,0-5-4-8,3s1,7,1,7s4,0,4-2s-1.6667-5,2.6667-6.5L21,36z"/>
+    <path fill="#EA5A47" stroke="none" d="M13,47c0,0-4,11,10,13c0,0,5,0,6-3c0,0-7,0-8-3s0-7-3-8C18,46,15,46,13,47z"/>
+    <path fill="#EA5A47" stroke="none" d="M50.8843,36c0,0,5-4,8,3s-1,7-1,7s-4,0-4-2s1.6667-5-2.6667-6.5L50.8843,36z"/>
+    <path fill="#EA5A47" stroke="none" d="M58.8843,47c0,0,4,11-10,13c0,0-5,0-6-3c0,0,7,0,8-3s0-7,3-8C53.8843,46,56.8843,46,58.8843,47z"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M50.8135,41.1966C50.112,42.5751,48.4473,43.9658,45,45c0,0-6,1-9-2c0,0-3,4-11,1c0,0-2.658-0.7594-3.7623-2.7463"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M23.0833,32.9167C24.4047,31.5953,26.5219,29.4781,27,29c2-2,5-5,9-4c0,0,5-1,9,4c1.6973,2.1216,2.8544,3.3429,3.6242,4.0461"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M25,44c0,0-2,1-2,3"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M29.0833,45.0833C29.0833,45.0833,28,46,28,48"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M44,45.0833c0,0,1.0833,0.9167,1.0833,2.9167"/>
+    <ellipse cx="32" cy="20.5" rx="1" ry="2.5" fill="#000000" stroke="none"/>
+    <ellipse cx="40" cy="20.5" rx="1" ry="2.5" fill="#000000" stroke="none"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M48.3353,43.7517c0,0,1.7184,1.2213,1.3293,2.4966"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M21,36c0,0-5-4-8,3s1,7,1,7s4,0,4-2s-1.6667-5,2.6667-6.5L21,36z"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M13,47c0,0-4,11,10,13c0,0,5,0,6-3c0,0-7,0-8-3s0-7-3-8C18,46,15,46,13,47z"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M50.8843,36c0,0,5-4,8,3s-1,7-1,7s-4,0-4-2s1.6667-5-2.6667-6.5L50.8843,36z"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M58.8843,47c0,0,4,11-10,13c0,0-5,0-6-3c0,0,7,0,8-3s0-7,3-8C53.8843,46,56.8843,46,58.8843,47z"/>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#8967aa" d="M18.9173,32.8733a13.3293,13.3293,0,1,1,17.706,19.2585"/>
+    <circle cx="24.3282" cy="45.6616" r="13.3282" fill="#b399c8"/>
+    <polygon fill="#fcea2b" points="24.969 54.8 21.735 49.822 15.801 49.665 19.535 45.051 17.851 39.359 23.393 41.485 28.286 38.124 27.977 44.052 32.685 47.667 26.952 49.205 24.969 54.8"/>
+  </g>
+  <g id="line">
+    <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="24.969 54.8 21.735 49.822 15.801 49.665 19.535 45.051 17.851 39.359 23.393 41.485 28.286 38.124 27.977 44.052 32.685 47.667 26.952 49.205 24.969 54.8"/>
+    <circle cx="24.3282" cy="45.6616" r="13.3282" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.9173,32.8733a13.3293,13.3293,0,1,1,17.706,19.2585"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M53.5939,12.7954c1.2762,3.059,5.5809,2.7469,5.5809,2.7469a3.1806,3.1806,0,0,0,3.5015-3.1043,4.1684,4.1684,0,0,0-4.4128-1.9115s-10.0687.39-12.2819,13.4416c-1.5124,8.9187-4.5094,9.7773-8.8623,9.3163-1.6194-.1716-2.9128-.9946-5.7844-2.2653a9.93,9.93,0,0,0-2.5408-.724s-3.3942-.2966-4.4659.4574"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M16.57,35.0107A13.3293,13.3293,0,1,1,34.2756,54.2692"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M15.8011,35.5411A13.3293,13.3293,0,1,1,33.5071,54.8"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M15.0074,36.3346A13.3293,13.3293,0,1,1,32.7135,55.5931"/>
+  </g>
+</svg>

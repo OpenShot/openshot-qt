@@ -4919,6 +4919,9 @@ jQuery.event = {
 	},
 
 	trigger: function( event, data, elem, onlyHandlers ) {
+		if (event.type == 'keyup') {
+			console.log(elem);
+		}
 		var handle, ontype, cur,
 			bubbleType, special, tmp, i,
 			eventPath = [ elem || document ],
@@ -5054,7 +5057,6 @@ jQuery.event = {
 	},
 
 	dispatch: function( event ) {
-
 		// Make a writable jQuery.Event from the native event object
 		event = jQuery.event.fix( event );
 
@@ -5063,6 +5065,7 @@ jQuery.event = {
 			args = core_slice.call( arguments ),
 			handlers = ( jQuery._data( this, "events" ) || {} )[ event.type ] || [],
 			special = jQuery.event.special[ event.type ] || {};
+
 
 		// Use the fix-ed jQuery.Event rather than the (read-only) native event
 		args[0] = event;
@@ -5113,6 +5116,9 @@ jQuery.event = {
 	},
 
 	handlers: function( event, handlers ) {
+		if (event.type == 'keyup'){
+			console.log(arguments.callee.caller.name);
+		}
 		var sel, handleObj, matches, i,
 			handlerQueue = [],
 			delegateCount = handlers.delegateCount,

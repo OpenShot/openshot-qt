@@ -1,0 +1,40 @@
+.gear {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 9999;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	padding: 5px;
+	background-color: silver;
+	border-radius: 8px;
+	opacity: 0.15;
+	cursor: pointer;
+}
+
+.gear:hover {
+	opacity: 0.95;
+}
+
+.debug-window {
+	background-color:rgba(1, 146, 193, 0.74);
+	overflow: hidden;
+	padding:5px;
+	position: absolute;
+	bottom: 3%;
+	width: 90%;
+	left: 3%;
+	opacity: 0.85;
+	z-index: 20000;
+}
+
+.debug-text {
+	float:left;
+	width:300px;
+	padding:5px;
+	margin-top:10px;
+	margin-left:25px;
+	background-color:#FEFAD8;
+	max-height: 300px;
+	overflow: auto;
+}

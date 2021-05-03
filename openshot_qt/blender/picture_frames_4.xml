@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Picture Frames (4 pictures)</title>
+	<description translatable="True">Picture Frames (4 pictures)</description>
+	<icon>picture_frames_4.png</icon>
+	<category>Video</category>
+	<service>picture_frames_4.blend</service>
+	
+	<param name="file_name" type="text" title="File Name" description="">
+		<default>TitleFileName</default>
+	</param>
+	
+	<param name="project_files1" type="dropdown" title="Picture 1" description="">
+		<values>
+			<value name="" num=""/>
+		</values>
+		<default></default>
+	</param>
+	
+	<param name="project_files2" type="dropdown" title="Picture 2" description="">
+		<values>
+			<value name="" num=""/>
+		</values>
+		<default></default>
+	</param>
+	
+	<param name="project_files3" type="dropdown" title="Picture 3" description="">
+		<values>
+			<value name="" num=""/>
+		</values>
+		<default></default>
+	</param>
+	
+	<param name="project_files4" type="dropdown" title="Picture 4" description="">
+		<values>
+			<value name="" num=""/>
+		</values>
+		<default></default>
+	</param>
+	
+	<param name="start_frame" type="spinner" title="Start Frame" description="">
+		<min>1</min>
+		<max>1</max>
+		<default>1</default>
+	</param>
+	
+	<param name="end_frame" type="spinner" title="End Frame" description="">
+		<min>230</min>
+		<max>230</max>
+		<default>230</default>
+	</param>
+
+	<!-- SPEED -->
+	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+</effect>

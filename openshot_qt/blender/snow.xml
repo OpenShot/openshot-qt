@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Snow</title>
+	<description translatable="True">Snow</description>
+	<icon>snow.png</icon>
+	<category>Video</category>
+	<service>snow.blend</service>
+	
+	<param name="file_name" type="text" title="File Name" description="">
+		<default>TitleFileName</default>
+	</param>
+	
+	<param name="particles_count" type="spinner" title="Number of Snow Flakes" description="">
+		<min>0.0</min>
+		<max>100000.0</max>
+		<default>3000.0</default>
+	</param>
+	
+	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
+		<default>#ffffff</default>
+	</param>
+	
+	<param name="size" type="spinner" title="Size" description="">
+		<min>1.00</min>
+		<max>20.0</max>
+		<default>2.0</default>
+	</param>
+	
+	<param name="gravity_x" type="spinner" title="Gravity: X" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>-0.100</default>
+	</param>
+	
+	<param name="gravity_y" type="spinner" title="Gravity: Y" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.070</default>
+	</param>
+	
+	<param name="gravity_z" type="spinner" title="Gravity: Z" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>-0.180</default>
+	</param>
+
+	
+	<param name="start_frame" type="spinner" title="Start Frame" description="">
+		<min>1</min>
+		<max>1</max>
+		<default>1</default>
+	</param>
+	
+	<param name="end_frame" type="spinner" title="End Frame" description="">
+		<min>900</min>
+		<max>900</max>
+		<default>900</default>
+	</param>
+
+	<!-- SPEED -->
+	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+</effect>

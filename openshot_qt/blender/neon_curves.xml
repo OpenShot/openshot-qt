@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Neon Curves</title>
+	<description translatable="True">Neon Curves</description>
+	<icon>neon_curves.png</icon>
+	<category>Video</category>
+	<service>neon_curves.blend</service>
+	
+	<param name="file_name" type="text" title="File Name" description="">
+		<default>TitleFileName</default>
+	</param>
+	
+	<param name="title" type="multiline" title="Title" description="">
+		<default>Title</default>
+	</param>
+	
+	<param name="extrude" type="spinner" title="Extrude" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.1</default>
+	</param>
+
+	<param name="bevel_depth" type="spinner" title="Bevel Depth" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>0.02</default>
+	</param>
+	
+	<param name="fontname" type="dropdown" title="Font Name" description="">
+		<values>
+			<value name="Bfont" num="Bfont"/>
+			<value name="FreeMono" num="FreeMono"/>
+			<value name="FreeMonoBold" num="FreeMonoBold"/>
+			<value name="FreeSans" num="FreeSans"/>
+			<value name="FreeSansBold" num="FreeSansBold"/>
+			<value name="FreeSansBoldOblique" num="FreeSansBoldOblique"/>
+			<value name="WenQuanYiMicroHei (Unicode)" num="WenQuanYiMicroHei"/>
+		</values>
+		<default>Bfont</default>
+	</param>
+	
+	<param name="spacemode" type="dropdown" title="Text Alignment" description="">
+		<values>
+			<value name="CENTER" num="CENTER"/>
+			<value name="LEFT" num="LEFT"/>
+			<value name="RIGHT" num="RIGHT"/>
+		</values>
+		<default>CENTER</default>
+	</param>
+	
+	<param name="text_size" type="spinner" title="Text Size" description="">
+		<min>0.0</min>
+		<max>10.0</max>
+		<default>1.0</default>
+	</param>
+	
+	<param name="width" type="spinner" title="Text Width" description="">
+		<min>0.0</min>
+		<max>10.0</max>
+		<default>1.0</default>
+	</param>
+
+	<param name="diffuse_color" type="color" title="Title Diffuse Color" description="">
+		<default>#FFAB00</default>
+	</param>
+
+	<param name="strength" type="spinner" title="Strength" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>1</default>
+	</param>
+
+	<param name="glare_type" type="dropdown" title="Glare Type" description="">
+		<values>
+			<value name="Streaks" num="STREAKS"/>
+			<value name="Ghosts" num="GHOSTS"/>
+			<value name="Fog Glow" num="FOG_GLOW"/>
+			<value name="Simple Star" num="SIMPLE_STAR"/>
+		</values>
+		<default>GHOSTS</default>
+	</param>
+
+	<param name="line1_diffuse_color" type="color" title="Line 1 Color" description="">
+		<default>#67BCFF</default>
+	</param>
+	<param name="line2_diffuse_color" type="color" title="Line 2 Color" description="">
+		<default>#0069FF</default>
+	</param>
+	<param name="line3_diffuse_color" type="color" title="Line 3 Color" description="">
+		<default>#82BAFF</default>
+	</param>
+	<param name="line4_diffuse_color" type="color" title="Line 4 Color" description="">
+		<default>#FFDD00</default>
+	</param>
+	
+	<param name="start_frame" type="spinner" title="Start Frame" description="">
+		<min>1</min>
+		<max>1</max>
+		<default>1</default>
+	</param>
+	
+	<param name="end_frame" type="spinner" title="End Frame" description="">
+		<min>250</min>
+		<max>250</max>
+		<default>250</default>
+	</param>
+
+	<!-- SPEED -->
+	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+</effect>

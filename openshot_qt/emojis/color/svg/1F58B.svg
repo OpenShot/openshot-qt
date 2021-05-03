@@ -1,0 +1,25 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <polyline fill="#d0cfce" stroke="#d0cfce" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0667" points="25.7596,52.8682 19.6961,58.9318 12.0054,59.5784 12.6521,51.8877 18.7156,45.8241"/>
+    <path fill="#9b9b9a" stroke="none" d="M44.4013,39.7543c9.0876-8.4026,16.143-18.2755,16.143-18.2755L60.2555,21.19l-9.8616-9.8617 c0,0-9.873,7.0554-18.2756,16.143c-11.555,12.4969-14.1071,17.6484-14.1071,17.6484l7.7484,7.7485l0.9933,0.9932 C26.7529,53.8614,31.9044,51.3093,44.4013,39.7543"/>
+    <path fill="#3F3F3F" stroke="none" d="M18.7638,45.6189l7.743,7.9965c0,0,12.1822-7.647,14.4901-10.8137l-0.7914-1.9604L29.2382,30.709 L18.0541,45.1626L18.7638,45.6189z"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M18.9494,43.5572"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M31.7378,51.0321"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M22.2766,41.5709"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M22.2278,41.6417"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M18.5718,56.6837"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M31.7191,51.133"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M21.9785,41.3923"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.9553" d="M16.371,51.2405"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.8779" d="M12.0755,59.1853"/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" points="22.8373,55.7905 19.7595,58.8684 12.0054,59.5784 12.7154,51.8244 15.7934,48.7465"/>
+    <line x1="16.2375" x2="13.1596" y1="55.3463" y2="58.4243" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823" d="M44.4013,39.7543c9.0876-8.4026,16.143-18.2755,16.143-18.2755L50.3939,11.3283c0,0-0.0949,0.0678-0.2737,0.1984 c-1.6467,1.2034-10.4225,7.7472-18.0019,15.9446c-11.555,12.4969-14.1071,17.6484-14.1071,17.6484l7.7484,7.7485l0.9933,0.9932 C26.7529,53.8614,31.9044,51.3093,44.4013,39.7543"/>
+    <line x1="41.0348" x2="29.7118" y1="41.524" y2="30.201" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.0823"/>
+  </g>
+</svg>

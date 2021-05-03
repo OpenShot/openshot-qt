@@ -1,0 +1,18 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#d22f27" d="M62.92,35.0029A1.8786,1.8786,0,0,0,61.0458,33H11.0529a1.9727,1.9727,0,0,0-1.97,2.1313c.857,9.7287,7.53,17.9843,16.7945,21.7238v5.4866A1.72,1.72,0,0,0,27.6446,64H44.3554a1.72,1.72,0,0,0,1.767-1.6583V57.4993C55.8344,54.121,62.1937,45.39,62.92,35.0029Z"/>
+  </g>
+  <g id="line">
+    <line x1="61.4336" x2="17.4336" y1="21" y2="21" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="61.4336" x2="17.4336" y1="13" y2="13" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="34.2773" x2="34.4336" y1="10.8125" y2="33" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8409"/>
+    <line x1="28.2773" x2="28.4336" y1="10.8125" y2="33" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8409"/>
+    <line x1="21.2773" x2="21.4336" y1="10.8125" y2="33" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8409"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M62.92,35.0029A1.8786,1.8786,0,0,0,61.0458,33H11.0529a1.9727,1.9727,0,0,0-1.97,2.1313c.857,9.7287,7.53,17.9843,16.7945,21.7238v5.4866A1.72,1.72,0,0,0,27.6446,64H44.3554a1.72,1.72,0,0,0,1.767-1.6583V57.4993C55.8344,54.121,62.1937,45.39,62.92,35.0029Z"/>
+  </g>
+  <g id="color-foreground">
+    <line x1="34.2773" x2="34.4336" y1="10.8125" y2="33" fill="none" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8409"/>
+    <line x1="28.2773" x2="28.4336" y1="10.8125" y2="33" fill="none" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8409"/>
+    <line x1="21.2773" x2="21.4336" y1="10.8125" y2="33" fill="none" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8409"/>
+  </g>
+</svg>

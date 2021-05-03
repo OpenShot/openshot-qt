@@ -1,0 +1,11 @@
+description=SVCD PAL
+frame_rate_num=25
+frame_rate_den=1
+width=480
+height=576
+progressive=0
+sample_aspect_num=59
+sample_aspect_den=36
+display_aspect_num=4
+display_aspect_den=3
+colorspace=601

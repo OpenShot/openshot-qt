@@ -320,6 +320,9 @@ App.directive("tlClip", function ($timeout) {
           var y_offset = ui.position.top - previous_y;
 
           // Move the bounding box and apply snapping rules
+          if(e.shiftKey){
+            console.log("GOTCHA!");
+          }
           var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
           x_offset = results.x_offset;
           y_offset = results.y_offset;

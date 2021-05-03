@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-effect>
+<effect>
+	<title translatable="True">Magic Wand</title>
+	<description translatable="True">Magic Wand</description>
+	<icon>magic_wand.png</icon>
+	<category>Video</category>
+	<service>magic_wand.blend</service>
+	
+	<param name="file_name" type="text" title="File Name" description="">
+		<default>TitleFileName</default>
+	</param>
+	
+	<param name="particles_count" type="spinner" title="Particles: Amount" description="">
+		<min>0.0</min>
+		<max>100000.0</max>
+		<default>5000.0</default>
+	</param>
+	
+	<param name="start_x" type="spinner" title="Start: X" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="start_y" type="spinner" title="Start: Y" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="start_z" type="spinner" title="Start: Z" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>3.0</default>
+	</param>
+	
+	<param name="end_x" type="spinner" title="End: X" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="end_y" type="spinner" title="End: Y" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="end_z" type="spinner" title="End: Z" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>3.0</default>
+	</param>
+
+	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
+		<default>#FFCF00</default>
+	</param>
+	
+	<param name="strength" type="spinner" title="Strength" description="">
+		<min>0.0</min>
+		<max>1.0</max>
+		<default>1</default>
+	</param>
+
+	<param name="glare_type" type="dropdown" title="Glare Type" description="">
+		<values>
+			<value name="Streaks" num="STREAKS"/>
+			<value name="Ghosts" num="GHOSTS"/>
+			<value name="Fog Glow" num="FOG_GLOW"/>
+			<value name="Simple Star" num="SIMPLE_STAR"/>
+		</values>
+		<default>STREAKS</default>
+	</param>
+
+	<param name="particle_scale" type="spinner" title="Particle Scale" description="">
+		<min>0.0</min>
+		<max>3.0</max>
+		<default>0.03</default>
+	</param>
+
+	<param name="particles_lifetime" type="spinner" title="Particles: Lifetime" description="">
+		<min>0.0</min>
+		<max>255.0</max>
+		<default>50.0</default>
+	</param>	
+	
+	<param name="particles_gravity" type="spinner" title="Particles: Gravity" description="">
+		<min>-3.0</min>
+		<max>3.0</max>
+		<default>1.0</default>
+	</param>
+	
+	<param name="velocity_x" type="spinner" title="Velocity: X" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="velocity_y" type="spinner" title="Velocity: Y" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+	
+	<param name="velocity_z" type="spinner" title="Velocity: Z" description="">
+		<min>-10.0</min>
+		<max>10.0</max>
+		<default>0.0</default>
+	</param>
+
+	
+	<param name="start_frame" type="spinner" title="Start Frame" description="">
+		<min>1</min>
+		<max>1</max>
+		<default>1</default>
+	</param>
+	
+	<param name="end_frame" type="spinner" title="End Frame" description="">
+		<min>250</min>
+		<max>250</max>
+		<default>250</default>
+	</param>
+
+	<!-- SPEED -->
+	<param name="length_multiplier" type="dropdown" title="Animation Length" description="">
+		<values>
+			<value name="Default" num="1"/>
+			<value name="2X" num="2"/>
+			<value name="3X" num="3"/>
+			<value name="4X" num="4"/>
+			<value name="5X" num="5"/>
+		</values>
+		<default>1</default>
+	</param>
+</effect>
