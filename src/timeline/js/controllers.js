@@ -59,7 +59,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
   $scope.playheadTime = secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
-  $scope.shift_pressed = false;
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
   $scope.enable_snapping = true;

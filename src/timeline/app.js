@@ -57,25 +57,6 @@ $(document).ready(function () {
     $(".playhead-line").height(body_object.scope().playhead_height);
   });
 
-  // Bind to keydown event (to detect SHIFT)
-  body_object.keydown(function (event) {
-    if (event.which === 16) {
-      if (timeline) {
-        timeline.qt_log("DEBUG", "Shift pressed!");
-      }
-      body_object.scope().shift_pressed = true;
-    }
-  });
-
-  body_object.keyup(function (event) {
-    if (event.which === 16) {
-      if (timeline) {
-        timeline.qt_log("DEBUG", "Shift released!");
-      }
-      body_object.scope().shift_pressed = false;
-    }
-  });
-
   // Manually trigger the window resize code (to verify it runs at least once)
   $(window).trigger("resize");
 });
