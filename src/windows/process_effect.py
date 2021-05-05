@@ -35,7 +35,7 @@ from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *

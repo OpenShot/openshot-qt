@@ -31,11 +31,12 @@ import platform
 
 from classes import info
 from classes.logger import log
-from classes.metrics import track_exception_stacktrace, track_metric_error
 
 
 def ExceptionHandler(exeception_type, exeception_value, exeception_traceback):
     """Callback for any unhandled exceptions"""
+    from classes.metrics import track_exception_stacktrace
+
     log.error(
         'Unhandled Exception',
         exc_info=(exeception_type, exeception_value, exeception_traceback))
@@ -71,6 +72,8 @@ def tail_file(f, n, offset=None):
 
 def libopenshot_crash_recovery():
     """Walk libopenshot.log for the last line before this launch"""
+    from classes.metrics import track_exception_stacktrace, track_metric_error
+
     log_path = os.path.join(info.USER_PATH, "libopenshot.log")
     last_log_line = ""
     last_stack_trace = ""

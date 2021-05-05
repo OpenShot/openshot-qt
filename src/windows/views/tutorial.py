@@ -36,7 +36,6 @@ from PyQt5.QtWidgets import (
     QPushButton, QToolButton, QCheckBox,
 )
 from classes.logger import log
-from classes.settings import get_settings
 from classes.app import get_app
 from classes.metrics import track_metric_screen
 
@@ -67,7 +66,7 @@ class TutorialDialog(QWidget):
 
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
-        s = get_settings()
+        s = get_app().get_settings()
         if state == Qt.Checked:
             # Enabling metrics sending
             s.set("send_metrics", True)
@@ -118,7 +117,7 @@ class TutorialDialog(QWidget):
         # probably okay for now.
         if self.widget_id == "0":
             # Get settings
-            s = get_settings()
+            s = get_app().get_settings()
 
             # create spinner
             checkbox_metrics = QCheckBox()
@@ -260,7 +259,7 @@ class TutorialManager(object):
 
     def hide_tips(self, tid, user_clicked=False):
         """ Hide the current tip, and don't show anymore """
-        s = get_settings()
+        s = get_app().get_settings()
 
         # Loop through and find current tid
         for tutorial_object in self.tutorial_objects:
@@ -348,7 +347,7 @@ class TutorialManager(object):
         _ = app._tr
 
         # get settings
-        s = get_settings()
+        s = app.get_settings()
         self.tutorial_enabled = s.get("tutorial_enabled")
         self.tutorial_ids = s.get("tutorial_ids").split(",")
 

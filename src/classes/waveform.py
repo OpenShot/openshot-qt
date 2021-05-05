@@ -31,12 +31,11 @@ from copy import deepcopy
 from classes import info
 from classes.app import get_app
 from classes.logger import log
-from classes import settings
 import openshot
 
 
 # Get settings
-s = settings.get_settings()
+s = get_app().get_settings()
 
 
 def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):

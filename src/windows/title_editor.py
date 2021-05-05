@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (
 
 import openshot
 
-from classes import info, ui_util, settings
+from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
@@ -611,7 +611,7 @@ class TitleEditor(QDialog):
     def btnAdvanced_clicked(self):
         """Use an external editor to edit the image"""
         # Get editor executable from settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
         prog = s.get("title_editor")
         # Store filename field to display on reload
         filename_text = self.txtFileName.toPlainText().strip()

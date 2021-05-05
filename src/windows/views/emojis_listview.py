@@ -32,7 +32,6 @@ from PyQt5.QtWidgets import QListView
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from classes.query import File
 from classes.app import get_app
-from classes.settings import get_settings
 from classes.logger import log
 import json
 
@@ -116,7 +115,7 @@ class EmojisListView(QListView):
         self.group_model.setFilterKeyColumn(1)
 
         # Save current emoji filter to settings
-        s = get_settings()
+        s = get_app().get_settings()
         setting_emoji_group = s.get('emoji_group_filter') or 'smileys-emotion'
         if setting_emoji_group != item:
             s.set('emoji_group_filter', item)
@@ -165,7 +164,7 @@ class EmojisListView(QListView):
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # Get default emoji filter group
-        s = get_settings()
+        s = get_app().get_settings()
         default_type = s.get('emoji_group_filter') or 'smileys-emotion'
 
         # setup filter events

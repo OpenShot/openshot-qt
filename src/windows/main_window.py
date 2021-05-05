@@ -48,7 +48,7 @@ from PyQt5.QtWidgets import (
     QLineEdit, QComboBox, QTextEdit
 )
 
-from classes import exceptions, info, settings, qt_types, ui_util, updates
+from classes import exceptions, info, qt_types, ui_util, updates
 from classes.app import get_app
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
@@ -388,7 +388,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         try:
             # Update history in project data
-            s = settings.get_settings()
+            s = app.get_settings()
             app.updates.save_history(app.project, s.get("history-limit"))
 
             # Save project to file
@@ -575,7 +575,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         import time
 
         app = get_app()
-        s = settings.get_settings()
+        s = app.get_settings()
 
         # Get current filepath (if any)
         file_path = app.project.current_filepath
@@ -804,7 +804,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('Preferences add cancelled')
 
         # Save settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
         s.save()
 
         # Restore normal cursor
@@ -1012,7 +1012,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
-        new_cache_object = openshot.CacheMemory(settings.get_settings().get("cache-limit-mb") * 1024 * 1024)
+        new_cache_object = openshot.CacheMemory(app.get_settings().get("cache-limit-mb") * 1024 * 1024)
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
@@ -1414,14 +1414,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
-        s = settings.get_settings()
+        s = get_app().get_settings()
         shortcut = QKeySequence(s.get(setting_name))
         return shortcut
 
     def getAllKeyboardShortcuts(self):
         """ Get a key sequence back from the setting name """
         keyboard_shortcuts = []
-        all_settings = settings.get_settings()._data
+        all_settings = get_app().get_settings()._data
         for setting in all_settings:
             if setting.get('category') == 'Keyboard':
                 keyboard_shortcuts.append(setting)
@@ -1915,7 +1915,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get settings
         app = get_app()
-        s = settings.get_settings()
+        s = app.get_settings()
 
         # Files
         if app.context_menu_object == "files":
@@ -1943,7 +1943,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get settings
         app = get_app()
-        s = settings.get_settings()
+        s = app.get_settings()
 
         # Files
         if app.context_menu_object == "files":
@@ -2142,7 +2142,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionTutorial_trigger(self):
         """ Show tutorial again """
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Clear tutorial settings
         s.set("tutorial_enabled", True)
@@ -2261,7 +2261,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
                 item_id, item_type, clear_existing))
 
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Clear existing selection (if needed)
         if clear_existing:
@@ -2353,7 +2353,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Update window settings in setting store
     def save_settings(self):
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
@@ -2362,7 +2362,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Get window settings from setting store
     def load_settings(self):
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_state_v2'):
@@ -2385,7 +2385,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def load_recent_menu(self):
         """ Clear and load the list of recent menu items """
-        s = settings.get_settings()
+        s = get_app().get_settings()
         _ = get_app()._tr  # Get translation function
 
         # Get list of recent projects
@@ -2421,7 +2421,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def remove_recent_project(self, file_path):
         """Remove a project from the Recent menu if OpenShot can't find it"""
-        s = settings.get_settings()
+        s = get_app().get_settings()
         recent_projects = s.get("recent_projects")
         if file_path in recent_projects:
             recent_projects.remove(file_path)
@@ -2434,7 +2434,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def clear_recents_clicked(self):
         """Clear all recent projects"""
-        s = settings.get_settings()
+        s = get_app().get_settings()
         s.set("recent_projects", [])
 
         # Reload recent project list
@@ -2670,7 +2670,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def InitCacheSettings(self):
         """Set the correct cache settings for the timeline"""
         # Load user settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
         log.info("InitCacheSettings")
         log.info("cache-mode: %s" % s.get("cache-mode"))
         log.info("cache-limit-mb: %s" % s.get("cache-limit-mb"))
@@ -2710,7 +2710,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def initModels(self):
         """Set up model/view classes for MainWindow"""
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Setup files tree and list view (both share a model)
         self.files_model = FilesModel()
@@ -2782,7 +2782,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         _ = app._tr
 
         # Load user settings for window
-        s = settings.get_settings()
+        s = app.get_settings()
         self.recent_menu = None
 
         # Track metrics

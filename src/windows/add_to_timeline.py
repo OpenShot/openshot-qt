@@ -33,7 +33,6 @@ from random import shuffle, randint, uniform
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QIcon
 
-from classes import settings
 from classes import info, ui_util, time_parts
 from classes.logger import log
 from classes.query import Clip, Transition
@@ -437,12 +436,12 @@ class AddToTimeline(QDialog):
         # Init UI
         ui_util.init_ui(self)
 
-        # Get settings
-        self.settings = settings.get_settings()
-
         # Get translation object
         self.app = get_app()
         _ = self.app._tr
+
+        # Get settings
+        self.settings = self.app.get_settings()
 
         # Track metrics
         track_metric_screen("add-to-timeline-screen")

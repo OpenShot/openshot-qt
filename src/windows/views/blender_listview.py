@@ -51,7 +51,6 @@ from PyQt5.QtGui import QColor, QImage, QPixmap
 
 from classes import info
 from classes.logger import log
-from classes import settings
 from classes.query import File
 from classes.app import get_app
 
@@ -498,7 +497,7 @@ class BlenderListView(QListView):
     def error_with_blender(self, version=None, worker_message=None):
         """ Show a friendly error message regarding the blender executable or version. """
         _ = self.app._tr
-        s = settings.get_settings()
+        s = self.app.get_settings()
 
         error_message = ""
         if version:
@@ -546,7 +545,7 @@ Blender Path: {}
         user_params += "\n#END INJECTING PARAMS\n"
 
         # If GPU rendering is selected, see if GPU enable code is available
-        s = settings.get_settings()
+        s = self.app.get_settings()
         gpu_code_body = None
         if s.get("blender_gpu_enabled"):
             gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py.in")
@@ -724,7 +723,7 @@ class Worker(QObject):
         self.target_script = target_script
         self.preview_frame = preview_frame
 
-        s = settings.get_settings()
+        s = get_app().get_settings()
         self.blender_exec_path = s.get("blender_command")
 
         # Init regex expression used to determine blender's render progress
