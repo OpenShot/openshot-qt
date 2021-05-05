@@ -47,7 +47,6 @@ from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
-from classes.conversion import zoomToSeconds, secondsToZoom
 from classes.effect_init import effect_options
 
 # Constants used by this file
@@ -225,17 +224,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
-            initial_scale = get_app().project.get("scale") or 15
-            self.window.sliderZoom.setValue(secondsToZoom(initial_scale))
+            initial_scale = get_app().project.get("scale") or 15.0
+            self.window.sliderZoomWidget.setZoomFactor(initial_scale)
 
-            # The setValue() above doesn't trigger update_zoom when a project file is
-            # loaded on the command line (too early?), so also call the JS directly
-            self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(initial_scale) + ", 0);")
-
-    # Javascript callable function to update the project data when a clip changes
     @pyqtSlot(str, bool, bool, bool)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False, ignore_refresh=False):
-        """ Create an updateAction and send it to the update manager """
+        """ Javascript callable function to update the project data when a clip changes.
+        Create an updateAction and send it to the update manager """
 
         # read clip json
         try:
@@ -436,7 +431,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         log.debug('ShowEffectMenu: %s' % effect_id)
 
         # Set the selected clip (if needed)
-        self.window.addSelection(effect_id, 'effect', True)
+        self.addSelection(effect_id, 'effect', True)
 
         menu = QMenu(self)
         # Properties
@@ -492,7 +487,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Set the selected clip (if needed)
         if clip_id not in self.window.selected_clips:
-            self.window.addSelection(clip_id, 'clip')
+            self.addSelection(clip_id, 'clip')
         # Get list of selected clips
         clip_ids = self.window.selected_clips
         tran_ids = self.window.selected_transitions
@@ -2529,7 +2524,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Set the selected transition (if needed)
         if tran_id not in self.window.selected_transitions:
-            self.window.addSelection(tran_id, 'transition')
+            self.addSelection(tran_id, 'transition')
         # Get list of all selected transitions
         tran_ids = self.window.selected_transitions
         clip_ids = self.window.selected_clips
@@ -2733,16 +2728,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     @pyqtSlot(str, str, bool)
     def addSelection(self, item_id, item_type, clear_existing=False):
         """ Add the selected item to the current selection """
-
-        # Add to main window
-        self.window.addSelection(item_id, item_type, clear_existing)
+        self.window.SelectionAdded.emit(item_id, item_type, clear_existing)
 
     @pyqtSlot(str, str)
     def removeSelection(self, item_id, item_type):
         """ Remove the selected clip from the selection """
-
-        # Remove from main window
-        self.window.removeSelection(item_id, item_type)
+        self.window.SelectionRemoved.emit(item_id, item_type)
 
     @pyqtSlot(str, str)
     def qt_log(self, level="INFO", message=None):
@@ -2759,15 +2750,14 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             level = levels.get(level, logging.INFO)
         self.log_fn(level, message)
 
+    def update_scroll(self, newScroll):
+        """Force a scroll event on the timeline (i.e. the zoom slider is moving, so we need to scroll the timeline)"""
+        # Get access to timeline scope and set scale to new computed value
+        self.run_js(JS_SCOPE_SELECTOR + ".setScroll(" + str(newScroll) + ");")
+
     # Handle changes to zoom level, update js
-    def update_zoom(self, newValue):
+    def update_zoom(self, newScale):
         _ = get_app()._tr
-
-        # Convert slider value (passed in) to a scale (in seconds)
-        newScale = zoomToSeconds(newValue)
-
-        # Set zoom label
-        self.window.zoomScaleLabel.setText(_("{} seconds").format(newScale))
 
         # Determine X coordinate of cursor (to center zoom on)
         cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
@@ -2795,13 +2785,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def wheelEvent(self, event):
         if event.modifiers() & Qt.ControlModifier:
             event.accept()
-            zoom = self.window.sliderZoom
-            # For each 120 (standard scroll unit) adjust the zoom slider
-            tick_scale = 120
-            steps = int(event.angleDelta().y() / tick_scale)
-            delta = zoom.pageStep() * steps
-            log.debug("Zooming by %d steps", -steps)
-            zoom.setValue(zoom.value() - delta)
+
+            # Modify zooms factor
+            if event.angleDelta().y() > 0:
+                get_app().window.sliderZoomWidget.zoomIn()
+            else:
+                get_app().window.sliderZoomWidget.zoomOut()
+
         else:
             super().wheelEvent(event)
 
@@ -2910,6 +2900,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Find position from javascript
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
             .format(event_position.x(), event_position.y()), partial(callback, self, data))
+
+    @pyqtSlot(list)
+    def ScrollbarChanged(self, new_positions):
+        """Timeline scrollbars changed"""
+        get_app().window.TimelineScrolled.emit(new_positions)
 
     # Resize timeline
     @pyqtSlot(float)
@@ -3146,20 +3141,21 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Get final cache object from timeline
         try:
-            cache_object = self.window.timeline_sync.timeline.GetCache()
-            if not cache_object or cache_object.Count() <= 0:
-                return
-            # Get the JSON from the cache object (i.e. which frames are cached)
-            cache_json = self.window.timeline_sync.timeline.GetCache().Json()
-            cache_dict = json.loads(cache_json)
-            cache_version = cache_dict["version"]
+            if self.window.timeline_sync and self.window.timeline_sync.timeline:
+                cache_object = self.window.timeline_sync.timeline.GetCache()
+                if not cache_object or cache_object.Count() <= 0:
+                    return
+                # Get the JSON from the cache object (i.e. which frames are cached)
+                cache_json = cache_object.Json()
+                cache_dict = json.loads(cache_json)
+                cache_version = cache_dict["version"]
 
-            if self.cache_renderer_version == cache_version:
-                # Nothing has changed, ignore
-                return
-            # Cache has changed, re-render it
-            self.cache_renderer_version = cache_version
-            self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
+                if self.cache_renderer_version == cache_version:
+                    # Nothing has changed, ignore
+                    return
+                # Cache has changed, re-render it
+                self.cache_renderer_version = cache_version
+                self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
         except Exception as ex:
             # Log the exception and ignore
             log.warning("Exception processing timeline cache: %s", ex)
@@ -3180,7 +3176,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         app.updates.add_listener(self)
 
         # Connect zoom functionality
-        window.sliderZoom.valueChanged.connect(self.update_zoom)
+        window.TimelineZoom.connect(self.update_zoom)
+        window.TimelineScroll.connect(self.update_scroll)
+        window.TimelineCenter.connect(self.centerOnPlayhead)
 
         # Connect waveform generation signal
         window.WaveformReady.connect(self.Waveform_Ready)

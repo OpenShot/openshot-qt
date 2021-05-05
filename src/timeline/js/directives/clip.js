@@ -146,12 +146,13 @@ App.directive("tlClip", function ($timeout) {
             }
             // Resize timeline if it's too small to contain all clips
             scope.resizeTimeline();
-
-            // update clip in Qt (very important =)
-            if (scope.Qt) {
-              timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false);
-            }
           });
+
+          // update clip in Qt (very important =)
+          if (scope.Qt) {
+            timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false);
+          }
+
           //resize the audio canvas to match the new clip width
           if (scope.clip.show_audio) {
             //redraw audio as the resize cleared the canvas

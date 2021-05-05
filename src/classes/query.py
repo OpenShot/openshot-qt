@@ -311,6 +311,11 @@ class Track(QueryObject):
         """ Take any arguments given as filters, and find the first matching object """
         return QueryObject.get(Track, **kwargs)
 
+    def __lt__(self, other):
+        return self.data.get('number', 0) < other.data.get('number', 0)
+
+    def __gt__(self, other):
+        return self.data.get('number', 0) > other.data.get('number', 0)
 
 class Effect(QueryObject):
     """ This class allows Effects to be queried, updated, and deleted from the project data. """

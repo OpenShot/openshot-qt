@@ -97,22 +97,23 @@ class PropertiesModel(updates.UpdateInterface):
 
         timeline = get_app().window.timeline_sync.timeline
         if item_type == "clip":
-            item = timeline.GetClip(item_id)
-        elif item_type == "transition":
-            item = timeline.GetEffect(item_id)
-        elif item_type == "effect":
-            item = timeline.GetClipEffect(item_id)
-            # Filter out basic properties, since this is an effect on a clip
-            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-            if item:
-                # We also need the parent
-                self.selected_parent = item.ParentClip()
-        else:
-            item = None
-
-        if not item:
-            return
-        self.selected.append((item, item_type))
+            c = timeline.GetClip(item_id)
+            if c:
+                # Append to selected items
+                self.selected.append((c, item_type))
+        if item_type == "transition":
+            t = timeline.GetEffect(item_id)
+            if t:
+                # Append to selected items
+                self.selected.append((t, item_type))
+        if item_type == "effect":
+            e = timeline.GetClipEffect(item_id)
+            if e:
+                # Filter out basic properties, since this is an effect on a clip
+                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+                # Append to selected items
+                self.selected.append((e, item_type))
+                self.selected_parent = e.ParentClip()
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
@@ -835,7 +836,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Timer to use a delay before showing properties (to prevent a mass selection from trying
         # to update the property model hundreds of times)
-        self.update_timer = QTimer()
+        self.update_timer = QTimer(parent)
         self.update_timer.setInterval(100)
         self.update_timer.setSingleShot(True)
         self.update_timer.timeout.connect(self.update_item_timeout)

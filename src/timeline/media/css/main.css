@@ -1,7 +1,7 @@
 html {
     height: 100%;
 }
-body { 
+body {
 	height: 100%;
     margin: 0;
     background-repeat: no-repeat;
@@ -161,12 +161,12 @@ img {
 .snapping-line.ng-hide-add.ng-hide-add-active { opacity:0.0; }
 
 /* Scrollbar style */
-::-webkit-scrollbar { width: 0.9em; height: 0.9em; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-thumb { background-color: #4b92ad; border-radius: 0.45em; }
 
 ::-webkit-scrollbar-track {
   background: #000000;
-  box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0); 
+  box-shadow: inset 0 0 0.6em rgba(75,196,233,1.0);
   border-radius: 0.45em;
 }
 
