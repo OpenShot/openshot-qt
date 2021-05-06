@@ -536,11 +536,11 @@ class PropertiesTableView(QTableView):
             menu = QMenu(self)
 
             if self.property_type == "font":
-                font_action = menu.addAction(_("Select font"))
+                font_action = menu.addAction(_("Change font"))
                 font_action.triggered.connect(functools.partial(
                     self.font_select_callback, cur_property))
             if self.property_type == "color":
-                color_action = menu.addAction(_("Select color"))
+                color_action = menu.addAction(_("Select a color"))
                 color_action.triggered.connect(functools.partial(
                     self.color_select_callback, cur_property))
 
