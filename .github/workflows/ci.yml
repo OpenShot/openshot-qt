@@ -3,20 +3,15 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.allowed-to-fail }}
     strategy:
-      fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-18.04
-            allowed-to-fail: false
-          - os: ubuntu-20.04
-            allowed-to-fail: true
+        os: [ubuntu-18.04, ubuntu-20.04]
     defaults:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
 
     - name: Install dependencies
       run: |
