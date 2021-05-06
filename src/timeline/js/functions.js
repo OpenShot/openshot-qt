@@ -220,7 +220,7 @@ function hasLockedTrack(scope, top, bottom) {
 var bounding_box = Object();
 
 // Build bounding box (since multiple items can be selected)
-function setBoundingBox(scope, item) {
+function setBoundingBox(scope, item, is_playhead=false) {
   var scrolling_tracks = $("#scrolling_tracks");
   var vert_scroll_offset = scrolling_tracks.scrollTop();
   var horz_scroll_offset = scrolling_tracks.scrollLeft();
@@ -237,6 +237,11 @@ function setBoundingBox(scope, item) {
     bounding_box.right = item_right;
     bounding_box.height = item.height();
     bounding_box.width = item.width();
+    if (is_playhead) {
+      bounding_box.left += 13; // center
+      bounding_box.right = bounding_box.left;
+      bounding_box.width = 1;
+    }
   } else {
     //compare and change if item is a better fit for bounding box edges
     if (item_top < bounding_box.top) { bounding_box.top = item_top; }
@@ -252,28 +257,33 @@ function setBoundingBox(scope, item) {
   }
 
   // Get list of current selected ids (so we can ignore their snapping x coordinates)
+  // Unless playhead, where is don't want to ignore any selected clips
   bounding_box.selected_ids = {};
-  for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
-    if (scope.project.clips[clip_index].selected) {
-      bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
+  if (!is_playhead) {
+    for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
+      if (scope.project.clips[clip_index].selected) {
+        bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
+      }
     }
-  }
-  for (var effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
-    if (scope.project.effects[effect_index].selected) {
-      bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
+    for (var effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
+      if (scope.project.effects[effect_index].selected) {
+        bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
+      }
     }
+  } else {
+    bounding_box.selected_ids["playhead"] = true;
   }
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top) {
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, is_playhead=false) {
   // Store result of snapping logic (left, top)
   var snapping_result = Object();
   snapping_result.left = left;
   snapping_result.top = top;
 
   // Check for shift key
-  if (event.shiftKey) {
+  if (!is_playhead && event.shiftKey) {
     // freeze X movement
     x_offset = 0;
     snapping_result.left = previous_x;
@@ -309,8 +319,8 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   }
 
   // Find closest nearby object, if any (for snapping)
-  var bounding_box_padding = 3; // not sure why this is needed, but it helps line everything up
-  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, bounding_box.selected_ids);
+  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right],
+    10.0, bounding_box.selected_ids);
   var nearby_offset = results[0];
   var snapline_position = results[1];
 

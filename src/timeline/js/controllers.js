@@ -1139,7 +1139,9 @@ App.controller("TimelineCtrl", function ($scope) {
       // Add playhead position to array
       var playhead_pixel_position = $scope.project.playhead_position * $scope.pixelsPerSecond;
       var playhead_diff = position - playhead_pixel_position;
-      diffs.push({"diff": playhead_diff, "position": playhead_pixel_position});
+      if (!ignore_ids.hasOwnProperty("playhead")) {
+        diffs.push({"diff": playhead_diff, "position": playhead_pixel_position});
+      }
 
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {

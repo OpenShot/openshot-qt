@@ -131,12 +131,7 @@ App.directive("tlClip", function ($timeout) {
 
           //apply the new start, end and length to the clip's scope
           scope.$apply(function () {
-            // Get the nearest starting frame position to the clip position (this helps to prevent cutting
-            // in-between frames, and thus less likely to repeat or skip a frame).
-            new_position = (Math.round((new_position * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
-            new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
-            new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
-
+            // Apply clip scope changes
             if (scope.clip.end !== new_right) {
               scope.clip.end = new_right;
             }
@@ -191,13 +186,12 @@ App.directive("tlClip", function ($timeout) {
             // changing the end of the clips
             new_right -= delta_time;
             if (new_right > scope.clip.duration) {
-
               // change back to actual duration (for the preview below)
               new_right = scope.clip.duration;
               ui.element.width(new_right * scope.pixelsPerSecond);
             }
             else {
-              ui.element.width(ui.size.width);
+              ui.element.width((new_right - new_left) * scope.pixelsPerSecond);
             }
           }
 
@@ -260,8 +254,7 @@ App.directive("tlClip", function ($timeout) {
           }
 
           // Apply scope up to this point
-          scope.$apply(function () {
-          });
+          scope.$apply(function () {});
 
           var scrolling_tracks = $("#scrolling_tracks");
           var vert_scroll_offset = scrolling_tracks.scrollTop();
