@@ -273,7 +273,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   snapping_result.top = top;
 
   // Check for shift key
-  if (event.shiftKey) {
+  if ( typeof(event) !== "undefined" && event.shiftKey) {
     // freeze X movement
     x_offset = 0;
     snapping_result.left = previous_x;
