@@ -111,7 +111,6 @@ App.directive("tlBody", function () {
         }
       });
 
-
     }
   };
 });
@@ -146,11 +145,28 @@ App.directive("tlRuler", function ($timeout) {
 
       });
 
+      element.on("mousedown", function (e) {
+        // Set bounding box for the playhead position
+        setBoundingBox(scope, $(this), true);
+      });
+
       // Move playhead to new position (if it's not currently being animated)
       element.on("mousemove", function (e) {
         if (e.which === 1 && !scope.playhead_animating) { // left button
-          var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
-          // Update playhead
+          // Calculate the playhead bounding box movement and apply snapping rules
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+            cursor_position - bounding_box.left, cursor_position - bounding_box.top,
+            cursor_position, cursor_position, true);
+
+          // Only apply snapping when SHIFT is pressed
+          let new_position = cursor_position;
+          if (e.shiftKey) {
+            new_position = results.position.left;
+          }
+
+          // Move playhead
+          let playhead_seconds = new_position / scope.pixelsPerSecond;
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
         }

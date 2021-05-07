@@ -39,7 +39,6 @@ App.directive("tlPlayhead", function () {
 
       element.on("mousedown", function (e) {
         // Set bounding box for the playhead
-        bounding_box = {};
         setBoundingBox(scope, $(this), true);
       });
 
@@ -47,20 +46,19 @@ App.directive("tlPlayhead", function () {
       element.on("mousemove", function (e) {
         if (e.which === 1 && !scope.playhead_animating) { // left button
           // Calculate the playhead bounding box movement and apply snapping rules
-          var cursor_position = e.pageX - $("#ruler").offset().left;
-          var results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
             cursor_position - bounding_box.left, cursor_position - bounding_box.top,
             cursor_position, cursor_position, true);
 
           // Only apply snapping when SHIFT is pressed
+          let new_position = cursor_position;
           if (e.shiftKey) {
             new_position = results.position.left;
-          } else {
-            new_position = cursor_position;
           }
 
           // Move playhead
-          var playhead_seconds = new_position / scope.pixelsPerSecond;
+          let playhead_seconds = new_position / scope.pixelsPerSecond;
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
         }
