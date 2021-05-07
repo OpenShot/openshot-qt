@@ -257,7 +257,7 @@ function setBoundingBox(scope, item, is_playhead=false) {
   }
 
   // Get list of current selected ids (so we can ignore their snapping x coordinates)
-  // Unless playhead, where is don't want to ignore any selected clips
+  // Unless playhead mode, where we don't want to ignore any selected clips
   bounding_box.selected_ids = {};
   if (!is_playhead) {
     for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
