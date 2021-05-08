@@ -340,6 +340,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 if self.transforming_effect_object.info.has_tracked_object:
                     # Get properties of clip at current frame
                     raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                    # Get properties for the first object in dict. PropertiesJSON should return one object at the time
+                    tmp = raw_properties_effect.get('objects')
+                    tmp2 = tmp.keys()
+                    obj_id = list(tmp.keys())[0]
+                    raw_properties_effect = raw_properties_effect.get('objects').get(obj_id)
+                    
                     # Check if the tracked object is visible in this frame
                     if raw_properties_effect.get('visible'): 
                         if raw_properties_effect.get('visible').get('value') == 1:
@@ -871,6 +877,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.transforming_effect_object.info.has_tracked_object:
                 # Get properties of effect at current frame
                 raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                 # Get properties for the first object in dict. PropertiesJSON should return one object at the time
+                obj_id = list(raw_properties.get('objects').keys())[0]
+                raw_properties = raw_properties.get('objects').get(obj_id)
                 
                 if not raw_properties.get('visible'):
                     self.mouse_position = event.pos()
@@ -892,8 +901,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
 
                         # Update keyframe value (or create new one)
-                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_x', location_x, refresh=False)
-                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'delta_y', location_y)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'delta_x', location_x, refresh=False)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'delta_y', location_y)
 
                     elif self.transform_mode == 'rotation':
                         # Get current rotation keyframe value
@@ -916,7 +925,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                             rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
 
                         # Update keyframe value (or create new one)
-                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'rotation', rotation)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'rotation', rotation)
 
                     elif self.transform_mode.startswith('scale_'):
                         # Get current scale keyframe value
@@ -956,9 +965,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         # Update keyframe value (or create new one)
                         both_scaled = scale_x != 0.001 and scale_y != 0.001
                         if scale_x != 0.001:
-                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_x', scale_x, refresh=(not both_scaled))
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'scale_x', scale_x, refresh=(not both_scaled))
                         if scale_y != 0.001:
-                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, 'scale_y', scale_y)
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'scale_y', scale_y)
 
             # Force re-paint
             self.update()
@@ -1005,7 +1014,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
-    def updateEffectProperty(self, effect_id, frame_number, property_key, new_value, refresh=True):
+    def updateEffectProperty(self, effect_id, frame_number, obj_id, property_key, new_value, refresh=True):
         """Update a keyframe property to a new value, adding or updating keyframes as needed"""
         found_point = False
         effect_updated = False
@@ -1016,7 +1025,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # No clip found
             return
 
-        for point in c.data[property_key]["Points"]:
+        for point in c.data['objects'][obj_id][property_key]["Points"]:
             log.info("looping points: co.X = %s" % point["co"]["X"])
 
             if point["co"]["X"] == frame_number:
@@ -1028,10 +1037,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not found_point and new_value != None:
             effect_updated = True
             log.info("Created new point at X=%s" % frame_number)
-            c.data[property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
+            c.data['objects'][obj_id][property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
 
         # Reduce # of clip properties we are saving (performance boost)
-        c.data = {property_key: c.data.get(property_key)}
+        #TODO: This is too slow when draging transform handlers
+        c.data = {'objects': c.data.get('objects')}
 
         if effect_updated:
             c.save()
