@@ -159,7 +159,7 @@ class PropertiesModel(updates.UpdateInterface, QObject):
 
             if clip_frame != self.frame_number:
                 self.frame_number = clip_frame
-                log.info("Update frame to %s" % self.frame_number)
+                log.info("Update frame to %s", self.frame_number)
 
             # Update the model data
             if reload_model:
