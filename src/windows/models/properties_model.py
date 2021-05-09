@@ -53,8 +53,7 @@ class ClipStandardItemModel(QStandardItemModel):
 
     def mimeData(self, indexes):
         # Create MimeData for drag operation
-        data = QMimeData(self)
-        data.setObjectName("properties.mimeData")
+        data = QMimeData()
 
         # Get list of all selected file ids
         property_names = []
@@ -157,7 +156,7 @@ class PropertiesModel(updates.UpdateInterface, QObject):
             # Update the model data
             if reload_model:
                 self.update_model(get_app().window.txtPropertyFilter.text())
-                
+
     @staticmethod
     def get_lib_object(i_id: str, i_type: str) -> object:
         """Find the openshot object for a timeline item, by ID"""
@@ -173,7 +172,7 @@ class PropertiesModel(updates.UpdateInterface, QObject):
         except Exception:
             log.warning("Exception in get_lib_object", exc_info=1)
             return None
-    
+
     @staticmethod
     def get_query_object(q_id: str, q_type: str) -> QueryObject:
         """Find the query object for a timeline item, by ID"""
