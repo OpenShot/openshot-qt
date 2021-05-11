@@ -1041,7 +1041,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Reduce # of clip properties we are saving (performance boost)
         #TODO: This is too slow when draging transform handlers
-        c.data = {'objects': c.data.get('objects')}
+        c.data = {'objects': {obj_id: c.data.get('objects').get(obj_id)}}
 
         if effect_updated:
             c.save()
