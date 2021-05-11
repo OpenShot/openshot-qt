@@ -91,7 +91,7 @@ python_packages = ["os",
                    "requests",
                    "zmq",
                    "webbrowser",
-                   "json"
+                   "json",
                    ]
 
 # Modules to include
@@ -203,7 +203,11 @@ if sys.platform == "win32":
     src_files.append((os.path.join(PATH, "installer", "launch-win.bat"), "launch-win.bat"))
 
     # Add additional package
-    python_packages.append('idna')
+    python_packages.extend([
+        "idna",
+        "OpenGL",
+        "OpenGL_accelerate",
+    ])
 
     # Manually add zmq dependency (windows does not freeze it correctly)
     import zmq

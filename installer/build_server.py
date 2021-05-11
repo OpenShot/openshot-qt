@@ -30,10 +30,12 @@ import sys
 
 import datetime
 import platform
-import shutil
 import re
+import shutil
+import shlex
 import stat
 import subprocess
+import sysconfig
 import traceback
 from github3 import login
 from requests.auth import HTTPBasicAuth
@@ -41,6 +43,7 @@ from requests import post
 from version_parser import parse_version_info, parse_build_name
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
+PY_ABI = sysconfig.get_config_var('py_version_short')
 
 # Access info class (for version info)
 sys.path.append(os.path.join(PATH, 'src', 'classes'))
@@ -78,11 +81,14 @@ def output(line):
 
 def run_command(command, working_dir=None):
     """Utility function to return output from command line"""
-    short_command = command.split('" ')[0]  # We don't need to print args
+    short_command = shlex.split(command)[0]  # We don't need to print args
     output("Running %s... (%s)" % (short_command, working_dir))
-    p = subprocess.Popen(command, shell=True, cwd=working_dir,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT)
+    p = subprocess.Popen(
+        command,
+        shell=True,
+        cwd=working_dir,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT)
     return iter(p.stdout.readline, b"")
 
 
@@ -148,7 +154,11 @@ def get_release(repo, tag_name):
     @param repo:        github3 repository object
     @returns:           github3 release object or None
     """
-    for release in repo.iter_releases():
+    if hasattr(repo, 'releases'):
+        release_iter = repo.releases()
+    else:
+        release_iter = repo.iter_releases()
+    for release in release_iter:
         if release.tag_name == tag_name:
             return release
 
@@ -187,7 +197,7 @@ def upload(file_path, github_release):
     return url
 
 
-if __name__ == "__main__":
+def main():
     # Only run this code when directly executing this script. Parts of this file
     # are also used in the deploy.py script.
     try:
@@ -215,7 +225,12 @@ if __name__ == "__main__":
             git_branch_name = sys.argv[7]
 
         # Start log
-        output("%s Build Log for %s (branch: %s)" % (platform.system(), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), git_branch_name))
+        output(
+            "%s Build Log for %s (branch: %s)" % (
+                platform.system(),
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                git_branch_name)
+            )
 
         # Detect artifact folder (if any)
         artifact_path = os.path.join(PATH, "build", "install-x64")
@@ -227,7 +242,9 @@ if __name__ == "__main__":
 
         # Parse artifact version files (if found)
         for repo_name in ["libopenshot-audio", "libopenshot", "openshot-qt"]:
-            version_info.update(parse_version_info(os.path.join(artifact_path, "share", repo_name)))
+            data_file = f"{repo_name}.env"
+            version_info.update(
+                parse_version_info(os.path.join(artifact_path, "share", data_file)))
         output(str(version_info))
 
         # Get GIT description of openshot-qt-git branch (i.e. v2.0.6-18-ga01a98c)
@@ -279,12 +296,13 @@ if __name__ == "__main__":
             os.makedirs(os.path.join(app_dir_path, "usr"), exist_ok=True)
 
             # XDG Freedesktop icon paths
-            icons = [ ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
-                      ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png")),
-                      ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")),
-                      ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")),
-                      ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")),
-                    ]
+            icons = [
+                ("scalable", os.path.join(PATH, "xdg", "openshot-qt.svg")),
+                ("64x64", os.path.join(PATH, "xdg", "icon", "64", "openshot-qt.png")),
+                ("128x128", os.path.join(PATH, "xdg", "icon", "128", "openshot-qt.png")),
+                ("256x256", os.path.join(PATH, "xdg", "icon", "256", "openshot-qt.png")),
+                ("512x512", os.path.join(PATH, "xdg", "icon", "512", "openshot-qt.png")),
+                ]
 
             # Copy desktop icons
             icon_theme_path = os.path.join(app_dir_path, "usr", "share", "icons", "hicolor")
@@ -348,7 +366,11 @@ if __name__ == "__main__":
 
             # Create AppImage (OpenShot-%s-x86_64.AppImage)
             app_image_success = False
-            for line in run_command('/home/ubuntu/apps/AppImageKit/AppImageAssistant "%s" "%s"' % (app_dir_path, app_build_path)):
+            for line in run_command(" ".join([
+                '/home/ubuntu/apps/AppImageKit/AppImageAssistant',
+                '"%s"' % app_dir_path,
+                '"%s"' % app_build_path,
+            ])):
                 output(line)
             app_image_success = os.path.exists(app_build_path)
 
@@ -361,23 +383,28 @@ if __name__ == "__main__":
                 # Delete build (since something failed)
                 os.remove(app_build_path)
 
-
         if platform.system() == "Darwin":
-
             # Create DMG (OpenShot-%s-x86_64.DMG)
             app_image_success = False
 
             # Build app.bundle and create DMG
             for line in run_command("bash installer/build-mac-dmg.sh"):
                 output(line)
-                if ("error".encode("UTF-8") in line and "No errors".encode("UTF-8") not in line) or "rejected".encode("UTF-8") in line:
+                if (
+                        ("error".encode("UTF-8") in line
+                         and "No errors".encode("UTF-8") not in line)
+                        or "rejected".encode("UTF-8") in line
+                ):
                     error("Build-Mac-DMG Error: %s" % line)
                 if "Your image is ready".encode("UTF-8") in line:
                     app_image_success = True
 
             # Rename DMG (to be consistent with other OS installers)
             for dmg_path in os.listdir(os.path.join(PATH, "build")):
-                if os.path.isfile(os.path.join(PATH, "build", dmg_path)) and dmg_path.endswith(".dmg"):
+                if (
+                        os.path.isfile(os.path.join(PATH, "build", dmg_path))
+                        and dmg_path.endswith(".dmg")
+                ):
                     os.rename(os.path.join(PATH, "build", dmg_path), app_build_path)
 
             # Was the DMG creation successful
@@ -389,12 +416,10 @@ if __name__ == "__main__":
                 # Delete build (since key signing might have failed)
                 os.remove(app_build_path)
 
-
         if platform.system() == "Windows":
-
             # Move python folder structure, since Cx_Freeze doesn't put it in the correct place
-            exe_dir = os.path.join(PATH, 'build', 'exe.mingw-3.7')
-            python_dir = os.path.join(exe_dir, 'lib', 'python3.7')
+            exe_dir = os.path.join(PATH, 'build', 'exe.mingw-{}'.format(PY_ABI))
+            python_dir = os.path.join(exe_dir, 'lib', 'python{}'.format(PY_ABI))
 
             # Remove a redundant openshot_qt module folder (duplicates lots of files)
             duplicate_openshot_qt_path = os.path.join(python_dir, 'openshot_qt')
@@ -402,7 +427,14 @@ if __name__ == "__main__":
                 shutil.rmtree(duplicate_openshot_qt_path, True)
 
             # Remove the following paths. cx_Freeze is including many unneeded files. This prunes them out.
-            paths_to_delete = ['mediaservice', 'imageformats', 'platforms', 'printsupport', 'lib/openshot_qt', 'resvg.dll']
+            paths_to_delete = [
+                'mediaservice',
+                'imageformats',
+                'platforms',
+                'printsupport',
+                'lib/openshot_qt',
+                'resvg.dll',
+                ]
             for delete_path in paths_to_delete:
                 full_delete_path = os.path.join(exe_dir, delete_path)
                 output("Delete path: %s" % full_delete_path)
@@ -420,14 +452,24 @@ if __name__ == "__main__":
             paths_to_replace = ['imageformats', 'platforms']
             for replace_name in paths_to_replace:
                 if windows_32bit:
-                    shutil.copytree(os.path.join('C:\\msys32\\mingw32\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
+                    shutil.copytree(
+                        os.path.join('C:\\msys64\\mingw32\\share\\qt5\\plugins', replace_name),
+                        os.path.join(exe_dir, replace_name))
                 else:
-                    shutil.copytree(os.path.join('C:\\msys64\\mingw64\\share\\qt5\\plugins', replace_name), os.path.join(exe_dir, replace_name))
+                    shutil.copytree(
+                        os.path.join('C:\\msys64\\mingw64\\share\\qt5\\plugins', replace_name),
+                        os.path.join(exe_dir, replace_name))
 
             # Copy Qt5Core.dll, Qt5Svg.dll to root of frozen directory
-            paths_to_copy = [("Qt5Core.dll", "C:\\msys64\\mingw64\\bin\\"), ("Qt5Svg.dll", "C:\\msys64\\mingw64\\bin\\")]
+            paths_to_copy = [
+                ("Qt5Core.dll", "C:\\msys64\\mingw64\\bin\\"),
+                ("Qt5Svg.dll", "C:\\msys64\\mingw64\\bin\\"),
+                ]
             if windows_32bit:
-                paths_to_copy = [("Qt5Core.dll", "C:\\msys32\\mingw32\\bin\\"), ("Qt5Svg.dll", "C:\\msys32\\mingw32\\bin\\")]
+                paths_to_copy = [
+                    ("Qt5Core.dll", "C:\\msys64\\mingw32\\bin\\"),
+                    ("Qt5Svg.dll", "C:\\msys64\\mingw32\\bin\\"),
+                    ]
             for qt_file_name, qt_parent_path in paths_to_copy:
                 qt5_path = os.path.join(qt_parent_path, qt_file_name)
                 new_qt5_path = os.path.join(exe_dir, qt_file_name)
@@ -452,7 +494,17 @@ if __name__ == "__main__":
             # Add version metadata to frozen app launcher
             launcher_exe = os.path.join(exe_dir, "openshot-qt.exe")
             verpatch_success = True
-            verpatch_command = '"verpatch.exe" "{}" /va /high "{}" /pv "{}" /s product "{}" /s company "{}" /s copyright "{}" /s desc "{}"'.format(launcher_exe, info.VERSION, info.VERSION, info.PRODUCT_NAME, info.COMPANY_NAME, info.COPYRIGHT, info.PRODUCT_NAME)
+            verpatch_command = " ".join([
+                'verpatch.exe',
+                '{}'.format(launcher_exe),
+                '/va',
+                '/high "{}"'.format(info.VERSION),
+                '/pv "{}"'.format(info.VERSION),
+                '/s product "{}"'.format(info.PRODUCT_NAME),
+                '/s company "{}"'.format(info.COMPANY_NAME),
+                '/s copyright "{}"'.format(info.COPYRIGHT),
+                '/s desc "{}"'.format(info.PRODUCT_NAME),
+                ])
             verpatch_output = ""
             # version-stamp executable
             for line in run_command(verpatch_command):
@@ -472,7 +524,14 @@ if __name__ == "__main__":
 
             # Create Installer (OpenShot-%s-x86_64.exe)
             inno_success = True
-            inno_command = '"iscc.exe" /Q /DVERSION=%s /DONLY_64_BIT=%s "%s"' % (version, only_64_bit, os.path.join(PATH, 'installer', 'windows-installer.iss'))
+            inno_command = " ".join([
+                'iscc.exe',
+                '/Q',
+                '/DVERSION=%s' % version,
+                '/DONLY_64_BIT=%s' % only_64_bit,
+                '/DPY_EXE_DIR=%s' % "exe.mingw-{}".format(PY_ABI),
+                '"%s"' % os.path.join(PATH, 'installer', 'windows-installer.iss'),
+                ])
             inno_output = ""
             # Compile Inno installer
             for line in run_command(inno_command):
@@ -495,7 +554,14 @@ if __name__ == "__main__":
 
             # Sign the installer
             key_sign_success = True
-            key_sign_command = '"kSignCMD.exe" /f "%s%s" /p "%s" /d "OpenShot Video Editor" /du "http://www.openshot.org" "%s"' % (windows_key, only_64_bit, windows_key_password, app_build_path)
+            key_sign_command = " ".join([
+                'kSignCMD.exe',
+                '/f "%s%s"' % (windows_key, only_64_bit),
+                '/p "%s"' % windows_key_password,
+                '/d "OpenShot Video Editor"',
+                '/du "http://www.openshot.org"',
+                '"%s"' % app_build_path,
+                ])
             key_sign_output = ""
             # Sign MSI
             for line in run_command(key_sign_command):
@@ -513,7 +579,6 @@ if __name__ == "__main__":
                 # Delete build (since key signing might have failed)
                 os.remove(app_build_path)
 
-
         # Upload Installer to GitHub (if build path exists)
         if needs_upload and os.path.exists(app_build_path):
             # Upload file to GitHub
@@ -522,7 +587,19 @@ if __name__ == "__main__":
 
             # Create torrent and upload
             torrent_path = "%s.torrent" % app_build_path
-            torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (version, download_url, "%s.torrent" % app_name, app_name)
+            tracker_list = [
+                "udp://tracker.openbittorrent.com:80/announce",
+                "udp://tracker.publicbt.com:80/announce",
+                "udp://tracker.opentrackr.org:1337",
+                ]
+            torrent_command = " ".join([
+                'mktorrent',
+                '-a "%s"' % (", ".join(tracker_list)),
+                '-c "OpenShot Video Editor %s"' % version,
+                '-w "%s"' % download_url,
+                '-o "%s"' % ("%s.torrent" % app_name),
+                '"%s"' % app_name,
+                ])
             torrent_output = ""
 
             # Remove existing torrents (if any found)
@@ -544,7 +621,10 @@ if __name__ == "__main__":
                 url = upload(torrent_path, github_release)
 
                 # Notify Zulip
-                zulip_upload_log(zulip_token, log, "%s: Build logs for %s" % (platform.system(), app_name), "Successful *%s* build: %s" % (git_branch_name, download_url))
+                zulip_upload_log(
+                    zulip_token, log,
+                    "%s: Build logs for %s" % (platform.system(), app_name),
+                    "Successful *%s* build: %s" % (git_branch_name, download_url))
 
     except Exception as ex:
         tb = traceback.format_exc()
@@ -555,5 +635,12 @@ if __name__ == "__main__":
     else:
         # Report any errors detected
         output("build-server script failed!")
-        zulip_upload_log(zulip_token, log, "%s: Error log for *%s* build" % (platform.system(), git_branch_name), ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
+        zulip_upload_log(
+            zulip_token, log,
+            "%s: Error log for *%s* build" % (platform.system(), git_branch_name),
+            ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
         exit(1)
+
+
+if __name__ == "__main__":
+    main()

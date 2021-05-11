@@ -35,8 +35,11 @@ import urllib3
 from github3 import login
 from requests.auth import HTTPBasicAuth
 from requests import post, get, head
-from build_server import output, run_command, error, truncate, zulip_upload_log, get_release, upload, \
-                         errors_detected, log, version_info, parse_version_info
+from build_server import (
+    output, run_command, error, truncate,
+    zulip_upload_log, get_release, upload,
+    errors_detected, log,
+    version_info, parse_version_info)
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RELEASE_NAME_REGEX = re.compile(r'^OpenShot-v.*?(-.*?)-x86[_64]*')
@@ -50,7 +53,7 @@ sys.path.append(os.path.join(PATH, 'src', 'classes'))
 urllib3.disable_warnings()
 
 
-if __name__ == "__main__":
+def main():
     # Only run this code when directly executing this script.
 
     zulip_token = None
@@ -82,15 +85,19 @@ if __name__ == "__main__":
                 script_mode = "publish"
 
         # Start log
-        output("%s %s Log for %s" % (platform.system(), script_mode,
-                                     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        output("%s %s Log for %s" % (
+            platform.system(),
+            script_mode,
+            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
         # Detect artifact folder (if any)
         artifact_dir = os.path.join(PATH, "build")
 
         # Parse artifact version files (if found)
         for repo_name in repo_names:
-            version_info.update(parse_version_info(os.path.join(artifact_dir, "install-x64", "share", repo_name)))
+            data_file = f"{repo_name}.env"
+            version_info.update(parse_version_info(
+                os.path.join(artifact_dir, "install-x64", "share", data_file)))
         output(str(version_info))
 
         # Get version info
@@ -104,8 +111,9 @@ if __name__ == "__main__":
                 original_git_branch = git_branch_name
             if original_git_branch != git_branch_name:
                 # Branch names do not match
-                raise Exception("Branch names do not match for all 3 repos: `%s` vs `%s`" %
-                                (original_git_branch, git_branch_name))
+                raise Exception(
+                    "Branch names do not match for all 3 repos: `%s` vs `%s`" %
+                    (original_git_branch, git_branch_name))
 
         # Loop through and get and/or create the GitHub Release objects
         releases = {}
@@ -122,14 +130,18 @@ if __name__ == "__main__":
                 # Get official version release (i.e. v2.1.0, v2.x.x)
                 releases[repo_name] = get_release(repos.get(repo_name), github_release_name)
                 if releases.get(repo_name) and releases.get(repo_name).prerelease is False:
-                    raise Exception("GitHub release for version %s is already released. Did we forget to bump a "
-                                    "version? (repo: %s, branch: %s)" % (github_release_name, repo_name,
-                                                                         git_branch_name))
+                    raise Exception(
+                        "GitHub release for version %s is already released. Did we forget to bump a "
+                        "version? (repo: %s, branch: %s)" % (
+                            github_release_name, repo_name,
+                            git_branch_name)
+                    )
             else:
                 # ignore all branches that don't start with 'release*'
-                raise Exception("%s only allowed for branch names that start with 'release*'"
-                                " (repo: %s, branch: %s)" %
-                                (script_mode, repo_name, git_branch_name))
+                raise Exception(
+                    "%s only allowed for branch names that start with 'release*'"
+                    " (repo: %s, branch: %s)" % (
+                        script_mode, repo_name, git_branch_name))
 
         if not is_publish:
 
@@ -152,9 +164,11 @@ if __name__ == "__main__":
                     so_title = ""
                     if so_number:
                         so_title = ", SO: %s" % so_number
-                    log_markdown = "%s Changelog (Version: %s%s)\n---\n%s\n\n" % \
-                                   (repo_name, version_info.get(repo_name, {}).get('VERSION'),
-                                    so_title, logs.get(repo_name))
+                    log_markdown = "%s Changelog (Version: %s%s)\n---\n%s\n\n" % (
+                        repo_name,
+                        version_info.get(repo_name, {}).get('VERSION'),
+                        so_title,
+                        logs.get(repo_name))
                     combined_log_markdown += log_markdown
                     if not repo_name == "openshot-qt":
                         formatted_logs[repo_name] = log_title + log_markdown
@@ -167,10 +181,11 @@ if __name__ == "__main__":
                 github_release_name = "v%s" % version_info.get(repo_name, {}).get('VERSION')
                 if not releases.get(repo_name):
                     # Create a new release if one if missing (for each repo)
-                    releases[repo_name] = repos.get(repo_name).create_release(github_release_name,
-                                                                         target_commitish=git_branch_name,
-                                                                         prerelease=True,
-                                                                         body=formatted_logs.get(repo_name))
+                    releases[repo_name] = repos.get(repo_name).create_release(
+                        github_release_name,
+                        target_commitish=git_branch_name,
+                        prerelease=True,
+                        body=formatted_logs.get(repo_name))
 
             # Upload all deploy artifacts/installers to GitHub
             # NOTE: ONLY for `openshot-qt` repo
@@ -226,9 +241,11 @@ if __name__ == "__main__":
                             if line:
                                 shasum_check_output = line.decode('UTF-8').strip()
                         if shasum_output.split(" ")[0] != shasum_check_output.split(" ")[0]:
-                            raise Exception("shasum validation of %s has failed after downloading "
-                                            "the uploaded installer: %s.\n%s\n%s"
-                                            % (check_artifact_path, artifact_path, shasum_check_output, shasum_output ))
+                            raise Exception(
+                                "shasum validation of %s has failed after downloading "
+                                "the uploaded installer: %s.\n%s\n%s" % (
+                                    check_artifact_path, artifact_path, shasum_check_output, shasum_output)
+                            )
 
                         # Create and upload sha2sum file and instructions
                         output("Hash generated: %s" % shasum_output)
@@ -249,7 +266,19 @@ if __name__ == "__main__":
                         # Create torrent and upload
                         torrent_name = "%s.torrent" % artifact_name
                         torrent_path = os.path.join(artifact_dir, torrent_name)
-                        torrent_command = 'mktorrent -a "udp://tracker.openbittorrent.com:80/announce, udp://tracker.publicbt.com:80/announce, udp://tracker.opentrackr.org:1337" -c "OpenShot Video Editor %s" -w "%s" -o "%s" "%s"' % (github_release.tag_name, download_url, torrent_name, artifact_name)
+                        tracker_list = [
+                            "udp://tracker.openbittorrent.com:80/announce",
+                            "udp://tracker.publicbt.com:80/announce",
+                            "udp://tracker.opentrackr.org:1337",
+                            ]
+                        torrent_command = " ".join([
+                            'mktorrent',
+                            '-a "%s"' % (", ".join(tracker_list)),
+                            '-c "OpenShot Video Editor %s"' % github_release.tag_name,
+                            '-w "%s"' % download_url,
+                            '-o "%s"' % torrent_name,
+                            '"%s"' % artifact_name,
+                            ])
                         torrent_output = ""
                         for line in run_command(torrent_command, artifact_dir):
                             output(line)
@@ -265,18 +294,33 @@ if __name__ == "__main__":
 
             # Submit blog post (if it doesn't already exist) (in draft mode)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            r = post("https://www.openshot.org/api/release/submit/", auth=auth, data={ "version": openshot_qt_version,
-                                                                 "changelog": log_title + combined_log_markdown })
+            r = post(
+                "https://www.openshot.org/api/release/submit/",
+                auth=auth,
+                data={
+                    "version": openshot_qt_version,
+                    "changelog": log_title + combined_log_markdown
+                    })
             if not r.ok:
-                raise Exception("HTTP post to openshot.org/api/release/submit/ failed: %s (user: %s): %s" %
-                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'), r.content.decode('UTF-8')))
+                raise Exception(
+                    "HTTP post to openshot.org/api/release/submit/ failed: %s (user: %s): %s" % (
+                        r.status_code,
+                        os.getenv('OPENSHOT_ORG_USER'),
+                        r.content.decode('UTF-8'))
+                )
         else:
             # Publish the release (make new version visible on openshot.org, and make blog post visible)
             auth = HTTPBasicAuth(os.getenv('OPENSHOT_ORG_USER'), os.getenv('OPENSHOT_ORG_PASS'))
-            r = post("https://www.openshot.org/api/release/publish/", auth=auth, data={"version": openshot_qt_version })
+            r = post(
+                "https://www.openshot.org/api/release/publish/",
+                auth=auth,
+                data={"version": openshot_qt_version})
             if not r.ok:
-                raise Exception("HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s): %s" %
-                                (r.status_code, os.getenv('OPENSHOT_ORG_USER'), r.content.decode('UTF-8')))
+                raise Exception(
+                    "HTTP post to openshot.org/api/release/publish/ failed: %s (user: %s): %s" % (
+                        r.status_code,
+                        os.getenv('OPENSHOT_ORG_USER'),
+                        r.content.decode('UTF-8')))
 
             # Publish GitHub Release objects (in all 3 repos)
             for repo_name in repo_names:
@@ -286,8 +330,10 @@ if __name__ == "__main__":
                     # Publish github release also
                     github_release.edit(prerelease=False)
                 else:
-                    raise Exception("Cannot publish missing GitHub release: %s, version: %s" %
-                                    (repo_name, openshot_qt_version))
+                    raise Exception(
+                        "Cannot publish missing GitHub release: %s, version: %s" % (
+                            repo_name,
+                            openshot_qt_version))
 
             # Verify download links on openshot.org are correct (and include the new release version)
             r = get("https://www.openshot.org/download/")
@@ -300,15 +346,23 @@ if __name__ == "__main__":
                     if r.ok and r.reason == "Found":
                         output("Validation of URL successful: %s" % url)
                     else:
-                        raise Exception("Validation of URL FAILED: %s, %s, %s" % (url, r.status_code, r.reason))
+                        raise Exception(
+                            "Validation of URL FAILED: %s, %s, %s" % (
+                                url, r.status_code, r.reason)
+                        )
 
                     # Validate the current version is found in each URL
                     if openshot_qt_version not in url:
-                        raise Exception("Validation of URL FAILED. Missing version %s: %s, %s, %s" %
-                                        (openshot_qt_version, url,
-                                         r.status_code, r.reason))
+                        raise Exception(
+                            "Validation of URL FAILED. Missing version %s: %s, %s, %s" % (
+                                openshot_qt_version,
+                                url,
+                                r.status_code,
+                                r.reason)
+                        )
             else:
-                raise Exception("Failed to GET openshot.org/download for URL validation: %s" % r.status_code)
+                raise Exception(
+                    "Failed to GET openshot.org/download for URL validation: %s" % r.status_code)
 
     except Exception as ex:
         tb = traceback.format_exc()
@@ -316,12 +370,19 @@ if __name__ == "__main__":
 
     if not errors_detected:
         output("Successfully completed %s script!" % script_mode)
-        zulip_upload_log(zulip_token, log,
-                         "%s: %s **success** log" % (platform.system(), script_mode),
-                         ":congratulations:  successful %s" % script_mode)
+        zulip_upload_log(
+            zulip_token, log,
+            "%s: %s **success** log" % (platform.system(), script_mode),
+            ":congratulations:  successful %s" % script_mode)
     else:
         # Report any errors detected
         output("%s script failed!" % script_mode)
-        zulip_upload_log(zulip_token, log, "%s: %s error log" % (platform.system(), script_mode),
-                         ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
+        zulip_upload_log(
+            zulip_token, log,
+            "%s: %s error log" % (platform.system(), script_mode),
+            ":skull_and_crossbones: %s" % truncate(errors_detected[0], 100))
         exit(1)
+
+
+if __name__ == "__main__":
+    main()
