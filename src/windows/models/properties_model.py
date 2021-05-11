@@ -201,7 +201,7 @@ class PropertiesModel(updates.UpdateInterface):
     
         if property_key in clip_data:  # Update clip attribute
             log.debug("remove keyframe: %s" % clip_data)
-            
+
             # Determine type of keyframe (normal or color)
             keyframe_list = []
             if property_type == "color":
@@ -237,6 +237,8 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data[property_key]}
+            if object_id is not None:
+                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
@@ -350,7 +352,9 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Reduce # of clip properties we are saving (performance boost)
                 clip_data = {property_key: clip_data[property_key]}
-
+                if object_id is not None:
+                    clip_data = {'objects': {object_id: clip_data}}
+                
                 # Save changes
                 if clip_updated:
                     # Save
@@ -550,6 +554,9 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
+            
+            if object_id is not None:
+                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
