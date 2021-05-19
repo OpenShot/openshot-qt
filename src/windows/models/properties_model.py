@@ -196,7 +196,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Create reference 
         clip_data = c.data
-        if object_id is not None:
+        if object_id:
             clip_data = c.data.get('objects').get(object_id)
     
         if property_key in clip_data:  # Update clip attribute
@@ -237,7 +237,7 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data[property_key]}
-            if object_id is not None:
+            if object_id:
                 clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
@@ -281,7 +281,7 @@ class PropertiesModel(updates.UpdateInterface):
             if c:
                 # Create reference 
                 clip_data = c.data
-                if object_id is not None:
+                if object_id:
                     clip_data = c.data.get('objects').get(object_id)
 
                 # Update clip attribute
@@ -352,7 +352,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Reduce # of clip properties we are saving (performance boost)
                 clip_data = {property_key: clip_data[property_key]}
-                if object_id is not None:
+                if object_id:
                     clip_data = {'objects': {object_id: clip_data}}
                 
                 # Save changes
@@ -430,7 +430,7 @@ class PropertiesModel(updates.UpdateInterface):
             
             # Create reference 
             clip_data = c.data
-            if object_id is not None:
+            if object_id:
                 clip_data = c.data.get('objects').get(object_id)
 
             # Update clip attribute
@@ -555,7 +555,7 @@ class PropertiesModel(updates.UpdateInterface):
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
             
-            if object_id is not None:
+            if object_id:
                 clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
@@ -838,7 +838,7 @@ class PropertiesModel(updates.UpdateInterface):
                 self.add_property(property, filter, c, item_type)
 
             # Insert objects properties from custom effetcs
-            if objects_raw_properties is not None:
+            if objects_raw_properties:
                 for obj_id in objects_raw_properties:
                     objects_all_properties = OrderedDict(sorted(objects_raw_properties[obj_id].items(), key=lambda x: x[1]['name']))
                     for property in objects_all_properties.items():
