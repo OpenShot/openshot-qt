@@ -174,6 +174,7 @@ class PropertiesModel(updates.UpdateInterface):
         closest_point_x = property[1]["closest_point_x"]
         property_type = property[1]["type"]
         property_key = property[0]
+        object_id = property[1]["object_id"]
         clip_id, item_type = item.data()
 
         # Find this clip
@@ -190,15 +191,23 @@ class PropertiesModel(updates.UpdateInterface):
             # Get effect object
             c = Effect.get(id=clip_id)
 
-        if c and property_key in c.data:  # Update clip attribute
-            log.debug("remove keyframe: %s" % c.data)
+        if not c:
+            return
+
+        # Create reference 
+        clip_data = c.data
+        if object_id:
+            clip_data = c.data.get('objects').get(object_id)
+    
+        if property_key in clip_data:  # Update clip attribute
+            log.debug("remove keyframe: %s" % clip_data)
 
             # Determine type of keyframe (normal or color)
             keyframe_list = []
             if property_type == "color":
-                keyframe_list = [c.data[property_key]["red"], c.data[property_key]["blue"], c.data[property_key]["green"]]
+                keyframe_list = [clip_data[property_key]["red"], clip_data[property_key]["blue"], clip_data[property_key]["green"]]
             else:
-                keyframe_list = [c.data[property_key]]
+                keyframe_list = [clip_data[property_key]]
 
             # Loop through each keyframe (red, blue, and green)
             for keyframe in keyframe_list:
@@ -227,7 +236,9 @@ class PropertiesModel(updates.UpdateInterface):
                     keyframe["Points"].remove(point_to_delete)
 
             # Reduce # of clip properties we are saving (performance boost)
-            c.data = {property_key: c.data[property_key]}
+            clip_data = {property_key: clip_data[property_key]}
+            if object_id:
+                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
@@ -249,6 +260,7 @@ class PropertiesModel(updates.UpdateInterface):
         closest_point_x = property[1]["closest_point_x"]
         previous_point_x = property[1]["previous_point_x"]
         property_key = property[0]
+        object_id = property[1]["object_id"]
         clip_id, item_type = item.data()
 
         if property_type == "color":
@@ -267,9 +279,14 @@ class PropertiesModel(updates.UpdateInterface):
                 c = Effect.get(id=clip_id)
 
             if c:
+                # Create reference 
+                clip_data = c.data
+                if object_id:
+                    clip_data = c.data.get('objects').get(object_id)
+
                 # Update clip attribute
-                if property_key in c.data:
-                    log.debug("color update: %s" % c.data)
+                if property_key in clip_data:
+                    log.debug("color update: %s" % clip_data)
 
                     # Loop through each keyframe (red, blue, and green)
                     for color, new_value in [
@@ -281,7 +298,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Keyframe
                         # Loop through points, find a matching points on this frame
                         found_point = False
-                        for point in c.data[property_key][color]["Points"]:
+                        for point in clip_data[property_key][color]["Points"]:
                             log.debug("looping points: co.X = %s" % point["co"]["X"])
                             if interpolation == -1 and point["co"]["X"] == self.frame_number:
                                 # Found point, Update value
@@ -328,14 +345,16 @@ class PropertiesModel(updates.UpdateInterface):
                         if not found_point:
                             clip_updated = True
                             log.debug("Created new point at X=%d", self.frame_number)
-                            c.data[property_key][color]["Points"].append({
+                            clip_data[property_key][color]["Points"].append({
                                 'co': {'X': self.frame_number, 'Y': new_value},
                                 'interpolation': 1,
                                 })
 
                 # Reduce # of clip properties we are saving (performance boost)
-                c.data = {property_key: c.data[property_key]}
-
+                clip_data = {property_key: clip_data[property_key]}
+                if object_id:
+                    clip_data = {'objects': {object_id: clip_data}}
+                
                 # Save changes
                 if clip_updated:
                     # Save
@@ -362,6 +381,7 @@ class PropertiesModel(updates.UpdateInterface):
         previous_point_x = property[1]["previous_point_x"]
         property_type = property[1]["type"]
         property_key = property[0]
+        object_id = property[1]["object_id"]
         clip_id, item_type = item.data()
 
         # Get value (if any)
@@ -407,17 +427,23 @@ class PropertiesModel(updates.UpdateInterface):
             c = Effect.get(id=clip_id)
 
         if c:
+            
+            # Create reference 
+            clip_data = c.data
+            if object_id:
+                clip_data = c.data.get('objects').get(object_id)
+
             # Update clip attribute
-            if property_key in c.data:
-                log.debug("value updated: %s" % c.data)
+            if property_key in clip_data:
+                log.debug("value updated: %s" % clip_data)
 
                 # Check the type of property (some are keyframe, and some are not)
-                if property_type != "reader" and type(c.data[property_key]) == dict:
+                if property_type != "reader" and type(clip_data[property_key]) == dict:
                     # Keyframe
                     # Loop through points, find a matching points on this frame
                     found_point = False
                     point_to_delete = None
-                    for point in c.data[property_key]["Points"]:
+                    for point in clip_data[property_key]["Points"]:
                         log.debug("looping points: co.X = %s" % point["co"]["X"])
                         if interpolation == -1 and point["co"]["X"] == self.frame_number:
                             # Found point, Update value
@@ -467,13 +493,13 @@ class PropertiesModel(updates.UpdateInterface):
                     if point_to_delete:
                         clip_updated = True
                         log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                        c.data[property_key]["Points"].remove(point_to_delete)
+                        clip_data[property_key]["Points"].remove(point_to_delete)
 
                     # Create new point (if needed)
                     elif not found_point and new_value is not None:
                         clip_updated = True
                         log.debug("Created new point at X=%d", self.frame_number)
-                        c.data[property_key]["Points"].append({
+                        clip_data[property_key]["Points"].append({
                             'co': {'X': self.frame_number, 'Y': new_value},
                             'interpolation': 1})
 
@@ -482,35 +508,35 @@ class PropertiesModel(updates.UpdateInterface):
                 if property_type == "int":
                     clip_updated = True
                     try:
-                        c.data[property_key] = int(new_value)
+                        clip_data[property_key] = int(new_value)
                     except Exception as ex:
                         log.warn('Invalid Integer value passed to property: %s' % ex)
 
                 elif property_type == "float":
                     clip_updated = True
                     try:
-                        c.data[property_key] = float(new_value)
+                        clip_data[property_key] = float(new_value)
                     except Exception as ex:
                         log.warn('Invalid Float value passed to property: %s' % ex)
 
                 elif property_type == "bool":
                     clip_updated = True
                     try:
-                        c.data[property_key] = bool(new_value)
+                        clip_data[property_key] = bool(new_value)
                     except Exception as ex:
                         log.warn('Invalid Boolean value passed to property: %s' % ex)
 
                 elif property_type == "string":
                     clip_updated = True
                     try:
-                        c.data[property_key] = str(new_value)
+                        clip_data[property_key] = str(new_value)
                     except Exception as ex:
                         log.warn('Invalid String value passed to property: %s' % ex)
 
                 elif property_type in ["font", "caption"]:
                     clip_updated = True
                     try:
-                        c.data[property_key] = str(new_value)
+                        clip_data[property_key] = str(new_value)
                     except Exception as ex:
                         log.warn('Invalid Font/Caption value passed to property: %s' % ex)
 
@@ -520,14 +546,17 @@ class PropertiesModel(updates.UpdateInterface):
                     try:
                         clip_object = openshot.Clip(value)
                         clip_object.Open()
-                        c.data[property_key] = json.loads(clip_object.Reader().Json())
+                        clip_data[property_key] = json.loads(clip_object.Reader().Json())
                         clip_object.Close()
                         clip_object = None
                     except Exception as ex:
                         log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
 
             # Reduce # of clip properties we are saving (performance boost)
-            c.data = {property_key: c.data.get(property_key)}
+            clip_data = {property_key: clip_data.get(property_key)}
+            
+            if object_id:
+                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
@@ -541,6 +570,228 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Clear selection
             self.parent.clearSelection()
+
+    def add_property(self, property, filter, c, item_type, object_id=None):
+        app = get_app()
+        _ = app._tr
+        label = property[1]["name"]
+        name = property[0]
+        value = property[1]["value"]
+        type = property[1]["type"]
+        memo = property[1]["memo"]
+        readonly = property[1]["readonly"]
+        keyframe = property[1]["keyframe"]
+        points = property[1]["points"]
+        interpolation = property[1]["interpolation"]
+        choices = property[1]["choices"]
+        # Add object id reference to QStandardItem
+        property[1]["object_id"] = object_id
+
+        # Adding Transparency to translation file
+        transparency_label = _("Transparency")  # noqa
+
+        selected_choice = None
+        if choices:
+            selected_choice = [c for c in choices if c["selected"] is True][0]["name"]
+
+        # Hide filtered out properties
+        if filter and filter.lower() not in _(label).lower():
+            return
+
+        # Hide unused base properties (if any)
+        if name in self.filter_base_properties:
+            return
+
+        # Insert new data into model, or update existing values
+        row = []
+        if self.new_item:
+
+            # Append Property Name
+            col = QStandardItem("Property")
+            col.setText(_(label))
+            col.setData(property)
+            if keyframe and points > 1:
+                col.setBackground(QColor("green"))  # Highlight keyframe background
+            elif points > 1:
+                col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
+            if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
+                col.setFlags(Qt.ItemIsEnabled)
+            else:
+                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+            row.append(col)
+
+            # Append Value
+            col = QStandardItem("Value")
+            if selected_choice:
+                col.setText(_(selected_choice))
+            elif type == "string":
+                # Use string value
+                col.setText(memo)
+            elif type == "font":
+                # Use font value
+                col.setText(memo)
+            elif type == "caption":
+                # Use caption value
+                col.setText(memo)
+                # Load caption editor also
+                get_app().window.CaptionTextLoaded.emit(memo, row)
+            elif type == "bool":
+                # Use boolean value
+                if value:
+                    col.setText(_("True"))
+                else:
+                    col.setText(_("False"))
+            elif type == "color":
+                # Don't output a value for colors
+                col.setText("")
+            elif type == "reader":
+                reader_json = json.loads(memo or "{}")
+                reader_path = reader_json.get("path", "/")
+                fileName = os.path.basename(reader_path)
+                col.setText(fileName)
+            elif type == "int" and label == "Track":
+                # Find track display name
+                all_tracks = get_app().project.get("layers")
+                display_count = len(all_tracks)
+                display_label = None
+                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                    if track.get("number") == value:
+                        display_label = track.get("label")
+                        break
+                    display_count -= 1
+                track_name = display_label or _("Track %s") % display_count
+                col.setText(track_name)
+
+            elif type == "int":
+                col.setText("%d" % value)
+            else:
+                # Use numeric value
+                col.setText(QLocale().system().toString(float(value), "f", precision=2))
+            col.setData((c.Id(), item_type))
+            if points > 1:
+                # Apply icon to cell
+                my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
+                col.setData(my_icon, Qt.DecorationRole)
+
+                # Set the background color of the cell
+                if keyframe:
+                    col.setBackground(QColor("green"))  # Highlight keyframe background
+                else:
+                    col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
+
+            if type == "color":
+                # Color needs to be handled special
+                red = property[1]["red"]["value"]
+                green = property[1]["green"]["value"]
+                blue = property[1]["blue"]["value"]
+                col.setBackground(QColor(red, green, blue))
+
+            if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
+                col.setFlags(Qt.ItemIsEnabled)
+            else:
+                col.setFlags(
+                    Qt.ItemIsSelectable
+                    | Qt.ItemIsEnabled
+                    | Qt.ItemIsUserCheckable
+                    | Qt.ItemIsEditable)
+            row.append(col)
+
+            # Append ROW to MODEL (if does not already exist in model)
+            self.model.appendRow(row)
+
+        else:
+            # Update the value of the existing model
+            # Get 1st Column
+            col = self.items[name]["row"][0]
+            col.setData(property)
+
+            # For non-color types, update the background color
+            if keyframe and points > 1:
+                col.setBackground(QColor("green"))  # Highlight keyframe background
+            elif points > 1:
+                col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
+            else:
+                col.setBackground(QStandardItem("Empty").background())
+
+            # Update helper dictionary
+            row.append(col)
+
+            # Get 2nd Column
+            col = self.items[name]["row"][1]
+            if selected_choice:
+                col.setText(_(selected_choice))
+            elif type == "string":
+                # Use string value
+                col.setText(memo)
+            elif type == "font":
+                # Use font value
+                col.setText(memo)
+            elif type == "caption":
+                # Use caption value
+                col.setText(memo)
+            elif type == "bool":
+                # Use boolean value
+                if value:
+                    col.setText(_("True"))
+                else:
+                    col.setText(_("False"))
+            elif type == "color":
+                # Don't output a value for colors
+                col.setText("")
+            elif type == "int" and label == "Track":
+                # Find track display name
+                all_tracks = get_app().project.get("layers")
+                display_count = len(all_tracks)
+                display_label = None
+                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                    if track.get("number") == value:
+                        display_label = track.get("label")
+                        break
+                    display_count -= 1
+                track_name = display_label or _("Track %s") % display_count
+                col.setText(track_name)
+            elif type == "int":
+                col.setText("%d" % value)
+            elif type == "reader":
+                reader_json = json.loads(property[1].get("memo", "{}"))
+                reader_path = reader_json.get("path", "/")
+                fileName = os.path.basename(reader_path)
+                col.setText("%s" % fileName)
+            else:
+                # Use numeric value
+                col.setText(QLocale().system().toString(float(value), "f", precision=2))
+
+            if points > 1:
+                # Apply icon to cell
+                my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
+                col.setData(my_icon, Qt.DecorationRole)
+
+                # Set the background color of the cell
+                if keyframe:
+                    col.setBackground(QColor("green"))  # Highlight keyframe background
+                else:
+                    col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
+
+            else:
+                # clear background color
+                col.setBackground(QStandardItem("Empty").background())
+
+                # clear icon
+                my_icon = QPixmap()
+                col.setData(my_icon, Qt.DecorationRole)
+
+            if type == "color":
+                # Update the color based on the color curves
+                red = property[1]["red"]["value"]
+                green = property[1]["green"]["value"]
+                blue = property[1]["blue"]["value"]
+                col.setBackground(QColor(red, green, blue))
+
+            # Update helper dictionary
+            row.append(col)
+
+        # Keep track of items in a dictionary (for quick look up)
+        self.items[name] = {"row": row, "property": property}
 
     def update_model(self, filter=""):
         log.debug("updating clip properties model.")
@@ -558,6 +809,8 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
+            objects_raw_properties = raw_properties.pop('objects', None)
+
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
 
             # Check if filter was changed (if so, wipe previous model data)
@@ -582,222 +835,14 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Loop through properties, and build a model
             for property in all_properties.items():
-                label = property[1]["name"]
-                name = property[0]
-                value = property[1]["value"]
-                type = property[1]["type"]
-                memo = property[1]["memo"]
-                readonly = property[1]["readonly"]
-                keyframe = property[1]["keyframe"]
-                points = property[1]["points"]
-                interpolation = property[1]["interpolation"]
-                choices = property[1]["choices"]
+                self.add_property(property, filter, c, item_type)
 
-                # Adding Transparency to translation file
-                transparency_label = _("Transparency")  # noqa
-
-                selected_choice = None
-                if choices:
-                    selected_choice = [c for c in choices if c["selected"] is True][0]["name"]
-
-                # Hide filtered out properties
-                if filter and filter.lower() not in _(label).lower():
-                    continue
-
-                # Hide unused base properties (if any)
-                if name in self.filter_base_properties:
-                    continue
-
-                # Insert new data into model, or update existing values
-                row = []
-                if self.new_item:
-
-                    # Append Property Name
-                    col = QStandardItem("Property")
-                    col.setText(_(label))
-                    col.setData(property)
-                    if keyframe and points > 1:
-                        col.setBackground(QColor("green"))  # Highlight keyframe background
-                    elif points > 1:
-                        col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-                    if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
-                        col.setFlags(Qt.ItemIsEnabled)
-                    else:
-                        col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-                    row.append(col)
-
-                    # Append Value
-                    col = QStandardItem("Value")
-                    if selected_choice:
-                        col.setText(_(selected_choice))
-                    elif type == "string":
-                        # Use string value
-                        col.setText(memo)
-                    elif type == "font":
-                        # Use font value
-                        col.setText(memo)
-                    elif type == "caption":
-                        # Use caption value
-                        col.setText(memo)
-                        # Load caption editor also
-                        get_app().window.CaptionTextLoaded.emit(memo, row)
-                    elif type == "bool":
-                        # Use boolean value
-                        if value:
-                            col.setText(_("True"))
-                        else:
-                            col.setText(_("False"))
-                    elif type == "color":
-                        # Don't output a value for colors
-                        col.setText("")
-                    elif type == "reader":
-                        reader_json = json.loads(memo or "{}")
-                        reader_path = reader_json.get("path", "/")
-                        fileName = os.path.basename(reader_path)
-                        col.setText(fileName)
-                    elif type == "int" and label == "Track":
-                        # Find track display name
-                        all_tracks = get_app().project.get("layers")
-                        display_count = len(all_tracks)
-                        display_label = None
-                        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                            if track.get("number") == value:
-                                display_label = track.get("label")
-                                break
-                            display_count -= 1
-                        track_name = display_label or _("Track %s") % display_count
-                        col.setText(track_name)
-
-                    elif type == "int":
-                        col.setText("%d" % value)
-                    else:
-                        # Use numeric value
-                        col.setText(QLocale().system().toString(float(value), "f", precision=2))
-                    col.setData((c.Id(), item_type))
-                    if points > 1:
-                        # Apply icon to cell
-                        my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
-                        col.setData(my_icon, Qt.DecorationRole)
-
-                        # Set the background color of the cell
-                        if keyframe:
-                            col.setBackground(QColor("green"))  # Highlight keyframe background
-                        else:
-                            col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-
-                    if type == "color":
-                        # Color needs to be handled special
-                        red = property[1]["red"]["value"]
-                        green = property[1]["green"]["value"]
-                        blue = property[1]["blue"]["value"]
-                        col.setBackground(QColor(red, green, blue))
-
-                    if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
-                        col.setFlags(Qt.ItemIsEnabled)
-                    else:
-                        col.setFlags(
-                            Qt.ItemIsSelectable
-                            | Qt.ItemIsEnabled
-                            | Qt.ItemIsUserCheckable
-                            | Qt.ItemIsEditable)
-                    row.append(col)
-
-                    # Append ROW to MODEL (if does not already exist in model)
-                    self.model.appendRow(row)
-
-                else:
-                    # Update the value of the existing model
-                    # Get 1st Column
-                    col = self.items[name]["row"][0]
-                    col.setData(property)
-
-                    # For non-color types, update the background color
-                    if keyframe and points > 1:
-                        col.setBackground(QColor("green"))  # Highlight keyframe background
-                    elif points > 1:
-                        col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-                    else:
-                        col.setBackground(QStandardItem("Empty").background())
-
-                    # Update helper dictionary
-                    row.append(col)
-
-                    # Get 2nd Column
-                    col = self.items[name]["row"][1]
-                    if selected_choice:
-                        col.setText(_(selected_choice))
-                    elif type == "string":
-                        # Use string value
-                        col.setText(memo)
-                    elif type == "font":
-                        # Use font value
-                        col.setText(memo)
-                    elif type == "caption":
-                        # Use caption value
-                        col.setText(memo)
-                    elif type == "bool":
-                        # Use boolean value
-                        if value:
-                            col.setText(_("True"))
-                        else:
-                            col.setText(_("False"))
-                    elif type == "color":
-                        # Don't output a value for colors
-                        col.setText("")
-                    elif type == "int" and label == "Track":
-                        # Find track display name
-                        all_tracks = get_app().project.get("layers")
-                        display_count = len(all_tracks)
-                        display_label = None
-                        for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                            if track.get("number") == value:
-                                display_label = track.get("label")
-                                break
-                            display_count -= 1
-                        track_name = display_label or _("Track %s") % display_count
-                        col.setText(track_name)
-                    elif type == "int":
-                        col.setText("%d" % value)
-                    elif type == "reader":
-                        reader_json = json.loads(property[1].get("memo", "{}"))
-                        reader_path = reader_json.get("path", "/")
-                        fileName = os.path.basename(reader_path)
-                        col.setText("%s" % fileName)
-                    else:
-                        # Use numeric value
-                        col.setText(QLocale().system().toString(float(value), "f", precision=2))
-
-                    if points > 1:
-                        # Apply icon to cell
-                        my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
-                        col.setData(my_icon, Qt.DecorationRole)
-
-                        # Set the background color of the cell
-                        if keyframe:
-                            col.setBackground(QColor("green"))  # Highlight keyframe background
-                        else:
-                            col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
-
-                    else:
-                        # clear background color
-                        col.setBackground(QStandardItem("Empty").background())
-
-                        # clear icon
-                        my_icon = QPixmap()
-                        col.setData(my_icon, Qt.DecorationRole)
-
-                    if type == "color":
-                        # Update the color based on the color curves
-                        red = property[1]["red"]["value"]
-                        green = property[1]["green"]["value"]
-                        blue = property[1]["blue"]["value"]
-                        col.setBackground(QColor(red, green, blue))
-
-                    # Update helper dictionary
-                    row.append(col)
-
-                # Keep track of items in a dictionary (for quick look up)
-                self.items[name] = {"row": row, "property": property}
+            # Insert objects properties from custom effetcs
+            if objects_raw_properties:
+                for obj_id in objects_raw_properties:
+                    objects_all_properties = OrderedDict(sorted(objects_raw_properties[obj_id].items(), key=lambda x: x[1]['name']))
+                    for property in objects_all_properties.items():
+                        self.add_property(property, filter, c, item_type, object_id=obj_id)
 
             # Update the values on the next call to this method (instead of adding rows)
             self.new_item = False
