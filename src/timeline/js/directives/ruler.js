@@ -144,6 +144,8 @@ App.directive("tlRuler", function ($timeout) {
           });
         });
 
+        drawTicks();
+
       });
 
       // Move playhead to new position (if it's not currently being animated)
@@ -156,12 +158,8 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      //watch the scale value so it will be able to draw the ruler after changes,
-      //otherwise the canvas is just reset to blank
-      scope.$watch("project.scale + markers.length + project.duration", function (val) {
-        if (val) {
-
-          $timeout(function () {
+      function drawTicks() {
+        $timeout(function () {
             //get all scope variables we need for the ruler
             var scale = scope.project.scale;
             var tick_pixels = scope.project.tick_pixels;
@@ -181,6 +179,8 @@ App.directive("tlRuler", function ($timeout) {
             ctx.lineCap = "round";
 
             //loop em and draw em
+            leftScreenPixels = document.getElementById("scrolling_ruler").scrollLeft;
+            rulerWidthPixels = document.getElementById("scrolling_ruler").clientWidth;
             for (var x = 0; x < num_ticks + 1; x++) {
               ctx.beginPath();
 
@@ -209,7 +209,13 @@ App.directive("tlRuler", function ($timeout) {
               ctx.stroke();
             }
           }, 0);
+      }
 
+      //watch the scale value so it will be able to draw the ruler after changes,
+      //otherwise the canvas is just reset to blank
+      scope.$watch("project.scale + markers.length + project.duration", function (val) {
+        if (val) {
+          drawTicks();
         }
       });
 
