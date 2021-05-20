@@ -181,6 +181,8 @@ App.directive("tlRuler", function ($timeout) {
             //loop em and draw em
             leftScreenPixels = document.getElementById("scrolling_ruler").scrollLeft;
             rulerWidthPixels = document.getElementById("scrolling_ruler").clientWidth;
+            num_ticks = rulerWidthPixels / 50;
+            startingTick = leftScreenPixels / 50;
             for (var x = 0; x < num_ticks + 1; x++) {
               ctx.beginPath();
 
@@ -191,21 +193,21 @@ App.directive("tlRuler", function ($timeout) {
                 //if it's not the first line, set the time text
                 if (x !== 0) {
                   //get time for this tick
-                  var time = (scale * x) / 2;
+                  var time = (scale * (x+startingTick)) / 2;
                   var time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
 
                   //write time on the canvas, centered above long tick
                   ctx.fillStyle = "#c8c8c8";
                   ctx.font = "0.9em";
-                  ctx.fillText(time_text["hour"] + ":" + time_text["min"] + ":" + time_text["sec"], x * each_tick - 22, 11);
+                  ctx.fillText(time_text["hour"] + ":" + time_text["min"] + ":" + time_text["sec"], (x) * each_tick + leftScreenPixels - 22, 11);
                 }
               } else {
                 //shorter line
                 line_top = 28;
               }
 
-              ctx.moveTo(x * each_tick, 39);
-              ctx.lineTo(x * each_tick, line_top);
+              ctx.moveTo(x * each_tick + leftScreenPixels, 39);
+              ctx.lineTo(x * each_tick + leftScreenPixels, line_top);
               ctx.stroke();
             }
           }, 0);
