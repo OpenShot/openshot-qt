@@ -55,6 +55,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Additional variables used to control the rendering of HTML
+  $scope.scrollLeft = 0;
   $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playhead_animating = false;
   $scope.playhead_height = 300;
