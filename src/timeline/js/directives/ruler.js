@@ -56,7 +56,7 @@ App.directive("tlScrollableTracks", function () {
         // Send scrollbar position to Qt
         if (scope.Qt) {
            // Calculate scrollbar positions (left and right edge of scrollbar)
-           var timeline_length = Math.min(32767, scope.getTimelineWidth(0));
+           var timeline_length = scope.getTimelineWidth(0);
            var left_scrollbar_edge = scroll_left_pixels / timeline_length;
            var right_scrollbar_edge = (scroll_left_pixels + element.width()) / timeline_length;
 
