@@ -94,6 +94,11 @@ App.directive("tlScrollableTracks", function () {
         element.removeClass("drag_cursor");
       });
 
+      element.on("scroll", function(){
+        scope.$apply( () => {
+          scope.scrollLeft = element[0].scrollLeft;
+        })
+      })
 
     }
   };
@@ -109,7 +114,6 @@ App.directive("tlBody", function () {
           is_scrolling = false;
         }
       });
-
 
     }
   };
@@ -142,9 +146,6 @@ App.directive("tlRuler", function ($timeout) {
             scope.playhead_animating = false;
           });
         });
-
-        drawTicks();
-
       });
 
       // Move playhead to new position (if it's not currently being animated)
@@ -157,9 +158,11 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      function drawTicks() {
-      // drawTicks : function () {
-        $timeout(function () {
+      //watch the scale value so it will be able to draw the ruler after changes,
+      //otherwise the canvas is just reset to blank
+      scope.$watch("project.scale + markers.length + project.duration + scrollLeft", function (val) {
+        if (val) {
+          $timeout(function () {
             //get all scope variables we need for the ruler
             var scale = scope.project.scale;
             var tick_pixels = scope.project.tick_pixels;
@@ -181,7 +184,7 @@ App.directive("tlRuler", function ($timeout) {
             var rulerWidthPixels = document.getElementById("scrolling_ruler").clientWidth;
             var num_ticks = ~~(rulerWidthPixels / each_tick);
             var startingTick = ~~(leftScreenPixels / each_tick);
-            for (var x = 0; x < num_ticks + 1; x++) {
+            for (var x = 0; x < num_ticks + 2; x++) {
               ctx.beginPath();
 
               //if it's even, make the line longer
@@ -212,13 +215,6 @@ App.directive("tlRuler", function ($timeout) {
               ctx.stroke();
             }
           }, 0);
-      }
-
-      //watch the scale value so it will be able to draw the ruler after changes,
-      //otherwise the canvas is just reset to blank
-      scope.$watch("project.scale + markers.length + project.duration", function (val) {
-        if (val) {
-          drawTicks();
         }
       });
 
