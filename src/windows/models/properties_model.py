@@ -579,7 +579,7 @@ class PropertiesModel(updates.UpdateInterface):
             # Clear selection
             self.parent.clearSelection()
 
-    def add_property(self, property, filter, c, item_type, object_id=None):
+    def set_property(self, property, filter, c, item_type, object_id=None):
         app = get_app()
         _ = app._tr
         label = property[1]["name"]
@@ -843,14 +843,14 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Loop through properties, and build a model
             for property in all_properties.items():
-                self.add_property(property, filter, c, item_type)
+                self.set_property(property, filter, c, item_type)
 
             # Insert objects properties from custom effects
             if objects_raw_properties:
                 for obj_id in objects_raw_properties:
                     objects_all_properties = OrderedDict(sorted(objects_raw_properties[obj_id].items(), key=lambda x: x[1]['name']))
                     for property in objects_all_properties.items():
-                        self.add_property(property, filter, c, item_type, object_id=obj_id)
+                        self.set_property(property, filter, c, item_type, object_id=obj_id)
 
             # Update the values on the next call to this method (instead of adding rows)
             self.new_item = False
