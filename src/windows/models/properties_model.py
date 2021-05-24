@@ -200,7 +200,8 @@ class PropertiesModel(updates.UpdateInterface):
             clip_data = c.data.get('objects').get(object_id)
     
         if property_key in clip_data:  # Update clip attribute
-            log.debug("remove keyframe: %s" % clip_data)
+            log_id = f"{clip_id}/{object_id}" if object_id else clip_id
+            log.debug("%s: remove %s keyframe. %s", log_id, property_key, clip_data.get(property_key))
 
             # Determine type of keyframe (normal or color)
             keyframe_list = []
@@ -238,7 +239,9 @@ class PropertiesModel(updates.UpdateInterface):
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data[property_key]}
             if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
+                c.data = {'objects': {object_id: clip_data}}
+            else:
+                c.data = clip_data
 
             # Save changes
             if clip_updated:
@@ -286,7 +289,8 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Update clip attribute
                 if property_key in clip_data:
-                    log.debug("color update: %s" % clip_data)
+                    log_id = f"{clip_id}/{object_id}" if object_id else clip_id
+                    log.debug("%s: update color property %s. %s", log_id, property_key, clip_data.get(property_key))
 
                     # Loop through each keyframe (red, blue, and green)
                     for color, new_value in [
@@ -353,7 +357,9 @@ class PropertiesModel(updates.UpdateInterface):
                 # Reduce # of clip properties we are saving (performance boost)
                 clip_data = {property_key: clip_data[property_key]}
                 if object_id:
-                    clip_data = {'objects': {object_id: clip_data}}
+                    c.data = {'objects': {object_id: clip_data}}
+                else:
+                    c.data = clip_data
                 
                 # Save changes
                 if clip_updated:
@@ -435,7 +441,8 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Update clip attribute
             if property_key in clip_data:
-                log.debug("value updated: %s" % clip_data)
+                log_id = f"{clip_id}/{object_id}" if object_id else clip_id
+                log.debug("%s: update property %s. %s", log_id, property_key, clip_data.get(property_key))
 
                 # Check the type of property (some are keyframe, and some are not)
                 if property_type != "reader" and type(clip_data[property_key]) == dict:
@@ -554,9 +561,10 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
-            
             if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
+                c.data = {'objects': {object_id: clip_data}}
+            else:
+                c.data = clip_data
 
             # Save changes
             if clip_updated:
@@ -837,7 +845,7 @@ class PropertiesModel(updates.UpdateInterface):
             for property in all_properties.items():
                 self.add_property(property, filter, c, item_type)
 
-            # Insert objects properties from custom effetcs
+            # Insert objects properties from custom effects
             if objects_raw_properties:
                 for obj_id in objects_raw_properties:
                     objects_all_properties = OrderedDict(sorted(objects_raw_properties[obj_id].items(), key=lambda x: x[1]['name']))
