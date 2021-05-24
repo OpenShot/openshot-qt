@@ -200,7 +200,7 @@ class PropertiesModel(updates.UpdateInterface):
             clip_data = c.data.get('objects').get(object_id)
     
         if property_key in clip_data:  # Update clip attribute
-            log_id = f"{clip_id}/{object_id}" if object_id else clip_id
+            log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
             log.debug("%s: remove %s keyframe. %s", log_id, property_key, clip_data.get(property_key))
 
             # Determine type of keyframe (normal or color)
@@ -289,7 +289,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Update clip attribute
                 if property_key in clip_data:
-                    log_id = f"{clip_id}/{object_id}" if object_id else clip_id
+                    log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
                     log.debug("%s: update color property %s. %s", log_id, property_key, clip_data.get(property_key))
 
                     # Loop through each keyframe (red, blue, and green)
@@ -441,7 +441,7 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Update clip attribute
             if property_key in clip_data:
-                log_id = f"{clip_id}/{object_id}" if object_id else clip_id
+                log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
                 log.debug("%s: update property %s. %s", log_id, property_key, clip_data.get(property_key))
 
                 # Check the type of property (some are keyframe, and some are not)
