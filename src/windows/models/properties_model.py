@@ -239,9 +239,7 @@ class PropertiesModel(updates.UpdateInterface):
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data[property_key]}
             if object_id:
-                c.data = {'objects': {object_id: clip_data}}
-            else:
-                c.data = clip_data
+                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
@@ -357,9 +355,7 @@ class PropertiesModel(updates.UpdateInterface):
                 # Reduce # of clip properties we are saving (performance boost)
                 clip_data = {property_key: clip_data[property_key]}
                 if object_id:
-                    c.data = {'objects': {object_id: clip_data}}
-                else:
-                    c.data = clip_data
+                    clip_data = {'objects': {object_id: clip_data}}
                 
                 # Save changes
                 if clip_updated:
@@ -562,9 +558,7 @@ class PropertiesModel(updates.UpdateInterface):
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
             if object_id:
-                c.data = {'objects': {object_id: clip_data}}
-            else:
-                c.data = clip_data
+                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
