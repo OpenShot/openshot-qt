@@ -64,6 +64,10 @@ App.directive("tlScrollableTracks", function () {
            timeline.ScrollbarChanged([left_scrollbar_edge, right_scrollbar_edge, timeline_length, element.width()]);
         }
 
+        scope.$apply( () => {
+          scope.scrollLeft = element[0].scrollLeft;
+        })
+
       });
 
       // Initialize panning when middle mouse is clicked
@@ -93,12 +97,6 @@ App.directive("tlScrollableTracks", function () {
       element.on("mouseup", function (e) {
         element.removeClass("drag_cursor");
       });
-
-      element.on("scroll", function(){
-        scope.$apply( () => {
-          scope.scrollLeft = element[0].scrollLeft;
-        })
-      })
 
     }
   };
@@ -189,7 +187,7 @@ App.directive("tlRuler", function ($timeout) {
 
               //if it's even, make the line longer
               var line_top = 0;
-              if ((x + startingTick)% 2 === 0) {
+              if ((x + startingTick) % 2 === 0) {
                 line_top = 18;
                 //if it's not the first line, set the time text
                 if (x !== 0) {
