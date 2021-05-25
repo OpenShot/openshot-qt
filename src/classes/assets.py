@@ -40,23 +40,25 @@ def get_assets_path(file_path=None, create_paths=True):
         # Generate asset folder name filename + "_assets"
         file_path = file_path
         asset_filename = os.path.splitext(os.path.basename(file_path))[0]
-        asset_folder_name = asset_filename + "_assets"
+        asset_folder_name = asset_filename[:248] + "_assets" #Windows max name size is 255. 248 = 255 - len("_assets")
         asset_path = os.path.join(os.path.dirname(file_path), asset_folder_name)
 
         # Previous Assets File Name Convention.
         asset_folder_name_30_char = asset_filename[:30] + "_assets"
         asset_path_30_char = os.path.join(os.path.dirname(file_path), asset_folder_name_30_char)
 
+
         # Create asset folder, if necessary
         if create_paths:
 
-            if os.path.exists(asset_path_30_char):
+            if not os.path.exists(asset_path):
+                if os.path.exists(asset_folder_name_30_char):
                 #update assets folder, if it follows the previous naming convention
-                os.rename(asset_path_30_char, asset_path)
-                log.info("Updating 30 character path to full length {}".format(asset_path))
-            elif not os.path.exists(asset_path):
-                os.mkdir(asset_path)
-                log.info("Asset dir created as {}".format(asset_path))
+                    os.rename(asset_path_30_char, asset_path)
+                    log.info("Updating 30 character path to full length {}".format(asset_path))
+                else:
+                    os.mkdir(asset_path)
+                    log.info("Asset dir created as {}".format(asset_path))
             else:
                 log.info("Using existing asset folder {}".format(asset_path))
 
