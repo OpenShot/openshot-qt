@@ -51,7 +51,9 @@
 				<div class="playhead-line-small"></div>
 			</div>
 			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->
-			<canvas tl-ruler id="ruler" width="{{canvasMaxWidth(getTimelineWidth(0) + 6)}}px" height="39"></canvas>
+			<div tl-ruler id="ruler" style="width: {{canvasMaxWidth(getTimelineWidth(0) + 6)}}px;">
+				<span ng-repeat="label in tickLabels" style="left:{{label.position}}px;" class="tick_time" >{{label.time}}</span>
+			</div>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">

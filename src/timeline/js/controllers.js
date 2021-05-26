@@ -85,6 +85,15 @@ App.controller("TimelineCtrl", function ($scope) {
     timeline.qt_log("DEBUG", "setThumbAddress: " + url);
   };
 
+  // const timelineWidth = $('t')
+  $scope.tickLabels = [
+    {"time": "00:00:00", "position": 100},
+    {"time": "00:00:01", "position": 200},
+    {"time": "00:00:02", "position": 300},
+    {"time": "00:00:04", "position": 400},
+    {"time": "00:00:03", "position": 500},
+  ];
+
   // Move the playhead to a specific time
   $scope.movePlayhead = function (position_seconds) {
     // Update internal scope (in seconds)
