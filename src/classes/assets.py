@@ -53,10 +53,10 @@ def get_assets_path(file_path=None, create_paths=True):
         if create_paths:
 
             if not os.path.exists(asset_path):
-                if os.path.exists(asset_folder_name_30_char):
+                if os.path.exists(asset_path_30_char):
                     #update assets folder, if it follows the previous naming convention
                     try:
-                        shutil.copytree(asset_folder_name_30_char, asset_folder_name)
+                        shutil.copytree(asset_path_30_char, asset_path)
                         log.info("Copying shortened asset folder. {}".format(asset_path))
                     except:
                         log.error("Could not make a copy of assets folder")
