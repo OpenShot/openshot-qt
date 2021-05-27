@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg4693"
+   version="1.1"
+   viewBox="0 0 210 297"
+   height="297mm"
+   width="210mm">
+  <defs
+     id="defs4687" />
+  <metadata
+     id="metadata4690">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <circle
+       r="81.491669"
+       cy="130.90668"
+       cx="98.689568"
+       id="path5267"
+       style="opacity:1;fill:#87ff00;stroke-width:0.26458332;fill-opacity:1" />
+    <path
+       id="path5277"
+       d="m 123.57656,151.35407 c -0.31529,0.32661 -0.63835,0.65841 -0.99735,1.01751 -4.51246,4.51361 -8.09075,6.75266 -13.91078,8.70438 -4.46814,1.49835 -12.081178,1.86727 -16.862022,0.81752 -6.733487,-1.47851 -13.132562,-5.27671 -17.873329,-10.37663 -3.264101,3.49445 -5.863576,7.56141 -7.347354,11.79514 -1.59566,4.55294 -1.984733,14.15265 -0.770496,19.00918 3.076339,12.30426 13.771739,22.54057 26.509493,25.37158 1.164169,0.25877 4.616976,0.3802 7.672916,0.27026 9.411472,-0.33854 16.885672,-3.8138 23.570142,-10.95953 3.56713,-3.81327 6.6984,-9.34654 7.90029,-13.96091 0.49341,-1.89434 0.80873,-5.42356 0.80873,-9.05164 0,-4.89409 -0.23719,-6.69816 -1.33996,-10.18904 -1.44619,-4.57799 -4.01789,-8.84063 -7.36028,-12.44782 z"
+       style="opacity:1;fill:#808080;fill-opacity:1;stroke-width:0.52916664" />
+    <ellipse
+       ry="24.341667"
+       rx="9.260417"
+       cy="113.37917"
+       cx="138.37708"
+       id="path5284"
+       style="opacity:1;fill:#808080;fill-opacity:1;stroke-width:0.26458332" />
+    <ellipse
+       style="opacity:1;fill:#808080;fill-opacity:1;stroke-width:0.26458332"
+       id="ellipse5286"
+       cx="59.002079"
+       cy="113.37917"
+       rx="9.260417"
+       ry="24.341667" />
+  </g>
+</svg>
+

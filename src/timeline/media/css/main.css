@@ -53,11 +53,13 @@ img {
   /* background-color: red; */
   height: 100%;
 }
-.tick_time {
+.on_ruler{
   position: absolute;
   color: white;
   top: 5px;
   font-size: 0.8em;
+}
+.tick_time {
 }
 
 /* Tracks */
