@@ -26,6 +26,7 @@
  """
 
 import os
+import shutil
 from classes import info
 from classes.logger import log
 
@@ -53,9 +54,12 @@ def get_assets_path(file_path=None, create_paths=True):
 
             if not os.path.exists(asset_path):
                 if os.path.exists(asset_folder_name_30_char):
-                #update assets folder, if it follows the previous naming convention
-                    os.rename(asset_path_30_char, asset_path)
-                    log.info("Updating 30 character path to full length {}".format(asset_path))
+                    #update assets folder, if it follows the previous naming convention
+                    try:
+                        shutil.copytree(asset_folder_name_30_char, asset_folder_name)
+                        log.info("Copying shortened asset folder. {}".format(asset_path))
+                    except:
+                        log.error("Could not make a copy of assets folder")
                 else:
                     os.mkdir(asset_path)
                     log.info("Asset dir created as {}".format(asset_path))
