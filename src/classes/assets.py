@@ -51,7 +51,6 @@ def get_assets_path(file_path=None, create_paths=True):
 
         # Create asset folder, if necessary
         if create_paths:
-
             if not os.path.exists(asset_path):
                 if os.path.exists(asset_path_30_char):
                     #copy assets folder, if it follows the previous naming convention
