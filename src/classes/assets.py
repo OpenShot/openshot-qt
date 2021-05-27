@@ -49,7 +49,6 @@ def get_assets_path(file_path=None, create_paths=True):
         asset_folder_name_30_char = asset_filename[:30] + "_assets"
         asset_path_30_char = os.path.join(os.path.dirname(file_path), asset_folder_name_30_char)
 
-
         # Create asset folder, if necessary
         if create_paths:
 
