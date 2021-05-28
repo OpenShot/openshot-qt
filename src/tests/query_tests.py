@@ -47,6 +47,7 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from classes.app import OpenShotApp
+from classes.query import Clip, File, Transition
 from classes import info
 
 app = None
@@ -130,22 +131,16 @@ class TestQueryClass(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        "Hook method for deconstructing the class fixture after running all tests in the class."
-        TestQueryClass.app.quit()
+        """ Clean up after running all tests in the class. """
+        cls.app.quit()
 
     def test_add_clip(self):
-        """ Test the Clip.save method by adding multiple clips """
-
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
 
         # Find number of clips in project
         num_clips = len(Clip.filter())
 
         # Create clip
         c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png"))
-
-        # Parse JSON
         clip_data = json.loads(c.Json())
 
         # Insert into project data
@@ -158,16 +153,11 @@ class TestQueryClass(unittest.TestCase):
 
         # Save the clip again (which should not change the total # of clips)
         query_clip.save()
-
         self.assertEqual(len(Clip.filter()), num_clips + 1)
 
     def test_update_clip(self):
         """ Test the Clip.save method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find a clip named file1
         update_id = TestQueryClass.clip_ids[0]
         clip = Clip.get(id=update_id)
         self.assertTrue(clip)
@@ -178,7 +168,6 @@ class TestQueryClass(unittest.TestCase):
         clip.save()
 
         # Verify updated data
-        # Get clip again
         clip = Clip.get(id=update_id)
         self.assertEqual(clip.data["layer"], 2)
         self.assertEqual(clip.data["title"], "My Title")
@@ -186,15 +175,10 @@ class TestQueryClass(unittest.TestCase):
     def test_delete_clip(self):
         """ Test the Clip.delete method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find a clip named file1
         delete_id = TestQueryClass.clip_ids[4]
         clip = Clip.get(id=delete_id)
         self.assertTrue(clip)
 
-        # Delete clip
         clip.delete()
 
         # Verify deleted data
@@ -203,18 +187,12 @@ class TestQueryClass(unittest.TestCase):
 
         # Delete clip again (should do nothing)
         clip.delete()
-
-        # Verify deleted data
         deleted_clip = Clip.get(id=delete_id)
         self.assertFalse(deleted_clip)
 
     def test_filter_clip(self):
         """ Test the Clip.filter method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find all clips named file1
         clips = Clip.filter(id=TestQueryClass.clip_ids[0])
         self.assertTrue(clips)
 
@@ -225,10 +203,6 @@ class TestQueryClass(unittest.TestCase):
     def test_get_clip(self):
         """ Test the Clip.get method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find a clip named file1
         clip = Clip.get(id=TestQueryClass.clip_ids[1])
         self.assertTrue(clip)
 
@@ -238,9 +212,6 @@ class TestQueryClass(unittest.TestCase):
 
     def test_intersect(self):
         """ Test special filter argument 'intersect' """
-
-        # Import additional classes that need the app defined first
-        from classes.query import Clip, Transition
 
         trans = Transition.get(id=self.transition_ids[0])
         self.assertTrue(trans)
@@ -283,10 +254,6 @@ class TestQueryClass(unittest.TestCase):
     def test_update_File(self):
         """ Test the File.save method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find a File named file1
         update_id = TestQueryClass.file_ids[0]
         file = File.get(id=update_id)
         self.assertTrue(file)
@@ -297,7 +264,6 @@ class TestQueryClass(unittest.TestCase):
         file.save()
 
         # Verify updated data
-        # Get File again
         file = File.get(id=update_id)
         self.assertEqual(file.data["height"], 1080)
         self.assertEqual(file.data["width"], 1920)
@@ -305,35 +271,24 @@ class TestQueryClass(unittest.TestCase):
     def test_delete_File(self):
         """ Test the File.delete method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find a File named file1
         delete_id = TestQueryClass.file_ids[4]
         file = File.get(id=delete_id)
         self.assertTrue(file)
 
-        # Delete File
         file.delete()
 
         # Verify deleted data
         deleted_file = File.get(id=delete_id)
         self.assertFalse(deleted_file)
 
-        # Delete File again (should do nothing
+        # Delete File again (should do nothing)
         file.delete()
-
-        # Verify deleted data
         deleted_file = File.get(id=delete_id)
         self.assertFalse(deleted_file)
 
     def test_filter_File(self):
         """ Test the File.filter method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find all Files named file1
         files = File.filter(id=TestQueryClass.file_ids[0])
         self.assertTrue(files)
 
@@ -344,10 +299,6 @@ class TestQueryClass(unittest.TestCase):
     def test_get_File(self):
         """ Test the File.get method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find a File named file1
         file = File.get(id=TestQueryClass.file_ids[1])
         self.assertTrue(file)
 
@@ -356,18 +307,12 @@ class TestQueryClass(unittest.TestCase):
         self.assertEqual(file, None)
 
     def test_add_file(self):
-        """ Test the File.save method by adding multiple files """
-
-        # Import additional classes that need the app defined first
-        from classes.query import File
 
         # Find number of files in project
         num_files = len(File.filter())
 
         # Create file
         r = openshot.DummyReader(openshot.Fraction(24, 1), 640, 480, 44100, 2, 30.0)
-
-        # Parse JSON
         file_data = json.loads(r.Json())
 
         # Insert into project data
@@ -375,14 +320,13 @@ class TestQueryClass(unittest.TestCase):
         query_file.data = file_data
         query_file.data["path"] = os.path.join(info.IMAGES_PATH, "AboutLogo.png")
         query_file.data["media_type"] = "image"
-        query_file.save()
 
+        query_file.save()
         self.assertTrue(query_file)
         self.assertEqual(len(File.filter()), num_files + 1)
 
         # Save the file again (which should not change the total # of files)
         query_file.save()
-
         self.assertEqual(len(File.filter()), num_files + 1)
 
 
