@@ -50,16 +50,32 @@ img {
 #progress_container {margin-left:140px; overflow: hidden; height: 13px;}
 .drag_cursor { cursor: move; }
 #ruler {
-  /* background-color: red; */
+  position: relative;
   height: 100%;
 }
 .on_ruler{
   position: absolute;
   color: white;
-  top: 5px;
   font-size: 0.8em;
 }
+.ruler_tick_long {
+  background-color: white;
+  width: 5px;
+  height: 20px;
+  bottom: 0px;
+  position: absolute;
+  border-radius: 2px;
+}
+.ruler_tick {
+  background-color: white;
+  width: 5px;
+  height: 10px;
+  bottom: 0px;
+  position: absolute;
+  border-radius: 2px;
+}
 .tick_time {
+  top: 5px
 }
 
 /* Tracks */
