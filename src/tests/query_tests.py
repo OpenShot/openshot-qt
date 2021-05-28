@@ -27,10 +27,9 @@
 
 import sys
 import os
-import random
-import unittest
-import uuid
 import json
+
+import unittest
 
 import openshot
 
@@ -38,7 +37,7 @@ from PyQt5.QtGui import QGuiApplication
 try:
     # QtWebEngineWidgets must be loaded prior to creating a QApplication
     # But on systems with only WebKit, this will fail (and we ignore the failure)
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
+    from PyQt5.QtWebEngineWidgets import QWebEngineView  # noqa
 except ImportError:
     pass
 
@@ -49,7 +48,6 @@ if PATH not in sys.path:
 
 from classes.app import OpenShotApp
 from classes import info
-
 
 app = None
 
@@ -68,10 +66,14 @@ class TestQueryClass(unittest.TestCase):
         # Import additional classes that need the app defined first
         from classes.query import Clip, File, Transition
 
+        clips = []
+
         # Insert some clips into the project data
         for num in range(5):
             # Create clip
             c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png"))
+            c.Position(num * 10.0)
+            c.End(5.0)
 
             # Parse JSON
             clip_data = json.loads(c.Json())
@@ -83,6 +85,7 @@ class TestQueryClass(unittest.TestCase):
 
             # Keep track of the ids
             TestQueryClass.clip_ids.append(query_clip.id)
+            clips.append(query_clip)
 
         # Insert some files into the project data
         for num in range(5):
@@ -103,18 +106,27 @@ class TestQueryClass(unittest.TestCase):
             TestQueryClass.file_ids.append(query_file.id)
 
         # Insert some transitions into the project data
-        for num in range(5):
+        for c in clips:
             # Create mask object
-            transition_object = openshot.Mask()
-            transitions_data = json.loads(transition_object.Json())
+            t = openshot.Mask()
+            # Place over the last second of current clip
+            pos = c.data.get("position", 0.0)
+            start = c.data.get("start", 0.0)
+            end = c.data.get("end", 0.0)
+            t.Position((pos - start + end) - 1.0)
+            t.End(1.0)
 
             # Insert into project data
+            transitions_data = json.loads(t.Json())
             query_transition = Transition()
             query_transition.data = transitions_data
             query_transition.save()
 
             # Keep track of the ids
             TestQueryClass.transition_ids.append(query_transition.id)
+
+        # Don't keep the full query objects around
+        del clips
 
     @classmethod
     def tearDownClass(cls):
@@ -223,6 +235,50 @@ class TestQueryClass(unittest.TestCase):
         # Do not find a clip
         clip = Clip.get(id="invalidID")
         self.assertEqual(clip, None)
+
+    def test_intersect(self):
+        """ Test special filter argument 'intersect' """
+
+        # Import additional classes that need the app defined first
+        from classes.query import Clip, Transition
+
+        trans = Transition.get(id=self.transition_ids[0])
+        self.assertTrue(trans)
+
+        pos = trans.data.get("position", -1.0)
+        duration = trans.data.get("duration", -1.0)
+        self.assertTrue(pos >= 0.0)
+        self.assertTrue(duration >= 0.0)
+
+        time = pos + (duration / 2)
+
+        def get_times(item):
+            pos = item.data.get("position", -1.0)
+            end = pos + item.data.get("duration", -1.0)
+            return (pos, end)
+
+        t_intersect = Transition.filter(intersect=time)
+        t_ids = [t.id for t in t_intersect]
+        t_all = Transition.filter()
+        t_rest = [x for x in t_all if x.id not in t_ids]
+
+        c_intersect = Clip.filter(intersect=time)
+        c_ids = [c.id for c in c_intersect]
+        c_all = Clip.filter()
+        c_rest = [x for x in c_all if x.id not in c_ids]
+
+        for item in t_intersect + c_intersect:
+            item_id = item.id
+            pos, end = get_times(item)
+            self.assertTrue(pos <= time)
+            self.assertTrue(time <= end)
+        for item in t_rest + c_rest:
+            item_id = item.id
+            pos, end = get_times(item)
+            if pos < time:
+                self.assertTrue(end <= time)
+            if end > time:
+                self.assertTrue(pos >= time)
 
     def test_update_File(self):
         """ Test the File.save method """
