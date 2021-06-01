@@ -156,25 +156,49 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      $ = (x) => {return document.querySelector(x)}
+      drawTicks = () => { 
+        /* Remove all divs in ruler and readraw along the full length 
+         * Only needed when timeline length changes.
+         */
 
-      width = $('#ruler').clientWidth;
-      console.log("WIDTH: ", width)
-      for (var x = 0; x < width; x+=50) {
-        tick = document.createElement('div');
-        tick.id=x+'tick';
-        // tick.className = 'on_ruler ruler_tick';
-        tick.className = 'on_ruler ' + ((x%100==0) ? 'ruler_tick' : 'ruler_tick_long');
-        console.log(tick.className);
-        tick.style['left'] = x+"px";
-        $('#ruler').appendChild(tick)
+        ruler = $("#ruler");
+        $('#ruler div').remove();
+        width = ruler.width();
+        for (var x = 0; x < width; x+=50) {
+          d = $('<div>');
+          d.addClass('on_ruler');
+          d.addClass( (x % 100 == 0) ? 'ruler_tick_long' : 'ruler_tick');
+          d[0].style = "left: " + x + 'px;';
+          console.log(d[0]);
+          ruler.append(d);
+        }
       }
-      
+
+      drawTimes = () => {
+        ruler = $("#ruler");
+      }
+
       //watch the scale value so it will be able to draw the ruler after changes,
       //otherwise the canvas is just reset to blank
-      scope.$watch("project.scale + markers.length + project.duration + scrollLeft", function (val) {
+      scope.$watch("project.scale + project.duration", function(val) {
         if (val) {
           $timeout(function () {
+            $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
+            drawTicks();
+            return;
+            }
+          , 0);
+        }
+      });
+      
+      scope.$watch("scrollLeft", function (val) {
+        if (val) {
+          $timeout(function () {
+            $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
+            //reposition the spans at every visible multiple of 50 pixels
+            //Plus a screen width before and after for scrolling
+
+            
             return;
             }
           , 0);
