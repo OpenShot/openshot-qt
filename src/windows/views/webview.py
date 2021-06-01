@@ -3017,6 +3017,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                         # Get Effect JSON
                         effect.Id(get_app().project.generate_id())
+
                     effect_json = json.loads(effect.Json())
 
                     # Append effect JSON to clip
