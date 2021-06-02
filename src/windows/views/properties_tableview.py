@@ -26,11 +26,10 @@
  """
 
 import os
-import json
 import functools
 from operator import itemgetter
 
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot, QRect
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
     QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
@@ -430,182 +429,6 @@ class PropertiesTableView(QTableView):
                 self.choices = []
                 self.menu_reset = False
 
-            # Handle parent effect options
-            if property_key == "parent_effect_id" and not self.choices:
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
-                # Instantiate the timeline
-                timeline_instance = get_app().window.timeline_sync.timeline
-                # Instantiate this effect
-                effect = timeline_instance.GetClipEffect(clip_id)
-                effect_json = json.loads(effect.Json())
-
-                # Loop through timeline's clips
-                for clip_instance in timeline_instance.Clips():
-                    clip_instance_id = clip_instance.Id()
-                    # Avoid parent a clip effect to it's own effect
-                    if (clip_instance_id != effect.ParentClipId()):
-                        # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id = clip_instance_id).data
-                        # Path to the clip file
-                        clip_instance_path = clip_instance_data["reader"]["path"]
-                        # Iterate through all clip files on the timeline
-                        for clip_number in range(self.files_model.rowCount()):
-                            clip_index = self.files_model.index(clip_number, 0)
-                            clip_name = clip_index.sibling(clip_number, 1).data()
-                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
-                            # Check if the timeline's clip file name matches the clip the user selected
-                            if (clip_path == clip_instance_path):
-                                # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                        effect_choices = [{"name": "None",
-                                            "value": "None",
-                                            "selected": False,
-                                            "icon": QIcon()}]
-                        # Iterate through clip's effects
-                        for effect_data in clip_instance_data["effects"]:
-                            # Make sure the user can only set a parent effect of the same type as this effect
-                            if effect_data['class_name'] == effect_json['class_name']:
-                                effect_id = effect_data["id"]
-                                effect_name = effect_data['class_name']
-                                effect_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect_data['class_name'].lower())))
-                                effect_choices.append({"name": effect_id,
-                                                "value": effect_id,
-                                                "selected": False,
-                                                "icon": effect_icon})
-                        self.choices.append({"name": _(clip_instance_data["title"]),
-                                            "value": effect_choices,
-                                            "selected": False,
-                                            "icon": clip_instance_icon})
-
-
-            # Handle selected object options (ObjectDetection effect)
-            if property_key == "selected_object_index" and not self.choices:
-                # Get all visible object's indexes
-                timeline_instance = get_app().window.timeline_sync.timeline
-                # Instantiate the effect
-                effect = timeline_instance.GetClipEffect(clip_id)
-                # Get the indexes and IDs of the visible objects
-                visible_objects = json.loads(effect.GetVisibleObjects(frame_number))
-                # Add visible objects as choices
-                object_index_choices = []
-                for object_index in visible_objects["visible_objects_index"]:
-                    object_index_choices.append({
-                                "name": str(object_index),
-                                "value": str(object_index),
-                                "selected": False,
-                                "icon": QIcon()
-                            })
-                self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
-
-            # Handle property to set the Tracked Object's child clip
-            if property_key == "child_clip_id" and not self.choices:
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
-                # Instantiate the timeline
-                timeline_instance = get_app().window.timeline_sync.timeline
-                # Loop through timeline's clips
-                for clip_instance in timeline_instance.Clips():
-                    clip_instance_id = clip_instance.Id()
-                    # Avoid attach a clip to it's own object
-                    if (clip_instance_id != clip_id):
-                        # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id = clip_instance_id).data
-                        # Path to the clip file
-                        clip_instance_path = clip_instance_data["reader"]["path"]
-                        # Iterate through all clip files on the timeline
-                        for clip_number in range(self.files_model.rowCount()):
-                            clip_index = self.files_model.index(clip_number, 0)
-                            clip_name = clip_index.sibling(clip_number, 1).data()
-                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
-                            # Check if the timeline's clip file name matches the clip the user selected
-                            if (clip_path == clip_instance_path):
-                                # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                                self.choices.append({"name": clip_instance_data["title"],
-                                              "value": clip_instance_id,
-                                              "selected": False,
-                                              "icon": clip_instance_icon})
-
-            # Handle clip attach options
-            if property_key == "parentObjectId" and not self.choices:
-                # Add all Clips as choices - initialize with None
-                tracked_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
-                # Instantiate the timeline
-                timeline_instance = get_app().window.timeline_sync.timeline
-                # Loop through timeline's clips
-                for clip_instance in timeline_instance.Clips():
-                    clip_instance_id = clip_instance.Id()
-                    # Avoid attach a clip to it's own object
-                    if (clip_instance_id != clip_id):
-                        # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id = clip_instance_id).data
-                        # Path to the clip file
-                        clip_instance_path = clip_instance_data["reader"]["path"]
-                        # Iterate through all clip files on the timeline
-                        for clip_number in range(self.files_model.rowCount()):
-                            clip_index = self.files_model.index(clip_number, 0)
-                            clip_name = clip_index.sibling(clip_number, 1).data()
-                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
-                            # Check if the timeline's clip file name matches the clip the user selected
-                            if (clip_path == clip_instance_path):
-                                # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                                clip_choices.append({"name": clip_instance_data["title"],
-                                              "value": clip_instance_id,
-                                              "selected": False,
-                                              "icon": clip_instance_icon})
-                        # Get the pixmap of the clip icon
-                        icon_size = 72
-                        icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
-                        # Add tracked objects to the selection menu
-                        tracked_objects = []
-                        for effect in clip_instance_data["effects"]:
-                            # Check if effect has a tracked object
-                            if effect.get("has_tracked_object"):
-                                # Instantiate the effect
-                                effect_instance = timeline_instance.GetClipEffect(effect["id"])
-                                # Get the visible object's ids
-                                visible_objects_id = json.loads(effect_instance.GetVisibleObjects(frame_number))["visible_objects_id"]
-                                for object_id in visible_objects_id:
-                                    # Get the Tracked Object properties
-                                    object_properties = json.loads(timeline_instance.GetTrackedObjectValues(object_id, 0))
-                                    x1 = object_properties['x1']
-                                    y1 = object_properties['y1']
-                                    x2 = object_properties['x2']
-                                    y2 = object_properties['y2']
-                                    # Get the tracked object's icon from the clip's icon
-                                    tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size)).scaled(icon_size, icon_size)
-                                    tracked_objects.append({"name": str(object_id),
-                                                            "value": str(object_id),
-                                                            "selected": False,
-                                                            "icon": QIcon(tracked_object_icon)})
-                        tracked_choices.append({"name": clip_instance_data["title"],
-                                              "value": tracked_objects,
-                                              "selected": False,
-                                              "icon": clip_instance_icon})
-                self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
-                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
-
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
                 # Add all files
@@ -757,11 +580,7 @@ class PropertiesTableView(QTableView):
                 # Divide into smaller QMenus (since large lists cover the entire screen)
                 # For example: Transitions -> 1 -> sub items
                 SubMenu = None
-                if choice["icon"] is not None:
-                    SubMenuRoot = menu.addMenu(choice["icon"], choice["name"])
-                else:
-                    SubMenuRoot = menu.addMenu(choice["name"])
-                    
+                SubMenuRoot = menu.addMenu(_(choice["name"]))
                 SubMenuSize = 25
                 SubMenuNumber = 0
                 if len(choice["value"]) > SubMenuSize:
@@ -769,22 +588,13 @@ class PropertiesTableView(QTableView):
                 else:
                     SubMenu = SubMenuRoot
                 for i, sub_choice in enumerate(choice["value"], 1):
-                    # Divide SubMenu if it's item is a list
-                    if type(sub_choice["value"]) == list:
-                        SubSubMenu = SubMenu.addMenu(sub_choice["icon"], sub_choice["name"])
-                        for sub_sub_choice in sub_choice["value"]:
-                            Choice_Action = SubSubMenu.addAction(
-                                sub_sub_choice["icon"], sub_sub_choice["name"])
-                            Choice_Action.setData(sub_sub_choice["value"])
-                            Choice_Action.triggered.connect(self.Choice_Action_Triggered)
-                    else:
-                        if i % SubMenuSize == 0:
-                            SubMenuNumber += 1
-                            SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
-                        Choice_Action = SubMenu.addAction(
-                            sub_choice["icon"], _(sub_choice["name"]))
-                        Choice_Action.setData(sub_choice["value"])
-                        Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+                    if i % SubMenuSize == 0:
+                        SubMenuNumber += 1
+                        SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
+                    Choice_Action = SubMenu.addAction(
+                        sub_choice["icon"], _(sub_choice["name"]))
+                    Choice_Action.setData(sub_choice["value"])
+                    Choice_Action.triggered.connect(self.Choice_Action_Triggered)
 
             # Show choice menuk
             menu.popup(event.globalPos())
