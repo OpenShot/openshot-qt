@@ -160,63 +160,36 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      drawTicks = () => { 
-        /* Remove all divs in ruler and readraw along the full length 
-         * Only needed when timeline length changes.
-         */
-
-        ruler = $("#ruler");
-        $('#ruler div').remove();
-        width = ruler.width();
-        for (var x = 0; x < width; x+=50) {
-          d = $('<div>');
-          d.addClass('on_ruler');
-          d.addClass( (x % 100 == 0) ? 'ruler_tick_long' : 'ruler_tick');
-          d[0].style = "left: " + x + 'px;';
-          console.log(d[0]);
-          ruler.append(d);
-        }
-      }
-
       drawTimes = () => {
         console.log(scope.scrollLeft);
         ruler = $("#ruler");
         width = $("body").width();
         $("#ruler span").remove();
-        start = Math.max(scope.scrollLeft - width, 0);
+        start = Math.max(scope.scrollLeft - width, 100);
         end = Math.min(scope.scrollLeft + (2*width), $('#ruler').width());
+
+        scale = scope.project.scale;
         for (var i = start - (start % 50) ; i < end; i += 100) {
+          /* create and format span */
           s = $('<span>');
           s.addClass("tick_time");
-          s[0].innerText= "00:00";
           s[0].style = "left: " + i + "px;";
+
+          /* Calculate Time */
+          var time = i  / scope.pixelsPerSecond;
+          var text_time = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
+          s[0].innerText= text_time["hour"] + ":" + text_time["min"] + ":" + text_time["sec"];
+
           ruler.append(s);
         }
       }
 
-      //watch the scale value so it will be able to draw the ruler after changes,
-      //otherwise the canvas is just reset to blank
-      scope.$watch("project.scale + project.duration", function(val) {
+      scope.$watch("project.scale + markers.length + project.duration + scrollLeft", function (val) {
         if (val) {
           $timeout(function () {
-            $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
             drawTimes();
             return;
-            }
-          , 0);
-        }
-      });
-      
-      scope.$watch("scrollLeft", function (val) {
-        if (val) {
-          $timeout(function () {
-            // $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
-            drawTimes();
-            //reposition the spans at every visible multiple of 50 pixels
-            //Plus a screen width before and after for scrolling
-            return;
-            }
-          , 0);
+          } , 0);
         }
       });
 
