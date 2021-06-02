@@ -52,6 +52,7 @@ img {
 #ruler {
   position: relative;
   height: 100%;
+  background-image: url(../images/ruler-tick.svg);
 }
 .on_ruler{
   position: absolute;
@@ -75,7 +76,10 @@ img {
   border-radius: 2px;
 }
 .tick_time {
-  top: 5px
+  color: white;
+  top: 5px;
+  position: absolute;
+  transform: translate(-50%,0);
 }
 
 /* Tracks */

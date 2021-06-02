@@ -175,7 +175,19 @@ App.directive("tlRuler", function ($timeout) {
       }
 
       drawTimes = () => {
+        console.log(scope.scrollLeft);
         ruler = $("#ruler");
+        width = $("body").width();
+        $("#ruler span").remove();
+        start = Math.max(scope.scrollLeft - width, 0);
+        end = Math.min(scope.scrollLeft + (2*width), $('#ruler').width());
+        for (var i = start - (start % 50) ; i < end; i += 100) {
+          s = $('<span>');
+          s.addClass("tick_time");
+          s[0].innerText= "00:00";
+          s[0].style = "left: " + i + "px;";
+          ruler.append(s);
+        }
       }
 
       //watch the scale value so it will be able to draw the ruler after changes,
@@ -184,7 +196,7 @@ App.directive("tlRuler", function ($timeout) {
         if (val) {
           $timeout(function () {
             $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
-            drawTicks();
+            drawTimes();
             return;
             }
           , 0);
@@ -194,11 +206,10 @@ App.directive("tlRuler", function ($timeout) {
       scope.$watch("scrollLeft", function (val) {
         if (val) {
           $timeout(function () {
-            $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
+            // $('#ruler').scrollLeft = $('#scrolling_tracks').scrollLeft;
+            drawTimes();
             //reposition the spans at every visible multiple of 50 pixels
             //Plus a screen width before and after for scrolling
-
-            
             return;
             }
           , 0);
