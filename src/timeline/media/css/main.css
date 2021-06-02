@@ -55,7 +55,7 @@ img {
   background-image: url(../images/ruler-tick.svg);
   background-position: -50px;
 }
-.tick_time {
+.ruler_time{
   color: white;
   top: 5px;
   font-size: 0.9em;
