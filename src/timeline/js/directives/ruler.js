@@ -161,7 +161,6 @@ App.directive("tlRuler", function ($timeout) {
       });
 
       drawTimes = () => {
-        console.log(scope.scrollLeft);
         ruler = $("#ruler");
         width = $("body").width();
         $("#ruler span").remove();
@@ -184,7 +183,7 @@ App.directive("tlRuler", function ($timeout) {
         }
       }
 
-      scope.$watch("project.scale + markers.length + project.duration + scrollLeft", function (val) {
+      scope.$watch("project.scale + project.duration + scrollLeft", function (val) {
         if (val) {
           $timeout(function () {
             drawTimes();

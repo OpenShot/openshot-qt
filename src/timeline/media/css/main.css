@@ -58,6 +58,7 @@ img {
 .tick_time {
   color: white;
   top: 5px;
+  font-size: 0.9em;
   position: absolute;
   transform: translate(-50%,0);
 }
