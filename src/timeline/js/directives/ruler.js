@@ -171,7 +171,7 @@ App.directive("tlRuler", function ($timeout) {
         for (var i = start - (start % 50) ; i < end; i += 100) {
           /* create and format span */
           s = $('<span>');
-          s.addClass("tick_time");
+          s.addClass("ruler_time");
           s[0].style = "left: " + i + "px;";
 
           /* Calculate Time */
