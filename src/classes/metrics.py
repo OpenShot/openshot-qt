@@ -133,13 +133,6 @@ def track_metric_error(error_name, is_fatal=False):
     t.start()
 
 
-def track_exception_stacktrace(stacktrace, source):
-    """Track an exception/stacktrace has occurred"""
-    t = threading.Thread(target=send_exception, args=[stacktrace, source])
-    t.daemon = True
-    t.start()
-
-
 def track_metric_session(is_start=True):
     """Track a GUI screen being shown"""
     metric_params = deepcopy(params)
@@ -183,23 +176,3 @@ def send_metric(params):
         # All metrics have been sent (or attempted to send)
         # Clear the queue
         metric_queue.clear()
-
-
-def send_exception(stacktrace, source):
-    """Send exception stacktrace over HTTP for tracking"""
-    # Check if the user wants to send metrics and errors
-    if s.get("send_metrics"):
-
-        data = urllib.parse.urlencode({"stacktrace": stacktrace,
-                                       "platform": platform.system(),
-                                       "version": info.VERSION,
-                                       "source": source,
-                                       "unique_install_id": s.get("unique_install_id")})
-        url = "http://www.openshot.org/exception/json/"
-
-        # Send exception HTTP data
-        try:
-            r = requests.post(url, data=data, headers={"user-agent": user_agent, "content-type": "application/x-www-form-urlencoded"}, verify=False)
-            log.info("Track exception: [%s] %s | %s", r.status_code, r.url, r.text)
-        except Exception:
-            log.warning("Failed to track exception", exc_info=1)

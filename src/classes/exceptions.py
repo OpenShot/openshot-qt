@@ -28,26 +28,40 @@
 import os
 import traceback
 import platform
+import distro
+import sentry_sdk
 
 from classes import info
-from classes.logger import log
 
 
-def ExceptionHandler(exeception_type, exeception_value, exeception_traceback):
-    """Callback for any unhandled exceptions"""
-    from classes.metrics import track_exception_stacktrace
+def init_sentry_tracing():
+    """Init all Sentry tracing"""
 
-    log.error(
-        'Unhandled Exception',
-        exc_info=(exeception_type, exeception_value, exeception_traceback))
+    # Determine sample rate for exceptions
+    traces_sample_rate = 0.1
+    environment = "production"
+    if "-dev" in info.VERSION:
+        # Dev mode, trace all exceptions
+        traces_sample_rate = 1.0
+        environment = "development"
 
-    # Build string of stack trace
-    stacktrace = "Python %s" % "".join(
-        traceback.format_exception(
-            exeception_type, exeception_value, exeception_traceback))
+    # Initialize sentry exception tracing
+    sentry_sdk.init(
+        "https://21496af56ab24e94af8ff9771fbc1600@o772439.ingest.sentry.io/5795985",
+        traces_sample_rate=traces_sample_rate,
+        release=f"openshot@{info.VERSION}",
+        environment=environment
+    )
+    sentry_sdk.set_tag("system", platform.system())
+    sentry_sdk.set_tag("machine", platform.machine())
+    sentry_sdk.set_tag("processor", platform.processor())
+    sentry_sdk.set_tag("platform", platform.platform())
+    sentry_sdk.set_tag("distro", " ".join(distro.linux_distribution()))
 
-    # Report traceback to webservice (if enabled)
-    track_exception_stacktrace(stacktrace, "openshot-qt")
+
+def disable_sentry_tracing():
+    """Disable all Sentry tracing requests"""
+    sentry_sdk.init()
 
 
 def tail_file(f, n, offset=None):
@@ -72,7 +86,7 @@ def tail_file(f, n, offset=None):
 
 def libopenshot_crash_recovery():
     """Walk libopenshot.log for the last line before this launch"""
-    from classes.metrics import track_exception_stacktrace, track_metric_error
+    from classes.metrics import track_metric_error
 
     log_path = os.path.join(info.USER_PATH, "libopenshot.log")
     last_log_line = ""
@@ -84,7 +98,8 @@ def libopenshot_crash_recovery():
     with open(log_path, "rb") as f:
         # Read from bottom up
         for raw_line in reversed(tail_file(f, 500)):
-            line = str(raw_line, 'utf-8')
+            # Format and remove extra spaces from line
+            line = " ".join(str(raw_line, 'utf-8').split()) + "\n"
             # Detect stack trace
             if "End of Stack Trace" in line:
                 found_stack = True
@@ -113,10 +128,13 @@ def libopenshot_crash_recovery():
     # Split last stack trace (if any)
     if last_stack_trace:
         # Get top line of stack trace (for metrics)
-        last_log_line = last_stack_trace.split("\n")[0].strip()
+        exception_lines = last_stack_trace.split("\n")
+        last_log_line = exception_lines[0].strip()
 
-        # Send stacktrace for debugging (if send metrics is enabled)
-        track_exception_stacktrace(last_stack_trace, "libopenshot")
+        # Format and add exception log to Sentry context
+        # Split list of lines into smaller lists (so we don't exceed Sentry limits)
+        sentry_sdk.set_context("libopenshot", {"stack-trace": exception_lines})
+        sentry_sdk.set_tag("component", "libopenshot")
 
     # Clear / normalize log line (so we can roll them up in the analytics)
     if last_log_line:
@@ -142,3 +160,5 @@ def libopenshot_crash_recovery():
 
     # Report exception (with last libopenshot line... if found)
     track_metric_error("unhandled-crash%s" % last_log_line, True)
+
+    return last_log_line

@@ -29,6 +29,7 @@
 
 import os
 import shutil
+import sentry_sdk
 import webbrowser
 from copy import deepcopy
 from time import sleep
@@ -219,12 +220,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         lock_path = os.path.join(info.USER_PATH, ".lock")
         # Check if it already exists
         if os.path.exists(lock_path):
-            exceptions.libopenshot_crash_recovery()
-            log.error("Unhandled crash detected. Preserving cache.")
+            last_log_line = exceptions.libopenshot_crash_recovery() or "No Log Detected"
+            log.error(f"Unhandled crash detected: {last_log_line}")
             self.destroy_lock_file()
         else:
             # Normal startup, clear thumbnails
             self.clear_all_thumbnails()
+
+        # Reset Sentry component (it can be temporarily changed to libopenshot during
+        # the call to libopenshot_crash_recovery above)
+        sentry_sdk.set_tag("component", "openshot-qt")
 
         # Write lock file (try a few times if failure)
         lock_value = str(uuid4())
@@ -2803,6 +2808,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Track 1st launch metric
             track_metric_screen("initial-launch-screen")
+
+        # Set unique id for Sentry
+        sentry_sdk.set_user({"id": s.get("unique_install_id")})
 
         # Track main screen
         track_metric_screen("main-screen")

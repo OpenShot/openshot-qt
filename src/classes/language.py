@@ -28,6 +28,7 @@
 
 import os
 import locale
+import sentry_sdk
 
 from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 
@@ -119,6 +120,7 @@ def init_language():
         if found_language:
             log.debug("Exiting translation system (since we successfully loaded: {})".format(locale_name))
             info.CURRENT_LANGUAGE = locale_name
+            sentry_sdk.set_tag("locale", locale_name)
             break
 
 

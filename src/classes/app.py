@@ -34,6 +34,7 @@ import platform
 import traceback
 import json
 
+from classes import exceptions
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import pyqtSlot
@@ -136,6 +137,10 @@ class OpenShotApp(QApplication):
         # Set location of OpenShot program (for libopenshot)
         openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
 
+        # Check to disable sentry
+        if not self.settings.get('send_metrics'):
+            exceptions.disable_sentry_tracing()
+
     def show_environment(self, info, openshot):
         log = self.log
         try:
@@ -162,10 +167,6 @@ class OpenShotApp(QApplication):
 
         except Exception:
             log.debug("Error displaying dependency/system details", exc_info=1)
-
-        # Init and attach exception handler
-        from classes import exceptions
-        sys.excepthook = exceptions.ExceptionHandler
 
     def check_libopenshot_version(self, info, openshot):
         """Detect minimum libopenshot version"""

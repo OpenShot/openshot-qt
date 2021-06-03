@@ -70,11 +70,14 @@ except AttributeError:
     pass  # Quietly fail for older Qt5 versions
 
 try:
-    from classes import info
+    from classes import info, exceptions
 except ImportError:
     import openshot_qt
     sys.path.append(openshot_qt.OPENSHOT_PATH)
-    from classes import info
+    from classes import info, exceptions
+
+# Initialize sentry exception tracing
+exceptions.init_sentry_tracing()
 
 # Global holder for QApplication instance
 app = None
