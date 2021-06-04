@@ -51,14 +51,14 @@ img {
 .drag_cursor { cursor: move; }
 #ruler {
   position: relative;
-  height: 100%;
+  height: 39px;
   background-image: url(../images/ruler-tick.svg);
   background-position: -50px;
 }
-.ruler_time{
-  color: white;
-  top: 5px;
-  font-size: 0.9em;
+.ruler_time {
+  color: #c8c8c8;
+  top: 6px;
+  font-size: 0.8em;
   position: absolute;
   transform: translate(-50%,0);
 }
