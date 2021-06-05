@@ -54,6 +54,22 @@ App.directive("tlScrollableTracks", function () {
         $("#scrolling_ruler").scrollLeft(element.scrollLeft());
         $("#progress_container").scrollLeft(element.scrollLeft());
 
+        if (scope.ignore_scroll == true) {
+          // Reset flag and ignore scroll propagation
+          scope.$apply( () => {
+            scope.ignore_scroll = false;
+            scope.scrollLeft = element[0].scrollLeft;
+          })
+          // exit at this point
+          return;
+
+        } else {
+          // Only update scroll position
+          scope.$apply( () => {
+            scope.scrollLeft = element[0].scrollLeft;
+          })
+        }
+
         // Send scrollbar position to Qt
         if (scope.Qt) {
            // Calculate scrollbar positions (left and right edge of scrollbar)

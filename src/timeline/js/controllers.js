@@ -69,6 +69,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
   $scope.ThumbServer = "http://127.0.0.1/";
+  $scope.ignore_scroll = false;
 
   // Method to set if Qt is detected (which clears demo data
   // and updates the document_is_ready variable in openshot-qt)
@@ -285,13 +286,19 @@ App.controller("TimelineCtrl", function ($scope) {
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = normalizedScrollValue * timeline_length;
     scrolling_tracks.scrollLeft(horz_scroll_offset);
+
+    $scope.ignore_scroll = true;
+    $("#scrolling_ruler").scrollLeft(horz_scroll_offset);
   };
 
-  // Scroll the timeline horizontally of a certain amount (scrol_value)
+  // Scroll the timeline horizontally of a certain amount
   $scope.scrollLeft = function (scroll_value) {
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = scrolling_tracks.scrollLeft();
     scrolling_tracks.scrollLeft(horz_scroll_offset + scroll_value);
+
+    $scope.ignore_scroll = true;
+    $("#scrolling_ruler").scrollLeft(horz_scroll_offset + scroll_value);
   };
 
   // Center the timeline on a given time position
