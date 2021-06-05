@@ -32,11 +32,6 @@ import logging.handlers
 
 from classes import info
 
-# Dictionary of logging handlers we create, keyed by type
-handlers = {}
-# Another dictionary of streams we've redirected (stdout, stderr)
-streams = {}
-
 
 class StreamToLogger(object):
     """Custom class to log all stdout and stderr streams (from libopenshot / and other libraries)"""
@@ -62,12 +57,9 @@ class StreamToLogger(object):
 
 class StreamFilter(logging.Filter):
     """Filter out lines that originated on the output"""
-    def __init__(self, predicate):
-        self.predicate = predicate
-
     def filter(self, record):
         source = getattr(record, "source", "")
-        return self.predicate(source)
+        return bool(source != "stream")
 
 
 # Set up log formatters
@@ -105,12 +97,7 @@ sh.setLevel(info.LOG_LEVEL_CONSOLE)
 sh.setFormatter(console_formatter)
 
 # Filter out redirected output on console, to avoid duplicates
-#
-# The lambda is used to test the "source" property of the
-# logging record, if present.
-# {"source": "stream"} will be attached to any records generated
-# by the redirection, thanks to LoggingAdapter)
-filt = StreamFilter(lambda x: x != "stream")
+filt = StreamFilter()
 sh.addFilter(filt)
 
 log.addHandler(sh)
@@ -133,4 +120,3 @@ def set_level_file(level=logging.INFO):
 def set_level_console(level=logging.INFO):
     """Adjust the minimum log level for output to the terminal"""
     sh.setLevel(level)
-
