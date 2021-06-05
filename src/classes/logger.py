@@ -133,3 +133,4 @@ def set_level_file(level=logging.INFO):
 def set_level_console(level=logging.INFO):
     """Adjust the minimum log level for output to the terminal"""
     sh.setLevel(level)
+
