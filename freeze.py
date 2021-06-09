@@ -80,6 +80,7 @@ python_packages = ["os",
                    "time",
                    "uuid",
                    "idna",
+                   "sentry_sdk",
                    "shutil",
                    "threading",
                    "subprocess",
@@ -95,7 +96,16 @@ python_packages = ["os",
                    ]
 
 # Modules to include
-python_modules = ["idna.idnadata"]
+python_modules = ["idna.idnadata",
+                  "sentry_sdk.integrations.stdlib",
+                  "sentry_sdk.integrations.excepthook",
+                  "sentry_sdk.integrations.dedupe",
+                  "sentry_sdk.integrations.atexit",
+                  "sentry_sdk.integrations.modules",
+                  "sentry_sdk.integrations.argv",
+                  "sentry_sdk.integrations.logging",
+                  "sentry_sdk.integrations.threading",
+                  ]
 
 # Determine absolute PATH of OpenShot folder
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
@@ -427,7 +437,14 @@ elif sys.platform == "darwin":
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
 build_exe_options["includes"] = python_modules
-build_exe_options["excludes"] = ["distutils", "numpy", "setuptools", "tkinter", "pydoc_data", "pycparser", "pkg_resources"]
+build_exe_options["excludes"] = ["distutils",
+                                 "sentry_sdk.integrations.django",
+                                 "numpy",
+                                 "setuptools",
+                                 "tkinter",
+                                 "pydoc_data",
+                                 "pycparser",
+                                 "pkg_resources"]
 
 # Set options
 build_options["build_exe"] = build_exe_options
