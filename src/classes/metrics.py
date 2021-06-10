@@ -168,11 +168,11 @@ def send_metric(params):
 
         for metric_params in metric_queue:
             url_params = urllib.parse.urlencode(metric_params)
-            url = "http://www.google-analytics.com/collect?%s" % url_params
+            url = "https://www.google-analytics.com/collect?%s" % url_params
 
             # Send metric HTTP data
             try:
-                r = requests.get(url, headers={"user-agent": user_agent}, verify=False)
+                r = requests.get(url, headers={"user-agent": user_agent})
                 log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
 
             except Exception:
