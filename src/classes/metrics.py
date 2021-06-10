@@ -33,36 +33,44 @@ import threading
 import time
 import urllib.parse
 from copy import deepcopy
+
 from classes import info
 from classes import language
 from classes.app import get_app
 from classes.logger import log
+
 import openshot
 
-from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import PYQT_VERSION_STR
+from PyQt5.QtCore import QT_VERSION_STR, PYQT_VERSION_STR
+
+try:
+    import distro
+except ModuleNotFoundError:
+    distro = None
 
 # Get settings
 s = get_app().get_settings()
 
 # Determine OS version
 os_version = "X11; Linux %s" % platform.machine()
-linux_distro = "None"
+os_distro = "None"
 try:
     if platform.system() == "Darwin":
         v = platform.mac_ver()
         os_version = "Macintosh; Intel Mac OS X %s" % v[0].replace(".", "_")
-        linux_distro = "OS X %s" % v[0]
+        os_distro = "OS X %s" % v[0]
 
     elif platform.system() == "Windows":
         v = platform.win32_ver()
-        # TODO: Upgrade windows python (on build server) version to 3.5, so it correctly identifies Windows 10
         os_version = "Windows NT %s; %s" % (v[0], v[1])
-        linux_distro = "Windows %s" % "-".join(platform.win32_ver())
+        os_distro = "Windows %s" % "-".join(v)
 
     elif platform.system() == "Linux":
         # Get the distro name and version (if any)
-        linux_distro = "-".join(platform.linux_distribution())
+        if distro:
+            os_distro = "-".join(distro.linux_distribution()[0:2])
+        else:
+            os_distro = "Linux"
 
 except Exception:
     log.debug("Error determining OS version", exc_info=1)
@@ -84,7 +92,7 @@ params = {
     "cd2": platform.python_version(),       # Dimension 2: python version (i.e. 3.4.3)
     "cd3": QT_VERSION_STR,                  # Dimension 3: qt5 version (i.e. 5.2.1)
     "cd4": PYQT_VERSION_STR,                # Dimension 4: pyqt5 version (i.e. 5.2.1)
-    "cd5": linux_distro
+    "cd5": os_distro
 }
 
 # Queue for metrics (incase things are disabled... just queue it up
@@ -167,7 +175,7 @@ def send_metric(params):
                 r = requests.get(url, headers={"user-agent": user_agent}, verify=False)
                 log.info("Track metric: [%s] %s | (%s bytes)" % (r.status_code, r.url, len(r.content)))
 
-            except Exception as ex:
+            except Exception:
                 log.warning("Failed to track metric", exc_info=1)
 
             # Wait a moment, so we don't spam the requests

@@ -29,7 +29,6 @@
 
 import os
 import shutil
-import sentry_sdk
 import webbrowser
 from copy import deepcopy
 from time import sleep
@@ -49,7 +48,7 @@ from PyQt5.QtWidgets import (
     QLineEdit, QComboBox, QTextEdit
 )
 
-from classes import exceptions, info, qt_types, ui_util, updates
+from classes import exceptions, info, qt_types, sentry, ui_util, updates
 from classes.app import get_app
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
@@ -229,7 +228,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Reset Sentry component (it can be temporarily changed to libopenshot during
         # the call to libopenshot_crash_recovery above)
-        sentry_sdk.set_tag("component", "openshot-qt")
+        sentry.set_tag("component", "openshot-qt")
 
         # Write lock file (try a few times if failure)
         lock_value = str(uuid4())
@@ -2810,7 +2809,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             track_metric_screen("initial-launch-screen")
 
         # Set unique id for Sentry
-        sentry_sdk.set_user({"id": s.get("unique_install_id")})
+        sentry.set_user({"id": s.get("unique_install_id")})
 
         # Track main screen
         track_metric_screen("main-screen")

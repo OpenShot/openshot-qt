@@ -70,14 +70,11 @@ except AttributeError:
     pass  # Quietly fail for older Qt5 versions
 
 try:
-    from classes import info, exceptions
+    from classes import info
 except ImportError:
     import openshot_qt
     sys.path.append(openshot_qt.OPENSHOT_PATH)
-    from classes import info, exceptions
-
-# Initialize sentry exception tracing
-exceptions.init_sentry_tracing()
+    from classes import info
 
 # Global holder for QApplication instance
 app = None
@@ -172,6 +169,10 @@ def main():
 
     # Normal startup, print module path and lauch application
     print("Loaded modules from: %s" % info.PATH)
+
+    # Initialize sentry exception tracing
+    from classes import sentry
+    sentry.init_tracing()
 
     # Create Qt application, pass any unprocessed arguments
     from classes.app import OpenShotApp
