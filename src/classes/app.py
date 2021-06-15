@@ -314,8 +314,8 @@ class OpenShotApp(QApplication):
             error = self.errors.pop(0)
             error.show()
 
-    def _tr(self, message):
-        return self.translate("", message)
+    def _tr(self, *args, **kwargs) -> str:
+        return self.translate("", *args, **kwargs)
 
     @pyqtSlot()
     def cleanup(self):
