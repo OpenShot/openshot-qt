@@ -112,10 +112,11 @@ set `PYTHONPATH` to the location of the compiled Python bindings. e.g.:
 
 ```sh
 cd [libopenshot folder]
-mkdir build; cd build; cmake [options] ..; make
+cmake -B build -S . [options]
+cmake --build build
     
 cd [openshot-qt folder]
-PYTHONPATH=[libopenshot folder]/build/src/bindings/python \
+PYTHONPATH=[libopenshot folder]/build/bindings/python \
 python3 src/launch.py
 ```
 
