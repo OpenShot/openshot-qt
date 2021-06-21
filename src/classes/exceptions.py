@@ -26,42 +26,10 @@
  """
 
 import os
-import traceback
 import platform
-import distro
-import sentry_sdk
 
 from classes import info
-
-
-def init_sentry_tracing():
-    """Init all Sentry tracing"""
-
-    # Determine sample rate for exceptions
-    traces_sample_rate = 0.1
-    environment = "production"
-    if "-dev" in info.VERSION:
-        # Dev mode, trace all exceptions
-        traces_sample_rate = 1.0
-        environment = "development"
-
-    # Initialize sentry exception tracing
-    sentry_sdk.init(
-        "https://21496af56ab24e94af8ff9771fbc1600@o772439.ingest.sentry.io/5795985",
-        traces_sample_rate=traces_sample_rate,
-        release=f"openshot@{info.VERSION}",
-        environment=environment
-    )
-    sentry_sdk.set_tag("system", platform.system())
-    sentry_sdk.set_tag("machine", platform.machine())
-    sentry_sdk.set_tag("processor", platform.processor())
-    sentry_sdk.set_tag("platform", platform.platform())
-    sentry_sdk.set_tag("distro", " ".join(distro.linux_distribution()))
-
-
-def disable_sentry_tracing():
-    """Disable all Sentry tracing requests"""
-    sentry_sdk.init()
+from classes import sentry
 
 
 def tail_file(f, n, offset=None):
@@ -133,8 +101,8 @@ def libopenshot_crash_recovery():
 
         # Format and add exception log to Sentry context
         # Split list of lines into smaller lists (so we don't exceed Sentry limits)
-        sentry_sdk.set_context("libopenshot", {"stack-trace": exception_lines})
-        sentry_sdk.set_tag("component", "libopenshot")
+        sentry.set_context("libopenshot", {"stack-trace": exception_lines})
+        sentry.set_tag("component", "libopenshot")
 
     # Clear / normalize log line (so we can roll them up in the analytics)
     if last_log_line:
