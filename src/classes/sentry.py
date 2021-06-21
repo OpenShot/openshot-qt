@@ -65,7 +65,7 @@ def init_tracing():
     sdk.set_tag("machine", platform.machine())
     sdk.set_tag("processor", platform.processor())
     sdk.set_tag("platform", platform.platform())
-    if distro:
+    if distro and platform.system() == "linux":
         sdk.set_tag("distro", " ".join(distro.linux_distribution()))
     sdk.set_tag("locale", info.CURRENT_LANGUAGE)
 
@@ -89,3 +89,4 @@ def set_user(*args):
 def set_context(*args):
     if sdk:
         sdk.set_context(*args)
+
