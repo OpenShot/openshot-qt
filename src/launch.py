@@ -137,7 +137,7 @@ def main():
     if args.list_languages:
         from classes.language import get_all_languages
         print("Supported Languages:")
-        for code, lang in get_all_languages():
+        for code, lang, country in get_all_languages():
             print("  {:>12}  {}".format(code, lang))
         sys.exit()
 
