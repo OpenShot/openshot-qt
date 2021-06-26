@@ -175,7 +175,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent.background.wait(5000)
 
         # Close Timeline
-        if self.timeline_sync:
+        if self.timeline_sync and self.timeline_sync.timeline:
             self.timeline_sync.timeline.Close()
             self.timeline_sync.timeline = None
 
