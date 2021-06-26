@@ -175,8 +175,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent.background.wait(5000)
 
         # Close Timeline
-        self.timeline_sync.timeline.Close()
-        self.timeline_sync.timeline = None
+        if self.timeline_sync and self.timeline_sync.timeline:
+            self.timeline_sync.timeline.Close()
+            self.timeline_sync.timeline = None
 
         # Destroy lock file
         self.destroy_lock_file()

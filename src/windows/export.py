@@ -903,6 +903,7 @@ class Export(QDialog):
             digits_after_decimalpoint = 1
             # Precision of the progress bar
             format_of_progress_string = "%4.1f%% "
+            fps_encode = 0
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
