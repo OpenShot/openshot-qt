@@ -241,7 +241,7 @@ class File(QueryObject):
         if os.path.isabs(file_path):
             return file_path
 
-            # Try to expand path relative to project folder
+        # Try to expand path relative to project folder
         app = get_app()
         if (app and hasattr("project", app)
            and hasattr("current_filepath", app.project)):
