@@ -52,20 +52,18 @@ from classes import info
 
 app = None
 
-class TestQueryClass(unittest.TestCase):
+
+class QueryTests(unittest.TestCase):
     """ Unit test class for Query class """
 
     @classmethod
-    def setUpClass(TestQueryClass):
+    def setUpClass(cls):
         """ Init unit test data """
         # Create Qt application
-        TestQueryClass.app = QGuiApplication.instance()
-        TestQueryClass.clip_ids = []
-        TestQueryClass.file_ids = []
-        TestQueryClass.transition_ids = []
-
-        # Import additional classes that need the app defined first
-        from classes.query import Clip, File, Transition
+        cls.app = QGuiApplication.instance()
+        cls.clip_ids = []
+        cls.file_ids = []
+        cls.transition_ids = []
 
         clips = []
 
@@ -85,7 +83,7 @@ class TestQueryClass(unittest.TestCase):
             query_clip.save()
 
             # Keep track of the ids
-            TestQueryClass.clip_ids.append(query_clip.id)
+            cls.clip_ids.append(query_clip.id)
             clips.append(query_clip)
 
         # Insert some files into the project data
@@ -104,7 +102,7 @@ class TestQueryClass(unittest.TestCase):
             query_file.save()
 
             # Keep track of the ids
-            TestQueryClass.file_ids.append(query_file.id)
+            cls.file_ids.append(query_file.id)
 
         # Insert some transitions into the project data
         for c in clips:
@@ -124,7 +122,7 @@ class TestQueryClass(unittest.TestCase):
             query_transition.save()
 
             # Keep track of the ids
-            TestQueryClass.transition_ids.append(query_transition.id)
+            cls.transition_ids.append(query_transition.id)
 
         # Don't keep the full query objects around
         del clips
@@ -158,7 +156,7 @@ class TestQueryClass(unittest.TestCase):
     def test_update_clip(self):
         """ Test the Clip.save method """
 
-        update_id = TestQueryClass.clip_ids[0]
+        update_id = self.clip_ids[0]
         clip = Clip.get(id=update_id)
         self.assertTrue(clip)
 
@@ -172,10 +170,13 @@ class TestQueryClass(unittest.TestCase):
         self.assertEqual(clip.data["layer"], 2)
         self.assertEqual(clip.data["title"], "My Title")
 
+        clips = Clip.filter(layer=2)
+        self.assertEqual(len(clips), 1)
+
     def test_delete_clip(self):
         """ Test the Clip.delete method """
 
-        delete_id = TestQueryClass.clip_ids[4]
+        delete_id = self.clip_ids[4]
         clip = Clip.get(id=delete_id)
         self.assertTrue(clip)
 
@@ -193,7 +194,7 @@ class TestQueryClass(unittest.TestCase):
     def test_filter_clip(self):
         """ Test the Clip.filter method """
 
-        clips = Clip.filter(id=TestQueryClass.clip_ids[0])
+        clips = Clip.filter(id=self.clip_ids[0])
         self.assertTrue(clips)
 
         # Do not find a clip
@@ -203,7 +204,7 @@ class TestQueryClass(unittest.TestCase):
     def test_get_clip(self):
         """ Test the Clip.get method """
 
-        clip = Clip.get(id=TestQueryClass.clip_ids[1])
+        clip = Clip.get(id=self.clip_ids[1])
         self.assertTrue(clip)
 
         # Do not find a clip
@@ -254,7 +255,7 @@ class TestQueryClass(unittest.TestCase):
     def test_update_File(self):
         """ Test the File.save method """
 
-        update_id = TestQueryClass.file_ids[0]
+        update_id = self.file_ids[0]
         file = File.get(id=update_id)
         self.assertTrue(file)
 
@@ -271,7 +272,7 @@ class TestQueryClass(unittest.TestCase):
     def test_delete_File(self):
         """ Test the File.delete method """
 
-        delete_id = TestQueryClass.file_ids[4]
+        delete_id = self.file_ids[4]
         file = File.get(id=delete_id)
         self.assertTrue(file)
 
@@ -289,7 +290,7 @@ class TestQueryClass(unittest.TestCase):
     def test_filter_File(self):
         """ Test the File.filter method """
 
-        files = File.filter(id=TestQueryClass.file_ids[0])
+        files = File.filter(id=self.file_ids[0])
         self.assertTrue(files)
 
         # Do not find a File
@@ -299,7 +300,7 @@ class TestQueryClass(unittest.TestCase):
     def test_get_File(self):
         """ Test the File.get method """
 
-        file = File.get(id=TestQueryClass.file_ids[1])
+        file = File.get(id=self.file_ids[1])
         self.assertTrue(file)
 
         # Do not find a File
