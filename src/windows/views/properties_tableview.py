@@ -28,7 +28,6 @@
 import os
 import functools
 from operator import itemgetter
-import pprint
 
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
