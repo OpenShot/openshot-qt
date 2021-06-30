@@ -195,11 +195,11 @@ class PropertiesModel(updates.UpdateInterface):
         if not c:
             return
 
-        # Create reference 
+        # Create reference
         clip_data = c.data
         if object_id:
             clip_data = c.data.get('objects').get(object_id)
-    
+
         if property_key in clip_data:  # Update clip attribute
             log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
             log.debug("%s: remove %s keyframe. %s", log_id, property_key, clip_data.get(property_key))
@@ -281,7 +281,7 @@ class PropertiesModel(updates.UpdateInterface):
                 c = Effect.get(id=clip_id)
 
             if c:
-                # Create reference 
+                # Create reference
                 clip_data = c.data
                 if object_id:
                     clip_data = c.data.get('objects').get(object_id)
@@ -357,7 +357,7 @@ class PropertiesModel(updates.UpdateInterface):
                 clip_data = {property_key: clip_data[property_key]}
                 if object_id:
                     clip_data = {'objects': {object_id: clip_data}}
-                
+
                 # Save changes
                 if clip_updated:
                     # Save
@@ -430,8 +430,8 @@ class PropertiesModel(updates.UpdateInterface):
             c = Effect.get(id=clip_id)
 
         if c:
-            
-            # Create reference 
+
+            # Create reference
             clip_data = c.data
             if object_id:
                 clip_data = c.data.get('objects').get(object_id)
@@ -447,51 +447,52 @@ class PropertiesModel(updates.UpdateInterface):
                     # Loop through points, find a matching points on this frame
                     found_point = False
                     point_to_delete = None
-                    for point in clip_data[property_key]["Points"]:
-                        log.debug("looping points: co.X = %s" % point["co"]["X"])
-                        if interpolation == -1 and point["co"]["X"] == self.frame_number:
-                            # Found point, Update value
-                            found_point = True
-                            clip_updated = True
-                            # Update or delete point
-                            if new_value is not None:
-                                point["co"]["Y"] = float(new_value)
+                    if 'Points' in clip_data[property_key].keys():
+                        for point in clip_data[property_key]["Points"]:
+                            log.debug("looping points: co.X = %s" % point["co"]["X"])
+                            if interpolation == -1 and point["co"]["X"] == self.frame_number:
+                                # Found point, Update value
+                                found_point = True
+                                clip_updated = True
+                                # Update or delete point
+                                if new_value is not None:
+                                    point["co"]["Y"] = float(new_value)
+                                    log.debug(
+                                        "updating point: co.X = %d to value: %.3f",
+                                        point["co"]["X"], float(new_value))
+                                else:
+                                    point_to_delete = point
+                                break
+
+                            elif interpolation > -1 and point["co"]["X"] == previous_point_x:
+                                # Only update interpolation type (and the LEFT side of the curve)
+                                found_point = True
+                                clip_updated = True
+                                point["interpolation"] = interpolation
+                                if interpolation == 0:
+                                    point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
+                                    point["handle_right"]["X"] = interpolation_details[0]
+                                    point["handle_right"]["Y"] = interpolation_details[1]
+
                                 log.debug(
-                                    "updating point: co.X = %d to value: %.3f",
-                                    point["co"]["X"], float(new_value))
-                            else:
-                                point_to_delete = point
-                            break
+                                    "updating interpolation mode point: co.X = %d to %d",
+                                    point["co"]["X"], interpolation)
+                                log.debug("use interpolation preset: %s", str(interpolation_details))
 
-                        elif interpolation > -1 and point["co"]["X"] == previous_point_x:
-                            # Only update interpolation type (and the LEFT side of the curve)
-                            found_point = True
-                            clip_updated = True
-                            point["interpolation"] = interpolation
-                            if interpolation == 0:
-                                point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                                point["handle_right"]["X"] = interpolation_details[0]
-                                point["handle_right"]["Y"] = interpolation_details[1]
+                            elif interpolation > -1 and point["co"]["X"] == closest_point_x:
+                                # Only update interpolation type (and the RIGHT side of the curve)
+                                found_point = True
+                                clip_updated = True
+                                point["interpolation"] = interpolation
+                                if interpolation == 0:
+                                    point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
+                                    point["handle_left"]["X"] = interpolation_details[2]
+                                    point["handle_left"]["Y"] = interpolation_details[3]
 
-                            log.debug(
-                                "updating interpolation mode point: co.X = %d to %d",
-                                point["co"]["X"], interpolation)
-                            log.debug("use interpolation preset: %s", str(interpolation_details))
-
-                        elif interpolation > -1 and point["co"]["X"] == closest_point_x:
-                            # Only update interpolation type (and the RIGHT side of the curve)
-                            found_point = True
-                            clip_updated = True
-                            point["interpolation"] = interpolation
-                            if interpolation == 0:
-                                point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                                point["handle_left"]["X"] = interpolation_details[2]
-                                point["handle_left"]["Y"] = interpolation_details[3]
-
-                            log.debug(
-                                "updating interpolation mode point: co.X = %d to %d",
-                                point["co"]["X"], interpolation)
-                            log.debug("use interpolation preset: %s", str(interpolation_details))
+                                log.debug(
+                                    "updating interpolation mode point: co.X = %d to %d",
+                                    point["co"]["X"], interpolation)
+                                log.debug("use interpolation preset: %s", str(interpolation_details))
 
                     # Delete point (if needed)
                     if point_to_delete:
@@ -503,6 +504,8 @@ class PropertiesModel(updates.UpdateInterface):
                     elif not found_point and new_value is not None:
                         clip_updated = True
                         log.debug("Created new point at X=%d", self.frame_number)
+                        if 'Points' not in clip_data[property_key]:
+                            clip_data[property_key]['Points'] = list()
                         clip_data[property_key]["Points"].append({
                             'co': {'X': self.frame_number, 'Y': new_value},
                             'interpolation': 1})
