@@ -1092,7 +1092,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Search through clips and transitions to find the closest element within a given threshold
-  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids=[]) {
+  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids={}) {
     // init some vars
     var smallest_diff = 900.0;
     var smallest_abs_diff = 900.0;
