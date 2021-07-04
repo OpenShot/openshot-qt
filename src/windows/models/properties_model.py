@@ -587,7 +587,9 @@ class PropertiesModel(updates.UpdateInterface):
 
         selected_choice = None
         if choices:
-            selected_choice = [c for c in choices if c["selected"] is True][0]["name"]
+            for selected in [c for c in choices if c.get("selected", False)]:
+                selected_choice = selected.get("name", "")
+                break
 
         # Hide filtered out properties
         if filter and filter.lower() not in _(label).lower():
