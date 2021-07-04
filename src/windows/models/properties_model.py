@@ -35,9 +35,9 @@ from PyQt5.QtGui import (
     QPixmap, QColor,
     )
 
-from classes import info, updates
+from classes import updates
 from classes import openshot_rc  # noqa
-from classes.query import Clip, Transition, Effect
+from classes.query import QueryObject, Clip, Transition, Effect
 from classes.logger import log
 from classes.app import get_app
 import openshot
@@ -165,6 +165,57 @@ class PropertiesModel(updates.UpdateInterface):
             # Update the model data
             if reload_model:
                 self.update_model(get_app().window.txtPropertyFilter.text())
+
+    @staticmethod
+    def get_lib_object(i_id: str, i_type: str) -> object:
+        """Find the openshot object for a timeline item, by ID"""
+        if not i_id or not i_type:
+            return None
+        try:
+            timeline = get_app().window.timeline_sync.timeline
+            if i_type == "clip":
+                return timeline.GetClip(i_id)
+            if i_type == "transition":
+                return timeline.GetEffect(i_id)
+            if i_type == "effect":
+                return timeline.GetClipEffect(i_id)
+            raise RuntimeError("Unknown item type")
+        except Exception:
+            log.warning("Exception in get_lib_object", exc_info=1)
+            return None
+
+    @staticmethod
+    def get_query_object(q_id: str, q_type: str) -> QueryObject:
+        """Find the query object for a timeline item, by ID"""
+        if q_type == "clip":
+            return Clip.get(id=q_id)
+        if q_type == "transition":
+            return Transition.get(id=q_id)
+        if q_type == "effect":
+            return Effect.get(id=q_id)
+        return None
+
+    @staticmethod
+    def make_dataref(c, obj=None) -> dict:
+        try:
+            if obj:
+                return c.data.get('objects', {}).get(obj)
+            else:
+                return c.data
+        except Exception:
+            log.error("Couldn't interpret query object", exc_info=1)
+            return {}
+
+    @staticmethod
+    def optimize_data(c, prop_key, prop_data, obj=None):
+        """Reduce a query object to just the updated part"""
+        try:
+            if obj:
+                c.data = {'objects': {obj: {prop_key: prop_data}}}
+            else:
+                c.data = {prop_key: prop_data}
+        except Exception:
+            log.error("Failed to update query object", exc_info=1)
 
     def remove_keyframe(self, item):
         """Remove an existing keyframe (if any)"""
