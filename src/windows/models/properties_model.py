@@ -305,109 +305,98 @@ class PropertiesModel(updates.UpdateInterface):
         object_id = property[1]["object_id"]
         clip_id, item_type = item.data()
 
-        if property_type == "color":
-            # Find this clip
-            c = None
-            clip_updated = False
+        if new_color is None or property_type != "color":
+            return
+        # Find this clip
+        c = PropertiesModel.get_query_object(clip_id, item_type)
+        d = PropertiesModel.make_dataref(c)
 
-            if item_type == "clip":
-                # Get clip object
-                c = Clip.get(id=clip_id)
-            elif item_type == "transition":
-                # Get transition object
-                c = Transition.get(id=clip_id)
-            elif item_type == "effect":
-                # Get effect object
-                c = Effect.get(id=clip_id)
+        if not c or property_key not in d:
+            log.error(
+                "%s %s: can't update %s property %s to %s",
+                item_type, clip_id, property_type, property_key, str(new_color))
+            self.parent.clear_selection()
+            return
 
-            if c:
-                # Create reference 
-                clip_data = c.data
-                if object_id:
-                    clip_data = c.data.get('objects').get(object_id)
+        # Update clip attribute
+        log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
+        log.debug("%s: update color property %s. %s", log_id, property_key, d.get(property_key))
 
-                # Update clip attribute
-                if property_key in clip_data:
-                    log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
-                    log.debug("%s: update color property %s. %s", log_id, property_key, clip_data.get(property_key))
+        # Loop through each keyframe (red, blue, and green)
+        clip_updated = False
+        for color, new_value in [
+                ("red", new_color.red()),
+                ("blue", new_color.blue()),
+                ("green", new_color.green()),
+                ]:
 
-                    # Loop through each keyframe (red, blue, and green)
-                    for color, new_value in [
-                            ("red", new_color.red()),
-                            ("blue", new_color.blue()),
-                            ("green", new_color.green()),
-                            ]:
+            # Keyframe
+            # Loop through points, find a matching points on this frame
+            found_point = False
+            for point in d[property_key].get(color, {}).get("Points", []):
+                log.debug("looping points: co.X = %s" % point["co"]["X"])
+                if interpolation == -1 and point["co"]["X"] == self.frame_number:
+                    # Found point, Update value
+                    found_point = True
+                    clip_updated = True
+                    # Update point
+                    point["co"]["Y"] = new_value
+                    log.debug(
+                        "updating point: co.X = %d to value: %.3f",
+                        point["co"]["X"], float(new_value))
+                    break
 
-                        # Keyframe
-                        # Loop through points, find a matching points on this frame
-                        found_point = False
-                        for point in clip_data[property_key][color]["Points"]:
-                            log.debug("looping points: co.X = %s" % point["co"]["X"])
-                            if interpolation == -1 and point["co"]["X"] == self.frame_number:
-                                # Found point, Update value
-                                found_point = True
-                                clip_updated = True
-                                # Update point
-                                point["co"]["Y"] = new_value
-                                log.debug(
-                                    "updating point: co.X = %d to value: %.3f",
-                                    point["co"]["X"], float(new_value))
-                                break
+                elif interpolation > -1 and point["co"]["X"] == previous_point_x:
+                    # Only update interpolation type (and the LEFT side of the curve)
+                    found_point = True
+                    clip_updated = True
+                    point["interpolation"] = interpolation
+                    if interpolation == 0:
+                        point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
+                        point["handle_right"]["X"] = interpolation_details[0]
+                        point["handle_right"]["Y"] = interpolation_details[1]
 
-                            elif interpolation > -1 and point["co"]["X"] == previous_point_x:
-                                # Only update interpolation type (and the LEFT side of the curve)
-                                found_point = True
-                                clip_updated = True
-                                point["interpolation"] = interpolation
-                                if interpolation == 0:
-                                    point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                                    point["handle_right"]["X"] = interpolation_details[0]
-                                    point["handle_right"]["Y"] = interpolation_details[1]
+                    log.debug(
+                        "updating interpolation mode point: co.X = %d to %d",
+                        point["co"]["X"], interpolation)
+                    log.debug("use interpolation preset: %s", str(interpolation_details))
 
-                                log.debug(
-                                    "updating interpolation mode point: co.X = %d to %d",
-                                    point["co"]["X"], interpolation)
-                                log.debug("use interpolation preset: %s", str(interpolation_details))
+                elif interpolation > -1 and point["co"]["X"] == closest_point_x:
+                    # Only update interpolation type (and the RIGHT side of the curve)
+                    found_point = True
+                    clip_updated = True
+                    point["interpolation"] = interpolation
+                    if interpolation == 0:
+                        point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
+                        point["handle_left"]["X"] = interpolation_details[2]
+                        point["handle_left"]["Y"] = interpolation_details[3]
 
-                            elif interpolation > -1 and point["co"]["X"] == closest_point_x:
-                                # Only update interpolation type (and the RIGHT side of the curve)
-                                found_point = True
-                                clip_updated = True
-                                point["interpolation"] = interpolation
-                                if interpolation == 0:
-                                    point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                                    point["handle_left"]["X"] = interpolation_details[2]
-                                    point["handle_left"]["Y"] = interpolation_details[3]
+                    log.debug(
+                        "updating interpolation mode point: co.X = %d to %d",
+                        point["co"]["X"], interpolation)
+                    log.debug("use interpolation preset: %s", str(interpolation_details))
 
-                                log.debug(
-                                    "updating interpolation mode point: co.X = %d to %d",
-                                    point["co"]["X"], interpolation)
-                                log.debug("use interpolation preset: %s", str(interpolation_details))
+            # Create new point (if needed)
+            if not found_point:
+                clip_updated = True
+                log.debug("Created new point at X=%d", self.frame_number)
+                d[property_key].setdefault(color, {}).setdefault("Points", []).append({
+                    'co': {'X': self.frame_number, 'Y': new_value},
+                    'interpolation': 1,
+                    })
 
-                        # Create new point (if needed)
-                        if not found_point:
-                            clip_updated = True
-                            log.debug("Created new point at X=%d", self.frame_number)
-                            clip_data[property_key][color]["Points"].append({
-                                'co': {'X': self.frame_number, 'Y': new_value},
-                                'interpolation': 1,
-                                })
+        # Save changes
+        if clip_updated:
+            # Reduce # of properties saved (performance boost)
+            PropertiesModel.optimize_data(c, property_key, d[property_key])
+            # Save
+            c.save()
 
-                # Reduce # of clip properties we are saving (performance boost)
-                clip_data = {property_key: clip_data[property_key]}
-                if object_id:
-                    clip_data = {'objects': {object_id: clip_data}}
-                
-                # Save changes
-                if clip_updated:
-                    # Save
-                    c.save()
+            # Update the preview
+            get_app().window.refreshFrameSignal.emit()
 
-                    # Update the preview
-                    get_app().window.refreshFrameSignal.emit()
-
-                # Clear selection
-                self.parent.clearSelection()
+        # Clear selection
+        self.parent.clearSelection()
 
     def value_updated(self, item, interpolation=-1, value=None, interpolation_details=[]):
         """ Table cell change event - also handles context menu to update interpolation value """
