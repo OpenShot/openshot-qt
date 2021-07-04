@@ -356,7 +356,7 @@ class Effect(QueryObject):
                             object = Effect()
                             object.id = child["id"]
                             object.key = ["clips", {"id": clip["id"]}, "effects", {"id": object.id}]
-                            object.data = child
+                            object.data = copy.deepcopy(child)
                             object.type = "update"
                             object.parent = clip
                             matching_objects.append(object)
