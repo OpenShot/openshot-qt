@@ -316,20 +316,19 @@ class PropertiesModel(updates.UpdateInterface):
                         point["co"]["X"], float(new_value))
                     break
 
-                elif interpolation > -1 and point["co"]["X"] == previous_point_x:
+                elif interpolation == 0 and point["co"]["X"] == previous_point_x:
                     # Only update interpolation type (and the LEFT side of the curve)
                     found_point = True
                     clip_updated = True
-                    point["interpolation"] = interpolation
-                    if interpolation == 0:
-                        point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                        point["handle_right"]["X"] = interpolation_details[0]
-                        point["handle_right"]["Y"] = interpolation_details[1]
-
+                    point.update({
+                        "handle_right": {
+                            "X": interpolation_details[0],
+                            "Y": interpolation_details[1],
+                            }
+                        })
                     log.debug(
-                        "updating interpolation mode point: co.X = %d to %d",
-                        point["co"]["X"], interpolation)
-                    log.debug("use interpolation preset: %s", str(interpolation_details))
+                        "updated interpolation, point: co.X = %d, handles %s",
+                        point["co"]["X"], str(interpolation_details[0:2]))
 
                 elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                     # Only update interpolation type (and the RIGHT side of the curve)
@@ -337,21 +336,26 @@ class PropertiesModel(updates.UpdateInterface):
                     clip_updated = True
                     point["interpolation"] = interpolation
                     if interpolation == 0:
-                        point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                        point["handle_left"]["X"] = interpolation_details[2]
-                        point["handle_left"]["Y"] = interpolation_details[3]
-
+                        point.update({
+                            "handle_left": {
+                                "X": interpolation_details[2],
+                                "Y": interpolation_details[3],
+                                }
+                            })
                     log.debug(
-                        "updating interpolation mode point: co.X = %d to %d",
-                        point["co"]["X"], interpolation)
-                    log.debug("use interpolation preset: %s", str(interpolation_details))
+                        "updating interpolation mode point: co.X = %d to %d, handles: %s",
+                        point["co"]["X"], interpolation,
+                        str(interpolation_details[2:4]))
 
             # Create new point (if needed)
             if not found_point:
                 clip_updated = True
                 log.debug("Created new point at X=%d", self.frame_number)
                 d[property_key].setdefault(color, {}).setdefault("Points", []).append({
-                    'co': {'X': self.frame_number, 'Y': new_value},
+                    'co': {
+                        'X': self.frame_number,
+                        'Y': new_value,
+                        },
                     'interpolation': 1,
                     })
 
@@ -451,20 +455,19 @@ class PropertiesModel(updates.UpdateInterface):
                         point_to_delete = point
                     break
 
-                elif interpolation > -1 and point["co"]["X"] == previous_point_x:
+                elif interpolation == 0 and point["co"]["X"] == previous_point_x:
                     # Only update interpolation type (and the LEFT side of the curve)
                     found_point = True
                     clip_updated = True
-                    point["interpolation"] = interpolation
-                    if interpolation == 0:
-                        point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                        point["handle_right"]["X"] = interpolation_details[0]
-                        point["handle_right"]["Y"] = interpolation_details[1]
-
+                    point.update({
+                        "handle_right": {
+                            "X": interpolation_details[0],
+                            "Y": interpolation_details[1],
+                            }
+                        })
                     log.debug(
-                        "updating interpolation mode point: co.X = %d to %d",
-                        point["co"]["X"], interpolation)
-                    log.debug("use interpolation preset: %s", str(interpolation_details))
+                        "updated interpolation, point: co.X = %d, handles %s",
+                        point["co"]["X"], str(interpolation_details[0:2]))
 
                 elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                     # Only update interpolation type (and the RIGHT side of the curve)
@@ -472,14 +475,16 @@ class PropertiesModel(updates.UpdateInterface):
                     clip_updated = True
                     point["interpolation"] = interpolation
                     if interpolation == 0:
-                        point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                        point["handle_left"]["X"] = interpolation_details[2]
-                        point["handle_left"]["Y"] = interpolation_details[3]
-
+                        point.update({
+                            "handle_left": {
+                                "X": interpolation_details[2],
+                                "Y": interpolation_details[3],
+                                }
+                            })
                     log.debug(
-                        "updating interpolation mode point: co.X = %d to %d",
-                        point["co"]["X"], interpolation)
-                    log.debug("use interpolation preset: %s", str(interpolation_details))
+                        "updating interpolation mode point: co.X = %d to %d, handles: %s",
+                        point["co"]["X"], interpolation,
+                        str(interpolation_details[2:4]))
 
             # Delete point (if needed)
             if point_to_delete:
