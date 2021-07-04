@@ -445,163 +445,151 @@ class PropertiesModel(updates.UpdateInterface):
             % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
 
         # Find this clip
-        c = None
-        clip_updated = False
-
-        if item_type == "clip":
-            # Get clip object
-            c = Clip.get(id=clip_id)
-        elif item_type == "transition":
-            # Get transition object
-            c = Transition.get(id=clip_id)
-        elif item_type == "effect":
-            # Get effect object
-            c = Effect.get(id=clip_id)
-
-        if c:
-            
-            # Create reference 
-            clip_data = c.data
-            if object_id:
-                clip_data = c.data.get('objects').get(object_id)
-
-            # Update clip attribute
-            if property_key in clip_data:
-                log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
-                log.debug("%s: update property %s. %s", log_id, property_key, clip_data.get(property_key))
-
-                # Check the type of property (some are keyframe, and some are not)
-                if property_type != "reader" and type(clip_data[property_key]) == dict:
-                    # Keyframe
-                    # Loop through points, find a matching points on this frame
-                    found_point = False
-                    point_to_delete = None
-                    for point in clip_data[property_key]["Points"]:
-                        log.debug("looping points: co.X = %s" % point["co"]["X"])
-                        if interpolation == -1 and point["co"]["X"] == self.frame_number:
-                            # Found point, Update value
-                            found_point = True
-                            clip_updated = True
-                            # Update or delete point
-                            if new_value is not None:
-                                point["co"]["Y"] = float(new_value)
-                                log.debug(
-                                    "updating point: co.X = %d to value: %.3f",
-                                    point["co"]["X"], float(new_value))
-                            else:
-                                point_to_delete = point
-                            break
-
-                        elif interpolation > -1 and point["co"]["X"] == previous_point_x:
-                            # Only update interpolation type (and the LEFT side of the curve)
-                            found_point = True
-                            clip_updated = True
-                            point["interpolation"] = interpolation
-                            if interpolation == 0:
-                                point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
-                                point["handle_right"]["X"] = interpolation_details[0]
-                                point["handle_right"]["Y"] = interpolation_details[1]
-
-                            log.debug(
-                                "updating interpolation mode point: co.X = %d to %d",
-                                point["co"]["X"], interpolation)
-                            log.debug("use interpolation preset: %s", str(interpolation_details))
-
-                        elif interpolation > -1 and point["co"]["X"] == closest_point_x:
-                            # Only update interpolation type (and the RIGHT side of the curve)
-                            found_point = True
-                            clip_updated = True
-                            point["interpolation"] = interpolation
-                            if interpolation == 0:
-                                point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
-                                point["handle_left"]["X"] = interpolation_details[2]
-                                point["handle_left"]["Y"] = interpolation_details[3]
-
-                            log.debug(
-                                "updating interpolation mode point: co.X = %d to %d",
-                                point["co"]["X"], interpolation)
-                            log.debug("use interpolation preset: %s", str(interpolation_details))
-
-                    # Delete point (if needed)
-                    if point_to_delete:
-                        clip_updated = True
-                        log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                        clip_data[property_key]["Points"].remove(point_to_delete)
-
-                    # Create new point (if needed)
-                    elif not found_point and new_value is not None:
-                        clip_updated = True
-                        log.debug("Created new point at X=%d", self.frame_number)
-                        clip_data[property_key]["Points"].append({
-                            'co': {'X': self.frame_number, 'Y': new_value},
-                            'interpolation': 1})
-
-            if not clip_updated:
-                # If no keyframe was found, set a basic property
-                if property_type == "int":
-                    clip_updated = True
-                    try:
-                        clip_data[property_key] = int(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid Integer value passed to property: %s' % ex)
-
-                elif property_type == "float":
-                    clip_updated = True
-                    try:
-                        clip_data[property_key] = float(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid Float value passed to property: %s' % ex)
-
-                elif property_type == "bool":
-                    clip_updated = True
-                    try:
-                        clip_data[property_key] = bool(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid Boolean value passed to property: %s' % ex)
-
-                elif property_type == "string":
-                    clip_updated = True
-                    try:
-                        clip_data[property_key] = str(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid String value passed to property: %s' % ex)
-
-                elif property_type in ["font", "caption"]:
-                    clip_updated = True
-                    try:
-                        clip_data[property_key] = str(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid Font/Caption value passed to property: %s' % ex)
-
-                elif property_type == "reader":
-                    # Transition
-                    clip_updated = True
-                    try:
-                        clip_object = openshot.Clip(value)
-                        clip_object.Open()
-                        clip_data[property_key] = json.loads(clip_object.Reader().Json())
-                        clip_object.Close()
-                        clip_object = None
-                    except Exception as ex:
-                        log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
-
-            # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data.get(property_key)}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
-
-            # Save changes
-            if clip_updated:
-                # Save
-                c.save()
-
-                # Update the preview
-                get_app().window.refreshFrameSignal.emit()
-
-                log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (clip_id, property_key, new_value, self.frame_number, closest_point_x))
-
-            # Clear selection
+        c = PropertiesModel.get_query_object(clip_id, item_type)
+        d = PropertiesModel.make_dataref(c, object_id)
+        if not c or property_key not in d:
+            log.error(
+                "%s %s: can't update %s property %s to %s",
+                item_type, clip_id, property_type, property_key, str(value))
             self.parent.clearSelection()
+            return
+
+        # Update clip attribute
+        log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
+        log.debug("%s: update property %s. %s", log_id, property_key, d.get(property_key))
+
+        clip_updated = False
+        # Check the type of property (some are keyframe, and some are not)
+        if property_type != "reader" and isinstance(d[property_key], dict):
+            # Keyframe
+            # Loop through points, find a matching points on this frame
+            found_point = False
+            point_to_delete = None
+            for point in d[property_key].get("Points", []):
+                log.debug("looping points: co.X = %s" % point["co"]["X"])
+                if interpolation == -1 and point["co"]["X"] == self.frame_number:
+                    # Found point, Update value
+                    found_point = True
+                    clip_updated = True
+                    # Update or delete point
+                    if new_value is not None:
+                        point["co"]["Y"] = float(new_value)
+                        log.debug(
+                            "updating point: co.X = %d to value: %.3f",
+                            point["co"]["X"], float(new_value))
+                    else:
+                        point_to_delete = point
+                    break
+
+                elif interpolation > -1 and point["co"]["X"] == previous_point_x:
+                    # Only update interpolation type (and the LEFT side of the curve)
+                    found_point = True
+                    clip_updated = True
+                    point["interpolation"] = interpolation
+                    if interpolation == 0:
+                        point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
+                        point["handle_right"]["X"] = interpolation_details[0]
+                        point["handle_right"]["Y"] = interpolation_details[1]
+
+                    log.debug(
+                        "updating interpolation mode point: co.X = %d to %d",
+                        point["co"]["X"], interpolation)
+                    log.debug("use interpolation preset: %s", str(interpolation_details))
+
+                elif interpolation > -1 and point["co"]["X"] == closest_point_x:
+                    # Only update interpolation type (and the RIGHT side of the curve)
+                    found_point = True
+                    clip_updated = True
+                    point["interpolation"] = interpolation
+                    if interpolation == 0:
+                        point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
+                        point["handle_left"]["X"] = interpolation_details[2]
+                        point["handle_left"]["Y"] = interpolation_details[3]
+
+                    log.debug(
+                        "updating interpolation mode point: co.X = %d to %d",
+                        point["co"]["X"], interpolation)
+                    log.debug("use interpolation preset: %s", str(interpolation_details))
+
+            # Delete point (if needed)
+            if point_to_delete:
+                clip_updated = True
+                log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
+                d[property_key]["Points"].remove(point_to_delete)
+
+            # Create new point (if needed)
+            elif not found_point and new_value is not None:
+                clip_updated = True
+                log.debug("Created new point at X=%d", self.frame_number)
+                d[property_key]["Points"].append({
+                    'co': {'X': self.frame_number, 'Y': new_value},
+                    'interpolation': 1})
+
+        if not clip_updated:
+            # If no keyframe was found, set a basic property
+            if property_type == "int":
+                clip_updated = True
+                try:
+                    d[property_key] = int(new_value)
+                except Exception as ex:
+                    log.warn('Invalid Integer value passed to property: %s' % ex)
+
+            elif property_type == "float":
+                clip_updated = True
+                try:
+                    d[property_key] = float(new_value)
+                except Exception as ex:
+                    log.warn('Invalid Float value passed to property: %s' % ex)
+
+            elif property_type == "bool":
+                clip_updated = True
+                try:
+                    d[property_key] = bool(new_value)
+                except Exception as ex:
+                    log.warn('Invalid Boolean value passed to property: %s' % ex)
+
+            elif property_type == "string":
+                clip_updated = True
+                try:
+                    d[property_key] = str(new_value)
+                except Exception as ex:
+                    log.warn('Invalid String value passed to property: %s' % ex)
+
+            elif property_type in ["font", "caption"]:
+                clip_updated = True
+                try:
+                    d[property_key] = str(new_value)
+                except Exception as ex:
+                    log.warn('Invalid Font/Caption value passed to property: %s' % ex)
+
+            elif property_type == "reader":
+                # Transition
+                clip_updated = True
+                try:
+                    clip_object = openshot.Clip(value)
+                    clip_object.Open()
+                    d[property_key] = json.loads(clip_object.Reader().Json())
+                    clip_object.Close()
+                    clip_object = None
+                except Exception as ex:
+                    log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
+
+        # Save changes
+        if clip_updated:
+            PropertiesModel.optimize_data(c, property_key, d[property_key], object_id)
+            # Save
+            c.save()
+
+            # Update the preview
+            get_app().window.refreshFrameSignal.emit()
+
+            log.info(
+                "Item %s: changed %s to %s at frame %s (x: %s)",
+                clip_id, property_key, new_value,
+                self.frame_number, closest_point_x)
+
+        # Clear selection
+        self.parent.clearSelection()
 
     def set_property(self, property, filter, c, item_type, object_id=None):
         app = get_app()
