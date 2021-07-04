@@ -210,88 +210,58 @@ class PropertiesModel(updates.UpdateInterface):
         """Remove an existing keyframe (if any)"""
 
         # Determine what was changed
-        property = self.model.item(item.row(), 0).data()
-        property_type = property[1]["type"]
-        closest_point_x = property[1]["closest_point_x"]
-        property_type = property[1]["type"]
-        property_key = property[0]
-        object_id = property[1]["object_id"]
-        clip_id, item_type = item.data()
+        prop_key, prop_data = self.model.item(item.row(), 0).data()
+        prop_type = prop_data.get("type")
+        closest_x = prop_data.get("closest_point_x")
+        prop_type = prop_data.get("type")
+        object_id = prop_data.get("object_id")
+        item_id, item_type = item.data()
 
         # Find this clip
-        c = None
-        clip_updated = False
-
-        if item_type == "clip":
-            # Get clip object
-            c = Clip.get(id=clip_id)
-        elif item_type == "transition":
-            # Get transition object
-            c = Transition.get(id=clip_id)
-        elif item_type == "effect":
-            # Get effect object
-            c = Effect.get(id=clip_id)
-
-        if not c:
+        c = PropertiesModel.get_query_object(item_id, item_type)
+        d = PropertiesModel.make_dataref(c, object_id)
+        if not c or prop_key not in d:
+            log.error(
+                "%s %s: can't find %s property %s",
+                item_type, item_id, prop_type, prop_key)
             return
 
-        # Create reference 
-        clip_data = c.data
-        if object_id:
-            clip_data = c.data.get('objects').get(object_id)
-    
-        if property_key in clip_data:  # Update clip attribute
-            log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
-            log.debug("%s: remove %s keyframe. %s", log_id, property_key, clip_data.get(property_key))
+        log_id = "{}/{}".format(item_id, object_id) if object_id else item_id
+        log.debug("%s: remove %s keyframe. %s", log_id, prop_key, d.get(prop_key))
 
-            # Determine type of keyframe (normal or color)
-            keyframe_list = []
-            if property_type == "color":
-                keyframe_list = [clip_data[property_key]["red"], clip_data[property_key]["blue"], clip_data[property_key]["green"]]
+        # Determine type of keyframe (normal or color)
+        if prop_type == "color":
+            # Colors have three keyframe lists
+            points_to_remove = [
+                d[prop_key].get(color, {}).get("Points", [])
+                for color in ["red", "green", "blue"]
+                ]
+        else:
+            points_to_remove = [d[prop_key].get("Points", [])]
+
+        # Loop through each keyframe (red, blue, and green)
+        for points in points_to_remove:
+            if len(points) <= 1:
+                log.warning(
+                    "%s %s: Can't delete last point for %s!",
+                    item_type, item_id, prop_key)
+                return False
+            for point in sorted(points, key=lambda p: p["co"]["X"]):
+                if point["co"]["X"] == closest_x:
+                    log.debug(
+                        "%s %s: Removing point %d",
+                        item_type, item_id, closest_x)
+                    points.remove(point)
+                    break
             else:
-                keyframe_list = [clip_data[property_key]]
-
-            # Loop through each keyframe (red, blue, and green)
-            for keyframe in keyframe_list:
-
-                # Keyframe
-                # Loop through points, find a matching points on this frame
-                closest_point = None
-                point_to_delete = None
-                for point in keyframe["Points"]:
-                    if point["co"]["X"] == self.frame_number:
-                        # Found point, Update value
-                        clip_updated = True
-                        point_to_delete = point
-                        break
-                    if point["co"]["X"] == closest_point_x:
-                        closest_point = point
-
-                # If no point found, use closest point x
-                if not point_to_delete:
-                    point_to_delete = closest_point
-
-                # Delete point (if needed)
-                if point_to_delete:
-                    clip_updated = True
-                    log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                    keyframe["Points"].remove(point_to_delete)
-
-            # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data[property_key]}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
-
-            # Save changes
-            if clip_updated:
-                # Save
-                c.save()
-
-                # Update the preview
-                get_app().window.refreshFrameSignal.emit()
-
-            # Clear selection
-            self.parent.clearSelection()
+                log.warning("Can't find point to remove at %d", closest_x)
+                return
+        # Reduce # of clip properties we are saving (performance boost)
+        PropertiesModel.optimize_data(c, prop_key, d[prop_key], object_id)
+        c.save()
+        # Update the preview
+        get_app().window.refreshFrameSignal.emit()
+        self.parent.clearSelection()
 
     def color_update(self, item, new_color, interpolation=-1, interpolation_details=[]):
         """Insert/Update a color keyframe for the selected row"""
