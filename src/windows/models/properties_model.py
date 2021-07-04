@@ -95,30 +95,19 @@ class PropertiesModel(updates.UpdateInterface):
 
         log.debug("Update item: %s" % item_type)
 
-        timeline = get_app().window.timeline_sync.timeline
-        if item_type == "clip":
-            c = timeline.GetClip(item_id)
-            if c:
-                # Append to selected items
-                self.selected.append((c, item_type))
-        if item_type == "transition":
-            t = timeline.GetEffect(item_id)
-            if t:
-                # Append to selected items
-                self.selected.append((t, item_type))
+        item = PropertiesModel.get_lib_object(item_id, item_type)
+        if not item:
+            return
         if item_type == "effect":
-            e = timeline.GetClipEffect(item_id)
-            if e:
-                # Filter out basic properties, since this is an effect on a clip
-                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-                # Append to selected items
-                self.selected.append((e, item_type))
-                self.selected_parent = e.ParentClip()
+            # Filter out basic properties, since this is an effect on a clip
+            self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+            # Append to selected items
+            self.selected_parent = item.ParentClip()
+        self.selected.append((item, item_type))
 
         # Update frame # from timeline
         self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
 
-        # Get ID of item
         self.new_item = True
 
         # Update the model data
