@@ -301,7 +301,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Keyframe
                         # Loop through points, find a matching points on this frame
                         found_point = False
-                        for point in clip_data[property_key][color].get('Points', []):
+                        for point in clip_data[property_key][color].get("Points", []):
                             log.debug("looping points: co.X = %s" % point["co"]["X"])
                             if interpolation == -1 and point["co"]["X"] == self.frame_number:
                                 # Found point, Update value
@@ -348,7 +348,7 @@ class PropertiesModel(updates.UpdateInterface):
                         if not found_point:
                             clip_updated = True
                             log.debug("Created new point at X=%d", self.frame_number)
-                            clip_data[property_key][color].setdefault('Points', []).append({
+                            clip_data[property_key][color].setdefault("Points", []).append({
                                 'co': {'X': self.frame_number, 'Y': new_value},
                                 'interpolation': 1,
                                 })
