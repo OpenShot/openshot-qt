@@ -263,11 +263,6 @@ class JsonDataStore:
         key = match.groups(0)[0]
         path = match.groups(0)[1]
         folder_path, file_path = os.path.split(os.path.abspath(path))
-        project_win_drive = os.path.splitdrive(get_app().project.current_filepath)[0]
-        file_win_drive = os.path.splitdrive(path)[0]
-        if file_win_drive != project_win_drive:
-            # IF the file is on different drive. Don't abbreviate the path.
-            return path
 
         # Determine if thumbnail path is found
         if info.THUMBNAIL_PATH in folder_path:
@@ -308,6 +303,13 @@ class JsonDataStore:
         else:
             # Convert path to the correct relative path (based on the existing folder)
             orig_abs_path = os.path.abspath(path)
+
+            # Determine windows drives that the project and file are on
+            project_win_drive = os.path.splitdrive(get_app().project.current_filepath)[0]
+            file_win_drive = os.path.splitdrive(path)[0]
+            if file_win_drive != project_win_drive:
+                # If the file is on different drive. Don't abbreviate the path.
+                return orig_abs_path
 
             # Remove file from abs path
             orig_abs_folder = os.path.dirname(orig_abs_path)
