@@ -365,33 +365,6 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockAudioEffects">
-   <property name="windowTitle">
-    <string>Audio Effects</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>8</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4">
-    <layout class="QGridLayout" name="gridLayout_5">
-     <property name="leftMargin">
-      <number>9</number>
-     </property>
-     <property name="topMargin">
-      <number>9</number>
-     </property>
-     <property name="rightMargin">
-      <number>9</number>
-     </property>
-     <property name="bottomMargin">
-      <number>9</number>
-     </property>
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="tabAudioEffects"/>
-     </item>
-    </layout>
-   </widget>
-  </widget>
   <widget class="QDockWidget" name="dockCaptionEditor">
    <property name="windowTitle">
     <string>Captions</string>
