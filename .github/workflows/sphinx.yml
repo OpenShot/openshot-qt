@@ -25,6 +25,7 @@ jobs:
     - uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "doc/"
+        pre-build-command: "pip3 install pyqt5"
     # Create an artifact out of the generated HTML
     - uses: actions/upload-artifact@v2.2.4
       with:
