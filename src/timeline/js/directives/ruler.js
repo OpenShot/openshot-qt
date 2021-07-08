@@ -177,6 +177,9 @@ App.directive("tlRuler", function ($timeout) {
           var time = i  / scope.pixelsPerSecond;
           var text_time = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
           s[0].innerText= text_time["hour"] + ":" + text_time["min"] + ":" + text_time["sec"];
+          if (scope.project.scale < 1) {
+            s[0].innerText += ',' + text_time['frame'];
+          }
 
           ruler.append(s);
         }
