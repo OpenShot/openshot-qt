@@ -28,6 +28,9 @@
 import os
 from time import strftime
 
+from PyQt5.QtCore import QCoreApplication, QStandardPaths
+import shutil
+
 VERSION = "2.5.1-dev3"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.5"
 DATE = "20200228000000"
@@ -39,16 +42,33 @@ COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
+QCoreApplication.setApplicationName(NAME)
+
 # Application paths
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
 EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
+HOME_PATH = QStandardPaths.writableLocation(QStandardPaths.HomeLocation)
+OLD_USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+USER_PATH = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
+
+sentry_file = os.path.join(OLD_USER_PATH, ".settingsMigrated")
+if (os.path.exists(OLD_USER_PATH) and not os.path.exists(sentry_file)):
+    try:
+        # Make sure we have write permission, first
+        os.makedirs(USER_PATH, exist_ok=True)
+        shutil.copytree(
+            OLD_USER_PATH,
+            USER_PATH,
+            dirs_exist_ok=True,
+            ignore_dangling_symlinks=True)
+        os.mknod(sentry_file)
+    except (PermissionError, FileNotFoundError) as ex:
+        ERROR_MIGRATING_CONFIGS = ex
 
 # User paths
-HOME_PATH = os.path.join(os.path.expanduser("~"))
-USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
 BACKUP_PATH = os.path.join(USER_PATH)
 RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")

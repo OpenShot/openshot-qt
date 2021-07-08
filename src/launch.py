@@ -186,7 +186,7 @@ def main():
         app.show_errors()
 
     # Setup Qt application details
-    app.setApplicationName('openshot')
+    app.setApplicationName(info.SETUP['name'])
     app.setApplicationVersion(info.SETUP['version'])
     try:
         # Qt 5.7+ only
