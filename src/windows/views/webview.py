@@ -2750,10 +2750,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Get access to timeline scope and set scale to new computed value
         self.run_js(JS_SCOPE_SELECTOR + ".setScroll(" + str(newScroll) + ");")
 
-        # This seems to make web-engine zoom slider scroll events go smoother
-        # TODO: remove this if we can find a better approach.
-        QCoreApplication.processEvents()
-
     # Handle changes to zoom level, update js
     def update_zoom(self, newScale):
         _ = get_app()._tr
