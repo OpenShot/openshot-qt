@@ -309,7 +309,8 @@ class JsonDataStore:
             file_win_drive = os.path.splitdrive(path)[0]
             if file_win_drive != project_win_drive:
                 # If the file is on different drive. Don't abbreviate the path.
-                return orig_abs_path
+                clean_path = orig_abs_path.replace("\\", "/")
+                return f"{key}: {clean_path}"
 
             # Remove file from abs path
             orig_abs_folder = os.path.dirname(orig_abs_path)
