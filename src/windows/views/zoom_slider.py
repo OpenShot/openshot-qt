@@ -220,6 +220,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = event.pos().x()
+        self.scrollbar_position_previous = self.scrollbar_position
 
         # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
         get_app().updates.ignore_history = True
@@ -335,8 +336,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             elif self.scroll_bar_dragging:
                 # Update scrollbar position
                 delta = (self.mouse_position - mouse_pos) / self.width()
-                new_left_pos = self.scrollbar_position[0] - delta
-                new_right_pos = self.scrollbar_position[1] - delta
+                new_left_pos = self.scrollbar_position_previous[0] - delta
+                new_right_pos = self.scrollbar_position_previous[1] - delta
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
@@ -353,7 +354,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             self.update()
 
         # Update mouse position
-        self.mouse_position = mouse_pos
+        # self.mouse_position = mouse_pos
 
     def resizeEvent(self, event):
         """Widget resize event"""
@@ -484,6 +485,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_position = None
         self.zoom_factor = 15.0
         self.scrollbar_position = [0.0, 0.0, 0.0, 0.0]
+        self.scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
         self.left_handle_rect = QRectF()
         self.left_handle_dragging = False
         self.right_handle_rect = QRectF()
