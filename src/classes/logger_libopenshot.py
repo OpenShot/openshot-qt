@@ -57,7 +57,7 @@ class LoggerLibOpenShot(Thread):
         openshot.ZmqLogger.Instance().Connection("tcp://*:%s" % port)
 
         # Set filepath for ZmqLogger also
-        openshot.ZmqLogger.Instance().Path(os.path.join(info.USER_PATH, 'libopenshot.log'))
+        openshot.ZmqLogger.Instance().Path(os.path.join(info.DATA_PATH, 'libopenshot.log'))
 
         # Enable / Disable logger
         openshot.ZmqLogger.Instance().Enable(debug_enabled)

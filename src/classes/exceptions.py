@@ -56,7 +56,7 @@ def libopenshot_crash_recovery():
     """Walk libopenshot.log for the last line before this launch"""
     from classes.metrics import track_metric_error
 
-    log_path = os.path.join(info.USER_PATH, "libopenshot.log")
+    log_path = os.path.join(info.DATA_PATH, "libopenshot.log")
     last_log_line = ""
     last_stack_trace = ""
     found_stack = False

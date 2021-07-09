@@ -81,7 +81,7 @@ log.propagate = False
 # Create rotating file handler
 #
 fh = logging.handlers.RotatingFileHandler(
-         os.path.join(info.USER_PATH, 'openshot-qt.log'),
+         os.path.join(info.DATA_PATH, 'openshot-qt.log'),
          encoding="utf-8",
          maxBytes=25*1024*1024, backupCount=3)
 fh.setLevel(info.LOG_LEVEL_FILE)

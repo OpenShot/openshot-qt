@@ -50,52 +50,76 @@ RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
 EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
+
+# Base paths
 HOME_PATH = QStandardPaths.writableLocation(QStandardPaths.HomeLocation)
-OLD_USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
-USER_PATH = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
-
-sentry_file = os.path.join(OLD_USER_PATH, ".settingsMigrated")
-if (os.path.exists(OLD_USER_PATH) and not os.path.exists(sentry_file)):
-    try:
-        # Make sure we have write permission, first
-        os.makedirs(USER_PATH, exist_ok=True)
-        shutil.copytree(
-            OLD_USER_PATH,
-            USER_PATH,
-            dirs_exist_ok=True,
-            ignore_dangling_symlinks=True)
-        os.mknod(sentry_file)
-    except (PermissionError, FileNotFoundError) as ex:
-        ERROR_MIGRATING_CONFIGS = ex
-
-# User paths
-BACKUP_PATH = os.path.join(USER_PATH)
-RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
-THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
-CACHE_PATH = os.path.join(USER_PATH, "cache")
-BLENDER_PATH = os.path.join(USER_PATH, "blender")
-TITLE_PATH = os.path.join(USER_PATH, "title")
-TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
-EMOJIS_PATH = os.path.join(USER_PATH, "emojis")
-PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
-USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
-USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
-USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
-PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
-YOLO_PATH = os.path.join(USER_PATH, "yolo")
+DATA_PATH = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation) # TODO Should be DATA_PATH
+#CONFIG_PATH = QStandardPaths.writableLocation(QStandardPaths.AppConfigLocation)
+CACHE_PATH = QStandardPaths.writableLocation(QStandardPaths.CacheLocation)
+YOLO_PATH = os.path.join(
+            QStandardPaths.writableLocation(QStandardPaths.TempLocation), NAME)
+# Data paths
+BACKUP_PATH = os.path.join(DATA_PATH)
+RECOVERY_PATH = os.path.join(DATA_PATH, "recovery")
+USER_PRESETS_PATH = os.path.join(DATA_PATH, "presets")
+TRANSITIONS_PATH = os.path.join(DATA_PATH, "transitions")
+EMOJIS_PATH = os.path.join(DATA_PATH, "emojis")
+BLENDER_PATH = os.path.join(DATA_PATH, "blender")
+PROTOBUF_DATA_PATH = os.path.join(DATA_PATH, "protobuf_data")
+# Cache paths
+THUMBNAIL_PATH = os.path.join(CACHE_PATH, "thumbnail")
+PREVIEW_CACHE_PATH = os.path.join(CACHE_PATH, "preview-cache")
+# Other?
+TITLE_PATH = os.path.join(DATA_PATH, "title")
+USER_PROFILES_PATH = os.path.join(DATA_PATH, "profiles")
+USER_TITLES_PATH = os.path.join(DATA_PATH, "title_templates")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
-USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
+USER_DEFAULT_PROJECT = os.path.join(DATA_PATH, "default.project")
 
 # Create user paths if they do not exist
 # (this is where temp files are stored... such as cached thumbnails)
 for folder in [
-    USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+    DATA_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
     BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
     USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH,
     PROTOBUF_DATA_PATH, YOLO_PATH ]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
+
+MONOLITH_DIR = os.path.join(HOME_PATH, ".openshot_qt")
+sentry_file = os.path.join(MONOLITH_DIR, ".settingsMigrated")
+if (os.path.exists(MONOLITH_DIR) and not os.path.exists(sentry_file)):
+    dirs = [
+                [os.path.join(MONOLITH_DIR, "recovery"), RECOVERY_PATH],
+                [os.path.join(MONOLITH_DIR, "thumbnail"), THUMBNAIL_PATH],
+                [os.path.join(MONOLITH_DIR, "blender"), BLENDER_PATH],
+                [os.path.join(MONOLITH_DIR, "title"), TITLE_PATH],
+                [os.path.join(MONOLITH_DIR, "transitions"), TRANSITIONS_PATH],
+                [os.path.join(MONOLITH_DIR, "preview-cache"), PREVIEW_CACHE_PATH],
+                [os.path.join(MONOLITH_DIR, "profiles"), USER_PROFILES_PATH],
+                [os.path.join(MONOLITH_DIR, "presets"), USER_PRESETS_PATH],
+                [os.path.join(MONOLITH_DIR, "title_templates"), USER_TITLES_PATH],
+                [os.path.join(MONOLITH_DIR, "emojis"), EMOJIS_PATH],
+                [os.path.join(MONOLITH_DIR, "protobuf_data"), PROTOBUF_DATA_PATH],
+                [os.path.join(MONOLITH_DIR, "cache"), CACHE_PATH],
+                [os.path.join(MONOLITH_DIR, "yolo"), YOLO_PATH],
+                [MONOLITH_DIR, DATA_PATH]
+            ]
+    try:
+        backup_file = os.path.join(MONOLITH_DIR, "backup.osp")
+        if (os.path.exists(backup_file)):
+            shutil.copy(backup_file, BACKUP_PATH)
+        for folders in dirs:
+            for item in os.listdir(folders[0]):
+                s = os.path.join(folders[0], item)
+                d = os.path.join(folders[1], item)
+                if not os.path.isdir(s):
+                    if not os.path.exists(d) or os.stat(s).st_mtime - os.stat(d).st_mtime > 1:
+                        shutil.copy2(s, d)
+        os.mknod(sentry_file)
+    except (PermissionError, FileNotFoundError) as ex:
+        ERROR_MIGRATING_CONFIGS = ex
 
 # Maintainer details, for packaging
 JT = {"name": "Jonathan Thomas",

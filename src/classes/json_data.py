@@ -368,6 +368,6 @@ class JsonDataStore:
             if not backup_dir:
                 # Retry in alternate location
                 log.info("Attempting to save backup in user config directory")
-                self.make_repair_backup(file_path, jsondata, backup_dir=info.USER_PATH)
+                self.make_repair_backup(file_path, jsondata, backup_dir=info.DATA_PATH)
             else:
                 raise Exception("Aborting recovery, cannot write backup file") from ex

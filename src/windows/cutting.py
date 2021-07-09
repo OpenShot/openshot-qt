@@ -253,7 +253,7 @@ class Cutting(QDialog):
         self.start_frame = current_frame
 
         # Save thumbnail image
-        self.start_image = os.path.join(info.USER_PATH, 'thumbnail', '%s.png' % self.start_frame)
+        self.start_image = os.path.join(info.DATA_PATH, 'thumbnail', '%s.png' % self.start_frame)
         self.r.GetFrame(self.start_frame).Thumbnail(self.start_image, 160, 90, '', '', '#000000', True, 'png', 85)
 
         # Set CSS on button
@@ -290,7 +290,7 @@ class Cutting(QDialog):
         self.end_frame = current_frame
 
         # Save thumbnail image
-        self.end_image = os.path.join(info.USER_PATH, 'thumbnail', '%s.png' % self.end_frame)
+        self.end_image = os.path.join(info.DATA_PATH, 'thumbnail', '%s.png' % self.end_frame)
         self.r.GetFrame(self.end_frame).Thumbnail(self.end_image, 160, 90, '', '', '#000000', True, 'png', 85)
 
         # Set CSS on button

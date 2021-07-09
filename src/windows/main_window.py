@@ -217,7 +217,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def create_lock_file(self):
         """Create a lock file"""
-        lock_path = os.path.join(info.USER_PATH, ".lock")
+        lock_path = os.path.join(info.DATA_PATH, ".lock")
         # Check if it already exists
         if os.path.exists(lock_path):
             last_log_line = exceptions.libopenshot_crash_recovery() or "No Log Detected"
@@ -246,7 +246,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def destroy_lock_file(self):
         """Destroy the lock file"""
-        lock_path = os.path.join(info.USER_PATH, ".lock")
+        lock_path = os.path.join(info.DATA_PATH, ".lock")
 
         # Remove file (try a few times if failure)
         for attempt in range(5):
@@ -494,21 +494,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def clear_all_thumbnails(self):
         """Clear all user thumbnails"""
         try:
-            clear_path = os.path.join(info.USER_PATH, "thumbnail")
+            clear_path = os.path.join(info.DATA_PATH, "thumbnail")
             if os.path.exists(clear_path):
                 log.info("Clear all thumbnails: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any blender animations
-            clear_path = os.path.join(info.USER_PATH, "blender")
+            clear_path = os.path.join(info.DATA_PATH, "blender")
             if os.path.exists(clear_path):
                 log.info("Clear all animations: %s", clear_path)
                 shutil.rmtree(clear_path)
                 os.mkdir(clear_path)
 
             # Clear any title animations
-            clear_path = os.path.join(info.USER_PATH, "title")
+            clear_path = os.path.join(info.DATA_PATH, "title")
             if os.path.exists(clear_path):
                 log.info("Clear all titles: %s", clear_path)
                 shutil.rmtree(clear_path)

@@ -207,7 +207,7 @@ class OpenShotApp(QApplication):
         try:
             log.debug("Testing write access to user directory")
             # Create test paths
-            TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
+            TEST_PATH_DIR = os.path.join(info.DATA_PATH, 'PERMISSION')
             TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.osp')
             os.makedirs(TEST_PATH_DIR, exist_ok=True)
             with open(TEST_PATH_FILE, 'w') as f:
@@ -222,7 +222,7 @@ class OpenShotApp(QApplication):
                 _("Permission Error"),
                 _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again.") % {
                     "error": str(ex),
-                    "path": info.USER_PATH,
+                    "path": info.DATA_PATH,
                     },
                 level="error",
             ))

@@ -192,7 +192,7 @@ class TitleEditor(QDialog):
 
     def create_temp_title(self, template_path):
         """Set temp file path & make copy of template"""
-        self.filename = os.path.join(info.USER_PATH, "title", "temp.svg")
+        self.filename = os.path.join(info.DATA_PATH, "title", "temp.svg")
         # Copy template to temp file (NOT preserving attributes)
         shutil.copyfile(template_path, self.filename)
         return self.filename
