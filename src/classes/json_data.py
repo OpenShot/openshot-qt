@@ -253,8 +253,8 @@ class JsonDataStore:
             # Optimized regex replacement
             data = re.sub(path_regex, self.replace_string_to_absolute, data)
 
-        except Exception as ex:
-            log.error("Error while converting relative paths to absolute paths: %s" % str(ex))
+        except Exception:
+            log.error("Error while converting relative paths to absolute paths", exc_info=1)
 
         return data
 
@@ -266,14 +266,16 @@ class JsonDataStore:
 
         # Determine if thumbnail path is found
         if info.THUMBNAIL_PATH in folder_path:
-            # Convert path to relative thumbnail path
+            log.debug("Generating relative thumbnail path to %s in %s",
+                      file_path, folder_path)
             new_path = os.path.join("thumbnail", file_path).replace("\\", "/")
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         # Determine if @transitions path is found
         elif os.path.join(info.PATH, "transitions") in folder_path:
-            # Yes, this is an OpenShot transition
+            log.debug("Generating relative @transitions path for %s in %s",
+                      file_path, folder_path)
             folder_path, category_path = os.path.split(folder_path)
 
             # Convert path to @transitions/ path
@@ -283,15 +285,15 @@ class JsonDataStore:
 
         # Determine if @emojis path is found
         elif os.path.join(info.PATH, "emojis") in folder_path:
-            # Yes, this is an OpenShot emoji
-            # Convert path to @emojis/ path
+            log.debug("Generating relative @emojis path for %s in %s",
+                      file_path, folder_path)
             new_path = os.path.join("@emojis", file_path).replace("\\", "/")
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         # Determine if @assets path is found
         elif path_context["new_project_assets"] in folder_path:
-            # Yes, this is an OpenShot transitions
+            log.debug("Replacing path to %s in %s", file_path, folder_path)
             folder_path = folder_path.replace(path_context["new_project_assets"], "@assets")
 
             # Convert path to @assets/ path
@@ -305,16 +307,19 @@ class JsonDataStore:
             orig_abs_path = os.path.abspath(path)
 
             # Determine windows drives that the project and file are on
-            project_win_drive = os.path.splitdrive(get_app().project.current_filepath)[0]
+            project_win_drive = os.path.splitdrive(path_context.get("new_project_folder", ""))[0]
             file_win_drive = os.path.splitdrive(path)[0]
             if file_win_drive != project_win_drive:
+                log.debug("Drive mismatch, not making path relative: %s", orig_abs_path)
                 # If the file is on different drive. Don't abbreviate the path.
-                return orig_abs_path
+                clean_path = orig_abs_path.replace("\\", "/")
+                clean_path = json.dumps(clean_path, ensure_ascii=False)
+                return f"{key}: {clean_path}"
 
             # Remove file from abs path
             orig_abs_folder = os.path.dirname(orig_abs_path)
 
-            # Calculate new relateive path
+            log.debug("Generating new relative path for %s", orig_abs_path)
             new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))
             new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
             new_rel_path = json.dumps(new_rel_path, ensure_ascii=False)
@@ -335,8 +340,8 @@ class JsonDataStore:
             # Optimized regex replacement
             data = re.sub(path_regex, self.replace_string_to_relative, data)
 
-        except Exception as ex:
-            log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
+        except Exception:
+            log.error("Error while converting absolute paths to relative paths", exc_info=1)
 
         return data
 
