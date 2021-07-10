@@ -124,7 +124,6 @@ class EffectsModel(QObject):
                 category = "Audio & Video"
             elif not effect_info["has_video"] and effect_info["has_audio"]:
                 category = "Audio"
-                icon_path = os.path.join(icons_dir, "audio.png")
             elif effect_info["has_video"] and not effect_info["has_audio"]:
                 category = "Video"
 
