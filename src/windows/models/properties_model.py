@@ -185,12 +185,42 @@ class PropertiesModel(updates.UpdateInterface):
         return None
 
     @staticmethod
+    def interpret_as_type(prop_type: str, prop_value):
+        try:
+            if prop_type == "int":
+                return int(prop_value)
+            if prop_type == "float":
+                return float(prop_value)
+            if prop_type == "bool":
+                return bool(prop_value)
+            if prop_type in ["string", "font", "caption"]:
+                return str(prop_value)
+            if prop_type == "color":
+                return {
+                    "red": prop_value.red(),
+                    "green": prop_value.green(),
+                    "blue": prop_value.blue(),
+                }
+            if prop_type == "reader":
+                clip_object = openshot.Clip(prop_value)
+                clip_object.Open()
+                reader_json = json.loads(clip_object.Reader().Json())
+                clip_object.Close()
+                del clip_object
+                return reader_json
+        except Exception as ex:
+            log.warn(
+                'Invalid %s value %s passed to property: %s',
+                prop_type, prop_value, ex)
+            return None
+
+    @staticmethod
     def make_dataref(c, obj=None) -> dict:
         try:
             if obj:
                 return c.data.get('objects', {}).get(obj)
-            else:
-                return c.data
+            # else
+            return c.data
         except Exception:
             log.error("Couldn't interpret query object", exc_info=1)
             return {}
@@ -502,52 +532,11 @@ class PropertiesModel(updates.UpdateInterface):
 
         if not clip_updated:
             # If no keyframe was found, set a basic property
-            if property_type == "int":
+            new_value = PropertiesModel.interpret_as_type(
+                property_type, property_value)
+            if new_value:
+                d[property_key] = new_value
                 clip_updated = True
-                try:
-                    d[property_key] = int(new_value)
-                except Exception as ex:
-                    log.warn('Invalid Integer value passed to property: %s' % ex)
-
-            elif property_type == "float":
-                clip_updated = True
-                try:
-                    d[property_key] = float(new_value)
-                except Exception as ex:
-                    log.warn('Invalid Float value passed to property: %s' % ex)
-
-            elif property_type == "bool":
-                clip_updated = True
-                try:
-                    d[property_key] = bool(new_value)
-                except Exception as ex:
-                    log.warn('Invalid Boolean value passed to property: %s' % ex)
-
-            elif property_type == "string":
-                clip_updated = True
-                try:
-                    d[property_key] = str(new_value)
-                except Exception as ex:
-                    log.warn('Invalid String value passed to property: %s' % ex)
-
-            elif property_type in ["font", "caption"]:
-                clip_updated = True
-                try:
-                    d[property_key] = str(new_value)
-                except Exception as ex:
-                    log.warn('Invalid Font/Caption value passed to property: %s' % ex)
-
-            elif property_type == "reader":
-                # Transition
-                clip_updated = True
-                try:
-                    clip_object = openshot.Clip(value)
-                    clip_object.Open()
-                    d[property_key] = json.loads(clip_object.Reader().Json())
-                    clip_object.Close()
-                    clip_object = None
-                except Exception as ex:
-                    log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
 
         # Save changes
         if clip_updated:
