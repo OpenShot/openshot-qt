@@ -181,7 +181,7 @@ class FilesListView(QListView):
         self.setDropIndicatorShown(True)
 
         # Setup header columns and layout
-        self.setIconSize(QSize(131, 108))
+        self.setIconSize(QSize(98, 64))
         self.setGridSize(QSize(102, 92))
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
