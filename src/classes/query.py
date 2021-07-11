@@ -32,11 +32,6 @@ from classes import info
 from classes.app import get_app
 
 
-# Get project data reference
-app = get_app()
-project = app.project
-
-
 class QueryObject:
     """ This class allows one or more project data objects to be queried """
 
@@ -56,7 +51,7 @@ class QueryObject:
         if not self.id and self.type == "insert":
 
             # Insert record, and Generate id
-            self.id = project.generate_id()
+            self.id = get_app().project.generate_id()
 
             # save id in data (if attribute found)
             self.data["id"] = copy.deepcopy(self.id)
@@ -67,7 +62,7 @@ class QueryObject:
                 self.key.append({"id": self.id})
 
             # Insert into project data
-            app.updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), copy.deepcopy(self.data))
+            get_app().updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), copy.deepcopy(self.data))
 
             # Mark record as 'update' now... so another call to this method won't insert it again
             self.type = "update"
@@ -75,7 +70,7 @@ class QueryObject:
         elif self.id and self.type == "update":
 
             # Update existing project data
-            app.updates.update(self.key, self.data)
+            get_app().updates.update(self.key, self.data)
 
     def delete(self, OBJECT_TYPE):
         """ Delete the object from the project data store """
@@ -83,7 +78,7 @@ class QueryObject:
         # Delete if object found and not pending insert
         if self.id and self.type == "update":
             # Delete from project data store
-            app.updates.delete(self.key)
+            get_app().updates.delete(self.key)
             self.type = "delete"
 
     def title(self):
@@ -95,7 +90,7 @@ class QueryObject:
         """ Take any arguments given as filters, and find a list of matching objects """
 
         # Get a list of all objects of this type
-        parent = project.get(OBJECT_TYPE.object_key)
+        parent = get_app().project.get(OBJECT_TYPE.object_key)
 
         if not parent:
             return []
@@ -242,30 +237,25 @@ class File(QueryObject):
     def absolute_path(self):
         """ Get absolute file path of file """
 
-        # Get project folder (if any)
-        project_folder = None
-        if project.current_filepath:
-            project_folder = os.path.dirname(project.current_filepath)
-
-        # Convert relative file path into absolute (if needed)
         file_path = self.data["path"]
-        if not os.path.isabs(file_path) and project_folder:
-            file_path = os.path.abspath(os.path.join(project_folder, self.data["path"]))
+        if os.path.isabs(file_path):
+            return file_path
 
-        # Return absolute path of file
+        # Try to expand path relative to project folder
+        app = get_app()
+        if (app and hasattr("project", app)
+           and hasattr("current_filepath", app.project)):
+            project_folder = os.path.dirname(app.project.current_filepath)
+            file_path = os.path.abspath(os.path.join(project_folder, file_path))
+
         return file_path
 
     def relative_path(self):
         """ Get relative path (based on the current working directory) """
 
-        # Get absolute file path
         file_path = self.absolute_path()
-
         # Convert path to relative (based on current working directory of Python)
-        file_path = os.path.relpath(file_path, info.CWD)
-
-        # Return relative path
-        return file_path
+        return os.path.relpath(file_path, info.CWD)
 
 
 class Marker(QueryObject):
@@ -317,6 +307,7 @@ class Track(QueryObject):
     def __gt__(self, other):
         return self.data.get('number', 0) > other.data.get('number', 0)
 
+
 class Effect(QueryObject):
     """ This class allows Effects to be queried, updated, and deleted from the project data. """
     object_name = "effects"  # Derived classes should define this
@@ -334,7 +325,7 @@ class Effect(QueryObject):
         """ Take any arguments given as filters, and find a list of matching objects """
 
         # Get a list of clips
-        clips = project.get("clips")
+        clips = get_app().project.get("clips")
         matching_objects = []
 
         # Loop through all clips

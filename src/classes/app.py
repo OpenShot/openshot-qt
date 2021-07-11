@@ -28,43 +28,47 @@
  """
 
 import atexit
+import sys
 import os
 import platform
-import sys
 import traceback
 import json
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtGui import QPalette, QColor, QFontDatabase, QFont
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
-
-try:
-    # This apparently has to be done before loading QtQuick
-    # (via QtWebEgine) AND before creating the QApplication instance
-    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
-    from OpenGL import GL  # noqa
-except (ImportError, AttributeError):
-    pass
-
-try:
-    # QtWebEngineWidgets must be loaded prior to creating a QApplication
-    # But on systems with only WebKit, this will fail (and we ignore the failure)
-    from PyQt5.QtWebEngineWidgets import QWebEngineView
-except ImportError:
-    pass
-
-try:
-    # Enable High-DPI resolutions
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-except AttributeError:
-    pass  # Quietly fail for older Qt5 versions
 
 
 def get_app():
-    """ Returns the current QApplication instance of OpenShot """
+    """ Get the current QApplication instance of OpenShot """
     return QApplication.instance()
+
+
+def get_settings():
+    """Get a reference to the app's settings object"""
+    return get_app().get_settings()
+
+
+class StartupError:
+    """ Store and later display an error encountered during setup"""
+    levels = {
+        "warning": QMessageBox.warning,
+        "error": QMessageBox.critical,
+    }
+
+    def __init__(self, title="", message="", level="warning"):
+        """Create an error message object, populated with details"""
+        self.title = title
+        self.message = message
+        self.level = level
+
+    def show(self):
+        """Display the stored error message"""
+        box_call = self.levels[self.level]
+        box_call(None, self.title, self.message)
+        if self.level == "error":
+            sys.exit()
 
 
 class OpenShotApp(QApplication):
@@ -73,42 +77,75 @@ class OpenShotApp(QApplication):
 
     def __init__(self, *args, mode=None):
         QApplication.__init__(self, *args)
+        self.mode = mode or "normal"
+        self.args = super().arguments()
+        self.errors = []
 
         try:
             # Import modules
-            from classes import info
+            from classes import info, sentry
             from classes.logger import log, reroute_output
 
             # Log the session's start
-            import time
-            log.info("------------------------------------------------")
-            log.info(time.asctime().center(48))
-            log.info('Starting new session'.center(48))
+            if mode != "unittest":
+                import time
+                log.info("-" * 48)
+                log.info(time.asctime().center(48))
+                log.info('Starting new session'.center(48))
 
-            from classes import (
-                settings, project_data, updates, language, ui_util,
-                logger_libopenshot
-                )
+            log.debug("Starting up in {} mode".format(self.mode))
+            log.debug("Command line: {}".format(self.args))
+
+            from classes import settings, project_data, updates
             import openshot
 
             # Re-route stdout and stderr to logger
-            reroute_output()
+            if mode != "unittest":
+                reroute_output()
+
         except ImportError as ex:
             tb = traceback.format_exc()
             log.error('OpenShotApp::Import Error', exc_info=1)
-            QMessageBox.warning(None, "Import Error",
-                                "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb})
-            # Stop launching and exit
+            self.errors.append(StartupError(
+                "Import Error",
+                "Module: %(name)s\n\n%(tb)s" % {"name": ex.name, "tb": tb},
+                level="error"))
+            # Stop launching
             raise
         except Exception:
             log.error('OpenShotApp::Init Error', exc_info=1)
             sys.exit()
 
+        self.info = info
+
         # Log some basic system info
+        self.log = log
+        self.show_environment(info, openshot)
+        if self.mode != "unittest":
+            self.check_libopenshot_version(info, openshot)
+
+        # Init data objects
+        self.settings = settings.SettingStore(parent=self)
+        self.settings.load()
+        self.project = project_data.ProjectDataStore()
+        self.updates = updates.UpdateManager()
+        # It is important that the project is the first listener if the key gets update
+        self.updates.add_listener(self.project)
+        self.updates.reset()
+
+        # Set location of OpenShot program (for libopenshot)
+        openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
+
+        # Check to disable sentry
+        if not self.settings.get('send_metrics'):
+            sentry.disable_tracing()
+
+    def show_environment(self, info, openshot):
+        log = self.log
         try:
-            log.info("------------------------------------------------")
+            log.info("-" * 48)
             log.info(("OpenShot (version %s)" % info.SETUP['version']).center(48))
-            log.info("------------------------------------------------")
+            log.info("-" * 48)
 
             log.info("openshot-qt version: %s" % info.VERSION)
             log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
@@ -130,60 +167,45 @@ class OpenShotApp(QApplication):
         except Exception:
             log.debug("Error displaying dependency/system details", exc_info=1)
 
-        # Setup application
-        self.setApplicationName('openshot')
-        self.setApplicationVersion(info.SETUP['version'])
-        try:
-            # Qt 5.7+ only
-            self.setDesktopFile("org.openshot.OpenShot")
-        except AttributeError:
-            pass
+    def check_libopenshot_version(self, info, openshot):
+        """Detect minimum libopenshot version"""
+        _ = self._tr
+        ver = openshot.OPENSHOT_VERSION_FULL
+        min_ver = info.MINIMUM_LIBOPENSHOT_VERSION
+        if ver >= min_ver:
+            return True
 
-        # Init settings
-        self.settings = settings.SettingStore(parent=self)
-        self.settings.load()
+        self.errors.append(StartupError(
+            _("Wrong Version of libopenshot Detected"),
+            _("<b>Version %(minimum_version)s is required</b>, "
+              "but %(current_version)s was detected. "
+              "Please update libopenshot or download our latest installer.") % {
+                "minimum_version": min_ver,
+                "current_version": ver,
+                },
+            level="error",
+        ))
+        raise RuntimeError(
+            "libopenshot version {} found, minimum is {}".format(ver, min_ver))
 
-        # Init and attach exception handler
-        from classes import exceptions
-        sys.excepthook = exceptions.ExceptionHandler
+    def gui(self):
+        from classes import language, sentry, ui_util, logger_libopenshot
+        from PyQt5.QtGui import QFont, QFontDatabase as QFD
+
+        _ = self._tr
+        info = self.info
+        log = self.log
 
         # Init translation system
         language.init_language()
-
-        # Detect minimum libopenshot version
-        _ = self._tr
-        libopenshot_version = openshot.OPENSHOT_VERSION_FULL
-        if mode != "unittest" and libopenshot_version < info.MINIMUM_LIBOPENSHOT_VERSION:
-            QMessageBox.warning(
-                None,
-                _("Wrong Version of libopenshot Detected"),
-                _("<b>Version %(minimum_version)s is required</b>, "
-                  "but %(current_version)s was detected. "
-                  "Please update libopenshot or download our latest installer.")
-                % {
-                    "minimum_version": info.MINIMUM_LIBOPENSHOT_VERSION,
-                    "current_version": libopenshot_version,
-                    })
-            # Stop launching and exit
-            sys.exit()
-
-        # Set location of OpenShot program (for libopenshot)
-        openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
-
-        # Tests of project data loading/saving
-        self.project = project_data.ProjectDataStore()
-
-        # Init Update Manager
-        self.updates = updates.UpdateManager()
-
-        # It is important that the project is the first listener if the key gets update
-        self.updates.add_listener(self.project)
+        sentry.set_tag("locale", info.CURRENT_LANGUAGE)
 
         # Load ui theme if not set by OS
         ui_util.load_theme()
 
         # Test for permission issues (and display message if needed)
         try:
+            log.debug("Testing write access to user directory")
             # Create test paths
             TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
             TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.osp')
@@ -196,15 +218,17 @@ class OpenShotApp(QApplication):
             os.rmdir(TEST_PATH_DIR)
         except PermissionError as ex:
             log.error('Failed to create file %s', TEST_PATH_FILE, exc_info=1)
-            QMessageBox.warning(
-                None, _("Permission Error"),
-                _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again." % {
+            self.errors.append(StartupError(
+                _("Permission Error"),
+                _("%(error)s. Please delete <b>%(path)s</b> and launch OpenShot again.") % {
                     "error": str(ex),
                     "path": info.USER_PATH,
-                }))
-            # Stop launching and exit
-            raise
-            sys.exit()
+                    },
+                level="error",
+            ))
+
+        # Display any outstanding startup messages
+        self.show_errors()
 
         # Start libopenshot logging thread
         self.logger_libopenshot = logger_libopenshot.LoggerLibOpenShot()
@@ -214,117 +238,105 @@ class OpenShotApp(QApplication):
         self.context_menu_object = None
 
         # Set Font for any theme
+        log.debug("Loading UI theme")
         if self.settings.get("theme") != "No Theme":
             # Load embedded font
-            try:
-                log.info("Setting font to %s" % os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
-                font_id = QFontDatabase.addApplicationFont(os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf"))
-                font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
-                font = QFont(font_family)
-                font.setPointSizeF(10.5)
-                QApplication.setFont(font)
-            except Exception:
-                log.debug("Error setting Ubuntu-R.ttf QFont", exc_info=1)
+            font_path = os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf")
+            if os.path.exists(font_path):
+                log.info("Setting font to %s", font_path)
+                try:
+                    font_id = QFD.addApplicationFont(font_path)
+                    font_family = QFD.applicationFontFamilies(font_id)[0]
+                    font = QFont(font_family)
+                    font.setPointSizeF(10.5)
+                    QApplication.setFont(font)
+                except Exception:
+                    log.warning("Error setting Ubuntu-R.ttf QFont", exc_info=1)
 
-        # Set Experimental Dark Theme
+        # Set Dark Theme, if selected
         if self.settings.get("theme") == "Humanity: Dark":
-            # Only set if dark theme selected
             log.info("Setting custom dark theme")
             self.setStyle(QStyleFactory.create("Fusion"))
-
-            darkPalette = self.palette()
-
-            darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.WindowText, Qt.white)
-            darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
-            darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
-            darkPalette.setColor(QPalette.Text, Qt.white)
-            darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
-            darkPalette.setColor(QPalette.ButtonText, Qt.white)
-            darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
-            darkPalette.setColor(QPalette.HighlightedText, Qt.black)
-            #
-            # Disabled palette
-            #
-            darkPalette.setColor(QPalette.Disabled, QPalette.WindowText, QColor(255, 255, 255, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Base, QColor(68, 68, 68))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Text, QColor(255, 255, 255, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
-            darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
-            darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
-
-            # Tooltips
-            darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
-            darkPalette.setColor(QPalette.ToolTipText, Qt.white)
-
+            darkPalette = ui_util.make_dark_palette(self.palette())
             self.setPalette(darkPalette)
             self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
 
         # Create main window
         from windows.main_window import MainWindow
-        self.window = MainWindow(mode=mode)
+        log.debug("Creating main interface window")
+        self.window = MainWindow(mode=self.mode)
 
-        # Reset undo/redo history
-        self.updates.reset()
+        # Clear undo/redo history
         self.window.updateStatusChanged(False, False)
 
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
 
-        log.info('Process command-line arguments: %s' % args)
-        if len(args[0]) == 2:
-            path = args[0][1]
-            if ".osp" in path:
-                # Auto load project passed as argument
-                self.window.OpenProjectSignal.emit(path)
-            else:
-                # Apply the default settings and Auto import media file
-                self.project.load("")
-                self.window.filesView.add_file(path)
-        else:
+        args = self.args
+        if len(args) < 2:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
             self.window.RecoverBackup.emit()
+            return
+
+        log.info('Process command-line arguments: %s' % args)
+
+        # Auto load project if passed as argument
+        if args[1].endswith(".osp"):
+            self.window.OpenProjectSignal.emit(args[1])
+            return
+
+        # Start a new project and auto import any media files
+        self.project.load("")
+        for arg in args[1:]:
+            self.window.filesView.add_file(arg)
 
     def settings_load_error(self, filepath=None):
         """Use QMessageBox to warn the user of a settings load issue"""
         _ = self._tr
-        QMessageBox.warning(
-            None,
+        self.errors.append(StartupError(
             _("Settings Error"),
-            _("Error loading settings file: %(file_path)s. Settings will be reset.")
-            % {"file_path": filepath}
-            )
+            _("Error loading settings file: %(file_path)s. Settings will be reset.") % {
+                "file_path": filepath
+                },
+            level="warning",
+        ))
+
+    def get_settings(self):
+        if not hasattr(self, "settings"):
+            return None
+        return self.settings
+
+    def show_errors(self):
+        count = len(self.errors)
+        if count > 0:
+            self.log.warning("Displaying %d startup messages", count)
+        while self.errors:
+            error = self.errors.pop(0)
+            error.show()
 
     def _tr(self, message):
         return self.translate("", message)
 
-    # Start event loop
-    def run(self):
-        """ Start the primary Qt event loop for the interface """
-        return self.exec_()
-
     @pyqtSlot()
     def cleanup(self):
         """aboutToQuit signal handler for application exit"""
+        self.log.debug("Saving settings in app.cleanup")
         try:
-            from classes.logger import log
             self.settings.save()
         except Exception:
-            log.error("Couldn't save user settings on exit.", exc_info=1)
+            self.log.error("Couldn't save user settings on exit.", exc_info=1)
 
 
-# Log the session's end
 @atexit.register
 def onLogTheEnd():
     """ Log when the primary Qt event loop ends """
     try:
         from classes.logger import log
         import time
-        log.info('OpenShot\'s session ended'.center(48))
+        log.info("OpenShot's session ended".center(48))
         log.info(time.asctime().center(48))
-        log.info("================================================")
+        log.info("=" * 48)
     except Exception:
-        from classes.logger import log
-        log.debug('Failed to write session ended log')
+        import logging
+        log = logging.getLogger(".")
+        log.debug('Failed to write session ended log', exc_info=1)

@@ -3,20 +3,15 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.allowed-to-fail }}
     strategy:
-      fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-18.04
-            allowed-to-fail: false
-          - os: ubuntu-20.04
-            allowed-to-fail: true
+        os: [ubuntu-18.04, ubuntu-20.04]
     defaults:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
 
     - name: Install dependencies
       run: |
@@ -25,11 +20,11 @@ jobs:
         sudo apt install libopenshot-audio-dev libopenshot-dev python3-openshot
         sudo apt install qttranslations5-l10n libssl-dev xvfb
         sudo apt install python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine python3-pyqt5.qtopengl python3-zmq python3-xdg
-        pip3 install setuptools wheel
+        pip3 install setuptools wheel sentry-sdk
         pip3 install cx_Freeze==6.1 distro defusedxml requests certifi chardet urllib3
 
     - name: Build Python package
       run: python3 freeze.py build
 
     - name: Test
-      run: xvfb-run --auto-servernum --server-num=1 --server-args "-screen 0 1920x1080x24" python3 ./src/tests/query_tests.py
+      run: python3 ./src/tests/query_tests.py -platform minimal

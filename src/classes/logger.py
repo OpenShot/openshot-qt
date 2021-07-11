@@ -32,73 +32,91 @@ import logging.handlers
 
 from classes import info
 
-# Dictionary of logging handlers we create, keyed by type
-handlers = {}
-# Another dictionary of streams we've redirected (stdout, stderr)
-streams = {}
-
 
 class StreamToLogger(object):
     """Custom class to log all stdout and stderr streams (from libopenshot / and other libraries)"""
-    def __init__(self, logger, log_level=logging.INFO):
-        self.logger = logger
+    def __init__(self, parent_stream, log_level=logging.INFO):
+        self.parent = parent_stream or sys.__stderr__
+        self.logger = logging.LoggerAdapter(
+            logging.getLogger('OpenShot.stderr'), {'source': 'stream'})
         self.log_level = log_level
-        self.linebuf = ''
+        self.logbuf = ''
 
-    def write(self, buf):
-        for line in buf.rstrip().splitlines():
-            self.logger.log(self.log_level, line.rstrip())
+    def write(self, text):
+        self.logbuf += str(text) or ""
+        self.parent.write(text)
 
     def flush(self):
-        pass
+        if self.logbuf.rstrip():
+            self.logger.log(self.log_level, self.logbuf.rstrip())
+        self.logbuf = ''
 
     def errors(self):
         pass
 
 
-# Create logger instance
-log = logging.Logger('OpenShot')
+class StreamFilter(logging.Filter):
+    """Filter out lines that originated on the output"""
+    def filter(self, record):
+        source = getattr(record, "source", "")
+        return bool(source != "stream")
+
 
 # Set up log formatters
 template = '%(levelname)s %(module)s: %(message)s'
 console_formatter = logging.Formatter(template)
 file_formatter = logging.Formatter('%(asctime)s ' + template, datefmt='%H:%M:%S')
 
-# Add normal stderr stream handler
-sh = logging.StreamHandler()
-sh.setFormatter(console_formatter)
-sh.setLevel(info.LOG_LEVEL_CONSOLE)
-log.addHandler(sh)
-handlers['stream'] = sh
+# Configure root logger for minimal logging
+logging.basicConfig(level=logging.ERROR)
+root_log = logging.getLogger()
 
-# Add rotating file handler
+# Set up our top-level logging context
+log = root_log.getChild('OpenShot')
+log.setLevel(info.LOG_LEVEL_FILE)
+# Don't pass messages on to root logger
+log.propagate = False
+
+#
+# Create rotating file handler
+#
 fh = logging.handlers.RotatingFileHandler(
-    os.path.join(info.USER_PATH, 'openshot-qt.log'), encoding="utf-8", maxBytes=25*1024*1024, backupCount=3)
-fh.setFormatter(file_formatter)
+         os.path.join(info.USER_PATH, 'openshot-qt.log'),
+         encoding="utf-8",
+         maxBytes=25*1024*1024, backupCount=3)
 fh.setLevel(info.LOG_LEVEL_FILE)
+fh.setFormatter(file_formatter)
+
 log.addHandler(fh)
-handlers['file'] = fh
+
+#
+# Create typical stream handler which logs to stderr
+#
+sh = logging.StreamHandler(sys.stderr)
+sh.setLevel(info.LOG_LEVEL_CONSOLE)
+sh.setFormatter(console_formatter)
+
+# Filter out redirected output on console, to avoid duplicates
+filt = StreamFilter()
+sh.addFilter(filt)
+
+log.addHandler(sh)
 
 
 def reroute_output():
     """Route stdout and stderr to logger (custom handler)"""
-    if not getattr(sys, 'frozen', False):
-        # Hang on to the original objects
-        streams.update({
-            'stderr': sys.stderr,
-            'stdout': sys.stdout,
-            })
-        # Re-route output streams
-        handlers['stdout'] = StreamToLogger(log, logging.INFO)
-        sys.stdout = handlers['stdout']
-        handlers['stderr'] = StreamToLogger(log, logging.ERROR)
-        sys.stderr = handlers['stderr']
+    if (getattr(sys, 'frozen', False)
+       or sys.stdout != sys.__stdout__):
+        return
+    sys.stdout = StreamToLogger(sys.stdout, logging.INFO)
+    sys.stderr = StreamToLogger(sys.stderr, logging.WARNING)
 
 
 def set_level_file(level=logging.INFO):
-    handlers['file'].setLevel(level)
+    """Adjust the minimum log level written to our logfile"""
+    fh.setLevel(level)
 
 
 def set_level_console(level=logging.INFO):
-    handlers['stream'].setLevel(level)
-
+    """Adjust the minimum log level for output to the terminal"""
+    sh.setLevel(level)

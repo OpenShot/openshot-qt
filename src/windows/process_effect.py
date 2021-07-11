@@ -35,7 +35,7 @@ from PyQt5.QtGui import QBrush
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
@@ -255,6 +255,12 @@ class ProcessEffect(QDialog):
                 topLeft = win.videoPreview.regionTopLeftHandle
                 bottomRight = win.videoPreview.regionBottomRightHandle
                 viewPortSize = win.viewport_rect
+                curr_frame_size = win.videoPreview.curr_frame_size
+                
+                x1 = topLeft.x() / curr_frame_size.width()
+                y1 = topLeft.y() / curr_frame_size.height()
+                x2 = bottomRight.x() / curr_frame_size.width()
+                y2 = bottomRight.y() / curr_frame_size.height()
 
                 # Get QImage of region
                 if win.videoPreview.region_qimage:
@@ -275,13 +281,10 @@ class ProcessEffect(QDialog):
 
                 # If data found, add to context
                 if topLeft and bottomRight:
-                    self.context[param["setting"]].update({"x": topLeft.x(), "y": topLeft.y(),
-                                                           "width": bottomRight.x() - topLeft.x(),
-                                                           "height": bottomRight.y() - topLeft.y(),
-                                                           "scaled_x": topLeft.x() / viewPortSize.width(), "scaled_y": topLeft.y() / viewPortSize.height(),
-                                                           "scaled_width": (bottomRight.x() - topLeft.x()) / viewPortSize.width(),
-                                                           "scaled_height": (bottomRight.y() - topLeft.y()) / viewPortSize.height(),
-                                                           "first-frame": win.current_frame
+                    self.context[param["setting"]].update({"normalized_x": x1, "normalized_y": y1,
+                                                           "normalized_width": x2-x1,
+                                                           "normalized_height": y2-y1,
+                                                           "first-frame": win.current_frame,
                                                            })
                     log.info(self.context)
 
@@ -345,7 +348,6 @@ class ProcessEffect(QDialog):
                 processing.CancelProcessing()
 
         if(not self.cancel_clip_processing):
-
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
             self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )

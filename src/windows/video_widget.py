@@ -39,7 +39,7 @@ from classes import updates
 from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
-from classes.query import Clip
+from classes.query import Clip, Effect
 
 import json
 
@@ -99,6 +99,93 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     round(self.height() * self.pixel_ratio.ToFloat())
                     )
 
+
+    def drawTransformHandler(self, painter, sx, sy, source_width, source_height, origin_x, origin_y,
+     x1=None, y1=None, x2=None, y2=None, rotation = None):
+        # Draw transform corners and center origin circle
+        # Corner size
+        cs = self.cs
+        os = 12.0
+
+        # Rotate the transform handler
+        if rotation:
+            bbox_center_x = (((x1*source_width + x2*source_width) / 2.0) ) - ( (os/2) /sx)
+            bbox_center_y = (((y1*source_height + y2*source_height) / 2.0) ) - ( (os/2) /sy)
+            painter.translate(bbox_center_x, bbox_center_y)
+            painter.rotate(rotation)
+            painter.translate(-bbox_center_x, -bbox_center_y)
+
+        if(x1 and y1 and x2 and y2):
+            # Calculate bounds of clip
+            self.clipBounds = QRectF(QPointF(x1*source_width, y1*source_height), QPointF(x2*source_width, y2*source_height))
+            # Calculate 4 corners coordinates
+            self.topLeftHandle = QRectF(x1*source_width -(cs/sx/2.0), y1*source_height-(cs/sy/2.0), cs/sx, cs/sy)
+            self.topRightHandle = QRectF(x2*source_width-(cs/sx/2.0), y1*source_height-(cs/sy/2.0), cs/sx, cs/sy)
+            self.bottomLeftHandle = QRectF(x1*source_width -(cs/sx/2.0), y2*source_height-(cs/sy/2.0), cs/sx, cs/sy)
+            self.bottomRightHandle = QRectF(x2*source_width-(cs/sx/2.0), y2*source_height-(cs/sy/2.0), cs/sx, cs/sy)
+        else:
+            # Calculate bounds of clip
+            self.clipBounds = QRectF(QPointF(0.0, 0.0), QPointF(source_width, source_height))
+            # Calculate 4 corners coordinates
+            self.topLeftHandle = QRectF(-cs/sx/2.0, -cs/sy/2.0, cs/sx, cs/sy)
+            self.topRightHandle = QRectF(source_width - (cs/sx) + cs/sx/2.0, -cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomLeftHandle = QRectF(-cs/sx/2.0, source_height - (cs/sy) + cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomRightHandle = QRectF(source_width - (cs/sx) + cs/sx/2.0, source_height - (cs/sy) + cs/sy/2.0, cs/sx, cs/sy)
+
+        # Draw 4 corners
+        pen = QPen(QBrush(QColor("#53a0ed")), 1.5)
+        pen.setCosmetic(True)
+        painter.setPen(pen)
+        painter.drawRect(self.topLeftHandle)
+        painter.drawRect(self.topRightHandle)
+        painter.drawRect(self.bottomLeftHandle)
+        painter.drawRect(self.bottomRightHandle)
+
+        if(x1 and y1 and x2 and y2):
+            # Calculate 4 side coordinates
+            self.topHandle = QRectF(((x1*source_width+x2*source_width) / 2.0) - (cs/sx/2.0), (y1*source_height)-cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomHandle = QRectF(((x1*source_width+x2*source_width) / 2.0) - (cs/sx/2.0), (y2*source_height)-( cs/sy/2.0), cs/sx, cs/sy)
+            self.leftHandle = QRectF((x1*source_width)-(cs/sx/2.0), ((y1*source_height+y2*source_height) / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+            self.rightHandle = QRectF((x2*source_width) - (cs/sx) + cs/sx/2.0, ((y1*source_height+y2*source_height) / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+
+        else:
+            # Calculate 4 side coordinates
+            self.topHandle = QRectF((source_width / 2.0) - (cs/sx/2.0), -cs/sy/2.0, cs/sx, cs/sy)
+            self.bottomHandle = QRectF((source_width / 2.0) - (cs/sx/2.0), source_height - (cs/sy) + cs/sy/2.0, cs/sx, cs/sy)
+            self.leftHandle = QRectF(-cs/sx/2.0, (source_height / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+            self.rightHandle = QRectF(source_width - (cs/sx) + cs/sx/2.0, (source_height / 2.0) - (cs/sy/2.0), cs/sx, cs/sy)
+
+        # Calculate shear handles
+        self.topShearHandle = QRectF(self.topLeftHandle.x(), self.topLeftHandle.y(), self.clipBounds.width(), self.topLeftHandle.height())
+        self.leftShearHandle = QRectF(self.topLeftHandle.x(), self.topLeftHandle.y(), self.topLeftHandle.width(), self.clipBounds.height())
+        self.rightShearHandle = QRectF(self.topRightHandle.x(), self.topRightHandle.y(), self.topRightHandle.width(), self.clipBounds.height())
+        self.bottomShearHandle = QRectF(self.bottomLeftHandle.x(), self.bottomLeftHandle.y(), self.clipBounds.width(), self.topLeftHandle.height())
+
+        # Draw 4 sides (centered)
+        painter.drawRect(self.topHandle)
+        painter.drawRect(self.bottomHandle)
+        painter.drawRect(self.leftHandle)
+        painter.drawRect(self.rightHandle)
+        painter.drawRect(self.clipBounds)
+
+        # Calculate center coordinate
+        if(x1 and y1 and x2 and y2):
+            cs = 5.0
+            os = 7.0
+            self.centerHandle = QRectF( (((x1*source_width+x2*source_width) / 2.0) ) - (os/sx), (((y1*source_height+y2*source_height) / 2.0) ) - (os/sy), os/sx*2.0, os/sy*2.0)
+        else:
+            self.centerHandle = QRectF((source_width * origin_x) - (os/sx), (source_height * origin_y) - (os/sy), os/sx*2.0, os/sy*2.0)
+
+        # Draw origin
+        painter.drawEllipse(self.centerHandle)
+        painter.drawLine(self.centerHandle.x() + (self.centerHandle.width()/2.0), self.centerHandle.y() + (self.centerHandle.height()/2.0) - self.centerHandle.height(),
+                            self.centerHandle.x() + (self.centerHandle.width()/2.0), self.centerHandle.y() + (self.centerHandle.height()/2.0) + self.centerHandle.height())
+        painter.drawLine(self.centerHandle.x() + (self.centerHandle.width()/2.0) - self.centerHandle.width(), self.centerHandle.y() + (self.centerHandle.height()/2.0),
+                            self.centerHandle.x() + (self.centerHandle.width()/2.0) + self.centerHandle.width(), self.centerHandle.y() + (self.centerHandle.height()/2.0))
+
+        # Remove transform
+        painter.resetTransform()
+
     def paintEvent(self, event, *args):
         """ Custom paint event """
         event.accept()
@@ -119,6 +206,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Calculate new frame image size, maintaining aspect ratio
             pixSize = self.current_image.size()
             pixSize.scale(event.rect().width(), event.rect().height(), Qt.KeepAspectRatio)
+            self.curr_frame_size = pixSize
 
             # Scale image
             scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -152,6 +240,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Determine scale of clip
             scale = self.transforming_clip.data['scale']
+
+            # Set scale as STRETCH if the clip is attached to an object
+            if (raw_properties.get('parentObjectId').get('memo') != 'None' and len(raw_properties.get('parentObjectId').get('memo')) > 0 ):
+                scale = openshot.SCALE_STRETCH
+
             if scale == openshot.SCALE_FIT:
                 source_size.scale(player_width, player_height, Qt.KeepAspectRatio)
 
@@ -242,107 +335,30 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Apply transform
             painter.setTransform(self.transform)
 
-            # Draw transform corners and center origin circle
-            # Corner size
-            cs = 14.0
-            os = 12.0
-
-            # Calculate bounds of clip
-            self.clipBounds = QRectF(QPointF(0.0, 0.0), QPointF(source_width, source_height))
-
-            # Calculate 4 corners coordinates
-            self.topLeftHandle = QRectF(
-                -cs/sx/2.0,
-                -cs/sy/2.0,
-                cs/sx, cs/sy)
-            self.topRightHandle = QRectF(
-                source_width - (cs/sx) + cs/sx/2.0,
-                -cs/sy/2.0,
-                cs/sx, cs/sy)
-            self.bottomLeftHandle = QRectF(
-                -cs/sx/2.0,
-                source_height - (cs/sy) + cs/sy/2.0,
-                cs/sx, cs/sy)
-            self.bottomRightHandle = QRectF(
-                source_width - (cs/sx) + cs/sx/2.0,
-                source_height - (cs/sy) + cs/sy/2.0,
-                cs/sx, cs/sy)
-
-            # Draw 4 corners
-            pen = QPen(QBrush(QColor("#53a0ed")), 1.5)
-            pen.setCosmetic(True)
-            painter.setPen(pen)
-            painter.drawRect(self.topLeftHandle)
-            painter.drawRect(self.topRightHandle)
-            painter.drawRect(self.bottomLeftHandle)
-            painter.drawRect(self.bottomRightHandle)
-
-            # Calculate 4 side coordinates
-            self.topHandle = QRectF(
-                (source_width / 2.0) - (cs/sx/2.0),
-                -cs/sy/2.0,
-                cs/sx, cs/sy)
-            self.bottomHandle = QRectF(
-                (source_width / 2.0) - (cs/sx/2.0),
-                source_height - (cs/sy) + cs/sy/2.0,
-                cs/sx, cs/sy)
-            self.leftHandle = QRectF(
-                -cs/sx/2.0,
-                (source_height / 2.0) - (cs/sy/2.0),
-                cs/sx, cs/sy)
-            self.rightHandle = QRectF(
-                source_width - (cs/sx) + cs/sx/2.0,
-                (source_height / 2.0) - (cs/sy/2.0),
-                cs/sx, cs/sy)
-
-            # Calculate shear handles
-            self.topShearHandle = QRectF(
-                self.topLeftHandle.x(), self.topLeftHandle.y(),
-                self.clipBounds.width(), self.topLeftHandle.height()
-                )
-            self.leftShearHandle = QRectF(
-                self.topLeftHandle.x(), self.topLeftHandle.y(),
-                self.topLeftHandle.width(), self.clipBounds.height()
-                )
-            self.rightShearHandle = QRectF(
-                self.topRightHandle.x(), self.topRightHandle.y(),
-                self.topRightHandle.width(), self.clipBounds.height()
-                )
-            self.bottomShearHandle = QRectF(
-                self.bottomLeftHandle.x(), self.bottomLeftHandle.y(),
-                self.clipBounds.width(), self.topLeftHandle.height()
-                )
-
-            # Draw 4 sides (centered)
-            painter.drawRect(self.topHandle)
-            painter.drawRect(self.bottomHandle)
-            painter.drawRect(self.leftHandle)
-            painter.drawRect(self.rightHandle)
-            painter.drawRect(self.clipBounds)
-
-            # Calculate center coordinate
-            self.centerHandle = QRectF(
-                (source_width * origin_x) - (os/sx),
-                (source_height * origin_y) - (os/sy),
-                os/sx*2.0, os/sy*2.0)
-
-            # Draw origin
-            painter.drawEllipse(self.centerHandle)
-            painter.drawLine(
-                self.centerHandle.x() + (self.centerHandle.width()/2.0),
-                self.centerHandle.y() + (self.centerHandle.height()/2.0) - self.centerHandle.height(),
-                self.centerHandle.x() + (self.centerHandle.width()/2.0),
-                self.centerHandle.y() + (self.centerHandle.height()/2.0) + self.centerHandle.height()
-                )
-            painter.drawLine(
-                self.centerHandle.x() + (self.centerHandle.width()/2.0) - self.centerHandle.width(),
-                self.centerHandle.y() + (self.centerHandle.height()/2.0),
-                self.centerHandle.x() + (self.centerHandle.width()/2.0) + self.centerHandle.width(),
-                self.centerHandle.y() + (self.centerHandle.height()/2.0)
-                )
-
-            # Remove transform
-            painter.resetTransform()
+            if self.transforming_effect:
+                # Check if the effect has a tracked object
+                if self.transforming_effect_object.info.has_tracked_object:
+                    # Get properties of clip at current frame
+                    raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                    # Get properties for the first object in dict. PropertiesJSON should return one object at the time
+                    tmp = raw_properties_effect.get('objects')
+                    tmp2 = tmp.keys()
+                    obj_id = list(tmp.keys())[0]
+                    raw_properties_effect = raw_properties_effect.get('objects').get(obj_id)
+                    
+                    # Check if the tracked object is visible in this frame
+                    if raw_properties_effect.get('visible'): 
+                        if raw_properties_effect.get('visible').get('value') == 1:
+                            # Get the selected bounding box values
+                            rotation = raw_properties_effect['rotation']['value']
+                            x1 = raw_properties_effect['x1']['value']
+                            y1 = raw_properties_effect['y1']['value']
+                            x2 = raw_properties_effect['x2']['value']
+                            y2 = raw_properties_effect['y2']['value']
+                            self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y,
+                                x1, y1, x2, y2, rotation)
+            else:
+                self.drawTransformHandler(painter, sx, sy, source_width, source_height, origin_x, origin_y)
 
         if self.region_enabled:
             # Paint region selector onto video preview
@@ -366,7 +382,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Draw transform corners and center origin circle
             # Corner size
-            cs = 14.0
+            cs = self.cs
 
             if self.regionTopLeftHandle and self.regionBottomRightHandle:
                 # Draw 2 corners and bounding box
@@ -484,6 +500,107 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             QTransform().rotate(rotation).shear(shear_x, shear_y).scale(0.8, 0.8), Qt.SmoothTransformation)
         return QCursor(rotated_pixmap)
 
+    def getTransformMode(self, rotation, shear_x, shear_y, event):
+        # Mouse over resize button (and not currently dragging)
+        if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
+            self.setCursor(Qt.ArrowCursor)
+        # Determine if cursor is over a handle
+        elif self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'origin':
+                self.setCursor(self.rotateCursor(self.cursors.get('hand'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'origin'
+        elif self.transform.mapToPolygon(self.topRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_top_right':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_top_right'
+        elif self.transform.mapToPolygon(self.topHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_top':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_top'
+        elif self.transform.mapToPolygon(self.topLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_top_left':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_top_left'
+        elif self.transform.mapToPolygon(self.leftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_left':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_left'
+        elif self.transform.mapToPolygon(self.rightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_right':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_right'
+        elif self.transform.mapToPolygon(self.bottomLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_bottom_left':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_bottom_left'
+        elif self.transform.mapToPolygon(self.bottomHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_bottom':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_bottom'
+        elif self.transform.mapToPolygon(self.bottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'scale_bottom_right':
+                self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'scale_bottom_right'
+        elif self.transform.mapToPolygon(self.topShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'shear_top':
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'shear_top'
+        elif self.transform.mapToPolygon(self.leftShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'shear_left':
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'shear_left'
+        elif self.transform.mapToPolygon(self.rightShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'shear_right':
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'shear_right'
+        elif self.transform.mapToPolygon(self.bottomShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'shear_bottom':
+                self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'shear_bottom'
+        elif self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'location':
+                self.setCursor(self.rotateCursor(self.cursors.get('move'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'location'
+        elif not self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            if not self.transform_mode or self.transform_mode == 'rotation':
+                self.setCursor(self.rotateCursor(self.cursors.get('rotate'), rotation, shear_x, shear_y))
+            # Set the transform mode
+            if self.mouse_dragging and not self.transform_mode:
+                self.transform_mode = 'rotation'
+        elif not self.transform_mode:
+            # Reset cursor when not over a handle
+            self.setCursor(QCursor(Qt.ArrowCursor))
+
+        return True
+
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
         self.mutex.lock()
@@ -492,7 +609,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.mouse_pressed:
             self.mouse_dragging = True
 
-        if self.transforming_clip:
+        if self.transforming_clip and (not self.transforming_effect):
             # Modify clip transform properties (x, y, height, width, rotation, shear)
             # Get framerate
             fps = get_app().project.get("fps")
@@ -519,130 +636,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.mouse_dragging and not self.transform_mode:
                 self.original_clip_data = self.transforming_clip.data
 
-            # Mouse over resize button (and not currently dragging)
-            if (
-                    not self.mouse_dragging
-                    and self.resize_button.isVisible()
-                    and self.resize_button.rect().contains(event.pos())
-                    ):
-                self.setCursor(Qt.ArrowCursor)
-            # Determine if cursor is over a handle
-            elif self.transform.mapToPolygon(
-                    self.centerHandle.toRect()).containsPoint(
-                        event.pos(), Qt.OddEvenFill
-                        ):
-                if not self.transform_mode or self.transform_mode == 'origin':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('hand'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'origin'
-            elif self.transform.mapToPolygon(
-                    self.topRightHandle.toRect()).containsPoint(
-                        event.pos(), Qt.OddEvenFill
-                        ):
-                if not self.transform_mode or self.transform_mode == 'scale_top_right':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_top_right'
-            elif (self.transform.mapToPolygon(self.topHandle.toRect())
-                  .containsPoint(event.pos(), Qt.OddEvenFill)
-                  ):
-                if not self.transform_mode or self.transform_mode == 'scale_top':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('resize_y'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_top'
-            elif self.transform.mapToPolygon(self.topLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'scale_top_left':
-                    self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_top_left'
-            elif self.transform.mapToPolygon(self.leftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'scale_left':
-                    self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_left'
-            elif self.transform.mapToPolygon(self.rightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'scale_right':
-                    self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_right'
-            elif self.transform.mapToPolygon(self.bottomLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'scale_bottom_left':
-                    self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_bottom_left'
-            elif self.transform.mapToPolygon(self.bottomHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'scale_bottom':
-                    self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_bottom'
-            elif self.transform.mapToPolygon(
-                    self.bottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'scale_bottom_right':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'scale_bottom_right'
-            elif self.transform.mapToPolygon(
-                    self.topShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'shear_top':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('shear_x'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'shear_top'
-            elif self.transform.mapToPolygon(
-                    self.leftShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'shear_left':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('shear_y'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'shear_left'
-            elif self.transform.mapToPolygon(self.rightShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'shear_right':
-                    self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'shear_right'
-            elif self.transform.mapToPolygon(
-                    self.bottomShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'shear_bottom':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('shear_x'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'shear_bottom'
-            elif self.transform.mapToPolygon(
-                    self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'location':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('move'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'location'
-            elif not self.transform.mapToPolygon(
-                    self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-                if not self.transform_mode or self.transform_mode == 'rotation':
-                    self.setCursor(self.rotateCursor(
-                        self.cursors.get('rotate'), rotation, shear_x, shear_y))
-                # Set the transform mode
-                if self.mouse_dragging and not self.transform_mode:
-                    self.transform_mode = 'rotation'
-            elif not self.transform_mode:
-                # Reset cursor when not over a handle
-                self.setCursor(QCursor(Qt.ArrowCursor))
+            _ = self.getTransformMode(rotation, shear_x, shear_y, event)
 
             # Transform clip object
             if self.transform_mode:
@@ -666,19 +660,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         origin_y = 0.0
                     if origin_y > 1.0:
                         origin_y = 1.0
-
                     # Update keyframe value (or create new one)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'origin_x',
-                        origin_x,
-                        refresh=False)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'origin_y',
-                        origin_y)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'origin_x', origin_x, refresh=False)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'origin_y', origin_y)
 
                 elif self.transform_mode == 'location':
                     # Get current keyframe value
@@ -690,17 +674,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'location_x',
-                        location_x,
-                        refresh=False)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'location_y',
-                        location_y)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'location_x', location_x, refresh=False)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'location_y', location_y)
 
                 elif self.transform_mode == 'shear_top':
                     # Get current keyframe shear value
@@ -714,11 +689,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         (self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'shear_x',
-                        shear_x)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
 
                 elif self.transform_mode == 'shear_bottom':
                     # Get current keyframe shear value
@@ -732,11 +703,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         (self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'shear_x',
-                        shear_x)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_x', shear_x)
 
                 elif self.transform_mode == 'shear_left':
                     # Get current keyframe shear value
@@ -751,7 +718,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
 
                 elif self.transform_mode == 'shear_right':
                     # Get current keyframe shear value
@@ -765,11 +732,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(
-                        self.transforming_clip.id,
-                        clip_frame_number,
-                        'shear_y',
-                        shear_y)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'shear_y', shear_y)
 
                 elif self.transform_mode == 'rotation':
                     # Get current rotation keyframe value
@@ -800,7 +763,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                             (self.clipBounds.height() * scale_y) / 90)
 
                     # Update keyframe value (or create new one)
-                    self.updateProperty(self.transforming_clip.id, clip_frame_number, 'rotation', rotation)
+                    self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'rotation', rotation)
 
                 elif self.transform_mode.startswith('scale_'):
                     # Get current scale keyframe value
@@ -840,18 +803,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     # Update keyframe value (or create new one)
                     both_scaled = scale_x != 0.001 and scale_y != 0.001
                     if scale_x != 0.001:
-                        self.updateProperty(
-                            self.transforming_clip.id,
-                            clip_frame_number,
-                            'scale_x',
-                            scale_x,
-                            refresh=(not both_scaled))
+                        self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'scale_x', scale_x, refresh=(not both_scaled))
                     if scale_y != 0.001:
-                        self.updateProperty(
-                            self.transforming_clip.id,
-                            clip_frame_number,
-                            'scale_y',
-                            scale_y)
+                        self.updateClipProperty(self.transforming_clip.id, clip_frame_number, 'scale_y', scale_y)
 
             # Force re-paint
             self.update()
@@ -859,7 +813,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.region_enabled:
             # Modify region selection (x, y, width, height)
             # Corner size
-            cs = 14.0
+            cs = self.cs
 
             # Adjust existing region coordinates (if any)
             if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
@@ -898,12 +852,133 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Repaint widget on zoom
             self.update()
 
+        if self.transforming_effect and self.transforming_clip:
+            # Adjust effect keyframes if mouse is on top of the transform handlers
+
+            # Get framerate
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+
+            # Determine frame # of clip
+            start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
+            position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
+            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
+            clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
+
+            # Get the rect where the video is actually drawn (without the black borders, etc...)
+            viewport_rect = self.centeredViewport(self.width(), self.height())
+
+            # Make back-up of clip data
+            if self.mouse_dragging and not self.transform_mode:
+                self.original_clip_data = self.transforming_clip.data
+
+            
+
+            if self.transforming_effect_object.info.has_tracked_object:
+                # Get properties of effect at current frame
+                raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                 # Get properties for the first object in dict. PropertiesJSON should return one object at the time
+                obj_id = list(raw_properties.get('objects').keys())[0]
+                raw_properties = raw_properties.get('objects').get(obj_id)
+                
+                if not raw_properties.get('visible'):
+                    self.mouse_position = event.pos()
+                    self.mutex.unlock()
+                    return
+
+                _ = self.getTransformMode(0, 0, 0, event)
+
+                # Transform effect object
+                if self.transform_mode:
+
+                    if self.transform_mode == 'location':
+                        # Get current keyframe value
+                        location_x = raw_properties.get('delta_x').get('value')
+                        location_y = raw_properties.get('delta_y').get('value')
+
+                        # Calculate new location coordinates
+                        location_x += (event.pos().x() - self.mouse_position.x()) / viewport_rect.width()
+                        location_y += (event.pos().y() - self.mouse_position.y()) / viewport_rect.height()
+
+                        # Update keyframe value (or create new one)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'delta_x', location_x, refresh=False)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'delta_y', location_y)
+
+                    elif self.transform_mode == 'rotation':
+                        # Get current rotation keyframe value
+                        rotation = raw_properties.get('rotation').get('value')
+                        scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+                        scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
+
+                        # Calculate new location coordinates
+                        is_on_left = event.pos().x() < self.originHandle.x()
+                        is_on_top = event.pos().y() < self.originHandle.y()
+
+                        if is_on_top:
+                            rotation += (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+                        else:
+                            rotation -= (event.pos().x() - self.mouse_position.x()) / ((self.clipBounds.width() * scale_x) / 90)
+
+                        if is_on_left:
+                            rotation -= (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+                        else:
+                            rotation += (event.pos().y() - self.mouse_position.y()) / ((self.clipBounds.height() * scale_y) / 90)
+
+                        # Update keyframe value (or create new one)
+                        self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'rotation', rotation)
+
+                    elif self.transform_mode.startswith('scale_'):
+                        # Get current scale keyframe value
+                        scale_x = max(float(raw_properties.get('scale_x').get('value')), 0.001)
+                        scale_y = max(float(raw_properties.get('scale_y').get('value')), 0.001)
+
+                        if self.transform_mode == 'scale_top_right':
+                            scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_bottom_right':
+                            scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_top_left':
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_bottom_left':
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                            scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_top':
+                            scale_y -= (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_bottom':
+                            scale_y += (event.pos().y() - self.mouse_position.y()) / (self.clipBounds.height() / 2.0)
+                        elif self.transform_mode == 'scale_left':
+                            scale_x -= (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+                        elif self.transform_mode == 'scale_right':
+                            scale_x += (event.pos().x() - self.mouse_position.x()) / (self.clipBounds.width() / 2.0)
+
+                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                            # If CTRL key is pressed, fix the scale_y to the correct aspect ration
+                            if scale_x and scale_y:
+                                scale_y = scale_x
+                            elif scale_y:
+                                scale_x = scale_y
+                            elif scale_x:
+                                scale_y = scale_x
+
+                        # Update keyframe value (or create new one)
+                        both_scaled = scale_x != 0.001 and scale_y != 0.001
+                        if scale_x != 0.001:
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'scale_x', scale_x, refresh=(not both_scaled))
+                        if scale_y != 0.001:
+                            self.updateEffectProperty(self.transforming_effect.id, clip_frame_number, obj_id, 'scale_y', scale_y)
+
+            # Force re-paint
+            self.update()
+            # ==================================================================================
+
         # Update mouse position
         self.mouse_position = event.pos()
 
         self.mutex.unlock()
 
-    def updateProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
+    def updateClipProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
         """Update a keyframe property to a new value, adding or updating keyframes as needed"""
         found_point = False
         clip_updated = False
@@ -939,12 +1014,50 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
+    def updateEffectProperty(self, effect_id, frame_number, obj_id, property_key, new_value, refresh=True):
+        """Update a keyframe property to a new value, adding or updating keyframes as needed"""
+        found_point = False
+        effect_updated = False
+
+        c = Effect.get(id=effect_id)
+
+        if not c:
+            # No clip found
+            return
+
+        for point in c.data['objects'][obj_id][property_key]["Points"]:
+            log.info("looping points: co.X = %s" % point["co"]["X"])
+
+            if point["co"]["X"] == frame_number:
+                found_point = True
+                effect_updated = True
+                point["interpolation"] = openshot.BEZIER
+                point["co"]["Y"] = float(new_value)
+
+        if not found_point and new_value != None:
+            effect_updated = True
+            log.info("Created new point at X=%s" % frame_number)
+            c.data['objects'][obj_id][property_key]["Points"].append({'co': {'X': frame_number, 'Y': new_value}, 'interpolation': openshot.BEZIER})
+
+        # Reduce # of clip properties we are saving (performance boost)
+        #TODO: This is too slow when draging transform handlers
+        c.data = {'objects': {obj_id: c.data.get('objects').get(obj_id)}}
+
+        if effect_updated:
+            c.save()
+            # Update the preview
+            if refresh:
+                get_app().window.refreshFrameSignal.emit()
+
     def refreshTriggered(self):
         """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
 
         # Update reference to clip
         if self and self.transforming_clip:
             self.transforming_clip = Clip.get(id=self.transforming_clip.id)
+
+        if self and self.transforming_effect:
+            self.transforming_effect = Effect.get(id=self.transforming_effect.id)
 
     def transformTriggered(self, clip_id):
         """Handle the transform signal when it's emitted"""
@@ -963,6 +1076,36 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.transforming_clip = Clip.get(id=clip_id)
             self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
             if self.transforming_clip and self.transforming_clip_object:
+                self.transforming_effect = None
+                need_refresh = True
+
+        # Update the preview and reselct current frame in properties
+        if need_refresh:
+            win.refreshFrameSignal.emit()
+            win.propertyTableView.select_frame(win.preview_thread.player.Position())
+
+    def keyFrameTransformTriggered(self, effect_id, clip_id):
+        """Handle the key frame transform signal when it's emitted"""
+        win = get_app().window
+        need_refresh = False
+
+        # Disable Transform UI
+        # Is this the same clip_id already being transformed?
+        if self and self.transforming_effect and not effect_id:
+            # Clear transform
+            self.transforming_effect = None
+            self.transforming_clip = None
+            need_refresh = True
+
+        # Get new clip for transform
+        if effect_id and clip_id:
+            self.transforming_clip = Clip.get(id=clip_id)
+            self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
+            self.transforming_effect = Effect.get(id=effect_id)
+            self.transforming_effect_object = win.timeline_sync.timeline.GetClipEffect(effect_id)
+
+            if (self.transforming_clip and self.transforming_clip_object and
+                self.transforming_effect and self.transforming_effect_object):
                 need_refresh = True
 
         # Update the preview and reselct current frame in properties
@@ -1035,7 +1178,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Repaint widget on zoom
         self.repaint()
 
-    def __init__(self, *args):
+    def __init__(self, watch_project=True, *args):
+        """watch_project: watch for changes in project size / widget size, and
+        continue to match the current project's aspect ratio."""
         # Invoke parent init
         QWidget.__init__(self, *args)
 
@@ -1046,7 +1191,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.aspect_ratio = openshot.Fraction(16, 9)
         self.pixel_ratio = openshot.Fraction(1, 1)
         self.transforming_clip = None
+        self.transforming_effect = None
         self.transforming_clip_object = None
+        self.transforming_effect_object = None
         self.transform = None
         self.topLeftHandle = None
         self.topRightHandle = None
@@ -1071,7 +1218,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.region_mode = None
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
+        self.curr_frame_size = None # Frame size
         self.zoom = 1.0 # Zoom of widget (does not affect video, only workspace)
+        self.cs = 14.0 # Corner size of Transform Handler rectangles
         self.resize_button = QPushButton(_('Reset Zoom'), self)
         self.resize_button.hide()
         self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
@@ -1116,9 +1265,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.delayed_resize_timer = QTimer(self)
         self.delayed_resize_timer.setInterval(200)
         self.delayed_resize_timer.setSingleShot(True)
-        self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
+        if watch_project:
+            self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
 
         # Connect to signals
         self.win.TransformSignal.connect(self.transformTriggered)
+        self.win.KeyFrameTransformSignal.connect(self.keyFrameTransformTriggered)
         self.win.SelectRegionSignal.connect(self.regionTriggered)
         self.win.refreshFrameSignal.connect(self.refreshTriggered)

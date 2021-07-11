@@ -35,7 +35,7 @@ from PyQt5.QtWidgets import (
 # Python module for libopenshot (required video editing module installed separately)
 import openshot
 
-from classes import info, ui_util, settings
+from classes import info, ui_util
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen
@@ -64,7 +64,7 @@ class FileProperties(QDialog):
         _ = app._tr
 
         # Get settings
-        self.s = settings.get_settings()
+        self.s = app.get_settings()
 
         # Track metrics
         track_metric_screen("file-properties-screen")
@@ -75,7 +75,7 @@ class FileProperties(QDialog):
         self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
 
         # Dynamically load tabs from settings data
-        self.settings_data = settings.get_settings().get_all_settings()
+        self.settings_data = self.s.get_all_settings()
 
         # Get file properties
         filename = os.path.basename(self.file.data["path"])

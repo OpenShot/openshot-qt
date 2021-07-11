@@ -48,7 +48,7 @@ from PyQt5.QtWidgets import (
     QLineEdit, QComboBox, QTextEdit
 )
 
-from classes import exceptions, info, settings, qt_types, ui_util, updates
+from classes import exceptions, info, qt_types, sentry, ui_util, updates
 from classes.app import get_app
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
@@ -56,7 +56,7 @@ from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
 from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
-from classes.query import Clip, Transition, Marker, Track
+from classes.query import Clip, Transition, Marker, Track, Effect
 from classes.thumbnail import httpThumbnailServerThread
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
@@ -99,6 +99,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     FoundVersionSignal = pyqtSignal(str)
     WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
+    KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
@@ -174,8 +175,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent.background.wait(5000)
 
         # Close Timeline
-        self.timeline_sync.timeline.Close()
-        self.timeline_sync.timeline = None
+        if self.timeline_sync and self.timeline_sync.timeline:
+            self.timeline_sync.timeline.Close()
+            self.timeline_sync.timeline = None
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -218,12 +220,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         lock_path = os.path.join(info.USER_PATH, ".lock")
         # Check if it already exists
         if os.path.exists(lock_path):
-            exceptions.libopenshot_crash_recovery()
-            log.error("Unhandled crash detected. Preserving cache.")
+            last_log_line = exceptions.libopenshot_crash_recovery() or "No Log Detected"
+            log.error(f"Unhandled crash detected: {last_log_line}")
             self.destroy_lock_file()
         else:
             # Normal startup, clear thumbnails
             self.clear_all_thumbnails()
+
+        # Reset Sentry component (it can be temporarily changed to libopenshot during
+        # the call to libopenshot_crash_recovery above)
+        sentry.set_tag("component", "openshot-qt")
 
         # Write lock file (try a few times if failure)
         lock_value = str(uuid4())
@@ -388,7 +394,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         try:
             # Update history in project data
-            s = settings.get_settings()
+            s = app.get_settings()
             app.updates.save_history(app.project, s.get("history-limit"))
 
             # Save project to file
@@ -575,7 +581,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         import time
 
         app = get_app()
-        s = settings.get_settings()
+        s = app.get_settings()
 
         # Get current filepath (if any)
         file_path = app.project.current_filepath
@@ -804,7 +810,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('Preferences add cancelled')
 
         # Save settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
         s.save()
 
         # Restore normal cursor
@@ -1012,7 +1018,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
-        new_cache_object = openshot.CacheMemory(settings.get_settings().get("cache-limit-mb") * 1024 * 1024)
+        new_cache_object = openshot.CacheMemory(app.get_settings().get("cache-limit-mb") * 1024 * 1024)
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
@@ -1414,14 +1420,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
-        s = settings.get_settings()
+        s = get_app().get_settings()
         shortcut = QKeySequence(s.get(setting_name))
         return shortcut
 
     def getAllKeyboardShortcuts(self):
         """ Get a key sequence back from the setting name """
         keyboard_shortcuts = []
-        all_settings = settings.get_settings()._data
+        all_settings = get_app().get_settings()._data
         for setting in all_settings:
             if setting.get('category') == 'Keyboard':
                 keyboard_shortcuts.append(setting)
@@ -1915,7 +1921,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get settings
         app = get_app()
-        s = settings.get_settings()
+        s = app.get_settings()
 
         # Files
         if app.context_menu_object == "files":
@@ -1943,7 +1949,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get settings
         app = get_app()
-        s = settings.get_settings()
+        s = app.get_settings()
 
         # Files
         if app.context_menu_object == "files":
@@ -2142,7 +2148,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionTutorial_trigger(self):
         """ Show tutorial again """
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Clear tutorial settings
         s.set("tutorial_enabled", True)
@@ -2261,7 +2267,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
                 item_id, item_type, clear_existing))
 
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Clear existing selection (if needed)
         if clear_existing:
@@ -2286,6 +2292,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.selected_transitions.append(item_id)
             elif item_type == "effect" and item_id not in self.selected_effects:
                 self.selected_effects.append(item_id)
+
+                effect = Effect.get(id=item_id)
+                if effect:
+                    if effect.data.get("has_tracked_object"):
+                        # Show bounding boxes transform on preview
+                        clip_id = effect.parent['id']
+                        self.KeyFrameTransformSignal.emit(item_id, clip_id)
+
 
             # Change selected item in properties view
             self.show_property_id = item_id
@@ -2353,7 +2367,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Update window settings in setting store
     def save_settings(self):
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Save window state and geometry (saves toolbar and dock locations)
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
@@ -2362,7 +2376,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Get window settings from setting store
     def load_settings(self):
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
         if s.get('window_state_v2'):
@@ -2385,7 +2399,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def load_recent_menu(self):
         """ Clear and load the list of recent menu items """
-        s = settings.get_settings()
+        s = get_app().get_settings()
         _ = get_app()._tr  # Get translation function
 
         # Get list of recent projects
@@ -2421,7 +2435,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def remove_recent_project(self, file_path):
         """Remove a project from the Recent menu if OpenShot can't find it"""
-        s = settings.get_settings()
+        s = get_app().get_settings()
         recent_projects = s.get("recent_projects")
         if file_path in recent_projects:
             recent_projects.remove(file_path)
@@ -2434,7 +2448,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def clear_recents_clicked(self):
         """Clear all recent projects"""
-        s = settings.get_settings()
+        s = get_app().get_settings()
         s.set("recent_projects", [])
 
         # Reload recent project list
@@ -2670,7 +2684,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def InitCacheSettings(self):
         """Set the correct cache settings for the timeline"""
         # Load user settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
         log.info("InitCacheSettings")
         log.info("cache-mode: %s" % s.get("cache-mode"))
         log.info("cache-limit-mb: %s" % s.get("cache-limit-mb"))
@@ -2710,7 +2724,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def initModels(self):
         """Set up model/view classes for MainWindow"""
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Setup files tree and list view (both share a model)
         self.files_model = FilesModel()
@@ -2782,7 +2796,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         _ = app._tr
 
         # Load user settings for window
-        s = settings.get_settings()
+        s = app.get_settings()
         self.recent_menu = None
 
         # Track metrics
@@ -2794,6 +2808,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Track 1st launch metric
             track_metric_screen("initial-launch-screen")
+
+        # Set unique id for Sentry
+        sentry.set_user({"id": s.get("unique_install_id")})
 
         # Track main screen
         track_metric_screen("main-screen")

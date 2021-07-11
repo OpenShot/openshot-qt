@@ -50,7 +50,6 @@ from PyQt5.QtGui import QIcon
 from classes import info
 from classes import ui_util
 from classes import openshot_rc  # noqa
-from classes import settings
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen, track_metric_error
@@ -78,12 +77,12 @@ class Export(QDialog):
 
         # get translations & settings
         _ = get_app()._tr
-        self.s = settings.get_settings()
+        self.s = get_app().get_settings()
 
         track_metric_screen("export-screen")
 
         # Dynamically load tabs from settings data
-        self.settings_data = settings.get_settings().get_all_settings()
+        self.settings_data = self.s.get_all_settings()
 
         # Add buttons to interface
         self.cancel_button = QPushButton(_('Cancel'))
@@ -904,6 +903,7 @@ class Export(QDialog):
             digits_after_decimalpoint = 1
             # Precision of the progress bar
             format_of_progress_string = "%4.1f%% "
+            fps_encode = 0
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)

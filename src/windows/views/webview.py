@@ -42,7 +42,6 @@ from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWidgets import QMenu, QDialog
 
 from classes import info, updates
-from classes import settings
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track
@@ -1457,10 +1456,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 self.copy_clipboard[clip_id] = clip.data
             elif action == MENU_COPY_KEYFRAMES_ALL:
                 self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
-                self.copy_clipboard[clip_id]['crop_height'] = clip.data['crop_height']
-                self.copy_clipboard[clip_id]['crop_width'] = clip.data['crop_width']
-                self.copy_clipboard[clip_id]['crop_x'] = clip.data['crop_x']
-                self.copy_clipboard[clip_id]['crop_y'] = clip.data['crop_y']
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
@@ -2875,7 +2870,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Adjust clip duration, start, and end
             new_clip["duration"] = new_clip["reader"]["duration"]
             if file.data["media_type"] == "image":
-                new_clip["end"] = settings.get_settings().get("default-image-length")  # default to 8 seconds
+                new_clip["end"] = get_app().get_settings().get("default-image-length")  # default to 8 seconds
 
             # Overwrite frame rate (incase the user changed it in the File Properties)
             file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
@@ -3022,6 +3017,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                         # Get Effect JSON
                         effect.Id(get_app().project.generate_id())
+
                     effect_json = json.loads(effect.Json())
 
                     # Append effect JSON to clip
@@ -3213,7 +3209,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Connect shutdown signals
         app.aboutToQuit.connect(self.redraw_audio_timer.stop)
         app.aboutToQuit.connect(self.cache_renderer.stop)
-        app.aboutToQuit.connect(self.deleteLater)
+        app.lastWindowClosed.connect(self.deleteLater)
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
+

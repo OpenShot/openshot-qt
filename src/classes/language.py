@@ -33,16 +33,15 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 
 from classes.logger import log
 from classes import info
-from classes import settings
-
 
 try:
-    from language import openshot_lang
-    language_path=":/locale/"
+    from language import openshot_lang  # noqa
+    language_path = ":/locale/"
     log.debug("Using compiled translation resources")
 except ImportError:
-    language_path=os.path.join(info.PATH, 'language')
+    language_path = os.path.join(info.PATH, 'language')
     log.debug("Loading translations from: {}".format(language_path))
+
 
 def init_language():
     """ Find the current locale, and install the correct translators """
@@ -75,7 +74,11 @@ def init_language():
                     ]
 
     # Get the user's configured language preference
-    preference_lang = settings.get_settings().get('default-language')
+    settings = app.get_settings()
+    if settings:
+        preference_lang = settings.get('default-language')
+    else:
+        preference_lang = "Default"
 
     # Output all languages detected from various sources
     log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
@@ -134,6 +137,7 @@ def find_language_match(prefix, path, translator, locale_name):
         log.debug('Successfully loaded {} in \'{}\''.format(filename, path))
     return success
 
+
 def get_all_languages():
     """Get all language names and countries packaged with OpenShot"""
 
@@ -144,12 +148,12 @@ def get_all_languages():
             native_lang_name = QLocale(locale_name).nativeLanguageName().title()
             country_name = QLocale(locale_name).nativeCountryName().title()
             all_languages.append((locale_name, native_lang_name, country_name))
-        except:
+        except Exception:
             log.debug('Failed to parse language for %s', locale_name)
 
     # Return list
     return all_languages
 
+
 def get_current_locale():
     return info.CURRENT_LANGUAGE
-

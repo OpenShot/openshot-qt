@@ -287,7 +287,7 @@ App.controller("TimelineCtrl", function ($scope) {
     scrolling_tracks.scrollLeft(horz_scroll_offset);
   };
 
-  // Scroll the timeline horizontally of a certain amount (scrol_value)
+  // Scroll the timeline horizontally of a certain amount
   $scope.scrollLeft = function (scroll_value) {
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = scrolling_tracks.scrollLeft();
@@ -1085,7 +1085,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Search through clips and transitions to find the closest element within a given threshold
-  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids) {
+  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids={}) {
     // init some vars
     var smallest_diff = 900.0;
     var smallest_abs_diff = 900.0;

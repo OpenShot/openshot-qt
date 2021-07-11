@@ -35,30 +35,14 @@ from classes.logger import log
 from classes.json_data import JsonDataStore
 
 
-def get_settings():
-    """ Get the current application's settings instance """
-    return SettingStore.get_app().settings
-
-
 class SettingStore(JsonDataStore):
     """ This class only allows setting pre-existing keys taken from default settings file, and merges user settings
     on load, assumes default OS dir."""
 
-    @classmethod
-    def save_app(cls, app_reference):
-        cls._app = app_reference
-
-    @classmethod
-    def get_app(cls):
-        if hasattr(cls, "_app"):
-            return cls._app
-        return None
-
     def __init__(self, parent=None):
         super().__init__()
         # Also keep track of our parent, if defined
-        if parent:
-            SettingStore.save_app(parent)
+        self.app = parent
         # Set the data type name for logging clarity (base class functions use this variable)
         self.data_type = "user settings"
         self.settings_filename = "openshot.settings"
@@ -72,20 +56,22 @@ class SettingStore(JsonDataStore):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
         key = key.lower()
 
-        # Load user setting's values (for easy merging)
-        user_values = {}
-        for item in self._data:
-            if "setting" in item and "value" in item:
-                user_values[item["setting"].lower()] = item
+        # Index settings values (for easy updates)
+        user_values = {
+            item["setting"].lower(): item
+            for item in self._data
+            if all(["setting" in item, "value" in item])
+        }
 
         # Save setting
         if key in user_values:
-            user_values[key]["value"] = value
+            user_values[key].update({"value": value})
         else:
             log.warn(
                 "{} key '{}' not valid. The following are valid: {}".format(
-                self.data_type, key,
-                list(self._data.keys()),
+                    self.data_type,
+                    key,
+                    list(self._data.keys()),
                 ))
 
     def load(self):
@@ -109,10 +95,9 @@ class SettingStore(JsonDataStore):
             except Exception as ex:
                 log.error("Error loading settings file: %s", ex)
                 user_settings = {}
-                app = SettingStore.get_app()
-                if app:
+                if self.app:
                     # We have a parent, ask to show a message box
-                    app.settings_load_error(file_path)
+                    self.app.settings_load_error(file_path)
 
         # Merge default and user settings, excluding settings not in default, Save settings
         self._data = self.merge_settings(default_settings, user_settings)
