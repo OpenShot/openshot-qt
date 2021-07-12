@@ -360,8 +360,8 @@ msgstr ""
 msgid "Ray light right %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirpool_3.jpg
-msgid "Whirpool %s"
+#: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/whirlpool_3.jpg
+msgid "whirlpool %s"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/transitions/extra/4_squares_leftt_barr.jpg
