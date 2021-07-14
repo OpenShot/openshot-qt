@@ -285,14 +285,21 @@ App.directive("tlTransition", function () {
 
           // Move all other selected transitions with this one
           $(".ui-selected").each(function () {
-            var newY = move_transitions[$(this).attr("id")]["top"] + y_offset;
-            var newX = move_transitions[$(this).attr("id")]["left"] + x_offset;
-
-            //update the transition location in the array
+            transition_name = $(this).attr("id");
+            var newX, newY;
+            if (move_clips[transition_name] && ( move_clips[transition_name]['top'] && move_clips[clip_name]['left'] )) {
+              newY = move_clips[transition_name]['top'] = this.style.top + y_offset;
+              newX = move_clips[transition_name]['left'] + y_offset;
+            } else {
+              // If this transition is not yet in move_clips, add it.
+              move_clips[transition_name] =  {};
+              newY = this.style.top + y_offset;
+              newX = this.style.top + y_offset;
+            }
+            // Update the transition location in the array
             move_transitions[$(this).attr("id")]["top"] = newY;
             move_transitions[$(this).attr("id")]["left"] = newX;
-
-            //change the element location
+            // Change the element location
             $(this).css("left", newX);
             $(this).css("top", newY);
 
@@ -301,7 +308,7 @@ App.directive("tlTransition", function () {
         },
         revert: function (valid) {
           if (!valid) {
-            //the drop spot was invalid, so we're going to move all transitions to their original position
+            // The drop spot was invalid, so we're going to move all transitions to their original position
             $(".ui-selected").each(function () {
               var oldY = start_transitions[$(this).attr("id")]["top"];
               var oldX = start_transitions[$(this).attr("id")]["left"];
