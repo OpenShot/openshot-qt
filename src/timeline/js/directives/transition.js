@@ -27,6 +27,7 @@
  */
 
 
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Init Variables
 var dragging = false;
 var resize_disabled = false;

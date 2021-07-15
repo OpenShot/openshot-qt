@@ -252,13 +252,13 @@ function setBoundingBox(scope, item, item_type="clip") {
   }
 
   // Add in additional types of special-case bounding boxes
-  if (item_type == "playhead") {
+  if (item_type === "playhead") {
       // Center of playhead (1 pixel width)
       bounding_box.left += 13;
       bounding_box.right = bounding_box.left;
       bounding_box.width = 1;
 
-  } else if (item_type == "trimming") {
+  } else if (item_type === "trimming") {
       // Edge of clip for trimming (1 pixel width)
       bounding_box.right = bounding_box.left;
       bounding_box.width = 1;
@@ -267,7 +267,7 @@ function setBoundingBox(scope, item, item_type="clip") {
   // Get list of current selected ids (so we can ignore their snapping x coordinates)
   // Unless playhead mode, where we don't want to ignore any selected clips
   bounding_box.selected_ids = {};
-  if (item_type != "playhead") {
+  if (item_type !== "playhead") {
     for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
       if (scope.project.clips[clip_index].selected) {
         bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
@@ -280,7 +280,7 @@ function setBoundingBox(scope, item, item_type="clip") {
     }
   } else {
     // Get id of ruler, or trimming clip
-    let id = item.attr('id').replace("clip_", "").replace("transition_", "");
+    let id = item.attr("id").replace("clip_", "").replace("transition_", "");
     bounding_box.selected_ids[id] = true;
   }
 }
@@ -293,7 +293,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   snapping_result.top = top;
 
   // Check for shift key
-  if (typeof(event) !== "undefined" && event.shiftKey && item_type == "clip") {
+  if (typeof(event) !== "undefined" && event.shiftKey && item_type === "clip") {
     // freeze X movement for clips and transitions
     x_offset = 0;
     snapping_result.left = previous_x;

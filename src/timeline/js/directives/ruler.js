@@ -27,6 +27,7 @@
  */
 
 
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Variables for panning by middle click
 var is_scrolling = false;
 var starting_scrollbar = {x: 0, y: 0};
