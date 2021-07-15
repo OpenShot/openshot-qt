@@ -533,7 +533,7 @@ class PropertiesModel(updates.UpdateInterface):
         if not clip_updated:
             # If no keyframe was found, set a basic property
             new_value = PropertiesModel.interpret_as_type(
-                property_type, property_value)
+                property_type, value)
             if new_value:
                 d[property_key] = new_value
                 clip_updated = True
