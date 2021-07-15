@@ -39,7 +39,7 @@ App.directive("tlPlayhead", function () {
 
       element.on("mousedown", function (e) {
         // Set bounding box for the playhead
-        setBoundingBox(scope, $(this), true);
+        setBoundingBox(scope, $(this), "playhead");
       });
 
       // Move playhead to new position (if it's not currently being animated)
@@ -49,7 +49,7 @@ App.directive("tlPlayhead", function () {
           let cursor_position = e.pageX - $("#ruler").offset().left;
           let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
             cursor_position - bounding_box.left, cursor_position - bounding_box.top,
-            cursor_position, cursor_position, true);
+            cursor_position, cursor_position, "playhead");
 
           // Only apply snapping when SHIFT is pressed
           let new_position = cursor_position;

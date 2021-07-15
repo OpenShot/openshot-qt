@@ -220,7 +220,7 @@ function hasLockedTrack(scope, top, bottom) {
 var bounding_box = Object();
 
 // Build bounding box (since multiple items can be selected)
-function setBoundingBox(scope, item, is_playhead=false) {
+function setBoundingBox(scope, item, item_type="clip") {
   var scrolling_tracks = $("#scrolling_tracks");
   var vert_scroll_offset = scrolling_tracks.scrollTop();
   var horz_scroll_offset = scrolling_tracks.scrollLeft();
@@ -237,11 +237,6 @@ function setBoundingBox(scope, item, is_playhead=false) {
     bounding_box.right = item_right;
     bounding_box.height = item.height();
     bounding_box.width = item.width();
-    if (is_playhead) {
-      bounding_box.left += 13; // center
-      bounding_box.right = bounding_box.left;
-      bounding_box.width = 1;
-    }
   } else {
     //compare and change if item is a better fit for bounding box edges
     if (item_top < bounding_box.top) { bounding_box.top = item_top; }
@@ -256,10 +251,23 @@ function setBoundingBox(scope, item, is_playhead=false) {
     if (width > bounding_box.width) { bounding_box.width = width; }
   }
 
+  // Add in additional types of special-case bounding boxes
+  if (item_type == "playhead") {
+      // Center of playhead (1 pixel width)
+      bounding_box.left += 13;
+      bounding_box.right = bounding_box.left;
+      bounding_box.width = 1;
+
+  } else if (item_type == "trimming") {
+      // Edge of clip for trimming (1 pixel width)
+      bounding_box.right = bounding_box.left;
+      bounding_box.width = 1;
+  }
+
   // Get list of current selected ids (so we can ignore their snapping x coordinates)
   // Unless playhead mode, where we don't want to ignore any selected clips
   bounding_box.selected_ids = {};
-  if (!is_playhead) {
+  if (item_type != "playhead") {
     for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
       if (scope.project.clips[clip_index].selected) {
         bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
@@ -271,20 +279,22 @@ function setBoundingBox(scope, item, is_playhead=false) {
       }
     }
   } else {
-    bounding_box.selected_ids["playhead"] = true;
+    // Get id of ruler, or trimming clip
+    let id = item.attr('id').replace("clip_", "").replace("transition_", "");
+    bounding_box.selected_ids[id] = true;
   }
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, is_playhead=false) {
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip") {
   // Store result of snapping logic (left, top)
   var snapping_result = Object();
   snapping_result.left = left;
   snapping_result.top = top;
 
   // Check for shift key
-  if ( typeof(event) !== "undefined" && event.shiftKey) {
-    // freeze X movement
+  if (typeof(event) !== "undefined" && event.shiftKey && item_type == "clip") {
+    // freeze X movement for clips and transitions
     x_offset = 0;
     snapping_result.left = previous_x;
   }
@@ -326,7 +336,9 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   if (snapline_position) {
     // Show snapping line
-    scope.showSnapline(snapline_position);
+    if (item_type != "playhead") {
+      scope.showSnapline(snapline_position);
+    }
 
     if (scope.enable_snapping) {
       // Snap bounding box to this position
@@ -342,4 +354,35 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   }
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
+}
+
+function setSelections(scope, element, id) {
+  if (!element.hasClass("ui-selected")) {
+    // Clear previous selections?
+    var clear_selections = false;
+    if ($(".ui-selected").length > 0) {
+      clear_selections = true;
+
+      // Remove ui-selected class immediately
+      $(".ui-selected").each(function () {
+          $(this).removeClass("ui-selected");
+      });
+    }
+
+    // selectClip, selectTransition
+    if (element.hasClass("clip")) {
+      // Select this clip, unselect all others
+      scope.selectTransition("", clear_selections);
+      scope.selectClip(id, clear_selections);
+
+    }
+    else if (element.hasClass("transition")) {
+      // Select this transition, unselect all others
+      scope.selectClip("", clear_selections);
+      scope.selectTransition(id, clear_selections);
+    }
+  }
+
+  // Apply scope up to this point
+  scope.$apply(function () {});
 }
