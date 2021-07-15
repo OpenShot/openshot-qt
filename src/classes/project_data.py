@@ -272,7 +272,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.has_unsaved_changes = False
 
         # Reset info paths
-        info.THUMBNAIL_PATH = os.path.join(info.DATA_PATH, "thumbnail")
+        info.THUMBNAIL_PATH = os.path.join(info.CACHE_PATH, "thumbnail")
         info.TITLE_PATH = os.path.join(info.DATA_PATH, "title")
         info.BLENDER_PATH = os.path.join(info.DATA_PATH, "blender")
 
