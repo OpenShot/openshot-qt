@@ -215,12 +215,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionRedo.setEnabled(False)
             self.SetWindowTitle()
 
-    def get_lock_file_path() -> str:
-        return os.path.join(info.YOLO_PATH, "." + info.NAME + "-lock")
+    def get_lock_file_path(self) -> str:
+        return os.path.join(info.YOLO_PATH, ".lock")
 
     def create_lock_file(self):
         """Create a lock file"""
-        lock_path = get_lock_file_path()
+        lock_path = self.get_lock_file_path()
 
         # Check if it already exists
         if os.path.exists(lock_path):
@@ -233,7 +233,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Reset Sentry component (it can be temporarily changed to libopenshot during
         # the call to libopenshot_crash_recovery above)
-        sentry.set_tag("component", "openshot-qt")
+        sentry.set_tag("component", info.NAME)
 
         # Write lock file (try a few times if failure)
         lock_value = str(uuid4())
@@ -250,7 +250,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def destroy_lock_file(self):
         """Destroy the lock file"""
-        lock_path = get_lock_file_path()
+        lock_path = self.get_lock_file_path()
 
         # Remove file (try a few times if failure)
         for attempt in range(5):
