@@ -215,9 +215,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionRedo.setEnabled(False)
             self.SetWindowTitle()
 
+    def get_lock_file_path() -> str:
+        return os.path.join(info.YOLO_PATH, "." + info.NAME + "-lock")
+
     def create_lock_file(self):
         """Create a lock file"""
-        lock_path = os.path.join(info.DATA_PATH, ".lock")
+        lock_path = get_lock_file_path()
+
         # Check if it already exists
         if os.path.exists(lock_path):
             last_log_line = exceptions.libopenshot_crash_recovery() or "No Log Detected"
@@ -246,7 +250,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def destroy_lock_file(self):
         """Destroy the lock file"""
-        lock_path = os.path.join(info.DATA_PATH, ".lock")
+        lock_path = get_lock_file_path()
 
         # Remove file (try a few times if failure)
         for attempt in range(5):
