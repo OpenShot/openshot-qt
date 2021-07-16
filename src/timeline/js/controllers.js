@@ -1107,8 +1107,18 @@ App.controller("TimelineCtrl", function ($scope) {
           continue;
         }
 
-        diffs.push({"diff": position - clip_left_position, "position": clip_left_position}, // left side of clip
-          {"diff": position - clip_right_position, "position": clip_right_position}); // right side of clip
+        // left side of clip
+        let left_edge_diff = position - clip_left_position;
+        if (Math.abs(left_edge_diff) <= threshold) {
+          diffs.push({"diff": left_edge_diff, "position": clip_left_position, "id": clip.id, "side": "left"});
+        }
+
+        // right side of clip
+        let right_edge_diff = position - clip_right_position;
+        if (Math.abs(right_edge_diff) <= threshold) {
+          diffs.push({"diff": right_edge_diff, "position": clip_right_position, "id": clip.id, "side": "right"});
+        }
+
       }
 
       // Add transition positions to array
@@ -1123,8 +1133,18 @@ App.controller("TimelineCtrl", function ($scope) {
           continue;
         }
 
-        diffs.push({"diff": position - tran_left_position, "position": tran_left_position}, // left side of transition
-          {"diff": position - tran_right_position, "position": tran_right_position}); // right side of transition
+        // left side of transition
+        let left_edge_diff = position - tran_left_position;
+        if (Math.abs(left_edge_diff) <= threshold) {
+          diffs.push({"diff": left_edge_diff, "position": tran_left_position});
+        }
+
+        // right side of transition
+        let right_edge_diff = position - tran_right_position;
+        if (Math.abs(right_edge_diff) <= threshold) {
+          diffs.push({"diff": right_edge_diff, "position": tran_right_position});
+        }
+
       }
 
       // Add marker positions to array
@@ -1132,14 +1152,21 @@ App.controller("TimelineCtrl", function ($scope) {
         var marker = $scope.project.markers[index];
         var marker_position = marker.position * $scope.pixelsPerSecond;
 
-        diffs.push({"diff": position - marker_position, "position": marker_position}, // left side of marker
-          {"diff": position - marker_position, "position": marker_position}); // right side of marker
+        // marker position
+        let left_edge_diff = position - marker_position;
+        if (Math.abs(left_edge_diff) <= threshold) {
+          diffs.push({"diff": left_edge_diff, "position": marker_position});
+        }
       }
 
       // Add playhead position to array
       var playhead_pixel_position = $scope.project.playhead_position * $scope.pixelsPerSecond;
       var playhead_diff = position - playhead_pixel_position;
-      diffs.push({"diff": playhead_diff, "position": playhead_pixel_position});
+      if (!ignore_ids.hasOwnProperty("ruler") && !ignore_ids.hasOwnProperty("playhead")) {
+        if (Math.abs(playhead_diff) <= threshold) {
+          diffs.push({"diff": playhead_diff, "position": playhead_pixel_position});
+        }
+      }
 
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
@@ -1148,7 +1175,7 @@ App.controller("TimelineCtrl", function ($scope) {
         var abs_diff = Math.abs(diff);
 
         // Check if this clip is nearby
-        if (abs_diff < smallest_abs_diff && abs_diff <= threshold) {
+        if (abs_diff < smallest_abs_diff && abs_diff <= threshold && diff_position) {
           // This one is smaller
           smallest_diff = diff;
           smallest_abs_diff = abs_diff;

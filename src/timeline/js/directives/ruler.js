@@ -27,6 +27,7 @@
  */
 
 
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Variables for panning by middle click
 var is_scrolling = false;
 var starting_scrollbar = {x: 0, y: 0};
@@ -115,7 +116,6 @@ App.directive("tlBody", function () {
         }
       });
 
-
     }
   };
 });
@@ -150,11 +150,29 @@ App.directive("tlRuler", function ($timeout) {
 
       });
 
+      element.on("mousedown", function (e) {
+        // Set bounding box for the playhead position
+        setBoundingBox(scope, $(this), "playhead");
+      });
+
       // Move playhead to new position (if it's not currently being animated)
       element.on("mousemove", function (e) {
         if (e.which === 1 && !scope.playhead_animating) { // left button
-          var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
-          // Update playhead
+          // Calculate the playhead bounding box movement
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let new_position = cursor_position;
+          if (e.shiftKey) {
+            // Only apply playhead shapping when SHIFT is pressed
+            let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+              cursor_position - bounding_box.left, cursor_position - bounding_box.top,
+              cursor_position, cursor_position, "playhead");
+
+            // Update position to snapping position
+            new_position = results.position.left;
+          }
+
+          // Move playhead
+          let playhead_seconds = new_position / scope.pixelsPerSecond;
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
         }
