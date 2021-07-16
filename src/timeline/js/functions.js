@@ -336,7 +336,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   if (snapline_position) {
     // Show snapping line
-    if (item_type != "playhead") {
+    if (item_type !== "playhead") {
       scope.showSnapline(snapline_position);
     }
 
