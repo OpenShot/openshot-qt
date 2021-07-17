@@ -168,6 +168,8 @@ App.directive("tlRuler", function ($timeout) {
         end = Math.min(scope.scrollLeft + (2*width), $('#ruler').width());
 
         scale = scope.project.scale;
+
+
         for (var i = start - (start % 100) ; i < end; i += 100) {
           /* create and format span */
           s = $('<span style="left: ' + i + 'px;">');
