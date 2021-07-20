@@ -333,3 +333,73 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
 }
+
+/**
+ * @param {any number} n 
+ * @returns the list of all primes less than n
+ */
+function primeNumbersUpTo(n) {
+  l = [...Array(
+    Math.floor(
+      Math.sqrt(n)
+    )
+  ).keys()];
+  l = l.slice(2,n); // Discard 0 and 1
+  l.forEach( i => {
+    l = l.filter( j => { return j % i == 0 });
+  });
+  l.forEach(x=> $scope.primes.add(x));
+  return l;
+}
+
+/**
+ * @param {integer to factor} n 
+ * @returns the list of prime factors of n
+ */
+function primeFactorsOf(n) {
+  n = Math.floor(n);
+  factors = [];
+  primes = primeNumbersUpTo(n);
+  primes.append(n); // in case n is prime.
+  i = 0;
+  while (n != 1) {
+    if(n%primes[i] == 0) {
+      n = n/primes[i]
+      factors.append(primes[i]);
+    } else {
+      i += 1;
+    }
+  }
+
+  return factors;
+}
+
+/**
+ * From the pixels per second of the project,
+ * Find a number of frames between each ruler mark,
+ * such that the tick marks remain at least 50px apart.
+ */
+function framesPerTick() {
+  fps = scope.project.fps.num / scope.project.fps.den;
+  if (fps % 1 != 0) { 
+    /* Not sure about this. */
+  }
+  factors = scope.primeFactorsOf(fps);
+  dF = 1; // Frames per mark
+  dT = () => { return dF / fps } // Time per mark
+  dP = () => { return dT() * scope.pixelsPerSecond }; // Pixels per mark
+  while (dP() < 35) {
+    if (dF * 2 > fps && dF < fps) {
+      dF = fps;
+      continue;
+    }
+    dF *= (factors.shift() || 2);
+  }
+  return dF;
+}
+
+/**
+ * Primes are used for factoring.
+ * Store any that have been found for future use.
+ */
+$scope.primes = [];

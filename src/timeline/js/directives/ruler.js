@@ -160,107 +160,74 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      /*function drawTimesSeconds() {
-        ruler = $("#ruler");
-        ruler.addClass('no_bg')
-        width = $("body").width();
-        // Clear all current tick marks
-        $("#ruler span").remove();
-        start = Math.max(0, ruler.left - width);
-        end = ruler.left + (2 * width);
 
-        // time = Math.floor(start);
-        time = Math.floor(start / (scope.project.fps.num / scope.project.fps.den));
-        while (time <= end) {
-          console.log("TIME: " + time);
-          console.log("start: " + start);
-          console.log("end: " + end);
-          pos = time * scope.project.pixelsPerSecond;
+      /**
+       * Given the pixels per second of the project,
+       * Find a number of frames between each ruler mark,
+       * such that the tick marks remain at least 50px apart.
+       */
+      function framesPerTick() {
+      }
 
-          ruler_mark = $('<span style="left: ' + pos + 'px;">');
-          ruler_mark.addClass("tick_mark");
-          time_display = $('<span style="left: ' + pos + 'px;">');
-          time_display.addClass("ruler_time");
-
-          var text_time = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
-          time_display[0].innerText = text_time["hour"] + ":" + text_time["min"] + ":" + text_time["sec"];
-          if (scope.project.scale < 1) {
-            time_display[0].innerText += ',' + text_time['frame'];
-          }
-
-          ruler.append(ruler_mark);
-          ruler.append(time_display);
-          time += 1;
-        }
-
-      }*/
-
+      /**
+       * 
+       */
       function drawTimesHighZoom() {
-        zoomLevels = [
-          {
-            // Mark every 10 frames
-            'zoom': 0.2724177071509648 ,
-            'mark_every' : 10
-          },
-          {
-            // Mark every 10 frames
-            'zoom' : 0.1743473325766175,
-            'mark_every' : 5
-          },
-        ] ;
-
-        ruler = $("#ruler");
-        ruler.addClass('no_bg')
-        width = $("body").width();
-        // Clear all current tick marks
+        // Delete old tick marks
+        ruler = $('#ruler');
+        ruler.addClass('no_bg');
         $("#ruler span").remove();
 
-        start = Math.max(0, scope.scrollLeft - width);
-        end = scope.scrollLeft + (2 * width);
+        startPos = scope.scrollLeft;
+        endPos = scope.scrollLeft + $("body").width();
 
-        console.log("SCALE: " + scope.project.scale);
-        console.log("start: " + start);
-        console.log("end: " + end);
+        // startTime : time[0]; endTime : time[1]
+        fps = scope.project.fps.num / scope.project.fps.den;
+        time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
+        time[0] -= time[0]%1;
+        time[1] -= time[1]%1 - 1;
 
+        t = time[0];
+        let tPrev;
+        showTime = true;
 
-        let tall = false;
-        // frame = start;
-        time = start / (scope.project.fps.num / scope.project.fps.den);
-        pos = Math.floor(time * scope.pixelsPerSecond);
-        while (pos < end) {
-        // for (var i = 1; i < 100; i++) {
-          ruler_mark = $('<span style="left: ' + pos + 'px;">');
-          ruler_mark.addClass("tick_mark");
-          time_display = $('<span style="left: ' + pos + 'px;">');
-          time_display.addClass("ruler_time");
+        framesPerTick = $scope.framesPerTick();
+        timePerTick = framesPerTick / fps;
+        while (t <= time[1]){
+          if (Math.floor(t) != Math.floor(tPrev)) {
+            // In the case that FPS is not a whole number.
+            // Every new second, make sure we start ON the second.
+            t = Math.floor(t);
+          }
+          pos = t * scope.pixelsPerSecond;
+          tickSpan = $('<span style="left:'+pos+'px;"></span>');
+          tickSpan.addClass("tick_mark");
 
-          if (tall) {
-            ruler_mark.css("height", 14);
-            tall = false
+          if (showTime) {
+            timeSpan = $('<span style="left:'+pos+'px;"></span>');
+            timeSpan.addClass("ruler_time");
+            timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
+            timeSpan[0].innerText = timeText['hour'] + ':' +
+              timeText['min'] + ':' +
+              timeText['sec'] + ',' +
+              timeText['frame'];
+            tickSpan[0].style['height'] = '20px';
+            showTime = false;
           } else {
-            tall = true;
+            showTime = true;
           }
+          ruler.append(timeSpan);
+          ruler.append(tickSpan);
 
-          /* Calculate Time */
-          var text_time = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
-          time_display[0].innerText = text_time["hour"] + ":" + text_time["min"] + ":" + text_time["sec"];
-          if (scope.project.scale < 1) {
-            time_display[0].innerText += ',' + text_time['frame'];
-          }
-
-          ruler.append(ruler_mark);
-          ruler.append(time_display);
-
-          frame += (scope.project.fps.num / scope.project.fps.den)
-          time = start / (scope.project.fps.num / scope.project.fps.den);
-          pos = Math.floor(time * scope.pixelsPerSecond);
+          tPrev = t;
+          t += timePerTick;
         }
         return;
       }
 
       drawTimes = () => {
-        // if (scope.project.scale < 0.340522133938706) {
-        if (true) {
+        /*scope.project.scale < 0.340522133938706*/
+        if (scope.project.scale < 1) {
           drawTimesHighZoom();
           return;
         }
