@@ -55,6 +55,17 @@ img {
   background-image: url(../images/ruler-tick.svg);
   background-position: -50px;
 }
+#ruler.no_bg {
+  background-image: none;
+}
+.tick_mark {
+  position: absolute;
+  height: 14px;
+  width : 1px;
+  bottom: 3px;
+  background-color: #acacac;
+  background-position: -50px;
+}
 .ruler_time {
   color: #c8c8c8;
   top: 6px;

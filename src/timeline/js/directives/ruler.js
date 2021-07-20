@@ -160,15 +160,118 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      drawTimes = () => {
+      /*function drawTimesSeconds() {
         ruler = $("#ruler");
+        ruler.addClass('no_bg')
+        width = $("body").width();
+        // Clear all current tick marks
+        $("#ruler span").remove();
+        start = Math.max(0, ruler.left - width);
+        end = ruler.left + (2 * width);
+
+        // time = Math.floor(start);
+        time = Math.floor(start / (scope.project.fps.num / scope.project.fps.den));
+        while (time <= end) {
+          console.log("TIME: " + time);
+          console.log("start: " + start);
+          console.log("end: " + end);
+          pos = time * scope.project.pixelsPerSecond;
+
+          ruler_mark = $('<span style="left: ' + pos + 'px;">');
+          ruler_mark.addClass("tick_mark");
+          time_display = $('<span style="left: ' + pos + 'px;">');
+          time_display.addClass("ruler_time");
+
+          var text_time = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
+          time_display[0].innerText = text_time["hour"] + ":" + text_time["min"] + ":" + text_time["sec"];
+          if (scope.project.scale < 1) {
+            time_display[0].innerText += ',' + text_time['frame'];
+          }
+
+          ruler.append(ruler_mark);
+          ruler.append(time_display);
+          time += 1;
+        }
+
+      }*/
+
+      function drawTimesHighZoom() {
+        zoomLevels = [
+          {
+            // Mark every 10 frames
+            'zoom': 0.2724177071509648 ,
+            'mark_every' : 10
+          },
+          {
+            // Mark every 10 frames
+            'zoom' : 0.1743473325766175,
+            'mark_every' : 5
+          },
+        ] ;
+
+        ruler = $("#ruler");
+        ruler.addClass('no_bg')
+        width = $("body").width();
+        // Clear all current tick marks
+        $("#ruler span").remove();
+
+        start = Math.max(0, scope.scrollLeft - width);
+        end = scope.scrollLeft + (2 * width);
+
+        console.log("SCALE: " + scope.project.scale);
+        console.log("start: " + start);
+        console.log("end: " + end);
+
+
+        let tall = false;
+        // frame = start;
+        time = start / (scope.project.fps.num / scope.project.fps.den);
+        pos = Math.floor(time * scope.pixelsPerSecond);
+        while (pos < end) {
+        // for (var i = 1; i < 100; i++) {
+          ruler_mark = $('<span style="left: ' + pos + 'px;">');
+          ruler_mark.addClass("tick_mark");
+          time_display = $('<span style="left: ' + pos + 'px;">');
+          time_display.addClass("ruler_time");
+
+          if (tall) {
+            ruler_mark.css("height", 14);
+            tall = false
+          } else {
+            tall = true;
+          }
+
+          /* Calculate Time */
+          var text_time = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
+          time_display[0].innerText = text_time["hour"] + ":" + text_time["min"] + ":" + text_time["sec"];
+          if (scope.project.scale < 1) {
+            time_display[0].innerText += ',' + text_time['frame'];
+          }
+
+          ruler.append(ruler_mark);
+          ruler.append(time_display);
+
+          frame += (scope.project.fps.num / scope.project.fps.den)
+          time = start / (scope.project.fps.num / scope.project.fps.den);
+          pos = Math.floor(time * scope.pixelsPerSecond);
+        }
+        return;
+      }
+
+      drawTimes = () => {
+        // if (scope.project.scale < 0.340522133938706) {
+        if (true) {
+          drawTimesHighZoom();
+          return;
+        }
+        ruler = $("#ruler");
+        if (ruler[0].className.includes('no_bg')) { ruler.removeClass('no_bg') }
         width = $("body").width();
         $("#ruler span").remove();
         start = Math.max(scope.scrollLeft - width, 100);
         end = Math.min(scope.scrollLeft + (2*width), $('#ruler').width());
 
         scale = scope.project.scale;
-
 
         for (var i = start - (start % 100) ; i < end; i += 100) {
           /* create and format span */
