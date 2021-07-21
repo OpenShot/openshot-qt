@@ -47,6 +47,28 @@ class EffectsProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
+    def filterAcceptsRow(self, sourceRow, sourceParent):
+        """Filter for common transitions and text filter"""
+
+        if not get_app().window.actionEffectsShowAll.isChecked():
+            # Fetch the effect values
+            effect_name = self.sourceModel().data(self.sourceModel().index(sourceRow, 1, sourceParent))
+            effect_desc = self.sourceModel().data(self.sourceModel().index(sourceRow, 2, sourceParent))
+            effect_type = self.sourceModel().data(self.sourceModel().index(sourceRow, 3, sourceParent))
+
+            # Return, if regExp match in displayed format.
+            if get_app().window.actionEffectsShowVideo.isChecked():
+                return effect_type == "Video" and \
+                       self.filterRegExp().indexIn(effect_name) >= 0 and \
+                       self.filterRegExp().indexIn(effect_desc) >= 0
+            else:
+                return effect_type == "Audio" and \
+                       self.filterRegExp().indexIn(effect_name) >= 0 and \
+                       self.filterRegExp().indexIn(effect_desc) >= 0
+
+        # Continue running built-in parent filter logic
+        return super(EffectsProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
+
     def mimeData(self, indexes):
         # Create MimeData for drag operation
         data = QMimeData()
@@ -102,7 +124,6 @@ class EffectsModel(QObject):
                 category = "Audio & Video"
             elif not effect_info["has_video"] and effect_info["has_audio"]:
                 category = "Audio"
-                icon_path = os.path.join(icons_dir, "audio.png")
             elif effect_info["has_video"] and not effect_info["has_audio"]:
                 category = "Video"
 
