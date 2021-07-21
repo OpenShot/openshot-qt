@@ -160,15 +160,6 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-
-      /**
-       * Given the pixels per second of the project,
-       * Find a number of frames between each ruler mark,
-       * such that the tick marks remain at least 50px apart.
-       */
-      function framesPerTick() {
-      }
-
       /**
        * 
        */
@@ -191,8 +182,17 @@ App.directive("tlRuler", function ($timeout) {
         let tPrev;
         showTime = true;
 
-        framesPerTick = $scope.framesPerTick();
-        timePerTick = framesPerTick / fps;
+        // timePerTick = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.num) / fps;
+        // console.log('FPT: ' + framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.num));
+        dF = 1;
+        dT = () => { return dF / fps };
+        dP = () => { return dT() * scope.pixelsPerSecond};
+        while (dP() < 50) {
+          dF *= 2;
+        }
+        timePerTick = dT();
+        fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den)
+        timePerTick = fpt / fps;
         while (t <= time[1]){
           if (Math.floor(t) != Math.floor(tPrev)) {
             // In the case that FPS is not a whole number.

@@ -339,16 +339,23 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
  * @returns the list of all primes less than n
  */
 function primeNumbersUpTo(n) {
+  return [2,3,5,7,13];
   l = [...Array(
     Math.floor(
       Math.sqrt(n)
     )
   ).keys()];
+  console.log('l1: ', l);
   l = l.slice(2,n); // Discard 0 and 1
-  l.forEach( i => {
-    l = l.filter( j => { return j % i == 0 });
-  });
-  l.forEach(x=> $scope.primes.add(x));
+  console.log('l2: ', l);
+  // l.forEach( i => {
+  // });
+  for (p in l) {
+    l = l.filter( x => { return x % p != 0 });
+  }
+  console.log('l3: ', l);
+  l.forEach(x=> global_primes.add(x));
+  console.log('l4: ', l);
   return l;
 }
 
@@ -360,12 +367,13 @@ function primeFactorsOf(n) {
   n = Math.floor(n);
   factors = [];
   primes = primeNumbersUpTo(n);
-  primes.append(n); // in case n is prime.
+  console.log('primes', primes);
+  primes.push(n); // in case n is prime.
   i = 0;
   while (n != 1) {
     if(n%primes[i] == 0) {
       n = n/primes[i]
-      factors.append(primes[i]);
+      factors.push(primes[i]);
     } else {
       i += 1;
     }
@@ -378,22 +386,32 @@ function primeFactorsOf(n) {
  * From the pixels per second of the project,
  * Find a number of frames between each ruler mark,
  * such that the tick marks remain at least 50px apart.
+ * @param {Pixels per second} pps 
+ * @param fps_num 
+ * @param fps_den 
+ * @returns 
  */
-function framesPerTick() {
-  fps = scope.project.fps.num / scope.project.fps.den;
+function framesPerTick(pps, fps_num, fps_den) {
+  fps = fps_num / fps_den;
   if (fps % 1 != 0) { 
     /* Not sure about this. */
   }
-  factors = scope.primeFactorsOf(fps);
+  factors = primeFactorsOf(fps);
+  console.log('factors: ' + factors);
   dF = 1; // Frames per mark
-  dT = () => { return dF / fps } // Time per mark
-  dP = () => { return dT() * scope.pixelsPerSecond }; // Pixels per mark
-  while (dP() < 35) {
-    if (dF * 2 > fps && dF < fps) {
-      dF = fps;
-      continue;
-    }
-    dF *= (factors.shift() || 2);
+  dT = () => { return (dF / fps) } // Time per mark
+  dP = () => { return dT() * pps }; // Pixels per mark
+  while (dP() < 50) {
+    console.log("DP:" + dP());
+    // if (dF * 2 > fps && dF < fps) {
+    //   dF = fps;
+    //   continue;
+    // }
+    // dF *= (factors.shift() || 2);
+    console.log("DF Before " + dF);
+    dF *= factors.shift();
+    console.log("DF after " + dF);
+    console.log('factors: ' + factors);
   }
   return dF;
 }
@@ -402,4 +420,4 @@ function framesPerTick() {
  * Primes are used for factoring.
  * Store any that have been found for future use.
  */
-$scope.primes = [];
+global_primes = new Set();
