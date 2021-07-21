@@ -338,25 +338,13 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
  * @param {any number} n 
  * @returns the list of all primes less than n
  */
-function primeNumbersUpTo(n) {
-  return [2,3,5,7,13];
-  l = [...Array(
-    Math.floor(
-      Math.sqrt(n)
-    )
-  ).keys()];
-  console.log('l1: ', l);
-  l = l.slice(2,n); // Discard 0 and 1
-  console.log('l2: ', l);
-  // l.forEach( i => {
-  // });
-  for (p in l) {
-    l = l.filter( x => { return x % p != 0 });
-  }
-  console.log('l3: ', l);
-  l.forEach(x=> global_primes.add(x));
-  console.log('l4: ', l);
-  return l;
+function primesUpTo(n) {
+  primes = [...Array(n+1).keys()]; // List from 0 to n
+  primes = primes.slice(2,primes.length -1); // 0 and 1 divide nothing and everything
+  primes.forEach( p => {
+      primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
+  });
+  return primes;
 }
 
 /**
@@ -364,21 +352,17 @@ function primeNumbersUpTo(n) {
  * @returns the list of prime factors of n
  */
 function primeFactorsOf(n) {
-  n = Math.floor(n);
   factors = [];
-  primes = primeNumbersUpTo(n);
-  console.log('primes', primes);
-  primes.push(n); // in case n is prime.
-  i = 0;
+  primes = primesUpTo(n);
+  primes.push(n);
   while (n != 1) {
-    if(n%primes[i] == 0) {
-      n = n/primes[i]
-      factors.push(primes[i]);
-    } else {
-      i += 1;
-    }
+      if (n % primes[0] == 0) {
+          n = n/primes[0];
+          factors.push(primes[0]);
+      } else {
+          primes.shift();
+      }
   }
-
   return factors;
 }
 
@@ -393,26 +377,14 @@ function primeFactorsOf(n) {
  */
 function framesPerTick(pps, fps_num, fps_den) {
   fps = fps_num / fps_den;
-  if (fps % 1 != 0) { 
-    /* Not sure about this. */
-  }
-  factors = primeFactorsOf(fps);
-  console.log('factors: ' + factors);
-  dF = 1; // Frames per mark
-  dT = () => { return (dF / fps) } // Time per mark
-  dP = () => { return dT() * pps }; // Pixels per mark
+  dF = 1;
+  dT = () => { return dF / fps };
+  dP = () => { return dT() * pps };
+  factors = primeFactorsOf(Math.round(fps));
   while (dP() < 50) {
-    console.log("DP:" + dP());
-    // if (dF * 2 > fps && dF < fps) {
-    //   dF = fps;
-    //   continue;
-    // }
-    // dF *= (factors.shift() || 2);
-    console.log("DF Before " + dF);
-    dF *= factors.shift();
-    console.log("DF after " + dF);
-    console.log('factors: ' + factors);
+      dF *= factors.shift() || 2;
   }
+  
   return dF;
 }
 
