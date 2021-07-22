@@ -199,7 +199,7 @@ class PlayerWorker(QObject):
         # Mark frame number for processing
         self.Seek(number)
 
-        log.info(
+        log.debug(
             "previewFrame: %s, player Position(): %s",
             number, self.player.Position())
 

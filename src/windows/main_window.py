@@ -89,6 +89,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     refreshFrameSignal = pyqtSignal()
     refreshFilesSignal = pyqtSignal()
     refreshTransitionsSignal = pyqtSignal()
+    refreshEffectsSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
     PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
@@ -833,6 +834,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionTransitionsShowCommon_trigger(self, checked=True):
         self.refreshTransitionsSignal.emit()
+
+    def actionEffectsShowAll_trigger(self, checked=True):
+        self.refreshEffectsSignal.emit()
+
+    def actionEffectsShowVideo_trigger(self, checked=True):
+        self.refreshEffectsSignal.emit()
+
+    def actionEffectsShowAudio_trigger(self, checked=True):
+        self.refreshEffectsSignal.emit()
 
     def actionHelpContents_trigger(self, checked=True):
         try:
@@ -2500,6 +2510,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Add effects toolbar
         self.effectsToolbar = QToolBar("Effects Toolbar")
         self.effectsFilter = QLineEdit()
+        self.effectsActionGroup = QActionGroup(self)
+        self.effectsActionGroup.setExclusive(True)
+        self.effectsActionGroup.addAction(self.actionEffectsShowAll)
+        self.effectsActionGroup.addAction(self.actionEffectsShowVideo)
+        self.effectsActionGroup.addAction(self.actionEffectsShowAudio)
+        self.actionEffectsShowAll.setChecked(True)
+        self.effectsToolbar.addAction(self.actionEffectsShowAll)
+        self.effectsToolbar.addAction(self.actionEffectsShowVideo)
+        self.effectsToolbar.addAction(self.actionEffectsShowAudio)
         self.effectsFilter.setObjectName("effectsFilter")
         self.effectsFilter.setPlaceholderText(_("Filter"))
         self.effectsFilter.setClearButtonEnabled(True)

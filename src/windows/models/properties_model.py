@@ -160,7 +160,7 @@ class PropertiesModel(updates.UpdateInterface):
             if self.frame_number > max_frame_number:
                 self.frame_number = max_frame_number
 
-            log.info("Update frame to %s" % self.frame_number)
+            log.debug("Update frame to %s" % self.frame_number)
 
             # Update the model data
             if reload_model:
