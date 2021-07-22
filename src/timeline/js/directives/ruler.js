@@ -175,7 +175,7 @@ App.directive("tlRuler", function ($timeout) {
         // startTime : time[0]; endTime : time[1]
         fps = scope.project.fps.num / scope.project.fps.den;
         time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
-        time[0] -= time[0]%1;
+        time[0] -= time[0]%2;
         time[1] -= time[1]%1 - 1;
 
         startFrame = time[0] * Math.round(fps);
@@ -185,21 +185,17 @@ App.directive("tlRuler", function ($timeout) {
         let tPrev;
         showTime = true;
 
-        // timePerTick = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.num) / fps;
-        // console.log('FPT: ' + framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.num));
-        fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den)
-        frame = startFrame
-        console.log ("Start: "+ startFrame)
-        console.log ("End : "+ endFrame)
-        console.log ("FPT : "+ fpt)
-        console.log ("start Time : "+ time[0])
+        fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
+        frame = startFrame;
+        console.log('fpt: ' + fpt);
+        console.log('startFrame: ' + startFrame);
         while ( frame <= endFrame){
           t = frame / fps;
           pos = t * scope.pixelsPerSecond;
           tickSpan = $('<span style="left:'+pos+'px;"></span>');
           tickSpan.addClass("tick_mark");
 
-          if (showTime) {
+          if ((frame - startFrame) % (fpt * 2) == 0) {
             timeSpan = $('<span style="left:'+pos+'px;"></span>');
             timeSpan.addClass("ruler_time");
             timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
@@ -209,11 +205,7 @@ App.directive("tlRuler", function ($timeout) {
             if (fpt < Math.round(fps)) {
               timeSpan[0].innerText += ',' + timeText['frame'];
             }
-              // timeText['frame'];
             tickSpan[0].style['height'] = '20px';
-            showTime = false;
-          } else {
-            showTime = true;
           }
           ruler.append(timeSpan);
           ruler.append(tickSpan);
@@ -221,7 +213,7 @@ App.directive("tlRuler", function ($timeout) {
           frame += fpt;
         }
         return;
-      }
+      };
 
       scope.$watch("project.scale + project.duration + scrollLeft", function (val) {
         if (val) {

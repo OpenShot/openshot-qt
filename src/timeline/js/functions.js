@@ -335,26 +335,48 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 }
 
 /**
+ * Primes are used for factoring.
+ * Store any that have been found for future use.
+ */
+global_primes = new Set();
+
+/**
+ * Creates a list of all primes less than n.
+ * Stores primes in a set for better performance in the future.
+ * If some primes have been found, start with that list,
+ * and check the remaining numbers up to n.
  * @param {any number} n 
  * @returns the list of all primes less than n
  */
 function primesUpTo(n) {
+  n = Math.floor(n);
+  if (Array.from(global_primes).pop() >= n) { // All primes already found
+    return Array.from(global_primes).filter( x => { return x < n });
+  }
+  start = 2; // 0 and 1 can't be prime
   primes = [...Array(n+1).keys()]; // List from 0 to n
-  primes = primes.slice(2,primes.length -1); // 0 and 1 divide nothing and everything
-  primes.forEach( p => {
+  if (Array.from(global_primes).length) { // Some primes already found
+    start = Array.from(global_primes).pop() + 1;
+    primes = primes.slice(start,primes.length -1);
+    primes = Array.from(global_primes).concat(primes);
+  } else {
+    primes = primes.slice(start,primes.length -1);
+  }
+  primes.forEach( p => { // Sieve of Eratosthenes method of prime factoring
     primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
-  });
-  primes.forEach( p => {
     global_primes.add(p);
-  })
+  });
   return primes;
 }
 
 /**
+ * Every integer is either prime,
+ * is the product of some list of primes.
  * @param {integer to factor} n 
  * @returns the list of prime factors of n
  */
 function primeFactorsOf(n) {
+  n = Math.floor(n);
   factors = [];
   primes = primesUpTo(n);
   primes.push(n);
@@ -373,6 +395,9 @@ function primeFactorsOf(n) {
  * From the pixels per second of the project,
  * Find a number of frames between each ruler mark,
  * such that the tick marks remain at least 50px apart.
+ * 
+ * Increases the number of frames by factors of FPS.
+ * This way each tick should land neatly on a second mark
  * @param {Pixels per second} pps 
  * @param fps_num 
  * @param fps_den 
@@ -384,15 +409,9 @@ function framesPerTick(pps, fps_num, fps_den) {
   seconds = () => { return frames / fps };
   pixels = () => { return seconds() * pps };
   factors = primeFactorsOf(Math.round(fps));
-  while (pixels() < 35) {
+  while (pixels() < 40) {
       frames *= factors.shift() || 2;
   }
   
   return frames;
 }
-
-/**
- * Primes are used for factoring.
- * Store any that have been found for future use.
- */
-global_primes = new Set();
