@@ -166,7 +166,7 @@ function secondsToTime(secs, fps_num, fps_den) {
   var week = Math.floor(day / 7);
   day = day % 7;
 
-  var frame = Math.round((milli / 1000.0) * (fps_num / fps_den)) + 1;
+  var frame = Math.floor((milli / 1000.0) * (fps_num / fps_den)) + 1;
   return {
     "week": padNumber(week, 2),
     "day": padNumber(day, 2),
@@ -342,8 +342,11 @@ function primesUpTo(n) {
   primes = [...Array(n+1).keys()]; // List from 0 to n
   primes = primes.slice(2,primes.length -1); // 0 and 1 divide nothing and everything
   primes.forEach( p => {
-      primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
+    primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
   });
+  primes.forEach( p => {
+    global_primes.add(p);
+  })
   return primes;
 }
 
@@ -377,15 +380,15 @@ function primeFactorsOf(n) {
  */
 function framesPerTick(pps, fps_num, fps_den) {
   fps = fps_num / fps_den;
-  dF = 1;
-  dT = () => { return dF / fps };
-  dP = () => { return dT() * pps };
+  frames = 1;
+  seconds = () => { return frames / fps };
+  pixels = () => { return seconds() * pps };
   factors = primeFactorsOf(Math.round(fps));
-  while (dP() < 50) {
-      dF *= factors.shift() || 2;
+  while (pixels() < 35) {
+      frames *= factors.shift() || 2;
   }
   
-  return dF;
+  return frames;
 }
 
 /**
