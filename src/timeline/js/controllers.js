@@ -281,7 +281,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Change the scale and apply to scope
   $scope.setScroll = function (normalizedScrollValue) {
-    var timeline_length = Math.min(32767, $scope.getTimelineWidth(0));
+    var timeline_length = $scope.getTimelineWidth(0);
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = normalizedScrollValue * timeline_length;
     scrolling_tracks.scrollLeft(horz_scroll_offset);

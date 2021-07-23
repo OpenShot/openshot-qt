@@ -88,6 +88,7 @@ App.directive("tlScrollableTracks", function () {
 
       // Pans the timeline (on middle mouse clip and drag)
       element.on("mousemove", function (e) {
+
         if (is_scrolling) {
           // Calculate difference from last position
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
@@ -206,8 +207,6 @@ App.directive("tlRuler", function ($timeout) {
 
         fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
         frame = startFrame;
-        console.log('fpt: ' + fpt);
-        console.log('startFrame: ' + startFrame);
         while ( frame <= endFrame){
           t = frame / fps;
           pos = t * scope.pixelsPerSecond;

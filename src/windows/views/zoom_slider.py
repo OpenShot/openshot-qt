@@ -399,15 +399,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def setZoomFactor(self, zoom_factor):
         """Set the current zoom factor"""
-        # Get max width of timeline
-        project_duration = get_app().project.get("duration")
-        tick_pixels = 100
-        min_zoom_factor = 1.0
-        max_zoom_factor = 64.0
-        if self.scrollbar_position[3] > 0.0:
-            # Calculate the new zoom factor, based on pixels per tick
-            max_zoom_factor = project_duration / (self.scrollbar_position[3] / tick_pixels)
-
         # Force recalculation of clips
         self.zoom_factor = zoom_factor
 
