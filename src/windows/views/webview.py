@@ -713,13 +713,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         Rotation_None.triggered.connect(partial(
             self.Rotate_Triggered, MENU_ROTATE_NONE, clip_ids))
         Rotation_Menu.addSeparator()
-        Rotation_90_Right = Rotation_Menu.addAction(_("Rotate 90 (Right)"))
+        Rotation_90_Right = Rotation_Menu.addAction(_("Rotate 90° (Right)"))
         Rotation_90_Right.triggered.connect(partial(
             self.Rotate_Triggered, MENU_ROTATE_90_RIGHT, clip_ids))
-        Rotation_90_Left = Rotation_Menu.addAction(_("Rotate 90 (Left)"))
+        Rotation_90_Left = Rotation_Menu.addAction(_("Rotate 90° (Left)"))
         Rotation_90_Left.triggered.connect(partial(
             self.Rotate_Triggered, MENU_ROTATE_90_LEFT, clip_ids))
-        Rotation_180_Flip = Rotation_Menu.addAction(_("Rotate 180 (Flip)"))
+        Rotation_180_Flip = Rotation_Menu.addAction(_("Rotate 180° (Flip)"))
         Rotation_180_Flip.triggered.connect(partial(
             self.Rotate_Triggered, MENU_ROTATE_180_FLIP, clip_ids))
         menu.addMenu(Rotation_Menu)
