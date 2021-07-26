@@ -288,13 +288,13 @@ App.directive("tlTransition", function () {
             transition_name = $(this).attr("id");
             var newX, newY;
             if (move_clips[transition_name] && ( move_clips[transition_name]['top'] && move_clips[clip_name]['left'] )) {
-              newY = move_clips[transition_name]['top'] = this.style.top + y_offset;
-              newX = move_clips[transition_name]['left'] + y_offset;
+              newY = move_clips[transition_name]['top'] + y_offset;
+              newX = move_clips[transition_name]['left'] + x_offset;
             } else {
               // If this transition is not yet in move_clips, add it.
               move_clips[transition_name] =  {};
               newY = this.style.top + y_offset;
-              newX = this.style.top + y_offset;
+              newX = this.style.left + x_offset;
             }
             // Update the transition location in the array
             move_transitions[$(this).attr("id")]["top"] = newY;

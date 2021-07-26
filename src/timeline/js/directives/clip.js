@@ -334,12 +334,12 @@ App.directive("tlClip", function ($timeout) {
             clip_name = $(this).attr("id");
             var newX, newY;
             if (move_clips[clip_name] && ( move_clips[clip_name]['top'] && move_clips[clip_name]['left'] )) {
-              newY = move_clips[clip_name]['top'] = this.style.top + y_offset;
-              newX = move_clips[clip_name]['left'] + y_offset;
+              newY = move_clips[clip_name]['top'] + y_offset;
+              newX = move_clips[clip_name]['left'] + x_offset;
             } else {
               move_clips[clip_name] =  {};
               newY = this.style.top + y_offset;
-              newX = this.style.top + y_offset;
+              newX = this.style.left + x_offset;
             }
             //update the clip location in the array
             move_clips[$(this).attr("id")]["top"] = newY;
