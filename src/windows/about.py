@@ -141,14 +141,12 @@ class About(QDialog):
         about_html = '''
             <html><head/><body><hr/>
             <p align="center">
-            <span style=" font-size:10pt; font-weight:600;">%s</span>
+            <span style="font-size:10pt; font-weight:600;">%s</span>
             </p>
             <p align="center">
-            <span style=" font-size:10pt;">%s </span>
-            <a href="https://www.openshot.org/%s?r=about-us">
-                <span style=" font-size:10pt; text-decoration: none; color:#55aaff;">%s</span>
-            </a>
-            <span style=" font-size:10pt;">.</span>
+            <span style="font-size:10pt;">%s </span>
+            <a href="https://www.openshot.org/%s?r=about-us"><span style="font-size:10pt; text-decoration: none; color:#55aaff;">%s</span></a>
+            <span style="font-size:10pt;">.</span>
             </p>
             </body></html>
             ''' % (
@@ -160,12 +158,9 @@ class About(QDialog):
             <html><head/>
             <body style="font-size:11pt; font-weight:400; font-style:normal;">
             <hr />
-            <p align="center"
-               style="margin:12px 12px 0 0; -qt-block-indent:0; text-indent:0;">
+            <p align="center" style="margin:12px 12px 0 0; -qt-block-indent:0; text-indent:0;">
                <span style="font-size:10pt; font-weight:600;">%s </span>
-               <a href="http://www.openshotstudios.com?r=about-us">
-               <span style="font-size:10pt; font-weight:600; text-decoration: none; color:#55aaff;">
-               OpenShot Studios, LLC<br /></span></a>
+               <a href="http://www.openshotstudios.com?r=about-us"><span style="font-size:10pt; font-weight:600; text-decoration: none; color:#55aaff;">OpenShot Studios, LLC<br /></span></a>
             </p>
             </body></html>
             ''' % (copyright_text)
@@ -278,9 +273,7 @@ class Credits(QDialog):
         supporter_html = '''
             <html><head/><body>
             <p align="center">
-                <a href="https://www.openshot.org/%sdonate/?app-about-us">
-                <span style="text-decoration: underline; color:#55aaff;">%s</span>
-                </a>
+                <a href="https://www.openshot.org/%sdonate/?app-about-us"><span style="text-decoration: underline; color:#55aaff;">%s</span></a>
             </p>
             </body></html>
             ''' % (info.website_language(), supporter_text)
@@ -396,9 +389,7 @@ class Changelog(QDialog):
         github_html = '''
             <html><head/><body>
             <p align="center">
-                <a href="https://github.com/OpenShot/">
-                <span style=" text-decoration: underline; color:#55aaff;">%s</span>
-                </a>
+                <a href="https://github.com/OpenShot/"><span style="text-decoration: underline; color:#55aaff;">%s</span></a>
             </p>
             </body></html>
             ''' % (github_text)
