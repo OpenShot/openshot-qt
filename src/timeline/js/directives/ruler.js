@@ -75,17 +75,6 @@ App.directive("tlScrollableTracks", function () {
 
       });
 
-      // Initialize panning when middle mouse is clicked
-      element.on("mousedown", function (e) {
-        if (e.which === 2) { // middle button
-          e.preventDefault();
-          is_scrolling = true;
-          starting_scrollbar = {x: element.scrollLeft(), y: element.scrollTop()};
-          starting_mouse_position = {x: e.pageX, y: e.pageY};
-          element.addClass("drag_cursor");
-        }
-      });
-
       // Pans the timeline (on middle mouse clip and drag)
       element.on("mousemove", function (e) {
         if (is_scrolling) {
@@ -115,6 +104,24 @@ App.directive("tlBody", function () {
       element.on("mouseup", function (e) {
         if (e.which === 2) { // middle button
           is_scrolling = false;
+          element.removeClass("drag_cursor");
+        }
+      });
+
+      // Stop scrolling if mouse leaves timeline
+      element.on("mouseleave", function (e) {
+        is_scrolling = false;
+        element.removeClass("drag_cursor");
+      })
+
+      // Initialize panning when middle mouse is clicked
+      element.on("mousedown", function (e) {
+        if (e.which === 2) { // middle button
+          e.preventDefault();
+          is_scrolling = true;
+          starting_scrollbar = {x: element.scrollLeft(), y: element.scrollTop()};
+          starting_mouse_position = {x: e.pageX, y: e.pageY};
+          element.addClass("drag_cursor");
         }
       });
 
