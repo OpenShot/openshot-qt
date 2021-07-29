@@ -52,11 +52,7 @@ img {
 #ruler {
   position: relative;
   height: 39px;
-  background-image: url(../images/ruler-tick.svg);
   background-position: -50px;
-}
-#ruler.no_bg {
-  background-image: none;
 }
 .tick_mark {
   position: absolute;

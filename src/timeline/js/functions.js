@@ -469,6 +469,10 @@ function setSelections(scope, element, id) {
   scope.$apply(function () {});
 }
 
+/**
+ * <body> of index.html calls this on load.
+ * Garauntees that the ruler is drawn when timeline first loads
+ */
 function forceDrawRuler() {
   var scroll = document.querySelector('#scrolling_tracks').scrollLeft;
   document.querySelector('#scrolling_tracks').scrollLeft = 10;

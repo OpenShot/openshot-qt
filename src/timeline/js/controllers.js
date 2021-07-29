@@ -1506,5 +1506,4 @@ App.controller("TimelineCtrl", function ($scope) {
     $scope.startImage = "";
   };
 
-
 });

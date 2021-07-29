@@ -88,7 +88,6 @@ App.directive("tlScrollableTracks", function () {
 
       // Pans the timeline (on middle mouse clip and drag)
       element.on("mousemove", function (e) {
-
         if (is_scrolling) {
           // Calculate difference from last position
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
@@ -181,18 +180,18 @@ App.directive("tlRuler", function ($timeout) {
       });
 
       /**
-       * 
+       * Draw times on the ruler
+       * Always starts on a second
+       * Draws to the right edge of the screen
        */
       function drawTimes() {
         // Delete old tick marks
         ruler = $('#ruler');
-        ruler.addClass('no_bg');
         $("#ruler span").remove();
 
         startPos = scope.scrollLeft;
         endPos = scope.scrollLeft + $("body").width();
 
-        // startTime : time[0]; endTime : time[1]
         fps = scope.project.fps.num / scope.project.fps.den;
         time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
         time[0] -= time[0]%2;
@@ -200,10 +199,6 @@ App.directive("tlRuler", function ($timeout) {
 
         startFrame = time[0] * Math.round(fps);
         endFrame = time[1] * Math.round(fps);
-
-        t = time[0];
-        let tPrev;
-        showTime = true;
 
         fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
         frame = startFrame;
@@ -214,6 +209,7 @@ App.directive("tlRuler", function ($timeout) {
           tickSpan.addClass("tick_mark");
 
           if ((frame - startFrame) % (fpt * 2) == 0) {
+            // Alternating long marks with times marked
             timeSpan = $('<span style="left:'+pos+'px;"></span>');
             timeSpan.addClass("ruler_time");
             timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
