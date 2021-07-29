@@ -399,21 +399,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def setZoomFactor(self, zoom_factor):
         """Set the current zoom factor"""
-        # Get max width of timeline
-        project_duration = get_app().project.get("duration")
-        tick_pixels = 100
-        min_zoom_factor = 1.0
-        max_zoom_factor = 64.0
-        if self.scrollbar_position[3] > 0.0:
-            # Calculate the new zoom factor, based on pixels per tick
-            max_zoom_factor = project_duration / (self.scrollbar_position[3] / tick_pixels)
-
-        # Constrain zoom factor to min/max limits
-        if zoom_factor < min_zoom_factor:
-            zoom_factor = min_zoom_factor
-        if zoom_factor > max_zoom_factor:
-            zoom_factor = max_zoom_factor
-
         # Force recalculation of clips
         self.zoom_factor = zoom_factor
 
@@ -428,8 +413,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """Zoom into timeline"""
         if self.zoom_factor >= 10.0:
             new_factor = self.zoom_factor - 5.0
-        else:
+        elif self.zoom_factor >= 4.0:
             new_factor = self.zoom_factor - 2.0
+        else:
+            new_factor = self.zoom_factor * 0.8
 
         # Emit zoom signal
         self.setZoomFactor(new_factor)
@@ -438,8 +425,11 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """Zoom out of timeline"""
         if self.zoom_factor >= 10.0:
             new_factor = self.zoom_factor + 5.0
-        else:
+        elif self.zoom_factor >= 4.0:
             new_factor = self.zoom_factor + 2.0
+        else:
+            # Ensure zoom is reversable when using only keyboard zoom
+            new_factor = min(self.zoom_factor * 1.25, 4.0)
 
         # Emit zoom signal
         self.setZoomFactor(new_factor)

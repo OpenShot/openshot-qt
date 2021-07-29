@@ -43,7 +43,6 @@ var scroll_left_pixels = 0;
 App.directive("tlScrollableTracks", function () {
   return {
     restrict: "A",
-
     link: function (scope, element, attrs) {
 
       // Sync ruler to track scrolling
@@ -62,13 +61,17 @@ App.directive("tlScrollableTracks", function () {
         // Send scrollbar position to Qt
         if (scope.Qt) {
            // Calculate scrollbar positions (left and right edge of scrollbar)
-           var timeline_length = Math.min(32767, scope.getTimelineWidth(0));
+           var timeline_length = scope.getTimelineWidth(0);
            var left_scrollbar_edge = scroll_left_pixels / timeline_length;
            var right_scrollbar_edge = (scroll_left_pixels + element.width()) / timeline_length;
 
            // Send normalized scrollbar positions to Qt
            timeline.ScrollbarChanged([left_scrollbar_edge, right_scrollbar_edge, timeline_length, element.width()]);
         }
+
+        scope.$apply( () => {
+          scope.scrollLeft = element[0].scrollLeft;
+        })
 
       });
 
@@ -99,7 +102,6 @@ App.directive("tlScrollableTracks", function () {
       element.on("mouseup", function (e) {
         element.removeClass("drag_cursor");
       });
-
 
     }
   };
@@ -147,7 +149,6 @@ App.directive("tlRuler", function ($timeout) {
             scope.playhead_animating = false;
           });
         });
-
       });
 
       element.on("mousedown", function (e) {
@@ -178,60 +179,62 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
-      //watch the scale value so it will be able to draw the ruler after changes,
-      //otherwise the canvas is just reset to blank
-      scope.$watch("project.scale + markers.length + project.duration", function (val) {
-        if (val) {
+      /**
+       * Draw times on the ruler
+       * Always starts on a second
+       * Draws to the right edge of the screen
+       */
+      function drawTimes() {
+        // Delete old tick marks
+        ruler = $('#ruler');
+        $("#ruler span").remove();
 
-          $timeout(function () {
-            //get all scope variables we need for the ruler
-            var scale = scope.project.scale;
-            var tick_pixels = scope.project.tick_pixels;
-            var each_tick = tick_pixels / 2;
-            // Don't go over the max supported canvas size
-            var pixel_length = Math.min(32767,scope.getTimelineWidth(1024));
+        startPos = scope.scrollLeft;
+        endPos = scope.scrollLeft + $("body").width();
 
-            //draw the ruler
-            var ctx = element[0].getContext("2d");
-            //clear the canvas first
-            ctx.clearRect(0, 0, element.width(), element.height());
-            //set number of ticks based 2 for each pixel_length
-            var num_ticks = pixel_length / 50;
+        fps = scope.project.fps.num / scope.project.fps.den;
+        time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
+        time[0] -= time[0]%2;
+        time[1] -= time[1]%1 - 1;
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "#c8c8c8";
-            ctx.lineCap = "round";
+        startFrame = time[0] * Math.round(fps);
+        endFrame = time[1] * Math.round(fps);
 
-            //loop em and draw em
-            for (var x = 0; x < num_ticks + 1; x++) {
-              ctx.beginPath();
+        fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
+        frame = startFrame;
+        while ( frame <= endFrame){
+          t = frame / fps;
+          pos = t * scope.pixelsPerSecond;
+          tickSpan = $('<span style="left:'+pos+'px;"></span>');
+          tickSpan.addClass("tick_mark");
 
-              //if it's even, make the line longer
-              var line_top = 0;
-              if (x % 2 === 0) {
-                line_top = 18;
-                //if it's not the first line, set the time text
-                if (x !== 0) {
-                  //get time for this tick
-                  var time = (scale * x) / 2;
-                  var time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
-
-                  //write time on the canvas, centered above long tick
-                  ctx.fillStyle = "#c8c8c8";
-                  ctx.font = "0.9em";
-                  ctx.fillText(time_text["hour"] + ":" + time_text["min"] + ":" + time_text["sec"], x * each_tick - 22, 11);
-                }
-              } else {
-                //shorter line
-                line_top = 28;
-              }
-
-              ctx.moveTo(x * each_tick, 39);
-              ctx.lineTo(x * each_tick, line_top);
-              ctx.stroke();
+          if ((frame - startFrame) % (fpt * 2) == 0) {
+            // Alternating long marks with times marked
+            timeSpan = $('<span style="left:'+pos+'px;"></span>');
+            timeSpan.addClass("ruler_time");
+            timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
+            timeSpan[0].innerText = timeText['hour'] + ':' +
+              timeText['min'] + ':' +
+              timeText['sec'];
+            if (fpt < Math.round(fps)) {
+              timeSpan[0].innerText += ',' + timeText['frame'];
             }
-          }, 0);
+            tickSpan[0].style['height'] = '20px';
+          }
+          ruler.append(timeSpan);
+          ruler.append(tickSpan);
 
+          frame += fpt;
+        }
+        return;
+      };
+
+      scope.$watch("project.scale + project.duration + scrollLeft", function (val) {
+        if (val) {
+          $timeout(function () {
+            drawTimes();
+            return;
+          } , 0);
         }
       });
 

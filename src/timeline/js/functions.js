@@ -166,7 +166,7 @@ function secondsToTime(secs, fps_num, fps_den) {
   var week = Math.floor(day / 7);
   day = day % 7;
 
-  var frame = Math.round((milli / 1000.0) * (fps_num / fps_den)) + 1;
+  var frame = Math.floor((milli / 1000.0) * (fps_num / fps_den)) + 1;
   return {
     "week": padNumber(week, 2),
     "day": padNumber(day, 2),
@@ -356,6 +356,88 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
 }
 
+/**
+ * Primes are used for factoring.
+ * Store any that have been found for future use.
+ */
+global_primes = new Set();
+
+/**
+ * Creates a list of all primes less than n.
+ * Stores primes in a set for better performance in the future.
+ * If some primes have been found, start with that list,
+ * and check the remaining numbers up to n.
+ * @param {any number} n 
+ * @returns the list of all primes less than n
+ */
+function primesUpTo(n) {
+  n = Math.floor(n);
+  if (Array.from(global_primes).pop() >= n) { // All primes already found
+    return Array.from(global_primes).filter( x => { return x < n });
+  }
+  start = 2; // 0 and 1 can't be prime
+  primes = [...Array(n+1).keys()]; // List from 0 to n
+  if (Array.from(global_primes).length) { // Some primes already found
+    start = Array.from(global_primes).pop() + 1;
+    primes = primes.slice(start,primes.length -1);
+    primes = Array.from(global_primes).concat(primes);
+  } else {
+    primes = primes.slice(start,primes.length -1);
+  }
+  primes.forEach( p => { // Sieve of Eratosthenes method of prime factoring
+    primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
+    global_primes.add(p);
+  });
+  return primes;
+}
+
+/**
+ * Every integer is either prime,
+ * is the product of some list of primes.
+ * @param {integer to factor} n 
+ * @returns the list of prime factors of n
+ */
+function primeFactorsOf(n) {
+  n = Math.floor(n);
+  factors = [];
+  primes = primesUpTo(n);
+  primes.push(n);
+  while (n != 1) {
+      if (n % primes[0] == 0) {
+          n = n/primes[0];
+          factors.push(primes[0]);
+      } else {
+          primes.shift();
+      }
+  }
+  return factors;
+}
+
+/**
+ * From the pixels per second of the project,
+ * Find a number of frames between each ruler mark,
+ * such that the tick marks remain at least 50px apart.
+ * 
+ * Increases the number of frames by factors of FPS.
+ * This way each tick should land neatly on a second mark
+ * @param {Pixels per second} pps 
+ * @param fps_num 
+ * @param fps_den 
+ * @returns 
+ */
+function framesPerTick(pps, fps_num, fps_den) {
+  fps = fps_num / fps_den;
+  frames = 1;
+  seconds = () => { return frames / fps };
+  pixels = () => { return seconds() * pps };
+  factors = primeFactorsOf(Math.round(fps));
+  while (pixels() < 40) {
+      frames *= factors.shift() || 2;
+  }
+  
+  return frames;
+}
+
 function setSelections(scope, element, id) {
   if (!element.hasClass("ui-selected")) {
     // Clear previous selections?
@@ -385,4 +467,14 @@ function setSelections(scope, element, id) {
 
   // Apply scope up to this point
   scope.$apply(function () {});
+}
+
+/**
+ * <body> of index.html calls this on load.
+ * Garauntees that the ruler is drawn when timeline first loads
+ */
+function forceDrawRuler() {
+  var scroll = document.querySelector('#scrolling_tracks').scrollLeft;
+  document.querySelector('#scrolling_tracks').scrollLeft = 10;
+  document.querySelector('#scrolling_tracks').scrollLeft = scroll;
 }

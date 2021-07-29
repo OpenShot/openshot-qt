@@ -38,11 +38,11 @@
         <!-- JQuery & Bootstrap StyleSheets -->
         <link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
 </head>
-<body tl-body ng-controller="TimelineCtrl" ng-cloak>
+<body tl-body ng-controller="TimelineCtrl" ng-cloak onload="forceDrawRuler()">
 		
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
-			<div id="ruler_time">{{playheadTime.hour}}:{{playheadTime.min}}:{{playheadTime.sec}}:{{playheadTime.frame}}</div>
+			<div id="ruler_time">{{playheadTime.hour}}:{{playheadTime.min}}:{{playheadTime.sec}},{{playheadTime.frame}}</div>
 		</div>
 		<!-- RULER (right of screen) -->
 		<div id="scrolling_ruler">
@@ -50,8 +50,8 @@
 			<div tl-playhead class="playhead playhead-top" id="playhead" ng-right-click="showPlayheadMenu(project.playhead_position)" style="left:{{project.playhead_position * pixelsPerSecond}}px;">
 				<div class="playhead-line-small"></div>
 			</div>
-			<!-- Ruler extends beyond tracks area at least for a width of vertical scroll bar (or more, like 50px here) -->
-			<canvas tl-ruler id="ruler" width="{{canvasMaxWidth(getTimelineWidth(0) + 6)}}px" height="39"></canvas>
+			<!-- Ruler is width of the timeline -->
+			<div tl-ruler id="ruler" style="width: {{project.duration * pixelsPerSecond}}px;"></div>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
