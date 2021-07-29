@@ -468,3 +468,9 @@ function setSelections(scope, element, id) {
   // Apply scope up to this point
   scope.$apply(function () {});
 }
+
+function forceDrawRuler() {
+  var scroll = document.querySelector('#scrolling_tracks').scrollLeft;
+  document.querySelector('#scrolling_tracks').scrollLeft = 10;
+  document.querySelector('#scrolling_tracks').scrollLeft = scroll;
+}
