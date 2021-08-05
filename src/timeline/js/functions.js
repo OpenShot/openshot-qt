@@ -478,3 +478,13 @@ function forceDrawRuler() {
   document.querySelector('#scrolling_tracks').scrollLeft = 10;
   document.querySelector('#scrolling_tracks').scrollLeft = scroll;
 }
+
+/**
+ * Testing function. DELETE BEFORE MERGE
+ * credit:
+ * https://stackoverflow.com/questions/1141302/
+ */
+function sleep(delay) {
+  var start = new Date().getTime();
+  while (new Date().getTime < start + delay);
+}

@@ -186,6 +186,9 @@ App.directive("tlRuler", function ($timeout) {
         }
       });
 
+      // Frames per tick. Stored to prevent calculating if possible
+      var fpt;
+
       /**
        * Draw times on the ruler
        * Always starts on a second
@@ -198,16 +201,23 @@ App.directive("tlRuler", function ($timeout) {
 
         startPos = scope.scrollLeft;
         endPos = scope.scrollLeft + $("body").width();
-
         fps = scope.project.fps.num / scope.project.fps.den;
         time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
-        time[0] -= time[0]%2;
+
+        if (fpt > fps) {
+          // Make sure seconds don't change when scrolling right and left
+          console.log("F/F:" + fpt / Math.round(fps));
+          time[0] -= time[0]%(fpt/Math.round(fps));
+        }
+        else {
+          time[0] -= time[0]%2;
+        }
         time[1] -= time[1]%1 - 1;
+        console.log("START TIME:" + time[0]);
 
         startFrame = time[0] * Math.round(fps);
         endFrame = time[1] * Math.round(fps);
 
-        fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
         frame = startFrame;
         while ( frame <= endFrame){
           t = frame / fps;
@@ -215,7 +225,7 @@ App.directive("tlRuler", function ($timeout) {
           tickSpan = $('<span style="left:'+pos+'px;"></span>');
           tickSpan.addClass("tick_mark");
 
-          if ((frame - startFrame) % (fpt * 2) == 0) {
+          if ((frame) % (fpt * 2) == 0) {
             // Alternating long marks with times marked
             timeSpan = $('<span style="left:'+pos+'px;"></span>');
             timeSpan.addClass("ruler_time");
@@ -236,7 +246,17 @@ App.directive("tlRuler", function ($timeout) {
         return;
       };
 
-      scope.$watch("project.scale + project.duration + scrollLeft", function (val) {
+      scope.$watch("project.scale + project.duration", function (val) {
+        if (val) {
+          $timeout(function () {
+            fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
+            drawTimes();
+            return;
+          } , 0);
+        }
+      });
+
+      scope.$watch("scrollLeft", function (val) {
         if (val) {
           $timeout(function () {
             drawTimes();
