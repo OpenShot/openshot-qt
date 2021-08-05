@@ -66,7 +66,9 @@ except ImportError:
 try:
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
+    # TODO: Enabling high DPI pixmaps renders SVG files too small in libopenshot
+    # and needs to be resolved before enabling this option.
+    # QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 except AttributeError:
     pass  # Quietly fail for older Qt5 versions
 
