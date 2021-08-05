@@ -29,6 +29,7 @@ import os
 import time
 import json
 import functools
+import webbrowser
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QBrush
@@ -92,6 +93,12 @@ class ProcessEffect(QDialog):
             label = QLabel()
             label.setText(_(param["title"]))
             label.setToolTip(_(param["title"]))
+
+            if param["type"] == "link":
+                # create a clickable link
+                label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], param["title"]))
+                label.setTextInteractionFlags(Qt.TextBrowserInteraction)
+                label.linkActivated.connect(functools.partial(self.link_activated, widget, param))
 
             if param["type"] == "spinner":
                 # create QDoubleSpinBox
@@ -178,13 +185,17 @@ class ProcessEffect(QDialog):
                 widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
 
             # Add Label and Widget to the form
-            if (widget and label):
+            if widget and label:
                 # Add minimum size
                 label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
                 widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
                 # Create HBoxLayout for each field
-                self.scrollAreaWidgetContents.layout().insertRow(row_count - 1, label, widget)
+                self.scrollAreaWidgetContents.layout().insertRow(row_count, label, widget)
+
+            elif not widget and label:
+                label.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+                self.scrollAreaWidgetContents.layout().insertRow(row_count, label)
 
             row_count += 1
 
@@ -202,6 +213,10 @@ class ProcessEffect(QDialog):
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
         self.effect = None
+
+    def link_activated(self, widget, param, value):
+        """Link activated"""
+        webbrowser.open(value, new=1)
 
     def spinner_value_changed(self, widget, param, value):
         """Spinner value change callback"""
@@ -256,7 +271,7 @@ class ProcessEffect(QDialog):
                 bottomRight = win.videoPreview.regionBottomRightHandle
                 viewPortSize = win.viewport_rect
                 curr_frame_size = win.videoPreview.curr_frame_size
-                
+
                 x1 = topLeft.x() / curr_frame_size.width()
                 y1 = topLeft.y() / curr_frame_size.height()
                 x2 = bottomRight.x() / curr_frame_size.width()
