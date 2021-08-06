@@ -151,6 +151,12 @@ effect_options = {
 
     "Object Detector": [
         {
+            "value": "https://github.com/OpenShot/openshot-qt/wiki/Object-Detection-Effect-(dependencies)",
+            "title": "Click here for instructions and dependencies...",
+            "type": "link",
+            "setting": "model-instructions"
+        },
+        {
             "value": os.path.join(YOLO_PATH,"yolov3.weights"),
             "title": "Model Weights",
             "type": "text",
