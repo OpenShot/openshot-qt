@@ -79,11 +79,17 @@ App.directive("tlScrollableTracks", function () {
       element.on("mousemove", function (e) {
         if (is_scrolling) {
           // Calculate difference from last position
+          console.log("start");
+          console.log(JSON.stringify(starting_mouse_position));
+          console.log(JSON.stringify(starting_scrollbar));
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
+          var newPos = { x: starting_scrollbar.x + difference.x, y: starting_scrollbar.y + difference.y};
+
+          console.log(JSON.stringify(newPos));
 
           // Scroll the tracks div
-          element.scrollLeft(starting_scrollbar.x + difference.x);
-          element.scrollTop(starting_scrollbar.y + difference.y);
+          element.scrollLeft(newPos.x);
+          element.scrollTop(newPos.y);
         }
       });
 
@@ -119,8 +125,11 @@ App.directive("tlBody", function () {
         if (e.which === 2) { // middle button
           e.preventDefault();
           is_scrolling = true;
-          starting_scrollbar = {x: element.scrollLeft(), y: element.scrollTop()};
+          starting_scrollbar = {x: $('#scrolling_tracks').scrollLeft(), y: $('#scrolling_tracks').scrollTop()};
           starting_mouse_position = {x: e.pageX, y: e.pageY};
+          console.log("PRESSED");
+          console.log(JSON.stringify(starting_scrollbar));
+          console.log(JSON.stringify(starting_mouse_position));
           element.addClass("drag_cursor");
         }
       });
@@ -201,19 +210,20 @@ App.directive("tlRuler", function ($timeout) {
 
         startPos = scope.scrollLeft;
         endPos = scope.scrollLeft + $("body").width();
+        fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
         fps = scope.project.fps.num / scope.project.fps.den;
         time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
 
         if (fpt > fps) {
           // Make sure seconds don't change when scrolling right and left
-          console.log("F/F:" + fpt / Math.round(fps));
+          // console.log("F/F:" + fpt / Math.round(fps));
           time[0] -= time[0]%(fpt/Math.round(fps));
         }
         else {
           time[0] -= time[0]%2;
         }
         time[1] -= time[1]%1 - 1;
-        console.log("START TIME:" + time[0]);
+        // console.log("START TIME:" + time[0]);
 
         startFrame = time[0] * Math.round(fps);
         endFrame = time[1] * Math.round(fps);
@@ -246,17 +256,7 @@ App.directive("tlRuler", function ($timeout) {
         return;
       };
 
-      scope.$watch("project.scale + project.duration", function (val) {
-        if (val) {
-          $timeout(function () {
-            fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
-            drawTimes();
-            return;
-          } , 0);
-        }
-      });
-
-      scope.$watch("scrollLeft", function (val) {
+      scope.$watch("project.scale + project.duration + scrollLeft", function (val) {
         if (val) {
           $timeout(function () {
             drawTimes();
