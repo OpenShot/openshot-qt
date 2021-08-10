@@ -811,7 +811,9 @@ class Export(QDialog):
 
             # Re-update the timeline FPS again (since the timeline just got clobbered)
             self.updateFrameRate()
-            self.timeline.ApplyMapperToClips()
+
+        # Apply mappers to timeline readers
+        self.timeline.ApplyMapperToClips()
 
         # Create FFmpegWriter
         try:
