@@ -56,7 +56,7 @@ def init_tracing():
 
     # Initialize sentry exception tracing
     sdk.init(
-        "https://21496af56ab24e94af8ff9771fbc1600@o772439.ingest.sentry.io/5795985",
+        "https://2a0eb9b84a5f4e42af98434651c301ea@o68323.ingest.sentry.io/5902686",
         traces_sample_rate=traces_sample_rate,
         release=f"openshot@{info.VERSION}",
         environment=environment
