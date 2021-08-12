@@ -60,3 +60,11 @@ $(document).ready(function () {
   // Manually trigger the window resize code (to verify it runs at least once)
   $(window).trigger("resize");
 });
+
+// Handle ctrl+a
+document.addEventListener('keydown', (e) => {
+  //ctrl+a 
+  if (e.key == 'a' && e.ctrlKey) {
+    $('body').scope().selectAll();
+  }
+});

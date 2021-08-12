@@ -468,23 +468,3 @@ function setSelections(scope, element, id) {
   // Apply scope up to this point
   scope.$apply(function () {});
 }
-
-/**
- * <body> of index.html calls this on load.
- * Garauntees that the ruler is drawn when timeline first loads
- */
-function forceDrawRuler() {
-  var scroll = document.querySelector('#scrolling_tracks').scrollLeft;
-  document.querySelector('#scrolling_tracks').scrollLeft = 10;
-  document.querySelector('#scrolling_tracks').scrollLeft = scroll;
-}
-
-/**
- * Testing function. DELETE BEFORE MERGE
- * credit:
- * https://stackoverflow.com/questions/1141302/
- */
-function sleep(delay) {
-  var start = new Date().getTime();
-  while (new Date().getTime < start + delay);
-}
