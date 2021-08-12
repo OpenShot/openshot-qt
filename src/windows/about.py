@@ -313,12 +313,13 @@ class Credits(QDialog):
             for row in translator_rows:
                 # Split each row into 2 parts (name and username)
                 translator_parts = row.split("https://launchpad.net/")
-                name = translator_parts[0].strip()
-                username = translator_parts[1].strip()
-                translator_credits.append({
-                    "name": name,
-                    "website": "https://launchpad.net/%s" % username
-                    })
+                if len(translator_parts) >= 2:
+                    name = translator_parts[0].strip()
+                    username = translator_parts[1].strip()
+                    translator_credits.append({
+                        "name": name,
+                        "website": "https://launchpad.net/%s" % username
+                        })
 
             # Add translators listview
             self.translatorsListView = CreditsTreeView(
