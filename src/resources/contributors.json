@@ -6,7 +6,7 @@
         ],
         "name": "Jonathan Thomas",
         "email": "jonathan@openshot.org",
-        "website": "http://openshot.org/developers/jonathan"
+        "website": "http://openshot.org/developers/jonathan/"
     },
     {
         "icons": [
@@ -15,7 +15,7 @@
         ],
         "name": "Andy Finch",
         "email": "andy@openshot.org",
-        "website": "http://openshot.org/developers/andy"
+        "website": "http://openshot.org/developers/andy/"
     },
     {
         "icons": [
@@ -24,7 +24,7 @@
         ],
         "name": "Olivier Girard",
         "email": "olivier@openshot.org",
-        "website": "http://openshot.org/developers/olivier"
+        "website": "http://openshot.org/developers/olivier/"
     },
     {
         "icons": [
@@ -42,7 +42,7 @@
         ],
         "name": "Cody Parker",
         "email": "cody@yourcodepro.com",
-        "website": "http://openshot.org/developers/cody_parker"
+        "website": "http://openshot.org/developers/cody_parker/"
     },
     {
         "icons": [
@@ -130,5 +130,41 @@
         "name": "Nelson Ho",
         "email": null,
         "website": "https://github.com/nlsnho"
+    },
+    {
+        "icons": [
+            "d",
+            "s"
+        ],
+        "name": "Shawn Conway",
+        "email": "shawn@openshot.org",
+        "website": "https://www.openshot.org/developers/shawn/"
+    },
+    {
+        "icons": [
+            "d",
+            "s"
+        ],
+        "name": "Jackson Godwin",
+        "email": "jackson@openshot.org",
+        "website": "http://openshot.org/developers/jackson/"
+    },
+    {
+        "icons": [
+            "d",
+            "s"
+        ],
+        "name": "Jesse Molenda",
+        "email": "jesse@openshot.org",
+        "website": "http://openshot.org/developers/jesse/"
+    },
+    {
+        "icons": [
+            "d",
+            "s"
+        ],
+        "name": "Brenno Caldato",
+        "email": null,
+        "website": "https://github.com/BrennoCaldato"
     }
 ]
