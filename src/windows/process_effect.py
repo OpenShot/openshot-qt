@@ -96,7 +96,7 @@ class ProcessEffect(QDialog):
 
             if param["type"] == "link":
                 # create a clickable link
-                label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], param["title"]))
+                label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], _(param["title"])))
                 label.setTextInteractionFlags(Qt.TextBrowserInteraction)
                 label.linkActivated.connect(functools.partial(self.link_activated, widget, param))
 
@@ -107,7 +107,7 @@ class ProcessEffect(QDialog):
                 widget.setMaximum(float(param["max"]))
                 widget.setValue(float(param["value"]))
                 widget.setSingleStep(1.0)
-                widget.setToolTip(param["title"])
+                widget.setToolTip(_(param["title"]))
                 widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
 
                 # Set initial context
@@ -117,7 +117,7 @@ class ProcessEffect(QDialog):
                 # create QPushButton which opens up a display of the clip, with ability to select Rectangle
                 widget = QPushButton(_("Click to Select"))
                 widget.setMinimumHeight(80)
-                widget.setToolTip(param["title"])
+                widget.setToolTip(_(param["title"]))
                 widget.clicked.connect(functools.partial(self.rect_select_clicked, widget, param))
 
                 # Set initial context
@@ -130,7 +130,7 @@ class ProcessEffect(QDialog):
                 widget.setMaximum(int(param["max"]))
                 widget.setValue(int(param["value"]))
                 widget.setSingleStep(1.0)
-                widget.setToolTip(param["title"])
+                widget.setToolTip(_(param["title"]))
                 widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
 
                 # Set initial context

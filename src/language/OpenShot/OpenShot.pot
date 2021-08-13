@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.5.1-dev3)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2021-07-21 13:13:29.189114\n"
+"POT-Creation-Date: 2021-08-12 17:41:57.961831\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/classes/exporters/final_cut_pro.py:90
 #: /home/jonathan/apps/openshot-qt-git/src/classes/exporters/edl.py:56
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:164
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:156
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:565
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:643
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2247
@@ -51,11 +51,11 @@ msgstr ""
 msgid "Export EDL..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/classes/app.py:180
+#: /home/jonathan/apps/openshot-qt-git/src/classes/app.py:179
 msgid "Wrong Version of libopenshot Detected"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/classes/app.py:181
+#: /home/jonathan/apps/openshot-qt-git/src/classes/app.py:180
 #, python-format
 msgid ""
 "<b>Version %(minimum_version)s is required</b>, but %(current_version)s was "
@@ -121,7 +121,7 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:395
+#: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:396
 msgid "OpenShot on GitHub"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgid "Title Editor"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/title_editor.py:592
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:777
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:752
 #, python-format
 msgid ""
 "%s already exists.\n"
@@ -203,16 +203,16 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:88
 #: /home/jonathan/apps/openshot-qt-git/src/windows/animated_title.py:62
-#: /home/jonathan/apps/openshot-qt-git/src/windows/process_effect.py:197
+#: /home/jonathan/apps/openshot-qt-git/src/windows/process_effect.py:208
 #: /home/jonathan/apps/openshot-qt-git/src/windows/region.py:183
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:75
 msgid "Cancel"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:89
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:765
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:776
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:1054 Settings for
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:740
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:751
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:1033 Settings for
 #: actionExportVideo
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:20
 msgid "Export Video"
@@ -222,137 +222,137 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:176
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:773
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:845
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:859
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:168
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:748
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:823
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:837
 msgid "Video & Audio"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:176
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:773
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:845
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:168
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:748
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:823
 msgid "Video Only"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:176
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:773
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:859
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:873
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:168
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:748
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:837
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:851
 msgid "Audio Only"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:176
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:741
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:809
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:845
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:168
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:716
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:784
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:823
 msgid "Image Sequence"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:183
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:175
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:140
 #: Settings for default-channellayout
 msgid "Mono (1 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:184
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:176
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:141
 #: Settings for default-channellayout
 msgid "Stereo (2 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:185
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:177
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:142
 #: Settings for default-channellayout
 msgid "Surround (3 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:186
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:178
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:143
 #: Settings for default-channellayout
 msgid "Surround (5.1 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:187
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:179
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:144
 #: Settings for default-channellayout
 msgid "Surround (7.1 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:260
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:252
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_webm_libvpx.xml
 msgid "All Formats"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:426
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:401
 #: /home/jonathan/apps/openshot-qt-git/src/presets/format_mp4_x264.xml
 msgid "MP4 (h.264)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:456
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:431
 #: /home/jonathan/apps/openshot-qt-git/src/windows/file_properties.py:158
 #: libopenshot (Clip Properties)
 msgid "No"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:457
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:432
 msgid "Yes Top field first"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:458
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:433
 msgid "Yes Bottom field first"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:515
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:523
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:578
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:490
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:498
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:553
 msgid "Low"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:515
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:523
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:580
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:490
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:498
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:555
 msgid "Med"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:515
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:523
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:582
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:490
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:498
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:557
 msgid "High"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:626
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:601
 msgid "Choose a Folder..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:721
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:1000
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:696
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:979
 msgid "Export Error"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:722
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:697
 msgid "Sorry, please select a valid range of frames to export"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:766
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:741
 #, python-format
 msgid ""
 "%s is an input file.\n"
 "Please choose a different name."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:931
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:910
 msgid "Finalizing video export, please wait..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:1001
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:980
 #, python-format
 msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:1055
+#: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:1034
 msgid "Are you sure you want to cancel the export?"
 msgstr ""
 
@@ -693,7 +693,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/webview.py:537
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/webview.py:807
-#: libopenshot (Clip Properties) Settings for volume
+#: effect_init (Effect Metadata) Settings for volume
 msgid "Volume"
 msgstr ""
 
@@ -1315,14 +1315,14 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:141
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:140
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:273
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:437
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:538
 msgid "Unsaved Changes"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:142
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:141
 msgid "Save changes to project before closing?"
 msgstr ""
 
@@ -1479,11 +1479,11 @@ msgstr ""
 msgid "Update Available: <b>%s</b>"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/process_effect.py:111
+#: /home/jonathan/apps/openshot-qt-git/src/windows/process_effect.py:118
 msgid "Click to Select"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/process_effect.py:198
+#: /home/jonathan/apps/openshot-qt-git/src/windows/process_effect.py:209
 msgid "Process Effect"
 msgstr ""
 
@@ -1888,6 +1888,118 @@ msgstr ""
 msgid "Wave length"
 msgstr ""
 
+#: effect_init (Effect Metadata)
+msgid "Example"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Region"
+msgstr ""
+
+#: effect_init (Effect Metadata) Settings for blender_command
+msgid "Blender Command (path)"
+msgstr ""
+
+#: effect_init (Effect Metadata) Settings for default-samplerate
+msgid "Default Audio Sample Rate"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "22050"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "44100"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "48000"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "96000"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "192000"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Tracker"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Tracker type"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "KCF"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "MIL"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "BOOSTING"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "TLD"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "MEDIANFLOW"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "MOSSE"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "CSRT"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Stabilizer"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Smoothing window"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Object Detector"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Click here for instructions and dependencies..."
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Model Weights"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Model Config"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Class names"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "Processing Device"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "GPU"
+msgstr ""
+
+#: effect_init (Effect Metadata)
+msgid "CPU"
+msgstr ""
+
 #: libopenshot (Effect Metadata)
 msgid "Bars"
 msgstr ""
@@ -2084,23 +2196,11 @@ msgid ""
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Stabilizer"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
 msgid "Stabilize video clip to remove undesired shaking and jitter."
 msgstr ""
 
 #: libopenshot (Effect Metadata)
-msgid "Tracker"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
 msgid "Track the selected bounding box through the video."
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Object Detector"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
@@ -2331,10 +2431,6 @@ msgstr ""
 msgid "Image Length (seconds)"
 msgstr ""
 
-#: Settings for blender_command
-msgid "Blender Command (path)"
-msgstr ""
-
 #: Settings for title_editor
 msgid "Advanced Title Editor (path)"
 msgstr ""
@@ -2345,10 +2441,6 @@ msgstr ""
 
 #: Settings for playback-audio-device
 msgid "Playback Audio Device"
-msgstr ""
-
-#: Settings for default-samplerate
-msgid "Default Audio Sample Rate"
 msgstr ""
 
 #: Settings for default-channellayout
