@@ -185,6 +185,16 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def page_ready(self):
         """Document.Ready event has fired, and is initialized"""
         self.document_is_ready = True
+        self.run_js("keyboard_shortcuts = []")
+        settings = get_app().get_settings().get_all_settings()
+        keyboard_settings = list(filter(lambda x: x['category'] == 'Keyboard' ,settings))
+        for k in keyboard_settings:
+            action = k['setting']
+            print(action)
+            keys_string = json.dumps(k['value'].split('+'))
+            command = f"window.keyboard_shortcuts[{action}] = {keys_string}"
+            self.run_js(command)
+            self.run_js('console.log(keyboard_shortcuts)');
 
     @pyqtSlot(result=str)
     def get_thumb_address(self):

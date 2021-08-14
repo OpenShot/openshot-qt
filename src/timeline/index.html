@@ -38,7 +38,7 @@
         <!-- JQuery & Bootstrap StyleSheets -->
         <link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
 </head>
-<body tl-body ng-controller="TimelineCtrl" ng-cloak onload="forceDrawRuler()">
+<body tl-body ng-controller="TimelineCtrl" ng-cloak onresize="forceDrawRuler()" onload="forceDrawRuler()">
 		
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">

@@ -61,10 +61,57 @@ $(document).ready(function () {
   $(window).trigger("resize");
 });
 
-// Handle ctrl+a
+/**
+ * handle key events using the user's keyboard shortcut settings
+ * settings made available in webview.py -> page_ready
+ */
 document.addEventListener('keydown', (e) => {
-  //ctrl+a 
-  if (e.key == 'a' && e.ctrlKey) {
+
+  if (!keyboard_shortcuts){
+    console.log('default');
+    keyboard_shortcuts = [];
+    keyboard_shortcuts['selectAll'] = ['Ctrl', 'a'];
+  }
+
+  keys = [e.key]
+  if (e.ctrlKey) keys.push('Ctrl');
+  if (e.altKey) keys.push('Alt');
+  if (e.shiftKey) keys.push('Shift');
+    
+  // Compare lists ignoring order
+  function equivalentList(l1, l2) {
+    function toLower(x) {
+        if (typeof(x) == 'string')
+            return x.toLowerCase();
+        else
+            return x;
+    }
+    l1 = l1.map(toLower)
+    l2 = l2.map(toLower)
+    while (l1.length > 0) {
+        i = l2.indexOf(l1[0])
+        if ( i == -1)
+            return false;
+        l1.shift();
+        l2.splice(i,1);
+    }
+    if (l2.length > 0)
+      // In the case that l2 is a superset of l1
+      return false;
+    return true;
+  }
+
+  console.log(keyboard_shortcuts);
+  console.log(keyboard_shortcuts['selectAll']);
+  selectAll = [...keyboard_shortcuts['selectAll']] // A copy that won't touch the original
+  // TODO:
+    // copy
+    // paste
+    // about
+    // insert keyframe
+  
+  // selectAll
+  if (equivalentList(keys, selectAll)) {
     $('body').scope().selectAll();
   }
 });
