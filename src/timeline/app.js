@@ -68,11 +68,11 @@ $(document).ready(function () {
 document.addEventListener('keydown', (e) => {
 
   if (!keyboard_shortcuts){
-    console.log('default');
     keyboard_shortcuts = [];
     keyboard_shortcuts['selectAll'] = ['Ctrl', 'a'];
   }
 
+  // Make a list of keys being pressed
   keys = [e.key]
   if (e.ctrlKey) keys.push('Ctrl');
   if (e.altKey) keys.push('Alt');
@@ -101,8 +101,6 @@ document.addEventListener('keydown', (e) => {
     return true;
   }
 
-  console.log(keyboard_shortcuts);
-  console.log(keyboard_shortcuts['selectAll']);
   selectAll = [...keyboard_shortcuts['selectAll']] // A copy that won't touch the original
   // TODO:
     // copy

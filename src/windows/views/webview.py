@@ -190,11 +190,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         keyboard_settings = list(filter(lambda x: x['category'] == 'Keyboard' ,settings))
         for k in keyboard_settings:
             action = k['setting']
-            print(action)
             keys_string = json.dumps(k['value'].split('+'))
-            command = f"window.keyboard_shortcuts[{action}] = {keys_string}"
+            command = f"keyboard_shortcuts['{action}'] = {keys_string}"
             self.run_js(command)
-            self.run_js('console.log(keyboard_shortcuts)');
 
     @pyqtSlot(result=str)
     def get_thumb_address(self):
