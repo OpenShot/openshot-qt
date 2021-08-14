@@ -512,11 +512,14 @@ class PropertiesTableView(QTableView):
                 }]
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
+                current_effect = timeline_instance.GetClipEffect(clip_id)
+                
                 # Loop through timeline's clips
                 for clip_instance in timeline_instance.Clips():
                     clip_instance_id = clip_instance.Id()
+                    
                     # Avoid attach a clip to it's own object
-                    if (clip_instance_id != clip_id):
+                    if (clip_instance_id != clip_id and (current_effect and clip_instance_id != current_effect.ParentClip().Id())):
                         # Clip's propertyJSON data
                         clip_instance_data = Clip.get(id = clip_instance_id).data
                         # Path to the clip file
