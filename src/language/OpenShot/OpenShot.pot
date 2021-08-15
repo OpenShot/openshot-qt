@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.5.1-dev3)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2021-08-12 17:41:57.961831\n"
+"POT-Creation-Date: 2021-08-13 13:39:44.486794\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -367,6 +367,14 @@ msgstr ""
 msgid "Show All"
 msgstr ""
 
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/credits_treeview.py:80
+msgid "Copy E-mail"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/credits_treeview.py:83
+msgid "View Website"
+msgstr ""
+
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/properties_tableview.py:503
 msgid "Detected Objects"
 msgstr ""
@@ -693,7 +701,7 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/webview.py:537
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/webview.py:807
-#: effect_init (Effect Metadata) Settings for volume
+#: effect_init (Effect parameter for Example) Settings volume
 msgid "Volume"
 msgstr ""
 
@@ -1149,6 +1157,14 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/find_file.py:67
 #, python-format
 msgid "Find directory that contains: %s"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/changelog_treeview.py:71
+msgid "Copy Hash"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/changelog_treeview.py:73
+msgid "View on GitHub"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:1224
@@ -1892,35 +1908,35 @@ msgstr ""
 msgid "Example"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "Region"
 msgstr ""
 
-#: effect_init (Effect Metadata) Settings for blender_command
+#: effect_init (Effect parameter for Example) Settings blender_command
 msgid "Blender Command (path)"
 msgstr ""
 
-#: effect_init (Effect Metadata) Settings for default-samplerate
+#: effect_init (Effect parameter for Example) Settings default-samplerate
 msgid "Default Audio Sample Rate"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Example)
 msgid "22050"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Example)
 msgid "44100"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Example)
 msgid "48000"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Example)
 msgid "96000"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Example)
 msgid "192000"
 msgstr ""
 
@@ -1928,35 +1944,35 @@ msgstr ""
 msgid "Tracker"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "Tracker type"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "KCF"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "MIL"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "BOOSTING"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "TLD"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "MEDIANFLOW"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "MOSSE"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Tracker)
 msgid "CSRT"
 msgstr ""
 
@@ -1964,7 +1980,7 @@ msgstr ""
 msgid "Stabilizer"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Stabilizer)
 msgid "Smoothing window"
 msgstr ""
 
@@ -1972,31 +1988,31 @@ msgstr ""
 msgid "Object Detector"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "Click here for instructions and dependencies..."
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "Model Weights"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "Model Config"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "Class names"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "Processing Device"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "GPU"
 msgstr ""
 
-#: effect_init (Effect Metadata)
+#: effect_init (Effect parameter for Object Detector)
 msgid "CPU"
 msgstr ""
 

@@ -202,10 +202,10 @@ for effect in effect_options:
     effects_text[effect] = "effect_init (Effect Metadata)"
     for param in effect_options[effect]:
         if "title" in param:
-            effects_text[param["title"]] = "effect_init (Effect Metadata)"
+            effects_text[param["title"]] = "effect_init (Effect parameter for %s)" % effect
         if "values" in param:
             for value in param["values"]:
-                effects_text[value["name"]] = "effect_init (Effect Metadata)"
+                effects_text[value["name"]] = "effect_init (Effect parameter for %s)" % effect
 
 # Append Effect Meta Data
 e = openshot.EffectInfo()

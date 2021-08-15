@@ -59,6 +59,7 @@ class ChangelogTreeView(QTreeView):
 
     def contextMenuEvent(self, event):
         log.info('contextMenuEvent')
+        _ = get_app()._tr
 
         # Get data model and selection
         model = self.changelog_model.model
@@ -67,9 +68,9 @@ class ChangelogTreeView(QTreeView):
             selected_hash = model.item(row, 0).text()
 
             menu = QMenu(self)
-            copy_action = menu.addAction("Copy Hash")
+            copy_action = menu.addAction(_("Copy Hash"))
             copy_action.triggered.connect(partial(self.CopyHashMenuTriggered, selected_hash))
-            github_action = menu.addAction("View on GitHub")
+            github_action = menu.addAction(_("View on GitHub"))
             github_action.triggered.connect(partial(self.ChangelogMenuTriggered, selected_hash))
             menu.popup(QCursor.pos())
 
