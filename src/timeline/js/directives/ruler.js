@@ -79,13 +79,8 @@ App.directive("tlScrollableTracks", function () {
       element.on("mousemove", function (e) {
         if (is_scrolling) {
           // Calculate difference from last position
-          console.log("start");
-          console.log(JSON.stringify(starting_mouse_position));
-          console.log(JSON.stringify(starting_scrollbar));
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
           var newPos = { x: starting_scrollbar.x + difference.x, y: starting_scrollbar.y + difference.y};
-
-          console.log(JSON.stringify(newPos));
 
           // Scroll the tracks div
           element.scrollLeft(newPos.x);
@@ -125,11 +120,8 @@ App.directive("tlBody", function () {
         if (e.which === 2) { // middle button
           e.preventDefault();
           is_scrolling = true;
-          starting_scrollbar = {x: $('#scrolling_tracks').scrollLeft(), y: $('#scrolling_tracks').scrollTop()};
+          starting_scrollbar = {x: $("#scrolling_tracks").scrollLeft(), y: $("#scrolling_tracks").scrollTop()};
           starting_mouse_position = {x: e.pageX, y: e.pageY};
-          console.log("PRESSED");
-          console.log(JSON.stringify(starting_scrollbar));
-          console.log(JSON.stringify(starting_mouse_position));
           element.addClass("drag_cursor");
         }
       });
@@ -196,7 +188,8 @@ App.directive("tlRuler", function ($timeout) {
       });
 
       // Frames per tick. Stored to prevent calculating if possible
-      var fpt;
+      let fpt;
+      let fps;
 
       /**
        * Draw times on the ruler
@@ -205,14 +198,14 @@ App.directive("tlRuler", function ($timeout) {
        */
       function drawTimes() {
         // Delete old tick marks
-        ruler = $('#ruler');
+        let ruler = $('#ruler');
         $("#ruler span").remove();
 
-        startPos = scope.scrollLeft;
-        endPos = scope.scrollLeft + $("body").width();
+        let startPos = scope.scrollLeft;
+        let endPos = scope.scrollLeft + $("body").width();
         fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
         fps = scope.project.fps.num / scope.project.fps.den;
-        time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
+        let time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
 
         if (fpt > fps) {
           // Make sure seconds don't change when scrolling right and left
@@ -223,23 +216,22 @@ App.directive("tlRuler", function ($timeout) {
           time[0] -= time[0]%2;
         }
         time[1] -= time[1]%1 - 1;
-        // console.log("START TIME:" + time[0]);
 
-        startFrame = time[0] * Math.round(fps);
-        endFrame = time[1] * Math.round(fps);
+        let startFrame = time[0] * Math.round(fps);
+        let endFrame = time[1] * Math.round(fps);
 
-        frame = startFrame;
+        let frame = startFrame;
         while ( frame <= endFrame){
-          t = frame / fps;
-          pos = t * scope.pixelsPerSecond;
-          tickSpan = $('<span style="left:'+pos+'px;"></span>');
+          let t = frame / fps;
+          let pos = t * scope.pixelsPerSecond;
+          let tickSpan = $('<span style="left:'+pos+'px;"></span>');
           tickSpan.addClass("tick_mark");
 
-          if ((frame) % (fpt * 2) == 0) {
+          let timeSpan = $('<span style="left:'+pos+'px;"></span>');
+          if ((frame) % (fpt * 2) === 0) {
             // Alternating long marks with times marked
-            timeSpan = $('<span style="left:'+pos+'px;"></span>');
             timeSpan.addClass("ruler_time");
-            timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
+            let timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
             timeSpan[0].innerText = timeText['hour'] + ':' +
               timeText['min'] + ':' +
               timeText['sec'];
