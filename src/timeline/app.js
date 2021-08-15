@@ -73,9 +73,9 @@ document.addEventListener("keydown", (e) => {
 
   // Make a list of keys being pressed
   let keys = [e.key];
-  if (e.ctrlKey) { keys.push("Ctrl") };
-  if (e.altKey) { keys.push("Alt") };
-  if (e.shiftKey) { keys.push("Shift") };
+  if (e.ctrlKey) { keys.push("Ctrl"); }
+  if (e.altKey) { keys.push("Alt"); }
+  if (e.shiftKey) { keys.push("Shift"); }
 
   // Compare lists ignoring order
   function equivalentList(l1, l2) {
@@ -103,7 +103,7 @@ document.addEventListener("keydown", (e) => {
     return true;
   }
 
-  let selectAll = [...keyboard_shortcuts["selectAll"]] // A copy that won't touch the original
+  let selectAll = [...keyboard_shortcuts["selectAll"]]; // A copy that won't touch the original
   // TODO:
     // copy
     // paste

@@ -198,7 +198,7 @@ App.directive("tlRuler", function ($timeout) {
        */
       function drawTimes() {
         // Delete old tick marks
-        let ruler = $('#ruler');
+        let ruler = $("#ruler");
         $("#ruler span").remove();
 
         let startPos = scope.scrollLeft;
@@ -224,10 +224,10 @@ App.directive("tlRuler", function ($timeout) {
         while ( frame <= endFrame){
           let t = frame / fps;
           let pos = t * scope.pixelsPerSecond;
-          let tickSpan = $('<span style="left:'+pos+'px;"></span>');
+          let tickSpan = $('<span style="left:' + pos + 'px;"></span>');
           tickSpan.addClass("tick_mark");
 
-          let timeSpan = $('<span style="left:'+pos+'px;"></span>');
+          let timeSpan = $('<span style="left:' + pos + 'px;"></span>');
           if ((frame) % (fpt * 2) === 0) {
             // Alternating long marks with times marked
             timeSpan.addClass("ruler_time");
