@@ -166,7 +166,7 @@ function secondsToTime(secs, fps_num, fps_den) {
   var week = Math.floor(day / 7);
   day = day % 7;
 
-  var frame = Math.floor((milli / 1000.0) * (fps_num / fps_den)) + 1;
+  var frame = Math.round((milli / 1000.0) * (fps_num / fps_den)) + 1;
   return {
     "week": padNumber(week, 2),
     "day": padNumber(day, 2),
