@@ -261,12 +261,10 @@ App.directive("tlRuler", function ($timeout) {
       };
 
       scope.$watch("project.scale + project.duration + scrollLeft + element.width()", function (val) {
-        if (val) {
-          $timeout(function () {
-            drawTimes();
-            return;
-          } , 0);
-        }
+        $timeout(function () {
+          drawTimes();
+          return;
+        } , 0);
       });
 
     }
