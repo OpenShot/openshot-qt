@@ -52,15 +52,13 @@ App.directive("tlScrollableTracks", function () {
       element.on("wheel",function (e) {
         if (e.ctrlKey) {
           e.preventDefault(); // Don't scroll like a browser
-        } else {
-          return;
-        }
-        if (e.originalEvent.deltaY > 0) { // Scroll down: Zoom out
-          /*global timeline*/
-          timeline.zoomOut();
-        } else { // Scroll Up: Zoom in
-          /*global timeline*/
-          timeline.zoomIn();
+          if (e.originalEvent.deltaY > 0) { // Scroll down: Zoom out
+            /*global timeline*/
+            timeline.zoomOut();
+          } else { // Scroll Up: Zoom in
+            /*global timeline*/
+            timeline.zoomIn();
+          }
         }
       });
 
