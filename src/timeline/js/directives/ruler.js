@@ -60,6 +60,10 @@ App.directive("tlScrollableTracks", function () {
             timeline.zoomIn();
           }
         }
+        if (e.shiftKey) {
+          let current_scroll = $("#scrolling_tracks").scrollLeft()
+          $("#scrolling_tracks").scrollLeft(current_scroll + e.originalEvent.deltaY);
+        }
       });
 
       // Sync ruler to track scrolling
@@ -146,7 +150,6 @@ App.directive("tlBody", function () {
     }
   };
 });
-
 
 // The HTML5 canvas ruler
 App.directive("tlRuler", function ($timeout) {
