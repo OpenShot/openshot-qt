@@ -56,11 +56,11 @@ App.directive("tlScrollableTracks", function () {
           return;
         }
         if (e.originalEvent.deltaY > 0) { // Scroll down: Zoom out
-          /* global timeline */
-          timeline.zoomIn();
-        } else { // Scroll Up: Zoom in
-          /* global timeline */
+          /*global timeline*/
           timeline.zoomOut();
+        } else { // Scroll Up: Zoom in
+          /*global timeline*/
+          timeline.zoomIn();
         }
       });
 
