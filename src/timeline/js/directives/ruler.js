@@ -45,6 +45,23 @@ App.directive("tlScrollableTracks", function () {
     restrict: "A",
     link: function (scope, element, attrs) {
 
+      /**
+       * if ctrl is held, scroll in or out.
+       * Implimentation copied from zoomSlider zoomIn zoomOut
+       */
+      element.on("wheel",function (e) {
+        if (e.ctrlKey) {
+          e.preventDefault(); // Don't scroll like a browser
+          if (e.originalEvent.deltaY > 0) { // Scroll down: Zoom out
+            /*global timeline*/
+            timeline.zoomOut();
+          } else { // Scroll Up: Zoom in
+            /*global timeline*/
+            timeline.zoomIn();
+          }
+        }
+      });
+
       // Sync ruler to track scrolling
       element.on("scroll", function () {
         //set amount scrolled
