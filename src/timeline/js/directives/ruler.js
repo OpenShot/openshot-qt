@@ -222,7 +222,7 @@ App.directive("tlRuler", function ($timeout) {
           let tickSpan = $('<span style="left:'+pos+'px;"></span>');
           tickSpan.addClass("tick_mark");
 
-          if ((frame) % (fpt * 2) == 0) {
+          if ((frame) % (fpt * 2) === 0) {
             // Alternating long marks with times marked
             let timeSpan = $('<span style="left:'+pos+'px;"></span>');
             timeSpan.addClass("ruler_time");
