@@ -103,6 +103,17 @@ CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
 
+# Sentry.io error reporting rate (0.0 TO 1.0)
+# 0.0 = no error reporting to Sentry
+# 0.5 = 1/2 of errors reported to Sentry
+# 1.0 = all errors reporting to Sentry
+#    STABLE: If this version matches the current version (reported on openshot.org)
+#    UNSTABLE: If this version does not match the current version (reported on openshot.org)
+#    STABLE_VERSION: This is the current stable release reported by openshot.org
+ERROR_REPORT_RATE_STABLE = 0.0
+ERROR_REPORT_RATE_UNSTABLE = 0.0
+ERROR_REPORT_STABLE_VERSION = None
+
 try:
     from language import openshot_lang
     language_path = ":/locale/"
