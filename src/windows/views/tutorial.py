@@ -180,7 +180,7 @@ class TutorialManager(object):
 
         # If a tutorial is already visible, just update it
         if self.current_dialog:
-            # XXX: Respond to possible dock floats/moves
+            # Respond to possible dock floats/moves
             self.dock.raise_()
             self.re_position_dialog()
             return
@@ -336,8 +336,8 @@ class TutorialManager(object):
             position = self.position_widget.mapToGlobal(pos_rect.bottomRight())
 
             # Move tutorial widget to the correct position
-            self.re_show_dialog()
             self.dock.move(position)
+            self.re_show_dialog()
 
     def __init__(self, win):
         """ Constructor """

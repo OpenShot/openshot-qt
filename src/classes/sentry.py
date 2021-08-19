@@ -28,6 +28,7 @@
 
 import platform
 
+from classes.logger import log
 from classes import info
 
 try:
@@ -47,12 +48,16 @@ def init_tracing():
         return
 
     # Determine sample rate for exceptions
-    traces_sample_rate = 0.1
-    environment = "production"
-    if "-dev" in info.VERSION:
-        # Dev mode, trace all exceptions
-        traces_sample_rate = 1.0
-        environment = "development"
+    traces_sample_rate = 0.0
+    if info.VERSION == info.ERROR_REPORT_STABLE_VERSION:
+        traces_sample_rate = info.ERROR_REPORT_RATE_STABLE
+        environment = "production"
+    else:
+        traces_sample_rate = info.ERROR_REPORT_RATE_UNSTABLE
+        environment = "unstable"
+
+    if info.ERROR_REPORT_STABLE_VERSION:
+        log.info("Sentry initialized with %s error reporting rate (%s)" % (traces_sample_rate, environment))
 
     # Initialize sentry exception tracing
     sdk.init(
