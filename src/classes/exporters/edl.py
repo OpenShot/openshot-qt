@@ -57,7 +57,7 @@ def export_edl():
     else:
         recommended_path = recommended_path.replace(".osp", ".edl")
     file_path = QFileDialog.getSaveFileName(app.window, _("Export EDL..."), recommended_path,
-                                            _("Edit Decision Lists (*.edl)"))[0]
+                                            _("Edit Decision List (*.edl)"))[0]
     if not file_path:
         return
 
