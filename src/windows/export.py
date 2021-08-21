@@ -685,6 +685,10 @@ class Export(QDialog):
         # get translations
         _ = get_app()._tr
 
+        # Init some variables
+        seconds_run = 0
+        fps_encode = 0
+
         # Init progress bar
         self.progressExportVideo.setMinimum(self.txtStartFrame.value())
         self.progressExportVideo.setMaximum(self.txtEndFrame.value())
@@ -872,7 +876,6 @@ class Export(QDialog):
 
             progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 1000))
             start_time_export = time.time()
-            seconds_run = 0
             start_frame_export = video_settings.get("start_frame")
             end_frame_export = video_settings.get("end_frame")
             last_exported_time = time.time()
@@ -881,7 +884,7 @@ class Export(QDialog):
             digits_after_decimalpoint = 1
             # Precision of the progress bar
             format_of_progress_string = "%4.1f%% "
-            fps_encode = 0
+
             # Write each frame in the selected range
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
