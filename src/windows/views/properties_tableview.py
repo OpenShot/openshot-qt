@@ -513,11 +513,11 @@ class PropertiesTableView(QTableView):
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 current_effect = timeline_instance.GetClipEffect(clip_id)
-                
+
                 # Loop through timeline's clips
                 for clip_instance in timeline_instance.Clips():
                     clip_instance_id = clip_instance.Id()
-                    
+
                     # Avoid attach a clip to it's own object
                     if (clip_instance_id != clip_id and (current_effect and clip_instance_id != current_effect.ParentClip().Id())):
                         # Clip's propertyJSON data
@@ -674,20 +674,6 @@ class PropertiesTableView(QTableView):
                     fontinfo = QFontInfo(font)
                     self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
 
-            elif self.property_type == "color":
-                # Get current value of color
-                red = cur_property[1]["red"]["value"]
-                green = cur_property[1]["green"]["value"]
-                blue = cur_property[1]["blue"]["value"]
-
-                # Show color dialog
-                currentColor = QColor(red, green, blue)
-                log.debug("Launching ColorPicker for %s", currentColor.name())
-                ColorPicker(
-                    currentColor, parent=self, title=_("Select a Color"),
-                    callback=self.color_callback)
-                return
-
             # Define bezier presets
             bezier_presets = [
                 (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
@@ -725,6 +711,10 @@ class PropertiesTableView(QTableView):
 
             # Add menu options for keyframes
             menu = QMenu(self)
+            if self.property_type == "color":
+                Color_Action = menu.addAction(_("Select a Color"))
+                Color_Action.triggered.connect(functools.partial(self.Color_Picker_Triggered, cur_property))
+                menu.addSeparator()
             if points > 1:
                 # Menu items only for multiple points
                 Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
@@ -764,7 +754,7 @@ class PropertiesTableView(QTableView):
                     SubMenuRoot = menu.addMenu(choice["icon"], choice["name"])
                 else:
                     SubMenuRoot = menu.addMenu(choice["name"])
-                    
+
                 SubMenuSize = 25
                 SubMenuNumber = 0
                 if len(choice["value"]) > SubMenuSize:
@@ -818,6 +808,23 @@ class PropertiesTableView(QTableView):
         else:
             # Update colors interpolation mode
             self.clip_properties_model.color_update(self.selected_item, QColor("#000"), interpolation=2, interpolation_details=[])
+
+    def Color_Picker_Triggered(self, cur_property):
+        log.info("Color_Picker_Triggered")
+
+        _ = get_app()._tr
+
+        # Get current value of color
+        red = cur_property[1]["red"]["value"]
+        green = cur_property[1]["green"]["value"]
+        blue = cur_property[1]["blue"]["value"]
+
+        # Show color dialog
+        currentColor = QColor(red, green, blue)
+        log.debug("Launching ColorPicker for %s", currentColor.name())
+        ColorPicker(
+            currentColor, parent=self, title=_("Select a Color"),
+            callback=self.color_callback)
 
     def Insert_Action_Triggered(self):
         log.info("Insert_Action_Triggered")
