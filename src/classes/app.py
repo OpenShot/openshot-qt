@@ -185,8 +185,6 @@ class OpenShotApp(QApplication):
                 },
             level="error",
         ))
-        raise RuntimeError(
-            "libopenshot version {} found, minimum is {}".format(ver, min_ver))
 
     def gui(self):
         from classes import language, sentry, ui_util, logger_libopenshot

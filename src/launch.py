@@ -183,10 +183,7 @@ def main():
     argv = [sys.argv[0]]
     argv.extend(extra_args)
     argv.extend(args.remain)
-    try:
-        app = OpenShotApp(argv)
-    except Exception:
-        app.show_errors()
+    app = OpenShotApp(argv)
 
     # Setup Qt application details
     app.setApplicationName('openshot')
