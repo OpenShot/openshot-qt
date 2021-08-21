@@ -224,7 +224,7 @@ class Preferences(QDialog):
                     widget.setMinimum(int(param["min"]))
                     widget.setMaximum(int(param["max"]))
                     widget.setValue(int(param["value"]))
-                    widget.setSingleStep(1.0)
+                    widget.setSingleStep(1)
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
