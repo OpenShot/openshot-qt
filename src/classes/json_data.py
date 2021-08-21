@@ -307,7 +307,7 @@ class JsonDataStore:
             # Remove file from abs path
             orig_abs_folder = os.path.dirname(orig_abs_path)
 
-            # Calculate new relateive path
+            # Calculate new relative path
             new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))
             new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
             new_rel_path = json.dumps(new_rel_path, ensure_ascii=False)
@@ -329,7 +329,7 @@ class JsonDataStore:
             data = re.sub(path_regex, self.replace_string_to_relative, data)
 
         except Exception as ex:
-            log.error("Error while converting absolute paths to relative paths: %s" % str(ex))
+            log.warning("Failed converting absolute paths to relative paths: %s" % str(ex))
 
         return data
 
