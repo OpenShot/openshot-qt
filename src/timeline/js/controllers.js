@@ -1393,7 +1393,6 @@ App.controller("TimelineCtrl", function ($scope) {
         // Re-index Layer Y values
         $scope.updateLayerIndex();
       }
-      $scope.$digest();
     }
     // return true
     return true;
