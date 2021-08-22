@@ -905,8 +905,8 @@ class Worker(QObject):
             if self.canceled:
                 return
             if self.frame_count < 1:
-                log.error("No frame detected from Blender!")
-                log.error("Blender output:\n{}".format(
+                log.warning("No frame detected from Blender!")
+                log.warning("Blender output:\n{}".format(
                     self.command_output))
                 # Show Error that no frames are detected.  This is likely caused by
                 # the wrong command being executed... or an error in Blender.
