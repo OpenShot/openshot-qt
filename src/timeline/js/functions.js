@@ -225,6 +225,10 @@ function setBoundingBox(scope, item, item_type="clip") {
   var vert_scroll_offset = scrolling_tracks.scrollTop();
   var horz_scroll_offset = scrolling_tracks.scrollLeft();
 
+  if (typeof(item) === "undefined") {
+    throw new Error( "Item has no position. Called by: " + this.caller);
+    return;
+  }
   var item_bottom = item.position().top + item.height() + vert_scroll_offset;
   var item_top = item.position().top + vert_scroll_offset;
   var item_left = item.position().left + horz_scroll_offset;
