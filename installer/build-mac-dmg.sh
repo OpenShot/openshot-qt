@@ -70,6 +70,11 @@ pat='RequestUUID = (.*)'
 REQUEST_UUID="${BASH_REMATCH[1]}"
 echo " RequestUUID Found: $REQUEST_UUID"
 
+if [ "$REQUEST_UUID" == "" ]; then
+    echo "Failed to locate REQUEST_UUID, exiting with error."
+    exit 1
+fi
+
 echo "Check Notarization Progress... (list recent notarization records)"
 xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | head -n 10
 
