@@ -33,13 +33,16 @@ import os
 import random
 import shutil
 
-from classes import info, settings
+from classes import info
+from classes.app import get_app
 from classes.image_types import is_image
 from classes.json_data import JsonDataStore
 from classes.logger import log
 from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
+
+from .keyframe_scaler import KeyframeScaler
 
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
@@ -60,15 +63,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
     def needs_save(self):
-        """Returns if project data Has unsaved changes"""
+        """Returns if project data has unsaved changes"""
         return self.has_unsaved_changes
 
     def get(self, key):
-        """ Get copied value of a given key in data store """
+        """Get copied value of a given key in data store"""
 
         # Verify key is valid type
         if not key:
-            log.warning("Cannot get empty key.")
+            log.warning("ProjectDataStore cannot get empty key.")
             return None
         if not isinstance(key, list):
             key = [key]
@@ -96,7 +99,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # True until something disqualifies this as a match
                     match = True
                     # Check each key in key_part dictionary and if not found to be equal as a property in item, move on to next item in list
-                    for subkey in key_part.keys():
+                    for subkey in key_part:
                         # Get each key in dictionary (i.e. "id", "layer", etc...)
                         subkey = subkey.lower()
                         # If object is missing the key or the values differ, then it doesn't match.
@@ -149,10 +152,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Verify key is valid type
         if not isinstance(key, list):
-            log.warning("_set() key must be a list. key: {}".format(key))
+            log.warning("_set() key must be a list. key=%s", key)
             return None
         if not key:
-            log.warning("Cannot set empty key.")
+            log.warning("Cannot set empty key (key=%s)", key)
             return None
 
         # Get reference to internal data structure
@@ -255,8 +258,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         if os.path.exists(info.USER_DEFAULT_PROJECT):
             try:
                 self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
-            except (FileNotFoundError, PermissionError) as ex:
-                log.warning("Unable to load user project defaults from {}: {}".format(info.USER_DEFAULT_PROJECT, ex))
+            except (FileNotFoundError, PermissionError):
+                log.warning("Unable to load user project defaults from %s", info.USER_DEFAULT_PROJECT, exc_info=1)
             except Exception:
                 raise
             else:
@@ -274,27 +277,32 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         info.BLENDER_PATH = os.path.join(info.USER_PATH, "blender")
 
         # Get default profile
-        s = settings.get_settings()
+        s = get_app().get_settings()
         default_profile = s.get("default-profile")
 
         # Loop through profiles
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in os.listdir(profile_folder):
-                # Load Profile and append description
                 profile_path = os.path.join(profile_folder, file)
-                profile = openshot.Profile(profile_path)
+                try:
+                    # Load Profile and append description
+                    profile = openshot.Profile(profile_path)
 
-                if default_profile == profile.info.description:
-                    log.info("Setting default profile to %s" % profile.info.description)
+                    if default_profile == profile.info.description:
+                        log.info("Setting default profile to %s" % profile.info.description)
 
-                    # Update default profile
-                    self._data["profile"] = profile.info.description
-                    self._data["width"] = profile.info.width
-                    self._data["height"] = profile.info.height
-                    self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
-                    self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
-                    self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
-                    break
+                        # Update default profile
+                        self._data["profile"] = profile.info.description
+                        self._data["width"] = profile.info.width
+                        self._data["height"] = profile.info.height
+                        self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
+                        self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
+                        self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+                        break
+
+                except RuntimeError as e:
+                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
+                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
         # Get the default audio settings for the timeline (and preview playback)
         default_sample_rate = int(s.get("default-samplerate"))
@@ -389,65 +397,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.app import get_app
         get_app().updates.load(self._data)
 
-    def scale_keyframe_value(self, original_value, scale_factor):
-        """Scale keyframe X coordinate by some factor, except for 1 (leave that alone)"""
-        if original_value == 1.0:
-            # This represents the first frame of a clip (so we want to maintain that)
-            return original_value
-        else:
-            # Round to nearest INT
-            return round(original_value * scale_factor)
-
     def rescale_keyframes(self, scale_factor):
         """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
            and return scaled project data without modifing the current project."""
-        log.info('Scale all keyframes by a factor of %s' % scale_factor)
-
-        # Create copy of active project data
-        data = copy.deepcopy(self._data)
-
-        # Rescale the the copied project data
-        # Loop through all clips (and look for Keyframe objects)
-        # Scale the X coordinate by factor (which represents the frame #)
-        for clip in data.get('clips', []):
-            for attribute in clip:
-                if type(clip.get(attribute)) == dict and "Points" in clip.get(attribute):
-                    for point in clip.get(attribute).get("Points"):
-                        if "co" in point:
-                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if type(clip.get(attribute)) == dict and "red" in clip.get(attribute):
-                    for color in clip.get(attribute):
-                        for point in clip.get(attribute).get(color).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-            for effect in clip.get("effects", []):
-                for attribute in effect:
-                    if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
-                        for point in effect.get(attribute).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                    if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
-                        for color in effect.get(attribute):
-                            for point in effect.get(attribute).get(color).get("Points"):
-                                if "co" in point:
-                                    point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-
-        # Loop through all effects/transitions (and look for Keyframe objects)
-        # Scale the X coordinate by factor (which represents the frame #)
-        for effect in data.get('effects', []):
-            for attribute in effect:
-                if type(effect.get(attribute)) == dict and "Points" in effect.get(attribute):
-                    for point in effect.get(attribute).get("Points"):
-                        if "co" in point:
-                            point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-                if type(effect.get(attribute)) == dict and "red" in effect.get(attribute):
-                    for color in effect.get(attribute):
-                        for point in effect.get(attribute).get(color).get("Points"):
-                            if "co" in point:
-                                point["co"]["X"] = self.scale_keyframe_value(point["co"].get("X", 0.0), scale_factor)
-
-        # return the copied and scaled project data
-        return data
+        #
+        log.info('Scale all keyframes by a factor of %s', scale_factor)
+        # Create a scaler instance
+        scaler = KeyframeScaler(factor=scale_factor)
+        # Create copy of active project data and scale
+        scaled = scaler(copy.deepcopy(self._data))
+        return scaled
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
@@ -528,10 +487,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             # Keep track of new ids and old ids
                             file_lookup[item.unique_id] = file
 
-                        except Exception as ex:
-                            # Handle exception quietly
-                            msg = ("%s is not a valid video, audio, or image file: %s" % (item.name, str(ex)))
-                            log.error(msg)
+                        except Exception:
+                            log.error("%s is not a valid video, audio, or image file",
+                                      item.name,
+                                      exc_info=1)
                             failed_files.append(item.name)
 
                 # Delete all tracks
@@ -554,7 +513,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     for track in reversed(sequence.tracks):
                         for clip in track.clips:
                             # Get associated file for this clip
-                            if clip.file_object.unique_id in file_lookup.keys():
+                            if clip.file_object.unique_id in file_lookup:
                                 file = file_lookup[clip.file_object.unique_id]
                             else:
                                 # Skip missing file
@@ -688,10 +647,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         # Increment track counter
                         track_counter += 1
 
-            except Exception as ex:
+            except Exception:
                 # Error parsing legacy contents
-                msg = "Failed to load project file %(path)s: %(error)s" % {"path": file_path, "error": ex}
-                log.error(msg)
+                msg = "Failed to load legacy project file %(path)s" % {"path": file_path}
+                log.error(msg, exc_info=1)
                 raise RuntimeError(msg) from ex
 
         # Show warning if some files failed to load
@@ -882,12 +841,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 log.info("Checking clip {} path for file {}".format(clip["id"], file_id))
                 # Update paths to files stored in our working space or old path structure
                 # (should have already been copied during previous File stage)
-                if file_id and file_id in reader_paths.keys():
+                if file_id and file_id in reader_paths:
                     clip["reader"]["path"] = reader_paths[file_id]
                     log.info("Updated clip {} path for file {}".format(clip["id"], file_id))
 
-        except Exception as ex:
-            log.error("Error while moving temp paths to project assets folder {}: {}".format(asset_path, ex))
+        except Exception:
+            log.error("Error while moving temp paths to project assets folder %s", asset_path, exc_info=1)
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
@@ -895,7 +854,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Ignore backup recovery project
             return
 
-        s = settings.get_settings()
+        s = get_app().get_settings()
         recent_projects = s.get("recent_projects")
 
         # Make sure file_path is absolute

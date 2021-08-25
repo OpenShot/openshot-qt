@@ -55,6 +55,7 @@ the basics. Clicking **Next** will jump to the next topic. You can always view t
 
 .. image:: images/built-in-tutorial.jpg
 
+.. _tracks_ref:
 
 Tracks & Layers
 ------------------
@@ -129,6 +130,7 @@ Ctrl+K              Slice All: Keep Both Sides
 Ctrl+L              Slice All: Keep Left Side
 Ctrl+J              Slice All: Keep Right Side
 Ctrl+G              Toggle Snapping
+R                   Toggle Razor tool
 Ctrl+X              Split Clip
 Ctrl+Shift+D        Thumbnail View
 Ctrl+T              Title Editor

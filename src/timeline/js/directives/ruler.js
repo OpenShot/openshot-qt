@@ -27,10 +27,11 @@
  */
 
 
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Variables for panning by middle click
 var is_scrolling = false;
-var starting_scrollbar = { x: 0, y: 0 };
-var starting_mouse_position = { x: 0, y: 0 };
+var starting_scrollbar = {x: 0, y: 0};
+var starting_mouse_position = {x: 0, y: 0};
 
 // Variables for scrolling control
 var scroll_left_pixels = 0;
@@ -38,196 +39,237 @@ var scroll_left_pixels = 0;
 
 // This container allows for tracks to be scrolled (with synced ruler)
 // and allows for panning of the timeline with the middle mouse button
-App.directive('tlScrollableTracks', function () {
-	return {
-		restrict: 'A',
+/*global App, secondsToTime*/
+App.directive("tlScrollableTracks", function () {
+  return {
+    restrict: "A",
+    link: function (scope, element, attrs) {
 
-		link: function (scope, element, attrs) {
+      /**
+       * if ctrl is held, scroll in or out.
+       * Implimentation copied from zoomSlider zoomIn zoomOut
+       */
+      element.on("wheel",function (e) {
+        if (e.ctrlKey) {
+          e.preventDefault(); // Don't scroll like a browser
+          if (e.originalEvent.deltaY > 0) { // Scroll down: Zoom out
+            /*global timeline*/
+            timeline.zoomOut();
+          } else { // Scroll Up: Zoom in
+            /*global timeline*/
+            timeline.zoomIn();
+          }
+        }
+      });
 
-			// Sync ruler to track scrolling
-			element.on('scroll', function () {
-				//set amount scrolled
-				scroll_left_pixels = element.scrollLeft();
+      // Sync ruler to track scrolling
+      element.on("scroll", function () {
+        //set amount scrolled
+        scroll_left_pixels = element.scrollLeft();
 
-				$('#track_controls').scrollTop(element.scrollTop());
-				$('#scrolling_ruler').scrollLeft(element.scrollLeft());
-				$('#progress_container').scrollLeft(element.scrollLeft());
-			});
+        $("#track_controls").scrollTop(element.scrollTop());
+        $("#scrolling_ruler").scrollLeft(element.scrollLeft());
+        $("#progress_container").scrollLeft(element.scrollLeft());
 
-			// Initialize panning when middle mouse is clicked
-			element.on('mousedown', function(e) {
-				if (e.which === 2) { // middle button
-					e.preventDefault();
-					is_scrolling = true;
-					starting_scrollbar = { x: element.scrollLeft(), y: element.scrollTop() };
-					starting_mouse_position = { x: e.pageX, y: e.pageY };
-					element.addClass('drag_cursor');
-				}
-			});
+        scope.$apply( () => {
+          scope.scrollLeft = element[0].scrollLeft;
+        })
 
-			// Pans the timeline (on middle mouse clip and drag)
-			element.on('mousemove', function(e){
-				if (is_scrolling) {
-					// Calculate difference from last position
-					difference = { x: starting_mouse_position.x-e.pageX, y: starting_mouse_position.y-e.pageY};
+        // Send scrollbar position to Qt
+        if (scope.Qt) {
+           // Calculate scrollbar positions (left and right edge of scrollbar)
+           var timeline_length = scope.getTimelineWidth(0);
+           var left_scrollbar_edge = scroll_left_pixels / timeline_length;
+           var right_scrollbar_edge = (scroll_left_pixels + element.width()) / timeline_length;
 
-					// Scroll the tracks div
-					element.scrollLeft(starting_scrollbar.x + difference.x);
-					element.scrollTop(starting_scrollbar.y + difference.y);
-				}
-			});
+           // Send normalized scrollbar positions to Qt
+           timeline.ScrollbarChanged([left_scrollbar_edge, right_scrollbar_edge, timeline_length, element.width()]);
+        }
 
-			// Remove move cursor (i.e. dragging has stopped)
-			element.on('mouseup', function(e) {
-				element.removeClass('drag_cursor');
-			});
+        scope.$apply( () => {
+          scope.scrollLeft = element[0].scrollLeft;
+        })
 
+      });
 
-		}
-	};
+      // Pans the timeline (on middle mouse clip and drag)
+      element.on("mousemove", function (e) {
+        if (is_scrolling) {
+          // Calculate difference from last position
+          var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
+          var newPos = { x: starting_scrollbar.x + difference.x, y: starting_scrollbar.y + difference.y};
+
+          // Scroll the tracks div
+          element.scrollLeft(newPos.x);
+          element.scrollTop(newPos.y);
+        }
+      });
+
+      // Remove move cursor (i.e. dragging has stopped)
+      element.on("mouseup", function (e) {
+        element.removeClass("drag_cursor");
+      });
+
+    }
+  };
 });
 
 // Track scrolling mode on body tag... allows for capture of released middle mouse button
-App.directive('tlBody', function () {
-	return {
-		link: function (scope, element, attrs){
+App.directive("tlBody", function () {
+  return {
+    link: function (scope, element, attrs) {
 
-			element.on('mouseup', function(e){
-				if (e.which === 2) // middle button
-					is_scrolling = false;
-			});
+      element.on("mouseup", function (e) {
+        if (e.which === 2) { // middle button
+          is_scrolling = false;
+          element.removeClass("drag_cursor");
+        }
+      });
 
+      // Stop scrolling if mouse leaves timeline
+      element.on("mouseleave", function (e) {
+        is_scrolling = false;
+        element.removeClass("drag_cursor");
+      })
 
-		}
-	};
+      // Initialize panning when middle mouse is clicked
+      element.on("mousedown", function (e) {
+        if (e.which === 2) { // middle button
+          e.preventDefault();
+          is_scrolling = true;
+          starting_scrollbar = {x: $("#scrolling_tracks").scrollLeft(), y: $("#scrolling_tracks").scrollTop()};
+          starting_mouse_position = {x: e.pageX, y: e.pageY};
+          element.addClass("drag_cursor");
+        }
+      });
+
+    }
+  };
 });
 
 
 // The HTML5 canvas ruler
-App.directive('tlRuler', function ($timeout) {
-	return {
-		restrict: 'A',
-		link: function (scope, element, attrs) {
-			//on click of the ruler canvas, jump playhead to the clicked spot
-			element.on('mousedown', function(e){
-				// Get playhead position
-				var playhead_left = e.pageX - element.offset().left;
-				var playhead_seconds = playhead_left / scope.pixelsPerSecond;
+App.directive("tlRuler", function ($timeout) {
+  return {
+    restrict: "A",
+    link: function (scope, element, attrs) {
+      //on click of the ruler canvas, jump playhead to the clicked spot
+      element.on("mousedown", function (e) {
+        // Get playhead position
+        var playhead_left = e.pageX - element.offset().left;
+        var playhead_seconds = playhead_left / scope.pixelsPerSecond;
 
-				// Immediately preview frame (don't wait for animated playhead)
-				scope.PreviewFrame(playhead_seconds);
+        // Immediately preview frame (don't wait for animated playhead)
+        scope.previewFrame(playhead_seconds);
 
-				// Animate to new position (and then update scope)
-				scope.playhead_animating = true;
-				$(".playhead-line").animate({left: playhead_left + scope.playheadOffset }, 200);
-				$(".playhead-top").animate({left: playhead_left + scope.playheadOffset }, 200, function() {
-					// Update playhead
-					scope.MovePlayhead(playhead_seconds);
+        // Animate to new position (and then update scope)
+        scope.playhead_animating = true;
+        $(".playhead-line").animate({left: playhead_left}, 200);
+        $(".playhead-top").animate({left: playhead_left}, 200, function () {
+          // Update playhead
+          scope.movePlayhead(playhead_seconds);
 
-					// Animation complete.
-					scope.$apply(function(){
-						scope.playhead_animating = false;
-					});
-				});
+          // Animation complete.
+          scope.$apply(function () {
+            scope.playhead_animating = false;
+          });
+        });
+      });
 
-			});
+      element.on("mousedown", function (e) {
+        // Set bounding box for the playhead position
+        setBoundingBox(scope, $(this), "playhead");
+      });
 
-			// Move playhead to new position (if it's not currently being animated)
-			element.on('mousemove', function(e){
-				if (e.which == 1 && !scope.playhead_animating) { // left button
-					var playhead_seconds = (e.pageX - element.offset().left) / scope.pixelsPerSecond;
-					// Update playhead
-					scope.MovePlayhead(playhead_seconds);
-					scope.PreviewFrame(playhead_seconds);
-				}
-			});
+      // Move playhead to new position (if it's not currently being animated)
+      element.on("mousemove", function (e) {
+        if (e.which === 1 && !scope.playhead_animating) { // left button
+          // Calculate the playhead bounding box movement
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let new_position = cursor_position;
+          if (e.shiftKey) {
+            // Only apply playhead shapping when SHIFT is pressed
+            let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+              cursor_position - bounding_box.left, cursor_position - bounding_box.top,
+              cursor_position, cursor_position, "playhead");
 
-			//watch the scale value so it will be able to draw the ruler after changes,
-			//otherwise the canvas is just reset to blank
-			scope.$watch('project.scale + markers.length + project.duration', function (val) {
-             if (val){
+            // Update position to snapping position
+            new_position = results.position.left;
+          }
 
-	            	 $timeout(function(){
-						//get all scope variables we need for the ruler
-						var scale = scope.project.scale;
-						var tick_pixels = scope.project.tick_pixels;
-						var each_tick = tick_pixels / 2;
-						var pixel_length = scope.GetTimelineWidth(1024);
+          // Move playhead
+          let playhead_seconds = new_position / scope.pixelsPerSecond;
+          scope.movePlayhead(playhead_seconds);
+          scope.previewFrame(playhead_seconds);
+        }
+      });
 
-				    	//draw the ruler
-				    	var ctx = element[0].getContext('2d');
-				    	//clear the canvas first
-				    	ctx.clearRect(0, 0, element.width(), element.height());
-				    	//set number of ticks based 2 for each pixel_length
-				    	num_ticks = pixel_length / 50;
+      /**
+       * Draw times on the ruler
+       * Always starts on a second
+       * Draws to the right edge of the screen
+       */
+      function drawTimes() {
+        // Delete old tick marks
+        ruler = $('#ruler');
+        $("#ruler span").remove();
 
-						ctx.lineWidth = 1;
-						ctx.strokeStyle = "#c8c8c8";
-						ctx.lineCap = "round";
+        let startPos = scope.scrollLeft;
+        let endPos = scope.scrollLeft + $("body").width();
+        let fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num ,scope.project.fps.den);
+        let fps = scope.project.fps.num / scope.project.fps.den;
+        let time = [ startPos / scope.pixelsPerSecond, endPos / scope.pixelsPerSecond];
 
-				    	//loop em and draw em
-						for (x=0;x<num_ticks+1;x++){
-							ctx.beginPath();
+        if (fpt > fps) {
+          // Make sure seconds don't change when scrolling right and left
+          time[0] -= time[0]%(fpt/Math.round(fps));
+        }
+        else {
+          time[0] -= time[0]%2;
+        }
+        time[1] -= time[1]%1 - 1;
 
-							//if it's even, make the line longer
-							if (x%2 === 0){
-								line_top = 18;
-								//if it's not the first line, set the time text
-								if (x !== 0){
-									//get time for this tick
-									time = (scale * x) /2;
-									time_text = secondsToTime(time, scope.project.fps.num, scope.project.fps.den);
+        let startFrame = time[0] * Math.round(fps);
+        let endFrame = time[1] * Math.round(fps);
 
-									//write time on the canvas, centered above long tick
-									ctx.fillStyle = "#c8c8c8";
-									ctx.font = "0.9em";
-									ctx.fillText(time_text["hour"] +":"+ time_text["min"] +":"+ time_text["sec"], x*each_tick-22, 11);
-								}
-							} else {
-								//shorter line
-								line_top = 28;
-							}
+        let frame = startFrame;
+        while ( frame <= endFrame){
+          let t = frame / fps;
+          let pos = t * scope.pixelsPerSecond;
+          let tickSpan = $('<span style="left:'+pos+'px;"></span>');
+          tickSpan.addClass("tick_mark");
 
-							ctx.moveTo(x*each_tick, 39);
-							ctx.lineTo(x*each_tick, line_top);
-							ctx.stroke();
-						}
-				    }, 0);
+          if ((frame) % (fpt * 2) === 0) {
+            // Alternating long marks with times marked
+            let timeSpan = $('<span style="left:'+pos+'px;"></span>');
+            timeSpan.addClass("ruler_time");
+            let timeText = secondsToTime(t, scope.project.fps.num, scope.project.fps.den);
+            timeSpan[0].innerText = timeText['hour'] + ':' +
+              timeText['min'] + ':' +
+              timeText['sec'];
+            if (fpt < Math.round(fps)) {
+              timeSpan[0].innerText += ',' + timeText['frame'];
+            }
+            tickSpan[0].style['height'] = '20px';
+            ruler.append(timeSpan);
+          }
+          ruler.append(tickSpan);
 
-             }
-         });
+          frame += fpt;
+        }
+        return;
+      };
 
-		}
+      scope.$watch("project.scale + project.duration + scrollLeft + element.width()", function (val) {
+        if (val) {
+          $timeout(function () {
+            drawTimes();
+            return;
+          } , 0);
+        }
+      });
 
-	};
-});
+    }
 
-
-// The HTML5 canvas ruler
-App.directive('tlRulertime', function () {
-	return {
-		restrict: 'A',
-		link: function (scope, element, attrs) {
-			//on click of the ruler canvas, jump playhead to the clicked spot
-			element.on('mousedown', function(e){
-				var playhead_seconds = 0.0;
-				// Update playhead
-				scope.MovePlayhead(playhead_seconds);
-				scope.PreviewFrame(playhead_seconds);
-
-			});
-
-			// Move playhead to new position (if it's not currently being animated)
-			element.on('mousemove', function(e){
-				if (e.which == 1 && !scope.playhead_animating) { // left button
-					var playhead_seconds = 0.0;
-					// Update playhead
-					scope.MovePlayhead(playhead_seconds);
-					scope.PreviewFrame(playhead_seconds);
-				}
-			});
-
-
-		}
-	};
+  };
 });

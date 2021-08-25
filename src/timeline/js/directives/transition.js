@@ -27,13 +27,13 @@
  */
 
 
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Init Variables
 var dragging = false;
 var resize_disabled = false;
 var previous_drag_position = null;
 var start_transitions = {};
 var move_transitions = {};
-var out_of_bounds = false;
 var track_container_height = -1;
 
 // Treats element as a transition
@@ -42,277 +42,270 @@ var track_container_height = -1;
 // 3: class change when hovered over
 var dragLoc = null;
 
-App.directive('tlTransition', function(){
-	return {
-		scope: "@",
-		link: function(scope, element, attrs){
+/*global App, timeline, hasLockedTrack, moveBoundingBox */
+App.directive("tlTransition", function () {
+  return {
+    scope: "@",
+    link: function (scope, element, attrs) {
 
-			//handle resizability of transition
-			element.resizable({ 
-				handles: "e, w",
-				minWidth: 1,
-				start: function(e, ui) {
-					dragging = true;
-					resize_disabled = false;
-					
-					//determine which side is being changed
-					var parentOffset = element.offset(); 
-					var mouseLoc = e.pageX - parentOffset.left;
-					if (mouseLoc < 5) {
-						dragLoc = 'left';
-					} else {
-						dragLoc = 'right';
-					}
+      //handle resizability of transition
+      element.resizable({
+        handles: "e, w",
+        minWidth: 1,
+        start: function (e, ui) {
+          dragging = true;
+          resize_disabled = false;
 
-					// Does this bounding box overlap a locked track?
-					var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-					var track_top = (parseInt(element.position().top) + parseInt(vert_scroll_offset));
-					var track_bottom = (parseInt(element.position().top) + parseInt(element.height()) + parseInt(vert_scroll_offset));
-					if (hasLockedTrack(scope, track_top, track_bottom))
-						resize_disabled = true;
+          // Set selections
+          setSelections(scope, element, $(this).attr("id"));
 
-					// Hide keyframe points
-					element.find('.point_icon').hide()
+          // Set bounding box
+          setBoundingBox(scope, $(this), "trimming");
 
-				},
-				stop: function(e, ui) {
-					dragging = false;
+          //determine which side is being changed
+          var parentOffset = element.offset();
+          var mouseLoc = e.pageX - parentOffset.left;
+          if (mouseLoc < 5) {
+            dragLoc = "left";
+          } else {
+            dragLoc = "right";
+          }
 
-					if (resize_disabled) {
-						// disabled, do nothing
-						resize_disabled = false;
-						return;
-					}
+          // Does this bounding box overlap a locked track?
+          var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
+          var track_top = (parseInt(element.position().top, 10) + parseInt(vert_scroll_offset, 10));
+          var track_bottom = (parseInt(element.position().top, 10) + parseInt(element.height(), 10) + parseInt(vert_scroll_offset, 10));
+          if (hasLockedTrack(scope, track_top, track_bottom)) {
+            resize_disabled = true;
+          }
 
-					// Make the keyframe points visible again
-					element.find('.point_icon').show();
+          // Hide keyframe points
+          element.find(".point_icon").hide();
 
-					//get amount changed in width
-					var delta_x = ui.originalSize.width - ui.size.width;
-					var delta_time = delta_x/scope.pixelsPerSecond;
+        },
+        stop: function (e, ui) {
+          dragging = false;
 
-					//change the transition end/start based on which side was dragged
-					new_left = scope.transition.position;
-					new_right = (scope.transition.end - scope.transition.start);
+          if (resize_disabled) {
+            // disabled, do nothing
+            resize_disabled = false;
+            return;
+          }
 
-					if (dragLoc == 'left'){
-						//changing the start of the transition
-						new_left += delta_time;
-						if (new_left < 0) new_left = 0; // prevent less than zero
-					} else {
-						new_right -= delta_time;
-					}
+          // Hide snapline (if any)
+          scope.hideSnapline();
 
-					//apply the new start, end and length to the transition's scope
-					scope.$apply(function(){
+          // Make the keyframe points visible again
+          element.find(".point_icon").show();
 
-						// Get the nearest starting frame position to the transition position (this helps to prevent cutting
-						// in-between frames, and thus less likely to repeat or skip a frame).
-						new_right = (Math.round((new_right * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
-						new_left = (Math.round((new_left * scope.project.fps.num) / scope.project.fps.den ) * scope.project.fps.den ) / scope.project.fps.num;
+          //get amount changed in width
+          var delta_x = ui.originalSize.width - ui.element.width();
+          var delta_time = delta_x / scope.pixelsPerSecond;
 
-						if (dragLoc == 'right'){
-							scope.transition.end = new_right;
-						}
-						if (dragLoc == 'left'){
-							scope.transition.position = new_left;
-							scope.transition.end -= delta_time;
-						}
+          //change the transition end/start based on which side was dragged
+          var new_left = scope.transition.position;
+          var new_right = (scope.transition.end - scope.transition.start);
 
-						// update transition in Qt (very important =)
-            			if (scope.Qt)
-            				timeline.update_transition_data(JSON.stringify(scope.transition), true, false);
+          if (dragLoc === "left") {
+            //changing the start of the transition
+            new_left += delta_time;
+            if (new_left < 0) {
+              new_left = 0;
+            } // prevent less than zero
+          } else {
+            new_right -= delta_time;
+          }
 
-					});
-				
-					dragLoc = null;
+          //apply the new start, end and length to the transition's scope
+          scope.$apply(function () {
+            if (dragLoc === "right") {
+              scope.transition.end = new_right;
+            }
+            if (dragLoc === "left") {
+              scope.transition.position = new_left;
+              scope.transition.end -= delta_time;
+            }
+          });
 
-				},
-				resize: function(e, ui) {
+          // update transition in Qt (very important =)
+          if (scope.Qt) {
+            timeline.update_transition_data(JSON.stringify(scope.transition), true, false);
+          }
 
-					if (resize_disabled) {
-						// disabled, keep the item the same size
-						$(this).css(ui.originalPosition);
-						$(this).width(ui.originalSize.width);
-						return;
-					}
-					
-					// get amount changed in width
-					var delta_x = ui.originalSize.width - ui.size.width;
-					var delta_time = Math.round(delta_x/scope.pixelsPerSecond);
+          dragLoc = null;
 
-					// change the transition end/start based on which side was dragged
-					new_left = scope.transition.position;
-					new_right = (scope.transition.end - scope.transition.start);
+        },
+        resize: function (e, ui) {
 
-					if (dragLoc == 'left'){
-						// changing the start of the transition
-						new_left += delta_time;
-						if (new_left < 0) { 
-							ui.element.width(ui.size.width + (new_left * scope.pixelsPerSecond));
-							ui.element.css("left", ui.position.left - (new_left * scope.pixelsPerSecond));
-						} else {
-							ui.element.width(ui.size.width);
-						}
-					} else {
-						// changing the end of the transitions
-						new_right -= delta_time;
-						ui.element.width(ui.size.width);
-					}
+          if (resize_disabled) {
+            // disabled, keep the item the same size
+            $(this).css(ui.originalPosition);
+            $(this).width(ui.originalSize.width);
+            return;
+          }
 
-				},
+          // Calculate the transition bounding box movement and apply snapping rules
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+            cursor_position - bounding_box.left, cursor_position - bounding_box.top,
+            cursor_position, cursor_position, "trimming");
 
-			});
-	
-			//handle hover over on the transition
-			element.hover(
-	  			function () {
-				  	if (!dragging)
-				  	{
-					  	element.addClass( "highlight_transition", 200, "easeInOutCubic" );
-				  	}
-			  	},
-			  	function () {
-				  	if (!dragging)
-				  	{
-					  	element.removeClass( "highlight_transition", 200, "easeInOutCubic" );
-					}
-			  	}
-			);
-			
+          // Calculate delta from current mouse position
+          let new_position = cursor_position;
+          new_position = results.position.left;
+          let delta_x = 0;
+          if (dragLoc === "left") {
+            delta_x = (parseFloat(ui.originalPosition.left)) - new_position;
+          } else if (dragLoc === "right") {
+            delta_x = (parseFloat(ui.originalPosition.left) + parseFloat(ui.originalSize.width)) - new_position;
+          }
 
-			//handle draggability of transition
-			element.draggable({
-		        snap: ".track", // snaps to a track
-		        snapMode: "inner", 
-		        snapTolerance: 20,
-		        scroll: true,
-		        revert: 'invalid',
-				cancel : '.transition_menu',
-		        start: function(event, ui) {
-		        	previous_drag_position = null;
-		        	dragging = true;
-		        	if (!element.hasClass('ui-selected')) 
-		        	{
-		        		// Clear previous selections?
-		        		var clear_selections = false;
-		        		if ($(".ui-selected").length > 0)
-		        			clear_selections = true;
-		        		
-		        		// SelectClip, SelectTransition
-		        		var id = $(this).attr("id");
-		        		if (element.hasClass('clip')) {
-							// Select this clip, unselect all others
-		        			scope.SelectTransition("", clear_selections);
-		        			scope.SelectClip(id, clear_selections);
-		        			
-		        		} else if (element.hasClass('transition')) {
-							// Select this transition, unselect all others
-		        			scope.SelectClip("", clear_selections);
-		        			scope.SelectTransition(id, clear_selections);
-		        		}
-					}
-					
-				 	// Apply scope up to this point
-				 	scope.$apply(function(){});
-		        	
-	            	var vert_scroll_offset = $("#scrolling_tracks").scrollTop();
-	            	var horz_scroll_offset = $("#scrolling_tracks").scrollLeft();
-	            	track_container_height = getTrackContainerHeight();
+          // Calculate the pixel locations of the left and right side
+          var new_left = scope.transition.start * scope.pixelsPerSecond;
+          var new_right = scope.transition.end * scope.pixelsPerSecond;
 
-                    bounding_box = {};
+          if (dragLoc === "left") {
+            // Adjust left side of transition
+            ui.element.css("left", ui.originalPosition.left - delta_x);
+            ui.element.width(new_right - (new_left - delta_x));
+          }
+          else {
+            // Adjust right side of transition
+            new_right -= delta_x;
+            ui.element.width((new_right - new_left));
+          }
 
-		        	// Init all other selected transitions (prepare to drag them)
-		        	$(".ui-selected").each(function(){
-		        		start_transitions[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                                						   "left": $(this).position().left + horz_scroll_offset};
-                        move_transitions[$(this).attr('id')] = {"top": $(this).position().top + vert_scroll_offset,
-                               							  "left": $(this).position().left + horz_scroll_offset};
+        }
 
-                        //send transition to bounding box builder
-                        setBoundingBox(scope, $(this));
-                    });
+      });
 
-					// Does this bounding box overlap a locked track?
-					if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor)
-						return !event; // yes, do nothing
-
-		        },
-                stop: function(event, ui) {
-
-					// Ignore transition-menu click
-					$( event.toElement ).one('.transition_menu', function(e){ e.stopImmediatePropagation(); } );
-                	
-                	// Hide snapline (if any)
-                	scope.HideSnapline();
-                	
-                	// Clear previous drag position
-					previous_drag_position = null;
-					dragging = false;
-
-				},
-                drag: function(e, ui) {
-                	var previous_x = ui.originalPosition.left;
-					var previous_y = ui.originalPosition.top;
-					if (previous_drag_position != null)
-					{
-						// if available, override with previous drag position
-						previous_x = previous_drag_position.left;
-						previous_y = previous_drag_position.top;
-					}
-
-					// set previous position (for next time around)
-					previous_drag_position = ui.position;
-
-	            	// Calculate amount to move transitions
-	            	var x_offset = ui.position.left - previous_x;
-	            	var y_offset = ui.position.top - previous_y;
-
-					// Move the bounding box and apply snapping rules
-					results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
-					x_offset = results.x_offset;
-					y_offset = results.y_offset;
-
-					// Update ui object
-					ui.position.left = results.position.left;
-					ui.position.top = results.position.top;
-
-    				// Move all other selected transitions with this one
-	                $(".ui-selected").each(function(){
-	                	var pos = $(this).position();
-	                	var newY = move_transitions[$(this).attr('id')]["top"] + y_offset;
-                        var newX = move_transitions[$(this).attr('id')]["left"] + x_offset;
-
-						//update the transition location in the array
-	                	move_transitions[$(this).attr('id')]['top'] = newY;
-                        move_transitions[$(this).attr('id')]['left'] = newX;
-
-						//change the element location
-						$(this).css('left', newX);
-				    	$(this).css('top', newY);
-
-				    });
-		        	
-                },
-                revert: function(valid) {
-                    if(!valid) {
-                        //the drop spot was invalid, so we're going to move all transitions to their original position
-                        $(".ui-selected").each(function(){
-                        	var oldY = start_transitions[$(this).attr('id')]['top'];
-                        	var oldX = start_transitions[$(this).attr('id')]['left'];
-
-                        	$(this).css('left', oldX);
-				    		$(this).css('top', oldY);
-                        });
-                    }
-                }
-		      });
+      //handle hover over on the transition
+      element.hover(
+        function () {
+          if (!dragging) {
+            element.addClass("highlight_transition", 200, "easeInOutCubic");
+          }
+        },
+        function () {
+          if (!dragging) {
+            element.removeClass("highlight_transition", 200, "easeInOutCubic");
+          }
+        }
+      );
 
 
-		}
-	};
+      //handle draggability of transition
+      element.draggable({
+        snap: ".track", // snaps to a track
+        snapMode: "inner",
+        snapTolerance: 20,
+        scroll: true,
+        cancel: ".transition_menu",
+        start: function (event, ui) {
+          previous_drag_position = null;
+          dragging = true;
+
+          // Set selections
+          setSelections(scope, element, $(this).attr("id"));
+
+          var scrolling_tracks = $("#scrolling_tracks");
+          var vert_scroll_offset = scrolling_tracks.scrollTop();
+          var horz_scroll_offset = scrolling_tracks.scrollLeft();
+          track_container_height = getTrackContainerHeight();
+
+          bounding_box = {};
+
+          // Init all other selected transitions (prepare to drag them)
+          // This creates a bounding box which contains all selected clips
+          $(".ui-selected, #" + $(this).attr("id")).each(function () {
+            start_transitions[$(this).attr("id")] = {
+              "top": $(this).position().top + vert_scroll_offset,
+              "left": $(this).position().left + horz_scroll_offset
+            };
+            move_transitions[$(this).attr("id")] = {
+              "top": $(this).position().top + vert_scroll_offset,
+              "left": $(this).position().left + horz_scroll_offset
+            };
+            //send transition to bounding box builder
+            setBoundingBox(scope, $(this));
+          });
+
+          // Does this bounding box overlap a locked track?
+          if (hasLockedTrack(scope, bounding_box.top, bounding_box.bottom) || scope.enable_razor) {
+            return !event; // yes, do nothing
+          }
+
+        },
+        stop: function (event, ui) {
+
+          // Ignore transition-menu click
+          $(event.toElement).one(".transition_menu", function (e) {
+            e.stopImmediatePropagation();
+          });
+
+          // Hide snapline (if any)
+          scope.hideSnapline();
+
+          // Clear previous drag position
+          previous_drag_position = null;
+          dragging = false;
+
+        },
+        drag: function (e, ui) {
+          var previous_x = ui.originalPosition.left;
+          var previous_y = ui.originalPosition.top;
+          if (previous_drag_position !== null) {
+            // if available, override with previous drag position
+            previous_x = previous_drag_position.left;
+            previous_y = previous_drag_position.top;
+          }
+
+          // set previous position (for next time around)
+          previous_drag_position = ui.position;
+
+          // Calculate amount to move transitions
+          var x_offset = ui.position.left - previous_x;
+          var y_offset = ui.position.top - previous_y;
+
+          // Move the bounding box and apply snapping rules
+          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
+          x_offset = results.x_offset;
+          y_offset = results.y_offset;
+
+          // Update ui object
+          ui.position.left = results.position.left;
+          ui.position.top = results.position.top;
+
+          // Move all other selected transitions with this one
+          $(".ui-selected").each(function () {
+            if (move_transitions[$(this).attr("id")]) {
+              let newY = move_transitions[$(this).attr("id")]["top"] + y_offset;
+              let newX = move_transitions[$(this).attr("id")]["left"] + x_offset;
+              // Update the transition location in the array
+              move_transitions[$(this).attr("id")]["top"] = newY;
+              move_transitions[$(this).attr("id")]["left"] = newX;
+              // Change the element location
+              $(this).css("left", newX);
+              $(this).css("top", newY);
+            }
+          });
+
+        },
+        revert: function (valid) {
+          if (!valid) {
+            // The drop spot was invalid, so we're going to move all transitions to their original position
+            $(".ui-selected").each(function () {
+              var oldY = start_transitions[$(this).attr("id")]["top"];
+              var oldX = start_transitions[$(this).attr("id")]["left"];
+
+              $(this).css("left", oldX);
+              $(this).css("top", oldY);
+            });
+          }
+        }
+      });
+
+
+    }
+  };
 });
-
-
-
-

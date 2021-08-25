@@ -26,22 +26,19 @@
  """
 
 import os
-import sys
 import functools
-import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import pyqtSignal, QTimer
+from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, ui_util, time_parts, settings, qt_types, updates
+from classes import info, ui_util, time_parts
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
-import json
 
 class Cutting(QDialog):
     """ Cutting Dialog """
@@ -110,7 +107,13 @@ class Cutting(QDialog):
         viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
 
         # Create an instance of a libopenshot Timeline object
-        self.r = openshot.Timeline(self.videoPreview.width(), self.videoPreview.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r = openshot.Timeline(
+            self.videoPreview.width(),
+            self.videoPreview.height(),
+            openshot.Fraction(self.fps_num, self.fps_den),
+            self.sample_rate,
+            self.channels,
+            self.channel_layout)
         self.r.info.channel_layout = self.channel_layout
         self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
 
@@ -133,8 +136,10 @@ class Cutting(QDialog):
                 self.clip.display = openshot.FRAME_DISPLAY_CLIP
 
             self.r.AddClip(self.clip)
-        except:
-            log.error('Failed to load media file into preview player: %s' % self.file_path)
+        except Exception:
+            log.error(
+                'Failed to load media file into preview player: %s',
+                self.file_path)
             return
 
         # Open reader
@@ -157,7 +162,7 @@ class Cutting(QDialog):
 
         # Determine if a start or end attribute is in this file
         start_frame = 1
-        if 'start' in self.file.data.keys():
+        if 'start' in self.file.data:
             start_frame = (float(self.file.data['start']) * self.fps) + 1
 
         # Display start frame (and then the previous frame)
@@ -329,7 +334,7 @@ class Cutting(QDialog):
         log.info('btnAddClip_clicked')
 
         # Remove unneeded attributes
-        if 'name' in self.file.data.keys():
+        if 'name' in self.file.data:
             self.file.data.pop('name')
 
         # Save new file
@@ -355,7 +360,7 @@ class Cutting(QDialog):
         log.info('close')
 
     def closeEvent(self, event):
-        log.info('closeEvent')
+        log.debug('closeEvent')
 
         # Stop playback
         self.preview_parent.worker.Stop()
@@ -372,6 +377,3 @@ class Cutting(QDialog):
 
     def reject(self):
         log.info('reject')
-
-
-

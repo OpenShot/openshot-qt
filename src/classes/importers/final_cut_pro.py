@@ -35,6 +35,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 from classes import info
 from classes.app import get_app
+from classes.logger import log
 from classes.image_types import is_image
 from classes.query import Clip, Track, File
 from windows.views.find_file import find_missing_file
@@ -141,8 +142,7 @@ def import_xml():
                         # Save file
                         file.save()
                     except Exception:
-                        # Ignore errors for now
-                        pass
+                        log.warning('Error building File object for %s' % clip_path, exc_info=1)
 
                 if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
                     # Determine thumb path
@@ -201,3 +201,6 @@ def import_xml():
             # Update the preview and reselect current frame in properties
             app.window.refreshFrameSignal.emit()
             app.window.propertyTableView.select_frame(app.window.preview_thread.player.Position())
+
+    # Free up DOM memory
+    xmldoc.unlink()

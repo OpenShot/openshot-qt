@@ -25,39 +25,54 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import sys, os
-# Import parent folder (so it can find other imports)
-PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-if not PATH in sys.path:
-    sys.path.append(PATH)
-
-import random
-import unittest
-import uuid
-from classes.app import OpenShotApp
-from classes import info
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+import sys
+import os
 import json
 
-class TestQueryClass(unittest.TestCase):
+import unittest
+
+import openshot
+
+from PyQt5.QtGui import QGuiApplication
+try:
+    # QtWebEngineWidgets must be loaded prior to creating a QApplication
+    # But on systems with only WebKit, this will fail (and we ignore the failure)
+    from PyQt5.QtWebEngineWidgets import QWebEngineView  # noqa
+except ImportError:
+    pass
+
+# Import parent folder (so it can find other imports)
+PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+if PATH not in sys.path:
+    sys.path.append(PATH)
+
+from classes.app import OpenShotApp
+from classes.query import Clip, File, Transition
+from classes import info
+
+app = None
+
+
+class QueryTests(unittest.TestCase):
     """ Unit test class for Query class """
 
     @classmethod
-    def setUpClass(TestQueryClass):
+    def setUpClass(cls):
         """ Init unit test data """
         # Create Qt application
-        TestQueryClass.app = OpenShotApp(sys.argv, mode="unittest")
-        TestQueryClass.clip_ids = []
-        TestQueryClass.file_ids = []
-        TestQueryClass.transition_ids = []
+        cls.app = QGuiApplication.instance()
+        cls.clip_ids = []
+        cls.file_ids = []
+        cls.transition_ids = []
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip, File, Transition
+        clips = []
 
         # Insert some clips into the project data
         for num in range(5):
             # Create clip
             c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png"))
+            c.Position(num * 10.0)
+            c.End(5.0)
 
             # Parse JSON
             clip_data = json.loads(c.Json())
@@ -68,7 +83,8 @@ class TestQueryClass(unittest.TestCase):
             query_clip.save()
 
             # Keep track of the ids
-            TestQueryClass.clip_ids.append(query_clip.id)
+            cls.clip_ids.append(query_clip.id)
+            clips.append(query_clip)
 
         # Insert some files into the project data
         for num in range(5):
@@ -86,41 +102,43 @@ class TestQueryClass(unittest.TestCase):
             query_file.save()
 
             # Keep track of the ids
-            TestQueryClass.file_ids.append(query_file.id)
+            cls.file_ids.append(query_file.id)
 
         # Insert some transitions into the project data
-        for num in range(5):
+        for c in clips:
             # Create mask object
-            transition_object = openshot.Mask()
-            transitions_data = json.loads(transition_object.Json())
+            t = openshot.Mask()
+            # Place over the last second of current clip
+            pos = c.data.get("position", 0.0)
+            start = c.data.get("start", 0.0)
+            end = c.data.get("end", 0.0)
+            t.Position((pos - start + end) - 1.0)
+            t.End(1.0)
 
             # Insert into project data
+            transitions_data = json.loads(t.Json())
             query_transition = Transition()
             query_transition.data = transitions_data
             query_transition.save()
 
             # Keep track of the ids
-            TestQueryClass.transition_ids.append(query_transition.id)
+            cls.transition_ids.append(query_transition.id)
+
+        # Don't keep the full query objects around
+        del clips
 
     @classmethod
     def tearDownClass(cls):
-        "Hook method for deconstructing the class fixture after running all tests in the class."
-        print ('Exiting Unittests: Quitting QApplication')
-        TestQueryClass.app.window.actionQuit.trigger()
+        """ Clean up after running all tests in the class. """
+        cls.app.quit()
 
     def test_add_clip(self):
-        """ Test the Clip.save method by adding multiple clips """
-
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
 
         # Find number of clips in project
         num_clips = len(Clip.filter())
 
         # Create clip
         c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png"))
-
-        # Parse JSON
         clip_data = json.loads(c.Json())
 
         # Insert into project data
@@ -133,17 +151,12 @@ class TestQueryClass(unittest.TestCase):
 
         # Save the clip again (which should not change the total # of clips)
         query_clip.save()
-
         self.assertEqual(len(Clip.filter()), num_clips + 1)
 
     def test_update_clip(self):
         """ Test the Clip.save method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find a clip named file1
-        update_id = TestQueryClass.clip_ids[0]
+        update_id = self.clip_ids[0]
         clip = Clip.get(id=update_id)
         self.assertTrue(clip)
 
@@ -153,23 +166,20 @@ class TestQueryClass(unittest.TestCase):
         clip.save()
 
         # Verify updated data
-        # Get clip again
         clip = Clip.get(id=update_id)
         self.assertEqual(clip.data["layer"], 2)
         self.assertEqual(clip.data["title"], "My Title")
 
+        clips = Clip.filter(layer=2)
+        self.assertEqual(len(clips), 1)
+
     def test_delete_clip(self):
         """ Test the Clip.delete method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find a clip named file1
-        delete_id = TestQueryClass.clip_ids[4]
+        delete_id = self.clip_ids[4]
         clip = Clip.get(id=delete_id)
         self.assertTrue(clip)
 
-        # Delete clip
         clip.delete()
 
         # Verify deleted data
@@ -178,19 +188,13 @@ class TestQueryClass(unittest.TestCase):
 
         # Delete clip again (should do nothing)
         clip.delete()
-
-        # Verify deleted data
         deleted_clip = Clip.get(id=delete_id)
         self.assertFalse(deleted_clip)
 
     def test_filter_clip(self):
         """ Test the Clip.filter method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find all clips named file1
-        clips = Clip.filter(id=TestQueryClass.clip_ids[0])
+        clips = Clip.filter(id=self.clip_ids[0])
         self.assertTrue(clips)
 
         # Do not find a clip
@@ -200,25 +204,58 @@ class TestQueryClass(unittest.TestCase):
     def test_get_clip(self):
         """ Test the Clip.get method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import Clip
-
-        # Find a clip named file1
-        clip = Clip.get(id=TestQueryClass.clip_ids[1])
+        clip = Clip.get(id=self.clip_ids[1])
         self.assertTrue(clip)
 
         # Do not find a clip
         clip = Clip.get(id="invalidID")
         self.assertEqual(clip, None)
 
+    def test_intersect(self):
+        """ Test special filter argument 'intersect' """
+
+        trans = Transition.get(id=self.transition_ids[0])
+        self.assertTrue(trans)
+
+        pos = trans.data.get("position", -1.0)
+        duration = trans.data.get("duration", -1.0)
+        self.assertTrue(pos >= 0.0)
+        self.assertTrue(duration >= 0.0)
+
+        time = pos + (duration / 2)
+
+        def get_times(item):
+            pos = item.data.get("position", -1.0)
+            end = pos + item.data.get("duration", -1.0)
+            return (pos, end)
+
+        t_intersect = Transition.filter(intersect=time)
+        t_ids = [t.id for t in t_intersect]
+        t_all = Transition.filter()
+        t_rest = [x for x in t_all if x.id not in t_ids]
+
+        c_intersect = Clip.filter(intersect=time)
+        c_ids = [c.id for c in c_intersect]
+        c_all = Clip.filter()
+        c_rest = [x for x in c_all if x.id not in c_ids]
+
+        for item in t_intersect + c_intersect:
+            item_id = item.id
+            pos, end = get_times(item)
+            self.assertTrue(pos <= time)
+            self.assertTrue(time <= end)
+        for item in t_rest + c_rest:
+            item_id = item.id
+            pos, end = get_times(item)
+            if pos < time:
+                self.assertTrue(end <= time)
+            if end > time:
+                self.assertTrue(pos >= time)
+
     def test_update_File(self):
         """ Test the File.save method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find a File named file1
-        update_id = TestQueryClass.file_ids[0]
+        update_id = self.file_ids[0]
         file = File.get(id=update_id)
         self.assertTrue(file)
 
@@ -228,7 +265,6 @@ class TestQueryClass(unittest.TestCase):
         file.save()
 
         # Verify updated data
-        # Get File again
         file = File.get(id=update_id)
         self.assertEqual(file.data["height"], 1080)
         self.assertEqual(file.data["width"], 1920)
@@ -236,36 +272,25 @@ class TestQueryClass(unittest.TestCase):
     def test_delete_File(self):
         """ Test the File.delete method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find a File named file1
-        delete_id = TestQueryClass.file_ids[4]
+        delete_id = self.file_ids[4]
         file = File.get(id=delete_id)
         self.assertTrue(file)
 
-        # Delete File
         file.delete()
 
         # Verify deleted data
         deleted_file = File.get(id=delete_id)
         self.assertFalse(deleted_file)
 
-        # Delete File again (should do nothing
+        # Delete File again (should do nothing)
         file.delete()
-
-        # Verify deleted data
         deleted_file = File.get(id=delete_id)
         self.assertFalse(deleted_file)
 
     def test_filter_File(self):
         """ Test the File.filter method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find all Files named file1
-        files = File.filter(id=TestQueryClass.file_ids[0])
+        files = File.filter(id=self.file_ids[0])
         self.assertTrue(files)
 
         # Do not find a File
@@ -275,11 +300,7 @@ class TestQueryClass(unittest.TestCase):
     def test_get_File(self):
         """ Test the File.get method """
 
-        # Import additional classes that need the app defined first
-        from classes.query import File
-
-        # Find a File named file1
-        file = File.get(id=TestQueryClass.file_ids[1])
+        file = File.get(id=self.file_ids[1])
         self.assertTrue(file)
 
         # Do not find a File
@@ -287,35 +308,42 @@ class TestQueryClass(unittest.TestCase):
         self.assertEqual(file, None)
 
     def test_add_file(self):
-        """ Test the File.save method by adding multiple files """
-
-        # Import additional classes that need the app defined first
-        from classes.query import File
 
         # Find number of files in project
         num_files = len(File.filter())
 
         # Create file
         r = openshot.DummyReader(openshot.Fraction(24, 1), 640, 480, 44100, 2, 30.0)
-
-        # Parse JSON
         file_data = json.loads(r.Json())
 
         # Insert into project data
         query_file = File()
         query_file.data = file_data
-        query_file.data["path"] = os.path.join(PATH, "images", "openshot.png")
+        query_file.data["path"] = os.path.join(info.IMAGES_PATH, "AboutLogo.png")
         query_file.data["media_type"] = "image"
-        query_file.save()
 
+        query_file.save()
         self.assertTrue(query_file)
         self.assertEqual(len(File.filter()), num_files + 1)
 
         # Save the file again (which should not change the total # of files)
         query_file.save()
-
         self.assertEqual(len(File.filter()), num_files + 1)
 
 
-if __name__ == '__main__':
+def main():
+    global app
+    info.LOG_LEVEL_CONSOLE = "ERROR"
+    try:
+        app = OpenShotApp(sys.argv, mode="unittest")
+    except Exception:
+        import logging
+        log = logging.getLogger(".")
+        log.error("Failed to instantiate OpenShotApp", exc_info=1)
+        sys.exit()
     unittest.main()
+    app.exec_()
+
+
+if __name__ == '__main__':
+    main()

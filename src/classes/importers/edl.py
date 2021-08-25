@@ -35,6 +35,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 from classes import info
 from classes.app import get_app
+from classes.logger import log
 from classes.image_types import is_image
 from classes.query import Clip, Track, File
 from classes.time_parts import timecodeToSeconds
@@ -95,8 +96,7 @@ def create_clip(context, track):
             # Save file
             file.save()
         except:
-            # Ignore errors for now
-            pass
+            log.warning('Error building File object for %s' % clip_path, exc_info=1)
 
     if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
         # Determine thumb path

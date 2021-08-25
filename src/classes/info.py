@@ -26,18 +26,17 @@
  """
 
 import os
+from time import strftime
 
-from PyQt5.QtCore import QDir
-
-VERSION = "2.5.1"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.5"
-DATE = "20200228000000"
+VERSION = "2.6.0"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.6"
+DATE = "20210819000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit stunning videos, movies, and animations"
 COMPANY_NAME = "OpenShot Studios, LLC"
-COPYRIGHT = "Copyright (c) 2008-2018 %s" % COMPANY_NAME
+COPYRIGHT = "Copyright (c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
@@ -55,22 +54,26 @@ RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
 CACHE_PATH = os.path.join(USER_PATH, "cache")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
-ASSETS_PATH = os.path.join(USER_PATH, "assets")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
+EMOJIS_PATH = os.path.join(USER_PATH, "emojis")
 PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
-
+USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
+PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
+YOLO_PATH = os.path.join(USER_PATH, "yolo")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
 
 # Create user paths if they do not exist
 # (this is where temp files are stored... such as cached thumbnails)
-for folder in [USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
-               BLENDER_PATH, ASSETS_PATH, TITLE_PATH, TRANSITIONS_PATH,
-               PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH]:
+for folder in [
+    USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
+    BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
+    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH,
+    PROTOBUF_DATA_PATH, YOLO_PATH ]:
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
@@ -79,13 +82,37 @@ JT = {"name": "Jonathan Thomas",
       "email": "jonathan@openshot.org",
       "website": "http://openshot.org/developers/jonathan"}
 
+# Desktop launcher ID, for Linux
+DESKTOP_ID = "org.openshot.OpenShot.desktop"
+
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "2.80"
+
+# Data-model debugging enabler
+MODEL_TEST = False
+
+# Default/initial logging levels
+LOG_LEVEL_FILE = 'INFO'
+LOG_LEVEL_CONSOLE = 'INFO'
+
+# Web backend selection, overridable at launch
+WEB_BACKEND = 'auto'
 
 # Languages
 CMDLINE_LANGUAGE = None
 CURRENT_LANGUAGE = 'en_US'
 SUPPORTED_LANGUAGES = ['en_US']
+
+# Sentry.io error reporting rate (0.0 TO 1.0)
+# 0.0 = no error reporting to Sentry
+# 0.5 = 1/2 of errors reported to Sentry
+# 1.0 = all errors reporting to Sentry
+#    STABLE: If this version matches the current version (reported on openshot.org)
+#    UNSTABLE: If this version does not match the current version (reported on openshot.org)
+#    STABLE_VERSION: This is the current stable release reported by openshot.org
+ERROR_REPORT_RATE_STABLE = 0.0
+ERROR_REPORT_RATE_UNSTABLE = 0.0
+ERROR_REPORT_STABLE_VERSION = None
 
 try:
     from language import openshot_lang
@@ -96,11 +123,20 @@ except ImportError:
     print("Loading translations from: {}".format(language_path))
 
 # Compile language list from :/locale resource
-langdir = QDir(language_path)
-langs = langdir.entryList(['OpenShot.*.qm'], QDir.NoDotAndDotDot | QDir.Files,
-                          sort=QDir.Name)
-for trpath in langs:
-    SUPPORTED_LANGUAGES.append(trpath.split('.')[1])
+try:
+    from PyQt5.QtCore import QDir
+    langdir = QDir(language_path)
+    trpaths = langdir.entryList(
+        ['OpenShot_*.qm'],
+        QDir.NoDotAndDotDot | QDir.Files,
+        sort=QDir.Name)
+    for trpath in trpaths:
+        # Extract everything between "Openshot_" and ".qm"
+        lang=trpath[trpath.find('_')+1:-3]
+        SUPPORTED_LANGUAGES.append(lang)
+except ImportError:
+    # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
+    pass
 
 SETUP = {
     "name": NAME,
@@ -151,11 +187,8 @@ SETUP = {
 
 def website_language():
     """Get the current website language code for URLs"""
-    if CURRENT_LANGUAGE == "zh_CN":
-        return "zh-hans/"
-    elif CURRENT_LANGUAGE == "zh_TW":
-        return "zh-hant/"
-    elif CURRENT_LANGUAGE == "en_US":
-        return ""
-    else:
-        return "%s/" % CURRENT_LANGUAGE.split("_")[0].lower()
+    return {
+        "zh_CN": "zh-hans/",
+        "zh_TW": "zh-hant/",
+        "en_US": ""}.get(CURRENT_LANGUAGE,
+                         "%s/" % CURRENT_LANGUAGE.split("_")[0].lower())

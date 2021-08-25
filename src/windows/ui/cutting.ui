@@ -14,7 +14,7 @@
    <string>Split Clip</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../images/openshot.qrc">
+   <iconset resource="../../../images/openshot.qrc">
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="autoFillBackground">

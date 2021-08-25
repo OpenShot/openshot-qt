@@ -34,7 +34,7 @@ Table of Contents:
    :maxdepth: 2
 
    introduction
-   getting_started
+   installation
    quick_tutorial
    main_window
    files

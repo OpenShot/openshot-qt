@@ -28,8 +28,8 @@
 import os
 import fnmatch
 
-from PyQt5.QtCore import QMimeData, Qt, QSize
-from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt, QObject, QMimeData
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -41,18 +41,19 @@ import json
 
 
 class TitleStandardItemModel(QStandardItemModel):
-    def __init__(self, parent=None):
-        QStandardItemModel.__init__(self)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setObjectName("titles.model")
 
     def mimeData(self, indexes):
         # Create MimeData for drag operation
         data = QMimeData()
 
         # Get list of all selected file ids
-        files = []
-        for item in indexes:
-            selected_row = self.itemFromIndex(item).row()
-            files.append(self.item(selected_row, 2).text())
+        files = [
+            self.itemFromIndex(i).data(TitleRoles.PathRole)
+            for i in indexes
+        ]
         data.setText(json.dumps(files))
         data.setHtml("title")
 
@@ -60,14 +61,15 @@ class TitleStandardItemModel(QStandardItemModel):
         return data
 
 
-class TitlesModel():
-    def update_model(self, clear=True):
-        log.info("updating title model.")
-        app = get_app()
+class TitleRoles:
+    PathRole = Qt.UserRole + 11
 
+
+class TitlesModel(QObject):
+    def update_model(self, clear=True):
+        log.debug("Updating title model")
         # Get window to check filters
-        win = app.window
-        _ = app._tr
+        _ = self.app._tr
 
         # Clear all items
         if clear:
@@ -75,28 +77,29 @@ class TitlesModel():
             self.model.clear()
 
         # Add Headers
-        self.model.setHorizontalHeaderLabels([_("Thumb"), _("Name")])
+        self.model.setHorizontalHeaderLabels([_("Name")])
 
-        # get a list of files in the OpenShot /transitions directory
+        # get a list of files in the OpenShot package directory
         titles_dir = os.path.join(info.PATH, "titles")
-
-        # Add build-in templates
-        titles_list = []
-        for filename in sorted(os.listdir(titles_dir)):
-            titles_list.append(os.path.join(titles_dir, filename))
-
+        titles_list = [
+            os.path.join(titles_dir, filename)
+            for filename in sorted(os.listdir(titles_dir))
+            ]
         # Add user-defined titles (if any)
-        for file in sorted(os.listdir(info.TITLE_PATH)):
-            # pretty up the filename for display purposes
-            if fnmatch.fnmatch(file, '*.svg'):
-                titles_list.append(os.path.join(info.TITLE_PATH, file))
+        titles_list.extend([
+            os.path.join(info.USER_TITLES_PATH, filename)
+            for filename in sorted(os.listdir(info.USER_TITLES_PATH))
+            if fnmatch.fnmatch(filename, '*.svg')
+            ])
 
         for path in sorted(titles_list):
             filename = os.path.basename(path)
             fileBaseName = os.path.splitext(filename)[0]
 
             # Skip hidden files (such as .DS_Store, etc...)
-            if filename[0] == "." or "thumbs.db" in filename.lower() or filename.lower() == "temp.svg":
+            if (filename[0] == "."
+               or "thumbs.db" in filename.lower()
+               or filename.lower() == "temp.svg"):
                 continue
 
             # split the name into parts (looking for a number)
@@ -117,75 +120,62 @@ class TitlesModel():
 
             # Check for thumbnail path (in build-in cache)
             thumb_path = os.path.join(info.IMAGES_PATH, "cache", "{}.png".format(fileBaseName))
-
-            # Check built-in cache (if not found)
             if not os.path.exists(thumb_path):
-                # Check user folder cache
+                # Check user folder cache (if not found)
                 thumb_path = os.path.join(info.CACHE_PATH, "{}.png".format(fileBaseName))
-
-            # Generate thumbnail (if needed)
             if not os.path.exists(thumb_path):
-
+                # Generate thumbnail (if needed)
                 try:
                     # Reload this reader
                     clip = openshot.Clip(path)
                     reader = clip.Reader()
-
-                    # Open reader
                     reader.Open()
 
-                    # Save thumbnail
-                    reader.GetFrame(0).Thumbnail(thumb_path, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"),
-                                                 "", "#000", True, "png", 85)
+                    # Save thumbnail to disk
+                    reader.GetFrame(0).Thumbnail(
+                        thumb_path, 98, 64,
+                        os.path.join(info.IMAGES_PATH, "mask.png"),
+                        "", "#000", True, "png", 85
+                    )
                     reader.Close()
                     clip.Close()
-
-                except:
-                    # Handle exception
-                    log.info('Invalid title image file: %s' % filename)
+                except Exception as ex:
+                    log.info('Failed to open {} as title: {}'.format(filename, ex))
                     msg = QMessageBox()
-                    msg.setText(_("{} is not a valid image file.".format(filename)))
+                    msg.setText(_("%s is not a valid image file." % filename))
                     msg.exec_()
                     continue
-
-            row = []
-
-            # Append thumbnail
-            col = QStandardItem()
-            icon_pixmap = QPixmap(thumb_path)
-            scaled_pixmap = icon_pixmap.scaled(QSize(93, 62), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-            col.setIcon(QIcon(scaled_pixmap))
-            col.setText(title_name)
-            col.setToolTip(title_name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
-
-            # Append Filename
-            col = QStandardItem("Name")
-            col.setData(title_name, Qt.DisplayRole)
-            col.setText(title_name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
-
-            # Append Path
-            col = QStandardItem("Path")
-            col.setData(path, Qt.DisplayRole)
-            col.setText(path)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
-
-            # Append ROW to MODEL (if does not already exist in model)
+            # Create item entry for model
+            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled
+            item = QStandardItem(QIcon(thumb_path), title_name)
+            item.setData(path, TitleRoles.PathRole)
+            item.setToolTip(title_name)
+            item.setFlags(flags)
+            # Append to MODEL (if does not already exist)
             if path not in self.model_paths:
-                self.model.appendRow(row)
+                self.model.appendRow([item])
                 self.model_paths[path] = path
 
             # Process events in QT (to keep the interface responsive)
-            app.processEvents()
+            self.app.processEvents()
 
-    def __init__(self, *args):
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setObjectName("TitlesModel")
         # Create standard model
         self.app = get_app()
-        self.model = TitleStandardItemModel()
-        self.model.setColumnCount(3)
+        self.model = TitleStandardItemModel(self.parent())
+        self.model.setColumnCount(1)
         self.model_paths = {}
+
+        # Attempt to load model testing interface, if requested
+        # (will only succeed with Qt 5.11+)
+        if info.MODEL_TEST:
+            try:
+                # Create model tester objects
+                from PyQt5.QtTest import QAbstractItemModelTester
+                QAbstractItemModelTester(
+                    self.model, QAbstractItemModelTester.FailureReportingMode.Warning)
+                log.info("Enabled model tests for title editor data")
+            except ImportError:
+                pass

@@ -26,24 +26,36 @@
  """
 
 from threading import Thread
-from classes import settings, info
+from classes import info
 from classes.logger import log
+from classes.app import get_app
 import openshot
 import os
 import zmq
 
 
 class LoggerLibOpenShot(Thread):
+    def __init__(self):
+        super().__init__()
+        self.daemon = True
+        self.running = False
+        self.context = None
+        self.socket = None
+
 
     def kill(self):
         self.running = False
+        if self.context:
+            self.context.destroy()
+        if self.socket:
+            self.socket.close()
 
     def run(self):
         # Running
         self.running = True
 
         # Get settings
-        s = settings.get_settings()
+        s = get_app().get_settings()
 
         # Get port from settings
         port = s.get("debug-port")
@@ -59,25 +71,25 @@ class LoggerLibOpenShot(Thread):
         openshot.ZmqLogger.Instance().Enable(debug_enabled)
 
         # Socket to talk to server
-        context = zmq.Context()
-        socket = context.socket(zmq.SUB)
-        socket.setsockopt_string(zmq.SUBSCRIBE, '')
+        self.context = zmq.Context()
+        self.socket = self.context.socket(zmq.SUB)
+        self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
 
         poller = zmq.Poller()
-        poller.register(socket, zmq.POLLIN)
+        poller.register(self.socket, zmq.POLLIN)
 
         log.info("Connecting to libopenshot with debug port: %s" % port)
-        socket.connect ("tcp://localhost:%s" % port)
+        self.socket.connect("tcp://localhost:%s" % port)
 
         while self.running:
             msg = None
 
             # Receive all debug message sent from libopenshot (if any)
-            socks = dict(poller.poll(1000))
-            if socks:
-                if socks.get(socket) == zmq.POLLIN:
-                    msg = socket.recv(zmq.NOBLOCK)
-
-            # Log the message (if any)
-            if msg:
-                log.info(msg.strip().decode('UTF-8'))
+            try:
+                socks = dict(poller.poll(1000))
+                if socks and socks.get(self.socket) == zmq.POLLIN:
+                    msg = self.socket.recv(zmq.NOBLOCK)
+                if msg:
+                    log.info(msg.strip().decode('UTF-8'))
+            except Exception as ex:
+                log.warning(ex)

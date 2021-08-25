@@ -37,7 +37,13 @@ from classes.logger import log
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 
-REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)(?P<only_path>/path/)?")
+# Regex for parsing URLs: (examples)
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/path/no-cache/
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/path/
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/path
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/
+#  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1
+REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)/*(?P<only_path>path)?/*(?P<no_cache>no-cache)?")
 
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
@@ -54,9 +60,12 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
     rotate = 0.0
     try:
         if reader.info.metadata.count("rotate"):
-            rotate = float(reader.info.metadata.find("rotate").value()[1])
+            rotate_data = reader.info.metadata.find("rotate").value()[1]
+            rotate = float(rotate_data)
+    except ValueError as ex:
+        log.warning("Could not parse rotation value {}: {}".format(rotate_data, ex))
     except Exception:
-        pass
+        log.warning("Error reading rotation metadata from {}".format(file_path), exc_info=1)
 
     # Create thumbnail folder (if needed)
     parent_path = os.path.dirname(thumb_path)
@@ -97,10 +106,15 @@ class httpThumbnailServerThread(Thread):
         # Start listening for HTTP requests (and check for shutdown every 0.5 seconds)
         self.server_address = ('127.0.0.1', self.find_free_port())
         self.thumbServer = httpThumbnailServer(self.server_address, httpThumbnailHandler)
+        self.thumbServer.daemon_threads = True
+        log.info(
+            "Starting thumbnail server listening on port %d",
+            self.server_address[1])
         self.thumbServer.serve_forever(0.5)
 
     def __init__(self):
         Thread.__init__(self)
+        self.daemon = True
         self.server_address = None
 
 
@@ -116,18 +130,17 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         log.error(msg_format % args)
 
     def do_GET(self):
-        # Pause processing of request (since we don't currently use thread pooling, this allows
-        # the threads to be processed without choking the CPU as much
-        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
-        time.sleep(0.01)
-
         """ Process each GET request and return a value (image or file path)"""
+        mask_path = os.path.join(info.IMAGES_PATH, "mask.png")
+
         # Parse URL
         url_output = REGEX_THUMBNAIL_URL.match(self.path)
-        if url_output and len(url_output.groups()) == 3:
+        if url_output and len(url_output.groups()) == 4:
             # Path is expected to have 3 matched components (third is optional though)
             #   /thumbnails/FILE-ID/FRAME-NUMBER/   or
-            #   /thumbnails/FILE-ID/FRAME-NUMBER/path/
+            #   /thumbnails/FILE-ID/FRAME-NUMBER/path/  or
+            #   /thumbnails/FILE-ID/FRAME-NUMBER/no-cache/  or
+            #   /thumbnails/FILE-ID/FRAME-NUMBER/path/no-cache/
             self.send_response_only(200)
         else:
             self.send_error(404)
@@ -137,6 +150,11 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         file_id = url_output.group('file_id')
         file_frame = int(url_output.group('file_frame'))
         only_path = url_output.group('only_path')
+        no_cache = url_output.group('no_cache')
+
+        log.debug(
+            "Processing thumbnail request for %s frame %d",
+            file_id, file_frame)
 
         try:
             # Look up file data
@@ -146,6 +164,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             file_path = file.absolute_path()
         except AttributeError:
             # Couldn't match file ID
+            log.debug("No ID match, returning 404")
             self.send_error(404)
             return
 
@@ -165,7 +184,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
             # Try with ID and frame # in filename (for backwards compatibility)
             thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s-%s.png" % (file_id, file_frame))
 
-        if not os.path.exists(thumb_path):
+        if not os.path.exists(thumb_path) or no_cache:
             # Generate thumbnail (since we can't find it)
 
             # Determine if video overlay should be applied to thumbnail
@@ -174,7 +193,13 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 overlay_path = os.path.join(info.IMAGES_PATH, "overlay.png")
 
             # Create thumbnail image
-            GenerateThumbnail(file_path, thumb_path, file_frame, 98, 64, os.path.join(info.IMAGES_PATH, "mask.png"), overlay_path)
+            GenerateThumbnail(
+                file_path,
+                thumb_path,
+                file_frame,
+                98, 64,
+                mask_path,
+                overlay_path)
 
         # Send message back to client
         if os.path.exists(thumb_path):
@@ -182,4 +207,9 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
                 self.wfile.write(open(thumb_path, 'rb').read())
             else:
                 self.wfile.write(bytes(thumb_path, "utf-8"))
-        return
+
+        # Pause processing of request (since we don't currently use thread pooling, this allows
+        # the threads to be processed without choking the CPU as much
+        # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
+        time.sleep(0.01)
+

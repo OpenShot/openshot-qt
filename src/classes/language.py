@@ -1,27 +1,27 @@
-""" 
+"""
  @file
  @brief This file loads the current language based on the computer's locale settings
  @author Noah Figg <eggmunkee@hotmail.com>
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
@@ -33,16 +33,15 @@ from PyQt5.QtCore import QLocale, QLibraryInfo, QTranslator, QCoreApplication
 
 from classes.logger import log
 from classes import info
-from classes import settings
-
 
 try:
-    from language import openshot_lang
-    language_path=":/locale/"
+    from language import openshot_lang  # noqa
+    language_path = ":/locale/"
     log.debug("Using compiled translation resources")
 except ImportError:
-    language_path=os.path.join(info.PATH, 'language')
+    language_path = os.path.join(info.PATH, 'language')
     log.debug("Loading translations from: {}".format(language_path))
+
 
 def init_language():
     """ Find the current locale, and install the correct translators """
@@ -65,7 +64,7 @@ def init_language():
          "prefix": 'qtbase_',
          "path": os.path.join(info.PATH, 'language')}, # Optional path where we package QT translations
         {"type": 'OpenShot',
-         "prefix": 'OpenShot.',  # Our custom translations
+         "prefix": 'OpenShot_',  # Our custom translations
          "path": language_path},
     )
 
@@ -75,7 +74,11 @@ def init_language():
                     ]
 
     # Get the user's configured language preference
-    preference_lang = settings.get_settings().get('default-language')
+    settings = app.get_settings()
+    if settings:
+        preference_lang = settings.get('default-language')
+    else:
+        preference_lang = "Default"
 
     # Output all languages detected from various sources
     log.info("Qt Detected Languages: {}".format(QLocale().system().uiLanguages()))
@@ -123,7 +126,7 @@ def init_language():
 #  returns True when a match was found.
 #  pattern - a string expected to have one pipe to be filled by locale strings
 #  path - base path for file (pattern may contain more path)
-#  
+#
 def find_language_match(prefix, path, translator, locale_name):
     """ Match all combinations of locale, language, and country """
 
@@ -133,6 +136,7 @@ def find_language_match(prefix, path, translator, locale_name):
     if success:
         log.debug('Successfully loaded {} in \'{}\''.format(filename, path))
     return success
+
 
 def get_all_languages():
     """Get all language names and countries packaged with OpenShot"""
@@ -144,13 +148,12 @@ def get_all_languages():
             native_lang_name = QLocale(locale_name).nativeLanguageName().title()
             country_name = QLocale(locale_name).nativeCountryName().title()
             all_languages.append((locale_name, native_lang_name, country_name))
-        except:
-            # Ignore failed parsing of language
-            pass
+        except Exception:
+            log.debug('Failed to parse language for %s', locale_name)
 
     # Return list
     return all_languages
 
+
 def get_current_locale():
     return info.CURRENT_LANGUAGE
-

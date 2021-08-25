@@ -43,6 +43,15 @@ try:
 except ImportError:
     pass
 
+import sys
+sys.path.insert(0, '.')
+try:
+    # Load our YouTube directive
+    import youtube_directive
+    extensions.append('youtube_directive')
+except ImportError:
+    pass
+
 # External links mappings for extlinks
 # see: http://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
 extlinks = {
@@ -166,7 +175,7 @@ html_theme_path = ["_themes", ]
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #
-html_logo = "../src/images/openshot-arrow.png"
+html_logo = "../xdg/openshot-arrow.png"
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32

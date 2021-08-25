@@ -29,17 +29,24 @@
 import os
 import operator
 import functools
+import platform
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt, QSize, QDir
+from PyQt5.QtWidgets import (
+    QWidget, QDialog, QMessageBox, QFileDialog,
+    QVBoxLayout, QHBoxLayout, QSizePolicy,
+    QScrollArea, QLabel, QLineEdit, QPushButton,
+    QDoubleSpinBox, QComboBox, QCheckBox, QSpinBox,
+)
 from PyQt5.QtGui import QKeySequence, QIcon
-from PyQt5 import uic
 
-from classes import info, ui_util, settings, qt_types, updates
+from classes import info, ui_util
+from classes import openshot_rc  # noqa
 from classes.app import get_app
 from classes.language import get_all_languages
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
+
 import openshot
 
 
@@ -61,10 +68,10 @@ class Preferences(QDialog):
         ui_util.init_ui(self)
 
         # Get settings
-        self.s = settings.get_settings()
+        self.s = get_app().get_settings()
 
         # Dynamically load tabs from settings data
-        self.settings_data = settings.get_settings().get_all_settings()
+        self.settings_data = self.s.get_all_settings()
 
         # Track metrics
         track_metric_screen("preferences-screen")
@@ -85,7 +92,7 @@ class Preferences(QDialog):
         self.visible_category_names = {}
 
         # Tested hardware modes (default cpu mode with graphics card 0)
-        self.hardware_tests_cards = {0: [0,]}
+        self.hardware_tests_cards = {0: [0, ]}
 
         # Populate preferences
         self.Populate()
@@ -140,9 +147,9 @@ class Preferences(QDialog):
             if sort_category:
                 self.category_sort[category] = sort_category
 
-            if not setting_type == "hidden":
+            if setting_type != "hidden":
                 # Load setting
-                if not category in self.category_names:
+                if category not in self.category_names:
                     self.category_names[category] = []
 
                     # Create scrollarea
@@ -217,7 +224,7 @@ class Preferences(QDialog):
                     widget.setMinimum(int(param["min"]))
                     widget.setMaximum(int(param["max"]))
                     widget.setValue(int(param["value"]))
-                    widget.setSingleStep(1.0)
+                    widget.setSingleStep(1)
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
@@ -235,7 +242,7 @@ class Preferences(QDialog):
                 elif param["type"] == "bool":
                     # create spinner
                     widget = QCheckBox()
-                    if param["value"] == True:
+                    if param["value"] is True:
                         widget.setCheckState(Qt.Checked)
                     else:
                         widget.setCheckState(Qt.Unchecked)
@@ -257,7 +264,10 @@ class Preferences(QDialog):
                                 # Load Profile and append description
                                 profile_path = os.path.join(profile_folder, file)
                                 profile = openshot.Profile(profile_path)
-                                value_list.append({"name":profile.info.description, "value":profile.info.description})
+                                value_list.append({
+                                    "name": profile.info.description,
+                                    "value": profile.info.description
+                                    })
                         # Sort profile list
                         value_list.sort(key=operator.itemgetter("name"))
 
@@ -267,7 +277,11 @@ class Preferences(QDialog):
                         # Loop through audio devices
                         value_list.append({"name": "Default", "value": ""})
                         for audio_device in get_app().window.preview_thread.player.GetAudioDeviceNames():
-                            value_list.append({"name":"%s: %s" % (audio_device.type, audio_device.name), "value":audio_device.name})
+                            value_list.append({
+                                "name": "%s: %s" % (
+                                    audio_device.type, audio_device.name),
+                                "value": audio_device.name,
+                                })
 
                     # Overwrite value list (for language dropdown)
                     if param["setting"] == "default-language":
@@ -277,11 +291,17 @@ class Preferences(QDialog):
                             # Load Profile and append description
                             if language:
                                 lang_name = "%s (%s)" % (language, locale)
-                                value_list.append({"name":lang_name, "value":locale})
+                                value_list.append({
+                                    "name": lang_name,
+                                    "value": locale
+                                    })
                         # Sort profile list
                         value_list.sort(key=operator.itemgetter("name"))
                         # Add Default to top of list
-                        value_list.insert(0, {"name":_("Default"), "value":"Default"})
+                        value_list.insert(0, {
+                            "name": _("Default"),
+                            "value": "Default"
+                            })
 
                     # Overwrite value list (for hardware acceleration modes)
                     os_platform = platform.system()
@@ -289,23 +309,25 @@ class Preferences(QDialog):
                         for value_item in list(value_list):
                             v = value_item["value"]
                             # Remove items that are operating system specific
-                            if os_platform == "Darwin" and v not in ("0", "5", "7", "2"):
+                            if os_platform == "Darwin" and v not in ("0", "5", "2"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Windows" and v not in ("0", "3", "4", "7"):
+                            elif os_platform == "Windows" and v not in ("0", "3", "4"):
                                 value_list.remove(value_item)
-                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6", "7"):
+                            elif os_platform == "Linux" and v not in ("0", "1", "2", "6"):
                                 value_list.remove(value_item)
 
                         # Remove hardware mode items which cannot decode the example video
+                        log.debug("Preparing to test hardware decoding: %s" % (value_list))
                         for value_item in list(value_list):
                             v = value_item["value"]
-                            if not self.testHardwareDecode(v, 0) and \
-                                not self.testHardwareDecode(v, 1):
+                            if (not self.testHardwareDecode(value_list, v, 0)
+                               and not self.testHardwareDecode(value_list, v, 1)):
                                 value_list.remove(value_item)
+                        log.debug("Completed hardware decoding testing")
 
                     # Replace %s dropdown values for hardware acceleration
                     if param["setting"] in ("graca_number_en", "graca_number_de"):
-                        for card_index in range(0,3):
+                        for card_index in range(0, 3):
                             # Test each graphics card, and only include valid ones
                             if card_index in self.hardware_tests_cards and self.hardware_tests_cards.get(card_index):
                                 # Loop through valid modes supported by this card
@@ -313,10 +335,18 @@ class Preferences(QDialog):
                                     # Add supported graphics card for each mode (duplicates are okay)
                                     if mode == 0:
                                         # cpu only
-                                        value_list.append( { "value": card_index, "name": _("No acceleration"), "icon": mode })
+                                        value_list.append({
+                                            "value": card_index,
+                                            "name": _("No acceleration"),
+                                            "icon": mode
+                                            })
                                     else:
                                         # hardware accelerated
-                                        value_list.append( { "value": card_index, "name": _("Graphics Card %s") % (card_index + 1), "icon": mode })
+                                        value_list.append({
+                                            "value": card_index,
+                                            "name": _("Graphics Card %s") % (card_index + 1),
+                                            "icon": mode
+                                            })
 
                         if os_platform in ["Darwin", "Windows"]:
                             # Disable graphics card selection for Mac and Windows (since libopenshot
@@ -365,11 +395,10 @@ class Preferences(QDialog):
 
                     widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
 
-
                 # Add Label and Widget to the form
                 if (widget and label and filterFound):
                     # Add minimum size
-                    label.setMinimumWidth(180);
+                    label.setMinimumWidth(180)
                     label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
                     widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
 
@@ -408,7 +437,10 @@ class Preferences(QDialog):
             if prev_val and os.path.exists(prev_val):
                 startpath = prev_val
 
-        fileName = QFileDialog.getOpenFileName(self, _("Select executable file"), startpath, _("All Files (*)"))[0]
+        fileName = QFileDialog.getOpenFileName(
+            self,
+            _("Select executable file"),
+            startpath)[0]
         if fileName:
             if platform.system() == "Darwin":
                 # Check for Mac specific app-bundle executable file (if any)
@@ -453,14 +485,6 @@ class Preferences(QDialog):
                 # Stop autosave timer
                 get_app().window.auto_save_timer.stop()
 
-        elif param["setting"] == "omp_threads_enabled":
-            if (state == Qt.Checked):
-                # Enable OMP multi-threading
-                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = False
-            else:
-                # Disable OMP multi-threading
-                openshot.Settings.Instance().WAIT_FOR_VIDEO_PROCESSING_TASK = True
-
         # Check for restart
         self.check_for_restart(param)
 
@@ -471,10 +495,10 @@ class Preferences(QDialog):
 
         if param["setting"] == "autosave-interval":
             # Update autosave interval (# of minutes)
-            get_app().window.auto_save_timer.setInterval(value * 1000 * 60)
+            get_app().window.auto_save_timer.setInterval(int(value * 1000 * 60))
 
         elif param["setting"] == "omp_threads_number":
-            openshot.Settings.Instance().OMP_THREADS = max(2,int(str(value)))
+            openshot.Settings.Instance().OMP_THREADS = max(2, int(str(value)))
 
         elif param["setting"] == "ff_threads_number":
             openshot.Settings.Instance().FF_THREADS = int(str(value))
@@ -497,8 +521,8 @@ class Preferences(QDialog):
             # Attempt to load value from QTextEdit (i.e. multi-line)
             if not value:
                 value = widget.toPlainText()
-        except:
-            pass
+        except Exception:
+            log.debug('Failed to get plain text from widget')
 
         # If this setting is a keyboard mapping, parse it first
         if param.get("category") == "Keyboard":
@@ -536,10 +560,11 @@ class Preferences(QDialog):
         # Check for restart
         self.check_for_restart(param)
 
-    def testHardwareDecode(self, decoder, decoder_card="0"):
+    def testHardwareDecode(self, all_decoders, decoder, decoder_card="0"):
         """Test specific settings for hardware decode, so the UI can remove unsupported options."""
         is_supported = False
         example_media = os.path.join(info.RESOURCES_PATH, "hardware-example.mp4")
+        decoder_name = next(item for item in all_decoders if item["value"] == str(decoder)).get("name", "Unknown")
 
         # Persist decoder card results
         if decoder_card not in self.hardware_tests_cards:
@@ -552,9 +577,19 @@ class Preferences(QDialog):
         # Keep track of previous settings
         current_decoder = openshot.Settings.Instance().HARDWARE_DECODER
         current_decoder_card = openshot.Settings.Instance().HW_DE_DEVICE_SET
+        current_decoder_name = next(
+            item for item in all_decoders
+            if item["value"] == str(current_decoder)
+            ).get("name", "Unknown")
+        log.debug(
+            "Current hardware decoder: %s (%s-%s)",
+            current_decoder_name, current_decoder, current_decoder_card)
 
         try:
             # Temp override hardware settings (to test them)
+            log.debug(
+                "Testing hardware decoder: %s (%s-%s)",
+                decoder_name, decoder, decoder_card)
             openshot.Settings.Instance().HARDWARE_DECODER = int(decoder)
             openshot.Settings.Instance().HW_DE_DEVICE_SET = int(decoder_card)
 
@@ -569,14 +604,19 @@ class Preferences(QDialog):
             if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255, 5):
                 is_supported = True
                 self.hardware_tests_cards[decoder_card].append(int(decoder))
+                log.debug("Successful hardware decoder! %s (%s-%s)" % (decoder_name, decoder, decoder_card))
             else:
-                log.warning("CheckPixel failed testing hardware decoding in preferences (i.e. wrong color found): %s-%s" % (decoder, decoder_card))
+                log.debug(
+                    "CheckPixel failed testing hardware decoding (i.e. wrong color found): %s (%s-%s)",
+                    (decoder_name, decoder, decoder_card))
 
             reader.Close()
             clip.Close()
 
-        except:
-            log.warning("Exception trying to test hardware decoding in preferences (this is expected): %s-%s" % (decoder, decoder_card))
+        except Exception:
+            log.debug(
+                "Exception trying to test hardware decoding (this is expected): %s (%s-%s)",
+                (decoder_name, decoder, decoder_card))
 
         # Resume current settings
         openshot.Settings.Instance().HARDWARE_DECODER = current_decoder

@@ -7,6 +7,9 @@
 #ifndef ONLY_64_BIT
   #define ONLY_64_BIT "x64"
 #endif
+#ifndef PY_EXE_DIR
+  #define PY_EXE_DIR "exe.mingw-3.8"
+#endif
 
 
 #define MyAppName "OpenShot Video Editor"
@@ -112,7 +115,7 @@ Name: "slovak"; MessagesFile: "compiler:Languages\Slovak.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; GroupDescription: "{cm:AdditionalIcons}";
-Name: "firewall"; Description: "Add an exception to the Windows Firewall"; GroupDescription: "{cm:AdditionalIcons}";
+Name: "firewall"; Description: "Add an exception to the Windows Firewall for optionally sending anonymized usage and error information."; GroupDescription: "{cm:AdditionalIcons}";
 
 [InstallDelete]
 ; Remove previous installed versions of OpenShot
@@ -138,7 +141,7 @@ Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; Value
 
 [Files]
 ; Add all frozen files from cx_Freeze build
-Source: "..\build\exe.mingw-3.7\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "..\build\{#PY_EXE_DIR}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

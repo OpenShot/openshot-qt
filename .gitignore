@@ -7,3 +7,6 @@ doc/_build
 build
 dist
 openshot_qt.egg-info
+
+protobuf_data/
+openshot_qt/

@@ -30,11 +30,12 @@ import threading
 from classes.app import get_app
 from classes import info
 from classes.logger import log
-import json
+
 
 def get_current_Version():
     """Get the current version """
     t = threading.Thread(target=get_version_from_http)
+    t.daemon = True
     t.start()
 
 def get_version_from_http():
@@ -45,10 +46,13 @@ def get_version_from_http():
     # Send metric HTTP data
     try:
         r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION}, verify=False)
-        log.info("Found current version: %s" % r.text)
+        log.info("Found current version: %s" % r.json())
 
         # Parse version
-        openshot_version = r.json()["openshot_version"]
+        openshot_version = r.json().get("openshot_version")
+        info.ERROR_REPORT_STABLE_VERSION = r.json().get("openshot_version")
+        info.ERROR_REPORT_RATE_STABLE = r.json().get("error_rate_stable")
+        info.ERROR_REPORT_RATE_UNSTABLE = r.json().get("error_rate_unstable")
 
         # Emit signal for the UI
         get_app().window.FoundVersionSignal.emit(openshot_version)

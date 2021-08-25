@@ -1,0 +1,23 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#FCEA2B" d="m36 13c-12.68 0-23 10.32-23 23 0 12.68 10.32 23 23 23 12.68 0 23-10.32 23-23 0-12.68-10.32-23-23-23z"/>
+    <path fill="#fff" d="m31.76 31.17c0 2.464-2 4.463-4.463 4.463s-4.463-1.998-4.463-4.463c0-2.462 2-4.463 4.463-4.463s4.463 2 4.463 4.463z"/>
+    <path fill="#fff" d="m50.84 32.72c0 3.364-2.73 6.091-6.091 6.091s-6.091-2.727-6.091-6.091c0-3.361 2.73-6.091 6.091-6.091s6.091 2.73 6.091 6.091z"/>
+    <path fill="#fff" d="m42.86 46.04c-0.339 0.2917-4.957 7.343-9.91 6.064-4.463-1.152-5.49-8.887-5.736-9.413 5.215 1.116 10.43 2.233 15.65 3.349z"/>
+    <path fill="#ea5a47" d="m41.71 46.13c-1.293 5.936-4.618 10.25-7.426 9.64s-4.037-5.92-2.744-11.86z"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    <circle cx="36" cy="36" r="23" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="m31.96 31.29c0 2.464-2 4.463-4.463 4.463s-4.463-1.998-4.463-4.463c0-2.462 2-4.463 4.463-4.463s4.463 2 4.463 4.463"/>
+    <path d="m28.52 32.3c0 1.104-0.8965 2-2 2s-2-0.8955-2-2c0-1.104 0.8965-2 2-2s2 0.8965 2 2"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="m51.04 32.83c0 3.364-2.73 6.091-6.091 6.091s-6.091-2.727-6.091-6.091c0-3.361 2.73-6.091 6.091-6.091s6.091 2.73 6.091 6.091"/>
+    <path d="m49.04 32.1c0 1.508-1.224 2.73-2.73 2.73s-2.73-1.222-2.73-2.73c0-1.506 1.224-2.73 2.73-2.73s2.73 1.224 2.73 2.73"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m39.08 23.94c0.4132-0.344 2.246-1.792 4.909-1.636 2.161 0.1259 3.61 1.233 4.091 1.636"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m23 23.57c0.4132-0.344 2.246-1.792 4.909-1.636 2.161 0.1259 3.61 1.233 4.091 1.636"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m40.46 49.13c0.01-0.01 0.01-0.02 0.01-0.02 1.4-1.62 2.02-3.37 2.18-3.512l-15.65-3.349c0.2275 0.472-0.5225 6.682 4.108 8.862"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m41.5 45.68c-1.293 5.936-4.618 10.25-7.426 9.64s-4.037-5.92-2.744-11.86"/>
+  </g>
+</svg>

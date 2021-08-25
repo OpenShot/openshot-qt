@@ -1,31 +1,30 @@
-""" 
+"""
  @file
  @brief This file contains the preview thread, used for displaying previews of the timeline
  @author Jonathan Thomas <jonathan@openshot.org>
- 
+
  @section LICENSE
- 
+
  Copyright (c) 2008-2018 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
  to the world.
- 
+
  OpenShot Video Editor is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  OpenShot Video Editor is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 import time
 import sip
 
@@ -35,9 +34,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 
 from classes.app import get_app
 from classes.logger import log
-from classes import settings
 
-import json
 
 class PreviewParent(QObject):
     """ Class which communicates with the PlayerWorker Class (running on a separate thread) """
@@ -54,7 +51,7 @@ class PreviewParent(QObject):
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
-        log.info('onModeChanged')
+        log.debug('Playback mode changed to %s', current_mode)
         try:
             if current_mode is openshot.PLAYBACK_PLAY:
                 self.parent.SetPlayheadFollow(False)
@@ -66,13 +63,13 @@ class PreviewParent(QObject):
 
     # Signal when the playback encounters an error
     def onError(self, error):
-        log.info('onError: %s' % error)
+        log.warning('Player error: %s', error)
 
         # Get translation object
         _ = get_app()._tr
 
         # Only JUCE audio errors bubble up here now
-        if not get_app().window.mode == "unittest":
+        if get_app().window.mode != "unittest":
             QMessageBox.warning(self.parent, _("Audio Error"), _("Please fix the following error and restart OpenShot\n%s") % error)
 
     @pyqtSlot(object, object)
@@ -181,11 +178,11 @@ class PlayerWorker(QObject):
             QCoreApplication.processEvents()
 
         self.finished.emit()
-        log.info('exiting thread')
+        log.debug('exiting playback thread')
 
     @pyqtSlot()
     def initPlayer(self):
-        log.info("initPlayer")
+        log.debug("initPlayer")
 
         # Get the address of the player's renderer (a QObject that emits signals when frames are ready)
         self.renderer_address = self.player.GetRendererQObject()
@@ -199,16 +196,16 @@ class PlayerWorker(QObject):
 
     def previewFrame(self, number):
         """ Preview a certain frame """
-        log.info("previewFrame: %s" % number)
-
         # Mark frame number for processing
         self.Seek(number)
 
-        log.info("self.player.Position(): %s" % self.player.Position())
+        log.debug(
+            "previewFrame: %s, player Position(): %s",
+            number, self.player.Position())
 
     def refreshFrame(self):
         """ Refresh a certain frame """
-        log.info("refreshFrame")
+        log.debug("refreshFrame")
 
         # Always load back in the timeline reader
         self.parent.LoadFileSignal.emit('')
@@ -216,7 +213,7 @@ class PlayerWorker(QObject):
         # Mark frame number for processing (if parent is done initializing)
         self.Seek(self.player.Position())
 
-        log.info("self.player.Position(): %s" % self.player.Position())
+        log.info("player Position(): %s", self.player.Position())
 
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
@@ -226,7 +223,6 @@ class PlayerWorker(QObject):
             return
 
         log.info("LoadFile %s" % path)
-        s = settings.get_settings()
 
         # Determine the current frame of the timeline (when switching to a clip)
         seek_position = 1
@@ -237,7 +233,7 @@ class PlayerWorker(QObject):
         # If blank path, switch back to self.timeline reader
         if not path:
             # Return to self.timeline reader
-            log.info("Set timeline reader again in player: %s" % self.timeline)
+            log.debug("Set timeline reader again in player: %s" % self.timeline)
             self.player.Reader(self.timeline)
 
             # Clear clip reader reference
@@ -248,7 +244,6 @@ class PlayerWorker(QObject):
             seek_position = self.original_position
         else:
             # Create new timeline reader (to preview selected clip)
-            s = settings.get_settings()
             project = get_app().project
 
             # Get some settings from the project
@@ -290,7 +285,7 @@ class PlayerWorker(QObject):
 
         # Close and destroy old clip readers (leaving the 3 most recent)
         while len(self.previous_clip_readers) > 3:
-            log.info('Removing old clips from preview: %s' % self.previous_clip_readers[0])
+            log.debug('Removing old clips from preview: %s' % self.previous_clip_readers[0])
             previous_clip = self.previous_clips.pop(0)
             previous_clip.Close()
             previous_reader = self.previous_clip_readers.pop(0)
@@ -334,5 +329,5 @@ class PlayerWorker(QObject):
         """ Set the speed of the video player """
 
         # Set speed
-        if self.parent.initialized:
+        if self.parent.initialized and self.player.Speed() != new_speed:
             self.player.Speed(new_speed)
