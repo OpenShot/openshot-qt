@@ -848,7 +848,9 @@ App.controller("TimelineCtrl", function ($scope) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
     // Remove manual move stylesheet
-    bounding_box.element.removeClass("manual-move");
+    if (bounding_box.element) {
+      bounding_box.element.removeClass("manual-move");
+    }
 
     // Remove CSS class (after the drag)
     bounding_box = {};
@@ -894,7 +896,7 @@ App.controller("TimelineCtrl", function ($scope) {
     bounding_box.track_position = 0;
 
     // Set z-order to be above other clips/transitions
-    if (item_type !== "os_drop") {
+    if (item_type !== "os_drop" && bounding_box.element) {
       bounding_box.element.addClass("manual-move");
     }
   };
@@ -938,8 +940,10 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     //change the element location
-    bounding_box.element.css("left", results.position.left);
-    bounding_box.element.css("top", bounding_box.track_position - scrolling_tracks_offset_top);
+    if (bounding_box.element) {
+      bounding_box.element.css("left", results.position.left);
+      bounding_box.element.css("top", bounding_box.track_position - scrolling_tracks_offset_top);
+    }
   };
 
   // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
@@ -1393,7 +1397,6 @@ App.controller("TimelineCtrl", function ($scope) {
         // Re-index Layer Y values
         $scope.updateLayerIndex();
       }
-      $scope.$digest();
     }
     // return true
     return true;
