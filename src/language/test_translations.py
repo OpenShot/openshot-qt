@@ -40,6 +40,8 @@ language_path = os.path.dirname(os.path.abspath(__file__))
 red='\033[31m'
 endc='\033[0m'
 
+found_errors = False
+
 # Get app instance
 app = QCoreApplication(sys.argv)
 
@@ -68,8 +70,12 @@ for template_name in all_templates:
             if "%s" in source_string or "%s(" in source_string or "%d" in source_string:
                 translated_string = app.translate("", source_string)
                 if source_string.count('%') != translated_string.count('%'):
+                    found_errors = True
                     print(red, '\tInvalid string replacement found: "%s" vs "%s" [%s]' %
                           (translated_string, source_string, lang_code), endc)
 
         # Remove translator
         app.removeTranslator(translator)
+
+if found_errors:
+    raise(Exception("Errors detected during translation testing! See above."))
