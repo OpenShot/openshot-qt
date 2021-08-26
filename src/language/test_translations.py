@@ -44,7 +44,7 @@ endc='\033[0m'
 app = QCoreApplication(sys.argv)
 
 # Load POT template (all English strings)
-all_templates = ['OpenShot.pot', 'OpenShot_transitions.pot', 'OpenShot_blender.pot', 'OpenShot_transitions.pot']
+all_templates = ['OpenShot.pot', 'OpenShot_transitions.pot', 'OpenShot_blender.pot']
 for template_name in all_templates:
     POT_source = open(os.path.join(language_path, 'OpenShot', template_name)).read()
     all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
@@ -52,7 +52,7 @@ for template_name in all_templates:
     print("Testing {} strings in {}...".format(len(all_strings), template_name))
 
     # Loop through folders/languages
-    for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot.*.qm'):
+    for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot*.qm'):
         lang_code = filename[:-3]
         # Install language
         translator = QTranslator(app)

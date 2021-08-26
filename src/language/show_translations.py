@@ -41,28 +41,36 @@ language_path = os.path.dirname(os.path.abspath(__file__))
 app = QCoreApplication(sys.argv)
 
 # Load POT template (all English strings)
-POT_source = open(os.path.join(language_path, 'OpenShot', 'OpenShot.pot')).read()
-all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
+all_templates = ['OpenShot.pot', 'OpenShot_transitions.pot', 'OpenShot_blender.pot']
+for template_name in all_templates:
+    POT_source = open(os.path.join(language_path, 'OpenShot', template_name)).read()
+    all_strings = re.findall('^msgid \"(.*)\"', POT_source, re.MULTILINE)
 
-print("Scanning {} strings in all translation files...".format(len(all_strings)))
+    print("Scanning {} strings in all translation files...".format(len(all_strings)))
 
-# Loop through folders/languages
-for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot_*.qm'):
-    lang_code = filename[:-3]
-    # Install language
-    translator = QTranslator(app)
+    # Loop through folders/languages
+    for filename in fnmatch.filter(os.listdir(language_path), 'OpenShot*.qm'):
+        lang_code = filename[:-3]
+        # Install language
+        translator = QTranslator(app)
 
-    # Load translation
-    if translator.load(lang_code, language_path):
-        app.installTranslator(translator)
+        # Load translation
+        if translator.load(lang_code, language_path):
+            app.installTranslator(translator)
 
-        print("\n=================================================")
-        print("Showing translations for {}".format(filename))
-        print("=================================================")
-        # Loop through all test strings
-        for source_string in all_strings:
-            translated_string = app.translate("", source_string)
-            if source_string != translated_string:
-                print('  {} => {}'.format(source_string,translated_string))
-        # Remove translator
-        app.removeTranslator(translator)
+            print("\n=================================================")
+            print("Showing translations for {}".format(filename))
+            print("=================================================")
+            # Loop through all test strings
+            for source_string in all_strings:
+                translated_string = app.translate("", source_string)
+                if source_string != translated_string:
+                    print('  {} => {}'.format(source_string,translated_string))
+
+                if "%s" in source_string or "%s(" in source_string or "%d" in source_string:
+                    if source_string.count('%') != translated_string.count('%'):
+                        raise(Exception('Invalid string replacement found: "%s" vs "%s" [%s]' %
+                              (translated_string, source_string, lang_code)))
+
+            # Remove translator
+            app.removeTranslator(translator)
