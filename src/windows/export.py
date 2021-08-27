@@ -886,6 +886,7 @@ class Export(QDialog):
             format_of_progress_string = "%4.1f%% "
 
             # Write each frame in the selected range
+            max_frame = 0
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
                 end_time_export = time.time()
@@ -923,6 +924,9 @@ class Export(QDialog):
                         format_of_progress_string
                     )
 
+                    # track largest frame processed
+                    max_frame = frame
+
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
 
@@ -944,7 +948,7 @@ class Export(QDialog):
                 title_message,
                 video_settings.get("start_frame"),
                 video_settings.get("end_frame"),
-                frame,
+                max_frame,
                 format_of_progress_string
             )
 
