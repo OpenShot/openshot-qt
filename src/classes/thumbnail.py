@@ -127,7 +127,7 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
 
     def log_error(self, msg_format, *args):
         """ Log error from HTTPServer """
-        log.error(msg_format % args)
+        log.warning(msg_format % args)
 
     def do_GET(self):
         """ Process each GET request and return a value (image or file path)"""
