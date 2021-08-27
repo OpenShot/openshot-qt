@@ -647,7 +647,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         # Increment track counter
                         track_counter += 1
 
-            except Exception:
+            except Exception as ex:
                 # Error parsing legacy contents
                 msg = "Failed to load legacy project file %(path)s" % {"path": file_path}
                 log.error(msg, exc_info=1)
