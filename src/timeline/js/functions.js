@@ -221,14 +221,24 @@ var bounding_box = Object();
 
 // Build bounding box (since multiple items can be selected)
 function setBoundingBox(scope, item, item_type="clip") {
-  var scrolling_tracks = $("#scrolling_tracks");
-  var vert_scroll_offset = scrolling_tracks.scrollTop();
-  var horz_scroll_offset = scrolling_tracks.scrollLeft();
+  let scrolling_tracks = $("#scrolling_tracks");
+  let vert_scroll_offset = scrolling_tracks.scrollTop();
+  let horz_scroll_offset = scrolling_tracks.scrollLeft();
+  let item_bottom = 0;
+  let item_top = 0;
+  let item_left = 0;
+  let item_right = 0;
 
-  var item_bottom = item.position().top + item.height() + vert_scroll_offset;
-  var item_top = item.position().top + vert_scroll_offset;
-  var item_left = item.position().left + horz_scroll_offset;
-  var item_right = item.position().left + horz_scroll_offset + item.width();
+  if (item && item.position()) {
+    item_bottom = item.position().top + item.height() + vert_scroll_offset;
+    item_top = item.position().top + vert_scroll_offset;
+    item_left = item.position().left + horz_scroll_offset;
+    item_right = item.position().left + horz_scroll_offset + item.width();
+  } else {
+    // Protect against invalid item (sentry)
+    // TODO: Determine what causes an invalid item to be passed into this function
+    return;
+  }
 
   if (jQuery.isEmptyObject(bounding_box)) {
     bounding_box.left = item_left;
@@ -245,8 +255,8 @@ function setBoundingBox(scope, item, item_type="clip") {
     if (item_right > bounding_box.right) { bounding_box.right = item_right; }
 
     // compare height and width of bounding box (take the largest number)
-    var height = bounding_box.bottom - bounding_box.top;
-    var width = bounding_box.right - bounding_box.left;
+    let height = bounding_box.bottom - bounding_box.top;
+    let width = bounding_box.right - bounding_box.left;
     if (height > bounding_box.height) { bounding_box.height = height; }
     if (width > bounding_box.width) { bounding_box.width = width; }
   }
@@ -268,12 +278,12 @@ function setBoundingBox(scope, item, item_type="clip") {
   // Unless playhead mode, where we don't want to ignore any selected clips
   bounding_box.selected_ids = {};
   if (item_type !== "playhead") {
-    for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
+    for (let clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
       if (scope.project.clips[clip_index].selected) {
         bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
       }
     }
-    for (var effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
+    for (let effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
       if (scope.project.effects[effect_index].selected) {
         bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
       }
@@ -367,7 +377,7 @@ global_primes = new Set();
  * Stores primes in a set for better performance in the future.
  * If some primes have been found, start with that list,
  * and check the remaining numbers up to n.
- * @param {any number} n 
+ * @param {any number} n
  * @returns the list of all primes less than n
  */
 function primesUpTo(n) {
@@ -394,7 +404,7 @@ function primesUpTo(n) {
 /**
  * Every integer is either prime,
  * is the product of some list of primes.
- * @param {integer to factor} n 
+ * @param {integer to factor} n
  * @returns the list of prime factors of n
  */
 function primeFactorsOf(n) {
@@ -417,13 +427,13 @@ function primeFactorsOf(n) {
  * From the pixels per second of the project,
  * Find a number of frames between each ruler mark,
  * such that the tick marks remain at least 50px apart.
- * 
+ *
  * Increases the number of frames by factors of FPS.
  * This way each tick should land neatly on a second mark
- * @param {Pixels per second} pps 
- * @param fps_num 
- * @param fps_den 
- * @returns 
+ * @param {Pixels per second} pps
+ * @param fps_num
+ * @param fps_den
+ * @returns
  */
 function framesPerTick(pps, fps_num, fps_den) {
   fps = fps_num / fps_den;
@@ -434,7 +444,7 @@ function framesPerTick(pps, fps_num, fps_den) {
   while (pixels() < 40) {
       frames *= factors.shift() || 2;
   }
-  
+
   return frames;
 }
 
