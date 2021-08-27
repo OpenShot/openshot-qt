@@ -606,7 +606,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Make copy of unsaved project file in 'recovery' folder
                 recover_path_with_timestamp = os.path.join(
                     info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
-                shutil.copy(file_path, recover_path_with_timestamp)
+                if os.path.exists(file_path):
+                    shutil.copy(file_path, recover_path_with_timestamp)
+                else:
+                    log.warning("Existing project *.osp file not found during recovery process: %s" % file_path)
 
                 # Find any recovery file older than X auto-saves
                 old_backup_files = []
