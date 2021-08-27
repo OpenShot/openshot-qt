@@ -346,6 +346,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             default_project = self._data
 
             try:
+                self.quote_json_keys(file_path)
                 # Attempt to load v2.X project file
                 project_data = self.read_from_file(file_path, path_mode="absolute")
 
@@ -647,7 +648,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         # Increment track counter
                         track_counter += 1
 
-            except Exception:
+            except Exception as ex:
                 # Error parsing legacy contents
                 msg = "Failed to load legacy project file %(path)s" % {"path": file_path}
                 log.error(msg, exc_info=1)
@@ -719,6 +720,21 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Fix default project id (if found)
         if self._data.get("id") == "T0":
             self._data["id"] = self.generate_id()
+
+    # Ensure projects can open 
+    # after PR #4211 introduced a bug
+    # which wrote certain projects with invalid JSON.
+    def quote_json_keys(self, file_path):
+        import re
+
+        f = open(file_path)
+        txt = f.read()
+        f.close()
+        newText = re.sub('(\n\s*)(\w*):', r'\1"\2":', txt)
+        f = open(file_path, 'w')
+        f.write(newText)
+        f.close()
+        return
 
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
