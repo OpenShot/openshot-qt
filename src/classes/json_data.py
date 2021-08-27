@@ -314,7 +314,7 @@ class JsonDataStore:
                 # If the file is on different drive. Don't abbreviate the path.
                 clean_path = orig_abs_path.replace("\\", "/")
                 clean_path = json.dumps(clean_path, ensure_ascii=False)
-                return f"{key}: {clean_path}"
+                return f"\"{key}\": {clean_path}"
 
             # Remove file from abs path
             orig_abs_folder = os.path.dirname(orig_abs_path)
