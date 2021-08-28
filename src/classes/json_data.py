@@ -163,7 +163,6 @@ class JsonDataStore:
                 # File contains corruptions, backup and repair
                 self.make_repair_backup(file_path, contents)
 
-
                 # Repair lost slashes, then fix all corrupted escapes
                 contents = self.slash_repair_re.sub(r'\1/\2', contents)
                 contents, subs_count = self.damage_re.subn(r'\\u\1', contents)
