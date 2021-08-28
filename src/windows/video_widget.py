@@ -1143,14 +1143,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
         project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
 
-        # Calculate height/width divisible by 2 (if valid height)
         if project_size.height() > 0:
+            # Ensure width and height are divisible by 2
             ratio = float(project_size.width()) / float(project_size.height())
-            width = round(project_size.width() / 2.0) * 2
-            height = (round(width / ratio) / 2.0) * 2
+            even_width = round(project_size.width() / 2.0) * 2
+            even_height = round(round(even_width / ratio) / 2.0) * 2
+            project_size = QSize(even_width, even_height)
 
-            # Emit signal that video widget changed size
-            self.win.MaxSizeChanged.emit(project_size)
+        # Emit signal that video widget changed size
+        self.win.MaxSizeChanged.emit(project_size)
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
