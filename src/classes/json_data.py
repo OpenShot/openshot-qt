@@ -153,11 +153,16 @@ class JsonDataStore:
                 contents = f.read()
             if not contents:
                 raise RuntimeError("Couldn't load {} file, no data.".format(self.data_type))
+            
+            if os.path.splitext(file_path) and os.path.splitext(file_path)[1] == '.osp':
+                # Repair lost quotes on json keys
+                contents = re.sub('(\n\s*)(\w*):', r'\1"\2":', contents)
 
             # Scan for and correct possible OpenShot 2.5.0 corruption
             if self.damage_re.search(contents) and self.version_re.search(contents):
                 # File contains corruptions, backup and repair
                 self.make_repair_backup(file_path, contents)
+
 
                 # Repair lost slashes, then fix all corrupted escapes
                 contents = self.slash_repair_re.sub(r'\1/\2', contents)
