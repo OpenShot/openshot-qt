@@ -54,11 +54,15 @@ class JsonDataStore:
         self._data = {}  # Private data store, accessible through the get and set methods
         self.data_type = "json data"
 
-        # Regular expression for project files with possible corruption
-        self.version_re = re.compile(r'"openshot-qt".*"2.5.0')
+        # Regular expressions for file version detection of possible corruption
+        self.version_re_250 = re.compile(r'"openshot-qt".*"2.5.0')
+        self.version_re_260 = re.compile(r'"openshot-qt".*"2.6.0')
 
         # Regular expression matching likely corruption in project files
         self.damage_re = re.compile(r'/u([0-9a-fA-F]{4})')
+
+        # Regular expression matching likely windows drive letter corruption in project files
+        self.damage_re_windows_drives = re.compile(r'(\n\s*)(\w*):')
 
         # Regular expression used to detect lost slashes, when repairing data
         self.slash_repair_re = re.compile(r'(["/][.]+)(/u[0-9a-fA-F]{4})')
@@ -153,13 +157,28 @@ class JsonDataStore:
                 contents = f.read()
             if not contents:
                 raise RuntimeError("Couldn't load {} file, no data.".format(self.data_type))
-            
-            if os.path.splitext(file_path) and os.path.splitext(file_path)[1] == '.osp':
-                # Repair lost quotes on json keys
-                contents = re.sub('(\n\s*)(\w*):', r'\1"\2":', contents)
+
+            # Scan for and correct possible OpenShot 2.6.0 corruption
+            if self.damage_re_windows_drives.search(contents) and self.version_re_260.search(contents):
+                # File contains corruptions, backup and repair
+                self.make_repair_backup(file_path, contents)
+
+                # Repair lost quotes
+                contents = self.damage_re_windows_drives.sub(r'\1"\2":', contents)
+
+                # We have to de- and re-serialize the data, to complete repairs
+                temp_data = json.loads(contents)
+                contents = json.dumps(temp_data, ensure_ascii=False, indent=1)
+
+                # Save the repaired data back to the original file
+                with open(file_path, "w", encoding="utf-8") as fout:
+                    fout.write(contents)
+
+                msg_log = "Repaired windows drive corruptions in file {}"
+                log.info(msg_log.format(file_path))
 
             # Scan for and correct possible OpenShot 2.5.0 corruption
-            if self.damage_re.search(contents) and self.version_re.search(contents):
+            if self.damage_re.search(contents) and self.version_re_250.search(contents):
                 # File contains corruptions, backup and repair
                 self.make_repair_backup(file_path, contents)
 
@@ -174,19 +193,13 @@ class JsonDataStore:
                     # We have to de- and re-serialize the data, to complete repairs
                     temp_data = json.loads(contents)
                     contents = json.dumps(temp_data, ensure_ascii=False, indent=1)
-                    temp_data = {}
 
                     # Save the repaired data back to the original file
                     with open(file_path, "w", encoding="utf-8") as fout:
                         fout.write(contents)
 
                     msg_log = "Repaired {} corruptions in file {}"
-                    msg_local = self._("Repaired {num} corruptions in file {path}")
                     log.info(msg_log.format(subs_count, file_path))
-                    if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
-                        self.app.window.statusBar.showMessage(
-                            msg_local.format(num=subs_count, path=file_path), 5000
-                        )
 
             # Process JSON data
             if path_mode == "absolute":
