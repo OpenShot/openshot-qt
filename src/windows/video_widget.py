@@ -345,9 +345,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     tmp2 = tmp.keys()
                     obj_id = list(tmp.keys())[0]
                     raw_properties_effect = raw_properties_effect.get('objects').get(obj_id)
-                    
+
                     # Check if the tracked object is visible in this frame
-                    if raw_properties_effect.get('visible'): 
+                    if raw_properties_effect.get('visible'):
                         if raw_properties_effect.get('visible').get('value') == 1:
                             # Get the selected bounding box values
                             rotation = raw_properties_effect['rotation']['value']
@@ -872,7 +872,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.mouse_dragging and not self.transform_mode:
                 self.original_clip_data = self.transforming_clip.data
 
-            
+
 
             if self.transforming_effect_object.info.has_tracked_object:
                 # Get properties of effect at current frame
@@ -880,7 +880,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                  # Get properties for the first object in dict. PropertiesJSON should return one object at the time
                 obj_id = list(raw_properties.get('objects').keys())[0]
                 raw_properties = raw_properties.get('objects').get(obj_id)
-                
+
                 if not raw_properties.get('visible'):
                     self.mouse_position = event.pos()
                     self.mutex.unlock()
@@ -1143,13 +1143,14 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
         project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
 
-        # Calculate height/width divisible by 2
-        ratio = float(project_size.width()) / float(project_size.height())
-        width = round(project_size.width() / 2.0) * 2
-        height = (round(width / ratio) / 2.0) * 2
+        # Calculate height/width divisible by 2 (if valid height)
+        if project_size.height() > 0:
+            ratio = float(project_size.width()) / float(project_size.height())
+            width = round(project_size.width() / 2.0) * 2
+            height = (round(width / ratio) / 2.0) * 2
 
-        # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(project_size)
+            # Emit signal that video widget changed size
+            self.win.MaxSizeChanged.emit(project_size)
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
