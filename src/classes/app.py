@@ -82,8 +82,10 @@ class OpenShotApp(QApplication):
         self.errors = []
 
         # for _tr() to ensure translated string 
-        self.placeholder_old_re = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
-        self.placeholder_new_re = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
+        self.c_style_sub = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
+        self.rust_style_sub = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
+        self.c_sub_names = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
+        self.rust_sub_names = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
 
         try:
             # Import modules
@@ -317,15 +319,22 @@ class OpenShotApp(QApplication):
             error.show()
 
     def _tr(self, message):
-        def count_placeholders(self, s):
+        def count_placeholders(s):
             return sum(
-                len(list(re.finditer(self.placeholder_old_re, s))),
-                len(list(re.finditer(self.placeholder_new_re, s))),
+                len(list(re.finditer(self.c_style_sub, s))),
+                len(list(re.finditer(self.rust_style_sub, s))),
             )
         translation = self.translate("", message)
-        if count_placeholders(message) == count_placeholders(translation):
-            return translation
-        return message
+        # If number of substitutions isn't the same, fall back to english string
+        if count_placeholders(message) != count_placeholders(translation):
+            return message
+        # If substitution names in english aren't present in translated string,
+        # Fall back to english string
+        for match in list(re.finditer(self.rust_sub_names, message)) + \
+        list(re.finditer(self.c_sub_names, message)):
+            if translation.find(match.group()) == -1:
+                return message
+        return translation
 
     @pyqtSlot()
     def cleanup(self):
