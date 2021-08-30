@@ -33,12 +33,12 @@ import os
 import platform
 import traceback
 import json
+import re
 
 from PyQt5.QtCore import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
-
 
 def get_app():
     """ Get the current QApplication instance of OpenShot """
@@ -80,6 +80,10 @@ class OpenShotApp(QApplication):
         self.mode = mode or "normal"
         self.args = super().arguments()
         self.errors = []
+
+        # for _tr() to ensure translated string 
+        self.placeholder_old_re = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
+        self.placeholder_new_re = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
 
         try:
             # Import modules
@@ -313,7 +317,15 @@ class OpenShotApp(QApplication):
             error.show()
 
     def _tr(self, message):
-        return self.translate("", message)
+        def count_placeholders(self, s):
+            return sum(
+                len(list(re.finditer(self.placeholder_old_re, s))),
+                len(list(re.finditer(self.placeholder_new_re, s))),
+            )
+        translation = self.translate("", message)
+        if count_placeholders(message) == count_placeholders(translation):
+            return translation
+        return message
 
     @pyqtSlot()
     def cleanup(self):
