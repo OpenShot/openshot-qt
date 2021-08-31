@@ -81,7 +81,8 @@ class OpenShotApp(QApplication):
         self.args = super().arguments()
         self.errors = []
 
-        # for _tr() to ensure translated string 
+        # For _tr() to ensure translated string can have
+        # data substituted inside of it.
         self.c_style_sub = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
         self.rust_style_sub = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
         self.c_sub_names = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
@@ -318,19 +319,20 @@ class OpenShotApp(QApplication):
             error = self.errors.pop(0)
             error.show()
 
+    # Return only translated strings that will not cause an error
+    # As long as the english string doesn't have an error
     def _tr(self, message):
         def count_placeholders(s):
-            return sum(
-                len(list(re.finditer(self.c_style_sub, s))),
-                len(list(re.finditer(self.rust_style_sub, s))),
-            )
+            return ( len(list(re.finditer(self.c_style_sub, s))) + \
+                len(list(re.finditer(self.rust_style_sub, s))) )
         translation = self.translate("", message)
         # If number of substitutions isn't the same, fall back to english string
         if count_placeholders(message) != count_placeholders(translation):
             return message
-        # If substitution names in english aren't present in translated string,
+        # If substitution names in the translation aren't present in the message string,
         # Fall back to english string
-        for match in list(re.finditer(self.rust_sub_names, message)) + \
+        # (This way the translated string will work as long as the english one does)
+        for match in list(re.finditer(self.rust_sub_names, translation)) + \
         list(re.finditer(self.c_sub_names, message)):
             if translation.find(match.group()) == -1:
                 return message
