@@ -84,11 +84,13 @@ class OpenShotApp(QApplication):
         # For _tr() to ensure translated string can have
         # data substituted inside of it.
         # C Style: "%s" % "insert"
+        #   type '%%' to display a '%'
         # Rust Style: "{}".format("insert")
-        self.c_style_sub = re.compile(r"(?<!%)%(?!%)") # '%' on it's own
-        self.rust_style_sub = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
-        self.c_sub_names = re.compile(r"(?<!%)%\(.*?\).") # Style: "%s" % "insert"
-        self.rust_sub_names = re.compile(r"(?<!{){.*?}(?!})") # Style: "{}".format("insert")
+        #   type '{{' or '}}' to display '{' or '}'
+
+        self.c_style_sub = re.compile(r"%{1}") # '%' on it's own
+        self.rust_style_sub = re.compile(r"{{1}.*?}{1}") # curly brackets with 0 or more characters between
+        self.c_style_sub_named = re.compile(r"%{1}\(.*?\).") # match from '%(' to the first ')'
 
         try:
             # Import modules
@@ -334,8 +336,8 @@ class OpenShotApp(QApplication):
         # If substitution names in the translation aren't present in the message string,
         # Fall back to english string
         # (This way the translated string will work as long as the english one does)
-        for match in list(re.finditer(self.rust_sub_names, translation)) + \
-        list(re.finditer(self.c_sub_names, translation)):
+        for match in list(re.finditer(self.rust_style_sub, translation)) + \
+        list(re.finditer(self.c_style_sub_named, translation)):
             if message.find(match.group()) == -1:
                 return message
         return translation
