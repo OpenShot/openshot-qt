@@ -83,10 +83,12 @@ class OpenShotApp(QApplication):
 
         # For _tr() to ensure translated string can have
         # data substituted inside of it.
-        self.c_style_sub = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
+        # C Style: "%s" % "insert"
+        # Rust Style: "{}".format("insert")
+        self.c_style_sub = re.compile(r"(?<!%)%(?!%)") # '%' on it's own
         self.rust_style_sub = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
-        self.c_sub_names = re.compile(r"(?<!%)%(?!%)") # Style: "%s" % "insert"
-        self.rust_sub_names = re.compile(r"(?<!{){(?!{).*(?<!})}(?!})") # Style: "{}".format("insert")
+        self.c_sub_names = re.compile(r"(?<!%)%\(.*?\).") # Style: "%s" % "insert"
+        self.rust_sub_names = re.compile(r"(?<!{){.*?}(?!})") # Style: "{}".format("insert")
 
         try:
             # Import modules
@@ -333,8 +335,8 @@ class OpenShotApp(QApplication):
         # Fall back to english string
         # (This way the translated string will work as long as the english one does)
         for match in list(re.finditer(self.rust_sub_names, translation)) + \
-        list(re.finditer(self.c_sub_names, message)):
-            if translation.find(match.group()) == -1:
+        list(re.finditer(self.c_sub_names, translation)):
+            if message.find(match.group()) == -1:
                 return message
         return translation
 
