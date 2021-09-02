@@ -71,6 +71,7 @@ if path not in sys.path:
 
 import classes.info as info
 from classes.logger import log
+from classes.effect_init import effect_options
 
 # get the path of the main OpenShot folder
 language_folder_path = os.path.dirname(os.path.abspath(__file__))
@@ -194,6 +195,17 @@ for object in objects:
         if "choices" in object:
             for choice in object["choices"]:
                 effects_text[choice["name"]] = "libopenshot (Clip Properties)"
+
+# Append Effect Init Data
+# Loop through props
+for effect in effect_options:
+    effects_text[effect] = "effect_init (Effect Metadata)"
+    for param in effect_options[effect]:
+        if "title" in param:
+            effects_text[param["title"]] = "effect_init (Effect parameter for %s)" % effect
+        if "values" in param:
+            for value in param["values"]:
+                effects_text[value["name"]] = "effect_init (Effect parameter for %s)" % effect
 
 # Append Effect Meta Data
 e = openshot.EffectInfo()

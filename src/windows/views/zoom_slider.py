@@ -220,6 +220,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = event.pos().x()
+        self.scrollbar_position_previous = self.scrollbar_position
 
         # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
         get_app().updates.ignore_history = True
@@ -294,14 +295,19 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             if self.left_handle_dragging:
                 # Update scrollbar position
                 delta = (self.mouse_position - mouse_pos) / self.width()
-                new_left_pos = self.scrollbar_position[0] - delta
+                new_left_pos = self.scrollbar_position_previous[0] - delta
                 is_left = True
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0 and \
-                        (self.scrollbar_position[1] + delta) - new_left_pos > self.min_distance:
-                    # SHIFT key pressed (move both handles if we don't exceed min distance)
-                    new_right_pos = self.scrollbar_position[1] + delta
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+                    # SHIFT key pressed (move )
+                        if (self.scrollbar_position_previous[1] + delta) - new_left_pos > self.min_distance:
+                            #both handles if we don't exceed min distance
+                            new_right_pos = self.scrollbar_position_previous[1] + delta
+                        else:
+                            midpoint = (self.scrollbar_position_previous[1] + self.scrollbar_position_previous)/2
+                            new_right_pos = midpoint + (self.min_distance/2)
+                            new_left_pos = midpoint - (self.min_distance/2)
                 else:
-                    new_right_pos = self.scrollbar_position[1]
+                    new_right_pos = self.scrollbar_position_previous[1]
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
@@ -315,13 +321,18 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             elif self.right_handle_dragging:
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 is_left = False
-                new_right_pos = self.scrollbar_position[1] - delta
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0 and \
-                        new_right_pos - (self.scrollbar_position[0] + delta) > self.min_distance:
-                    # SHIFT key pressed (move both handles if we don't exceed min distance)
-                    new_left_pos = self.scrollbar_position[0] + delta
+                new_right_pos = self.scrollbar_position_previous[1] - delta
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+                    # SHIFT key pressed (move )
+                        if new_right_pos - (self.scrollbar_position_previous[0] + delta) > self.min_distance:
+                            #both handles if we don't exceed min distance
+                            new_left_pos = self.scrollbar_position_previous[0] + delta
+                        else:
+                            midpoint = (self.scrollbar_position_previous[1] + self.scrollbar_position_previous)/2
+                            new_right_pos = midpoint + (self.min_distance/2)
+                            new_left_pos = midpoint - (self.min_distance/2)
                 else:
-                    new_left_pos = self.scrollbar_position[0]
+                    new_left_pos = self.scrollbar_position_previous[0]
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
@@ -335,8 +346,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             elif self.scroll_bar_dragging:
                 # Update scrollbar position
                 delta = (self.mouse_position - mouse_pos) / self.width()
-                new_left_pos = self.scrollbar_position[0] - delta
-                new_right_pos = self.scrollbar_position[1] - delta
+                new_left_pos = self.scrollbar_position_previous[0] - delta
+                new_right_pos = self.scrollbar_position_previous[1] - delta
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
@@ -347,13 +358,13 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                                            self.scrollbar_position[3]]
 
                 # Emit signal to scroll Timeline
-                get_app().window.TimelineScroll.emit(self.scrollbar_position[0])
+                get_app().window.TimelineScroll.emit(new_left_pos)
 
             # Force re-paint
             self.update()
 
         # Update mouse position
-        self.mouse_position = mouse_pos
+        # self.mouse_position = mouse_pos
 
     def resizeEvent(self, event):
         """Widget resize event"""
@@ -388,21 +399,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def setZoomFactor(self, zoom_factor):
         """Set the current zoom factor"""
-        # Get max width of timeline
-        project_duration = get_app().project.get("duration")
-        tick_pixels = 100
-        min_zoom_factor = 1.0
-        max_zoom_factor = 64.0
-        if self.scrollbar_position[3] > 0.0:
-            # Calculate the new zoom factor, based on pixels per tick
-            max_zoom_factor = project_duration / (self.scrollbar_position[3] / tick_pixels)
-
-        # Constrain zoom factor to min/max limits
-        if zoom_factor < min_zoom_factor:
-            zoom_factor = min_zoom_factor
-        if zoom_factor > max_zoom_factor:
-            zoom_factor = max_zoom_factor
-
         # Force recalculation of clips
         self.zoom_factor = zoom_factor
 
@@ -417,8 +413,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """Zoom into timeline"""
         if self.zoom_factor >= 10.0:
             new_factor = self.zoom_factor - 5.0
-        else:
+        elif self.zoom_factor >= 4.0:
             new_factor = self.zoom_factor - 2.0
+        else:
+            new_factor = self.zoom_factor * 0.8
 
         # Emit zoom signal
         self.setZoomFactor(new_factor)
@@ -427,14 +425,20 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """Zoom out of timeline"""
         if self.zoom_factor >= 10.0:
             new_factor = self.zoom_factor + 5.0
-        else:
+        elif self.zoom_factor >= 4.0:
             new_factor = self.zoom_factor + 2.0
+        else:
+            # Ensure zoom is reversable when using only keyboard zoom
+            new_factor = min(self.zoom_factor * 1.25, 4.0)
 
         # Emit zoom signal
         self.setZoomFactor(new_factor)
 
     def update_scrollbars(self, new_positions):
         """Consume the current scroll bar positions from the webview timeline"""
+        if self.mouse_dragging:
+            return
+
         self.scrollbar_position = new_positions
 
         # Check for empty clips rects
@@ -484,6 +488,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_position = None
         self.zoom_factor = 15.0
         self.scrollbar_position = [0.0, 0.0, 0.0, 0.0]
+        self.scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
         self.left_handle_rect = QRectF()
         self.left_handle_dragging = False
         self.right_handle_rect = QRectF()

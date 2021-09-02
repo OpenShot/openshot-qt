@@ -27,6 +27,7 @@
  */
 
 
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Handles the playhead dragging
 var playhead_y_max = null;
 
@@ -37,10 +38,28 @@ App.directive("tlPlayhead", function () {
       // get the default top position so we can lock it in place vertically
       playhead_y_max = element.position().top;
 
+      element.on("mousedown", function (e) {
+        // Set bounding box for the playhead
+        setBoundingBox(scope, $(this), "playhead");
+      });
+
       // Move playhead to new position (if it's not currently being animated)
       element.on("mousemove", function (e) {
         if (e.which === 1 && !scope.playhead_animating) { // left button
-          var playhead_seconds = (e.pageX - $("#ruler").offset().left) / scope.pixelsPerSecond;
+          // Calculate the playhead bounding box movement and apply snapping rules
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+            cursor_position - bounding_box.left, cursor_position - bounding_box.top,
+            cursor_position, cursor_position, "playhead");
+
+          // Only apply snapping when SHIFT is pressed
+          let new_position = cursor_position;
+          if (e.shiftKey) {
+            new_position = results.position.left;
+          }
+
+          // Move playhead
+          let playhead_seconds = new_position / scope.pixelsPerSecond;
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
         }

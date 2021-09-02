@@ -160,7 +160,7 @@ class PropertiesModel(updates.UpdateInterface):
             if self.frame_number > max_frame_number:
                 self.frame_number = max_frame_number
 
-            log.info("Update frame to %s" % self.frame_number)
+            log.debug("Update frame to %s" % self.frame_number)
 
             # Update the model data
             if reload_model:
@@ -195,11 +195,11 @@ class PropertiesModel(updates.UpdateInterface):
         if not c:
             return
 
-        # Create reference 
+        # Create reference
         clip_data = c.data
         if object_id:
             clip_data = c.data.get('objects').get(object_id)
-    
+
         if property_key in clip_data:  # Update clip attribute
             log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
             log.debug("%s: remove %s keyframe. %s", log_id, property_key, clip_data.get(property_key))
@@ -281,7 +281,7 @@ class PropertiesModel(updates.UpdateInterface):
                 c = Effect.get(id=clip_id)
 
             if c:
-                # Create reference 
+                # Create reference
                 clip_data = c.data
                 if object_id:
                     clip_data = c.data.get('objects').get(object_id)
@@ -301,7 +301,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Keyframe
                         # Loop through points, find a matching points on this frame
                         found_point = False
-                        for point in clip_data[property_key][color]["Points"]:
+                        for point in clip_data[property_key][color].get("Points", []):
                             log.debug("looping points: co.X = %s" % point["co"]["X"])
                             if interpolation == -1 and point["co"]["X"] == self.frame_number:
                                 # Found point, Update value
@@ -348,7 +348,7 @@ class PropertiesModel(updates.UpdateInterface):
                         if not found_point:
                             clip_updated = True
                             log.debug("Created new point at X=%d", self.frame_number)
-                            clip_data[property_key][color]["Points"].append({
+                            clip_data[property_key][color].setdefault("Points", []).append({
                                 'co': {'X': self.frame_number, 'Y': new_value},
                                 'interpolation': 1,
                                 })
@@ -357,7 +357,7 @@ class PropertiesModel(updates.UpdateInterface):
                 clip_data = {property_key: clip_data[property_key]}
                 if object_id:
                     clip_data = {'objects': {object_id: clip_data}}
-                
+
                 # Save changes
                 if clip_updated:
                     # Save
@@ -430,8 +430,8 @@ class PropertiesModel(updates.UpdateInterface):
             c = Effect.get(id=clip_id)
 
         if c:
-            
-            # Create reference 
+
+            # Create reference
             clip_data = c.data
             if object_id:
                 clip_data = c.data.get('objects').get(object_id)
@@ -447,7 +447,7 @@ class PropertiesModel(updates.UpdateInterface):
                     # Loop through points, find a matching points on this frame
                     found_point = False
                     point_to_delete = None
-                    for point in clip_data[property_key]["Points"]:
+                    for point in clip_data[property_key].get('Points', []):
                         log.debug("looping points: co.X = %s" % point["co"]["X"])
                         if interpolation == -1 and point["co"]["X"] == self.frame_number:
                             # Found point, Update value
@@ -503,7 +503,7 @@ class PropertiesModel(updates.UpdateInterface):
                     elif not found_point and new_value is not None:
                         clip_updated = True
                         log.debug("Created new point at X=%d", self.frame_number)
-                        clip_data[property_key]["Points"].append({
+                        clip_data[property_key].setdefault('Points', []).append({
                             'co': {'X': self.frame_number, 'Y': new_value},
                             'interpolation': 1})
 

@@ -69,7 +69,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
   $scope.ThumbServer = "http://127.0.0.1/";
-  $scope.ignore_scroll = false;
 
   // Method to set if Qt is detected (which clears demo data
   // and updates the document_is_ready variable in openshot-qt)
@@ -94,7 +93,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
     $(".playhead-top").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
     $(".playhead-line").css("left", ($scope.project.playhead_position * $scope.pixelsPerSecond) + "px");
-    $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + ":" + $scope.playheadTime.frame);
+    $("#ruler_time").text($scope.playheadTime.hour + ":" + $scope.playheadTime.min + ":" + $scope.playheadTime.sec + "," + $scope.playheadTime.frame);
   };
 
   // Move the playhead to a specific frame
@@ -282,13 +281,10 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Change the scale and apply to scope
   $scope.setScroll = function (normalizedScrollValue) {
-    var timeline_length = Math.min(32767, $scope.getTimelineWidth(0));
+    var timeline_length = $scope.getTimelineWidth(0);
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = normalizedScrollValue * timeline_length;
     scrolling_tracks.scrollLeft(horz_scroll_offset);
-
-    $scope.ignore_scroll = true;
-    $("#scrolling_ruler").scrollLeft(horz_scroll_offset);
   };
 
   // Scroll the timeline horizontally of a certain amount
@@ -296,9 +292,6 @@ App.controller("TimelineCtrl", function ($scope) {
     var scrolling_tracks = $("#scrolling_tracks");
     var horz_scroll_offset = scrolling_tracks.scrollLeft();
     scrolling_tracks.scrollLeft(horz_scroll_offset + scroll_value);
-
-    $scope.ignore_scroll = true;
-    $("#scrolling_ruler").scrollLeft(horz_scroll_offset + scroll_value);
   };
 
   // Center the timeline on a given time position
@@ -855,7 +848,9 @@ App.controller("TimelineCtrl", function ($scope) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
     // Remove manual move stylesheet
-    bounding_box.element.removeClass("manual-move");
+    if (bounding_box.element) {
+      bounding_box.element.removeClass("manual-move");
+    }
 
     // Remove CSS class (after the drag)
     bounding_box = {};
@@ -901,7 +896,7 @@ App.controller("TimelineCtrl", function ($scope) {
     bounding_box.track_position = 0;
 
     // Set z-order to be above other clips/transitions
-    if (item_type !== "os_drop") {
+    if (item_type !== "os_drop" && bounding_box.element) {
       bounding_box.element.addClass("manual-move");
     }
   };
@@ -945,8 +940,10 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     //change the element location
-    bounding_box.element.css("left", results.position.left);
-    bounding_box.element.css("top", bounding_box.track_position - scrolling_tracks_offset_top);
+    if (bounding_box.element) {
+      bounding_box.element.css("left", results.position.left);
+      bounding_box.element.css("top", bounding_box.track_position - scrolling_tracks_offset_top);
+    }
   };
 
   // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
@@ -1114,8 +1111,18 @@ App.controller("TimelineCtrl", function ($scope) {
           continue;
         }
 
-        diffs.push({"diff": position - clip_left_position, "position": clip_left_position}, // left side of clip
-          {"diff": position - clip_right_position, "position": clip_right_position}); // right side of clip
+        // left side of clip
+        let left_edge_diff = position - clip_left_position;
+        if (Math.abs(left_edge_diff) <= threshold) {
+          diffs.push({"diff": left_edge_diff, "position": clip_left_position, "id": clip.id, "side": "left"});
+        }
+
+        // right side of clip
+        let right_edge_diff = position - clip_right_position;
+        if (Math.abs(right_edge_diff) <= threshold) {
+          diffs.push({"diff": right_edge_diff, "position": clip_right_position, "id": clip.id, "side": "right"});
+        }
+
       }
 
       // Add transition positions to array
@@ -1130,8 +1137,18 @@ App.controller("TimelineCtrl", function ($scope) {
           continue;
         }
 
-        diffs.push({"diff": position - tran_left_position, "position": tran_left_position}, // left side of transition
-          {"diff": position - tran_right_position, "position": tran_right_position}); // right side of transition
+        // left side of transition
+        let left_edge_diff = position - tran_left_position;
+        if (Math.abs(left_edge_diff) <= threshold) {
+          diffs.push({"diff": left_edge_diff, "position": tran_left_position});
+        }
+
+        // right side of transition
+        let right_edge_diff = position - tran_right_position;
+        if (Math.abs(right_edge_diff) <= threshold) {
+          diffs.push({"diff": right_edge_diff, "position": tran_right_position});
+        }
+
       }
 
       // Add marker positions to array
@@ -1139,14 +1156,21 @@ App.controller("TimelineCtrl", function ($scope) {
         var marker = $scope.project.markers[index];
         var marker_position = marker.position * $scope.pixelsPerSecond;
 
-        diffs.push({"diff": position - marker_position, "position": marker_position}, // left side of marker
-          {"diff": position - marker_position, "position": marker_position}); // right side of marker
+        // marker position
+        let left_edge_diff = position - marker_position;
+        if (Math.abs(left_edge_diff) <= threshold) {
+          diffs.push({"diff": left_edge_diff, "position": marker_position});
+        }
       }
 
       // Add playhead position to array
       var playhead_pixel_position = $scope.project.playhead_position * $scope.pixelsPerSecond;
       var playhead_diff = position - playhead_pixel_position;
-      diffs.push({"diff": playhead_diff, "position": playhead_pixel_position});
+      if (!ignore_ids.hasOwnProperty("ruler") && !ignore_ids.hasOwnProperty("playhead")) {
+        if (Math.abs(playhead_diff) <= threshold) {
+          diffs.push({"diff": playhead_diff, "position": playhead_pixel_position});
+        }
+      }
 
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
@@ -1155,7 +1179,7 @@ App.controller("TimelineCtrl", function ($scope) {
         var abs_diff = Math.abs(diff);
 
         // Check if this clip is nearby
-        if (abs_diff < smallest_abs_diff && abs_diff <= threshold) {
+        if (abs_diff < smallest_abs_diff && abs_diff <= threshold && diff_position) {
           // This one is smaller
           smallest_diff = diff;
           smallest_abs_diff = abs_diff;
@@ -1373,7 +1397,6 @@ App.controller("TimelineCtrl", function ($scope) {
         // Re-index Layer Y values
         $scope.updateLayerIndex();
       }
-      $scope.$digest();
     }
     // return true
     return true;

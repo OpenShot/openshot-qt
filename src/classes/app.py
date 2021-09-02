@@ -185,8 +185,6 @@ class OpenShotApp(QApplication):
                 },
             level="error",
         ))
-        raise RuntimeError(
-            "libopenshot version {} found, minimum is {}".format(ver, min_ver))
 
     def gui(self):
         from classes import language, sentry, ui_util, logger_libopenshot
@@ -309,7 +307,7 @@ class OpenShotApp(QApplication):
     def show_errors(self):
         count = len(self.errors)
         if count > 0:
-            self.log.warning("Displaying {} startup messages".format(count))
+            self.log.warning("Displaying %d startup messages", count)
         while self.errors:
             error = self.errors.pop(0)
             error.show()
@@ -320,6 +318,7 @@ class OpenShotApp(QApplication):
     @pyqtSlot()
     def cleanup(self):
         """aboutToQuit signal handler for application exit"""
+        self.log.debug("Saving settings in app.cleanup")
         try:
             self.settings.save()
         except Exception:

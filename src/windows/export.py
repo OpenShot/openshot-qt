@@ -94,14 +94,6 @@ class Export(QDialog):
         self.close_button.setVisible(False)
         self.exporting = False
 
-        # Update FPS / Profile timer
-        # Timer to use a delay before applying new profile/fps data (so we don't spam libopenshot)
-        self.delayed_fps_timer = None
-        self.delayed_fps_timer = QTimer()
-        self.delayed_fps_timer.setInterval(200)
-        self.delayed_fps_timer.setSingleShot(True)
-        self.delayed_fps_timer.timeout.connect(self.delayed_fps_callback)
-
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
         get_app().window.actionPlay_trigger(None, force="pause")
 
@@ -279,19 +271,6 @@ class Export(QDialog):
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
 
-    def delayed_fps_callback(self):
-        """Callback for fps/profile changed event timer
-        (to delay the timeline mapping so we don't spam libopenshot)"""
-        # Calculate fps
-        fps_double = self.timeline.info.fps.ToDouble()
-
-        # Apply mapping if valid fps detected (anything larger than 300 fps is considered invalid)
-        if self.timeline and fps_double <= 300.0:
-            log.info("Valid framerate detected, sending to libopenshot: %s" % fps_double)
-            self.timeline.ApplyMapperToClips()
-        else:
-            log.warning("Invalid framerate detected, not sending it to libopenshot: %s" % fps_double)
-
     def getProfilePath(self, profile_name):
         """Get the profile path that matches the name"""
         for profile, path in self.profile_paths.items():
@@ -345,10 +324,6 @@ class Export(QDialog):
         self.timeline.info.sample_rate = self.txtSampleRate.value()
         self.timeline.info.channels = self.txtChannels.value()
         self.timeline.info.channel_layout = self.cboChannelLayout.currentData()
-
-        # Send changes to libopenshot (apply mappings to all framemappers)
-        # Start or restart timer to process changes after a small delay
-        self.delayed_fps_timer.start()
 
         # Determine max frame (based on clips)
         self.timeline_length_int = self.timeline.GetMaxFrame()
@@ -710,6 +685,10 @@ class Export(QDialog):
         # get translations
         _ = get_app()._tr
 
+        # Init some variables
+        seconds_run = 0
+        fps_encode = 0
+
         # Init progress bar
         self.progressExportVideo.setMinimum(self.txtStartFrame.value())
         self.progressExportVideo.setMaximum(self.txtEndFrame.value())
@@ -837,6 +816,9 @@ class Export(QDialog):
             # Re-update the timeline FPS again (since the timeline just got clobbered)
             self.updateFrameRate()
 
+        # Apply mappers to timeline readers
+        self.timeline.ApplyMapperToClips()
+
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
@@ -894,7 +876,6 @@ class Export(QDialog):
 
             progressstep = max(1 , round(( video_settings.get("end_frame") - video_settings.get("start_frame") ) / 1000))
             start_time_export = time.time()
-            seconds_run = 0
             start_frame_export = video_settings.get("start_frame")
             end_frame_export = video_settings.get("end_frame")
             last_exported_time = time.time()
@@ -903,8 +884,9 @@ class Export(QDialog):
             digits_after_decimalpoint = 1
             # Precision of the progress bar
             format_of_progress_string = "%4.1f%% "
-            fps_encode = 0
+
             # Write each frame in the selected range
+            max_frame = 0
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
                 end_time_export = time.time()
@@ -942,6 +924,9 @@ class Export(QDialog):
                         format_of_progress_string
                     )
 
+                    # track largest frame processed
+                    max_frame = frame
+
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
 
@@ -963,7 +948,7 @@ class Export(QDialog):
                 title_message,
                 video_settings.get("start_frame"),
                 video_settings.get("end_frame"),
-                frame,
+                max_frame,
                 format_of_progress_string
             )
 

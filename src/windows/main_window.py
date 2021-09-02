@@ -89,6 +89,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     refreshFrameSignal = pyqtSignal()
     refreshFilesSignal = pyqtSignal()
     refreshTransitionsSignal = pyqtSignal()
+    refreshEffectsSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
     PlaySignal = pyqtSignal(int)
     PauseSignal = pyqtSignal()
@@ -164,6 +165,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Stop threads
         self.StopSignal.emit()
+
+        # Stop thumbnail server thread
+        self.http_server_thread.kill()
+
+        # Stop ZMQ polling thread
+        get_app().logger_libopenshot.kill()
 
         # Process any queued events
         QCoreApplication.processEvents()
@@ -603,7 +610,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Make copy of unsaved project file in 'recovery' folder
                 recover_path_with_timestamp = os.path.join(
                     info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
-                shutil.copy(file_path, recover_path_with_timestamp)
+                if os.path.exists(file_path):
+                    shutil.copy(file_path, recover_path_with_timestamp)
+                else:
+                    log.warning("Existing project *.osp file not found during recovery process: %s" % file_path)
 
                 # Find any recovery file older than X auto-saves
                 old_backup_files = []
@@ -837,6 +847,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionTransitionsShowCommon_trigger(self, checked=True):
         self.refreshTransitionsSignal.emit()
+
+    def actionEffectsShowAll_trigger(self, checked=True):
+        self.refreshEffectsSignal.emit()
+
+    def actionEffectsShowVideo_trigger(self, checked=True):
+        self.refreshEffectsSignal.emit()
+
+    def actionEffectsShowAudio_trigger(self, checked=True):
+        self.refreshEffectsSignal.emit()
 
     def actionHelpContents_trigger(self, checked=True):
         try:
@@ -2073,19 +2092,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Set initial size of docks
         simple_state = "".join([
-            "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAA/wAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAA"
-            "YAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAH"
-            "AAZQByAHQAaQBlAHMAAAAAJwAAAt8AAAChAP////sAAAAYAGQAbwBjAGsAVAB1AHQAbwByAGkAYQBsAgAAA"
-            "AAAAAAAAAAAyAAAAGQAAAABAAABHAAAAUD8AgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEA"
-            "AAFYAAAAFQAAAAAAAAAAAAAAAgAABEYAAALY/AEAAAAC/AAAAAAAAANnAAAA+gD////8AgAAAAL8AAAAJwA"
-            "AAcAAAACvAP////wBAAAAAvwAAAAAAAABFQAAAHsA////+gAAAAACAAAAA/sAAAASAGQAbwBjAGsARgBpAG"
-            "wAZQBzAQAAAAD/////AAAAkgD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/"
-            "////wAAAJIA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAAD/////AAAAkgD////7AAAAEgBk"
-            "AG8AYwBrAFYAaQBkAGUAbwEAAAEbAAACTAAAAEcA////+wAAABgAZABvAGMAawBUAGkAbQBlAGwAaQBuAGU"
-            "BAAAB7QAAARIAAACWAP////wAAANtAAAA2QAAAIIA////+gAAAAECAAAAAvsAAAAiAGQAbwBjAGsAQwBhAH"
-            "AAdABpAG8AbgBFAGQAaQB0AG8AcgAAAAAA/////wAAAJgA////+wAAABQAZABvAGMAawBFAG0AbwBqAGkAc"
-            "wEAAADFAAACOgAAAJIA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABv"
-            "AG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
+            "AAAA/wAAAAD9AAAAAwAAAAAAAAEnAAAC3/wCAAAAA/wAAAJeAAAApwAAAAAA////+gAAAAACAAAAAfsAAAAYAGQAbwBjAGsASwBlAHkAZgByAGEAbQBlAAAAAAD/////AAAAAAAAAAD7AAAAHABkAG8AYwBrAFAAcgBvAHAAZQByAHQAaQBlAHMAAAAAJwAAAt8AAAChAP////sAAAAYAGQAbwBjAGsAVAB1AHQAbwByAGkAYQBsAgAABUQAAAF6AAABYAAAANwAAAABAAABHAAAAUD8AgAAAAH7AAAAGABkAG8AYwBrAEsAZQB5AGYAcgBhAG0AZQEAAAFYAAAAFQAAAAAAAAAAAAAAAgAABEYAAALC/AEAAAAC/AAAAAAAAARGAAAA+gD////8AgAAAAL8AAAAPQAAAa4AAACvAP////wBAAAAAvwAAAAAAAABwQAAAJcA////+gAAAAACAAAABPsAAAASAGQAbwBjAGsARgBpAGwAZQBzAQAAAAD/////AAAAkgD////7AAAAHgBkAG8AYwBrAFQAcgBhAG4AcwBpAHQAaQBvAG4AcwEAAAAA/////wAAAJIA////+wAAABYAZABvAGMAawBFAGYAZgBlAGMAdABzAQAAAAD/////AAAAkgD////7AAAAFABkAG8AYwBrAEUAbQBvAGoAaQBzAQAAAAD/////AAAAkgD////7AAAAEgBkAG8AYwBrAFYAaQBkAGUAbwEAAAHHAAACfwAAAEcA////+wAAABgAZABvAGMAawBUAGkAbQBlAGwAaQBuAGUBAAAB8QAAAQ4AAACWAP////sAAAAiAGQAbwBjAGsAQwBhAHAAdABpAG8AbgBFAGQAaQB0AG8AcgAAAANtAAAA2QAAAFgA////AAAERgAAAAEAAAABAAAAAgAAAAEAAAAC/AAAAAEAAAACAAAAAQAAAA4AdABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA"
         ])
         self.restoreState(qt_types.str_to_bytes(simple_state))
         QCoreApplication.processEvents()
@@ -2504,6 +2511,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Add effects toolbar
         self.effectsToolbar = QToolBar("Effects Toolbar")
         self.effectsFilter = QLineEdit()
+        self.effectsActionGroup = QActionGroup(self)
+        self.effectsActionGroup.setExclusive(True)
+        self.effectsActionGroup.addAction(self.actionEffectsShowAll)
+        self.effectsActionGroup.addAction(self.actionEffectsShowVideo)
+        self.effectsActionGroup.addAction(self.actionEffectsShowAudio)
+        self.actionEffectsShowAll.setChecked(True)
+        self.effectsToolbar.addAction(self.actionEffectsShowAll)
+        self.effectsToolbar.addAction(self.actionEffectsShowVideo)
+        self.effectsToolbar.addAction(self.actionEffectsShowAudio)
         self.effectsFilter.setObjectName("effectsFilter")
         self.effectsFilter.setPlaceholderText(_("Filter"))
         self.effectsFilter.setClearButtonEnabled(True)
@@ -2618,7 +2634,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def foundCurrentVersion(self, version):
         """Handle the callback for detecting the current version on openshot.org"""
-        log.info('foundCurrentVersion: Found the latest version: %s' % version)
         _ = get_app()._tr
 
         # Compare versions (alphabetical compare of version strings should work fine)
@@ -2638,6 +2653,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             updateButton.setDefaultAction(self.actionUpdate)
             updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
             self.toolBar.addWidget(updateButton)
+
+        # Initialize sentry exception tracing (now that we know the current version)
+        from classes import sentry
+        sentry.init_tracing()
 
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
@@ -2808,16 +2827,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Set unique install id (if blank)
         if not s.get("unique_install_id"):
+            # This is assumed to be the 1st launch
             s.set("unique_install_id", str(uuid4()))
 
             # Track 1st launch metric
             track_metric_screen("initial-launch-screen")
 
+            # Track 1st main screen
+            track_metric_screen("main-screen")
+
+            # Opt-out of metrics tracking on 1st launch (and prompt user)
+            track_metric_screen("metrics-opt-out")
+            s.set("send_metrics", False)
+        else:
+            # Only track main screen
+            track_metric_screen("main-screen")
+
         # Set unique id for Sentry
         sentry.set_user({"id": s.get("unique_install_id")})
-
-        # Track main screen
-        track_metric_screen("main-screen")
 
         # Create blank tutorial manager
         self.tutorial_manager = None

@@ -220,15 +220,25 @@ function hasLockedTrack(scope, top, bottom) {
 var bounding_box = Object();
 
 // Build bounding box (since multiple items can be selected)
-function setBoundingBox(scope, item) {
-  var scrolling_tracks = $("#scrolling_tracks");
-  var vert_scroll_offset = scrolling_tracks.scrollTop();
-  var horz_scroll_offset = scrolling_tracks.scrollLeft();
+function setBoundingBox(scope, item, item_type="clip") {
+  let scrolling_tracks = $("#scrolling_tracks");
+  let vert_scroll_offset = scrolling_tracks.scrollTop();
+  let horz_scroll_offset = scrolling_tracks.scrollLeft();
+  let item_bottom = 0;
+  let item_top = 0;
+  let item_left = 0;
+  let item_right = 0;
 
-  var item_bottom = item.position().top + item.height() + vert_scroll_offset;
-  var item_top = item.position().top + vert_scroll_offset;
-  var item_left = item.position().left + horz_scroll_offset;
-  var item_right = item.position().left + horz_scroll_offset + item.width();
+  if (item && item.position()) {
+    item_bottom = item.position().top + item.height() + vert_scroll_offset;
+    item_top = item.position().top + vert_scroll_offset;
+    item_left = item.position().left + horz_scroll_offset;
+    item_right = item.position().left + horz_scroll_offset + item.width();
+  } else {
+    // Protect against invalid item (sentry)
+    // TODO: Determine what causes an invalid item to be passed into this function
+    return;
+  }
 
   if (jQuery.isEmptyObject(bounding_box)) {
     bounding_box.left = item_left;
@@ -245,36 +255,56 @@ function setBoundingBox(scope, item) {
     if (item_right > bounding_box.right) { bounding_box.right = item_right; }
 
     // compare height and width of bounding box (take the largest number)
-    var height = bounding_box.bottom - bounding_box.top;
-    var width = bounding_box.right - bounding_box.left;
+    let height = bounding_box.bottom - bounding_box.top;
+    let width = bounding_box.right - bounding_box.left;
     if (height > bounding_box.height) { bounding_box.height = height; }
     if (width > bounding_box.width) { bounding_box.width = width; }
   }
 
-  // Get list of current selected ids (so we can ignore their snapping x coordinates)
-  bounding_box.selected_ids = {};
-  for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
-    if (scope.project.clips[clip_index].selected) {
-      bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
-    }
+  // Add in additional types of special-case bounding boxes
+  if (item_type === "playhead") {
+      // Center of playhead (1 pixel width)
+      bounding_box.left += 13;
+      bounding_box.right = bounding_box.left;
+      bounding_box.width = 1;
+
+  } else if (item_type === "trimming") {
+      // Edge of clip for trimming (1 pixel width)
+      bounding_box.right = bounding_box.left;
+      bounding_box.width = 1;
   }
-  for (var effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
-    if (scope.project.effects[effect_index].selected) {
-      bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
+
+  // Get list of current selected ids (so we can ignore their snapping x coordinates)
+  // Unless playhead mode, where we don't want to ignore any selected clips
+  bounding_box.selected_ids = {};
+  if (item_type !== "playhead") {
+    for (let clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
+      if (scope.project.clips[clip_index].selected) {
+        bounding_box.selected_ids[scope.project.clips[clip_index].id] = true;
+      }
     }
+    for (let effect_index = 0; effect_index < scope.project.effects.length; effect_index++) {
+      if (scope.project.effects[effect_index].selected) {
+        bounding_box.selected_ids[scope.project.effects[effect_index].id] = true;
+      }
+    }
+  } else {
+    // Get id of ruler, or trimming clip
+    let id = item.attr("id").replace("clip_", "").replace("transition_", "");
+    bounding_box.selected_ids[id] = true;
   }
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top) {
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip") {
   // Store result of snapping logic (left, top)
   var snapping_result = Object();
   snapping_result.left = left;
   snapping_result.top = top;
 
   // Check for shift key
-  if ( typeof(event) !== "undefined" && event.shiftKey) {
-    // freeze X movement
+  if (typeof(event) !== "undefined" && event.shiftKey && item_type === "clip") {
+    // freeze X movement for clips and transitions
     x_offset = 0;
     snapping_result.left = previous_x;
   }
@@ -309,14 +339,16 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   }
 
   // Find closest nearby object, if any (for snapping)
-  var bounding_box_padding = 3; // not sure why this is needed, but it helps line everything up
-  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right + bounding_box_padding], 10.0, bounding_box.selected_ids);
+  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right],
+    10.0, bounding_box.selected_ids);
   var nearby_offset = results[0];
   var snapline_position = results[1];
 
   if (snapline_position) {
     // Show snapping line
-    scope.showSnapline(snapline_position);
+    if (item_type !== "playhead") {
+      scope.showSnapline(snapline_position);
+    }
 
     if (scope.enable_snapping) {
       // Snap bounding box to this position
@@ -332,4 +364,127 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   }
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
+}
+
+/**
+ * Primes are used for factoring.
+ * Store any that have been found for future use.
+ */
+global_primes = new Set();
+
+/**
+ * Creates a list of all primes less than n.
+ * Stores primes in a set for better performance in the future.
+ * If some primes have been found, start with that list,
+ * and check the remaining numbers up to n.
+ * @param {any number} n
+ * @returns the list of all primes less than n
+ */
+function primesUpTo(n) {
+  n = Math.floor(n);
+  if (Array.from(global_primes).pop() >= n) { // All primes already found
+    return Array.from(global_primes).filter( x => { return x < n });
+  }
+  start = 2; // 0 and 1 can't be prime
+  primes = [...Array(n+1).keys()]; // List from 0 to n
+  if (Array.from(global_primes).length) { // Some primes already found
+    start = Array.from(global_primes).pop() + 1;
+    primes = primes.slice(start,primes.length -1);
+    primes = Array.from(global_primes).concat(primes);
+  } else {
+    primes = primes.slice(start,primes.length -1);
+  }
+  primes.forEach( p => { // Sieve of Eratosthenes method of prime factoring
+    primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
+    global_primes.add(p);
+  });
+  return primes;
+}
+
+/**
+ * Every integer is either prime,
+ * is the product of some list of primes.
+ * @param {integer to factor} n
+ * @returns the list of prime factors of n
+ */
+function primeFactorsOf(n) {
+  n = Math.floor(n);
+  factors = [];
+  primes = primesUpTo(n);
+  primes.push(n);
+  while (n != 1) {
+      if (n % primes[0] == 0) {
+          n = n/primes[0];
+          factors.push(primes[0]);
+      } else {
+          primes.shift();
+      }
+  }
+  return factors;
+}
+
+/**
+ * From the pixels per second of the project,
+ * Find a number of frames between each ruler mark,
+ * such that the tick marks remain at least 50px apart.
+ *
+ * Increases the number of frames by factors of FPS.
+ * This way each tick should land neatly on a second mark
+ * @param {Pixels per second} pps
+ * @param fps_num
+ * @param fps_den
+ * @returns
+ */
+function framesPerTick(pps, fps_num, fps_den) {
+  fps = fps_num / fps_den;
+  frames = 1;
+  seconds = () => { return frames / fps };
+  pixels = () => { return seconds() * pps };
+  factors = primeFactorsOf(Math.round(fps));
+  while (pixels() < 40) {
+      frames *= factors.shift() || 2;
+  }
+
+  return frames;
+}
+
+function setSelections(scope, element, id) {
+  if (!element.hasClass("ui-selected")) {
+    // Clear previous selections?
+    var clear_selections = false;
+    if ($(".ui-selected").length > 0) {
+      clear_selections = true;
+
+      // Remove ui-selected class immediately
+      $(".ui-selected").each(function () {
+          $(this).removeClass("ui-selected");
+      });
+    }
+
+    // selectClip, selectTransition
+    if (element.hasClass("clip")) {
+      // Select this clip, unselect all others
+      scope.selectTransition("", clear_selections);
+      scope.selectClip(id, clear_selections);
+
+    }
+    else if (element.hasClass("transition")) {
+      // Select this transition, unselect all others
+      scope.selectClip("", clear_selections);
+      scope.selectTransition(id, clear_selections);
+    }
+  }
+
+  // Apply scope up to this point
+  scope.$apply(function () {});
+}
+
+/**
+ * <body> of index.html calls this on load.
+ * Garauntees that the ruler is drawn when timeline first loads
+ */
+function forceDrawRuler() {
+  var scroll = document.querySelector('#scrolling_tracks').scrollLeft;
+  document.querySelector('#scrolling_tracks').scrollLeft = 10;
+  document.querySelector('#scrolling_tracks').scrollLeft = scroll;
 }

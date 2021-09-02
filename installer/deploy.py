@@ -33,6 +33,7 @@ import traceback
 import re
 import urllib3
 from github3 import login
+from github3.models import GitHubError
 from requests.auth import HTTPBasicAuth
 from requests import post, get, head
 from build_server import (
@@ -185,7 +186,7 @@ def main():
                         github_release_name,
                         target_commitish=git_branch_name,
                         prerelease=True,
-                        body=formatted_logs.get(repo_name))
+                        body=formatted_logs.get(repo_name)[:125000])
 
             # Upload all deploy artifacts/installers to GitHub
             # NOTE: ONLY for `openshot-qt` repo
@@ -367,6 +368,8 @@ def main():
     except Exception as ex:
         tb = traceback.format_exc()
         error("Unhandled %s exception: %s - %s" % (script_mode, str(ex), str(tb)))
+        if type(ex) == GitHubError:
+            error(str(ex.errors))
 
     if not errors_detected:
         output("Successfully completed %s script!" % script_mode)

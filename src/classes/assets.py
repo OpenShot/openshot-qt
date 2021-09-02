@@ -53,8 +53,8 @@ def get_assets_path(file_path=None, create_paths=True):
         if create_paths:
             if not os.path.exists(asset_path):
                 if os.path.exists(asset_path_30_char):
-                    #copy assets folder, if it follows the previous naming convention
-                    #must leave a copy for possible projects that shared the folder.
+                    # Copy assets folder, if it follows the previous naming convention
+                    # must leave a copy for possible projects that shared the folder.
                     try:
                         shutil.copytree(asset_path_30_char, asset_path)
                         log.info("Copying shortened asset folder. {}".format(asset_path))
@@ -64,7 +64,7 @@ def get_assets_path(file_path=None, create_paths=True):
                     os.mkdir(asset_path)
                     log.info("Asset dir created as {}".format(asset_path))
             else:
-                log.info("Using existing asset folder {}".format(asset_path))
+                log.debug("Using existing asset folder {}".format(asset_path))
 
             # Create asset thumbnails folder
             asset_thumbnails_folder = os.path.join(asset_path, "thumbnail")

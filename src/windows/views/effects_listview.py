@@ -118,3 +118,4 @@ class EffectsListView(QListView):
         # setup filter events
         app = get_app()
         app.window.effectsFilter.textChanged.connect(self.filter_changed)
+        app.window.refreshEffectsSignal.connect(self.refresh_view)

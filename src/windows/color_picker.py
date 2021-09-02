@@ -118,7 +118,7 @@ class CPAlphaShowLabel(QLabel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Length in pixels of a side of the checkerboard squares
-        # (Pattern is made up of 2×2 squares, total size 2n × 2n)
+        # (Pattern is made up of 2x2 squares, total size 2n x 2n)
         self.checkerboard_size = 8
         # Start out transparent by default
         self.color = super().parent().currentColor()
@@ -130,7 +130,7 @@ class CPAlphaShowLabel(QLabel):
         self.repaint()
     def build_pattern(self) -> QPixmap:
         """Construct tileable checkerboard pattern for paint events"""
-        # Brush will be an n×n checkerboard pattern
+        # Brush will be an nxn checkerboard pattern
         n = self.checkerboard_size
         pat = QPixmap(2 * n, 2 * n)
         p = QPainter(pat)

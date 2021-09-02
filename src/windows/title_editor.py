@@ -42,7 +42,7 @@ from PyQt5 import QtGui
 from PyQt5.QtWidgets import (
     QWidget, QGraphicsScene,
     QMessageBox, QDialog, QColorDialog, QFontDialog,
-    QPushButton, QTextEdit, QLabel
+    QPushButton, QLineEdit, QLabel
 )
 
 import openshot
@@ -137,8 +137,8 @@ class TitleEditor(QDialog):
         # Loop through child widgets (and remove them)
         text_list = []
         for child in self.settingsContainer.children():
-            if type(child) == QTextEdit and child.objectName() != "txtFileName":
-                text_list.append(child.toPlainText())
+            if type(child) == QLineEdit and child.objectName() != "txtFileName":
+                text_list.append(child.text())
 
         # Update text values in the SVG
         for i, node in enumerate(self.tspan_nodes):
@@ -238,7 +238,7 @@ class TitleEditor(QDialog):
         label.setToolTip(label_line_text)
 
         # create text editor for file name
-        self.txtFileName = QTextEdit(self)
+        self.txtFileName = QLineEdit(self)
         self.txtFileName.setObjectName("txtFileName")
 
         # If edit mode or reload, set file name
@@ -302,7 +302,7 @@ class TitleEditor(QDialog):
             label.setToolTip(label_line_text)
 
             # create text editor for each text element in title
-            widget = QTextEdit(_(text))
+            widget = QLineEdit(_(text))
             widget.setFixedHeight(28)
             widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
             layout.addRow(label, widget)
@@ -581,10 +581,10 @@ class TitleEditor(QDialog):
 
         else:
             # Create new title (with unique name)
-            file_name = "%s.svg" % self.txtFileName.toPlainText().strip()
+            file_name = "%s.svg" % self.txtFileName.text().strip()
             file_path = os.path.join(info.TITLE_PATH, file_name)
 
-            if self.txtFileName.toPlainText().strip():
+            if self.txtFileName.text().strip():
                 # Do we have unsaved changes?
                 if os.path.exists(file_path) and not self.edit_file_path:
                     ret = QMessageBox.question(
@@ -614,7 +614,7 @@ class TitleEditor(QDialog):
         s = get_app().get_settings()
         prog = s.get("title_editor")
         # Store filename field to display on reload
-        filename_text = self.txtFileName.toPlainText().strip()
+        filename_text = self.txtFileName.text().strip()
         try:
             # launch advanced title editor
             log.info("Advanced title editor command: %s", str([prog, self.filename]))

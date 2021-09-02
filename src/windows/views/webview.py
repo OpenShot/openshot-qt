@@ -2745,14 +2745,18 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             level = levels.get(level, logging.INFO)
         self.log_fn(level, message)
 
+    @pyqtSlot()
+    def zoomIn(self):
+        get_app().window.sliderZoomWidget.zoomIn()
+
+    @pyqtSlot()
+    def zoomOut(self):
+        get_app().window.sliderZoomWidget.zoomOut()
+
     def update_scroll(self, newScroll):
         """Force a scroll event on the timeline (i.e. the zoom slider is moving, so we need to scroll the timeline)"""
         # Get access to timeline scope and set scale to new computed value
         self.run_js(JS_SCOPE_SELECTOR + ".setScroll(" + str(newScroll) + ");")
-
-        # This seems to make web-engine zoom slider scroll events go smoother
-        # TODO: remove this if we can find a better approach.
-        QCoreApplication.processEvents()
 
     # Handle changes to zoom level, update js
     def update_zoom(self, newScale):
@@ -2779,20 +2783,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             get_app().updates.ignore_history = True
             get_app().updates.update(["scale"], newScale)
             get_app().updates.ignore_history = False
-
-    # Capture wheel event to alter zoom slider control
-    def wheelEvent(self, event):
-        if event.modifiers() & Qt.ControlModifier:
-            event.accept()
-
-            # Modify zooms factor
-            if event.angleDelta().y() > 0:
-                get_app().window.sliderZoomWidget.zoomIn()
-            else:
-                get_app().window.sliderZoomWidget.zoomOut()
-
-        else:
-            super().wheelEvent(event)
 
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
@@ -3213,7 +3203,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Connect shutdown signals
         app.aboutToQuit.connect(self.redraw_audio_timer.stop)
         app.aboutToQuit.connect(self.cache_renderer.stop)
-        app.aboutToQuit.connect(self.deleteLater)
+        app.lastWindowClosed.connect(self.deleteLater)
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
+
