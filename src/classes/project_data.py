@@ -32,6 +32,7 @@ import glob
 import os
 import random
 import shutil
+import json
 
 from classes import info
 from classes.app import get_app
@@ -43,6 +44,8 @@ from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
 
 from .keyframe_scaler import KeyframeScaler
+
+import openshot
 
 
 class ProjectDataStore(JsonDataStore, UpdateInterface):
@@ -647,7 +650,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         # Increment track counter
                         track_counter += 1
 
-            except Exception:
+            except Exception as ex:
                 # Error parsing legacy contents
                 msg = "Failed to load legacy project file %(path)s" % {"path": file_path}
                 log.error(msg, exc_info=1)
@@ -716,9 +719,60 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                             point.get("handle_right")["X"] = 0.5
                                             point.get("handle_right")["Y"] = 0.0
 
+        elif openshot_version == "2.5.1":
+            # Replace missing crop properties from 2.5.x
+            for clip in self._data["clips"]:
+                # Loop through keyframes for alpha
+                crop_x = clip.pop("crop_x", {})
+                crop_y = clip.pop("crop_y", {})
+                crop_width = clip.pop("crop_width", {})
+                crop_height = clip.pop("crop_height", {})
+
+                if self.is_keyframe_valid(crop_x, 0.0) or \
+                        self.is_keyframe_valid(crop_y, 0.0) or \
+                        self.is_keyframe_valid(crop_width, 1.0) or \
+                        self.is_keyframe_valid(crop_height, 1.0):
+                    # Apply crop effect to clip (which wasn't available in 2.5.x)
+                    effect = openshot.EffectInfo().CreateEffect("Crop")
+                    effect.Id(get_app().project.generate_id())
+                    effect_json = json.loads(effect.Json())
+
+                    # Append previous clip crop values
+                    if crop_x:
+                        effect_json["x"] = crop_x
+                    else:
+                        effect_json["x"] = json.loads(openshot.Keyframe(0.0).Json())
+                    if crop_y:
+                        effect_json["y"] = crop_y
+                    else:
+                        effect_json["y"] = json.loads(openshot.Keyframe(0.0).Json())
+                    if crop_width:
+                        effect_json["right"] = crop_width
+                    else:
+                        effect_json["right"] = json.loads(openshot.Keyframe(0.0).Json())
+                    if crop_height:
+                        effect_json["bottom"] = crop_height
+                    else:
+                        effect_json["bottom"] = json.loads(openshot.Keyframe(0.0).Json())
+
+                    # Reverse values on right & bottom
+                    for prop in ["right", "bottom"]:
+                        for point in effect_json[prop].get("Points", []):
+                            point["co"]["Y"] = 1.0 - point.get("co", {}).get("Y", 0.0)
+
+                    # Append effect JSON to clip
+                    clip["effects"].append(effect_json)
+
         # Fix default project id (if found)
         if self._data.get("id") == "T0":
             self._data["id"] = self.generate_id()
+
+    def is_keyframe_valid(self, keyframe, default_value):
+        """Check if a keyframe is not empty (i.e. > 1 point, or a non default_value)"""
+        if len(keyframe.get("Points", [])) == 0:
+            return False
+        return len(keyframe.get("Points", [])) > 1 or \
+               keyframe.get("Points", [])[0].get("co", {}).get("Y", 0.0) != default_value
 
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
