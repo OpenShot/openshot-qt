@@ -31,9 +31,9 @@ from time import strftime
 from PyQt5.QtCore import QCoreApplication, QStandardPaths
 import shutil
 
-VERSION = "2.6.0-dev"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.6"
-DATE = "20210819000000"
+VERSION = "2.6.1-dev"
+MINIMUM_LIBOPENSHOT_VERSION = "0.2.7"
+DATE = "20210904000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
