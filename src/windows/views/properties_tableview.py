@@ -750,7 +750,7 @@ class PropertiesTableView(QTableView):
                 # Divide into smaller QMenus (since large lists cover the entire screen)
                 # For example: Transitions -> 1 -> sub items
                 SubMenu = None
-                if choice["icon"] is not None:
+                if choice.get("icon") is not None:
                     SubMenuRoot = menu.addMenu(choice["icon"], choice["name"])
                 else:
                     SubMenuRoot = menu.addMenu(choice["name"])
