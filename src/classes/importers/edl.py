@@ -193,7 +193,7 @@ def import_edl():
     else:
         recommended_path = os.path.dirname(recommended_path)
     file_path = QFileDialog.getOpenFileName(app.window, _("Import EDL..."), recommended_path,
-                                            _("Edit Decision Lists (*.edl)"), _("Edit Decision Lists (*.edl)"))[0]
+                                            _("Edit Decision List (*.edl)"), _("Edit Decision List (*.edl)"))[0]
     if os.path.exists(file_path):
         context = {}
         current_clip_index = ""
