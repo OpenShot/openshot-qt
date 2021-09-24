@@ -3,8 +3,8 @@
 *.DS_Store
 .idea
 .settings
-# Exclude results of the build process
 idea/*
+# Exclude results of the build process
 doc/_build
 **/__pycache__/
 build
