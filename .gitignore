@@ -1,13 +1,15 @@
+# Exclude common editor config
+.vscode/
 *.DS_Store
 .idea
 .settings
+# Exclude results of the build process
 idea/*
 doc/_build
 **/__pycache__/
 build
 dist
 openshot_qt.egg-info
-.vscode/
 
 protobuf_data/
 openshot_qt/
