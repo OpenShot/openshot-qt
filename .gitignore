@@ -1,7 +1,10 @@
+# Exclude common editor config
+.vscode/
 *.DS_Store
 .idea
 .settings
 idea/*
+# Exclude results of the build process
 doc/_build
 **/__pycache__/
 build
