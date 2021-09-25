@@ -45,6 +45,7 @@
 	<file>actions/lock.png</file>
         <file>actions/snap.png</file>
         <file>actions/snapshot.png</file>
+	<file>actions/title-editor.svg</file>
         <file>Humanity/mimes/16/gnome-mime-application-pdf.svg</file>
         <file>Humanity/mimes/16/text-html.svg</file>
         <file>Humanity/mimes/16/application-x-cd-image.svg</file>
