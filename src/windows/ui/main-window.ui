@@ -1001,18 +1001,6 @@
     <string>Image</string>
    </property>
   </action>
-  <action name="actionFilesClear">
-   <property name="icon">
-    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Clear</string>
-   </property>
-   <property name="toolTip">
-    <string>Clear</string>
-   </property>
-  </action>
   <action name="actionTransitionsShowAll">
    <property name="checkable">
     <bool>true</bool>
@@ -1033,18 +1021,6 @@
    </property>
    <property name="toolTip">
     <string>Common</string>
-   </property>
-  </action>
-  <action name="actionTransitionsClear">
-   <property name="icon">
-    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Clear</string>
-   </property>
-   <property name="toolTip">
-    <string>Clear</string>
    </property>
   </action>
   <action name="actionEffectsShowAll">
@@ -1078,18 +1054,6 @@
    </property>
    <property name="toolTip">
     <string>Audio</string>
-   </property>
-  </action>
-  <action name="actionEffectsClear">
-   <property name="icon">
-    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Clear</string>
-   </property>
-   <property name="toolTip">
-    <string>Clear</string>
    </property>
   </action>
   <action name="actionTimelineZoomIn">
@@ -1407,18 +1371,6 @@
    </property>
    <property name="toolTip">
     <string>File Properties</string>
-   </property>
-  </action>
-  <action name="actionPropertyFilterClear">
-   <property name="icon">
-    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Clear</string>
-   </property>
-   <property name="toolTip">
-    <string>Clear</string>
    </property>
   </action>
   <action name="actionRemoveTrack">
