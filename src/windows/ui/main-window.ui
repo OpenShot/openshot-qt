@@ -846,7 +846,7 @@
   <action name="actionSaveFrame">
    <property name="icon">
     <iconset theme="camera-photo-symbolic" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/camera-photo-symbolic.svg</normaloff>:/icons/Humanity/actions/custom/camera-photo-symbolic.svg</iconset>
+     <normaloff>:/icons/actions/camera-photo-symbolic.svg</normaloff>:/icons/actions/camera-photo-symbolic.svg</iconset>
    </property>
    <property name="text">
     <string>Save Current Frame</string>
@@ -861,7 +861,7 @@
    </property>
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/arrow.png</normaloff>:/icons/Humanity/actions/custom/arrow.png</iconset>
+     <normaloff>:/icons/actions/arrow.png</normaloff>:/icons/actions/arrow.png</iconset>
    </property>
    <property name="text">
     <string>Arrow Tool</string>
@@ -897,7 +897,7 @@
    </property>
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/snap.png</normaloff>:/icons/Humanity/actions/custom/snap.png</iconset>
+     <normaloff>:/icons/actions/snap.png</normaloff>:/icons/actions/snap.png</iconset>
    </property>
    <property name="text">
     <string>Snapping Enabled</string>
@@ -909,7 +909,7 @@
   <action name="actionAddMarker">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/add_marker.png</normaloff>:/icons/Humanity/actions/custom/add_marker.png</iconset>
+     <normaloff>:/icons/actions/add_marker.png</normaloff>:/icons/actions/add_marker.png</iconset>
    </property>
    <property name="text">
     <string>Add Marker</string>
@@ -948,7 +948,7 @@
   <action name="actionCenterOnPlayhead">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</normaloff>:/icons/Humanity/actions/custom/center-on-playhead.svg</iconset>
+     <normaloff>:/icons/actions/center-on-playhead.svg</normaloff>:/icons/actions/center-on-playhead.svg</iconset>
    </property>
    <property name="text">
     <string>Center on Playhead</string>
@@ -1124,8 +1124,8 @@
   </action>
   <action name="actionTitle">
    <property name="icon">
-    <iconset theme="font" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</iconset>
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/actions/title-editor.svg</normaloff>:/icons/actions/title-editor.svg</iconset>
    </property>
    <property name="text">
     <string>Title</string>
@@ -1568,7 +1568,7 @@
   <action name="actionLockTrack">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/lock.png</normaloff>:/icons/Humanity/actions/custom/lock.png</iconset>
+     <normaloff>:/icons/actions/lock.png</normaloff>:/icons/actions/lock.png</iconset>
    </property>
    <property name="text">
     <string>Lock Track</string>
@@ -1580,7 +1580,7 @@
   <action name="actionUnlockTrack">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/lock.png</normaloff>:/icons/Humanity/actions/custom/lock.png</iconset>
+     <normaloff>:/icons/actions/lock.png</normaloff>:/icons/actions/lock.png</iconset>
    </property>
    <property name="text">
     <string>Unlock Track</string>
