@@ -70,7 +70,7 @@ class QueryTests(unittest.TestCase):
         # Insert some clips into the project data
         for num in range(5):
             # Create clip
-            c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png"))
+            c = openshot.Clip(os.path.join(info.RESOURCES_PATH, "openshot.png"))
             c.Position(num * 10.0)
             c.End(5.0)
 
@@ -97,7 +97,7 @@ class QueryTests(unittest.TestCase):
             # Insert into project data
             query_file = File()
             query_file.data = file_data
-            query_file.data["path"] = os.path.join(info.IMAGES_PATH, "AboutLogo.png")
+            query_file.data["path"] = os.path.join(info.RESOURCES_PATH, "openshot.png")
             query_file.data["media_type"] = "image"
             query_file.save()
 
@@ -138,7 +138,7 @@ class QueryTests(unittest.TestCase):
         num_clips = len(Clip.filter())
 
         # Create clip
-        c = openshot.Clip(os.path.join(info.IMAGES_PATH, "AboutLogo.png"))
+        c = openshot.Clip(os.path.join(info.RESOURCES_PATH, "openshot.png"))
         clip_data = json.loads(c.Json())
 
         # Insert into project data
@@ -319,7 +319,7 @@ class QueryTests(unittest.TestCase):
         # Insert into project data
         query_file = File()
         query_file.data = file_data
-        query_file.data["path"] = os.path.join(info.IMAGES_PATH, "AboutLogo.png")
+        query_file.data["path"] = os.path.join(info.RESOURCES_PATH, "openshot.png")
         query_file.data["media_type"] = "image"
 
         query_file.save()
