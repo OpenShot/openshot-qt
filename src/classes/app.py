@@ -239,7 +239,7 @@ class OpenShotApp(QApplication):
         log.debug("Loading UI theme")
         if self.settings.get("theme") != "No Theme":
             # Load embedded font
-            font_path = os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf")
+            font_path = os.path.join(info.RESOURCES_PATH, "Ubuntu-R.ttf")
             if os.path.exists(font_path):
                 log.info("Setting font to %s", font_path)
                 try:
