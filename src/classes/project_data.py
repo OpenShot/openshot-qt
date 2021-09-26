@@ -719,7 +719,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                             point.get("handle_right")["X"] = 0.5
                                             point.get("handle_right")["Y"] = 0.0
 
-        elif openshot_version == "2.5.1":
+        elif openshot_version.startswith("2.5.1"):
             # Replace missing crop properties from 2.5.x
             for clip in self._data["clips"]:
                 # Loop through keyframes for alpha
