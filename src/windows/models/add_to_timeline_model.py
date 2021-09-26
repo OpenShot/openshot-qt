@@ -67,7 +67,7 @@ class TimelineModel():
                 thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
+                thumb_path = os.path.join(info.RESOURCES_PATH, "AudioThumbnail.svg")
 
             row = []
 

@@ -529,7 +529,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
                             else:
                                 # Audio file
-                                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
+                                thumb_path = os.path.join(info.RESOURCES_PATH, "AudioThumbnail.png")
 
                             # Get file name
                             filename = os.path.basename(file.data["path"])

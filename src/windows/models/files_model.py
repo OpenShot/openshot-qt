@@ -188,7 +188,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 thumb_icon = QIcon(self.get_thumb_path(file.id, thumbnail_frame))
             else:
                 # Audio file
-                thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
+                thumb_icon = QIcon(os.path.join(info.RESOURCES_PATH, "AudioThumbnail.svg"))
 
             row = []
             flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt. ItemNeverHasChildren
