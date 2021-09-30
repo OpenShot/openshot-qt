@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>%s: Initialize Effect</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../../images/openshot.qrc">
+    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QScrollArea" name="scrollArea">

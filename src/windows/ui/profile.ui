@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Choose Profile</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../../images/openshot.qrc">
+    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
+  </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="1" column="0">
     <widget class="QLabel" name="label">

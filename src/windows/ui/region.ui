@@ -14,7 +14,7 @@
    <string>Select Region</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../../images/openshot.qrc">
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="autoFillBackground">
@@ -52,10 +52,10 @@
            <property name="text">
             <string/>
            </property>
-           <property name="icon">
-            <iconset theme="media-playback-start">
-             <normaloff>.</normaloff>.</iconset>
-           </property>
+            <property name="icon">
+             <iconset theme="media-playback-start" resource="../../../images/openshot.qrc">
+              <normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</iconset>
+            </property>
            <property name="checkable">
             <bool>true</bool>
            </property>
@@ -87,8 +87,8 @@
   </layout>
   <action name="actionPlay">
    <property name="icon">
-    <iconset theme="media-playback-start">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="media-playback-start" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</normaloff>:/icons/Humanity/actions/16/media-playback-start.svg</iconset>
    </property>
    <property name="text">
     <string>Play</string>
