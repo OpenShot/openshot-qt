@@ -542,7 +542,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         if cur_id:
             return File.get(id=cur_id)
 
-    def __init__(self, *args):
+    def __init__(self, *args, **kwargs):
 
         # Add self as listener to project data updates
         # (undo/redo, as well as normal actions handled within this class all update the model)
@@ -574,7 +574,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             functools.partial(self.update_model, clear=False))
 
         # Call init for superclass QObject
-        super(QObject, FilesModel).__init__(self, *args)
+        super().__init__(*args, **kwargs)
 
         # Attempt to load model testing interface, if requested
         # (will only succeed with Qt 5.11+)

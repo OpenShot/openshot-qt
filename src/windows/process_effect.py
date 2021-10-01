@@ -49,13 +49,14 @@ class ProcessEffect(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
-    def __init__(self, clip_id, effect_name, effect_params):
+    def __init__(self, clip_id, effect_name, effect_params, **kwargs):
+
+        # Create dialog class
+        super().__init__(**kwargs)
 
         if not openshot.Clip().COMPILED_WITH_CV:
             raise ModuleNotFoundError("Openshot not compiled with OpenCV")
 
-        # Create dialog class
-        QDialog.__init__(self)
         # Track effect details
         self.clip_id = clip_id
         self.effect_name = effect_name
@@ -243,7 +244,7 @@ class ProcessEffect(QDialog):
             # Attempt to load value from QTextEdit (i.e. multi-line)
             if not value:
                 value = widget.toPlainText()
-        except:
+        except Exception:
             log.debug('Failed to get plain text from widget')
 
         self.context[param["setting"]] = value
@@ -344,12 +345,12 @@ class ProcessEffect(QDialog):
             if (time.time() - start) > 3:
                 self.exporting = False
                 processing.CancelProcessing()
-                while(not processing.IsDone() ):
+                while not processing.IsDone():
                     continue
-                super(ProcessEffect, self).reject()
+                super().reject()
 
         # get processing status
-        while(not processing.IsDone() ):
+        while not processing.IsDone():
             # update progressbar
             progressionStatus = processing.GetProgress()
             self.progressBar.setValue(progressionStatus)
@@ -359,20 +360,20 @@ class ProcessEffect(QDialog):
             QCoreApplication.processEvents()
 
             # if the cancel button was pressed, close the processing thread
-            if(self.cancel_clip_processing):
+            if self.cancel_clip_processing:
                 processing.CancelProcessing()
 
-        if(not self.cancel_clip_processing):
+        if not self.cancel_clip_processing:
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
-            self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
+            self.effect.SetJson('{"protobuf_data_path": "%s"}' % protobufPath)
             self.effect.Id(ID)
 
             # Accept dialog
-            super(ProcessEffect, self).accept()
+            super().accept()
 
     def reject(self):
         # Cancel dialog
         self.exporting = False
         self.cancel_clip_processing = True
-        super(ProcessEffect, self).reject()
+        super().reject()

@@ -377,7 +377,7 @@ class AddToTimeline(QDialog):
             position += (end_time - start_time)
 
         # Accept dialog
-        super(AddToTimeline, self).accept()
+        super().accept()
 
     def ImageLengthChanged(self, value):
         """Handle callback for image length being changed"""
@@ -424,11 +424,11 @@ class AddToTimeline(QDialog):
         log.info('reject')
 
         # Accept dialog
-        super(AddToTimeline, self).reject()
+        super().reject()
 
-    def __init__(self, files=None, position=0.0):
+    def __init__(self, files=None, position=0.0, **kwargs):
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(**kwargs)
 
         # Load UI from Designer
         ui_util.load_ui(self, self.ui_path)

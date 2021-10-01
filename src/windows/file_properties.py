@@ -47,11 +47,11 @@ class FileProperties(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'file-properties.ui')
 
-    def __init__(self, file):
+    def __init__(self, file, **kwargs):
         self.file = file
 
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(**kwargs)
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -195,9 +195,9 @@ class FileProperties(QDialog):
         self.file.save()
 
         # Accept dialog
-        super(FileProperties, self).accept()
+        super().accept()
 
     def reject(self):
 
         # Cancel dialog
-        super(FileProperties, self).reject()
+        super().reject()

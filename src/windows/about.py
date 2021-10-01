@@ -104,9 +104,9 @@ class About(QDialog):
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'about.ui')
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(*args, **kwargs)
 
         # Load UI from designer & init
         ui_util.load_ui(self, self.ui_path)

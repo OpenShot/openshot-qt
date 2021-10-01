@@ -1029,7 +1029,7 @@ class Export(QDialog):
             self.show()
         else:
             # Accept dialog
-            super(Export, self).accept()
+            super().accept()
 
     def reject(self):
         if self.exporting and not self.close_button.isVisible():
@@ -1049,4 +1049,4 @@ class Export(QDialog):
 
         # Cancel dialog
         self.exporting = False
-        super(Export, self).reject()
+        super().reject()

@@ -59,11 +59,11 @@ class SelectRegion(QDialog):
     SpeedSignal = pyqtSignal(float)
     StopSignal = pyqtSignal()
 
-    def __init__(self, file=None, clip=None):
+    def __init__(self, file=None, clip=None, **kwargs):
         _ = get_app()._tr
 
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(**kwargs)
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -251,7 +251,7 @@ class SelectRegion(QDialog):
 
         self.shutdownPlayer()
         get_app().window.SelectRegionSignal.emit("")
-        super(SelectRegion, self).accept()
+        super().accept()
 
     def shutdownPlayer(self):
 
@@ -277,7 +277,7 @@ class SelectRegion(QDialog):
         # Cancel dialog
         self.shutdownPlayer()
         get_app().window.SelectRegionSignal.emit("")
-        super(SelectRegion, self).reject()
+        super().reject()
 
 
 

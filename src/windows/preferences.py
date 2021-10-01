@@ -56,10 +56,10 @@ class Preferences(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'preferences.ui')
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
 
         # Create dialog class
-        QDialog.__init__(self)
+        super().__init__(*args, **kwargs)
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -639,4 +639,4 @@ class Preferences(QDialog):
             msg.exec_()
 
         # Close dialog
-        super(Preferences, self).reject()
+        super().reject()
