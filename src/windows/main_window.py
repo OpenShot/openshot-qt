@@ -208,7 +208,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.SetWindowTitle()
 
             # Show message to user
-            msg = QMessageBox()
+            msg = QMessageBox(self)
             _ = get_app()._tr
             msg.setWindowTitle(_("Backup Recovered"))
             msg.setText(_("Your most recent unsaved project has been recovered."))
@@ -310,7 +310,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionAnimatedTitle_trigger(self):
         # show dialog
         from windows.animated_title import AnimatedTitle
-        win = AnimatedTitle()
+        # Not parented, to avoid dimming main window under Linux
+        win = AnimatedTitle(None)
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
@@ -319,9 +320,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('animated title add cancelled')
 
     def actionAnimation_trigger(self):
-        # show dialog
         from windows.animation import Animation
-        win = Animation()
+        # Not parented, to avoid dimming main window under Linux
+        win = Animation(None)
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
@@ -330,9 +331,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('animation cancelled')
 
     def actionTitle_trigger(self):
-        # show dialog
         from windows.title_editor import TitleEditor
-        win = TitleEditor()
+        # Not parented, to avoid dimming main window under Linux
+        win = TitleEditor(None)
         # Run the dialog event loop - blocking interaction on this window during that time
         win.exec_()
 
@@ -349,7 +350,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
-        win = TitleEditor(edit_file_path=file_path)
+        # Not parented, to avoid dimming main window under Linux
+        win = TitleEditor(None, edit_file_path=file_path)
         # Run the dialog event loop - blocking interaction on this window during that time
         win.exec_()
 
@@ -383,7 +385,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show dialog for editing title
         from windows.title_editor import TitleEditor
-        win = TitleEditor(edit_file_path=file_path, duplicate=True)
+        # Not parented, to avoid dimming main window under Linux
+        win = TitleEditor(None, edit_file_path=file_path, duplicate=True)
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
 
@@ -751,6 +754,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show window
         from windows.add_to_timeline import AddToTimeline
+        # Not parented, to avoid dimming main window under Linux
         win = AddToTimeline(files, pos)
         # Run the dialog event loop - blocking interaction on this window during this time
         result = win.exec_()
@@ -762,7 +766,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionExportVideo_trigger(self, checked=True):
         # show window
         from windows.export import Export
-        win = Export()
+        # Not parented, to avoid dimming main window under Linux
+        win = Export(None)
         # Run the dialog event loop - blocking interaction on this window during this time
         result = win.exec_()
         if result == QDialog.Accepted:
@@ -811,7 +816,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Show dialog
         from windows.preferences import Preferences
-        win = Preferences()
+        # Not parented, to avoid dimming main window under Linux
+        win = Preferences(None)
         # Run the dialog event loop - blocking interaction on this window during this time
         result = win.exec_()
         if result == QDialog.Accepted:
@@ -863,7 +869,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionAbout_trigger(self, checked=True):
         """Show about dialog"""
         from windows.about import About
-        win = About()
+        # Not parented, to avoid dimming main window under Linux
+        win = About(None)
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 
@@ -1679,7 +1686,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Show dialog
         from windows.profile import Profile
         log.debug("Showing preferences dialog")
-        win = Profile()
+        # Not parented, to avoid dimming main window under Linux
+        win = Profile(None)
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
         log.debug("Preferences dialog closed")
@@ -1697,6 +1705,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # show dialog
         from windows.cutting import Cutting
+        # Not parented, to avoid dimming main window under Linux
         win = Cutting(f)
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
