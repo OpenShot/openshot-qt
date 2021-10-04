@@ -23,13 +23,13 @@
         <!--MIXIN_JS_INCLUDE-->
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-    	<script type="text/javascript" src="js/controllers.js"></script>
-    	<script type="text/javascript" src="js/directives/ruler.js"></script>
-    	<script type="text/javascript" src="js/directives/playhead.js"></script>
-    	<script type="text/javascript" src="js/directives/track.js"></script>
-    	<script type="text/javascript" src="js/directives/clip.js"></script>
-    	<script type="text/javascript" src="js/directives/transition.js"></script>
-    	<script type="text/javascript" src="js/directives/misc.js"></script> 	
+        <script type="text/javascript" src="js/controllers.js"></script>
+        <script type="text/javascript" src="js/directives/ruler.js"></script>
+        <script type="text/javascript" src="js/directives/playhead.js"></script>
+        <script type="text/javascript" src="js/directives/track.js"></script>
+        <script type="text/javascript" src="js/directives/clip.js"></script>
+        <script type="text/javascript" src="js/directives/transition.js"></script>
+        <script type="text/javascript" src="js/directives/misc.js"></script>
         <script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
 
         <!-- OpenShot StyleSheets -->
@@ -68,8 +68,9 @@
 		<div id="track_controls">
 			<div ng-repeat="layer in project.layers.slice().reverse()" id="track_static_{{layer.number}}" ng-right-click="showTrackMenu(layer.id)" class="track_name">
 				<div class="track_top">
-					<div tl-clip-menu class="track_menu" ng-mousedown="showTrackMenu(layer.id)"></div>
-					<span class="track_label">{{getTrackName(layer.label, project.layers.length - $index)}}</span><span ng-if="layer.lock" class="track_lock"></span>
+					<div tl-clip-menu class="menu track_menu" ng-mousedown="showTrackMenu(layer.id)"></div>
+					 <span class="track_label">{{getTrackName(layer.label, project.layers.length - $index)}}</span>
+					 <span ng-if="layer.lock" class="track_lock"></span>
 				</div>
 			</div>
 			<br>
@@ -84,7 +85,7 @@
 				<!-- CLIPS -->
 				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="selectClip(clip.id, true, $event)" ng-right-click="showClipMenu(clip.id, $event)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{1000 + $index}};">
 					<div class="clip_top">
-						<div tl-clip-menu class="clip_menu" ng-if="!enable_razor" ng-mousedown="showClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
+						<div tl-clip-menu class="menu clip_menu" ng-if="!enable_razor" ng-mousedown="showClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
 
 						<!-- CLIP EFFECTS -->
 						<div ng-if="!enable_razor" class="effect-container" id="effects_{{clip.id}}">

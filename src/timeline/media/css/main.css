@@ -42,6 +42,17 @@ img {
     max-width: none;
 }
 
+.menu {
+  cursor: pointer;
+  float: left;
+  margin: 4px 4px 2px 4px;
+  width:12px;
+  height:12px;
+  background-image: url('../images/menu.svg');
+}
+.menu:hover { filter: brightness(3.0); }
+
+
 /* Ruler */
 #scrolling_ruler { overflow: hidden; position: relative; line-height: 4px; height:43px;}
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
@@ -73,8 +84,6 @@ img {
 /* Tracks */
 #track_controls { width: 140px; position: relative; float: left; height: 316px; overflow: hidden;}
 .track_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-.track_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
-.track_menu:hover { background-image: url(../images/menu_hover.png); }
 .track_lock { float: left; background-image: url(../images/lock.png); width:14px;height:14px; margin-top: 2px; }
 .track_label { padding-top: 2px; padding-left: 2px; padding-left: 4px; text-shadow: 0 0 10px #ffffff; }
 .track_name { width: 140px; height: 62px; color: #fff; font-size: 9pt; margin-left: 5px; margin-bottom: 8px; background-color: #000; border: 1px solid #4B92AD; border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: 0px 0px 10px #000; }
@@ -90,8 +99,7 @@ img {
 /* Clips */
 .clip_top { display: -webkit-flex; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; overflow: hidden; }
 .clip_top:hover { overflow:visible; z-index:9000;}
-.clip_menu { cursor: pointer; display: -webkit-flex; float:left;margin-top:4px;margin-left:4px;margin-right:4px;min-width:12px;height:12px; background-image: url(../images/menu.png);}
-.clip_menu:hover { background-image: url(../images/menu_hover.png); }
+.clip_menu { display: -webkit-flex; }
 .clip_label { cursor: move; min-width: 0px; float:left; margin-left: 2px; color:#fff;font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .clip_effects { cursor: pointer; opacity:0.7; display: inline-block; border:1px solid #000; text-align:center; min-width:12px; font-size:0.8em; padding:1px; padding-top: 2px; font-weight:bold; margin-right:2px; margin-top:2px; background: rgba(54, 25, 25, .2); overflow:hidden; line-height:11px; height:11px; border-top-left-radius: 6px; border-bottom-left-radius: 6px;border-top-right-radius: 6px; border-bottom-right-radius: 6px;}
 .clip_effects:hover { opacity:1.0; border-color: #DFDFDF; }
@@ -180,8 +188,6 @@ img {
 /* Transitions */
 .transition_top { background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.75)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; overflow: hidden;}
 .transition { cursor: move; z-index:5000; color: #fff; min-width:0px; height: 64px; min-height: 64px; max-height: 64px; position: absolute; margin-top:0px; left: 100px; font-size: 9pt; background-color: #0192c1; background: -webkit-linear-gradient(top, #0192c1 0%,#3fa1bf 100%); border-radius: 8px; border: 1px solid #0192c1; border-left: 0px solid #0192c1; border-right: 0px solid #0192c1; background-image: url(../images/transition.png); background-repeat: no-repeat; background-position: center; background-size: 100% 66px; opacity:0.75; box-shadow: 0px 0px 10px #000; box-sizing: border-box; }
-.transition_menu { cursor: pointer; float:left;margin-top:4px;margin-left:4px;margin-right:4px;width:12px;height:12px;background-image: url(../images/menu.png);}
-.transition_menu:hover { background-image: url(../images/menu_hover.png); }
 .transition_label { float:left; padding-top: 2px; width:50px; margin-left: 2px; color:#fff;font-weight:bold;}
 .highlight_transition { border-color: #32b7ea; }
 
