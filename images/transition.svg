@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+  version="1.1"
+  id="svg2"
+  width="180"
+  height="160"
+  viewBox="0 0 180 160"
+  sodipodi:docname="transition.svg"
+  inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg">
+ <defs
+   id="defs6" />
+ <sodipodi:namedview
+   id="namedview4"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="true"
+   showgrid="true"
+   inkscape:zoom="3.4"
+   inkscape:cx="63.823529"
+   inkscape:cy="78.529412"
+   inkscape:window-width="1737"
+   inkscape:window-height="1048"
+   inkscape:window-x="50"
+   inkscape:window-y="82"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="layer1">
+  <inkscape:grid
+    type="xygrid"
+    id="grid1152"
+    dotted="true" />
+ </sodipodi:namedview>
+ <g
+   inkscape:groupmode="layer"
+   id="layer1"
+   inkscape:label="vector"
+   style="display:inline">
+  <rect
+    style="display:inline;opacity:1;fill:#0192c1;fill-opacity:1;stroke:none;stroke-width:1.00423;stroke-linecap:round;stroke-linejoin:round"
+    id="rect1150"
+    width="180"
+    height="160"
+    x="0"
+    y="0" />
+  <path
+    id="rect3177"
+    style="display:inline;opacity:1;fill:#006e8f;fill-opacity:1;stroke-width:1.016;stroke-linecap:round;stroke-linejoin:round"
+    d="M 0,0 180,160 V 0 L 0,160 Z"
+    sodipodi:nodetypes="ccccc" />
+ </g>
+</svg>
