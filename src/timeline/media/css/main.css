@@ -52,7 +52,6 @@ img {
 }
 .menu:hover { filter: brightness(3.0); }
 
-
 /* Ruler */
 #scrolling_ruler { overflow: hidden; position: relative; line-height: 4px; height:43px;}
 #scrolling_tracks { height: 316px; overflow: scroll; position: relative; }
@@ -94,7 +93,14 @@ img {
 .playhead-line { z-index: 9999; position: absolute; height: 316px; top: 0; width: 1px; background-color: #ff0024; opacity: 1; }
 .playhead-line-small { z-index: 9999; position: absolute; height:20px; top:32px;; margin-left: 12px; width:1px; background-color:#ff0024; opacity:1;}
 .playhead-top { cursor:move; z-index: 9999; position: absolute; margin-left: -12px; margin-top: 12px; width:25px; height:32px; background-image: url(../images/play_head.png); opacity:1;}
-.marker {position:absolute; top:30px;}
+
+.marker_icon {
+	position: absolute;
+	bottom: 0;
+	margin-left: -6px;
+	width: 12px;
+	height: 14px;
+}
 
 /* Clips */
 .clip_top { display: -webkit-flex; background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.20)), color-stop(100%,rgba(255,255,255,0))); border-radius: 8px; overflow: hidden; }

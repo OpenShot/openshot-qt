@@ -1326,6 +1326,19 @@ App.controller("TimelineCtrl", function ($scope) {
     return style;
   };
 
+  $scope.markerPath = function(marker) {
+    var dir = "media/images/markers";
+    var marker_file;
+    if(marker.hasOwnProperty("vector")) {
+      marker_file = `${marker.vector}.svg`;
+    } else if(marker.icon === "blue.png") {
+      marker_file = "blue.svg";
+    } else {
+      marker_file = marker.icon;
+    }
+    return `${dir}/${marker_file}`;
+  };
+
   // Apply JSON diff from UpdateManager (this is how the user interface communicates changes
   // to the timeline. A change can be an insert, update, or delete. The change is passed in
   // as JSON, which represents the change.
@@ -1546,7 +1559,8 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.addMarker = function (markLoc) {
     $scope.project.markers.push({
       position: parseInt(markLoc, 10),
-      icon: "blue.png"
+      icon: "blue.png",
+      vector: "blue"
     });
     $scope.markLoc = "";
   };

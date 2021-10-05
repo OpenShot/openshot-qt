@@ -1294,7 +1294,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Look for existing Marker
         marker = Marker()
-        marker.data = {"position": position, "icon": "blue.png"}
+        marker.data = {
+            "position": position,
+            "icon": "blue.png",
+            "vector": "blue",
+            }
         marker.save()
 
     def findAllMarkerPositions(self):
