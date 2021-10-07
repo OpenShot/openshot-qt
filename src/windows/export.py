@@ -819,6 +819,12 @@ class Export(QDialog):
         # Apply mappers to timeline readers
         self.timeline.ApplyMapperToClips()
 
+        # Initialize
+        max_frame = 0
+
+        # Precision of the progress bar
+        format_of_progress_string = "%4.1f%% "
+
         # Create FFmpegWriter
         try:
             w = openshot.FFmpegWriter(export_file_path)
@@ -880,13 +886,8 @@ class Export(QDialog):
             end_frame_export = video_settings.get("end_frame")
             last_exported_time = time.time()
             last_displayed_exported_portion = 0.0
-            current_exported_portion = 0.0
-            digits_after_decimalpoint = 1
-            # Precision of the progress bar
-            format_of_progress_string = "%4.1f%% "
 
             # Write each frame in the selected range
-            max_frame = 0
             for frame in range(video_settings.get("start_frame"), video_settings.get("end_frame") + 1):
                 # Update progress bar (emit signal to main window)
                 end_time_export = time.time()
@@ -902,12 +903,12 @@ class Export(QDialog):
                         # We want at least 1 digit after the decimal point
                         digits_after_decimalpoint = 1
                     if digits_after_decimalpoint > 5:
-                        # We don't want not more than 5 difits after the decimal point
+                        # We don't want not more than 5 digits after the decimal point
                         digits_after_decimalpoint = 5
                     last_displayed_exported_portion = current_exported_portion
                     format_of_progress_string = "%4." + str(digits_after_decimalpoint) + "f%% "
                     last_exported_time = time.time()
-                    if ((( frame - start_frame_export ) != 0) & (( end_time_export - start_time_export ) != 0)):
+                    if ((frame - start_frame_export) != 0) & ((end_time_export - start_time_export) != 0):
                         seconds_left = round(( start_time_export - end_time_export )*( frame - end_frame_export )/( frame - start_frame_export ))
                         fps_encode = ((frame - start_frame_export)/(end_time_export-start_time_export))
                         if frame == end_frame_export:
@@ -924,11 +925,11 @@ class Export(QDialog):
                         format_of_progress_string
                     )
 
-                    # track largest frame processed
-                    max_frame = frame
-
                     # Process events (to show the progress bar moving)
                     QCoreApplication.processEvents()
+
+                # track largest frame processed
+                max_frame = frame
 
                 # Write the frame object to the video
                 w.WriteFrame(self.timeline.GetFrame(frame))
@@ -1007,17 +1008,6 @@ class Export(QDialog):
 
             # Reveal done button
             self.close_button.setVisible(True)
-
-            # Restore windows title to show elapsed time
-            title_message = titlestring(seconds_run, fps_encode, "Elapsed")
-
-            self.ExportFrame.emit(
-                title_message,
-                video_settings.get("start_frame"),
-                video_settings.get("end_frame"),
-                frame,
-                format_of_progress_string
-            )
 
             # Make progress bar green (to indicate we are done)
             from PyQt5.QtGui import QPalette
