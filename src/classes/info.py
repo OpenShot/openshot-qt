@@ -65,7 +65,7 @@ PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
-USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.project")
+USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
 
 # Create user paths if they do not exist
 # (this is where temp files are stored... such as cached thumbnails)
