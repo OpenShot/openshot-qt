@@ -414,6 +414,11 @@ class PropertiesTableView(QTableView):
 
         # If item selected
         if selected_label:
+            # Clear menu if models updated
+            if self.menu_reset:
+                self.choices = []
+                self.menu_reset = False
+
             # Get data from selected item
             cur_property = selected_label.data()
             property_name = cur_property[1]["name"]
@@ -424,11 +429,6 @@ class PropertiesTableView(QTableView):
             clip_id, item_type = selected_value.data()
             log.info("Context menu shown for %s (%s) for clip %s on frame %s" % (property_name, property_key, clip_id, frame_number))
             log.info("Points: %s" % points)
-
-            # Clear menu if models updated
-            if self.menu_reset:
-                self.choices = []
-                self.menu_reset = False
 
             # Handle parent effect options
             if property_key == "parent_effect_id" and not self.choices:
