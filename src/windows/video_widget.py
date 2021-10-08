@@ -50,14 +50,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Handle change
-        display_ratio_changed = False
-        pixel_ratio_changed = False
         if (action.key and action.key[0] in [
                 "display_ratio", "pixel_ratio"
                 ] or action.type in ["load"]):
             # Update display ratio (if found)
             if action.type == "load" and action.values.get("display_ratio"):
-                display_ratio_changed = True
                 self.aspect_ratio = openshot.Fraction(
                     action.values.get("display_ratio", {}).get("num", 16),
                     action.values.get("display_ratio", {}).get("den", 9))
@@ -65,7 +62,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     "Load: Set video widget display aspect ratio to: %s",
                     self.aspect_ratio.ToFloat())
             elif action.key and action.key[0] == "display_ratio":
-                display_ratio_changed = True
                 self.aspect_ratio = openshot.Fraction(
                     action.values.get("num", 16),
                     action.values.get("den", 9))
@@ -75,7 +71,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Update pixel ratio (if found)
             if action.type == "load" and action.values.get("pixel_ratio"):
-                pixel_ratio_changed = True
                 self.pixel_ratio = openshot.Fraction(
                     action.values.get("pixel_ratio").get("num", 1),
                     action.values.get("pixel_ratio").get("den", 1))
@@ -83,7 +78,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     "Set video widget pixel aspect ratio to: %s",
                     self.pixel_ratio.ToFloat())
             elif action.key and action.key[0] == "pixel_ratio":
-                pixel_ratio_changed = True
                 self.pixel_ratio = openshot.Fraction(
                     action.values.get("num", 1),
                     action.values.get("den", 1))
