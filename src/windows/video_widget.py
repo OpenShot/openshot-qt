@@ -50,14 +50,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Handle change
-        display_ratio_changed = False
-        pixel_ratio_changed = False
         if (action.key and action.key[0] in [
                 "display_ratio", "pixel_ratio"
                 ] or action.type in ["load"]):
             # Update display ratio (if found)
             if action.type == "load" and action.values.get("display_ratio"):
-                display_ratio_changed = True
                 self.aspect_ratio = openshot.Fraction(
                     action.values.get("display_ratio", {}).get("num", 16),
                     action.values.get("display_ratio", {}).get("den", 9))
@@ -65,7 +62,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     "Load: Set video widget display aspect ratio to: %s",
                     self.aspect_ratio.ToFloat())
             elif action.key and action.key[0] == "display_ratio":
-                display_ratio_changed = True
                 self.aspect_ratio = openshot.Fraction(
                     action.values.get("num", 16),
                     action.values.get("den", 9))
@@ -75,29 +71,19 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Update pixel ratio (if found)
             if action.type == "load" and action.values.get("pixel_ratio"):
-                pixel_ratio_changed = True
                 self.pixel_ratio = openshot.Fraction(
-                    action.values.get("pixel_ratio").get("num", 16),
-                    action.values.get("pixel_ratio").get("den", 9))
+                    action.values.get("pixel_ratio").get("num", 1),
+                    action.values.get("pixel_ratio").get("den", 1))
                 log.info(
                     "Set video widget pixel aspect ratio to: %s",
                     self.pixel_ratio.ToFloat())
             elif action.key and action.key[0] == "pixel_ratio":
-                pixel_ratio_changed = True
                 self.pixel_ratio = openshot.Fraction(
-                    action.values.get("num", 16),
-                    action.values.get("den", 9))
+                    action.values.get("num", 1),
+                    action.values.get("den", 1))
                 log.info(
                     "Update: Set video widget pixel aspect ratio to: %s",
                     self.pixel_ratio.ToFloat())
-
-            # Update max size (to size of video preview viewport)
-            if display_ratio_changed or pixel_ratio_changed:
-                timeline = get_app().window.timeline_sync.timeline
-                timeline.SetMaxSize(
-                    round(self.width() * self.pixel_ratio.ToFloat()),
-                    round(self.height() * self.pixel_ratio.ToFloat())
-                    )
 
 
     def drawTransformHandler(self, painter, sx, sy, source_width, source_height, origin_x, origin_y,
@@ -236,7 +222,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Determine original size of clip's reader
             source_width = self.transforming_clip.data['reader']['width']
             source_height = self.transforming_clip.data['reader']['height']
-            source_size = QSize(source_width, source_height)
+            source_size = QSize(source_width, source_height * self.pixel_ratio.Reciprocal().ToDouble())
 
             # Determine scale of clip
             scale = self.transforming_clip.data['scale']
@@ -405,7 +391,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.mutex.unlock()
 
     def centeredViewport(self, width, height):
-        """ Calculate size of viewport to maintain apsect ratio """
+        """ Calculate size of viewport to maintain aspect ratio """
 
         # Calculate padding
         top_padding = (height - (height * self.zoom)) / 2.0
@@ -416,7 +402,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         height = height * self.zoom
 
         # Calculate which direction to scale (for perfect centering)
-        aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
+        aspectRatio = self.aspect_ratio.ToFloat()
         heightFromWidth = width / aspectRatio
         widthFromHeight = height * aspectRatio
 
