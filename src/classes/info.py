@@ -77,6 +77,15 @@ for folder in [
     if not os.path.exists(os.fsencode(folder)):
         os.makedirs(folder, exist_ok=True)
 
+# Migrate USER_DEFAULT_PROJECT from former name
+LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(".osp", ".project")
+if all([
+    os.path.exists(LEGACY_DEFAULT_PROJECT),
+    not os.path.exists(USER_DEFAULT_PROJECT),
+]):
+    print("Migrating default project file to new name")
+    os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+
 # Maintainer details, for packaging
 JT = {"name": "Jonathan Thomas",
       "email": "jonathan@openshot.org",
