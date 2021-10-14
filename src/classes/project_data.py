@@ -728,10 +728,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 crop_width = clip.pop("crop_width", {})
                 crop_height = clip.pop("crop_height", {})
 
-                if self.is_keyframe_valid(crop_x, 0.0) or \
-                        self.is_keyframe_valid(crop_y, 0.0) or \
-                        self.is_keyframe_valid(crop_width, 1.0) or \
-                        self.is_keyframe_valid(crop_height, 1.0):
+                if any([self.is_keyframe_valid(crop_x, 0.0),
+                        self.is_keyframe_valid(crop_y, 0.0),
+                        self.is_keyframe_valid(crop_width, 1.0),
+                        self.is_keyframe_valid(crop_height, 1.0),
+                       ]):
                     # Apply crop effect to clip (which wasn't available in 2.5.x)
                     effect = openshot.EffectInfo().CreateEffect("Crop")
                     effect.Id(get_app().project.generate_id())
@@ -769,10 +770,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def is_keyframe_valid(self, keyframe, default_value):
         """Check if a keyframe is not empty (i.e. > 1 point, or a non default_value)"""
-        if len(keyframe.get("Points", [])) == 0:
+        points = keyframe.get("Points", [])
+        if not points or not isinstance(points, list):
             return False
-        return len(keyframe.get("Points", [])) > 1 or \
-               keyframe.get("Points", [])[0].get("co", {}).get("Y", 0.0) != default_value
+        return any([
+            len(points) > 1,
+            points[0].get("co", {}).get("Y", default_value) != default_value,
+        ])
 
     def save(self, file_path, move_temp_files=True, make_paths_relative=True):
         """ Save project file to disk """
