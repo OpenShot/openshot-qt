@@ -93,6 +93,7 @@ python_packages = ["os",
                    "zmq",
                    "webbrowser",
                    "json",
+                   "packaging"
                    ]
 
 # Modules to include

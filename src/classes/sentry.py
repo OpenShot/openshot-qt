@@ -27,6 +27,7 @@
  """
 
 import platform
+from packaging import version
 
 from classes.logger import log
 from classes import info
@@ -66,13 +67,14 @@ def init_tracing():
         release=f"openshot@{info.VERSION}",
         environment=environment
     )
-    sdk.set_tag("system", platform.system())
-    sdk.set_tag("machine", platform.machine())
-    sdk.set_tag("processor", platform.processor())
-    sdk.set_tag("platform", platform.platform())
-    if distro and platform.system() == "linux":
-        sdk.set_tag("distro", " ".join(distro.linux_distribution()))
-    sdk.set_tag("locale", info.CURRENT_LANGUAGE)
+    if _supports_tagging():
+        sdk.set_tag("system", platform.system())
+        sdk.set_tag("machine", platform.machine())
+        sdk.set_tag("processor", platform.processor())
+        sdk.set_tag("platform", platform.platform())
+        if distro and platform.system() == "linux":
+            sdk.set_tag("distro", " ".join(distro.linux_distribution()))
+        sdk.set_tag("locale", info.CURRENT_LANGUAGE)
 
 
 def disable_tracing():
@@ -82,16 +84,26 @@ def disable_tracing():
 
 
 def set_tag(*args):
-    if sdk:
+    if sdk and _supports_tagging():
         sdk.set_tag(*args)
 
 
 def set_user(*args):
-    if sdk:
+    if sdk and _supports_tagging():
         sdk.set_user(*args)
 
 
 def set_context(*args):
-    if sdk:
+    if sdk and _supports_tagging():
         sdk.set_context(*args)
 
+
+def _supports_tagging():
+    """Returns whether the imported sentry-sdk has tag-related
+    methods such as set_tag, set_user, set_context.
+
+    Those methods were introduce on 0.13.1 version. Checking this
+    before calling those methods on the sentry-sdk avoids crashing
+    Openshot in case an old sdk is installed.
+    """
+    return version.parse(sdk.consts.VERSION) >= version.parse("0.13.1")
