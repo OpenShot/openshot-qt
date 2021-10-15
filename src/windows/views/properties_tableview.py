@@ -390,8 +390,11 @@ class PropertiesTableView(QTableView):
     def filter_changed(self, value=None):
         """ Filter the list of properties """
 
-        # Update model
+        # Update property model (and re-trigger filter logic)
         self.clip_properties_model.update_model(value)
+
+        # Filter keyframes visible on timeline
+        get_app().window.SetKeyframeFilter.emit(value)
 
     def contextMenuEvent(self, event):
         """ Display context menu """

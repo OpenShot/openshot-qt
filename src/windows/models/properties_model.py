@@ -315,33 +315,35 @@ class PropertiesModel(updates.UpdateInterface):
                                 break
 
                             elif interpolation > -1 and point["co"]["X"] == previous_point_x:
-                                # Only update interpolation type (and the LEFT side of the curve)
+                                # Only update the LEFT side of the curve (i.e. the previous point's right handle)
                                 found_point = True
                                 clip_updated = True
-                                point["interpolation"] = interpolation
-                                if interpolation == 0:
+                                if point.get("interpolation", 2) == 0 and interpolation_details:
                                     point["handle_right"] = point.get("handle_right") or {"Y": 0.0, "X": 0.0}
                                     point["handle_right"]["X"] = interpolation_details[0]
                                     point["handle_right"]["Y"] = interpolation_details[1]
 
-                                log.debug(
-                                    "updating interpolation mode point: co.X = %d to %d",
-                                    point["co"]["X"], interpolation)
-                                log.debug("use interpolation preset: %s", str(interpolation_details))
+                                    log.debug("updating previous point (right handle): co.X = %d", point["co"]["X"])
+                                    log.debug("use interpolation preset: %s", str(interpolation_details))
+                                else:
+                                    # Remove unused bezier property
+                                    point.pop("handle_right", None)
 
                             elif interpolation > -1 and point["co"]["X"] == closest_point_x:
                                 # Only update interpolation type (and the RIGHT side of the curve)
                                 found_point = True
                                 clip_updated = True
                                 point["interpolation"] = interpolation
-                                if interpolation == 0:
+                                if interpolation == 0 and interpolation_details:
                                     point["handle_left"] = point.get("handle_left") or {"Y": 0.0, "X": 0.0}
                                     point["handle_left"]["X"] = interpolation_details[2]
                                     point["handle_left"]["Y"] = interpolation_details[3]
+                                else:
+                                    # Remove unused bezier property
+                                    point.pop("handle_left", None)
 
-                                log.debug(
-                                    "updating interpolation mode point: co.X = %d to %d",
-                                    point["co"]["X"], interpolation)
+                                log.debug("updating interpolation mode point: co.X = %d to %d",
+                                          point["co"]["X"], interpolation)
                                 log.debug("use interpolation preset: %s", str(interpolation_details))
 
                         # Create new point (if needed)

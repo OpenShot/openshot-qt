@@ -64,6 +64,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.enable_snapping = true;
   $scope.enable_razor = false;
   $scope.enable_playhead_follow = true;
+  $scope.keyframe_prop_filter = "";
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
@@ -172,7 +173,12 @@ App.controller("TimelineCtrl", function ($scope) {
     // Loop through properties of an object (clip/transition), looking for keyframe points
     for (var child in object) {
       if (!object.hasOwnProperty(child)) {
-        //The current property is not a direct property of p
+        //The current property is not a direct property
+        continue;
+      }
+      if ($scope.keyframe_prop_filter.length > 0 &&
+        !child.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
+        // Not the current filter property
         continue;
       }
       // Determine if this property is a Keyframe
@@ -204,7 +210,12 @@ App.controller("TimelineCtrl", function ($scope) {
         // Loop through properties of an effect, looking for keyframe points
         for (var effect_prop in object["effects"][effect]) {
           if (!object["effects"][effect].hasOwnProperty(effect_prop)) {
-            //The current property is not a direct property of p
+            //The current property is not a direct property
+            continue;
+          }
+          if ($scope.keyframe_prop_filter.length > 0 &&
+            !effect_prop.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
+            // Not the current filter property
             continue;
           }
           // Determine if this property is a Keyframe
@@ -222,7 +233,7 @@ App.controller("TimelineCtrl", function ($scope) {
           // Determine if this property is a Color Keyframe
           if (typeof object["effects"][effect][effect_prop] === "object"
             && "red" in object["effects"][effect][effect_prop]
-            && object["effects"][effect][effect_prop].Points.length > 1) {
+            && object["effects"][effect][effect_prop]["red"].Points.length > 1) {
             for (var effect_color_point = 0; effect_color_point < object["effects"][effect][effect_prop]["red"].Points.length; effect_color_point++) {
               var effect_color_co = object["effects"][effect][effect_prop]["red"].Points[effect_color_point].co;
               var effect_color_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop]["red"].Points[effect_color_point].interpolation);
@@ -415,6 +426,12 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     return false;
+  };
+
+  $scope.setPropertyFilter = function (property) {
+    $scope.$apply(function () {
+      $scope.keyframe_prop_filter = property;
+    });
   };
 
   // Change the snapping mode
