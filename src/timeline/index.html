@@ -108,7 +108,11 @@
 
                     <!-- CLIP KEYFRAME POINTS -->
                     <div class="point_region" ng-if="clip.selected">
-                        <div ng-repeat="(point, value) in getKeyframes(clip)" ng-click="selectPoint(clip, point)" id="point_{{clip.id}}_{{point}}_{{$index}}" class="point point_{{ value }}" style="left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond)}}px;"></div>
+                        <div ng-repeat="(point, value) in getKeyframes(clip)"
+                             ng-click="selectPoint(clip, point)"
+                             id="point_{{clip.id}}_{{point}}_{{$index}}"
+                             class="point point_{{ value }}"
+                             style="left: {{(((point - 1) / (project.fps.num / project.fps.den) - clip.start) * pixelsPerSecond)}}px;"></div>
                     </div>
 				</div>
 
@@ -124,7 +128,11 @@
 
                     <!-- TRANSITION KEYFRAME POINTS -->
                     <div class="point_region" ng-if="transition.selected">
-                        <div ng-repeat="(point, value) in getKeyframes(transition)" ng-click="selectPoint(transition, point)" id="point_{{transition.id}}_{{point}}_{{$index}}" class="point point_{{ value }}" style="left: {{(((point - 1) / (project.fps.num / project.fps.den) - transition.start) * pixelsPerSecond)}}px;"></div>
+                        <div ng-repeat="(point, value) in getKeyframes(transition)"
+                             ng-click="selectPoint(transition, point)"
+                             id="point_{{transition.id}}_{{point}}_{{$index}}"
+                             class="point point_{{ value }}"
+                             style="left: {{(((point - 1) / (project.fps.num / project.fps.den) - transition.start) * pixelsPerSecond)}}px;"></div>
                     </div>
 				</div>
 
