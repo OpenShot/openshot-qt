@@ -138,6 +138,28 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
+  // Get keyframe interpolation type
+  $scope.lookupInterpolation = function(interpolation_number) {
+    if (parseInt(interpolation_number) === 0) {
+      return "bezier";
+    } else if (parseInt(interpolation_number) === 1) {
+      return "linear";
+    } else {
+      return "constant";
+    }
+  }
+
+  // Seek to keyframe
+  $scope.selectPoint = function(object, point) {
+    var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+    var clip_position_frames = object.position * frames_per_second;
+    var absolute_seek_frames = clip_position_frames + parseInt(point);
+
+    if ($scope.Qt) {
+      timeline.SeekToKeyframe(absolute_seek_frames)
+    }
+  }
+
   // Get an array of keyframe points for the selected clips
   $scope.getKeyframes = function (object) {
     // List of keyframes
@@ -157,9 +179,10 @@ App.controller("TimelineCtrl", function ($scope) {
       if (typeof object[child] === "object" && "Points" in object[child]) {
         for (var point = 0; point < object[child].Points.length; point++) {
           var co = object[child].Points[point].co;
+          var interpolation = $scope.lookupInterpolation(object[child].Points[point].interpolation);
           if (co.X >= clip_start_x && co.X <= clip_end_x) {
             // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[co.X] = co.Y;
+            keyframes[co.X] = interpolation;
           }
         }
       }
@@ -167,9 +190,10 @@ App.controller("TimelineCtrl", function ($scope) {
       if (typeof object[child] === "object" && "red" in object[child]) {
         for (var color_point = 0; color_point < object[child]["red"].Points.length; color_point++) {
           var color_co = object[child]["red"].Points[color_point].co;
+          var color_interpolation = $scope.lookupInterpolation(object[child]["red"].Points[color_point].interpolation);
           if (color_co.X >= clip_start_x && color_co.X <= clip_end_x) {
             // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[color_co.X] = color_co.Y;
+            keyframes[color_co.X] = color_interpolation;
           }
         }
       }
@@ -187,9 +211,10 @@ App.controller("TimelineCtrl", function ($scope) {
           if (typeof object["effects"][effect][effect_prop] === "object" && "Points" in object["effects"][effect][effect_prop]) {
             for (var effect_point = 0; effect_point < object["effects"][effect][effect_prop].Points.length; effect_point++) {
               var effect_co = object["effects"][effect][effect_prop].Points[effect_point].co;
+              var effect_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop].Points[effect_point].interpolation);
               if (effect_co.X >= clip_start_x && effect_co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[effect_co.X] = effect_co.Y;
+                keyframes[effect_co.X] = effect_interpolation;
               }
             }
           }
@@ -197,15 +222,19 @@ App.controller("TimelineCtrl", function ($scope) {
           if (typeof object["effects"][effect][effect_prop] === "object" && "red" in object["effects"][effect][effect_prop]) {
             for (var effect_color_point = 0; effect_color_point < object["effects"][effect][effect_prop]["red"].Points.length; effect_color_point++) {
               var effect_color_co = object["effects"][effect][effect_prop]["red"].Points[effect_color_point].co;
+              var effect_color_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop]["red"].Points[effect_color_point].interpolation);
               if (effect_color_co.X >= clip_start_x && effect_color_co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[effect_color_co.X] = effect_color_co.Y;
+                keyframes[effect_color_co.X] = effect_color_interpolation;
               }
             }
           }
         }
       }
     }
+
+    timeline.qt_log("INFO", "object.id: " + object.id + ": " + JSON.stringify(keyframes));
+
     // Return keyframe array
     return keyframes;
   };
@@ -1466,8 +1495,9 @@ App.controller("TimelineCtrl", function ($scope) {
         show_audio: false,
         alpha: {Points: []},
         location_x: {Points: [
-				  {co: {X: 1.0, Y: -0.5}},
-          {co: {X: 30.0, Y: -0.4}}
+				  {co: {X: 1.0, Y: -0.5}, interpolation: 0},
+          {co: {X: 30.0, Y: -0.4}, interpolation: 1},
+          {co: {X: 100.0, Y: -0.4}, interpolation: 2}
         ]},
         location_y: {Points: []},
         scale_x: {Points: []},

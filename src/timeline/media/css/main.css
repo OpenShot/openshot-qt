@@ -134,16 +134,48 @@ img {
     position: absolute;
     bottom: 0px;
     height: 10px;
-    width: 10px;
+    width: 100%;
     margin-left: -5px;
     margin-bottom: -6px;
     overflow: visible;
 }
-.point_icon {
-    width: 2px;
+.point_bezier {
+    position: absolute;
+    width: 10px;
     height: 10px;
-    background: linear-gradient(180deg, #0f08, #0f0);
-    margin: 0 3px;
+    background-image: url(../images/keyframe-bezier.svg);
+    background-repeat: no-repeat;
+    margin: 0;
+    cursor: pointer;
+}
+
+.point_linear {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/keyframe-linear.svg);
+    background-repeat: no-repeat;
+    margin: 0;
+    cursor: pointer;
+}
+
+.point_constant {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/keyframe-constant.svg);
+    background-repeat: no-repeat;
+    margin: 0;
+    cursor: pointer;
+}
+
+.point {
+  filter: brightness(100%);
+  transition: 0.3s;
+}
+
+.point:hover {
+  filter: brightness(150%);
 }
 
 /* Transitions */

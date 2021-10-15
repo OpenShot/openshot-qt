@@ -2679,6 +2679,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.window.SeekSignal.emit(frame_number)
 
     @pyqtSlot(int)
+    def SeekToKeyframe(self, frame_number):
+        """Seek to a specific frame when a keyframe point is clicked"""
+
+        # Seek to frame
+        self.window.SeekSignal.emit(frame_number)
+
+    @pyqtSlot(int)
     def PlayheadMoved(self, position_frames):
 
         # Load the timeline into the Player (ignored if this has already happened)
