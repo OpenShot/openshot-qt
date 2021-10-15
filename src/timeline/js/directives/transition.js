@@ -200,7 +200,7 @@ App.directive("tlTransition", function () {
         snapMode: "inner",
         snapTolerance: 20,
         scroll: true,
-        cancel: ".transition_menu",
+        cancel: ".transition_menu, .point",
         start: function (event, ui) {
           previous_drag_position = null;
           dragging = true;
@@ -237,12 +237,6 @@ App.directive("tlTransition", function () {
 
         },
         stop: function (event, ui) {
-
-          // Ignore transition-menu click
-          $(event.toElement).one(".transition_menu", function (e) {
-            e.stopImmediatePropagation();
-          });
-
           // Hide snapline (if any)
           scope.hideSnapline();
 

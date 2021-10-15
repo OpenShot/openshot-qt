@@ -176,7 +176,7 @@ App.controller("TimelineCtrl", function ($scope) {
         continue;
       }
       // Determine if this property is a Keyframe
-      if (typeof object[child] === "object" && "Points" in object[child]) {
+      if (typeof object[child] === "object" && "Points" in object[child] && object[child].Points.length > 1) {
         for (var point = 0; point < object[child].Points.length; point++) {
           var co = object[child].Points[point].co;
           var interpolation = $scope.lookupInterpolation(object[child].Points[point].interpolation);
@@ -187,7 +187,7 @@ App.controller("TimelineCtrl", function ($scope) {
         }
       }
       // Determine if this property is a Color Keyframe
-      if (typeof object[child] === "object" && "red" in object[child]) {
+      if (typeof object[child] === "object" && "red" in object[child] && object[child]["red"].Points.length > 1) {
         for (var color_point = 0; color_point < object[child]["red"].Points.length; color_point++) {
           var color_co = object[child]["red"].Points[color_point].co;
           var color_interpolation = $scope.lookupInterpolation(object[child]["red"].Points[color_point].interpolation);
@@ -208,7 +208,8 @@ App.controller("TimelineCtrl", function ($scope) {
             continue;
           }
           // Determine if this property is a Keyframe
-          if (typeof object["effects"][effect][effect_prop] === "object" && "Points" in object["effects"][effect][effect_prop]) {
+          if (typeof object["effects"][effect][effect_prop] === "object"
+            && "Points" in object["effects"][effect][effect_prop] && object["effects"][effect][effect_prop].Points.length > 1) {
             for (var effect_point = 0; effect_point < object["effects"][effect][effect_prop].Points.length; effect_point++) {
               var effect_co = object["effects"][effect][effect_prop].Points[effect_point].co;
               var effect_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop].Points[effect_point].interpolation);
@@ -219,7 +220,9 @@ App.controller("TimelineCtrl", function ($scope) {
             }
           }
           // Determine if this property is a Color Keyframe
-          if (typeof object["effects"][effect][effect_prop] === "object" && "red" in object["effects"][effect][effect_prop]) {
+          if (typeof object["effects"][effect][effect_prop] === "object"
+            && "red" in object["effects"][effect][effect_prop]
+            && object["effects"][effect][effect_prop].Points.length > 1) {
             for (var effect_color_point = 0; effect_color_point < object["effects"][effect][effect_prop]["red"].Points.length; effect_color_point++) {
               var effect_color_co = object["effects"][effect][effect_prop]["red"].Points[effect_color_point].co;
               var effect_color_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop]["red"].Points[effect_color_point].interpolation);
@@ -232,8 +235,6 @@ App.controller("TimelineCtrl", function ($scope) {
         }
       }
     }
-
-    timeline.qt_log("INFO", "object.id: " + object.id + ": " + JSON.stringify(keyframes));
 
     // Return keyframe array
     return keyframes;
