@@ -171,11 +171,10 @@ img {
 
 .point {
   filter: brightness(100%);
-  transition: 0.3s;
 }
 
 .point:hover {
-  filter: brightness(150%);
+  filter: brightness(140%);
 }
 
 /* Transitions */
