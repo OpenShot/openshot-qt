@@ -253,7 +253,7 @@ App.directive("tlClip", function ($timeout) {
         snapMode: "inner",
         snapTolerance: 20,
         scroll: true,
-        cancel: ".effect-container,.clip_menu",
+        cancel: ".effect-container,.clip_menu,.point",
         start: function (event, ui) {
           previous_drag_position = null;
           dragging = true;
@@ -291,11 +291,6 @@ App.directive("tlClip", function ($timeout) {
           }
         },
         stop: function (event, ui) {
-          // Ignore clip-menu click
-          $(event.toElement).one(".clip_menu", function (e) {
-            e.stopImmediatePropagation();
-          });
-
           // Hide snapline (if any)
           scope.hideSnapline();
 
@@ -375,7 +370,7 @@ App.directive("tlMultiSelectable", function () {
       element.selectable({
         filter: ".droppable",
         distance: 0,
-        cancel: ".effect-container,.transition_menu,.clip_menu",
+        cancel: ".effect-container,.transition_menu,.clip_menu,.point",
         selected: function (event, ui) {
           // Identify the selected ID and TYPE
           var id = ui.selected.id;

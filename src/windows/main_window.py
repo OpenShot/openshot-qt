@@ -116,6 +116,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SelectionAdded = pyqtSignal(str, str, bool)  # Signal to add a selection
     SelectionRemoved = pyqtSignal(str, str)      # Signal to remove a selection
     SelectionChanged = pyqtSignal()      # Signal after selections have been changed (added/removed)
+    SetKeyframeFilter = pyqtSignal(str)     # Signal to only show keyframes for the selected property
 
     # Docks are closable, movable and floatable
     docks_frozen = False
@@ -1317,7 +1318,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # add all keyframes
             for property in obj.data:
                 try:
+                    # Try looping through keyframe points
                     for point in obj.data[property]["Points"]:
+                        keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
+                        if clip_start_time < keyframe_time < clip_stop_time:
+                            positions.append(keyframe_time)
+                except (TypeError, KeyError):
+                    pass
+                try:
+                    # Try looping through color keyframe points
+                    for point in obj.data[property]["red"]["Points"]:
                         keyframe_time = (point["co"]["X"]-1)/fps_float - obj.data["start"] + obj.data["position"]
                         if clip_start_time < keyframe_time < clip_stop_time:
                             positions.append(keyframe_time)
@@ -1329,7 +1339,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 for effect_data in obj.data["effects"]:
                     for prop in effect_data:
                         try:
+                            # Try looping through keyframe points
                             for point in effect_data[prop]["Points"]:
+                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                                if clip_start_time < keyframe_time < clip_stop_time:
+                                    positions.append(keyframe_time)
+                        except (TypeError, KeyError):
+                            pass
+                        try:
+                            # Try looping through color keyframe points
+                            for point in effect_data[prop]["red"]["Points"]:
                                 keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
                                 if clip_start_time < keyframe_time < clip_stop_time:
                                     positions.append(keyframe_time)

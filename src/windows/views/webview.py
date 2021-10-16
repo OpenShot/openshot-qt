@@ -2679,6 +2679,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.window.SeekSignal.emit(frame_number)
 
     @pyqtSlot(int)
+    def SeekToKeyframe(self, frame_number):
+        """Seek to a specific frame when a keyframe point is clicked"""
+
+        # Seek to frame
+        self.window.SeekSignal.emit(frame_number)
+
+    @pyqtSlot(int)
     def PlayheadMoved(self, position_frames):
 
         # Load the timeline into the Player (ignored if this has already happened)
@@ -2714,6 +2721,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         """ Enable / Disable razor mode """
         # Init razor state (1 = razor, 0 = no razor)
         self.run_js(JS_SCOPE_SELECTOR + ".setRazorMode(%s);" % int(enable_razor))
+
+    @pyqtSlot(str)
+    def SetPropertyFilter(self, property):
+        """ Filter a specific property name """
+        self.run_js(JS_SCOPE_SELECTOR + ".setPropertyFilter('%s');" % property)
 
     @pyqtSlot(int)
     def SetPlayheadFollow(self, enable_follow):
@@ -3169,6 +3181,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         window.TimelineZoom.connect(self.update_zoom)
         window.TimelineScroll.connect(self.update_scroll)
         window.TimelineCenter.connect(self.centerOnPlayhead)
+        window.SetKeyframeFilter.connect(self.SetPropertyFilter)
 
         # Connect waveform generation signal
         window.WaveformReady.connect(self.Waveform_Ready)

@@ -64,6 +64,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.enable_snapping = true;
   $scope.enable_razor = false;
   $scope.enable_playhead_follow = true;
+  $scope.keyframe_prop_filter = "";
   $scope.debug = false;
   $scope.min_width = 1024;
   $scope.track_label = "Track %s";
@@ -138,6 +139,28 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
+  // Get keyframe interpolation type
+  $scope.lookupInterpolation = function(interpolation_number) {
+    if (parseInt(interpolation_number) === 0) {
+      return "bezier";
+    } else if (parseInt(interpolation_number) === 1) {
+      return "linear";
+    } else {
+      return "constant";
+    }
+  }
+
+  // Seek to keyframe
+  $scope.selectPoint = function(object, point) {
+    var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+    var clip_position_frames = object.position * frames_per_second;
+    var absolute_seek_frames = clip_position_frames + parseInt(point);
+
+    if ($scope.Qt) {
+      timeline.SeekToKeyframe(absolute_seek_frames)
+    }
+  }
+
   // Get an array of keyframe points for the selected clips
   $scope.getKeyframes = function (object) {
     // List of keyframes
@@ -150,26 +173,33 @@ App.controller("TimelineCtrl", function ($scope) {
     // Loop through properties of an object (clip/transition), looking for keyframe points
     for (var child in object) {
       if (!object.hasOwnProperty(child)) {
-        //The current property is not a direct property of p
+        //The current property is not a direct property
+        continue;
+      }
+      if ($scope.keyframe_prop_filter.length > 0 &&
+        !child.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
+        // Not the current filter property
         continue;
       }
       // Determine if this property is a Keyframe
-      if (typeof object[child] === "object" && "Points" in object[child]) {
+      if (typeof object[child] === "object" && "Points" in object[child] && object[child].Points.length > 1) {
         for (var point = 0; point < object[child].Points.length; point++) {
           var co = object[child].Points[point].co;
+          var interpolation = $scope.lookupInterpolation(object[child].Points[point].interpolation);
           if (co.X >= clip_start_x && co.X <= clip_end_x) {
             // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[co.X] = co.Y;
+            keyframes[co.X] = interpolation;
           }
         }
       }
       // Determine if this property is a Color Keyframe
-      if (typeof object[child] === "object" && "red" in object[child]) {
+      if (typeof object[child] === "object" && "red" in object[child] && object[child]["red"].Points.length > 1) {
         for (var color_point = 0; color_point < object[child]["red"].Points.length; color_point++) {
           var color_co = object[child]["red"].Points[color_point].co;
+          var color_interpolation = $scope.lookupInterpolation(object[child]["red"].Points[color_point].interpolation);
           if (color_co.X >= clip_start_x && color_co.X <= clip_end_x) {
             // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[color_co.X] = color_co.Y;
+            keyframes[color_co.X] = color_interpolation;
           }
         }
       }
@@ -180,32 +210,43 @@ App.controller("TimelineCtrl", function ($scope) {
         // Loop through properties of an effect, looking for keyframe points
         for (var effect_prop in object["effects"][effect]) {
           if (!object["effects"][effect].hasOwnProperty(effect_prop)) {
-            //The current property is not a direct property of p
+            //The current property is not a direct property
+            continue;
+          }
+          if ($scope.keyframe_prop_filter.length > 0 &&
+            !effect_prop.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
+            // Not the current filter property
             continue;
           }
           // Determine if this property is a Keyframe
-          if (typeof object["effects"][effect][effect_prop] === "object" && "Points" in object["effects"][effect][effect_prop]) {
+          if (typeof object["effects"][effect][effect_prop] === "object"
+            && "Points" in object["effects"][effect][effect_prop] && object["effects"][effect][effect_prop].Points.length > 1) {
             for (var effect_point = 0; effect_point < object["effects"][effect][effect_prop].Points.length; effect_point++) {
               var effect_co = object["effects"][effect][effect_prop].Points[effect_point].co;
+              var effect_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop].Points[effect_point].interpolation);
               if (effect_co.X >= clip_start_x && effect_co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[effect_co.X] = effect_co.Y;
+                keyframes[effect_co.X] = effect_interpolation;
               }
             }
           }
           // Determine if this property is a Color Keyframe
-          if (typeof object["effects"][effect][effect_prop] === "object" && "red" in object["effects"][effect][effect_prop]) {
+          if (typeof object["effects"][effect][effect_prop] === "object"
+            && "red" in object["effects"][effect][effect_prop]
+            && object["effects"][effect][effect_prop]["red"].Points.length > 1) {
             for (var effect_color_point = 0; effect_color_point < object["effects"][effect][effect_prop]["red"].Points.length; effect_color_point++) {
               var effect_color_co = object["effects"][effect][effect_prop]["red"].Points[effect_color_point].co;
+              var effect_color_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop]["red"].Points[effect_color_point].interpolation);
               if (effect_color_co.X >= clip_start_x && effect_color_co.X <= clip_end_x) {
                 // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[effect_color_co.X] = effect_color_co.Y;
+                keyframes[effect_color_co.X] = effect_color_interpolation;
               }
             }
           }
         }
       }
     }
+
     // Return keyframe array
     return keyframes;
   };
@@ -385,6 +426,12 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     return false;
+  };
+
+  $scope.setPropertyFilter = function (property) {
+    $scope.$apply(function () {
+      $scope.keyframe_prop_filter = property;
+    });
   };
 
   // Change the snapping mode
@@ -1466,8 +1513,9 @@ App.controller("TimelineCtrl", function ($scope) {
         show_audio: false,
         alpha: {Points: []},
         location_x: {Points: [
-				  {co: {X: 1.0, Y: -0.5}},
-          {co: {X: 30.0, Y: -0.4}}
+				  {co: {X: 1.0, Y: -0.5}, interpolation: 0},
+          {co: {X: 30.0, Y: -0.4}, interpolation: 1},
+          {co: {X: 100.0, Y: -0.4}, interpolation: 2}
         ]},
         location_y: {Points: []},
         scale_x: {Points: []},
