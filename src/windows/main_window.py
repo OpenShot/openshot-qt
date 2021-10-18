@@ -2928,7 +2928,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.clearSelections()
 
         # Show Property timer
-        # Timer to use a delay before showing properties (to prevent a mass selection from trying
+        # Timer to use a delay before showing properties
+        # (to prevent a mass selection from trying
         # to update the property model hundreds of times)
         self.show_property_id = None
         self.show_property_type = None
@@ -2938,7 +2939,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.show_property_timer.timeout.connect(self.show_property_timeout)
 
         # Selection timer
-        # Timer to use a delay before emitting selection signal (to prevent a mass selection from trying
+        # Timer to use a delay before emitting selection signal
+        # (to prevent a mass selection from trying
         # to update the zoom slider widget hundreds of times)
         self.selection_timer = QTimer(self)
         self.selection_timer.setInterval(100)
@@ -2968,64 +2970,68 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.PauseSignal.connect(self.handlePausedVideo)
 
         # QTimer for Autosave
+        minutes = 1000 * 60
         self.auto_save_timer = QTimer(self)
-        self.auto_save_timer.setInterval(int(s.get("autosave-interval") * 1000 * 60))
+        self.auto_save_timer.setInterval(
+            int(s.get("autosave-interval") * minutes))
         self.auto_save_timer.timeout.connect(self.auto_save_project)
         if s.get("enable-auto-save"):
             self.auto_save_timer.start()
 
+        lib_settings = openshot.Settings.Instance()
+
         # Set encoding method
         if s.get("hw-decoder"):
-            openshot.Settings.Instance().HARDWARE_DECODER = int(str(s.get("hw-decoder")))
+            lib_settings.HARDWARE_DECODER = int(str(s.get("hw-decoder")))
         else:
-            openshot.Settings.Instance().HARDWARE_DECODER = 0
+            lib_settings.HARDWARE_DECODER = 0
 
         # Set graphics card for decoding
         if s.get("graca_number_de"):
-            if int(str(s.get("graca_number_de"))) != 0:
-                openshot.Settings.Instance().HW_DE_DEVICE_SET = int(str(s.get("graca_number_de")))
-            else:
-                openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
+            lib_settings.HW_DE_DEVICE_SET = int(
+                str(s.get("graca_number_de")))
         else:
-            openshot.Settings.Instance().HW_DE_DEVICE_SET = 0
+            lib_settings.HW_DE_DEVICE_SET = 0
 
         # Set graphics card for encoding
         if s.get("graca_number_en"):
-            if int(str(s.get("graca_number_en"))) != 0:
-                openshot.Settings.Instance().HW_EN_DEVICE_SET = int(str(s.get("graca_number_en")))
-            else:
-                openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
+                lib_settings.HW_EN_DEVICE_SET = int(
+                    str(s.get("graca_number_en")))
         else:
-            openshot.Settings.Instance().HW_EN_DEVICE_SET = 0
+            lib_settings.HW_EN_DEVICE_SET = 0
 
         # Set audio playback settings
         if s.get("playback-audio-device"):
-            openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
+            lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
         else:
-            openshot.Settings.Instance().PLAYBACK_AUDIO_DEVICE_NAME = ""
+            lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = ""
 
         # Set scaling mode to lower quality scaling (for faster previews)
-        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
+        lib_settings.HIGH_QUALITY_SCALING = False
 
         # Set use omp threads number environment variable
         if s.get("omp_threads_number"):
-            openshot.Settings.Instance().OMP_THREADS = max(2, int(str(s.get("omp_threads_number"))))
+            lib_settings.OMP_THREADS = max(
+                2, int(str(s.get("omp_threads_number"))))
         else:
-            openshot.Settings.Instance().OMP_THREADS = 12
+            lib_settings.OMP_THREADS = 12
 
         # Set use ffmpeg threads number environment variable
         if s.get("ff_threads_number"):
-            openshot.Settings.Instance().FF_THREADS = max(1, int(str(s.get("ff_threads_number"))))
+            lib_settings.FF_THREADS = max(
+                1, int(str(s.get("ff_threads_number"))))
         else:
-            openshot.Settings.Instance().FF_THREADS = 8
+            lib_settings.FF_THREADS = 8
 
         # Set use max width decode hw environment variable
         if s.get("decode_hw_max_width"):
-            openshot.Settings.Instance().DE_LIMIT_WIDTH_MAX = int(str(s.get("decode_hw_max_width")))
+            lib_settings.DE_LIMIT_WIDTH_MAX = int(
+                str(s.get("decode_hw_max_width")))
 
         # Set use max height decode hw environment variable
         if s.get("decode_hw_max_height"):
-            openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(s.get("decode_hw_max_height")))
+            lib_settings.DE_LIMIT_HEIGHT_MAX = int(
+                str(s.get("decode_hw_max_height")))
 
         # Create lock file
         self.create_lock_file()
