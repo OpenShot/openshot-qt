@@ -2405,10 +2405,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         s = get_app().get_settings()
 
         # Window state and geometry (also toolbar, dock locations and frozen UI state)
-        if s.get('window_state_v2'):
-            self.restoreState(qt_types.str_to_bytes(s.get('window_state_v2')))
         if s.get('window_geometry_v2'):
-            self.restoreGeometry(qt_types.str_to_bytes(s.get('window_geometry_v2')))
+            self.saved_geometry = qt_types.str_to_bytes(s.get('window_geometry_v2'))
+        if s.get('window_state_v2'):
+            self.saved_state = qt_types.str_to_bytes(s.get('window_state_v2'))
         if s.get('docks_frozen'):
             # Freeze all dockable widgets on the main screen
             self.freezeDocks()
@@ -2950,6 +2950,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.tabVideo.layout().insertWidget(0, self.videoPreview)
 
         # Load window state and geometry
+        self.saved_state = None
+        self.saved_geometry = None
         self.load_settings()
 
         # Setup Cache settings
@@ -3036,13 +3038,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.SelectionRemoved.connect(self.removeSelection)
 
         # Show window
-        if self.mode != "unittest":
-            self.show()
-        else:
-            log.info('Hiding UI for unittests')
+        self.show()
 
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
+
+        # Apply saved window geometry/state from settings
+        if self.saved_geometry:
+            self.restoreGeometry(self.saved_geometry)
+        if self.saved_state:
+            self.restoreState(self.saved_state)
 
         # Save settings
         s.save()
