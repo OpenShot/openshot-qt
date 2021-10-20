@@ -719,9 +719,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                             point.get("handle_right")["X"] = 0.5
                                             point.get("handle_right")["Y"] = 0.0
 
-        elif openshot_version.startswith("2.5.1"):
+        elif openshot_version.startswith("2.5."):
             # Replace missing crop properties from 2.5.x
-            for clip in self._data["clips"]:
+            log.debug("Scanning OpenShot 2.5 project for legacy cropping")
+            for clip in self._data.get("clips", []):
                 # Loop through keyframes for alpha
                 crop_x = clip.pop("crop_x", {})
                 crop_y = clip.pop("crop_y", {})
@@ -734,27 +735,22 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         self.is_keyframe_valid(crop_height, 1.0),
                        ]):
                     # Apply crop effect to clip (which wasn't available in 2.5.x)
+                    log.info(
+                        "Migrating OpenShot 2.5 crop properties for clip %s",
+                        clip.get("id", "<unknown>")
+                    )
+                    from json import loads as jl
                     effect = openshot.EffectInfo().CreateEffect("Crop")
                     effect.Id(get_app().project.generate_id())
-                    effect_json = json.loads(effect.Json())
+                    effect_json = jl(effect.Json())
 
-                    # Append previous clip crop values
-                    if crop_x:
-                        effect_json["x"] = crop_x
-                    else:
-                        effect_json["x"] = json.loads(openshot.Keyframe(0.0).Json())
-                    if crop_y:
-                        effect_json["y"] = crop_y
-                    else:
-                        effect_json["y"] = json.loads(openshot.Keyframe(0.0).Json())
-                    if crop_width:
-                        effect_json["right"] = crop_width
-                    else:
-                        effect_json["right"] = json.loads(openshot.Keyframe(0.0).Json())
-                    if crop_height:
-                        effect_json["bottom"] = crop_height
-                    else:
-                        effect_json["bottom"] = json.loads(openshot.Keyframe(0.0).Json())
+                    # Attach previous clip crop values
+                    effect_json.update({
+                        "x": crop_x or jl(openshot.Keyframe(0.0).Json()),
+                        "y": crop_y or jl(openshot.Keyframe(0.0).Json()),
+                        "right": crop_width or jl(openshot.Keyframe(1.0).Json()),
+                        "bottom": crop_height or jl(openshot.Keyframe(1.0).Json()),
+                    })
 
                     # Reverse values on right & bottom
                     for prop in ["right", "bottom"]:
