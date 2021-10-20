@@ -66,13 +66,24 @@ def init_tracing():
         release=f"openshot@{info.VERSION}",
         environment=environment
     )
-    sdk.set_tag("system", platform.system())
-    sdk.set_tag("machine", platform.machine())
-    sdk.set_tag("processor", platform.processor())
-    sdk.set_tag("platform", platform.platform())
+    if _supports_tagging():
+        configure_platform_tags(sdk)
+    else:
+        sdk.configure_scope(platform_scope)
+
+
+def platform_scope(scope):
+    configure_platform_tags(scope)
+
+
+def configure_platform_tags(sdk_or_scope):
+    sdk_or_scope.set_tag("system", platform.system())
+    sdk_or_scope.set_tag("machine", platform.machine())
+    sdk_or_scope.set_tag("processor", platform.processor())
+    sdk_or_scope.set_tag("platform", platform.platform())
     if distro and platform.system() == "linux":
-        sdk.set_tag("distro", " ".join(distro.linux_distribution()))
-    sdk.set_tag("locale", info.CURRENT_LANGUAGE)
+        sdk_or_scope.set_tag("distro", " ".join(distro.linux_distribution()))
+    sdk_or_scope.set_tag("locale", info.CURRENT_LANGUAGE)
 
 
 def disable_tracing():
@@ -82,16 +93,26 @@ def disable_tracing():
 
 
 def set_tag(*args):
-    if sdk:
+    if sdk and _supports_tagging():
         sdk.set_tag(*args)
 
 
 def set_user(*args):
-    if sdk:
+    if sdk and _supports_tagging():
         sdk.set_user(*args)
 
 
 def set_context(*args):
-    if sdk:
+    if sdk and _supports_tagging():
         sdk.set_context(*args)
 
+
+def _supports_tagging():
+    """Returns whether the imported sentry-sdk has tag-related
+    methods such as set_tag, set_user, set_context.
+
+    Those methods were introduce on 0.13.1 version. Checking this
+    before calling those methods on the sentry-sdk avoids crashing
+    Openshot in case an old sdk is installed.
+    """
+    return all([hasattr(sdk, method) for method in ["set_tag", "set_user", "set_context"]])
