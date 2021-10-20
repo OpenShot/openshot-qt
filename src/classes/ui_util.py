@@ -130,6 +130,9 @@ def make_dark_palette(darkPalette: QPalette) -> QPalette:
     # Tooltips
     darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
     darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+    # Links
+    darkPalette.setColor(QPalette.Link, QColor(85, 170, 255))
+    darkPalette.setColor(QPalette.LinkVisited, QColor(136, 85, 255))
 
     return darkPalette
 
