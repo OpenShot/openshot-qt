@@ -27,7 +27,6 @@
  """
 
 import platform
-from packaging import version
 
 from classes.logger import log
 from classes import info
@@ -68,13 +67,23 @@ def init_tracing():
         environment=environment
     )
     if _supports_tagging():
-        sdk.set_tag("system", platform.system())
-        sdk.set_tag("machine", platform.machine())
-        sdk.set_tag("processor", platform.processor())
-        sdk.set_tag("platform", platform.platform())
-        if distro and platform.system() == "linux":
-            sdk.set_tag("distro", " ".join(distro.linux_distribution()))
-        sdk.set_tag("locale", info.CURRENT_LANGUAGE)
+        configure_platform_tags(sdk)
+    else:
+        sdk.configure_scope(platform_scope)
+
+
+def platform_scope(scope):
+    configure_platform_tags(scope)
+
+
+def configure_platform_tags(sdk_or_scope):
+    sdk_or_scope.set_tag("system", platform.system())
+    sdk_or_scope.set_tag("machine", platform.machine())
+    sdk_or_scope.set_tag("processor", platform.processor())
+    sdk_or_scope.set_tag("platform", platform.platform())
+    if distro and platform.system() == "linux":
+        sdk_or_scope.set_tag("distro", " ".join(distro.linux_distribution()))
+    sdk_or_scope.set_tag("locale", info.CURRENT_LANGUAGE)
 
 
 def disable_tracing():
@@ -106,4 +115,4 @@ def _supports_tagging():
     before calling those methods on the sentry-sdk avoids crashing
     Openshot in case an old sdk is installed.
     """
-    return version.parse(sdk.consts.VERSION) >= version.parse("0.13.1")
+    return all([hasattr(sdk, method) for method in ["set_tag", "set_user", "set_context"]])
