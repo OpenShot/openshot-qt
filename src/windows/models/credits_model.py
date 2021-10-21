@@ -100,7 +100,7 @@ class CreditsModel():
 
             self.model.appendRow(row)
 
-    def __init__(self, credits, *args):
+    def __init__(self, credits):
 
         _ = get_app()._tr
 

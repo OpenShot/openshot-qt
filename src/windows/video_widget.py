@@ -156,7 +156,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Calculate center coordinate
         if(x1 and y1 and x2 and y2):
-            cs = 5.0
             os = 7.0
             self.centerHandle = QRectF( (((x1*source_width+x2*source_width) / 2.0) ) - (os/sx), (((y1*source_height+y2*source_height) / 2.0) ) - (os/sy), os/sx*2.0, os/sy*2.0)
         else:
@@ -328,7 +327,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
                     # Get properties for the first object in dict. PropertiesJSON should return one object at the time
                     tmp = raw_properties_effect.get('objects')
-                    tmp2 = tmp.keys()
                     obj_id = list(tmp.keys())[0]
                     raw_properties_effect = raw_properties_effect.get('objects').get(obj_id)
 
@@ -411,7 +409,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         else:
             return QRect(((width - widthFromHeight) / 2.0) + left_padding, top_padding, widthFromHeight, height)
 
-    def present(self, image, *args):
+    def present(self, image):
         """ Present the current frame """
 
         # Get frame's QImage from libopenshot

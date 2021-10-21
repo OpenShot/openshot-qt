@@ -57,5 +57,5 @@ def get_version_from_http():
         # Emit signal for the UI
         get_app().window.FoundVersionSignal.emit(openshot_version)
 
-    except Exception as Ex:
+    except Exception:
         log.error("Failed to get version from: %s" % url)

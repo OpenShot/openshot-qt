@@ -287,7 +287,6 @@ class Credits(QDialog):
         self.lblBecomeSupporter.setText(supporter_html)
 
         # Get list of developers
-        developer_list = []
         with codecs.open(
                 os.path.join(info.RESOURCES_PATH, 'contributors.json'), 'r', 'utf_8'
                 ) as contributors_file:
@@ -334,7 +333,6 @@ class Credits(QDialog):
             self.tabCredits.removeTab(1)
 
         # Get list of supporters
-        supporter_list = []
         with codecs.open(
                 os.path.join(info.RESOURCES_PATH, 'supporters.json'), 'r', 'utf_8'
                 ) as supporter_file:

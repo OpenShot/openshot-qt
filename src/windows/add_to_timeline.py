@@ -49,7 +49,7 @@ class AddToTimeline(QDialog):
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'add-to-timeline.ui')
 
-    def btnMoveUpClicked(self, checked):
+    def btnMoveUpClicked(self):
         """Callback for move up button click"""
         log.info("btnMoveUpClicked")
 
@@ -78,7 +78,7 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
-    def btnMoveDownClicked(self, checked):
+    def btnMoveDownClicked(self):
         """Callback for move up button click"""
         log.info("btnMoveDownClicked")
 
@@ -107,7 +107,7 @@ class AddToTimeline(QDialog):
         idx = self.treeFiles.timeline_model.model.index(new_index, 0)
         self.treeFiles.setCurrentIndex(idx)
 
-    def btnShuffleClicked(self, checked):
+    def btnShuffleClicked(self):
         """Callback for move up button click"""
         log.info("btnShuffleClicked")
 
@@ -117,7 +117,7 @@ class AddToTimeline(QDialog):
         # Refresh tree
         self.treeFiles.refresh_view()
 
-    def btnRemoveClicked(self, checked):
+    def btnRemoveClicked(self):
         """Callback for move up button click"""
         log.info("btnRemoveClicked")
 
@@ -379,7 +379,7 @@ class AddToTimeline(QDialog):
         # Accept dialog
         super(AddToTimeline, self).accept()
 
-    def ImageLengthChanged(self, value):
+    def ImageLengthChanged(self):
         """Handle callback for image length being changed"""
         self.updateTotal()
 

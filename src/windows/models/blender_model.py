@@ -137,7 +137,7 @@ class BlenderModel():
                 # Process events in QT (to keep the interface responsive)
                 self.app.processEvents()
 
-    def __init__(self, *args):
+    def __init__(self):
 
         # Create standard model
         self.app = get_app()

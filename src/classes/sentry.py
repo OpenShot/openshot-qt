@@ -48,7 +48,6 @@ def init_tracing():
         return
 
     # Determine sample rate for exceptions
-    traces_sample_rate = 0.0
     if info.VERSION == info.ERROR_REPORT_STABLE_VERSION:
         traces_sample_rate = info.ERROR_REPORT_RATE_STABLE
         environment = "production"

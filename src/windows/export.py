@@ -458,7 +458,6 @@ class Export(QDialog):
             self.cboSimpleQuality.clear()
 
             # parse the xml to return suggested profiles
-            profile_index = 0
             all_profiles = False
             for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
                 for file in os.listdir(preset_folder):
@@ -608,7 +607,6 @@ class Export(QDialog):
 
         # split the string into pieces
         s = BitRateString.lower().split(" ")
-        measurement = "kb"
 
         try:
             # Get Bit Rate
@@ -686,7 +684,6 @@ class Export(QDialog):
         _ = get_app()._tr
 
         # Init some variables
-        seconds_run = 0
         fps_encode = 0
 
         # Init progress bar
@@ -740,10 +737,12 @@ class Export(QDialog):
 
         file = File.get(path=export_file_path)
         if file:
-            ret = QMessageBox.question(self,
+            QMessageBox.question(
+                self,
                 _("Export Video"),
                 _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
-                QMessageBox.Ok)
+                QMessageBox.Ok
+            )
             self.enableControls()
             self.exporting = False
             return

@@ -101,9 +101,6 @@ def import_xml():
 
             # Loop through clips
             for clip_element in clips_on_track:
-                # Get clip path
-                xml_file_id = clip_element.getElementsByTagName("file")[0].getAttribute("id")
-                clip_path = ""
                 if clip_element.getElementsByTagName("pathurl"):
                     clip_path = clip_element.getElementsByTagName("pathurl")[0].childNodes[0].nodeValue
                 else:

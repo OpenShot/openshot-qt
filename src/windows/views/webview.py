@@ -340,7 +340,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Update the brightness and contrast keyframes to match the duration of the transition
         # This is a hack until I can think of something better
-        brightness = None
         contrast = None
         if needs_resize:
             # Adjust transition's brightness keyframes to match the size of the transition
@@ -920,7 +919,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Transform menu
         Transform_Action = self.window.actionTransform
         Transform_Action.triggered.connect(
-            partial(self.Transform_Triggered, MENU_TRANSFORM, clip_ids))
+            partial(self.Transform_Triggered, clip_ids))
         menu.addAction(Transform_Action)
 
         # Add clip display menu (waveform or thumbnail)
@@ -942,7 +941,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Show Context menu
         return menu.exec_(QCursor.pos())
 
-    def Transform_Triggered(self, action, clip_ids):
+    def Transform_Triggered(self, clip_ids):
         log.debug("Transform_Triggered")
 
         # Emit signal to transform this clip (for the 1st clip id)
@@ -2159,7 +2158,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Determine if waveform needs to be redrawn
             self.run_js(JS_SCOPE_SELECTOR + ".hasAudioData('{}');".format(clip.id), partial(callback, self, clip.id))
 
-    def Rotate_Triggered(self, action, clip_ids, position="Start of Clip"):
+    def Rotate_Triggered(self, action, clip_ids):
         """Callback for rotate context menus"""
         log.debug(action)
 
@@ -2335,7 +2334,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 # Calculate speed factor
                 speed_label = speed.replace('X', '')
                 speed_parts = speed_label.split('/')
-                even_multiple = 1
                 if len(speed_parts) == 2:
                     speed_factor = float(speed_parts[0]) / float(speed_parts[1])
                     even_multiple = int(speed_parts[1])

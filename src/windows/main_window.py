@@ -403,7 +403,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         try:
             # Update history in project data
             s = app.get_settings()
-            app.updates.save_history(app.project, s.get("history-limit"))
+            app.updates.save_history(s.get("history-limit"))
 
             # Save project to file
             app.project.save(file_path)
@@ -637,7 +637,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             else:
                 # No saved project found
                 log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-                app.project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
+                app.project.save(info.BACKUP_FILE, move_temp_files=False)
 
                 # Clear the file_path (which is set by saving the project)
                 app.project.current_filepath = None
@@ -737,7 +737,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         )
         return bool(ret == QMessageBox.Yes)
 
-    def actionAdd_to_Timeline_trigger(self, checked=False):
+    def actionAdd_to_Timeline_trigger(self):
         # Loop through selected files
         files = self.selected_files()
 
@@ -760,7 +760,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('canceled')
 
-    def actionExportVideo_trigger(self, checked=True):
+    def actionExportVideo_trigger(self):
         # show window
         from windows.export import Export
         win = Export()
@@ -771,37 +771,37 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('Export Video add cancelled')
 
-    def actionExportEDL_trigger(self, checked=True):
+    def actionExportEDL_trigger(self):
         """Export EDL File"""
         export_edl()
 
-    def actionExportFCPXML_trigger(self, checked=True):
+    def actionExportFCPXML_trigger(self):
         """Export XML (Final Cut Pro) File"""
         export_xml()
 
-    def actionImportEDL_trigger(self, checked=True):
+    def actionImportEDL_trigger(self):
         """Import EDL File"""
         import_edl()
 
-    def actionImportFCPXML_trigger(self, checked=True):
+    def actionImportFCPXML_trigger(self):
         """Import XML (Final Cut Pro) File"""
         import_xml()
 
-    def actionUndo_trigger(self, checked=True):
+    def actionUndo_trigger(self):
         log.info('actionUndo_trigger')
         get_app().updates.undo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
-    def actionRedo_trigger(self, checked=True):
+    def actionRedo_trigger(self):
         log.info('actionRedo_trigger')
         get_app().updates.redo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
-    def actionPreferences_trigger(self, checked=True):
+    def actionPreferences_trigger(self):
         # Stop preview thread
         self.SpeedSignal.emit(0)
         ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
@@ -827,83 +827,83 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
-    def actionFilesShowAll_trigger(self, checked=True):
+    def actionFilesShowAll_trigger(self):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowVideo_trigger(self, checked=True):
+    def actionFilesShowVideo_trigger(self):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowAudio_trigger(self, checked=True):
+    def actionFilesShowAudio_trigger(self):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowImage_trigger(self, checked=True):
+    def actionFilesShowImage_trigger(self):
         self.refreshFilesSignal.emit()
 
-    def actionTransitionsShowAll_trigger(self, checked=True):
+    def actionTransitionsShowAll_trigger(self):
         self.refreshTransitionsSignal.emit()
 
-    def actionTransitionsShowCommon_trigger(self, checked=True):
+    def actionTransitionsShowCommon_trigger(self):
         self.refreshTransitionsSignal.emit()
 
-    def actionEffectsShowAll_trigger(self, checked=True):
+    def actionEffectsShowAll_trigger(self):
         self.refreshEffectsSignal.emit()
 
-    def actionEffectsShowVideo_trigger(self, checked=True):
+    def actionEffectsShowVideo_trigger(self):
         self.refreshEffectsSignal.emit()
 
-    def actionEffectsShowAudio_trigger(self, checked=True):
+    def actionEffectsShowAudio_trigger(self):
         self.refreshEffectsSignal.emit()
 
-    def actionHelpContents_trigger(self, checked=True):
+    def actionHelpContents_trigger(self):
         try:
             webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the online help")
             log.error("Unable to open the Help Contents", exc_info=1)
 
-    def actionAbout_trigger(self, checked=True):
+    def actionAbout_trigger(self):
         """Show about dialog"""
         from windows.about import About
         win = About()
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 
-    def actionReportBug_trigger(self, checked=True):
+    def actionReportBug_trigger(self):
         try:
             webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
             log.error("Unable to open the Bug Report page", exc_info=1)
 
-    def actionAskQuestion_trigger(self, checked=True):
+    def actionAskQuestion_trigger(self):
         try:
             webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
             log.error("Unable to open the subreddit page", exc_info=1)
 
-    def actionTranslate_trigger(self, checked=True):
+    def actionTranslate_trigger(self):
         try:
             webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
             log.error("Unable to open the translation page", exc_info=1)
 
-    def actionDonate_trigger(self, checked=True):
+    def actionDonate_trigger(self):
         try:
             webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
             log.error("Unable to open the donation page", exc_info=1)
 
-    def actionUpdate_trigger(self, checked=True):
+    def actionUpdate_trigger(self):
         try:
             webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
-    def actionPlay_trigger(self, checked=True, force=None):
+    def actionPlay_trigger(self, force=None):
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
@@ -919,7 +919,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
             self.PauseSignal.emit()
 
-    def actionPreview_File_trigger(self, checked=True):
+    def actionPreview_File_trigger(self):
         """ Preview the selected media file """
         log.info('actionPreview_File_trigger')
 
@@ -957,7 +957,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Enable / Disable follow mode """
         self.timeline.SetPlayheadFollow(enable_follow)
 
-    def actionFastForward_trigger(self, checked=True):
+    def actionFastForward_trigger(self):
 
         # Get the video player object
         player = self.preview_thread.player
@@ -970,7 +970,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
 
-    def actionRewind_trigger(self, checked=True):
+    def actionRewind_trigger(self):
         # Get the video player object
         player = self.preview_thread.player
 
@@ -983,20 +983,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionPlay.trigger()
         self.SpeedSignal.emit(new_speed)
 
-    def actionJumpStart_trigger(self, checked=True):
+    def actionJumpStart_trigger(self):
         log.debug("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
-    def actionJumpEnd_trigger(self, checked=True):
+    def actionJumpEnd_trigger(self):
         log.debug("actionJumpEnd_trigger")
 
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
         self.SeekSignal.emit(max_frame)
 
-    def actionSaveFrame_trigger(self, checked=True):
+    def actionSaveFrame_trigger(self):
         log.info("actionSaveFrame_trigger")
 
         # Translate object
@@ -1008,7 +1008,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.setStatusBar(self.statusBar)
 
         # Determine path for saved frame - Default export path
-        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        recommended_path = os.path.join(info.HOME_PATH)
         if app.project.current_filepath:
             recommended_path = os.path.dirname(app.project.current_filepath)
 
@@ -1069,8 +1069,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.cache_object.Clear()
         self.timeline_sync.timeline.SetCache(old_cache_object)
         self.cache_object = old_cache_object
-        old_cache_object = None
-        new_cache_object = None
 
     def renumber_all_layers(self, insert_at=None, stride=1000000):
         """Renumber all of the project's layers to be equidistant (in
@@ -1153,7 +1151,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             " (inserted {} at {})".format(insert_num, insert_at) if insert_at else "")
         )
 
-    def actionAddTrack_trigger(self, checked=True):
+    def actionAddTrack_trigger(self):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
@@ -1166,7 +1164,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
-    def actionAddTrackAbove_trigger(self, checked=True):
+    def actionAddTrackAbove_trigger(self):
         # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
@@ -1213,7 +1211,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionAddTrackBelow_trigger(self, checked=True):
+    def actionAddTrackBelow_trigger(self):
         # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
@@ -1263,10 +1261,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionArrowTool_trigger(self, checked=True):
+    def actionArrowTool_trigger(self):
         log.info("actionArrowTool_trigger")
 
-    def actionSnappingTool_trigger(self, checked=True):
+    def actionSnappingTool_trigger(self):
         log.info("actionSnappingTool_trigger")
 
         # Enable / Disable snapping mode
@@ -1279,7 +1277,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Enable / Disable razor mode
         self.timeline.SetRazorMode(checked)
 
-    def actionAddMarker_trigger(self, checked=True):
+    def actionAddMarker_trigger(self):
         log.info("actionAddMarker_trigger")
 
         # Get player object
@@ -1388,7 +1386,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         return all_marker_positions
 
-    def actionPreviousMarker_trigger(self, checked=True):
+    def actionPreviousMarker_trigger(self):
         log.info("actionPreviousMarker_trigger")
 
         # Calculate current position (in seconds)
@@ -1420,7 +1418,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
-    def actionNextMarker_trigger(self, checked=True):
+    def actionNextMarker_trigger(self):
         log.info("actionNextMarker_trigger")
 
         # Calculate current position (in seconds)
@@ -1452,7 +1450,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
-    def actionCenterOnPlayhead_trigger(self, checked=True):
+    def actionCenterOnPlayhead_trigger(self):
         """ Center the timeline on the current playhead position """
         self.timeline.centerOnPlayhead()
 
@@ -1778,7 +1776,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Find matching file
             clips = Clip.filter()
-            found_effect = None
             for c in clips:
                 found_effect = False
                 log.info("c.data[effects]: %s" % c.data["effects"])
@@ -2185,7 +2182,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.tutorial_manager.exit_manager()
             self.tutorial_manager = TutorialManager(self)
 
-    def actionInsertTimestamp_trigger(self, event):
+    def actionInsertTimestamp_trigger(self):
         """Insert the current timestamp into the caption editor
         In the format: 00:00:23,000 --> 00:00:24,500. first click to set the initial timestamp,
         move the playehad, second click to set the end timestamp.

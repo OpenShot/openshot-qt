@@ -352,10 +352,10 @@ class PropertiesTableView(QTableView):
                 if ok and font:
                     fontinfo = QFontInfo(font)
                     # TODO: pass font details to value_updated so we can set multiple values
-                    font_details = { "font_family": fontinfo.family(),
-                                     "font_style": fontinfo.styleName(),
-                                     "font_weight": fontinfo.weight(),
-                                     "font_size_pixel": fontinfo.pixelSize() }
+                    # font_details = { "font_family": fontinfo.family(),
+                    #                  "font_style": fontinfo.styleName(),
+                    #                  "font_weight": fontinfo.weight(),
+                    #                  "font_size_pixel": fontinfo.pixelSize() }
                     self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
 
     def caption_text_updated(self, new_caption_text, caption_model_row):
@@ -435,12 +435,6 @@ class PropertiesTableView(QTableView):
 
             # Handle parent effect options
             if property_key == "parent_effect_id" and not self.choices:
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 # Instantiate this effect
@@ -474,7 +468,6 @@ class PropertiesTableView(QTableView):
                             # Make sure the user can only set a parent effect of the same type as this effect
                             if effect_data['class_name'] == effect_json['class_name']:
                                 effect_id = effect_data["id"]
-                                effect_name = effect_data['class_name']
                                 effect_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect_data['class_name'].lower())))
                                 effect_choices.append({"name": effect_id,
                                                 "value": effect_id,
@@ -507,12 +500,6 @@ class PropertiesTableView(QTableView):
 
             # Handle property to set the Tracked Object's child clip
             if property_key == "child_clip_id" and not self.choices:
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 current_effect = timeline_instance.GetClipEffect(clip_id)
@@ -752,7 +739,6 @@ class PropertiesTableView(QTableView):
                 # Add sub-choice items (for nested choice lists)
                 # Divide into smaller QMenus (since large lists cover the entire screen)
                 # For example: Transitions -> 1 -> sub items
-                SubMenu = None
                 if choice.get("icon") is not None:
                     SubMenuRoot = menu.addMenu(choice["icon"], choice["name"])
                 else:

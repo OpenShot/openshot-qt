@@ -171,7 +171,6 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
-        property_type = property[1]["type"]
         closest_point_x = property[1]["closest_point_x"]
         property_type = property[1]["type"]
         property_key = property[0]
@@ -205,7 +204,6 @@ class PropertiesModel(updates.UpdateInterface):
             log.debug("%s: remove %s keyframe. %s", log_id, property_key, clip_data.get(property_key))
 
             # Determine type of keyframe (normal or color)
-            keyframe_list = []
             if property_type == "color":
                 keyframe_list = [clip_data[property_key]["red"], clip_data[property_key]["blue"], clip_data[property_key]["green"]]
             else:
@@ -236,11 +234,6 @@ class PropertiesModel(updates.UpdateInterface):
                     clip_updated = True
                     log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
                     keyframe["Points"].remove(point_to_delete)
-
-            # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data[property_key]}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
@@ -354,11 +347,6 @@ class PropertiesModel(updates.UpdateInterface):
                                 'co': {'X': self.frame_number, 'Y': new_value},
                                 'interpolation': 1,
                                 })
-
-                # Reduce # of clip properties we are saving (performance boost)
-                clip_data = {property_key: clip_data[property_key]}
-                if object_id:
-                    clip_data = {'objects': {object_id: clip_data}}
 
                 # Save changes
                 if clip_updated:
@@ -556,14 +544,8 @@ class PropertiesModel(updates.UpdateInterface):
                         clip_object.Open()
                         clip_data[property_key] = json.loads(clip_object.Reader().Json())
                         clip_object.Close()
-                        clip_object = None
                     except Exception as ex:
                         log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
-
-            # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data.get(property_key)}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
 
             # Save changes
             if clip_updated:
@@ -867,7 +849,7 @@ class PropertiesModel(updates.UpdateInterface):
         # Done updating model
         self.ignore_update_signal = False
 
-    def __init__(self, parent, *args):
+    def __init__(self, parent):
 
         # Keep track of the selected items (clips, transitions, etc...)
         self.selected = []

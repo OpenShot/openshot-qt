@@ -145,7 +145,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
             pixels_per_second = event.rect().width() / project_duration
-            project_pixel_width = max(0, project_duration * pixels_per_second)
             scroll_width = (self.scrollbar_position[1] - self.scrollbar_position[0]) * event.rect().width()
 
             # Get FPS info

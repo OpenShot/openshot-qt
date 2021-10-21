@@ -166,7 +166,7 @@ class EmojisModel():
                     self.model.appendRow(row)
                     self.model_paths[path] = path
 
-    def __init__(self, *args):
+    def __init__(self):
 
         # Create standard model
         self.app = get_app()

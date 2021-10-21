@@ -175,7 +175,7 @@ class TutorialDialog(QWidget):
 class TutorialManager(object):
     """ Manage and present a list of tutorial dialogs """
 
-    def process(self, parent_name=None):
+    def process(self):
         """ Process and show the first non-completed tutorial """
 
         # If a tutorial is already visible, just update it
@@ -428,12 +428,12 @@ class TutorialManager(object):
         self.dock.setFloating(True)
 
         # Connect to interface dock widgets
-        self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
-        self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process, "dockTransitions"))
-        self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))
-        self.win.dockProperties.visibilityChanged.connect(functools.partial(self.process, "dockProperties"))
-        self.win.dockVideo.visibilityChanged.connect(functools.partial(self.process, "dockVideo"))
-        self.win.dockEmojis.visibilityChanged.connect(functools.partial(self.process, "dockEmojis"))
+        self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process))
+        self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process))
+        self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process))
+        self.win.dockProperties.visibilityChanged.connect(functools.partial(self.process))
+        self.win.dockVideo.visibilityChanged.connect(functools.partial(self.process))
+        self.win.dockEmojis.visibilityChanged.connect(functools.partial(self.process))
 
         # Process tutorials (1 by 1)
         if self.tutorial_enabled:

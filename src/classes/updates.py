@@ -164,7 +164,7 @@ class UpdateManager:
         # Notify watchers of new status
         self.update_watchers()
 
-    def save_history(self, project, history_length):
+    def save_history(self, history_length):
         """Save history to project"""
         redo_list = []
         undo_list = []

@@ -169,7 +169,6 @@ class ProcessEffect(QDialog):
                 for value_item in value_list:
                     k = value_item["name"]
                     v = value_item["value"]
-                    i = value_item.get("icon", None)
 
                     # add dropdown item
                     widget.addItem(_(k), v)
@@ -269,7 +268,6 @@ class ProcessEffect(QDialog):
                 # Region selected (get coordinates if any)
                 topLeft = win.videoPreview.regionTopLeftHandle
                 bottomRight = win.videoPreview.regionBottomRightHandle
-                viewPortSize = win.viewport_rect
                 curr_frame_size = win.videoPreview.curr_frame_size
 
                 x1 = topLeft.x() / curr_frame_size.width()

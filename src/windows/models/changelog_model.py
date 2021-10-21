@@ -96,7 +96,7 @@ class ChangelogModel():
             # Append row to model
             self.model.appendRow(row)
 
-    def __init__(self, commits, *args):
+    def __init__(self, commits):
 
         # Create standard model
         self.app = get_app()

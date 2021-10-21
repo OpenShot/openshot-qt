@@ -47,11 +47,11 @@ def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):
     clip.Reader().info.has_video = False
 
     log.info("Clip loaded, start thread")
-    t = threading.Thread(target=get_waveform_thread, args=[clip, clip_id, file_path, channel_filter, volume_keyframe])
+    t = threading.Thread(target=get_waveform_thread, args=[clip, clip_id, channel_filter, volume_keyframe])
     t.daemon = True
     t.start()
 
-def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1, volume_keyframe=None):
+def get_waveform_thread(clip, clip_id, channel_filter=-1, volume_keyframe=None):
     """Get the audio data from a clip in a separate thread"""
     audio_data = []
     sample_rate = clip.Reader().info.sample_rate

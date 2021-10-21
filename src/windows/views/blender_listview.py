@@ -219,7 +219,7 @@ class BlenderListView(QListView):
         if param["name"] == "length_multiplier":
             self.init_slider_values()
 
-    def color_button_clicked(self, widget, param, index):
+    def color_button_clicked(self, widget, param):
         # Get translation object
         _ = get_app()._tr
 
@@ -546,7 +546,7 @@ Blender Path: {}
 
         # If GPU rendering is selected, see if GPU enable code is available
         s = self.app.get_settings()
-        gpu_code_body = None
+
         if s.get("blender_gpu_enabled"):
             gpu_enable_py = os.path.join(info.PATH, "blender", "scripts", "gpu_enable.py.in")
             try:

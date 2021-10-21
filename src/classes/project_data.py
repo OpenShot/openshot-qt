@@ -523,14 +523,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                 log.info("Skipping importing missing file: %s" % clip.file_object.unique_id)
                                 continue
 
-                            # Create clip
-                            if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
-                                # Determine thumb path
-                                thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
-                            else:
-                                # Audio file
-                                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.png")
-
                             # Get file name
                             filename = os.path.basename(file.data["path"])
 
@@ -774,7 +766,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             points[0].get("co", {}).get("Y", default_value) != default_value,
         ])
 
-    def save(self, file_path, move_temp_files=True, make_paths_relative=True):
+    def save(self, file_path, move_temp_files=True):
         """ Save project file to disk """
         import openshot
 
@@ -931,13 +923,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
-        # Get import path or project folder
-        starting_folder = None
-        if self._data["import_path"]:
-            starting_folder = os.path.join(self._data["import_path"])
-        elif self.current_filepath:
-            starting_folder = os.path.dirname(self.current_filepath)
-
         # Get translation method
         from classes.app import get_app
         _ = get_app()._tr

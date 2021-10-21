@@ -132,7 +132,7 @@ class TitleEditor(QDialog):
             # Display image (slight delay to allow screen to be shown first)
             QTimer.singleShot(50, self.display_svg)
 
-    def txtLine_changed(self, txtWidget):
+    def txtLine_changed(self):
 
         # Loop through child widgets (and remove them)
         text_list = []
@@ -304,7 +304,7 @@ class TitleEditor(QDialog):
             # create text editor for each text element in title
             widget = QLineEdit(_(text))
             widget.setFixedHeight(28)
-            widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
+            widget.textChanged.connect(functools.partial(self.txtLine_changed))
             layout.addRow(label, widget)
 
         # Add Font button

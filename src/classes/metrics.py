@@ -172,7 +172,7 @@ def send_metric(params):
 
             # Send metric HTTP data
             try:
-                r = requests.get(url, headers={"user-agent": user_agent})
+                requests.get(url, headers={"user-agent": user_agent})
             except Exception:
                 log.warning("Failed to track metric", exc_info=1)
 

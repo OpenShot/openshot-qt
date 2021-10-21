@@ -179,7 +179,6 @@ class Preferences(QDialog):
         # Loop through each category setting, and add them to the tabs
         for category in dict(self.category_tabs).keys():
             tabWidget = self.category_tabs[category]
-            filterFound = False
 
             # Get list of items in category
             params = self.category_names[category]
@@ -560,7 +559,7 @@ class Preferences(QDialog):
         # Check for restart
         self.check_for_restart(param)
 
-    def testHardwareDecode(self, all_decoders, decoder, decoder_card="0"):
+    def testHardwareDecode(self, all_decoders, decoder, decoder_card=0):
         """Test specific settings for hardware decode, so the UI can remove unsupported options."""
         is_supported = False
         example_media = os.path.join(info.RESOURCES_PATH, "hardware-example.mp4")
