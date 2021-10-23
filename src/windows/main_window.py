@@ -2182,7 +2182,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.tutorial_manager.exit_manager()
             self.tutorial_manager = TutorialManager(self)
 
-    def actionInsertTimestamp_trigger(self):
+    def actionInsertTimestamp_trigger(self, checked):
         """Insert the current timestamp into the caption editor
         In the format: 00:00:23,000 --> 00:00:24,500. first click to set the initial timestamp,
         move the playehad, second click to set the end timestamp.

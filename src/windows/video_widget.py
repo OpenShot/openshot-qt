@@ -409,7 +409,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         else:
             return QRect(((width - widthFromHeight) / 2.0) + left_padding, top_padding, widthFromHeight, height)
 
-    def present(self, image):
+    def present(self, image, *args):
         """ Present the current frame """
 
         # Get frame's QImage from libopenshot

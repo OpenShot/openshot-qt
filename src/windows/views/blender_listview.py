@@ -220,9 +220,6 @@ class BlenderListView(QListView):
             self.init_slider_values()
 
     def color_button_clicked(self, widget, param):
-        # Get translation object
-        _ = get_app()._tr
-
         color_value = self.params[param["name"]]
         currentColor = QColor("#FFFFFF")
         if len(color_value) >= 3:
