@@ -288,10 +288,3 @@ def center(window):
     centerPoint = get_app().window.frameGeometry().center()
     frameGm.moveCenter(centerPoint)
     window.move(frameGm.topLeft())
-
-
-def transfer_children(from_widget, to_widget):
-    log.info(
-        "Transferring children from '%s' to '%s'",
-        from_widget.objectName(), to_widget.objectName())
-
