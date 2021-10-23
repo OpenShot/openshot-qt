@@ -737,7 +737,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         )
         return bool(ret == QMessageBox.Yes)
 
-    def actionAdd_to_Timeline_trigger(self):
+    def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files
         files = self.selected_files()
 
@@ -760,7 +760,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('canceled')
 
-    def actionExportVideo_trigger(self):
+    def actionExportVideo_trigger(self, checked=True):
         # show window
         from windows.export import Export
         win = Export()
@@ -771,37 +771,37 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('Export Video add cancelled')
 
-    def actionExportEDL_trigger(self):
+    def actionExportEDL_trigger(self, checked=True):
         """Export EDL File"""
         export_edl()
 
-    def actionExportFCPXML_trigger(self):
+    def actionExportFCPXML_trigger(self, checked=True):
         """Export XML (Final Cut Pro) File"""
         export_xml()
 
-    def actionImportEDL_trigger(self):
+    def actionImportEDL_trigger(self, checked=True):
         """Import EDL File"""
         import_edl()
 
-    def actionImportFCPXML_trigger(self):
+    def actionImportFCPXML_trigger(self, checked=True):
         """Import XML (Final Cut Pro) File"""
         import_xml()
 
-    def actionUndo_trigger(self):
+    def actionUndo_trigger(self, checked=True):
         log.info('actionUndo_trigger')
         get_app().updates.undo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
-    def actionRedo_trigger(self):
+    def actionRedo_trigger(self, checked=True):
         log.info('actionRedo_trigger')
         get_app().updates.redo()
 
         # Update the preview
         self.refreshFrameSignal.emit()
 
-    def actionPreferences_trigger(self):
+    def actionPreferences_trigger(self, checked=True):
         # Stop preview thread
         self.SpeedSignal.emit(0)
         ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
@@ -827,83 +827,83 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
-    def actionFilesShowAll_trigger(self):
+    def actionFilesShowAll_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowVideo_trigger(self):
+    def actionFilesShowVideo_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowAudio_trigger(self):
+    def actionFilesShowAudio_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionFilesShowImage_trigger(self):
+    def actionFilesShowImage_trigger(self, checked=True):
         self.refreshFilesSignal.emit()
 
-    def actionTransitionsShowAll_trigger(self):
+    def actionTransitionsShowAll_trigger(self, checked=True):
         self.refreshTransitionsSignal.emit()
 
-    def actionTransitionsShowCommon_trigger(self):
+    def actionTransitionsShowCommon_trigger(self, checked=True):
         self.refreshTransitionsSignal.emit()
 
-    def actionEffectsShowAll_trigger(self):
+    def actionEffectsShowAll_trigger(self, checked=True):
         self.refreshEffectsSignal.emit()
 
-    def actionEffectsShowVideo_trigger(self):
+    def actionEffectsShowVideo_trigger(self, checked=True):
         self.refreshEffectsSignal.emit()
 
-    def actionEffectsShowAudio_trigger(self):
+    def actionEffectsShowAudio_trigger(self, checked=True):
         self.refreshEffectsSignal.emit()
 
-    def actionHelpContents_trigger(self):
+    def actionHelpContents_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the online help")
             log.error("Unable to open the Help Contents", exc_info=1)
 
-    def actionAbout_trigger(self):
+    def actionAbout_trigger(self, checked=True):
         """Show about dialog"""
         from windows.about import About
         win = About()
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 
-    def actionReportBug_trigger(self):
+    def actionReportBug_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
             log.error("Unable to open the Bug Report page", exc_info=1)
 
-    def actionAskQuestion_trigger(self):
+    def actionAskQuestion_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
             log.error("Unable to open the subreddit page", exc_info=1)
 
-    def actionTranslate_trigger(self):
+    def actionTranslate_trigger(self, checked=True):
         try:
             webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
             log.error("Unable to open the translation page", exc_info=1)
 
-    def actionDonate_trigger(self):
+    def actionDonate_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
             log.error("Unable to open the donation page", exc_info=1)
 
-    def actionUpdate_trigger(self):
+    def actionUpdate_trigger(self, checked=True):
         try:
             webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
         except Exception:
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
-    def actionPlay_trigger(self, force=None):
+    def actionPlay_trigger(self, checked=True, force=None):
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
@@ -919,7 +919,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
             self.PauseSignal.emit()
 
-    def actionPreview_File_trigger(self):
+    def actionPreview_File_trigger(self, checked=True):
         """ Preview the selected media file """
         log.info('actionPreview_File_trigger')
 
@@ -957,7 +957,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Enable / Disable follow mode """
         self.timeline.SetPlayheadFollow(enable_follow)
 
-    def actionFastForward_trigger(self):
+    def actionFastForward_trigger(self, checked=True):
 
         # Get the video player object
         player = self.preview_thread.player
@@ -970,7 +970,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
 
-    def actionRewind_trigger(self):
+    def actionRewind_trigger(self, checked=True):
         # Get the video player object
         player = self.preview_thread.player
 
@@ -983,20 +983,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionPlay.trigger()
         self.SpeedSignal.emit(new_speed)
 
-    def actionJumpStart_trigger(self):
+    def actionJumpStart_trigger(self, checked=True):
         log.debug("actionJumpStart_trigger")
 
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
 
-    def actionJumpEnd_trigger(self):
+    def actionJumpEnd_trigger(self, checked=True):
         log.debug("actionJumpEnd_trigger")
 
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
         self.SeekSignal.emit(max_frame)
 
-    def actionSaveFrame_trigger(self):
+    def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
 
         # Translate object
@@ -1151,7 +1151,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             " (inserted {} at {})".format(insert_num, insert_at) if insert_at else "")
         )
 
-    def actionAddTrack_trigger(self):
+    def actionAddTrack_trigger(self, checked=True):
         log.info("actionAddTrack_trigger")
 
         # Get # of tracks
@@ -1164,7 +1164,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         track.data = {"number": track_number, "y": 0, "label": "", "lock": False}
         track.save()
 
-    def actionAddTrackAbove_trigger(self):
+    def actionAddTrackAbove_trigger(self, checked=True):
         # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
@@ -1211,7 +1211,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionAddTrackBelow_trigger(self):
+    def actionAddTrackBelow_trigger(self, checked=True):
         # Get selected track
         all_tracks = get_app().project.get("layers")
         selected_layer_id = self.selected_tracks[0]
@@ -1261,10 +1261,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionArrowTool_trigger(self):
+    def actionArrowTool_trigger(self, checked=True):
         log.info("actionArrowTool_trigger")
 
-    def actionSnappingTool_trigger(self):
+    def actionSnappingTool_trigger(self, checked=True):
         log.info("actionSnappingTool_trigger")
 
         # Enable / Disable snapping mode
@@ -1277,7 +1277,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Enable / Disable razor mode
         self.timeline.SetRazorMode(checked)
 
-    def actionAddMarker_trigger(self):
+    def actionAddMarker_trigger(self, checked=True):
         log.info("actionAddMarker_trigger")
 
         # Get player object
@@ -1386,7 +1386,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         return all_marker_positions
 
-    def actionPreviousMarker_trigger(self):
+    def actionPreviousMarker_trigger(self, checked=True):
         log.info("actionPreviousMarker_trigger")
 
         # Calculate current position (in seconds)
@@ -1418,7 +1418,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
-    def actionNextMarker_trigger(self):
+    def actionNextMarker_trigger(self, checked=True):
         log.info("actionNextMarker_trigger")
 
         # Calculate current position (in seconds)
@@ -1450,7 +1450,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
-    def actionCenterOnPlayhead_trigger(self):
+    def actionCenterOnPlayhead_trigger(self, checked=True):
         """ Center the timeline on the current playhead position """
         self.timeline.centerOnPlayhead()
 
