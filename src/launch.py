@@ -195,6 +195,14 @@ def main():
     except AttributeError:
         pass
 
+    # DEBUG
+    for screen in app.screens():
+        print("Screen %s" % screen.name())
+        print("   devicePixelRatio: %s" % screen.devicePixelRatio())
+        print("   logicalDotsPerInch: %s" % screen.logicalDotsPerInch())
+        print("   physicalDotsPerInch: %s" % screen.physicalDotsPerInch())
+        print("   availableSizes: %s" % screen.availableSize())
+
     # Launch GUI and start event loop
     app.gui()
     sys.exit(app.exec_())
