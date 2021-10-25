@@ -1,4 +1,13 @@
-#!/bin/sh
+#!/bin/bash
+
+# Query the current display DPI
+#   This is to fix the AppImage, and scale the UI correctly
+#   for high DPI displays.
+regex="^.*resolution:\s*([0-9]*)x"
+DPI_OUTPUT=$(xdpyinfo | grep -B 2 resolution)
+[[ $DPI_OUTPUT =~ $regex ]]
+DPI=$(bc <<<"scale=2;${BASH_REMATCH[1]}/92")
+export QT_SCALE_FACTOR="$DPI"
 
 # Add the current folder the library path
 HERE=$(dirname "$(realpath "$0")")
