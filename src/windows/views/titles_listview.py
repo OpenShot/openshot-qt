@@ -25,7 +25,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, QTimer, Qt, QModelIndex
+from classes import info
+from PyQt5.QtCore import QTimer, Qt, QModelIndex
 from PyQt5.QtWidgets import QListView
 
 from windows.models.titles_model import TitlesModel, TitleRoles
@@ -57,8 +58,8 @@ class TitlesListView(QListView):
         self.title_model = TitlesModel(self.win)
         # Setup header columns
         self.setModel(self.title_model.model)
-        self.setIconSize(QSize(131, 108))
-        self.setGridSize(QSize(102, 92))
+        self.setIconSize(info.LIST_ICON_SIZE)
+        self.setGridSize(info.LIST_GRID_SIZE)
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)

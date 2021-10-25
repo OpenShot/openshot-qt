@@ -4,6 +4,7 @@
     </qresource>
     <qresource prefix="/about">
         <file>AboutLogo.png</file>
+        <file>AboutLogo@2x.png</file>
         <file>bitcoin-icon.png</file>
         <file>kickstarter-icon.png</file>
         <file>patreon-icon.png</file>
@@ -31,6 +32,15 @@
         <file>cursor_rotate.png</file>
         <file>cursor_shear_x.png</file>
         <file>cursor_shear_y.png</file>
+        <file>cursor_hand@2x.png</file>
+        <file>cursor_move@2x.png</file>
+        <file>cursor_resize_bdiag@2x.png</file>
+        <file>cursor_resize_fdiag@2x.png</file>
+        <file>cursor_resize_x@2x.png</file>
+        <file>cursor_resize_y@2x.png</file>
+        <file>cursor_rotate@2x.png</file>
+        <file>cursor_shear_x@2x.png</file>
+        <file>cursor_shear_y@2x.png</file>
     </qresource>
     <qresource prefix="/curves">
         <file>keyframe-0.png</file>

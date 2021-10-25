@@ -102,13 +102,15 @@ class BlenderModel():
                         log.info('Invalid blender image file: %s', icon_path)
                         continue
 
+                # Load icon (using display DPI)
+                icon = QIcon()
+                icon.addFile(thumb_path)
+
                 row = []
                 flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable
                 # Append thumbnail
                 col = QStandardItem(self.app._tr(title))
-                icon_pixmap = QPixmap(thumb_path).scaled(
-                    QSize(93, 62), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-                col.setIcon(QIcon(icon_pixmap))
+                col.setIcon(icon)
                 col.setToolTip(self.app._tr(title))
                 col.setFlags(flags)
                 row.append(col)

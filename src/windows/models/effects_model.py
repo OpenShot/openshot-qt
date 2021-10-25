@@ -177,9 +177,11 @@ class EffectsModel(QObject):
             # Append thumbnail
             col = QStandardItem()
 
-            icon_pixmap = QPixmap(thumb_path)
-            scaled_pixmap = icon_pixmap.scaled(QSize(98, 64), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
-            col.setIcon(QIcon(scaled_pixmap))
+            # Load icon (using display DPI)
+            icon = QIcon()
+            icon.addFile(thumb_path)
+
+            col.setIcon(icon)
             col.setText(self.app._tr(title))
             col.setToolTip(self.app._tr(title))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)

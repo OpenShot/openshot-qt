@@ -29,6 +29,7 @@ from PyQt5.QtCore import Qt, QSize, QPoint, QRegExp
 from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
 
+from classes import info
 from classes.app import get_app
 from classes.logger import log
 
@@ -107,8 +108,8 @@ class TransitionsListView(QListView):
         self.setSelectionModel(self.transition_model.selection_model)
 
         # Setup header columns
-        self.setIconSize(QSize(131, 108))
-        self.setGridSize(QSize(102, 92))
+        self.setIconSize(info.LIST_ICON_SIZE)
+        self.setGridSize(info.LIST_GRID_SIZE)
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)

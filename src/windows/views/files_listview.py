@@ -30,6 +30,7 @@ from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
 from PyQt5.QtGui import QDrag, QCursor
 from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
 
+from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
@@ -181,8 +182,8 @@ class FilesListView(QListView):
         self.setDropIndicatorShown(True)
 
         # Setup header columns and layout
-        self.setIconSize(QSize(98, 64))
-        self.setGridSize(QSize(102, 92))
+        self.setIconSize(info.LIST_ICON_SIZE)
+        self.setGridSize(info.LIST_GRID_SIZE)
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
 

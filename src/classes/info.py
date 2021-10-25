@@ -27,6 +27,7 @@
 
 import os
 from time import strftime
+from PyQt5.QtCore import QSize
 
 VERSION = "2.6.1-dev"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.7"
@@ -85,6 +86,13 @@ if all([
 ]):
     print("Migrating default project file to new name")
     os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+
+# UI Thumbnail settings
+LIST_ICON_SIZE = QSize(100, 65)
+LIST_GRID_SIZE = LIST_ICON_SIZE + QSize(5, 25)
+TREE_ICON_SIZE = QSize(75, 49)
+EMOJI_ICON_SIZE = QSize(75, 75)
+EMOJI_GRID_SIZE = EMOJI_ICON_SIZE + QSize(5, 25)
 
 # Maintainer details, for packaging
 JT = {"name": "Jonathan Thomas",

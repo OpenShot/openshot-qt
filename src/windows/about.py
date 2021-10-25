@@ -32,6 +32,7 @@ import re
 from functools import partial
 
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog
 
 from classes import info, ui_util
@@ -115,6 +116,10 @@ class About(QDialog):
         # get translations
         self.app = get_app()
         _ = self.app._tr
+
+        # Load logo banner (using display DPI)
+        icon = QIcon(":/about/AboutLogo.png")
+        self.lblAboutLogo.setPixmap(icon.pixmap(icon.availableSizes()[0]))
 
         # Hide chnagelog button by default
         self.btnchangelog.setVisible(False)

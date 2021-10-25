@@ -23,7 +23,7 @@
    <string>About OpenShot</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../images/openshot.qrc">
+   <iconset>
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="locale">
@@ -33,15 +33,12 @@
    <item row="0" column="0" colspan="3">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="lblAboutLogo">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../../../images/openshot.qrc">:/about/AboutLogo.png</pixmap>
        </property>
       </widget>
      </item>

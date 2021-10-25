@@ -29,6 +29,7 @@ from PyQt5.QtCore import Qt, QSize, QPoint
 from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy
 
+from classes import info
 from classes.app import get_app
 from classes.logger import log
 
@@ -102,7 +103,7 @@ class TransitionsTreeView(QTreeView):
         self.setSelectionModel(self.transition_model.selection_model)
 
         # Setup header columns
-        self.setIconSize(QSize(75, 62))
+        self.setIconSize(info.TREE_ICON_SIZE)
         self.setIndentation(0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
