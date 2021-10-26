@@ -16,9 +16,10 @@ if [[ -z "${QT_SCREEN_SCALE_FACTORS}" ]]; then
     if [[ -n "${BASH_REMATCH[1]}" ]]; then
       # Found a DPI results match
       SCALE_FACTOR=$(bc <<<"scale=2;${BASH_REMATCH[1]}/92")
-      SCREENS+="${SCALE_FACTOR};"
+      SCREENS+="${SCALE_FACTOR}"
       echo "Detected scale factor: ${SCREENS}"
-      export QT_SCREEN_SCALE_FACTORS="$SCREENS"
+      export QT_SCREEN_SCALE_FACTORS="${SCREENS}"
+      SCREENS+=";"
     fi
 
   done
