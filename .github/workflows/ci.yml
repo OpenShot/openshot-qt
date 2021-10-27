@@ -28,6 +28,3 @@ jobs:
 
     - name: Test
       run: python3 ./src/tests/query_tests.py -platform minimal
-
-    - name: Translation Test
-      run: python3 ./src/language/test_translations.py
