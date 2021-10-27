@@ -30,7 +30,8 @@ import os
 import re
 import fnmatch
 import sys
-from PyQt5.QtCore import QTranslator, QCoreApplication
+from PyQt5.QtCore import QTranslator, QCoreApplication  # type: ignore
+from typing import Any, Dict, List, Optional, Tuple
 
 
 # Absolute path of the translations directory
@@ -40,7 +41,11 @@ LANG_PATH = os.path.dirname(os.path.abspath(__file__))
 TAG_RE = re.compile(r'%\(([^\)]*)\)(.)')
 
 
-class color:
+class BadTranslationsError(Exception):
+    pass
+
+
+class Color:
     """Color for message output"""
     _red = '\u001b[31m'
     _yellow = '\u001b[33m'
@@ -48,15 +53,15 @@ class color:
     _reset = '\u001b[0m'
 
     @classmethod
-    def red(cls, *args):
+    def red(cls, *args: Optional[Any]) -> str:
         return cls._red + str(*args) + cls._reset
 
     @classmethod
-    def yellow(cls, *args):
+    def yellow(cls, *args: Optional[Any]) -> str:
         return cls._yellow + str(*args) + cls._reset
 
     @classmethod
-    def green(cls, *args):
+    def green(cls, *args: Optional[Any]) -> str:
         return cls._green + str(*args) + cls._reset
 
 
@@ -64,26 +69,25 @@ class color:
 app = QCoreApplication(sys.argv)
 
 
-def build_stringlists() -> dict:
+def build_stringlists() -> Dict[str, List]:
     """ Create a dict containing lists of strings, keyed on source filename"""
     all_strings = {}
 
-    for pot in [
+    for pot_file in [
         'OpenShot.pot',
         'OpenShot_transitions.pot',
         'OpenShot_blender.pot',
         'OpenShot_emojis.pot',
     ]:
-
-        with open(os.path.join(LANG_PATH, 'OpenShot', pot)) as f:
+        with open(os.path.join(LANG_PATH, 'OpenShot', pot_file)) as f:
             data = f.read()
         all_strings.update({
-            pot: re.findall('^msgid \"(.*)\"', data, re.MULTILINE)
+            pot_file: re.findall('^msgid \"(.*)\"', data, re.MULTILINE)
         })
     return all_strings
 
 
-def check_trans(strings: list) -> list:
+def check_trans(strings: List) -> List[Tuple[str, str]]:
     """Check all strings in a list against a given .qm file"""
     # Test translation of all strings
     translations = {
@@ -110,18 +114,19 @@ def check_trans(strings: list) -> list:
     errors.update({
         s: translations[s]
         for s, (s_vars, t_vars) in named_variables.items()
-        if sorted(s_vars) != sorted(t_vars)
+        # Ensure that t_vars is a strict subset of s_vars
+        if not set(t_vars) <= set(s_vars)
     })
     return list(errors.items())
 
 
-def process_qm(file, stringlists) -> int:
+def process_qm(file: str, stringlists: Dict[str, List[str]]) -> int:
     """Scan a translation file against all provided strings"""
     # Attempt to load translation file
     basename = os.path.splitext(file)[0]
     translator = QTranslator(app)
     if not translator.load(basename, LANG_PATH):
-        print(color.red('QTranslator failed to load') + f' {file}')
+        print(Color.red('QTranslator failed to load') + f' {file}')
         return 1
 
     app.installTranslator(translator)
@@ -136,20 +141,20 @@ def process_qm(file, stringlists) -> int:
 
     # Display any errors found, grouped by source POT file
     error_count = sum([len(v) for v in error_sets.values()])
+    invalid_msg = "Invalid"
     if error_count:
-        print(f'{file}: ' + color.red(f'{error_count} total errors'))
+        print(f'{file}: ' + Color.red(f'{error_count} total errors'))
     for pot, errset in error_sets.items():
         if not errset:
             continue
         width = len(pot)
-        msg = "Invalid"
         for source, trans in errset:
-            print(color.yellow(f'{pot}:') + f' {source}')
-            print(color.red(f'{msg:>{width}}:') + f' {trans}\n')
+            print(Color.yellow(f'{pot}:') + f' {source}')
+            print(Color.red(f'{invalid_msg:>{width}}:') + f' {trans}\n')
     return error_count
 
 
-def scan_all(filenames: list = None) -> int:
+def scan_all(filenames: List = None) -> None:
     all_strings = build_stringlists()
     if not filenames:
         filenames = fnmatch.filter(os.listdir(LANG_PATH), 'OpenShot*.qm')
@@ -162,21 +167,19 @@ def scan_all(filenames: list = None) -> int:
     string_count = sum([len(s) for s in all_strings.values()])
     lang_count = len(filenames)
 
-    print(f"Tested {color.yellow(string_count)} strings on "
-          + f"{color.yellow(lang_count)} translation files.")
+    print(f"Tested {Color.yellow(string_count)} strings on "
+          + f"{Color.yellow(lang_count)} translation files.")
     if total_errors > 0:
-        msg = f"Found {total_errors} translation errors! See above."
-        raise Exception(msg)
-    return sum([])
+        raise BadTranslationsError(f"Found {total_errors} translation errors")
 
 
 # Autorun if used as script
 if __name__ == '__main__':
     try:
-        string_count = scan_all(sys.argv[1:])
-    except Exception as ex:
-        print(color.red(ex))
+        scan_all(sys.argv[1:])
+    except BadTranslationsError as ex:
+        print(Color.red(str(ex) + "! See above."))
         exit(1)
     else:
-        print(color.green("No errors found!"))
+        print(Color.green("No errors found."))
         exit(0)
