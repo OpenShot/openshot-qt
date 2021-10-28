@@ -58,9 +58,9 @@ class PropertyDelegate(QItemDelegate):
 
         # pixmaps for curve icons
         self.curve_pixmaps = {
-            openshot.BEZIER: QPixmap(":/curves/keyframe-%s.png" % openshot.BEZIER),
-            openshot.LINEAR: QPixmap(":/curves/keyframe-%s.png" % openshot.LINEAR),
-            openshot.CONSTANT: QPixmap(":/curves/keyframe-%s.png" % openshot.CONSTANT),
+            openshot.BEZIER: QIcon(":/curves/keyframe-%s.png" % openshot.BEZIER).pixmap(20, 20),
+            openshot.LINEAR: QIcon(":/curves/keyframe-%s.png" % openshot.LINEAR).pixmap(20, 20),
+            openshot.CONSTANT: QIcon(":/curves/keyframe-%s.png" % openshot.CONSTANT).pixmap(20, 20)
             }
 
     def paint(self, painter, option, index):

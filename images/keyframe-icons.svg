@@ -14,7 +14,7 @@
    height="21.074942"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="keyframe-icons.svg">
   <defs
      id="defs4">
@@ -191,15 +191,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="43.24305"
+     inkscape:cx="4.99305"
      inkscape:cy="21.238555"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1855"
-     inkscape:window-height="1056"
-     inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:window-width="4240"
+     inkscape:window-height="2338"
+     inkscape:window-x="144"
+     inkscape:window-y="54"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -213,7 +213,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -231,9 +231,9 @@
        y="131.06871"
        rx="1.1875"
        ry="1.1875"
-       inkscape:export-filename="/home/jonathan/apps/openshot-qt/src/images/keyframe-linear.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-filename="/home/jonathan/apps/openshot-qt/src/images/keyframe-linear@2x.png"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
     <rect
        style="fill:url(#radialGradient4032);fill-opacity:1;stroke:#bcbcbc;stroke-width:2.95370984;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2985-7"
@@ -243,9 +243,9 @@
        y="130.83905"
        rx="1.1875"
        ry="1.1875"
-       inkscape:export-filename="/home/jonathan/apps/openshot-qt/src/images/keyframe-constant.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-filename="/home/jonathan/apps/openshot-qt/src/images/keyframe-constant@2x.png"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
     <rect
        style="fill:url(#radialGradient3982);fill-opacity:1;stroke:#bcbcbc;stroke-width:2.95370984;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2985"
@@ -255,9 +255,9 @@
        y="131.13318"
        rx="1.1875"
        ry="1.1875"
-       inkscape:export-filename="/home/jonathan/apps/openshot-qt/src/images/keyframe-curve.png"
-       inkscape:export-xdpi="89.995537"
-       inkscape:export-ydpi="89.995537" />
+       inkscape:export-filename="/home/jonathan/apps/openshot-qt/src/images/keyframe-curve@2x.png"
+       inkscape:export-xdpi="192"
+       inkscape:export-ydpi="192" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.97430784px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 81.548501,129.53562 c 0.160128,14.24549 -19.20317,6.74201 -19.013792,19.99142"

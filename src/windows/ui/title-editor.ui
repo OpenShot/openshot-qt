@@ -14,7 +14,7 @@
    <string>Titles</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../images/openshot.qrc">
+   <iconset>
     <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
   </property>
   <property name="autoFillBackground">
@@ -108,8 +108,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>338</width>
-            <height>224</height>
+            <width>378</width>
+            <height>252</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout">
@@ -121,15 +121,18 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QGraphicsView" name="graphicsView">
+        <widget class="QLabel" name="lblPreviewLabel">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>200</height>
+          </size>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: #191919;</string>
          </property>
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-         <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

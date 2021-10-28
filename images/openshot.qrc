@@ -46,6 +46,9 @@
         <file>keyframe-0.png</file>
         <file>keyframe-1.png</file>
         <file>keyframe-2.png</file>
+        <file>keyframe-0@2x.png</file>
+        <file>keyframe-1@2x.png</file>
+        <file>keyframe-2@2x.png</file>
     </qresource>
     <qresource prefix="/icons">
         <file>Humanity/actions/custom/arrow.png</file>
