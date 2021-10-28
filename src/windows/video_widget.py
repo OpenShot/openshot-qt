@@ -194,8 +194,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             pixSize.scale(event.rect().width(), event.rect().height(), Qt.KeepAspectRatio)
             self.curr_frame_size = pixSize
 
-            # Scale image
-            scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            # Scale image (take into account display scaling for High DPI monitors)
+            scale = self.devicePixelRatioF()
+            scaledPix = self.current_image.scaled(pixSize * scale, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)

@@ -108,8 +108,9 @@ class TimelineSync(UpdateInterface):
         # Clear timeline preview cache (since our video size has changed)
         self.timeline.ClearAllCache()
 
-        # Set new max video size (Based on preview widget size)
-        self.timeline.SetMaxSize(new_size.width(), new_size.height())
+        # Set new max video size (Based on preview widget size and display scaling)
+        scale = self.window.devicePixelRatioF()
+        self.timeline.SetMaxSize(round(new_size.width() * scale), round(new_size.height() * scale))
 
         # Refresh current frame (since the entire timeline was updated)
         self.window.refreshFrameSignal.emit()
