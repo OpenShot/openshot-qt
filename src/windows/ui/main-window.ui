@@ -909,7 +909,7 @@
   <action name="actionAddMarker">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/add_marker.png</normaloff>:/icons/Humanity/actions/custom/add_marker.png</iconset>
+     <normaloff>:/icons/actions/add_marker.svg</normaloff>:/icons/actions/add_marker.svg</iconset>
    </property>
    <property name="text">
     <string>Add Marker</string>
@@ -1568,7 +1568,7 @@
   <action name="actionLockTrack">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/lock.png</normaloff>:/icons/Humanity/actions/custom/lock.png</iconset>
+     <normaloff>:/icons/actions/lock.svg</normaloff>:/icons/actions/lock.svg</iconset>
    </property>
    <property name="text">
     <string>Lock Track</string>
@@ -1580,7 +1580,7 @@
   <action name="actionUnlockTrack">
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/lock.png</normaloff>:/icons/Humanity/actions/custom/lock.png</iconset>
+     <normaloff>:/icons/actions/lock.svg</normaloff>:/icons/actions/lock.svg</iconset>
    </property>
    <property name="text">
     <string>Unlock Track</string>

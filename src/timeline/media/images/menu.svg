@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+  version="1.1"
+  id="svg2"
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  sodipodi:docname="menu.svg"
+  inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg">
+ <defs
+   id="defs6" />
+ <sodipodi:namedview
+   id="namedview4"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="true"
+   showgrid="true"
+   showguides="true"
+   inkscape:guide-bbox="true"
+   guidetolerance="1"
+   objecttolerance="3"
+   inkscape:zoom="8.08"
+   inkscape:cx="3.1559406"
+   inkscape:cy="5.8168317"
+   inkscape:window-width="1440"
+   inkscape:window-height="900"
+   inkscape:window-x="200"
+   inkscape:window-y="232"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="g8">
+  <sodipodi:guide
+    position="5.9750297,5.6682521"
+    orientation="1,0"
+    id="guide1758" />
+  <inkscape:grid
+    type="xygrid"
+    id="grid1760"
+    dotted="true" />
+ </sodipodi:namedview>
+ <g
+   inkscape:groupmode="layer"
+   inkscape:label="Image"
+   id="g8">
+  <path
+    id="rect849"
+    style="stroke-opacity:1;stroke-dasharray:none;stroke-miterlimit:4;stroke-linejoin:round;stroke-linecap:butt;stroke-width:1.5;stroke:#444;fill-opacity:1;fill:#444;"
+    d="M 1,1 6,6 11,1 6,11 Z"
+    sodipodi:nodetypes="ccccc" />
+ </g>
+</svg>
