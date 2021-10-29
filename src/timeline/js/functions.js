@@ -26,6 +26,7 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*global bounding_box, global_primes*/
 
 // Find a JSON element / object with a particular value in the json data
 function findElement(arr, propName, propValue) {
@@ -297,6 +298,8 @@ function setBoundingBox(scope, item, item_type="clip") {
 
 // Move bounding box (apply snapping and constraints)
 function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip") {
+  let scrolling_tracks = $("#scrolling_tracks");
+
   // Store result of snapping logic (left, top)
   var snapping_result = Object();
   snapping_result.left = left;
@@ -330,10 +333,10 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
     bounding_box.bottom = bounding_box.height;
     snapping_result.top = previous_y + y_offset;
   }
-  if (bounding_box.bottom > track_container_height) {
+  if (bounding_box.bottom > scrolling_tracks.height) {
     // Bottom border
-    y_offset -= (bounding_box.bottom - track_container_height);
-    bounding_box.bottom = track_container_height;
+    y_offset -= (bounding_box.bottom - scrolling_tracks.height);
+    bounding_box.bottom = scrolling_tracks.height;
     bounding_box.top = bounding_box.bottom - bounding_box.height;
     snapping_result.top = previous_y + y_offset;
   }
@@ -370,7 +373,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
  * Primes are used for factoring.
  * Store any that have been found for future use.
  */
-global_primes = new Set();
+var global_primes = new Set();
 
 /**
  * Creates a list of all primes less than n.
@@ -383,10 +386,10 @@ global_primes = new Set();
 function primesUpTo(n) {
   n = Math.floor(n);
   if (Array.from(global_primes).pop() >= n) { // All primes already found
-    return Array.from(global_primes).filter( x => { return x < n });
+    return Array.from(global_primes).filter( (x) => { return x < n; });
   }
-  start = 2; // 0 and 1 can't be prime
-  primes = [...Array(n+1).keys()]; // List from 0 to n
+  let start = 2; // 0 and 1 can't be prime
+  let primes = [...Array(n+1).keys()]; // List from 0 to n
   if (Array.from(global_primes).length) { // Some primes already found
     start = Array.from(global_primes).pop() + 1;
     primes = primes.slice(start,primes.length -1);
@@ -394,8 +397,10 @@ function primesUpTo(n) {
   } else {
     primes = primes.slice(start,primes.length -1);
   }
-  primes.forEach( p => { // Sieve of Eratosthenes method of prime factoring
-    primes = primes.filter( test => { return (test % p != 0) || (test == p) } );
+  primes.forEach( (p) => { // Sieve of Eratosthenes method of prime factoring
+    primes = primes.filter( (test) => {
+      return (test % p !== 0) || (test === p);
+    });
     global_primes.add(p);
   });
   return primes;
@@ -409,11 +414,11 @@ function primesUpTo(n) {
  */
 function primeFactorsOf(n) {
   n = Math.floor(n);
-  factors = [];
-  primes = primesUpTo(n);
+  let factors = [];
+  let primes = primesUpTo(n);
   primes.push(n);
-  while (n != 1) {
-      if (n % primes[0] == 0) {
+  while (n !== 1) {
+      if (n % primes[0] === 0) {
           n = n/primes[0];
           factors.push(primes[0]);
       } else {
@@ -436,11 +441,11 @@ function primeFactorsOf(n) {
  * @returns
  */
 function framesPerTick(pps, fps_num, fps_den) {
-  fps = fps_num / fps_den;
-  frames = 1;
-  seconds = () => { return frames / fps };
-  pixels = () => { return seconds() * pps };
-  factors = primeFactorsOf(Math.round(fps));
+  let fps = fps_num / fps_den;
+  let frames = 1;
+  let seconds = () => { return frames / fps; };
+  let pixels = () => { return seconds() * pps; };
+  let factors = primeFactorsOf(Math.round(fps));
   while (pixels() < 40) {
       frames *= factors.shift() || 2;
   }
@@ -484,7 +489,7 @@ function setSelections(scope, element, id) {
  * Garauntees that the ruler is drawn when timeline first loads
  */
 function forceDrawRuler() {
-  var scroll = document.querySelector('#scrolling_tracks').scrollLeft;
-  document.querySelector('#scrolling_tracks').scrollLeft = 10;
-  document.querySelector('#scrolling_tracks').scrollLeft = scroll;
+  var scroll = document.querySelector("#scrolling_tracks").scrollLeft;
+  document.querySelector("#scrolling_tracks").scrollLeft = 10;
+  document.querySelector("#scrolling_tracks").scrollLeft = scroll;
 }
