@@ -2,7 +2,7 @@ ALL: ../src/classes/openshot_rc.py
  
 ICONS:=$(shell /usr/bin/find Humanity/ -type f -newer ../src/classes/openshot_rc.py)
 ICONS+=$(shell /usr/bin/find actions/ -type f -newer ../src/classes/openshot_rc.py)
-ICONS+=$(shell /usr/bin/find . -name \*-icon.png -newer ../src/classes/openshot_rc.py)
+ICONS+=$(shell /usr/bin/find . -name \*-icon.svg -newer ../src/classes/openshot_rc.py)
 ICONS+=$(shell /usr/bin/find . -name cursor\*.png -newer ../src/classes/openshot_rc.py)
 ICONS+=$(shell /usr/bin/find . -name keyframe\*.png -newer ../src/classes/openshot_rc.py)
 ICONS+=AboutLogo.png AboutLogo@2x.png openshot.svg

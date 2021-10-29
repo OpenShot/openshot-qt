@@ -855,21 +855,6 @@
     <string>Save Current Frame</string>
    </property>
   </action>
-  <action name="actionArrowTool">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/arrow.png</normaloff>:/icons/Humanity/actions/custom/arrow.png</iconset>
-   </property>
-   <property name="text">
-    <string>Arrow Tool</string>
-   </property>
-   <property name="toolTip">
-    <string>Arrow Tool</string>
-   </property>
-  </action>
   <action name="actionRazorTool">
    <property name="checkable">
     <bool>true</bool>
@@ -897,7 +882,7 @@
    </property>
    <property name="icon">
     <iconset resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/custom/snap.png</normaloff>:/icons/Humanity/actions/custom/snap.png</iconset>
+     <normaloff>:/icons/Humanity/actions/custom/snap.svg</normaloff>:/icons/Humanity/actions/custom/snap.svg</iconset>
    </property>
    <property name="text">
     <string>Snapping Enabled</string>
@@ -1591,8 +1576,8 @@
   </action>
   <action name="actionTransform">
    <property name="icon">
-    <iconset theme="transform-move" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/transform-move.png</normaloff>:/icons/Humanity/actions/16/transform-move.png</iconset>
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/cursors/cursor_move.png</normaloff>:/cursors/cursor_move.png</iconset>
    </property>
    <property name="text">
     <string>Transform</string>

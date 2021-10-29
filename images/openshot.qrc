@@ -5,12 +5,12 @@
     <qresource prefix="/about">
         <file>AboutLogo.png</file>
         <file>AboutLogo@2x.png</file>
-        <file>bitcoin-icon.png</file>
-        <file>kickstarter-icon.png</file>
-        <file>patreon-icon.png</file>
-        <file>paypal-icon.png</file>
-        <file>python-icon.png</file>
-        <file>star-icon.png</file>
+        <file>bitcoin-icon.svg</file>
+        <file>kickstarter-icon.svg</file>
+        <file>patreon-icon.svg</file>
+        <file>paypal-icon.svg</file>
+        <file>python-icon.svg</file>
+        <file>star-icon.svg</file>
         <file>blender.svg</file>
     </qresource>
     <qresource prefix="/hw">
@@ -53,9 +53,7 @@
     <qresource prefix="/icons">
         <file>actions/add_marker.svg</file>
 	<file>actions/lock.svg</file>
-        <file>Humanity/actions/custom/arrow.png</file>
-        <file>Humanity/actions/custom/snapshot.png</file>
-        <file>Humanity/actions/custom/snap.png</file>
+        <file>Humanity/actions/custom/snap.svg</file>
         <file>Humanity/actions/custom/center-on-playhead.svg</file>
         <file>Humanity/actions/custom/camera-photo-symbolic.svg</file>
         <file>Humanity/mimes/16/gnome-mime-application-pdf.svg</file>
@@ -369,7 +367,6 @@
         <file>Humanity/actions/16/zoom-out.png</file>
         <file>Humanity/actions/16/document-open-recent.svg</file>
         <file>Humanity/actions/16/locked.svg</file>
-        <file>Humanity/actions/16/transform-move.png</file>
         <file>Humanity/actions/16/view-list-icons.png</file>
     </qresource>
 </RCC>

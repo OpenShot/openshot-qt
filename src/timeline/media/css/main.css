@@ -304,7 +304,7 @@ img {
 }
 
 .razor_cursor {
-  cursor: url(../images/razor_line_with_razor.png), default !important;
+  cursor: url(../images/razor_line_with_razor.svg), default !important;
 }
 
 .clip {
