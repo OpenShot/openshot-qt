@@ -1109,7 +1109,7 @@
   </action>
   <action name="actionTitle">
    <property name="icon">
-    <iconset theme="font" resource="../../../images/openshot.qrc">
+    <iconset theme="font-x-generic" resource="../../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</normaloff>:/icons/Humanity/mimes/16/font-x-generic.svg</iconset>
    </property>
    <property name="text">
@@ -1255,7 +1255,7 @@
   </action>
   <action name="actionHelpContents">
    <property name="icon">
-    <iconset theme="help" resource="../../../images/openshot.qrc">
+    <iconset theme="help-contents" resource="../../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/help-contents.svg</normaloff>:/icons/Humanity/actions/16/help-contents.svg</iconset>
    </property>
    <property name="text">

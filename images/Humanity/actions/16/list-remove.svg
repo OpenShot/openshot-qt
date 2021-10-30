@@ -1,18 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg id="svg3247" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs id="defs3249">
-  <linearGradient id="linearGradient2401" y2="29.707" gradientUnits="userSpaceOnUse" x2="23.878" gradientTransform="matrix(.70965 0 0 .70537 -8.945 -8.2363)" y1="18.765" x1="23.878">
-   <stop id="stop3945" style="stop-color:#e35d4f" offset="0"/>
-   <stop id="stop3947" style="stop-color:#c6262e" offset="1"/>
-  </linearGradient>
-  <linearGradient id="linearGradient3190" y2="16.004" gradientUnits="userSpaceOnUse" x2="8" x1="8">
-   <stop id="stop3182" style="stop-color:#fff" offset="0"/>
-   <stop id="stop3184" style="stop-color:#fff;stop-opacity:0" offset="1"/>
-  </linearGradient>
- </defs>
- <g id="layer1">
-  <path id="path2262" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#a53738;fill:url(#linearGradient2401)" d="m15.5 5.5v5h-15v-5h15z"/>
-  <path id="path3188" style="opacity:.4;stroke:url(#linearGradient3190);fill:none" d="m1.5 6.5v3h13v-3h-13z"/>
- </g>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3247"
+   height="128"
+   width="128"
+   version="1.0"
+   sodipodi:docname="list-remove.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata15">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="4240"
+     inkscape:window-height="2338"
+     id="namedview13"
+     showgrid="false"
+     inkscape:zoom="10.429825"
+     inkscape:cx="39.152088"
+     inkscape:cy="48.84757"
+     inkscape:window-x="144"
+     inkscape:window-y="54"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3247" />
+  <defs
+     id="defs3249">
+    <linearGradient
+       id="linearGradient2401"
+       y2="29.707001"
+       gradientUnits="userSpaceOnUse"
+       x2="23.878"
+       gradientTransform="matrix(0.70965,0,0,0.70537,-8.945,-8.2363)"
+       y1="18.764999"
+       x1="23.878">
+      <stop
+         id="stop3945"
+         style="stop-color:#e35d4f"
+         offset="0" />
+      <stop
+         id="stop3947"
+         style="stop-color:#c6262e"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3190"
+       y2="16.004"
+       gradientUnits="userSpaceOnUse"
+       x2="8"
+       x1="8">
+      <stop
+         id="stop3182"
+         style="stop-color:#fff"
+         offset="0" />
+      <stop
+         id="stop3184"
+         style="stop-color:#fff;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <g
+     id="g828"
+     transform="matrix(8.0051511,0,0,8.0051511,-0.0412088,-896.61813)">
+    <g
+       transform="translate(0,112)"
+       id="layer1">
+      <path
+         inkscape:connector-curvature="0"
+         d="m 15.5,5.5 v 5 h -15 v -5 z"
+         style="fill:url(#linearGradient2401);fill-rule:evenodd;stroke:#a53738;stroke-linejoin:round"
+         id="path2262" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 1.5,6.5 v 3 h 13 v -3 z"
+         style="opacity:0.4;fill:none;stroke:url(#linearGradient3190)"
+         id="path3188" />
+    </g>
+  </g>
 </svg>
