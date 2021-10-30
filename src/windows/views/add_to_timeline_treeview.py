@@ -28,6 +28,7 @@
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView
 
+from classes import info
 from classes.app import get_app
 from windows.models.add_to_timeline_model import TimelineModel
 
@@ -74,7 +75,7 @@ class TimelineTreeView(QTreeView):
 
         # Setup header columns
         self.setModel(self.timeline_model.model)
-        self.setIconSize(QSize(131, 108))
+        self.setIconSize(info.TREE_ICON_SIZE)
         self.setIndentation(0)
         self.setSelectionBehavior(QTreeView.SelectRows)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
