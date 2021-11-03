@@ -104,11 +104,6 @@ for icon_path in sorted(titles_list):
 
 #################################################
 # EMOJIS UI CACHE - Create small images for UI
-# Get emoji metadata
-emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
-with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
-    emoji_lookup = json.load(f)
-
 # get a list of files in the OpenShot /emojis directory
 emojis_dir = os.path.join(info.PATH, "emojis", "color", "svg")
 emoji_paths = [(emojis_dir, os.listdir(emojis_dir)), ]
