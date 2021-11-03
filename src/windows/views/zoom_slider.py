@@ -29,7 +29,7 @@ from PyQt5.QtCore import (
     Qt, QCoreApplication, QRectF, QTimer
 )
 from PyQt5.QtGui import (
-    QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath
+    QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget
 
@@ -502,12 +502,11 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.is_auto_center = True
         self.min_distance = 0.02
 
-        # Initialize cursors
-        self.cursors = {
-            "move": QCursor(QPixmap(":/cursors/cursor_move.png")),
-            "resize_x": QCursor(QPixmap(":/cursors/cursor_resize_x.png")),
-            "hand": QCursor(QPixmap(":/cursors/cursor_hand.png")),
-            }
+        # Load icon (using display DPI)
+        self.cursors = {}
+        for cursor_name in ["move", "resize_x", "hand"]:
+            icon = QIcon(":/cursors/cursor_%s.png" % cursor_name)
+            self.cursors[cursor_name] = QCursor(icon.pixmap(24, 24))
 
         # Init Qt widget's properties (background repainting, etc...)
         super().setAttribute(Qt.WA_OpaquePaintEvent)

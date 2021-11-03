@@ -161,31 +161,29 @@ class TitleEditor(QDialog):
         clip = openshot.Clip(self.filename)
         reader = clip.Reader()
 
+        # Scale preview for high DPI display (if any)
+        scale = get_app().devicePixelRatio()
+        if scale > 1.0:
+            clip.scale_x.AddPoint(1.0, 1.0 * scale)
+            clip.scale_y.AddPoint(1.0, 1.0 * scale)
+
         # Open reader
         reader.Open()
 
         # Overwrite temp file with thumbnail image and close readers
         reader.GetFrame(1).Thumbnail(
             tmp_filename,
-            self.graphicsView.width(),
-            self.graphicsView.height(),
+            round(self.lblPreviewLabel.width() * scale),
+            round(self.lblPreviewLabel.height() * scale),
             "", "", "#000", False, "png", 85, 0.0)
         reader.Close()
         clip.Close()
 
         # Attempt to load saved thumbnail
-        svg = QtGui.QPixmap()
-        if not svg.load(tmp_filename):
-            log.error("Couldn't load title preview from {}".format(tmp_filename))
-            return
+        display_pixmap = QtGui.QIcon(tmp_filename).pixmap(self.lblPreviewLabel.size())
 
         # Display temp image
-        scene = QGraphicsScene(self)
-        view = self.graphicsView
-        svg_scaled = svg.scaled(self.graphicsView.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        scene.addPixmap(svg_scaled)
-        view.setScene(scene)
-        view.show()
+        self.lblPreviewLabel.setPixmap(display_pixmap)
 
         # Remove temporary file
         os.unlink(tmp_filename)

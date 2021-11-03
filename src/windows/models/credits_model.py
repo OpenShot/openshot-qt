@@ -88,7 +88,7 @@ class CreditsModel():
             # Append Star icon (Multiple donations, big donations, five-timer kickstarter group, etc...)
             item = QStandardItem()
             if "s" in person.get("icons", ""):
-                item.setIcon(QIcon(":/about/star-icon.png"))
+                item.setIcon(QIcon(":/about/star-icon.svg"))
                 item.setToolTip(_("Multiple Contributions!"))
             item.setFlags(flags)
             row.append(item)
@@ -107,20 +107,20 @@ class CreditsModel():
         # Supporter icons
         self.icon_mapping = {
             "p": (
-                _("PayPal Supporter!"), QIcon(":/about/paypal-icon.png")
+                _("PayPal Supporter!"), QIcon(":/about/paypal-icon.svg")
                 ),
             "k": (
                 _("Kickstarter Supporter!"),
-                QIcon(":/about/kickstarter-icon.png")
+                QIcon(":/about/kickstarter-icon.svg")
                 ),
             "b": (
-                _("Bitcoin Supporter!"), QIcon(":/about/bitcoin-icon.png")
+                _("Bitcoin Supporter!"), QIcon(":/about/bitcoin-icon.svg")
                 ),
             "n": (
-                _("Patreon Supporter!"), QIcon(":/about/patreon-icon.png")
+                _("Patreon Supporter!"), QIcon(":/about/patreon-icon.svg")
                 ),
             "d": (
-                _("Developer!"), QIcon(":/about/python-icon.png")
+                _("Developer!"), QIcon(":/about/python-icon.svg")
                 ),
         }
 

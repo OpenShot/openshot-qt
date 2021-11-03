@@ -1263,9 +1263,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Temporarily for debugging
         log.info("Tracks after: {}".format([{x['number']: x['id']} for x in reversed(tracks)]))
 
-    def actionArrowTool_trigger(self, checked=True):
-        log.info("actionArrowTool_trigger")
-
     def actionSnappingTool_trigger(self, checked=True):
         log.info("actionSnappingTool_trigger")
 

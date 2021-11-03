@@ -188,9 +188,13 @@ class TransitionsModel(QObject):
 
                 row = []
 
+                # Load icon (using display DPI)
+                icon = QIcon()
+                icon.addFile(thumb_path)
+
                 # Append thumbnail
                 col = QStandardItem()
-                col.setIcon(QIcon(thumb_path))
+                col.setIcon(icon)
                 col.setText(trans_name)
                 col.setToolTip(trans_name)
                 col.setData(type)

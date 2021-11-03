@@ -33,6 +33,7 @@ from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5.QtGui import QDrag, QCursor
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
 
+from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
@@ -215,7 +216,7 @@ class FilesTreeView(QTreeView):
         self.setDropIndicatorShown(True)
 
         # Setup header columns and layout
-        self.setIconSize(QSize(75, 62))
+        self.setIconSize(info.TREE_ICON_SIZE)
         self.setIndentation(0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')

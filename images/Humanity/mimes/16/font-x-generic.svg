@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg id="svg3740" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs id="defs3742">
-  <linearGradient id="linearGradient6349" y2="46.264" gradientUnits="userSpaceOnUse" x2="-22.54" gradientTransform="matrix(.50620 0 0 .59014 12.661 -11.872)" y1="11.109" x1="-22.54">
-   <stop id="stop3968" style="stop-color:#828282" offset="0"/>
-   <stop id="stop3936" style="stop-color:#434343" offset="1"/>
-  </linearGradient>
- </defs>
- <g id="layer1">
-  <path id="text2044" style="fill:url(#linearGradient6349)" d="m15.5 15.413c-0.775 0.042-1.647-0.274-1.686-1.166-0.476-2.553-0.864-5.1222-1.304-7.6818-0.364-2.1829-0.728-4.3658-1.092-6.5486-0.308-0.056322-0.537 0.02468-0.633 0.33782-2.5373 4.2215-5.0449 8.4608-7.6022 12.67-0.62231 0.88195-1.1835 2.0291-2.3195 2.3164-0.42225-0.14586-0.43306 0.55813-0.25227 0.64734h4.6118c0.084661-0.46318-0.04225-0.73642-0.58548-0.6276-1.055 0.16662-0.94374-1.0669-0.54689-1.6744 0.48066-0.95901 1.0462-1.8736 1.5646-2.8129h5.2826c0.17186 1.1555 0.44331 2.2996 0.52827 3.4652 0.21848 0.95205-0.85333 1.0399-1.5236 1.0617-0.19729-0.04154-0.26351 0.70147 0.035578 0.58809h5.5221v-0.57497zm-9.3407-5.6891c1.2006-2.0722 2.4012-4.1443 3.6018-6.2165 0.35218 2.0722 0.70435 4.1443 1.0565 6.2165h-4.6583z"/>
- </g>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3740"
+   height="128"
+   width="128"
+   version="1.1"
+   sodipodi:docname="font-x-generic.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="4240"
+     inkscape:window-height="2338"
+     id="namedview9"
+     showgrid="false"
+     inkscape:zoom="10.429825"
+     inkscape:cx="63.241779"
+     inkscape:cy="69.839401"
+     inkscape:window-x="144"
+     inkscape:window-y="54"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3740" />
+  <defs
+     id="defs3742">
+    <linearGradient
+       id="linearGradient6349"
+       y2="46.264"
+       gradientUnits="userSpaceOnUse"
+       x2="-22.540001"
+       gradientTransform="matrix(0.5062,0,0,0.59014,12.661,-11.872)"
+       y1="11.109"
+       x1="-22.540001">
+      <stop
+         id="stop3968"
+         style="stop-color:#828282"
+         offset="0" />
+      <stop
+         id="stop3936"
+         style="stop-color:#434343"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <g
+     id="g820"
+     transform="matrix(7.9871652,0,0,7.9871652,0.10279988,-894.46003)">
+    <g
+       transform="translate(0,112)"
+       id="layer1">
+      <path
+         inkscape:connector-curvature="0"
+         d="M 15.5,15.413 C 14.725,15.455 13.853,15.139 13.814,14.247 13.338,11.694 12.95,9.1248 12.51,6.5652 12.146,4.3823 11.782,2.1994 11.418,0.0166 11.11,-0.039722 10.881,0.04128 10.785,0.35442 c -2.5373,4.2215 -5.0449,8.4608 -7.6022,12.67 -0.62231,0.88195 -1.1835,2.0291 -2.3195,2.3164 -0.42225,-0.14586 -0.43306,0.55813 -0.25227,0.64734 h 4.6118 c 0.084661,-0.46318 -0.04225,-0.73642 -0.58548,-0.6276 -1.055,0.16662 -0.94374,-1.0669 -0.54689,-1.6744 0.48066,-0.95901 1.0462,-1.8736 1.5646,-2.8129 h 5.2826 c 0.17186,1.1555 0.44331,2.2996 0.52827,3.4652 0.21848,0.95205 -0.85333,1.0399 -1.5236,1.0617 -0.19729,-0.04154 -0.26351,0.70147 0.035578,0.58809 h 5.5221 V 15.41328 Z M 6.1593,9.7239 C 7.3599,7.6517 8.5605,5.5796 9.7611,3.5074 c 0.35218,2.0722 0.70435,4.1443 1.0565,6.2165 z"
+         style="fill:url(#linearGradient6349)"
+         id="text2044" />
+    </g>
+  </g>
 </svg>

@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (
     QApplication, QListView, QMessageBox,
     QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
 )
-from PyQt5.QtGui import QColor, QImage, QPixmap
+from PyQt5.QtGui import QColor, QImage, QPixmap, QIcon
 
 from classes import info
 from classes.logger import log
@@ -576,15 +576,11 @@ Blender Path: {}
 
     @pyqtSlot(str)
     def update_image(self, image_path):
-
-        # get the pixbuf
-        image = QImage(image_path)
-        scaled_image = image.scaled(
-            self.win.imgPreview.size(),
-            Qt.KeepAspectRatio,
-            Qt.SmoothTransformation)
-        pixmap = QPixmap.fromImage(scaled_image)
-        self.win.imgPreview.setPixmap(pixmap)
+        # Scale preview for high DPI display (if any)
+        scale = get_app().devicePixelRatio()
+        display_pixmap = QIcon(image_path).pixmap(self.win.imgPreview.size())
+        display_pixmap.setDevicePixelRatio(scale)
+        self.win.imgPreview.setPixmap(display_pixmap)
 
     def Cancel(self):
         """Cancel the current render, if any"""
@@ -683,8 +679,8 @@ Blender Path: {}
 
         # Setup header columns
         self.setModel(self.blender_model.model)
-        self.setIconSize(QSize(131, 108))
-        self.setGridSize(QSize(102, 92))
+        self.setIconSize(info.LIST_ICON_SIZE)
+        self.setGridSize(info.LIST_GRID_SIZE)
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)

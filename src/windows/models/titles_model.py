@@ -145,9 +145,14 @@ class TitlesModel(QObject):
                     msg.setText(_("%s is not a valid image file." % filename))
                     msg.exec_()
                     continue
+
+            # Load icon (using display DPI)
+            icon = QIcon()
+            icon.addFile(thumb_path)
+
             # Create item entry for model
             flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled
-            item = QStandardItem(QIcon(thumb_path), title_name)
+            item = QStandardItem(icon, title_name)
             item.setData(path, TitleRoles.PathRole)
             item.setToolTip(title_name)
             item.setFlags(flags)

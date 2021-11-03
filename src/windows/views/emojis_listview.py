@@ -30,6 +30,7 @@ from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QListView
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
+from classes import info
 from classes.query import File
 from classes.app import get_app
 from classes.logger import log
@@ -155,8 +156,8 @@ class EmojisListView(QListView):
 
         # Setup header columns
         self.setModel(self.model)
-        self.setIconSize(QSize(75, 75))
-        self.setGridSize(QSize(90, 100))
+        self.setIconSize(info.EMOJI_ICON_SIZE)
+        self.setGridSize(info.EMOJI_GRID_SIZE)
         self.setViewMode(QListView.IconMode)
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)

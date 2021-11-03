@@ -29,7 +29,7 @@ from PyQt5.QtCore import (
     Qt, QCoreApplication, QPointF, QPoint, QRect, QRectF, QSize, QMutex, QTimer
 )
 from PyQt5.QtGui import (
-    QTransform, QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QImage, QRegion
+    QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
 
@@ -194,8 +194,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             pixSize.scale(event.rect().width(), event.rect().height(), Qt.KeepAspectRatio)
             self.curr_frame_size = pixSize
 
-            # Scale image
-            scaledPix = self.current_image.scaled(pixSize, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            # Scale image (take into account display scaling for High DPI monitors)
+            scale = self.devicePixelRatioF()
+            scaledPix = self.current_image.scaled(pixSize * scale, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)
@@ -1215,18 +1216,19 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.resize_button.clicked.connect(self.resize_button_clicked)
         self.resize_button.setMouseTracking(True)
 
-        # Initialize cursors
-        self.cursors = {
-            "move": QPixmap(":/cursors/cursor_move.png"),
-            "resize_x": QPixmap(":/cursors/cursor_resize_x.png"),
-            "resize_y": QPixmap(":/cursors/cursor_resize_y.png"),
-            "resize_bdiag": QPixmap(":/cursors/cursor_resize_bdiag.png"),
-            "resize_fdiag": QPixmap(":/cursors/cursor_resize_fdiag.png"),
-            "rotate": QPixmap(":/cursors/cursor_rotate.png"),
-            "shear_x": QPixmap(":/cursors/cursor_shear_x.png"),
-            "shear_y": QPixmap(":/cursors/cursor_shear_y.png"),
-            "hand": QPixmap(":/cursors/cursor_hand.png"),
-            }
+        # Load icon (using display DPI)
+        self.cursors = {}
+        for cursor_name in ["move",
+                            "resize_x",
+                            "resize_y",
+                            "resize_bdiag",
+                            "resize_fdiag",
+                            "rotate",
+                            "shear_x",
+                            "shear_y",
+                            "hand"]:
+            icon = QIcon(":/cursors/cursor_%s.png" % cursor_name)
+            self.cursors[cursor_name] = icon.pixmap(32, 32)
 
         # Mutex lock
         self.mutex = QMutex()

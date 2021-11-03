@@ -86,6 +86,19 @@ if all([
     print("Migrating default project file to new name")
     os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
 
+try:
+    from PyQt5.QtCore import QSize
+
+    # UI Thumbnail settings
+    LIST_ICON_SIZE = QSize(100, 65)
+    LIST_GRID_SIZE = LIST_ICON_SIZE + QSize(5, 25)
+    TREE_ICON_SIZE = QSize(75, 49)
+    EMOJI_ICON_SIZE = QSize(75, 75)
+    EMOJI_GRID_SIZE = EMOJI_ICON_SIZE + QSize(5, 25)
+except ImportError:
+    # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
+    pass
+
 # Maintainer details, for packaging
 JT = {"name": "Jonathan Thomas",
       "email": "jonathan@openshot.org",
