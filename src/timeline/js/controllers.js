@@ -583,11 +583,10 @@ App.controller("TimelineCtrl", function ($scope) {
       $scope.selectTransition("", true);
     }
     // Call slice method and exit (don't actually select the clip)
-    if (id !== "" && $scope.enable_razor) {
-      if ($scope.Qt) {
-        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
-        timeline.RazorSliceAtCursor(id, "", cursor_seconds);
-      }
+    if (id !== "" && $scope.enable_razor && $scope.Qt && event) {
+      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
+      timeline.RazorSliceAtCursor(id, "", cursor_seconds);
+
       // Don't actually select clip
       return;
     }
@@ -637,11 +636,10 @@ App.controller("TimelineCtrl", function ($scope) {
       $scope.selectClip("", true);
     }
     // Call slice method and exit (don't actually select the transition)
-    if (id !== "" && $scope.enable_razor) {
-      if ($scope.Qt) {
-        var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
-        timeline.RazorSliceAtCursor("", id, cursor_seconds);
-      }
+    if (id !== "" && $scope.enable_razor && $scope.Qt && event) {
+      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
+      timeline.RazorSliceAtCursor("", id, cursor_seconds);
+
       // Don't actually select transition
       return;
     }
