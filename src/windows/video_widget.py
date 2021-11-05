@@ -635,7 +635,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Mouse over resize button (and not currently dragging)
         if (not self.mouse_dragging
             and self.resize_button.isVisible()
-            and self.resize_button.rect().contains(event.pos()
+            and self.resize_button.rect().contains(event.pos())
         ):
             self.setCursor(Qt.ArrowCursor)
             self.transform_mode = None
@@ -667,11 +667,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not self.transform_mode or self.transform_mode == nh.get("mode"):
             self.setCursor(self.rotateCursor(
                 self.cursors.get(nh.get("cursor")), rotation, shear_x, shear_y))
-
-
-        # If we got this far and we don't have a transform mode, reset the cursor
-        if not self.transform_mode:
-            self.setCursor(QCursor(Qt.ArrowCursor))
 
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
@@ -1121,27 +1116,37 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # No clip found
             return
 
-        for point in c.data[property_key]["Points"]:
-            log.info("looping points: co.X = %s" % point["co"]["X"])
+        # Property missing? Create it!
+        if property_key not in c.data:
+            c.data[property_key] = {"Points": []}
+            log.warning(
+                "%s: Added missing '%s' to property data",
+                clip_id, property_key)
 
-            if point["co"]["X"] == frame_number:
+        points = c.data.get(property_key).get("Points")
+        for point in points:
+            co = point.get("co", {})
+            log.info("looping points: co.X = %s" % co.get("X"))
+
+            if co.get("X") == frame_number:
                 found_point = True
                 clip_updated = True
-                point["interpolation"] = openshot.BEZIER
-                point["co"]["Y"] = float(new_value)
+                point.update({
+                    "co": {"X": frame_number, "Y": float(new_value)},
+                    "interpolation": openshot.BEZIER,
+                })
 
         if not found_point and new_value is not None:
             clip_updated = True
-            log.info("Created new point at X=%s", frame_number)
+            log.info("Creating new point at X=%s", frame_number)
             c.data[property_key]["Points"].append({
-                'co': {'X': frame_number, 'Y': new_value},
+                'co': {'X': frame_number, 'Y': float(new_value)},
                 'interpolation': openshot.BEZIER
                 })
 
-        # Reduce # of clip properties we are saving (performance boost)
-        c.data = {property_key: c.data.get(property_key)}
-
         if clip_updated:
+            # Reduce # of clip properties we are saving (performance boost)
+            c.data = {property_key: c.data.get(property_key)}
             c.save()
             # Update the preview
             if refresh:
@@ -1166,27 +1171,29 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             return
 
         for point in points_list:
-            log.info("looping points: co.X = %s", point["co"]["X"])
+            co = point.get("co", {})
+            log.info("looping points: co.X = %s", co.get("X"))
 
-            if point["co"]["X"] == frame_number:
+            if co.get("X") == frame_number:
                 found_point = True
                 effect_updated = True
-                point["interpolation"] = openshot.BEZIER
-                point["co"]["Y"] = float(new_value)
+                point.update({
+                    "co": {"X": frame_number, "Y": float(new_value)},
+                    "interpolation": openshot.BEZIER,
+                })
 
-        if not found_point and new_value != None:
+        if not found_point and new_value is not None:
             effect_updated = True
-            log.info("Created new point at X=%s", frame_number)
+            log.info("Creating new point at X=%s", frame_number)
             points_list.append({
-                'co': { 'X': frame_number, 'Y': new_value },
+                'co': {'X': frame_number, 'Y': float(new_value)},
                 'interpolation': openshot.BEZIER,
                 })
 
-        # Reduce # of clip properties we are saving (performance boost)
-        #TODO: This is too slow when draging transform handlers
-        c.data = {'objects': {obj_id: c.data.get('objects', {}).get(obj_id)}}
-
         if effect_updated:
+            # Reduce # of clip properties we are saving (performance boost)
+            #TODO: This is too slow when draging transform handlers
+            c.data = {'objects': {obj_id: c.data.get('objects', {}).get(obj_id)}}
             c.save()
             # Update the preview
             if refresh:
