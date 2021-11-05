@@ -414,8 +414,8 @@ class PropertiesModel(updates.UpdateInterface):
             new_value = None
 
         log.info(
-            "%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s"
-            % (property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x))
+            "%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s",
+            property_key, clip_id, new_value, self.frame_number, interpolation, closest_point_x)
 
         # Find this clip
         c = None
@@ -518,35 +518,35 @@ class PropertiesModel(updates.UpdateInterface):
                     try:
                         clip_data[property_key] = int(new_value)
                     except Exception as ex:
-                        log.warn('Invalid Integer value passed to property: %s' % ex)
+                        log.warn('Invalid Integer value passed to property', exc_info=1)
 
                 elif property_type == "float":
                     clip_updated = True
                     try:
                         clip_data[property_key] = float(new_value)
                     except Exception as ex:
-                        log.warn('Invalid Float value passed to property: %s' % ex)
+                        log.warn('Invalid Float value passed to property', exc_info=1)
 
                 elif property_type == "bool":
                     clip_updated = True
                     try:
                         clip_data[property_key] = bool(new_value)
                     except Exception as ex:
-                        log.warn('Invalid Boolean value passed to property: %s' % ex)
+                        log.warn('Invalid Boolean value passed to property', exc_info=1)
 
                 elif property_type == "string":
                     clip_updated = True
                     try:
                         clip_data[property_key] = str(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid String value passed to property: %s' % ex)
+                    except Exception:
+                        log.warn('Invalid String value passed to property', exc_info=1)
 
                 elif property_type in ["font", "caption"]:
                     clip_updated = True
                     try:
                         clip_data[property_key] = str(new_value)
-                    except Exception as ex:
-                        log.warn('Invalid Font/Caption value passed to property: %s' % ex)
+                    except Exception:
+                        log.warn('Invalid Font/Caption value passed to property', exc_info=1)
 
                 elif property_type == "reader":
                     # Transition
@@ -557,8 +557,8 @@ class PropertiesModel(updates.UpdateInterface):
                         clip_data[property_key] = json.loads(clip_object.Reader().Json())
                         clip_object.Close()
                         clip_object = None
-                    except Exception as ex:
-                        log.warn('Invalid Reader value passed to property: %s (%s)' % (value, ex))
+                    except Exception:
+                        log.warn('Invalid Reader value passed to property: %s (%s)', value, exc_info=1)
 
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
@@ -688,9 +688,9 @@ class PropertiesModel(updates.UpdateInterface):
 
             if type == "color":
                 # Color needs to be handled special
-                red = property[1]["red"]["value"]
-                green = property[1]["green"]["value"]
-                blue = property[1]["blue"]["value"]
+                red = int(property[1]["red"]["value"])
+                green = int(property[1]["green"]["value"])
+                blue = int(property[1]["blue"]["value"])
                 col.setBackground(QColor(red, green, blue))
 
             if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
@@ -789,9 +789,9 @@ class PropertiesModel(updates.UpdateInterface):
 
             if type == "color":
                 # Update the color based on the color curves
-                red = property[1]["red"]["value"]
-                green = property[1]["green"]["value"]
-                blue = property[1]["blue"]["value"]
+                red = int(property[1]["red"]["value"])
+                green = int(property[1]["green"]["value"])
+                blue = int(property[1]["blue"]["value"])
                 col.setBackground(QColor(red, green, blue))
 
             # Update helper dictionary

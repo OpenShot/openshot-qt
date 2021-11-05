@@ -53,8 +53,13 @@ import openshot
 
 
 class PropertyDelegate(QItemDelegate):
-    def __init__(self, parent=None, *args):
-        QItemDelegate.__init__(self, parent, *args)
+    def __init__(self, parent=None, *args, **kwargs):
+
+        self.model = kwargs.pop("model", None)
+        if not self.model:
+            log.error("Cannot create delegate without data model!")
+
+        super().__init__(parent, *args, **kwargs)
 
         # pixmaps for curve icons
         self.curve_pixmaps = {
@@ -68,7 +73,7 @@ class PropertyDelegate(QItemDelegate):
         painter.setRenderHint(QPainter.Antialiasing)
 
         # Get data model and selection
-        model = get_app().window.propertyTableView.clip_properties_model.model
+        model = self.model
         row = model.itemFromIndex(index).row()
         selected_label = model.item(row, 0)
         selected_value = model.item(row, 1)
@@ -104,16 +109,16 @@ class PropertyDelegate(QItemDelegate):
         painter.setPen(QPen(Qt.NoPen))
         if property_type == "color":
             # Color keyframe
-            red = cur_property[1]["red"]["value"]
-            green = cur_property[1]["green"]["value"]
-            blue = cur_property[1]["blue"]["value"]
-            painter.setBrush(QBrush(QColor(QColor(red, green, blue))))
+            red = int(cur_property[1]["red"]["value"])
+            green = int(cur_property[1]["green"]["value"])
+            blue = int(cur_property[1]["blue"]["value"])
+            painter.setBrush(QColor(red, green, blue))
         else:
             # Normal Keyframe
             if option.state & QStyle.State_Selected:
-                painter.setBrush(QBrush(QColor("#575757")))
+                painter.setBrush(QColor("#575757"))
             else:
-                painter.setBrush(QBrush(QColor("#3e3e3e")))
+                painter.setBrush(QColor("#3e3e3e"))
 
         if readonly:
             # Set text color for read only fields
@@ -146,7 +151,10 @@ class PropertyDelegate(QItemDelegate):
 
             if points > 1:
                 # Draw interpolation icon on top
-                painter.drawPixmap(option.rect.x() + option.rect.width() - 30.0, option.rect.y() + 4, self.curve_pixmaps[interpolation])
+                painter.drawPixmap(
+                    int(option.rect.x() + option.rect.width() - 30.0),
+                    int(option.rect.y() + 4),
+                    self.curve_pixmaps[interpolation])
 
             # Set text color
             painter.setPen(QPen(Qt.white))
@@ -818,9 +826,9 @@ class PropertiesTableView(QTableView):
         _ = get_app()._tr
 
         # Get current value of color
-        red = cur_property[1]["red"]["value"]
-        green = cur_property[1]["green"]["value"]
-        blue = cur_property[1]["blue"]["value"]
+        red = int(cur_property[1]["red"]["value"])
+        green = int(cur_property[1]["green"]["value"])
+        blue = int(cur_property[1]["blue"]["value"])
 
         # Show color dialog
         currentColor = QColor(red, green, blue)
@@ -865,7 +873,7 @@ class PropertiesTableView(QTableView):
         self.files_model = self.win.files_model.model
 
         # Connect to update signals, so our menus stay current
-        self.win.files_model.ModelRefreshed.connect(self.refresh_menu)
+        self.files_model.dataChanged.connect(self.refresh_menu)
         self.win.transition_model.ModelRefreshed.connect(self.refresh_menu)
         self.menu_reset = False
 
@@ -890,7 +898,7 @@ class PropertiesTableView(QTableView):
         self.setWordWrap(True)
 
         # Set delegate
-        delegate = PropertyDelegate()
+        delegate = PropertyDelegate(model=self.clip_properties_model.model)
         self.setItemDelegateForColumn(1, delegate)
         self.previous_x = -1
 

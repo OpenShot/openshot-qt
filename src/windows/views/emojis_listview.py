@@ -39,7 +39,8 @@ import json
 
 class EmojisListView(QListView):
     """ A QListView QWidget used on the main window """
-    drag_item_size = 48
+    drag_item_size = QSize(48, 48)
+    drag_item_center = QPoint(24, 24)
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
@@ -57,8 +58,8 @@ class EmojisListView(QListView):
         drag = QDrag(self)
         drag.setMimeData(self.model.mimeData(selected))
         icon = self.model.data(selected[0], Qt.DecorationRole)
-        drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
-        drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
+        drag.setPixmap(icon.pixmap(self.drag_item_size))
+        drag.setHotSpot(self.drag_item_center)
 
         # Create emoji file before drag starts
         data = json.loads(drag.mimeData().text())

@@ -53,7 +53,12 @@ class TutorialDialog(QWidget):
 
         painter.setPen(QPen(frameColor, 2))
         painter.setBrush(self.palette().color(QPalette.Window))
-        painter.drawRoundedRect(QRectF(31, 0, self.width() - 31, self.height()), 10, 10)
+        painter.drawRoundedRect(
+            QRectF(31, 0,
+                   self.width() - 31,
+                   self.height()
+                   ),
+            10, 10)
 
         # Paint blue triangle (if needed)
         if self.arrow:
@@ -61,7 +66,8 @@ class TutorialDialog(QWidget):
             path = QPainterPath()
             path.moveTo(0, 35)
             path.lineTo(31, 35 - arrow_height)
-            path.lineTo(31, (35 - arrow_height) + (arrow_height * 2))
+            path.lineTo(
+                31, int((35 - arrow_height) + (arrow_height * 2)))
             path.lineTo(0, 35)
             painter.fillPath(path, frameColor)
 
@@ -199,7 +205,9 @@ class TutorialManager(object):
 
             # Create tutorial
             self.position_widget = tutorial_object
-            self.offset = QPoint(tutorial_details["x"], tutorial_details["y"])
+            self.offset = QPoint(
+                int(tutorial_details["x"]),
+                int(tutorial_details["y"]))
             tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"], self)
 
             # Connect signals
