@@ -610,106 +610,68 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             Qt.SmoothTransformation)
         return QCursor(rotated_pixmap)
 
-    def getTransformMode(self, rotation, shear_x, shear_y, event):
-        # Mouse over resize button (and not currently dragging)
-        if not self.mouse_dragging and self.resize_button.isVisible() and self.resize_button.rect().contains(event.pos()):
-            self.setCursor(Qt.ArrowCursor)
-        # Determine if cursor is over a handle
-        elif self.transform.mapToPolygon(self.centerHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'origin':
-                self.setCursor(self.rotateCursor(self.cursors.get('hand'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'origin'
-        elif self.transform.mapToPolygon(self.topRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_top_right':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_top_right'
-        elif self.transform.mapToPolygon(self.topHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_top':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_top'
-        elif self.transform.mapToPolygon(self.topLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_top_left':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_top_left'
-        elif self.transform.mapToPolygon(self.leftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_left':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_left'
-        elif self.transform.mapToPolygon(self.rightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_right':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_x'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_right'
-        elif self.transform.mapToPolygon(self.bottomLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_bottom_left':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_bdiag'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_bottom_left'
-        elif self.transform.mapToPolygon(self.bottomHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_bottom':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_y'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_bottom'
-        elif self.transform.mapToPolygon(self.bottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'scale_bottom_right':
-                self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'scale_bottom_right'
-        elif self.transform.mapToPolygon(self.topShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'shear_top':
-                self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'shear_top'
-        elif self.transform.mapToPolygon(self.leftShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'shear_left':
-                self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'shear_left'
-        elif self.transform.mapToPolygon(self.rightShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'shear_right':
-                self.setCursor(self.rotateCursor(self.cursors.get('shear_y'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'shear_right'
-        elif self.transform.mapToPolygon(self.bottomShearHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'shear_bottom':
-                self.setCursor(self.rotateCursor(self.cursors.get('shear_x'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'shear_bottom'
-        elif self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'location':
-                self.setCursor(self.rotateCursor(self.cursors.get('move'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'location'
-        elif not self.transform.mapToPolygon(self.clipBounds.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
-            if not self.transform_mode or self.transform_mode == 'rotation':
-                self.setCursor(self.rotateCursor(self.cursors.get('rotate'), rotation, shear_x, shear_y))
-            # Set the transform mode
-            if self.mouse_dragging and not self.transform_mode:
-                self.transform_mode = 'rotation'
-        elif not self.transform_mode:
-            # Reset cursor when not over a handle
-            self.setCursor(QCursor(Qt.ArrowCursor))
+    def checkTransformMode(self, rotation, shear_x, shear_y, event):
+        handle_uis = [
+            {"handle": self.centerHandle, "mode": 'origin', "cursor": 'hand'},
+            {"handle": self.topRightHandle, "mode": 'scale_top_right', "cursor": 'resize_bdiag'},
+            {"handle": self.topHandle, "mode": 'scale_top', "cursor": 'resize_y'},
+            {"handle": self.topLeftHandle, "mode": 'scale_top_left', "cursor": 'resize_fdiag'},
+            {"handle": self.leftHandle, "mode": 'scale_left', "cursor": 'resize_x'},
+            {"handle": self.rightHandle, "mode": 'scale_right', "cursor": 'resize_x'},
+            {"handle": self.bottomLeftHandle, "mode": 'scale_bottom_left', "cursor": 'resize_bdiag'},
+            {"handle": self.bottomHandle, "mode": 'scale_bottom', "cursor": 'resize_y'},
+            {"handle": self.bottomRightHandle, "mode": 'scale_bottom_right', "cursor": 'resize_fdiag'},
+            {"handle": self.topShearHandle, "mode": 'shear_top', "cursor": 'shear_x'},
+            {"handle": self.leftShearHandle, "mode": 'shear_left', "cursor": 'shear_y'},
+            {"handle": self.rightShearHandle, "mode": 'shear_right', "cursor": 'shear_y'},
+            {"handle": self.bottomShearHandle, "mode": 'shear_bottom', "cursor": 'shear_x'},
+        ]
+        non_handle_uis = {
+            "region": self.clipBounds,
+            "inside": {"mode": 'location', "cursor": 'move'},
+            "outside": {"mode": 'rotation', "cursor": "rotate"}
+            }
 
-        return True
+        # Mouse over resize button (and not currently dragging)
+        if (not self.mouse_dragging
+            and self.resize_button.isVisible()
+            and self.resize_button.rect().contains(event.pos()
+        ):
+            self.setCursor(Qt.ArrowCursor)
+            self.transform_mode = None
+            return
+
+        # If mouse is over a handle, set corresponding pointer/mode
+        for h in handle_uis:
+            if self.transform.mapToPolygon(
+                    h["handle"].toRect()
+                    ).containsPoint(event.pos(), Qt.OddEvenFill):
+                # Handle contains cursor
+                if self.transform_mode and self.transform_mode != h["mode"]:
+                    # We're in different xform mode, skip
+                    continue
+                if self.mouse_dragging:
+                    self.transform_mode = h["mode"]
+                self.setCursor(self.rotateCursor(
+                    self.cursors.get(h["cursor"]), rotation, shear_x, shear_y))
+                return
+
+        # If not over any handles, determne inside/outside clip rectangle
+        r = non_handle_uis.get("region")
+        if self.transform.mapToPolygon(r.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+            nh = non_handle_uis.get("inside", {})
+        else:
+            nh = non_handle_uis.get("outside", {})
+        if self.mouse_dragging and not self.transform_mode:
+            self.transform_mode = nh.get("mode")
+        if not self.transform_mode or self.transform_mode == nh.get("mode"):
+            self.setCursor(self.rotateCursor(
+                self.cursors.get(nh.get("cursor")), rotation, shear_x, shear_y))
+
+
+        # If we got this far and we don't have a transform mode, reset the cursor
+        if not self.transform_mode:
+            self.setCursor(QCursor(Qt.ArrowCursor))
 
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
@@ -746,7 +708,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.mouse_dragging and not self.transform_mode:
                 self.original_clip_data = self.transforming_clip.data
 
-            _ = self.getTransformMode(rotation, shear_x, shear_y, event)
+            self.checkTransformMode(rotation, shear_x, shear_y, event)
 
             # Transform clip object
             if self.transform_mode:
@@ -1040,7 +1002,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     self.mutex.unlock()
                     return
 
-                _ = self.getTransformMode(0, 0, 0, event)
+                self.checkTransformMode(0, 0, 0, event)
 
                 # Transform effect object
                 if self.transform_mode:
