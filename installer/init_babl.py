@@ -1,11 +1,11 @@
 """
- @file openshot_qt/__init__.py
- @brief Initialization code used when running OpenShot installed as a Python module
- @author Jonathan Thomas <jonathan@openshot.org>
+ @file init_babl.py
+ @brief Initialization code for packaged babl library extensions
+ @author FeRD (Frank Dana) <ferdnyc@gmail.com>
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2021 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -27,11 +27,8 @@
 
 import os
 import sys
-try:
-    from . import init_babl
-    init_babl.init()
-except ModuleNotFoundError:
-    pass
 
-# Determine path to this module
-OPENSHOT_PATH = os.path.dirname(os.path.realpath(__file__))
+def init():
+    if os.path.exists("babl-0.1"):
+        sys.putenv("BABL_PATH", os.path.realpath("babl-0.1"))
+

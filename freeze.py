@@ -387,7 +387,7 @@ elif sys.platform == "linux":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append((filename, os.path.relpath(filename, start=openshot_copy_path)))
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
@@ -433,6 +433,29 @@ elif sys.platform == "darwin":
                                          "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
                                          "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
 
+
+# Add babl extensions (if found)
+if sys.platform in ("linux", "darwin"):
+    babl_extension_path = "/usr/local/lib/babl-0.1"
+elif sys.platform == "win32":
+    width = platform.architecture()[0]
+    if width == '64bit':
+        babl_extension_path = "/mingw64/lib/babl-0.1"
+    else:
+        babl_extension_path = "/mingw32/lib/babl-0.1"
+else:
+    babl_extension_path=""
+
+init_babl = os.path.join(PATH, "installer", "init_babl.py")
+
+if os.path.exists(babl_extension_path):
+    root = os.path.dirname(babl_extension_path)
+    external_so_files.extend([
+        (filename, os.path.relpath(filename, start=root))
+        for filename in find_files(babl_extension_path, ["*"])
+        ])
+    src_files.append(init_babl, "init_babl.py")
+
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
@@ -453,16 +476,16 @@ build_options["build_exe"] = build_exe_options
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
                    icon=os.path.join(PATH, "xdg", iconFile),
-                   shortcutName="%s" % info.PRODUCT_NAME,
-                   shortcutDir="ProgramMenuFolder",
-                   targetName=exe_name)]
+                   shortcut_name="%s" % info.PRODUCT_NAME,
+                   shortcut_dir="ProgramMenuFolder",
+                   target_name=exe_name)]
 
 try:
     # Include extra launcher configuration, if defined
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
-                targetName=extra_exe['name']))
+                target_name=extra_exe['name']))
 except NameError:
     pass
 
