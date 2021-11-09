@@ -62,7 +62,8 @@ App.directive("tlScrollableTracks", function () {
           }
         }
         else if (e.shiftKey) {
-          let current_scroll = $("#scrolling_tracks").scrollLeft()
+          e.preventDefault();
+          let current_scroll = $("#scrolling_tracks").scrollLeft();
           $("#scrolling_tracks").scrollLeft(current_scroll + e.originalEvent.deltaY);
         }
       });
