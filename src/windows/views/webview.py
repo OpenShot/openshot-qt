@@ -1867,6 +1867,16 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def RazorSliceAtCursor(self, clip_id, trans_id, cursor_position):
         """Callback from javascript that the razor tool was clicked"""
 
+        #If this clip's track is locked, don't continue
+        print("CLIP ID: ", clip_id, " TYPE: ", type(clip_id))
+        clip = next(filter(lambda x: x.get("id") == clip_id, get_app().project.get("clips")))
+        track_id = int(clip.get("layer", 0) / 1000000) - 1
+        print(track_id)
+        track = get_app().project.get("layers")[track_id]
+        print(track.get("lock"))
+        if track and track.get("lock", False):
+            return
+
         # Determine slice mode (keep both [default], keep left [shift], keep right [ctrl]
         slice_mode = MENU_SLICE_KEEP_BOTH
         if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
@@ -3220,4 +3230,3 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
-
