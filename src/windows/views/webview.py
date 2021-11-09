@@ -1900,6 +1900,18 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         fps_float = fps_num / fps_den
         frame_duration = fps_den / fps_num
 
+        # Get CLIPS array from IDs
+        clips = get_app().project.get("clips")
+        clips = filter( lambda x: x.get("id") in clip_ids, clips)
+        # Get tracks from project
+        locked_tracks = filter( lambda x: x.get("lock") == True, get_app().project.get("layers"))
+        # For t in locked_tracks
+        for t in locked_tracks:
+            # Ignore all clips on that track
+            for c in clips:
+                if int(c.get("layer") / 1000000):
+                    clip_ids.remove(c.get("id"))
+
         # Get the nearest starting frame position to the playhead (this helps to prevent cutting
         # in-between frames, and thus less likely to repeat or skip a frame).
         playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
