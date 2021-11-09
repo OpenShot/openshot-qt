@@ -52,13 +52,19 @@ App.directive("tlScrollableTracks", function () {
       element.on("wheel",function (e) {
         if (e.ctrlKey) {
           e.preventDefault(); // Don't scroll like a browser
-          if (e.originalEvent.deltaY > 0) { // Scroll down: Zoom out
+          var delta = e.originalEvent.deltaY * (e.shiftKey ? -1 : 1);
+          if (delta > 0) { // Scroll down: Zoom out
             /*global timeline*/
             timeline.zoomOut();
           } else { // Scroll Up: Zoom in
             /*global timeline*/
             timeline.zoomIn();
           }
+        }
+        else if (e.shiftKey) {
+          e.preventDefault();
+          let current_scroll = $("#scrolling_tracks").scrollLeft();
+          $("#scrolling_tracks").scrollLeft(current_scroll + e.originalEvent.deltaY);
         }
       });
 
@@ -142,7 +148,6 @@ App.directive("tlBody", function () {
     }
   };
 });
-
 
 // The HTML5 canvas ruler
 App.directive("tlRuler", function ($timeout) {
@@ -257,12 +262,10 @@ App.directive("tlRuler", function ($timeout) {
       };
 
       scope.$watch("project.scale + project.duration + scrollLeft + element.width()", function (val) {
-        if (val) {
-          $timeout(function () {
-            drawTimes();
-            return;
-          } , 0);
-        }
+        $timeout(function () {
+          drawTimes();
+          return;
+        } , 0);
       });
 
     }
