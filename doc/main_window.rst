@@ -43,7 +43,7 @@ Overview
    7   Play-head / Ruler   The ruler shows the time-scale, and the red line is the play-head. The play-head represents the current playback position.
    8   Timeline            The timeline visualizes your video project, and each clip and transition in your project.
    9   Filter              Filter the list of items shown (project files, transitions, and effects) by using these buttons and filter textbox. Enter a few letters of what you are looking for, and the results will be shown.
-   10  Filter              Right to left: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to End Buttons
+   10  Playback            Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to End
    ==  ==================  ============
 
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
