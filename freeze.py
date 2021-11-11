@@ -457,7 +457,7 @@ elif sys.platform == "darwin":
 # Add babl extensions (if found)
 if sys.platform in ("linux", "darwin"):
     babl_extension_paths = [
-        ARCHLIB + "babl-0.1"
+        ARCHLIB + "babl-0.1",
         "/usr/local/lib/babl-0.1",
     ]
 elif sys.platform == "win32":
