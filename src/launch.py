@@ -212,7 +212,7 @@ if __name__ == "__main__":
     try:
         from classes import babl
         mypath = os.path.dirname(os.path.realpath(__file__))
-        babl.init_path(os.path.join(mypath, "lib", "babl-0.1"))
+        babl.init_path(os.path.join(mypath, "babl"))
     except ImportError:
         pass
     main()

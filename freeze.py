@@ -53,20 +53,23 @@
 
 import inspect
 import glob
+import logging
 import os
 import sys
 import platform
 import fnmatch
 import json
-from shutil import copytree, rmtree, copy
-from cx_Freeze import setup, Executable
-import cx_Freeze
-from PyQt5.QtCore import QLibraryInfo
 import shutil
+from shutil import copytree, rmtree, copy
+import cx_Freeze
+from cx_Freeze import setup, Executable
 from installer.version_parser import parse_version_info, parse_build_name
 
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger()
 
-print (str(cx_Freeze))
+log.info("Using cx_Freeze version %s", cx_Freeze.version)
+log.info("Execution path: %s" % os.path.abspath(__file__))
 
 # Set '${ARCHLIB}' envvar to override system library path
 ARCHLIB = os.getenv('ARCHLIB', "/usr/lib/x86_64-linux-gnu/")
@@ -121,7 +124,7 @@ for arg in sys.argv:
 # Make a copy of the src tree (temporary for naming reasons only)
 openshot_copy_path = os.path.join(PATH, "openshot_qt")
 if os.path.exists(os.path.join(PATH, "src")):
-    print("Copying modules to openshot_qt directory: %s" % openshot_copy_path)
+    log.info("Copying modules to openshot_qt directory: %s", openshot_copy_path)
     # Only make a copy if the SRC directory is present (otherwise ignore this)
     copytree(os.path.join(PATH, "src"), openshot_copy_path)
 
@@ -140,8 +143,7 @@ sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "lib"))
 sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "bin"))
 
 from classes import info
-from classes.logger import log
-log.info("Execution path: %s" % os.path.abspath(__file__))
+
 
 # Find files matching patterns
 def find_files(directory, patterns):
@@ -155,6 +157,34 @@ def find_files(directory, patterns):
                         yield filename
 
 
+def copy_translations():
+    """Copy QT translations to local folder (to be packaged)"""
+    try:
+        from PyQt5.QtCore import QLibraryInfo
+        qt_local_path = os.path.join(PATH, "openshot_qt", "language")
+        qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+        if not os.path.exists(qt_system_path):
+            raise FileNotFoundError
+    except (ImportError, FileNotFoundError):
+        log.warning("Could not look up Qt translations path!", exc_info=1)
+        return
+
+    # Create local QT translation folder (if needed)
+    if not os.path.exists(qt_local_path):
+        os.mkdir(qt_local_path)
+    # Loop through QT translation files and copy them
+    for file in os.listdir(qt_system_path):
+        # Copy QT translation files
+        if (
+                (file.startswith("qt_") or file.startswith("qtbase_"))
+                and file.endswith(".qm")
+        ):
+            shutil.copyfile(
+                os.path.join(qt_system_path, file),
+                os.path.join(qt_local_path, file)
+            )
+
+
 # GUI applications require a different base on Windows
 iconFile = "openshot-qt"
 base = None
@@ -163,19 +193,6 @@ external_so_files = []
 build_options = {}
 build_exe_options = {}
 exe_name = info.NAME
-
-# Copy QT translations to local folder (to be packaged)
-qt_local_path = os.path.join(PATH, "openshot_qt", "language")
-qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
-if os.path.exists(qt_system_path):
-    # Create local QT translation folder (if needed)
-    if not os.path.exists(qt_local_path):
-        os.mkdir(qt_local_path)
-    # Loop through QT translation files and copy them
-    for file in os.listdir(qt_system_path):
-        # Copy QT translation files
-        if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
-            shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
 # Copy git log files into src/settings files (if found)
 version_info = {}
@@ -197,6 +214,8 @@ if version_info:
     version_path = os.path.join(openshot_copy_path, "settings", "version.json")
     with open(version_path, "w") as f:
         f.write(json.dumps(version_info, indent=4))
+
+copy_translations()
 
 if sys.platform == "win32":
     # Define alternate terminal-based executable
@@ -309,7 +328,7 @@ elif sys.platform == "linux":
     pyqt5_mod_files = []
     from importlib import import_module
     for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
-        mod_name  = "PyQt5.{}".format(submod)
+        mod_name = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))
     # Optional additions
@@ -430,12 +449,20 @@ elif sys.platform == "darwin":
     external_so_files.append((web_core_path, os.path.basename(web_core_path)))
 
     # Add QtWebEngineProcess Resources & Local
-    for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
-        relative_filepath = os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))
+    webengine_respath = os.path.join(qt_webengine_path, "Resources")
+    for filename in find_files(webengine_respath, ["*"]):
+        external_so_files.append(
+            (filename,
+             os.path.relpath(filename, start=webengine_respath))
+        )
+    for filename in find_files(os.path.join(webengine_respath, "qtwebengine_locales"), ["*"]):
+        external_so_files.append(
+            (filename,
+             os.path.relpath(filename, start=webengine_respath))
+        )
+    qt_plugin_path = os.path.join(qt_install_path, "plugins")
+    for filename in find_files(qt_plugin_path, ["*"]):
+        relative_filepath = os.path.relpath(filename, start=qt_plugin_path)
         plugin_name = os.path.dirname(relative_filepath)
         if plugin_name in ["imageformats", "platforms"]:
             external_so_files.append((filename, relative_filepath))
@@ -443,7 +470,10 @@ elif sys.platform == "darwin":
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
-        src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
+        src_files.append(
+            (filename,
+             os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path)))
+        )
 
     # Exclude gif library which crashes on Mac
     build_exe_options["bin_excludes"] = [
@@ -475,10 +505,10 @@ for p in babl_extension_paths:
     if os.path.exists(p):
         root = os.path.dirname(p)
         external_so_files.extend([
-            (f,
-             os.path.join("lib", os.path.relpath(f, start=root)))
+            (f, os.path.join("babl", os.path.basename(f)))
             for f in find_files(p, ["*"])
             ])
+        shutil.copyfile(babl_mod, "openshot_qt/classes/babl.py")
         src_files.append((babl_mod, "classes/babl.py"))
         break
 
@@ -486,14 +516,16 @@ for p in babl_extension_paths:
 build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
 build_exe_options["includes"] = python_modules
-build_exe_options["excludes"] = ["distutils",
-                                 "sentry_sdk.integrations.django",
-                                 "numpy",
-                                 "setuptools",
-                                 "tkinter",
-                                 "pydoc_data",
-                                 "pycparser",
-                                 "pkg_resources"]
+build_exe_options["excludes"] = [
+    "distutils",
+    "sentry_sdk.integrations.django",
+    "numpy",
+    "setuptools",
+    "tkinter",
+    "pydoc_data",
+    "pycparser",
+    "pkg_resources",
+    ]
 
 # Set options
 build_options["build_exe"] = build_exe_options
@@ -532,33 +564,33 @@ if os.path.exists(os.path.join(PATH, "src")):
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
     # We need to rewrite many dependency paths and library IDs
-    from installer.fix_qt5_rpath import fix_rpath, print_min_versions
+    from installer.fix_mac_rpath import fix_rpath, print_min_versions
     build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
-            if frozen_path.startswith("exe"):
-                fix_rpath(os.path.join(build_path, frozen_path))
-            elif frozen_path.endswith(".app"):
-                fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
-                print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+        if frozen_path.startswith("exe"):
+            fix_rpath(os.path.join(build_path, frozen_path))
+        elif frozen_path.endswith(".app"):
+            fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+            print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
 
 elif sys.platform == "linux":
     # Linux issues with frozen folder
     # We need to remove some excess folders/files that are unneeded bloat
     build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
-            if frozen_path.startswith("exe"):
-                paths = ["lib/openshot_qt/",
-                         "lib/*opencv*",
-                         "lib/libopenshot*",
-                         "translations/",
-                         "locales/",
-                         "libQt5WebKit.so.5"]
-                for path in paths:
-                    full_path = os.path.join(build_path, frozen_path, path)
-                    for remove_path in glob.glob(full_path):
-                        if os.path.isfile(remove_path):
-                            log.info("Removing unneeded file: %s" % remove_path)
-                            os.unlink(remove_path)
-                        elif os.path.isdir(remove_path):
-                            log.info("Removing unneeded folder: %s" % remove_path)
-                            rmtree(remove_path)
+        if frozen_path.startswith("exe"):
+            paths = ["lib/openshot_qt/",
+                     "lib/*opencv*",
+                     "lib/libopenshot*",
+                     "translations/",
+                     "locales/",
+                     "libQt5WebKit.so.5"]
+            for path in paths:
+                full_path = os.path.join(build_path, frozen_path, path)
+                for remove_path in glob.glob(full_path):
+                    if os.path.isfile(remove_path):
+                        log.info("Removing unneeded file: %s" % remove_path)
+                        os.unlink(remove_path)
+                    elif os.path.isdir(remove_path):
+                        log.info("Removing unneeded folder: %s" % remove_path)
+                        rmtree(remove_path)
