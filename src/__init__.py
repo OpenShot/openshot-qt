@@ -26,12 +26,6 @@
  """
 
 import os
-import sys
-try:
-    from . import init_babl
-    init_babl.init()
-except ModuleNotFoundError:
-    pass
 
 # Determine path to this module
 OPENSHOT_PATH = os.path.dirname(os.path.realpath(__file__))
