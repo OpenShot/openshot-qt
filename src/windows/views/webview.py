@@ -1890,6 +1890,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         fps_float = fps_num / fps_den
         frame_duration = fps_den / fps_num
 
+        # Get locked tracks from project
+        locked_layers = [
+            t.get("number")
+            for t in get_app().project.get("layers")
+            if t.get("lock")
+        ]
+
         # Get the nearest starting frame position to the playhead (this helps to prevent cutting
         # in-between frames, and thus less likely to repeat or skip a frame).
         playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
@@ -1899,8 +1906,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
+            if not clip or clip.data.get("layer") in locked_layers:
+                # Invalid or locked clip, skip to next item
                 continue
 
             # Determine if waveform needs to be redrawn
@@ -1971,8 +1978,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         for trans_id in trans_ids:
             # Get existing transition object
             trans = Transition.get(id=trans_id)
-            if not trans:
-                # Invalid transition, skip to next item
+            if not trans or trans.data.get("layer") in locked_layers:
+                # Invalid or locked transition, skip to next item
                 continue
 
             if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
@@ -3220,4 +3227,3 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
-
