@@ -502,16 +502,16 @@ build_options["build_exe"] = build_exe_options
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
                    icon=os.path.join(PATH, "xdg", iconFile),
-                   shortcut_name="%s" % info.PRODUCT_NAME,
-                   shortcut_dir="ProgramMenuFolder",
-                   target_name=exe_name)]
+                   shortcutName="%s" % info.PRODUCT_NAME,
+                   shortcutDir="ProgramMenuFolder",
+                   targetName=exe_name)]
 
 try:
     # Include extra launcher configuration, if defined
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
-                target_name=extra_exe['name']))
+                targetName=extra_exe['name']))
 except NameError:
     pass
 
