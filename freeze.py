@@ -490,23 +490,28 @@ if sys.platform in ("linux", "darwin"):
         ARCHLIB + "babl-0.1",
         "/usr/local/lib/babl-0.1",
     ]
+    if sys.platform == "linux":
+        babl_glob = "*.so"
+    else:
+        babl_glob = "*.dylib"
 elif sys.platform == "win32":
+    babl_glob = "*.dll"
     width = platform.architecture()[0]
     if width == '64bit':
-        babl_extension_paths = ["/mingw64/lib/babl-0.1"]
+        babl_extension_paths = [os.path.join(sys.prefix, "lib", "babl-0.1")]
     else:
-        babl_extension_paths = ["/mingw32/lib/babl-0.1"]
+        babl_extension_paths = [os.path.join(sys.prefix, "lib", "babl-0.1")]
 else:
     babl_extension_paths = []
+    babl_glob = ""
 
 babl_mod = os.path.join(PATH, "installer", "babl.py")
 
 for p in babl_extension_paths:
     if os.path.exists(p):
-        root = os.path.dirname(p)
         external_so_files.extend([
             (f, os.path.join("babl", os.path.basename(f)))
-            for f in find_files(p, ["*"])
+            for f in find_files(p, [babl_glob])
             ])
         shutil.copyfile(babl_mod, "openshot_qt/classes/babl.py")
         src_files.append((babl_mod, "classes/babl.py"))
