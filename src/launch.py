@@ -211,7 +211,10 @@ def main():
 if __name__ == "__main__":
     try:
         from classes import babl
-        mypath = os.path.dirname(os.path.realpath(__file__))
+        if hasattr(locals, '__file__'):
+            mypath = os.path.dirname(os.path.realpath(__file__))
+        else:
+            mypath = os.path.curdir
         babl.init_path(os.path.join(mypath, "babl"))
     except ImportError:
         pass
