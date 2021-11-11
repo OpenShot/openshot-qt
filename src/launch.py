@@ -212,6 +212,6 @@ if __name__ == "__main__":
     try:
         from classes import babl
         babl.init_path(os.path.join("lib", "babl-0.1"))
-    except ModuleNotFoundError:
+    except ImportError:
         pass
     main()
