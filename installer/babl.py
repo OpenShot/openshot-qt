@@ -26,9 +26,11 @@
  """
 
 import os
-import sys
 
-def init():
-    if os.path.exists("babl-0.1"):
-        sys.putenv("BABL_PATH", os.path.realpath("babl-0.1"))
+def init_path(babl_path=""):
+    if not babl_path:
+        babl_path = os.path.join(".", "babl-0.1")
+    p = os.path.realpath(babl_path)
+    if os.path.exists(p):
+        os.putenv("BABL_PATH", p)
 

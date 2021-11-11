@@ -55,6 +55,7 @@ import inspect
 import glob
 import os
 import sys
+import platform
 import fnmatch
 import json
 from shutil import copytree, rmtree, copy
@@ -232,23 +233,44 @@ if sys.platform == "win32":
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "linux":
-    # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
-    libopenshot_path = os.path.join(PATH, "build", "install-x64", "lib")
-    if not os.path.exists(libopenshot_path):
-        libopenshot_path = os.path.join(PATH, "build", "install-x86", "lib")
-    if not os.path.exists(libopenshot_path):
-        # Default to user install path
-        libopenshot_path = "/usr/local/lib"
+    # Track libraries to scan for dependencies
+    deplib_libs = []
 
-    # Find all related SO files
-    for filename in find_files(libopenshot_path, ["*openshot*.so*"]):
-        if '_' in filename or filename.count(".") == 2:
-            external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
+    # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
+    libopenshot_dirs = [
+        os.path.join(PATH, "build", "install-x64", "lib"),
+        os.path.join(PATH, "build", "install-x86", "lib"),
+        ARCHLIB,
+        # Default to user install path
+        "/usr/local/lib/",
+    ]
+    for p in libopenshot_dirs:
+        if not os.path.exists(p):
+            continue
+        # Find all related SO files
+        matching_libs = find_files(p, ["*openshot*.so*"])
+        if not matching_libs:
+            continue
+        for filename in matching_libs:
+            if '_' in filename or filename.count(".") == 2:
+                external_so_files.append(
+                    (filename,
+                     os.path.relpath(filename, start=p))
+                )
+            if os.path.basename(filename) == "libopenshot.so":
+                deplib_libs.append(filename)
+        break
 
     # Add libresvg (if found)
-    resvg_path = "/usr/local/lib/libresvg.so"
-    if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, os.path.basename(resvg_path)))
+    resvg_paths = [
+        ARCHLIB + "libresvg.so",
+        "/usr/local/lib/libresvg.so",
+    ]
+    for p in resvg_paths:
+        if os.path.exists(p):
+            external_so_files.append((p, os.path.basename(p)))
+            deplib_libs.append(p)
+            break
 
     # Add QtWebEngineProcess (if found)
     web_process_path = ARCHLIB + "qt5/libexec/QtWebEngineProcess"
@@ -303,18 +325,13 @@ elif sys.platform == "linux":
         except ImportError as ex:
             log.warning("Skipping {}: {}".format(mod_name, ex))
 
-
-    lib_list = pyqt5_mod_files
-    for lib_name in [
-            os.path.join(libopenshot_path, "libopenshot.so"),
-            "/usr/local/lib/libresvg.so",
-            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
-            ]:
-        if os.path.exists(lib_name):
-            lib_list.append(lib_name)
+    deplib_libs.extend(pyqt5_mod_files)
+    deplib_libs.append(ARCHLIB + "qt5/plugins/platforms/libqxcb.so")
 
     import subprocess
-    for library in lib_list:
+    for library in deplib_libs:
+        if not os.path.exists(library):
+            continue
         p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
         out, err = p.communicate()
         depends = str(out).replace("\\t", "").replace("\\n", "\n").replace("\'", "").split("\n")
@@ -391,7 +408,8 @@ elif sys.platform == "linux":
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-   # Add libresvg (if found)
+
+    # Add libresvg (if found)
     resvg_path = "/usr/local/lib/librsvg-2.dylib"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
@@ -428,33 +446,41 @@ elif sys.platform == "darwin":
         src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
     # Exclude gif library which crashes on Mac
-    build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
-                                         "/usr/local/opt/giflib/lib/libgif.dylib",
-                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
-                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
+    build_exe_options["bin_excludes"] = [
+        "/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
+        "/usr/local/opt/giflib/lib/libgif.dylib",
+        "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
+        "/usr/local/opt/leptonica/lib/liblept.5.dylib"
+    ]
 
 
 # Add babl extensions (if found)
 if sys.platform in ("linux", "darwin"):
-    babl_extension_path = "/usr/local/lib/babl-0.1"
+    babl_extension_paths = [
+        ARCHLIB + "babl-0.1"
+        "/usr/local/lib/babl-0.1",
+    ]
 elif sys.platform == "win32":
     width = platform.architecture()[0]
     if width == '64bit':
-        babl_extension_path = "/mingw64/lib/babl-0.1"
+        babl_extension_paths = ["/mingw64/lib/babl-0.1"]
     else:
-        babl_extension_path = "/mingw32/lib/babl-0.1"
+        babl_extension_paths = ["/mingw32/lib/babl-0.1"]
 else:
-    babl_extension_path=""
+    babl_extension_paths = []
 
-init_babl = os.path.join(PATH, "installer", "init_babl.py")
+babl_mod = os.path.join(PATH, "installer", "babl.py")
 
-if os.path.exists(babl_extension_path):
-    root = os.path.dirname(babl_extension_path)
-    external_so_files.extend([
-        (filename, os.path.relpath(filename, start=root))
-        for filename in find_files(babl_extension_path, ["*"])
-        ])
-    src_files.append(init_babl, "init_babl.py")
+for p in babl_extension_paths:
+    if os.path.exists(p):
+        root = os.path.dirname(p)
+        external_so_files.extend([
+            (f,
+             os.path.join("lib", os.path.relpath(f, start=root)))
+            for f in find_files(p, ["*"])
+            ])
+        src_files.append((babl_mod, "classes/babl.py"))
+        break
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
@@ -506,7 +532,7 @@ if os.path.exists(os.path.join(PATH, "src")):
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
     # We need to rewrite many dependency paths and library IDs
-    from installer.fix_qt5_rpath import *
+    from installer.fix_qt5_rpath import fix_rpath, print_min_versions
     build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
