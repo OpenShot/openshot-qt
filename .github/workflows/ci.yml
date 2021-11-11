@@ -17,11 +17,15 @@ jobs:
       run: |
         sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
         sudo apt update
-        sudo apt install libopenshot-audio-dev libopenshot-dev python3-openshot
-        sudo apt install qttranslations5-l10n libssl-dev xvfb
-        sudo apt install python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine python3-pyqt5.qtopengl python3-zmq python3-xdg
-        pip3 install setuptools wheel sentry-sdk
-        pip3 install cx_Freeze==6.1 distro defusedxml requests certifi chardet urllib3
+        sudo apt install libopenshot-audio-dev libopenshot-dev \
+                         python3-openshot \
+                         python3-pyqt5 python3-pyqt5.qtsvg \
+                         python3-pyqt5.qtwebengine python3-pyqt5.qtopengl \
+                         python3-zmq python3-xdg \
+                         qttranslations5-l10n libssl-dev libbabl-dev
+        pip3 install setuptools wheel 
+        pip3 install cx_Freeze==6.1 distro defusedxml requests certifi \
+                     chardet urllib3 sentry-sdk 
 
     - name: Build Python package
       run: python3 freeze.py build
