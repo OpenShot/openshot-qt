@@ -760,6 +760,11 @@ App.controller("TimelineCtrl", function ($scope) {
         timeline.resizeTimeline(furthest_right_edge + 10);
         $scope.project.duration = furthest_right_edge + 10;
       }
+    } else if ( $scope.project.duration - furthest_right_edge > 20) {
+      if ($scope.Qt) {
+        $scope.project.duration = furthest_right_edge;
+        timeline.resizeTimeline(furthest_right_edge);
+      }
     }
   };
 
