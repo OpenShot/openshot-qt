@@ -80,7 +80,7 @@ class OpenShotApp(QApplication):
 
         try:
             # Import modules
-            from classes import info, sentry
+            from classes import info
             from classes.logger import log, reroute_output
 
             # Log the session's start
@@ -90,9 +90,9 @@ class OpenShotApp(QApplication):
                 log.info(time.asctime().center(48))
                 log.info('Starting new session'.center(48))
 
-            log.debug("Command line: {}".format(self.args))
+            log.debug("Command line: %s", self.args)
 
-            from classes import settings, project_data, updates
+            from classes import settings, project_data, updates, sentry
             import openshot
 
             # Re-route stdout and stderr to logger
