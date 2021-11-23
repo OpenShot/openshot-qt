@@ -34,9 +34,7 @@ import platform
 import traceback
 import json
 
-from PyQt5.QtCore import PYQT_VERSION_STR
-from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import PYQT_VERSION_STR, QT_VERSION_STR, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
 
@@ -72,12 +70,11 @@ class StartupError:
 
 
 class OpenShotApp(QApplication):
-    """ This class is the primary QApplication for OpenShot.
-            mode=None (normal), mode=unittest (testing)"""
+    """The primary QApplication subclass for OpenShot."""
 
-    def __init__(self, *args, mode=None):
-        QApplication.__init__(self, *args)
-        self.mode = mode or "normal"
+    def __init__(self, *args, **kwargs):
+        self.mode = kwargs.pop("mode", None)
+        super().__init__(*args, **kwargs)
         self.args = super().arguments()
         self.errors = []
 
@@ -87,20 +84,19 @@ class OpenShotApp(QApplication):
             from classes.logger import log, reroute_output
 
             # Log the session's start
-            if mode != "unittest":
+            if self.mode != "unittest":
                 import time
                 log.info("-" * 48)
                 log.info(time.asctime().center(48))
                 log.info('Starting new session'.center(48))
 
-            log.debug("Starting up in {} mode".format(self.mode))
             log.debug("Command line: {}".format(self.args))
 
             from classes import settings, project_data, updates
             import openshot
 
             # Re-route stdout and stderr to logger
-            if mode != "unittest":
+            if self.mode != "unittest":
                 reroute_output()
 
         except ImportError as ex:
@@ -137,7 +133,7 @@ class OpenShotApp(QApplication):
         openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
 
         # Check to disable sentry
-        if not self.settings.get('send_metrics'):
+        if self.mode == "unittest" or not self.settings.get('send_metrics'):
             sentry.disable_tracing()
 
     def show_environment(self, info, openshot):
@@ -262,7 +258,7 @@ class OpenShotApp(QApplication):
         # Create main window
         from windows.main_window import MainWindow
         log.debug("Creating main interface window")
-        self.window = MainWindow(mode=self.mode)
+        self.window = MainWindow()
 
         # Clear undo/redo history
         self.window.updateStatusChanged(False, False)
@@ -276,7 +272,7 @@ class OpenShotApp(QApplication):
             self.window.RecoverBackup.emit()
             return
 
-        log.info('Process command-line arguments: %s' % args)
+        log.info('Process command-line arguments: %s', args[1:])
 
         # Auto load project if passed as argument
         if args[1].endswith(".osp"):
@@ -338,3 +334,4 @@ def onLogTheEnd():
         import logging
         log = logging.getLogger(".")
         log.debug('Failed to write session ended log', exc_info=1)
+

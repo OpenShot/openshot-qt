@@ -66,27 +66,7 @@ YOLO_PATH = os.path.join(USER_PATH, "yolo")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
-
-# Create user paths if they do not exist
-# (this is where temp files are stored... such as cached thumbnails)
-for folder in [
-    USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
-        BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
-        USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH,
-        PROTOBUF_DATA_PATH, YOLO_PATH]:
-    try:
-        if not os.path.exists(os.fsencode(folder)):
-            os.makedirs(folder, exist_ok=True)
-    except PermissionError:
-        # Fail gracefully if we have no permission to create these folders
-        # This happens on build servers, such as Launchpad (imported by Sphinx)
-        print(f"Failed to create `{folder}` folder due to permissions (ignoring exception)")
-
-# Migrate USER_DEFAULT_PROJECT from former name
 LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(".osp", ".project")
-if all([os.path.exists(LEGACY_DEFAULT_PROJECT), not os.path.exists(USER_DEFAULT_PROJECT)]):
-    print("Migrating default project file to new name")
-    os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
 
 try:
     from PyQt5.QtCore import QSize
@@ -122,11 +102,6 @@ LOG_LEVEL_CONSOLE = 'INFO'
 # Web backend selection, overridable at launch
 WEB_BACKEND = 'auto'
 
-# Languages
-CMDLINE_LANGUAGE = None
-CURRENT_LANGUAGE = 'en_US'
-SUPPORTED_LANGUAGES = ['en_US']
-
 # Sentry.io error reporting rate (0.0 TO 1.0)
 # 0.0 = no error reporting to Sentry
 # 0.5 = 1/2 of errors reported to Sentry
@@ -137,6 +112,11 @@ SUPPORTED_LANGUAGES = ['en_US']
 ERROR_REPORT_RATE_STABLE = 0.0
 ERROR_REPORT_RATE_UNSTABLE = 0.0
 ERROR_REPORT_STABLE_VERSION = None
+
+# Languages
+CMDLINE_LANGUAGE = None
+CURRENT_LANGUAGE = 'en_US'
+SUPPORTED_LANGUAGES = ['en_US']
 
 try:
     from language import openshot_lang
@@ -209,6 +189,28 @@ SETUP = {
     }
 }
 
+def setup_userdirs():
+    """Create user paths if they do not exist (this is where
+    temp files are stored... such as cached thumbnails)"""
+    for folder in [
+            USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH,
+            CACHE_PATH, BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH,
+            PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH,
+            USER_TITLES_PATH, EMOJIS_PATH, PROTOBUF_DATA_PATH,
+            YOLO_PATH,
+            ]:
+        if not os.path.exists(os.fsencode(folder)):
+            os.makedirs(folder, exist_ok=True)
+
+    # Migrate USER_DEFAULT_PROJECT from former name
+    if all([
+        os.path.exists(LEGACY_DEFAULT_PROJECT),
+        not os.path.exists(USER_DEFAULT_PROJECT),
+    ]):
+        print("Migrating default project file to new name")
+        os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+
+
 def website_language():
     """Get the current website language code for URLs"""
     return {
@@ -216,3 +218,4 @@ def website_language():
         "zh_TW": "zh-hant/",
         "en_US": ""}.get(CURRENT_LANGUAGE,
                          "%s/" % CURRENT_LANGUAGE.split("_")[0].lower())
+

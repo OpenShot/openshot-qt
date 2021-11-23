@@ -130,7 +130,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
-        if app.project.needs_save() and self.mode != "unittest":
+        if app.project.needs_save():
             log.info('Prompt user to save project')
             # Translate object
             _ = app._tr
@@ -2828,11 +2828,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
-    def __init__(self, *args, mode=None):
+    def __init__(self, *args):
 
         # Create main window base class
         super().__init__(*args)
-        self.mode = mode    # None or unittest (None is normal usage)
         self.initialized = False
 
         # set window on app for reference during initialization of children
@@ -2891,8 +2890,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         get_current_Version()
 
         # Connect signals
-        if self.mode != "unittest":
-            self.RecoverBackup.connect(self.recover_backup)
+        self.RecoverBackup.connect(self.recover_backup)
 
         # Initialize and start the thumbnail HTTP server
         self.http_server_thread = httpThumbnailServerThread()
