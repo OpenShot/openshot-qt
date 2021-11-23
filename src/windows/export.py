@@ -987,6 +987,7 @@ class Export(QDialog):
             msg.setWindowTitle(_("Export Error"))
             msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
             msg.exec_()
+            self.enableControls()
 
         # Notify window of export started
         self.ExportEnded.emit(export_file_path)
