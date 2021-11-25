@@ -233,7 +233,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.destroy_lock_file()
         else:
             # Normal startup, clear thumbnails
-            self.clear_all_thumbnails()
+            self.clear_temporary_files()
 
         # Reset Sentry component (it can be temporarily changed to libopenshot during
         # the call to libopenshot_crash_recovery above)
@@ -288,7 +288,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 return
 
         # Clear any previous thumbnails
-        self.clear_all_thumbnails()
+        self.clear_temporary_files()
 
         # clear data and start new project
         app.project.load("")
@@ -417,10 +417,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Load recent projects again
             self.load_recent_menu()
 
-            log.info("Saved project {}".format(file_path))
+            log.info("Saved project %s", file_path)
 
         except Exception as ex:
-            log.error("Couldn't save project %s.", file_path, exc_info=1)
+            log.error("Couldn't save project %s", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
     def open_project(self, file_path, clear_thumbnails=True):
@@ -461,7 +461,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if os.path.exists(file_path):
                 # Clear any previous thumbnails
                 if clear_thumbnails:
-                    self.clear_all_thumbnails()
+                    self.clear_temporary_files()
 
                 # Load project file
                 app.project.load(file_path, clear_thumbnails)
@@ -505,37 +505,31 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Restore normal cursor
         app.restoreOverrideCursor()
 
-    def clear_all_thumbnails(self):
+    def clear_temporary_files(self):
         """Clear all user thumbnails"""
-        try:
-            clear_path = os.path.join(info.USER_PATH, "thumbnail")
-            if os.path.exists(clear_path):
-                log.info("Clear all thumbnails: %s", clear_path)
-                shutil.rmtree(clear_path)
-                os.mkdir(clear_path)
-
-            # Clear any blender animations
-            clear_path = os.path.join(info.USER_PATH, "blender")
-            if os.path.exists(clear_path):
-                log.info("Clear all animations: %s", clear_path)
-                shutil.rmtree(clear_path)
-                os.mkdir(clear_path)
-
-            # Clear any title animations
-            clear_path = os.path.join(info.USER_PATH, "title")
-            if os.path.exists(clear_path):
-                log.info("Clear all titles: %s", clear_path)
-                shutil.rmtree(clear_path)
-                os.mkdir(clear_path)
+        for temp_dir in [
+                info.get_default_path("THUMBNAIL_PATH"),
+                info.get_default_path("BLENDER_PATH"),
+                info.get_default_path("TITLE_PATH"),
+                ]:
+            try:
+                if os.path.exists(temp_dir):
+                    shutil.rmtree(temp_dir)
+                    log.info("Cleared temporary files: %s", temp_dir)
+                os.mkdir(temp_dir)
+            except Exception:
+                log.warning("Failed to clear %s", temp_dir, exc_info=1)
 
             # Clear any backups
             if os.path.exists(info.BACKUP_FILE):
-                log.info("Clear backup: %s", info.BACKUP_FILE)
-                # Remove backup file
-                os.unlink(info.BACKUP_FILE)
+                try:
+                    # Remove backup file
+                    os.unlink(info.BACKUP_FILE)
+                    log.info("Cleared backup: %s", info.BACKUP_FILE)
+                except Exception:
+                    log.warning("Could not delete backup file %s",
+                                info.BACKUP_FILE, exc_info=1)
 
-        except Exception:
-            log.info("Failed to clear %s", clear_path, exc_info=1)
 
     def actionOpen_trigger(self):
         app = get_app()
