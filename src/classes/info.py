@@ -68,6 +68,13 @@ BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
 LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(".osp", ".project")
 
+# Back up "default" values for user paths
+_path_defaults = {
+    k: v for k, v in locals().items()
+    if k.endswith("_PATH")
+    and v.startswith(USER_PATH)
+}
+
 try:
     from PyQt5.QtCore import QSize
 

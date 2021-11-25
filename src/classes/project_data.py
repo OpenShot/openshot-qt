@@ -280,10 +280,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.current_filepath = None
         self.has_unsaved_changes = False
 
-        # Reset info paths
-        info.THUMBNAIL_PATH = os.path.join(info.USER_PATH, "thumbnail")
-        info.TITLE_PATH = os.path.join(info.USER_PATH, "title")
-        info.BLENDER_PATH = os.path.join(info.USER_PATH, "blender")
+        # Reset info paths back to their default/initial values
+        info.reset_userdirs()
 
         # Get default profile
         s = get_app().get_settings()
@@ -392,7 +390,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.check_if_paths_are_valid()
 
             # Clear old thumbnails
-            openshot_thumbnails = os.path.join(info.USER_PATH, "thumbnails")
+            openshot_thumbnails = info.get_default_path("THUMBNAIL_PATH")
             if os.path.exists(openshot_thumbnails) and clear_thumbnails:
                 # Clear thumbnails
                 shutil.rmtree(openshot_thumbnails, True)
