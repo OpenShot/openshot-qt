@@ -131,9 +131,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # If next part of path isn't in current dictionary, return failure
                 if key_part not in obj:
-                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index),
-                                                                                                           key_part,
-                                                                                                           key))
+                    log.warn(
+                        'Key not found in project. Mismatch on key part %s ("%s").\nKey: %s',
+                        key_index, key_part, key)
                     return None
 
                 # Get the matching item
@@ -150,7 +150,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 
         log.info(
-            "_set key: {} values: {} add: {} partial: {} remove: {}".format(key, values, add, partial_update, remove))
+            "_set key: %s values: %s add: %s partial: %s remove: %s",
+            key, values, add, partial_update, remove)
         parent, my_key = None, ""
 
         # Verify key is valid type
@@ -170,7 +171,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Key_part must be a string or dictionary
             if not isinstance(key_part, dict) and not isinstance(key_part, str):
-                log.error("Unexpected key part type: {}".format(type(key_part).__name__))
+                log.error("Unexpected key part type: %s", type(key_part).__name__)
                 return None
 
             # If key_part is a dictionary and obj is a list or dict, each key is tested as a property of the items in the current object
@@ -212,7 +213,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 # If next part of path isn't in current dictionary, return failure
                 if key_part not in obj:
-                    log.warn("Key not found in project. Mismatch on key part {} (\"{}\").\nKey: {}".format((key_index), key_part, key))
+                    log.warn(
+                        'Key not found in project. Mismatch on key part %s ("%s").\nKey: %s',
+                        key_index, key_part, key)
                     return None
 
                 # Get sub-object based on part key as new object, continue to next part
@@ -262,11 +265,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             try:
                 self._data = self.read_from_file(info.USER_DEFAULT_PROJECT)
             except (FileNotFoundError, PermissionError):
-                log.warning("Unable to load user project defaults from %s", info.USER_DEFAULT_PROJECT, exc_info=1)
+                log.warning(
+                    "Unable to load user project defaults from %s",
+                    info.USER_DEFAULT_PROJECT, exc_info=1)
             except Exception:
                 raise
             else:
-                log.info("Loaded user project defaults from {}".format(info.USER_DEFAULT_PROJECT))
+                log.info("Loaded user project defaults from %s",
+                         info.USER_DEFAULT_PROJECT)
         else:
             # Fall back to OpenShot defaults, if user defaults didn't load
             self._data = self.read_from_file(self.default_project_filepath)
@@ -284,7 +290,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         default_profile = s.get("default-profile")
 
         # Loop through profiles
-        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+        profile_dirs = [info.USER_PROFILES_PATH, info.PROFILES_PATH]
+        available_dirs = [f for f in profile_dirs if os.path.exists(f)]
+        for profile_folder in available_dirs:
             for file in os.listdir(profile_folder):
                 profile_path = os.path.join(profile_folder, file)
                 try:
@@ -343,7 +351,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self.new()
 
         if file_path:
-            log.info("Loading project file: {}".format(file_path))
+            log.info("Loading project file: %s", file_path)
 
             # Default project data
             default_project = self._data
@@ -662,7 +670,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             raise RuntimeError("Failed to load the following files:\n%s" % ", ".join(failed_files))
 
         # Return mostly empty project_data dict (with just the current version #)
-        log.info("Successfully loaded legacy project file: %s" % file_path)
+        log.info("Successfully loaded legacy project file: %s", file_path)
         return project_data
 
     def upgrade_project_data_structures(self):
@@ -670,7 +678,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         openshot_version = self._data["version"]["openshot-qt"]
         libopenshot_version = self._data["version"]["libopenshot"]
 
-        log.info("Project data: openshot {}, libopenshot {}".format(openshot_version, libopenshot_version))
+        log.info("Project data: openshot %s, libopenshot %s",
+                 openshot_version, libopenshot_version)
 
         if openshot_version == "0.0.0":
             # If version = 0.0.0, this is the beta of OpenShot
@@ -778,7 +787,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """ Save project file to disk """
         import openshot
 
-        log.info("Saving project file: {}".format(file_path))
+        log.info("Saving project file: %s", file_path)
 
         # Move all temp files (i.e. Blender animations) to the project folder
         if move_temp_files:
@@ -851,56 +860,59 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Copy any necessary assets for File records
             for file in self._data["files"]:
                 path = file["path"]
+                file_id = file["id"]
 
                 # For now, store thumbnail path for backwards compatibility
-                file["image"] = os.path.join(target_thumb_path, "{}.png".format(file["id"]))
+                file["image"] = os.path.join(target_thumb_path, f"{file_id}.png")
 
                 # Assets which need to be copied
                 new_asset_path = None
                 if info.BLENDER_PATH in path:
                     # Copy directory of blender files
-                    log.info("Copying {}".format(path))
+                    log.info("Copying %s", path)
                     old_dir, asset_name = os.path.split(path)
                     if os.path.isdir(old_dir) and old_dir not in copied:
                         # Copy dir into new folder
                         old_dir_name = os.path.basename(old_dir)
                         copied.append(old_dir)
-                        log.info("Copied dir {} to {}.".format(old_dir_name, target_blender_path))
+                        log.info("Copied dir %s to %s", old_dir_name, target_blender_path)
                     new_asset_path = os.path.join(target_blender_path, old_dir_name, asset_name)
 
                 if info.TITLE_PATH in path:
                     # Copy title files into assets folder
-                    log.info("Copying {}".format(path))
+                    log.info("Copying %s", path)
                     old_dir, asset_name = os.path.split(path)
                     if asset_name not in copied:
                         # Copy title into assets title folder
                         copied.append(asset_name)
-                        log.info("Copied title {} to {}.".format(asset_name, target_title_path))
+                        log.info("Copied title %s to %s", asset_name, target_title_path)
                     new_asset_path = os.path.join(target_title_path, asset_name)
 
                 # Update path in File object to new location
                 if new_asset_path:
                     file["path"] = new_asset_path
-                    file_id = file["id"]
                     reader_paths[file_id] = new_asset_path
-                    log.info("Set file {} path to {}".format(file_id, new_asset_path))
+                    log.info("Set file %s path to %s", file_id, new_asset_path)
 
             # Copy all Clip thumbnails and update reader paths
             for clip in self._data["clips"]:
                 file_id = clip["file_id"]
+                clip_id = clip["id"]
 
                 # For now, store thumbnail path for backwards compatibility
-                clip["image"] = os.path.join(target_thumb_path, "{}.png".format(file_id))
+                clip["image"] = os.path.join(target_thumb_path, f"{file_id}.png")
 
-                log.info("Checking clip {} path for file {}".format(clip["id"], file_id))
+                log.info("Checking clip %s path for file %s", clip_id, file_id)
                 # Update paths to files stored in our working space or old path structure
                 # (should have already been copied during previous File stage)
                 if file_id and file_id in reader_paths:
                     clip["reader"]["path"] = reader_paths[file_id]
-                    log.info("Updated clip {} path for file {}".format(clip["id"], file_id))
+                    log.info("Updated clip %s path for file %s", clip_id, file_id)
 
         except Exception:
-            log.error("Error while moving temp paths to project assets folder %s", asset_path, exc_info=1)
+            log.error(
+                "Error while moving temp paths to project assets folder %s",
+                asset_path, exc_info=1)
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
@@ -949,7 +961,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             path = file["path"]
             parent_path, file_name_with_ext = os.path.split(path)
 
-            log.info("checking file %s" % path)
+            log.info("checking file %s", path)
             if not os.path.exists(path) and "%" not in path:
                 # File is missing
                 path, is_modified, is_skipped = find_missing_file(path)
@@ -957,10 +969,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # Found file, update path
                     file["path"] = path
                     get_app().updates.update_untracked(["import_path"], os.path.dirname(path))
-                    log.info("Auto-updated missing file: %s" % path)
+                    log.info("Auto-updated missing file: %s", path)
                 elif is_skipped:
                     # Remove missing file
-                    log.info('Removed missing file: %s' % file_name_with_ext)
+                    log.info('Removed missing file: %s', file_name_with_ext)
                     self._data["files"].remove(file)
 
         # Loop through each clip (in reverse order)
@@ -975,10 +987,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if path and is_modified and not is_skipped:
                     # Found file, update path
                     clip["reader"]["path"] = path
-                    log.info("Auto-updated missing file: %s" % clip["reader"]["path"])
+                    log.info("Auto-updated missing file: %s", clip["reader"]["path"])
                 elif is_skipped:
                     # Remove missing file
-                    log.info('Removed missing clip: %s' % file_name_with_ext)
+                    log.info('Removed missing clip: %s', file_name_with_ext)
                     self._data["clips"].remove(clip)
 
     def changed(self, action):
