@@ -1008,7 +1008,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.setStatusBar(self.statusBar)
 
         # Determine path for saved frame - Default export path
-        recommended_path = recommended_path = os.path.join(info.HOME_PATH)
+        recommended_path = os.path.join(info.HOME_PATH)
         if app.project.current_filepath:
             recommended_path = os.path.dirname(app.project.current_filepath)
 
