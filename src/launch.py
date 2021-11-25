@@ -41,7 +41,7 @@
  """
 
 import sys
-import os.path
+import os
 import argparse
 
 from PyQt5.QtCore import Qt

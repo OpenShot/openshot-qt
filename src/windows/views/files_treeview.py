@@ -41,7 +41,8 @@ from classes.query import File
 
 class FilesTreeView(QTreeView):
     """ A TreeView QWidget used on the main window """
-    drag_item_size = 48
+    drag_item_size = QSize(48, 48)
+    drag_item_center = QPoint(24, 24)
 
     def contextMenuEvent(self, event):
 
@@ -114,8 +115,8 @@ class FilesTreeView(QTreeView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.model().mimeData(selected))
-        drag.setPixmap(icon.pixmap(QSize(self.drag_item_size, self.drag_item_size)))
-        drag.setHotSpot(QPoint(self.drag_item_size / 2, self.drag_item_size / 2))
+        drag.setPixmap(icon.pixmap(self.drag_item_size))
+        drag.setHotSpot(self.drag_item_center)
         drag.exec_()
 
     # Without defining this method, the 'copy' action doesn't show with cursor

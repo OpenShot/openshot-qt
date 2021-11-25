@@ -209,13 +209,13 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
 
         # Send message back to client
         if os.path.exists(thumb_path):
-            if not only_path:
-                self.wfile.write(open(thumb_path, 'rb').read())
-            else:
+            if only_path:
                 self.wfile.write(bytes(thumb_path, "utf-8"))
+            else:
+                with open(thumb_path, 'rb') as f:
+                    self.wfile.write(f.read())
 
         # Pause processing of request (since we don't currently use thread pooling, this allows
         # the threads to be processed without choking the CPU as much
         # TODO: Make HTTPServer work with a limited thread pool and remove this sleep() hack.
         time.sleep(0.01)
-

@@ -352,7 +352,7 @@ class ProcessEffect(QDialog):
         while(not processing.IsDone() ):
             # update progressbar
             progressionStatus = processing.GetProgress()
-            self.progressBar.setValue(progressionStatus)
+            self.progressBar.setValue(int(progressionStatus))
             time.sleep(0.01)
 
             # Process any queued events

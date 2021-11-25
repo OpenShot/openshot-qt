@@ -290,7 +290,7 @@ class Export(QDialog):
             percentage_string = format_of_progress_string % (( current_frame - start_frame ) / ( end_frame - start_frame ) * 100)
         else:
             percentage_string = "100%"
-        self.progressExportVideo.setValue(current_frame)
+        self.progressExportVideo.setValue(int(current_frame))
         self.progressExportVideo.setFormat(percentage_string)
         self.setWindowTitle("%s %s" % (percentage_string, title_message))
 
@@ -690,9 +690,9 @@ class Export(QDialog):
         fps_encode = 0
 
         # Init progress bar
-        self.progressExportVideo.setMinimum(self.txtStartFrame.value())
-        self.progressExportVideo.setMaximum(self.txtEndFrame.value())
-        self.progressExportVideo.setValue(self.txtStartFrame.value())
+        self.progressExportVideo.setMinimum(int(self.txtStartFrame.value()))
+        self.progressExportVideo.setMaximum(int(self.txtEndFrame.value()))
+        self.progressExportVideo.setValue(int(self.txtStartFrame.value()))
 
         # Prompt error message
         if self.txtStartFrame.value() == self.txtEndFrame.value():
