@@ -444,7 +444,7 @@ class PropertiesModel(updates.UpdateInterface):
                 log.debug("%s: update property %s. %s", log_id, property_key, clip_data.get(property_key))
 
                 # Check the type of property (some are keyframe, and some are not)
-                if property_type != "reader" and type(clip_data[property_key]) == dict:
+                if property_type != "reader" and isinstance(clip_data[property_key], dict):
                     # Keyframe
                     # Loop through points, find a matching points on this frame
                     found_point = False
@@ -517,21 +517,21 @@ class PropertiesModel(updates.UpdateInterface):
                     clip_updated = True
                     try:
                         clip_data[property_key] = int(new_value)
-                    except Exception as ex:
+                    except Exception:
                         log.warn('Invalid Integer value passed to property', exc_info=1)
 
                 elif property_type == "float":
                     clip_updated = True
                     try:
                         clip_data[property_key] = float(new_value)
-                    except Exception as ex:
+                    except Exception:
                         log.warn('Invalid Float value passed to property', exc_info=1)
 
                 elif property_type == "bool":
                     clip_updated = True
                     try:
                         clip_data[property_key] = bool(new_value)
-                    except Exception as ex:
+                    except Exception:
                         log.warn('Invalid Boolean value passed to property', exc_info=1)
 
                 elif property_type == "string":
@@ -558,7 +558,7 @@ class PropertiesModel(updates.UpdateInterface):
                         clip_object.Close()
                         clip_object = None
                     except Exception:
-                        log.warn('Invalid Reader value passed to property: %s (%s)', value, exc_info=1)
+                        log.warn('Invalid Reader value passed to property: %s', value, exc_info=1)
 
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
