@@ -80,14 +80,19 @@ log.propagate = False
 #
 # Create rotating file handler
 #
-fh = logging.handlers.RotatingFileHandler(
-         os.path.join(info.USER_PATH, 'openshot-qt.log'),
-         encoding="utf-8",
-         maxBytes=25*1024*1024, backupCount=3)
-fh.setLevel(info.LOG_LEVEL_FILE)
-fh.setFormatter(file_formatter)
-
-log.addHandler(fh)
+if os.path.exists(info.USER_PATH):
+    fh = logging.handlers.RotatingFileHandler(
+             os.path.join(info.USER_PATH, 'openshot-qt.log'),
+             encoding="utf-8",
+             maxBytes=25*1024*1024, backupCount=3)
+    fh.setLevel(info.LOG_LEVEL_FILE)
+    fh.setFormatter(file_formatter)
+    log.addHandler(fh)
+else:
+    class DummyHandler:
+        def setLevel(self, level):
+            return True
+    fh = DummyHandler()
 
 #
 # Create typical stream handler which logs to stderr
@@ -120,3 +125,4 @@ def set_level_file(level=logging.INFO):
 def set_level_console(level=logging.INFO):
     """Adjust the minimum log level for output to the terminal"""
     sh.setLevel(level)
+
