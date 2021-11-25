@@ -781,37 +781,39 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             points[0].get("co", {}).get("Y", default_value) != default_value,
         ])
 
-    def save(self, file_path, move_temp_files=True, make_paths_relative=True):
+    def save(self, file_path, backup_only=False):
         """ Save project file to disk """
         import openshot
 
         log.info("Saving project file: %s", file_path)
 
         # Move all temp files (i.e. Blender animations) to the project folder
-        if move_temp_files:
-            self.move_temp_paths_to_project_folder(file_path, previous_path=self.current_filepath)
+        if not backup_only:
+            self.move_temp_paths_to_project_folder(
+                file_path, previous_path=self.current_filepath)
 
         # Append version info
         self._data["version"] = {"openshot-qt": info.VERSION,
                                  "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Try to save project settings file, will raise error on failure
-        self.write_to_file(file_path, self._data, path_mode="relative", previous_path=self.current_filepath)
+        self.write_to_file(
+            file_path,
+            self._data,
+            path_mode="ignore" if backup_only else "relative",
+            previous_path=self.current_filepath if not backup_only else None)
 
-        # On success, save current filepath
-        self.current_filepath = file_path
+        if not backup_only:
+            # On success, save current filepath
+            self.current_filepath = file_path
 
-        # Update info paths to assets folders
-        if move_temp_files:
+            # Update info paths to assets folders
             info.THUMBNAIL_PATH = os.path.join(get_assets_path(self.current_filepath), "thumbnail")
             info.TITLE_PATH = os.path.join(get_assets_path(self.current_filepath), "title")
             info.BLENDER_PATH = os.path.join(get_assets_path(self.current_filepath), "blender")
 
-        # Add to recent files setting
-        self.add_to_recent_files(file_path)
-
-        # Track unsaved changes
-        self.has_unsaved_changes = False
+            self.add_to_recent_files(file_path)
+            self.has_unsaved_changes = False
 
     def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
         """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """

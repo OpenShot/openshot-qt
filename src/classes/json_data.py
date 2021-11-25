@@ -213,9 +213,7 @@ class JsonDataStore:
             msg = "Couldn't load {} file".format(self.data_type)
             log.error(msg, exc_info=1)
             raise Exception(msg) from ex
-        msg = ()
-        log.warning(msg)
-        raise Exception(msg)
+        raise Exception("Unknown error (should be unreachable)")
 
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """ Save JSON settings to a file """
@@ -229,7 +227,7 @@ class JsonDataStore:
         except Exception as ex:
             msg = "Couldn't save {} file:\n{}\n{}".format(self.data_type, file_path, ex)
             log.error(msg)
-            raise Exception(msg)
+            raise ex
 
     def replace_string_to_absolute(self, match):
         """Replace matched string for converting paths to relative paths"""

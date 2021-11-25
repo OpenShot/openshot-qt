@@ -599,55 +599,53 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get current filepath (if any)
         file_path = app.project.current_filepath
-        if app.project.needs_save():
-            log.info("auto_save_project")
+        if not app.project.needs_save():
+            return
 
-            if file_path:
-                # A Real project file exists
-                # Append .osp if needed
-                if ".osp" not in file_path:
+        if file_path:
+            # A Real project file exists
+            # Append .osp if needed
+            if ".osp" not in file_path:
                     file_path = "%s.osp" % file_path
-                folder_path, file_name = os.path.split(file_path)
-                file_name, file_ext = os.path.splitext(file_name)
+            folder_path, file_name = os.path.split(file_path)
+            file_name, file_ext = os.path.splitext(file_name)
 
-                # Make copy of unsaved project file in 'recovery' folder
-                recover_path_with_timestamp = os.path.join(
-                    info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
-                if os.path.exists(file_path):
-                    shutil.copy(file_path, recover_path_with_timestamp)
-                else:
-                    log.warning("Existing project *.osp file not found during recovery process: %s" % file_path)
-
-                # Find any recovery file older than X auto-saves
-                old_backup_files = []
-                backup_file_count = 0
-                for backup_filename in reversed(sorted(os.listdir(info.RECOVERY_PATH))):
-                    if ".osp" in backup_filename:
-                        backup_file_count += 1
-                        if backup_file_count > s.get("recovery-limit"):
-                            old_backup_files.append(os.path.join(info.RECOVERY_PATH, backup_filename))
-
-                # Delete recovery files which are 'too old'
-                for backup_filepath in old_backup_files:
-                    os.unlink(backup_filepath)
-
-                # Save project
-                log.info("Auto save project file: %s", file_path)
-                self.save_project(file_path)
-
-                # Remove backup.osp (if any)
-                if os.path.exists(info.BACKUP_FILE):
-                    # Delete backup.osp since we just saved the actual project
-                    os.unlink(info.BACKUP_FILE)
-
+            # Make copy of unsaved project file in 'recovery' folder
+            recover_path_with_timestamp = os.path.join(
+                info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
+            if os.path.exists(file_path):
+                shutil.copy(file_path, recover_path_with_timestamp)
             else:
-                # No saved project found
-                log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-                app.project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
+                log.warning(
+                    "Existing project *.osp file not found during recovery process: %s",
+                    file_path)
 
-                # Clear the file_path (which is set by saving the project)
-                app.project.current_filepath = None
-                app.project.has_unsaved_changes = True
+            # Find any recovery file older than X auto-saves
+            old_backup_files = []
+            backup_file_count = 0
+            for backup_filename in reversed(sorted(os.listdir(info.RECOVERY_PATH))):
+                if ".osp" in backup_filename:
+                    backup_file_count += 1
+                    if backup_file_count > s.get("recovery-limit"):
+                        old_backup_files.append(os.path.join(info.RECOVERY_PATH, backup_filename))
+
+            # Delete recovery files which are 'too old'
+            for backup_filepath in old_backup_files:
+                os.unlink(backup_filepath)
+
+            # Save project
+            log.info("Auto save project file: %s", file_path)
+            self.save_project(file_path)
+
+            # Remove backup.osp (if any)
+            if os.path.exists(info.BACKUP_FILE):
+                # Delete backup.osp since we just saved the actual project
+                os.unlink(info.BACKUP_FILE)
+
+        else:
+            # No saved project found
+            log.info("Creating backup of project file: %s", info.BACKUP_FILE)
+            app.project.save(info.BACKUP_FILE, backup_only=True)
 
     def actionSaveAs_trigger(self):
         app = get_app()
