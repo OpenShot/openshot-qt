@@ -43,6 +43,15 @@ App.directive("tlPlayhead", function () {
         setBoundingBox(scope, $(this), "playhead");
       });
 
+      // after clicking on playhead all pointer events are redirected to it
+      element.on("pointerdown", function(e){
+        element[0].setPointerCapture(e.originalEvent.pointerId)
+      })
+      // stop after releasing
+      element.on("pointerup", function(e){
+        element[0].releasePointerCapture(e.originalEvent.pointerId)
+      })
+
       // Move playhead to new position (if it's not currently being animated)
       element.on("mousemove", function (e) {
         if (e.which === 1 && !scope.playhead_animating) { // left button
