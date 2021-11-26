@@ -207,6 +207,9 @@ App.directive("tlRuler", function ($timeout) {
             new_position = results.position.left;
           }
 
+          // contrain playhead position
+          new_position = Math.max(0, new_position);
+
           // Move playhead
           let playhead_seconds = new_position / scope.pixelsPerSecond;
           scope.movePlayhead(playhead_seconds);
