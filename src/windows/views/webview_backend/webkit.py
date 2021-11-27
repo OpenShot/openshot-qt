@@ -69,7 +69,7 @@ class TimelineWebKitView(QWebView):
         self.settings().setObjectCacheCapacities(0, 0, 0)
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
-        self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
+        self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
 
         # Connect signal of javascript initialization to our javascript reference init function
         log.info("WebKit backend initializing")
@@ -103,16 +103,6 @@ class TimelineWebKitView(QWebView):
         # Export self as a javascript object in webview
         log.info("Registering objects with WebKit")
         self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
-
-    def get_html(self):
-        """Get HTML for Timeline, adjusted for mixin"""
-        with open(self.html_path, 'r', encoding='utf-8') as f:
-            html = f.read()
-        return html.replace(
-            '<!--MIXIN_JS_INCLUDE-->',
-            """
-                <script type="text/javascript" src="js/mixin_webkit.js"></script>
-            """)
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """

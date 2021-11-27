@@ -78,7 +78,7 @@ class TimelineWebEngineView(QWebEngineView):
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
         self.webchannel = QWebChannel(self.page())
-        self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
+        self.setUrl(QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
         self.page().setWebChannel(self.webchannel)
 
         # Connect signal of javascript initialization to our javascript reference init function
@@ -113,16 +113,6 @@ class TimelineWebEngineView(QWebEngineView):
         # Export self as a javascript object in webview
         log.info("Registering WebChannel connection with WebEngine")
         self.webchannel.registerObject('timeline', self)
-
-    def get_html(self):
-        """Get HTML for Timeline, adjusted for mixin"""
-        with open(self.html_path, 'r', encoding='utf-8') as f:
-            html = f.read()
-        return html.replace(
-            '<!--MIXIN_JS_INCLUDE-->',
-            """
-                <script type="text/javascript" src="js/mixin_webengine.js"></script>
-            """)
 
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
