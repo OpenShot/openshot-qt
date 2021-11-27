@@ -154,9 +154,7 @@ App.directive("tlClip", function ($timeout) {
           });
 
           // update clip in Qt (very important =)
-          if (scope.Qt) {
-            timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false);
-          }
+          timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false);
 
           //resize the audio canvas to match the new clip width
           if (scope.clip.show_audio) {
@@ -388,11 +386,9 @@ App.directive("tlMultiSelectable", function () {
             item = findElement(scope.project.effects, "id", id);
           }
 
-          if (scope.Qt) {
-            timeline.addSelection(id, type, false);
-            // Clear effect selections (if any)
-            timeline.addSelection("", "effect", true);
-          }
+          timeline.addSelection(id, type, false);
+          // Clear effect selections (if any)
+          timeline.addSelection("", "effect", true);
 
           // Update item state
           item.selected = true;
@@ -414,9 +410,7 @@ App.directive("tlMultiSelectable", function () {
             item = findElement(scope.project.effects, "id", id);
           }
 
-          if (scope.Qt) {
-            timeline.removeSelection(id, type);
-          }
+          timeline.removeSelection(id, type);
           // Update item state
           item.selected = false;
         },

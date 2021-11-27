@@ -79,15 +79,11 @@ App.directive("tlTrack", function ($timeout) {
             if (ui_selected.length > 1) {
               for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
                 scope.project.clips[clip_index].selected = false;
-                if (scope.Qt) {
-                  timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
-                }
+                timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
               }
               for (var tran_index = 0; tran_index < scope.project.effects.length; tran_index++) {
                 scope.project.effects[tran_index].selected = false;
-                if (scope.Qt) {
-                  timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
-                }
+                timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
               }
             }
 
@@ -155,9 +151,9 @@ App.directive("tlTrack", function ($timeout) {
               var needs_refresh = (index === selected_item_count - 1);
 
               // update clip in Qt (very important =)
-              if (scope.Qt && item_type === "clip") {
+              if (item_type === "clip") {
                 timeline.update_clip_data(JSON.stringify(item_data), true, true, !needs_refresh);
-              } else if (scope.Qt && item_type === "transition") {
+              } else if (item_type === "transition") {
                 timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh);
               }
 
@@ -173,7 +169,7 @@ App.directive("tlTrack", function ($timeout) {
 
               // Check again for missing transitions
               var missing_transition_details = scope.getMissingTransitions(item_data);
-              if (scope.Qt && missing_transition_details !== null) {
+              if (missing_transition_details !== null) {
                 timeline.add_missing_transition(JSON.stringify(missing_transition_details));
               }
             }
