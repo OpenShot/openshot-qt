@@ -27,7 +27,7 @@
  */
 
 // Initialize Angular application
-/*global App, angular, timeline, init_mixin*/
+/* global App, angular, timeline, QWebChannel */
 var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 if (!window.hasOwnProperty("timeline")) {
   var timeline = null;
@@ -66,10 +66,11 @@ $(document).ready(function () {
         if (prop in obj) {
           return obj[prop];
         }
-        if (prop == "qt_log") {
+        if (prop === "qt_log") {
           return function(level, args) {
+            // eslint-disable-next-line no-console
             console.log(args);
-          }
+          };
         }
         return function(args) {
           return true;
