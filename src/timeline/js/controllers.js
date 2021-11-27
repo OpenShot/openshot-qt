@@ -1002,38 +1002,11 @@ App.controller("TimelineCtrl", function ($scope) {
 
     timeline.qt_log("DEBUG", "sortItems");
 
-      $scope.$evalAsync(function () {
-        // Sort by position second
-        $scope.project.clips = $scope.project.clips.sort(function (a, b) {
-          if (a.position < b.position) {
-            return -1;
-          }
-          if (a.position > b.position) {
-            return 1;
-          }
-          return 0;
-        });
-        // Sort transitions by position second
-        $scope.project.effects = $scope.project.effects.sort(function (a, b) {
-          if (a.position < b.position) {
-            return -1;
-          }
-          if (a.position > b.position) {
-            return 1;
-          }
-          return 0;
-        });
-        // Sort tracks by position second
-        $scope.project.layers = $scope.project.layers.sort(function (a, b) {
-          if (a.number < b.number) {
-            return -1;
-          }
-          if (a.number > b.number) {
-            return 1;
-          }
-          return 0;
-        });
-      });
+    $scope.$evalAsync(function () {
+      $scope.project.clips.sort( (a, b) => a.position - b.position);
+      $scope.project.effects.sort( (a, b) => a.position - b.position);
+      $scope.project.layers.sort( (a, b) => a.number - b.number);
+    });
   };
 
   // Find overlapping clips
