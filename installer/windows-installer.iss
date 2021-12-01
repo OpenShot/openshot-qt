@@ -45,6 +45,7 @@ Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
 SetupIconFile=..\xdg\openshot-qt.ico
+UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
 SignedUninstaller=yes
