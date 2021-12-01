@@ -129,16 +129,11 @@ Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalid
 
 [Registry]
 ; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
-
-if PortableCheck then
-begin
-  ; Filename extension .osp
-  Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue; Tasks: fileassoc
-  ; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
-  Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
-  ; Launcher association for data files of type OpenShotProject
-  Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
-end;
+Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
+; Launcher association for data files of type OpenShotProject
+Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
 
 [Files]
 ; Add all frozen files from cx_Freeze build
