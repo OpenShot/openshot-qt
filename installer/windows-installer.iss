@@ -12,7 +12,6 @@
 #endif
 
 #define MyAppName "OpenShot Video Editor"
-#define MyAppShortName "OpenShot"
 #define MyAppProjectFileDesc "OpenShot Project File"
 #define MyAppPublisher "OpenShot Studios, LLC"
 #define MyPublisherURL "https://www.openshot.org/"
@@ -51,6 +50,7 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 SignedUninstaller=yes
 SignedUninstallerDir=..\build\
 PrivilegesRequiredOverridesAllowed=commandline
+AllowNoIcons=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
