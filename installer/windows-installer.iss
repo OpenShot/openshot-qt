@@ -50,7 +50,7 @@ Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
 SignedUninstaller=yes
 SignedUninstallerDir=..\build\
-
+PrivilegesRequiredOverridesAllowed=commandline
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
