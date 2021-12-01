@@ -11,7 +11,6 @@
   #define PY_EXE_DIR "exe.mingw-3.8"
 #endif
 
-
 #define MyAppName "OpenShot Video Editor"
 #define MyAppShortName "OpenShot"
 #define MyAppProjectFileDesc "OpenShot Project File"
@@ -20,31 +19,37 @@
 #define MySupportURL "https://www.reddit.com/r/OpenShot/"
 #define MyAppExeName "openshot-qt.exe"
 
+#include "isportable.iss"
+
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{4BB0DCDC-BC24-49EC-8937-72956C33A470}
-AppName={#MyAppName}
+AppId={code:GetAppId|4BB0DCDC-BC24-49EC-8937-72956C33A470}
+AppName={code:GetDefaultDirName|OpenShot Video Editor}
 AppVersion={#VERSION}
 VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
 AppSupportURL={#MySupportURL}
 AppCopyright=Copyright (c) 2008-2019 {#MyAppPublisher}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={code:GetDefaultDirName|OpenShot Video Editor}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
 OutputBaseFilename=OpenShot
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
-ChangesAssociations=no
-ChangesEnvironment=no
+ChangesAssociations=yes
+ChangesEnvironment=yes
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
 SetupIconFile=..\xdg\openshot-qt.ico
-PrivilegesRequired=lowest
+Uninstallable=not PortableCheck
+UninstallDisplayIcon={app}\{#MyAppExeName}
+SignedUninstaller=yes
+SignedUninstallerDir=..\build\
+
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -110,9 +115,58 @@ Name: "lithuanian"; MessagesFile: "compiler:Languages\Lithuanian.isl"
 Name: "icelandic"; MessagesFile: "compiler:Languages\Icelandic.isl"
 Name: "slovak"; MessagesFile: "compiler:Languages\Slovak.isl"
 
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableCheck;
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
+Name: "firewall"; Description: "Add an exception to the Windows Firewall for optionally sending anonymized usage and error information."; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
+
+[InstallDelete]
+; Remove previous installed versions of OpenShot
+Type: filesandordirs; Name: "{app}\*"
+Type: dirifempty; Name: "{app}\*"
+Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
+
+[Registry]
+; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
+
+if PortableCheck then
+begin
+  ; Filename extension .osp
+  Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+  ; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
+  Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
+  ; Launcher association for data files of type OpenShotProject
+  Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
+end;
+
 [Files]
 ; Add all frozen files from cx_Freeze build
 Source: "..\build\{#PY_EXE_DIR}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
+[Icons]
+Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+
 [Run]
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""{#MyAppName}"" program=""{app}\{#MyAppExeName}"" dir=in action=allow enable=yes"; Flags: runhidden; Tasks: firewall;
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[UninstallRun]
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall delete rule name=""{#MyAppName}"""; Flags: runhidden; Tasks: firewall;
+
+[Code]
+procedure DeleteInvalidFiles();
+begin
+  if (FileExists (ExpandConstant('{sys}\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{sys}\zlib1.dll'), ExpandConstant('{sys}\zlib1.DELETE'));
+  end;
+  if (FileExists (ExpandConstant('{win}\system32\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{win}\system32\zlib1.dll'), ExpandConstant('{win}\system32\zlib1.DELETE'));
+  end;
+  if (FileExists (ExpandConstant('{syswow64}\zlib1.dll'))) then
+  begin
+    RenameFile(ExpandConstant('{syswow64}\zlib1.dll'), ExpandConstant('{syswow64}\zlib1.DELETE'));
+  end;
+end;
