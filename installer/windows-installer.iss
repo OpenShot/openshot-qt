@@ -38,15 +38,13 @@ LicenseFile=..\COPYING
 OutputBaseFilename=OpenShot
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
-ChangesAssociations=yes
-ChangesEnvironment=yes
+ChangesAssociations=no
+ChangesEnvironment=no
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
 SetupIconFile=..\xdg\openshot-qt.ico
-UninstallDisplayIcon={app}\{#MyAppExeName}
-SignedUninstaller=yes
-SignedUninstallerDir=..\build\
+PrivilegesRequired=lowest
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
