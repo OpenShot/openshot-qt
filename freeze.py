@@ -202,7 +202,7 @@ if sys.platform == "win32":
     extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
 
     # Standard graphical Win32 launcher
-    base = "Win32GUI"
+    base = None # Force CMD window
     build_exe_options["include_msvcr"] = True
     exe_name += ".exe"
 
