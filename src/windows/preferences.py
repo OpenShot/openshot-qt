@@ -278,9 +278,8 @@ class Preferences(QDialog):
                         value_list.append({"name": "Default", "value": ""})
                         for audio_device in get_app().window.preview_thread.player.GetAudioDeviceNames():
                             value_list.append({
-                                "name": "%s: %s" % (
-                                    audio_device.type, audio_device.name),
-                                "value": audio_device.name,
+                                "name": "%s: %s" % (audio_device[1], audio_device[0]),
+                                "value": audio_device[0],
                                 })
 
                     # Overwrite value list (for language dropdown)
