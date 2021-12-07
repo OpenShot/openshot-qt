@@ -464,20 +464,58 @@ App.controller("TimelineCtrl", function ($scope) {
   // Get the color of an effect
   $scope.getEffectColor = function (effect_type) {
     switch (effect_type) {
+      case "Bars":
+        return "#4d7bff";
       case "Blur":
         return "#0095bf";
       case "Brightness":
         return "#5500ff";
+      case "Caption":
+        return "#5e7911";
       case "ChromaKey":
         return "#00ad2d";
+      case "Color Shift":
+        return "#b39373";
+      case "Compressor":
+        return "#A52A2A";
+      case "Crop":
+        return "#7b3f00";
       case "Deinterlace":
         return "#006001";
+      case "Delay":
+        return "#ff4dd4";
+      case "Distortion":
+        return "#7393B3";
+      case "Echo":
+        return "#5C4033";
+      case "Expander":
+        return "#C4A484";
       case "Mask":
         return "#cb0091";
       case "Negate":
         return "#ff9700";
+      case "Noise":
+        return "#a9a9a9";
+      case "Object Detector":
+        return "#636363";
+      case "Parametric EQ":
+        return "#708090";
+      case "Pixelate":
+        return	"#9fa131";
+      case "Robotization":
+        return "#CC5500";
       case "Saturation":
         return "#ff3d00";
+      case "Shift":
+        return "#8d7960";
+      case "Stabilizer":
+        return "#9F2B68";
+      case "Tracker":
+        return "#DE3163";
+      case "Wave":
+        return "#FF00Ff";
+      case "Whisperization":
+        return "#93914a";
       default:
         return "#000000";
     }
