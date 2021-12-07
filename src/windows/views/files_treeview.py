@@ -58,6 +58,7 @@ class FilesTreeView(QTreeView):
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionThumbnailView)
+        menu.addAction(self.win.actionExportClips)
 
         if index.isValid():
             # Look up the model item and our unique ID

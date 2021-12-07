@@ -1955,6 +1955,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('File Properties Cancelled')
 
+    def actionExportClips_trigger(self):
+        from windows.exportClips import clipExportWindow
+        f = self.selected_files()
+        exp = clipExportWindow(export_clips_arg=f)
+        # exp.setPath(get_app().project.current_filepath)
+        exp.setPath(get_app().project.get("export_path"))
+        # f = self.selected_files()
+        # exp = clipExportWindow()
+        # exp.setPath(get_app().project.current_filepath)
+        try:
+            exp.exec_()
+        except:
+            print("Error occured")
+
     def actionDetailsView_trigger(self):
         log.info("Switch to Details View")
 
