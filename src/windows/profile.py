@@ -26,6 +26,7 @@
  """
 
 import os
+import functools
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -178,3 +179,5 @@ class Profile(QDialog):
         win.SeekSignal.emit(1)
         # Refresh frame (since size of preview might have changed)
         QTimer.singleShot(500, win.refreshFrameSignal.emit)
+        QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
+                                                 win.videoPreview.size()))
