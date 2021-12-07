@@ -1,14 +1,13 @@
-from PyQt5.QtWidgets import QApplication, QPushButton, QFileDialog, QCompleter, QLineEdit, QLabel
-from PyQt5.QtWidgets import QGridLayout, QWidget, QHBoxLayout
+from PyQt5.QtWidgets import QPushButton, QFileDialog, QCompleter, QLineEdit, QLabel
+from PyQt5.QtWidgets import QWidget, QHBoxLayout
 from PyQt5 import QtCore
 import os
-
 from classes.app import get_app
 _ = get_app()._tr
 # TODO: test on windows
 
 class customLineEdit(QLineEdit):
-    """A QLineEdit which doens't highlight
+    """A QLineEdit which doesn't highlight
     the entire text when reached with the tab key"""
     def __init__(self, *args, **kwargs):
         super(customLineEdit, self).__init__()
@@ -65,7 +64,7 @@ class filePicker(QWidget):
         dirs = os.listdir(path)
         dirs = [os.path.join(path, x) for x in dirs]
         if (self.folder_only):
-            dirs = list(filter(lambda x: os.path.isdir(x), dirs))
+            dirs = list(filter(os.path.isdir, dirs))
         return(dirs)
 
     _UPDATE_LOCK = False

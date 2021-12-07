@@ -4,17 +4,49 @@ from classes.filePicker import filePicker
 from classes.app import get_app
 from classes.logger import log
 
-if get_app().applicationName() == 'openshot':
-    _ = get_app()._tr
-else:
-    _ = lambda x: x
+_ = get_app()._tr
+
+
+def export_name(clip):
+    # Name clips with a suffix of their start and end time.
+    # strip clip names of any characters not legal in file names
+    name = clip.data.get("name")
+    name += f" [{format(clip.data.get('start'), '.2f')} to {format(clip.data.get('end'), '.2f')}]"
+    # if a file, not a clip:
+    # append [ 0.00 to {flile length} ]
+    return name
+
+
+def setupWriter(clip, writer):
+    import openshot
+    export_type = "Video & Audio"
+    # Set video options
+    if export_type in [_("Video & Audio"), _("Video Only"), _("Image Sequence")]:
+        writer.SetVideoOptions(True,
+                               "libx264",
+                               openshot.Fraction(clip.data.get("fps").get("num"),
+                                                 clip.data.get("fps").get("den")),
+                               clip.data.get("width"),
+                               clip.data.get("height"),
+                               openshot.Fraction(clip.data.get("pixel_ratio").get("num"),
+                                                 clip.data.get("pixel_ratio").get("den")),
+                               False,
+                               False,
+                               22
+                               )
+        # Set audio options
+    if export_type in [_("Video & Audio"), _("Audio Only")]:
+        writer.SetAudioOptions(True,
+                               clip.data.get("acodec", "aac"),
+                               clip.data.get("sample_rate"),
+                               clip.data.get("channels"),
+                               clip.data.get("channel_layout"),
+                               clip.data.get("audio_bit_rate"))
 
 class clipExportWindow(QDialog):
     """A popup to export clips as mp4 files
     in a folder of the user's choosing"""
     fp: filePicker
-    export_button: QPushButton
-    exporting = False
 
     def __init__(self, export_clips_arg, *args, **kwargs):
 
@@ -69,14 +101,15 @@ class clipExportWindow(QDialog):
             totalFrames += framesInClip(c)
 
         for c in self.export_clips:
-            # If it's a file, just copy it to the destination folder
             file_path = c.data.get("path")
             extension = "mp4"
             project_folder = self.fp.getPath()
-            export_path = os.path.join(project_folder, f"{self.export_name(c)}.{extension}")
+            export_path = os.path.join(project_folder, f"{export_name(c)}.{extension}")
+            # TODO: If that path exists, don't export over-top of it
+            # TODO: If it's a file, just copy it to the destination folder
             w = openshot.FFmpegWriter(export_path)
 
-            self.setupWriter(c, w)
+            setupWriter(c, w)
             w.PrepareStreams()
             w.Open()
 
@@ -85,7 +118,7 @@ class clipExportWindow(QDialog):
             fps = c.data.get("fps").get("num") / c.data.get("fps").get("den")
             start_frame, end_frame = int(start_time * fps), int(end_time*fps)
 
-            # Or a file reaer, and do the math for the first/last frame
+            # Or a file reader, and do the math for the first/last frame
             clip_reader = openshot.Clip(file_path)
             clip_reader.Open()
 
@@ -97,7 +130,7 @@ class clipExportWindow(QDialog):
                     ratio = currentFrame/totalFrames
                     completeString = _("Percent Complete: %s") % format(ratio, ".2%")
                     log.info(completeString)
-                    self.complete_lbl.setText(completeString) # Doesn't upate until exporting is done
+                    self.complete_lbl.setText(completeString) # Doesn't update until exporting is done
                 currentFrame += 1
                 if not self.exporting:
                     break
@@ -105,40 +138,5 @@ class clipExportWindow(QDialog):
             w.Close()
             self.complete_lbl.setText(_("Export Complete!"))
             log.info("Finished Exporting Clip: %s" % export_path)
-        exporting = False
         self.export_button.hide()
 
-    def export_name(self, clip):
-        # Name clips with a suffix of their start and end time.
-        name = clip.data.get("name")
-        name += f" [{format(clip.data.get('start'), '.2f')} to {format(clip.data.get('end'), '.2f')}]"
-        # if a file, not a clip:
-            # append [ 0.00 to {flile length} ]
-        return name
-
-
-    def setupWriter(self, clip, writer):
-        import openshot
-        export_type = "Video & Audio"
-        # Set video options
-        if export_type in [_("Video & Audio"), _("Video Only"), _("Image Sequence")]:
-            writer.SetVideoOptions(True,
-                                   "libx264",
-                                   openshot.Fraction(clip.data.get("fps").get("num"),
-                                                     clip.data.get("fps").get("den")),
-                                   clip.data.get("width"),
-                                   clip.data.get("height"),
-                                   openshot.Fraction(clip.data.get("pixel_ratio").get("num"),
-                                                     clip.data.get("pixel_ratio").get("den")),
-                                   False,
-                                   False,
-                                   22
-                                   )
-            # Set audio options
-        if export_type in [_("Video & Audio"), _("Audio Only")]:
-            writer.SetAudioOptions(True,
-                                   clip.data.get("acodec", "aac"),
-                                   clip.data.get("sample_rate"),
-                                   clip.data.get("channels"),
-                                   clip.data.get("channel_layout"),
-                                   clip.data.get("audio_bit_rate"))
