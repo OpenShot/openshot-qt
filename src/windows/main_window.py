@@ -308,6 +308,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Seek to frame 0
         self.SeekSignal.emit(1)
 
+        # Update max size (for fast previews)
+        self.MaxSizeChanged.emit(self.videoPreview.size())
+
     def actionAnimatedTitle_trigger(self):
         # show dialog
         from windows.animated_title import AnimatedTitle
@@ -478,6 +481,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
                 # Refresh thumbnail
                 self.refreshFrameSignal.emit()
+
+                # Update max size (for fast previews)
+                self.MaxSizeChanged.emit(self.videoPreview.size())
 
                 # Load recent projects again
                 self.load_recent_menu()
