@@ -1963,7 +1963,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         try:
             exp.exec_()
         except:
-            print("Error occured")
+            log.info("Error in exportClips dialog")
 
     def actionDetailsView_trigger(self):
         log.info("Switch to Details View")

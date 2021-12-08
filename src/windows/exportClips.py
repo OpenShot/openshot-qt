@@ -1,3 +1,38 @@
+"""
+ @file exportClips.py
+ @brief Behavior for the export clips dialog.
+ @details
+ Takes an array of file objects
+
+ Allow the user to select a directory to export to.
+ Then export any clips and files to that directory
+
+ To save time, (and preserve video quality)
+ Any files should only be copied
+ If a clip name already exists, skip that clip.
+ @author Jackson Godwin <jackson@openshot.org>
+
+ @section LICENSE
+
+ Copyright (c) 2008-2018 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+
+ OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+ """
 from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox
 from PyQt5.QtCore import Qt
 from classes.filePicker import filePicker
@@ -106,6 +141,7 @@ class clipExportWindow(QDialog):
         total_frames, current_frame = 0, 0
         self.exporting=True
         self.buttonBox.button(QDialogButtonBox.Close).setEnabled(False)
+        self.setWindowTitle(_("Exporting"))
         get_app().processEvents()
         for c in self.export_clips:
             total_frames += framesInClip(c)
@@ -145,6 +181,7 @@ class clipExportWindow(QDialog):
             clip_reader.Close()
             w.Close()
             log.info("Finished Exporting Clip: %s" % export_path)
+        self.setWindowTitle(_("Done"))
         self.export_button.hide()
         self.cancel_button.hide()
         self.buttonBox.button(QDialogButtonBox.Close).setEnabled(True)
