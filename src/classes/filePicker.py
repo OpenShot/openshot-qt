@@ -27,27 +27,27 @@ class filePicker(QWidget):
         self.folder_only = kwargs.get("folder_only", False)
 
         self._createWidgets()
-        self.dirLine.setText( kwargs.get("path", self.DEFAULT_STARTING_DIRECTORY))
-        self._addCompletion(self.dirLine)
-        self.dirLine.textEdited.connect(lambda : self._updateCompleterModel(self.dirLine) )
+        self.dir_line.setText( kwargs.get("path", self.DEFAULT_STARTING_DIRECTORY))
+        self._addCompletion(self.dir_line)
+        self.dir_line.textEdited.connect(lambda : self._updateCompleterModel(self.dir_line) )
 
     def _createWidgets(self):
         self.layout = QHBoxLayout(self)
         self.lbl = QLabel(_(self.PROMPT))
         # Browse Button
-        self.browseButton = QPushButton("Browse...")
-        self.browseButton.clicked.connect(self._browse_button_pushed)
-        self.fileDialog = QFileDialog()
+        self.browse_button = QPushButton("Browse...")
+        self.browse_button.clicked.connect(self._browseButtonPushed)
+        self.file_dialog = QFileDialog()
         # LineEdit input
-        self.dirLine = customLineEdit()
+        self.dir_line = customLineEdit()
         if (self.folder_only):
-            self.fileDialog.setOption(QFileDialog.ShowDirsOnly)
+            self.file_dialog.setOption(QFileDialog.ShowDirsOnly)
         self.layout.addWidget(self.lbl)
-        self.layout.addWidget(self.dirLine)
-        self.layout.addWidget(self.browseButton)
+        self.layout.addWidget(self.dir_line)
+        self.layout.addWidget(self.browse_button)
 
-    def _browse_button_pushed(self):
-        self.dirLine.setText(self.fileDialog.getExistingDirectory())
+    def _browseButtonPushed(self):
+        self.dir_line.setText(self.file_dialog.getExistingDirectory())
 
     def _addCompletion(self, line: QLineEdit):
         #TODO case insensitive DONE
@@ -77,10 +77,10 @@ class filePicker(QWidget):
         self._UPDATE_LOCK = False
 
     def getPath(self) -> str:
-        return self.dirLine.text()
+        return self.dir_line.text()
 
     def setPath(self, p: str):
-        self.dirLine.setText(p)
+        self.dir_line.setText(p)
 
     def setPrompt(self, p: str):
         self.PROMPT = p
