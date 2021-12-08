@@ -490,6 +490,8 @@ App.controller("TimelineCtrl", function ($scope) {
         return "#5C4033";
       case "Expander":
         return "#C4A484";
+      case "Hue":
+        return "#2d7b6b";
       case "Mask":
         return "#cb0091";
       case "Negate":
