@@ -1,8 +1,11 @@
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QDialog, QLabel
+from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox
 from PyQt5.QtCore import Qt
 from classes.filePicker import filePicker
+from classes import ui_util
+from classes import info
 from classes.app import get_app
 from classes.logger import log
+import os
 
 _ = get_app()._tr
 
@@ -15,7 +18,6 @@ def export_name(clip):
     # if a file, not a clip:
     # append [ 0.00 to {flile length} ]
     return name
-
 
 def setupWriter(clip, writer):
     import openshot
@@ -47,44 +49,48 @@ class clipExportWindow(QDialog):
     """A popup to export clips as mp4 files
     in a folder of the user's choosing"""
     fp: filePicker
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'exportClips.ui')
 
     def __init__(self, export_clips_arg, *args, **kwargs):
-
         super().__init__(*args, **kwargs)
+        ui_util.load_ui(self, self.ui_path)
+        ui_util.init_ui
         self.export_clips = export_clips_arg
         self._create_widgets()
 
     def _create_widgets(self):
-        self.layout = QVBoxLayout()
         self.fp = filePicker(folder_only=True, export_clips=self.export_clips)
         self.export_button = QPushButton(_("Export"))
-        self.export_button.clicked.connect(self.exportClips)
+        self.export_button.clicked.connect(self._export_pressed)
         self.close_button = QPushButton(_("Close"))
-        self.close_button.clicked.connect(lambda : self.done(0))
+        self.close_button.clicked.connect(self.done)
         self.cancel_button = QPushButton(_("Cancel"))
-        self.cancel_button.clicked.connect(self.cancel_button_cicked)
-        self.complete_lbl = QLabel(_("Percent Complete: %s") % format(0, ".2%"))
+        self.cancel_button.clicked.connect(self._cancel_button_cicked)
 
         from PyQt5.QtGui import QPalette
         p = QPalette()
         p.setColor(QPalette.Highlight, Qt.green)
 
-        self.layout.addWidget(self.fp)
-        self.layout.addWidget(self.complete_lbl)
-        self.layout.addWidget(self.export_button)
-        self.layout.addWidget(self.close_button)
-        self.layout.addWidget(self.cancel_button)
-        self.cancel_button.hide()
-        self.setMinimumWidth(500)
-        self.setLayout(self.layout)
+        self.buttonBox.addButton(self.export_button, QDialogButtonBox.ActionRole)
+        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ActionRole)
+        self.buttonBox.addButton(QDialogButtonBox.Close).clicked.connect(lambda: self.done(0))
+        self.FilePickerArea.addWidget(self.fp)
+        self.progressExportVideo.setValue(0)
 
     def setPath(self, p: str):
         self.fp.setPath(p)
 
-    def cancel_button_cicked(self):
+    def _cancel_button_cicked(self):
         self.exporting = False
 
-    def exportClips(self):
+    def _update_progress_bar(self, count: int, total: int):
+        d = count - total
+        if -2 <= d and 2 >= d:
+            self.progressExportVideo.setValue(100)
+            return
+        self.progressExportVideo.setValue((count/total) * 100)
+
+    def _export_pressed(self):
         if ( not self.export_clips ):
             return
         import openshot, os
@@ -96,7 +102,8 @@ class clipExportWindow(QDialog):
         # Total number of frames
         totalFrames, currentFrame = 0, 0
         self.exporting=True
-        self.cancel_button.show() # NOTE: this extends the window, but nothing is drawn. Maybe trigger a redraw?
+        self.buttonBox.button(QDialogButtonBox.Close).setEnabled(False)
+        get_app().processEvents()
         for c in self.export_clips:
             totalFrames += framesInClip(c)
 
@@ -125,18 +132,16 @@ class clipExportWindow(QDialog):
             log.info(f"Starting to write frames to {export_path}")
             for frame in range(start_frame+1, end_frame+1):
                 w.WriteFrame(clip_reader.GetFrame(frame))
-                if frame % 20 == 0:
-                    # Update progress bar
-                    ratio = currentFrame/totalFrames
-                    completeString = _("Percent Complete: %s") % format(ratio, ".2%")
-                    log.info(completeString)
-                    self.complete_lbl.setText(completeString) # Doesn't update until exporting is done
+                if frame % 5 == 0:
+                    self._update_progress_bar(currentFrame, totalFrames)
+                    get_app().processEvents()
                 currentFrame += 1
                 if not self.exporting:
                     break
+            self._update_progress_bar(currentFrame, totalFrames)
             clip_reader.Close()
             w.Close()
-            self.complete_lbl.setText(_("Export Complete!"))
             log.info("Finished Exporting Clip: %s" % export_path)
         self.export_button.hide()
-
+        self.cancel_button.hide()
+        self.buttonBox.button(QDialogButtonBox.Close).setEnabled(True)
