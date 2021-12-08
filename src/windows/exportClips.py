@@ -10,7 +10,7 @@ import os
 _ = get_app()._tr
 
 
-def export_name(clip):
+def exportName(clip):
     # Name clips with a suffix of their start and end time.
     # strip clip names of any characters not legal in file names
     name = clip.data.get("name")
@@ -23,6 +23,7 @@ def setupWriter(clip, writer):
     import openshot
     export_type = "Video & Audio"
     # Set video options
+    # TODO: allow for audio clips
     if export_type in [_("Video & Audio"), _("Video Only"), _("Image Sequence")]:
         writer.SetVideoOptions(True,
                                "libx264",
@@ -56,20 +57,22 @@ class clipExportWindow(QDialog):
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui
         self.export_clips = export_clips_arg
-        self._create_widgets()
+        self._createWidgets()
 
-    def _create_widgets(self):
+    def _createWidgets(self):
         self.fp = filePicker(folder_only=True, export_clips=self.export_clips)
         self.export_button = QPushButton(_("Export"))
-        self.export_button.clicked.connect(self._export_pressed)
+        self.export_button.clicked.connect(self._exportPressed)
         self.close_button = QPushButton(_("Close"))
         self.close_button.clicked.connect(self.done)
         self.cancel_button = QPushButton(_("Cancel"))
-        self.cancel_button.clicked.connect(self._cancel_button_cicked)
+        self.cancel_button.clicked.connect(self._cancelButtonClicked)
 
+        # Make progress bar look like the one in the export dialog
         from PyQt5.QtGui import QPalette
         p = QPalette()
         p.setColor(QPalette.Highlight, Qt.green)
+        self.progressExportVideo.setPalette(p)
 
         self.buttonBox.addButton(self.export_button, QDialogButtonBox.ActionRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ActionRole)
@@ -80,17 +83,17 @@ class clipExportWindow(QDialog):
     def setPath(self, p: str):
         self.fp.setPath(p)
 
-    def _cancel_button_cicked(self):
+    def _cancelButtonClicked(self):
         self.exporting = False
 
-    def _update_progress_bar(self, count: int, total: int):
+    def _updateProgressBar(self, count: int, total: int):
         d = count - total
         if -2 <= d and 2 >= d:
             self.progressExportVideo.setValue(100)
             return
         self.progressExportVideo.setValue((count/total) * 100)
 
-    def _export_pressed(self):
+    def _exportPressed(self):
         if ( not self.export_clips ):
             return
         import openshot, os
@@ -100,18 +103,18 @@ class clipExportWindow(QDialog):
             return seconds * fps + 1
 
         # Total number of frames
-        totalFrames, currentFrame = 0, 0
+        total_frames, current_frame = 0, 0
         self.exporting=True
         self.buttonBox.button(QDialogButtonBox.Close).setEnabled(False)
         get_app().processEvents()
         for c in self.export_clips:
-            totalFrames += framesInClip(c)
+            total_frames += framesInClip(c)
 
         for c in self.export_clips:
             file_path = c.data.get("path")
             extension = "mp4"
             project_folder = self.fp.getPath()
-            export_path = os.path.join(project_folder, f"{export_name(c)}.{extension}")
+            export_path = os.path.join(project_folder, f"{exportName(c)}.{extension}")
             # TODO: If that path exists, don't export over-top of it
             # TODO: If it's a file, just copy it to the destination folder
             w = openshot.FFmpegWriter(export_path)
@@ -133,12 +136,12 @@ class clipExportWindow(QDialog):
             for frame in range(start_frame+1, end_frame+1):
                 w.WriteFrame(clip_reader.GetFrame(frame))
                 if frame % 5 == 0:
-                    self._update_progress_bar(currentFrame, totalFrames)
+                    self._updateProgressBar(current_frame, total_frames)
                     get_app().processEvents()
-                currentFrame += 1
+                current_frame += 1
                 if not self.exporting:
                     break
-            self._update_progress_bar(currentFrame, totalFrames)
+            self._updateProgressBar(current_frame, total_frames)
             clip_reader.Close()
             w.Close()
             log.info("Finished Exporting Clip: %s" % export_path)
