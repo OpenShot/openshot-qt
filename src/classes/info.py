@@ -71,18 +71,20 @@ USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
 # (this is where temp files are stored... such as cached thumbnails)
 for folder in [
     USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH, CACHE_PATH,
-    BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
-    USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH,
-    PROTOBUF_DATA_PATH, YOLO_PATH ]:
-    if not os.path.exists(os.fsencode(folder)):
-        os.makedirs(folder, exist_ok=True)
+        BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH, PREVIEW_CACHE_PATH,
+        USER_PROFILES_PATH, USER_PRESETS_PATH, USER_TITLES_PATH, EMOJIS_PATH,
+        PROTOBUF_DATA_PATH, YOLO_PATH]:
+    try:
+        if not os.path.exists(os.fsencode(folder)):
+            os.makedirs(folder, exist_ok=True)
+    except PermissionError:
+        # Fail gracefully if we have no permission to create these folders
+        # This happens on build servers, such as Launchpad (imported by Sphinx)
+        print(f"Failed to create `{folder}` folder due to permissions (ignoring exception)")
 
 # Migrate USER_DEFAULT_PROJECT from former name
 LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(".osp", ".project")
-if all([
-    os.path.exists(LEGACY_DEFAULT_PROJECT),
-    not os.path.exists(USER_DEFAULT_PROJECT),
-]):
+if all([os.path.exists(LEGACY_DEFAULT_PROJECT), not os.path.exists(USER_DEFAULT_PROJECT)]):
     print("Migrating default project file to new name")
     os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
 
@@ -97,7 +99,7 @@ try:
     EMOJI_GRID_SIZE = EMOJI_ICON_SIZE + QSize(5, 25)
 except ImportError:
     # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
-    pass
+    print("Failed to import `PyQt5.QtCore.QSize` (ignoring exception)")
 
 # Maintainer details, for packaging
 JT = {"name": "Jonathan Thomas",
@@ -158,7 +160,7 @@ try:
         SUPPORTED_LANGUAGES.append(lang)
 except ImportError:
     # Fail gracefully if we're running without PyQt5 (e.g. CI tasks)
-    pass
+    print("Failed to import `PyQt5.QtCore.QDir` (ignoring exception)")
 
 SETUP = {
     "name": NAME,
