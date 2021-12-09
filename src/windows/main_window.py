@@ -130,7 +130,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
-        if app.project.needs_save() and self.mode != "unittest":
+        if app.project.needs_save():
             log.info('Prompt user to save project')
             # Translate object
             _ = app._tr
@@ -233,7 +233,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.destroy_lock_file()
         else:
             # Normal startup, clear thumbnails
-            self.clear_all_thumbnails()
+            self.clear_temporary_files()
 
         # Reset Sentry component (it can be temporarily changed to libopenshot during
         # the call to libopenshot_crash_recovery above)
@@ -288,7 +288,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 return
 
         # Clear any previous thumbnails
-        self.clear_all_thumbnails()
+        self.clear_temporary_files()
 
         # clear data and start new project
         app.project.load("")
@@ -417,10 +417,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Load recent projects again
             self.load_recent_menu()
 
-            log.info("Saved project {}".format(file_path))
+            log.info("Saved project %s", file_path)
 
         except Exception as ex:
-            log.error("Couldn't save project %s.", file_path, exc_info=1)
+            log.error("Couldn't save project %s", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Saving Project"), str(ex))
 
     def open_project(self, file_path, clear_thumbnails=True):
@@ -461,7 +461,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if os.path.exists(file_path):
                 # Clear any previous thumbnails
                 if clear_thumbnails:
-                    self.clear_all_thumbnails()
+                    self.clear_temporary_files()
 
                 # Load project file
                 app.project.load(file_path, clear_thumbnails)
@@ -505,37 +505,31 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Restore normal cursor
         app.restoreOverrideCursor()
 
-    def clear_all_thumbnails(self):
+    def clear_temporary_files(self):
         """Clear all user thumbnails"""
-        try:
-            clear_path = os.path.join(info.USER_PATH, "thumbnail")
-            if os.path.exists(clear_path):
-                log.info("Clear all thumbnails: %s", clear_path)
-                shutil.rmtree(clear_path)
-                os.mkdir(clear_path)
-
-            # Clear any blender animations
-            clear_path = os.path.join(info.USER_PATH, "blender")
-            if os.path.exists(clear_path):
-                log.info("Clear all animations: %s", clear_path)
-                shutil.rmtree(clear_path)
-                os.mkdir(clear_path)
-
-            # Clear any title animations
-            clear_path = os.path.join(info.USER_PATH, "title")
-            if os.path.exists(clear_path):
-                log.info("Clear all titles: %s", clear_path)
-                shutil.rmtree(clear_path)
-                os.mkdir(clear_path)
+        for temp_dir in [
+                info.get_default_path("THUMBNAIL_PATH"),
+                info.get_default_path("BLENDER_PATH"),
+                info.get_default_path("TITLE_PATH"),
+                ]:
+            try:
+                if os.path.exists(temp_dir):
+                    shutil.rmtree(temp_dir)
+                    log.info("Cleared temporary files: %s", temp_dir)
+                os.mkdir(temp_dir)
+            except Exception:
+                log.warning("Failed to clear %s", temp_dir, exc_info=1)
 
             # Clear any backups
             if os.path.exists(info.BACKUP_FILE):
-                log.info("Clear backup: %s", info.BACKUP_FILE)
-                # Remove backup file
-                os.unlink(info.BACKUP_FILE)
+                try:
+                    # Remove backup file
+                    os.unlink(info.BACKUP_FILE)
+                    log.info("Cleared backup: %s", info.BACKUP_FILE)
+                except Exception:
+                    log.warning("Could not delete backup file %s",
+                                info.BACKUP_FILE, exc_info=1)
 
-        except Exception:
-            log.info("Failed to clear %s", clear_path, exc_info=1)
 
     def actionOpen_trigger(self):
         app = get_app()
@@ -599,55 +593,53 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get current filepath (if any)
         file_path = app.project.current_filepath
-        if app.project.needs_save():
-            log.info("auto_save_project")
+        if not app.project.needs_save():
+            return
 
-            if file_path:
-                # A Real project file exists
-                # Append .osp if needed
-                if ".osp" not in file_path:
+        if file_path:
+            # A Real project file exists
+            # Append .osp if needed
+            if ".osp" not in file_path:
                     file_path = "%s.osp" % file_path
-                folder_path, file_name = os.path.split(file_path)
-                file_name, file_ext = os.path.splitext(file_name)
+            folder_path, file_name = os.path.split(file_path)
+            file_name, file_ext = os.path.splitext(file_name)
 
-                # Make copy of unsaved project file in 'recovery' folder
-                recover_path_with_timestamp = os.path.join(
-                    info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
-                if os.path.exists(file_path):
-                    shutil.copy(file_path, recover_path_with_timestamp)
-                else:
-                    log.warning("Existing project *.osp file not found during recovery process: %s" % file_path)
-
-                # Find any recovery file older than X auto-saves
-                old_backup_files = []
-                backup_file_count = 0
-                for backup_filename in reversed(sorted(os.listdir(info.RECOVERY_PATH))):
-                    if ".osp" in backup_filename:
-                        backup_file_count += 1
-                        if backup_file_count > s.get("recovery-limit"):
-                            old_backup_files.append(os.path.join(info.RECOVERY_PATH, backup_filename))
-
-                # Delete recovery files which are 'too old'
-                for backup_filepath in old_backup_files:
-                    os.unlink(backup_filepath)
-
-                # Save project
-                log.info("Auto save project file: %s", file_path)
-                self.save_project(file_path)
-
-                # Remove backup.osp (if any)
-                if os.path.exists(info.BACKUP_FILE):
-                    # Delete backup.osp since we just saved the actual project
-                    os.unlink(info.BACKUP_FILE)
-
+            # Make copy of unsaved project file in 'recovery' folder
+            recover_path_with_timestamp = os.path.join(
+                info.RECOVERY_PATH, "%d-%s.osp" % (int(time.time()), file_name))
+            if os.path.exists(file_path):
+                shutil.copy(file_path, recover_path_with_timestamp)
             else:
-                # No saved project found
-                log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-                app.project.save(info.BACKUP_FILE, move_temp_files=False, make_paths_relative=False)
+                log.warning(
+                    "Existing project *.osp file not found during recovery process: %s",
+                    file_path)
 
-                # Clear the file_path (which is set by saving the project)
-                app.project.current_filepath = None
-                app.project.has_unsaved_changes = True
+            # Find any recovery file older than X auto-saves
+            old_backup_files = []
+            backup_file_count = 0
+            for backup_filename in reversed(sorted(os.listdir(info.RECOVERY_PATH))):
+                if ".osp" in backup_filename:
+                    backup_file_count += 1
+                    if backup_file_count > s.get("recovery-limit"):
+                        old_backup_files.append(os.path.join(info.RECOVERY_PATH, backup_filename))
+
+            # Delete recovery files which are 'too old'
+            for backup_filepath in old_backup_files:
+                os.unlink(backup_filepath)
+
+            # Save project
+            log.info("Auto save project file: %s", file_path)
+            self.save_project(file_path)
+
+            # Remove backup.osp (if any)
+            if os.path.exists(info.BACKUP_FILE):
+                # Delete backup.osp since we just saved the actual project
+                os.unlink(info.BACKUP_FILE)
+
+        else:
+            # No saved project found
+            log.info("Creating backup of project file: %s", info.BACKUP_FILE)
+            app.project.save(info.BACKUP_FILE, backup_only=True)
 
     def actionSaveAs_trigger(self):
         app = get_app()
@@ -2828,11 +2820,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
-    def __init__(self, *args, mode=None):
+    def __init__(self, *args):
 
         # Create main window base class
         super().__init__(*args)
-        self.mode = mode    # None or unittest (None is normal usage)
         self.initialized = False
 
         # set window on app for reference during initialization of children
@@ -2891,8 +2882,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         get_current_Version()
 
         # Connect signals
-        if self.mode != "unittest":
-            self.RecoverBackup.connect(self.recover_backup)
+        self.RecoverBackup.connect(self.recover_backup)
 
         # Initialize and start the thumbnail HTTP server
         self.http_server_thread = httpThumbnailServerThread()

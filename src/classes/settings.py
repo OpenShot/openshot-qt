@@ -46,7 +46,7 @@ class SettingStore(JsonDataStore):
         # Set the data type name for logging clarity (base class functions use this variable)
         self.data_type = "user settings"
         self.settings_filename = "openshot.settings"
-        self.default_settings_filename = os.path.join(info.PATH, 'settings', '_default.settings')
+        self.defaults_path = os.path.join(info.PATH, 'settings', '_default.settings')
 
     def get_all_settings(self):
         """ Get the entire list of settings (with all metadata) """
@@ -78,29 +78,26 @@ class SettingStore(JsonDataStore):
         """ Load user settings file from disk, merging with allowed settings in default settings file.
         Creates user settings if missing. """
 
-        # Default and user settings objects
-        default_settings, user_settings = {}, {}
-
         # try to load default settings, on failure will raise exception to caller
-        default_settings = self.read_from_file(self.default_settings_filename)
+        default_settings = self.read_from_file(self.defaults_path)
+        self._data = default_settings
 
-        # Try to find user settings file
+        # Try to find user settings dir, give up if it's not there
+        if not os.path.exists(info.USER_PATH):
+            return True
+
+        # Load or create user settings
         file_path = os.path.join(info.USER_PATH, self.settings_filename)
-
-        # Load user settings (if found)
         if os.path.exists(os.fsencode(file_path)):
-            # Will raise exception to caller on failure to read
             try:
                 user_settings = self.read_from_file(file_path)
+                # Merge sources, excluding user settings not found in default
+                self._data = self.merge_settings(default_settings, user_settings)
             except Exception as ex:
                 log.error("Error loading settings file: %s", ex)
-                user_settings = {}
                 if self.app:
                     # We have a parent, ask to show a message box
                     self.app.settings_load_error(file_path)
-
-        # Merge default and user settings, excluding settings not in default, Save settings
-        self._data = self.merge_settings(default_settings, user_settings)
 
         # Return success of saving user settings file back after merge
         return self.write_to_file(file_path, self._data)
@@ -109,7 +106,8 @@ class SettingStore(JsonDataStore):
         """ Save user settings file to disk """
 
         # Try to find user settings file
-        file_path = os.path.join(info.USER_PATH, self.settings_filename)
+        if os.path.exists(info.USER_PATH):
+            file_path = os.path.join(info.USER_PATH, self.settings_filename)
+            # try to save data to file, will raise exception on failure
+            self.write_to_file(file_path, self._data)
 
-        # try to save data to file, will raise exception on failure
-        self.write_to_file(file_path, self._data)

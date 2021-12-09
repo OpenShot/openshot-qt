@@ -183,6 +183,5 @@ class EmojisListView(QListView):
                 # Off by one, due to 'show all' choice above
                 dropdown_index = index + 1
 
-        if self.win.mode != "unittest":
-            self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
+        self.win.emojiFilterGroup.currentIndexChanged.connect(self.group_changed)
         self.win.emojiFilterGroup.setCurrentIndex(dropdown_index)

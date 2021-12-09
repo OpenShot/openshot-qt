@@ -28,7 +28,6 @@
 
 import platform
 
-from classes.logger import log
 from classes import info
 
 try:
@@ -57,7 +56,7 @@ def init_tracing():
         environment = "unstable"
 
     if info.ERROR_REPORT_STABLE_VERSION:
-        log.info("Sentry initialized with %s error reporting rate (%s)" % (traces_sample_rate, environment))
+        print("Sentry initialized with %s error reporting rate (%s)" % (traces_sample_rate, environment))
 
     # Initialize sentry exception tracing
     sdk.init(

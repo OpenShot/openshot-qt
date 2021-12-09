@@ -144,14 +144,15 @@ def main():
 
     if args.py_path:
         for p in args.py_path:
+            newpath = os.path.realpath(p)
             try:
-                if os.path.exists(os.path.realpath(p)):
-                    sys.path.insert(0, os.path.realpath(p))
-                    print("Added {} to PYTHONPATH".format(os.path.realpath(p)))
+                if os.path.exists(newpath):
+                    sys.path.insert(0, newpath)
+                    print(f"Added {newpath} to PYTHONPATH")
                 else:
-                    print("{} does not exist".format(os.path.realpath(p)))
+                    print(f"{newpath} does not exist")
             except TypeError as ex:
-                print("Bad path {}: {}".format(p, ex))
+                print(f"Bad path {newpath}: {ex}")
                 continue
 
     if args.modeltest:
@@ -165,15 +166,18 @@ def main():
         if args.lang in info.SUPPORTED_LANGUAGES:
             info.CMDLINE_LANGUAGE = args.lang
         else:
-            print("Unsupported language '{}'! (See --list-languages)".format(args.lang))
+            print(f"Unsupported language '{args.lang}'! (See --list-languages)")
             sys.exit(-1)
 
     # Normal startup, print module path and lauch application
-    print("Loaded modules from: %s" % info.PATH)
+    print(f"Loaded modules from: {info.PATH}")
 
     # Initialize sentry exception tracing
     from classes import sentry
     sentry.init_tracing()
+
+    # Create any missing paths in the user's settings dir
+    info.setup_userdirs()
 
     # Create Qt application, pass any unprocessed arguments
     from classes.app import OpenShotApp
@@ -188,7 +192,7 @@ def main():
 
     # Setup Qt application details
     app.setApplicationName('openshot')
-    app.setApplicationVersion(info.SETUP['version'])
+    app.setApplicationVersion(info.VERSION)
     try:
         # Qt 5.7+ only
         app.setDesktopFile("org.openshot.OpenShot")
