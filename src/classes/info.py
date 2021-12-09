@@ -124,7 +124,7 @@ try:
 except ImportError:
     language_path = os.path.join(PATH, 'language')
     print("Compiled translation resources missing!")
-    print("Loading translations from: {}".format(language_path))
+    print(f"Loading translations from: {language_path}")
 
 # Compile language list from :/locale resource
 try:
@@ -192,13 +192,7 @@ SETUP = {
 def setup_userdirs():
     """Create user paths if they do not exist (this is where
     temp files are stored... such as cached thumbnails)"""
-    for folder in [
-            USER_PATH, BACKUP_PATH, RECOVERY_PATH, THUMBNAIL_PATH,
-            CACHE_PATH, BLENDER_PATH, TITLE_PATH, TRANSITIONS_PATH,
-            PREVIEW_CACHE_PATH, USER_PROFILES_PATH, USER_PRESETS_PATH,
-            USER_TITLES_PATH, EMOJIS_PATH, PROTOBUF_DATA_PATH,
-            YOLO_PATH,
-            ]:
+    for folder in _path_defaults.values():
         if not os.path.exists(os.fsencode(folder)):
             os.makedirs(folder, exist_ok=True)
 
@@ -209,6 +203,20 @@ def setup_userdirs():
     ]):
         print("Migrating default project file to new name")
         os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+
+
+def reset_userdirs():
+    """Reset all info.FOO_PATH attributes back to their initial values,
+    as they may have been modified by the runtime code (retargeting
+    info.THUMBNAIL_PATH to a project assets directory, for example)"""
+    for k, v in _path_defaults.items():
+        globals()[k] = v
+
+
+def get_default_path(varname):
+    """Return the default value of the named info.FOO_PATH attribute,
+    even if it's been modified"""
+    return _path_defaults.get(varname, None)
 
 
 def website_language():
