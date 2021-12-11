@@ -42,6 +42,7 @@ from classes.app import get_app
 from classes.logger import log
 import openshot, os, re, shutil
 
+
 _ = get_app()._tr
 
 def makeLegalFileName(s: str):
@@ -87,6 +88,13 @@ def framesInClip(cl):
     fps = cl.data.get("fps").get("num") / cl.data.get("fps").get("den")
     seconds = cl.data.get('end') - cl.data.get('start')
     return seconds * fps + 1
+
+def startAndEndFrames(clip):
+    timeToFrame = lambda t, fps: round((t * fps) + 1)
+    fps = clip.data.get("fps").get("num") / clip.data.get("fps").get("den")
+    start_time = c.data.get("start")
+    end_time = c.data.get("end")
+    return (timeToFrame(start_time, fps), timeToFrame(end_time, fps))
 
 def setupWriter(clip, writer):
     # TODO: allow for audio clips
@@ -176,8 +184,7 @@ class clipExportWindow(QDialog):
             copyFileToFolder(f, export_destination)
             frames_written+=int(f.data.get("video_length",0))
         for c in clips:
-            extension = "mp4"
-            export_path = os.path.join(export_destination, f"{nameOfExport(c)}.{extension}")
+            export_path = os.path.join(export_destination, f"{nameOfExport(c)}.mp4")
             if(os.path.exists(export_path)):
                 log.info("Export path exists. Skipping render")
                 frames_written += framesInClip(c)
@@ -189,16 +196,13 @@ class clipExportWindow(QDialog):
             w.PrepareStreams()
             w.Open()
 
-            start_time = c.data.get("start")
-            end_time = c.data.get("end")
-            fps = c.data.get("fps").get("num") / c.data.get("fps").get("den")
-            start_frame, end_frame = int(start_time * fps), int(end_time*fps)
+            start_frame, end_frame = startAndEndFrames(c)
 
             clip_reader = openshot.Clip(c.data.get("path"))
             clip_reader.Open()
 
             log.info(f"Starting to write frames to {export_path}")
-            for frame in range(start_frame+1, end_frame+1):
+            for frame in range(start_frame, end_frame):
                 w.WriteFrame(clip_reader.GetFrame(frame))
                 if frame % 5 == 0:
                     self._updateProgressBar(frames_written, total_frames)
@@ -216,9 +220,10 @@ class clipExportWindow(QDialog):
     def _updateProgressBar(self, count: int, total: int):
         if total==0:
             log.error("Total:frames = 0")
-            return
+            return # Prevent devision by zero
         d = count - total
         if -2 <= d and 2 >= d:
+            # If within 2 frames of complete, show 100 percent.
             self.progressExportVideo.setValue(100)
             return
         self.progressExportVideo.setValue((count/total) * 100)
