@@ -27,15 +27,22 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-from PyQt5.QtWidgets import QPushButton, QFileDialog, QCompleter, QLineEdit, QLabel
+from PyQt5.QtWidgets import QPushButton, QFileDialog, QLineEdit, QLabel
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
-from PyQt5 import QtCore
 import os
 from classes.app import get_app
+from classes import info
 
 
 _ = get_app()._tr
 # TODO: test on windows
+
+def firstValidPath(path: str):
+    """check if a path is valid. If not, repeat with parent directory"""
+    parent_dir = lambda x: os.path.abspath(os.path.join(x, ".."))
+    while not os.path.exists(path) and path != os.path.expanduser("/"):
+        path = parent_dir(path)
+    return path
 
 class customLineEdit(QLineEdit):
     """A QLineEdit which doesn't highlight
@@ -50,7 +57,12 @@ class customLineEdit(QLineEdit):
 
 class filePicker(QWidget):
     folder_only = False
-    DEFAULT_STARTING_DIRECTORY = os.path.expanduser("~") # or os.environ["HOME"]
+    try:
+        DEFAULT_STARTING_DIRECTORY = get_app().project.current_filepath \
+            if get_app().project.current_filepath else info.HOME_PATH
+    except AttributeError:
+        # If all else fails, default to home directory
+        DEFAULT_STARTING_DIRECTORY = info.HOME_PATH
     PROMPT = _("File Path: ")
 
     def __init__(self, *args, **kwargs):
@@ -79,34 +91,12 @@ class filePicker(QWidget):
         self.layout.addWidget(self.browse_button)
 
     def _browseButtonPushed(self):
-        self.path_line.setText(self.file_dialog.getExistingDirectory())
-
-    def _addCompletion(self, line: QLineEdit):
-        #TODO case insensitive DONE
-        dirs = self._childDirs(line.text())
-        com = QCompleter(dirs)
-        com.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
-        com.setFilterMode(QtCore.Qt.MatchContains)
-        line.setCompleter(com)
-
-    def _childDirs(self, path: str):
-        parent_dir = lambda x: os.path.abspath( os.path.join(x, ".."))
-        while not os.path.exists(path) and path != os.path.expanduser("/"):
-            path = parent_dir(path)
-        dirs = os.listdir(path)
-        dirs = [os.path.join(path, x) for x in dirs]
-        if (self.folder_only):
-            dirs = list(filter(os.path.isdir, dirs))
-        return(dirs)
-
-    _UPDATE_LOCK = False
-    def _updateCompleterModel(self, line: QLineEdit):
-        if (self._UPDATE_LOCK):
-            return
-        self._UPDATE_LOCK = True
-        dirs = self._childDirs(line.text())
-        line.completer().model().setStringList(dirs)
-        self._UPDATE_LOCK = False
+        current_path = self.path_line.text()
+        self.file_dialog.setDirectory(firstValidPath(current_path))
+        browse_path = self.file_dialog.getExistingDirectory()
+        if browse_path != "": # reject empty path
+            self.path_line.setText(browse_path)
+        return
 
     def getPath(self) -> str:
         return self.path_line.text()
