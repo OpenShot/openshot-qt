@@ -1,5 +1,5 @@
 """
- @file exportClips.py
+ @file export_clips.py
  @brief Behavior for the export clips dialog.
  @details
  Takes an array of file objects
@@ -35,7 +35,7 @@
  """
 from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox
 from PyQt5.QtCore import Qt
-from classes.filePicker import filePicker
+from classes.file_picker import filePicker
 from classes import ui_util
 from classes import info
 from classes.app import get_app
@@ -126,7 +126,7 @@ class clipExportWindow(QDialog):
     """A popup to export clips as mp4 files
     in a folder of the user's choosing"""
     fp: filePicker
-    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'exportClips.ui')
+    ui_path = os.path.join(info.PATH, 'windows', 'ui', 'export-clips.ui')
 
     exporting = False # Changes whether cancel button closes,
         # or waits for export to close the writers

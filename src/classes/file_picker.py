@@ -1,5 +1,5 @@
 """
- @file filePicker.py
+ @file file_picker.py
  @brief A widget for selecting a file or folder
  @details
  The goal of this widget is improved keyboard-based file/folder selection
