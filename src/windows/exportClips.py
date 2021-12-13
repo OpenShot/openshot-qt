@@ -128,6 +128,10 @@ class clipExportWindow(QDialog):
     fp: filePicker
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'exportClips.ui')
 
+    exporting = False # Changes whether cancel button closes,
+        # or waits for export to close the writers
+    canceled = False
+
     def __init__(self, export_clips_arg, *args, **kwargs):
         super().__init__(*args, **kwargs)
         ui_util.load_ui(self, self.ui_path)
@@ -142,8 +146,8 @@ class clipExportWindow(QDialog):
         self.fp = filePicker(folder_only=True)
         self.export_button = QPushButton(_("Export"))
         self.export_button.clicked.connect(self._exportPressed)
-        self.close_button = QPushButton(_("Close"))
-        self.close_button.clicked.connect(self.done)
+        self.done_button = QPushButton(_("Done"))
+        self.done_button.clicked.connect(self.done)
         self.cancel_button = QPushButton(_("Cancel"))
         self.cancel_button.clicked.connect(self._cancelButtonClicked)
 
@@ -153,21 +157,17 @@ class clipExportWindow(QDialog):
         p.setColor(QPalette.Highlight, Qt.green)
         self.progressExportVideo.setPalette(p)
 
-        self.buttonBox.addButton(self.export_button, QDialogButtonBox.ActionRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ActionRole)
-        self.buttonBox.addButton(QDialogButtonBox.Close).clicked.connect(lambda: self.done(0))
-        self.FilePickerArea.addWidget(self.fp)
+        self.buttonBox.addButton(self.export_button, QDialogButtonBox.ActionRole)
+        self.buttonBox.addButton(self.done_button, QDialogButtonBox.ActionRole)
+        self.done_button.setHidden(True)
         self.progressExportVideo.setValue(0)
 
     def _cancelButtonClicked(self):
-        self.exporting = False
-
-    def _updateProgressBar(self, count: int, total: int):
-        d = count - total
-        if -2 <= d and 2 >= d:
-            self.progressExportVideo.setValue(100)
-            return
-        self.progressExportVideo.setValue((count/total) * 100)
+        if self.exporting:
+            self.canceled = True
+        else:
+            self.done(0)
 
     def _exportPressed(self):
         clips = list(filter(isClip, self.file_objs))
@@ -208,10 +208,16 @@ class clipExportWindow(QDialog):
                     self._updateProgressBar(frames_written, total_frames)
                     get_app().processEvents()
                 frames_written += 1
-                if not self.exporting:
+                if self.canceled:
+                    log.info("Export Canceled. Deleting partial export")
+                    os.remove(export_path)
                     break
             clip_reader.Close()
             w.Close()
+            if self.canceled:
+                log.info("Reader and Writer closed. Exiting Dialog")
+                self.done(0)
+                break
             log.info("Finished Exporting Clip: %s" % export_path)
         log.info("Finished exporting")
         self._updateProgressBar(frames_written, total_frames)
@@ -229,13 +235,13 @@ class clipExportWindow(QDialog):
         self.progressExportVideo.setValue((count/total) * 100)
 
     def _updateDialogExportFinished(self):
-        log.info("Finished exporting")
         self.setWindowTitle(_("Done"))
-        self.export_button.hide()
         self.cancel_button.hide()
-        self.buttonBox.button(QDialogButtonBox.Close).setEnabled(True)
+        self.done_button.setHidden(False)
+        self.exporting=False
+        log.info("Finished exporting")
 
     def _updateDialogExportStarting(self):
         self.exporting=True
-        self.buttonBox.button(QDialogButtonBox.Close).setEnabled(False)
+        self.export_button.hide()
         self.setWindowTitle(_("Exporting"))
