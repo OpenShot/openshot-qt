@@ -55,7 +55,6 @@ class FilesListView(QListView):
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionDetailsView)
-        menu.addAction(self.win.actionExportClips)
 
         if index.isValid():
             # Look up the model item and our unique ID
@@ -76,7 +75,10 @@ class FilesListView(QListView):
                 menu.addSeparator()
 
             menu.addAction(self.win.actionPreview_File)
+            menu.addSeparator()
             menu.addAction(self.win.actionSplitClip)
+            menu.addAction(self.win.actionExportClips)
+            menu.addSeparator()
             menu.addAction(self.win.actionAdd_to_Timeline)
             menu.addAction(self.win.actionFile_Properties)
             menu.addSeparator()
