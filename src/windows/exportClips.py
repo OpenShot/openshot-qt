@@ -92,8 +92,8 @@ def framesInClip(cl):
 def startAndEndFrames(clip):
     timeToFrame = lambda t, fps: round((t * fps) + 1)
     fps = clip.data.get("fps").get("num") / clip.data.get("fps").get("den")
-    start_time = c.data.get("start")
-    end_time = c.data.get("end")
+    start_time = clip.data.get("start")
+    end_time = clip.data.get("end")
     return (timeToFrame(start_time, fps), timeToFrame(end_time, fps))
 
 def setupWriter(clip, writer):
@@ -144,6 +144,7 @@ class clipExportWindow(QDialog):
 
     def _createWidgets(self):
         self.fp = filePicker(folder_only=True)
+        self.FilePickerArea.addWidget(self.fp)
         self.export_button = QPushButton(_("Export"))
         self.export_button.clicked.connect(self._exportPressed)
         self.done_button = QPushButton(_("Done"))
@@ -162,6 +163,7 @@ class clipExportWindow(QDialog):
         self.buttonBox.addButton(self.done_button, QDialogButtonBox.ActionRole)
         self.done_button.setHidden(True)
         self.progressExportVideo.setValue(0)
+        self.fp.path_line.setFocus()
 
     def _cancelButtonClicked(self):
         if self.exporting:
@@ -238,6 +240,7 @@ class clipExportWindow(QDialog):
         self.setWindowTitle(_("Done"))
         self.cancel_button.hide()
         self.done_button.setHidden(False)
+        self.done_button.setFocus()
         self.exporting=False
         log.info("Finished exporting")
 

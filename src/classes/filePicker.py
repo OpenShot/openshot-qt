@@ -32,6 +32,8 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout
 from PyQt5 import QtCore
 import os
 from classes.app import get_app
+
+
 _ = get_app()._tr
 # TODO: test on windows
 
@@ -49,34 +51,35 @@ class customLineEdit(QLineEdit):
 class filePicker(QWidget):
     folder_only = False
     DEFAULT_STARTING_DIRECTORY = os.path.expanduser("~") # or os.environ["HOME"]
-    PROMPT = "File Path: "
+    PROMPT = _("File Path: ")
 
     def __init__(self, *args, **kwargs):
-        super(filePicker, self).__init__()
         self.folder_only = kwargs.get("folder_only", False)
+        if "folder_only" in kwargs:
+            kwargs.pop("folder_only")
+        super().__init__(*args, **kwargs)
 
         self._createWidgets()
-        self.dir_line.setText( kwargs.get("path", self.DEFAULT_STARTING_DIRECTORY))
-        self._addCompletion(self.dir_line)
-        self.dir_line.textEdited.connect(lambda : self._updateCompleterModel(self.dir_line) )
+        self.path_line.setText( kwargs.get("path", self.DEFAULT_STARTING_DIRECTORY))
 
     def _createWidgets(self):
         self.layout = QHBoxLayout(self)
-        self.lbl = QLabel(_(self.PROMPT))
+        self.layout.setContentsMargins(6,0,6,0) #least vertical height by default
+        self.path_lbl = QLabel(self.PROMPT)
         # Browse Button
         self.browse_button = QPushButton("Browse...")
         self.browse_button.clicked.connect(self._browseButtonPushed)
         self.file_dialog = QFileDialog()
         # LineEdit input
-        self.dir_line = customLineEdit()
+        self.path_line = customLineEdit()
         if (self.folder_only):
             self.file_dialog.setOption(QFileDialog.ShowDirsOnly)
-        self.layout.addWidget(self.lbl)
-        self.layout.addWidget(self.dir_line)
+        self.layout.addWidget(self.path_lbl)
+        self.layout.addWidget(self.path_line)
         self.layout.addWidget(self.browse_button)
 
     def _browseButtonPushed(self):
-        self.dir_line.setText(self.file_dialog.getExistingDirectory())
+        self.path_line.setText(self.file_dialog.getExistingDirectory())
 
     def _addCompletion(self, line: QLineEdit):
         #TODO case insensitive DONE
@@ -106,10 +109,10 @@ class filePicker(QWidget):
         self._UPDATE_LOCK = False
 
     def getPath(self) -> str:
-        return self.dir_line.text()
+        return self.path_line.text()
 
     def setPath(self, p: str):
-        self.dir_line.setText(p)
+        self.path_line.setText(p)
 
     def setPrompt(self, p: str):
         self.PROMPT = p
