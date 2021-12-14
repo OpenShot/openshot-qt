@@ -33,7 +33,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox
+from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox, QLabel, QFileDialog
 from PyQt5.QtCore import Qt
 from classes.file_picker import filePicker
 from classes import ui_util
@@ -125,7 +125,6 @@ def setupWriter(clip, writer):
 class clipExportWindow(QDialog):
     """A popup to export clips as mp4 files
     in a folder of the user's choosing"""
-    fp: filePicker
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'export-clips.ui')
 
     exporting = False # Changes whether cancel button closes,
@@ -137,14 +136,21 @@ class clipExportWindow(QDialog):
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui
         self.file_objs = export_clips_arg
+        self._getDestination()
         self._createWidgets()
 
-    def setPath(self, p: str):
-        self.fp.setPath(p)
+    def _getDestination(self):
+        fd = QFileDialog()
+        fd.setOption(QFileDialog.ShowDirsOnly)
+        fd.setDirectory(
+            get_app().project.current_filepath\
+            if get_app().project.current_filepath\
+            else info.HOME_PATH
+        )
+        self.export_destination = fd.getExistingDirectory()
 
     def _createWidgets(self):
-        self.fp = filePicker(folder_only=True)
-        self.FilePickerArea.addWidget(self.fp)
+        self.FilePickerArea.addWidget(QLabel(_("Export To %s") % self.export_destination))
         self.export_button = QPushButton(_("Export"))
         self.export_button.clicked.connect(self._exportPressed)
         self.done_button = QPushButton(_("Done"))
@@ -163,7 +169,6 @@ class clipExportWindow(QDialog):
         self.buttonBox.addButton(self.done_button, QDialogButtonBox.ActionRole)
         self.done_button.setHidden(True)
         self.progressExportVideo.setValue(0)
-        self.fp.path_line.setFocus()
 
     def _cancelButtonClicked(self):
         if self.exporting:
@@ -176,17 +181,16 @@ class clipExportWindow(QDialog):
         files = list(filter(notClip, self.file_objs))
         # Total number of frames
         self._updateDialogExportStarting()
-        export_destination = self.fp.getPath()
         total_frames, frames_written = 0, 0
         for c in clips:
             total_frames += framesInClip(c)
         for f in files:
             total_frames += int(f.data.get("video_length",0))
         for f in files:
-            copyFileToFolder(f, export_destination)
+            copyFileToFolder(f, self.export_destination)
             frames_written+=int(f.data.get("video_length",0))
         for c in clips:
-            export_path = os.path.join(export_destination, f"{nameOfExport(c)}.mp4")
+            export_path = os.path.join(self.export_destination, f"{nameOfExport(c)}.mp4")
             if(os.path.exists(export_path)):
                 log.info("Export path exists. Skipping render")
                 frames_written += framesInClip(c)

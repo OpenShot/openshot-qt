@@ -1959,7 +1959,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.export_clips import clipExportWindow
         f = self.selected_files()
         exp = clipExportWindow(export_clips_arg=f)
-        exp.setPath(get_app().project.get("export_path"))
         try:
             exp.exec_()
         except:
