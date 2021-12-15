@@ -35,7 +35,6 @@
  """
 from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox, QLabel, QFileDialog
 from PyQt5.QtCore import Qt
-from classes.file_picker import filePicker
 from classes import ui_util
 from classes import info
 from classes.app import get_app
