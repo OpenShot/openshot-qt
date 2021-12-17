@@ -33,7 +33,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox, QLabel, QFileDialog
+from PyQt5.QtWidgets import QPushButton, QDialog, QDialogButtonBox, QLabel, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 from classes import ui_util
 from classes import info
@@ -73,6 +73,9 @@ def nameOfExport(file_obj) -> str:
         name = file_obj.data.get("name", backup_name)
         name = makeLegalFileName(name)
         name += f" [{format(file_obj.data.get('start'), '.2f')} - {format(file_obj.data.get('end'), '.2f')}]"
+        # When we support audio-only exports
+        # ext = "mp4" if file_obj.data.get("has_video") else "mp3"
+        name += ".mp4"
         return name
     else:
         name, ext = os.path.splitext(os.path.split(file_obj.data.get("path"))[1])
@@ -97,9 +100,8 @@ def startAndEndFrames(clip):
 
 def setupWriter(clip, writer):
     # TODO: allow for audio clips
-    export_type = "Video & Audio"
     # Set video options
-    if export_type in [_("Video & Audio"), _("Video Only"), _("Image Sequence")]:
+    if clip.data.get('has_video', False):
         writer.SetVideoOptions(True,
                                "libx264",
                                openshot.Fraction(clip.data.get("fps").get("num"),
@@ -111,15 +113,18 @@ def setupWriter(clip, writer):
                                False,
                                False,
                                22
-                               )
+                                   )
     # Set audio options
-    if export_type in [_("Video & Audio"), _("Audio Only")]:
+    if clip.data.get('has_audio', False):
         writer.SetAudioOptions(True,
                                clip.data.get("acodec", "aac"),
                                clip.data.get("sample_rate"),
                                clip.data.get("channels"),
                                clip.data.get("channel_layout"),
-                               clip.data.get("audio_bit_rate"))
+                               clip.data.get("audio_bit_rate")
+                               )
+    writer.PrepareStreams()
+    writer.Open()
 
 class clipExportWindow(QDialog):
     """A popup to export clips as mp4 files
@@ -189,7 +194,7 @@ class clipExportWindow(QDialog):
             copyFileToFolder(f, self.export_destination)
             frames_written+=int(f.data.get("video_length",0))
         for c in clips:
-            export_path = os.path.join(self.export_destination, f"{nameOfExport(c)}.mp4")
+            export_path = os.path.join(self.export_destination, f"{nameOfExport(c)}")
             if(os.path.exists(export_path)):
                 log.info("Export path exists. Skipping render")
                 frames_written += framesInClip(c)
@@ -197,9 +202,17 @@ class clipExportWindow(QDialog):
                 get_app().processEvents()
                 continue
             w = openshot.FFmpegWriter(export_path)
-            setupWriter(c, w)
-            w.PrepareStreams()
-            w.Open()
+            try:
+                setupWriter(c, w)
+            except Exception as ex:
+                log.error("Error Exporting Clip: "+str(ex))
+                QMessageBox.warning(self, _("Error Exporting Clip"),
+                                    _("The following error occurred while "\
+                    +"exporting this clip \n\n%s\n\n"\
+                    +"Exporting Audio clips is not fully supported") % str(ex))
+                log.info("Removing incomplete file %s" % export_path)
+                os.remove(export_path)
+                continue
 
             start_frame, end_frame = startAndEndFrames(c)
 
