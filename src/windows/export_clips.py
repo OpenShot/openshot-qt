@@ -101,28 +101,28 @@ def startAndEndFrames(clip):
 def setupWriter(clip, writer):
     # TODO: allow for audio clips
     # Set video options
-    if clip.data.get('has_video', False):
-        writer.SetVideoOptions(True,
-                               "libx264",
-                               openshot.Fraction(clip.data.get("fps").get("num"),
-                                                 clip.data.get("fps").get("den")),
-                               clip.data.get("width"),
-                               clip.data.get("height"),
-                               openshot.Fraction(clip.data.get("pixel_ratio").get("num"),
-                                                 clip.data.get("pixel_ratio").get("den")),
-                               False,
-                               False,
-                               22
-                                   )
+    pr = clip.data.get("pixel_ratio", {"num": 1, "den": 1})
+    pixel_ratio = openshot.Fraction(pr.get("num"), pr.get("den"))
+    fps = clip.data.get("fps", {"num": 30, "den": 1})
+    frames_per_second = openshot.Fraction(fps.get("num",1), fps.get("den",1))
+
+    writer.SetVideoOptions(True,
+                           "libx264",
+                           frames_per_second,
+                           clip.data.get("width", 1280),
+                           clip.data.get("height", 720),
+                           pixel_ratio,
+                           False,
+                           False,
+                           22)
+    writer.PrepareStreams()
     # Set audio options
-    if clip.data.get('has_audio', False):
-        writer.SetAudioOptions(True,
-                               clip.data.get("acodec", "aac"),
-                               clip.data.get("sample_rate"),
-                               clip.data.get("channels"),
-                               clip.data.get("channel_layout"),
-                               clip.data.get("audio_bit_rate")
-                               )
+    writer.SetAudioOptions(True,
+                           "aac",
+                           clip.data.get("sample_rate", 48000),
+                           clip.data.get("channels", 2),
+                           clip.data.get("channel_layout", 3),
+                           clip.data.get("audio_bit_rate", 192000) )
     writer.PrepareStreams()
     writer.Open()
 
@@ -208,10 +208,12 @@ class clipExportWindow(QDialog):
                 log.error("Error Exporting Clip: "+str(ex))
                 QMessageBox.warning(self, _("Error Exporting Clip"),
                                     _("The following error occurred while "\
-                    +"exporting this clip \n\n%s\n\n"\
-                    +"Exporting Audio clips is not fully supported") % str(ex))
-                log.info("Removing incomplete file %s" % export_path)
-                os.remove(export_path)
+                    +"exporting this clip \n\n%s") % str(ex))
+                log.info("Removing this clip from total_frames")
+                total_frames -= int(framesInClip(c))
+                if os.path.exists(export_path):
+                    log.info("Removing incomplete file %s" % export_path)
+                    os.remove(export_path)
                 continue
 
             start_frame, end_frame = startAndEndFrames(c)
@@ -243,8 +245,13 @@ class clipExportWindow(QDialog):
 
     def _updateProgressBar(self, count: int, total: int):
         if total==0:
-            log.error("Total:frames = 0")
-            return # Prevent devision by zero
+            log.info("Total:frames is 0")
+            # Only reason this should happen is if the only clip
+            # Has an error.
+                # I consider error'ed clips "done" so the user doesn't
+                # mistakenly wait on a progress bar.
+            self.progressExportVideo.setValue(100)
+            return # Prevent division by zero
         d = count - total
         if -2 <= d and 2 >= d:
             # If within 2 frames of complete, show 100 percent.
