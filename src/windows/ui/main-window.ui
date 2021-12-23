@@ -621,6 +621,19 @@
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
+  <action name="actionExportClips">
+   <property name="icon">
+    <iconset theme="media-record" resource="../../../images/openshot.qrc">
+    <!--PLACEHOLDER ICON-->
+     <normaloff>:/icons/Humanity/actions/16/media-record.svg</normaloff>:/icons/Humanity/actions/16/media-record.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export Clips</string>
+   </property>
+   <property name="toolTip">
+    <string>Export clips to video files</string>
+   </property>
+  </action>
   <action name="actionImportFiles">
    <property name="icon">
     <iconset theme="list-add" resource="../../../images/openshot.qrc">

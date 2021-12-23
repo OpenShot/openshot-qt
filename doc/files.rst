@@ -100,6 +100,13 @@ to repeat the steps for your next clip. When you are finished, simply close the 
 
 Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
 
+Export Clip
+-----------
+If you want your clips available outside of your OpenShot project, or want to copy all your video assets to one place,
+you can do this with the **Export Clip** dialog.
+Simply :kbd:`Ctrl+Click` to select any clips or files you like. Then right click and choose **Export Clips**.
+In the dialog that appears, choose a destination folder, and click **Export**.
+
 Add to Timeline
 ---------------
 In certain cases, you might need to add many files to the timeline at the same time. For example, a photo slide show,
