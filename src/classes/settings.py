@@ -83,11 +83,11 @@ class SettingStore(JsonDataStore):
         self._data = default_settings
 
         # Try to find user settings dir, give up if it's not there
-        if not os.path.exists(info.USER_PATH):
+        if not os.path.exists(info.CONFIG_PATH):
             return True
 
         # Load or create user settings
-        file_path = os.path.join(info.USER_PATH, self.settings_filename)
+        file_path = os.path.join(info.CONFIG_PATH, self.settings_filename)
         if os.path.exists(os.fsencode(file_path)):
             try:
                 user_settings = self.read_from_file(file_path)
@@ -106,8 +106,7 @@ class SettingStore(JsonDataStore):
         """ Save user settings file to disk """
 
         # Try to find user settings file
-        if os.path.exists(info.USER_PATH):
-            file_path = os.path.join(info.USER_PATH, self.settings_filename)
+        if os.path.exists(info.CONFIG_PATH):
+            file_path = os.path.join(info.CONFIG_PATH, self.settings_filename)
             # try to save data to file, will raise exception on failure
             self.write_to_file(file_path, self._data)
-

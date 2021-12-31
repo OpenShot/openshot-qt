@@ -28,6 +28,12 @@
 import os
 from time import strftime
 
+try:
+    from xdg import BaseDirectory
+except ImportError:
+    BaseDirectory = None
+
+
 VERSION = "2.6.1-dev"
 MINIMUM_LIBOPENSHOT_VERSION = "0.2.7"
 DATE = "20210904000000"
@@ -48,16 +54,26 @@ EXPORT_PRESETS_PATH = os.path.join(PATH, "presets")
 
 # User paths
 HOME_PATH = os.path.join(os.path.expanduser("~"))
+
 USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+if BaseDirectory and not os.path.exists(os.fsencode(USER_PATH)):
+    USER_PATH = BaseDirectory.save_data_path("openshot_qt")
+    CONFIG_PATH = BaseDirectory.save_config_path("openshot_qt")
+    CACHE_PATH = BaseDirectory.save_cache_path("openshot_qt", "main")
+    PREVIEW_CACHE_PATH = BaseDirectory.save_cache_path("openshot_qt",
+                                                       "preview")
+else:
+    CONFIG_PATH = USER_PATH
+    CACHE_PATH = os.path.join(USER_PATH, "cache")
+    PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
+
 BACKUP_PATH = os.path.join(USER_PATH)
 RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
 THUMBNAIL_PATH = os.path.join(USER_PATH, "thumbnail")
-CACHE_PATH = os.path.join(USER_PATH, "cache")
 BLENDER_PATH = os.path.join(USER_PATH, "blender")
 TITLE_PATH = os.path.join(USER_PATH, "title")
 TRANSITIONS_PATH = os.path.join(USER_PATH, "transitions")
 EMOJIS_PATH = os.path.join(USER_PATH, "emojis")
-PREVIEW_CACHE_PATH = os.path.join(USER_PATH, "preview-cache")
 USER_PROFILES_PATH = os.path.join(USER_PATH, "profiles")
 USER_PRESETS_PATH = os.path.join(USER_PATH, "presets")
 USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
