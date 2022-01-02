@@ -509,23 +509,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def centeredViewport(self, width, height):
         """ Calculate size of viewport to maintain aspect ratio """
 
-        # Calculate padding
-        top_padding = (height - (height * self.zoom)) / 2.0
-        left_padding = (width - (width * self.zoom)) / 2.0
+        window_size = QSizeF(width, height)
+        window_rect = QRectF(QPointF(0, 0), window_size)
 
-        # Adjust parameters to zoom
-        width = width * self.zoom
-        height = height * self.zoom
+        aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
+        viewport_size = QSizeF(aspectRatio, 1).scaled(window_size, Qt.KeepAspectRatio)
+        viewport_rect = QRectF(QPointF(0, 0), viewport_size)
+        viewport_rect.moveCenter(window_rect.center())
 
-        # Calculate which direction to scale (for perfect centering)
-        aspectRatio = self.aspect_ratio.ToFloat()
-        heightFromWidth = width / aspectRatio
-        widthFromHeight = height * aspectRatio
-
-        if heightFromWidth <= height:
-            return QRect(left_padding, ((height - heightFromWidth) / 2) + top_padding, width, heightFromWidth)
-        else:
-            return QRect(((width - widthFromHeight) / 2.0) + left_padding, top_padding, widthFromHeight, height)
+        return viewport_rect.toRect()
 
     def present(self, image, *args):
         """ Present the current frame """
@@ -1273,12 +1265,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def regionTriggered(self, clip_id):
         """Handle the 'select region' signal when it's emitted"""
-        if self and not clip_id:
-            # Clear transform
-            self.region_enabled = False
-        else:
-            self.region_enabled = True
-
+        # Clear transform
+        self.region_enabled = bool(not clip_id)
         get_app().window.refreshFrameSignal.emit()
 
     def resizeEvent(self, event):
