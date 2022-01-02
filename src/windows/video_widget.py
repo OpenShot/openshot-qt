@@ -513,7 +513,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         window_rect = QRectF(QPointF(0, 0), window_size)
 
         aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
-        viewport_size = QSizeF(aspectRatio, 1).scaled(window_size, Qt.KeepAspectRatio)
+        viewport_size = QSizeF(aspectRatio, 1).scaled(
+                            window_size, Qt.KeepAspectRatio
+                        ) * self.zoom
         viewport_rect = QRectF(QPointF(0, 0), viewport_size)
         viewport_rect.moveCenter(window_rect.center())
 
@@ -1266,7 +1268,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def regionTriggered(self, clip_id):
         """Handle the 'select region' signal when it's emitted"""
         # Clear transform
-        self.region_enabled = bool(not clip_id)
+        self.region_enabled = bool(clip_id)
         get_app().window.refreshFrameSignal.emit()
 
     def resizeEvent(self, event):
