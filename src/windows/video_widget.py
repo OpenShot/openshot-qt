@@ -518,8 +518,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         ) * self.zoom
         viewport_rect = QRectF(QPointF(0, 0), viewport_size)
         viewport_rect.moveCenter(window_rect.center())
-
-        return viewport_rect.toRect()
+        # Always round up to next whole integer value
+        return viewport_rect.toAlignedRect()
 
     def present(self, image, *args):
         """ Present the current frame """
