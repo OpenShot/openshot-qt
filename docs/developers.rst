@@ -192,5 +192,5 @@ pushing your changes back to GitHub, and creating a `Pull Request`_.
 A Pull Request lets the OpenShot team know you have changes ready to be merged.
 Then we can review things, give feedback, and hopefully merge your changes into the main branch.
 
-.. _Pull Request: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests
+.. _Pull Request: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests
 .. _OpenShot Issues: https://github.com/OpenShot/openshot-qt/issues/
