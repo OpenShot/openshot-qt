@@ -36,7 +36,7 @@ Import Files
 ------------
 These are all possible methods to import media files into OpenShot:
 
-.. |importfiles_icon| image:: ../images/Humanity/actions/16/list-add.svg
+.. |importfiles_icon| image:: images/list-add.svg
 
 .. table::
    :widths: 25

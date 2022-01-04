@@ -19,9 +19,26 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath('.')), "src"))
 
-from classes import info
+try:
+    # if we're running in a Docker container, it will have copied
+    # in the info.py module, and any images we need
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from _docker import info
+    html_logo = os.path.join("_docker", "openshot-arrow.png")
+    html_favicon = os.path.join("_docker", "openshot-qt.ico")
+    latex_logo = os.path.join("_docker", "openshot-qt.png")
+except ImportError:
+    # Otherwise, load everything relative to the parent dir in the repo
+    project_root = os.path.dirname(os.path.abspath('.'))
+    sys.path.insert(0, project_root)
+
+    from src.classes import info
+
+    html_logo = os.path.join(project_root, "xdg", "openshot-arrow.png")
+    html_favicon = os.path.join(project_root, "xdg", "openshot-qt.ico")
+    latex_logo = os.path.join(
+        project_root, "xdg", "icon", "512", "openshot-qt.png")
 
 # -- General configuration ------------------------------------------------
 
@@ -114,7 +131,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_docker']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -172,17 +189,6 @@ html_theme_path = ["_themes", ]
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
 # html_short_title = None
-
-# The name of an image file (relative to this directory) to place at the top
-# of the sidebar.
-#
-html_logo = "../xdg/openshot-arrow.png"
-
-# The name of an image file (relative to this directory) to use as a favicon of
-# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
-# pixels large.
-#
-html_favicon = "../xdg/openshot-qt.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -297,11 +303,6 @@ latex_documents = [
     (master_doc, 'OpenShotVideoEditor.tex', 'OpenShot Video Editor Documentation',
      'Jonathan Thomas', 'manual'),
 ]
-
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-#
-latex_logo = '../xdg/icon/512/openshot-qt.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
