@@ -3,16 +3,38 @@
 
 <svg
   version="1.1"
-  width="11.974838"
-  height="15.992563"
+  width="14"
+  height="18"
   id="svg2868"
-  viewBox="0 0 95.798706 127.94051"
+  viewBox="0 0 112 144"
+  sodipodi:docname="edit-cut.svg"
+  inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:svg="http://www.w3.org/2000/svg"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:cc="http://creativecommons.org/ns#"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <sodipodi:namedview
+   id="namedview32"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="27.67"
+   inkscape:cx="0.21684134"
+   inkscape:cy="7.9869895"
+   inkscape:window-width="1616"
+   inkscape:window-height="1028"
+   inkscape:window-x="190"
+   inkscape:window-y="94"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg2868" />
  <metadata
    id="metadata18">
   <rdf:RDF>
@@ -63,13 +85,13 @@
  </defs>
  <g
    id="layer1"
-   transform="matrix(7.8918644,0,0,7.8918644,-15.173049,0.09801967)">
+   transform="matrix(7.8918644,0,0,7.8918644,-7.0724026,16.157511)">
   <path
     d="m 13.409802,0.4875624 c 0.05195,0.0349657 0.101526,0.0721198 0.151737,0.10825506 L 13.525579,3.6872329 C 13,6 10.52517,7.1719729 9.002489,9.1248981 8.7897013,9.1325491 8.5802943,8.8067309 8.3753082,8.7704285 7.943676,8.6949868 7.5218692,8.5245586 7.1568457,8.2583556 9.1820052,5.661498 11.364515,3.0584312 13.409802,0.4875624 Z"
     id="path12626"
     style="fill:url(#linearGradient2922);stroke:#888a85;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   <polygon
-    points="296.95605,12.300293 297.6001,13.384766 298.86719,14.71875 299.26807,13.672852 298.25391,11.960449 "
+    points="298.86719,14.71875 299.26807,13.672852 298.25391,11.960449 296.95605,12.300293 297.6001,13.384766 "
     transform="matrix(-0.9931683,-0.27984223,-0.35343052,1.2091849,307.45722,77.285544)"
     id="polygon2981"
     style="fill:#d1524c;fill-opacity:1;stroke:#973137;stroke-width:0.877116;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
@@ -82,7 +104,7 @@
     id="path12638"
     style="fill:#d1524c;fill-opacity:1;stroke:#973137;stroke-width:0.546952;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   <polygon
-    points="296.95605,12.300293 297.6001,13.384766 298.86719,14.71875 299.26807,13.672852 298.25391,11.960449 "
+    points="298.86719,14.71875 299.26807,13.672852 298.25391,11.960449 296.95605,12.300293 297.6001,13.384766 "
     transform="matrix(1.0020543,-0.24613441,0.31238391,1.2204333,-293.31665,67.335136)"
     id="polygon12640"
     style="fill:#d1524c;fill-opacity:1;stroke:#973137;stroke-width:0.877116;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />

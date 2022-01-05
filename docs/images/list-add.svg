@@ -7,11 +7,33 @@
   width="15.932275"
   version="1.0"
   viewBox="0 0 127.72889 127.72889"
+  sodipodi:docname="list-add.svg"
+  inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+  xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:svg="http://www.w3.org/2000/svg"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:cc="http://creativecommons.org/ns#"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <sodipodi:namedview
+   id="namedview15"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="36.66"
+   inkscape:cx="-4.6644845"
+   inkscape:cy="7.9650846"
+   inkscape:window-width="1440"
+   inkscape:window-height="900"
+   inkscape:window-x="145"
+   inkscape:window-y="177"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg3247" />
  <metadata
    id="metadata15">
   <rdf:RDF>
@@ -60,7 +82,7 @@
  </defs>
  <g
    id="g828"
-   transform="matrix(7.9830508,0,0,7.9830508,0,-894.10169)">
+   transform="matrix(7.0148664,0,0,7.0148664,7.7454755,-770.17401)">
   <g
     transform="translate(0,112)"
     id="layer1">
