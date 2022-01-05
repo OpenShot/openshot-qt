@@ -30,8 +30,6 @@ deleted or moved after adding them to your project. The "Show All", "Video", "Au
 "Image" filters above the files allows you to only see the file types you are interested in. You can also toggle the view between details and thumbnails view of your files.
 
 
-.. _import_files_ref:
-
 Import Files
 ------------
 These are all possible methods to import media files into OpenShot:
@@ -100,7 +98,7 @@ to repeat the steps for your next clip. When you are finished, simply close the 
    4   Create Clip         Create the clip (which resets this dialog, so you can repeat these steps for each clip)
    ==  ==================  ============
 
-Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
+Please refer to the section :ref:`clips:Cutting & Slicing` for more ways to cut and slice clips directly in the timeline.
 
 Export Clip
 -----------
@@ -151,8 +149,6 @@ This will launch the file properties dialog, which displays information about yo
    2   Frame Rate            For image sequences, you can also adjust the frame rate of the animation
    ==  ====================  ============
 
-
-.. _file_remove_ref:
 
 Remove from Project
 -------------------

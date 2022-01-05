@@ -65,11 +65,11 @@ method is simply grabbing the left (or right) edge of the transition and draggin
    Razor Tool          The razor tool cuts a transition wherever you click, so be careful. Easy and dangerous.
    ==================  ============
 
-Keep in mind that all of the above cutting methods also have :ref:`keyboard_shortcut_ref`.
+Keep in mind that all of the above cutting methods also have :ref:`main_window:Keyboard Shortcuts`.
 
 Mask
 ----
-Like :ref:`clips_ref`, transitions also have properties which can be animated over time. The fade (or wipe) can be adjusted
+Like :ref:`clips:Clips`, transitions also have properties which can be animated over time. The fade (or wipe) can be adjusted
 with the **Brightness** curve, or held at a constant value to create a transparency mask on top of a clip.
 
 Custom Transition

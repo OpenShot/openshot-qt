@@ -17,8 +17,6 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _profiles_ref:
-
 Profiles
 ========
 
@@ -60,7 +58,7 @@ The export profile always defaults to your current project profile, but can be c
 Custom Profile
 --------------
 Although OpenShot has more than 70 profiles included by default, you can also create your own custom profiles. Create a
-new file in the */.openshot_qt/profiles/* folder. Use the following text as your template (i.e. copy and paste this
+new file in the ``~/.openshot_qt/profiles/`` folder. Use the following text as your template (i.e. copy and paste this
 into the file):
 
 .. code-block:: python

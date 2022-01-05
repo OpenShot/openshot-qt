@@ -48,7 +48,7 @@ Overview
    ==  ==================  ============
 
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
-:ref:`quick_tutorial_ref`.
+:ref:`quick_tutorial:Quick Tutorial`.
 
 Built-in Tutorial
 -----------------
@@ -83,8 +83,6 @@ For example, imagine a 3 track video project
    2   Middle Track        Clips in the middle (might or might not be visible, depending on what is above them)
    3   Bottom Track        Clips on this track will always be on the bottom
    ==  ==================  ============
-
-.. _keyboard_shortcut_ref:
 
 Keyboard Shortcuts
 ------------------

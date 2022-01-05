@@ -55,8 +55,8 @@ when importing and exporting an EDL file with OpenShot.
    Audio Levels          Volume keyframes are supported
    ====================  ==============================================
 
-In :ref:`Appendix A: Data Interchange Formats` you can see an 
-:ref:`EDL example` file of the type supported by OpenShot.
+In :ref:`appendix_a:Appendix A: Data Interchange Formats` you can see an 
+:ref:`appendix_a:EDL example` file of the type supported by OpenShot.
 
 
 XML (Final Cut Pro format)
@@ -88,6 +88,6 @@ for importing and exporting this standardized XML format.
    Audio Levels          Volume keyframes are supported
    ====================  ==========================================
 
-In :ref:`Appendix A: Data Interchange Formats` you'll find an
-:ref:`XML Example` of the data import/export support in OpenShot.
+In :ref:`appendix_a:Appendix A: Data Interchange Formats` you'll find an
+:ref:`appendix_a:XML Example` of the data import/export support in OpenShot.
 

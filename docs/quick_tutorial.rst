@@ -17,8 +17,6 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _quick_tutorial_ref:
-
 Quick Tutorial
 ==============
 
@@ -37,7 +35,7 @@ arrow in the illustration is pointing to.
 .. image:: images/quick-start-drop-files.jpg
 
 Alternative methods to add files to your projects are described in the section
-:ref:`import_files_ref`.
+:ref:`files:Import Files`.
 The "Show All", "Video", "Audio", "Image" filters above the added files
 allows you to only see the file types you are interested in.
 

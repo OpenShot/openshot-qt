@@ -17,8 +17,6 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _clips_ref:
-
 Clips
 =====
 
@@ -44,8 +42,6 @@ Overview
    3   Clip 2              An image clip
    ==  ==================  ============
 
-.. _clips_cutting_slicing_ref:
-
 Cutting & Slicing
 -----------------
 OpenShot has many easy ways to adjust the start and end positions of a clip (otherwise known as cutting). The most common
@@ -70,9 +66,7 @@ method is simply grabbing the left (or right) edge of the clip and dragging. Her
                            So be careful, it is easy and dangerous!
    ======================  ============
 
-Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
-
-.. _clip_presets_ref:
+Keep in mind that the above cutting methods also have :ref:`main_window:Keyboard Shortcuts`, to save even more time.
 
 Preset Menu
 -----------
@@ -103,8 +97,6 @@ These presets can be accessed by right clicking on a clip.
    Remove Clip         Remove a clip from the timeline
    ==================  ============
 
-.. _clip_transform_ref:
-
 Transform
 ---------
 To quickly adjust the location and scale of a clip, select a clip on the timeline, right click and choose **Transform**.
@@ -115,7 +107,7 @@ position, to help create animations.
 .. image:: images/clip-transform.jpg
    :alt: Transforming a Clip in the Video Preview dock
 
-For more info on key frames and animation, see :ref:`animation_ref`.
+For more info on key frames and animation, see :ref:`animation:Animation`.
 
 Effects
 -------
@@ -125,8 +117,6 @@ effect, and allow you to edit (and animate) them.
 
 .. image:: images/clip-effects.jpg
    :alt: Applying Effects to Clips
-
-.. _clip_properties_ref:
 
 Properties
 ----------
@@ -162,4 +152,4 @@ position, to help create animations.
    Waveform Color      Curve representing the color of the audio wave form
    ==================  ============
 
-For more info on key frames and animation, see :ref:`animation_ref`.
+For more info on key frames and animation, see :ref:`animation:Animation`.

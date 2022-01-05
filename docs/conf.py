@@ -51,6 +51,7 @@ except ImportError:
 # ones.
 extensions = [
     'sphinx.ext.extlinks',
+    'sphinx.ext.autosectionlabel',
     'myst_parser',
 ]
 
@@ -69,6 +70,8 @@ try:
     extensions.append('youtube_directive')
 except ImportError:
     pass
+
+autosectionlabel_prefix_document = True
 
 # External links mappings for extlinks
 # see: http://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
@@ -95,8 +98,10 @@ source_suffix = {
 #
 # source_encoding = 'utf-8-sig'
 
-# The master toctree document.
-master_doc = 'index'
+# The root toctree document.
+root_doc = 'index'
+# Backwards compatibility
+master_doc = root_doc
 
 # General information about the project.
 project = info.PRODUCT_NAME
@@ -163,6 +168,12 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
+
+# MarkDown parser configuration
+#
+
+# Autogenerate targets for 2 levels of headings
+myst_heading_anchors = 2
 
 
 # -- Options for HTML output ----------------------------------------------
@@ -300,8 +311,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'OpenShotVideoEditor.tex', 'OpenShot Video Editor Documentation',
-     'Jonathan Thomas', 'manual'),
+    (root_doc, 'openshot.tex', 'OpenShot Video Editor',
+     author, 'manual'),
 ]
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
@@ -337,7 +348,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'openshotvideoeditor', 'OpenShot Video Editor Documentation',
+    (root_doc, 'openshotvideoeditor', 'OpenShot Video Editor Documentation',
      [author], 1)
 ]
 
@@ -352,7 +363,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'OpenShotVideoEditor', 'OpenShot Video Editor Documentation',
+    (root_doc, 'OpenShotVideoEditor', 'OpenShot Video Editor Documentation',
      author, 'OpenShotVideoEditor', 'One line description of project.',
      'Miscellaneous'),
 ]

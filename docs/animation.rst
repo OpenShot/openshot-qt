@@ -17,8 +17,6 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _animation_ref:
-
 Animation
 =========
 
@@ -65,8 +63,8 @@ To adjust the **interpolation mode**, right click on the small graph icon next t
    Constant            Interpolated values stay the same until the next key frame, and jump to the new value
    ==================  ============
 
-For more info on clip properties, see :ref:`clip_properties_ref`. For more info on preset animations, see :ref:`clip_presets_ref`.
-For more info on creating key frames for location and scale, see :ref:`clip_transform_ref`.
+For more info on clip properties, see :ref:`clips:Properties`. For more info on preset animations, see :ref:`clips:Preset Menu`.
+For more info on creating key frames for location and scale, see :ref:`clips:Transform`.
 
 Bézier Presets
 --------------
