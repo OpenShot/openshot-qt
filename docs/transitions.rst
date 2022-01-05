@@ -29,6 +29,7 @@ Overview
 --------
 
 .. image:: images/clip-overview.jpg
+   :alt: Clips and a Transition on the Timeline
 
 ==  ==================  ============
 #   Name                Description
@@ -45,6 +46,7 @@ to opaque. Right click and choose **Reverse Transition** to change the direction
 the **Brightness** curve, animating the fade in any way you wish.
 
 .. image:: images/transition-reverse.jpg
+   :alt: Reversing a transition
 
 Cutting & Slicing
 -----------------

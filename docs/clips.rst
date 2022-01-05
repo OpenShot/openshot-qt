@@ -31,6 +31,7 @@ Overview
 --------
 
 .. image:: images/clip-overview.jpg
+   :alt: Clips on the Timeline
 
 .. table::
    :widths: 5 10 35
@@ -79,6 +80,7 @@ OpenShot has tons of great preset animations and clip properties, such as fading
 These presets can be accessed by right clicking on a clip.
 
 .. image:: images/clip-presets.jpg
+   :alt: Presets in the Clip context menu
 
 .. table::
    :widths: 20
@@ -111,6 +113,7 @@ attention to where the play-head (i.e. red playback line) is. Key frames are aut
 position, to help create animations.
 
 .. image:: images/clip-transform.jpg
+   :alt: Transforming a Clip in the Video Preview dock
 
 For more info on key frames and animation, see :ref:`animation_ref`.
 
@@ -121,6 +124,7 @@ a clip. Each effect is represented by a small letter icon. Clicking the effect i
 effect, and allow you to edit (and animate) them.
 
 .. image:: images/clip-effects.jpg
+   :alt: Applying Effects to Clips
 
 .. _clip_properties_ref:
 

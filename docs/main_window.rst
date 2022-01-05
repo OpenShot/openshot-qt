@@ -27,6 +27,7 @@ Overview
 --------
 
 .. image:: images/main-window.jpg
+   :alt: The OpenShot main window
 
 .. table::
    :widths: 5 22 73
@@ -55,6 +56,7 @@ When you first launch OpenShot, you will be presented with a friendly built-in t
 the basics. Clicking **Next** will jump to the next topic. You can always view this tutorial again from the **Help\→Tutorial** menu.
 
 .. image:: images/built-in-tutorial.jpg
+   :alt: A tutorial popup
 
 .. _tracks_ref:
 
@@ -69,6 +71,7 @@ typically a video project will not need more than 10 (or so) tracks.
 For example, imagine a 3 track video project
 
 .. image:: images/tracks.jpg
+   :alt: A Timeline with three tracks
 
 .. table::
    :widths: 5 18 77

@@ -47,7 +47,9 @@ Features
 
 Screenshot
 ----------
+
 .. image:: images/ui-example.jpg
+   :alt: The OpenShot GUI
 
 System Requirements
 -------------------

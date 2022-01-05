@@ -30,6 +30,7 @@ Overview
 --------
 
 .. image:: images/animation-overview.jpg
+   :alt: An overview of OpenShot's animation features
 
 .. table::
    :widths: 5 32
@@ -77,6 +78,7 @@ the expected value and then back (producing a bounce effect).
 To choose a curve preset, right click on the small graph icon next to a key frame.
 
 .. image:: images/curve-presets.jpg
+   :alt: Curve presets in the Properties dock
 
 Image Sequences
 ---------------
@@ -87,6 +89,7 @@ To adjust the frame rate of the animation, right click and choose **File Propert
 and adjust the frame rate. Once you have set the correct frame rate, drag the animation onto the timeline.
 
 .. image:: images/file-properties.jpg
+   :alt: The File Properties dialog
 
 .. table::
    :widths: 5 25

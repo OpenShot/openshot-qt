@@ -33,6 +33,7 @@ It is best practice to always switch to your target profile before you begin edi
 1080p 30fps, switch to that profile before you begin editing your project.
 
 .. image:: images/profiles.jpg
+   :alt: The Project Profile selection interface
 
 ==  ==================  ============
 #   Name                Description
@@ -48,6 +49,7 @@ Export Profile
 The export profile always defaults to your current project profile, but can be changed to target different profiles.
 
 .. image:: images/export-profiles.jpg
+    :alt: The Export dialog profile selector
 
 ==  ==================  ============
 #   Name                Description

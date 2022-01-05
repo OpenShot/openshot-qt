@@ -28,6 +28,7 @@ Overview
 --------
 
 .. image:: images/title-editor.jpg
+   :alt: The Title Editor dialog
 
 .. table::
    :widths: 5 26
@@ -53,6 +54,7 @@ Adding a 3D animated title is just as easy, using our **Animated Title** dialog.
 in the main menu of OpenShot) to launch the Animated Title editor. You can also use the keyboard shortcut **Ctrl+B**.
 
 .. image:: images/animated-title.jpg
+   :alt: The Animated Titles dialog
 
 ==  ==================  ============
 #   Name                Description
