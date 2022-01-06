@@ -290,6 +290,10 @@ htmlhelp_basename = 'OpenShotVideoEditordoc'
 
 latex_elements = {
     'sphinxsetup': "verbatimforcewraps",
+    'preamble': r"""
+% Bold font for table header rows
+\protected\def\sphinxstyletheadfamily{\bfseries}
+""",
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
