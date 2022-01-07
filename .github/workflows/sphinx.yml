@@ -14,19 +14,36 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
 
     # Steps are a sequence of tasks that will be executed as part of the job
     steps:
     # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v2
+
+    - name: Set up docs tree
+      run: ./.github/actions/sphinx/setup.sh
+        
+    
     # Builds docs using sphinx
-    - uses: ammaraskar/sphinx-action@master
+    - name: Build HTML docs
+      uses: ./.github/actions/sphinx
+
+    - name: Build PDF manual
+      uses: ./.github/actions/sphinx
       with:
-        docs-folder: "doc/"
-    # Create an artifact out of the generated HTML
+        make-target: latexpdf
+        
+    # Create artifacts out of the generated docs
     - uses: actions/upload-artifact@v2.2.4
       with:
-        name: UserGuideHTML
-        path: "doc/_build/html/"
+        name: "OpenShot User Guide.pdf"
+        path: "docs/_build/latex/openshot.pdf"
+        
+    - uses: actions/upload-artifact@v2.2.4
+      with:
+        name: "OpenShot User Guide HTML"
+        path: "docs/_build/html/"
+

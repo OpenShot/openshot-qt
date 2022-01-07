@@ -55,7 +55,7 @@ instructions for getting source code, configuring dependencies, and building Ope
 Beautiful HTML documentation can be generated using Sphinx.
 
 ```sh
-cd doc
+cd docs
 make html
 ```
 

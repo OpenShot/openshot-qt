@@ -1,0 +1,29 @@
+# Github Action to generate documentation
+# Uses the official sphinx/sphinxdoc-latexpdf container
+# image as a base, and customizes with some additional
+# extensions (installed by pip)
+name: sphinx
+
+inputs:
+  workdir:
+    description:
+      A subdirectory of the repo, from which all commands
+      issued to the container will be run
+    required: true
+    default: "docs"
+  make-target:
+    description:
+      What target to build (defined in the Sphinx Makefile)
+    required: true
+    default: "html"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - "make"
+    - "-C"
+    - ${{ inputs.workdir }}
+    - ${{ inputs.make-target }}
+
+

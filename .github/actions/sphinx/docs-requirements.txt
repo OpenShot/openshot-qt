@@ -1,0 +1,5 @@
+sphinx_rtd_theme
+sphinx_copybutton
+sphinxcontrib-svg2pdfconverter
+myst_parser
+

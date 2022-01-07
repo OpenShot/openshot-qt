@@ -5,7 +5,7 @@
 .settings
 idea/*
 # Exclude results of the build process
-doc/_build
+docs/_build
 **/__pycache__/
 build
 dist

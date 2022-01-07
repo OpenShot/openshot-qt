@@ -2,7 +2,7 @@ include AUTHORS
 include COPYING
 include README
 recursive-include bin *
-recursive-include doc *
+recursive-include docs *
 recursive-include openshot_qt *
 recursive-include xdg *
 

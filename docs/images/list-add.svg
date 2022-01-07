@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+  id="svg3247"
+  height="15.932275"
+  width="15.932275"
+  version="1.0"
+  viewBox="0 0 127.72889 127.72889"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata
+   id="metadata15">
+  <rdf:RDF>
+   <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+      rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs
+   id="defs3249">
+  <linearGradient
+    id="linearGradient2401"
+    y2="34.224998"
+    gradientUnits="userSpaceOnUse"
+    x2="24.104"
+    gradientTransform="matrix(0.70965,0,0,0.70537,-8.945,-8.2363)"
+    y1="15.181"
+    x1="24.104">
+   <stop
+     id="stop2266"
+     style="stop-color:#d7e866"
+     offset="0" />
+   <stop
+     id="stop2268"
+     style="stop-color:#8cab2a"
+     offset="1" />
+  </linearGradient>
+  <linearGradient
+    id="linearGradient3190"
+    y2="16.004"
+    gradientUnits="userSpaceOnUse"
+    x2="8"
+    x1="8">
+   <stop
+     id="stop3182"
+     style="stop-color:#fff"
+     offset="0" />
+   <stop
+     id="stop3184"
+     style="stop-color:#fff;stop-opacity:0"
+     offset="1" />
+  </linearGradient>
+ </defs>
+ <g
+   id="g828"
+   transform="matrix(7.9830508,0,0,7.9830508,0,-894.10169)">
+  <g
+    transform="translate(0,112)"
+    id="layer1">
+   <path
+     d="m 5.5,5.5 v -5 h 5 v 5 h 5 v 5 h -5 v 5 h -5 v -5 h -5 v -5 z"
+     style="fill:url(#linearGradient2401);fill-rule:evenodd;stroke:#699536;stroke-linejoin:round"
+     id="path2262" />
+   <path
+     d="m 6.5,1.5 v 4 c -0.00481,0.55028 -0.44972,0.99519 -1,1 h -4 v 3 h 4 c 0.55028,0.00481 0.99519,0.44972 1,1 v 4 h 3 v -4 c 0.00481,-0.55028 0.44972,-0.99519 1,-1 h 4 v -3 h -4 C 9.9497,6.4952 9.5048,6.0503 9.5,5.5 v -4 z"
+     style="opacity:0.4;fill:none;stroke:url(#linearGradient3190)"
+     id="path3188" />
+  </g>
+ </g>
+</svg>
