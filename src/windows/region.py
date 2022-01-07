@@ -172,8 +172,9 @@ class SelectRegion(QDialog):
 
         # Determine if a start or end attribute is in this file
         start_frame = 1
-        # if 'start' in self.file.data.keys():
-        #     start_frame = (float(self.file.data['start']) * self.fps) + 1
+        # For sliced clips, use start*fps as the first frame
+        if clip and clip.Json():
+            start_frame = (json.loads(clip.Json()).get("start",0) * self.fps) + 1
 
         # Display start frame (and then the previous frame)
         QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
