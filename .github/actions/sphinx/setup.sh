@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-if [ ! -d ".git" ]; then
+if [ ! -d ".git" -a ! -z "$GITHUB_WORKSPACE" ]; then
 	cd "$GITHUB_WORKSPACE"
 fi
 
@@ -17,4 +17,14 @@ cp src/classes/info.py          docs/_docker/info.py
 cp xdg/openshot-arrow.png       docs/_docker/openshot-arrow.png
 cp xdg/openshot-qt.ico          docs/_docker/openshot-qt.ico
 cp xdg/icon/512/openshot-qt.png docs/_docker/openshot-qt.png
-#chcon -R -t container_file_t docs
+cd docs/_docker
+
+echo "
+import info
+import os
+if os.path.exists('docs_version.txt'):
+    os.unlink('docs_version.txt')
+with open('docs_version.txt', 'w') as f:
+    f.write(f'{info.VERSION}')
+" | python3
+

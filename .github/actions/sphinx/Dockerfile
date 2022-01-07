@@ -1,14 +1,37 @@
-FROM sphinxdoc/sphinx-latexpdf:4.3.2
+FROM python:slim
+LABEL maintainer="OpenShot Developers <https://github.com/OpenShot/openshot-qt/>"
 
-COPY ./docs /docs
+WORKDIR /
+RUN apt-get update \
+ && apt-get install --no-install-recommends -y \
+      imagemagick \
+      make \
+      libcairo2 \
+      librsvg2-bin \
+      \
+      latexmk \
+      lmodern \
+      fonts-freefont-otf \
+      texlive-latex-recommended \
+      texlive-fonts-recommended \
+      texlive-luatex \
+      texlive-xetex \
+      xindy \
+      tex-gyre \
+ && apt-get autoremove \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+#      graphviz \
+#      texlive-latex-extra \
+#      texlive-fonts-extra \
 
-#RUN ls -R
+COPY ./requirements.txt requirements.txt
+#COPY ../../../src/classes/info.py docs/_docker/info.py
+#COPY ../../../xdg/openshot-arrow.png docs/_docker/openshot-arrow.png
+#COPY ../../../xdg/openshot-qt.ico docs/_docker/openshot-qt.ico
+#COPY ../../../xdg/icon/512/openshot-qt.png docs/_docker/openshot-qt.png
 
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PIP_NO_INPUT=1
+RUN python3 -m pip install --no-cache-dir -U pip
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
-COPY ./.github/actions/sphinx/docs-requirements.txt /docs-requirements.txt
-RUN pip3 install -r /docs-requirements.txt
-
-CMD ["make", "-C", "docs", "html"]
-
+CMD ["make", "-C", "docs", "latexpdf"]

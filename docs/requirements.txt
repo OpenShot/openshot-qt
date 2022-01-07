@@ -1,3 +1,9 @@
-sphinx_rtd_theme
-sphinx_copybutton
-
+# WARNING: ALL REQUIREMENTS MUST BE ADDED TO THE
+#          FILE LISTED BELOW, AS IT IS LOADED
+#          INTO THE AUTOMATED DOCUMENTATION BUILDS
+#
+# Read requirements from new canonical location
+-r ../.github/actions/sphinx/requirements.txt
+#
+# WARNING: DO NOT ADD ANY PACKAGES TO THIS FILE!
+#          !!SEE ABOVE!!

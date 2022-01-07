@@ -23,10 +23,12 @@ jobs:
     # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v2
 
-    - name: Set up docs tree
-      run: ./.github/actions/sphinx/setup.sh
-        
-    
+    - name: Set up documentation build tree
+      id: setup
+      run: |
+        ./.github/actions/sphinx/setup.sh
+        echo "version=$(cat docs/_docker/docs_version.txt)" >> $GITHUB_ENV
+
     # Builds docs using sphinx
     - name: Build HTML docs
       uses: ./.github/actions/sphinx
@@ -35,15 +37,18 @@ jobs:
       uses: ./.github/actions/sphinx
       with:
         make-target: latexpdf
+
+    - name: Rename PDF file
+      run: cp docs/_build/latex/openshot.pdf "docs/OpenShot User Guide.pdf"
         
     # Create artifacts out of the generated docs
     - uses: actions/upload-artifact@v2.2.4
       with:
-        name: "OpenShot User Guide.pdf"
-        path: "docs/_build/latex/openshot.pdf"
+        name: "OpenShot ${{ env.version }} User Guide (PDF)"
+        path: "docs/OpenShot User Guide.pdf"
         
     - uses: actions/upload-artifact@v2.2.4
       with:
-        name: "OpenShot User Guide HTML"
+        name: "OpenShot ${{ env.version }} User Guide (HTML)"
         path: "docs/_build/html/"
 

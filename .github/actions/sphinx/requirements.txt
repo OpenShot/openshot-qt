@@ -1,0 +1,8 @@
+Sphinx ~= 4.3.2
+Pillow
+sphinx_rtd_theme
+sphinx_copybutton
+sphinxcontrib-svg2pdfconverter[Cairosvg]
+cairosvg
+myst_parser
+

@@ -57,7 +57,7 @@ extensions = [
 
 try:
     # Add Copy button to code cells, if extension is available
-    import sphinx_copybutton
+    import sphinx_copybutton  # noqa
     extensions.append('sphinx_copybutton')
 except ImportError:
     pass
@@ -66,8 +66,15 @@ import sys
 sys.path.insert(0, '.')
 try:
     # Load our YouTube directive
-    import youtube_directive
+    import youtube_directive  # noqa
     extensions.append('youtube_directive')
+except ImportError:
+    pass
+
+try:
+    # SVG support for latex, possibly other builders
+    import sphinxcontrib.cairosvgconverter  # noqa
+    extensions.append('sphinxcontrib.cairosvgconverter')
 except ImportError:
     pass
 
@@ -94,6 +101,10 @@ source_suffix = {
         '.md': 'markdown',
     }
 
+# MarkDown parser configuration
+# Autogenerate targets for 2 levels of headings
+myst_heading_anchors = 2
+
 # The encoding of source files.
 #
 # source_encoding = 'utf-8-sig'
@@ -113,7 +124,8 @@ author = info.JT["name"]
 # built documents.
 #
 # The short X.Y version.
-version = info.VERSION[:3]
+verparts = info.VERSION.split('.')
+version = '.'.join(verparts[0:2])
 # The full version, including alpha/beta/rc tags.
 release = info.VERSION
 
@@ -168,12 +180,6 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
-
-# MarkDown parser configuration
-#
-
-# Autogenerate targets for 2 levels of headings
-myst_heading_anchors = 2
 
 
 # -- Options for HTML output ----------------------------------------------
@@ -332,7 +338,7 @@ latex_documents = [
 #
 # latex_show_urls = False
 
-# Documents to append as an appendix to all manuals.
+# Documents to append as an appendix (only supported when latex_theme is 'howto').
 #
 # latex_appendices = []
 
