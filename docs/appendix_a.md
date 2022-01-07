@@ -1,8 +1,52 @@
-# Appendix A
+# Appendix A: Data Interchange Formats
 
-## Example XML Export File
+## EDL Example
 
-An abbreviated example of the XML format supporrted by OpenShot.
+A brief example of the EDL (Edit Decision List)
+data format supported by OpenShot for import/export.
+These files are compatible with many popular
+commercial and open-source video editing suites.
+
+``` js
+TITLE: Clips - TRACK 5
+FCM: NON-DROP FRAME
+
+001  BL       V     C        00:00:00:01 00:00:03:17 00:00:00:01 00:00:03:17
+001  AX       V     C        00:00:00:01 00:00:10:01 00:00:03:17 00:00:13:17
+* FROM CLIP NAME: Intro.png
+
+002  BL       V     C        00:00:00:01 00:00:05:09 00:00:13:17 00:00:18:25
+002  AX       V     C        00:00:00:01 00:00:10:01 00:00:18:25 00:00:28:25
+* FROM CLIP NAME: FileName.mp4
+* OPACITY LEVEL AT 00:00:00:01 IS 0.00%  (REEL AX)
+* OPACITY LEVEL AT 00:00:01:01 IS 100.00%  (REEL AX)
+* OPACITY LEVEL AT 00:00:09:01 IS 100.00%  (REEL AX)
+* OPACITY LEVEL AT 00:00:10:01 IS 0.00%  (REEL AX)
+
+003  BL       V     C        00:00:00:01 00:00:33:15 00:00:28:25 00:01:02:09
+003  AX       V     C        00:00:14:25 00:00:34:29 00:01:02:09 00:01:22:13
+003  AX       A     C        00:00:14:25 00:00:34:29 00:01:02:09 00:01:22:13
+* FROM CLIP NAME: FileName2.mp4
+
+004  BL       V     C        00:00:00:01 00:00:26:25 00:01:22:13 00:01:49:07
+004  AX       A     C        00:00:00:01 00:02:20:01 00:01:49:07 00:04:09:07
+* FROM CLIP NAME: Music.wav
+* AUDIO LEVEL AT 00:00:00:01 IS -99.00 DB  (REEL AX A1)
+* AUDIO LEVEL AT 00:00:03:01 IS 0.00 DB  (REEL AX A1)
+* AUDIO LEVEL AT 00:02:17:01 IS 0.00 DB  (REEL AX A1)
+* AUDIO LEVEL AT 00:02:20:01 IS -99.00 DB  (REEL AX A1)
+```
+
+## XML Example
+
+An abbreviated example of the XML
+data format supported by OpenShot for import/export.
+Although initially developed for Final Cut Pro,
+this standardized data interchange format was
+embraced by the industry for its flexibility and power.
+Today you will find a wide range of video editing systems
+offering support for Final Cut Pro XML,
+including some of the largest commercial offerings.
 
 ```xml
 <?xml version="1.0"?>

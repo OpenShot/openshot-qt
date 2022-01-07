@@ -47,3 +47,4 @@ Table of Contents:
    developers
    contributing
    learn_more
+   appendix_a

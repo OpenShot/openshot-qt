@@ -33,7 +33,8 @@ from classes import info
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.extlinks'
+    'sphinx.ext.extlinks',
+    'myst_parser',
 ]
 
 try:
@@ -68,10 +69,10 @@ extlinks = {
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = {
+        '.rst': 'restructuredtext',
+        '.md': 'markdown',
+    }
 
 # The encoding of source files.
 #
@@ -271,6 +272,7 @@ htmlhelp_basename = 'OpenShotVideoEditordoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
+    'sphinxsetup': "verbatimforcewraps",
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
@@ -299,7 +301,7 @@ latex_documents = [
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
 #
-# latex_logo = None
+latex_logo = '../xdg/icon/512/openshot-qt.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
