@@ -98,6 +98,7 @@ unofficial Ubuntu repository, which has our software packages available to downl
                         pkg-config \
                         python3-dev \
                         qtbase5-dev \
+                        libqt5svg5-dev \
                         qtmultimedia5-dev \
                         swig
 
