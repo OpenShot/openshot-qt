@@ -26,10 +26,6 @@ RUN apt-get update \
 #      texlive-fonts-extra \
 
 COPY ./requirements.txt requirements.txt
-#COPY ../../../src/classes/info.py docs/_docker/info.py
-#COPY ../../../xdg/openshot-arrow.png docs/_docker/openshot-arrow.png
-#COPY ../../../xdg/openshot-qt.ico docs/_docker/openshot-qt.ico
-#COPY ../../../xdg/icon/512/openshot-qt.png docs/_docker/openshot-qt.png
 
 RUN python3 -m pip install --no-cache-dir -U pip
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
