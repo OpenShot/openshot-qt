@@ -96,8 +96,10 @@ class SelectRegion(QDialog):
         self.file = file
         self.file_path = file.absolute_path()
 
+        # Get profile settings
         c_info = clip.Reader().info
         self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
+        self.clipStartFrame = round(json.loads(clip.Json()).get('start',0) * self.fps) + 1
         self.fps_num = self.fps #int(file.data['fps']['num'])
         self.fps_den = 1 #int(file.data['fps']['den'])
         self.width = c_info.width #int(file.data['width'])
@@ -164,8 +166,8 @@ class SelectRegion(QDialog):
 
         # Set slider constraints
         self.sliderIgnoreSignal = False
-        self.sliderVideo.setMinimum(1)
-        self.sliderVideo.setMaximum(self.video_length)
+        self.sliderVideo.setMinimum(self.clipStartFrame)
+        self.sliderVideo.setMaximum(self.clipStartFrame + self.video_length)
         self.sliderVideo.setSingleStep(1)
         self.sliderVideo.setSingleStep(1)
         self.sliderVideo.setPageStep(24)
