@@ -1747,10 +1747,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionRemoveClip_trigger(self):
         log.debug('actionRemoveClip_trigger')
 
+        locked_tracks = [l.get("number")
+                         for l in get_app().project.get('layers')
+                         if l.get("lock", False)]
+
         # Loop through selected clips
         for clip_id in deepcopy(self.selected_clips):
             # Find matching file
             clips = Clip.filter(id=clip_id)
+            clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
             for c in clips:
                 # Clear selected clips
                 self.removeSelection(clip_id, "clip")
@@ -1806,10 +1811,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionRemoveTransition_trigger(self):
         log.debug('actionRemoveTransition_trigger')
 
+        locked_tracks = [l.get("number")
+                         for l in get_app().project.get('layers')
+                         if l.get("lock", False)]
+
         # Loop through selected clips
         for tran_id in deepcopy(self.selected_transitions):
             # Find matching file
             transitions = Transition.filter(id=tran_id)
+            transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))
             for t in transitions:
                 # Clear selected clips
                 self.removeSelection(tran_id, "transition")
