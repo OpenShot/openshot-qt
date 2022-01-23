@@ -641,7 +641,7 @@ Blender Path: {}
         self.inject_params(source_script, target_script, frame)
 
         # Note whether we're rendering a preview or an animation
-        self.final_render = bool(frame is None)
+        self.final_render = frame is None
 
         # Run worker in background thread
         self.background.start()
