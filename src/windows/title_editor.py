@@ -436,7 +436,10 @@ class TitleEditor(QDialog):
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
-            self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize() if oldfontinfo.pixelSize() else 0
+            if (oldfontinfo.pixelSize() != 0):
+                self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
+            else:
+                self.font_size_ratio = 0
             self.set_font_style()
             self.save_and_reload()
 
