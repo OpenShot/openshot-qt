@@ -544,7 +544,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Update cache json
   $scope.renderCache = function (cache_json) {
-    // Push new clip onto stack
     $scope.project.progress = cache_json;
 
     //clear the canvas first
@@ -567,7 +566,7 @@ App.controller("TimelineCtrl", function ($scope) {
       var stop_pixel = $scope.canvasMaxWidth(stop_second * $scope.pixelsPerSecond);
       var rect_length = stop_pixel - start_pixel;
       if (rect_length < 1) {
-        break;
+        continue;
       }
       //get the element and draw the rects
       ctx.beginPath();
