@@ -28,7 +28,7 @@
 import time
 import sip
 
-from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal, QCoreApplication
+from PyQt5.QtCore import QObject, QThread, QTimer, pyqtSlot, pyqtSignal, QCoreApplication
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -134,6 +134,12 @@ class PlayerWorker(QObject):
         # Create QtPlayer class from libopenshot
         self.player = openshot.QtPlayer()
 
+    def CheckAudioError(self):
+        """Check if any audio devices failed to open"""
+        if self.player.GetError():
+            # Emit error_found signal
+            self.error_found.emit(self.player.GetError())
+
     @pyqtSlot()
     def Start(self):
         """ This method starts the video player """
@@ -148,9 +154,9 @@ class PlayerWorker(QObject):
         self.player.Pause()
 
         # Check for any Player initialization errors (only JUCE errors bubble up here now)
-        if self.player.GetError():
-            # Emit error_found signal
-            self.error_found.emit(self.player.GetError())
+        # But slightly delay, to allow for correct audio thread initialization with the
+        # correct number of channels and sample rate
+        QTimer.singleShot(100, self.CheckAudioError)
 
         # Main loop, waiting for frames to process
         while self.is_running:
