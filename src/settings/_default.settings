@@ -264,7 +264,7 @@
   {
     "min": 0,
     "max": 9999999,
-    "value": 250,
+    "value": 1024,
     "title": "Cache Limit (MB)",
     "type": "spinner-int",
     "category": "Cache",
