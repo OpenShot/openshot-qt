@@ -733,7 +733,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             _("Would you like to import %s as an image sequence?") % filename,
             QMessageBox.No | QMessageBox.Yes
         )
-        return bool(ret == QMessageBox.Yes)
+        return ret == QMessageBox.Yes
 
     def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files

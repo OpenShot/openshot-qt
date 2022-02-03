@@ -59,7 +59,7 @@ class StreamFilter(logging.Filter):
     """Filter out lines that originated on the output"""
     def filter(self, record):
         source = getattr(record, "source", "")
-        return bool(source != "stream")
+        return source != "stream"
 
 
 # Set up log formatters
