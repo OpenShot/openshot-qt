@@ -203,14 +203,14 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
      inkscape:cx="1062.3054"
-     inkscape:cy="421.11271"
+     inkscape:cy="-144.57272"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1600"
-     inkscape:window-height="876"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="1297"
+     inkscape:window-height="1028"
+     inkscape:window-x="623"
+     inkscape:window-y="24"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata2388">
@@ -281,7 +281,7 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.25064087px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:url(#linearGradient3022);fill-opacity:1;stroke:url(#linearGradient3024);stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">The Title</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.39215686"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.39215687;"
        x="962.81787"
        y="535.29547"
        id="text2395"><tspan
@@ -289,6 +289,6 @@
          id="tspan2397"
          x="962.81787"
          y="535.29547"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.25064087px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.39215686">The Title</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:131.25064087px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#324da7;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.39215687;">The Title</tspan></text>
   </g>
 </svg>
