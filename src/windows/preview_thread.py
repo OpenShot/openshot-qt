@@ -41,7 +41,8 @@ class PreviewParent(QObject):
 
     # Signal when the frame position changes in the preview player
     def onPositionChanged(self, current_frame):
-        self.parent.movePlayhead(current_frame)
+        if self.worker.timeline_length != -1 and current_frame < self.worker.timeline_length:
+            self.parent.movePlayhead(current_frame)
 
         # Check if we are at the end of the timeline
         if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and current_frame >= self.worker.timeline_length and self.worker.timeline_length != -1:
