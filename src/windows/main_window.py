@@ -30,13 +30,14 @@
 import os
 import shutil
 import webbrowser
+import functools
 from copy import deepcopy
 from time import sleep
 from uuid import uuid4
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
-    Qt, pyqtSignal, QCoreApplication, PYQT_VERSION_STR,
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, PYQT_VERSION_STR,
     QTimer, QDateTime, QFileInfo, QUrl,
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
@@ -2060,37 +2061,41 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Only show correctly docked widgets
                 dock.show()
 
-    def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen
-            (prevent them being closed, floated, or moved) """
-        for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
-                dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+    def freezeDock(self, dock, frozen=True):
+        """ Freeze/unfreeze a dock widget on the main screen."""
+        if self.dockWidgetArea(dock) == Qt.NoDockWidgetArea:
+            # Don't freeze undockable widgets
+            return
+        if frozen:
+            dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        else:
+            features = (
+                QDockWidget.DockWidgetFloatable
+                | QDockWidget.DockWidgetMovable)
+            if dock is not self.dockTimeline:
+                features |= QDockWidget.DockWidgetClosable
+            dock.setFeatures(features)
 
-    def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen
-            (allow them to be closed, floated, or moved, as appropriate) """
-        for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
-                if dock is self.dockTimeline:
-                    dock.setFeatures(
-                        QDockWidget.DockWidgetFloatable
-                        | QDockWidget.DockWidgetMovable)
-                else:
-                    dock.setFeatures(
-                        QDockWidget.DockWidgetClosable
-                        | QDockWidget.DockWidgetFloatable
-                        | QDockWidget.DockWidgetMovable)
+    @pyqtSlot()
+    def freezeMainToolBar(self, frozen=None):
+        """Freeze/unfreeze the toolbar if it's attached to the window."""
+        if frozen is None:
+            frozen = self.docks_frozen
+        floating = self.toolBar.isFloating()
+        log.debug(
+            "%s main toolbar%s",
+            "freezing" if frozen and not floating else "unfreezing",
+            " (floating)" if floating else "")
+        if floating:
+            self.toolBar.setMovable(True)
+        else:
+            self.toolBar.setMovable(not frozen)
 
     def addViewDocksMenu(self):
         """ Insert a Docks submenu into the View menu """
         _ = get_app()._tr
 
-        # self.docks_menu = self.createPopupMenu()
-        # self.docks_menu.setTitle(_("Docks"))
-        # self.menuView.addMenu(self.docks_menu)
         self.docks_menu = self.menuView.addMenu(_("Docks"))
-
         for dock in sorted(self.getDocks(), key=lambda d: d.windowTitle()):
             if (dock.features() & QDockWidget.DockWidgetClosable
                != QDockWidget.DockWidgetClosable):
@@ -2174,14 +2179,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionFreeze_View_trigger(self):
         """ Freeze all dockable widgets on the main screen """
-        self.freezeDocks()
+        for dock in self.getDocks():
+            self.freezeDock(dock, frozen=True)
+        self.freezeMainToolBar(frozen=True)
         self.actionFreeze_View.setVisible(False)
         self.actionUn_Freeze_View.setVisible(True)
         self.docks_frozen = True
 
     def actionUn_Freeze_View_trigger(self):
         """ Un-Freeze all dockable widgets on the main screen """
-        self.unFreezeDocks()
+        for dock in self.getDocks():
+            self.freezeDock(dock, frozen=False)
+        self.freezeMainToolBar(frozen=False)
         self.actionFreeze_View.setVisible(True)
         self.actionUn_Freeze_View.setVisible(False)
         self.docks_frozen = False
@@ -2428,11 +2437,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if s.get('window_state_v2'):
             self.saved_state = qt_types.str_to_bytes(s.get('window_state_v2'))
         if s.get('docks_frozen'):
-            # Freeze all dockable widgets on the main screen
-            self.freezeDocks()
-            self.actionFreeze_View.setVisible(False)
-            self.actionUn_Freeze_View.setVisible(True)
-            self.docks_frozen = True
+            self.actionFreeze_View_trigger()
+        else:
+            self.actionUn_Freeze_View_trigger()
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -2450,7 +2457,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         recent_projects = s.get("recent_projects")
 
         # Add Recent Projects menu (after Open File)
-        import functools
         if not self.recent_menu:
             # Create a new recent menu
             self.recent_menu = self.menuFile.addMenu(
@@ -2890,7 +2896,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Init UI
         ui_util.init_ui(self)
 
-        # Setup toolbars that aren't on main window, set initial state of items, etc
+        # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()
 
         # Add window as watcher to receive undo/redo status updates
@@ -3058,6 +3064,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect Selection signals
         self.SelectionAdded.connect(self.addSelection)
         self.SelectionRemoved.connect(self.removeSelection)
+
+        # Ensure toolbar is movable when floated (even with docks frozen)
+        self.toolBar.topLevelChanged.connect(
+            functools.partial(self.freezeMainToolBar, None))
 
         # Show window
         self.show()
