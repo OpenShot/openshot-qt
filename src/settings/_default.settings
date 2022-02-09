@@ -330,6 +330,14 @@
     "restart": false
   },
   {
+    "value": false,
+    "title": "Show Playback Performance (FPS)",
+    "type": "bool",
+    "category": "Debug",
+    "setting": "preview-fps",
+    "restart": false
+  },
+  {
     "min": 0,
     "max": 9999,
     "value": 5556,

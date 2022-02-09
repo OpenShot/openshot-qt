@@ -44,7 +44,8 @@ class PreviewParent(QObject):
         self.parent.movePlayhead(current_frame)
 
         # Check if we are at the end of the timeline
-        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and current_frame >= self.worker.timeline_length and self.worker.timeline_length != -1:
+        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and self.worker.player.Speed() != 0.0 \
+                and ((current_frame >= self.worker.timeline_length != -1) or current_frame <= 1):
             # Yes, pause the video
             self.parent.actionPlay.trigger()
             self.worker.timeline_length = -1
