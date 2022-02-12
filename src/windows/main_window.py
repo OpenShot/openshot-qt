@@ -902,13 +902,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
+    def should_play(self, play_forward=True):
+        max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+        log.debug("juliana: max_frame = %d", max_frame)
+        log.debug("juliana: self.preview_thread.current_frame = %d", self.preview_thread.current_frame)
+        if play_forward and self.preview_thread.current_frame < max_frame:
+            return True
+        if not play_forward and self.preview_thread.current_frame <= max_frame:
+            return True
+        else:
+            return False
+
     def actionPlay_trigger(self, checked=True, force=None):
         if force == "pause":
             self.actionPlay.setChecked(False)
         elif force == "play":
             self.actionPlay.setChecked(True)
 
-        if self.actionPlay.isChecked():
+        if self.actionPlay.isChecked() and self.should_play(True):
             # Determine max frame (based on clips)
             max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
             ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
@@ -961,10 +972,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Get the video player object
         player = self.preview_thread.player
 
-        if player.Speed() + 1 != 0:
-            self.SpeedSignal.emit(player.Speed() + 1)
-        else:
-            self.SpeedSignal.emit(player.Speed() + 2)
+        if self.should_play(True):
+            if player.Speed() + 1 != 0:
+                self.SpeedSignal.emit(player.Speed() + 1)
+            else:
+                self.SpeedSignal.emit(player.Speed() + 2)
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
@@ -980,7 +992,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
-        self.SpeedSignal.emit(new_speed)
+
+        if self.should_play(False):
+            self.SpeedSignal.emit(new_speed)
 
     def actionJumpStart_trigger(self, checked=True):
         log.debug("actionJumpStart_trigger")
