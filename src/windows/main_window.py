@@ -904,8 +904,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def should_play(self, play_forward=True):
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
-        log.debug("juliana: max_frame = %d", max_frame)
-        log.debug("juliana: self.preview_thread.current_frame = %d", self.preview_thread.current_frame)
         if play_forward and self.preview_thread.current_frame < max_frame:
             return True
         if not play_forward and self.preview_thread.current_frame <= max_frame:
