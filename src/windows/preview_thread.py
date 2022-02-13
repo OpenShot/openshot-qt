@@ -47,7 +47,7 @@ class PreviewParent(QObject):
         if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and self.worker.player.Speed() != 0.0 \
                 and ((current_frame >= self.worker.timeline_length != -1) or current_frame <= 1):
             # Yes, pause the video
-            self.parent.actionPlay.trigger()
+            self.parent.PauseSignal.emit()
             self.worker.timeline_length = -1
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)

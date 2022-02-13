@@ -78,8 +78,8 @@ class ProcessEffect(QDialog):
         # get translations
         _ = get_app()._tr
 
-        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        get_app().window.actionPlay_trigger(None, force="pause")
+        # Pause playback
+        get_app().window.PauseSignal.emit()
 
         # Track metrics
         track_metric_screen("process-effect-screen")
