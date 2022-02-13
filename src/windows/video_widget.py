@@ -26,6 +26,7 @@
  """
 
 import json
+import time
 
 from PyQt5.QtCore import (
     Qt, QCoreApplication, QMutex, QTimer,
@@ -267,10 +268,45 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Remove transform
         painter.resetTransform()
 
+    def update_title(self):
+        """Update the widget title"""
+        # Translate object
+        _ = get_app()._tr
+        rect = self.centeredViewport(self.width(), self.height())
+        scale = self.devicePixelRatioF()
+
+        # Find parent dockWidget (if any)
+        dock = None
+        if self.parent() and self.parent().parent():
+            # TODO: Find a better way to find the QDockWidget parent (if any)
+            dock = self.parent().parent()
+        else:
+            # Not a dock widget, ignore title
+            return
+
+        if self.settings.get("preview-fps"):
+            # Update window title with FPS output
+            dock.setWindowTitle(_("Video Preview") + " " + _("(Paint: %d FPS, Render: %d FPS, %dx%d)")
+                                                      % (self.paint_fps, self.present_fps,
+                                                         rect.width() * scale, rect.height() * scale))
+        else:
+            # Restore window title
+            dock.setWindowTitle(_("Video Preview"))
+
     def paintEvent(self, event, *args):
         """ Custom paint event """
         event.accept()
         self.mutex.lock()
+
+        # Calculate "paint" FPS (and update widget title)
+        current_sec = time.localtime(time.time()).tm_sec
+        if current_sec != self.paint_fps_sec:
+            self.paint_fps = self.paint_fps_counter
+            self.update_title()
+            self.paint_fps_sec = current_sec
+            self.paint_fps_counter = 1
+        else:
+            self.paint_fps_counter += 1
 
         # Paint custom frame image on QWidget
         painter = QPainter(self)
@@ -523,6 +559,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def present(self, image, *args):
         """ Present the current frame """
+
+        # Calculate "render" / "present" FPS
+        current_sec = time.localtime(time.time()).tm_sec
+        if current_sec != self.present_fps_sec:
+            self.present_fps = self.present_fps_counter
+            self.present_fps_sec = current_sec
+            self.present_fps_counter = 1
+        else:
+            self.present_fps_counter += 1
 
         # Get frame's QImage from libopenshot
         self.current_image = image
@@ -1278,7 +1323,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.delayed_resize_timer.start()
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        self.win.actionPlay_trigger(force="pause")
+        self.win.PauseSignal.emit()
 
     def delayed_resize_callback(self):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
@@ -1337,6 +1382,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Translate object
         _ = get_app()._tr
 
+        # Settings object
+        self.settings = get_app().get_settings()
+
         # Init aspect ratio settings (default values)
         self.aspect_ratio = openshot.Fraction(16, 9)
         self.pixel_ratio = openshot.Fraction(1, 1)
@@ -1375,6 +1423,14 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
         self.resize_button.clicked.connect(self.resize_button_clicked)
         self.resize_button.setMouseTracking(True)
+
+        # FPS calculations
+        self.paint_fps = 0.0
+        self.paint_fps_counter = 1
+        self.paint_fps_sec = None
+        self.present_fps = 0.0
+        self.present_fps_counter = 1
+        self.present_fps_sec = None
 
         # Load icon (using display DPI)
         self.cursors = {}

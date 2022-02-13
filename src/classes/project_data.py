@@ -313,32 +313,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
-        # Get the default audio settings for the timeline (and preview playback)
-        default_sample_rate = int(s.get("default-samplerate"))
-        default_channel_layout = s.get("default-channellayout")
-
-        channels = 2
-        channel_layout = openshot.LAYOUT_STEREO
-        if default_channel_layout == "LAYOUT_MONO":
-            channels = 1
-            channel_layout = openshot.LAYOUT_MONO
-        elif default_channel_layout == "LAYOUT_STEREO":
-            channels = 2
-            channel_layout = openshot.LAYOUT_STEREO
-        elif default_channel_layout == "LAYOUT_SURROUND":
-            channels = 3
-            channel_layout = openshot.LAYOUT_SURROUND
-        elif default_channel_layout == "LAYOUT_5POINT1":
-            channels = 6
-            channel_layout = openshot.LAYOUT_5POINT1
-        elif default_channel_layout == "LAYOUT_7POINT1":
-            channels = 8
-            channel_layout = openshot.LAYOUT_7POINT1
-
-        # Set default samplerate and channels
-        self._data["sample_rate"] = default_sample_rate
-        self._data["channels"] = channels
-        self._data["channel_layout"] = channel_layout
+        # Apply default audio playback settings to this data structure
+        self.apply_default_audio_settings()
 
         # Set default project ID
         self._data["id"] = self.generate_id()
@@ -401,6 +377,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Upgrade any data structures
             self.upgrade_project_data_structures()
+
+            # Apply default audio playback settings to this data structure
+            self.apply_default_audio_settings()
 
         # Get app, and distribute all project data through update manager
         from classes.app import get_app
@@ -977,9 +956,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
-            path = clip["reader"]["path"]
+            path = clip.get("reader", {}).get("path", "")
 
-            if not os.path.exists(path) and "%" not in path:
+            if path and not os.path.exists(path) and "%" not in path:
                 # File is missing
                 path, is_modified, is_skipped = find_missing_file(path)
                 file_name_with_ext = os.path.basename(path)
@@ -1027,3 +1006,38 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             c_index = random.randint(0, len(chars) - 1)
             id += (chars[c_index])
         return id
+
+    def apply_default_audio_settings(self):
+        """Apply the default preferences for sampleRate and channels to
+        the current project data, to force playback at a specific rate and for
+        a specific # of audio channels and channel layout."""
+        s = get_app().get_settings()
+
+        # Get the default audio settings for the timeline (and preview playback)
+        default_sample_rate = int(s.get("default-samplerate"))
+        default_channel_layout = s.get("default-channellayout")
+
+        channels = 2
+        channel_layout = openshot.LAYOUT_STEREO
+        if default_channel_layout == "LAYOUT_MONO":
+            channels = 1
+            channel_layout = openshot.LAYOUT_MONO
+        elif default_channel_layout == "LAYOUT_STEREO":
+            channels = 2
+            channel_layout = openshot.LAYOUT_STEREO
+        elif default_channel_layout == "LAYOUT_SURROUND":
+            channels = 3
+            channel_layout = openshot.LAYOUT_SURROUND
+        elif default_channel_layout == "LAYOUT_5POINT1":
+            channels = 6
+            channel_layout = openshot.LAYOUT_5POINT1
+        elif default_channel_layout == "LAYOUT_7POINT1":
+            channels = 8
+            channel_layout = openshot.LAYOUT_7POINT1
+
+        # Set default samplerate and channels
+        self._data["sample_rate"] = default_sample_rate
+        self._data["channels"] = channels
+        self._data["channel_layout"] = channel_layout
+
+        log.info("Apply default audio playback settings: %s, %s channels" % (self._data["sample_rate"], self._data["channels"]))

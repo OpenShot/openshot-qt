@@ -40,7 +40,7 @@ App.controller("TimelineCtrl", function ($scope) {
     duration: 300, //length of project in seconds
     scale: 16.0, //seconds per tick
     tick_pixels: 100, //pixels between tick mark
-    playhead_position: 10, //position of play head
+    playhead_position: 0.0, //position of play head
     clips: [],
     effects: [],
     layers: [
@@ -544,7 +544,6 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Update cache json
   $scope.renderCache = function (cache_json) {
-    // Push new clip onto stack
     $scope.project.progress = cache_json;
 
     //clear the canvas first
@@ -567,7 +566,7 @@ App.controller("TimelineCtrl", function ($scope) {
       var stop_pixel = $scope.canvasMaxWidth(stop_second * $scope.pixelsPerSecond);
       var rect_length = stop_pixel - start_pixel;
       if (rect_length < 1) {
-        break;
+        continue;
       }
       //get the element and draw the rects
       ctx.beginPath();
@@ -1528,8 +1527,8 @@ App.controller("TimelineCtrl", function ($scope) {
       scrollLeft: 0
     }, "slow");
 
-    // Update playhead position and time readout
-    $scope.movePlayhead($scope.project.playhead_position);
+    // Update playhead position and time readout (reset to zero)
+    $scope.movePlayhead(0.0);
 
     // return true
     return true;

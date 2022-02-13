@@ -3217,7 +3217,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # QTimer for cache rendering
         self.cache_renderer_version = None
         self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(500)
+        self.cache_renderer.setInterval(300)
         self.cache_renderer.timeout.connect(self.render_cache_json)
 
         # Connect shutdown signals

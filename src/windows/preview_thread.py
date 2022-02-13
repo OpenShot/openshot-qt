@@ -28,7 +28,7 @@
 import time
 import sip
 
-from PyQt5.QtCore import QObject, QThread, pyqtSlot, pyqtSignal, QCoreApplication
+from PyQt5.QtCore import QObject, QThread, QTimer, pyqtSlot, pyqtSignal, QCoreApplication
 from PyQt5.QtWidgets import QMessageBox
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -44,9 +44,10 @@ class PreviewParent(QObject):
         self.parent.movePlayhead(current_frame)
 
         # Check if we are at the end of the timeline
-        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and current_frame >= self.worker.timeline_length and self.worker.timeline_length != -1:
+        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and self.worker.player.Speed() != 0.0 \
+                and ((current_frame >= self.worker.timeline_length != -1) or current_frame <= 1):
             # Yes, pause the video
-            self.parent.actionPlay.trigger()
+            self.parent.PauseSignal.emit()
             self.worker.timeline_length = -1
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
@@ -71,6 +72,18 @@ class PreviewParent(QObject):
         # Only JUCE audio errors bubble up here now
         QMessageBox.warning(self.parent, _("Audio Error"), _("Please fix the following error and restart OpenShot\n%s") % error)
 
+    def onDefaultSampleRate(self, detected_rate):
+        """The default audio sample rate (as detected on the default audio device)"""
+        log.info('Detected default audio device sample rate: %d' % detected_rate)
+
+        s = get_app().get_settings()
+        rate = int(s.get("default-samplerate"))
+        if detected_rate != rate:
+            log.warning("Your sample rate (%d) does not match OpenShot (%d). "
+                        "This can potentially play audio too fast/slow if not fixed. "
+                        "Adjust your 'Preferences->Preview->Default Sample Rate to match your "
+                        "system rate: %d, and restart OpenShot." % (detected_rate, rate, detected_rate))
+
     @pyqtSlot(object, object)
     def Init(self, parent, timeline, video_widget):
         # Important vars
@@ -90,6 +103,7 @@ class PreviewParent(QObject):
         self.background.started.connect(self.worker.Start)
         self.worker.finished.connect(self.background.quit)
         self.worker.error_found.connect(self.onError)
+        self.worker.sample_rate_found.connect(self.onDefaultSampleRate)
 
         # Connect preview thread to main UI signals
         self.parent.previewFrameSignal.connect(self.worker.previewFrame)
@@ -112,6 +126,7 @@ class PlayerWorker(QObject):
     position_changed = pyqtSignal(int)
     mode_changed = pyqtSignal(object)
     error_found = pyqtSignal(object)
+    sample_rate_found = pyqtSignal(float)
     finished = pyqtSignal()
 
     @pyqtSlot(object, object)
@@ -134,6 +149,18 @@ class PlayerWorker(QObject):
         # Create QtPlayer class from libopenshot
         self.player = openshot.QtPlayer()
 
+    def CheckAudioError(self):
+        """Check if any audio devices failed to open"""
+        if self.player.GetError():
+            # Emit error_found signal
+            self.error_found.emit(self.player.GetError())
+
+    def CheckDefaultSampleRate(self):
+        """Check for default audio sample rate (from default device)"""
+        if self.player.GetDefaultSampleRate():
+            # Emit sample_rate_found signal
+            self.sample_rate_found.emit(self.player.GetDefaultSampleRate())
+
     @pyqtSlot()
     def Start(self):
         """ This method starts the video player """
@@ -148,9 +175,10 @@ class PlayerWorker(QObject):
         self.player.Pause()
 
         # Check for any Player initialization errors (only JUCE errors bubble up here now)
-        if self.player.GetError():
-            # Emit error_found signal
-            self.error_found.emit(self.player.GetError())
+        # But slightly delay, to allow for correct audio thread initialization with the
+        # correct number of channels and sample rate
+        QTimer.singleShot(100, self.CheckAudioError)
+        QTimer.singleShot(100, self.CheckDefaultSampleRate)
 
         # Main loop, waiting for frames to process
         while self.is_running:

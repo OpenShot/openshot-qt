@@ -87,6 +87,9 @@ class TimelineSync(UpdateInterface):
                 # The timeline's profile changed, so update all clips
                 self.timeline.ApplyMapperToClips()
 
+                # Always seek back to frame 1
+                self.window.SeekSignal.emit(1)
+
                 # Refresh current frame (since the entire timeline was updated)
                 self.window.refreshFrameSignal.emit()
 

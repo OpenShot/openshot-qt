@@ -437,8 +437,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Stop preview thread
         self.SpeedSignal.emit(0)
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
-        self.actionPlay.setChecked(False)
+        self.PauseSignal.emit()
         QCoreApplication.processEvents()
 
         # Do we have unsaved changes?
@@ -803,8 +802,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionPreferences_trigger(self, checked=True):
         # Stop preview thread
         self.SpeedSignal.emit(0)
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
-        self.actionPlay.setChecked(False)
+        self.PauseSignal.emit()
 
         # Set cursor to waiting
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
@@ -902,20 +900,29 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
-    def actionPlay_trigger(self, checked=True, force=None):
-        if force == "pause":
-            self.actionPlay.setChecked(False)
-        elif force == "play":
-            self.actionPlay.setChecked(True)
+    def should_play(self, requested_speed=0):
+        """Determine if we should start playback, based on the current frame
+        and the total number of frames in our timeline clips. For example,
+        if we are at the end of our last clip, and the user clicks play, we
+        do not want to start playback."""
+        # Get max frame (based on last clip) and current frame
+        max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+        current_frame = self.preview_thread.current_frame
+        if current_frame is not None:
+            next_frame = current_frame + requested_speed
+            return next_frame < max_frame
+        return False
 
-        if self.actionPlay.isChecked():
-            # Determine max frame (based on clips)
-            max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.PlaySignal.emit(max_frame)
-
+    def actionPlay_trigger(self):
+        """Toggle play/pause on video preview"""
+        player = self.preview_thread.player
+        if player.Mode() == openshot.PLAYBACK_PAUSED:
+            # Start playback
+            if self.should_play():
+                max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+                self.PlaySignal.emit(max_frame)
         else:
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
+            # Pause playback
             self.PauseSignal.emit()
 
     def actionPreview_File_trigger(self, checked=True):
@@ -943,10 +950,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Notify properties dialog
         self.propertyTableView.select_frame(position_frames)
 
-    def handlePausedVideo(self):
-        """Handle the pause signal, by refreshing the properties dialog"""
-        self.propertyTableView.select_frame(self.preview_thread.player.Position())
-
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
@@ -957,30 +960,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, checked=True):
-
-        # Get the video player object
+        """Fast forward the video playback"""
         player = self.preview_thread.player
-
-        if player.Speed() + 1 != 0:
-            self.SpeedSignal.emit(player.Speed() + 1)
-        else:
-            self.SpeedSignal.emit(player.Speed() + 2)
+        requested_speed = player.Speed() + 1
+        if requested_speed == 0:
+            # If paused, fast forward starting at faster than normal playback speed
+            requested_speed = 2
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
+
+        if self.should_play(requested_speed):
+            self.SpeedSignal.emit(requested_speed)
 
     def actionRewind_trigger(self, checked=True):
-        # Get the video player object
+        """Rewind the video playback"""
         player = self.preview_thread.player
-
-        new_speed = player.Speed() - 1
-        if new_speed == 0:
-            new_speed -= 1
-        log.debug("Setting speed to %s", new_speed)
+        requested_speed = player.Speed() - 1
+        if requested_speed == 0:
+            # If paused, rewind starting at normal playback speed (in reverse)
+            requested_speed = -1
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
-        self.SpeedSignal.emit(new_speed)
+
+        if self.should_play(requested_speed):
+            self.SpeedSignal.emit(requested_speed)
 
     def actionJumpStart_trigger(self, checked=True):
         log.debug("actionJumpStart_trigger")
@@ -994,6 +999,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
         self.SeekSignal.emit(max_frame)
+
+    def onPlayCallback(self):
+        """Handle when playback is started"""
+        # Set icon on Play button
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+
+    def onPauseCallback(self):
+        """Handle when playback is paused"""
+        # Refresh property window
+        self.propertyTableView.select_frame(self.preview_thread.player.Position())
+
+        # Set icon on Pause button
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay")
 
     def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
@@ -1032,8 +1050,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.updates.update_untracked(["export_path"], os.path.dirname(framePath))
         log.info("Saving frame to %s", framePath)
 
-        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        self.actionPlay_trigger(force="pause")
+        # Pause playback
+        self.SpeedSignal.emit(0)
+        self.PauseSignal.emit()
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
@@ -1497,10 +1516,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Basic shortcuts i.e just a letter
         if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
             # Pause video
-            self.actionPlay_trigger(force="pause")
-            # Set speed to 0
-            if player.Speed() != 0:
-                self.SpeedSignal.emit(0)
+            self.PauseSignal.emit()
+            self.SpeedSignal.emit(0)
             # Seek to previous frame
             self.SeekSignal.emit(player.Position() - 1)
 
@@ -1509,10 +1526,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
             # Pause video
-            self.actionPlay_trigger(force="pause")
-            # Set speed to 0
-            if player.Speed() != 0:
-                self.SpeedSignal.emit(0)
+            self.PauseSignal.emit()
+            self.SpeedSignal.emit(0)
             # Seek to next frame
             self.SeekSignal.emit(player.Position() + 1)
 
@@ -1522,14 +1537,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
             # Toggle rewind and start playback
             self.actionRewind.trigger()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.actionPlay.setChecked(True)
 
         elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.ExactMatch:
             # Toggle fastforward button and start playback
             self.actionFastForward.trigger()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.actionPlay.setChecked(True)
 
         elif any([
                 key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch,
@@ -2595,7 +2606,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.videoToolbar.addAction(self.actionPlay)
         self.videoToolbar.addAction(self.actionFastForward)
         self.videoToolbar.addAction(self.actionJumpEnd)
-        self.actionPlay.setCheckable(True)
 
         # Add right spacer
         spacer = QWidget(self)
@@ -2988,8 +2998,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
 
-        # Set pause callback
-        self.PauseSignal.connect(self.handlePausedVideo)
+        # Set play/pause callbacks
+        self.PauseSignal.connect(self.onPauseCallback)
+        self.PlaySignal.connect(self.onPlayCallback)
 
         # QTimer for Autosave
         minutes = 1000 * 60
