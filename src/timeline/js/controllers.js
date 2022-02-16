@@ -745,7 +745,7 @@ App.controller("TimelineCtrl", function ($scope) {
 
 // Find the furthest right edge on the timeline (and resize it if too small)
   $scope.resizeTimeline = function () {
-    // Unselect all clips
+    // Find latest end of a clip
     var furthest_right_edge = 0;
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
       var clip = $scope.project.clips[clip_index];
@@ -755,7 +755,7 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     // Resize timeline
-    if (furthest_right_edge > $scope.project.duration) {
+    if (furthest_right_edge > $scope.project.duration || $scope.project.duration > furthest_right_edge + 20) {
       if ($scope.Qt) {
         timeline.resizeTimeline(furthest_right_edge + 10);
         $scope.project.duration = furthest_right_edge + 10;
