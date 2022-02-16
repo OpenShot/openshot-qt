@@ -17,11 +17,6 @@
 	 med="256 kb/s"
 	 high="320 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>HD 720p 23.98 fps</projectprofile>
-	<projectprofile>HD 720p 24 fps</projectprofile>
-	<projectprofile>HD 720p 25 fps</projectprofile>
-	<projectprofile>HD 720p 29.97 fps</projectprofile>
-	<projectprofile>HD 720p 30 fps</projectprofile>
 	<projectprofile>HD 1080p 23.98 fps</projectprofile>
 	<projectprofile>HD 1080p 24 fps</projectprofile>
 	<projectprofile>HD 1080p 25 fps</projectprofile>

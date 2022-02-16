@@ -3,9 +3,9 @@
 <export-option>
 	<type translatable="True">Web</type>
     <title translatable="True">YouTube</title>
-	<videoformat>mpeg</videoformat>
-	<videocodec>mpeg2video</videocodec>
-	<audiocodec>mp2</audiocodec>
+	<videoformat>mp4</videoformat>
+	<videocodec>libx264</videocodec>
+	<audiocodec>libmp3lame</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
@@ -19,4 +19,9 @@
 	<samplerate>48000</samplerate>
 	<projectprofile>VGA NTSC</projectprofile>
 	<projectprofile>VGA Widescreen NTSC</projectprofile>
+	<projectprofile>HD 720p 23.98 fps</projectprofile>
+	<projectprofile>HD 720p 24 fps</projectprofile>
+	<projectprofile>HD 720p 25 fps</projectprofile>
+	<projectprofile>HD 720p 29.97 fps</projectprofile>
+	<projectprofile>HD 720p 30 fps</projectprofile>
 </export-option>
