@@ -2918,7 +2918,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     @pyqtSlot(float)
     def resizeTimeline(self, new_duration):
         """Resize the duration of the timeline"""
-        get_app().updates.update(["duration"], new_duration)
+        get_app().updates.update_untracked(["duration"], new_duration)
 
     # Add Transition
     def addTransition(self, file_ids, event_position):
