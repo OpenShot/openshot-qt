@@ -703,8 +703,10 @@ App.controller("TimelineCtrl", function ($scope) {
     return Math.min(32767, desired_width);
   };
 
-// Find the furthest right edge on the timeline (and resize it if too small)
+// Find the furthest right edge on the timeline (and resize it if too small or too large)
   $scope.resizeTimeline = function () {
+    var max_timeline_padding = 20;
+    var min_timeline_padding = 10;
     // Find latest end of a clip
     var furthest_right_edge = 0;
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
@@ -715,15 +717,10 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     // Resize timeline
-    if (furthest_right_edge > $scope.project.duration || $scope.project.duration > furthest_right_edge + 20) {
+    if (furthest_right_edge > $scope.project.duration || $scope.project.duration - furthest_right_edge > max_timeline_padding) {
       if ($scope.Qt) {
-        timeline.resizeTimeline(furthest_right_edge + 10);
-        $scope.project.duration = furthest_right_edge + 10;
-      }
-    } else if ( $scope.project.duration - furthest_right_edge > 20) {
-      if ($scope.Qt) {
-        $scope.project.duration = furthest_right_edge;
-        timeline.resizeTimeline(furthest_right_edge);
+        timeline.resizeTimeline(furthest_right_edge + min_timeline_padding);
+        $scope.project.duration = furthest_right_edge + min_timeline_padding;
       }
     }
   };
