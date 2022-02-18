@@ -160,16 +160,10 @@ class SelectRegion(QDialog):
 
         # Set slider constraints
         self.sliderIgnoreSignal = False
-        self.sliderVideo.setMinimum(self.clipStartFrame)
-        self.sliderVideo.setMaximum(self.clipStartFrame + self.video_length)
+        self.sliderVideo.setMinimum(1)
+        self.sliderVideo.setMaximum(self.video_length)
         self.sliderVideo.setSingleStep(1)
         self.sliderVideo.setPageStep(24)
-
-        # Determine if a start or end attribute is in this file
-        start_frame = 1
-        # For sliced clips, use start*fps as the first frame
-        if clip and clip.Json():
-            start_frame = (json.loads(clip.Json()).get("start",0) * self.fps) + 1
 
         # Display start frame (and then the previous frame)
         QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, 2))
