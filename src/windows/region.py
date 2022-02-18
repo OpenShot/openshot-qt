@@ -93,7 +93,6 @@ class SelectRegion(QDialog):
         self.file = file
         self.file_path = file.absolute_path()
 
-        # Get profile settings
         c_info = clip.Reader().info
         self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
         self.fps_num = self.fps #int(file.data['fps']['num'])
