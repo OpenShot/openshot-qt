@@ -96,7 +96,6 @@ class SelectRegion(QDialog):
         # Get profile settings
         c_info = clip.Reader().info
         self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
-        self.clipStartFrame = round(json.loads(clip.Json()).get('start',0) * self.fps) + 1
         self.fps_num = self.fps #int(file.data['fps']['num'])
         self.fps_den = 1 #int(file.data['fps']['den'])
         self.width = c_info.width #int(file.data['width'])
