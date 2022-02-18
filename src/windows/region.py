@@ -82,15 +82,12 @@ class SelectRegion(QDialog):
 
         # Create region clip with Reader
         self.clip = openshot.Clip(clip.Reader())
-
         self.clip.Open()
 
         # Set region clip start and end
         self.clip.Start(clip.Start())
         self.clip.End(clip.End())
         self.clip.Id( get_app().project.generate_id() )
-
-        print("IDS {} {}".format(clip.Id(), self.clip.Id()))
 
         # Keep track of file object
         self.file = file
@@ -135,9 +132,6 @@ class SelectRegion(QDialog):
         self.r.SetMaxSize(self.viewport_rect.width(), self.viewport_rect.height())
 
         try:
-            # Add clip for current preview file
-            self.clip = openshot.Clip(self.file_path)
-
             # Show waveform for audio files
             if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
                 self.clip.Waveform(True)
@@ -169,7 +163,6 @@ class SelectRegion(QDialog):
         self.sliderVideo.setMinimum(self.clipStartFrame)
         self.sliderVideo.setMaximum(self.clipStartFrame + self.video_length)
         self.sliderVideo.setSingleStep(1)
-        self.sliderVideo.setSingleStep(1)
         self.sliderVideo.setPageStep(24)
 
         # Determine if a start or end attribute is in this file
@@ -179,8 +172,8 @@ class SelectRegion(QDialog):
             start_frame = (json.loads(clip.Json()).get("start",0) * self.fps) + 1
 
         # Display start frame (and then the previous frame)
-        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
-        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
+        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, 2))
+        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, 1))
 
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
@@ -241,7 +234,7 @@ class SelectRegion(QDialog):
 
     def sliderVideo_valueChanged(self, new_frame):
         if self.preview_thread and not self.sliderIgnoreSignal:
-            log.info('sliderVideo_valueChanged')
+            log.info('sliderVideo_valueChanged: %s' % new_frame)
 
             # Pause video
             self.btnPlay_clicked(force="pause")
