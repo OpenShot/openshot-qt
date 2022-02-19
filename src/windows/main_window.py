@@ -492,6 +492,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.remove_recent_project(file_path)
                 self.load_recent_menu()
 
+            # Ensure that playhead, preview thread, and cache all agree that
+            # Frame 1 is being previewed
+            self.preview_thread.player.Seek(1)
+            self.movePlayhead(1)
+
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
