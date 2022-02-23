@@ -742,12 +742,9 @@ App.controller("TimelineCtrl", function ($scope) {
     return Math.min(32767, desired_width);
   };
 
-// Find the furthest right edge on the timeline (and resize it if too small or too large)
+// Find the furthest right edge on the timeline (and resize it if too small)
   $scope.resizeTimeline = function () {
-    let max_timeline_padding = 20;
-    let min_timeline_padding = 10;
-    let min_timeline_length = 300; // Length of the default OpenShot project
-    // Find latest end of a clip
+    // Unselect all clips
     var furthest_right_edge = 0;
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
       var clip = $scope.project.clips[clip_index];
@@ -757,11 +754,10 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     // Resize timeline
-    if (furthest_right_edge > $scope.project.duration - min_timeline_padding || $scope.project.duration - furthest_right_edge > max_timeline_padding) {
+    if (furthest_right_edge > $scope.project.duration) {
       if ($scope.Qt) {
-        let new_timeline_length = Math.max(min_timeline_length, furthest_right_edge + min_timeline_padding);
-        timeline.resizeTimeline(new_timeline_length);
-        $scope.project.duration = new_timeline_length;
+        timeline.resizeTimeline(furthest_right_edge + 10);
+        $scope.project.duration = furthest_right_edge + 10;
       }
     }
   };
