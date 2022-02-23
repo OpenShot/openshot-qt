@@ -180,8 +180,7 @@ App.directive("tlClip", function ($timeout) {
             cursor_position, cursor_position, "trimming");
 
           // Calculate delta from current mouse position
-          let new_position = cursor_position;
-          new_position = results.position.left;
+          let new_position = results.position.left;
           let delta_x = 0;
           if (dragLoc === "left") {
             delta_x = (parseFloat(ui.originalPosition.left)) - new_position;
@@ -195,17 +194,18 @@ App.directive("tlClip", function ($timeout) {
 
           if (dragLoc === "left") {
             // Adjust left side of clip
-            // Don't allow less than 0.0 start
-            let zero_left_x = (scope.clip.position - scope.clip.start) * scope.pixelsPerSecond;
-            let proposed_left_x = ui.originalPosition.left - delta_x;
-            if (proposed_left_x < zero_left_x) {
-              // prevent less than 0.0
-              delta_x = ui.originalPosition.left - zero_left_x;
+            if (new_left - delta_x > 0.0) {
+              new_left -= delta_x;
+            } else {
+              // Don't allow less than 0.0 start
+              let position_x = (scope.clip.position - scope.clip.start) * scope.pixelsPerSecond;
+              delta_x = (parseFloat(ui.originalPosition.left)) - position_x;
+              new_left = 0.0;
             }
 
             // Position and size clip
             ui.element.css("left", ui.originalPosition.left - delta_x);
-            ui.element.width(new_right - (new_left - delta_x));
+            ui.element.width(new_right - new_left);
           }
           else {
             // Adjust right side of clip
@@ -214,21 +214,18 @@ App.directive("tlClip", function ($timeout) {
             if (new_right > duration_pixels) {
               // change back to actual duration (for the preview below)
               new_right = duration_pixels;
-              ui.element.width(new_right);
             }
-            else {
-              ui.element.width((new_right - new_left));
-            }
+            ui.element.width(new_right - new_left);
           }
 
           // Preview frame during resize
           if (dragLoc === "left") {
             // Preview the left side of the clip
-            scope.previewClipFrame(scope.clip.id, new_left);
+            scope.previewClipFrame(scope.clip.id, new_left / scope.pixelsPerSecond);
           }
           else {
             // Preview the right side of the clip
-            scope.previewClipFrame(scope.clip.id, new_right);
+            scope.previewClipFrame(scope.clip.id, new_right / scope.pixelsPerSecond);
           }
         }
       });
