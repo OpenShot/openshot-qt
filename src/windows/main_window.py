@@ -2263,7 +2263,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
+        self.last_caption_timestamp_position = current_position
         relative_position = current_position - clip_data.get("position")
+
+        # Prevent captions before or after the clip
+        relative_position = max(0, relative_position)
+        clip_seconds = clip_data.get("end") - clip_data.get("start")
+        relative_position = min(clip_seconds, relative_position)
 
         # Get cursor / current line of text (where cursor is located)
         cursor = self.captionTextEdit.textCursor()
@@ -2271,12 +2277,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         line_text = cursor.block().text()
         self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
 
+        # If position hasn't changed, and creating the ending timestamp, add 5 seconds
+        if "-->"  in line_text and line_text.count(':') == 3 and self.last_caption_timestamp_position == current_position:
+            # prevent caption with 0 duration
+            relative_position += 5
+
         # Insert text at cursor position
         current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
-        if "-->" in line_text:
+        if "-->" in line_text and line_text.count(':') == 3:
             self.captionTextEdit.insertPlainText("%s\n%s" % (current_timestamp, _("Enter caption text...")))
         else:
-            self.captionTextEdit.insertPlainText("\n%s --> " % (current_timestamp))
+            self.captionTextEdit.moveCursor(QTextCursor.End)
+            # If the last line isn't blank, add two blank lines
+            if (self.captionTextEdit.textCursor().block().text().strip() != ""):
+                self.captionTextEdit.insertPlainText("\n\n")
+            self.captionTextEdit.insertPlainText("%s --> " % (current_timestamp))
 
     def captionTextEdit_TextChanged(self):
         """Caption text was edited, start the save timer (to prevent spamming saves)"""
