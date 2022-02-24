@@ -38,7 +38,7 @@ from uuid import uuid4
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
     Qt, pyqtSignal, pyqtSlot, QCoreApplication, PYQT_VERSION_STR,
-    QTimer, QDateTime, QFileInfo, QUrl,
+    QTimer, QDateTime, QFileInfo, QUrl, QSize,
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
 from PyQt5.QtWidgets import (
@@ -46,7 +46,7 @@ from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QInputDialog,
     QAction, QActionGroup, QSizePolicy,
     QStatusBar, QToolBar, QToolButton,
-    QLineEdit, QComboBox, QTextEdit
+    QLineEdit, QComboBox, QTextEdit,
 )
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates
@@ -2570,6 +2570,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Reload recent project list
         self.load_recent_menu()
 
+    @pyqtSlot(float, float, QSize)
+    def preview_stats(self, paint_fps, present_fps, size):
+        """Update the preview dock title with playback stats."""
+        _ = get_app()._tr  # Translation function
+        title = _("Video Preview")
+        size = f"{size.width()}×{size.height()}"
+        rates = tuple(
+            f"{a:0.2f}" if a > 0.1 else "--"
+            for a in [paint_fps, present_fps]
+        )
+        stats = _("Paint: %s FPS, Render: %s FPS") % rates
+        self.dockVideo.setWindowTitle(f"{title} | {size} | {stats}")
+
     def setup_toolbars(self):
         _ = get_app()._tr  # Get translation function
 
@@ -2677,8 +2690,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         self.timelineToolbar.addAction(self.actionAddTrack)
         self.timelineToolbar.addSeparator()
-
-        # rest of options
         self.timelineToolbar.addAction(self.actionSnappingTool)
         self.timelineToolbar.addAction(self.actionRazorTool)
         self.timelineToolbar.addSeparator()
@@ -2688,16 +2699,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
         self.timelineToolbar.addSeparator()
 
-        # Add Video Preview toolbar
+        # Add Caption toolbar
         self.captionToolbar = QToolBar(_("Caption Toolbar"))
-
-        # Add Caption text editor widget
-        self.captionTextEdit = QTextEdit()
-        self.captionTextEdit.setReadOnly(True)
-
-        # Playback controls (centered)
         self.captionToolbar.addAction(self.actionInsertTimestamp)
         self.tabCaptions.layout().addWidget(self.captionToolbar)
+
+        # Caption text editor widget
+        self.captionTextEdit = QTextEdit()
+        self.captionTextEdit.setReadOnly(True)
         self.tabCaptions.layout().addWidget(self.captionTextEdit)
 
         # Hook up caption editor signal
@@ -3035,8 +3044,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.selection_timer.timeout.connect(self.emit_selection_signal)
 
         # Setup video preview QWidget
-        self.videoPreview = VideoWidget()
-        self.tabVideo.layout().insertWidget(0, self.videoPreview)
+        videoPreview = VideoWidget(watch_project=True)
+        self.tabVideo.layout().insertWidget(0, videoPreview)
+
+        self.TransformSignal.connect(videoPreview.transformTriggered)
+        self.KeyFrameTransformSignal.connect(
+            videoPreview.keyFrameTransformTriggered)
+        self.SelectRegionSignal.connect(videoPreview.regionTriggered)
+        self.refreshFrameSignal.connect(videoPreview.refreshTriggered)
+        if s.get("preview-fps"):
+            stats_tracker = videoPreview.stats_tracker
+            stats_tracker.currentStats.connect(self.preview_stats)
+        self.videoPreview = videoPreview
 
         # Load window state and geometry
         self.saved_state = None
@@ -3049,7 +3068,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Start the preview thread
         self.preview_parent = PreviewParent()
-        self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
+        self.preview_parent.Init(
+            self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
 
