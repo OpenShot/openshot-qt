@@ -2,16 +2,16 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">Web</type>
-    <title translatable="True">YouTube-2K</title>
+    <title translatable="True">YouTube HD (2K)</title>
 	<videoformat>mp4</videoformat>
 	<videocodec>libx264</videocodec>
 	<audiocodec>libmp3lame</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
-	 low="8 Mb/s"
-	 med="12 Mb/s"
-	 high="16 Mb/s"></videobitrate>
+	 low="16 Mb/s"
+	 med="20 Mb/s"
+	 high="24 Mb/s"></videobitrate>
 	<audiobitrate
 	 low="128 kb/s"
 	 med="256 kb/s"
@@ -22,4 +22,7 @@
 	<projectprofile>2.5K QHD 1440p 25 fps</projectprofile>
 	<projectprofile>2.5K QHD 1440p 29.97 fps</projectprofile>
 	<projectprofile>2.5K QHD 1440p 30 fps</projectprofile>
+	<projectprofile>2.5K QHD 1440p 50 fps</projectprofile>
+	<projectprofile>2.5K QHD 1440p 59.94 fps</projectprofile>
+	<projectprofile>2.5K QHD 1440p 60 fps</projectprofile>
 </export-option>
