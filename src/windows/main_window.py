@@ -2233,12 +2233,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         _ = app._tr
 
         if len(self.selected_effects) == 0:
-            log.error("No caption effect selected")
+            log.info("No caption effect selected")
             return
         effect_data = Effect.filter(id=self.selected_effects[0])[0].data
         effect_id = effect_data.get("id")
         if effect_data.get("type") != "Caption":
-            log.error("Captioning an effect that is not a Caption")
+            log.info("Captioning an effect that is not a Caption")
             return
 
         # Get the Clip that owns this caption effect
@@ -2252,7 +2252,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 break
 
         if clip_data == None:
-            log.error("No clip owns this caption effect")
+            log.info("No clip owns this caption effect")
             return
 
 
