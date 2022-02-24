@@ -1,11 +1,11 @@
 """
  @file
- @brief This file contains the video preview QWidget (based on a QLabel) and transform controls.
+ @brief Video preview widget and transform controls.
  @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2022 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -29,15 +29,22 @@ import json
 import time
 
 from PyQt5.QtCore import (
-    Qt, QCoreApplication, QMutex, QTimer,
-    QPoint, QPointF, QSize, QSizeF, QRect, QRectF,
+    Qt, QObject,
+    pyqtSignal, pyqtSlot,
+    QMutex, QTimer,
+    QPoint, QPointF,
+    QSize, QSizeF,
+    QRect, QRectF,
 )
 from PyQt5.QtGui import (
-    QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
+    QTransform, QPainter,
+    QColor, QPen, QBrush,
+    QIcon, QCursor, QImage,
+    QRegion,
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget, QPushButton
 
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+import openshot
 
 from classes import updates
 from classes import openshot_rc  # noqa
@@ -46,10 +53,54 @@ from classes.app import get_app
 from classes.query import Clip, Effect
 
 
+class StatsTracker(QObject):
+    """Collect and process performance statistics for the video preview."""
+
+    currentStats = pyqtSignal(float, float, QSize)
+
+    update_frequency_ms = 500
+    viewport_size = QSize(0, 0)
+    paint_count = 0
+    present_count = 0
+
+    def start(self):
+        """Activate stats monitoring and computation."""
+        self.time = time.monotonic()
+        self.prev_paints = self.paint_count = 0
+        self.prev_presents = self.present_count = 0
+        self.update_timer.start()
+
+    def stop(self):
+        """Stop processing stats data."""
+        self.update_timer.stop()
+
+    def updateStats(self):
+        """Recompute aggregate stats and emit currentStats signal."""
+        paints = self.paint_count
+        presents = self.present_count
+        now = time.monotonic()
+        duration = now - self.time
+
+        paint_fps = (paints - self.prev_paints) / duration
+        present_fps = (presents - self.prev_presents) / duration
+        self.currentStats.emit(paint_fps, present_fps, self.viewport_size)
+
+        # Store current stats for next iteration
+        self.prev_paints = paints
+        self.prev_presents = presents
+        self.time = now
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.update_timer = QTimer(self)
+        self.update_timer.setInterval(self.update_frequency_ms)
+        self.update_timer.timeout.connect(self.updateStats)
+
+
 class VideoWidget(QWidget, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
 
-    # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+    # invoked by the UpdateManager each time a change happens
     def changed(self, action):
         # Handle change
         if (action.key and action.key[0] in [
@@ -87,11 +138,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     "Update: Set video widget pixel aspect ratio to: %s",
                     self.pixel_ratio.ToFloat())
 
-
     def drawTransformHandler(
         self, painter, sx, sy, source_width, source_height,
         origin_x, origin_y,
-        x1=None, y1=None, x2=None, y2=None, rotation = None
+        x1=None, y1=None, x2=None, y2=None, rotation=None
     ):
         # Draw transform corners and center origin circle
         # Corner size
@@ -103,8 +153,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Rotate the transform handler
         if rotation:
-            bbox_center_x = ((x1*source_width + x2*source_width) / 2.0) - ((os / 2) / sx)
-            bbox_center_y = ((y1*source_height + y2*source_height) / 2.0) - ((os / 2) / sy)
+            bbox_center_x = (
+                (x1*source_width + x2*source_width) / 2.0) - ((os / 2) / sx)
+            bbox_center_y = (
+                (y1*source_height + y2*source_height) / 2.0) - ((os / 2) / sy)
             painter.translate(bbox_center_x, bbox_center_y)
             painter.rotate(rotation)
             painter.translate(-bbox_center_x, -bbox_center_y)
@@ -268,45 +320,19 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Remove transform
         painter.resetTransform()
 
-    def update_title(self):
-        """Update the widget title"""
-        # Translate object
-        _ = get_app()._tr
-        rect = self.centeredViewport(self.width(), self.height())
+    def track_size(self):
         scale = self.devicePixelRatioF()
-
-        # Find parent dockWidget (if any)
-        dock = None
-        if self.parent() and self.parent().parent():
-            # TODO: Find a better way to find the QDockWidget parent (if any)
-            dock = self.parent().parent()
-        else:
-            # Not a dock widget, ignore title
-            return
-
-        if self.settings.get("preview-fps"):
-            # Update window title with FPS output
-            dock.setWindowTitle(_("Video Preview") + " " + _("(Paint: %d FPS, Render: %d FPS, %dx%d)")
-                                                      % (self.paint_fps, self.present_fps,
-                                                         rect.width() * scale, rect.height() * scale))
-        else:
-            # Restore window title
-            dock.setWindowTitle(_("Video Preview"))
+        viewport = self.centeredViewport(self.width(), self.height())
+        size = QSizeF(viewport.size()) * scale
+        self.stats_tracker.viewport_size = size.toSize()
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
         event.accept()
         self.mutex.lock()
 
-        # Calculate "paint" FPS (and update widget title)
-        current_sec = time.localtime(time.time()).tm_sec
-        if current_sec != self.paint_fps_sec:
-            self.paint_fps = self.paint_fps_counter
-            self.update_title()
-            self.paint_fps_sec = current_sec
-            self.paint_fps_counter = 1
-        else:
-            self.paint_fps_counter += 1
+        # Calculate "paint" FPS
+        self.stats_tracker.paint_count += 1
 
         # Paint custom frame image on QWidget
         painter = QPainter(self)
@@ -534,12 +560,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     self.regionBottomRightHandle.y() - self.regionTopLeftHandle.y())
                 painter.drawRect(region_rect)
 
-            # Remove transform
-            painter.resetTransform()
-
-        # End painter
         painter.end()
-
         self.mutex.unlock()
 
     def centeredViewport(self, width, height):
@@ -560,19 +581,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def present(self, image, *args):
         """ Present the current frame """
 
-        # Calculate "render" / "present" FPS
-        current_sec = time.localtime(time.time()).tm_sec
-        if current_sec != self.present_fps_sec:
-            self.present_fps = self.present_fps_counter
-            self.present_fps_sec = current_sec
-            self.present_fps_counter = 1
-        else:
-            self.present_fps_counter += 1
+        # Count "render" / "present" events
+        self.stats_tracker.present_count += 1
 
-        # Get frame's QImage from libopenshot
+        # Force repaint on this widget with new image
         self.current_image = image
-
-        # Force repaint on this widget
         self.repaint()
 
     def connectSignals(self, renderer):
@@ -732,7 +745,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Determine frame # of clip
             start_of_clip_frame = round(float(self.transforming_clip.data["start"]) * fps_float) + 1
             position_of_clip_frame = (float(self.transforming_clip.data["position"]) * fps_float) + 1
-            playhead_position_frame = float(get_app().window.preview_thread.current_frame)
+            preview = get_app().window.preview_thread
+            playhead_position_frame = float(preview.current_frame)
             clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
 
             # Get properties of clip at current frame
@@ -922,7 +936,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     elif self.transform_mode == 'scale_right':
                         scale_x += x_motion / half_w
 
-                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                    if int(get_app().keyboardModifiers() & Qt.ControlModifier) > 0:
                         # If CTRL key is pressed, fix the scale_y to the correct aspect ration
                         if scale_x:
                             scale_y = scale_x
@@ -1123,8 +1137,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         elif self.transform_mode == 'scale_right':
                             scale_x += x_motion / half_w
 
-                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
-                            # If CTRL key is pressed, fix the scale_y to the correct aspect ratio
+                        if int(get_app().keyboardModifiers() & Qt.ControlModifier) > 0:
+                            # If CTRL is pressed, fix scale_y to aspect ratio
                             if scale_x:
                                 scale_y = scale_x
                             elif scale_y:
@@ -1153,8 +1167,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         self.mutex.unlock()
 
-    def updateClipProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
-        """Update a keyframe property to a new value, adding or updating keyframes as needed"""
+    def updateClipProperty(
+            self, clip_id, frame_number, property_key,
+            new_value, refresh=True):
+        """Update a keyframe property to a new value,
+        adding or updating keyframes as needed."""
         found_point = False
         clip_updated = False
 
@@ -1199,8 +1216,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
-    def updateEffectProperty(self, effect_id, frame_number, obj_id, property_key, new_value, refresh=True):
-        """Update a keyframe property to a new value, adding or updating keyframes as needed"""
+    def updateEffectProperty(
+            self, effect_id, frame_number, obj_id, property_key,
+            new_value, refresh=True):
+        """Update a keyframe property to a new value,
+        adding or updating keyframes as needed"""
         found_point = False
         effect_updated = False
 
@@ -1239,15 +1259,21 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if effect_updated:
             # Reduce # of clip properties we are saving (performance boost)
-            #TODO: This is too slow when draging transform handlers
-            c.data = {'objects': {obj_id: c.data.get('objects', {}).get(obj_id)}}
+            # TODO: This is too slow when dragging transform handles
+            c.data = {
+                'objects': {obj_id: c.data.get('objects', {}).get(obj_id)}
+                }
             c.save()
             # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
+    @pyqtSlot()
     def refreshTriggered(self):
-        """Signal to refresh viewport (i.e. a property might have changed that effects the preview)"""
+        """Slot to refresh viewport.
+
+        Receives signals that indicate a property might have changed
+        that affects the preview)"""
 
         # Update reference to clip
         if self.transforming_clip:
@@ -1256,9 +1282,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.transforming_effect:
             self.transforming_effect = Effect.get(id=self.transforming_effect.id)
 
+    @pyqtSlot(str)
     def transformTriggered(self, clip_id):
-        """Handle the transform signal when it's emitted"""
-        win = get_app().window
+        """Slot that activates the transform UI."""
         need_refresh = False
 
         # Disable Transform UI
@@ -1269,9 +1295,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             need_refresh = True
 
         # Get new clip for transform
+        win = get_app().window
+        timeline = win.timeline_sync.timeline
         if clip_id:
             self.transforming_clip = Clip.get(id=clip_id)
-            self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
+            self.transforming_clip_object = timeline.GetClip(clip_id)
             if self.transforming_clip and self.transforming_clip_object:
                 self.transforming_effect = None
                 need_refresh = True
@@ -1279,11 +1307,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Update the preview and reselct current frame in properties
         if need_refresh:
             win.refreshFrameSignal.emit()
-            win.propertyTableView.select_frame(win.preview_thread.player.Position())
+            player = win.preview_thread.player
+            win.propertyTableView.select_frame(player.Position())
 
     def keyFrameTransformTriggered(self, effect_id, clip_id):
         """Handle the key frame transform signal when it's emitted"""
-        win = get_app().window
         need_refresh = False
 
         # Disable Transform UI
@@ -1294,18 +1322,22 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.transforming_clip = None
             need_refresh = True
 
+        win = get_app().window
+
         # Get new clip for transform
         if effect_id and clip_id:
+            timeline = win.timeline_sync.timeline
             self.transforming_clip = Clip.get(id=clip_id)
-            self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
+            self.transforming_clip_object = timeline.GetClip(clip_id)
             self.transforming_effect = Effect.get(id=effect_id)
-            self.transforming_effect_object = win.timeline_sync.timeline.GetClipEffect(effect_id)
+            self.transforming_effect_object = timeline.GetClipEffect(effect_id)
 
             if (self.transforming_clip and self.transforming_clip_object and
-                self.transforming_effect and self.transforming_effect_object):
+                self.transforming_effect and self.transforming_effect_object
+            ):
                 need_refresh = True
 
-        # Update the preview and reselct current frame in properties
+        # Update the preview and reselect current frame in properties
         if need_refresh:
             win.refreshFrameSignal.emit()
             win.propertyTableView.select_frame(win.preview_thread.player.Position())
@@ -1319,35 +1351,37 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def resizeEvent(self, event):
         """Widget resize event"""
         event.accept()
-        self.delayed_size = self.size()
-        self.delayed_resize_timer.start()
+        self.resize_timer.start()
 
         # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        self.win.PauseSignal.emit()
+        get_app().window.PauseSignal.emit()
 
-    def delayed_resize_callback(self):
-        """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
-        # Ensure width & height are divisible by 2 (round decimals).
+    @pyqtSlot()
+    def delayed_resize(self):
+        """Callback for resize event timer.
+
+        Delaying our response to resize events prevents resize storms.
+        libopenshot (indirect recipient of MaxSizeChanged) can't handle them."""
+
+        # Scale project size (with aspect ratio) to half the widget size
+        new_size = QSize(
+            int(get_app().project.get("width")),
+            int(get_app().project.get("height")))
+        new_size.scale(self.size() / 2.0, Qt.KeepAspectRatio)
+
+        # Multiply to ensure width & height are divisible by 2.
         # Trying to find the closest even number to the requested aspect ratio
         # so that both width and height are divisible by 2. This is to prevent some
         # strange phantom scaling lines on the edges of the preview window.
+        project_size = new_size * 2
 
-        # Scale project size (with aspect ratio) to the delayed widget size
-        project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
-        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
-
-        if project_size.height() > 0:
-            # Ensure width and height are divisible by 2
-            ratio = float(project_size.width()) / float(project_size.height())
-            even_width = round(project_size.width() / 2.0) * 2
-            even_height = round(round(even_width / ratio) / 2.0) * 2
-            project_size = QSize(int(even_width), int(even_height))
+        self.track_size()
 
         # Emit signal that video widget changed size
-        self.win.MaxSizeChanged.emit(project_size)
+        get_app().window.MaxSizeChanged.emit(project_size)
 
-    # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
+        """Capture wheel event to alter zoom/scale of widget."""
         event.accept()
         # For each 120 (standard scroll unit) adjust the zoom slider
         tick_scale = 1024
@@ -1373,21 +1407,30 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Repaint widget on zoom
         self.repaint()
 
-    def __init__(self, watch_project=True, *args):
-        """watch_project: watch for changes in project size / widget size, and
-        continue to match the current project's aspect ratio."""
+    def __init__(self, *args, **kwargs):
+        """Set up video preview functionality and internal state.
+
+        @param watch_project Watch for changes in project / widget size,
+                             and continue to match the current project's
+                             aspect ratio."""
+
+        watch_project = kwargs.pop("watch_project", True)
+
         # Invoke parent init
-        QWidget.__init__(self, *args)
-
-        # Translate object
-        _ = get_app()._tr
-
-        # Settings object
-        self.settings = get_app().get_settings()
+        super().__init__(*args, **kwargs)
 
         # Init aspect ratio settings (default values)
         self.aspect_ratio = openshot.Fraction(16, 9)
         self.pixel_ratio = openshot.Fraction(1, 1)
+        self.zoom = 1.0  # Zoom of widget (does not affect video, only workspace)
+
+        # FPS calculations
+        self.stats_tracker = StatsTracker(self)
+        self.track_size()
+        settings = get_app().get_settings()
+        if settings.get("preview-fps") and watch_project:
+            self.stats_tracker.start()
+
         self.transforming_clip = None
         self.transforming_effect = None
         self.transforming_clip_object = None
@@ -1416,21 +1459,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.regionTopLeftHandle = None
         self.regionBottomRightHandle = None
         self.curr_frame_size = None # Frame size
-        self.zoom = 1.0  # Zoom of widget (does not affect video, only workspace)
         self.cs = 14.0  # Corner size of Transform Handler rectangles
+
+        # Translate object
+        _ = get_app()._tr
+
         self.resize_button = QPushButton(_('Reset Zoom'), self)
         self.resize_button.hide()
-        self.resize_button.setStyleSheet('QPushButton { margin: 10px; padding: 2px; }')
+        self.resize_button.setStyleSheet(
+            'QPushButton { margin: 10px; padding: 2px; }')
         self.resize_button.clicked.connect(self.resize_button_clicked)
         self.resize_button.setMouseTracking(True)
-
-        # FPS calculations
-        self.paint_fps = 0.0
-        self.paint_fps_counter = 1
-        self.paint_fps_sec = None
-        self.present_fps = 0.0
-        self.present_fps_counter = 1
-        self.present_fps_sec = None
 
         # Load icon (using display DPI)
         self.cursors = {}
@@ -1452,29 +1491,19 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Init Qt widget's properties (background repainting, etc...)
         super().setAttribute(Qt.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-
-        # Add self as listener to project data updates (used to update the timeline)
-        get_app().updates.add_listener(self)
-
-        # Set mouse tracking
         self.setMouseTracking(True)
+
+        # Add self as listener to project data updates
+        get_app().updates.add_listener(self)
 
         # Init current frame's QImage
         self.current_image = None
 
-        # Get a reference to the window object
-        self.win = get_app().window
-
-        # Show Property timer
-        # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
-        self.delayed_resize_timer = QTimer(self)
-        self.delayed_resize_timer.setInterval(200)
-        self.delayed_resize_timer.setSingleShot(True)
+        # Timer to delay resize event responses
+        timer = QTimer(self)
+        timer.setInterval(200)
+        timer.setSingleShot(True)
         if watch_project:
-            self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
+            timer.timeout.connect(self.delayed_resize)
+        self.resize_timer = timer
 
-        # Connect to signals
-        self.win.TransformSignal.connect(self.transformTriggered)
-        self.win.KeyFrameTransformSignal.connect(self.keyFrameTransformTriggered)
-        self.win.SelectRegionSignal.connect(self.regionTriggered)
-        self.win.refreshFrameSignal.connect(self.refreshTriggered)
