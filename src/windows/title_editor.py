@@ -67,6 +67,7 @@ class TitleEditor(QDialog):
 
         # A timer to pause until user input stops before updating the svg
         self.update_timer = QTimer()
+        self.update_timer.setInterval(300)
         self.update_timer.timeout.connect(self.save_and_reload)
 
         # Create dialog class
@@ -154,7 +155,7 @@ class TitleEditor(QDialog):
                 node.appendChild(new_text_node)
 
         # Something changed, so update temp SVG
-        self.update_timer.start(500) # Start (or restart) 0.5 second timer
+        self.update_timer.start()
 
     def display_svg(self):
         # Create a temp file for this thumbnail image
@@ -368,6 +369,7 @@ class TitleEditor(QDialog):
 
     def save_and_reload(self):
         """Something changed, so update temp SVG and redisplay"""
+        self.update_timer.stop()
         self.writeToFile(self.xmldoc)
         self.display_svg()
 
@@ -378,7 +380,7 @@ class TitleEditor(QDialog):
             return
         save_fn(color.name(), color.alphaF())
         refresh_fn()
-        self.update_timer.start(500)
+        self.update_timer.start()
 
     @staticmethod
     def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
@@ -443,7 +445,7 @@ class TitleEditor(QDialog):
             if (oldfontinfo.pixelSize() > 0):
                 self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
             self.set_font_style()
-            self.update_timer.start(500)
+            self.update_timer.start()
 
     def update_font_color_button(self):
         """Updates the color shown on the font color button"""
