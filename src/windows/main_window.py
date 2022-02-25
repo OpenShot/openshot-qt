@@ -2232,7 +2232,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app = get_app()
         _ = app._tr
 
-        if len(self.selected_effects) == 0:
+        if not self.selected_effects:
             log.info("No caption effect selected")
             return
         effect_data = Effect.filter(id=self.selected_effects[0])[0].data
@@ -2255,7 +2255,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info("No clip owns this caption effect")
             return
 
-
         if self.captionTextEdit.isReadOnly():
             return
 
@@ -2264,12 +2263,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
         self.last_caption_timestamp_position = current_position
-        relative_position = current_position - clip_data.get("position")
+        relative_position = current_position - clip_data.get("position") + clip_data.get("start")
 
         # Prevent captions before or after the clip
-        relative_position = max(0, relative_position)
+        relative_position = max(clip_data.get('start'), relative_position)
         clip_seconds = clip_data.get("end") - clip_data.get("start")
-        relative_position = min(clip_seconds, relative_position)
+        relative_position = min(clip_data.get('end'), relative_position)
 
         # Get cursor / current line of text (where cursor is located)
         cursor = self.captionTextEdit.textCursor()
@@ -2280,16 +2279,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # If position hasn't changed, and creating the ending timestamp, add 5 seconds
         if "-->"  in line_text and line_text.count(':') == 3 and self.last_caption_timestamp_position == current_position:
             # prevent caption with 0 duration
-            relative_position += 5
+            relative_position += 5.0
 
         # Insert text at cursor position
         current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
         if "-->" in line_text and line_text.count(':') == 3:
             self.captionTextEdit.insertPlainText("%s\n%s" % (current_timestamp, _("Enter caption text...")))
         else:
-            self.captionTextEdit.moveCursor(QTextCursor.End)
             # If the last line isn't blank, add two blank lines
             if (self.captionTextEdit.textCursor().block().text().strip() != ""):
+                self.captionTextEdit.moveCursor(QTextCursor.End)
                 self.captionTextEdit.insertPlainText("\n\n")
             self.captionTextEdit.insertPlainText("%s --> " % (current_timestamp))
 
