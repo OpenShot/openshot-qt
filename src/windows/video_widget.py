@@ -592,6 +592,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """ Connect signals to renderer """
         renderer.present.connect(self.present)
 
+    def send_stats(self, enabled=True):
+        """Activate/deactivate the stats tracker"""
+        if enabled:
+            self.stats_tracker.start()
+        else:
+            self.stats_tracker.stop()
+
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()

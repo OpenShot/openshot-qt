@@ -2574,14 +2574,26 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def preview_stats(self, paint_fps, present_fps, size):
         """Update the preview dock title with playback stats."""
         _ = get_app()._tr  # Translation function
-        title = _("Video Preview")
         size = f"{size.width()}×{size.height()}"
         rates = tuple(
             f"{a:0.2f}" if a > 0.1 else "--"
             for a in [paint_fps, present_fps]
         )
         stats = _("Paint: %s FPS, Render: %s FPS") % rates
-        self.dockVideo.setWindowTitle(f"{title} | {size} | {stats}")
+        self.video_dock_title(size, stats)
+
+    def stats_enable(self, enabled=True):
+        """Control the display of stats in the preview titlebar"""
+        self.videoPreview.send_stats(enabled)
+        if not enabled:
+            self.video_dock_title()
+
+    def video_dock_title(self, *args):
+        """Optionally display stats in the dock title"""
+        _ = get_app()._tr  # Translations
+        title = _("Video Preview")
+        self.dockVideo.setWindowTitle(
+            " | ".join([title, *args]))
 
     def setup_toolbars(self):
         _ = get_app()._tr  # Get translation function

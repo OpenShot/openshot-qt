@@ -461,28 +461,28 @@ class Preferences(QDialog):
 
     def bool_value_changed(self, widget, param, state):
         # Save setting
-        if state == Qt.Checked:
-            self.s.set(param["setting"], True)
-        else:
-            self.s.set(param["setting"], False)
+        key = param["setting"]
+        value = state == Qt.Checked
+        self.s.set(key, value)
 
         # Trigger specific actions
-        if param["setting"] == "debug-mode":
-            # Update debug setting of timeline
-            log.info("Setting debug-mode to %s", state == Qt.Checked)
-            debug_enabled = (state == Qt.Checked)
 
+        if key == "debug-mode":
+            log.info("Setting debug-mode to %s", value)
             # Enable / Disable logger
-            openshot.ZmqLogger.Instance().Enable(debug_enabled)
+            openshot.ZmqLogger.Instance().Enable(value)
 
-        elif param["setting"] == "enable-auto-save":
+        elif key == "enable-auto-save":
+            timer = get_app().window.auto_save_timer
             # Toggle autosave
-            if (state == Qt.Checked):
-                # Start/Restart autosave timer
-                get_app().window.auto_save_timer.start()
+            if value:
+                timer.start()
             else:
-                # Stop autosave timer
-                get_app().window.auto_save_timer.stop()
+                timer.stop()
+
+        elif key == "preview-fps":
+            # Toggle stats reporting
+            get_app().window.stats_enable(value)
 
         # Check for restart
         self.check_for_restart(param)
