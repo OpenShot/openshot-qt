@@ -243,7 +243,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
-    def add_files(self, files, image_seq_details=None, quiet=False):
+    def add_files(self, files, image_seq_details=None, quiet=False, prevent_image_seq=False):
         # Access translations
         app = get_app()
         _ = app._tr
@@ -288,7 +288,9 @@ class FilesModel(QObject, updates.UpdateInterface):
                 new_file.data = file_data
 
                 # Is this an image sequence / animation?
-                seq_info = image_seq_details or self.get_image_sequence_details(filepath)
+                seq_info = None
+                if not prevent_image_seq:
+                    seq_info = image_seq_details or self.get_image_sequence_details(filepath)
 
                 if seq_info:
                     # Update file with correct path
