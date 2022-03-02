@@ -25,6 +25,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
+from classes.logger import log
 
 
 class KeyframeScaler:
@@ -34,14 +35,14 @@ class KeyframeScaler:
     multiplied by the scaling factor, except X=1 (because the first
     frame never changes)"""
 
-    def _scale_x_value(self, value: float) -> int:
+    def _scale_value(self, value: float) -> int:
         """Scale value by some factor, except for 1 (leave that alone)"""
         if value == 1.0:
             return value
         # Round to nearest INT
         return round(value * self._scale_factor)
 
-    def _update_prop(self, prop: dict):
+    def _update_prop(self, prop: dict, is_time = False):
         """Find the keyframe points in a property and scale"""
         # Create a list of lists of keyframe points for this prop
         if "red" in prop:
@@ -52,19 +53,23 @@ class KeyframeScaler:
             keyframes = [prop.get("Points", [])]
         for k in keyframes:
             # Scale the X coordinate (frame #) by the stored factor
-            [point["co"].update({
-                "X": self._scale_x_value(point["co"].get("X", 0.0))
-                })
-                for point in k if "co" in point]
+            if (is_time):
+                log.debug("Updating both values of time keyframes")
+                [point["co"].update({
+                    "X": self._scale_value(point["co"].get("X", 0.0)),
+                    "Y": self._scale_value(point["co"].get("Y", 0.0))
+                }) for point in k if "co" in point]
+            else:
+                [point["co"].update({
+                    "X": self._scale_value(point["co"].get("X", 0.0)),
+                }) for point in k if "co" in point]
 
     def _process_item(self, item: dict):
         """Process all the dict sub-members of the current dict"""
-        dict_props = [
-            item[prop] for prop in item
-            if isinstance(item[prop], dict)
-            ]
-        for prop in dict_props:
-            self._update_prop(prop)
+        props = [ prop for prop in item
+                       if isinstance(item[prop], dict)]
+        for prop_name in props:
+            self._update_prop(item[prop_name], is_time=prop_name == "time")
 
     def __call__(self, data: dict) -> dict:
         """Apply the stored scaling factor to a project data dict"""
