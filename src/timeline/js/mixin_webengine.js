@@ -39,6 +39,7 @@ function init_mixin() {
     angular.element(document).ready(function () {
       timeline.qt_log("INFO", "Angular Ready");
       $("body").scope().enableQt();
+      $("body").addClass("webengine");
     });
 
   });

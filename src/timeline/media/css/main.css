@@ -303,7 +303,11 @@ img {
   margin-right: 1px;
 }
 
-.razor_cursor {
+.webkit .razor_cursor {
+  cursor: url(../images/razor_line_with_razor.png), default !important;
+}
+
+.webengine .razor_cursor {
   cursor: url(../images/razor_line_with_razor.svg), default !important;
 }
 

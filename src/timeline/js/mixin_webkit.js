@@ -34,6 +34,7 @@ function init_mixin() {
     if (typeof timeline !== "undefined") {
       timeline.qt_log("INFO", "Qt Ready");
       $("body").scope().enableQt();
+      $("body").addClass("webkit");
     }
     timeline.qt_log("INFO", "Angular Ready");
   });
