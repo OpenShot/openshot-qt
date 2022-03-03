@@ -42,8 +42,13 @@ class KeyframeScaler:
         # Round to nearest INT
         return round(value * self._scale_factor)
 
-    def _update_prop(self, prop: dict, is_time = False):
-        """Find the keyframe points in a property and scale"""
+    def _update_prop(self, prop: dict, scale_y = False):
+        """To keep keyframes at the same time in video,
+        update frame numbers to the new framerate.
+
+        scale_y: if the y coordinate also represents a frame number,
+        this flag will scale both x and y.
+        """
         # Create a list of lists of keyframe points for this prop
         if "red" in prop:
             # It's a color, one list of points for each channel
@@ -52,14 +57,15 @@ class KeyframeScaler:
             # Not a color, just a single list of points
             keyframes = [prop.get("Points", [])]
         for k in keyframes:
-            # Scale the X coordinate (frame #) by the stored factor
-            if (is_time):
-                log.debug("Updating both values of time keyframes")
+            if (scale_y):
+                # Y represents a frame number. Scale it too
+                log.debug("Updating x and y coordinates of time keyframes")
                 [point["co"].update({
                     "X": self._scale_value(point["co"].get("X", 0.0)),
                     "Y": self._scale_value(point["co"].get("Y", 0.0))
                 }) for point in k if "co" in point]
             else:
+                # Scale the X coordinate (frame #) by the stored factor
                 [point["co"].update({
                     "X": self._scale_value(point["co"].get("X", 0.0)),
                 }) for point in k if "co" in point]
@@ -69,7 +75,7 @@ class KeyframeScaler:
         props = [ prop for prop in item
                        if isinstance(item[prop], dict)]
         for prop_name in props:
-            self._update_prop(item[prop_name], is_time=prop_name == "time")
+            self._update_prop(item[prop_name], scale_y=prop_name == "time")
 
     def __call__(self, data: dict) -> dict:
         """Apply the stored scaling factor to a project data dict"""
