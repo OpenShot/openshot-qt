@@ -1748,15 +1748,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if not f:
                 continue
 
-            f_id = f.data["id"]
-            # Remove file
-            f.delete()
-
             # Find matching clips (if any)
-            clips = Clip.filter(file_id=f_id)
+            clips = Clip.filter(file_id=f.data.get("id"))
             for c in clips:
                 # Remove clip
                 c.delete()
+
+            # Remove file (after clips are deleted)
+            f.delete()
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()

@@ -138,8 +138,8 @@ img {
     -webkit-gradient(linear, left top, left bottom,
                      color-stop(0%, rgba(255, 255, 255, 0.20)),
                      color-stop(100%, rgba(255, 255, 255, 0)));
-  border-top-left-radiux;
-  border-bottom-left-ra 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .track_lock {
