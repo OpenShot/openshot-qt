@@ -2227,6 +2227,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Insert the current timestamp into the caption editor
         In the format: 00:00:23,000 --> 00:00:24,500. first click to set the initial timestamp,
         move the playehad, second click to set the end timestamp.
+
+        If beginning and ending timestamps would be the same, add 5 seconds to the second.
         """
         # Get translation function
         app = get_app()
@@ -2285,15 +2287,22 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # recalculate the timestamp string
             current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
 
-        # Insert text at cursor position
         if "-->" in line_text and line_text.count(':') == 3:
-            self.captionTextEdit.insertPlainText("%s\n%s" % (current_timestamp, _("Enter caption text...")))
+            # Current line has only one timestamp. Add the second and go to the line below it.
+            self.captionTextEdit.insertPlainText(current_timestamp)
+            self.captionTextEdit.moveCursor(QTextCursor.Down)
+            self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
         else:
-            # If the last line isn't blank, add two blank lines
+            # Current line isn't a starting timestamp, so add a starting timestamp
+
+            # If the current line isn't blank, go to end and add two blank lines
             if (self.captionTextEdit.textCursor().block().text().strip() != ""):
                 self.captionTextEdit.moveCursor(QTextCursor.End)
                 self.captionTextEdit.insertPlainText("\n\n")
-            self.captionTextEdit.insertPlainText("%s --> " % (current_timestamp))
+            # Add timestamp, and placeholder caption
+            self.captionTextEdit.insertPlainText("%s --> \n %s" % (current_timestamp, _("Enter caption text...")))
+            # Return to timestamp line, to await ending timestamp
+            self.captionTextEdit.moveCursor(QTextCursor.Up)
 
     def captionTextEdit_TextChanged(self):
         """Caption text was edited, start the save timer (to prevent spamming saves)"""
