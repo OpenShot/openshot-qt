@@ -2300,7 +2300,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.captionTextEdit.moveCursor(QTextCursor.End)
                 self.captionTextEdit.insertPlainText("\n\n")
             # Add timestamp, and placeholder caption
-            self.captionTextEdit.insertPlainText("%s --> \n %s" % (current_timestamp, _("Enter caption text...")))
+            self.captionTextEdit.insertPlainText("%s --> \n%s" % (current_timestamp, _("Enter caption text...")))
             # Return to timestamp line, to await ending timestamp
             self.captionTextEdit.moveCursor(QTextCursor.Up)
 
