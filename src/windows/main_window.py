@@ -2262,7 +2262,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
-        self.last_caption_timestamp_position = current_position
         relative_position = current_position - clip_data.get("position") + clip_data.get("start")
 
         # Prevent captions before or after the clip
@@ -2276,13 +2275,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         line_text = cursor.block().text()
         self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
 
-        # If position hasn't changed, and creating the ending timestamp, add 5 seconds
-        if "-->"  in line_text and line_text.count(':') == 3 and self.last_caption_timestamp_position == current_position:
+        # Convert time in seconds to hours:minutes:seconds:milliseconds
+        current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
+
+        # If this line only has one timestamp, and both timestamps are the same, default to 5 second duration
+        if "-->"  in line_text and line_text.count(':') == 3 and current_timestamp in line_text:
             # prevent caption with 0 duration
             relative_position += 5.0
+            # recalculate the timestamp string
+            current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
 
         # Insert text at cursor position
-        current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
         if "-->" in line_text and line_text.count(':') == 3:
             self.captionTextEdit.insertPlainText("%s\n%s" % (current_timestamp, _("Enter caption text...")))
         else:
