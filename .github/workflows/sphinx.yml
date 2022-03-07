@@ -20,7 +20,7 @@ jobs:
     # Steps are a sequence of tasks that will be executed as part of the job
     steps:
     # Check out repository under $GITHUB_WORKSPACE
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     # Builds docs using sphinx
     - uses: ammaraskar/sphinx-action@master
       with:
