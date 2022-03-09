@@ -62,6 +62,7 @@ def init_tracing():
         print("Sentry initialized with %s error reporting rate (%s)" % (default_sample_rate, environment))
 
     def error_filtering(sampling_context):
+        print('Filter method running!')
         name = sampling_context.get("transaction_context").get("name")
         current_time = datetime.datetime.now()
         if len(error_history) != 1:
@@ -69,9 +70,11 @@ def init_tracing():
             delta = current_time - self.last_error_time
             deltaMicroSec = (delta.seconds * 10**6) + delta.microseconds
             if deltaMicroSec < min_error_delay:
+                print("Reject: too soon")
                 # Too soon after last error. Don't send
                 return 0.0
             if name == self.last_error_name:
+                print("Reject: same name")
                 # This error was just reported. don't report.
                 return 0.0
         self.last_error_name = name
