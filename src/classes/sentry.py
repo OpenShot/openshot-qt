@@ -61,32 +61,28 @@ def init_tracing():
     if info.ERROR_REPORT_STABLE_VERSION:
         print("Sentry initialized with %s error reporting rate (%s)" % (default_sample_rate, environment))
 
-    def clientside_filter(sampling_context):
+    def error_filtering(sampling_context):
         name = sampling_context.get("transaction_context").get("name")
         current_time = datetime.datetime.now()
-        error_history.append( {
-            "error_name" : sampling_context.get("transaction_context").get("name"),
-            "error_time" : datetime.datetime.now()
-        })
         if len(error_history) != 1:
             # Time since last error
-            delta = current_time - error_history[-1].get("error_time")
+            delta = current_time - self.last_error_time
             deltaMicroSec = (delta.seconds * 10**6) + delta.microseconds
             if deltaMicroSec < min_error_delay:
                 # Too soon after last error. Don't send
                 return 0.0
-            # Grab the last 5 or less error_history names excluding the last
-            recent_error_names = [e.get("error_name")
-                                  for e in error_history[0-recent_error_length - 1:-1]]
-            if name in recent_error_names:
-                # This error has been reported recently. Don't send.
+            if name == self.last_error_name:
+                # This error was just reported. don't report.
                 return 0.0
-        return default_sample_rate
+        self.last_error_name = name
+        self.last_error_time = current_time
+        # return a chance of sending error
+        return 1.0 # REMOVE BEFORE MERGE. Decrease to something reasonable.
 
     # Initialize sentry exception tracing
     sdk.init(
         "https://21496af56ab24e94af8ff9771fbc1600@o772439.ingest.sentry.io/5795985",
-        traces_sampler=clientside_filter,
+        traces_sampler=error_filtering,
         release=f"openshot@{info.VERSION}",
         environment=environment
     )

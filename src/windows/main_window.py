@@ -764,6 +764,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.info('canceled')
 
     def actionExportVideo_trigger(self, checked=True):
+        log.info("Test error");
+        log.error("Jackson's testing error")
         # show window
         from windows.export import Export
         win = Export()
