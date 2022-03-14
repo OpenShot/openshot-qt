@@ -65,21 +65,18 @@ class TitleEditor(QDialog):
 
     def __init__(self, *args, edit_file_path=None, duplicate=False, **kwargs):
 
+        # Create dialog class
+        super().__init__(*args, **kwargs)
+
         # A timer to pause until user input stops before updating the svg
         self.update_timer = QTimer()
         self.update_timer.setInterval(300)
         self.update_timer.timeout.connect(self.save_and_reload)
 
-        # Create dialog class
-        super().__init__(*args, **kwargs)
-
         self.app = get_app()
         self.project = self.app.project
         self.edit_file_path = edit_file_path
         self.duplicate = duplicate
-
-        # Get translation object
-        _ = self.app._tr
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
