@@ -69,8 +69,9 @@ class TitleEditor(QDialog):
         super().__init__(*args, **kwargs)
 
         # A timer to pause until user input stops before updating the svg
-        self.update_timer = QTimer()
+        self.update_timer = QTimer(self)
         self.update_timer.setInterval(300)
+        self.update_timer.setSingleShot(True)
         self.update_timer.timeout.connect(self.save_and_reload)
 
         self.app = get_app()
@@ -366,7 +367,6 @@ class TitleEditor(QDialog):
 
     def save_and_reload(self):
         """Something changed, so update temp SVG and redisplay"""
-        self.update_timer.stop()
         self.writeToFile(self.xmldoc)
         self.display_svg()
 
