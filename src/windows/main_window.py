@@ -30,13 +30,14 @@
 import os
 import shutil
 import webbrowser
+import functools
 from copy import deepcopy
 from time import sleep
 from uuid import uuid4
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
-    Qt, pyqtSignal, QCoreApplication, PYQT_VERSION_STR,
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, PYQT_VERSION_STR,
     QTimer, QDateTime, QFileInfo, QUrl,
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
@@ -436,8 +437,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Stop preview thread
         self.SpeedSignal.emit(0)
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
-        self.actionPlay.setChecked(False)
+        self.PauseSignal.emit()
         QCoreApplication.processEvents()
 
         # Do we have unsaved changes?
@@ -497,6 +497,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     5000)
                 self.remove_recent_project(file_path)
                 self.load_recent_menu()
+
+            # Ensure that playhead, preview thread, and cache all agree that
+            # Frame 1 is being previewed
+            self.preview_thread.player.Seek(1)
+            self.movePlayhead(1)
 
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
@@ -733,7 +738,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             _("Would you like to import %s as an image sequence?") % filename,
             QMessageBox.No | QMessageBox.Yes
         )
-        return bool(ret == QMessageBox.Yes)
+        return ret == QMessageBox.Yes
 
     def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files
@@ -802,8 +807,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionPreferences_trigger(self, checked=True):
         # Stop preview thread
         self.SpeedSignal.emit(0)
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-start")
-        self.actionPlay.setChecked(False)
+        self.PauseSignal.emit()
 
         # Set cursor to waiting
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
@@ -901,20 +905,29 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             QMessageBox.information(self, "Error !", "Unable to open the Download web page")
             log.error("Unable to open the download page", exc_info=1)
 
-    def actionPlay_trigger(self, checked=True, force=None):
-        if force == "pause":
-            self.actionPlay.setChecked(False)
-        elif force == "play":
-            self.actionPlay.setChecked(True)
+    def should_play(self, requested_speed=0):
+        """Determine if we should start playback, based on the current frame
+        and the total number of frames in our timeline clips. For example,
+        if we are at the end of our last clip, and the user clicks play, we
+        do not want to start playback."""
+        # Get max frame (based on last clip) and current frame
+        max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+        current_frame = self.preview_thread.current_frame
+        if current_frame is not None:
+            next_frame = current_frame + requested_speed
+            return next_frame < max_frame
+        return False
 
-        if self.actionPlay.isChecked():
-            # Determine max frame (based on clips)
-            max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.PlaySignal.emit(max_frame)
-
+    def actionPlay_trigger(self):
+        """Toggle play/pause on video preview"""
+        player = self.preview_thread.player
+        if player.Mode() == openshot.PLAYBACK_PAUSED:
+            # Start playback
+            if self.should_play():
+                max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
+                self.PlaySignal.emit(max_frame)
         else:
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay")  # to default
+            # Pause playback
             self.PauseSignal.emit()
 
     def actionPreview_File_trigger(self, checked=True):
@@ -942,10 +955,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Notify properties dialog
         self.propertyTableView.select_frame(position_frames)
 
-    def handlePausedVideo(self):
-        """Handle the pause signal, by refreshing the properties dialog"""
-        self.propertyTableView.select_frame(self.preview_thread.player.Position())
-
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
@@ -956,30 +965,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline.SetPlayheadFollow(enable_follow)
 
     def actionFastForward_trigger(self, checked=True):
-
-        # Get the video player object
+        """Fast forward the video playback"""
         player = self.preview_thread.player
-
-        if player.Speed() + 1 != 0:
-            self.SpeedSignal.emit(player.Speed() + 1)
-        else:
-            self.SpeedSignal.emit(player.Speed() + 2)
+        requested_speed = player.Speed() + 1
+        if requested_speed == 0:
+            # If paused, fast forward starting at faster than normal playback speed
+            requested_speed = 2
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
+
+        if self.should_play(requested_speed):
+            self.SpeedSignal.emit(requested_speed)
 
     def actionRewind_trigger(self, checked=True):
-        # Get the video player object
+        """Rewind the video playback"""
         player = self.preview_thread.player
-
-        new_speed = player.Speed() - 1
-        if new_speed == 0:
-            new_speed -= 1
-        log.debug("Setting speed to %s", new_speed)
+        requested_speed = player.Speed() - 1
+        if requested_speed == 0:
+            # If paused, rewind starting at normal playback speed (in reverse)
+            requested_speed = -1
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             self.actionPlay.trigger()
-        self.SpeedSignal.emit(new_speed)
+
+        if self.should_play(requested_speed):
+            self.SpeedSignal.emit(requested_speed)
 
     def actionJumpStart_trigger(self, checked=True):
         log.debug("actionJumpStart_trigger")
@@ -993,6 +1004,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
         self.SeekSignal.emit(max_frame)
+
+    def onPlayCallback(self):
+        """Handle when playback is started"""
+        # Set icon on Play button
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+
+    def onPauseCallback(self):
+        """Handle when playback is paused"""
+        # Refresh property window
+        self.propertyTableView.select_frame(self.preview_thread.player.Position())
+
+        # Set icon on Pause button
+        ui_util.setup_icon(self, self.actionPlay, "actionPlay")
 
     def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
@@ -1031,8 +1055,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.updates.update_untracked(["export_path"], os.path.dirname(framePath))
         log.info("Saving frame to %s", framePath)
 
-        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        self.actionPlay_trigger(force="pause")
+        # Pause playback
+        self.SpeedSignal.emit(0)
+        self.PauseSignal.emit()
 
         # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
         old_cache_object = self.cache_object
@@ -1496,10 +1521,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Basic shortcuts i.e just a letter
         if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
             # Pause video
-            self.actionPlay_trigger(force="pause")
-            # Set speed to 0
-            if player.Speed() != 0:
-                self.SpeedSignal.emit(0)
+            self.PauseSignal.emit()
+            self.SpeedSignal.emit(0)
             # Seek to previous frame
             self.SeekSignal.emit(player.Position() - 1)
 
@@ -1508,10 +1531,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
             # Pause video
-            self.actionPlay_trigger(force="pause")
-            # Set speed to 0
-            if player.Speed() != 0:
-                self.SpeedSignal.emit(0)
+            self.PauseSignal.emit()
+            self.SpeedSignal.emit(0)
             # Seek to next frame
             self.SeekSignal.emit(player.Position() + 1)
 
@@ -1521,14 +1542,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
             # Toggle rewind and start playback
             self.actionRewind.trigger()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.actionPlay.setChecked(True)
 
         elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.ExactMatch:
             # Toggle fastforward button and start playback
             self.actionFastForward.trigger()
-            ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
-            self.actionPlay.setChecked(True)
 
         elif any([
                 key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch,
@@ -1731,15 +1748,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if not f:
                 continue
 
-            f_id = f.data["id"]
-            # Remove file
-            f.delete()
-
             # Find matching clips (if any)
-            clips = Clip.filter(file_id=f_id)
+            clips = Clip.filter(file_id=f.data.get("id"))
             for c in clips:
                 # Remove clip
                 c.delete()
+
+            # Remove file (after clips are deleted)
+            f.delete()
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
@@ -1747,10 +1763,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionRemoveClip_trigger(self):
         log.debug('actionRemoveClip_trigger')
 
+        locked_tracks = [l.get("number")
+                         for l in get_app().project.get('layers')
+                         if l.get("lock", False)]
+
         # Loop through selected clips
         for clip_id in deepcopy(self.selected_clips):
             # Find matching file
             clips = Clip.filter(id=clip_id)
+            clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
             for c in clips:
                 # Clear selected clips
                 self.removeSelection(clip_id, "clip")
@@ -1806,10 +1827,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionRemoveTransition_trigger(self):
         log.debug('actionRemoveTransition_trigger')
 
+        locked_tracks = [l.get("number")
+                         for l in get_app().project.get('layers')
+                         if l.get("lock", False)]
+
         # Loop through selected clips
         for tran_id in deepcopy(self.selected_transitions):
             # Find matching file
             transitions = Transition.filter(id=tran_id)
+            transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))
             for t in transitions:
                 # Clear selected clips
                 self.removeSelection(tran_id, "transition")
@@ -2050,37 +2076,41 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Only show correctly docked widgets
                 dock.show()
 
-    def freezeDocks(self):
-        """ Freeze all dockable widgets on the main screen
-            (prevent them being closed, floated, or moved) """
-        for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
-                dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+    def freezeDock(self, dock, frozen=True):
+        """ Freeze/unfreeze a dock widget on the main screen."""
+        if self.dockWidgetArea(dock) == Qt.NoDockWidgetArea:
+            # Don't freeze undockable widgets
+            return
+        if frozen:
+            dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        else:
+            features = (
+                QDockWidget.DockWidgetFloatable
+                | QDockWidget.DockWidgetMovable)
+            if dock is not self.dockTimeline:
+                features |= QDockWidget.DockWidgetClosable
+            dock.setFeatures(features)
 
-    def unFreezeDocks(self):
-        """ Un-freeze all dockable widgets on the main screen
-            (allow them to be closed, floated, or moved, as appropriate) """
-        for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
-                if dock is self.dockTimeline:
-                    dock.setFeatures(
-                        QDockWidget.DockWidgetFloatable
-                        | QDockWidget.DockWidgetMovable)
-                else:
-                    dock.setFeatures(
-                        QDockWidget.DockWidgetClosable
-                        | QDockWidget.DockWidgetFloatable
-                        | QDockWidget.DockWidgetMovable)
+    @pyqtSlot()
+    def freezeMainToolBar(self, frozen=None):
+        """Freeze/unfreeze the toolbar if it's attached to the window."""
+        if frozen is None:
+            frozen = self.docks_frozen
+        floating = self.toolBar.isFloating()
+        log.debug(
+            "%s main toolbar%s",
+            "freezing" if frozen and not floating else "unfreezing",
+            " (floating)" if floating else "")
+        if floating:
+            self.toolBar.setMovable(True)
+        else:
+            self.toolBar.setMovable(not frozen)
 
     def addViewDocksMenu(self):
         """ Insert a Docks submenu into the View menu """
         _ = get_app()._tr
 
-        # self.docks_menu = self.createPopupMenu()
-        # self.docks_menu.setTitle(_("Docks"))
-        # self.menuView.addMenu(self.docks_menu)
         self.docks_menu = self.menuView.addMenu(_("Docks"))
-
         for dock in sorted(self.getDocks(), key=lambda d: d.windowTitle()):
             if (dock.features() & QDockWidget.DockWidgetClosable
                != QDockWidget.DockWidgetClosable):
@@ -2164,14 +2194,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionFreeze_View_trigger(self):
         """ Freeze all dockable widgets on the main screen """
-        self.freezeDocks()
+        for dock in self.getDocks():
+            self.freezeDock(dock, frozen=True)
+        self.freezeMainToolBar(frozen=True)
         self.actionFreeze_View.setVisible(False)
         self.actionUn_Freeze_View.setVisible(True)
         self.docks_frozen = True
 
     def actionUn_Freeze_View_trigger(self):
         """ Un-Freeze all dockable widgets on the main screen """
-        self.unFreezeDocks()
+        for dock in self.getDocks():
+            self.freezeDock(dock, frozen=False)
+        self.freezeMainToolBar(frozen=False)
         self.actionFreeze_View.setVisible(True)
         self.actionUn_Freeze_View.setVisible(False)
         self.docks_frozen = False
@@ -2197,10 +2231,35 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Insert the current timestamp into the caption editor
         In the format: 00:00:23,000 --> 00:00:24,500. first click to set the initial timestamp,
         move the playehad, second click to set the end timestamp.
+
+        If beginning and ending timestamps would be the same, add 5 seconds to the second.
         """
         # Get translation function
         app = get_app()
         _ = app._tr
+
+        if not self.selected_effects:
+            log.info("No caption effect selected")
+            return
+        effect_data = Effect.filter(id=self.selected_effects[0])[0].data
+        effect_id = effect_data.get("id")
+        if effect_data.get("type") != "Caption":
+            log.info("Captioning an effect that is not a Caption")
+            return
+
+        # Get the Clip that owns this caption effect
+        clip_data = None
+        for clip in Clip.filter():
+            for effect in clip.data.get('effects'):
+                if effect.get("id") == effect_id:
+                    clip_data = clip.data
+                    break
+            if clip_data != None:
+                break
+
+        if clip_data == None:
+            log.info("No clip owns this caption effect")
+            return
 
         if self.captionTextEdit.isReadOnly():
             return
@@ -2209,6 +2268,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         current_position = (self.preview_thread.current_frame - 1) / fps_float
+        relative_position = current_position - clip_data.get("position") + clip_data.get("start")
+
+        # Prevent captions before or after the clip
+        relative_position = max(clip_data.get('start'), relative_position)
+        clip_seconds = clip_data.get("end") - clip_data.get("start")
+        relative_position = min(clip_data.get('end'), relative_position)
 
         # Get cursor / current line of text (where cursor is located)
         cursor = self.captionTextEdit.textCursor()
@@ -2216,12 +2281,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         line_text = cursor.block().text()
         self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
 
-        # Insert text at cursor position
-        current_timestamp = secondsToTimecode(current_position, fps["num"], fps["den"], use_milliseconds=True)
-        if "-->" in line_text:
-            self.captionTextEdit.insertPlainText("%s\n%s" % (current_timestamp, _("Enter caption text...")))
+        # Convert time in seconds to hours:minutes:seconds:milliseconds
+        current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
+
+        # If this line only has one timestamp, and both timestamps are the same, default to 5 second duration
+        if "-->"  in line_text and line_text.count(':') == 3 and current_timestamp in line_text:
+            # prevent caption with 0 duration
+            relative_position += 5.0
+            # recalculate the timestamp string
+            current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
+
+        if "-->" in line_text and line_text.count(':') == 3:
+            # Current line has only one timestamp. Add the second and go to the line below it.
+            self.captionTextEdit.insertPlainText(current_timestamp)
+            self.captionTextEdit.moveCursor(QTextCursor.Down)
+            self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
         else:
-            self.captionTextEdit.insertPlainText("%s --> " % (current_timestamp))
+            # Current line isn't a starting timestamp, so add a starting timestamp
+
+            # If the current line isn't blank, go to end and add two blank lines
+            if (self.captionTextEdit.textCursor().block().text().strip() != ""):
+                self.captionTextEdit.moveCursor(QTextCursor.End)
+                self.captionTextEdit.insertPlainText("\n\n")
+            # Add timestamp, and placeholder caption
+            self.captionTextEdit.insertPlainText("%s --> \n%s" % (current_timestamp, _("Enter caption text...")))
+            # Return to timestamp line, to await ending timestamp
+            self.captionTextEdit.moveCursor(QTextCursor.Up)
 
     def captionTextEdit_TextChanged(self):
         """Caption text was edited, start the save timer (to prevent spamming saves)"""
@@ -2418,11 +2503,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if s.get('window_state_v2'):
             self.saved_state = qt_types.str_to_bytes(s.get('window_state_v2'))
         if s.get('docks_frozen'):
-            # Freeze all dockable widgets on the main screen
-            self.freezeDocks()
-            self.actionFreeze_View.setVisible(False)
-            self.actionUn_Freeze_View.setVisible(True)
-            self.docks_frozen = True
+            self.actionFreeze_View_trigger()
+        else:
+            self.actionUn_Freeze_View_trigger()
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -2440,7 +2523,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         recent_projects = s.get("recent_projects")
 
         # Add Recent Projects menu (after Open File)
-        import functools
         if not self.recent_menu:
             # Create a new recent menu
             self.recent_menu = self.menuFile.addMenu(
@@ -2579,7 +2661,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.videoToolbar.addAction(self.actionPlay)
         self.videoToolbar.addAction(self.actionFastForward)
         self.videoToolbar.addAction(self.actionJumpEnd)
-        self.actionPlay.setCheckable(True)
 
         # Add right spacer
         spacer = QWidget(self)
@@ -2880,7 +2961,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Init UI
         ui_util.init_ui(self)
 
-        # Setup toolbars that aren't on main window, set initial state of items, etc
+        # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()
 
         # Add window as watcher to receive undo/redo status updates
@@ -2972,8 +3053,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
 
-        # Set pause callback
-        self.PauseSignal.connect(self.handlePausedVideo)
+        # Set play/pause callbacks
+        self.PauseSignal.connect(self.onPauseCallback)
+        self.PlaySignal.connect(self.onPlayCallback)
 
         # QTimer for Autosave
         minutes = 1000 * 60
@@ -3048,6 +3130,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect Selection signals
         self.SelectionAdded.connect(self.addSelection)
         self.SelectionRemoved.connect(self.removeSelection)
+
+        # Ensure toolbar is movable when floated (even with docks frozen)
+        self.toolBar.topLevelChanged.connect(
+            functools.partial(self.freezeMainToolBar, None))
 
         # Show window
         self.show()

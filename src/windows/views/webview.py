@@ -2918,7 +2918,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     @pyqtSlot(float)
     def resizeTimeline(self, new_duration):
         """Resize the duration of the timeline"""
-        get_app().updates.update(["duration"], new_duration)
+        get_app().updates.update_untracked(["duration"], new_duration)
 
     # Add Transition
     def addTransition(self, file_ids, event_position):
@@ -3217,7 +3217,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # QTimer for cache rendering
         self.cache_renderer_version = None
         self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(500)
+        self.cache_renderer.setInterval(300)
         self.cache_renderer.timeout.connect(self.render_cache_json)
 
         # Connect shutdown signals

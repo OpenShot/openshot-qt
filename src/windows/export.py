@@ -94,8 +94,8 @@ class Export(QDialog):
         self.close_button.setVisible(False)
         self.exporting = False
 
-        # Pause playback (to prevent crash since we are fixing to change the timeline's max size)
-        get_app().window.actionPlay_trigger(None, force="pause")
+        # Pause playback
+        get_app().window.PauseSignal.emit()
 
         # Hide audio channels
         self.lblChannels.setVisible(False)

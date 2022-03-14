@@ -12,7 +12,7 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: sudo apt install qttranslations5-l10n python3-pyqt5
     - name: Translation Test
       run: python3 ./src/language/test_translations.py

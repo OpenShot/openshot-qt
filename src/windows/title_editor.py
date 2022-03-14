@@ -65,6 +65,11 @@ class TitleEditor(QDialog):
 
     def __init__(self, *args, edit_file_path=None, duplicate=False, **kwargs):
 
+        # A timer to pause until user input stops before updating the svg
+        self.update_timer = QTimer()
+        self.update_timer.setInterval(300)
+        self.update_timer.timeout.connect(self.save_and_reload)
+
         # Create dialog class
         super().__init__(*args, **kwargs)
 
@@ -99,7 +104,7 @@ class TitleEditor(QDialog):
 
         self.font_weight = 'normal'
         self.font_style = 'normal'
-        self.font_size_pixel = 20
+        self.font_size_ratio = 1
 
         self.new_title_text = ""
         self.sub_title_text = ""
@@ -150,7 +155,7 @@ class TitleEditor(QDialog):
                 node.appendChild(new_text_node)
 
         # Something changed, so update temp SVG
-        self.save_and_reload()
+        self.update_timer.start()
 
     def display_svg(self):
         # Create a temp file for this thumbnail image
@@ -288,7 +293,7 @@ class TitleEditor(QDialog):
             # Set font size (for possible font dialog)
             s = node.attributes["style"].value
             ard = style_to_dict(s)
-            fs = ard.get("font_size")
+            fs = ard.get("font-size")
             if fs and fs.endswith("px"):
                 self.qfont.setPixelSize(float(fs[:-2]))
             elif fs and fs.endswith("pt"):
@@ -364,6 +369,7 @@ class TitleEditor(QDialog):
 
     def save_and_reload(self):
         """Something changed, so update temp SVG and redisplay"""
+        self.update_timer.stop()
         self.writeToFile(self.xmldoc)
         self.display_svg()
 
@@ -374,7 +380,7 @@ class TitleEditor(QDialog):
             return
         save_fn(color.name(), color.alphaF())
         refresh_fn()
-        self.save_and_reload()
+        self.update_timer.start()
 
     @staticmethod
     def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
@@ -432,12 +438,14 @@ class TitleEditor(QDialog):
         if ok and font is not oldfont:
             self.qfont = font
             fontinfo = QtGui.QFontInfo(font)
+            oldfontinfo = QtGui.QFontInfo(oldfont)
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
-            self.font_size_pixel = fontinfo.pixelSize()
+            if (oldfontinfo.pixelSize() > 0):
+                self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
             self.set_font_style()
-            self.save_and_reload()
+            self.update_timer.start()
 
     def update_font_color_button(self):
         """Updates the color shown on the font color button"""
@@ -529,7 +537,10 @@ class TitleEditor(QDialog):
             ard = style_to_dict(s)
             set_if_existing(ard, "font-style", self.font_style)
             set_if_existing(ard, "font-family", f"'{self.font_family}'")
-            set_if_existing(ard, "font-size", f"{self.font_size_pixel}px")
+            new_font_size_pixel = 0
+            if 'font-size' in ard:
+                new_font_size_pixel = self.font_size_ratio * float(ard['font-size'][:-2])
+            set_if_existing(ard, "font-size", f"{new_font_size_pixel}px")
             self.title_style_string = dict_to_style(ard)
 
             # set the text node
@@ -601,7 +612,7 @@ class TitleEditor(QDialog):
                 self.writeToFile(self.xmldoc)
 
                 # Add file to project
-                app.window.files_model.add_files(self.filename)
+                app.window.files_model.add_files(self.filename, prevent_image_seq=True)
 
         # Close window
         super().accept()
