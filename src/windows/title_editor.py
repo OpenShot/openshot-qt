@@ -293,7 +293,7 @@ class TitleEditor(QDialog):
             ard = style_to_dict(s)
             fs = ard.get("font-size")
             if fs and fs.endswith("px"):
-                self.qfont.setPixelSize(float(fs[:-2]))
+                self.qfont.setPixelSize(int(float(fs[:-2])))
             elif fs and fs.endswith("pt"):
                 self.qfont.setPointSizeF(float(fs[:-2]))
 
