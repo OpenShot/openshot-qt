@@ -524,6 +524,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Connect zoom functionality
         self.win.TimelineScrolled.connect(self.update_scrollbars)
 
+        self.win.TimelineResize.connect(self.delayed_resize_callback)
+
         # Connect Selection signals
         self.win.SelectionChanged.connect(self.handle_selection)
 

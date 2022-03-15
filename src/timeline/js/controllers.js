@@ -760,7 +760,7 @@ App.controller("TimelineCtrl", function ($scope) {
     if (furthest_right_edge > $scope.project.duration - min_timeline_padding || furthest_right_edge < $scope.project.duration - max_timeline_padding) {
       if ($scope.Qt) {
         let new_timeline_length = Math.max(min_timeline_length, furthest_right_edge + min_timeline_padding);
-        $scope.project.duration = new_timeline_length;
+        timeline.resizeTimeline(new_timeline_length);
       }
     }
   };
