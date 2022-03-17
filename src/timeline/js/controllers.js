@@ -154,7 +154,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.selectPoint = function(object, point) {
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
     var clip_position_frames = object.position * frames_per_second;
-    var absolute_seek_frames = clip_position_frames + parseInt(point);
+    var absolute_seek_frames = clip_position_frames + parseInt(point) - (object.start * frames_per_second);
 
     if ($scope.Qt) {
       timeline.SeekToKeyframe(absolute_seek_frames)
