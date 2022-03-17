@@ -27,6 +27,8 @@
  """
 
 import platform
+import datetime
+from classes.logger import log
 
 from classes import info
 from classes.logger import log
@@ -42,6 +44,7 @@ except ModuleNotFoundError:
     sdk = None
 
 
+min_error_freq = 10**6 # 1 second (in micro seconds.)
 def init_tracing():
     """Init all Sentry tracing"""
     if not sdk:
@@ -65,6 +68,42 @@ def init_tracing():
                                                                                        sample_rate,
                                                                                        traces_sample_rate))
 
+    def before_send(event,hint):
+        last_send_time = None
+        last_event_message = None
+        if globals().get('SENTRY_LAST_SEND_TIME'):
+            last_send_time = globals()['SENTRY_LAST_SEND_TIME']
+        if globals().get('SENTRY_LAST_EVENT_MESSAGE'):
+            last_event_message = globals()['SENTRY_LAST_EVENT_MESSAGE']
+
+        # Prevent rapid errors
+        current_time = datetime.datetime.now()
+        microsec_since_send = 0
+        if (last_send_time):
+            time_since_send = current_time - last_send_time
+            microsec_since_send = (time_since_send.seconds * 10**6) + time_since_send.microseconds
+        else:
+            microsec_since_send = -1
+        if microsec_since_send != -1 and microsec_since_send < min_error_freq:
+            log.debug("Report prevented: Recent error reported")
+            return None
+
+        # Prevent repeated errors
+        event_message = event.\
+            get("logentry", {"message": None}).\
+            get("message", None)
+        if last_event_message and last_event_message == event_message:
+            log.debug("Report prevented: Same as last Error")
+            return None
+
+        # This will send. Update the time
+        log.debug("Sending Error")
+        globals()['SENTRY_LAST_SEND_TIME'] = current_time
+        globals()['SENTRY_LAST_EVENT_MESSAGE'] = event.\
+            get("logentry", {"message": None}).\
+            get("message", None)
+        return event
+
     # Initialize sentry exception tracing
     sdk.init(
         "https://21496af56ab24e94af8ff9771fbc1600@o772439.ingest.sentry.io/5795985",
@@ -72,7 +111,8 @@ def init_tracing():
         traces_sample_rate=traces_sample_rate,
         release=f"openshot@{info.VERSION}",
         environment=environment,
-        debug=False
+        debug=False,
+        before_send=before_send
     )
     if _supports_tagging():
         configure_platform_tags(sdk)
