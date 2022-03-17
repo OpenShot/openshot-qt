@@ -53,6 +53,8 @@ def get_version_from_http():
         info.ERROR_REPORT_STABLE_VERSION = r.json().get("openshot_version")
         info.ERROR_REPORT_RATE_STABLE = r.json().get("error_rate_stable")
         info.ERROR_REPORT_RATE_UNSTABLE = r.json().get("error_rate_unstable")
+        info.TRANS_REPORT_RATE_STABLE = r.json().get("trans_rate_stable")
+        info.TRANS_REPORT_RATE_UNSTABLE = r.json().get("trans_rate_unstable")
 
         # Emit signal for the UI
         get_app().window.FoundVersionSignal.emit(openshot_version)
