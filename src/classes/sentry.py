@@ -43,10 +43,11 @@ try:
 except ModuleNotFoundError:
     sdk = None
 
-
-min_error_freq = 1 # seconds required between errors
+# seconds required between errors
+min_error_freq = 1
 last_send_time = None
 last_event_message = None
+
 def init_tracing():
     """Init all Sentry tracing"""
     if not sdk:
@@ -71,6 +72,9 @@ def init_tracing():
                                                                                        traces_sample_rate))
 
     def before_send(event,hint):
+        """
+        Function to filter out repetitive Sentry.io errors before sending them
+        """
         global last_send_time
         global last_event_message
 
