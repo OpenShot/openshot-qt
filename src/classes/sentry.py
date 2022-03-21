@@ -44,7 +44,9 @@ except ModuleNotFoundError:
     sdk = None
 
 
-min_error_freq = 10**6 # 1 second (in micro seconds.)
+min_error_freq = 1 # seconds required between errors
+last_send_time = None
+last_event_message = None
 def init_tracing():
     """Init all Sentry tracing"""
     if not sdk:
@@ -69,24 +71,16 @@ def init_tracing():
                                                                                        traces_sample_rate))
 
     def before_send(event,hint):
-        last_send_time = None
-        last_event_message = None
-        if globals().get('SENTRY_LAST_SEND_TIME'):
-            last_send_time = globals()['SENTRY_LAST_SEND_TIME']
-        if globals().get('SENTRY_LAST_EVENT_MESSAGE'):
-            last_event_message = globals()['SENTRY_LAST_EVENT_MESSAGE']
+        global last_send_time
+        global last_event_message
 
         # Prevent rapid errors
         current_time = datetime.datetime.now()
-        microsec_since_send = 0
-        if (last_send_time):
-            time_since_send = current_time - last_send_time
-            microsec_since_send = (time_since_send.seconds * 10**6) + time_since_send.microseconds
-        else:
-            microsec_since_send = -1
-        if microsec_since_send != -1 and microsec_since_send < min_error_freq:
-            log.debug("Report prevented: Recent error reported")
-            return None
+        if last_send_time:
+            time_since_send = (current_time - last_send_time).total_seconds()
+            if time_since_send < min_error_freq:
+                log.debug("Report prevented: Recent error reported")
+                return None
 
         # Prevent repeated errors
         event_message = event.\
@@ -96,10 +90,10 @@ def init_tracing():
             log.debug("Report prevented: Same as last Error")
             return None
 
-        # This will send. Update the time
+        # This error will send. Update the last time and last message
         log.debug("Sending Error")
-        globals()['SENTRY_LAST_SEND_TIME'] = current_time
-        globals()['SENTRY_LAST_EVENT_MESSAGE'] = event.\
+        last_send_time = current_time
+        last_event_message = event.\
             get("logentry", {"message": None}).\
             get("message", None)
         return event
