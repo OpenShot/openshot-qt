@@ -80,7 +80,7 @@ App.directive("tlTransition", function () {
           }
 
           // Hide keyframe points
-          element.find(".point_icon").hide();
+          element.find(".point").fadeOut(100);
 
         },
         stop: function (e, ui) {
@@ -95,8 +95,8 @@ App.directive("tlTransition", function () {
           // Hide snapline (if any)
           scope.hideSnapline();
 
-          // Make the keyframe points visible again
-          element.find(".point_icon").show();
+          // Show keyframe points
+          element.find(".point").fadeIn(100);
 
           //get amount changed in width
           var delta_x = ui.originalSize.width - ui.element.width();
