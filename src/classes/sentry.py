@@ -97,9 +97,7 @@ def init_tracing():
         # This error will send. Update the last time and last message
         log.debug("Sending Error")
         last_send_time = current_time
-        last_event_message = event.\
-            get("logentry", {"message": None}).\
-            get("message", None)
+        last_event_message = event_message
         return event
 
     # Initialize sentry exception tracing
