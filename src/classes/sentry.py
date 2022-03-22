@@ -27,6 +27,8 @@
  """
 
 import platform
+import datetime
+from classes.logger import log
 
 from classes import info
 from classes.logger import log
@@ -41,6 +43,10 @@ try:
 except ModuleNotFoundError:
     sdk = None
 
+# seconds required between errors
+min_error_freq = 1
+last_send_time = None
+last_event_message = None
 
 def init_tracing():
     """Init all Sentry tracing"""
@@ -65,6 +71,35 @@ def init_tracing():
                                                                                        sample_rate,
                                                                                        traces_sample_rate))
 
+    def before_send(event,hint):
+        """
+        Function to filter out repetitive Sentry.io errors before sending them
+        """
+        global last_send_time
+        global last_event_message
+
+        # Prevent rapid errors
+        current_time = datetime.datetime.now()
+        if last_send_time:
+            time_since_send = (current_time - last_send_time).total_seconds()
+            if time_since_send < min_error_freq:
+                log.debug("Report prevented: Recent error reported")
+                return None
+
+        # Prevent repeated errors
+        event_message = event.\
+            get("logentry", {"message": None}).\
+            get("message", None)
+        if last_event_message and last_event_message == event_message:
+            log.debug("Report prevented: Same as last Error")
+            return None
+
+        # This error will send. Update the last time and last message
+        log.debug("Sending Error")
+        last_send_time = current_time
+        last_event_message = event_message
+        return event
+
     # Initialize sentry exception tracing
     sdk.init(
         "https://21496af56ab24e94af8ff9771fbc1600@o772439.ingest.sentry.io/5795985",
@@ -72,7 +107,8 @@ def init_tracing():
         traces_sample_rate=traces_sample_rate,
         release=f"openshot@{info.VERSION}",
         environment=environment,
-        debug=False
+        debug=False,
+        before_send=before_send
     )
     if _supports_tagging():
         configure_platform_tags(sdk)
