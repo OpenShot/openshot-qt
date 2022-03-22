@@ -343,7 +343,7 @@ class PropertiesTableView(QTableView):
                 blue = cur_property[1]["blue"]["value"]
 
                 # Show color dialog
-                currentColor = QColor(red, green, blue)
+                currentColor = QColor(int(red), int(green), int(blue))
                 log.debug("Launching ColorPicker for %s", currentColor.name())
                 ColorPicker(
                     currentColor, parent=self, title=_("Select a Color"),
