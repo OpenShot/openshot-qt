@@ -41,6 +41,7 @@ from classes.json_data import JsonDataStore
 from classes.logger import log
 from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
+from .waveform import get_audio_data
 from windows.views.find_file import find_missing_file
 
 from .keyframe_scaler import KeyframeScaler
@@ -364,6 +365,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Check if paths are all valid
             self.check_if_paths_are_valid()
+
+            # Show waveforms for any clips that have them
+            self.show_waveforms()
 
             # Clear old thumbnails
             openshot_thumbnails = info.get_default_path("THUMBNAIL_PATH")
@@ -971,6 +975,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # Remove missing file
                     log.info('Removed missing clip: %s', file_name_with_ext)
                     self._data["clips"].remove(clip)
+
+    def show_waveforms(self):
+        """Generate waveform for any clips set to display waveforms"""
+        for clip in self._data["clips"]:
+            path = clip.get("reader", {}).get("path", "")
+            if "show_waveform" in clip.keys() and clip["show_waveform"]:
+                c = get_app().window.timeline_sync.timeline.GetClip(clip.get("id"))
+                if c:
+                    get_audio_data(clip.get("id"), path, c.channel_filter.GetInt(1), c.volume)
+                else:
+                    get_audio_data(clip.get("id"), path)
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

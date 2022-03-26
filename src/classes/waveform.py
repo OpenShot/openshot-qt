@@ -38,7 +38,7 @@ import openshot
 s = get_app().get_settings()
 
 
-def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):
+def get_audio_data(clip_id, file_path, channel_filter=-1, volume_keyframe=None):
     """Get a Clip object form libopenshot, and grab audio data"""
     clip = openshot.Clip(file_path)
     clip.Open()
@@ -51,7 +51,7 @@ def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):
     t.daemon = True
     t.start()
 
-def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1, volume_keyframe=None):
+def get_waveform_thread(clip, clip_id, file_path, channel_filter, volume_keyframe):
     """Get the audio data from a clip in a separate thread"""
     audio_data = []
     sample_rate = clip.Reader().info.sample_rate

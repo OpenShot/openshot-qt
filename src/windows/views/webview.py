@@ -964,6 +964,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             if not clip:
                 # Invalid clip, skip to next item
                 continue
+            clip.data["show_waveform"] = True
+            clip.save()
 
             file_path = clip.data["reader"]["path"]
 
@@ -990,6 +992,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             clip = Clip.get(id=clip_id)
 
             if clip:
+                clip.data["show_waveform"] = False
+                clip.save()
                 # Pass to javascript timeline (and render)
                 self.run_js(JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');")
 
