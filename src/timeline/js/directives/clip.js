@@ -86,12 +86,16 @@ App.directive("tlClip", function ($timeout) {
           }
 
           // Hide keyframe points
-          element.find(".point_icon").fadeOut("fast");
-          element.find(".audio-container").fadeOut("fast");
+          element.find(".point").fadeOut(100);
+          element.find(".audio-container").fadeOut(100);
 
         },
         stop: function (e, ui) {
           dragging = false;
+
+          // Show keyframe points
+          element.find(".point").fadeIn(100);
+          element.find(".audio-container").fadeIn(100);
 
           if (resize_disabled) {
             // disabled, do nothing
@@ -101,13 +105,6 @@ App.directive("tlClip", function ($timeout) {
 
           // Hide snapline (if any)
           scope.hideSnapline();
-
-          // Hide keyframe points
-          if (dragLoc === "right") {
-            // Make the keyframe points visible again
-            element.find(".point_icon").show();
-            element.find(".audio-container").show();
-          }
 
           //get amount changed in width
           var delta_x = ui.originalSize.width - ui.element.width();
