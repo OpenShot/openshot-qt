@@ -278,12 +278,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Display the playback speed in widget title
         speed_str = ""
         try:
-            win = get_app().window
-            mode = win.preview_thread.player.Mode()
+            mode = self.win.preview_thread.player.Mode()
             if mode == openshot.PLAYBACK_PAUSED:
                 speed = 0.0
             else:
-                speed = win.preview_thread.player.Speed()
+                speed = self.win.preview_thread.player.Speed()
             speed_str = f" {speed}x "
         except NameError:
             log.error("Couldn't get player speed for window title")
@@ -1479,11 +1478,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.win = get_app().window
 
         # Update title whenever playback speed changes.
-        self.win.PlaySignal.connect(self.update_title)
-        self.win.PlaySignal.connect(self.update_title)
-        self.win.PauseSignal.connect(self.update_title)
-        self.win.SpeedSignal.connect(self.update_title)
-        self.win.StopSignal.connect(self.update_title)
+        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.PauseSignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.SpeedSignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.StopSignal.connect(self.update_title, Qt.QueuedConnection)
 
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
