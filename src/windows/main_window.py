@@ -916,7 +916,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         current_frame = self.preview_thread.current_frame
         if current_frame is not None:
             next_frame = current_frame + requested_speed
-            return next_frame < max_frame
+            return next_frame <= max_frame and next_frame > 0
         return False
 
     def actionPlay_trigger(self):
@@ -987,10 +987,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # If paused, rewind starting at normal playback speed (in reverse)
             requested_speed = -1
 
-        if player.Mode() == openshot.PLAYBACK_PAUSED:
-            self.actionPlay.trigger()
-
         if self.should_play(requested_speed):
+            if player.Mode() == openshot.PLAYBACK_PAUSED:
+                self.actionPlay.trigger()
             self.SpeedSignal.emit(requested_speed)
 
     def actionJumpStart_trigger(self, checked=True):
