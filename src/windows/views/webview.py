@@ -964,23 +964,18 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             if not clip:
                 # Invalid clip, skip to next item
                 continue
-            clip.data["show_waveform"] = True
-            clip.save()
 
             file_path = clip.data["reader"]["path"]
 
             # Find actual clip object from libopenshot
-            c = self.window.timeline_sync.timeline.GetClip(clip_id)
-            if c and c.Reader() and not c.Reader().info.has_single_image:
-                # Find frame 1 channel_filter property
-                channel_filter = c.channel_filter.GetInt(1)
+            # Set cursor to waiting
+            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
-                # Set cursor to waiting
-                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
-
-                # Get audio data in a separate thread (so it doesn't block the UI)
-                channel_filter = channel_filter
-                get_audio_data(clip_id, file_path, channel_filter, c.volume)
+            # Get audio data in a separate thread (so it doesn't block the UI)
+            clip.data['show_waveform'] = True
+            clip.save()
+            # clip.data.update({'show_waveform': True})
+            get_audio_data(clip_id, file_path)
 
     def Hide_Waveform_Triggered(self, clip_ids):
         """Hide the waveform for the selected clip"""
@@ -992,8 +987,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             clip = Clip.get(id=clip_id)
 
             if clip:
-                clip.data["show_waveform"] = False
-                clip.save()
                 # Pass to javascript timeline (and render)
                 self.run_js(JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');")
 
@@ -2922,14 +2915,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     @pyqtSlot(float)
     def resizeTimeline(self, new_duration):
         """Resize the duration of the timeline"""
-        log.debug(f"Changing timeline to length: {new_duration}")
-        duration_diff = abs(get_app().project.get('duration') - new_duration)
-        if (duration_diff > 1.0):
-            log.debug("Updating duration")
-            get_app().updates.update_untracked(["duration"], new_duration)
-            get_app().window.TimelineResize.emit()
-        else:
-            log.debug("Duration unchanged. Not updating")
+        get_app().updates.update(["duration"], new_duration)
 
     # Add Transition
     def addTransition(self, file_ids, event_position):
@@ -3228,7 +3214,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # QTimer for cache rendering
         self.cache_renderer_version = None
         self.cache_renderer = QTimer(self)
-        self.cache_renderer.setInterval(300)
+        self.cache_renderer.setInterval(500)
         self.cache_renderer.timeout.connect(self.render_cache_json)
 
         # Connect shutdown signals

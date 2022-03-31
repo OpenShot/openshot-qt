@@ -41,8 +41,8 @@ from classes.json_data import JsonDataStore
 from classes.logger import log
 from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
-from .waveform import get_audio_data
 from windows.views.find_file import find_missing_file
+from .waveform import get_audio_data
 
 from .keyframe_scaler import KeyframeScaler
 
@@ -308,14 +308,39 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
                         self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
                         self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+                        self._data["sound_data"] = {} #dict of file ids and their audio data
                         break
 
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
-        # Apply default audio playback settings to this data structure
-        self.apply_default_audio_settings()
+        # Get the default audio settings for the timeline (and preview playback)
+        default_sample_rate = int(s.get("default-samplerate"))
+        default_channel_layout = s.get("default-channellayout")
+
+        channels = 2
+        channel_layout = openshot.LAYOUT_STEREO
+        if default_channel_layout == "LAYOUT_MONO":
+            channels = 1
+            channel_layout = openshot.LAYOUT_MONO
+        elif default_channel_layout == "LAYOUT_STEREO":
+            channels = 2
+            channel_layout = openshot.LAYOUT_STEREO
+        elif default_channel_layout == "LAYOUT_SURROUND":
+            channels = 3
+            channel_layout = openshot.LAYOUT_SURROUND
+        elif default_channel_layout == "LAYOUT_5POINT1":
+            channels = 6
+            channel_layout = openshot.LAYOUT_5POINT1
+        elif default_channel_layout == "LAYOUT_7POINT1":
+            channels = 8
+            channel_layout = openshot.LAYOUT_7POINT1
+
+        # Set default samplerate and channels
+        self._data["sample_rate"] = default_sample_rate
+        self._data["channels"] = channels
+        self._data["channel_layout"] = channel_layout
 
         # Set default project ID
         self._data["id"] = self.generate_id()
@@ -366,9 +391,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Check if paths are all valid
             self.check_if_paths_are_valid()
 
-            # Show waveforms for any clips that have them
-            self.show_waveforms()
-
             # Clear old thumbnails
             openshot_thumbnails = info.get_default_path("THUMBNAIL_PATH")
             if os.path.exists(openshot_thumbnails) and clear_thumbnails:
@@ -382,12 +404,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Upgrade any data structures
             self.upgrade_project_data_structures()
 
-            # Apply default audio playback settings to this data structure
-            self.apply_default_audio_settings()
-
         # Get app, and distribute all project data through update manager
         from classes.app import get_app
         get_app().updates.load(self._data)
+
+        self.show_waveforms()
 
     def rescale_keyframes(self, scale_factor):
         """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
@@ -399,6 +420,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Create copy of active project data and scale
         scaled = scaler(copy.deepcopy(self._data))
         return scaled
+
+    def show_waveforms(self):
+        """F"""
+        for clip in self._data["clips"]:
+            path = clip.get("reader", {}).get("path", "")
+
+            if "show_waveform" in clip.keys() and clip["show_waveform"]:
+                get_audio_data(clip.get("id"), path)
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
@@ -960,9 +989,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Loop through each clip (in reverse order)
         for clip in reversed(self._data["clips"]):
-            path = clip.get("reader", {}).get("path", "")
+            path = clip["reader"]["path"]
 
-            if path and not os.path.exists(path) and "%" not in path:
+            if not os.path.exists(path) and "%" not in path:
                 # File is missing
                 path, is_modified, is_skipped = find_missing_file(path)
                 file_name_with_ext = os.path.basename(path)
@@ -975,17 +1004,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # Remove missing file
                     log.info('Removed missing clip: %s', file_name_with_ext)
                     self._data["clips"].remove(clip)
-
-    def show_waveforms(self):
-        """Generate waveform for any clips set to display waveforms"""
-        for clip in self._data["clips"]:
-            path = clip.get("reader", {}).get("path", "")
-            if "show_waveform" in clip.keys() and clip["show_waveform"]:
-                c = get_app().window.timeline_sync.timeline.GetClip(clip.get("id"))
-                if c:
-                    get_audio_data(clip.get("id"), path, c.channel_filter.GetInt(1), c.volume)
-                else:
-                    get_audio_data(clip.get("id"), path)
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
@@ -1021,38 +1039,3 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             c_index = random.randint(0, len(chars) - 1)
             id += (chars[c_index])
         return id
-
-    def apply_default_audio_settings(self):
-        """Apply the default preferences for sampleRate and channels to
-        the current project data, to force playback at a specific rate and for
-        a specific # of audio channels and channel layout."""
-        s = get_app().get_settings()
-
-        # Get the default audio settings for the timeline (and preview playback)
-        default_sample_rate = int(s.get("default-samplerate"))
-        default_channel_layout = s.get("default-channellayout")
-
-        channels = 2
-        channel_layout = openshot.LAYOUT_STEREO
-        if default_channel_layout == "LAYOUT_MONO":
-            channels = 1
-            channel_layout = openshot.LAYOUT_MONO
-        elif default_channel_layout == "LAYOUT_STEREO":
-            channels = 2
-            channel_layout = openshot.LAYOUT_STEREO
-        elif default_channel_layout == "LAYOUT_SURROUND":
-            channels = 3
-            channel_layout = openshot.LAYOUT_SURROUND
-        elif default_channel_layout == "LAYOUT_5POINT1":
-            channels = 6
-            channel_layout = openshot.LAYOUT_5POINT1
-        elif default_channel_layout == "LAYOUT_7POINT1":
-            channels = 8
-            channel_layout = openshot.LAYOUT_7POINT1
-
-        # Set default samplerate and channels
-        self._data["sample_rate"] = default_sample_rate
-        self._data["channels"] = channels
-        self._data["channel_layout"] = channel_layout
-
-        log.info("Apply default audio playback settings: %s, %s channels" % (self._data["sample_rate"], self._data["channels"]))
