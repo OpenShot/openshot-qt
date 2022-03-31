@@ -672,9 +672,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app = get_app()
         _ = app._tr
 
-        recommended_path = app.project.get("import_path")
-        if not recommended_path or not os.path.exists(recommended_path):
-            recommended_path = os.path.join(info.HOME_PATH)
+        # Use import directory from settings
+        recommended_path = app.settings.get("file_import_directory")
+        if not recommended_path:
+            # If path is not set, default to last import directory
+            recommended_path = app.project.get("import_path")
+            if not recommended_path or not os.path.exists(recommended_path):
+                recommended_path = os.path.join(info.HOME_PATH)
 
         # PyQt through 5.13.0 had the 'directory' argument mis-typed as str
         if PYQT_VERSION_STR < '5.13.1':
@@ -688,7 +692,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         qurl_list = QFileDialog.getOpenFileUrls(
             self,
             _("Import Files..."),
-            start_location,
+            start_location
             )[0]
 
         # Set cursor to waiting

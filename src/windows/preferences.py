@@ -237,7 +237,8 @@ class Preferences(QDialog):
                     if param["type"] == "browse":
                         # Add filesystem browser button
                         extraWidget = QPushButton(_("Browse..."))
-                        extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param))
+                        extraWidget.clicked.connect(functools.partial(self.selectExecutable, widget, param,
+                                                                      directory = param["category"]=="Locations"))
 
                 elif param["type"] == "bool":
                     # create spinner
@@ -421,7 +422,7 @@ class Preferences(QDialog):
         # Delete all tabs and widgets
         self.DeleteAllTabs(onlyInVisible=True)
 
-    def selectExecutable(self, widget, param):
+    def selectExecutable(self, widget, param, directory=False):
         _ = get_app()._tr
 
         # Fallback default to user home
@@ -436,23 +437,31 @@ class Preferences(QDialog):
             if prev_val and os.path.exists(prev_val):
                 startpath = prev_val
 
-        fileName = QFileDialog.getOpenFileName(
-            self,
-            _("Select executable file"),
-            startpath)[0]
-        if fileName:
-            if platform.system() == "Darwin":
+        new_path = ""
+        if directory:
+            new_path = QFileDialog.getExistingDirectory(
+                self,
+                _("Choose a Folder..."),
+                startpath
+                )
+        else:
+            new_path = QFileDialog.getOpenFileName(
+                self,
+                _("Select executable file"),
+                startpath)[0]
+        if new_path:
+            if platform.system() == "Darwin" and not directory:
                 # Check for Mac specific app-bundle executable file (if any)
-                appBundlePath = os.path.join(fileName, 'Contents', 'MacOS')
+                appBundlePath = os.path.join(new_path, 'Contents', 'MacOS')
                 if os.path.exists(os.path.join(appBundlePath, 'blender')):
-                    fileName = os.path.join(appBundlePath, 'blender')
+                    new_path = os.path.join(appBundlePath, 'blender')
                 elif os.path.exists(os.path.join(appBundlePath, 'Blender')):
-                    fileName = os.path.join(appBundlePath, 'Blender')
+                    new_path = os.path.join(appBundlePath, 'Blender')
                 elif os.path.exists(os.path.join(appBundlePath, 'Inkscape')):
-                    fileName = os.path.join(appBundlePath, 'Inkscape')
+                    new_path = os.path.join(appBundlePath, 'Inkscape')
 
-            self.s.set(param["setting"], fileName)
-            widget.setText(fileName)
+            self.s.set(param["setting"], new_path)
+            widget.setText(new_path)
 
     def check_for_restart(self, param):
         """Check if the app needs to restart"""

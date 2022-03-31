@@ -967,5 +967,13 @@
     "setting": "actionDuplicateTitle",
     "value": "Ctrl+Shift+C",
     "type": "text"
+  },
+  {
+    "category": "Locations",
+    "title": "File Import",
+    "restart": false,
+    "setting": "file_import_directory",
+    "value": "~",
+    "type": "browse"
   }
 ]
