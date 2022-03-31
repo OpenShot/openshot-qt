@@ -973,7 +973,15 @@
     "title": "File Import",
     "restart": false,
     "setting": "file_import_directory",
-    "value": "~",
+    "value": "",
+    "type": "browse"
+  },
+  {
+    "category": "Locations",
+    "title": "Video Export",
+    "restart": false,
+    "setting": "file_export_directory",
+    "value": "",
     "type": "browse"
   }
 ]

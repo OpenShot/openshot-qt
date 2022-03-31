@@ -142,13 +142,18 @@ class Export(QDialog):
         if get_app().project.current_filepath:
             recommended_path = os.path.dirname(get_app().project.current_filepath)
 
-        export_path = get_app().project.get("export_path")
-        if export_path and os.path.exists(export_path):
-            # Use last selected export path
+        # If an export folder has been set, use it.
+        export_path = self.s.get("file_export_directory")
+        if export_path:
             self.txtExportFolder.setText(export_path)
         else:
-            # Default to home dir
-            self.txtExportFolder.setText(recommended_path)
+            export_path = get_app().project.get("export_path")
+            if export_path and os.path.exists(export_path):
+                # Use last selected export path
+                self.txtExportFolder.setText(export_path)
+            else:
+                # Default to home dir
+                self.txtExportFolder.setText(recommended_path)
 
         # Is this a saved project?
         if not get_app().project.current_filepath:
