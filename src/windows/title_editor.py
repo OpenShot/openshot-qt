@@ -65,21 +65,19 @@ class TitleEditor(QDialog):
 
     def __init__(self, *args, edit_file_path=None, duplicate=False, **kwargs):
 
-        # A timer to pause until user input stops before updating the svg
-        self.update_timer = QTimer()
-        self.update_timer.setInterval(300)
-        self.update_timer.timeout.connect(self.save_and_reload)
-
         # Create dialog class
         super().__init__(*args, **kwargs)
+
+        # A timer to pause until user input stops before updating the svg
+        self.update_timer = QTimer(self)
+        self.update_timer.setInterval(300)
+        self.update_timer.setSingleShot(True)
+        self.update_timer.timeout.connect(self.save_and_reload)
 
         self.app = get_app()
         self.project = self.app.project
         self.edit_file_path = edit_file_path
         self.duplicate = duplicate
-
-        # Get translation object
-        _ = self.app._tr
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
@@ -295,7 +293,7 @@ class TitleEditor(QDialog):
             ard = style_to_dict(s)
             fs = ard.get("font-size")
             if fs and fs.endswith("px"):
-                self.qfont.setPixelSize(float(fs[:-2]))
+                self.qfont.setPixelSize(int(float(fs[:-2])))
             elif fs and fs.endswith("pt"):
                 self.qfont.setPointSizeF(float(fs[:-2]))
 
@@ -369,7 +367,6 @@ class TitleEditor(QDialog):
 
     def save_and_reload(self):
         """Something changed, so update temp SVG and redisplay"""
-        self.update_timer.stop()
         self.writeToFile(self.xmldoc)
         self.display_svg()
 
