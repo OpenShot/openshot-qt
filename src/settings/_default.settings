@@ -970,7 +970,7 @@
   },
   {
     "category": "Locations",
-    "title": "File Import",
+    "title": "File Imports",
     "restart": false,
     "setting": "file_import_directory",
     "value": "",
@@ -978,9 +978,17 @@
   },
   {
     "category": "Locations",
-    "title": "Video Export",
+    "title": "Video Exports",
     "restart": false,
     "setting": "file_export_directory",
+    "value": "",
+    "type": "browse"
+  },
+  {
+    "category": "Locations",
+    "title": "Save Projects",
+    "restart": false,
+    "setting": "project_saving_directory",
     "value": "",
     "type": "browse"
   }

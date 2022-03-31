@@ -442,7 +442,7 @@ class Preferences(QDialog):
             new_path = QFileDialog.getExistingDirectory(
                 self,
                 _("Choose a Folder..."),
-                startpath
+                info.HOME_PATH
                 )
         else:
             new_path = QFileDialog.getOpenFileName(

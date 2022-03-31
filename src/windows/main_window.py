@@ -575,7 +575,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Get current filepath if any, otherwise ask user
         file_path = app.project.current_filepath
         if not file_path:
-            recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
+            # directory from settings
+            recommended_path = app.settings.get("project_saving_directory")
+            if not recommended_path:
+                # if not set, start at home directory
+                recommended_path = info.HOME_PATH
+            recommended_path = os.path.join(recommended_path, "%s.osp" % _("Untitled Project"))
             file_path = QFileDialog.getSaveFileName(
                 self,
                 _("Save Project..."),
@@ -651,10 +656,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app = get_app()
         _ = app._tr
 
-        recommended_path = app.project.current_filepath
+        recommended_path = app.settings.get("project_saving_directory")
         if not recommended_path:
-            recommended_path = os.path.join(
-                info.HOME_PATH, "%s.osp" % _("Untitled Project"))
+            if app.project.current_filepath:
+                recommended_path = app.project.current_filepath
+            else:
+                recommended_path = info.HOME_PATH
+        recommended_path = os.path.join(
+            recommended_path, "%s.osp" % _("Untitled Project"))
         file_path = QFileDialog.getSaveFileName(
             self,
             _("Save Project As..."),
