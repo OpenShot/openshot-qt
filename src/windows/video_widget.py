@@ -322,7 +322,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def track_size(self):
         scale = self.devicePixelRatioF()
-        viewport = self.centeredViewport(self.width(), self.height())
+        viewport = self.centeredViewport()
         size = QSizeF(viewport.size()) * scale
         self.stats_tracker.viewport_size = size.toSize()
 
@@ -346,7 +346,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         painter.fillRect(event.rect(), QColor("#191919"))
 
         # Find centered viewport
-        viewport_rect = self.centeredViewport(self.width(), self.height())
+        viewport_rect = self.centeredViewport()
 
         if self.current_image:
             # DRAW FRAME
@@ -563,13 +563,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         painter.end()
         self.mutex.unlock()
 
-    def centeredViewport(self, width, height):
+    def centeredViewport(self, width=None, height=None):
         """ Calculate size of viewport to maintain aspect ratio """
 
-        window_size = QSizeF(width, height)
+        window_size = QSizeF(
+            width or self.width(),
+            height or self.height())
         window_rect = QRectF(QPointF(0, 0), window_size)
 
-        aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
+        aspectRatio = float(self.aspect_ratio * self.pixel_ratio)
         viewport_size = QSizeF(aspectRatio, 1).scaled(
                             window_size, Qt.KeepAspectRatio
                         ) * self.zoom
@@ -764,8 +766,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             shear_x = raw_properties.get('shear_x').get('value')
             shear_y = raw_properties.get('shear_y').get('value')
 
-            # Get the rect where the video is actually drawn (without the black borders, etc...)
-            viewport_rect = self.centeredViewport(self.width(), self.height())
+            # Get the rect where the video is actually drawn
+            # (without the black borders, etc...)
+            viewport_rect = self.centeredViewport()
 
             # Make back-up of clip data
             if self.mouse_dragging and not self.transform_mode:
@@ -1045,8 +1048,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             playhead_position_frame = float(get_app().window.preview_thread.current_frame)
             clip_frame_number = round(playhead_position_frame - position_of_clip_frame) + start_of_clip_frame
 
-            # Get the rect where the video is actually drawn (without the black borders, etc...)
-            viewport_rect = self.centeredViewport(self.width(), self.height())
+            # Get the rect where the video is actually drawn
+            # (without the black borders, etc...)
+            viewport_rect = self.centeredViewport()
 
             # Make back-up of clip data
             if self.mouse_dragging and not self.transform_mode:
