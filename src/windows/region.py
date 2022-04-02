@@ -1,6 +1,6 @@
 """
  @file
- @brief This file loads the UI for selecting a region of a video (rectangle used for effect processing)
+ @brief UI for selecting a region of a video (for effect processing)
   @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
@@ -92,22 +92,22 @@ class SelectRegion(QDialog):
         # Set region clip start and end
         self.clip.Start(clip.Start())
         self.clip.End(clip.End())
-        self.clip.Id( get_app().project.generate_id() )
+        self.clip.Id(get_app().project.generate_id())
 
         # Keep track of file object
         self.file = file
         self.file_path = file.absolute_path()
 
         c_info = clip.Reader().info
-        self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
-        self.fps_num = self.fps #int(file.data['fps']['num'])
-        self.fps_den = 1 #int(file.data['fps']['den'])
-        self.width = c_info.width #int(file.data['width'])
-        self.height = c_info.height #int(file.data['height'])
-        self.sample_rate = c_info.sample_rate #int(file.data['sample_rate'])
-        self.channels = c_info.channels #int(file.data['channels'])
-        self.channel_layout = c_info.channel_layout #int(file.data['channel_layout'])
-        self.video_length = int(self.clip.Duration() * self.fps) + 1 #int(file.data['video_length'])
+        self.fps = c_info.fps.ToInt()
+        self.fps_num = self.fps
+        self.fps_den = 1
+        self.width = c_info.width
+        self.height = c_info.height
+        self.sample_rate = c_info.sample_rate
+        self.channels = c_info.channels
+        self.channel_layout = c_info.channel_layout
+        self.video_length = int(self.clip.Duration() * self.fps) + 1
 
         # Apply effects to region frames
         for effect in clip.Effects():
@@ -118,7 +118,8 @@ class SelectRegion(QDialog):
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
-        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.videoPreview.setSizePolicy(
+            QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
         # Set aspect ratio to match source content
@@ -127,16 +128,23 @@ class SelectRegion(QDialog):
         self.videoPreview.aspect_ratio = aspect_ratio
 
         # Set max size of video preview (for speed)
-        self.viewport_rect = self.videoPreview.centeredViewport(self.width, self.height)
+        viewport_rect = self.videoPreview.centeredViewport(
+            self.width, self.height)
 
         # Create an instance of a libopenshot Timeline object
-        self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r = openshot.Timeline(
+            viewport_rect.width(), viewport_rect.height(),
+            openshot.Fraction(self.fps_num, self.fps_den),
+            self.sample_rate, self.channels, self.channel_layout)
         self.r.info.channel_layout = self.channel_layout
-        self.r.SetMaxSize(self.viewport_rect.width(), self.viewport_rect.height())
+        self.r.SetMaxSize(viewport_rect.width(), viewport_rect.height())
 
         try:
             # Show waveform for audio files
-            if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
+            if (
+                not self.clip.Reader().info.has_video
+                and self.clip.Reader().info.has_audio
+            ):
                 self.clip.Waveform(True)
 
             # Set has_audio property
@@ -189,13 +197,14 @@ class SelectRegion(QDialog):
         get_app().window.SelectRegionSignal.emit(clip.Id())
 
     def actionPlay_Triggered(self):
-        # Trigger play button (This action is invoked from the preview thread, so it must exist here)
+        # Trigger play button
+        # (invoked from the preview thread, so it must exist here)
         self.btnPlay.click()
 
     def movePlayhead(self, frame_number):
         """Update the playhead position"""
-
         self.current_frame = frame_number
+
         # Move slider to correct frame position
         self.sliderIgnoreSignal = True
         self.sliderVideo.setValue(frame_number)
@@ -205,8 +214,11 @@ class SelectRegion(QDialog):
         seconds = (frame_number-1) / self.fps
 
         # Convert seconds to time stamp
-        time_text = time_parts.secondsToTime(seconds, self.fps_num, self.fps_den)
-        timestamp = "%s:%s:%s:%s" % (time_text["hour"], time_text["min"], time_text["sec"], time_text["frame"])
+        time_text = time_parts.secondsToTime(
+            seconds, self.fps_num, self.fps_den)
+        timestamp = "%s:%s:%s:%s" % (
+            time_text["hour"], time_text["min"],
+            time_text["sec"], time_text["frame"])
 
         # Update label
         self.lblVideoTime.setText(timestamp)
@@ -221,11 +233,13 @@ class SelectRegion(QDialog):
 
         if self.btnPlay.isChecked():
             log.info('play (icon to pause)')
-            ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-pause")
+            ui_util.setup_icon(
+                self, self.btnPlay, "actionPlay", "media-playback-pause")
             self.preview_thread.Play(self.video_length)
         else:
             log.info('pause (icon to play)')
-            ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default
+            ui_util.setup_icon(
+                self, self.btnPlay, "actionPlay", "media-playback-start")
             self.preview_thread.Pause()
 
         # Send focus back to toolbar
