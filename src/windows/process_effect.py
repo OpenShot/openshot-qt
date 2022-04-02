@@ -92,8 +92,10 @@ class ProcessEffect(QDialog):
         # Track metrics
         track_metric_screen("process-effect-screen")
 
+        layout = self.mainContents.layout()
+
         # Loop through options and create widgets
-        row_count = 0
+
         for param in effect_params:
 
             # Create Label
@@ -173,22 +175,19 @@ class ProcessEffect(QDialog):
                 value_list = param["values"]
 
                 # Add normal values
-                box_index = 0
-                for value_item in value_list:
+                for i, value_item in enumerate(value_list):
                     k = value_item["name"]
                     v = value_item["value"]
-                    i = value_item.get("icon", None)
 
                     # add dropdown item
                     widget.addItem(_(k), v)
 
                     # select dropdown (if default)
                     if v == param["value"]:
-                        widget.setCurrentIndex(box_index)
+                        widget.setCurrentIndex(i)
 
                         # Set initial context
                         self.context[param["setting"]] = param["value"]
-                    box_index = box_index + 1
 
                 widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
 
@@ -199,18 +198,17 @@ class ProcessEffect(QDialog):
                 widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
                 # Create HBoxLayout for each field
-                self.scrollAreaWidgetContents.layout().insertRow(row_count, label, widget)
+                layout.addRow(label, widget)
 
             elif not widget and label:
-                label.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
-                self.scrollAreaWidgetContents.layout().insertRow(row_count, label)
-
-            row_count += 1
+                label.setSizePolicy(
+                    QSizePolicy.Maximum, QSizePolicy.Preferred)
+                layout.addRow(label)
 
         # Add error field
         self.error_label = QLabel("", self)
         self.error_label.setStyleSheet("color: red;")
-        self.scrollAreaWidgetContents.layout().insertRow(row_count, self.error_label)
+        layout.addRow(self.error_label)
 
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
@@ -317,7 +315,7 @@ class ProcessEffect(QDialog):
     def accept(self):
         """ Start processing effect """
         # Disable UI
-        # for child_widget in self.scrollAreaWidgetContents.children():
+        # for child_widget in self.mainContents.children():
         #     child_widget.setEnabled(False)
 
         # Enable ProgressBar
