@@ -264,53 +264,57 @@ class ProcessEffect(QDialog):
         from classes.query import File, Clip
 
         c = Clip.get(id=self.clip_id)
-        reader_path = c.data.get('reader', {}).get('path','')
+        reader_path = c.data.get('reader', {}).get('path', '')
         f = File.get(path=reader_path)
-        if f:
-            win = SelectRegion(f, self.clip_instance)
-            # Run the dialog event loop - blocking interaction on this window during that time
-            result = win.exec_()
-            if result == QDialog.Accepted:
-                # self.first_frame = win.current_frame
-                # Region selected (get coordinates if any)
-                topLeft = win.videoPreview.regionTopLeftHandle
-                bottomRight = win.videoPreview.regionBottomRightHandle
-                viewPortSize = win.viewport_rect
-                curr_frame_size = win.videoPreview.curr_frame_size
+        if not f:
+            log.error('No file found with path: %s', reader_path)
+            return
 
-                x1 = topLeft.x() / curr_frame_size.width()
-                y1 = topLeft.y() / curr_frame_size.height()
-                x2 = bottomRight.x() / curr_frame_size.width()
-                y2 = bottomRight.y() / curr_frame_size.height()
+        win = SelectRegion(f, self.clip_instance)
+        # Run the dialog event loop, blocking interaction on this window
+        result = win.exec_()
+        if result != QDialog.Accepted:
+            return
+        # self.first_frame = win.current_frame
+        # Region selected (get coordinates if any)
+        topLeft = win.videoPreview.regionTopLeftHandle
+        bottomRight = win.videoPreview.regionBottomRightHandle
+        curr_frame_size = win.videoPreview.curr_frame_size
 
-                # Get QImage of region
-                if win.videoPreview.region_qimage:
-                    region_qimage = win.videoPreview.region_qimage
+        x1 = topLeft.x() / curr_frame_size.width()
+        y1 = topLeft.y() / curr_frame_size.height()
+        x2 = bottomRight.x() / curr_frame_size.width()
+        y2 = bottomRight.y() / curr_frame_size.height()
 
-                    # Resize QImage to match button size
-                    resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+        # Get QImage of region
+        if win.videoPreview.region_qimage:
+            region_qimage = win.videoPreview.region_qimage
 
-                    # Draw Qimage onto QPushButton (to display region selection to user)
-                    palette = widget.palette()
-                    palette.setBrush(widget.backgroundRole(), QBrush(resized_qimage))
-                    widget.setFlat(True)
-                    widget.setAutoFillBackground(True)
-                    widget.setPalette(palette)
+            # Resize QImage to match button size
+            resized_qimage = region_qimage.scaled(
+                widget.size(),
+                Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
 
-                    # Remove button text (so region QImage is more visible)
-                    widget.setText("")
+            # Draw Qimage onto QPushButton (display region selection)
+            palette = widget.palette()
+            palette.setBrush(
+                widget.backgroundRole(), QBrush(resized_qimage))
+            widget.setFlat(True)
+            widget.setAutoFillBackground(True)
+            widget.setPalette(palette)
 
-                # If data found, add to context
-                if topLeft and bottomRight:
-                    self.context[param["setting"]].update({"normalized_x": x1, "normalized_y": y1,
-                                                           "normalized_width": x2-x1,
-                                                           "normalized_height": y2-y1,
-                                                           "first-frame": win.current_frame,
-                                                           })
-                    log.info(self.context)
+            # Remove button text, so image is more visible
+            widget.setText("")
 
-        else:
-            log.error('No file found with path: %s' % reader_path)
+        # If data found, add to context
+        if topLeft and bottomRight:
+            self.context[param["setting"]].update({
+                "normalized_x": x1, "normalized_y": y1,
+                "normalized_width": x2-x1,
+                "normalized_height": y2-y1,
+                "first-frame": win.current_frame,
+            })
+            log.info(self.context)
 
     def accept(self):
         """ Start processing effect """
