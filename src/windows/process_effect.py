@@ -354,7 +354,7 @@ class ProcessEffect(QDialog):
                 processing.CancelProcessing()
                 while(not processing.IsDone() ):
                     continue
-                super(ProcessEffect, self).reject()
+                super().reject()
 
         # get processing status
         while(not processing.IsDone() ):
@@ -377,10 +377,10 @@ class ProcessEffect(QDialog):
             self.effect.Id(ID)
 
             # Accept dialog
-            super(ProcessEffect, self).accept()
+            super().accept()
 
     def reject(self):
         # Cancel dialog
         self.exporting = False
         self.cancel_clip_processing = True
-        super(ProcessEffect, self).reject()
+        super().reject()
