@@ -31,15 +31,23 @@ import json
 import functools
 import webbrowser
 
-from PyQt5.QtCore import *
+from PyQt5.QtCore import (
+    Qt, QCoreApplication, pyqtSignal,
+)
 from PyQt5.QtGui import QBrush
-from PyQt5.QtWidgets import *
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+from PyQt5.QtWidgets import (
+    QDialog, QDialogButtonBox,
+    QLabel, QLineEdit,
+    QSpinBox, QDoubleSpinBox, QCheckBox, QComboBox, QPushButton,
+    QSizePolicy,
+)
 
-from classes import info, ui_util, qt_types, updates
+import openshot
+
+from classes import info, ui_util
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 
 
 class ProcessEffect(QDialog):

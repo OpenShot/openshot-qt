@@ -26,22 +26,27 @@
  """
 
 import os
-import sys
 import functools
-import math
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+from PyQt5.QtCore import (
+    pyqtSignal,
+    QTimer,
+)
+from PyQt5.QtWidgets import (
+    QDialog, QDialogButtonBox,
+    QSizePolicy,
+    QPushButton,
+)
 
-from classes import info, ui_util, time_parts, qt_types, updates
+import openshot
+
+from classes import info, ui_util, time_parts
 from classes.app import get_app
 from classes.logger import log
-from classes.metrics import *
+from classes.metrics import track_metric_screen
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
-import json
 
 class SelectRegion(QDialog):
     """ SelectRegion Dialog """
