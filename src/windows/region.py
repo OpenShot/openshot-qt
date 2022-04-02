@@ -147,8 +147,10 @@ class SelectRegion(QDialog):
 
             self.r.AddClip(self.clip)
 
-        except:
-            log.error('Failed to load media file into region select player: %s' % self.file_path)
+        except Exception:
+            log.error(
+                'Failed to load media file into region select player: %s',
+                self.file_path)
             return
 
         # Open reader

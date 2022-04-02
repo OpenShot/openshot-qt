@@ -251,7 +251,7 @@ class ProcessEffect(QDialog):
             # Attempt to load value from QTextEdit (i.e. multi-line)
             if not value:
                 value = widget.toPlainText()
-        except:
+        except Exception:
             log.debug('Failed to get plain text from widget')
 
         self.context[param["setting"]] = value
