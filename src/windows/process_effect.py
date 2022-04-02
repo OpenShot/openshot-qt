@@ -69,7 +69,7 @@ class ProcessEffect(QDialog):
         self.effect_name = effect_name
         self.context = {}
 
-        # Access C++ timeline and find the Clip instance which this effect should be applied to
+        # Get the target Clip for this effect from the C++ timeline
         timeline_instance = get_app().window.timeline_sync.timeline
         for clip_instance in timeline_instance.Clips():
             if clip_instance.Id() == self.clip_id:
@@ -108,7 +108,8 @@ class ProcessEffect(QDialog):
                 # create a clickable link
                 label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], _(param["title"])))
                 label.setTextInteractionFlags(Qt.TextBrowserInteraction)
-                label.linkActivated.connect(functools.partial(self.link_activated, widget, param))
+                label.linkActivated.connect(
+                    functools.partial(self.link_activated, widget, param))
 
             if param["type"] == "spinner":
                 # create QDoubleSpinBox
@@ -118,20 +119,29 @@ class ProcessEffect(QDialog):
                 widget.setValue(float(param["value"]))
                 widget.setSingleStep(1.0)
                 widget.setToolTip(_(param["title"]))
-                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
+                widget.valueChanged.connect(
+                    functools.partial(
+                        self.spinner_value_changed, widget, param))
 
                 # Set initial context
                 self.context[param["setting"]] = float(param["value"])
 
             if param["type"] == "rect":
-                # create QPushButton which opens up a display of the clip, with ability to select Rectangle
+                # QPushButton which displays the clip,
+                # allowing area selection of a region rectangle
                 widget = QPushButton(_("Click to Select"))
                 widget.setMinimumHeight(80)
                 widget.setToolTip(_(param["title"]))
-                widget.clicked.connect(functools.partial(self.rect_select_clicked, widget, param))
+                widget.clicked.connect(
+                    functools.partial(
+                        self.rect_select_clicked, widget, param))
 
                 # Set initial context
-                self.context[param["setting"]] = {"button-clicked": False, "x": 0, "y": 0, "width": 0, "height": 0}
+                self.context[param["setting"]] = {
+                    "button-clicked": False,
+                    "x": 0, "y": 0,
+                    "width": 0, "height": 0,
+                }
 
             if param["type"] == "spinner-int":
                 # create QDoubleSpinBox
@@ -141,7 +151,9 @@ class ProcessEffect(QDialog):
                 widget.setValue(int(param["value"]))
                 widget.setSingleStep(1)
                 widget.setToolTip(_(param["title"]))
-                widget.valueChanged.connect(functools.partial(self.spinner_value_changed, widget, param))
+                widget.valueChanged.connect(
+                    functools.partial(
+                        self.spinner_value_changed, widget, param))
 
                 # Set initial context
                 self.context[param["setting"]] = int(param["value"])
@@ -150,7 +162,8 @@ class ProcessEffect(QDialog):
                 # create QLineEdit
                 widget = QLineEdit()
                 widget.setText(_(param["value"]))
-                widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
+                widget.textChanged.connect(
+                    functools.partial(self.text_value_changed, widget, param))
 
                 # Set initial context
                 self.context[param["setting"]] = param["value"]
@@ -164,7 +177,8 @@ class ProcessEffect(QDialog):
                 else:
                     widget.setCheckState(Qt.Unchecked)
                     self.context[param["setting"]] = False
-                widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
+                widget.stateChanged.connect(
+                    functools.partial(self.bool_value_changed, widget, param))
 
             elif param["type"] == "dropdown":
 
@@ -189,13 +203,16 @@ class ProcessEffect(QDialog):
                         # Set initial context
                         self.context[param["setting"]] = param["value"]
 
-                widget.currentIndexChanged.connect(functools.partial(self.dropdown_index_changed, widget, param))
+                widget.currentIndexChanged.connect(functools.partial(
+                    self.dropdown_index_changed, widget, param))
 
             # Add Label and Widget to the form
             if widget and label:
                 # Add minimum size
-                label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-                widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                label.setSizePolicy(
+                    QSizePolicy.Minimum, QSizePolicy.Preferred)
+                widget.setSizePolicy(
+                    QSizePolicy.Expanding, QSizePolicy.Expanding)
 
                 # Create HBoxLayout for each field
                 layout.addRow(label, widget)
@@ -213,8 +230,10 @@ class ProcessEffect(QDialog):
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
         self.process_button = QPushButton(_('Process Effect'))
-        self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+        self.buttonBox.addButton(
+            self.process_button, QDialogButtonBox.AcceptRole)
+        self.buttonBox.addButton(
+            self.cancel_button, QDialogButtonBox.RejectRole)
 
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
@@ -333,7 +352,8 @@ class ProcessEffect(QDialog):
 
         # Create protobuf data path
         protobufPath = os.path.join(info.PROTOBUF_DATA_PATH, ID + '.data')
-        if os.name == 'nt' : protobufPath = protobufPath.replace("\\", "/")
+        if os.name == 'nt':
+            protobufPath = protobufPath.replace("\\", "/")
 
         self.context["protobuf_data_path"] = protobufPath
 
@@ -344,8 +364,10 @@ class ProcessEffect(QDialog):
         processing = openshot.ClipProcessingJobs(self.effect_name, jsonString)
         processing.processClip(self.clip_instance, jsonString)
 
-        # TODO: This is just a temporary fix. We need to find a better way to allow the user to fix the error
-        # The while loop is handling the error message. If pre-processing returns an error, a message
+        # TODO: This is just a temporary fix.
+        # We need to find a better way to allow the user to fix the error
+        # The while loop is handling the error message.
+        # If pre-processing returns an error, a message
         # will be displayed for 3 seconds and the effect will be closed.
         start = time.time()
         while processing.GetError():
@@ -359,7 +381,7 @@ class ProcessEffect(QDialog):
                 super().reject()
 
         # get processing status
-        while(not processing.IsDone() ):
+        while not processing.IsDone():
             # update progressbar
             progressionStatus = processing.GetProgress()
             self.progressBar.setValue(int(progressionStatus))
@@ -369,13 +391,15 @@ class ProcessEffect(QDialog):
             QCoreApplication.processEvents()
 
             # if the cancel button was pressed, close the processing thread
-            if(self.cancel_clip_processing):
+            if self.cancel_clip_processing:
                 processing.CancelProcessing()
 
-        if(not self.cancel_clip_processing):
+        if not self.cancel_clip_processing:
             # Load processed data into effect
             self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
-            self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
+            self.effect.SetJson(
+                '{"protobuf_data_path": "%s"}' % protobufPath
+                )
             self.effect.Id(ID)
 
             # Accept dialog
