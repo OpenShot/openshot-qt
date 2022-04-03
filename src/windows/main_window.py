@@ -103,7 +103,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     TransformSignal = pyqtSignal(str)
     KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)
-    MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
     ThumbnailUpdated = pyqtSignal(str)
@@ -309,8 +308,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Seek to frame 0
         self.SeekSignal.emit(1)
 
-        # Update max size (for fast previews)
-        self.MaxSizeChanged.emit(self.videoPreview.size())
+        # Have the preview widget recompute the timeline size
+        self.videoPreview.recompute_size()
 
     def actionAnimatedTitle_trigger(self):
         # show dialog
@@ -483,7 +482,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.refreshFrameSignal.emit()
 
                 # Update max size (for fast previews)
-                self.MaxSizeChanged.emit(self.videoPreview.size())
+                self.videoPreview.recompute_size()
 
                 # Load recent projects again
                 self.load_recent_menu()
@@ -1065,7 +1064,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline_sync.timeline.SetCache(new_cache_object)
 
         # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(app.project.get("width"), app.project.get("height"))
+        self.timeline_sync.timeline.SetMaxSize(
+            app.project.get("width"), app.project.get("height"))
+        self.timeline_sync.clear_previous_size()
         self.cache_object.Clear()
 
         # Check if file exists, if it does, get the lastModified time
@@ -1078,7 +1079,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # (return is void, so we cannot check for success/fail here
         # - must use file modification timestamp)
         openshot.Timeline.GetFrame(
-            self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
+            self.timeline_sync.timeline,
+            self.preview_thread.current_frame).Save(framePath, 1.0)
 
         # Show message to user
         if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
@@ -1087,8 +1089,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.statusBar.showMessage(_("Failed to save image to %s" % framePath), 5000)
 
         # Reset the MaxSize to match the preview and reset the preview cache
-        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
-        self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+        self.videoPreview.recompute_size()
         self.cache_object.Clear()
         self.timeline_sync.timeline.SetCache(old_cache_object)
         self.cache_object = old_cache_object
@@ -1713,11 +1714,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionProfile_trigger(self):
         # Show dialog
         from windows.profile import Profile
-        log.debug("Showing preferences dialog")
+        log.debug("Showing profile dialog")
         win = Profile()
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
-        log.debug("Preferences dialog closed")
+        self.videoPreview.recompute_size()
+        log.debug("Profile dialog closed")
 
     def actionSplitClip_trigger(self):
         log.debug("actionSplitClip_trigger")
@@ -3057,7 +3059,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Setup video preview QWidget
         videoPreview = VideoWidget(watch_project=True)
+        videoPreview.setObjectName("videoPreview")
         self.tabVideo.layout().insertWidget(0, videoPreview)
+
+        videoPreview.MaxSizeChanged.connect(
+            self.timeline_sync.MaxSizeChangedCB)
 
         self.TransformSignal.connect(videoPreview.transformTriggered)
         self.KeyFrameTransformSignal.connect(

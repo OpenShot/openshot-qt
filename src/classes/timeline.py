@@ -32,14 +32,20 @@ from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
 
+from PyQt5.QtCore import QObject, pyqtSlot, QSize
 
-class TimelineSync(UpdateInterface):
+
+class TimelineSync(QObject, UpdateInterface):
     """ This class syncs changes from the timeline to libopenshot """
 
-    def __init__(self, window):
+    def __init__(self, window, **kwargs):
+        super().__init__(**kwargs)
+
         self.app = get_app()
         self.window = window
         project = self.app.project
+
+        self.previous_size = QSize()
 
         # Get some settings from the project
         fps = project.get("fps")
@@ -67,9 +73,6 @@ class TimelineSync(UpdateInterface):
         # This listener will receive events before others.
         self.app.updates.add_listener(self, 0)
 
-        # Connect to signal
-        self.window.MaxSizeChanged.connect(self.MaxSizeChangedCB)
-
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
@@ -84,6 +87,8 @@ class TimelineSync(UpdateInterface):
                 self.timeline.SetJson(action.json(only_value=True))
                 self.timeline.Open()  # Re-Open the Timeline reader
 
+                self.previous_size = QSize()
+
                 # The timeline's profile changed, so update all clips
                 self.timeline.ApplyMapperToClips()
 
@@ -94,26 +99,34 @@ class TimelineSync(UpdateInterface):
                 self.window.refreshFrameSignal.emit()
 
             else:
-                # This JSON DIFF is passed to libopenshot to update the timeline
+                # JSON DIFF passed to libopenshot to update the timeline
+                log.debug("Applying JSON diff to libopenshot timeline")
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
-        except Exception as e:
-            log.info("Error applying JSON to timeline object in libopenshot: %s. %s" % (e, action.json(is_array=True)))
+        except Exception:
+            log.info(
+                "Error applying JSON to libopenshot timeline: %s",
+                action.json(is_array=True), exc_info=1)
 
+    def clear_previous_size(self):
+        """Reset the stored size data so we'll apply the next update."""
+        self.previous_size = QSize()
+
+    @pyqtSlot(QSize)
     def MaxSizeChangedCB(self, new_size):
-        """Callback for max sized change (i.e. max size of video widget)"""
-        while not self.window.initialized:
-            log.info('Waiting for main window to initialize before calling SetMaxSize')
-            time.sleep(0.5)
+        """Apply new max frame size to libopenshot Timeline."""
+        if new_size == self.previous_size:
+            log.debug("Ignoring timeline resize to %s, no change", new_size)
+            return
 
-        log.info("Adjusting max size of preview image: %s" % new_size)
+        log.info("Adjusting max size of preview image: %s", new_size)
 
         # Clear timeline preview cache (since our video size has changed)
         self.timeline.ClearAllCache()
 
-        # Set new max video size (Based on preview widget size and display scaling)
-        scale = self.window.devicePixelRatioF()
-        self.timeline.SetMaxSize(round(new_size.width() * scale), round(new_size.height() * scale))
+        # Set new max video size
+        self.timeline.SetMaxSize(new_size.width(), new_size.height())
+        self.previous_size = new_size
 
         # Refresh current frame (since the entire timeline was updated)
         self.window.refreshFrameSignal.emit()

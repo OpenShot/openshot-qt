@@ -179,5 +179,3 @@ class Profile(QDialog):
         win.SeekSignal.emit(1)
         # Refresh frame (since size of preview might have changed)
         QTimer.singleShot(500, win.refreshFrameSignal.emit)
-        QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
-                                                 win.videoPreview.size()))

@@ -100,7 +100,8 @@ class StatsTracker(QObject):
 class VideoWidget(QWidget, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
 
-    # invoked by the UpdateManager each time a change happens
+    MaxSizeChanged = pyqtSignal(QSize)
+
     def changed(self, action):
         # Handle change
         if (action.key and action.key[0] in [
@@ -1368,28 +1369,36 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         get_app().window.PauseSignal.emit()
 
     @pyqtSlot()
-    def delayed_resize(self):
-        """Callback for resize event timer.
+    def recompute_size(self):
+        """Calculate our video dimensions with constraints applied.
+
+        Called on a timer after resize events, or directly when
+        the preview size needs to be recalculated.
 
         Delaying our response to resize events prevents resize storms.
-        libopenshot (indirect recipient of MaxSizeChanged) can't handle them."""
+        Certain recipients (libopenshot) can't handle them."""
 
         # Scale project size (with aspect ratio) to half the widget size
         new_size = QSize(
             int(get_app().project.get("width")),
             int(get_app().project.get("height")))
-        new_size.scale(self.size() / 2.0, Qt.KeepAspectRatio)
+        native_size = self.size() * self.devicePixelRatioF()
+        log.debug(
+            "Sizing video: project %s, preview %s", new_size, native_size)
 
         # Multiply to ensure width & height are divisible by 2.
         # Trying to find the closest even number to the requested aspect ratio
         # so that both width and height are divisible by 2. This is to prevent some
         # strange phantom scaling lines on the edges of the preview window.
+        new_size.scale(native_size / 2.0, Qt.KeepAspectRatio)
         project_size = new_size * 2
+        log.debug(
+            "Scaled to %s, final canvas size %s", new_size, project_size)
 
         self.track_size()
 
         # Emit signal that video widget changed size
-        get_app().window.MaxSizeChanged.emit(project_size)
+        self.MaxSizeChanged.emit(project_size)
 
     def wheelEvent(self, event):
         """Capture wheel event to alter zoom/scale of widget."""
@@ -1515,6 +1524,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         timer.setInterval(200)
         timer.setSingleShot(True)
         if watch_project:
-            timer.timeout.connect(self.delayed_resize)
+            timer.timeout.connect(self.recompute_size)
         self.resize_timer = timer
 
