@@ -2629,13 +2629,16 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     @pyqtSlot(str)
     def ShowTrackMenu(self, layer_id=None):
-        log.info('ShowTrackMenu: %s' % layer_id)
+        log.info('ShowTrackMenu: %s', layer_id)
+
+        # Get track object
+        track = Track.get(id=layer_id)
+        if not track:
+            return
 
         if layer_id not in self.window.selected_tracks:
             self.window.selected_tracks = [layer_id]
 
-        # Get track object
-        track = Track.get(id=layer_id)
         locked = track.data.get("lock", False)
 
         menu = QMenu(self)
