@@ -27,7 +27,7 @@
 
 import functools
 
-from PyQt5.QtCore import Qt, QPoint, QRectF
+from PyQt5.QtCore import Qt, QObject, QPoint, QRectF
 from PyQt5.QtGui import (
     QColor, QPalette, QPen, QPainter, QPainterPath, QKeySequence,
 )
@@ -97,7 +97,7 @@ class TutorialDialog(QWidget):
 
     def __init__(self, widget_id, text, arrow, manager, *args):
         # Invoke parent init
-        QWidget.__init__(self, *args)
+        super().__init__(*args)
 
         # get translations
         app = get_app()
@@ -178,7 +178,7 @@ class TutorialDialog(QWidget):
             functools.partial(self.manager.hide_tips, self.widget_id, True))
 
 
-class TutorialManager(object):
+class TutorialManager(QObject):
     """ Manage and present a list of tutorial dialogs """
 
     def process(self, parent_name=None):
@@ -197,7 +197,8 @@ class TutorialManager(object):
             tutorial_id = tutorial_details["id"]
 
             # Get QWidget
-            tutorial_object = self.get_object(tutorial_details["object_id"])
+            target_name = tutorial_details["object_id"]
+            tutorial_object = self.get_object(target_name)
 
             # Skip completed tutorials (and invisible widgets)
             if not self.tutorial_enabled or tutorial_id in self.tutorial_ids or tutorial_object.visibleRegion().isEmpty():
@@ -208,11 +209,18 @@ class TutorialManager(object):
             self.offset = QPoint(
                 int(tutorial_details["x"]),
                 int(tutorial_details["y"]))
-            tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"], self)
+            tutorial_dialog = TutorialDialog(
+                tutorial_id,
+                tutorial_details["text"],
+                tutorial_details["arrow"],
+                self)
+            tutorial_dialog.setObjectName(f"tutorial.{target_name}")
 
             # Connect signals
-            tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))
-            tutorial_dialog.btn_close_tips.clicked.connect(functools.partial(self.hide_tips, tutorial_id, True))
+            tutorial_dialog.btn_next_tip.clicked.connect(
+                functools.partial(self.next_tip, tutorial_id))
+            tutorial_dialog.btn_close_tips.clicked.connect(
+                functools.partial(self.hide_tips, tutorial_id, True))
 
             # Get previous dock contents
             old_widget = self.dock.widget()
@@ -230,6 +238,7 @@ class TutorialManager(object):
             # Delete old widget
             if old_widget:
                 old_widget.close()
+                old_widget.deleteLater()
 
             break
 
@@ -300,20 +309,6 @@ class TutorialManager(object):
             self.dock.setEnabled(False)
             self.current_dialog = None
 
-    def exit_manager(self):
-        """ Disconnect from all signals, and shutdown tutorial manager """
-        try:
-            self.win.dockFiles.visibilityChanged.disconnect()
-            self.win.dockTransitions.visibilityChanged.disconnect()
-            self.win.dockEffects.visibilityChanged.disconnect()
-            self.win.dockProperties.visibilityChanged.disconnect()
-            self.win.dockVideo.visibilityChanged.disconnect()
-        except Exception:
-            log.debug('Failed to properly disconnect from dock signals', exc_info=1)
-
-        # Close dialog window
-        self.close_dialogs()
-
     def re_show_dialog(self):
         """ Re show an active dialog """
         if self.current_dialog:
@@ -347,8 +342,10 @@ class TutorialManager(object):
             self.dock.move(position)
             self.re_show_dialog()
 
-    def __init__(self, win):
+    def __init__(self, win, *args, **kwargs):
         """ Constructor """
+        super().__init__(*args, **kwargs)
+
         self.win = win
         self.dock = win.dockTutorial
         self.current_dialog = None
@@ -436,12 +433,13 @@ class TutorialManager(object):
         self.dock.setFloating(True)
 
         # Connect to interface dock widgets
-        self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
-        self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process, "dockTransitions"))
-        self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))
-        self.win.dockProperties.visibilityChanged.connect(functools.partial(self.process, "dockProperties"))
-        self.win.dockVideo.visibilityChanged.connect(functools.partial(self.process, "dockVideo"))
-        self.win.dockEmojis.visibilityChanged.connect(functools.partial(self.process, "dockEmojis"))
+        for dname in [
+                "Files", "Transitions", "Effects",
+                "Properties", "Video", "Emojis",
+                ]:
+            watchedDock = getattr(self.win, f"dock{dname}")
+            watchedDock.visibilityChanged.connect(
+                functools.partial(self.process, f"dock{dname}"))
 
         # Process tutorials (1 by 1)
         if self.tutorial_enabled:

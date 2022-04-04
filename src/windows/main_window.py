@@ -156,8 +156,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Log the exit routine
         log.info('---------------- Shutting down -----------------')
 
-        # Close any tutorial dialogs
-        self.tutorial_manager.exit_manager()
 
         # Save settings
         self.save_settings()
@@ -2224,7 +2222,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Show first tutorial dialog again
         if self.tutorial_manager:
-            self.tutorial_manager.exit_manager()
+            self.tutorial_manager.deleteLater()
             self.tutorial_manager = TutorialManager(self)
 
     def actionInsertTimestamp_trigger(self, event):
