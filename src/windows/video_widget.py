@@ -276,16 +276,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         scale = self.devicePixelRatioF()
 
         # Display the playback speed in widget title
-        speed_str = ""
-        try:
-            mode = self.win.preview_thread.player.Mode()
-            if mode == openshot.PLAYBACK_PAUSED:
-                speed = 0.0
-            else:
-                speed = self.win.preview_thread.player.Speed()
-            speed_str = f" {speed}x "
-        except NameError:
-            log.error("Couldn't get player speed for window title")
+        speed = 0.0
+        mode = self.win.preview_thread.player.Mode()
+        if mode != openshot.PLAYBACK_PAUSED:
+            speed = self.win.preview_thread.player.Speed()
 
         # Find parent dockWidget (if any)
         dock = None
@@ -298,12 +292,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if self.settings.get("preview-fps"):
             # Update window title with FPS output
-            dock.setWindowTitle(_("Video Preview") + speed_str + _("(Paint: %d FPS, Render: %d FPS, %dx%d)")
-                                                      % (self.paint_fps, self.present_fps,
+            dock.setWindowTitle(_("Video Preview ") + _("(Speed: %dx, Paint: %d FPS, Render: %d FPS, %dx%d)")
+                                                      % (speed, self.paint_fps, self.present_fps,
                                                          rect.width() * scale, rect.height() * scale))
         else:
             # Restore window title
-            dock.setWindowTitle(_("Video Preview") + speed_str)
+            if not speed in [1, 0, -1]:
+                dock.setWindowTitle(_("Video Preview") + f" ({speed}x)")
+            else:
+                dock.setWindowTitle(_("Video Preview"))
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
