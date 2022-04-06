@@ -44,11 +44,20 @@ class PreviewParent(QObject):
         self.parent.movePlayhead(current_frame)
 
         # Check if we are at the end of the timeline
-        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY and self.worker.player.Speed() != 0.0 \
-                and ((current_frame >= self.worker.timeline_length != -1) or current_frame <= 1):
-            # Yes, pause the video
-            self.parent.PauseSignal.emit()
-            self.worker.timeline_length = -1
+        if self.worker.player.Mode() == openshot.PLAYBACK_PLAY:
+            if self.worker.player.Speed() > 0.0 \
+                and current_frame >= self.worker.timeline_length:
+                # Yes, pause the video
+                self.parent.PauseSignal.emit()
+                self.worker.timeline_length = -1
+                # If the player got past the end of the project, go back.
+                self.worker.Seek(self.timeline.GetMaxFrame())
+            if self.worker.player.Speed() < 0.0 and ((current_frame <= 1 )):
+                # If rewinding, and the player got past the first frame,
+                # pause and go to frame 1
+                self.parent.PauseSignal.emit()
+                self.worker.timeline_length = -1
+                self.worker.Seek(1)
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
