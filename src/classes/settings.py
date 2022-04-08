@@ -184,10 +184,8 @@ class SettingStore(JsonDataStore):
                 log.error("getting setting %s" % setting["path"])
 
         if os.path.isfile(default_path):
-            # Default set to a file, not a dir. Fixing it.
-            log.info("Default path is a file. Correcting.")
+            # Make sure default_path is a directory
             default_path = os.path.dirname(default_path)
-            self.setDefaultPath(action,default_path)
 
         if (not default_path) or (not os.path.exists(default_path)):
             log.debug("Default path invalid. Falling back to home directory")
@@ -195,7 +193,7 @@ class SettingStore(JsonDataStore):
 
         if action == self.actions.SAVE:
             log.info("Adding file name for project path")
-            # Only get project name if one is currently active.
+            # Default name unless a project is currently active.
             project_name = os.path.basename(self.app.project.current_filepath or "") or "%s.osp" % _("Untitled Project")
             default_path = os.path.join(default_path, project_name)
         return default_path
