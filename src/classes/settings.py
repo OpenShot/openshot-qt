@@ -29,8 +29,10 @@
 
 # SettingStore - class which allows getting/storing of settings, loading and saving to json
 import os
+from enum import Enum, unique, auto
 
 from classes import info
+from classes.app import get_app
 from classes.logger import log
 from classes.json_data import JsonDataStore
 
@@ -38,6 +40,18 @@ from classes.json_data import JsonDataStore
 class SettingStore(JsonDataStore):
     """ This class only allows setting pre-existing keys taken from default settings file, and merges user settings
     on load, assumes default OS dir."""
+
+    @unique
+    class pathType(Enum):
+        RECENT=0 # Return the last used path for the same action
+        PROJECT=1 # Return the current project path
+
+    @unique
+    class actions(Enum):
+        IMPORT=auto()
+        EXPORT=auto()
+        LOAD=auto()
+        SAVE=auto()
 
     def __init__(self, parent=None):
         super().__init__()
@@ -111,3 +125,77 @@ class SettingStore(JsonDataStore):
             # try to save data to file, will raise exception on failure
             self.write_to_file(file_path, self._data)
 
+    def pathSettings(self, action: actions):
+        """Given an action, return the corresponding setting names"""
+        if action == self.actions.IMPORT:
+            return {'type':"locationImportType", 'path':"locationImportPath"}
+        if action == self.actions.EXPORT:
+            return {'type': "locationExportType", 'path': "locationExportPath"}
+        if action in [self.actions.SAVE, self.actions.LOAD]:
+            return {'type': "locationProjectType", 'path': "locationProjectPath"}
+        log.info("Action not recognized")
+        log.error("Given action is not valid %s" % action)
+        return None
+
+    def setDefaultPath(self, action: pathType, recent_path: str):
+        """ Change the path setting corresponding to the given action """
+        if not os.path.exists(recent_path):
+            return
+        if os.path.isfile(recent_path):
+            recent_path=os.path.dirname(recent_path)
+        try:
+            setting = self.pathSettings(action)
+            log.debug(f"Setting %s to %s" % (action.value, recent_path))
+            self.set(setting["path"], recent_path)
+        except:
+            log.error(f"Error setting the path of %s" % setting["path"])
+
+    def getDefaultPath(self, action: actions):
+        """
+        Returns the starting path for file browsing
+        - validates paths before returning them
+        - Actions: import, export, project open/save-as
+        - Types
+            RECENT: return the last directory where this action occurred
+            PROJECT: return the directory of the current project
+        """
+        _ = self.app._tr
+
+        default_path = ""
+        # If there isn't a current project, use the most recent one
+        project_path = self.app.project.current_filepath or ""
+        if not project_path and len(self.get("recent_projects")):
+            project_path = self.get("recent_projects")[0]
+        setting = self.pathSettings(action)
+
+        try:
+            recentOrProject = self.get(setting["type"])
+        except:
+            log.error(f"getting setting %s" % setting["type"])
+
+        if recentOrProject == self.pathType.PROJECT.value:
+            log.debug("Using Project Path")
+            default_path = project_path
+        else:
+            try:
+                log.debug("Using Recent Path")
+                default_path = self.get(setting["path"])
+            except:
+                log.error("getting setting %s" % setting["path"])
+
+        if os.path.isfile(default_path):
+            # Default set to a file, not a dir. Fixing it.
+            log.info("Default path is a file. Correcting.")
+            default_path = os.path.dirname(default_path)
+            self.setDefaultPath(action,default_path)
+
+        if (not default_path) or (not os.path.exists(default_path)):
+            log.debug("Default path invalid. Falling back to home directory")
+            return os.path.expanduser("~")
+
+        if action == self.actions.SAVE:
+            log.info("Adding file name for project path")
+            # Only get project name if one is currently active.
+            project_name = os.path.basename(self.app.project.current_filepath or "") or "%s.osp" % _("Untitled Project")
+            default_path = os.path.join(default_path, project_name)
+        return default_path
