@@ -387,6 +387,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         from classes.app import get_app
         get_app().updates.load(self._data)
 
+        self.show_waveforms()
+
     def rescale_keyframes(self, scale_factor):
         """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
            and return scaled project data without modifing the current project."""
@@ -397,6 +399,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Create copy of active project data and scale
         scaled = scaler(copy.deepcopy(self._data))
         return scaled
+
+    def show_waveforms(self):
+        """Find any clips with waveforms enabled, and change their display"""
+        for clip in self._data["clips"]:
+            path = clip.get("reader", {}).get("path", "")
+
+            if "show_waveform" in clip.keys() and clip["show_waveform"]:
+                get_audio_data(clip.get("id"), path)
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""

@@ -956,6 +956,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     def Show_Waveform_Triggered(self, clip_ids):
         """Show a waveform for the selected clip"""
 
+        # Set cursor to waiting
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
         # Loop through each selected clip
         for clip_id in clip_ids:
 
@@ -967,14 +969,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
             file_path = clip.data["reader"]["path"]
 
-            # Find actual clip object from libopenshot
+            clip.data["show_waveform"] = True
+            clip.save()
             c = self.window.timeline_sync.timeline.GetClip(clip_id)
             if c and c.Reader() and not c.Reader().info.has_single_image:
                 # Find frame 1 channel_filter property
                 channel_filter = c.channel_filter.GetInt(1)
-
-                # Set cursor to waiting
-                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
                 # Get audio data in a separate thread (so it doesn't block the UI)
                 channel_filter = channel_filter

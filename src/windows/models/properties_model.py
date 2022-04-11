@@ -40,6 +40,7 @@ from classes import openshot_rc  # noqa
 from classes.query import Clip, Transition, Effect
 from classes.logger import log
 from classes.app import get_app
+from classes.waveform import get_audio_data
 import openshot
 
 import json
@@ -252,6 +253,12 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Clear selection
             self.parent.clearSelection()
+
+        if c.data.get("show_waveform", False):
+            if property_key in ["volume", "channel_filter"]:
+                clip = get_app().window.timeline_sync.timeline.GetClip(c.data.get("id"))
+                get_audio_data(c.data.get("id"), c.data.get("reader", {}).get("path", ""), \
+                               clip.channel_filter.GetInt(1), clip.volume)
 
     def color_update(self, item, new_color, interpolation=-1, interpolation_details=[]):
         """Insert/Update a color keyframe for the selected row"""
@@ -510,6 +517,13 @@ class PropertiesModel(updates.UpdateInterface):
                         clip_data[property_key].setdefault('Points', []).append({
                             'co': {'X': self.frame_number, 'Y': new_value},
                             'interpolation': 1})
+
+                # If sound has been updated:
+                if clip_data.get("show_waveform",False):
+                    if property_key in ["volume", "channel_filter"]:
+                        clip = get_app().window.timeline_sync.timeline.GetClip(clip_data.get("id"))
+                        get_audio_data(clip_data.get("id"), clip_data.get("reader",{}).get("path",""),\
+                            clip.channel_filter.GetInt(1), clip.volume)
 
             if not clip_updated:
                 # If no keyframe was found, set a basic property
