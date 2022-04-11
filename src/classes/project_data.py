@@ -42,6 +42,7 @@ from classes.logger import log
 from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
+from .waveform import get_audio_data
 
 from .keyframe_scaler import KeyframeScaler
 
@@ -307,6 +308,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
                         self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
                         self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+                        self._data["sound_data"] = {} #dict of file ids and their audio data
                         break
 
                 except RuntimeError as e:
