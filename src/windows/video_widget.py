@@ -275,6 +275,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         rect = self.centeredViewport(self.width(), self.height())
         scale = self.devicePixelRatioF()
 
+        # Display the playback speed in widget title
+        speed = 0.0
+        mode = self.win.preview_thread.player.Mode()
+        if mode != openshot.PLAYBACK_PAUSED:
+            speed = self.win.preview_thread.player.Speed()
+
         # Find parent dockWidget (if any)
         dock = None
         if self.parent() and self.parent().parent():
@@ -286,12 +292,15 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if self.settings.get("preview-fps"):
             # Update window title with FPS output
-            dock.setWindowTitle(_("Video Preview") + " " + _("(Paint: %d FPS, Render: %d FPS, %dx%d)")
-                                                      % (self.paint_fps, self.present_fps,
+            dock.setWindowTitle(_("Video Preview ") + _("(Speed: %dx, Paint: %d FPS, Render: %d FPS, %dx%d)")
+                                                      % (speed, self.paint_fps, self.present_fps,
                                                          rect.width() * scale, rect.height() * scale))
         else:
             # Restore window title
-            dock.setWindowTitle(_("Video Preview"))
+            if not speed in [1, 0, -1]:
+                dock.setWindowTitle(_("Video Preview") + f" ({speed}x)")
+            else:
+                dock.setWindowTitle(_("Video Preview"))
 
     def paintEvent(self, event, *args):
         """ Custom paint event """
@@ -1464,6 +1473,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Get a reference to the window object
         self.win = get_app().window
+
+        # Update title whenever playback speed changes.
+        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.PauseSignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.SpeedSignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.StopSignal.connect(self.update_title, Qt.QueuedConnection)
 
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
