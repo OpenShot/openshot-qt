@@ -501,7 +501,6 @@ elif sys.platform == "linux":
                 paths = ["lib/openshot_qt/",
                          "lib/*opencv*",
                          "lib/libopenshot*",
-                         "translations/",
                          "locales/",
                          "libQt5WebKit.so.5"]
                 for path in paths:
