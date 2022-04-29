@@ -25,73 +25,63 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import platform
 import threading
-from copy import deepcopy
-from classes import info
 from classes.app import get_app
 from classes.logger import log
-import openshot
+from classes.query import File, Clip
+from time import sleep
 
 
 # Get settings
 s = get_app().get_settings()
 
 
-def get_audio_data(clip_id, file_path, channel_filter, volume_keyframe):
+def get_audio_data(files: dict):
     """Get a Clip object form libopenshot, and grab audio data"""
-    clip = openshot.Clip(file_path)
-    clip.Open()
+    """
+        For for the given files and clips, start threads to gather audio data.
 
-    # Disable video stream (for speed improvement)
-    clip.Reader().info.has_video = False
+        arg1: a dict of clip_ids grouped by their file_id
+    """
 
-    log.info("Clip loaded, start thread")
-    t = threading.Thread(target=get_waveform_thread, args=[clip, clip_id, file_path, channel_filter, volume_keyframe])
-    t.daemon = True
-    t.start()
+    for file_id in files:
+        clip_list = files[file_id]
 
-def get_waveform_thread(clip, clip_id, file_path, channel_filter=-1, volume_keyframe=None):
-    """Get the audio data from a clip in a separate thread"""
-    audio_data = []
-    sample_rate = clip.Reader().info.sample_rate
+        log.info("Clip loaded, start thread")
+        t = threading.Thread(target=get_waveform_thread,
+                             args=[file_id, clip_list])
+        t.daemon = True
+        t.start()
 
-    # How many samples per second do we need (to approximate the waveform)
-    samples_per_second = 20
-    sample_divisor = round(sample_rate / samples_per_second)
-    log.info("Getting waveform for sample rate: %s" % sample_rate)
 
-    sample = 0
-    for frame_number in range(1, clip.Reader().info.video_length):
-        # Get frame object
-        frame = clip.Reader().GetFrame(frame_number)
+def get_waveform_thread(file_id, clip_list):
+    """
+    For the given file, update audio data.
 
-        # Get volume for this frame
-        volume = 1.0
-        if volume_keyframe:
-            volume = volume_keyframe.GetValue(frame_number)
+    arg1: file id to get the audio data of.
+    arg2: list of clips to update when the audio data is ready.
+    """
 
-        # Loop through samples in frame (hopping through it to get X # of data points per second)
+    file = File.get(id=file_id)
+
+    file_audio_data = file.data.get("ui", {}).get("audio_data", False)
+    if not file_audio_data:
+        file.getAudioData()
+    elif file_audio_data == [-999]:
+        count = 0
         while True:
-            # Determine amount of range
-            magnitude_range = sample_divisor
-            if sample + magnitude_range > frame.GetAudioSamplesCount():
-                magnitude_range = frame.GetAudioSamplesCount() - sample
+            # Loop until audio data is ready.
+            sleep(1)
+            if file.data.get("ui").get("audio_data", False) != [-999]:
+                break
+            count += 1
+            if count >= 15:
+                # After 15 seconds. Abandon
+                log.error("Could not gather audio data")
+                return
 
-            # Get audio data for this channel
-            if sample < frame.GetAudioSamplesCount():
-                audio_data.append(frame.GetAudioSample(channel_filter, sample, magnitude_range) * volume)
-            else:
-                # Adjust starting sample for next frame
-                sample = max(0, sample - frame.GetAudioSamplesCount())
-                break # We are done with this frame
-
-            # Jump to next sample needed
-            sample += sample_divisor
-
-    # Close reader
-    clip.Close()
-
-    # Emit signal when done
-    log.info("get_waveform_thread completed")
-    get_app().window.WaveformReady.emit(clip_id, audio_data)
+    # Update clips
+    for clip_id in clip_list:
+        # Show Audio
+        clip = Clip.get(id=clip_id)
+        clip.showAudioData()
