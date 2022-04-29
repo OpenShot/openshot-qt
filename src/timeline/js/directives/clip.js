@@ -156,13 +156,15 @@ App.directive("tlClip", function ($timeout) {
           }
 
           //resize the audio canvas to match the new clip width
-          if (scope.clip.show_audio) {
+          if (scope.clip.ui && scope.clip.ui.audio_data) {
             //redraw audio as the resize cleared the canvas
             drawAudio(scope, scope.clip.id);
           }
           dragLoc = null;
         },
         resize: function (e, ui) {
+          element.find(".point").fadeOut(100);
+          element.find(".audio-container").fadeOut(100);
           if (resize_disabled) {
             // disabled, keep the item the same size
             $(this).css(ui.originalPosition);

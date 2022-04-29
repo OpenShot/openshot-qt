@@ -995,7 +995,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.waveform_cache[clip_id] = serialized_audio_data
 
         # Pass to javascript timeline (and render)
-        self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");")
+        self.run_js("drawAudio('" + clip_id + "');")
 
         # Restore normal cursor
         get_app().restoreOverrideCursor()
@@ -1956,8 +1956,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                     self.waveform_cache[right_clip.id] = self.waveform_cache.get(clip_id, '[]')
 
                     # Pass audio to javascript timeline (and render)
-                    self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('{}',{});"
-                        .format(right_clip.id, self.waveform_cache.get(right_clip.id)))
+                    self.run_js("drawAudio('" + right_clip.id + "');")
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)

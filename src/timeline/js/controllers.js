@@ -373,15 +373,11 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Set the audio data for a clip
-  $scope.setAudioData = function (clip_id, audio_data) {
+  $scope.setAudioData = function (clip_id) {
     // Find matching clip
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
       if ($scope.project.clips[clip_index].id === clip_id) {
         // Set audio data
-        $scope.$apply(function () {
-          $scope.project.clips[clip_index].audio_data = audio_data;
-          $scope.project.clips[clip_index].show_audio = true;
-        });
         timeline.qt_log("DEBUG", "Audio data successful set on clip JSON");
         break;
       }

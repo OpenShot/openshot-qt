@@ -100,10 +100,10 @@
 					</div>
 					<br class="cleared">
 
-					<div ng-if="!clip.show_audio" class="thumb-container">
+					<div ng-if="!clip.ui.audio_data" class="thumb-container">
 						<img class="thumb thumb-start" ng-if="getThumbPath(clip)" ng-src="{{ getThumbPath(clip) }}"/>
 					</div>
-					<div ng-if="clip.show_audio" class="audio-container">
+					<div ng-if="clip.ui.audio_data" class="audio-container">
 						<canvas tl-audio height="46px" width="{{canvasMaxWidth((clip.end - clip.start) * pixelsPerSecond)}}px" class="audio"></canvas>
 					</div>
 
