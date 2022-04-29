@@ -30,6 +30,8 @@ import copy
 
 from classes import info
 from classes.app import get_app
+from classes.logger import log
+import openshot
 
 
 class QueryObject:
@@ -170,6 +172,49 @@ class Clip(QueryObject):
         path = self.data.get("reader", {}).get("path")
         return os.path.basename(path)
 
+    def showAudioData(self):
+        
+        if "ui" not in self.data:
+            self.data["ui"] = {}
+            self.save()
+
+        # Get File
+        file_path = self.data.get("reader").get("path")
+        file = File.get(path = file_path)
+        # Get File's audio data
+        file_audio_data = file.data.get("ui",{}).get("audio_data", False)
+        if not file_audio_data:
+            log.info("clip.showAudioData was called, but file has no audio data")
+            return
+
+        sample_count = len(file_audio_data)
+        file_duration = file.data.get("duration")
+        time_per_sample = file_duration / sample_count
+        def sample_from_time(time):
+            sample_num = max(0, round(time / time_per_sample))
+            sample_num = min(sample_count - 1, sample_num)
+            return file_audio_data[sample_num]
+
+        audio_data = []
+        # clip = Clip.get(id = self.data.get("id"))
+        clip = get_app().window.timeline_sync.timeline.GetClip(self.data.get("id"))
+        num_frames = int(self.data.get("reader").get("video_length"))
+        fps = get_app().project.get("fps")
+        fps_frac = fps["num"] / fps["den"]
+        for frame_num in range(1, num_frames):
+            print(f"Clipshow: frame {frame_num}")
+            volume = clip.volume.GetValue(frame_num)
+            display_frame =  clip.time.GetValue(frame_num)
+            time = display_frame / fps_frac
+            audio_data.append(sample_from_time(time) * volume)
+
+        self.data["ui"]["audio_data"] = audio_data
+        self.save()
+        return
+
+    def removeAudioData(self):
+        pass
+
 class Transition(QueryObject):
     """ This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
     object_name = "effects"  # Derived classes should define this
@@ -256,6 +301,48 @@ class File(QueryObject):
         file_path = self.absolute_path()
         # Convert path to relative (based on current working directory of Python)
         return os.path.relpath(file_path, info.CWD)
+
+    def getAudioData(self):
+        # Ensure that UI attribute exists
+        if "ui" not in self.data:
+            self.data["ui"] = {}
+            self.save()
+
+        audio_data = self.data["ui"].get("audio_data", False)
+        if audio_data and len(audio_data) > 1:
+            log.info("Audio Data already retrieved.")
+            return
+        if not audio_data:
+            # Placeholder value. Communicates that data is being retrieved
+            self.data["ui"]["audio_data"] = [-999]
+
+        # Do the audio data stuff.
+        temp_clip = openshot.Clip(self.data["path"])
+        temp_clip.Open()
+        temp_clip.Reader().info.has_video = False
+
+        sample_rate = temp_clip.Reader().info.sample_rate
+        samples_per_second = 20
+        sample_divisor = round(sample_rate / samples_per_second)
+
+        audio_data = []
+        for frame_num in range(1, temp_clip.Reader().info.video_length):
+            print(f"FileShow: frame {frame_num}")
+            frame = temp_clip.Reader().GetFrame(frame_num)
+
+            sample_num = 0
+            max_samples = frame.GetAudioSamplesCount()
+            while sample_num < max_samples:
+                magnitude_range = sample_divisor
+                if sample_num + magnitude_range > frame.GetAudioSamplesCount():
+                    magnitude_range = frame.GetAudioSamplesCount() - sample_num
+                sample_value = frame.GetAudioSample(-1, sample_num, magnitude_range)
+                audio_data.append(sample_value)
+
+                sample_num += sample_divisor
+        self.data["ui"]["audio_data"] = audio_data
+        self.save()
+        return
 
 
 class Marker(QueryObject):
