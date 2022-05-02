@@ -32,6 +32,11 @@ export LD_LIBRARY_PATH="${HERE}"
 # Set some environment variables
 export QT_PLUGIN_PATH="${HERE}"
 
+# Disable sandbox support for QtWebEngine (required on some Linux distros
+# for the QtWebEngineWidgets to be rendered, otherwise no timeline is visible).
+# https://doc.qt.io/qt-5/qtwebengine-platform-notes.html#sandboxing-support
+export QTWEBENGINE_DISABLE_SANDBOX="1"
+
 # For Debian-based systems with newer openssl, see:
 # https://github.com/OpenShot/openshot-qt/issues/3242
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=918727 
