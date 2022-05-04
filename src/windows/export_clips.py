@@ -148,10 +148,16 @@ class clipExportWindow(QDialog):
         fd = QFileDialog()
         fd.setOption(QFileDialog.ShowDirsOnly)
         fd.setDirectory(
-            settings.getDefaultPath(settings.actions.EXPORT)
+            settings.getDefaultPath(settings.actionType.EXPORT)
         )
-        self.export_destination = fd.getExistingDirectory()
-        settings.setDefaultPath(settings.actions.EXPORT, self.export_destination)
+        chosen_destination = fd.getExistingDirectory()
+
+        # if dialog is canceled, use default path
+        if chosen_destination:
+            self.export_destination = chosen_destination
+            settings.setDefaultPath(settings.actionType.EXPORT, self.export_destination)
+        else:
+            self.export_destination = settings.getDefaultPath(settings.actionType.EXPORT)
 
     def _createWidgets(self):
         self.FilePickerArea.addWidget(QLabel(_("Export To %s") % self.export_destination))

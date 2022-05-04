@@ -43,11 +43,12 @@ class SettingStore(JsonDataStore):
 
     @unique
     class pathType(Enum):
+        # Using literals to match the setting values
         RECENT=0 # Return the last used path for the same action
         PROJECT=1 # Return the current project path
 
     @unique
-    class actions(Enum):
+    class actionType(Enum):
         IMPORT=auto()
         EXPORT=auto()
         LOAD=auto()
@@ -125,21 +126,24 @@ class SettingStore(JsonDataStore):
             # try to save data to file, will raise exception on failure
             self.write_to_file(file_path, self._data)
 
-    def pathSettings(self, action: actions):
+    def pathSettings(self, action: actionType):
         """Given an action, return the corresponding setting names"""
-        if action == self.actions.IMPORT:
+        if action == self.actionType.IMPORT:
             return {'type':"locationImportType", 'path':"locationImportPath"}
-        if action == self.actions.EXPORT:
+        if action == self.actionType.EXPORT:
             return {'type': "locationExportType", 'path': "locationExportPath"}
-        if action in [self.actions.SAVE, self.actions.LOAD]:
+        if action in [self.actionType.SAVE, self.actionType.LOAD]:
             return {'type': "locationProjectType", 'path': "locationProjectPath"}
         log.info("Action not recognized")
         log.error("Given action is not valid %s" % action)
         return None
 
     def setDefaultPath(self, action: pathType, recent_path: str):
-        """ Change the path setting corresponding to the given action """
+        """
+        Change the path setting corresponding to the given action
+        """
         if not os.path.exists(recent_path):
+            log.error("recent_path is not a valid path")
             return
         if os.path.isfile(recent_path):
             recent_path=os.path.dirname(recent_path)
@@ -148,9 +152,9 @@ class SettingStore(JsonDataStore):
             log.debug(f"Setting %s to %s" % (action.value, recent_path))
             self.set(setting["path"], recent_path)
         except:
-            log.error(f"Error setting the path of %s" % setting["path"])
+            log.error(f"Error; action: {action}; recent_path: {recent_path}")
 
-    def getDefaultPath(self, action: actions):
+    def getDefaultPath(self, action: actionType):
         """
         Returns the starting path for file browsing
         - validates paths before returning them
@@ -187,13 +191,8 @@ class SettingStore(JsonDataStore):
             # Make sure default_path is a directory
             default_path = os.path.dirname(default_path)
 
-        if (not default_path) or (not os.path.exists(default_path)):
+        if not (default_path and os.path.exists(default_path)):
             log.debug("Default path invalid. Falling back to home directory")
             return os.path.expanduser("~")
 
-        if action == self.actions.SAVE:
-            log.info("Adding file name for project path")
-            # Default name unless a project is currently active.
-            project_name = os.path.basename(self.app.project.current_filepath or "") or "%s.osp" % _("Untitled Project")
-            default_path = os.path.join(default_path, project_name)
         return default_path

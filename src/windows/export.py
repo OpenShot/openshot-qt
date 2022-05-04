@@ -138,7 +138,7 @@ class Export(QDialog):
         self.timeline.Open()
 
         # Default export path
-        recommended_path = self.s.getDefaultPath(self.s.actions.EXPORT)
+        recommended_path = self.s.getDefaultPath(self.s.actionType.EXPORT)
         self.txtExportFolder.setText(recommended_path)
 
         # Is this a saved project?
@@ -587,15 +587,16 @@ class Export(QDialog):
 
         # get translations
         _ = get_app()._tr
-        default_path = self.s.getDefaultPath(self.s.actions.EXPORT)
+        default_path = self.s.getDefaultPath(self.s.actionType.EXPORT)
 
         # update export folder path
         file_path = QFileDialog.getExistingDirectory(self,
                                                      _("Choose a Folder..."),
                                                      default_path)
 
+        # Don't change path if chosen path isn't valid
         if os.path.exists(file_path):
-            self.s.setDefaultPath(self.s.actions.EXPORT, file_path)
+            self.s.setDefaultPath(self.s.actionType.EXPORT, file_path)
             self.txtExportFolder.setText(file_path)
 
     def convert_to_bytes(self, BitRateString):
