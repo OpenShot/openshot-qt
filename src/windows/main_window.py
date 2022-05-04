@@ -566,7 +566,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         if file_path:
             # Don't open if dialog canceled.
-            s.setDefaultPath(s.actions.LOAD,file_path)
+            s.setDefaultPath(s.actionType.LOAD,file_path)
 
             # Load project file
             self.OpenProjectSignal.emit(file_path)
