@@ -43,9 +43,8 @@ class SettingStore(JsonDataStore):
 
     @unique
     class pathType(Enum):
-        # Using literals to match the setting values
-        RECENT=0 # Return the last used path for the same action
-        PROJECT=1 # Return the current project path
+        RECENT=auto() # Return the last used path for the same action
+        PROJECT=auto() # Return the current project path
 
     @unique
     class actionType(Enum):
