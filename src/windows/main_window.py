@@ -540,9 +540,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionOpen_trigger(self):
         app = get_app()
         _ = app._tr
-        recommended_path = app.project.current_filepath
-        if not recommended_path:
-            recommended_path = info.HOME_PATH
+        s = app.get_settings()
+        recommended_folder = s.getDefaultPath(s.actionType.LOAD)
 
         # Do we have unsaved changes?
         if app.project.needs_save():
@@ -562,20 +561,29 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         file_path = QFileDialog.getOpenFileName(
             self,
             _("Open Project..."),
-            recommended_path,
+            recommended_folder,
             _("OpenShot Project (*.osp)"))[0]
 
-        # Load project file
-        self.OpenProjectSignal.emit(file_path)
+        if file_path:
+            # Don't open if dialog canceled.
+            s.setDefaultPath(s.actionType.LOAD,file_path)
+
+            # Load project file
+            self.OpenProjectSignal.emit(file_path)
 
     def actionSave_trigger(self):
         app = get_app()
+        s = app.get_settings()
         _ = app._tr
 
         # Get current filepath if any, otherwise ask user
         file_path = app.project.current_filepath
         if not file_path:
-            recommended_path = os.path.join(info.HOME_PATH, "%s.osp" % _("Untitled Project"))
+            recommended_folder = s.getDefaultPath(s.actionType.SAVE)
+            recommended_path = os.path.join(
+                recommended_folder, 
+                _("Untitled Project") + ".osp"
+            )
             file_path = QFileDialog.getSaveFileName(
                 self,
                 _("Save Project..."),
@@ -583,8 +591,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 _("OpenShot Project (*.osp)"))[0]
 
         if file_path:
+            s.setDefaultPath(s.actionType.SAVE, file_path)
             # Append .osp if needed
-            if ".osp" not in file_path:
+            if not file_path.endswith(".osp"):
                 file_path = "%s.osp" % file_path
 
             # Save project
@@ -605,7 +614,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if file_path:
             # A Real project file exists
             # Append .osp if needed
-            if ".osp" not in file_path:
+            if not file_path.endswith(".osp"):
                     file_path = "%s.osp" % file_path
             folder_path, file_name = os.path.split(file_path)
             file_name, file_ext = os.path.splitext(file_name)
@@ -649,18 +658,26 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionSaveAs_trigger(self):
         app = get_app()
+        s = app.get_settings()
         _ = app._tr
 
-        recommended_path = app.project.current_filepath
-        if not recommended_path:
-            recommended_path = os.path.join(
-                info.HOME_PATH, "%s.osp" % _("Untitled Project"))
+        project_file_path = app.project.current_filepath
+        if project_file_path:
+            recommended_file_name = os.path.basename(project_file_path)
+        else:
+            recommended_file_name = "%s.osp" % _("Untitled Project")
+        recommended_folder = s.getDefaultPath(s.actionType.SAVE)
+        recommended_path = os.path.join(
+            recommended_folder,
+            recommended_file_name
+        )
         file_path = QFileDialog.getSaveFileName(
             self,
             _("Save Project As..."),
             recommended_path,
             _("OpenShot Project (*.osp)"))[0]
         if file_path:
+            s.setDefaultPath(s.actionType.SAVE, file_path)
             # Append .osp if needed
             if ".osp" not in file_path:
                 file_path = "%s.osp" % file_path
@@ -670,11 +687,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionImportFiles_trigger(self):
         app = get_app()
+        s = app.get_settings()
         _ = app._tr
 
-        recommended_path = app.project.get("import_path")
-        if not recommended_path or not os.path.exists(recommended_path):
-            recommended_path = os.path.join(info.HOME_PATH)
+        recommended_path = s.getDefaultPath(s.actionType.IMPORT)
 
         # PyQt through 5.13.0 had the 'directory' argument mis-typed as str
         if PYQT_VERSION_STR < '5.13.1':
@@ -691,6 +707,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             start_location,
             )[0]
 
+        if len(qurl_list):
+            # If any files were imported,
+            # Use the folder of the LAST one as the new default path.
+            s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].path())
         # Set cursor to waiting
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
@@ -1023,6 +1043,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Translate object
         app = get_app()
+        s = app.get_settings()
         _ = app._tr
 
         # Prepare to use the status bar
@@ -1030,15 +1051,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.setStatusBar(self.statusBar)
 
         # Determine path for saved frame - Default export path
-        recommended_path = os.path.join(info.HOME_PATH)
-        if app.project.current_filepath:
-            recommended_path = os.path.dirname(app.project.current_filepath)
+        recommended_path = s.getDefaultPath(s.actionType.SAVE)
 
-        # Determine path for saved frame - Project's export path
-        if app.project.get("export_path"):
-            recommended_path = app.project.get("export_path")
-
-        framePath = "%s/Frame-%05d.png" % (recommended_path, self.preview_thread.current_frame)
+        framePath = "%s/Frame-%05d.png" % (os.path.basename(recommended_path),
+                                           self.preview_thread.current_frame)
 
         # Ask user to confirm or update framePath
         framePath = QFileDialog.getSaveFileName(self, _("Save Frame..."), framePath, _("Image files (*.png)"))[0]
@@ -1047,6 +1063,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # No path specified (save frame cancelled)
             self.statusBar.showMessage(_("Save Frame cancelled..."), 5000)
             return
+        s.setDefaultPath(s.actionType.SAVE, framePath)
 
         # Append .png if needed
         if not framePath.endswith(".png"):
