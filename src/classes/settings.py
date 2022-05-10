@@ -141,11 +141,11 @@ class SettingStore(JsonDataStore):
         """
         Change the path setting corresponding to the given action
         """
+        if os.path.isfile(recent_path):
+            recent_path=os.path.dirname(recent_path)
         if not os.path.exists(recent_path):
             log.error("recent_path is not a valid path")
             return
-        if os.path.isfile(recent_path):
-            recent_path=os.path.dirname(recent_path)
         try:
             setting = self.pathSettings(action)
             log.debug(f"Setting %s to %s" % (action.value, recent_path))

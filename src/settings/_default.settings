@@ -972,15 +972,15 @@
     "category": "Location",
     "title": "File Import",
     "setting": "locationImportType",
-    "value": 0,
+    "value": 1,
     "type": "dropdown",
     "values": [
       {
-        "value": 0,
+        "value": 1,
         "name": "Recent Folder"
       },
       {
-        "value": 1,
+        "value": 2,
         "name": "Project Folder"
       }
     ],
@@ -998,15 +998,15 @@
     "category": "Location",
     "title": "Save or Open Project",
     "setting": "locationProjectType",
-    "value": 0,
+    "value": 1,
     "type": "dropdown",
     "values": [
       {
-        "value": 0,
+        "value": 1,
         "name": "Recent Folder"
       },
       {
-        "value": 1,
+        "value": 2,
         "name": "Project Folder"
       }
     ],
@@ -1024,7 +1024,7 @@
     "category": "Location",
     "title": "Video Export",
     "setting": "locationExportType",
-    "value": 1,
+    "value": 2,
     "type": "dropdown",
     "values": [
       {

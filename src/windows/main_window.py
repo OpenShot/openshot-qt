@@ -565,9 +565,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             _("OpenShot Project (*.osp)"))[0]
 
         if file_path:
-            # Don't open if dialog canceled.
-            s.setDefaultPath(s.actionType.LOAD,file_path)
-
             # Load project file
             self.OpenProjectSignal.emit(file_path)
 
