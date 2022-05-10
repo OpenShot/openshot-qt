@@ -724,7 +724,7 @@ class Worker(QObject):
 
         # Init regex expression used to determine blender's render progress
         self.blender_version_re = re.compile(
-            r"^Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
+            r"Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
         self.blender_frame_re = re.compile(r"Fra:([0-9,]+)")
         self.blender_saved_re = re.compile(r"Saved: '(.*\.png)")
         self.blender_syncing_re = re.compile(
