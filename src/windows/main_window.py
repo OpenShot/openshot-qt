@@ -581,7 +581,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if not file_path:
             recommended_folder = s.getDefaultPath(s.actionType.SAVE)
             recommended_path = os.path.join(
-                recommended_folder, 
+                recommended_folder,
                 _("Untitled Project") + ".osp"
             )
             file_path = QFileDialog.getSaveFileName(
@@ -702,7 +702,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if len(qurl_list):
             # If any files were imported,
             # Use the folder of the LAST one as the new default path.
-            s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].path())
+            s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].toLocalFile())
         # Set cursor to waiting
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
