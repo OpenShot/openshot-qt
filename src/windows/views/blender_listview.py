@@ -724,7 +724,7 @@ class Worker(QObject):
 
         # Init regex expression used to determine blender's render progress
         self.blender_version_re = re.compile(
-            r"^Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
+            r"Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
         self.blender_frame_re = re.compile(r"Fra:([0-9,]+)")
         self.blender_saved_re = re.compile(r"Saved: '(.*\.png)")
         self.blender_syncing_re = re.compile(
@@ -735,6 +735,13 @@ class Worker(QObject):
         self.version = None
         self.process = None
         self.canceled = False
+        self.env = dict(os.environ)
+        if sys.platform == "linux" and os.path.exists('/lib/x86_64-linux-gnu/'):
+            # If on Linux, verify we have the following LD library path defined.
+            # This is needed for Blender to use the system libraries instead
+            # of our AppImage libraries (i.e. our libtiff.so.5 is missing symbols,
+            # compared to libtiff.so.5 on newer distros for some reason).
+            self.env['LD_LIBRARY_PATH'] = '/lib/x86_64-linux-gnu/'
 
         self.startupinfo = None
         if sys.platform == 'win32':
@@ -766,7 +773,7 @@ class Worker(QObject):
             self.process = subprocess.Popen(
                 command_get_version,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=self.startupinfo,
+                startupinfo=self.startupinfo, env=self.env
             )
             # Give Blender up to 10 seconds to respond
             (out, err) = self.process.communicate(timeout=10)
@@ -876,7 +883,7 @@ class Worker(QObject):
             self.process = subprocess.Popen(
                 command_render, bufsize=512,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=self.startupinfo,
+                startupinfo=self.startupinfo, env=self.env
             )
             # Signal UI that background task is running
             self.start_processing.emit()
