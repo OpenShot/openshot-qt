@@ -355,7 +355,7 @@ elif sys.platform == "linux":
                     "libSM.so.6",
                     # Next 5 are all part of glib2
                     #"libglib-2.0.so.0",  <-- experimental for RHEL 84 support (which have a custom version of glib)
-                    "libgobject-2.0.so.0",
+                    #"libgobject-2.0.so.0", <-- experimental for RHEL 84 support (which have a custom version of glib)
                     "libgio-2.0.so.0",
                     "libgmodule-2.0.so.0",
                     "libgthread-2.0.so.0",
