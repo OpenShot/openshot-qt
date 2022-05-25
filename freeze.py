@@ -354,11 +354,13 @@ elif sys.platform == "linux":
                     "libp11-kit.so.0",
                     "libSM.so.6",
                     # Next 5 are all part of glib2
-                    #"libglib-2.0.so.0",  <-- experimental for RHEL 84 support (which have a custom version of glib)
-                    #"libgobject-2.0.so.0", <-- experimental for RHEL 84 support (which have a custom version of glib)
-                    "libgio-2.0.so.0",
-                    "libgmodule-2.0.so.0",
-                    "libgthread-2.0.so.0",
+                    # Adding these back in, for experimental RHEL 84 support (which has a custom version of glib
+                    # that breaks our AppImages).
+                    #"libglib-2.0.so.0",
+                    #"libgobject-2.0.so.0",
+                    #"libgio-2.0.so.0",
+                    #"libgmodule-2.0.so.0",
+                    #"libgthread-2.0.so.0",
 
                     "libdrm.so.2",
                     "libfreetype.so.6",
