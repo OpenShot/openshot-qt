@@ -141,10 +141,12 @@ class SettingStore(JsonDataStore):
         """
         Change the path setting corresponding to the given action
         """
-        if os.path.isfile(recent_path):
-            recent_path=os.path.dirname(recent_path)
+        if not os.path.isdir(recent_path):
+            # log.info("File path. reducing to directory")
+            # log.info(f"file {recent_path} \n dir: {os.path.dirname(recent_path)}")
+            recent_path = os.path.dirname(recent_path)
         if not os.path.exists(recent_path):
-            log.error("recent_path is not a valid path")
+            log.error(f"{recent_path} is not a valid path")
             return
         try:
             setting = self.pathSettings(action)
@@ -165,10 +167,7 @@ class SettingStore(JsonDataStore):
         _ = self.app._tr
 
         default_path = ""
-        # If there isn't a current project, use the most recent one
         project_path = self.app.project.current_filepath or ""
-        if not project_path and len(self.get("recent_projects")):
-            project_path = self.get("recent_projects")[0]
         setting = self.pathSettings(action)
 
         try:

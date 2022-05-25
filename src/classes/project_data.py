@@ -922,16 +922,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
-        # Get import path or project folder
-        starting_folder = None
-        if self._data["import_path"]:
-            starting_folder = os.path.join(self._data["import_path"])
-        elif self.current_filepath:
-            starting_folder = os.path.dirname(self.current_filepath)
-
-        # Get translation method
         from classes.app import get_app
-        _ = get_app()._tr
+        app = get_app()
+        settings = app.get_settings()
+        # Get translation method
+        _ = app._tr
 
         log.info("checking project files...")
 
@@ -947,7 +942,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if path and is_modified and not is_skipped:
                     # Found file, update path
                     file["path"] = path
-                    get_app().updates.update_untracked(["import_path"], os.path.dirname(path))
+                    settings
+                    settings.setDefaultPath(settings.actionType.LOAD, os.path.dirname(path))
                     log.info("Auto-updated missing file: %s", path)
                 elif is_skipped:
                     # Remove missing file
