@@ -942,8 +942,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if path and is_modified and not is_skipped:
                     # Found file, update path
                     file["path"] = path
-                    settings
-                    settings.setDefaultPath(settings.actionType.LOAD, os.path.dirname(path))
+                    settings.setDefaultPath(settings.actionType.IMPORT, path)
                     log.info("Auto-updated missing file: %s", path)
                 elif is_skipped:
                     # Remove missing file

@@ -431,7 +431,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app = get_app()
         settings = app.get_settings()
         # Set default load-project path to this path.
-        settings.setDefaultPath(settings.actionType.LOAD, os.path.dirname(file_path))
+        settings.setDefaultPath(settings.actionType.LOAD, file_path)
         _ = app._tr  # Get translation function
 
         # First check for empty file_path (probably user cancellation)
@@ -1061,7 +1061,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if not framePath.endswith(".png"):
             framePath = "%s.png" % framePath
 
-        s.setDefaultPath(s.actionType.EXPORT, os.path.dirname(framePath))
+        s.setDefaultPath(s.actionType.EXPORT, framePath)
         log.info("Saving frame to %s", framePath)
 
         # Pause playback

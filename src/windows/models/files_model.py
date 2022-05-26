@@ -351,10 +351,8 @@ class FilesModel(QObject, updates.UpdateInterface):
 
                 # Let the event loop run to update the status bar
                 get_app().processEvents()
-                prev_path = settings.getDefaultPath(settings.actionType.IMPORT)
-
-                if dir_path != prev_path:
-                    settings.setDefaultPath(settings.actionType.IMPORT, dir_path)
+                # Update the recent import path
+                settings.setDefaultPath(settings.actionType.IMPORT, dir_path)
 
             except Exception as ex:
                 # Log exception

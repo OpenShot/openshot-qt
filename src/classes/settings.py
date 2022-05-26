@@ -142,8 +142,7 @@ class SettingStore(JsonDataStore):
         Change the path setting corresponding to the given action
         """
         if not os.path.isdir(recent_path):
-            # log.info("File path. reducing to directory")
-            # log.info(f"file {recent_path} \n dir: {os.path.dirname(recent_path)}")
+            log.info(f"reducing file: {recent_path} to dir: {os.path.dirname(recent_path)}")
             recent_path = os.path.dirname(recent_path)
         if not os.path.exists(recent_path):
             log.error(f"{recent_path} is not a valid path")

@@ -791,7 +791,7 @@ class Export(QDialog):
 
         # Store updated export folder path in project file
         settings = get_app().get_settings()
-        settings.setDefaultPath(settings.actionType.EXPORT, os.path.dirname(export_file_path))
+        settings.setDefaultPath(settings.actionType.EXPORT, export_file_path)
         # Mark project file as unsaved
         get_app().project.has_unsaved_changes = True
 
