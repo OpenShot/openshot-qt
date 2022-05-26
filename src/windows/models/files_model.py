@@ -246,6 +246,7 @@ class FilesModel(QObject, updates.UpdateInterface):
     def add_files(self, files, image_seq_details=None, quiet=False, prevent_image_seq=False):
         # Access translations
         app = get_app()
+        settings = app.get_settings()
         _ = app._tr
 
         # Make sure we're working with a list of files
@@ -350,10 +351,8 @@ class FilesModel(QObject, updates.UpdateInterface):
 
                 # Let the event loop run to update the status bar
                 get_app().processEvents()
-
-                prev_path = app.project.get("import_path")
-                if dir_path != prev_path:
-                    app.updates.update_untracked(["import_path"], dir_path)
+                # Update the recent import path
+                settings.setDefaultPath(settings.actionType.IMPORT, dir_path)
 
             except Exception as ex:
                 # Log exception

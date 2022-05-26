@@ -429,6 +429,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Open a project from a file path, and refresh the screen """
 
         app = get_app()
+        settings = app.get_settings()
+        # Set default load-project path to this path.
+        settings.setDefaultPath(settings.actionType.LOAD, file_path)
         _ = app._tr  # Get translation function
 
         # First check for empty file_path (probably user cancellation)
@@ -578,7 +581,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if not file_path:
             recommended_folder = s.getDefaultPath(s.actionType.SAVE)
             recommended_path = os.path.join(
-                recommended_folder, 
+                recommended_folder,
                 _("Untitled Project") + ".osp"
             )
             file_path = QFileDialog.getSaveFileName(
@@ -689,25 +692,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         recommended_path = s.getDefaultPath(s.actionType.IMPORT)
 
-        # PyQt through 5.13.0 had the 'directory' argument mis-typed as str
-        if PYQT_VERSION_STR < '5.13.1':
-            dir_type = "str"
-            start_location = str(recommended_path)
-        else:
-            dir_type = "QUrl"
-            start_location = QUrl.fromLocalFile(recommended_path)
-
-        log.debug("Calling getOpenFileURLs() with %s directory argument", dir_type)
-        qurl_list = QFileDialog.getOpenFileUrls(
+        fd = QFileDialog()
+        fd.setDirectory(recommended_path)
+        qurl_list = fd.getOpenFileUrls(
             self,
-            _("Import Files..."),
-            start_location,
-            )[0]
+            _("Import Files...")
+        )[0]
 
         if len(qurl_list):
             # If any files were imported,
             # Use the folder of the LAST one as the new default path.
-            s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].path())
+            s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].toLocalFile())
         # Set cursor to waiting
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
@@ -1066,7 +1061,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if not framePath.endswith(".png"):
             framePath = "%s.png" % framePath
 
-        app.updates.update_untracked(["export_path"], os.path.dirname(framePath))
+        s.setDefaultPath(s.actionType.EXPORT, framePath)
         log.info("Saving frame to %s", framePath)
 
         # Pause playback

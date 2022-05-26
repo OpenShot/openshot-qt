@@ -790,7 +790,8 @@ class Export(QDialog):
                 video_settings["vcodec"] = image_ext
 
         # Store updated export folder path in project file
-        get_app().updates.update_untracked(["export_path"], os.path.dirname(export_file_path))
+        settings = get_app().get_settings()
+        settings.setDefaultPath(settings.actionType.EXPORT, export_file_path)
         # Mark project file as unsaved
         get_app().project.has_unsaved_changes = True
 
