@@ -426,3 +426,16 @@ App.directive("tlMultiSelectable", function () {
     }
   };
 });
+
+// Handle audio waveform drawing (when a tl-audio directive is found)
+App.directive("tlAudio",  function ($timeout) {
+  return {
+    link: function (scope, element, attrs) {
+      $timeout(function () {
+        // Use timeout to wait until after the DOM is manipulated
+        let clip_id = attrs.id.replace("audio_clip_", "");
+        drawAudio(scope, clip_id);
+      }, 0);
+    }
+  };
+});

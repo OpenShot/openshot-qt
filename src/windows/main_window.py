@@ -99,7 +99,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SpeedSignal = pyqtSignal(float)
     RecoverBackup = pyqtSignal()
     FoundVersionSignal = pyqtSignal(str)
-    WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
     KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)

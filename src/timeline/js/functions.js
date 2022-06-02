@@ -148,7 +148,6 @@ function drawAudio(scope, clip_id) {
         max = 0;
       }
     }
-    element.find(".audio-container").fadeIn(100);
   }
 }
 

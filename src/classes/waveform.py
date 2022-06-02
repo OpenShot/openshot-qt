@@ -30,7 +30,7 @@ from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip
 from time import sleep
-
+import openshot
 
 # Get settings
 s = get_app().get_settings()
@@ -56,32 +56,134 @@ def get_audio_data(files: dict):
 
 def get_waveform_thread(file_id, clip_list):
     """
-    For the given file, update audio data.
+    For the given file ID and clip IDs, update audio data.
 
     arg1: file id to get the audio data of.
     arg2: list of clips to update when the audio data is ready.
     """
 
+    def getAudioData(file):
+        """
+        Update the file query object with audio data (if found).
+        """
+        # Ensure that UI attribute exists
+        file_data = file.data
+        file_audio_data = file_data.get("ui", {}).get("audio_data", [])
+        if file_audio_data:
+            log.info("Audio Data already retrieved (or being retrieved).")
+            return
+        if not file_audio_data:
+            # Placeholder value. Communicates that audio data is being retrieved
+            file.data = {"ui": {"audio_data": [-999]}}
+            file.save()
+
+        # Open file and access audio data (if audio data is found, otherwise return)
+        temp_clip = openshot.Clip(file_data["path"])
+        temp_clip.Open()
+        temp_clip.Reader().info.has_video = False
+        if temp_clip.Reader().info.has_audio == False:
+            log.info(f"file: {file_data['path']} has no audio_data. Skipping")
+            return
+
+        # Calculate sample rate (and how many samples per second)
+        sample_rate = temp_clip.Reader().info.sample_rate
+        samples_per_second = 20
+        sample_divisor = round(sample_rate / samples_per_second)
+
+        # Loop through audio samples, and create a list of amplitudes
+        file_audio_data = []
+        for frame_num in range(1, temp_clip.Reader().info.video_length):
+            frame = temp_clip.Reader().GetFrame(frame_num)
+            sample_num = 0
+            max_samples = frame.GetAudioSamplesCount()
+            while sample_num < max_samples:
+                magnitude_range = sample_divisor
+                if sample_num + magnitude_range > frame.GetAudioSamplesCount():
+                    magnitude_range = frame.GetAudioSamplesCount() - sample_num
+                sample_value = frame.GetAudioSample(-1, sample_num, magnitude_range)
+                file_audio_data.append(sample_value)
+                sample_num += sample_divisor
+
+        # Update file with audio data
+        file.data = {"ui": {"audio_data": file_audio_data}}
+        file.save()
+        return
+
+    # Get file query object
     file = File.get(id=file_id)
 
-    file_audio_data = file.data.get("ui", {}).get("audio_data", False)
+    # Only generate audio for readers that actually contain audio
+    if not file.data.get("has_audio", False):
+        log.info("File does not have audio. Skipping")
+        return
+
+    # If the file doesn't have audio data, generate it.
+    # A pending audio_data process will have audio_data == [-999]
+    file_audio_data = file.data.get("ui", {}).get("audio_data", [])
     if not file_audio_data:
-        file.getAudioData()
+        # Generate audio data for a specific file
+        getAudioData(file)
+
     elif file_audio_data == [-999]:
         count = 0
         while True:
             # Loop until audio data is ready.
             sleep(1)
-            if file.data.get("ui").get("audio_data", False) != [-999]:
+            if file.data.get("ui", {}).get("audio_data", []) != [-999]:
                 break
             count += 1
             if count >= 15:
                 # After 15 seconds. Abandon
-                log.error("Could not gather audio data")
+                log.error("Could not get audio data - processing waveform took too long")
                 return
 
-    # Update clips
+    # Get file query object again (since it's data might have changed)
+    file = File.get(id=file_id)
+
+    # Loop through each selected clip (which uses this file)
     for clip_id in clip_list:
-        # Show Audio
         clip = Clip.get(id=clip_id)
-        clip.showAudioData()
+        clip_reader = clip.data.get("reader")
+
+        # If another thread is already getting audio data for this clip, bail out.
+        clip_audio_data = clip.data.get("ui", {}).get("audio_data", [])
+        if clip_audio_data and clip_audio_data == [-999]:
+            log.info("already in progress. Returning")
+            continue
+
+        # An [-999]] list signals that a clip audio waveform process is in progress.
+        clip.data = {"ui": {"audio_data": [-999]}}
+        clip.save()
+
+        # Get File's audio data (since it has changed)
+        file_audio_data = file.data.get("ui", {}).get("audio_data", [])
+        if not file_audio_data:
+            log.info("File has no audio, so we cannot find any waveform audio data")
+            continue
+
+        # Method and variables for matching a time in seconds to an audio sample
+        sample_count = len(file_audio_data)
+        file_duration = file.data.get("duration")
+        time_per_sample = file_duration / sample_count
+        def sample_from_time(time):
+            sample_num = max(0, round(time / time_per_sample))
+            sample_num = min(sample_count - 1, sample_num)
+            return file_audio_data[sample_num]
+
+        # Loop through samples from the file, applying this clip's volume curve
+        clip_audio_data = []
+        clip_instance = get_app().window.timeline_sync.timeline.GetClip(clip.id)
+        num_frames = int(clip_reader.get("video_length"))
+        fps = get_app().project.get("fps")
+        fps_frac = fps["num"] / fps["den"]
+        for frame_num in range(1, num_frames):
+            volume = clip_instance.volume.GetValue(frame_num)
+            if clip_instance.time.GetCount() > 1:
+                # Override frame # using time curve (if set)
+                frame_num = clip_instance.time.GetValue(frame_num)
+            time = frame_num / fps_frac
+            clip_audio_data.append(sample_from_time(time) * volume)
+
+        # Save this data to the clip object
+        clip.data = {"ui": {"audio_data": clip_audio_data}}
+        clip.save()
