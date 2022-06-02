@@ -324,6 +324,11 @@ class FilesModel(QObject, updates.UpdateInterface):
                     new_file.data["duration"] = image_seq.Reader().info.duration
                     new_file.data["video_length"] = image_seq.Reader().info.video_length
 
+                    # Get the project's fps, apply to the image sequence.
+                    project_fps_num = get_app().project.get("fps").get("num", 30)
+                    project_fps_den = get_app().project.get("fps").get("den", 1)
+                    new_file.data["fps"] = {"num": project_fps_num, "den": project_fps_den}
+
                     log.info('Imported {} as image sequence {}'.format(
                         filepath, pattern))
 
