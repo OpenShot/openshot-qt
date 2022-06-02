@@ -30,8 +30,6 @@ import copy
 
 from classes import info
 from classes.app import get_app
-from classes.logger import log
-import openshot
 
 
 class QueryObject:

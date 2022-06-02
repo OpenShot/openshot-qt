@@ -37,8 +37,7 @@ s = get_app().get_settings()
 
 
 def get_audio_data(files: dict):
-    """Get a Clip object form libopenshot, and grab audio data"""
-    """
+    """Get a Clip object form libopenshot, and grab audio data
         For for the given files and clips, start threads to gather audio data.
 
         arg1: a dict of clip_ids grouped by their file_id

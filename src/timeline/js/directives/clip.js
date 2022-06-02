@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio */
 // Init variables
 var dragging = false;
 var resize_disabled = false;
