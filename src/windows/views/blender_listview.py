@@ -63,7 +63,6 @@ class BlenderListView(QListView):
 
     # Our signals
     start_render = pyqtSignal(str, str, int)
-    cancel_render = pyqtSignal()
 
     def currentChanged(self, selected, deselected):
         # Get selected item
@@ -584,7 +583,6 @@ Blender Path: {}
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
         self.worker.Cancel()
 
     def Render(self, frame=None):
@@ -615,7 +613,6 @@ Blender Path: {}
         self.background.started.connect(self.worker.Render)
 
         self.worker.render_complete.connect(self.render_finished)
-        self.cancel_render.connect(self.worker.Cancel)
 
         # State changes
         self.worker.end_processing.connect(self.end_processing)
@@ -748,14 +745,13 @@ class Worker(QObject):
             self.startupinfo = subprocess.STARTUPINFO()
             self.startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
-    @pyqtSlot()
     def Cancel(self):
         """Cancel worker render"""
         if self.process:
             # Stop blender process if running
             self.process.terminate()
+            self.process.finished.emit()
         self.canceled = True
-        self.finished.emit()
 
     def blender_version_check(self):
         # Check the version of Blender
