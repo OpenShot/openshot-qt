@@ -585,7 +585,7 @@ Blender Path: {}
     def Cancel(self):
         """Cancel the current render, if any"""
         #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
-        self.cancel_render.emit()
+        self.worker.Cancel()
 
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
