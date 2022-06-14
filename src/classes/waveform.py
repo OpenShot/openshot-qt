@@ -122,19 +122,14 @@ def get_waveform_thread(file_id, clip_list):
     if not file_audio_data:
         # Generate audio data for a specific file
         getAudioData(file)
-
-    elif file_audio_data == [-999]:
-        count = 0
+    else:
+        log.debug("Awaiting audio data for file: %s" % file.data.get("path"))
         while True:
             # Loop until audio data is ready.
             sleep(1)
             if file.data.get("ui", {}).get("audio_data", []) != [-999]:
                 break
-            count += 1
-            if count >= 15:
-                # After 15 seconds. Abandon
-                log.error("Could not get audio data - processing waveform took too long")
-                return
+    log.debug("Audio data found for file: %s" % file.data.get("path"))
 
     # Get file query object again (since it's data might have changed)
     file = File.get(id=file_id)
@@ -143,16 +138,6 @@ def get_waveform_thread(file_id, clip_list):
     for clip_id in clip_list:
         clip = Clip.get(id=clip_id)
         clip_reader = clip.data.get("reader")
-
-        # If another thread is already getting audio data for this clip, bail out.
-        clip_audio_data = clip.data.get("ui", {}).get("audio_data", [])
-        if clip_audio_data and clip_audio_data == [-999]:
-            log.info("already in progress. Returning")
-            continue
-
-        # An [-999]] list signals that a clip audio waveform process is in progress.
-        clip.data = {"ui": {"audio_data": [-999]}}
-        clip.save()
 
         # Get File's audio data (since it has changed)
         file_audio_data = file.data.get("ui", {}).get("audio_data", [])
