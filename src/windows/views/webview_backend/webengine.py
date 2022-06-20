@@ -47,6 +47,7 @@ class LoggingWebEnginePage(QWebEnginePage):
             '%s@L%d: %s', os.path.basename(source), line, msg)
 
     def __init__(self, parent=None):
+        os.environ["QTWEBENGINE_DISABLE_SANDBOX"] = "1"
         super().__init__(parent=parent)
         self.setObjectName("LoggingWebEnginePage")
         self.levels = [logging.INFO, logging.WARNING, logging.ERROR]
