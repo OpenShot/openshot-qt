@@ -327,7 +327,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                     if seq_info and "fps" in seq_info:
                         # Blender Titles specify their fps in seq_info
                         fps = seq_info["fps"]
-                        fps_num = seq_info.get("fps").get("num", 30)
+                        fps_num = seq_info.get("fps").get("num", 25)
                         fps_den = seq_info.get("fps").get("den", 1)
                         log.debug("Image Sequence using specified FPS: %s / %s" % (fps_num, fps_den))
                     else:

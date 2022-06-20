@@ -315,7 +315,7 @@ class BlenderListView(QListView):
             "digits": 4,
             "extension": "png",
             "fps": {
-                "num": 30,
+                "num": 25,
                 "den": 1
             }
         }
