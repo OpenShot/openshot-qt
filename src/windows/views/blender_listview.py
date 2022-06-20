@@ -313,7 +313,11 @@ class BlenderListView(QListView):
             "base_name": self.params["file_name"],
             "fixlen": True,
             "digits": 4,
-            "extension": "png"
+            "extension": "png",
+            "fps": {
+                "num": 25,
+                "den": 1
+            }
         }
 
         filename = "{}%04d.png".format(seq_params["base_name"])
