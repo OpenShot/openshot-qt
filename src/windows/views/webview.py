@@ -2987,7 +2987,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             js_position = callback_data.get('position', 0.0)
             js_nearest_track = callback_data.get('track', 0)
 
-            # Get name of effect
+            # Get class name of effect
             name = effect_names[0]
 
             # Loop through clips on the closest layer

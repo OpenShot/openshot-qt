@@ -49,7 +49,7 @@ class ProcessEffect(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'process-effect.ui')
 
-    def __init__(self, clip_id, effect_name, effect_params):
+    def __init__(self, clip_id, effect_class, effect_params):
 
         if not openshot.Clip().COMPILED_WITH_CV:
             raise ModuleNotFoundError("Openshot not compiled with OpenCV")
@@ -58,8 +58,16 @@ class ProcessEffect(QDialog):
         QDialog.__init__(self)
         # Track effect details
         self.clip_id = clip_id
-        self.effect_name = effect_name
+        self.effect_name = ""
+        self.effect_class = effect_class
         self.context = {}
+
+        # Get all effect JSON data, and find effect's display name (based on the class name)
+        raw_effects_list = json.loads(openshot.EffectInfo.Json())
+        for raw_effect in raw_effects_list:
+            if raw_effect.get("class_name") == self.effect_class:
+                self.effect_name = raw_effect.get("name")
+                break
 
         # Access C++ timeline and find the Clip instance which this effect should be applied to
         timeline_instance = get_app().window.timeline_sync.timeline
@@ -72,11 +80,11 @@ class ProcessEffect(QDialog):
         ui_util.load_ui(self, self.ui_path)
         ui_util.init_ui(self)
 
-        # Update window title
-        self.setWindowTitle(self.windowTitle() % self.effect_name)
-
         # get translations
         _ = get_app()._tr
+
+        # Update window title
+        self.setWindowTitle(self.windowTitle() % _(self.effect_name))
 
         # Pause playback
         get_app().window.PauseSignal.emit()
@@ -331,7 +339,7 @@ class ProcessEffect(QDialog):
         jsonString = json.dumps(self.context)
 
         # Generate processed data
-        processing = openshot.ClipProcessingJobs(self.effect_name, jsonString)
+        processing = openshot.ClipProcessingJobs(self.effect_class, jsonString)
         processing.processClip(self.clip_instance, jsonString)
 
         # TODO: This is just a temporary fix. We need to find a better way to allow the user to fix the error
@@ -364,7 +372,7 @@ class ProcessEffect(QDialog):
 
         if(not self.cancel_clip_processing):
             # Load processed data into effect
-            self.effect = openshot.EffectInfo().CreateEffect(self.effect_name)
+            self.effect = openshot.EffectInfo().CreateEffect(self.effect_class)
             self.effect.SetJson( '{"protobuf_data_path": "%s"}' % protobufPath )
             self.effect.Id(ID)
 

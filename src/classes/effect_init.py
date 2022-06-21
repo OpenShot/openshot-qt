@@ -149,7 +149,7 @@ effect_options = {
         }
     ],
 
-    "Object Detector": [
+    "ObjectDetection": [
         {
             "value": "https://github.com/OpenShot/openshot-qt/wiki/Object-Detection-Effect-(dependencies)",
             "title": "Click here for instructions and dependencies...",
