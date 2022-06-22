@@ -50,8 +50,8 @@ class ChangelogTreeView(QTreeView):
         self.changelog_model.update_model(filter=filter)
 
         # Format columns
-        self.header().setSectionResizeMode(0, QHeaderView.Fixed)
-        self.header().setSectionResizeMode(1, QHeaderView.Fixed)
+        self.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
+        self.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
         self.setColumnWidth(0, 70)
         self.setColumnWidth(1, 85)
         self.setColumnWidth(2, 125)
@@ -101,10 +101,10 @@ class ChangelogTreeView(QTreeView):
         # Setup header columns
         self.setModel(self.changelog_model.model)
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.commit_url = commit_url

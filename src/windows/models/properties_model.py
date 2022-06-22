@@ -609,26 +609,29 @@ class PropertiesModel(updates.UpdateInterface):
         if name in self.filter_base_properties:
             return
 
+
         # Insert new data into model, or update existing values
         row = []
         if self.new_item:
 
-            # Append Property Name
-            col = QStandardItem("Property")
-            col.setText(_(label))
+            QIF = Qt.ItemFlag
+
+            # Property Name
+            col = QStandardItem(_(label))
             col.setData(property)
             if keyframe and points > 1:
                 col.setBackground(QColor("green"))  # Highlight keyframe background
             elif points > 1:
                 col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
             if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
-                col.setFlags(Qt.ItemIsEnabled)
+                col.setFlags(QIF.ItemIsEnabled)
             else:
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                col.setFlags(
+                    QIF.ItemIsSelectable | QIF.ItemIsEnabled | QIF.ItemIsUserCheckable)
             row.append(col)
 
-            # Append Value
-            col = QStandardItem("Value")
+            # Value
+            col = QStandardItem()
             if selected_choice:
                 col.setText(_(selected_choice))
             elif type == "string":
@@ -678,7 +681,7 @@ class PropertiesModel(updates.UpdateInterface):
             if points > 1:
                 # Apply icon to cell
                 my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
-                col.setData(my_icon, Qt.DecorationRole)
+                col.setData(my_icon, Qt.ItemDataRole.DecorationRole)
 
                 # Set the background color of the cell
                 if keyframe:
@@ -694,13 +697,13 @@ class PropertiesModel(updates.UpdateInterface):
                 col.setBackground(QColor(red, green, blue))
 
             if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
-                col.setFlags(Qt.ItemIsEnabled)
+                col.setFlags(QIF.ItemIsEnabled)
             else:
                 col.setFlags(
-                    Qt.ItemIsSelectable
-                    | Qt.ItemIsEnabled
-                    | Qt.ItemIsUserCheckable
-                    | Qt.ItemIsEditable)
+                    QIF.ItemIsSelectable
+                    | QIF.ItemIsEnabled
+                    | QIF.ItemIsUserCheckable
+                    | QIF.ItemIsEditable)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
@@ -771,7 +774,7 @@ class PropertiesModel(updates.UpdateInterface):
             if points > 1:
                 # Apply icon to cell
                 my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
-                col.setData(my_icon, Qt.DecorationRole)
+                col.setData(my_icon, Qt.ItemDataRole.DecorationRole)
 
                 # Set the background color of the cell
                 if keyframe:
@@ -785,7 +788,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # clear icon
                 my_icon = QPixmap()
-                col.setData(my_icon, Qt.DecorationRole)
+                col.setData(my_icon, Qt.ItemDataRole.DecorationRole)
 
             if type == "color":
                 # Update the color based on the color curves

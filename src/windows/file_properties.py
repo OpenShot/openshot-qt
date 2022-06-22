@@ -71,8 +71,8 @@ class FileProperties(QDialog):
 
         # Add buttons to interface
         self.update_button = QPushButton(_('Update'))
-        self.buttonBox.addButton(self.update_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.RejectRole)
+        self.buttonBox.addButton(self.update_button, QDialogButtonBox.ButtonRole.AcceptRole)
+        self.buttonBox.addButton(QPushButton(_('Cancel')), QDialogButtonBox.ButtonRole.RejectRole)
 
         # Dynamically load tabs from settings data
         self.settings_data = self.s.get_all_settings()

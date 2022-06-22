@@ -270,7 +270,7 @@ class BlenderListView(QListView):
 
         # Show 'Wait' cursor
         if cursor:
-            QApplication.setOverrideCursor(Qt.WaitCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
     @pyqtSlot()
     def end_processing(self):
@@ -588,7 +588,7 @@ Blender Path: {}
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
+        #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.ConnectionType.DirectConnection)
         self.cancel_render.emit()
 
     def Render(self, frame=None):
@@ -637,7 +637,7 @@ Blender Path: {}
 
         # Cleanup signals all 'round
         self.worker.finished.connect(self.worker.deleteLater)
-        self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
+        self.worker.finished.connect(self.background.quit, Qt.ConnectionType.DirectConnection)
         self.background.finished.connect(self.background.deleteLater)
         self.background.finished.connect(self.worker.deleteLater)
 
@@ -685,11 +685,11 @@ Blender Path: {}
         self.setModel(self.blender_model.model)
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
-        self.setViewMode(QListView.IconMode)
-        self.setResizeMode(QListView.Adjust)
+        self.setViewMode(QListView.ViewMode.IconMode)
+        self.setResizeMode(QListView.ResizeMode.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         # Hook up controls
         self.win.btnRefresh.clicked.connect(self.preview_timer.start)

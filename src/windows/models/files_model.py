@@ -191,7 +191,12 @@ class FilesModel(QObject, updates.UpdateInterface):
                 thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
 
             row = []
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt. ItemNeverHasChildren
+
+            QIF = Qt.ItemFlag
+            flags = (
+                QIF.ItemIsSelectable | QIF.ItemIsEnabled |
+                QIF.ItemIsDragEnabled | QIF.ItemNeverHasChildren
+            )
 
             # Append thumbnail
             col = QStandardItem(thumb_icon, name)
@@ -201,12 +206,12 @@ class FilesModel(QObject, updates.UpdateInterface):
 
             # Append Filename
             col = QStandardItem(name)
-            col.setFlags(flags | Qt.ItemIsEditable)
+            col.setFlags(flags | QIF.ItemIsEditable)
             row.append(col)
 
             # Append Tags
             col = QStandardItem(tags)
-            col.setFlags(flags | Qt.ItemIsEditable)
+            col.setFlags(flags | QIF.ItemIsEditable)
             row.append(col)
 
             # Append Media Type
@@ -221,7 +226,7 @@ class FilesModel(QObject, updates.UpdateInterface):
 
             # Append ID
             col = QStandardItem(id)
-            col.setFlags(flags | Qt.ItemIsUserCheckable)
+            col.setFlags(flags | QIF.ItemIsUserCheckable)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
@@ -233,7 +238,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                 row_added_count += 1
                 if row_added_count % 2 == 0:
                     # Update every X items
-                    get_app().processEvents(QEventLoop.ExcludeUserInputEvents)
+                    get_app().processEvents(
+                        QEventLoop.ProcessEventsFlag.ExcludeUserInputEvents)
 
             # Refresh view and filters (to hide or show this new item)
             get_app().window.resize_contents()
@@ -574,8 +580,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Create proxy model (for sorting and filtering)
         self.proxy_model = FileFilterProxyModel(parent=self)
         self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 

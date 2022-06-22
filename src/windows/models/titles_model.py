@@ -62,7 +62,7 @@ class TitleStandardItemModel(QStandardItemModel):
 
 
 class TitleRoles:
-    PathRole = Qt.UserRole + 11
+    PathRole = Qt.ItemDataRole.UserRole + 11
 
 
 class TitlesModel(QObject):
@@ -151,7 +151,11 @@ class TitlesModel(QObject):
             icon.addFile(thumb_path)
 
             # Create item entry for model
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled
+            QIF = Qt.ItemFlag
+            flags = (
+                QIF.ItemIsSelectable | QIF.ItemIsEnabled |
+                QIF.ItemIsUserCheckable | QIF.ItemIsDragEnabled
+            )
             item = QStandardItem(icon, title_name)
             item.setData(path, TitleRoles.PathRole)
             item.setToolTip(title_name)

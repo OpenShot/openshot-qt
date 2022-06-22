@@ -100,7 +100,8 @@ class Cutting(QDialog):
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
-        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.videoPreview.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
         # Set max size of video preview (for speed)

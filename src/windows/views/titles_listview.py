@@ -60,10 +60,10 @@ class TitlesListView(QListView):
         self.setModel(self.title_model.model)
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
-        self.setViewMode(QListView.IconMode)
-        self.setResizeMode(QListView.Adjust)
+        self.setViewMode(QListView.ViewMode.IconMode)
+        self.setResizeMode(QListView.ResizeMode.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         self.refresh_view()

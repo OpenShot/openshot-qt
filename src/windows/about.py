@@ -196,7 +196,7 @@ class About(QDialog):
         libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
         self.txtversion.setText(
             "<b>%s</b><br/>%s%s" % (openshot_qt_version, libopenshot_version, frozen_version_label))
-        self.txtversion.setAlignment(Qt.AlignCenter)
+        self.txtversion.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Track metrics
         track_metric_screen("about-screen")

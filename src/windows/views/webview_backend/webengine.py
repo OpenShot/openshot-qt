@@ -71,10 +71,11 @@ class TimelineWebEngineView(QWebEngineView):
         self.page().setBackgroundColor(QColor("#363636"))
 
         # Delete the webview when closed
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # Enable smooth scrolling on timeline
-        self.settings().setAttribute(self.settings().ScrollAnimatorEnabled, True)
+        self.settings().setAttribute(
+            self.settings().WebAttribute.ScrollAnimatorEnabled, True)
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
         self.webchannel = QWebChannel(self.page())
@@ -127,7 +128,7 @@ class TimelineWebEngineView(QWebEngineView):
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
+        if key_value in [Qt.Key.Key_Shift, Qt.Key.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebEngineView.keyPressEvent(self, event)
         # Ignore most keypresses

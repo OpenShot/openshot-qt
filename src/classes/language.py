@@ -49,14 +49,18 @@ def init_language():
     # Get app instance
     app = QCoreApplication.instance()
 
+    # Path to installed Qt translations
+    qt_trans = QLibraryInfo.location(QLibraryInfo.LibraryLocation.TranslationsPath)
+
     # Setup of our list of translators and paths
     translator_types = (
+        # Default installed system translations
         {"type": 'QT',
-         "prefix": 'qt_',        # Older versions of Qt use this file (built-in translations)
-         "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
+         "prefix": 'qt_',
+         "path": qt_trans},
         {"type": 'QT',
-         "prefix": 'qtbase_',    # Newer versions of Qt use this file (built-in translations)
-         "path": QLibraryInfo.location(QLibraryInfo.TranslationsPath)},
+         "prefix": 'qtbase_',
+         "path": qt_trans},
         {"type": 'QT',
          "prefix": 'qt_',
          "path": os.path.join(info.PATH, 'language')}, # Optional path where we package QT translations

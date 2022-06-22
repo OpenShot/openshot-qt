@@ -186,41 +186,30 @@ class TransitionsModel(QObject):
                         msg.exec_()
                         continue
 
+                QIF = Qt.ItemFlag
+                flags = (
+                    QIF.ItemIsSelectable | QIF.ItemIsEnabled | QIF.ItemIsUserCheckable | QIF.ItemIsDragEnabled
+                )
                 row = []
 
                 # Load icon (using display DPI)
                 icon = QIcon()
                 icon.addFile(thumb_path)
 
-                # Append thumbnail
-                col = QStandardItem()
+                # Thumbnail
+                col = QStandardItem(trans_name)
                 col.setIcon(icon)
-                col.setText(trans_name)
                 col.setToolTip(trans_name)
                 col.setData(type)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(flags)
                 row.append(col)
 
-                # Append Filename
-                col = QStandardItem("Name")
-                col.setData(trans_name, Qt.DisplayRole)
-                col.setText(trans_name)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-                row.append(col)
-
-                # Append Media Type
-                col = QStandardItem("Type")
-                col.setData(type, Qt.DisplayRole)
-                col.setText(type)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-                row.append(col)
-
-                # Append Path
-                col = QStandardItem("Path")
-                col.setData(path, Qt.DisplayRole)
-                col.setText(path)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-                row.append(col)
+                # Filename, Media type, Path
+                for label in [trans_name, type, path]:
+                    col = QStandardItem(label)
+                    col.setData(label, Qt.ItemDataRole.DisplayRole)
+                    col.setFlags(flags)
+                    row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
                 if path not in self.model_paths:

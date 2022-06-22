@@ -59,7 +59,7 @@ class TimelineWebKitView(QWebView):
         self.html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
         # Delete the webview when closed
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # Connect logging web page (for console.log)
         self.new_page = LoggingWebKitPage(self)
@@ -117,7 +117,7 @@ class TimelineWebKitView(QWebView):
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
+        if key_value in [Qt.Key.Key_Shift, Qt.Key.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebView.keyPressEvent(self, event)
         else:

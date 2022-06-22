@@ -69,7 +69,7 @@ class ChangelogModel():
                 continue
 
             row = []
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
             col = QStandardItem(hash_str)
             col.setToolTip(hash_str)

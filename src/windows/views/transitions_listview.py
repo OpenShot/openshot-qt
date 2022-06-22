@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import Qt, QSize, QPoint, QRegExp
+from PyQt5.QtCore import Qt, QSize, QPoint, QRegularExpression
 from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
 
@@ -66,7 +66,7 @@ class TransitionsListView(QListView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
@@ -81,9 +81,10 @@ class TransitionsListView(QListView):
     def refresh_view(self):
         """Filter transitions with proxy class"""
         filter_text = self.win.transitionsFilter.text()
-        self.model().setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.model().setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.model().sort(Qt.AscendingOrder)
+        self.model().setFilterRegularExpression(QRegularExpression(
+            filter_text.replace(' ', '.*'),
+            QRegularExpression.PatternOption.CaseInsensitiveOption))
+        self.model().sort(Qt.SortOrder.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
@@ -104,18 +105,18 @@ class TransitionsListView(QListView):
 
         # Remove the default selection model and wire up to the shared one
         self.selectionModel().deleteLater()
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setSelectionModel(self.transition_model.selection_model)
 
         # Setup header columns
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
-        self.setViewMode(QListView.IconMode)
-        self.setResizeMode(QListView.Adjust)
+        self.setViewMode(QListView.ViewMode.IconMode)
+        self.setResizeMode(QListView.ResizeMode.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # setup filter events

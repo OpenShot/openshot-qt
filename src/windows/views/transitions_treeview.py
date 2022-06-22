@@ -64,7 +64,7 @@ class TransitionsTreeView(QTreeView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
@@ -99,14 +99,14 @@ class TransitionsTreeView(QTreeView):
 
         # Remove the default selection model and wire up to the shared one
         self.selectionModel().deleteLater()
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setSelectionModel(self.transition_model.selection_model)
 
         # Setup header columns
         self.setIconSize(info.TREE_ICON_SIZE)
         self.setIndentation(0)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.transition_model.ModelRefreshed.connect(self.refresh_columns)

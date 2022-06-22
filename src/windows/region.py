@@ -113,7 +113,8 @@ class SelectRegion(QDialog):
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
-        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.videoPreview.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
         # Set aspect ratio to match source content
@@ -122,7 +123,8 @@ class SelectRegion(QDialog):
         self.videoPreview.aspect_ratio = aspect_ratio
 
         # Set max size of video preview (for speed)
-        self.viewport_rect = self.videoPreview.centeredViewport(self.width, self.height)
+        self.viewport_rect = self.videoPreview.centeredViewport(
+            self.width, self.height)
 
         # Create an instance of a libopenshot Timeline object
         self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
@@ -168,10 +170,10 @@ class SelectRegion(QDialog):
         QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, 1))
 
         # Add buttons
-        self.cancel_button = QPushButton(_('Cancel'))
-        self.process_button = QPushButton(_('Select Region'))
-        self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+        self.cancel_button = self.buttonBox.addButton(
+            QDialogButtonBox.StandardButtons.Cancel)
+        self.process_button = self.buttonBox.addButton(
+            _('Select Region'), QDialogButtonBox.ButtonRole.AcceptRole)
 
         # Connect signals
         self.actionPlay.triggered.connect(self.actionPlay_Triggered)

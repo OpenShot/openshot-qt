@@ -105,8 +105,10 @@ class ProcessEffect(QDialog):
             if param["type"] == "link":
                 # create a clickable link
                 label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], _(param["title"])))
-                label.setTextInteractionFlags(Qt.TextBrowserInteraction)
-                label.linkActivated.connect(functools.partial(self.link_activated, widget, param))
+                label.setTextInteractionFlags(
+                    Qt.TextInteractionFlag.TextBrowserInteraction)
+                label.linkActivated.connect(
+                    functools.partial(self.link_activated, widget, param))
 
             if param["type"] == "spinner":
                 # create QDoubleSpinBox
@@ -157,10 +159,10 @@ class ProcessEffect(QDialog):
                 # create spinner
                 widget = QCheckBox()
                 if param["value"] == True:
-                    widget.setCheckState(Qt.Checked)
+                    widget.setCheckState(Qt.CheckState.Checked)
                     self.context[param["setting"]] = True
                 else:
-                    widget.setCheckState(Qt.Unchecked)
+                    widget.setCheckState(Qt.CheckState.Unchecked)
                     self.context[param["setting"]] = False
                 widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
 
@@ -195,14 +197,14 @@ class ProcessEffect(QDialog):
             # Add Label and Widget to the form
             if widget and label:
                 # Add minimum size
-                label.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
-                widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                label.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+                widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
                 # Create HBoxLayout for each field
                 self.scrollAreaWidgetContents.layout().insertRow(row_count, label, widget)
 
             elif not widget and label:
-                label.setSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+                label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
                 self.scrollAreaWidgetContents.layout().insertRow(row_count, label)
 
             row_count += 1
@@ -215,8 +217,8 @@ class ProcessEffect(QDialog):
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
         self.process_button = QPushButton(_('Process Effect'))
-        self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+        self.buttonBox.addButton(self.process_button, QDialogButtonBox.ButtonRole.AcceptRole)
+        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ButtonRole.RejectRole)
 
         # flag to close the clip processing thread
         self.cancel_clip_processing = False
@@ -233,7 +235,7 @@ class ProcessEffect(QDialog):
 
     def bool_value_changed(self, widget, param, state):
         """Boolean value change callback"""
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             self.context[param["setting"]] = True
         else:
             self.context[param["setting"]] = False
@@ -271,8 +273,8 @@ class ProcessEffect(QDialog):
         if f:
             win = SelectRegion(f, self.clip_instance)
             # Run the dialog event loop - blocking interaction on this window during that time
-            result = win.exec_()
-            if result == QDialog.Accepted:
+            result = win.exec()
+            if result == QDialog.DialogCode.Accepted:
                 # self.first_frame = win.current_frame
                 # Region selected (get coordinates if any)
                 topLeft = win.videoPreview.regionTopLeftHandle
@@ -290,7 +292,7 @@ class ProcessEffect(QDialog):
                     region_qimage = win.videoPreview.region_qimage
 
                     # Resize QImage to match button size
-                    resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+                    resized_qimage = region_qimage.scaled(widget.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                     # Draw Qimage onto QPushButton (to display region selection to user)
                     palette = widget.palette()

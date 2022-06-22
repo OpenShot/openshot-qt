@@ -77,8 +77,8 @@ class TimelineTreeView(QTreeView):
         self.setModel(self.timeline_model.model)
         self.setIconSize(info.TREE_ICON_SIZE)
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 

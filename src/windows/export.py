@@ -88,9 +88,9 @@ class Export(QDialog):
         self.cancel_button = QPushButton(_('Cancel'))
         self.export_button = QPushButton(_('Export Video'))
         self.close_button = QPushButton(_('Done'))
-        self.buttonBox.addButton(self.close_button, QDialogButtonBox.RejectRole)
-        self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+        self.buttonBox.addButton(self.close_button, QDialogButtonBox.ButtonRole.RejectRole)
+        self.buttonBox.addButton(self.export_button, QDialogButtonBox.ButtonRole.AcceptRole)
+        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ButtonRole.RejectRole)
         self.close_button.setVisible(False)
         self.exporting = False
 
@@ -739,7 +739,7 @@ class Export(QDialog):
             ret = QMessageBox.question(self,
                 _("Export Video"),
                 _("%s is an input file.\nPlease choose a different name.") % file_name_with_ext,
-                QMessageBox.Ok)
+                QMessageBox.StandardButton.Ok)
             self.enableControls()
             self.exporting = False
             return
@@ -750,8 +750,8 @@ class Export(QDialog):
             ret = QMessageBox.question(self,
                 _("Export Video"),
                 _("%s already exists.\nDo you want to replace it?") % file_name_with_ext,
-                QMessageBox.No | QMessageBox.Yes)
-            if ret == QMessageBox.No:
+                QMessageBox.StandardButton.No | QMessageBox.StandardButton.Yes)
+            if ret == QMessageBox.StandardButton.No:
                 # Stop and don't do anything
                 # Re-enable controls
                 self.enableControls()
@@ -1009,7 +1009,7 @@ class Export(QDialog):
             # Make progress bar green (to indicate we are done)
             from PyQt5.QtGui import QPalette
             p = QPalette()
-            p.setColor(QPalette.Highlight, Qt.green)
+            p.setColor(QPalette.Highlight, Qt.GlobalColor.green)
             self.progressExportVideo.setPalette(p)
 
             # Raise the window
@@ -1026,8 +1026,8 @@ class Export(QDialog):
                 self,
                 _("Export Video"),
                 _("Are you sure you want to cancel the export?"),
-                QMessageBox.No | QMessageBox.Yes)
-            if result == QMessageBox.No:
+                QMessageBox.StandardButton.No | QMessageBox.StandardButton.Yes)
+            if result == QMessageBox.StandardButton.No:
                 # Resume export
                 return
 
