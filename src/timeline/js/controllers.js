@@ -498,7 +498,7 @@ App.controller("TimelineCtrl", function ($scope) {
         return "#ff9700";
       case "Noise":
         return "#a9a9a9";
-      case "Object Detector":
+      case "ObjectDetection":
         return "#636363";
       case "Parametric EQ":
         return "#708090";
