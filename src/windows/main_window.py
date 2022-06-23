@@ -392,6 +392,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
 
+    def actionClearAudioData_trigger(self):
+        """Clear audio data from current project"""
+        from classes.query import File, Clip
+        log.info("Placeholder. Remove ['ui']['audio_data'] from all files that have it.")
+        files = File.filter()
+
+        # Audio data is a large object. Don't put it in the history
+        get_app().updates.ignore_history = True
+        for file in files:
+            if "audio_data" in file.data.get("ui", {}):
+                file_path = file.data.get("path")
+                log.debug("File %s has audio data. Deleting it." % os.path.split(file_path)[1])
+                del(file.data["ui"]["audio_data"])
+                file.save()
+
+                # Remove audio data from any clips of this file
+                clips = Clip.filter(path = file_path)
+                if clips:
+                    log.debug("Clips of this file exist. Deleting their audio data.")
+                for clip in clips:
+                    if "audio_data" in clip.data.get("ui",{}):
+                        del(clip.data["ui"]["audio_data"])
+                        clip.save()
+        # Resume update history
+        get_app().updates.ignore_history = False
+
     def actionClearHistory_trigger(self):
         """Clear history for current project"""
         project = get_app().project
