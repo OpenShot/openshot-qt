@@ -37,8 +37,8 @@ import logging
 import json
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
-from PyQt5.QtGui import QCursor, QKeySequence, QColor
+from PyQt5.QtCore import pyqtSlot, Qt, QCoreApplication, QTimer
+from PyQt5.QtGui import QCursor, QKeySequence
 from PyQt5.QtWidgets import QMenu, QDialog
 
 from classes import info, updates
@@ -974,7 +974,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 channel_filter = c.channel_filter.GetInt(1)
 
                 # Set cursor to waiting
-                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+                get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
                 # Get audio data in a separate thread (so it doesn't block the UI)
                 channel_filter = channel_filter
@@ -1869,9 +1869,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Determine slice mode (keep both [default], keep left [shift], keep right [ctrl]
         slice_mode = MENU_SLICE_KEEP_BOTH
-        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+        if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ControlModifier) > 0:
             slice_mode = MENU_SLICE_KEEP_RIGHT
-        elif int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+        elif int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier) > 0:
             slice_mode = MENU_SLICE_KEEP_LEFT
 
         if clip_id:
@@ -3023,7 +3023,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                         # Run the dialog event loop - blocking interaction on this window during this time
                         result = win.exec_()
 
-                        if result == QDialog.Accepted:
+                        if result == QDialog.DialogCode.Accepted:
                             log.info('Start processing')
                         else:
                             log.info('Cancel processing')

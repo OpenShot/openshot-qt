@@ -32,7 +32,7 @@ from PyQt5.QtGui import (
     QColor, QPalette, QPen, QPainter, QPainterPath, QKeySequence,
 )
 from PyQt5.QtWidgets import (
-    QAction, QLabel, QWidget, QVBoxLayout, QHBoxLayout,
+    QAction, QLabel, QWidget, QDockWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QToolButton, QCheckBox,
 )
 from classes.logger import log
@@ -48,11 +48,11 @@ class TutorialDialog(QWidget):
         """ Custom paint event """
         # Paint custom frame image on QWidget
         painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         frameColor = QColor("#53a0ed")
 
         painter.setPen(QPen(frameColor, 2))
-        painter.setBrush(self.palette().color(QPalette.Window))
+        painter.setBrush(self.palette().color(QPalette.ColorRole.Window))
         painter.drawRoundedRect(
             QRectF(31, 0,
                    self.width() - 31,
@@ -74,7 +74,7 @@ class TutorialDialog(QWidget):
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
         s = get_app().get_settings()
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             # Enabling metrics sending
             s.set("send_metrics", True)
             sentry.init_tracing()
@@ -115,10 +115,10 @@ class TutorialDialog(QWidget):
         # Add label
         self.label = QLabel(self)
         self.label.setText(text)
-        self.label.setTextFormat(Qt.RichText)
+        self.label.setTextFormat(Qt.TextFormat.RichText)
         self.label.setWordWrap(True)
         self.label.setStyleSheet("margin-left: 20px;")
-        self.label.setAttribute(Qt.WA_TransparentForMouseEvents)
+        self.label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
         vbox.addWidget(self.label)
 
         # Add error and anonymous metrics checkbox (for ID=0) tooltip
@@ -133,9 +133,9 @@ class TutorialDialog(QWidget):
             checkbox_metrics.setText(_("Yes, I would like to improve OpenShot!"))
             checkbox_metrics.setStyleSheet("margin-left: 25px; margin-bottom: 5px;")
             if s.get("send_metrics"):
-                checkbox_metrics.setCheckState(Qt.Checked)
+                checkbox_metrics.setCheckState(Qt.CheckState.Checked)
             else:
-                checkbox_metrics.setCheckState(Qt.Unchecked)
+                checkbox_metrics.setCheckState(Qt.CheckState.Unchecked)
             checkbox_metrics.stateChanged.connect(functools.partial(self.checkbox_metrics_callback))
             vbox.addWidget(checkbox_metrics)
 
@@ -145,8 +145,8 @@ class TutorialDialog(QWidget):
 
         # Close action
         self.close_action = QAction(_("Hide Tutorial"), self)
-        self.close_action.setShortcut(QKeySequence(Qt.Key_Escape))
-        self.close_action.setShortcutContext(Qt.ApplicationShortcut)
+        self.close_action.setShortcut(QKeySequence(Qt.Key.Key_Escape))
+        self.close_action.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
 
         # Create buttons
         self.btn_close_tips = QPushButton(self)
@@ -163,15 +163,15 @@ class TutorialDialog(QWidget):
 
         # Set layout, cursor, and size
         self.setLayout(vbox)
-        self.setCursor(Qt.ArrowCursor)
+        self.setCursor(Qt.CursorShape.ArrowCursor)
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
-        self.setFocusPolicy(Qt.ClickFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
         # Make transparent
-        self.setAttribute(Qt.WA_NoSystemBackground, True)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, True)
 
         # Connect close action signal
         self.close_action.triggered.connect(
@@ -430,18 +430,21 @@ class TutorialManager(object):
 
         # Configure tutorial frame
         self.dock.setTitleBarWidget(QWidget())  # Prevents window decoration
-        self.dock.setAttribute(Qt.WA_NoSystemBackground, True)
-        self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.dock.setWindowFlags(Qt.FramelessWindowHint)
+        self.dock.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.dock.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+        self.dock.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.dock.setFloating(True)
 
         # Connect to interface dock widgets
-        self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
-        self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process, "dockTransitions"))
-        self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))
-        self.win.dockProperties.visibilityChanged.connect(functools.partial(self.process, "dockProperties"))
-        self.win.dockVideo.visibilityChanged.connect(functools.partial(self.process, "dockVideo"))
-        self.win.dockEmojis.visibilityChanged.connect(functools.partial(self.process, "dockEmojis"))
+        for d in [
+            "dockFiles", "dockTransitions", "dockEffects",
+            "dockProperties", "dockVideo", "dockEmojis",
+        ]:
+            ui_dock = getattr(self.win, d)
+            if not ui_dock or not isinstance(ui_dock, QDockWidget):
+                continue
+            ui_dock.visibilityChanged.connect(
+                functools.partial(self.process, d))
 
         # Process tutorials (1 by 1)
         if self.tutorial_enabled:

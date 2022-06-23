@@ -41,13 +41,13 @@ except ImportError:
     from xml.dom import minidom as xml
 
 from PyQt5.QtCore import (
-    Qt, QObject, pyqtSlot, pyqtSignal, QThread, QTimer, QSize,
+    Qt, QObject, pyqtSlot, pyqtSignal, QThread, QTimer
 )
 from PyQt5.QtWidgets import (
     QApplication, QListView, QMessageBox,
     QComboBox, QDoubleSpinBox, QLabel, QPushButton, QLineEdit, QPlainTextEdit,
 )
-from PyQt5.QtGui import QColor, QImage, QPixmap, QIcon
+from PyQt5.QtGui import QColor, QIcon
 
 from classes import info
 from classes.logger import log
@@ -270,7 +270,7 @@ class BlenderListView(QListView):
 
         # Show 'Wait' cursor
         if cursor:
-            QApplication.setOverrideCursor(Qt.WaitCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
     @pyqtSlot()
     def end_processing(self):
@@ -588,7 +588,6 @@ Blender Path: {}
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
         self.cancel_render.emit()
 
     def Render(self, frame=None):
@@ -637,7 +636,7 @@ Blender Path: {}
 
         # Cleanup signals all 'round
         self.worker.finished.connect(self.worker.deleteLater)
-        self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
+        self.worker.finished.connect(self.background.quit, Qt.ConnectionType.DirectConnection)
         self.background.finished.connect(self.background.deleteLater)
         self.background.finished.connect(self.worker.deleteLater)
 
@@ -685,11 +684,11 @@ Blender Path: {}
         self.setModel(self.blender_model.model)
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
-        self.setViewMode(QListView.IconMode)
-        self.setResizeMode(QListView.Adjust)
+        self.setViewMode(QListView.ViewMode.IconMode)
+        self.setResizeMode(QListView.ResizeMode.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         # Hook up controls
         self.win.btnRefresh.clicked.connect(self.preview_timer.start)

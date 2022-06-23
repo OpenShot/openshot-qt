@@ -26,22 +26,16 @@
  """
 
 import os
-import sys
 import functools
-import math
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from classes import info, ui_util, time_parts, qt_types, updates
-from classes.app import get_app
-from classes.logger import log
+from classes import ui_util, time_parts
 from classes.metrics import *
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
-import json
 
 class SelectRegion(QDialog):
     """ SelectRegion Dialog """
@@ -113,7 +107,8 @@ class SelectRegion(QDialog):
 
         # Add Video Widget
         self.videoPreview = VideoWidget()
-        self.videoPreview.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.videoPreview.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         self.verticalLayout.insertWidget(0, self.videoPreview)
 
         # Set aspect ratio to match source content
@@ -122,7 +117,8 @@ class SelectRegion(QDialog):
         self.videoPreview.aspect_ratio = aspect_ratio
 
         # Set max size of video preview (for speed)
-        self.viewport_rect = self.videoPreview.centeredViewport(self.width, self.height)
+        self.viewport_rect = self.videoPreview.centeredViewport(
+            self.width, self.height)
 
         # Create an instance of a libopenshot Timeline object
         self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
@@ -170,8 +166,8 @@ class SelectRegion(QDialog):
         # Add buttons
         self.cancel_button = QPushButton(_('Cancel'))
         self.process_button = QPushButton(_('Select Region'))
-        self.buttonBox.addButton(self.process_button, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
+        self.buttonBox.addButton(self.process_button, QDialogButtonBox.ButtonRole.AcceptRole)
+        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ButtonRole.RejectRole)
 
         # Connect signals
         self.actionPlay.triggered.connect(self.actionPlay_Triggered)

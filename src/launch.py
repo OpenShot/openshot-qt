@@ -50,7 +50,7 @@ from PyQt5.QtWidgets import QApplication
 try:
     # This apparently has to be done before loading QtQuick
     # (via QtWebEgine) AND before creating the QApplication instance
-    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
+    QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
     from OpenGL import GL  # noqa
 except (ImportError, AttributeError):
     pass
@@ -65,8 +65,8 @@ except ImportError:
 
 try:
     # Enable High-DPI resolutions
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
+    QApplication.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling)
+    QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 except AttributeError:
     pass  # Quietly fail for older Qt5 versions
 

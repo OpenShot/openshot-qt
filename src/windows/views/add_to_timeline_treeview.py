@@ -25,7 +25,6 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView
 
 from classes import info
@@ -77,8 +76,7 @@ class TimelineTreeView(QTreeView):
         self.setModel(self.timeline_model.model)
         self.setIconSize(info.TREE_ICON_SIZE)
         self.setIndentation(0)
-        self.setSelectionBehavior(QTreeView.SelectRows)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 

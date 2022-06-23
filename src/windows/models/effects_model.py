@@ -28,10 +28,10 @@
 import os
 
 from PyQt5.QtCore import (
-    QObject, QMimeData, Qt, QSize, pyqtSignal,
+    QObject, QMimeData, Qt, pyqtSignal,
     QSortFilterProxyModel, QPersistentModelIndex, QItemSelectionModel,
 )
-from PyQt5.QtGui import QIcon, QPixmap, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMessageBox
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -174,45 +174,29 @@ class EffectsModel(QObject):
 
             row = []
 
-            # Append thumbnail
-            col = QStandardItem()
-
+            flags = (
+                Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled |
+                Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled
+            )
             # Load icon (using display DPI)
             icon = QIcon()
             icon.addFile(thumb_path)
 
+            # Thumbnail
+            col = QStandardItem(self.app._tr(title))
             col.setIcon(icon)
-            col.setText(self.app._tr(title))
             col.setToolTip(self.app._tr(title))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(flags)
             row.append(col)
 
-            # Append Name
-            col = QStandardItem("Name")
-            col.setData(self.app._tr(title), Qt.DisplayRole)
-            col.setText(self.app._tr(title))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
-
-            # Append Description
-            col = QStandardItem("Description")
-            col.setData(self.app._tr(description), Qt.DisplayRole)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
-
-            # Append Category
-            col = QStandardItem("Category")
-            col.setData(category, Qt.DisplayRole)
-            col.setText(category)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
-
-            # Append Path
-            col = QStandardItem("Effect")
-            col.setData(effect_name, Qt.DisplayRole)
-            col.setText(effect_name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
-            row.append(col)
+            # Name, Description, Category, Class
+            for label in [
+                self.app._tr(title), self.app._tr(description), category, effect_name,
+            ]:
+                col = QStandardItem(label)
+                col.setData(label, Qt.ItemDataRole.DisplayRole)
+                col.setFlags(flags)
+                row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
             if effect_name not in self.model_names:

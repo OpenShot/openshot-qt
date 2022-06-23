@@ -37,9 +37,8 @@ from uuid import uuid4
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
-    Qt, pyqtSignal, pyqtSlot, QCoreApplication, PYQT_VERSION_STR,
-    QTimer, QDateTime, QFileInfo, QUrl,
-    )
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QFileInfo
+)
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QDockWidget,
@@ -142,12 +141,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Unsaved Changes"),
                 _("Save changes to project before closing?"),
-                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
-            if ret == QMessageBox.Yes:
+                QMessageBox.StandardButton.Cancel | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Yes)
+            if ret == QMessageBox.StandardButton.Yes:
                 # Save project
                 self.actionSave_trigger()
                 event.accept()
-            elif ret == QMessageBox.Cancel:
+            elif ret == QMessageBox.StandardButton.Cancel:
                 # Show tutorial again, if any
                 self.tutorial_manager.re_show_dialog()
                 # User canceled prompt - don't quit
@@ -281,11 +280,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Unsaved Changes"),
                 _("Save changes to project first?"),
-                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
-            if ret == QMessageBox.Yes:
+                QMessageBox.StandardButton.Cancel
+                | QMessageBox.StandardButton.No
+                | QMessageBox.StandardButton.Yes)
+            if ret == QMessageBox.StandardButton.Yes:
                 # Save project
                 self.actionSave_trigger()
-            elif ret == QMessageBox.Cancel:
+            elif ret == QMessageBox.StandardButton.Cancel:
                 # User canceled prompt
                 return
 
@@ -318,8 +319,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.animated_title import AnimatedTitle
         win = AnimatedTitle()
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
             log.info('animated title add confirmed')
         else:
             log.info('animated title add cancelled')
@@ -329,8 +330,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.animation import Animation
         win = Animation()
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
             log.info('animation confirmed')
         else:
             log.info('animation cancelled')
@@ -450,16 +451,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Unsaved Changes"),
                 _("Save changes to project first?"),
-                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
-            if ret == QMessageBox.Yes:
+                QMessageBox.StandardButton.Cancel
+                | QMessageBox.StandardButton.No
+                | QMessageBox.StandardButton.Yes)
+            if ret == QMessageBox.StandardButton.Yes:
                 # Save project
                 self.actionSave.trigger()
-            elif ret == QMessageBox.Cancel:
+            elif ret == QMessageBox.StandardButton.Cancel:
                 # User canceled prompt
                 return
 
         # Set cursor to waiting
-        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         try:
             if os.path.exists(file_path):
@@ -552,11 +555,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Unsaved Changes"),
                 _("Save changes to project first?"),
-                QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
-            if ret == QMessageBox.Yes:
+                QMessageBox.StandardButton.Cancel
+                | QMessageBox.StandardButton.No
+                | QMessageBox.StandardButton.Yes)
+            if ret == QMessageBox.StandardButton.Yes:
                 # Save project
                 self.actionSave_trigger()
-            elif ret == QMessageBox.Cancel:
+            elif ret == QMessageBox.StandardButton.Cancel:
                 # User canceled prompt
                 return
 
@@ -704,7 +709,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Use the folder of the LAST one as the new default path.
             s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].toLocalFile())
         # Set cursor to waiting
-        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         try:
             # Import list of files
@@ -729,7 +734,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             None,
             _("%s is not a valid video, audio, or image file.") % filename,
-            QMessageBox.Ok
+            QMessageBox.StandardButton.Ok
         )
 
     def promptImageSequence(self, filename=None):
@@ -749,9 +754,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             _("Import Image Sequence"),
             _("Would you like to import %s as an image sequence?") % filename,
-            QMessageBox.No | QMessageBox.Yes
+            QMessageBox.StandardButton.No | QMessageBox.StandardButton.Yes
         )
-        return ret == QMessageBox.Yes
+        return ret == QMessageBox.StandardButton.Yes
 
     def actionAdd_to_Timeline_trigger(self, checked=False):
         # Loop through selected files
@@ -770,8 +775,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.add_to_timeline import AddToTimeline
         win = AddToTimeline(files, pos)
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
             log.info('confirmed')
         else:
             log.info('canceled')
@@ -781,8 +786,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.export import Export
         win = Export()
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
             log.info('Export Video add confirmed')
         else:
             log.info('Export Video add cancelled')
@@ -823,14 +828,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.PauseSignal.emit()
 
         # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         # Show dialog
         from windows.preferences import Preferences
         win = Preferences()
         # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
             log.info('Preferences add confirmed')
         else:
             log.info('Preferences add cancelled')
@@ -1512,7 +1517,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Abort handling if the key sequence is invalid
         if (key_value <= 0 or key_value in
-           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
+           [Qt.Key.Key_Shift, Qt.Key.Key_Alt, Qt.Key.Key_Control, Qt.Key.Key_Meta]):
             return
 
         # A valid keysequence was detected
@@ -1528,7 +1533,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
         # Basic shortcuts i.e just a letter
-        if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
+        if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.SequenceMatch.ExactMatch:
             # Pause video
             self.PauseSignal.emit()
             self.SpeedSignal.emit(0)
@@ -1538,7 +1543,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.SequenceMatch.ExactMatch:
             # Pause video
             self.PauseSignal.emit()
             self.SpeedSignal.emit(0)
@@ -1548,109 +1553,109 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Notify properties dialog
             self.propertyTableView.select_frame(player.Position())
 
-        elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.SequenceMatch.ExactMatch:
             # Toggle rewind and start playback
             self.actionRewind.trigger()
 
-        elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.SequenceMatch.ExactMatch:
             # Toggle fastforward button and start playback
             self.actionFastForward.trigger()
 
         elif any([
-                key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle")) == QKeySequence.SequenceMatch.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.SequenceMatch.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.SequenceMatch.ExactMatch,
+                key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.SequenceMatch.ExactMatch,
                 ]):
             # Toggle playbutton and show properties
             self.actionPlay.trigger()
             self.propertyTableView.select_frame(player.Position())
 
         elif any([
-                key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch,
+                key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.SequenceMatch.ExactMatch,
+                key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.SequenceMatch.ExactMatch,
                 ]):
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
             self.actionRemoveTransition.trigger()
 
         # Menu shortcuts
-        elif key.matches(self.getShortcutByName("actionNew")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionNew")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionNew.trigger()
-        elif key.matches(self.getShortcutByName("actionOpen")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionOpen")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionOpen.trigger()
-        elif key.matches(self.getShortcutByName("actionSave")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionSave")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionSave.trigger()
-        elif key.matches(self.getShortcutByName("actionUndo")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionUndo")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionUndo.trigger()
-        elif key.matches(self.getShortcutByName("actionSaveAs")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionSaveAs")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionSaveAs.trigger()
-        elif key.matches(self.getShortcutByName("actionImportFiles")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionImportFiles")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionImportFiles.trigger()
-        elif key.matches(self.getShortcutByName("actionRedo")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionRedo")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionRedo.trigger()
-        elif key.matches(self.getShortcutByName("actionExportVideo")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionExportVideo")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionExportVideo.trigger()
-        elif key.matches(self.getShortcutByName("actionQuit")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionQuit")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionQuit.trigger()
-        elif key.matches(self.getShortcutByName("actionPreferences")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionPreferences")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionPreferences.trigger()
-        elif key.matches(self.getShortcutByName("actionAddTrack")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionAddTrack")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionAddTrack.trigger()
-        elif key.matches(self.getShortcutByName("actionAddMarker")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionAddMarker")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionAddMarker.trigger()
-        elif key.matches(self.getShortcutByName("actionPreviousMarker")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionPreviousMarker")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionPreviousMarker.trigger()
-        elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionNextMarker")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionNextMarker.trigger()
-        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionCenterOnPlayhead")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionCenterOnPlayhead.trigger()
-        elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionTimelineZoomIn")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionTimelineZoomIn.trigger()
-        elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionTimelineZoomOut")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionTimelineZoomOut.trigger()
-        elif key.matches(self.getShortcutByName("actionTitle")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionTitle")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionTitle.trigger()
-        elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionAnimatedTitle")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionAnimatedTitle.trigger()
-        elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionDuplicateTitle.trigger()
-        elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionEditTitle.trigger()
-        elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionFullscreen.trigger()
-        elif key.matches(self.getShortcutByName("actionAbout")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionAbout")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionAbout.trigger()
-        elif key.matches(self.getShortcutByName("actionThumbnailView")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionThumbnailView")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionThumbnailView.trigger()
-        elif key.matches(self.getShortcutByName("actionDetailsView")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionDetailsView")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionDetailsView.trigger()
-        elif key.matches(self.getShortcutByName("actionProfile")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionProfile")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionProfile.trigger()
-        elif key.matches(self.getShortcutByName("actionAdd_to_Timeline")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionAdd_to_Timeline")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionAdd_to_Timeline.trigger()
-        elif key.matches(self.getShortcutByName("actionSplitClip")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionSplitClip")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionSplitClip.trigger()
-        elif key.matches(self.getShortcutByName("actionSnappingTool")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionSnappingTool")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionSnappingTool.trigger()
-        elif key.matches(self.getShortcutByName("actionJumpStart")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionJumpStart")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionJumpStart.trigger()
-        elif key.matches(self.getShortcutByName("actionJumpEnd")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionJumpEnd")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionJumpEnd.trigger()
-        elif key.matches(self.getShortcutByName("actionSaveFrame")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionSaveFrame")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionSaveFrame.trigger()
-        elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionProperties")) == QKeySequence.SequenceMatch.ExactMatch:
             self.actionProperties.trigger()
-        elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionTransform")) == QKeySequence.SequenceMatch.ExactMatch:
             if self.selected_clips:
                 self.TransformSignal.emit(self.selected_clips[0])
-        elif key.matches(self.getShortcutByName("actionInsertKeyframe")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("actionInsertKeyframe")) == QKeySequence.SequenceMatch.ExactMatch:
             log.debug("actionInsertKeyframe")
             if self.selected_clips or self.selected_transitions:
                 self.InsertKeyframe.emit(event)
 
         # Timeline keyboard shortcuts
-        elif key.matches(self.getShortcutByName("sliceAllKeepBothSides")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("sliceAllKeepBothSides")) == QKeySequence.SequenceMatch.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1658,7 +1663,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
-        elif key.matches(self.getShortcutByName("sliceAllKeepLeftSide")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("sliceAllKeepLeftSide")) == QKeySequence.SequenceMatch.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1666,7 +1671,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
-        elif key.matches(self.getShortcutByName("sliceAllKeepRightSide")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("sliceAllKeepRightSide")) == QKeySequence.SequenceMatch.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1674,7 +1679,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
                 self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
-        elif key.matches(self.getShortcutByName("sliceSelectedKeepBothSides")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepBothSides")) == QKeySequence.SequenceMatch.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1682,7 +1687,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
                 trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
                 self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
-        elif key.matches(self.getShortcutByName("sliceSelectedKeepLeftSide")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepLeftSide")) == QKeySequence.SequenceMatch.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1690,7 +1695,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
                 trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
                 self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
-        elif key.matches(self.getShortcutByName("sliceSelectedKeepRightSide")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("sliceSelectedKeepRightSide")) == QKeySequence.SequenceMatch.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
             if intersecting_clips or intersecting_trans:
@@ -1699,20 +1704,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
                 self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
 
-        elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.SequenceMatch.ExactMatch:
             self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
-        elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.SequenceMatch.ExactMatch:
             self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
-        elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.SequenceMatch.ExactMatch:
             self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
-        elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.SequenceMatch.ExactMatch:
             self.timeline.Nudge_Triggered(1, self.selected_clips, self.selected_transitions)
 
         # Select All / None
-        elif key.matches(self.getShortcutByName("selectAll")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("selectAll")) == QKeySequence.SequenceMatch.ExactMatch:
             self.timeline.SelectAll()
 
-        elif key.matches(self.getShortcutByName("selectNone")) == QKeySequence.ExactMatch:
+        elif key.matches(self.getShortcutByName("selectNone")) == QKeySequence.SequenceMatch.ExactMatch:
             self.timeline.ClearAllSelections()
 
         # If we didn't act on the event, forward it to the base class
@@ -1725,7 +1730,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug("Showing preferences dialog")
         win = Profile()
         # Run the dialog event loop - blocking interaction on this window during this time
-        win.exec_()
+        win.exec()
         log.debug("Preferences dialog closed")
 
     def actionSplitClip_trigger(self):
@@ -1743,8 +1748,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.cutting import Cutting
         win = Cutting(f)
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
             log.info('Cutting Finished')
         else:
             log.info('Cutting Cancelled')
@@ -1959,7 +1964,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionFullscreen_trigger(self):
         # Toggle fullscreen state (current state mask XOR WindowFullScreen)
-        self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
+        self.setWindowState(self.windowState() ^ Qt.WindowState.WindowFullScreen)
 
     def actionFile_Properties_trigger(self):
         log.info("Show file properties")
@@ -1974,8 +1979,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.file_properties import FileProperties
         win = FileProperties(f)
         # Run the dialog event loop - blocking interaction on this window during that time
-        result = win.exec_()
-        if result == QDialog.Accepted:
+        result = win.exec()
+        if result == QDialog.DialogCode.Accepted:
 
             # BRUTE FORCE approach: go through all clips and update file path
             clips = Clip.filter(file_id=f.data["id"])
@@ -2064,7 +2069,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
         for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 self.removeDockWidget(dock)
 
     def addDocks(self, docks, area):
@@ -2075,29 +2080,29 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def floatDocks(self, is_floating):
         """ Float or Un-Float all dockable widgets above main screen """
         for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 dock.setFloating(is_floating)
 
     def showDocks(self, docks):
         """ Show all dockable widgets on the main screen """
         for dock in docks:
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
 
     def freezeDock(self, dock, frozen=True):
         """ Freeze/unfreeze a dock widget on the main screen."""
-        if self.dockWidgetArea(dock) == Qt.NoDockWidgetArea:
+        if self.dockWidgetArea(dock) == Qt.DockWidgetArea.NoDockWidgetArea:
             # Don't freeze undockable widgets
             return
         if frozen:
-            dock.setFeatures(QDockWidget.NoDockWidgetFeatures)
+            dock.setFeatures(QDockWidget.DockWidgetFeature.NoDockWidgetFeatures)
         else:
             features = (
-                QDockWidget.DockWidgetFloatable
-                | QDockWidget.DockWidgetMovable)
+                QDockWidget.DockWidgetFeature.DockWidgetFloatable
+                | QDockWidget.DockWidgetFeature.DockWidgetMovable)
             if dock is not self.dockTimeline:
-                features |= QDockWidget.DockWidgetClosable
+                features |= QDockWidget.DockWidgetFeature.DockWidgetClosable
             dock.setFeatures(features)
 
     @pyqtSlot()
@@ -2121,8 +2126,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         self.docks_menu = self.menuView.addMenu(_("Docks"))
         for dock in sorted(self.getDocks(), key=lambda d: d.windowTitle()):
-            if (dock.features() & QDockWidget.DockWidgetClosable
-               != QDockWidget.DockWidgetClosable):
+            if (dock.features() & QDockWidget.DockWidgetFeature.DockWidgetClosable
+               != QDockWidget.DockWidgetFeature.DockWidgetClosable):
                 # Skip non-closable docs
                 continue
             self.docks_menu.addAction(dock.toggleViewAction())
@@ -2138,7 +2143,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockEmojis,
             self.dockVideo,
-            ], Qt.TopDockWidgetArea)
+            ], Qt.DockWidgetArea.TopDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
@@ -2164,13 +2169,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.removeDocks()
 
         # Add Docks
-        self.addDocks([self.dockFiles, self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockFiles, self.dockVideo], Qt.DockWidgetArea.TopDockWidgetArea)
         self.addDocks([
             self.dockEffects,
             self.dockTransitions,
             self.dockEmojis,
-            ], Qt.RightDockWidgetArea)
-        self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
+            ], Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDocks([self.dockProperties], Qt.DockWidgetArea.LeftDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockEmojis, self.dockEffects)
@@ -2286,9 +2291,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get cursor / current line of text (where cursor is located)
         cursor = self.captionTextEdit.textCursor()
-        self.captionTextEdit.moveCursor(QTextCursor.StartOfLine)
+        self.captionTextEdit.moveCursor(QTextCursor.MoveOperation.StartOfLine)
         line_text = cursor.block().text()
-        self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
+        self.captionTextEdit.moveCursor(QTextCursor.MoveOperation.EndOfLine)
 
         # Convert time in seconds to hours:minutes:seconds:milliseconds
         current_timestamp = secondsToTimecode(relative_position, fps["num"], fps["den"], use_milliseconds=True)
@@ -2303,19 +2308,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if "-->" in line_text and line_text.count(':') == 3:
             # Current line has only one timestamp. Add the second and go to the line below it.
             self.captionTextEdit.insertPlainText(current_timestamp)
-            self.captionTextEdit.moveCursor(QTextCursor.Down)
-            self.captionTextEdit.moveCursor(QTextCursor.EndOfLine)
+            self.captionTextEdit.moveCursor(QTextCursor.MoveOperation.Down)
+            self.captionTextEdit.moveCursor(QTextCursor.MoveOperation.EndOfLine)
         else:
             # Current line isn't a starting timestamp, so add a starting timestamp
 
             # If the current line isn't blank, go to end and add two blank lines
-            if (self.captionTextEdit.textCursor().block().text().strip() != ""):
-                self.captionTextEdit.moveCursor(QTextCursor.End)
+            if self.captionTextEdit.textCursor().block().text().strip() != "":
+                self.captionTextEdit.moveCursor(QTextCursor.MoveOperation.End)
                 self.captionTextEdit.insertPlainText("\n\n")
             # Add timestamp, and placeholder caption
             self.captionTextEdit.insertPlainText("%s --> \n%s" % (current_timestamp, _("Enter caption text...")))
             # Return to timestamp line, to await ending timestamp
-            self.captionTextEdit.moveCursor(QTextCursor.Up)
+            self.captionTextEdit.moveCursor(QTextCursor.MoveOperation.Up)
 
     def captionTextEdit_TextChanged(self):
         """Caption text was edited, start the save timer (to prevent spamming saves)"""
@@ -2661,7 +2666,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Add left spacer
         spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.videoToolbar.addWidget(spacer)
 
         # Playback controls (centered)
@@ -2673,7 +2678,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Add right spacer
         spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.videoToolbar.addWidget(spacer)
 
         # Other controls (right-aligned)
@@ -2753,7 +2758,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if info.VERSION < version:
             # Add spacer and 'New Version Available' toolbar button (default hidden)
             spacer = QWidget(self)
-            spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+            spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
             self.toolBar.addWidget(spacer)
 
             # Update text for QAction
@@ -2764,7 +2769,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Add update available button (with icon and text)
             updateButton = QToolButton()
             updateButton.setDefaultAction(self.actionUpdate)
-            updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            updateButton.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
             self.toolBar.addWidget(updateButton)
 
         # Initialize sentry exception tracing (now that we know the current version)
@@ -2995,10 +3000,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
-        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.TopLeftCorner, Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomLeftCorner, Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.TopRightCorner, Qt.DockWidgetArea.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomRightCorner, Qt.DockWidgetArea.RightDockWidgetArea)
 
         self.initModels()
 

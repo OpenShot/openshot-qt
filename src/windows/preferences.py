@@ -155,14 +155,17 @@ class Preferences(QDialog):
                     # Create scrollarea
                     scroll_area = QScrollArea(self)
                     scroll_area.setWidgetResizable(True)
-                    scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-                    scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                    scroll_area.setVerticalScrollBarPolicy(
+                        Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+                    scroll_area.setSizePolicy(
+                        QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
                     scroll_area.setMinimumSize(675, 100)
 
                     # Create tab widget and layout
                     layout = QVBoxLayout()
                     tabWidget = QWidget(self)
-                    tabWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+                    tabWidget.setSizePolicy(
+                        QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
                     tabWidget.setLayout(layout)
                     scroll_area.setWidget(tabWidget)
 
@@ -243,9 +246,9 @@ class Preferences(QDialog):
                     # create spinner
                     widget = QCheckBox()
                     if param["value"] is True:
-                        widget.setCheckState(Qt.Checked)
+                        widget.setCheckState(Qt.CheckState.Checked)
                     else:
-                        widget.setCheckState(Qt.Unchecked)
+                        widget.setCheckState(Qt.CheckState.Unchecked)
                     widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
 
                 elif param["type"] == "dropdown":
@@ -398,8 +401,8 @@ class Preferences(QDialog):
                 if (widget and label and filterFound):
                     # Add minimum size
                     label.setMinimumWidth(180)
-                    label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-                    widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+                    label.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+                    widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
 
                     # Create HBox layout
                     layout_hbox = QHBoxLayout()
@@ -461,7 +464,7 @@ class Preferences(QDialog):
 
     def bool_value_changed(self, widget, param, state):
         # Save setting
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             self.s.set(param["setting"], True)
         else:
             self.s.set(param["setting"], False)
@@ -469,15 +472,15 @@ class Preferences(QDialog):
         # Trigger specific actions
         if param["setting"] == "debug-mode":
             # Update debug setting of timeline
-            log.info("Setting debug-mode to %s", state == Qt.Checked)
-            debug_enabled = (state == Qt.Checked)
+            log.info("Setting debug-mode to %s", state == Qt.CheckState.Checked)
+            debug_enabled = (state == Qt.CheckState.Checked)
 
             # Enable / Disable logger
             openshot.ZmqLogger.Instance().Enable(debug_enabled)
 
         elif param["setting"] == "enable-auto-save":
             # Toggle autosave
-            if (state == Qt.Checked):
+            if state == Qt.CheckState.Checked:
                 # Start/Restart autosave timer
                 get_app().window.auto_save_timer.start()
             else:

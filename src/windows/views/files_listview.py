@@ -26,7 +26,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
+from PyQt5.QtCore import QSize, Qt, QPoint, QRegularExpression
 from PyQt5.QtGui import QDrag, QCursor
 from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
 
@@ -62,7 +62,7 @@ class FilesListView(QListView):
 
             # Look up file_id from 5th column of row
             id_index = index.sibling(index.row(), 5)
-            file_id = model.data(id_index, Qt.DisplayRole)
+            file_id = model.data(id_index, Qt.ItemDataRole.DisplayRole)
 
             # If a valid file selected, show file related options
             menu.addSeparator()
@@ -94,7 +94,7 @@ class FilesListView(QListView):
             event.ignore()
             return
         event.accept()
-        event.setDropAction(Qt.CopyAction)
+        event.setDropAction(Qt.DropAction.CopyAction)
 
     def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
@@ -112,7 +112,7 @@ class FilesListView(QListView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
@@ -135,7 +135,7 @@ class FilesListView(QListView):
         # Use try/finally so we always reset the cursor
         try:
             # Set cursor to waiting
-            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+            get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
             qurl_list = event.mimeData().urls()
             log.info("Processing drop event for {} urls".format(len(qurl_list)))
@@ -155,7 +155,9 @@ class FilesListView(QListView):
         """Filter files with proxy class"""
         model = self.model()
         filter_text = self.win.filesFilter.text()
-        model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*'), Qt.CaseInsensitive))
+        self.model().setFilterRegularExpression(QRegularExpression(
+            filter_text.replace(' ', '.*'),
+            QRegularExpression.PatternOption.CaseInsensitiveOption))
 
         col = model.sortColumn()
         model.sort(col)
@@ -176,8 +178,8 @@ class FilesListView(QListView):
 
         # Remove the default selection model and wire up to the shared one
         self.selectionModel().deleteLater()
-        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setSelectionModel(self.files_model.selection_model)
 
         # Keep track of mouse press start position to determine when to start drag
@@ -188,14 +190,14 @@ class FilesListView(QListView):
         # Setup header columns and layout
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
-        self.setViewMode(QListView.IconMode)
-        self.setResizeMode(QListView.Adjust)
+        self.setViewMode(QListView.ViewMode.IconMode)
+        self.setResizeMode(QListView.ResizeMode.Adjust)
 
         self.setUniformItemSizes(True)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         self.setWordWrap(False)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         self.files_model.ModelRefreshed.connect(self.refresh_view)
 

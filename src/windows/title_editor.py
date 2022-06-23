@@ -38,10 +38,9 @@ import tempfile
 from xml.dom import minidom
 
 from PyQt5.QtCore import Qt, pyqtSlot, QTimer
-from PyQt5 import QtGui
+from PyQt5.QtGui import QColor, QFont, QFontInfo, QIcon
 from PyQt5.QtWidgets import (
-    QWidget, QGraphicsScene,
-    QMessageBox, QDialog, QColorDialog, QFontDialog,
+    QWidget, QMessageBox, QDialog, QDialogButtonBox, QColorDialog, QFontDialog,
     QPushButton, QLineEdit, QLabel
 )
 
@@ -51,7 +50,6 @@ from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
-from windows.views.titles_listview import TitlesListView
 from windows.color_picker import ColorPicker
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
 from windows.views.titles_listview import TitlesListView
@@ -93,8 +91,8 @@ class TitleEditor(QDialog):
         imp = minidom.getDOMImplementation()
         self.xmldoc = imp.createDocument(None, "any", None)
 
-        self.bg_color_code = QtGui.QColor(Qt.black)
-        self.font_color_code = QtGui.QColor(Qt.white)
+        self.bg_color_code = QColor(Qt.GlobalColor.black)
+        self.font_color_code = QColor(Qt.GlobalColor.white)
 
         self.bg_style_string = ""
         self.title_style_string = ""
@@ -112,14 +110,14 @@ class TitleEditor(QDialog):
         self.font_family = "Bitstream Vera Sans"
         self.tspan_nodes = None
 
-        self.qfont = QtGui.QFont(self.font_family)
+        self.qfont = QFont(self.font_family)
 
         # Add titles list view
         self.titlesView = TitlesListView(parent=self, window=self)
         self.verticalLayout.addWidget(self.titlesView)
 
         # Disable Save button on window load
-        self.buttonBox.button(self.buttonBox.Save).setEnabled(False)
+        self.buttonBox.button(QDialogButtonBox.StandardButton.Save).setEnabled(False)
 
         # If editing existing title svg file
         if self.edit_file_path:
@@ -183,7 +181,7 @@ class TitleEditor(QDialog):
         clip.Close()
 
         # Attempt to load saved thumbnail
-        display_pixmap = QtGui.QIcon(tmp_filename).pixmap(self.lblPreviewLabel.size())
+        display_pixmap = QIcon(tmp_filename).pixmap(self.lblPreviewLabel.size())
 
         # Display temp image
         self.lblPreviewLabel.setPixmap(display_pixmap)
@@ -217,7 +215,7 @@ class TitleEditor(QDialog):
         self.font_family = "Bitstream Vera Sans"
         if self.qfont:
             del self.qfont
-        self.qfont = QtGui.QFont(self.font_family)
+        self.qfont = QFont(self.font_family)
 
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
@@ -370,7 +368,7 @@ class TitleEditor(QDialog):
         self.writeToFile(self.xmldoc)
         self.display_svg()
 
-    @pyqtSlot(QtGui.QColor)
+    @pyqtSlot(QColor)
     def color_callback(self, save_fn, refresh_fn, color):
         """Update SVG color after user selection"""
         if not color or not color.isValid():
@@ -380,14 +378,14 @@ class TitleEditor(QDialog):
         self.update_timer.start()
 
     @staticmethod
-    def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
+    def best_contrast(bg: QColor) -> QColor:
         """Choose text color for best contrast against a background"""
         colrgb = bg.getRgbF()
         # Compute perceptive luminance of background color
         lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
         if (lum < 0.5):
-            return QtGui.QColor(Qt.white)
-        return QtGui.QColor(Qt.black)
+            return QColor(Qt.GlobalColor.white)
+        return QColor(Qt.GlobalColor.black)
 
     def btnFontColor_clicked(self):
         app = get_app()
@@ -402,7 +400,7 @@ class TitleEditor(QDialog):
         ColorPicker(
             self.font_color_code, parent=self,
             title=_("Select a Color"),
-            extra_options=QColorDialog.ShowAlphaChannel,
+            extra_options=QColorDialog.ColorDialogOption.ShowAlphaChannel,
             callback=callback_func)
 
     def btnBackgroundColor_clicked(self):
@@ -418,7 +416,7 @@ class TitleEditor(QDialog):
         ColorPicker(
             self.bg_color_code, parent=self,
             title=_("Select a Color"),
-            extra_options=QColorDialog.ShowAlphaChannel,
+            extra_options=QColorDialog.ColorDialogOption.ShowAlphaChannel,
             callback=callback_func)
 
     def btnFont_clicked(self):
@@ -434,8 +432,8 @@ class TitleEditor(QDialog):
         # Update SVG font
         if ok and font is not oldfont:
             self.qfont = font
-            fontinfo = QtGui.QFontInfo(font)
-            oldfontinfo = QtGui.QFontInfo(oldfont)
+            fontinfo = QFontInfo(font)
+            oldfontinfo = QFontInfo(oldfont)
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
@@ -465,7 +463,7 @@ class TitleEditor(QDialog):
             # Get opacity or default to opaque
             opacity = float(ard.get("opacity", 1.0))
 
-            color = QtGui.QColor(color)
+            color = QColor(color)
             text_color = self.best_contrast(color)
             # Set the color of the button, ignoring alpha
             self.btnFontColor.setStyleSheet(
@@ -512,7 +510,7 @@ class TitleEditor(QDialog):
             color = ard.get("fill", "#000")
             opacity = float(ard.get("opacity", 1.0))
 
-            color = QtGui.QColor(color)
+            color = QColor(color)
             text_color = self.best_contrast(color)
 
             # Set the colors of the button, ignoring opacity
@@ -596,9 +594,10 @@ class TitleEditor(QDialog):
                     ret = QMessageBox.question(
                         self, _("Title Editor"),
                         _("%s already exists.\nDo you want to replace it?") % file_name,
-                        QMessageBox.No | QMessageBox.Yes
+                        QMessageBox.StandardButton.No
+                        | QMessageBox.StandardButton.Yes
                     )
-                    if ret == QMessageBox.No:
+                    if ret == QMessageBox.StandardButton.No:
                         # Do nothing
                         return
 

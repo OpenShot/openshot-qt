@@ -146,7 +146,7 @@ class clipExportWindow(QDialog):
     def _getDestination(self):
         settings = get_app().get_settings()
         fd = QFileDialog()
-        fd.setOption(QFileDialog.ShowDirsOnly)
+        fd.setOption(QFileDialog.Option.ShowDirsOnly)
         fd.setDirectory(
             settings.getDefaultPath(settings.actionType.EXPORT)
         )
@@ -171,12 +171,12 @@ class clipExportWindow(QDialog):
         # Make progress bar look like the one in the export dialog
         from PyQt5.QtGui import QPalette
         p = QPalette()
-        p.setColor(QPalette.Highlight, Qt.green)
+        p.setColor(QPalette.ColorRole.Highlight, Qt.GlobalColor.green)
         self.progressExportVideo.setPalette(p)
 
-        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ActionRole)
-        self.buttonBox.addButton(self.export_button, QDialogButtonBox.ActionRole)
-        self.buttonBox.addButton(self.done_button, QDialogButtonBox.ActionRole)
+        self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ButtonRole.ActionRole)
+        self.buttonBox.addButton(self.export_button, QDialogButtonBox.ButtonRole.ActionRole)
+        self.buttonBox.addButton(self.done_button, QDialogButtonBox.ButtonRole.ActionRole)
         self.done_button.setHidden(True)
         self.progressExportVideo.setValue(0)
 

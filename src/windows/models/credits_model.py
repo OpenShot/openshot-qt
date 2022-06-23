@@ -31,8 +31,6 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from classes.logger import log
 from classes.app import get_app
 
-from collections import defaultdict
-
 
 class CreditsStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):
@@ -74,7 +72,7 @@ class CreditsModel():
                 continue
 
             row = []
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
             # Append type icon (PayPal, Kickstarter, Bitcoin, or Patreon)
             item = QStandardItem()

@@ -25,7 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, pyqtSlot, QRegExp
+from PyQt5.QtCore import QMimeData, QSize, QPoint, Qt, pyqtSlot, QRegularExpression
 from PyQt5.QtGui import QDrag
 from PyQt5.QtWidgets import QListView
 
@@ -45,7 +45,7 @@ class EmojisListView(QListView):
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
         if event.mimeData().hasUrls():
-            event.setDropAction(Qt.CopyAction)
+            event.setDropAction(Qt.DropAction.CopyAction)
             event.accept()
 
     def startDrag(self, event):
@@ -57,7 +57,7 @@ class EmojisListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.model.mimeData(selected))
-        icon = self.model.data(selected[0], Qt.DecorationRole)
+        icon = self.model.data(selected[0], Qt.ItemDataRole.DecorationRole)
         drag.setPixmap(icon.pixmap(self.drag_item_size))
         drag.setHotSpot(self.drag_item_center)
 
@@ -128,7 +128,9 @@ class EmojisListView(QListView):
     def filter_changed(self, filter_text=None):
         """Filter emoji with proxy class"""
 
-        self.model.setFilterRegExp(QRegExp(filter_text, Qt.CaseInsensitive))
+        self.model().setFilterRegularExpression(QRegularExpression(
+            filter_text,
+            QRegularExpression.PatternOption.CaseInsensitiveOption))
         self.model.setFilterKeyColumn(0)
         self.refresh_view()
 
@@ -159,8 +161,8 @@ class EmojisListView(QListView):
         self.setModel(self.model)
         self.setIconSize(info.EMOJI_ICON_SIZE)
         self.setGridSize(info.EMOJI_GRID_SIZE)
-        self.setViewMode(QListView.IconMode)
-        self.setResizeMode(QListView.Adjust)
+        self.setViewMode(QListView.ViewMode.IconMode)
+        self.setResizeMode(QListView.ResizeMode.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')

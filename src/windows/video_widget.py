@@ -320,9 +320,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Paint custom frame image on QWidget
         painter = QPainter(self)
         painter.setRenderHints(
-            QPainter.Antialiasing
-            | QPainter.SmoothPixmapTransform
-            | QPainter.TextAntialiasing,
+            QPainter.RenderHint.Antialiasing |
+            QPainter.RenderHint.SmoothPixmapTransform |
+            QPainter.RenderHint.TextAntialiasing,
             True)
 
         # Fill the whole widget with the solid color
@@ -335,12 +335,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # DRAW FRAME
             # Calculate new frame image size, maintaining aspect ratio
             pixSize = self.current_image.size()
-            pixSize.scale(event.rect().size(), Qt.KeepAspectRatio)
+            pixSize.scale(event.rect().size(), Qt.AspectRatioMode.KeepAspectRatio)
             self.curr_frame_size = pixSize
 
             # Scale image (take into account display scaling for High DPI monitors)
             scale = self.devicePixelRatioF()
-            scaledPix = self.current_image.scaled(pixSize * scale, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            scaledPix = self.current_image.scaled(pixSize * scale, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)
@@ -383,13 +383,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 scale = openshot.SCALE_STRETCH
 
             if scale == openshot.SCALE_FIT:
-                source_size.scale(player_width, player_height, Qt.KeepAspectRatio)
+                source_size.scale(player_width, player_height, Qt.AspectRatioMode.KeepAspectRatio)
 
             elif scale == openshot.SCALE_STRETCH:
-                source_size.scale(player_width, player_height, Qt.IgnoreAspectRatio)
+                source_size.scale(player_width, player_height, Qt.AspectRatioMode.IgnoreAspectRatio)
 
             elif scale == openshot.SCALE_CROP:
-                source_size.scale(player_width, player_height, Qt.KeepAspectRatioByExpanding)
+                source_size.scale(player_width, player_height, Qt.AspectRatioMode.KeepAspectRatioByExpanding)
 
             # Get new source width / height (after scaling mode applied)
             source_width = source_size.width()
@@ -559,7 +559,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
         viewport_size = QSizeF(aspectRatio, 1).scaled(
-                            window_size, Qt.KeepAspectRatio
+                            window_size, Qt.AspectRatioMode.KeepAspectRatio
                         ) * self.zoom
         viewport_rect = QRectF(QPointF(0, 0), viewport_size)
         viewport_rect.moveCenter(window_rect.center())
@@ -636,17 +636,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Render QWidget onto scaled QImage
             self.region_qimage = QImage(
-                mapped_region_rect.size(), QImage.Format_RGBA8888)
+                mapped_region_rect.size(), QImage.Format.Format_RGBA8888)
             region_painter = QPainter(self.region_qimage)
             region_painter.setRenderHints(
-                QPainter.Antialiasing
-                | QPainter.SmoothPixmapTransform
-                | QPainter.TextAntialiasing,
+                QPainter.RenderHint.Antialiasing
+                | QPainter.RenderHint.SmoothPixmapTransform
+                | QPainter.RenderHint.TextAntialiasing,
                 True)
             region_painter.scale(scale, scale)
             self.render(
                 region_painter, QPoint(0, 0),
-                QRegion(mapped_region_rect, QRegion.Rectangle))
+                QRegion(mapped_region_rect, QRegion.RegionType.Rectangle))
             region_painter.end()
 
         # Inform UpdateManager to accept updates, and only store our final update
@@ -663,7 +663,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Rotate cursor based on the current transform"""
         rotated_pixmap = pixmap.transformed(
             QTransform().rotate(rotation).shear(shear_x, shear_y).scale(0.8, 0.8),
-            Qt.SmoothTransformation)
+            Qt.TransformationMode.SmoothTransformation)
         return QCursor(rotated_pixmap)
 
     def checkTransformMode(self, rotation, shear_x, shear_y, event):
@@ -693,7 +693,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             and self.resize_button.isVisible()
             and self.resize_button.rect().contains(event.pos())
         ):
-            self.setCursor(Qt.ArrowCursor)
+            self.setCursor(Qt.CursorShape.ArrowCursor)
             self.transform_mode = None
             return
 
@@ -701,7 +701,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         for h in handle_uis:
             if self.transform.mapToPolygon(
                     h["handle"].toRect()
-                    ).containsPoint(event.pos(), Qt.OddEvenFill):
+                    ).containsPoint(event.pos(), Qt.FillRule.OddEvenFill):
                 # Handle contains cursor
                 if self.transform_mode and self.transform_mode != h["mode"]:
                     # We're in different xform mode, skip
@@ -714,7 +714,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # If not over any handles, determne inside/outside clip rectangle
         r = non_handle_uis.get("region")
-        if self.transform.mapToPolygon(r.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+        if self.transform.mapToPolygon(r.toRect()).containsPoint(event.pos(), Qt.FillRule.OddEvenFill):
             nh = non_handle_uis.get("inside", {})
         else:
             nh = non_handle_uis.get("outside", {})
@@ -931,7 +931,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     elif self.transform_mode == 'scale_right':
                         scale_x += x_motion / half_w
 
-                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ControlModifier) > 0:
                         # If CTRL key is pressed, fix the scale_y to the correct aspect ration
                         if scale_x:
                             scale_y = scale_x
@@ -964,12 +964,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 and self.resize_button.rect().contains(event.pos())
             ):
                 # Mouse over resize button (and not currently dragging)
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
             elif (
                     self.region_transform
                     and self.regionTopLeftHandle
                     and self.region_transform.mapToPolygon(
-                        self.regionTopLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill)
+                        self.regionTopLeftHandle.toRect()).containsPoint(event.pos(), Qt.FillRule.OddEvenFill)
                     ):
                 if not self.region_mode or self.region_mode == 'scale_top_left':
                     self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), 0, 0, 0))
@@ -980,7 +980,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     self.region_transform
                     and self.regionBottomRightHandle
                     and self.region_transform.mapToPolygon(
-                        self.regionBottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill)
+                        self.regionBottomRightHandle.toRect()
+                        ).containsPoint(event.pos(), Qt.FillRule.OddEvenFill)
                     ):
                 if not self.region_mode or self.region_mode == 'scale_bottom_right':
                     self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), 0, 0, 0))
@@ -988,7 +989,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 if self.mouse_dragging and not self.region_mode:
                     self.region_mode = 'scale_bottom_right'
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
 
             # Initialize new region coordinates at current event.pos()
             if self.mouse_dragging and not self.region_mode:
@@ -1132,7 +1133,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         elif self.transform_mode == 'scale_right':
                             scale_x += x_motion / half_w
 
-                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ControlModifier) > 0:
                             # If CTRL key is pressed, fix the scale_y to the correct aspect ratio
                             if scale_x:
                                 scale_y = scale_x
@@ -1343,7 +1344,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Scale project size (with aspect ratio) to the delayed widget size
         project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
-        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
+        project_size.scale(self.delayed_size, Qt.AspectRatioMode.KeepAspectRatio)
 
         if project_size.height() > 0:
             # Ensure width and height are divisible by 2
@@ -1459,8 +1460,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.mutex = QMutex()
 
         # Init Qt widget's properties (background repainting, etc...)
-        super().setAttribute(Qt.WA_OpaquePaintEvent)
-        super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        super().setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent)
+        super().setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
 
         # Add self as listener to project data updates (used to update the timeline)
         get_app().updates.add_listener(self)
@@ -1475,11 +1476,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.win = get_app().window
 
         # Update title whenever playback speed changes.
-        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.PauseSignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.SpeedSignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.StopSignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.PlaySignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.PlaySignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.PauseSignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.SpeedSignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.StopSignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
 
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)

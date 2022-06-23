@@ -32,7 +32,7 @@ from operator import itemgetter
 
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot, QRect
 from PyQt5.QtGui import (
-    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
 )
 from PyQt5.QtWidgets import (
@@ -70,7 +70,7 @@ class PropertyDelegate(QItemDelegate):
 
     def paint(self, painter, option, index):
         painter.save()
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         # Get data model and selection
         model = self.model
@@ -106,7 +106,7 @@ class PropertyDelegate(QItemDelegate):
             value_percent = 0.0
 
         # set background color
-        painter.setPen(QPen(Qt.NoPen))
+        painter.setPen(QPen(Qt.PenStyle.NoPen))
         if property_type == "color":
             # Color keyframe
             red = int(cur_property[1]["red"]["value"])
@@ -115,14 +115,17 @@ class PropertyDelegate(QItemDelegate):
             painter.setBrush(QColor(red, green, blue))
         else:
             # Normal Keyframe
-            if option.state & QStyle.State_Selected:
+            if option.state & QStyle.StateFlag.State_Selected:
                 painter.setBrush(QColor("#575757"))
             else:
                 painter.setBrush(QColor("#3e3e3e"))
 
         if readonly:
             # Set text color for read only fields
-            painter.setPen(QPen(get_app().window.palette().color(QPalette.Disabled, QPalette.Text)))
+            palette = get_app().window.palette()
+            pen = palette.color(
+                QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text)
+            painter.setPen(QPen(pen))
         else:
             path = QPainterPath()
             path.addRoundedRect(QRectF(option.rect), 15, 15)
@@ -133,7 +136,7 @@ class PropertyDelegate(QItemDelegate):
             painter.setBrush(QBrush(QColor("#000000")))
             mask_rect = QRectF(option.rect)
             mask_rect.setWidth(option.rect.width() * value_percent)
-            painter.setClipRect(mask_rect, Qt.IntersectClip)
+            painter.setClipRect(mask_rect, Qt.ClipOperation.IntersectClip)
 
             # gradient for value box
             gradient = QLinearGradient(option.rect.topLeft(), option.rect.topRight())
@@ -157,11 +160,12 @@ class PropertyDelegate(QItemDelegate):
                     self.curve_pixmaps[interpolation])
 
             # Set text color
-            painter.setPen(QPen(Qt.white))
+            painter.setPen(QPen(Qt.GlobalColor.white))
 
-        value = index.data(Qt.DisplayRole)
+        value = index.data(Qt.ItemDataRole.DisplayRole)
         if value:
-            painter.drawText(option.rect, Qt.AlignCenter, value)
+            painter.drawText(
+                option.rect, Qt.AlignmentFlag.AlignCenter, value)
 
         painter.restore()
 
@@ -472,7 +476,7 @@ class PropertiesTableView(QTableView):
                             # Check if the timeline's clip file name matches the clip the user selected
                             if (clip_path == clip_instance_path):
                                 # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
+                                clip_instance_icon = clip_index.data(Qt.ItemDataRole.DecorationRole)
                         effect_choices = [{"name": "None",
                                             "value": "None",
                                             "selected": False,
@@ -543,7 +547,7 @@ class PropertiesTableView(QTableView):
                             # Check if the timeline's clip file name matches the clip the user selected
                             if (clip_path == clip_instance_path):
                                 # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
+                                clip_instance_icon = clip_index.data(Qt.ItemDataRole.DecorationRole)
                                 self.choices.append({"name": clip_instance_data["title"],
                                               "value": clip_instance_id,
                                               "selected": False,
@@ -583,11 +587,12 @@ class PropertiesTableView(QTableView):
                             # Check if the timeline's clip file name matches the clip the user selected
                             if (clip_path == clip_instance_path):
                                 # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                                clip_choices.append({"name": clip_instance_data["title"],
-                                              "value": clip_instance_id,
-                                              "selected": False,
-                                              "icon": clip_instance_icon})
+                                clip_instance_icon = clip_index.data(Qt.ItemDataRole.DecorationRole)
+                                clip_choices.append({
+                                    "name": clip_instance_data["title"],
+                                    "value": clip_instance_id,
+                                    "selected": False,
+                                    "icon": clip_instance_icon})
                         # Get the pixmap of the clip icon
                         icon_size = 72
                         icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
@@ -628,7 +633,7 @@ class PropertiesTableView(QTableView):
                     idx = self.files_model.index(i, 0)
                     if not idx.isValid():
                         continue
-                    icon = idx.data(Qt.DecorationRole)
+                    icon = idx.data(Qt.ItemDataRole.DecorationRole)
                     name = idx.sibling(i, 1).data()
                     path = os.path.join(idx.sibling(i, 4).data(), name)
 
@@ -648,7 +653,7 @@ class PropertiesTableView(QTableView):
                     idx = self.transition_model.index(i, 0)
                     if not idx.isValid():
                         continue
-                    icon = idx.data(Qt.DecorationRole)
+                    icon = idx.data(Qt.ItemDataRole.DecorationRole)
                     name = idx.sibling(i, 1).data()
                     path = idx.sibling(i, 3).data()
 
@@ -893,8 +898,8 @@ class PropertiesTableView(QTableView):
 
         # Setup header columns
         self.setModel(self.clip_properties_model.model)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.setWordWrap(True)
 
         # Set delegate
@@ -904,7 +909,7 @@ class PropertiesTableView(QTableView):
 
         # Get table header
         horizontal_header = self.horizontalHeader()
-        horizontal_header.setSectionResizeMode(QHeaderView.Stretch)
+        horizontal_header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         vertical_header = self.verticalHeader()
         vertical_header.setVisible(False)
 
@@ -1062,10 +1067,10 @@ class SelectionLabel(QFrame):
         self.lblSelection.setText("<strong>%s</strong>" % _("No Selection"))
         self.btnSelectionName = QPushButton()
         self.btnSelectionName.setVisible(False)
-        self.btnSelectionName.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.btnSelectionName.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         # Support rich text
-        self.lblSelection.setTextFormat(Qt.RichText)
+        self.lblSelection.setTextFormat(Qt.TextFormat.RichText)
 
         hbox = QHBoxLayout()
         hbox.setContentsMargins(0, 0, 0, 0)
