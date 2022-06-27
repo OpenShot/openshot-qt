@@ -65,6 +65,7 @@ def get_waveform_thread(file_id, clip_list):
         """
         Update the file query object with audio data (if found).
         """
+        get_app().window.actionClearWaveformData.setEnabled(True)
         # Ensure that UI attribute exists
         file_data = file.data
         file_audio_data = file_data.get("ui", {}).get("audio_data", [])

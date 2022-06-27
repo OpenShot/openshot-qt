@@ -322,6 +322,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def load(self, file_path, clear_thumbnails=True):
         """ Load project from file """
 
+        from classes.app import get_app
         self.new()
 
         if file_path:
@@ -337,6 +338,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # Fix history (if broken)
                 if not project_data.get("history"):
                     project_data["history"] = {"undo": [], "redo": []}
+
+                # If project has waveforms, enable removing waveforms
+                get_app().window.actionClearWaveformData.setEnabled(False)
+                for file in project_data["files"]:
+                    if file.get("ui",{}).get("audio_data", []):
+                        get_app().window.actionClearWaveformData.setEnabled(True)
+                        break
 
             except Exception:
                 try:
@@ -382,7 +390,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.apply_default_audio_settings()
 
         # Get app, and distribute all project data through update manager
-        from classes.app import get_app
         get_app().updates.load(self._data)
 
     def rescale_keyframes(self, scale_factor):

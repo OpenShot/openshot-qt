@@ -139,10 +139,17 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <widget class="QMenu" name="menuClear">
+     <property name="title">
+      <string>Clear</string>
+     </property>
+     <addaction name="actionClearHistory"/>
+     <addaction name="actionClearWaveformData"/>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
-    <addaction name="actionClearHistory"/>
+    <addaction name="menuClear"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
    </widget>
@@ -1632,10 +1639,10 @@
      <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
    </property>
    <property name="text">
-    <string>Clear History</string>
+    <string>History</string>
    </property>
    <property name="toolTip">
-    <string>Clear History</string>
+    <string>Remove Undo/Redo History</string>
    </property>
   </action>
   <action name="actionImportEDL">
@@ -1711,6 +1718,20 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionClearWaveformData">
+   <property name="enabled">
+   <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="edit-clear"/>
+   </property>
+   <property name="text">
+    <string>Waveform</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Waveform Display Data</string>
    </property>
   </action>
  </widget>
