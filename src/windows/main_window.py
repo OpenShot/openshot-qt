@@ -222,6 +222,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             get_app().project.load("")
             self.actionUndo.setEnabled(False)
             self.actionRedo.setEnabled(False)
+            self.actionClearHistory.setEnabled(False)
             self.SetWindowTitle()
 
     def create_lock_file(self):
@@ -392,7 +393,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
 
-    def actionClearAudioData_trigger(self):
+    def actionClearWaveformData_trigger(self):
         """Clear audio data from current project"""
         from classes.query import File, Clip
         log.info("Placeholder. Remove ['ui']['audio_data'] from all files that have it.")
@@ -417,6 +418,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                         clip.save()
         # Resume update history
         get_app().updates.ignore_history = False
+        get_app().window.actionClearWaveformData.setEnabled(False)
 
     def actionClearHistory_trigger(self):
         """Clear history for current project"""
@@ -2400,6 +2402,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.info('updateStatusChanged')
         self.actionUndo.setEnabled(undo_status)
         self.actionRedo.setEnabled(redo_status)
+        self.actionClearHistory.setEnabled(undo_status | redo_status)
         self.SetWindowTitle()
 
     def addSelection(self, item_id, item_type, clear_existing=False):
