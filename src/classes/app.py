@@ -37,6 +37,11 @@ import json
 from PyQt5.QtCore import PYQT_VERSION_STR, QT_VERSION_STR, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
 
+# Disable sandbox support for QtWebEngine (required on some Linux distros
+# for the QtWebEngineWidgets to be rendered, otherwise no timeline is visible).
+# https://doc.qt.io/qt-5/qtwebengine-platform-notes.html#sandboxing-support
+os.environ["QTWEBENGINE_DISABLE_SANDBOX"] = "1"
+
 
 def get_app():
     """ Get the current QApplication instance of OpenShot """
