@@ -58,7 +58,7 @@ function drawAudio(scope, clip_id) {
   //get the clip in the scope
   var clip = findElement(scope.project.clips, "id", clip_id);
 
-  if (clip.show_audio) {
+  if (clip.ui && clip.ui.audio_data) {
     var element = $("#clip_" + clip_id);
 
     // Determine start and stop samples
@@ -71,10 +71,13 @@ function drawAudio(scope, clip_id) {
     var sample_divisor = samples_per_second / scope.pixelsPerSecond;
 
     //show audio container
-    element.find(".audio-container").show();
+    element.find(".audio-container").fadeIn(100);
 
     // Get audio canvas context
     var audio_canvas = element.find(".audio");
+    if (!audio_canvas) {
+      return;
+    }
     var ctx = audio_canvas[0].getContext("2d", {alpha: false});
 
     // Clear canvas
@@ -119,7 +122,7 @@ function drawAudio(scope, clip_id) {
     // And whenever enough are "collected", draw a block
     for (var i = start_sample; i < final_sample; i++) {
       // Flip negative values up
-      sample = Math.abs(clip.audio_data[i]);
+      sample = Math.abs(clip.ui.audio_data[i]);
       // X-Position of *next* sample
       var x = Math.floor((i + 1 - start_sample) / sample_divisor);
 

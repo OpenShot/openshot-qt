@@ -954,63 +954,32 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             self.window.TransformSignal.emit("")
 
     def Show_Waveform_Triggered(self, clip_ids):
-        """Show a waveform for the selected clip"""
+        """Show a waveform for all selected clips"""
 
-        # Loop through each selected clip
+        # Group clip IDs under each File ID
+        # Data format:  { "fileID": ["ClipID-1", "ClipID-2", etc...]}
+        files = {}
         for clip_id in clip_ids:
-
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
-                continue
+            file_id = clip.data.get("file_id")
 
-            file_path = clip.data["reader"]["path"]
+            if file_id not in files:
+                files[file_id] = []
+            files[file_id].append(clip.data.get("id"))
 
-            # Find actual clip object from libopenshot
-            c = self.window.timeline_sync.timeline.GetClip(clip_id)
-            if c and c.Reader() and not c.Reader().info.has_single_image:
-                # Find frame 1 channel_filter property
-                channel_filter = c.channel_filter.GetInt(1)
-
-                # Set cursor to waiting
-                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
-
-                # Get audio data in a separate thread (so it doesn't block the UI)
-                channel_filter = channel_filter
-                get_audio_data(clip_id, file_path, channel_filter, c.volume)
+        # Get audio data for all "selected" files/clips
+        get_audio_data(files)
 
     def Hide_Waveform_Triggered(self, clip_ids):
         """Hide the waveform for the selected clip"""
 
-        # Loop through each selected clip
+        # Loop through each selected clip ID
         for clip_id in clip_ids:
-
-            # Get existing clip object
+            # Get existing clip object & clear audio_data
             clip = Clip.get(id=clip_id)
-
-            if clip:
-                # Pass to javascript timeline (and render)
-                self.run_js(JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');")
-
-    def Waveform_Ready(self, clip_id, audio_data):
-        """Callback when audio waveform is ready"""
-        log.info("Waveform_Ready for clip ID: %s" % (clip_id))
-
-        # Convert waveform data to JSON
-        serialized_audio_data = json.dumps(audio_data)
-
-        # Set waveform cache (with clip_id as key)
-        self.waveform_cache[clip_id] = serialized_audio_data
-
-        # Pass to javascript timeline (and render)
-        self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");")
-
-        # Restore normal cursor
-        get_app().restoreOverrideCursor()
-
-        # Start timer to redraw audio
-        self.redraw_audio_timer.start()
+            clip.data = {"ui": {"audio_data": []}}
+            clip.save()
 
     def Thumbnail_Updated(self, clip_id):
         """Callback when thumbnail needs to be updated"""
@@ -1084,10 +1053,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 # Save changes
                 clip.save()
 
-                # Generate waveform for new clip
-                log.info("Generate waveform for split audio track clip id: %s" % clip.id)
-                self.Show_Waveform_Triggered([clip.id])
-
             if action == MENU_SPLIT_AUDIO_MULTIPLE:
                 # Get # of channels on clip
                 channels = int(clip.data["reader"]["channels"])
@@ -1129,10 +1094,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                     # Save changes
                     clip.save()
-
-                    # Generate waveform for new clip
-                    log.info("Generate waveform for split audio track clip id: %s" % clip.id)
-                    self.Show_Waveform_Triggered([clip.id])
 
                     # Remove the ID property from the clip (so next time, it will create a new clip)
                     clip.id = None
@@ -1910,9 +1871,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 # Invalid or locked clip, skip to next item
                 continue
 
-            # Determine if waveform needs to be redrawn
-            has_audio_data = clip_id in self.waveform_cache
-
             if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
@@ -1959,14 +1917,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                 # Save changes again (with new thumbnail)
                 self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
-
-                if has_audio_data:
-                    # Add right clip audio to cache
-                    self.waveform_cache[right_clip.id] = self.waveform_cache.get(clip_id, '[]')
-
-                    # Pass audio to javascript timeline (and render)
-                    self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('{}',{});"
-                        .format(right_clip.id, self.waveform_cache.get(right_clip.id)))
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2033,18 +1983,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         """Callback for volume context menus"""
         log.debug(action)
 
-        # Callback function, to redraw audio data after an update
-        def callback(self, clip_id, callback_data):
-            has_audio_data = callback_data
-            log.info('has_audio_data: %s', has_audio_data)
-
-            if has_audio_data:
-                # Re-generate waveform since volume curve has changed
-                self.Show_Waveform_Triggered(clip_id)
-
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
+        waveform_files = {}
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -2163,8 +2105,16 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-            # Determine if waveform needs to be redrawn
-            self.run_js(JS_SCOPE_SELECTOR + ".hasAudioData('{}');".format(clip.id), partial(callback, self, clip.id))
+            # Track waveform data (if we are already displaying waveform for this clip)
+            file_id = clip.data.get("file_id")
+            if file_id and len(clip.data.get("ui", {}).get("audio_data", [])) > 1:
+                if file_id not in waveform_files:
+                    waveform_files[file_id] = [clip.id]
+                else:
+                    waveform_files[file_id].append(clip.id)
+
+        # Update clip waveform data (for all selected clips)
+        get_audio_data(waveform_files)
 
     def Rotate_Triggered(self, action, clip_ids, position="Start of Clip"):
         """Callback for rotate context menus"""
@@ -3199,12 +3149,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         window.TimelineScroll.connect(self.update_scroll)
         window.TimelineCenter.connect(self.centerOnPlayhead)
         window.SetKeyframeFilter.connect(self.SetPropertyFilter)
-
-        # Connect waveform generation signal
-        window.WaveformReady.connect(self.Waveform_Ready)
-
-        # Local audio waveform cache
-        self.waveform_cache = {}
 
         # Connect update thumbnail signal
         window.ThumbnailUpdated.connect(self.Thumbnail_Updated)

@@ -99,7 +99,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SpeedSignal = pyqtSignal(float)
     RecoverBackup = pyqtSignal()
     FoundVersionSignal = pyqtSignal(str)
-    WaveformReady = pyqtSignal(str, list)
     TransformSignal = pyqtSignal(str)
     KeyFrameTransformSignal = pyqtSignal(str, str)
     SelectRegionSignal = pyqtSignal(str)
@@ -223,6 +222,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             get_app().project.load("")
             self.actionUndo.setEnabled(False)
             self.actionRedo.setEnabled(False)
+            self.actionClearHistory.setEnabled(False)
             self.SetWindowTitle()
 
     def create_lock_file(self):
@@ -392,6 +392,33 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         win = TitleEditor(edit_file_path=file_path, duplicate=True)
         # Run the dialog event loop - blocking interaction on this window during that time
         return win.exec_()
+
+    def actionClearWaveformData_trigger(self):
+        """Clear audio data from current project"""
+        from classes.query import File, Clip
+        log.info("Placeholder. Remove ['ui']['audio_data'] from all files that have it.")
+        files = File.filter()
+
+        # Audio data is a large object. Don't put it in the history
+        get_app().updates.ignore_history = True
+        for file in files:
+            if "audio_data" in file.data.get("ui", {}):
+                file_path = file.data.get("path")
+                log.debug("File %s has audio data. Deleting it." % os.path.split(file_path)[1])
+                del(file.data["ui"]["audio_data"])
+                file.save()
+
+                # Remove audio data from any clips of this file
+                clips = Clip.filter(path = file_path)
+                if clips:
+                    log.debug("Clips of this file exist. Deleting their audio data.")
+                for clip in clips:
+                    if "audio_data" in clip.data.get("ui",{}):
+                        del(clip.data["ui"]["audio_data"])
+                        clip.save()
+        # Resume update history
+        get_app().updates.ignore_history = False
+        get_app().window.actionClearWaveformData.setEnabled(False)
 
     def actionClearHistory_trigger(self):
         """Clear history for current project"""
@@ -2384,6 +2411,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.info('updateStatusChanged')
         self.actionUndo.setEnabled(undo_status)
         self.actionRedo.setEnabled(redo_status)
+        self.actionClearHistory.setEnabled(undo_status | redo_status)
         self.SetWindowTitle()
 
     def addSelection(self, item_id, item_type, clear_existing=False):
