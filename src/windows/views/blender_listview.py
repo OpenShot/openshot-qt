@@ -217,6 +217,11 @@ class BlenderListView(QListView):
         self.params[param["name"]] = value
         log.info('Animation param %s set to %s' % (param["name"], value))
         if param["name"] == "length_multiplier":
+            # Convert value to float (and multiply with project FPS diff)
+            # This converts all length_multipliers to the correct project FPS reference.
+            # For example, a 1X multiplier would be 1.2X for a 30 FPS project
+            # using a 25 FPS animated title - to scale up to the correct # of frames.
+            self.params[param["name"]] = float(value) * self.project_fps_diff
             self.init_slider_values()
 
     def color_button_clicked(self, widget, param, index):
@@ -289,7 +294,7 @@ class BlenderListView(QListView):
         """ Init the slider and preview frame label to the currently selected animation """
 
         # Get current preview slider frame
-        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
+        length = int(self.params.get("end_frame", 1) * self.params.get("length_multiplier", 1.0))
 
         # Update the preview slider
         middle_frame = int(length / 2)
@@ -315,8 +320,8 @@ class BlenderListView(QListView):
             "digits": 4,
             "extension": "png",
             "fps": {
-                "num": 25,
-                "den": 1
+                "num": self.fps.get("num", 25),
+                "den": self.fps.get("den", 1)
             }
         }
 
@@ -368,7 +373,7 @@ class BlenderListView(QListView):
         # update label and preview slider
         self.win.sliderPreview.setValue(current_frame)
 
-        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
+        length = int(self.params.get("end_frame", 1) * self.params.get("length_multiplier", 1.0))
         self.win.lblFrame.setText("{}/{}".format(current_frame, length))
 
     @pyqtSlot(int)
@@ -378,7 +383,7 @@ class BlenderListView(QListView):
             self.preview_timer.start()
 
         # Update preview label
-        length = int(self.params.get("end_frame", 1)) * int(self.params.get("length_multiplier", 1))
+        length = int(self.params.get("end_frame", 1) * self.params.get("length_multiplier", 1.0))
         self.win.lblFrame.setText("{}/{}".format(new_value, length))
 
     def preview_timer_onTimeout(self):
@@ -671,6 +676,12 @@ Blender Path: {}
         self.preview_timer.setInterval(300)
         self.preview_timer.setSingleShot(True)
         self.preview_timer.timeout.connect(self.preview_timer_onTimeout)
+
+        # Calculate diff between project FPS and title FPS
+        # All animated titles are created at an assumed default 25.0 FPS
+        self.fps = self.app.project.get("fps")
+        fps_float = self.fps["num"] / float(self.fps["den"])
+        self.project_fps_diff = fps_float / 25.0
 
         # Init dictionary which holds the values to the template parameters
         self.params = {}
