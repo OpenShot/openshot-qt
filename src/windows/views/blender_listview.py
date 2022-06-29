@@ -33,6 +33,7 @@ import re
 import functools
 import shlex
 import json
+from time import sleep
 
 # Try to get the security-patched XML functions from defusedxml
 try:
@@ -583,7 +584,8 @@ Blender Path: {}
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        self.worker.Cancel()
+        if "worker" in dir(self):
+            self.worker.Cancel()
 
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
@@ -748,9 +750,10 @@ class Worker(QObject):
     def Cancel(self):
         """Cancel worker render"""
         if self.process:
-            # Stop blender process if running
-            self.process.terminate()
-            self.process.finished.emit()
+            while self.process and self.process.poll() == None:
+                log.debug("Terminating Blender Process")
+                self.process.terminate()
+                sleep(0.1)
         self.canceled = True
 
     def blender_version_check(self):
@@ -901,8 +904,6 @@ class Worker(QObject):
             self.end_processing.emit()
             log.info("Blender process exited, %d frames saved.", self.frame_count)
 
-            if self.canceled:
-                return
             if self.frame_count < 1:
                 log.warning("No frame detected from Blender!")
                 log.warning("Blender output:\n{}".format(
