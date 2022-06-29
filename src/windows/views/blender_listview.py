@@ -219,7 +219,7 @@ class BlenderListView(QListView):
         if param["name"] == "length_multiplier":
             # Convert value to float (and multiply with project FPS diff)
             # This converts all length_multipliers to the correct project FPS reference.
-            # For example, a 1X multiplier would be 1.25X for a 30 FPS project
+            # For example, a 1X multiplier would be 1.2X for a 30 FPS project
             # using a 25 FPS animated title - to scale up to the correct # of frames.
             self.params[param["name"]] = float(value) * self.project_fps_diff
             self.init_slider_values()
@@ -679,7 +679,6 @@ Blender Path: {}
 
         # Calculate diff between project FPS and title FPS
         # All animated titles are created at an assumed default 25.0 FPS
-        self.project_fps_diff = 1.0
         self.fps = self.app.project.get("fps")
         fps_float = self.fps["num"] / float(self.fps["den"])
         self.project_fps_diff = fps_float / 25.0
