@@ -1642,7 +1642,7 @@
     <string>History</string>
    </property>
    <property name="toolTip">
-    <string>Remove Undo/Redo History</string>
+    <string>Clear History</string>
    </property>
   </action>
   <action name="actionImportEDL">
@@ -1731,7 +1731,7 @@
     <string>Waveform</string>
    </property>
    <property name="toolTip">
-    <string>Remove Waveform Display Data</string>
+    <string>Clear Waveform Display Data</string>
    </property>
   </action>
  </widget>
