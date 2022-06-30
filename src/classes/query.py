@@ -170,7 +170,6 @@ class Clip(QueryObject):
         path = self.data.get("reader", {}).get("path")
         return os.path.basename(path)
 
-
 class Transition(QueryObject):
     """ This class allows Transitions (i.e. timeline effects) to be queried, updated, and deleted from the project data. """
     object_name = "effects"  # Derived classes should define this
