@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Init variables
 var dragging = false;
 var resize_disabled = false;
@@ -156,15 +156,13 @@ App.directive("tlClip", function ($timeout) {
           }
 
           //resize the audio canvas to match the new clip width
-          if (scope.clip.ui && scope.clip.ui.audio_data) {
+          if (scope.clip.show_audio) {
             //redraw audio as the resize cleared the canvas
             drawAudio(scope, scope.clip.id);
           }
           dragLoc = null;
         },
         resize: function (e, ui) {
-          element.find(".point").fadeOut(100);
-          element.find(".audio-container").fadeOut(100);
           if (resize_disabled) {
             // disabled, keep the item the same size
             $(this).css(ui.originalPosition);
@@ -423,19 +421,6 @@ App.directive("tlMultiSelectable", function () {
           scope.$apply();
         }
       });
-    }
-  };
-});
-
-// Handle audio waveform drawing (when a tl-audio directive is found)
-App.directive("tlAudio",  function ($timeout) {
-  return {
-    link: function (scope, element, attrs) {
-      $timeout(function () {
-        // Use timeout to wait until after the DOM is manipulated
-        let clip_id = attrs.id.replace("audio_clip_", "");
-        drawAudio(scope, clip_id);
-      }, 0);
     }
   };
 });

@@ -70,11 +70,9 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Handle change
         if action.key and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
-            # Ignore "ui" data changes on Property Model (used to display waveforms)
-            if action.values and "ui" not in action.values:
-                log.debug(action.values)
-                # Update the model data
-                self.update_model(get_app().window.txtPropertyFilter.text())
+            log.debug(action.values)
+            # Update the model data
+            self.update_model(get_app().window.txtPropertyFilter.text())
 
     # Update the selected item (which drives what properties show up)
     def update_item(self, item_id, item_type):

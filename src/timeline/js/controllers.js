@@ -372,16 +372,60 @@ App.controller("TimelineCtrl", function ($scope) {
     clip_selector.attr("src", existing_thumb_path);
   };
 
-  // Redraw all audio waveforms on the timeline (for example, if the screen is resized)
-  $scope.reDrawAllAudioData = function () {
-    // Loop through all clips (and look for audio data)
+  // Set the audio data for a clip
+  $scope.setAudioData = function (clip_id, audio_data) {
+    // Find matching clip
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ("ui" in $scope.project.clips[clip_index] && "audio_data" in $scope.project.clips[clip_index].ui
-        && $scope.project.clips[clip_index].ui.audio_data.length > 1) {
-        // Redraw audio data
+      if ($scope.project.clips[clip_index].id === clip_id) {
+        // Set audio data
+        $scope.$apply(function () {
+          $scope.project.clips[clip_index].audio_data = audio_data;
+          $scope.project.clips[clip_index].show_audio = true;
+        });
+        timeline.qt_log("DEBUG", "Audio data successful set on clip JSON");
+        break;
+      }
+
+      // Draw audio data
+      drawAudio($scope, clip_id);
+    }
+  };
+
+  // Hide the audio waveform for a clip
+  $scope.hideAudioData = function (clip_id) {
+    // Find matching clip
+    for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+      if ($scope.project.clips[clip_index].id === clip_id) {
+        // Set audio data
+        $scope.$apply(function () {
+          $scope.project.clips[clip_index].show_audio = false;
+          $scope.project.clips[clip_index].audio_data = [];
+        });
+        break;
+      }
+    }
+  };
+
+  // Redraw all audio waveforms on the timeline (if any)
+  $scope.reDrawAllAudioData = function () {
+    // Find matching clip
+    for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+      if ("audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+        // Redraw audio data (since it has audio data)
         drawAudio($scope, $scope.project.clips[clip_index].id);
       }
     }
+  };
+
+  // Does clip have audio_data?
+  $scope.hasAudioData = function (clip_id) {
+    // Find matching clip
+    for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
+      if ($scope.project.clips[clip_index].id === clip_id && "audio_data" in $scope.project.clips[clip_index] && $scope.project.clips[clip_index].audio_data.length > 0) {
+        return true;
+      }
+    }
+    return false;
   };
 
   $scope.setPropertyFilter = function (property) {
@@ -1421,7 +1465,10 @@ App.controller("TimelineCtrl", function ($scope) {
           // Update: If action and current object are Objects
           if (current_object.constructor === Object && action.value.constructor === Object) {
             for (var update_key in action.value) {
-              current_object[update_key] = action.value[update_key];
+              if (update_key in current_object) {
+                // Only copy over keys that exist in both action and current_object
+                current_object[update_key] = action.value[update_key];
+              }
             }
           }
           else {
