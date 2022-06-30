@@ -33,6 +33,7 @@ import re
 import functools
 import shlex
 import json
+from time import sleep
 
 # Try to get the security-patched XML functions from defusedxml
 try:
@@ -63,7 +64,6 @@ class BlenderListView(QListView):
 
     # Our signals
     start_render = pyqtSignal(str, str, int)
-    cancel_render = pyqtSignal()
 
     def currentChanged(self, selected, deselected):
         # Get selected item
@@ -593,8 +593,8 @@ Blender Path: {}
 
     def Cancel(self):
         """Cancel the current render, if any"""
-        #QMetaObject.invokeMethod(self.worker, 'Cancel', Qt.DirectConnection)
-        self.cancel_render.emit()
+        if "worker" in dir(self):
+            self.worker.Cancel()
 
     def Render(self, frame=None):
         """ Render an images sequence of the current template using Blender 2.62+ and the
@@ -624,7 +624,6 @@ Blender Path: {}
         self.background.started.connect(self.worker.Render)
 
         self.worker.render_complete.connect(self.render_finished)
-        self.cancel_render.connect(self.worker.Cancel)
 
         # State changes
         self.worker.end_processing.connect(self.end_processing)
@@ -763,14 +762,14 @@ class Worker(QObject):
             self.startupinfo = subprocess.STARTUPINFO()
             self.startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
-    @pyqtSlot()
     def Cancel(self):
         """Cancel worker render"""
         if self.process:
-            # Stop blender process if running
-            self.process.terminate()
+            while self.process and self.process.poll() == None:
+                log.debug("Terminating Blender Process")
+                self.process.terminate()
+                sleep(0.1)
         self.canceled = True
-        self.finished.emit()
 
     def blender_version_check(self):
         # Check the version of Blender
@@ -920,8 +919,6 @@ class Worker(QObject):
             self.end_processing.emit()
             log.info("Blender process exited, %d frames saved.", self.frame_count)
 
-            if self.canceled:
-                return
             if self.frame_count < 1:
                 log.warning("No frame detected from Blender!")
                 log.warning("Blender output:\n{}".format(
