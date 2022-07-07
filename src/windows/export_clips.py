@@ -263,9 +263,10 @@ class clipExportWindow(QDialog):
             # If within 2 frames of complete, show 100 percent.
             self.progressExportVideo.setValue(100)
             return
-        self.progressExportVideo.setValue((count/total) * 100)
+        self.progressExportVideo.setValue(round((count/total) * 100))
 
     def _updateDialogExportFinished(self):
+        self.progressExportVideo.setValue(100)
         self.setWindowTitle(_("Done"))
         self.cancel_button.hide()
         self.done_button.setHidden(False)
