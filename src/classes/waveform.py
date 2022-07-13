@@ -170,5 +170,4 @@ def get_waveform_thread(file_id, clip_list):
             clip_audio_data.append(sample_from_time(time) * volume)
 
         # Save this data to the clip object
-        clip.data = {"ui": {"audio_data": clip_audio_data}}
-        clip.save()
+        get_app().window.timeline.audioDataReady.emit(clip.id, {"ui": {"audio_data": clip_audio_data}})

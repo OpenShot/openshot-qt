@@ -37,7 +37,7 @@ import logging
 import json
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
+from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer, pyqtSignal
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWidgets import QMenu, QDialog
 
@@ -180,6 +180,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
+
+    # Create signal for adding waveforms to clips
+    audioDataReady = pyqtSignal(str, object)
 
     @pyqtSlot()
     def page_ready(self):
@@ -979,6 +982,14 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Get existing clip object & clear audio_data
             clip = Clip.get(id=clip_id)
             clip.data = {"ui": {"audio_data": []}}
+            clip.save()
+
+    def audioDataReady_Triggered(self, clip_id, ui_data):
+        # When audio data has been calculated, add it to a clip
+        log.debug("AudioDataReady_Triggered recieved for clip: %s" % clip_id)
+        clip = Clip.get(id=clip_id)
+        if clip:
+            clip.data = ui_data
             clip.save()
 
     def Thumbnail_Updated(self, clip_id):
@@ -3181,3 +3192,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
+
+        # connect signal to recieve waveform data
+        self.audioDataReady.connect(self.audioDataReady_Triggered)
