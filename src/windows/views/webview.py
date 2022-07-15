@@ -37,7 +37,7 @@ import logging
 import json
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
-from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer
+from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer, pyqtSignal
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
 from PyQt5.QtWidgets import QMenu, QDialog
 
@@ -180,6 +180,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # Path to html file
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
+
+    # Create signal for adding waveforms to clips
+    audioDataReady = pyqtSignal(str, object)
 
     @pyqtSlot()
     def page_ready(self):
@@ -954,63 +957,40 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             self.window.TransformSignal.emit("")
 
     def Show_Waveform_Triggered(self, clip_ids):
-        """Show a waveform for the selected clip"""
+        """Show a waveform for all selected clips"""
 
-        # Loop through each selected clip
+        # Group clip IDs under each File ID
+        # Data format:  { "fileID": ["ClipID-1", "ClipID-2", etc...]}
+        files = {}
         for clip_id in clip_ids:
-
             # Get existing clip object
             clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
-                continue
+            file_id = clip.data.get("file_id")
 
-            file_path = clip.data["reader"]["path"]
+            if file_id not in files:
+                files[file_id] = []
+            files[file_id].append(clip.data.get("id"))
 
-            # Find actual clip object from libopenshot
-            c = self.window.timeline_sync.timeline.GetClip(clip_id)
-            if c and c.Reader() and not c.Reader().info.has_single_image:
-                # Find frame 1 channel_filter property
-                channel_filter = c.channel_filter.GetInt(1)
-
-                # Set cursor to waiting
-                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
-
-                # Get audio data in a separate thread (so it doesn't block the UI)
-                channel_filter = channel_filter
-                get_audio_data(clip_id, file_path, channel_filter, c.volume)
+        # Get audio data for all "selected" files/clips
+        get_audio_data(files)
 
     def Hide_Waveform_Triggered(self, clip_ids):
         """Hide the waveform for the selected clip"""
 
-        # Loop through each selected clip
+        # Loop through each selected clip ID
         for clip_id in clip_ids:
-
-            # Get existing clip object
+            # Get existing clip object & clear audio_data
             clip = Clip.get(id=clip_id)
+            clip.data = {"ui": {"audio_data": []}}
+            clip.save()
 
-            if clip:
-                # Pass to javascript timeline (and render)
-                self.run_js(JS_SCOPE_SELECTOR + ".hideAudioData('" + clip_id + "');")
-
-    def Waveform_Ready(self, clip_id, audio_data):
-        """Callback when audio waveform is ready"""
-        log.info("Waveform_Ready for clip ID: %s" % (clip_id))
-
-        # Convert waveform data to JSON
-        serialized_audio_data = json.dumps(audio_data)
-
-        # Set waveform cache (with clip_id as key)
-        self.waveform_cache[clip_id] = serialized_audio_data
-
-        # Pass to javascript timeline (and render)
-        self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('" + clip_id + "', " + serialized_audio_data + ");")
-
-        # Restore normal cursor
-        get_app().restoreOverrideCursor()
-
-        # Start timer to redraw audio
-        self.redraw_audio_timer.start()
+    def audioDataReady_Triggered(self, clip_id, ui_data):
+        # When audio data has been calculated, add it to a clip
+        log.debug("AudioDataReady_Triggered recieved for clip: %s" % clip_id)
+        clip = Clip.get(id=clip_id)
+        if clip:
+            clip.data = ui_data
+            clip.save()
 
     def Thumbnail_Updated(self, clip_id):
         """Callback when thumbnail needs to be updated"""
