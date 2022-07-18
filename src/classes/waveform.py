@@ -72,10 +72,6 @@ def get_waveform_thread(file_id, clip_list):
         if file_audio_data:
             log.info("Audio Data already retrieved (or being retrieved).")
             return
-        if not file_audio_data:
-            # Placeholder value. Communicates that audio data is being retrieved
-            file.data = {"ui": {"audio_data": [-999]}}
-            file.save()
 
         # Open file and access audio data (if audio data is found, otherwise return)
         temp_clip = openshot.Clip(file_data["path"])
@@ -123,13 +119,12 @@ def get_waveform_thread(file_id, clip_list):
     if not file_audio_data:
         # Generate audio data for a specific file
         getAudioData(file)
-    else:
-        log.debug("Awaiting audio data for file: %s" % file.data.get("path"))
-        while True:
-            # Loop until audio data is ready.
-            sleep(1)
-            if file.data.get("ui", {}).get("audio_data", []) != [-999]:
-                break
+    log.debug("Awaiting audio data for file: %s" % file.data.get("path"))
+    while True:
+        # Loop until audio data is ready.
+        sleep(1)
+        if file.data.get("ui", {}).get("audio_data", []):
+            break
     log.debug("Audio data found for file: %s" % file.data.get("path"))
 
     # Get file query object again (since it's data might have changed)
@@ -145,6 +140,13 @@ def get_waveform_thread(file_id, clip_list):
         if not file_audio_data:
             log.info("File has no audio, so we cannot find any waveform audio data")
             continue
+
+        # If clip already has waveform, remove it to re-calculate.
+        # (Used when volume changes the shape of the waveform)
+        if bool(clip.data.get("ui",{}).get("audio_data",[])):
+            log.debug("Removing pre-existing audio data")
+            del(clip.data["ui"]["audio_data"])
+            clip.save()
 
         # Method and variables for matching a time in seconds to an audio sample
         sample_count = len(file_audio_data)

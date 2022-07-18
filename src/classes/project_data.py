@@ -322,7 +322,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def load(self, file_path, clear_thumbnails=True):
         """ Load project from file """
 
-        from classes.app import get_app
         self.new()
 
         if file_path:
@@ -408,7 +407,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         import sys
         import pickle
         from classes.query import File, Track, Clip, Transition
-        from classes.app import get_app
         import openshot
         import json
 
@@ -421,7 +419,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                    "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Get FPS from project
-        from classes.app import get_app
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
@@ -929,7 +926,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
-        from classes.app import get_app
         app = get_app()
         settings = app.get_settings()
         # Get translation method

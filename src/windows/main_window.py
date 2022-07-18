@@ -57,7 +57,7 @@ from classes.importers.edl import import_edl
 from classes.importers.final_cut_pro import import_xml
 from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
-from classes.query import Clip, Transition, Marker, Track, Effect
+from classes.query import File, Clip, Transition, Marker, Track, Effect
 from classes.thumbnail import httpThumbnailServerThread
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
@@ -395,7 +395,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionClearWaveformData_trigger(self):
         """Clear audio data from current project"""
-        from classes.query import File, Clip
         files = File.filter()
 
         for file in files:

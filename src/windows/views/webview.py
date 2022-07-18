@@ -986,7 +986,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     def audioDataReady_Triggered(self, clip_id, ui_data):
         # When audio data has been calculated, add it to a clip
-        log.debug("AudioDataReady_Triggered recieved for clip: %s" % clip_id)
+        log.debug("audioDataReady_Triggered recieved for clip: %s" % clip_id)
         clip = Clip.get(id=clip_id)
         if clip:
             clip.data = ui_data
@@ -1890,9 +1890,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 # Invalid or locked clip, skip to next item
                 continue
 
-            # Determine if waveform needs to be redrawn
-            has_audio_data = clip_id in self.waveform_cache
-
             if action in [MENU_SLICE_KEEP_LEFT, MENU_SLICE_KEEP_BOTH]:
                 # Get details of original clip
                 position_of_clip = float(clip.data["position"])
@@ -1939,14 +1936,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                 # Save changes again (with new thumbnail)
                 self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
-
-                if has_audio_data:
-                    # Add right clip audio to cache
-                    self.waveform_cache[right_clip.id] = self.waveform_cache.get(clip_id, '[]')
-
-                    # Pass audio to javascript timeline (and render)
-                    self.run_js(JS_SCOPE_SELECTOR + ".setAudioData('{}',{});"
-                        .format(right_clip.id, self.waveform_cache.get(right_clip.id)))
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
@@ -2013,18 +2002,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         """Callback for volume context menus"""
         log.debug(action)
 
-        # Callback function, to redraw audio data after an update
-        def callback(self, clip_id, callback_data):
-            has_audio_data = callback_data
-            log.info('has_audio_data: %s', has_audio_data)
-
-            if has_audio_data:
-                # Re-generate waveform since volume curve has changed
-                self.Show_Waveform_Triggered(clip_id)
-
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
+        clips_with_waveforms= []
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -2143,8 +2124,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-            # Determine if waveform needs to be redrawn
-            self.run_js(JS_SCOPE_SELECTOR + ".hasAudioData('{}');".format(clip.id), partial(callback, self, clip.id))
+            # Add any clips with waveforms to a list
+            if clip.data.get("ui", {}).get("audio_data", []):
+                clips_with_waveforms.append(clip.id)
+
+        # Update waveforms of all clips that have them
+        self.Show_Waveform_Triggered(clips_with_waveforms)
 
     def Rotate_Triggered(self, action, clip_ids, position="Start of Clip"):
         """Callback for rotate context menus"""
@@ -3180,12 +3165,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         window.TimelineCenter.connect(self.centerOnPlayhead)
         window.SetKeyframeFilter.connect(self.SetPropertyFilter)
 
-        # Connect waveform generation signal
-        window.WaveformReady.connect(self.Waveform_Ready)
-
-        # Local audio waveform cache
-        self.waveform_cache = {}
-
         # Connect update thumbnail signal
         window.ThumbnailUpdated.connect(self.Thumbnail_Updated)
 
@@ -3217,3 +3196,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Delay the start of cache rendering
         QTimer.singleShot(1500, self.cache_renderer.start)
+
+        # connect signal to receive waveform data
+        self.audioDataReady.connect(self.audioDataReady_Triggered)
