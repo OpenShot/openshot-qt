@@ -2005,7 +2005,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        clips_with_waveforms= []
+        clips_with_waveforms = []
 
         # Loop through each selected clip
         for clip_id in clip_ids:

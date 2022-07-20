@@ -143,15 +143,16 @@ def get_waveform_thread(file_id, clip_list):
 
         # If clip already has waveform, remove it to re-calculate.
         # (Used when volume changes the shape of the waveform)
-        if bool(clip.data.get("ui",{}).get("audio_data",[])):
+        if bool(clip.data.get("ui", {}).get("audio_data", [])):
             log.debug("Removing pre-existing audio data")
-            del(clip.data["ui"]["audio_data"])
+            del clip.data["ui"]["audio_data"]
             clip.save()
 
         # Method and variables for matching a time in seconds to an audio sample
         sample_count = len(file_audio_data)
         file_duration = file.data.get("duration")
         time_per_sample = file_duration / sample_count
+
         def sample_from_time(time):
             sample_num = max(0, round(time / time_per_sample))
             sample_num = min(sample_count - 1, sample_num)
