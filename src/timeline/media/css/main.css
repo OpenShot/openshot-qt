@@ -395,11 +395,8 @@ img {
 }
 
 .audio-container {
-  display: none;
   margin-top: -20px;
   height: 46px;
-  overflow: hidden;
-  margin-left: -2px;
 }
 
 /* Clip Animations */

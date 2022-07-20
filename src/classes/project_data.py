@@ -338,6 +338,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if not project_data.get("history"):
                     project_data["history"] = {"undo": [], "redo": []}
 
+                # If project has waveforms, enable removing waveforms
+                get_app().window.actionClearWaveformData.setEnabled(False)
+                for file in project_data["files"]:
+                    if file.get("ui",{}).get("audio_data", []):
+                        get_app().window.actionClearWaveformData.setEnabled(True)
+                        break
+
             except Exception:
                 try:
                     # Attempt to load legacy project file (v1.X version)
@@ -382,7 +389,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             self.apply_default_audio_settings()
 
         # Get app, and distribute all project data through update manager
-        from classes.app import get_app
         get_app().updates.load(self._data)
 
     def rescale_keyframes(self, scale_factor):
@@ -401,7 +407,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         import sys
         import pickle
         from classes.query import File, Track, Clip, Transition
-        from classes.app import get_app
         import openshot
         import json
 
@@ -414,7 +419,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                                    "libopenshot": openshot.OPENSHOT_VERSION_FULL}
 
         # Get FPS from project
-        from classes.app import get_app
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
@@ -922,7 +926,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""
-        from classes.app import get_app
         app = get_app()
         settings = app.get_settings()
         # Get translation method
