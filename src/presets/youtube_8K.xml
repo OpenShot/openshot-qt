@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE openshot-export-option>
+<export-option>
+	<type translatable="True">Web</type>
+    <title translatable="True">YouTube HD (8K)</title>
+	<videoformat>mp4</videoformat>
+	<videocodec>libx264</videocodec>
+	<audiocodec>libmp3lame</audiocodec>
+	<audiochannels>2</audiochannels>
+	<audiochannellayout>3</audiochannellayout>
+	<videobitrate
+	 low="160 Mb/s"
+	 med="200 Mb/s"
+	 high="240 Mb/s"></videobitrate>
+	<audiobitrate
+	 low="128 kb/s"
+	 med="256 kb/s"
+	 high="320 kb/s"></audiobitrate>
+	<samplerate>48000</samplerate>
+	<projectprofile>8K UHD 4320p 23.98 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 24 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 25 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 29.97 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 30 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 50 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 59.94 fps</projectprofile>
+	<projectprofile>8K UHD 4320p 60 fps</projectprofile>
+</export-option>
