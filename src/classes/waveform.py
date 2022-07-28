@@ -65,7 +65,6 @@ def get_waveform_thread(file_id, clip_list):
         """
         Update the file query object with audio data (if found).
         """
-        get_app().window.actionClearWaveformData.setEnabled(True)
         # Ensure that UI attribute exists
         file_data = file.data
         file_audio_data = file_data.get("ui", {}).get("audio_data", [])
@@ -101,9 +100,8 @@ def get_waveform_thread(file_id, clip_list):
                 sample_num += sample_divisor
 
         # Update file with audio data
-        file.data = {"ui": {"audio_data": file_audio_data}}
-        file.save()
-        return
+        get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": file_audio_data}})
+        return file_audio_data
 
     # Get file query object
     file = File.get(id=file_id)
@@ -118,17 +116,13 @@ def get_waveform_thread(file_id, clip_list):
     file_audio_data = file.data.get("ui", {}).get("audio_data", [])
     if not file_audio_data:
         # Generate audio data for a specific file
-        getAudioData(file)
-    log.debug("Awaiting audio data for file: %s" % file.data.get("path"))
-    while True:
-        # Loop until audio data is ready.
-        sleep(1)
-        if file.data.get("ui", {}).get("audio_data", []):
-            break
-    log.debug("Audio data found for file: %s" % file.data.get("path"))
+        log.debug("Generating audio data for file %s" % file.id)
+        file_audio_data = getAudioData(file)
 
-    # Get file query object again (since it's data might have changed)
-    file = File.get(id=file_id)
+    if not file_audio_data:
+        log.info("No audio data found. Aborting")
+        return
+    log.debug("Audio data found for file: %s" % file.data.get("path"))
 
     # Loop through each selected clip (which uses this file)
     for clip_id in clip_list:
@@ -136,7 +130,6 @@ def get_waveform_thread(file_id, clip_list):
         clip_reader = clip.data.get("reader")
 
         # Get File's audio data (since it has changed)
-        file_audio_data = file.data.get("ui", {}).get("audio_data", [])
         if not file_audio_data:
             log.info("File has no audio, so we cannot find any waveform audio data")
             continue
@@ -145,8 +138,7 @@ def get_waveform_thread(file_id, clip_list):
         # (Used when volume changes the shape of the waveform)
         if bool(clip.data.get("ui", {}).get("audio_data", [])):
             log.debug("Removing pre-existing audio data")
-            del clip.data["ui"]["audio_data"]
-            clip.save()
+            get_app().window.timeline.audioDataReady.emit(clip.id, {"ui": {"audio_data": None}})
 
         # Method and variables for matching a time in seconds to an audio sample
         sample_count = len(file_audio_data)
