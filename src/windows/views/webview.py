@@ -183,6 +183,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # Create signal for adding waveforms to clips
     audioDataReady = pyqtSignal(str, object)
+    fileAudioDataReady = pyqtSignal(str, object)
 
     @pyqtSlot()
     def page_ready(self):
@@ -222,7 +223,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         elif action.key[0] != "files":
             # Apply diff to part of project data
             self.run_js(JS_SCOPE_SELECTOR + ".applyJsonDiff([" + action.json() + "]);")
-
+        
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
@@ -984,9 +985,18 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             clip.data = {"ui": {"audio_data": []}}
             clip.save()
 
+    def fileAudioDataReady_Triggered(self, file_id, ui_data):
+        log.debug("fileAudioDataReady_Triggered recieved for file: %s" % file_id)
+        get_app().window.actionClearWaveformData.setEnabled(True)
+        file = File.get(id=file_id)
+        if file:
+            file.data = ui_data
+            file.save()
+
     def audioDataReady_Triggered(self, clip_id, ui_data):
         # When audio data has been calculated, add it to a clip
         log.debug("audioDataReady_Triggered recieved for clip: %s" % clip_id)
+        get_app().window.actionClearWaveformData.setEnabled(True)
         clip = Clip.get(id=clip_id)
         if clip:
             clip.data = ui_data
@@ -3199,3 +3209,4 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # connect signal to receive waveform data
         self.audioDataReady.connect(self.audioDataReady_Triggered)
+        self.fileAudioDataReady.connect(self.fileAudioDataReady_Triggered)

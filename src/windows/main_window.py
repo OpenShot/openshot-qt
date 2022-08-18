@@ -404,14 +404,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 del file.data["ui"]["audio_data"]
                 file.save()
 
-                # Remove audio data from any clips of this file
-                clips = Clip.filter(path=file_path)
-                if clips:
-                    log.debug("Clips of this file exist. Deleting their audio data.")
-                for clip in clips:
-                    if "audio_data" in clip.data.get("ui", {}):
-                        del (clip.data["ui"]["audio_data"])
-                        clip.save()
+        clips = Clip.filter()
+        for clip in clips:
+            if "audio_data" in clip.data.get("ui", {}):
+                log.debug("Clip %s has audio data. Deleting it." % clip.id)
+                del clip.data["ui"]["audio_data"]
+                clip.save()
+
         get_app().window.actionClearWaveformData.setEnabled(False)
 
     def actionClearHistory_trigger(self):
