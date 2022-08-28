@@ -97,18 +97,31 @@ App.directive("tlClip", function ($timeout) {
           element.find(".point").fadeIn(100);
           element.find(".audio-container").fadeIn(100);
 
+          // Calculate the pixel locations of the left and right side
+          let original_left_edge = scope.clip.position * scope.pixelsPerSecond;
+          let original_right_edge = original_left_edge + ((scope.clip.end - scope.clip.start) * scope.pixelsPerSecond);
+
           if (resize_disabled) {
             // disabled, do nothing
             resize_disabled = false;
             return;
           }
 
-          // Hide snapline (if any)
-          scope.hideSnapline();
+          // Calculate the clip bounding box movement and apply snapping rules
+          let cursor_position = e.pageX - $("#ruler").offset().left;
+          let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
+            cursor_position - bounding_box.left, cursor_position - bounding_box.top,
+            cursor_position, cursor_position, "trimming")
 
-          //get amount changed in width
-          var delta_x = ui.originalSize.width - ui.element.width();
-          var delta_time = delta_x / scope.pixelsPerSecond;
+          // Calculate delta from current mouse position
+          let new_position_px = results.position.left;
+          let delta_x = 0;
+          if (dragLoc === "left") {
+            delta_x = original_left_edge - new_position_px;
+          } else if (dragLoc === "right") {
+            delta_x = original_right_edge - new_position_px;
+          }
+          let delta_time = delta_x / scope.pixelsPerSecond;
 
           //change the clip end/start based on which side was dragged
           var new_position = scope.clip.position;
@@ -117,14 +130,13 @@ App.directive("tlClip", function ($timeout) {
 
           if (dragLoc === "left") {
             // changing the start of the clip
-            new_left += delta_time;
+            new_left -= delta_time;
             if (new_left < 0) {
               // prevent less than zero
               new_left = 0.0;
-              new_position -= scope.clip.start
-            }
-            else {
-              new_position += delta_time
+              new_position -= scope.clip.start;
+            } else {
+              new_position -= delta_time;
             }
           }
           else {
@@ -135,6 +147,9 @@ App.directive("tlClip", function ($timeout) {
               new_right = scope.clip.duration;
             }
           }
+
+          // Hide snapline (if any)
+          scope.hideSnapline();
 
           //apply the new start, end and length to the clip's scope
           scope.$apply(function () {
@@ -165,10 +180,15 @@ App.directive("tlClip", function ($timeout) {
         resize: function (e, ui) {
           element.find(".point").fadeOut(100);
           element.find(".audio-container").fadeOut(100);
+
+          // Calculate the pixel locations of the left and right side
+          let original_left_edge = scope.clip.position * scope.pixelsPerSecond;
+          let original_width = (scope.clip.end - scope.clip.start) * scope.pixelsPerSecond;
+          let original_right_edge = original_left_edge + original_width;
+
           if (resize_disabled) {
             // disabled, keep the item the same size
-            $(this).css(ui.originalPosition);
-            $(this).width(ui.originalSize.width);
+            $(this).css({"left": original_left_edge + "px", "width": original_width + "px"});
             return;
           }
 
@@ -180,16 +200,16 @@ App.directive("tlClip", function ($timeout) {
 
           // Calculate delta from current mouse position
           let new_position = results.position.left;
-          let delta_x = 0;
+          let delta_x = 0.0;
           if (dragLoc === "left") {
-            delta_x = (parseFloat(ui.originalPosition.left)) - new_position;
+            delta_x = original_left_edge - new_position;
           } else if (dragLoc === "right") {
-            delta_x = (parseFloat(ui.originalPosition.left) + parseFloat(ui.originalSize.width)) - new_position;
+            delta_x = original_right_edge - new_position;
           }
 
           // Calculate the pixel locations of the left and right side
-          var new_left = scope.clip.start * scope.pixelsPerSecond;
-          var new_right = scope.clip.end * scope.pixelsPerSecond;
+          var new_left = parseFloat(scope.clip.start * scope.pixelsPerSecond);
+          var new_right = parseFloat(scope.clip.end * scope.pixelsPerSecond);
 
           if (dragLoc === "left") {
             // Adjust left side of clip
@@ -198,12 +218,12 @@ App.directive("tlClip", function ($timeout) {
             } else {
               // Don't allow less than 0.0 start
               let position_x = (scope.clip.position - scope.clip.start) * scope.pixelsPerSecond;
-              delta_x = (parseFloat(ui.originalPosition.left)) - position_x;
+              delta_x = original_left_edge - position_x;
               new_left = 0.0;
             }
 
             // Position and size clip
-            ui.element.css("left", ui.originalPosition.left - delta_x);
+            ui.element.css("left", original_left_edge - delta_x);
             ui.element.width(new_right - new_left);
           }
           else {
