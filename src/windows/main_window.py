@@ -1360,10 +1360,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
+            frame_duration = float(fps["den"]) / float(fps["num"])
 
             clip_start_time = obj.data["position"]
             clip_orig_time = clip_start_time - obj.data["start"]
-            clip_stop_time = clip_orig_time + obj.data["end"]
+            # Last frame on clip is -1 frame's duration
+            clip_stop_time = clip_orig_time + obj.data["end"] - frame_duration
 
             # add clip boundaries
             positions.append(clip_start_time)
@@ -1413,11 +1415,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # We can always jump to the beginning of the timeline
         all_marker_positions = [0]
+        fps = get_app().project.get("fps")
+        frame_duration = float(fps["den"]) / float(fps["num"])
 
         # If nothing is selected, also add the end of the last clip
         if not self.selected_clips + self.selected_transitions:
             all_marker_positions.append(
-                get_app().window.timeline_sync.timeline.GetMaxTime())
+                # last frame is -1 frame's duration
+                get_app().window.timeline_sync.timeline.GetMaxTime() - frame_duration)
 
         # Get list of marker and important positions (like selected clip bounds)
         for marker in Marker.filter():
@@ -1470,7 +1475,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             frame_to_seek = round(closest_position * fps_float) + 1
             self.SeekSignal.emit(frame_to_seek)
 
-            # Update the preview and reselct current frame in properties
+            # Update the preview and reselect current frame in properties
             get_app().window.refreshFrameSignal.emit()
             get_app().window.propertyTableView.select_frame(frame_to_seek)
 
