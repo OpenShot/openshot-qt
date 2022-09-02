@@ -232,12 +232,27 @@ function setBoundingBox(scope, item, item_type="clip") {
   let item_top = 0;
   let item_left = 0;
   let item_right = 0;
+  let item_width = 1;
 
   if (item && item.position()) {
+    // Look up item by ID in scope
+    let item_id = item.attr("id").replace("clip_", "").replace("transition_", "");
+    let item_object = null;
+    if (item.hasClass("clip")) {
+      item_object = findElement(scope.project.clips, "id", item_id);
+    }
+    else if (item.hasClass("transition")) {
+      item_object = findElement(scope.project.effects, "id", item_id);
+    }
+
+    // Compute width from `time` duration (for more accuracy). Getting the width from
+    // JQuery is not accurate, and is occasionally rounded.
+    let item_width = (item_object.end - item_object.start) * scope.pixelsPerSecond;
+
     item_bottom = item.position().top + item.height() + vert_scroll_offset;
     item_top = item.position().top + vert_scroll_offset;
     item_left = item.position().left + horz_scroll_offset;
-    item_right = item.position().left + horz_scroll_offset + item.width();
+    item_right = item.position().left + horz_scroll_offset + item_width;
   } else {
     // Protect against invalid item (sentry)
     // TODO: Determine what causes an invalid item to be passed into this function
@@ -250,7 +265,7 @@ function setBoundingBox(scope, item, item_type="clip") {
     bounding_box.bottom = item_bottom;
     bounding_box.right = item_right;
     bounding_box.height = item.height();
-    bounding_box.width = item.width();
+    bounding_box.width = item_width;
   } else {
     //compare and change if item is a better fit for bounding box edges
     if (item_top < bounding_box.top) { bounding_box.top = item_top; }
@@ -321,29 +336,6 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   bounding_box.top += y_offset;
   bounding_box.bottom += y_offset;
 
-  // Check overall timeline constraints (i.e don't let clips be dragged outside the timeline)
-  if (bounding_box.left < 0) {
-    // Left border
-    x_offset -= bounding_box.left;
-    bounding_box.left = 0;
-    bounding_box.right = bounding_box.width;
-    snapping_result.left = previous_x + x_offset;
-  }
-  if (bounding_box.top < 0) {
-    // Top border
-    y_offset -= bounding_box.top;
-    bounding_box.top = 0;
-    bounding_box.bottom = bounding_box.height;
-    snapping_result.top = previous_y + y_offset;
-  }
-  if (bounding_box.bottom > scrolling_tracks.height) {
-    // Bottom border
-    y_offset -= (bounding_box.bottom - scrolling_tracks.height);
-    bounding_box.bottom = scrolling_tracks.height;
-    bounding_box.top = bounding_box.bottom - bounding_box.height;
-    snapping_result.top = previous_y + y_offset;
-  }
-
   // Find closest nearby object, if any (for snapping)
   var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right],
     10.0, bounding_box.selected_ids);
@@ -367,6 +359,29 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   } else {
     // Hide snapline
     scope.hideSnapline();
+  }
+
+  // Check overall timeline constraints (i.e don't let clips be dragged outside the timeline)
+  if (bounding_box.left < 0) {
+    // Left border
+    x_offset -= bounding_box.left;
+    bounding_box.left = 0;
+    bounding_box.right = bounding_box.width;
+    snapping_result.left = previous_x + x_offset;
+  }
+  if (bounding_box.top < 0) {
+    // Top border
+    y_offset -= bounding_box.top;
+    bounding_box.top = 0;
+    bounding_box.bottom = bounding_box.height;
+    snapping_result.top = previous_y + y_offset;
+  }
+  if (bounding_box.bottom > scrolling_tracks.height) {
+    // Bottom border
+    y_offset -= (bounding_box.bottom - scrolling_tracks.height);
+    bounding_box.bottom = scrolling_tracks.height;
+    bounding_box.top = bounding_box.bottom - bounding_box.height;
+    snapping_result.top = previous_y + y_offset;
   }
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
