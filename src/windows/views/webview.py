@@ -330,40 +330,65 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Search for matching clip in project data (if any)
         existing_item = Transition.get(id=transition_data["id"])
-        needs_resize = True
         if not existing_item:
             # Create a new clip (if not exists)
             existing_item = Transition()
-            needs_resize = False
         existing_item.data = transition_data
 
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         duration = existing_item.data["end"] - existing_item.data["start"]
+        position = transition_data["position"]
 
-        # Update the brightness and contrast keyframes to match the duration of the transition
-        # This is a hack until I can think of something better
-        brightness = None
-        contrast = None
-        if needs_resize:
-            # Adjust transition's brightness keyframes to match the size of the transition
-            brightness = existing_item.data["brightness"]
-            if len(brightness["Points"]) > 1:
-                # If multiple points, move the final one to the 'new' end
-                brightness["Points"][-1]["co"]["X"] = round(duration * fps_float) + 1
+        # Determine if transition is intersecting a clip
+        # For example, the left side of a clip, or the right side, so we can determine
+        # which direction the wipe should be moving in
+        is_forward_direction = True
+        for intersecting_clip in Clip.filter(intersect=position):
+            log.debug(f"Intersecting Clip: {intersecting_clip}")
+            diff_from_start = abs(intersecting_clip.data.get("position", 0.0) - position)
+            diff_from_end = abs((intersecting_clip.data.get("position", 0.0) + \
+                                (intersecting_clip.data.get("end", 0.0) - intersecting_clip.data.get("start", 0.0))) \
+                                - position)
+            if diff_from_end < diff_from_start:
+                is_forward_direction = False
+        log.debug(f"Is transition moving a forward direction? {is_forward_direction}")
 
-            # Adjust transition's contrast keyframes to match the size of the transition
-            contrast = existing_item.data["contrast"]
-            if len(contrast["Points"]) > 1:
-                # If multiple points, move the final one to the 'new' end
-                contrast["Points"][-1]["co"]["X"] = round(duration * fps_float) + 1
+        # Determine existing brightness and contrast ranges (if any)
+        brightness_range = []
+        contrast_range = []
+        if existing_item:
+            for point in existing_item.data["brightness"].get("Points", []):
+                point_value = float(point["co"]["Y"])
+                brightness_range.append(point_value)
+            for point in existing_item.data["contrast"].get("Points", []):
+                point_value = float(point["co"]["Y"])
+                contrast_range.append(point_value)
+        if not brightness_range:
+            brightness_range.extend([1, -1])
+        if not contrast_range:
+            contrast_range.extend([3])
+
+        # Create new brightness Keyframes (using the previous value range)
+        b = openshot.Keyframe()
+        if is_forward_direction:
+            b.AddPoint(1, sorted(brightness_range)[-1], openshot.BEZIER)
+            b.AddPoint(round(duration * fps_float), sorted(brightness_range)[0], openshot.BEZIER)
         else:
-            # Create new brightness and contrast Keyframes
-            b = openshot.Keyframe()
-            b.AddPoint(1, 1.0, openshot.BEZIER)
-            b.AddPoint(round(duration * fps_float) + 1, -1.0, openshot.BEZIER)
-            brightness = json.loads(b.Json())
+            b.AddPoint(1, sorted(brightness_range)[0], openshot.BEZIER)
+            b.AddPoint(round(duration * fps_float), sorted(brightness_range)[-1], openshot.BEZIER)
+        brightness = json.loads(b.Json())
+
+        # Create new contrast Keyframes (using the previous value range)
+        c = openshot.Keyframe()
+        if is_forward_direction:
+            c.AddPoint(1, sorted(contrast_range)[-1], openshot.BEZIER)
+            c.AddPoint(round(duration * fps_float), sorted(contrast_range)[0], openshot.BEZIER)
+        else:
+            c.AddPoint(1, sorted(contrast_range)[0], openshot.BEZIER)
+            c.AddPoint(round(duration * fps_float), sorted(contrast_range)[-1], openshot.BEZIER)
+        contrast = json.loads(c.Json())
 
         # Only include the basic properties (performance boost)
         if only_basic_props:
@@ -373,19 +398,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             existing_item.data["position"] = transition_data["position"]
             existing_item.data["start"] = transition_data["start"]
             existing_item.data["end"] = transition_data["end"]
-
-            log.debug('transition start: %s' % transition_data["start"])
-            log.debug('transition end: %s' % transition_data["end"])
-
-            if brightness:
-                existing_item.data["brightness"] = brightness
-            if contrast:
-                existing_item.data["contrast"] = contrast
+            existing_item.data["brightness"] = brightness
+            existing_item.data["contrast"] = contrast
 
         # Save transition
         existing_item.save()
 
-        # Update the preview and reselct current frame in properties
+        # Update the preview and reselect current frame in properties
         if not ignore_refresh:
             self.window.refreshFrameSignal.emit()
             self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
