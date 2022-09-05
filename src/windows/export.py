@@ -722,7 +722,15 @@ class Export(QDialog):
             if not file_name_with_ext.endswith(file_ext):
                 file_name_with_ext = '{}.{}'.format(file_name_with_ext, file_ext)
 
-        export_file_path = os.path.join(self.txtExportFolder.text().strip() or default_folder, file_name_with_ext)
+        # Remove trailing whitespace, unless such a folder exists.
+        folder_path = self.txtExportFolder.text().lstrip()
+        if folder_path and not os.path.isdir(folder_path):
+            log.debug("Folder path does not exist. Removing trailing whitespace.")
+            if os.path.isdir(folder_path.rstrip()):
+                log.debug("Directory %s does exist. Using it instead." % folder_path)
+                folder_path = folder_path.rstrip()
+
+        export_file_path = os.path.join(folder_path or default_folder, file_name_with_ext)
         log.info("Export path: %s" % export_file_path)
 
         # Check if filename is valid (by creating a blank file in a temporary place)
