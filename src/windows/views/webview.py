@@ -446,6 +446,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             Slice_Keep_Right.triggered.connect(partial(
                 self.Slice_Triggered, MENU_SLICE_KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
+
+            # Add clear cache menu
+            Cache_Menu = QMenu(_("Cache"), self)
+            Cache_Clear_All = Cache_Menu.addAction(self.window.actionClearAllCache)
+            menu.addMenu(Cache_Menu)
+
             return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str)
@@ -2660,6 +2666,20 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         menu.addAction(self.window.actionRemoveMarker)
         return menu.exec_(QCursor.pos())
 
+    @pyqtSlot()
+    def EnableCacheThread(self):
+        log.debug('EnableCacheThread: Start caching frames on timeline')
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+
+    @pyqtSlot()
+    def DisableCacheThread(self):
+        log.debug('DisableCacheThread: Stop caching frames on timeline')
+
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
     @pyqtSlot(str, int)
     def PreviewClipFrame(self, clip_id, frame_number):
 
@@ -2700,7 +2720,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             self.last_position_frames = position_frames
 
             # Notify main window of current frame
-            self.window.previewFrame(position_frames)
+            self.window.SeekSignal.emit(position_frames)
 
     @pyqtSlot(int)
     def movePlayhead(self, position_frames):
@@ -3156,7 +3176,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         try:
             if self.window.timeline_sync and self.window.timeline_sync.timeline:
                 cache_object = self.window.timeline_sync.timeline.GetCache()
-                if not cache_object or cache_object.Count() <= 0:
+                if not cache_object:
                     return
                 # Get the JSON from the cache object (i.e. which frames are cached)
                 cache_json = cache_object.Json()

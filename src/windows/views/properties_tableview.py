@@ -193,6 +193,13 @@ class PropertiesTableView(QTableView):
 
         # Is the user dragging on the value column
         if self.selected_label and self.selected_item:
+            # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
+            get_app().updates.ignore_history = True
+
+            # Disable video caching during drag operation (for performance reasons)
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+            log.debug('mouseMoveEvent: Stop caching frames on timeline')
+
             # Get the position of the cursor and % value
             value_column_x = self.columnViewportPosition(1)
             cursor_value = event.x() - value_column_x
@@ -219,9 +226,6 @@ class PropertiesTableView(QTableView):
 
             # Get the original data of this item (prior to any updates, for the undo/redo system)
             if not self.original_data:
-                # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
-                get_app().updates.ignore_history = True
-
                 # Find this clip
                 c = None
                 if item_type == "clip":
@@ -294,6 +298,10 @@ class PropertiesTableView(QTableView):
         # Inform UpdateManager to accept updates, and only store our final update
         event.accept()
         get_app().updates.ignore_history = False
+
+        # Enable video caching again
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+        log.debug('mouseReleaseEvent: Start caching frames on timeline')
 
         # Add final update to undo/redo history
         get_app().updates.apply_last_action_to_history(self.original_data)

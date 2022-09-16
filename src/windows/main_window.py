@@ -374,6 +374,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Update preview
         self.refreshFrameSignal.emit()
 
+    def actionClearAllCache_trigger(self):
+        """ Clear all timeline cache - deep clear """
+        self.timeline_sync.timeline.ClearAllCache(True)
+
     def actionDuplicateTitle_trigger(self):
 
         file_path = None
@@ -979,14 +983,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.cutting import Cutting
         win = Cutting(f, preview=True)
         win.show()
-
-    def previewFrame(self, position_frames):
-        """Preview a specific frame"""
-        # Notify preview thread
-        self.previewFrameSignal.emit(position_frames)
-
-        # Notify properties dialog
-        self.propertyTableView.select_frame(position_frames)
 
     def movePlayhead(self, position_frames):
         """Update playhead position"""
@@ -1640,6 +1636,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionAnimatedTitle.trigger()
         elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
             self.actionDuplicateTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionClearAllCache")) == QKeySequence.ExactMatch:
+            self.actionClearAllCache.trigger()
         elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
             self.actionEditTitle.trigger()
         elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
@@ -2797,6 +2795,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from classes import sentry
         sentry.init_tracing()
 
+    def handleSeek(self, frame):
+        """ Always update the property view when we seek to a new position """
+        # Notify properties dialog
+        self.propertyTableView.select_frame(frame)
+
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
         QMainWindow.moveEvent(self, event)
@@ -3165,6 +3168,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect Selection signals
         self.SelectionAdded.connect(self.addSelection)
         self.SelectionRemoved.connect(self.removeSelection)
+
+        # Connect playhead moved signals
+        self.SeekSignal.connect(self.handleSeek)
 
         # Ensure toolbar is movable when floated (even with docks frozen)
         self.toolBar.topLevelChanged.connect(
