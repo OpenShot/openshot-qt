@@ -31,7 +31,7 @@
 // Handles the playhead dragging
 var playhead_y_max = null;
 
-/*global App*/
+/*global App, timeline*/
 App.directive("tlPlayhead", function () {
   return {
     link: function (scope, element, attrs) {
@@ -43,14 +43,14 @@ App.directive("tlPlayhead", function () {
         setBoundingBox(scope, $("#playhead"), "playhead");
         if (scope.Qt) {
             // Disable caching thread during scrubbing
-            timeline.DisableCacheThread()
+            timeline.DisableCacheThread();
         }
       });
 
       element.on("contextmenu", function (e) {
         if (scope.Qt) {
             // Enable caching thread after scrubbing
-            timeline.EnableCacheThread()
+            timeline.EnableCacheThread();
         }
       });
 

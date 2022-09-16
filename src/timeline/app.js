@@ -45,7 +45,7 @@ $(document).ready(function () {
   $(document).on("mouseup", function (e) {
       if (body_object.scope().Qt) {
           // Enable caching thread after scrubbing
-          timeline.EnableCacheThread()
+          timeline.EnableCacheThread();
       }
   });
 

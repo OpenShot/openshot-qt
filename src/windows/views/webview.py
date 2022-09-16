@@ -449,7 +449,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
             # Add clear cache menu
             Cache_Menu = QMenu(_("Cache"), self)
-            Cache_Clear_All = Cache_Menu.addAction(self.window.actionClearAllCache)
+            Cache_Menu.addAction(self.window.actionClearAllCache)
             menu.addMenu(Cache_Menu)
 
             return menu.exec_(QCursor.pos())
