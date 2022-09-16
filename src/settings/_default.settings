@@ -969,6 +969,14 @@
     "type": "text"
   },
   {
+    "category": "Keyboard",
+    "title": "Clear All Cache",
+    "restart": false,
+    "setting": "actionClearAllCache",
+    "value": "Ctrl+Shift+ESC",
+    "type": "text"
+  },
+  {
     "category": "Location",
     "title": "File Import",
     "setting": "locationImportType",
