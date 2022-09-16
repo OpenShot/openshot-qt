@@ -576,7 +576,7 @@ def main():
             # Sign MSI
             for line in run_command(key_sign_command):
                 output(line)
-                if line:
+                if line and "will expire" not in line.decode('UTF-8'):
                     key_sign_success = False
                     key_sign_output = line
 
