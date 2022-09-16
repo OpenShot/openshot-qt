@@ -247,7 +247,12 @@ function setBoundingBox(scope, item, item_type="clip") {
 
     // Compute width from `time` duration (for more accuracy). Getting the width from
     // JQuery is not accurate, and is occasionally rounded.
-    let item_width = (item_object.end - item_object.start) * scope.pixelsPerSecond;
+    let item_width = 1;
+    if (item_object) {
+        item_width = (item_object.end - item_object.start) * scope.pixelsPerSecond;
+    } else {
+        item_width = item.width();
+    }
 
     item_bottom = item.position().top + item.height() + vert_scroll_offset;
     item_top = item.position().top + vert_scroll_offset;
