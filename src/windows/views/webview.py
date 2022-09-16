@@ -223,7 +223,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         elif action.key[0] != "files":
             # Apply diff to part of project data
             self.run_js(JS_SCOPE_SELECTOR + ".applyJsonDiff([" + action.json() + "]);")
-        
+
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
@@ -1956,9 +1956,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                         for item in propertie_value:
                             item['id'] = get_app().project.generate_id()
 
-                # Set new 'start' of right_clip (need to bump 1 frame duration more, so we don't repeat a frame)
-                right_clip.data["position"] = (round(float(playhead_position) * fps_float) + 1) / fps_float
-                right_clip.data["start"] = (round(float(clip.data["end"]) * fps_float) + 2) / fps_float
+                # Place the new clip at the playhead, starting where the last clip ended.
+                right_clip.data["position"] = float(playhead_position)
+                right_clip.data["start"] = float(clip.data["end"])
 
                 # Save changes
                 right_clip.save()
@@ -2011,12 +2011,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 right_tran.key.pop(1)
 
                 # Get details of original transition
-                position_of_tran = float(right_tran.data["position"])
                 end_of_tran = float(right_tran.data["end"])
 
-                # Set new 'end' of right_tran
-                right_tran.data["position"] = playhead_position + frame_duration
-                right_tran.data["end"] = end_of_tran - (playhead_position - position_of_tran) + frame_duration
+                # Place the right transition at the position of the playhead.
+                right_tran.data["position"] = float(playhead_position)
+                # Duration of the right transition is the original duration, minus the length
+                # of the left side of the slice.
+                right_tran.data["end"] = float(end_of_tran - trans.data["end"])
 
                 # Save changes
                 right_tran.save()
