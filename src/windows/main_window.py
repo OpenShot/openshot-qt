@@ -2853,6 +2853,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.info("InitCacheSettings")
         log.info("cache-mode: %s" % s.get("cache-mode"))
         log.info("cache-limit-mb: %s" % s.get("cache-limit-mb"))
+        log.info("cache-ahead-percent: %s" % s.get("cache-ahead-percent"))
+        log.info("cache-preroll-min-frames: %s" % s.get("cache-preroll-min-frames"))
+        log.info("cache-preroll-max-frames: %s" % s.get("cache-preroll-max-frames"))
+        log.info("cache-max-frames: %s" % s.get("cache-max-frames"))
+
+        # Set preview cache settings
+        lib_settings = openshot.Settings.Instance()
+        lib_settings.VIDEO_CACHE_PERCENT_AHEAD = s.get("cache-ahead-percent")
+        lib_settings.VIDEO_CACHE_MIN_PREROLL_FRAMES = s.get("cache-preroll-min-frames")
+        lib_settings.VIDEO_CACHE_MAX_PREROLL_FRAMES = s.get("cache-preroll-max-frames")
+        lib_settings.VIDEO_CACHE_MAX_FRAMES = s.get("cache-max-frames")
 
         # Get MB limit of cache (and convert to bytes)
         cache_limit = s.get("cache-limit-mb") * 1024 * 1024  # Convert MB to Bytes

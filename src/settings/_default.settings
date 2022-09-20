@@ -263,6 +263,43 @@
   },
   {
     "min": 0,
+    "max": 1024,
+    "value": 2,
+    "title": "Cache Pre-roll: Min Frames",
+    "type": "spinner-int",
+    "category": "Cache",
+    "setting": "cache-preroll-min-frames"
+  },
+  {
+    "min": 0,
+    "max": 1024,
+    "value": 8,
+    "title": "Cache Pre-roll: Max Frames",
+    "type": "spinner-int",
+    "category": "Cache",
+    "setting": "cache-preroll-max-frames"
+  },
+  {
+    "min": 0.0,
+    "max": 1.0,
+    "step": 0.1,
+    "value": 0.75,
+    "title": "Cache Ahead (Percent)",
+    "type": "spinner",
+    "category": "Cache",
+    "setting": "cache-ahead-percent"
+  },
+  {
+    "min": 0,
+    "max": 1024,
+    "value": 600,
+    "title": "Cache Max Frames",
+    "type": "spinner-int",
+    "category": "Cache",
+    "setting": "cache-max-frames"
+  },
+  {
+    "min": 0,
     "max": 9999999,
     "value": 1024,
     "title": "Cache Limit (MB)",
