@@ -2674,6 +2674,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Enable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
+        # Refresh frame to ensure our last frame after scrubbing
+        # is the final frame shown. Due to some unknown reason, this
+        # is required for an accurate end to srubbing
+        QTimer.singleShot(50, self.window.refreshFrameSignal.emit)
+
     @pyqtSlot()
     def DisableCacheThread(self):
         log.debug('DisableCacheThread: Stop caching frames on timeline')
