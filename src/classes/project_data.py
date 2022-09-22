@@ -365,6 +365,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 info.THUMBNAIL_PATH = os.path.join(get_assets_path(self.current_filepath), "thumbnail")
                 info.TITLE_PATH = os.path.join(get_assets_path(self.current_filepath), "title")
                 info.BLENDER_PATH = os.path.join(get_assets_path(self.current_filepath), "blender")
+                info.PROTOBUF_DATA_PATH = os.path.join(get_assets_path(self.current_filepath), "protobuf_data")
 
             # Clear needs save flag
             self.has_unsaved_changes = False
@@ -770,7 +771,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         log.info("Saving project file: %s", file_path)
 
-        # Move all temp files (i.e. Blender animations) to the project folder
+        # Move all temp files (i.e. Blender Animations, Titles, Thumbnails, Protobuf files) to the project folder
         if not backup_only:
             self.move_temp_paths_to_project_folder(
                 file_path, previous_path=self.current_filepath)
@@ -806,6 +807,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             target_thumb_path = os.path.join(asset_path, "thumbnail")
             target_title_path = os.path.join(asset_path, "title")
             target_blender_path = os.path.join(asset_path, "blender")
+            target_protobuf_path = os.path.join(asset_path, "protobuf_data")
+
+            # Create any missing target paths
+            try:
+                for target_dir in [asset_path, target_thumb_path, target_title_path,
+                                   target_blender_path, target_protobuf_path]:
+                    if not os.path.exists(target_dir):
+                        os.mkdir(target_dir)
+            except OSError:
+                pass
 
             # Update paths (if a previous path exists)
             #   /Project1/ to /Project2/ for example
@@ -814,6 +825,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 info.THUMBNAIL_PATH = os.path.join(previous_asset_path, "thumbnail")
                 info.TITLE_PATH = os.path.join(previous_asset_path, "title")
                 info.BLENDER_PATH = os.path.join(previous_asset_path, "blender")
+                info.PROTOBUF_DATA_PATH = os.path.join(previous_asset_path, "protobuf_data")
 
             # Track assets we copy/update
             copied = []
@@ -839,6 +851,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 target_blender_filepath = os.path.join(target_blender_path, blender_path)
                 if os.path.isdir(working_blender_path) and not os.path.exists(target_blender_filepath):
                     shutil.copytree(working_blender_path, target_blender_filepath)
+
+            # Copy all protobuf files (if not found in target asset folder)
+            for protobuf_path in os.listdir(info.PROTOBUF_DATA_PATH):
+                working_protobuf_path = os.path.join(info.PROTOBUF_DATA_PATH, protobuf_path)
+                target_protobuf_filepath = os.path.join(target_protobuf_path, protobuf_path)
+                if not os.path.exists(target_protobuf_filepath):
+                    shutil.copy2(working_protobuf_path, target_protobuf_filepath)
 
             # Copy any necessary assets for File records
             for file in self._data["files"]:
@@ -891,6 +910,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if file_id and file_id in reader_paths:
                     clip["reader"]["path"] = reader_paths[file_id]
                     log.info("Updated clip %s path for file %s", clip_id, file_id)
+
+                log.info("Checking effects in clip %s path for protobuf files" % clip_id)
+                for effect in clip.get("effects", []):
+                    if "protobuf_data_path" in effect:
+                        old_protobuf_path = effect["protobuf_data_path"]
+                        old_protobuf_dir, protobuf_name = os.path.split(old_protobuf_path)
+                        if old_protobuf_dir != target_protobuf_path:
+                            effect["protobuf_data_path"] = os.path.join(target_protobuf_path, protobuf_name)
+                            log.info("Copied protobuf %s to %s", old_protobuf_path, target_protobuf_path)
 
         except Exception:
             log.error(
