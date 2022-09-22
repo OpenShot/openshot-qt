@@ -599,6 +599,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
         get_app().updates.ignore_history = True
 
+        # Disable video caching during drag operation (for performance reasons)
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+        log.debug('mousePressEvent: Stop caching frames on timeline')
+
     def mouseReleaseEvent(self, event):
         event.accept()
         """Capture mouse release event on video preview window"""
@@ -651,6 +655,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Inform UpdateManager to accept updates, and only store our final update
         get_app().updates.ignore_history = False
+
+        # Enable video caching again
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+        log.debug('mouseReleaseEvent: Start caching frames on timeline')
 
         # Add final update to undo/redo history
         if self.original_clip_data:

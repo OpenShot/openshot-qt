@@ -374,6 +374,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Update preview
         self.refreshFrameSignal.emit()
 
+    def actionClearAllCache_trigger(self):
+        """ Clear all timeline cache - deep clear """
+        self.timeline_sync.timeline.ClearAllCache(True)
+
     def actionDuplicateTitle_trigger(self):
 
         file_path = None
@@ -979,14 +983,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from windows.cutting import Cutting
         win = Cutting(f, preview=True)
         win.show()
-
-    def previewFrame(self, position_frames):
-        """Preview a specific frame"""
-        # Notify preview thread
-        self.previewFrameSignal.emit(position_frames)
-
-        # Notify properties dialog
-        self.propertyTableView.select_frame(position_frames)
 
     def movePlayhead(self, position_frames):
         """Update playhead position"""
@@ -1640,6 +1636,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionAnimatedTitle.trigger()
         elif key.matches(self.getShortcutByName("actionDuplicateTitle")) == QKeySequence.ExactMatch:
             self.actionDuplicateTitle.trigger()
+        elif key.matches(self.getShortcutByName("actionClearAllCache")) == QKeySequence.ExactMatch:
+            self.actionClearAllCache.trigger()
         elif key.matches(self.getShortcutByName("actionEditTitle")) == QKeySequence.ExactMatch:
             self.actionEditTitle.trigger()
         elif key.matches(self.getShortcutByName("actionFullscreen")) == QKeySequence.ExactMatch:
@@ -2797,6 +2795,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         from classes import sentry
         sentry.init_tracing()
 
+    def handleSeek(self, frame):
+        """ Always update the property view when we seek to a new position """
+        # Notify properties dialog
+        self.propertyTableView.select_frame(frame)
+
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
         QMainWindow.moveEvent(self, event)
@@ -2850,6 +2853,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.info("InitCacheSettings")
         log.info("cache-mode: %s" % s.get("cache-mode"))
         log.info("cache-limit-mb: %s" % s.get("cache-limit-mb"))
+        log.info("cache-ahead-percent: %s" % s.get("cache-ahead-percent"))
+        log.info("cache-preroll-min-frames: %s" % s.get("cache-preroll-min-frames"))
+        log.info("cache-preroll-max-frames: %s" % s.get("cache-preroll-max-frames"))
+        log.info("cache-max-frames: %s" % s.get("cache-max-frames"))
+
+        # Set preview cache settings
+        lib_settings = openshot.Settings.Instance()
+        lib_settings.VIDEO_CACHE_PERCENT_AHEAD = s.get("cache-ahead-percent")
+        lib_settings.VIDEO_CACHE_MIN_PREROLL_FRAMES = s.get("cache-preroll-min-frames")
+        lib_settings.VIDEO_CACHE_MAX_PREROLL_FRAMES = s.get("cache-preroll-max-frames")
+        lib_settings.VIDEO_CACHE_MAX_FRAMES = s.get("cache-max-frames")
 
         # Get MB limit of cache (and convert to bytes)
         cache_limit = s.get("cache-limit-mb") * 1024 * 1024  # Convert MB to Bytes
@@ -3165,6 +3179,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect Selection signals
         self.SelectionAdded.connect(self.addSelection)
         self.SelectionRemoved.connect(self.removeSelection)
+
+        # Connect playhead moved signals
+        self.SeekSignal.connect(self.handleSeek)
 
         # Ensure toolbar is movable when floated (even with docks frozen)
         self.toolBar.topLevelChanged.connect(

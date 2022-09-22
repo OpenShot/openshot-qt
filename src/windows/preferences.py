@@ -214,7 +214,7 @@ class Preferences(QDialog):
                     widget.setMinimum(float(param["min"]))
                     widget.setMaximum(float(param["max"]))
                     widget.setValue(float(param["value"]))
-                    widget.setSingleStep(1.0)
+                    widget.setSingleStep(param.get("step", 1.0))
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
@@ -224,7 +224,7 @@ class Preferences(QDialog):
                     widget.setMinimum(int(param["min"]))
                     widget.setMaximum(int(param["max"]))
                     widget.setValue(int(param["value"]))
-                    widget.setSingleStep(1)
+                    widget.setSingleStep(param.get("step", 1))
                     widget.setToolTip(param["title"])
                     widget.valueChanged.connect(functools.partial(self.spinner_value_changed, param))
 
@@ -509,7 +509,9 @@ class Preferences(QDialog):
             openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(value))
 
         # Apply cache settings (if needed)
-        if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality"]:
+        if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality", 
+                                "cache-ahead-percent", "cache-preroll-min-frames", 
+                                "cache-preroll-max-frames", "cache-max-frames"]:
             get_app().window.InitCacheSettings()
 
         # Check for restart

@@ -31,7 +31,7 @@
 // Handles the playhead dragging
 var playhead_y_max = null;
 
-/*global App*/
+/*global App, timeline*/
 App.directive("tlPlayhead", function () {
   return {
     link: function (scope, element, attrs) {
@@ -40,7 +40,18 @@ App.directive("tlPlayhead", function () {
 
       element.on("mousedown", function (e) {
         // Set bounding box for the playhead
-        setBoundingBox(scope, $(this), "playhead");
+        setBoundingBox(scope, $("#playhead"), "playhead");
+        if (scope.Qt) {
+            // Disable caching thread during scrubbing
+            timeline.DisableCacheThread();
+        }
+      });
+
+      element.on("contextmenu", function (e) {
+        if (scope.Qt) {
+            // Enable caching thread after scrubbing
+            timeline.EnableCacheThread();
+        }
       });
 
       // Move playhead to new position (if it's not currently being animated)

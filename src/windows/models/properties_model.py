@@ -148,23 +148,26 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Determine the frame needed for this clip (based on the position on the timeline)
             time_diff = (requested_time - clip.Position()) + clip.Start()
-            self.frame_number = round(time_diff * fps_float) + 1
+            new_frame_number = round(time_diff * fps_float) + 1
+            if new_frame_number != self.frame_number:
+                # If frame # has changed
+                self.frame_number = new_frame_number
 
-            # Calculate biggest and smallest possible frames
-            min_frame_number = round((clip.Start() * fps_float)) + 1
-            max_frame_number = round((clip.End() * fps_float)) + 1
+                # Calculate biggest and smallest possible frames
+                min_frame_number = round((clip.Start() * fps_float)) + 1
+                max_frame_number = round((clip.End() * fps_float)) + 1
 
-            # Adjust frame number if out of range
-            if self.frame_number < min_frame_number:
-                self.frame_number = min_frame_number
-            if self.frame_number > max_frame_number:
-                self.frame_number = max_frame_number
+                # Adjust frame number if out of range
+                if self.frame_number < min_frame_number:
+                    self.frame_number = min_frame_number
+                if self.frame_number > max_frame_number:
+                    self.frame_number = max_frame_number
 
-            log.debug("Update frame to %s" % self.frame_number)
+                log.debug("Update frame to %s" % self.frame_number)
 
-            # Update the model data
-            if reload_model:
-                self.update_model(get_app().window.txtPropertyFilter.text())
+                # Update the model data
+                if reload_model:
+                    self.update_model(get_app().window.txtPropertyFilter.text())
 
     def remove_keyframe(self, item):
         """Remove an existing keyframe (if any)"""
@@ -568,6 +571,7 @@ class PropertiesModel(updates.UpdateInterface):
             # Save changes
             if clip_updated:
                 # Save
+                c.data = clip_data
                 c.save()
 
                 # Update the preview

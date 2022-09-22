@@ -39,6 +39,16 @@ $(document).ready(function () {
   // Initialize Qt Mixin (WebEngine or WebKit)
   init_mixin();
 
+  // Always ensure caching thread has been resumed on any mouse-up event.
+  // The cache thread can be disabled while scrubbing, and the normal mouse-up event
+  // can be missed if the cursor is dragged outside the timeline.
+  $(document).on("mouseup", function (e) {
+      if (body_object.scope().Qt) {
+          // Enable caching thread after scrubbing
+          timeline.EnableCacheThread();
+      }
+  });
+
   /// Capture window resize event, and resize scrollable divs (i.e. track container)
   $(window).resize(function () {
 

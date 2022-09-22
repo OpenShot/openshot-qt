@@ -39,7 +39,7 @@ var scroll_left_pixels = 0;
 
 // This container allows for tracks to be scrolled (with synced ruler)
 // and allows for panning of the timeline with the middle mouse button
-/*global App, secondsToTime*/
+/*global App, timeline, secondsToTime*/
 App.directive("tlScrollableTracks", function () {
   return {
     restrict: "A",
@@ -179,7 +179,18 @@ App.directive("tlRuler", function ($timeout) {
 
       element.on("mousedown", function (e) {
         // Set bounding box for the playhead position
-        setBoundingBox(scope, $(this), "playhead");
+        setBoundingBox(scope, $("#playhead"), "playhead");
+        if (scope.Qt) {
+            // Disable caching thread during scrubbing
+            timeline.DisableCacheThread();
+        }
+      });
+
+      element.on("contextmenu", function (e) {
+        if (scope.Qt) {
+            // Enable caching thread after scrubbing
+            timeline.EnableCacheThread();
+        }
       });
 
       // Move playhead to new position (if it's not currently being animated)
