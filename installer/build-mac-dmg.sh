@@ -101,8 +101,8 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
       fi
     fi
 
-    # Wait a few seconds
-    sleep 60
+    # Wait a few seconds (otherwise the stapler can sometimes fail to find the ticket)
+    sleep 180
 done
 
 echo "Staple Notarization Ticket to DMG"
