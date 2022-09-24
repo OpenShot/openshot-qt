@@ -50,7 +50,7 @@ class Cutting(QDialog):
     previewFrameSignal = pyqtSignal(int)
     refreshFrameSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
-    PlaySignal = pyqtSignal(int)
+    PlaySignal = pyqtSignal()
     PauseSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
@@ -149,7 +149,7 @@ class Cutting(QDialog):
         self.initialized = False
         self.transforming_clip = False
         self.preview_parent = PreviewParent()
-        self.preview_parent.Init(self, self.r, self.videoPreview)
+        self.preview_parent.Init(self, self.r, self.videoPreview, self.video_length)
         self.preview_thread = self.preview_parent.worker
 
         # Set slider constraints
@@ -212,7 +212,7 @@ class Cutting(QDialog):
         if self.btnPlay.isChecked():
             log.info('play (icon to pause)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-pause")
-            self.preview_thread.Play(self.video_length)
+            self.preview_thread.Play()
         else:
             log.info('pause (icon to play)')
             ui_util.setup_icon(self, self.btnPlay, "actionPlay", "media-playback-start")  # to default
@@ -363,12 +363,10 @@ class Cutting(QDialog):
         log.debug('closeEvent')
 
         # Stop playback
-        self.preview_parent.worker.Stop()
-
-        # Stop preview thread (and wait for it to end)
-        self.preview_parent.worker.kill()
-        self.preview_parent.background.exit()
-        self.preview_parent.background.wait(5000)
+        get_app().updates.disconnect_listener(self.videoPreview)
+        self.videoPreview.deleteLater()
+        self.videoPreview = None
+        self.preview_parent.Stop()
 
         # Close readers
         self.r.Close()

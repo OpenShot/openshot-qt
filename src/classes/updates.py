@@ -202,6 +202,12 @@ class UpdateManager:
         # Notify watchers of new history state
         self.update_watchers()
 
+    def disconnect_listener(self, listener):
+        """Remove a listener from the update manager"""
+        if listener in self.updateListeners:
+            log.info("Remove listener from UpdateManager: %s" % str(listener))
+            self.updateListeners.remove(listener)
+
     def add_listener(self, listener, index=-1):
         """ Add a new listener (which will invoke the changed(action) method
         each time an UpdateAction is available). """
