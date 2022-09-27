@@ -92,7 +92,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     refreshTransitionsSignal = pyqtSignal()
     refreshEffectsSignal = pyqtSignal()
     LoadFileSignal = pyqtSignal(str)
-    PlaySignal = pyqtSignal(int)
+    PlaySignal = pyqtSignal()
     PauseSignal = pyqtSignal()
     StopSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
@@ -180,8 +180,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Stop preview thread (and wait for it to end)
         self.preview_thread.player.CloseAudioDevice()
         self.preview_thread.kill()
-        self.preview_parent.background.exit()
-        self.preview_parent.background.wait(5000)
+        self.videoPreview.deleteLater()
+        self.videoPreview = None
+        self.preview_parent.Stop()
 
         # Close Timeline
         if self.timeline_sync and self.timeline_sync.timeline:
@@ -962,7 +963,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Start playback
             if self.should_play():
                 max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
-                self.PlaySignal.emit(max_frame)
+                self.PlaySignal.emit()
         else:
             # Pause playback
             self.PauseSignal.emit()

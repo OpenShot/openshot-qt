@@ -34,10 +34,26 @@ import openshot  # Python module for libopenshot (required video editing module 
 
 from classes.app import get_app
 from classes.logger import log
+from classes.updates import UpdateInterface
 
 
-class PreviewParent(QObject):
+class PreviewParent(QObject, UpdateInterface):
     """ Class which communicates with the PlayerWorker Class (running on a separate thread) """
+
+    def changed(self, action):
+        """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
+
+        # Ignore changes that don't affect libopenshot
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile"]:
+            return
+
+        try:
+            # Keep track of max timeline frame # on any updates to the timeline
+            self.timeline_max_length = self.timeline.GetMaxFrame()
+            log.debug(f"Max timeline length/frames detected: {self.timeline_max_length}")
+
+        except Exception as e:
+            log.info("Error calculating max timeline length on PreviewParent: %s. %s" % (e, action.json(is_array=True)))
 
     # Signal when the frame position changes in the preview player
     def onPositionChanged(self, current_frame):
@@ -45,18 +61,15 @@ class PreviewParent(QObject):
 
         # Check if we are at the end of the timeline
         if self.worker.player.Mode() == openshot.PLAYBACK_PLAY:
-            if self.worker.player.Speed() > 0.0 \
-                and current_frame >= self.worker.timeline_length:
+            if self.worker.player.Speed() > 0.0 and current_frame >= self.timeline_max_length:
                 # Yes, pause the video
                 self.parent.PauseSignal.emit()
-                self.worker.timeline_length = -1
                 # If the player got past the end of the project, go back.
-                self.worker.Seek(self.timeline.GetMaxFrame())
-            if self.worker.player.Speed() < 0.0 and ((current_frame <= 1 )):
+                self.worker.Seek(self.timeline_max_length)
+            if self.worker.player.Speed() < 0.0 and current_frame <= 1:
                 # If rewinding, and the player got past the first frame,
                 # pause and go to frame 1
                 self.parent.PauseSignal.emit()
-                self.worker.timeline_length = -1
                 self.worker.Seek(1)
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
@@ -93,11 +106,22 @@ class PreviewParent(QObject):
                         "Adjust your 'Preferences->Preview->Default Sample Rate to match your "
                         "system rate: %d, and restart OpenShot." % (detected_rate, rate, detected_rate))
 
+    def Stop(self):
+        """Disconnect preview parent from update manager and stop worker thread"""
+        get_app().updates.disconnect_listener(self)
+
+        # Stop preview thread (and wait for it to end)
+        self.worker.Stop()
+        self.worker.kill()
+        self.background.exit()
+        self.background.wait(5000)
+
     @pyqtSlot(object, object)
-    def Init(self, parent, timeline, video_widget):
+    def Init(self, parent, timeline, video_widget, max_length=1):
         # Important vars
         self.parent = parent
         self.timeline = timeline
+        self.timeline_max_length = max_length
 
         # Background Worker Thread (for preview video process)
         self.background = QThread(self)
@@ -128,6 +152,9 @@ class PreviewParent(QObject):
         self.worker.moveToThread(self.background)
         self.background.start()
 
+        # Add preview parent as listener for updates
+        get_app().updates.add_listener(self)
+
 
 class PlayerWorker(QObject):
     """ QT Player Worker Object (to preview video on a separate thread) """
@@ -153,7 +180,6 @@ class PlayerWorker(QObject):
         self.number = None
         self.current_frame = None
         self.current_mode = None
-        self.timeline_length = -1
 
         # Create QtPlayer class from libopenshot
         self.player = openshot.QtPlayer()
@@ -330,11 +356,8 @@ class PlayerWorker(QObject):
         # Seek to frame 1, and resume speed
         self.Seek(seek_position)
 
-    def Play(self, timeline_length):
+    def Play(self):
         """ Start playing the video player """
-
-        # Set length of timeline in frames
-        self.timeline_length = timeline_length
 
         # Start playback
         if self.parent.initialized:
