@@ -88,12 +88,13 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
     notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
     echo "$notarize_info"
 
-    pat='Status: (.*)'
+    pat='Status: (.*)\n'
     [[ "$notarize_info" =~ $pat ]]
     notarize_status="${BASH_REMATCH[1]}"
+    echo "Notarization Status Found: $notarize_status"
 
     if [ "$notarize_status" != "in progress" ] && [ "$notarize_status" != "" ]; then
-      echo "Notarization Status Found: $notarize_status. Wait for notarization to appear in --notarization-history/"
+      echo "Wait for notarization to appear in --notarization-history/"
       verify_output=$(xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | grep "$REQUEST_UUID")
       if [ "$verify_output" != "" ]; then
         echo "Notarization record found, and ready for stapling!"
@@ -101,9 +102,12 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
       fi
     fi
 
-    # Wait a few seconds (otherwise the stapler can sometimes fail to find the ticket)
-    sleep 180
+    # Wait a few seconds (so we don't spam the API)
+    sleep 60
 done
+
+# Wait a few more seconds (otherwise the stapler can sometimes fail to find the ticket)
+sleep 180
 
 echo "Staple Notarization Ticket to DMG"
 xcrun stapler staple "build/$OS_DMG_NAME"
