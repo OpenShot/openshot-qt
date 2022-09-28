@@ -88,7 +88,8 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
     notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
     echo "$notarize_info"
 
-    pat='Status: (.*)\n'
+    # Match status (stop at newline)
+    pat='Status: ([^'$'\n'']*)'
     [[ "$notarize_info" =~ $pat ]]
     notarize_status="${BASH_REMATCH[1]}"
     echo "Notarization Status Found: $notarize_status"
