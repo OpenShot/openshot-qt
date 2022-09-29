@@ -66,6 +66,9 @@ class FileProperties(QDialog):
         # Get settings
         self.s = app.get_settings()
 
+        # Keep track of whether this file is an image sequence
+        self.is_sequence = False
+
         # Track metrics
         track_metric_screen("file-properties-screen")
 
@@ -171,15 +174,58 @@ class FileProperties(QDialog):
 
         starting_folder, filename = os.path.split(self.file.data["path"])
         newFilePath = QFileDialog.getOpenFileName(None, _("Locate media file: %s") % filename, starting_folder)[0]
-        self.txtFilePath.setText(newFilePath)
+
+
+        # don't update if dialog was canceled
+        if newFilePath:
+            # If this path could be an image sequence, get that info and prompt user.
+            seq_info = get_app().window.files_model.get_image_sequence_details(newFilePath)
+            get_app().window.files_model.ignore_image_sequence_paths = []
+
+            # create the proper path for an image sequence
+            if seq_info:
+                # Flag to allow saving a path if the file name doesn't exist
+                self.is_sequence = True
+
+                #This code is mostly copied from FilesModel.add_files()
+                folder_path = seq_info["folder_path"]
+                base_name = seq_info["base_name"]
+                fixlen = seq_info["fixlen"]
+                digits = seq_info["digits"]
+                extension = seq_info["extension"]
+
+                if not fixlen:
+                    zero_pattern = "%d"
+                else:
+                    zero_pattern = "%%0%sd" % digits
+
+                pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
+                newFilePath = os.path.join(folder_path, pattern)
+
+                image_seq = openshot.Clip(newFilePath)
+                if image_seq:
+                    # Make sure a clip can be created, then change the video length and path
+                    self.file.data["duration"] = image_seq.Reader().info.duration
+                    self.file.data["video_length"] = image_seq.Reader().info.video_length
+                    self.txtFilePath.setText(newFilePath)
+
+            # Make sure that new path is an existing  file
+            elif os.path.isfile(newFilePath):
+                self.txtFilePath.setText(newFilePath)
 
     def accept(self):
         # Update file details
         self.file.data["name"] = self.txtFileName.text()
         self.file.data["tags"] = self.txtTags.text()
 
+        newPath = self.txtFilePath.text()
         # experimental: update file path
-        self.file.data["path"] = self.txtFilePath.text()
+        if (newPath and os.path.isfile(newPath)):
+            self.file.data["path"] = newPath
+        elif self.is_sequence and os.path.isdir(os.path.dirname(newPath)):
+            self.file.data["path"] = newPath
+        else:
+            log.error(f"Given path '{newPath}' was not a valid path.")
 
         # Update Framerate
         self.file.data["fps"]["num"] = self.txtFrameRateNum.value()
