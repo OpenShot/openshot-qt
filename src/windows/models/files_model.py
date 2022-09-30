@@ -41,7 +41,7 @@ from PyQt5.QtGui import (
 )
 from classes import updates
 from classes import info
-from classes.image_types import is_image
+from classes.image_types import get_media_type
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
@@ -274,15 +274,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 file_data = json.loads(reader.Json())
 
                 # Determine media type
-                if file_data["has_video"] and not is_image(file_data):
-                    file_data["media_type"] = "video"
-                elif file_data["has_video"] and is_image(file_data):
-                    file_data["media_type"] = "image"
-                elif file_data["has_audio"] and not file_data["has_video"]:
-                    file_data["media_type"] = "audio"
-                else:
-                    # If none set, just assume video
-                    file_data["media_type"] = "video"
+                file_data["media_type"] = get_media_type(file_data)
 
                 # Save new file to the project data
                 new_file = File()
@@ -294,59 +286,45 @@ class FilesModel(QObject, updates.UpdateInterface):
                     seq_info = image_seq_details or self.get_image_sequence_details(filepath)
 
                 if seq_info:
-                    # Update file with correct path
-                    folder_path = seq_info["folder_path"]
-                    base_name = seq_info["base_name"]
-                    fixlen = seq_info["fixlen"]
-                    digits = seq_info["digits"]
-                    extension = seq_info["extension"]
-
-                    if not fixlen:
-                        zero_pattern = "%d"
-                    else:
-                        zero_pattern = "%%0%sd" % digits
-
-                    # Generate the regex pattern for this image sequence
-                    pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
-
-                    # Split folder name
-                    folderName = os.path.basename(folder_path)
-                    if not base_name:
-                        # Give alternate name
-                        new_file.data["name"] = "%s (%s)" % (folderName, pattern)
+                    # Update file with image sequence path & name
+                    new_path = seq_info.get("path")
+                    new_file.data["name"] = os.path.basename(new_path)
 
                     # Load image sequence (to determine duration and video_length)
-                    image_seq = openshot.Clip(os.path.join(folder_path, pattern))
+                    clip = openshot.Clip(new_path)
+                    if clip and clip.info.duration > 0.0:
 
-                    # Update file details
-                    new_file.data["path"] = os.path.join(folder_path, pattern)
-                    new_file.data["media_type"] = "video"
-                    new_file.data["duration"] = image_seq.Reader().info.duration
-                    new_file.data["video_length"] = image_seq.Reader().info.video_length
+                        # Update file details
+                        new_file.data["path"] = new_path
+                        new_file.data["media_type"] = "video"
+                        new_file.data["duration"] = clip.Reader().info.duration
+                        new_file.data["video_length"] = "%s" % clip.Reader().info.video_length
 
-                    if seq_info and "fps" in seq_info:
-                        # Blender Titles specify their fps in seq_info
-                        fps = seq_info["fps"]
-                        fps_num = seq_info.get("fps").get("num", 25)
-                        fps_den = seq_info.get("fps").get("den", 1)
-                        log.debug("Image Sequence using specified FPS: %s / %s" % (fps_num, fps_den))
+                        if seq_info and "fps" in seq_info:
+                            # Blender Titles specify their fps in seq_info
+                            fps_num = seq_info.get("fps", {}).get("num", 25)
+                            fps_den = seq_info.get("fps", {}).get("den", 1)
+                            log.debug("Image Sequence using specified FPS: %s / %s" % (fps_num, fps_den))
+                        else:
+                            # Get the project's fps, apply to the image sequence.
+                            fps_num = get_app().project.get("fps").get("num", 30)
+                            fps_den = get_app().project.get("fps").get("den", 1)
+                            log.debug("Image Sequence using project FPS: %s / %s" % (fps_num, fps_den))
+                        new_file.data["fps"] = {"num": fps_num, "den": fps_den}
+
+                        log.info(f"Imported '{new_path}' as image sequence with '{fps_num}/{fps_den}' FPS")
+
+                        # Remove any other image sequence files from the list we're processing
+                        match_glob = "{}{}.{}".format(seq_info.get("base_name"), '[0-9]*', seq_info.get("extension"))
+                        log.debug("Removing files from import list with glob: {}".format(match_glob))
+                        for seq_file in glob.iglob(os.path.join(seq_info.get("folder_path"), match_glob)):
+                            # Don't remove the current file, or we mess up the for loop
+                            if seq_file in files and seq_file != filepath:
+                                files.remove(seq_file)
                     else:
-                        # Get the project's fps, apply to the image sequence.
-                        fps_num = get_app().project.get("fps").get("num", 30)
-                        fps_den = get_app().project.get("fps").get("den", 1)
-                        log.debug("Image Sequence using project FPS: %s / %s" % (fps_num, fps_den))
-                    new_file.data["fps"] = {"num": fps_num, "den": fps_den}
-
-                    log.info('Imported {} as image sequence {}'.format(
-                        filepath, pattern))
-
-                    # Remove any other image sequence files from the list we're processing
-                    match_glob = "{}{}.{}".format(base_name, '[0-9]*', extension)
-                    log.debug("Removing files from import list with glob: {}".format(match_glob))
-                    for seq_file in glob.iglob(os.path.join(folder_path, match_glob)):
-                        # Don't remove the current file, or we mess up the for loop
-                        if seq_file in files and seq_file != filepath:
-                            files.remove(seq_file)
+                        # Failed to import image sequence
+                        log.info(f"Failed to parse image sequence pattern {new_path}, ignoring...")
+                        continue
 
                 if not seq_info:
                     # Log our not-an-image-sequence import
@@ -433,13 +411,23 @@ class FilesModel(QObject, updates.UpdateInterface):
             # User said no, don't import as a sequence
             return None
 
+        # generate file glob pattern (for this image sequence)
+        if not fixlen:
+            zero_pattern = "%d"
+        else:
+            zero_pattern = "%%0%sd" % digits
+        pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
+        new_file_path = os.path.join(dirName, pattern)
+
         # Yes, import image sequence
         parameters = {
             "folder_path": dirName,
             "base_name": base_name,
             "fixlen": fixlen,
             "digits": digits,
-            "extension": extension
+            "extension": extension,
+            "pattern": pattern,
+            "path": new_file_path
         }
         return parameters
 

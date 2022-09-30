@@ -37,6 +37,7 @@ import openshot
 
 from classes import info, ui_util
 from classes.app import get_app
+from classes.image_types import get_media_type
 from classes.logger import log
 from classes.metrics import track_metric_screen
 
@@ -66,9 +67,6 @@ class FileProperties(QDialog):
         # Get settings
         self.s = app.get_settings()
 
-        # Keep track of whether this file is an image sequence
-        self.is_sequence = False
-
         # Track metrics
         track_metric_screen("file-properties-screen")
 
@@ -83,7 +81,6 @@ class FileProperties(QDialog):
         # Get file properties
         filename = os.path.basename(self.file.data["path"])
         file_extension = os.path.splitext(filename)[1]
-        fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
 
         tags = self.file.data.get("tags", "")
         name = self.file.data.get("name", filename)
@@ -109,17 +106,8 @@ class FileProperties(QDialog):
             self.txtFrameRateNum.setEnabled(False)
             self.txtFrameRateDen.setEnabled(False)
 
-        self.txtStartFrame.setMaximum(int(self.file.data["video_length"]))
-        if 'start' not in file.data.keys():
-            self.txtStartFrame.setValue(1)
-        else:
-            self.txtStartFrame.setValue(round(float(file.data["start"]) * fps_float) + 1)
-
-        self.txtEndFrame.setMaximum(int(self.file.data["video_length"]))
-        if 'end' not in file.data.keys():
-            self.txtEndFrame.setValue(int(self.file.data["video_length"]))
-        else:
-            self.txtEndFrame.setValue(round(float(file.data["end"]) * fps_float) + 1)
+        # Initialize start/end textboxes
+        self.init_start_end_textboxes(self.file.data)
 
         # Populate video & audio format
         self.txtVideoFormat.setText(file_extension.replace(".", ""))
@@ -167,65 +155,75 @@ class FileProperties(QDialog):
         # Switch to 1st page
         self.toolBox.setCurrentIndex(0)
 
+    def init_start_end_textboxes(self, file_object):
+        """Initialize the start and end textboxes based on a file object"""
+        fps_float = float(file_object["fps"]["num"]) / float(file_object["fps"]["den"])
+
+        self.txtStartFrame.setMaximum(int(file_object["video_length"]))
+        if 'start' not in file_object.keys():
+            self.txtStartFrame.setValue(1)
+        else:
+            self.txtStartFrame.setValue(round(float(file_object["start"]) * fps_float) + 1)
+
+        self.txtEndFrame.setMaximum(int(file_object["video_length"]))
+        if 'end' not in file_object.keys():
+            self.txtEndFrame.setValue(int(file_object["video_length"]))
+        else:
+            self.txtEndFrame.setValue(round(float(file_object["end"]) * fps_float) + 1)
+
+    def verifyPath(self, new_path):
+        """If the path has changed, verify that path is valid, and
+        update duration, video_length, media_type, etc..."""
+
+        # If this path could be an image sequence, get that info and prompt user.
+        seq_info = get_app().window.files_model.get_image_sequence_details(new_path)
+        get_app().window.files_model.ignore_image_sequence_paths = []
+
+        # create the proper path for an image sequence
+        if seq_info:
+            # Override new_path with image sequence glob pattern
+            new_path = seq_info.get("path")
+            self.file.data["media_type"] = "video"
+
+        # Open image sequence with Clip object (to determine metadata)
+        clip = openshot.Clip(new_path)
+        if clip and clip.info.duration > 0.0:
+            # Make sure a clip can be created, then change the video length and path
+            self.txtFilePath.setText(new_path)
+            self.txtFileName.setText(os.path.basename(new_path))
+            self.file.data["path"] = new_path
+            self.file.data["duration"] = clip.Reader().info.duration
+            self.file.data["video_length"] = clip.Reader().info.video_length
+            if not seq_info:
+                self.file.data["media_type"] = get_media_type(self.file.data)
+
+            # Initialize start/end textboxes
+            self.init_start_end_textboxes(self.file.data)
+        else:
+            log.info(f"Given path '{new_path}' was not a valid path... ignoring")
+
     def browsePath(self):
         # get translations
         app = get_app()
         _ = app._tr
 
         starting_folder, filename = os.path.split(self.file.data["path"])
-        newFilePath = QFileDialog.getOpenFileName(None, _("Locate media file: %s") % filename, starting_folder)[0]
-
+        new_path = QFileDialog.getOpenFileName(None, _("Locate media file: %s") % filename, starting_folder)[0]
 
         # don't update if dialog was canceled
-        if newFilePath:
-            # If this path could be an image sequence, get that info and prompt user.
-            seq_info = get_app().window.files_model.get_image_sequence_details(newFilePath)
-            get_app().window.files_model.ignore_image_sequence_paths = []
-
-            # create the proper path for an image sequence
-            if seq_info:
-                # Flag to allow saving a path if the file name doesn't exist
-                self.is_sequence = True
-
-                #This code is mostly copied from FilesModel.add_files()
-                folder_path = seq_info["folder_path"]
-                base_name = seq_info["base_name"]
-                fixlen = seq_info["fixlen"]
-                digits = seq_info["digits"]
-                extension = seq_info["extension"]
-
-                if not fixlen:
-                    zero_pattern = "%d"
-                else:
-                    zero_pattern = "%%0%sd" % digits
-
-                pattern = "%s%s.%s" % (base_name, zero_pattern, extension)
-                newFilePath = os.path.join(folder_path, pattern)
-
-                image_seq = openshot.Clip(newFilePath)
-                if image_seq:
-                    # Make sure a clip can be created, then change the video length and path
-                    self.file.data["duration"] = image_seq.Reader().info.duration
-                    self.file.data["video_length"] = image_seq.Reader().info.video_length
-                    self.txtFilePath.setText(newFilePath)
-
-            # Make sure that new path is an existing  file
-            elif os.path.isfile(newFilePath):
-                self.txtFilePath.setText(newFilePath)
+        if new_path:
+            # verify path is valid (and prompt for image sequence if detected)
+            self.verifyPath(new_path)
 
     def accept(self):
+        new_path = self.txtFilePath.text()
+        if new_path and self.file.data.get("path") != new_path:
+            # If path changed, verify path is valid (and prompt for image sequence if detected)
+            self.verifyPath(new_path)
+
         # Update file details
         self.file.data["name"] = self.txtFileName.text()
         self.file.data["tags"] = self.txtTags.text()
-
-        newPath = self.txtFilePath.text()
-        # experimental: update file path
-        if (newPath and os.path.isfile(newPath)):
-            self.file.data["path"] = newPath
-        elif self.is_sequence and os.path.isdir(os.path.dirname(newPath)):
-            self.file.data["path"] = newPath
-        else:
-            log.error(f"Given path '{newPath}' was not a valid path.")
 
         # Update Framerate
         self.file.data["fps"]["num"] = self.txtFrameRateNum.value()
@@ -233,12 +231,15 @@ class FileProperties(QDialog):
 
         # Update start / end frame
         fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
-        if self.txtStartFrame.value() != 1 or self.txtEndFrame.value() != self.file.data["video_length"]:
+        if self.txtStartFrame.value() != 1 or self.txtEndFrame.value() != int(self.file.data["video_length"]):
             self.file.data["start"] = (self.txtStartFrame.value() - 1) / fps_float
             self.file.data["end"] = (self.txtEndFrame.value() - 1) / fps_float
 
         # Save file object
         self.file.save()
+
+        # Update file info & thumbnail
+        get_app().window.FileUpdated.emit(self.file.id)
 
         # Accept dialog
         super(FileProperties, self).accept()
