@@ -492,6 +492,9 @@ class FilesModel(QObject, updates.UpdateInterface):
         path, filename = os.path.split(file.data["path"])
         name = file.data.get("name", filename)
 
+        fps = file.data["fps"]
+        fps_float = float(fps["num"]) / float(fps["den"])
+
         # Refresh thumbnail for updated file
         self.ignore_updates = True
         m = self.model
@@ -502,11 +505,23 @@ class FilesModel(QObject, updates.UpdateInterface):
             if not id_index.isValid():
                 return
 
+            # Generate thumbnail for file (if needed)
+            if file.data.get("media_type") in ["video", "image"]:
+                # Check for start and end attributes (optional)
+                thumbnail_frame = 1
+                if 'start' in file.data:
+                    thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
+
+                # Get thumb path
+                thumb_icon = QIcon(self.get_thumb_path(file.id, thumbnail_frame, clear_cache=True))
+            else:
+                # Audio file
+                thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
+
             # Update thumb for file
-            thumb_path = self.get_thumb_path(file_id, 1, clear_cache=True)
             thumb_index = id_index.sibling(id_index.row(), 0)
             item = m.itemFromIndex(thumb_index)
-            item.setIcon(QIcon(thumb_path))
+            item.setIcon(thumb_icon)
             item.setText(name)
 
             # Emit signal when model is updated

@@ -191,9 +191,7 @@ class FileProperties(QDialog):
             # Make sure a clip can be created, then change the video length and path
             self.txtFilePath.setText(new_path)
             self.txtFileName.setText(os.path.basename(new_path))
-            self.file.data["path"] = new_path
-            self.file.data["duration"] = clip.Reader().info.duration
-            self.file.data["video_length"] = clip.Reader().info.video_length
+            self.file.data = json.loads(clip.Reader().Json())
             if not seq_info:
                 self.file.data["media_type"] = get_media_type(self.file.data)
 
