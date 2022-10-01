@@ -2006,6 +2006,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             for c in clips:
                 # update clip
                 c.data["reader"] = f.data
+                c.data["duration"] = f.data["duration"]
                 c.save()
 
             log.info('File Properties Finished')
