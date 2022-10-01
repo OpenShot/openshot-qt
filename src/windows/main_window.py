@@ -2009,6 +2009,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 c.data["duration"] = f.data["duration"]
                 c.save()
 
+                # Emit thumbnail update signal (to update timeline thumb image)
+                self.ThumbnailUpdated.emit(c.id)
+
             log.info('File Properties Finished')
         else:
             log.info('File Properties Cancelled')
