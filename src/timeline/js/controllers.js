@@ -675,7 +675,6 @@ App.controller("TimelineCtrl", function ($scope) {
   // Format the thumbnail path: http://127.0.0.1:8081/thumbnails/FILE-ID/FRAME-NUMBER/
   /**
    * @return {string}
-   * @return {string}
    */
   $scope.getThumbPath = function (clip) {
     var has_video = clip["reader"]["has_video"];

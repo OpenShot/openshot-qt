@@ -2001,12 +2001,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         result = win.exec_()
         if result == QDialog.Accepted:
 
-            # BRUTE FORCE approach: go through all clips and update file path
-            clips = Clip.filter(file_id=f.data["id"])
+            # BRUTE FORCE approach: go through all clips and update file data
+            clips = Clip.filter(file_id=f.id)
             for c in clips:
                 # update clip
-                c.data["reader"]["path"] = f.data["path"]
+                c.data["reader"] = f.data
+                c.data["duration"] = f.data["duration"]
                 c.save()
+
+                # Emit thumbnail update signal (to update timeline thumb image)
+                self.ThumbnailUpdated.emit(c.id)
 
             log.info('File Properties Finished')
         else:

@@ -36,7 +36,7 @@ import json
 
 from classes import info
 from classes.app import get_app
-from classes.image_types import is_image
+from classes.image_types import get_media_type
 from classes.json_data import JsonDataStore
 from classes.logger import log
 from classes.updates import UpdateInterface
@@ -465,12 +465,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             file_data = json.loads(reader.Json(), strict=False)
 
                             # Determine media type
-                            if file_data["has_video"] and not is_image(file_data):
-                                file_data["media_type"] = "video"
-                            elif file_data["has_video"] and is_image(file_data):
-                                file_data["media_type"] = "image"
-                            elif file_data["has_audio"] and not file_data["has_video"]:
-                                file_data["media_type"] = "audio"
+                            file_data["media_type"] = get_media_type(file_data)
 
                             # Save new file to the project data
                             file = File()
