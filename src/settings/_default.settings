@@ -264,7 +264,7 @@
   {
     "min": 0,
     "max": 1024,
-    "value": 2,
+    "value": 30,
     "title": "Cache Pre-roll: Min Frames",
     "type": "spinner-int",
     "category": "Cache",
@@ -273,7 +273,7 @@
   {
     "min": 0,
     "max": 1024,
-    "value": 8,
+    "value": 30,
     "title": "Cache Pre-roll: Max Frames",
     "type": "spinner-int",
     "category": "Cache",
