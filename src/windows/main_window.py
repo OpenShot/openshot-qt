@@ -1024,8 +1024,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionJumpStart_trigger(self, checked=True):
         log.debug("actionJumpStart_trigger")
 
+        # Get current player speed/direction
+        player = self.preview_thread.player
+        current_speed = player.Speed()
+
+        # Switch speed back to forward (and then pause)
+        # This will allow video caching to start working in the forward direction
+        self.SpeedSignal.emit(1)
+        self.SpeedSignal.emit(0)
+
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
+
+        # If playing, continue playing
+        if current_speed >= 0:
+            self.SpeedSignal.emit(current_speed)
+        else:
+            # If reversing, pause video
+            self.PauseSignal.emit()
 
     def actionJumpEnd_trigger(self, checked=True):
         log.debug("actionJumpEnd_trigger")
