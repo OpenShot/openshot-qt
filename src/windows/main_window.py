@@ -297,13 +297,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Clear any previous thumbnails
         self.clear_temporary_files()
 
+        # Reset selections
+        self.clearSelections()
+
         # clear data and start new project
         app.project.load("")
         app.updates.reset()
         self.updateStatusChanged(False, False)
-
-        # Reset selections
-        self.clearSelections()
 
         # Refresh files views
         self.refreshFilesSignal.emit()
