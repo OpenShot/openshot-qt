@@ -184,10 +184,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.videoPreview = None
         self.preview_parent.Stop()
 
-        # Close Timeline
+        # Clean-up Timeline
         if self.timeline_sync and self.timeline_sync.timeline:
+            # Clear all clips & close all readers
+            self.timeline_sync.timeline.Clear()
+
+            # Close & delete timeline
             self.timeline_sync.timeline.Close()
-            self.timeline_sync.timeline = None
+            del self.timeline_sync.timeline
 
         # Destroy lock file
         self.destroy_lock_file()

@@ -80,6 +80,9 @@ class TimelineSync(UpdateInterface):
         # Pass the change to the libopenshot timeline
         try:
             if action.type == "load":
+                # Clear any existing clips & effects (free memory)
+                self.timeline.Clear()
+
                 # This JSON is initially loaded to libopenshot to update the timeline
                 self.timeline.SetJson(action.json(only_value=True))
                 self.timeline.Open()  # Re-Open the Timeline reader
