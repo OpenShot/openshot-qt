@@ -2498,6 +2498,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.selected_effects.remove(item_id)
 
         if not self.selected_clips:
+            # Clear properties view (if no other clips are selected)
+            if self.propertyTableView:
+                self.propertyTableView.loadProperties.emit("", "")
+
             # Clear transform (if no other clips are selected)
             self.TransformSignal.emit("")
 
