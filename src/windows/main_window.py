@@ -294,11 +294,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
-        # Clear any previous thumbnails
-        self.clear_temporary_files()
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
+        # Stop preview thread
+        self.SpeedSignal.emit(0)
+        self.PauseSignal.emit()
 
         # Reset selections
         self.clearSelections()
+
+        # Process all events
+        QCoreApplication.processEvents()
+
+        # Clear any previous thumbnails
+        self.clear_temporary_files()
 
         # clear data and start new project
         app.project.load("")
@@ -317,6 +327,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Update max size (for fast previews)
         self.MaxSizeChanged.emit(self.videoPreview.size())
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
     def actionAnimatedTitle_trigger(self):
         # show dialog
@@ -468,9 +481,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Ignore the request
             return
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
+
+        # Reset selections
+        self.clearSelections()
+
+        # Process all events
         QCoreApplication.processEvents()
 
         # Do we have unsaved changes?
@@ -506,9 +527,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 app.updates.reset()
                 app.updates.load_history(app.project)
 
-                # Reset selections
-                self.clearSelections()
-
                 # Refresh files views
                 self.refreshFilesSignal.emit()
 
@@ -539,6 +557,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
         # Restore normal cursor
         app.restoreOverrideCursor()
