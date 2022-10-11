@@ -165,6 +165,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Track end of session
         track_metric_session(False)
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         # Stop threads
         self.StopSignal.emit()
 
