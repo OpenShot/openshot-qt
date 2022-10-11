@@ -264,7 +264,7 @@
   {
     "min": 0,
     "max": 1024,
-    "value": 30,
+    "value": 24,
     "title": "Cache Pre-roll: Min Frames",
     "type": "spinner-int",
     "category": "Cache",
@@ -273,7 +273,7 @@
   {
     "min": 0,
     "max": 1024,
-    "value": 30,
+    "value": 48,
     "title": "Cache Pre-roll: Max Frames",
     "type": "spinner-int",
     "category": "Cache",
@@ -283,7 +283,7 @@
     "min": 0.0,
     "max": 1.0,
     "step": 0.1,
-    "value": 0.75,
+    "value": 0.7,
     "title": "Cache Ahead (Percent)",
     "type": "spinner",
     "category": "Cache",
@@ -301,7 +301,7 @@
   {
     "min": 0,
     "max": 9999999,
-    "value": 1024,
+    "value": 512,
     "title": "Cache Limit (MB)",
     "type": "spinner-int",
     "category": "Cache",
