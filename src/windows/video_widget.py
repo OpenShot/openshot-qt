@@ -1283,6 +1283,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.transforming_clip and not clip_id:
             # Clear transform
             self.transforming_clip = None
+            self.transforming_clip_object = None
             need_refresh = True
 
         # Get new clip for transform
@@ -1291,6 +1292,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             self.transforming_clip_object = win.timeline_sync.timeline.GetClip(clip_id)
             if self.transforming_clip and self.transforming_clip_object:
                 self.transforming_effect = None
+                self.transforming_effect_object = None
                 need_refresh = True
 
         # Update the preview and reselct current frame in properties
@@ -1308,7 +1310,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if self.transforming_effect and not effect_id:
             # Clear transform
             self.transforming_effect = None
+            self.transforming_effect_object = None
             self.transforming_clip = None
+            self.transforming_clip_object = None
             need_refresh = True
 
         # Get new clip for transform

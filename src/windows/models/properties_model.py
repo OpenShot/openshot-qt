@@ -80,8 +80,12 @@ class PropertiesModel(updates.UpdateInterface):
         self.next_item_id = item_id
         self.next_item_type = item_type
 
-        # Update the model data
-        self.update_timer.start()
+        if not item_type and self.selected:
+            # immediately clear property selection (but only if needed)
+            self.update_item_timeout()
+        else:
+            # Delay property selection (to prevent spamming of multi-selections)
+            self.update_timer.start()
 
     # Update the next item (once the timer runs out)
     def update_item_timeout(self):
@@ -95,31 +99,33 @@ class PropertiesModel(updates.UpdateInterface):
 
         log.debug("Update item: %s" % item_type)
 
-        timeline = get_app().window.timeline_sync.timeline
-        if item_type == "clip":
-            c = timeline.GetClip(item_id)
-            if c:
-                # Append to selected items
-                self.selected.append((c, item_type))
-        if item_type == "transition":
-            t = timeline.GetEffect(item_id)
-            if t:
-                # Append to selected items
-                self.selected.append((t, item_type))
-        if item_type == "effect":
-            e = timeline.GetClipEffect(item_id)
-            if e:
-                # Filter out basic properties, since this is an effect on a clip
-                self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
-                # Append to selected items
-                self.selected.append((e, item_type))
-                self.selected_parent = e.ParentClip()
+        if item_type:
+            # Only retrieve object if item_type is valid
+            timeline = get_app().window.timeline_sync.timeline
+            if item_type == "clip":
+                c = timeline.GetClip(item_id)
+                if c:
+                    # Append to selected items
+                    self.selected.append((c, item_type))
+            if item_type == "transition":
+                t = timeline.GetEffect(item_id)
+                if t:
+                    # Append to selected items
+                    self.selected.append((t, item_type))
+            if item_type == "effect":
+                e = timeline.GetClipEffect(item_id)
+                if e:
+                    # Filter out basic properties, since this is an effect on a clip
+                    self.filter_base_properties = ["position", "layer", "start", "end", "duration"]
+                    # Append to selected items
+                    self.selected.append((e, item_type))
+                    self.selected_parent = e.ParentClip()
 
-        # Update frame # from timeline
-        self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
+            # Update frame # from timeline
+            self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
 
-        # Get ID of item
-        self.new_item = True
+            # Get ID of item
+            self.new_item = True
 
         # Update the model data
         self.update_model(get_app().window.txtPropertyFilter.text())

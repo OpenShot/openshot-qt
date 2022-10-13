@@ -165,6 +165,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Track end of session
         track_metric_session(False)
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         # Stop threads
         self.StopSignal.emit()
 
@@ -184,10 +187,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.videoPreview = None
         self.preview_parent.Stop()
 
-        # Close Timeline
+        # Clean-up Timeline
         if self.timeline_sync and self.timeline_sync.timeline:
+            # Clear all clips & close all readers
+            self.timeline_sync.timeline.Clear()
+
+            # Close & delete timeline
             self.timeline_sync.timeline.Close()
-            self.timeline_sync.timeline = None
+            del self.timeline_sync.timeline
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -290,6 +297,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
+        # Stop preview thread
+        self.SpeedSignal.emit(0)
+        self.PauseSignal.emit()
+
+        # Reset selections
+        self.clearSelections()
+
+        # Process all events
+        QCoreApplication.processEvents()
+
         # Clear any previous thumbnails
         self.clear_temporary_files()
 
@@ -297,9 +317,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.project.load("")
         app.updates.reset()
         self.updateStatusChanged(False, False)
-
-        # Reset selections
-        self.clearSelections()
 
         # Refresh files views
         self.refreshFilesSignal.emit()
@@ -313,6 +330,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Update max size (for fast previews)
         self.MaxSizeChanged.emit(self.videoPreview.size())
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
     def actionAnimatedTitle_trigger(self):
         # show dialog
@@ -464,9 +484,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Ignore the request
             return
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
+
+        # Reset selections
+        self.clearSelections()
+
+        # Process all events
         QCoreApplication.processEvents()
 
         # Do we have unsaved changes?
@@ -502,9 +530,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 app.updates.reset()
                 app.updates.load_history(app.project)
 
-                # Reset selections
-                self.clearSelections()
-
                 # Refresh files views
                 self.refreshFilesSignal.emit()
 
@@ -535,6 +560,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
         # Restore normal cursor
         app.restoreOverrideCursor()
@@ -1024,8 +1052,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionJumpStart_trigger(self, checked=True):
         log.debug("actionJumpStart_trigger")
 
+        # Get current player speed/direction
+        player = self.preview_thread.player
+        current_speed = player.Speed()
+
+        # Switch speed back to forward (and then pause)
+        # This will allow video caching to start working in the forward direction
+        self.SpeedSignal.emit(1)
+        self.SpeedSignal.emit(0)
+
         # Seek to the 1st frame
         self.SeekSignal.emit(1)
+
+        # If playing, continue playing
+        if current_speed >= 0:
+            self.SpeedSignal.emit(current_speed)
+        else:
+            # If reversing, pause video
+            self.PauseSignal.emit()
 
     def actionJumpEnd_trigger(self, checked=True):
         log.debug("actionJumpEnd_trigger")
@@ -2478,6 +2522,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.selected_effects.remove(item_id)
 
         if not self.selected_clips:
+            # Clear properties view (if no other clips are selected)
+            if self.propertyTableView:
+                self.propertyTableView.loadProperties.emit("", "")
+
             # Clear transform (if no other clips are selected)
             self.TransformSignal.emit("")
 
