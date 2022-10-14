@@ -1,8 +1,8 @@
 description=CVD PAL
 frame_rate_num=25
 frame_rate_den=1
-width=352
-height=576
+width=576
+height=352
 progressive=0
 sample_aspect_num=59
 sample_aspect_den=27
