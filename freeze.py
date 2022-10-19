@@ -231,9 +231,7 @@ if sys.platform == "win32":
     MSYSTEM = os.getenv('MSYSTEM', "MINGW64").lower()
     babl_ext_path = "c:/msys64/%s/lib/babl-0.1/" % MSYSTEM
     for filename in find_files(babl_ext_path, ["*.dll"]):
-        if os.path.split(filename)[1] not in ["libbabl-0.1-0.dll", "libgcc_s_seh-1.dll",
-                                              "liblcms2-2.dll", "libwinpthread-1.dll", "msvcrt.dll"]:
-            src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
+        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
@@ -491,11 +489,11 @@ if os.path.exists(os.path.join(PATH, "src")):
     rmtree(openshot_copy_path, True)
 
 # Fix a few things on the frozen folder(s)
+build_path = os.path.join(PATH, "build")
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
     # We need to rewrite many dependency paths and library IDs
     from installer.fix_qt5_rpath import *
-    build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
                 fix_rpath(os.path.join(build_path, frozen_path))
@@ -506,7 +504,6 @@ if sys.platform == "darwin":
 elif sys.platform == "linux":
     # Linux issues with frozen folder
     # We need to remove some excess folders/files that are unneeded bloat
-    build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
                 paths = ["lib/openshot_qt/",
@@ -515,6 +512,26 @@ elif sys.platform == "linux":
                          "translations/",
                          "locales/",
                          "libQt5WebKit.so.5"]
+                for path in paths:
+                    full_path = os.path.join(build_path, frozen_path, path)
+                    for remove_path in glob.glob(full_path):
+                        if os.path.isfile(remove_path):
+                            log.info("Removing unneeded file: %s" % remove_path)
+                            os.unlink(remove_path)
+                        elif os.path.isdir(remove_path):
+                            log.info("Removing unneeded folder: %s" % remove_path)
+                            rmtree(remove_path)
+
+elif sys.platform == "win32":
+    # Windows issues with frozen folder
+    # We need to remove some excess folders/files that are unneeded bloat
+    for frozen_path in os.listdir(build_path):
+            if frozen_path.startswith("exe"):
+                paths = ["lib/babl-ext/libbabl-0.1-0.dll",
+                         "lib/babl-ext/libgcc_s_seh-1.dll",
+                         "lib/babl-ext/liblcms2-2.dll"
+                         "lib/babl-ext/libwinpthread-1.dll"
+                         "lib/babl-ext/msvcrt.dll"]
                 for path in paths:
                     full_path = os.path.join(build_path, frozen_path, path)
                     for remove_path in glob.glob(full_path):
