@@ -137,6 +137,13 @@ class OpenShotApp(QApplication):
         # Set location of OpenShot program (for libopenshot)
         openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
 
+        # Set BABL extensions path (for windows)
+        babl_ext_path = os.path.join(info.PATH, "lib", "babl-extensions")
+        log.info(f"checking babl_ext_path: {babl_ext_path}")
+        if sys.platform == "win32" and os.path.exists(babl_ext_path):
+            os.environ["BABL_PATH"] = babl_ext_path
+            log.info(f"setting BABL_PATH: {babl_ext_path}")
+
         # Check to disable sentry
         if self.mode == "unittest" or not self.settings.get('send_metrics'):
             sentry.disable_tracing()
