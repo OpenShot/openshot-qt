@@ -138,7 +138,7 @@ class OpenShotApp(QApplication):
         openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH
 
         # Set BABL extensions path (for windows)
-        babl_ext_path = os.path.join(info.PATH, "lib", "babl-extensions")
+        babl_ext_path = os.path.join(info.PATH, "lib", "babl-ext")
         log.info(f"checking babl_ext_path: {babl_ext_path}")
         if sys.platform == "win32" and os.path.exists(babl_ext_path):
             os.environ["BABL_PATH"] = babl_ext_path

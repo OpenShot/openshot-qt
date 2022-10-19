@@ -231,7 +231,9 @@ if sys.platform == "win32":
     MSYSTEM = os.getenv('MSYSTEM', "MINGW64").lower()
     babl_ext_path = "c:/msys64/%s/lib/babl-0.1/" % MSYSTEM
     for filename in find_files(babl_ext_path, ["*.dll"]):
-        src_files.append((filename, os.path.join("lib", "babl-extensions", os.path.relpath(filename, start=babl_ext_path))))
+        if os.path.split(filename)[1] not in ["libbabl-0.1-0.dll", "libgcc_s_seh-1.dll",
+                                              "liblcms2-2.dll", "libwinpthread-1.dll", "msvcrt.dll"]:
+            src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
