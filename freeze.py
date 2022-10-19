@@ -527,17 +527,16 @@ elif sys.platform == "win32":
     # We need to remove some excess folders/files that are unneeded bloat
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
-                paths = ["lib/babl-ext/libbabl-0.1-0.dll",
-                         "lib/babl-ext/libgcc_s_seh-1.dll",
-                         "lib/babl-ext/liblcms2-2.dll"
-                         "lib/babl-ext/libwinpthread-1.dll"
-                         "lib/babl-ext/msvcrt.dll"]
+                paths = ["lib/babl-ext/libbabl-0.1-0.*",
+                         "lib/babl-ext/libgcc_s_seh-1.*",
+                         "lib/babl-ext/liblcms2-2.*"
+                         "lib/babl-ext/libwinpthread-1.*"
+                         "lib/babl-ext/msvcrt.*"]
                 for path in paths:
                     full_path = os.path.join(build_path, frozen_path, path)
+                    log.info("Inspecting unneeded path: %s" % full_path)
                     for remove_path in glob.glob(full_path):
+                        log.info("Inspecting removal path: %s" % remove_path)
                         if os.path.isfile(remove_path):
                             log.info("Removing unneeded file: %s" % remove_path)
                             os.unlink(remove_path)
-                        elif os.path.isdir(remove_path):
-                            log.info("Removing unneeded folder: %s" % remove_path)
-                            rmtree(remove_path)
