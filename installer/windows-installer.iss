@@ -25,7 +25,7 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={code:GetAppId|4BB0DCDC-BC24-49EC-8937-72956C33A470}
-AppName={code:GetDefaultDirName|OpenShot Video Editor}
+AppName=OpenShot Video Editor
 AppVersion={#VERSION}
 VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
