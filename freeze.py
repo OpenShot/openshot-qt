@@ -226,6 +226,13 @@ if sys.platform == "win32":
     for filename in find_files(zmq_path, ["*"]):
         src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
 
+    # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
+    # and thus cx_freeze is not able to detect them
+    MSYSTEM = os.getenv('MSYSTEM', "MINGW64").lower()
+    babl_ext_path = "c:/msys64/%s/lib/babl-0.1/" % MSYSTEM
+    for filename in find_files(babl_ext_path, ["*.dll"]):
+        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
+
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
@@ -272,6 +279,12 @@ elif sys.platform == "linux":
     nss_path = ARCHLIB + "nss/"
     for filename in find_files(nss_path, ["*"]):
         external_so_files.append((filename, os.path.basename(filename)))
+
+    # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
+    # and thus cx_freeze is not able to detect them
+    babl_ext_path = "/usr/local/lib/babl-0.1"
+    for filename in find_files(babl_ext_path, ["*.so"]):
+        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
     # Append Linux ICON file
     iconFile += ".svg"
@@ -413,6 +426,12 @@ elif sys.platform == "darwin":
     external_so_files.append((web_process_path, os.path.basename(web_process_path)))
     external_so_files.append((web_core_path, os.path.basename(web_core_path)))
 
+    # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
+    # and thus cx_freeze is not able to detect them
+    babl_ext_path = "/usr/local/lib/babl-0.1"
+    for filename in find_files(babl_ext_path, ["*.dylib"]):
+        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
+
     # Add QtWebEngineProcess Resources & Local
     for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
@@ -482,11 +501,11 @@ if os.path.exists(os.path.join(PATH, "src")):
     rmtree(openshot_copy_path, True)
 
 # Fix a few things on the frozen folder(s)
+build_path = os.path.join(PATH, "build")
 if sys.platform == "darwin":
     # Mac issues with frozen folder and *.app folder
     # We need to rewrite many dependency paths and library IDs
     from installer.fix_qt5_rpath import *
-    build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
                 fix_rpath(os.path.join(build_path, frozen_path))
@@ -497,7 +516,6 @@ if sys.platform == "darwin":
 elif sys.platform == "linux":
     # Linux issues with frozen folder
     # We need to remove some excess folders/files that are unneeded bloat
-    build_path = os.path.join(PATH, "build")
     for frozen_path in os.listdir(build_path):
             if frozen_path.startswith("exe"):
                 paths = ["lib/openshot_qt/",
@@ -515,3 +533,19 @@ elif sys.platform == "linux":
                         elif os.path.isdir(remove_path):
                             log.info("Removing unneeded folder: %s" % remove_path)
                             rmtree(remove_path)
+
+# We need to remove some excess folders/files that are unneeded bloat
+# All 3 OSes
+for frozen_path in os.listdir(build_path):
+        if frozen_path.startswith("exe"):
+            paths = ["lib/babl-ext/libbabl-0.1-0.*",
+                     "lib/babl-ext/libgcc_s_seh-1.*",
+                     "lib/babl-ext/liblcms2-2.*",
+                     "lib/babl-ext/libwinpthread-1.*",
+                     "lib/babl-ext/msvcrt.*"]
+            for path in paths:
+                full_path = os.path.join(build_path, frozen_path, path)
+                for remove_path in glob.glob(full_path):
+                    if os.path.isfile(remove_path):
+                        log.info("Removing unneeded file: %s" % remove_path)
+                        os.unlink(remove_path)
