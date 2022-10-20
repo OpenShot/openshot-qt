@@ -1828,6 +1828,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Find matching clips (if any)
             clips = Clip.filter(file_id=f.data.get("id"))
             for c in clips:
+                # Clear selected clips
+                self.removeSelection(c.id, "clip")
+
                 # Remove clip
                 c.delete()
 
@@ -1944,6 +1947,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Revove all clips on this track first
         for clip in Clip.filter(layer=selected_track_number):
+            # Clear selected clips
+            self.removeSelection(clip.id, "clip")
+
             clip.delete()
 
         # Revove all transitions on this track first
