@@ -280,6 +280,12 @@ elif sys.platform == "linux":
     for filename in find_files(nss_path, ["*"]):
         external_so_files.append((filename, os.path.basename(filename)))
 
+    # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
+    # and thus cx_freeze is not able to detect them
+    babl_ext_path = "/usr/local/lib/babl-0.1"
+    for filename in find_files(babl_ext_path, ["*.so"]):
+        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
+
     # Append Linux ICON file
     iconFile += ".svg"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
@@ -420,6 +426,12 @@ elif sys.platform == "darwin":
     external_so_files.append((web_process_path, os.path.basename(web_process_path)))
     external_so_files.append((web_core_path, os.path.basename(web_core_path)))
 
+    # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
+    # and thus cx_freeze is not able to detect them
+    babl_ext_path = "/usr/local/lib/babl-0.1"
+    for filename in find_files(babl_ext_path, ["*.dylib"]):
+        src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
+
     # Add QtWebEngineProcess Resources & Local
     for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
         external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
@@ -522,19 +534,18 @@ elif sys.platform == "linux":
                             log.info("Removing unneeded folder: %s" % remove_path)
                             rmtree(remove_path)
 
-elif sys.platform == "win32":
-    # Windows issues with frozen folder
-    # We need to remove some excess folders/files that are unneeded bloat
-    for frozen_path in os.listdir(build_path):
-            if frozen_path.startswith("exe"):
-                paths = ["lib/babl-ext/libbabl-0.1-0.*",
-                         "lib/babl-ext/libgcc_s_seh-1.*",
-                         "lib/babl-ext/liblcms2-2.*",
-                         "lib/babl-ext/libwinpthread-1.*",
-                         "lib/babl-ext/msvcrt.*"]
-                for path in paths:
-                    full_path = os.path.join(build_path, frozen_path, path)
-                    for remove_path in glob.glob(full_path):
-                        if os.path.isfile(remove_path):
-                            log.info("Removing unneeded file: %s" % remove_path)
-                            os.unlink(remove_path)
+# We need to remove some excess folders/files that are unneeded bloat
+# All 3 OSes
+for frozen_path in os.listdir(build_path):
+        if frozen_path.startswith("exe"):
+            paths = ["lib/babl-ext/libbabl-0.1-0.*",
+                     "lib/babl-ext/libgcc_s_seh-1.*",
+                     "lib/babl-ext/liblcms2-2.*",
+                     "lib/babl-ext/libwinpthread-1.*",
+                     "lib/babl-ext/msvcrt.*"]
+            for path in paths:
+                full_path = os.path.join(build_path, frozen_path, path)
+                for remove_path in glob.glob(full_path):
+                    if os.path.isfile(remove_path):
+                        log.info("Removing unneeded file: %s" % remove_path)
+                        os.unlink(remove_path)
