@@ -275,7 +275,7 @@ class PlayerWorker(QObject):
         # Mark frame number for processing (if parent is done initializing)
         self.Seek(self.player.Position())
 
-        log.info("player Position(): %s", self.player.Position())
+        log.debug("player Position(): %s", self.player.Position())
 
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
