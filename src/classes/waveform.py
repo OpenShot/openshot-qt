@@ -47,9 +47,7 @@ def get_audio_data(files: dict):
         clip_list = files[file_id]
 
         log.info("Clip loaded, start thread")
-        t = threading.Thread(target=get_waveform_thread,
-                             args=[file_id, clip_list])
-        t.daemon = True
+        t = threading.Thread(target=get_waveform_thread, args=[file_id, clip_list], daemon=True)
         t.start()
 
 

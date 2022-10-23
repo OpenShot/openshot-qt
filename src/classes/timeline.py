@@ -107,8 +107,7 @@ class TimelineSync(UpdateInterface):
             return
 
         # Pass the change to the libopenshot timeline in a separate thread (to not block main thread)
-        t = threading.Thread(target=send_changes_to_libopenshot, args=[action])
-        t.daemon = True
+        t = threading.Thread(target=send_changes_to_libopenshot, args=[action], daemon=True)
         t.start()
 
     def MaxSizeChangedCB(self, new_size):
