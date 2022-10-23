@@ -125,7 +125,7 @@ class QueryObject:
                 object = OBJECT_TYPE()
                 object.id = child["id"]
                 object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
-                object.data = copy.deepcopy(child)  # copy of object
+                object.data = child
                 object.type = "update"
                 matching_objects.append(object)
 
