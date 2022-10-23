@@ -149,7 +149,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def _set(self, key, values=None, add=False, partial_update=False, remove=False):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 
-        log.info(
+        log.debug(
             "_set key: %s values: %s add: %s partial: %s remove: %s",
             key, values, add, partial_update, remove)
         parent, my_key = None, ""

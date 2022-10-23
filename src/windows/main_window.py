@@ -2471,7 +2471,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.debug('addSelection: item_type: {}, clear_existing: {}'.format(
                 item_type, clear_existing))
         else:
-            log.info('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
+            log.debug('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
                 item_id, item_type, clear_existing))
 
         s = get_app().get_settings()
