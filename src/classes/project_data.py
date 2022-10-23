@@ -229,7 +229,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
 
         # After processing each key, we've found object and parent, return former value/s on update
-        ret = copy.deepcopy(obj)
+        ret = json.loads(json.dumps(obj))
 
         # Apply the correct action to the found item
         if remove:
@@ -400,7 +400,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Create a scaler instance
         scaler = KeyframeScaler(factor=scale_factor)
         # Create copy of active project data and scale
-        scaled = scaler(copy.deepcopy(self._data))
+        scaled = scaler(json.loads(json.dumps(self._data)))
         return scaled
 
     def read_legacy_project_file(self, file_path):
@@ -482,7 +482,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             failed_files.append(item.name)
 
                 # Delete all tracks
-                track_list = copy.deepcopy(Track.filter())
+                track_list = json.loads(json.dumps(Track.filter()))
                 for track in track_list:
                     track.delete()
 

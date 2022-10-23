@@ -70,13 +70,13 @@ class UpdateAction:
 
         # Build the dictionary to be serialized
         if only_value:
-            data_dict = copy.deepcopy(self.values)
+            data_dict = json.loads(json.dumps(self.values))
         else:
             data_dict = {"type": self.type,
                          "key": self.key,
-                         "value": copy.deepcopy(self.values),
+                         "value": json.loads(json.dumps(self.values)),
                          "partial": self.partial_update,
-                         "old_values": copy.deepcopy(self.old_values)}
+                         "old_values": json.loads(json.dumps(self.old_values))}
 
             # Always remove 'history' key (if found). This prevents nested "history"
             # attributes when a project dict is loaded.
@@ -274,7 +274,7 @@ class UpdateManager:
 
         if len(self.actionHistory) > 0:
             # Get last action from history (remove)
-            last_action = copy.deepcopy(self.actionHistory.pop())
+            last_action = json.loads(json.dumps(self.actionHistory.pop()))
 
             self.redoHistory.append(last_action)
             self.pending_action = None
@@ -287,7 +287,7 @@ class UpdateManager:
 
         if len(self.redoHistory) > 0:
             # Get last undone action off redo history (remove)
-            next_action = copy.deepcopy(self.redoHistory.pop())
+            next_action = json.loads(json.dumps(self.redoHistory.pop()))
 
             # Remove ID from insert (if found)
             if next_action.type == "insert" and isinstance(next_action.key[-1], dict) and "id" in next_action.key[-1]:

@@ -27,6 +27,7 @@
 
 import os
 import copy
+import json
 
 from classes import info
 from classes.app import get_app
@@ -54,15 +55,15 @@ class QueryObject:
             self.id = get_app().project.generate_id()
 
             # save id in data (if attribute found)
-            self.data["id"] = copy.deepcopy(self.id)
+            self.data["id"] = json.loads(json.dumps(self.id))
 
             # Set key (if needed)
             if not self.key:
-                self.key = copy.deepcopy(OBJECT_TYPE.object_key)
+                self.key = json.loads(json.dumps(OBJECT_TYPE.object_key))
                 self.key.append({"id": self.id})
 
             # Insert into project data
-            get_app().updates.insert(copy.deepcopy(OBJECT_TYPE.object_key), copy.deepcopy(self.data))
+            get_app().updates.insert(json.loads(json.dumps(OBJECT_TYPE.object_key)), json.loads(json.dumps(self.data)))
 
             # Mark record as 'update' now... so another call to this method won't insert it again
             self.type = "update"
@@ -125,7 +126,7 @@ class QueryObject:
                 object = OBJECT_TYPE()
                 object.id = child["id"]
                 object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
-                object.data = copy.deepcopy(child)  # copy of object
+                object.data = json.loads(json.dumps(child))  # copy of object
                 object.type = "update"
                 matching_objects.append(object)
 

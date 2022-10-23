@@ -29,7 +29,6 @@
 
 import os
 import time
-from copy import deepcopy
 from functools import partial
 from random import uniform
 from operator import itemgetter
@@ -205,7 +204,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Remove unused action attribute (old_values)
-        action = deepcopy(action)
         action.old_values = {}
 
         # Send a JSON version of the UpdateAction to the timeline webview method: applyJsonDiff()
@@ -2500,7 +2498,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 continue
 
             # Loop through brightness keyframes
-            tran_data_copy = deepcopy(tran.data)
+            tran_data_copy = json.loads(json.dumps(tran.data))
             new_index = len(tran.data["brightness"]["Points"])
             for point in tran.data["brightness"]["Points"]:
                 new_index -= 1

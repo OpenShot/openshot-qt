@@ -32,7 +32,7 @@ import platform
 import threading
 import time
 import urllib.parse
-from copy import deepcopy
+import json
 
 from classes import info
 from classes import language
@@ -102,7 +102,7 @@ metric_queue = []
 
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "screenview"
     metric_params["cd"] = screen_name
     metric_params["cid"] = s.get("unique_install_id")
@@ -114,7 +114,7 @@ def track_metric_screen(screen_name):
 
 def track_metric_event(event_action, event_label, event_category="General", event_value=0):
     """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "event"
     metric_params["ec"] = event_category
     metric_params["ea"] = event_action
@@ -129,7 +129,7 @@ def track_metric_event(event_action, event_label, event_category="General", even
 
 def track_metric_error(error_name, is_fatal=False):
     """Track an error has occurred"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "exception"
     metric_params["exd"] = error_name
     metric_params["exf"] = 0
@@ -143,7 +143,7 @@ def track_metric_error(error_name, is_fatal=False):
 
 def track_metric_session(is_start=True):
     """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "screenview"
     metric_params["sc"] = "start"
     metric_params["cd"] = "launch-app"

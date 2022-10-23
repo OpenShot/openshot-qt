@@ -93,10 +93,10 @@ class JsonDataStore:
                     user_values[item["setting"].lower()] = item["value"]
 
             # Settings data
-            return copy.deepcopy(user_values.get(key, None))
+            return json.loads(json.dumps(user_values.get(key, None)))
         else:
             # Project data (i.e dictionary)
-            return copy.deepcopy(self._data.get(key, None))
+            return json.loads(json.dumps(self._data.get(key, None)))
 
     def set(self, key, value):
         """ Store value in key """
