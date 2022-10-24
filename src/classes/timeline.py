@@ -103,7 +103,8 @@ class TimelineSync(UpdateInterface):
                          (e, update_action.json(is_array=True)))
 
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile"]:
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers",
+                                                              "layers", "scale", "profile", "duration"]:
             return
 
         # Pass the change to the libopenshot timeline in a separate thread (to not block main thread)
