@@ -1900,8 +1900,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         fps = get_app().project.get("fps")
         fps_num = float(fps["num"])
         fps_den = float(fps["den"])
-        fps_float = fps_num / fps_den
-        frame_duration = fps_den / fps_num
 
         # Get locked tracks from project
         locked_layers = [
@@ -1968,10 +1966,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 right_clip.save()
 
                 # Save changes again (with new thumbnail)
-                self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
+                self.update_clip_data(right_clip.data, only_basic_props=True, ignore_reader=True)
 
             # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True)
 
         # Start or restart timer to redraw audio waveforms
         self.redraw_audio_timer.start()
