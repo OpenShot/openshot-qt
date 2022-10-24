@@ -482,7 +482,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             failed_files.append(item.name)
 
                 # Delete all tracks
-                track_list = json.loads(json.dumps(Track.filter()))
+                track_list = Track.filter()
                 for track in track_list:
                     track.delete()
 
