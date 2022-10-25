@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.6.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2022-10-24 21:46:38.294364\n"
+"POT-Creation-Date: 2022-10-24 21:56:27.899289\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -1173,20 +1173,17 @@ msgid "View on GitHub"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:295
-msgid "Video Preview "
+#: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:305
+#: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:307
+#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:269
+msgid "Video Preview"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:295
 #, python-format
 msgid ""
-"(Speed: %(speed)sx, Paint: %(pfps)s FPS, Render: %(rfps)s FPS, %(width)sx"
+" (Speed: %(speed)sx, Paint: %(pfps)s FPS, Render: %(rfps)s FPS, %(width)sx"
 "%(height)s)"
-msgstr ""
-
-#: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:305
-#: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:307
-#: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:269
-msgid "Video Preview"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/video_widget.py:1446
