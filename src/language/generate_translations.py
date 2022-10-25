@@ -199,7 +199,6 @@ for object in objects:
 # Append Effect Init Data
 # Loop through props
 for effect in effect_options:
-    effects_text[effect] = "effect_init (Effect Metadata)"
     for param in effect_options[effect]:
         if "title" in param:
             effects_text[param["title"]] = "effect_init (Effect parameter for %s)" % effect

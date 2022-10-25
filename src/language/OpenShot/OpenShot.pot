@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.6.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2022-10-24 21:56:27.899289\n"
+"POT-Creation-Date: 2022-10-25 10:48:29.144195\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -2008,10 +2008,6 @@ msgstr ""
 msgid "Wave length"
 msgstr ""
 
-#: effect_init (Effect Metadata)
-msgid "Example"
-msgstr ""
-
 #: effect_init (Effect parameter for Tracker)
 msgid "Region"
 msgstr ""
@@ -2042,10 +2038,6 @@ msgstr ""
 
 #: effect_init (Effect parameter for Example)
 msgid "192000"
-msgstr ""
-
-#: libopenshot (Effect Metadata)
-msgid "Tracker"
 msgstr ""
 
 #: effect_init (Effect parameter for Tracker)
@@ -2080,16 +2072,8 @@ msgstr ""
 msgid "CSRT"
 msgstr ""
 
-#: libopenshot (Effect Metadata)
-msgid "Stabilizer"
-msgstr ""
-
 #: effect_init (Effect parameter for Stabilizer)
 msgid "Smoothing window"
-msgstr ""
-
-#: effect_init (Effect Metadata)
-msgid "ObjectDetection"
 msgstr ""
 
 #: effect_init (Effect parameter for ObjectDetection)
@@ -2316,7 +2300,15 @@ msgid ""
 msgstr ""
 
 #: libopenshot (Effect Metadata)
+msgid "Stabilizer"
+msgstr ""
+
+#: libopenshot (Effect Metadata)
 msgid "Stabilize video clip to remove undesired shaking and jitter."
+msgstr ""
+
+#: libopenshot (Effect Metadata)
+msgid "Tracker"
 msgstr ""
 
 #: libopenshot (Effect Metadata)
