@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import threading
 import time
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -73,35 +74,42 @@ class TimelineSync(UpdateInterface):
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
+        def send_changes_to_libopenshot(update_action):
+            """Send changes to libopenshot in a separate thread"""
+            try:
+                if update_action.type == "load":
+                    # Clear any existing clips & effects (free memory)
+                    self.timeline.Clear()
+
+                    # This JSON is initially loaded to libopenshot to update the timeline
+                    self.timeline.SetJson(update_action.json(only_value=True))
+                    self.timeline.Open()  # Re-Open the Timeline reader
+
+                    # The timeline's profile changed, so update all clips
+                    self.timeline.ApplyMapperToClips()
+
+                    # Always seek back to frame 1
+                    self.window.SeekSignal.emit(1)
+
+                    # Refresh current frame (since the entire timeline was updated)
+                    self.window.refreshFrameSignal.emit()
+
+                else:
+                    # This JSON DIFF is passed to libopenshot to update the timeline
+                    self.timeline.ApplyJsonDiff(update_action.json(is_array=True))
+
+            except Exception as e:
+                log.info("Error applying JSON to timeline object in libopenshot: %s. %s" %
+                         (e, update_action.json(is_array=True)))
+
         # Ignore changes that don't affect libopenshot
-        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile"]:
+        if len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers",
+                                                              "layers", "scale", "profile", "duration"]:
             return
 
-        # Pass the change to the libopenshot timeline
-        try:
-            if action.type == "load":
-                # Clear any existing clips & effects (free memory)
-                self.timeline.Clear()
-
-                # This JSON is initially loaded to libopenshot to update the timeline
-                self.timeline.SetJson(action.json(only_value=True))
-                self.timeline.Open()  # Re-Open the Timeline reader
-
-                # The timeline's profile changed, so update all clips
-                self.timeline.ApplyMapperToClips()
-
-                # Always seek back to frame 1
-                self.window.SeekSignal.emit(1)
-
-                # Refresh current frame (since the entire timeline was updated)
-                self.window.refreshFrameSignal.emit()
-
-            else:
-                # This JSON DIFF is passed to libopenshot to update the timeline
-                self.timeline.ApplyJsonDiff(action.json(is_array=True))
-
-        except Exception as e:
-            log.info("Error applying JSON to timeline object in libopenshot: %s. %s" % (e, action.json(is_array=True)))
+        # Pass the change to the libopenshot timeline in a separate thread (to not block main thread)
+        t = threading.Thread(target=send_changes_to_libopenshot, args=[action], daemon=True)
+        t.start()
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""

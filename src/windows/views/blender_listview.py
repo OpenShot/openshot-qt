@@ -544,7 +544,7 @@ Blender Path: {}
         # prepare string to inject
         user_params = "\n#BEGIN INJECTING PARAMS\n"
 
-        param_data = copy.deepcopy(self.params)
+        param_data = json.loads(json.dumps(self.params))
         param_data.update(self.get_project_params(is_preview))
 
         param_serialization = json.dumps(param_data)

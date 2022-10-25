@@ -34,8 +34,7 @@ from classes.logger import log
 
 def get_current_Version():
     """Get the current version """
-    t = threading.Thread(target=get_version_from_http)
-    t.daemon = True
+    t = threading.Thread(target=get_version_from_http, daemon=True)
     t.start()
 
 def get_version_from_http():

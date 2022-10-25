@@ -31,9 +31,9 @@ import os
 import shutil
 import webbrowser
 import functools
-from copy import deepcopy
 from time import sleep
 from uuid import uuid4
+import json
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
@@ -1848,7 +1848,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                          if l.get("lock", False)]
 
         # Loop through selected clips
-        for clip_id in deepcopy(self.selected_clips):
+        for clip_id in json.loads(json.dumps(self.selected_clips)):
             # Find matching file
             clips = Clip.filter(id=clip_id)
             clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
@@ -1873,7 +1873,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug('actionRemoveEffect_trigger')
 
         # Loop through selected clips
-        for effect_id in deepcopy(self.selected_effects):
+        for effect_id in json.loads(json.dumps(self.selected_effects)):
             log.info("effect id: %s" % effect_id)
 
             # Find matching file
@@ -1912,7 +1912,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                          if l.get("lock", False)]
 
         # Loop through selected clips
-        for tran_id in deepcopy(self.selected_transitions):
+        for tran_id in json.loads(json.dumps(self.selected_transitions)):
             # Find matching file
             transitions = Transition.filter(id=tran_id)
             transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))

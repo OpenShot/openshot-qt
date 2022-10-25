@@ -32,7 +32,7 @@ import platform
 import threading
 import time
 import urllib.parse
-from copy import deepcopy
+import json
 
 from classes import info
 from classes import language
@@ -102,19 +102,18 @@ metric_queue = []
 
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "screenview"
     metric_params["cd"] = screen_name
     metric_params["cid"] = s.get("unique_install_id")
 
-    t = threading.Thread(target=send_metric, args=[metric_params])
-    t.daemon = True
+    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
     t.start()
 
 
 def track_metric_event(event_action, event_label, event_category="General", event_value=0):
     """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "event"
     metric_params["ec"] = event_category
     metric_params["ea"] = event_action
@@ -122,28 +121,26 @@ def track_metric_event(event_action, event_label, event_category="General", even
     metric_params["ev"] = event_value
     metric_params["cid"] = s.get("unique_install_id")
 
-    t = threading.Thread(target=send_metric, args=[metric_params])
-    t.daemon = True
+    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
     t.start()
 
 
 def track_metric_error(error_name, is_fatal=False):
     """Track an error has occurred"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "exception"
     metric_params["exd"] = error_name
     metric_params["exf"] = 0
     if is_fatal:
         metric_params["exf"] = 1
 
-    t = threading.Thread(target=send_metric, args=[metric_params])
-    t.daemon = True
+    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
     t.start()
 
 
 def track_metric_session(is_start=True):
     """Track a GUI screen being shown"""
-    metric_params = deepcopy(params)
+    metric_params = json.loads(json.dumps(params))
     metric_params["t"] = "screenview"
     metric_params["sc"] = "start"
     metric_params["cd"] = "launch-app"
@@ -152,8 +149,7 @@ def track_metric_session(is_start=True):
         metric_params["sc"] = "end"
         metric_params["cd"] = "close-app"
 
-    t = threading.Thread(target=send_metric, args=[metric_params])
-    t.daemon = True
+    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
     t.start()
 
 

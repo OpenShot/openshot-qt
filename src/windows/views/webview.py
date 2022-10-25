@@ -29,7 +29,6 @@
 
 import os
 import time
-from copy import deepcopy
 from functools import partial
 from random import uniform
 from operator import itemgetter
@@ -205,7 +204,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Remove unused action attribute (old_values)
-        action = deepcopy(action)
         action.old_values = {}
 
         # Send a JSON version of the UpdateAction to the timeline webview method: applyJsonDiff()
@@ -1902,8 +1900,6 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         fps = get_app().project.get("fps")
         fps_num = float(fps["num"])
         fps_den = float(fps["den"])
-        fps_float = fps_num / fps_den
-        frame_duration = fps_den / fps_num
 
         # Get locked tracks from project
         locked_layers = [
@@ -1970,10 +1966,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 right_clip.save()
 
                 # Save changes again (with new thumbnail)
-                self.update_clip_data(right_clip.data, only_basic_props=False, ignore_reader=True)
+                self.update_clip_data(right_clip.data, only_basic_props=True, ignore_reader=True)
 
             # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True)
 
         # Start or restart timer to redraw audio waveforms
         self.redraw_audio_timer.start()
@@ -2500,7 +2496,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 continue
 
             # Loop through brightness keyframes
-            tran_data_copy = deepcopy(tran.data)
+            tran_data_copy = json.loads(json.dumps(tran.data))
             new_index = len(tran.data["brightness"]["Points"])
             for point in tran.data["brightness"]["Points"]:
                 new_index -= 1
