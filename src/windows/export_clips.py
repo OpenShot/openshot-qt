@@ -213,8 +213,7 @@ class clipExportWindow(QDialog):
             except Exception as ex:
                 log.error("Error Exporting Clip: "+str(ex))
                 QMessageBox.warning(self, _("Error Exporting Clip"),
-                                    _("The following error occurred while "\
-                    +"exporting this clip \n\n%s") % str(ex))
+                                    _("The following error occurred while exporting this clip: \n%s") % str(ex))
                 log.info("Removing this clip from total_frames")
                 total_frames -= int(framesInClip(c))
                 if os.path.exists(export_path):

@@ -292,9 +292,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         if self.settings.get("preview-fps"):
             # Update window title with FPS output
-            dock.setWindowTitle(_("Video Preview ") + _("(Speed: %dx, Paint: %d FPS, Render: %d FPS, %dx%d)")
-                                                      % (speed, self.paint_fps, self.present_fps,
-                                                         rect.width() * scale, rect.height() * scale))
+            dock.setWindowTitle(_("Video Preview ") + _("(Speed: %(speed)sx, Paint: %(pfps)s FPS, "
+                                                        "Render: %(rfps)s FPS, %(width)sx%(height)s)")
+                                % {"speed": speed,
+                                   "pfps": self.paint_fps,
+                                   "rfps": self.present_fps,
+                                   "width": rect.width() * scale,
+                                   "height": rect.height() * scale})
         else:
             # Restore window title
             if not speed in [1, 0, -1]:
