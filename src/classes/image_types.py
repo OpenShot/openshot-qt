@@ -29,17 +29,30 @@ def is_image(file_object):
     """Check a File object if the file extension is a known image format"""
     path = file_object["path"].lower()
     img_file_extensions = (
+        ".bmp",
+        ".dpx",
+        ".exr",
+        ".gif",
         ".jpg",
         ".jpeg",
-        ".png",
-        ".bmp",
-        ".svg",
-        ".thm",
-        ".gif",
-        ".bmp",
+        ".pam",
+        ".pbm",
+        ".pcx",
         ".pgm",
+        ".png",
+        ".pnm",
+        ".ppm",
+        ".psd",
+        ".sgi",
+        ".svg",
+        ".tga",
+        ".thm",
         ".tif",
         ".tiff",
+        ".webp",
+        ".xbm",
+        ".xpm",
+        ".xwd",
     )
     return path.endswith(img_file_extensions)
 
