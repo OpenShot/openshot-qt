@@ -2824,6 +2824,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.selected_tracks = []
         self.selected_effects = []
 
+        # Clear transform
+        self.TransformSignal.emit("")
+
         # Clear selection in properties view
         if self.propertyTableView:
             self.propertyTableView.loadProperties.emit("", "")

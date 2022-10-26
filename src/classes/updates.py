@@ -290,11 +290,11 @@ class UpdateManager:
             if reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "clips":
                 # unselect deleted clip
                 item_id = reverse.key[1].get("id")
-                get_app().window.removeSelection(item_id, "clip")
+                get_app().window.clearSelections()
             elif reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "effects":
                 # unselect deleted effect
                 item_id = reverse.key[1].get("id")
-                get_app().window.removeSelection(item_id, "effect")
+                get_app().window.clearSelections()
 
             # Perform next undo action
             self.dispatch_action(reverse)
