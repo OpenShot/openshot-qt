@@ -32,6 +32,8 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
+from PyQt5.QtCore import QTimer
+from functools import partial
 
 
 class TimelineSync(UpdateInterface):
@@ -79,6 +81,7 @@ class TimelineSync(UpdateInterface):
             try:
                 if update_action.type == "load":
                     # Clear any existing clips & effects (free memory)
+                    self.timeline.Close()
                     self.timeline.Clear()
 
                     # This JSON is initially loaded to libopenshot to update the timeline
@@ -108,8 +111,7 @@ class TimelineSync(UpdateInterface):
             return
 
         # Pass the change to the libopenshot timeline in a separate thread (to not block main thread)
-        t = threading.Thread(target=send_changes_to_libopenshot, args=[action], daemon=True)
-        t.start()
+        QTimer.singleShot(0, partial(send_changes_to_libopenshot, action))
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
