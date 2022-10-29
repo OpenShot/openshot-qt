@@ -203,8 +203,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
-        # Remove unused action attribute (old_values)
-        action.old_values = {}
+        try:
+            # Duplicate UpdateAction, and remove unused action attribute (old_values)
+            action = action.copy()
+            action.old_values = {}
+        except:
+            log.error("Error duplicating UpdateAction", exc_info=1)
+            return
 
         # Send a JSON version of the UpdateAction to the timeline webview method: applyJsonDiff()
         if action.type == "load":

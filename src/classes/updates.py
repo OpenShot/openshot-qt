@@ -28,7 +28,7 @@
  """
 
 from classes.logger import log
-import copy
+from classes.app import get_app
 import json
 
 
@@ -55,12 +55,17 @@ class UpdateAction:
     """A data structure representing a single update manager action,
     including any necessary data to reverse the action."""
 
-    def __init__(self, type=None, key=[], values=None, partial_update=False):
+    def __init__(self, type=None, key=[], values=None, partial_update=False, old_values=None):
         self.type = type  # insert, update, or delete
         self.key = key  # list which contains the path to the item, for example: ["clips",{"id":"123"}]
         self.values = values
-        self.old_values = None
+        self.old_values = old_values
         self.partial_update = partial_update
+
+    def copy(self):
+        """Create and return a copy of UpdateAction - with no references to the original"""
+        # Serialize as JSON string, then load JSON string and cast back into UpdateAction
+        return UpdateAction(**json.loads(json.dumps(self, default=lambda o: o.__dict__)))
 
     def set_old_values(self, old_vals):
         self.old_values = old_vals
@@ -264,8 +269,8 @@ class UpdateManager:
 
         # On updates, just swap the old and new values data
         # Swap old and new values
-        reverse.old_values = action.values
-        reverse.values = action.old_values
+        reverse.old_values = json.loads(json.dumps(action.values))
+        reverse.values = json.loads(json.dumps(action.old_values))
 
         return reverse
 
@@ -274,20 +279,32 @@ class UpdateManager:
 
         if len(self.actionHistory) > 0:
             # Get last action from history (remove)
-            last_action = json.loads(json.dumps(self.actionHistory.pop()))
+            last_action = self.actionHistory.pop().copy()
 
             self.redoHistory.append(last_action)
             self.pending_action = None
             # Get reverse of last action and perform it
-            reverse_action = self.get_reverse_action(last_action)
-            self.dispatch_action(reverse_action)
+            reverse = self.get_reverse_action(last_action)
+
+            # Remove selections for deleted items (if any)
+            if reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "clips":
+                # unselect deleted clip
+                item_id = reverse.key[1].get("id")
+                get_app().window.clearSelections()
+            elif reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "effects":
+                # unselect deleted effect
+                item_id = reverse.key[1].get("id")
+                get_app().window.clearSelections()
+
+            # Perform next undo action
+            self.dispatch_action(reverse)
 
     def redo(self):
         """ Redo the last UpdateAction (and notify all listeners and watchers) """
 
         if len(self.redoHistory) > 0:
             # Get last undone action off redo history (remove)
-            next_action = json.loads(json.dumps(self.redoHistory.pop()))
+            next_action = self.redoHistory.pop().copy()
 
             # Remove ID from insert (if found)
             if next_action.type == "insert" and isinstance(next_action.key[-1], dict) and "id" in next_action.key[-1]:

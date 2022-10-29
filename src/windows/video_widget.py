@@ -1302,7 +1302,6 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         # Update the preview and reselect current frame in properties
         if need_refresh:
             win.refreshFrameSignal.emit()
-            win.propertyTableView.select_frame(win.preview_thread.player.Position())
 
     def keyFrameTransformTriggered(self, effect_id, clip_id):
         """Handle the key frame transform signal when it's emitted"""

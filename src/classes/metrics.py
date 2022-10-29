@@ -41,7 +41,8 @@ from classes.logger import log
 
 import openshot
 
-from PyQt5.QtCore import QT_VERSION_STR, PYQT_VERSION_STR
+from PyQt5.QtCore import QTimer, QT_VERSION_STR, PYQT_VERSION_STR
+from functools import partial
 
 try:
     import distro
@@ -106,9 +107,7 @@ def track_metric_screen(screen_name):
     metric_params["t"] = "screenview"
     metric_params["cd"] = screen_name
     metric_params["cid"] = s.get("unique_install_id")
-
-    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
-    t.start()
+    QTimer.singleShot(0, partial(send_metric, metric_params))
 
 
 def track_metric_event(event_action, event_label, event_category="General", event_value=0):
@@ -120,9 +119,7 @@ def track_metric_event(event_action, event_label, event_category="General", even
     metric_params["el"] = event_label
     metric_params["ev"] = event_value
     metric_params["cid"] = s.get("unique_install_id")
-
-    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
-    t.start()
+    QTimer.singleShot(0, partial(send_metric, metric_params))
 
 
 def track_metric_error(error_name, is_fatal=False):
@@ -133,9 +130,7 @@ def track_metric_error(error_name, is_fatal=False):
     metric_params["exf"] = 0
     if is_fatal:
         metric_params["exf"] = 1
-
-    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
-    t.start()
+    QTimer.singleShot(0, partial(send_metric, metric_params))
 
 
 def track_metric_session(is_start=True):
@@ -148,9 +143,7 @@ def track_metric_session(is_start=True):
     if not is_start:
         metric_params["sc"] = "end"
         metric_params["cd"] = "close-app"
-
-    t = threading.Thread(target=send_metric, args=[metric_params], daemon=True)
-    t.start()
+    QTimer.singleShot(0, partial(send_metric, metric_params))
 
 
 def send_metric(params):
