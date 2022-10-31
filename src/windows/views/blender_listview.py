@@ -313,6 +313,7 @@ class BlenderListView(QListView):
             return
 
         # Compose image sequence data
+        filename = "{}%04d.png".format(self.params["file_name"])
         seq_params = {
             "folder_path": os.path.join(info.BLENDER_PATH, self.unique_folder_name),
             "base_name": self.params["file_name"],
@@ -322,15 +323,14 @@ class BlenderListView(QListView):
             "fps": {
                 "num": self.fps.get("num", 25),
                 "den": self.fps.get("den", 1)
-            }
+            },
+            "pattern": filename,
+            "path": os.path.join(os.path.join(info.BLENDER_PATH, self.unique_folder_name), filename)
         }
-
-        filename = "{}%04d.png".format(seq_params["base_name"])
-        final_path = os.path.join(seq_params["folder_path"], filename)
         log.info('RENDER FINISHED! Adding to project files: {}'.format(filename))
 
         # Add to project files
-        get_app().window.files_model.add_files(final_path, seq_params)
+        get_app().window.files_model.add_files(seq_params.get("path"), seq_params)
 
         # We're done here
         self.win.close()
