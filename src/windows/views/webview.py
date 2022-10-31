@@ -2215,6 +2215,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
+        clips_with_waveforms = []
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -2224,6 +2225,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             if not clip:
                 # Invalid clip, skip to next item
                 continue
+
+            # Add any clips with waveforms to a list
+            if clip.data.get("ui", {}).get("audio_data", []):
+                clips_with_waveforms.append(clip.id)
 
             # Keep original 'end' and 'duration'
             if "original_data" not in clip.data:
@@ -2408,6 +2413,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+        # Update waveforms of all clips that have them
+        self.Show_Waveform_Triggered(clips_with_waveforms)
 
     def round_to_multiple(self, number, multiple):
         """Round this to the closest multiple of a given #"""

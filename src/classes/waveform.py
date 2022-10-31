@@ -36,6 +36,9 @@ import openshot
 # Get settings
 s = get_app().get_settings()
 
+# resolution of audio waveform
+SAMPLES_PER_SECOND = 20
+
 
 def get_audio_data(files: dict):
     """Get a Clip object form libopenshot, and grab audio data
@@ -82,7 +85,7 @@ def get_waveform_thread(file_id, clip_list):
 
         # Loop through audio samples, and create a list of amplitudes
         waveformer = openshot.AudioWaveformer(temp_clip.Reader())
-        file_audio_data = waveformer.ExtractSamples(0, 20, True)
+        file_audio_data = waveformer.ExtractSamples(0, SAMPLES_PER_SECOND, True)
 
         # Update file with audio data
         get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": file_audio_data}})
@@ -131,27 +134,25 @@ def get_waveform_thread(file_id, clip_list):
 
         # Method and variables for matching a time in seconds to an audio sample
         sample_count = len(file_audio_data)
-        file_duration = file.data.get("duration")
-        time_per_sample = file_duration / sample_count
-
-        def sample_from_time(time):
-            sample_num = max(0, round(time / time_per_sample))
-            sample_num = min(sample_count - 1, sample_num)
-            return file_audio_data[sample_num]
 
         # Loop through samples from the file, applying this clip's volume curve
         clip_audio_data = []
         clip_instance = get_app().window.timeline_sync.timeline.GetClip(clip.id)
         num_frames = int(clip_reader.get("video_length"))
-        fps = get_app().project.get("fps")
-        fps_frac = fps["num"] / fps["den"]
-        for frame_num in range(1, num_frames):
+
+        # Determine sample ratio to FPS
+        sample_ratio = float(sample_count / num_frames)
+
+        # Loop through file samples and adjust time/volume values
+        # Copy adjusted samples into clip data
+        for sample_index in range(len(file_audio_data)):
+            frame_num = round(sample_index / sample_ratio) + 1
             volume = clip_instance.volume.GetValue(frame_num)
             if clip_instance.time.GetCount() > 1:
-                # Override frame # using time curve (if set)
-                frame_num = clip_instance.time.GetValue(frame_num)
-            time = frame_num / fps_frac
-            clip_audio_data.append(sample_from_time(time) * volume)
+                # Override sample # using time curve (if set)
+                # Don't exceed array size
+                sample_index = min(round(clip_instance.time.GetValue(frame_num) * sample_ratio), sample_count - 1)
+            clip_audio_data.append(file_audio_data[sample_index] * volume)
 
         # Save this data to the clip object
         get_app().window.timeline.audioDataReady.emit(clip.id, {"ui": {"audio_data": clip_audio_data}})
