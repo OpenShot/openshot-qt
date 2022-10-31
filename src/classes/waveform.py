@@ -29,7 +29,8 @@ import threading
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip
-from time import sleep
+from PyQt5.QtGui import QCursor
+from PyQt5.QtCore import Qt
 import openshot
 
 # Get settings
@@ -72,33 +73,23 @@ def get_waveform_thread(file_id, clip_list):
 
         # Open file and access audio data (if audio data is found, otherwise return)
         temp_clip = openshot.Clip(file_data["path"])
-        temp_clip.Open()
-        temp_clip.Reader().info.has_video = False
         if temp_clip.Reader().info.has_audio == False:
             log.info(f"file: {file_data['path']} has no audio_data. Skipping")
             return
 
-        # Calculate sample rate (and how many samples per second)
-        sample_rate = temp_clip.Reader().info.sample_rate
-        samples_per_second = 20
-        sample_divisor = round(sample_rate / samples_per_second)
+        # Show waiting cursor
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
         # Loop through audio samples, and create a list of amplitudes
-        file_audio_data = []
-        for frame_num in range(1, temp_clip.Reader().info.video_length):
-            frame = temp_clip.Reader().GetFrame(frame_num)
-            sample_num = 0
-            max_samples = frame.GetAudioSamplesCount()
-            while sample_num < max_samples:
-                magnitude_range = sample_divisor
-                if sample_num + magnitude_range > frame.GetAudioSamplesCount():
-                    magnitude_range = frame.GetAudioSamplesCount() - sample_num
-                sample_value = frame.GetAudioSample(-1, sample_num, magnitude_range)
-                file_audio_data.append(sample_value)
-                sample_num += sample_divisor
+        waveformer = openshot.AudioWaveformer(temp_clip.Reader())
+        file_audio_data = waveformer.ExtractSamples(0, 20, True)
 
         # Update file with audio data
         get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": file_audio_data}})
+
+        # Restore cursor
+        get_app().restoreOverrideCursor()
+
         return file_audio_data
 
     # Get file query object
