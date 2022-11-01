@@ -63,14 +63,14 @@ def get_waveform_thread(file_id, clip_list):
     arg2: list of clips to update when the audio data is ready.
     """
 
-    def getAudioData(file):
+    def getAudioData(file, channel=-1):
         """
         Update the file query object with audio data (if found).
         """
         # Ensure that UI attribute exists
         file_data = file.data
         file_audio_data = file_data.get("ui", {}).get("audio_data", [])
-        if file_audio_data:
+        if file_audio_data and channel == -1:
             log.info("Audio Data already retrieved (or being retrieved).")
             return
 
@@ -88,7 +88,7 @@ def get_waveform_thread(file_id, clip_list):
         # NOTE: we also have the average RMS value calculated, although we do
         # not use it yet - it's commented out below
         waveformer = openshot.AudioWaveformer(temp_clip.Reader())
-        file_audio_data = waveformer.ExtractSamples(-1, SAMPLES_PER_SECOND, True)
+        file_audio_data = waveformer.ExtractSamples(channel, SAMPLES_PER_SECOND, True)
         samples_vectors = file_audio_data.vectors()
         max_samples_vector = samples_vectors[0]  # max sample value dataset
         rms_samples_vector = samples_vectors[1]  # average RMS sample value dataset
@@ -96,12 +96,14 @@ def get_waveform_thread(file_id, clip_list):
         # Clear data
         file_audio_data.clear()
 
-        # Update file with audio data
-        get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": max_samples_vector}})
+        # Update file with audio data (only if all channels requested)
+        if channel == -1:
+            get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": max_samples_vector}})
 
         # Restore cursor
         get_app().restoreOverrideCursor()
 
+        # Return audio sample dataset
         return max_samples_vector
 
     # Get file query object
@@ -129,6 +131,12 @@ def get_waveform_thread(file_id, clip_list):
     for clip_id in clip_list:
         clip = Clip.get(id=clip_id)
         clip_reader = clip.data.get("reader")
+
+        # Check for channel mapping and filters
+        channel_filter = clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1)
+        if channel_filter != -1:
+            # Some kind of filtering is happening, so we need to re-generate waveform data for this clip
+            file_audio_data = getAudioData(file, channel_filter)
 
         # Get File's audio data (since it has changed)
         if not file_audio_data:

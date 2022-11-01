@@ -1111,6 +1111,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 channels = int(clip.data["reader"]["channels"])
 
                 # Loop through each channel
+                separate_clip_ids = []
                 for channel in range(0, channels):
                     log.debug("Adding clip for channel %s" % channel)
 
@@ -1147,15 +1148,16 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                     # Save changes
                     clip.save()
-
-                    # Generate waveform for new clip
-                    log.info("Generate waveform for split audio track clip id: %s" % clip.id)
-                    self.Show_Waveform_Triggered([clip.id])
+                    separate_clip_ids.append(clip.id)
 
                     # Remove the ID property from the clip (so next time, it will create a new clip)
                     clip.id = None
                     clip.type = 'insert'
                     clip.data.pop('id')
+
+                # Generate waveform for new clip
+                log.info("Generate waveform for split audio track clip id: %s" % clip.id)
+                self.Show_Waveform_Triggered(separate_clip_ids)
 
         for clip_id in clip_ids:
 
