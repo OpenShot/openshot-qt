@@ -1451,6 +1451,10 @@ App.controller("TimelineCtrl", function ($scope) {
         $scope.updateLayerIndex();
       }
     }
+
+    // Apply all changes
+    $scope.$apply();
+
     // return true
     return true;
   };
@@ -1485,6 +1489,9 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Update playhead position and time readout (reset to zero)
     $scope.movePlayhead(0.0);
+
+    // Apply all changes
+    $scope.$apply();
 
     // return true
     return true;
