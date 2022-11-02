@@ -132,7 +132,7 @@ def get_waveform_thread(file_id, clip_list):
         clip = Clip.get(id=clip_id)
 
         # Check for channel mapping and filters
-        channel_filter = clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1)
+        channel_filter = int(clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1))
         if channel_filter != -1:
             # Some kind of filtering is happening, so we need to re-generate waveform data for this clip
             file_audio_data = getAudioData(file, channel_filter)
