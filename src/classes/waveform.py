@@ -86,7 +86,7 @@ def get_waveform_thread(file_id, clip_list):
         # Extract audio waveform data (for all channels)
         # Use max RMS (root mean squared) value for each sample
         # NOTE: we also have the average RMS value calculated, although we do
-        # not use it yet - it's commented out below
+        # not use it yet
         waveformer = openshot.AudioWaveformer(temp_clip.Reader())
         file_audio_data = waveformer.ExtractSamples(channel, SAMPLES_PER_SECOND, True)
         samples_vectors = file_audio_data.vectors()

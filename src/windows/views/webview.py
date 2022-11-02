@@ -1156,7 +1156,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                     clip.data.pop('id')
 
                 # Generate waveform for new clip
-                log.info("Generate waveform for split audio track clip id: %s" % clip.id)
+                log.info("Generate waveform for split audio track clip ids: %s" % str(separate_clip_ids))
                 self.Show_Waveform_Triggered(separate_clip_ids)
 
         for clip_id in clip_ids:
