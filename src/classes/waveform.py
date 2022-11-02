@@ -130,7 +130,6 @@ def get_waveform_thread(file_id, clip_list):
     # Loop through each selected clip (which uses this file)
     for clip_id in clip_list:
         clip = Clip.get(id=clip_id)
-        clip_reader = clip.data.get("reader")
 
         # Check for channel mapping and filters
         channel_filter = clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1)
@@ -149,20 +148,22 @@ def get_waveform_thread(file_id, clip_list):
             log.debug("Removing pre-existing audio data")
             get_app().window.timeline.audioDataReady.emit(clip.id, {"ui": {"audio_data": None}})
 
-        # Method and variables for matching a time in seconds to an audio sample
-        sample_count = len(file_audio_data)
-
         # Loop through samples from the file, applying this clip's volume curve
         clip_audio_data = []
         clip_instance = get_app().window.timeline_sync.timeline.GetClip(clip.id)
-        num_frames = int(clip_reader.get("video_length"))
+        num_frames = clip_instance.info.video_length
+
+        # Determine best guess # of samples (based on duration)
+        # We don't want to use the len(file_audio_data) due to padding at EOF
+        # from libopenshot
+        sample_count = round(clip_instance.info.duration * SAMPLES_PER_SECOND)
 
         # Determine sample ratio to FPS
         sample_ratio = float(sample_count / num_frames)
 
         # Loop through file samples and adjust time/volume values
         # Copy adjusted samples into clip data
-        for sample_index in range(len(file_audio_data)):
+        for sample_index in range(sample_count):
             frame_num = round(sample_index / sample_ratio) + 1
             volume = clip_instance.volume.GetValue(frame_num)
             if clip_instance.time.GetCount() > 1:
