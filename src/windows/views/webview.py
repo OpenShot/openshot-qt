@@ -1111,6 +1111,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 channels = int(clip.data["reader"]["channels"])
 
                 # Loop through each channel
+                separate_clip_ids = []
                 for channel in range(0, channels):
                     log.debug("Adding clip for channel %s" % channel)
 
@@ -1147,15 +1148,16 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                     # Save changes
                     clip.save()
-
-                    # Generate waveform for new clip
-                    log.info("Generate waveform for split audio track clip id: %s" % clip.id)
-                    self.Show_Waveform_Triggered([clip.id])
+                    separate_clip_ids.append(clip.id)
 
                     # Remove the ID property from the clip (so next time, it will create a new clip)
                     clip.id = None
                     clip.type = 'insert'
                     clip.data.pop('id')
+
+                # Generate waveform for new clip
+                log.info("Generate waveform for split audio track clip ids: %s" % str(separate_clip_ids))
+                self.Show_Waveform_Triggered(separate_clip_ids)
 
         for clip_id in clip_ids:
 
@@ -2215,6 +2217,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
+        clips_with_waveforms = []
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -2224,6 +2227,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             if not clip:
                 # Invalid clip, skip to next item
                 continue
+
+            # Add any clips with waveforms to a list
+            if clip.data.get("ui", {}).get("audio_data", []):
+                clips_with_waveforms.append(clip.id)
 
             # Keep original 'end' and 'duration'
             if "original_data" not in clip.data:
@@ -2408,6 +2415,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
             # Save changes
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+        # Update waveforms of all clips that have them
+        self.Show_Waveform_Triggered(clips_with_waveforms)
 
     def round_to_multiple(self, number, multiple):
         """Round this to the closest multiple of a given #"""

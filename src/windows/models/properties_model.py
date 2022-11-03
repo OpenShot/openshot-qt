@@ -35,6 +35,7 @@ from PyQt5.QtGui import (
     QPixmap, QColor,
     )
 
+from classes.waveform import get_audio_data
 from classes import info, updates
 from classes import openshot_rc  # noqa
 from classes.query import Clip, Transition, Effect
@@ -246,6 +247,14 @@ class PropertiesModel(updates.UpdateInterface):
                     log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
                     keyframe["Points"].remove(point_to_delete)
 
+            # Determine if waveforms are impacted by this change
+            has_waveform = False
+            waveform_file_id = None
+            if property_key == "volume":
+                if clip_data.get("ui", {}).get("audio_data", []):
+                    waveform_file_id = c.data.get("file_id")
+                    has_waveform = True
+
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data[property_key]}
             if object_id:
@@ -255,6 +264,10 @@ class PropertiesModel(updates.UpdateInterface):
             if clip_updated:
                 # Save
                 c.save()
+
+                # Update waveforms (if needed)
+                if has_waveform:
+                    get_audio_data({waveform_file_id: [c.id]})
 
                 # Update the preview
                 get_app().window.refreshFrameSignal.emit()
@@ -569,6 +582,14 @@ class PropertiesModel(updates.UpdateInterface):
                     except Exception:
                         log.warn('Invalid Reader value passed to property: %s', value, exc_info=1)
 
+            # Determine if waveforms are impacted by this change
+            has_waveform = False
+            waveform_file_id = None
+            if property_key == "volume":
+                if clip_data.get("ui", {}).get("audio_data", []):
+                    waveform_file_id = c.data.get("file_id")
+                    has_waveform = True
+
             # Reduce # of clip properties we are saving (performance boost)
             clip_data = {property_key: clip_data.get(property_key)}
             if object_id:
@@ -579,6 +600,10 @@ class PropertiesModel(updates.UpdateInterface):
                 # Save
                 c.data = clip_data
                 c.save()
+
+                # Update waveforms (if needed)
+                if has_waveform:
+                    get_audio_data({waveform_file_id: [c.id]})
 
                 # Update the preview
                 get_app().window.refreshFrameSignal.emit()
