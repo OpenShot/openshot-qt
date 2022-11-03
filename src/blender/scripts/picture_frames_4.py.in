@@ -111,7 +111,7 @@ if len(picture1) > 1:
         bpy.data.materials["Material.001"].node_tree.nodes[2].image.source = 'MOVIE'
         bpy.data.materials["Material.001"].node_tree.nodes[2].image.filepath = picture1[0]
         bpy.data.materials["Material.001"].node_tree.nodes[2].image_user.use_cyclic = True
-        bpy.data.materials["Material.001"].node_tree.nodes[2].image_user.frame_duration = 230.0
+        bpy.data.materials["Material.001"].node_tree.nodes[2].image_user.frame_duration = 230
 
 if len(picture2) > 1:
     bpy.data.objects["Plane.002"].scale.y = -picture2_scale[0]
@@ -124,7 +124,7 @@ if len(picture2) > 1:
         bpy.data.materials["Material.002"].node_tree.nodes[2].image.source = 'MOVIE'
         bpy.data.materials["Material.002"].node_tree.nodes[2].image.filepath = picture2[0]
         bpy.data.materials["Material.002"].node_tree.nodes[2].image_user.use_cyclic = True
-        bpy.data.materials["Material.002"].node_tree.nodes[2].image_user.frame_duration = 230.0
+        bpy.data.materials["Material.002"].node_tree.nodes[2].image_user.frame_duration = 230
 
 if len(picture3) > 1:
     bpy.data.objects["Plane.003"].scale.y = -picture3_scale[0]
@@ -137,7 +137,7 @@ if len(picture3) > 1:
         bpy.data.materials["Material.003"].node_tree.nodes[2].image.source = 'MOVIE'
         bpy.data.materials["Material.003"].node_tree.nodes[2].image.filepath = picture3[0]
         bpy.data.materials["Material.003"].node_tree.nodes[2].image_user.use_cyclic = True
-        bpy.data.materials["Material.003"].node_tree.nodes[2].image_user.frame_duration = 230.0
+        bpy.data.materials["Material.003"].node_tree.nodes[2].image_user.frame_duration = 230
 
 if len(picture4) > 1:
     bpy.data.objects["Plane.004"].scale.y = -picture4_scale[0]
@@ -150,7 +150,7 @@ if len(picture4) > 1:
         bpy.data.materials["Material.004"].node_tree.nodes[2].image.source = 'MOVIE'
         bpy.data.materials["Material.004"].node_tree.nodes[2].image.filepath = picture4[0]
         bpy.data.materials["Material.004"].node_tree.nodes[2].image_user.use_cyclic = True
-        bpy.data.materials["Material.004"].node_tree.nodes[2].image_user.frame_duration = 230.0
+        bpy.data.materials["Material.004"].node_tree.nodes[2].image_user.frame_duration = 230
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
