@@ -82,7 +82,7 @@ bpy.data.objects["Wand"].particle_systems[0].settings.particle_size = params["si
 
 # Change particle settings
 particle_object = bpy.data.particles[0]
-particle_object.count = params["particles_count"]
+particle_object.count = int(params["particles_count"])
 
 # Change Scene settings
 scene_object = bpy.data.scenes[0]
