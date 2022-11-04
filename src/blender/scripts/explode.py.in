@@ -207,7 +207,7 @@ else:
     font = bpy.data.fonts["Bfont"]
 
 createExplodeTxt(
-    params["title"], params["particle_number"], params["extrude"],
+    params["title"], int(params["particle_number"]), params["extrude"],
     params["bevel_depth"], params["spacemode"], params["text_size"],
     params["width"], font, int(params["ground_on_off"]),
 )
