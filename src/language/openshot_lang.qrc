@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/locale">
-                <file>OpenShot_ru.qm</file>
+        <file>OpenShot_ru.qm</file>
         <file>OpenShot_az.qm</file>
         <file>OpenShot_la.qm</file>
         <file>OpenShot_ja.qm</file>
@@ -39,6 +39,8 @@
         <file>OpenShot_sv.qm</file>
         <file>OpenShot_fr_CA.qm</file>
         <file>OpenShot_br.qm</file>
+        <file>OpenShot_sat.qm</file>
+        <file>OpenShot_or.qm</file>
         <file>OpenShot_ca.qm</file>
         <file>OpenShot_pl.qm</file>
         <file>OpenShot_se.qm</file>
@@ -66,6 +68,7 @@
         <file>OpenShot_sr@latin.qm</file>
         <file>OpenShot_ro.qm</file>
         <file>OpenShot_eu.qm</file>
+        <file>OpenShot_gaa.qm</file>
         <file>OpenShot_zh_HK.qm</file>
         <file>OpenShot_kk.qm</file>
         <file>OpenShot_zh_CN.qm</file>
@@ -100,5 +103,6 @@
         <file>OpenShot_fy.qm</file>
         <file>OpenShot_he.qm</file>
         <file>OpenShot_nl.qm</file>
+        <file>OpenShot_frc.qm</file>
     </qresource>
 </RCC>
