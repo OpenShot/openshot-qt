@@ -1017,6 +1017,7 @@
     "category": "Location",
     "title": "File Import",
     "setting": "locationImportType",
+    "translate_values": true,
     "value": 1,
     "type": "dropdown",
     "values": [
