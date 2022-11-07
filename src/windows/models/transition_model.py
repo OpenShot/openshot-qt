@@ -70,7 +70,7 @@ class TransitionFilterProxyModel(QSortFilterProxyModel):
         leftGroup = left.sibling(left.row(), 2).data()  # group column
         rightGroup = right.sibling(right.row(), 2).data()
 
-        return leftGroup < rightGroup and leftData < rightData
+        return leftGroup <= rightGroup and leftData < rightData
 
     def mimeData(self, indexes):
         # Create MimeData for drag operation

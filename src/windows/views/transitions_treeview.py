@@ -79,6 +79,8 @@ class TransitionsTreeView(QTreeView):
             # Only execute when the treeview is active
             self.hideColumn(2)
             self.hideColumn(3)
+            self.setColumnWidth(0, 80)
+        self.sortByColumn(1, Qt.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
@@ -102,6 +104,7 @@ class TransitionsTreeView(QTreeView):
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionModel(self.transition_model.selection_model)
+        self.setSortingEnabled(True)
 
         # Setup header columns
         self.setIconSize(info.TREE_ICON_SIZE)
