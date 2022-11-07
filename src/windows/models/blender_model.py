@@ -33,14 +33,25 @@ try:
 except ImportError:
     from xml.dom import minidom as xml
 
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QIcon, QPixmap, QStandardItem, QStandardItemModel
+from PyQt5.QtCore import Qt, QSortFilterProxyModel, QItemSelectionModel
+from PyQt5.QtGui import QIcon, QStandardItem, QStandardItemModel
 
 import openshot
 
 from classes import info
 from classes.logger import log
 from classes.app import get_app
+
+
+class BlenderFilterProxyModel(QSortFilterProxyModel):
+    """Proxy class used for sorting and filtering model data"""
+
+    def lessThan(self, left, right):
+        """Sort blender model by a column at runtime"""
+        leftData = left.data(self.sortRole())
+        rightData = right.data(self.sortRole())
+
+        return leftData < rightData
 
 
 class BlenderModel():
@@ -146,3 +157,15 @@ class BlenderModel():
         self.model = QStandardItemModel()
         self.model.setColumnCount(3)
         self.model_paths = {}
+
+        # Create proxy model (for sorting and filtering)
+        self.proxy_model = BlenderFilterProxyModel()
+        self.proxy_model.setDynamicSortFilter(True)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setFilterKeyColumn(1)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSourceModel(self.model)
+        self.proxy_model.setSortLocaleAware(True)
+
+        # Create selection model to share between views
+        self.selection_model = QItemSelectionModel(self.proxy_model)

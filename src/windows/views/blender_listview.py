@@ -398,16 +398,15 @@ class BlenderListView(QListView):
     def get_animation_details(self):
         """ Build a dictionary of all animation settings and properties from XML """
 
-        if not self.selected:
-            return {}
-        elif self.selected and self.selected.row() == -1:
+        # Get current selection (if any)
+        current = self.selectionModel().currentIndex()
+        if not current.isValid():
             return {}
 
         # Get all selected rows items
-        ItemRow = self.blender_model.model.itemFromIndex(self.selected).row()
-        animation_title = self.blender_model.model.item(ItemRow, 1).text()
-        xml_path = self.blender_model.model.item(ItemRow, 2).text()
-        service = self.blender_model.model.item(ItemRow, 3).text()
+        animation_title = current.sibling(current.row(), 1).data(Qt.DisplayRole)
+        xml_path = current.sibling(current.row(), 2).data(Qt.DisplayRole)
+        service = current.sibling(current.row(), 3).data(Qt.DisplayRole)
 
         # load xml effect file
         xmldoc = xml.parse(xml_path)
@@ -458,6 +457,9 @@ class BlenderListView(QListView):
 
     def refresh_view(self):
         self.blender_model.update_model()
+
+        # Sort by column 0
+        self.blender_model.proxy_model.sort(0)
 
     def get_project_params(self, is_preview=True):
         """ Return a dictionary of project related settings, needed by the Blender python script. """
@@ -692,7 +694,7 @@ Blender Path: {}
         self.processing_mode(cursor=False)
 
         # Setup header columns
-        self.setModel(self.blender_model.model)
+        self.setModel(self.blender_model.proxy_model)
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
         self.setViewMode(QListView.IconMode)

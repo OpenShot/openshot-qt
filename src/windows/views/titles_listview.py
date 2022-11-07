@@ -36,12 +36,13 @@ class TitlesListView(QListView):
     """ A QListView QWidget used on the title editor window """
 
     def currentChanged(self, current: QModelIndex, previous: QModelIndex):
-        # Get current model item
+        # Get current selection (if any)
+        current = self.selectionModel().currentIndex()
         if not current.isValid():
             return
-        item = self.model().itemFromIndex(current)
+
         # Display title in graphicsView
-        self.win.filename = item.data(TitleRoles.PathRole)
+        self.win.filename = current.sibling(current.row(), 0).data(TitleRoles.PathRole)
         self.win.create_temp_title(self.win.filename)
         self.win.load_svg_template()
         # Display temp image (slight delay to allow screen to be shown first)
@@ -50,6 +51,9 @@ class TitlesListView(QListView):
     def refresh_view(self):
         self.title_model.update_model()
 
+        # Sort by column 0
+        self.title_model.proxy_model.sort(0)
+
     def __init__(self, *args, window=None, **kwargs):
         # Invoke parent init
         super().__init__(*args, **kwargs)
@@ -57,7 +61,7 @@ class TitlesListView(QListView):
         self.win = window or self.parent()
         self.title_model = TitlesModel(self.win)
         # Setup header columns
-        self.setModel(self.title_model.model)
+        self.setModel(self.title_model.proxy_model)
         self.setIconSize(info.LIST_ICON_SIZE)
         self.setGridSize(info.LIST_GRID_SIZE)
         self.setViewMode(QListView.IconMode)
