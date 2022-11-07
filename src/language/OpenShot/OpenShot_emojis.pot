@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor (version: 2.5.1-dev3)\n"
+"Project-Id-Version: OpenShot Video Editor (version: 2.6.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2021-08-12 17:41:57.961831\n"
+"POT-Creation-Date: 2022-11-07 15:46:00.696548\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -1985,10 +1985,6 @@ msgid "Shower"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Keyboard"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
 msgid "Motor scooter"
 msgstr ""
 
@@ -3074,10 +3070,6 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Sauropod"
-msgstr ""
-
-#: Emoji Metadata (Displayed Name)
-msgid "Sunset"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
