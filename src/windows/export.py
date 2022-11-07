@@ -210,14 +210,14 @@ class Export(QDialog):
         self.profile_names.sort()
 
         # Loop through sorted profiles
-        self.selected_profile_index = 0
+        self.selected_profile = None
         for box_index, profile_name in enumerate(self.profile_names):
             # Add to dropdown
             self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
 
-            # Set default (if it matches the project)
+            # Set default profile (if it matches the project)
             if get_app().project.get(['profile']) in profile_name:
-                self.selected_profile_index = box_index
+                self.selected_profile = profile_name
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
@@ -235,17 +235,18 @@ class Export(QDialog):
                     # This indicates an invalid Preset file - display an error and continue
                     log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
-        # Exclude duplicates
-        selected_type = 0
+        # Add first project type (always add this one first)
+        all_formats_text = _("All Formats")
+        self.cboSimpleProjectType.addItem(all_formats_text, all_formats_text)
+
+        # Add remaining project types (exclude duplicates)
         presets = list(set(presets))
-        for type_index, item in enumerate(sorted(presets)):
-            self.cboSimpleProjectType.addItem(item, item)
-            if item == _("All Formats"):
-                selected_type = type_index
+        for item in sorted(presets):
+            if item != all_formats_text:
+                self.cboSimpleProjectType.addItem(item, item)
 
         # Always select 'All Formats' option
-        self.cboSimpleProjectType.setCurrentIndex(selected_type)
-
+        self.cboSimpleProjectType.setCurrentIndex(0)
 
         # Populate all profiles
         self.populateAllProfiles(get_app().project.get(['profile']))
@@ -442,9 +443,9 @@ class Export(QDialog):
             previous_quality = self.cboSimpleQuality.currentIndex()
             if previous_quality < 0:
                 previous_quality = self.cboSimpleQuality.count() - 1
-            previous_profile = self.cboSimpleVideoProfile.currentIndex()
-            if previous_profile < 0:
-                previous_profile = self.selected_profile_index
+            previous_profile = self.cboSimpleVideoProfile.currentText()
+            if previous_profile:
+                self.selected_profile = previous_profile
             self.cboSimpleVideoProfile.clear()
             self.cboSimpleQuality.clear()
 
@@ -534,9 +535,15 @@ class Export(QDialog):
             for item in sorted(profiles_list):
                 self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
 
-            if all_profiles:
-                # select the project's current profile
-                self.cboSimpleVideoProfile.setCurrentIndex(previous_profile)
+            # select the project's current profile
+            profile_index = self.getVideoProfileIndex(self.selected_profile)
+            if profile_index != -1:
+                # Re-select project profile (if found in list)
+                self.cboSimpleVideoProfile.setCurrentIndex(profile_index)
+            else:
+                # Previous profile not in list, so
+                # default to first profile in list
+                self.cboSimpleVideoProfile.setCurrentIndex(0)
 
             # set the quality combo
             # only populate with quality settings that exist
@@ -552,6 +559,14 @@ class Export(QDialog):
                 self.cboSimpleQuality.setCurrentIndex(previous_quality)
             else:
                 self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
+
+    def getVideoProfileIndex(self, profile_name):
+        """Get the index of a profile name (-1 if not found)"""
+        for index in range(self.cboSimpleVideoProfile.count()):
+            combo_profile = self.cboSimpleVideoProfile.itemText(index)
+            if combo_profile == profile_name:
+                return index
+        return -1
 
     def cboSimpleVideoProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
