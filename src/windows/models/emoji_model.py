@@ -177,7 +177,7 @@ class EmojisModel():
 
         # Create proxy models (for grouping, sorting and filtering)
         self.group_model = QSortFilterProxyModel()
-        self.group_model.setDynamicSortFilter(False)
+        self.group_model.setDynamicSortFilter(True)
         self.group_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.group_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.group_model.setSourceModel(self.model)
@@ -185,7 +185,7 @@ class EmojisModel():
         self.group_model.setFilterKeyColumn(1)
 
         self.proxy_model = QSortFilterProxyModel()
-        self.proxy_model.setDynamicSortFilter(False)
+        self.proxy_model.setDynamicSortFilter(True)
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.group_model)
