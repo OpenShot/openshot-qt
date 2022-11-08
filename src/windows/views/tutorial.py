@@ -27,7 +27,7 @@
 
 import functools
 
-from PyQt5.QtCore import Qt, QPoint, QRectF
+from PyQt5.QtCore import Qt, QPoint, QRectF, QTimer, QObject
 from PyQt5.QtGui import (
     QColor, QPalette, QPen, QPainter, QPainterPath, QKeySequence,
 )
@@ -178,10 +178,10 @@ class TutorialDialog(QWidget):
             functools.partial(self.manager.hide_tips, self.widget_id, True))
 
 
-class TutorialManager(object):
+class TutorialManager(QObject):
     """ Manage and present a list of tutorial dialogs """
 
-    def process(self, parent_name=None):
+    def process(self):
         """ Process and show the first non-completed tutorial """
 
         # If a tutorial is already visible, just update it
@@ -308,6 +308,7 @@ class TutorialManager(object):
             self.win.dockEffects.visibilityChanged.disconnect()
             self.win.dockProperties.visibilityChanged.disconnect()
             self.win.dockVideo.visibilityChanged.disconnect()
+            self.tutorial_timer.timeout.disconnect()
         except Exception:
             log.debug('Failed to properly disconnect from dock signals', exc_info=1)
 
@@ -329,7 +330,7 @@ class TutorialManager(object):
         """ Reposition a tutorial dialog next to another widget """
         if self.current_dialog:
             # Check if target is visible
-            if self.position_widget.isHidden():
+            if self.position_widget.isHidden() or self.position_widget.visibleRegion().isEmpty():
                 self.hide_dialog()
                 return
 
@@ -347,7 +348,14 @@ class TutorialManager(object):
             self.dock.move(position)
             self.re_show_dialog()
 
-    def __init__(self, win):
+    def process_visibility(self):
+        """Handle callbacks when widget visibility changes"""
+        self.tutorial_timer.start()
+
+    def __init__(self, win, *args):
+        # Init QObject superclass
+        super().__init__(*args)
+
         """ Constructor """
         self.win = win
         self.dock = win.dockTutorial
@@ -435,14 +443,20 @@ class TutorialManager(object):
         self.dock.setWindowFlags(Qt.FramelessWindowHint)
         self.dock.setFloating(True)
 
+        # Timer for processing new tutorials
+        self.tutorial_timer = QTimer(self)
+        self.tutorial_timer.setInterval(200)
+        self.tutorial_timer.setSingleShot(True)
+        self.tutorial_timer.timeout.connect(self.process)
+
         # Connect to interface dock widgets
-        self.win.dockFiles.visibilityChanged.connect(functools.partial(self.process, "dockFiles"))
-        self.win.dockTransitions.visibilityChanged.connect(functools.partial(self.process, "dockTransitions"))
-        self.win.dockEffects.visibilityChanged.connect(functools.partial(self.process, "dockEffects"))
-        self.win.dockProperties.visibilityChanged.connect(functools.partial(self.process, "dockProperties"))
-        self.win.dockVideo.visibilityChanged.connect(functools.partial(self.process, "dockVideo"))
-        self.win.dockEmojis.visibilityChanged.connect(functools.partial(self.process, "dockEmojis"))
+        self.win.dockFiles.visibilityChanged.connect(self.process_visibility)
+        self.win.dockTransitions.visibilityChanged.connect(self.process_visibility)
+        self.win.dockEffects.visibilityChanged.connect(self.process_visibility)
+        self.win.dockProperties.visibilityChanged.connect(self.process_visibility)
+        self.win.dockVideo.visibilityChanged.connect(self.process_visibility)
+        self.win.dockEmojis.visibilityChanged.connect(self.process_visibility)
 
         # Process tutorials (1 by 1)
         if self.tutorial_enabled:
-            self.process()
+            self.process_visibility()
