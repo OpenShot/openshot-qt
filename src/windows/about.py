@@ -304,22 +304,26 @@ class Credits(QDialog):
 
         # Get string of translators for the current language
         translator_credits = []
+        unique_translators = []
         translator_credits_string = _("translator-credits").replace(
             "Launchpad Contributions:\n", ""
             ).replace("translator-credits", "")
         if translator_credits_string:
             # Parse string into a list of dictionaries
             translator_rows = translator_credits_string.split("\n")
-            for row in translator_rows:
+            stripped_rows = [s.strip().capitalize() for s in translator_rows if "Template-Name:" not in s]
+            for row in sorted(stripped_rows):
                 # Split each row into 2 parts (name and username)
                 translator_parts = row.split("https://launchpad.net/")
                 if len(translator_parts) >= 2:
                     name = translator_parts[0].strip()
                     username = translator_parts[1].strip()
-                    translator_credits.append({
-                        "name": name,
-                        "website": "https://launchpad.net/%s" % username
-                        })
+                    if username not in unique_translators:
+                        unique_translators.append(username)
+                        translator_credits.append({
+                            "name": name,
+                            "website": "https://launchpad.net/%s" % username
+                            })
 
             # Add translators listview
             self.translatorsListView = CreditsTreeView(
