@@ -316,7 +316,7 @@ class Credits(QDialog):
                 # Split each row into 2 parts (name and username)
                 translator_parts = row.split("https://launchpad.net/")
                 if len(translator_parts) >= 2:
-                    name = translator_parts[0].strip()
+                    name = translator_parts[0].strip().title()
                     username = translator_parts[1].strip()
                     if username not in unique_translators:
                         unique_translators.append(username)
