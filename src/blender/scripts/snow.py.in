@@ -107,8 +107,8 @@ bpy.context.scene.render.resolution_percentage = params["resolution_percentage"]
 bpy.ops.ptcache.free_bake_all()
 
 # Animation Speed (use Blender's time remapping to slow or speed up animation)
-length_multiplier = int(params["length_multiplier"])  # time remapping multiplier
-new_length = int(params["end_frame"]) * length_multiplier  # new length (in frames)
+length_multiplier = round(params["length_multiplier"])  # time remapping multiplier
+new_length = round(params["end_frame"]) * length_multiplier  # new length (in frames)
 bpy.context.scene.render.frame_map_old = 1
 bpy.context.scene.render.frame_map_new = length_multiplier
 
