@@ -2829,7 +2829,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.redraw_audio_timer.start()
 
         # Only update scale if different
-        current_scale = get_app().project.get("scale")
+        current_scale = float(get_app().project.get("scale"))
 
         # Save current zoom
         if newScale != current_scale:

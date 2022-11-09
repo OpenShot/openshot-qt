@@ -22,7 +22,7 @@
   "effects": [],
   "files": [],
   "duration": 300,
-  "scale": 15,
+  "scale": 15.0,
   "tick_pixels": 100,
   "playhead_position": 0,
   "profile": "HD 720p 30 fps",
