@@ -360,6 +360,10 @@ class Preferences(QDialog):
                         v = value_item["value"]
                         i = value_item.get("icon", None)
 
+                        # Translate dropdown item (if needed)
+                        if param.get("translate_values"):
+                            k = _(value_item["name"])
+
                         # Override icons for certain values
                         # TODO: Find a more elegant way to do this
                         icon = None
@@ -509,8 +513,8 @@ class Preferences(QDialog):
             openshot.Settings.Instance().DE_LIMIT_HEIGHT_MAX = int(str(value))
 
         # Apply cache settings (if needed)
-        if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality", 
-                                "cache-ahead-percent", "cache-preroll-min-frames", 
+        if param["setting"] in ["cache-limit-mb", "cache-scale", "cache-quality",
+                                "cache-ahead-percent", "cache-preroll-min-frames",
                                 "cache-preroll-max-frames", "cache-max-frames"]:
             get_app().window.InitCacheSettings()
 
