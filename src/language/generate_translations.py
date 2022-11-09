@@ -54,6 +54,7 @@ import datetime
 import os
 import subprocess
 import sys
+import re
 import json
 
 # Try to get the security-patched XML functions from defusedxml
@@ -220,6 +221,7 @@ for effect in props:
 # Append Emoji Data
 emoji_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
+emoji_ignore_keys = ("Keyboard", "Sunset")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
 
@@ -227,13 +229,14 @@ with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     for filename, emoji in emoji_metadata.items():
         emoji_name = emoji["annotation"].capitalize()
         emoji_group = emoji["group"].split('-')[0].capitalize()
-        if "annotation" in emoji:
+        if "annotation" in emoji and emoji_name not in emoji_ignore_keys:
             emoji_text[emoji_name] = "Emoji Metadata (Displayed Name)"
-        if "group" in emoji and emoji_group not in effects_text:
+        if "group" in emoji and emoji_group not in effects_text and emoji_group not in emoji_ignore_keys:
             emoji_text[emoji_group] = "Emoji Metadata (Group Filter name)"
 
 # Loop through the Blender XML
 blender_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
+blender_ignore_keys = ("Title", "Alpha", "Blur")
 for file in os.listdir(blender_path):
     if os.path.isfile(os.path.join(blender_path, file)):
         # load xml effect file
@@ -241,7 +244,9 @@ for file in os.listdir(blender_path):
         xmldoc = xml.parse(os.path.join(blender_path, file))
 
         # add text to list
-        blender_text[xmldoc.getElementsByTagName("title")[0].childNodes[0].data] = full_file_path
+        translation_key = xmldoc.getElementsByTagName("title")[0].childNodes[0].data
+        if translation_key not in blender_ignore_keys:
+            blender_text[translation_key] = full_file_path
 
         # get params
         params = xmldoc.getElementsByTagName("param")
@@ -249,7 +254,9 @@ for file in os.listdir(blender_path):
         # Loop through params
         for param in params:
             if param.attributes["title"]:
-                blender_text[param.attributes["title"].value] = full_file_path
+                translation_key = param.attributes["title"].value
+                if translation_key not in blender_ignore_keys:
+                    blender_text[param.attributes["title"].value] = full_file_path
 
 # Loop through the Export Settings XML
 export_text = {}
@@ -283,6 +290,7 @@ for setting in settings:
 
 # Loop through transitions and add to POT file
 transitions_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
+transitions_ignore_keys = ("Common", "Fade")
 for file in os.listdir(transitions_path):
     # load xml export file
     full_file_path = os.path.join(transitions_path, file)
@@ -292,7 +300,8 @@ for file in os.listdir(transitions_path):
     name = fileBaseName.replace("_", " ").capitalize()
 
     # add text to list
-    transitions_text[name] = full_file_path
+    if name not in transitions_ignore_keys:
+        transitions_text[name] = full_file_path
 
     # Look in sub-folders
     for sub_file in os.listdir(full_file_path):
@@ -314,7 +323,8 @@ for file in os.listdir(transitions_path):
             name = name.replace(suffix_number, "%s")
 
         # add text to list
-        transitions_text[name] = full_subfile_path
+        if name not in transitions_ignore_keys:
+            transitions_text[name] = full_subfile_path
 
 # Loop through titles and add to POT file
 for sub_file in os.listdir(titles_path):
@@ -464,4 +474,25 @@ for temp_file_name in temp_files:
 log.info("-----------------------------------------------------")
 log.info(" The OpenShot.pot file has been successfully created ")
 log.info(" with all text in OpenShot.")
+log.info("")
+log.info(" Checking for duplicate keys...")
 log.info("-----------------------------------------------------")
+
+# Find any duplicate translations between our 4 template files
+# If these duplicates are translated differently, we will end up
+# with conflicts, and both translations will be combined incorrectly
+all_strings = {}
+
+for pot_file in [
+    'OpenShot.pot',
+    'OpenShot_transitions.pot',
+    'OpenShot_blender.pot',
+    'OpenShot_emojis.pot',
+]:
+    with open(os.path.join(language_folder_path, "OpenShot", pot_file)) as f:
+        data = f.read()
+        for key in re.findall('^msgid \"(.*)\"', data, re.MULTILINE):
+            if key not in all_strings:
+                all_strings[key] = "%s | %s" % (key, pot_file)
+            elif key and key not in ('translator-credits', ):
+                log.info(' ERROR: Duplicate key found: %s::%s' % (pot_file, all_strings[key]))
