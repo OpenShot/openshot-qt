@@ -110,13 +110,13 @@ bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Alpha"].default_va
 glare_node = bpy.data.scenes[0].node_tree.nodes["Glare"]
 glare_node.color_modulation = params["glare1_color"]
 glare_node.glare_type = params["glare1_type"]
-glare_node.streaks = params["glare1_streaks"]
+glare_node.streaks = round(params["glare1_streaks"])
 glare_node.angle_offset = params["glare1_angle"]
 
 glare_node = bpy.data.scenes[0].node_tree.nodes["Glare.001"]
 glare_node.color_modulation = params["glare2_color"]
 glare_node.glare_type = params["glare2_type"]
-glare_node.streaks = params["glare2_streaks"]
+glare_node.streaks = round(params["glare2_streaks"])
 glare_node.angle_offset = params["glare2_angle"]
 
 # Set the render options.  It is important that these are set
