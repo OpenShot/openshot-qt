@@ -87,6 +87,7 @@ class AnimatedTitle(QDialog):
 
     def closeEvent(self, event):
         """ Actually close window and accept dialog """
+        self.blenderView.Cancel()
         self.blenderView.end_processing()
         QApplication.restoreOverrideCursor()
         super().accept()
@@ -94,6 +95,7 @@ class AnimatedTitle(QDialog):
     def reject(self):
         # Stop threads
         self.blenderView.Cancel()
+        self.blenderView.end_processing()
         QApplication.restoreOverrideCursor()
         super().reject()
 
