@@ -8,6 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.6.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
+"POT-Creation-Date: 2022-11-07 10:14:41.405601\n"
 "POT-Creation-Date: 2022-11-07 15:46:00.696548\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
@@ -3005,6 +3006,14 @@ msgstr ""
 
 #: Settings for locationImportType
 msgid "File Import"
+msgstr ""
+
+#: Settings for locationImportType
+msgid "Recent Folder"
+msgstr ""
+
+#: Settings for locationImportType
+msgid "Project Folder"
 msgstr ""
 
 #: Settings for locationProjectType

@@ -133,8 +133,8 @@ class EmojisListView(QListView):
         self.refresh_view()
 
     def refresh_view(self):
-        col = self.model.sortColumn()
-        self.model.sort(col)
+        # Sort by column 0
+        self.model.sort(0)
 
     def __init__(self, model):
         # Invoke parent init
@@ -164,6 +164,9 @@ class EmojisListView(QListView):
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
+
+        # Initialize sort
+        self.refresh_view()
 
         # Get default emoji filter group
         s = get_app().get_settings()

@@ -81,6 +81,8 @@ class EffectsTreeView(QTreeView):
             # Only execute when the treeview is active
             self.hideColumn(3)
             self.hideColumn(4)
+            self.setColumnWidth(0, 80)
+        self.sortByColumn(0, Qt.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
@@ -104,6 +106,7 @@ class EffectsTreeView(QTreeView):
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionModel(self.effects_model.selection_model)
+        self.setSortingEnabled(True)
 
         # Setup header columns
         self.setIconSize(info.TREE_ICON_SIZE)

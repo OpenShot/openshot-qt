@@ -161,7 +161,7 @@ class FilesTreeView(QTreeView):
 
     def resize_contents(self):
         # Get size of widget
-        thumbnail_width = 78
+        thumbnail_width = 80
         tags_width = 75
 
         # Resize thumbnail and tags column
@@ -214,6 +214,7 @@ class FilesTreeView(QTreeView):
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionModel(self.files_model.selection_model)
+        self.setSortingEnabled(True)
 
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
