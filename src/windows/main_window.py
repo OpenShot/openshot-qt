@@ -865,6 +865,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.refreshFrameSignal.emit()
 
     def actionPreferences_trigger(self, checked=True):
+        log.debug("Showing preferences dialog")
+
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
@@ -1156,8 +1158,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.cache_object.Clear()
         self.timeline_sync.timeline.SetCache(old_cache_object)
         self.cache_object = old_cache_object
-        old_cache_object = None
-        new_cache_object = None
 
     def renumber_all_layers(self, insert_at=None, stride=1000000):
         """Renumber all of the project's layers to be equidistant (in
@@ -1784,11 +1784,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionProfile_trigger(self):
         # Show dialog
         from windows.profile import Profile
-        log.debug("Showing preferences dialog")
+        log.debug("Showing profile dialog")
         win = Profile()
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
-        log.debug("Preferences dialog closed")
 
     def actionSplitClip_trigger(self):
         log.debug("actionSplitClip_trigger")
