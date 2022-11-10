@@ -63,6 +63,9 @@ class Profile(QDialog):
         # Track metrics
         track_metric_screen("profile-screen")
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         # Keep track of starting selection
         self.initial_index = 0
 
@@ -140,6 +143,10 @@ class Profile(QDialog):
         current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
         fps_factor = float(profile.info.fps.ToFloat() / current_fps_float)
 
+        # Get current playback frame
+        current_frame = win.preview_thread.current_frame
+        adjusted_frame = round(current_frame * fps_factor)
+
         # Update timeline settings
         updates.update(["profile"], profile.info.description)
         updates.update(["width"], profile.info.width)
@@ -175,9 +182,22 @@ class Profile(QDialog):
         win.SetWindowTitle(profile.info.description)
         self.initial_index = index
 
-        # Reset the playhead position (visually it moves anyway)
-        win.SeekSignal.emit(1)
+        # Seek to the same location, adjusted for new frame rate
+        win.SeekSignal.emit(adjusted_frame)
+
         # Refresh frame (since size of preview might have changed)
         QTimer.singleShot(500, win.refreshFrameSignal.emit)
         QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
                                                  win.videoPreview.size()))
+
+    def closeEvent(self, event):
+        """Signal for closing Profile window"""
+        # Invoke the close button
+        self.reject()
+
+    def reject(self):
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+
+        # Close dialog
+        super(Profile, self).reject()

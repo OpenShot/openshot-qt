@@ -76,6 +76,9 @@ class Preferences(QDialog):
         # Track metrics
         track_metric_screen("preferences-screen")
 
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         # Load all user values
         self.params = {}
         for item in self.settings_data:
@@ -639,6 +642,9 @@ class Preferences(QDialog):
         self.reject()
 
     def reject(self):
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+
         # Prompt user to restart openshot (if needed)
         if self.requires_restart:
             msg = QMessageBox()
