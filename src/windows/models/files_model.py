@@ -243,7 +243,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
-    def add_files(self, files, image_seq_details=None, quiet=False, prevent_image_seq=False):
+    def add_files(self, files, image_seq_details=None, quiet=False,
+                  prevent_image_seq=False, prevent_recent_folder=False):
         # Access translations
         app = get_app()
         settings = app.get_settings()
@@ -343,7 +344,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Let the event loop run to update the status bar
                 get_app().processEvents()
                 # Update the recent import path
-                settings.setDefaultPath(settings.actionType.IMPORT, dir_path)
+                if not prevent_recent_folder:
+                    settings.setDefaultPath(settings.actionType.IMPORT, dir_path)
 
             except Exception as ex:
                 # Log exception

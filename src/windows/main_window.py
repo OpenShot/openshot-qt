@@ -750,10 +750,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             _("Import Files...")
         )[0]
 
-        if len(qurl_list):
-            # If any files were imported,
-            # Use the folder of the LAST one as the new default path.
-            s.setDefaultPath(s.actionType.IMPORT, qurl_list[-1].toLocalFile())
         # Set cursor to waiting
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
