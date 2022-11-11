@@ -3,80 +3,6 @@ stages:
   - deploy
   - publish
 
-linux-builder:
-  stage: build
-  artifacts:
-    expire_in: 4 weeks
-    paths:
-    - build/*.AppImage
-    - build/*.torrent
-    - build/install-x64/share/*.env
-    - build/install-x64/share/*.log
-    - build/build-server.log
-  script:
-    - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=linux-builder"
-    - if [ ! -f artifacts.zip ]; then
-    -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=linux-builder"
-    - fi
-    - unzip artifacts.zip
-    - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
-    - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
-    - VERSION=$(python3 src/launch.py -V)
-    - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
-    - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
-    - cd doc; make html SPHINXOPTS="-D html_theme_options.analytics_id=UA-4381101-5"; cd ..;
-    - ~/auto-update-sphinx "$CI_PROJECT_DIR/build" "$CI_COMMIT_REF_NAME"
-    - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
-    - for dir in "build/*/"; do /bin/sh ./installer/mangle-hw-libs.sh $(realpath "${dir}"); done 
-    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
-  when: always
-  except:
-  - tags
-  tags:
-    - linux-bionic
-
-mac-builder:
-  stage: build
-  artifacts:
-    expire_in: 4 weeks
-    paths:
-    - build/*.dmg
-    - build/*.torrent
-    - build/install-x64/share/*.env
-    - build/install-x64/share/*.log
-    - build/build-server.log
-  script:
-    - "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=mac-builder"
-    - if [ ! -f artifacts.zip ]; then
-    -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=mac-builder"
-    - fi
-    - unzip artifacts.zip
-    - echo "Update extracted dependencies using install_name_tool (for Mac only)"
-    - libraries=$( find ./build/install-x64 -type f \( -name *.dylib -or -name *.so \) | sed 's/\.\/*//' )
-    - for f in $libraries; do
-    -   echo "file f = $f"
-    -   dependencies=$(oTool -L $f | grep libopenshot | sed 's/ .*//' | xargs)
-    -   for d in $dependencies; do
-    -     echo "dependency d = $d"
-    -     dname="$(basename $d)"
-    -     echo "dependency fullpath = $CI_PROJECT_DIR/build/install-x64/lib/$dname"
-    -     install_name_tool -change "$d" "$CI_PROJECT_DIR/build/install-x64/lib/$dname" "$f"
-    -   done
-    - done
-    - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
-    - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
-    - export DYLD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:DYLD_LIBRARY_PATH
-    - VERSION=$(python3 src/launch.py -V)
-    - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
-    - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
-    - python3 -u freeze.py bdist_mac --git-branch=$CI_COMMIT_REF_NAME --iconfile=installer/openshot.icns --custom-info-plist=installer/Info.plist --bundle-name="OpenShot Video Editor"
-    - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME"
-  when: always
-  except:
-  - tags
-  tags:
-    - mac
-
 windows-builder-x64:
   stage: build
   artifacts:
@@ -110,7 +36,7 @@ windows-builder-x64:
   except:
   - tags
   tags:
-    - windows
+    - windows-v2
 
 windows-builder-x86:
   stage: build
@@ -147,7 +73,7 @@ windows-builder-x86:
   except:
   - tags
   tags:
-    - windows
+    - windows-v2
 
 deployer:
   stage: deploy
