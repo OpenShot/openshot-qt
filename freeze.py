@@ -132,15 +132,23 @@ if os.path.exists(openshot_copy_path):
     sys.path.append(openshot_copy_path)
     print("Loaded modules from openshot_qt directory: %s" % openshot_copy_path)
 
+# Detect artifact folder (if any)
+artifact_path = os.path.join(PATH, "build", "install-x64")
+if not os.path.exists(artifact_path):
+    artifact_path = os.path.join(PATH, "build", "install-x86")
+if not os.path.exists(artifact_path):
+    # Default to user install path
+    artifact_path = ""
+
 # Append possible build server paths
-sys.path.insert(0, os.path.join(PATH, "build", "install-x86", "lib"))
-sys.path.insert(0, os.path.join(PATH, "build", "install-x86", "bin"))
-sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "lib"))
-sys.path.insert(0, os.path.join(PATH, "build", "install-x64", "bin"))
+if artifact_path:
+    sys.path.insert(0, os.path.join(artifact_path, "lib"))
+    sys.path.insert(0, os.path.join(artifact_path, "bin"))
 
 from classes import info
 from classes.logger import log
 log.info("Execution path: %s" % os.path.abspath(__file__))
+log.info("Artifact path detected and added to sys.path: %s" % artifact_path)
 
 # Find files matching patterns
 def find_files(directory, patterns):
@@ -166,6 +174,8 @@ exe_name = info.NAME
 # Copy QT translations to local folder (to be packaged)
 qt_local_path = os.path.join(PATH, "openshot_qt", "language")
 qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+log.info("Qt local translation files path: %s" % qt_local_path)
+log.info("Qt system translation files path: %s" % qt_system_path)
 if os.path.exists(qt_system_path):
     # Create local QT translation folder (if needed)
     if not os.path.exists(qt_local_path):
@@ -174,12 +184,14 @@ if os.path.exists(qt_system_path):
     for file in os.listdir(qt_system_path):
         # Copy QT translation files
         if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
+            log.info("Qt system translation, copied: %s" % file)
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
 
 # Copy git log files into src/settings files (if found)
 version_info = {}
-for share_name in ["install-x64", "install-x86"]:
-    share_path = os.path.join(PATH, "build", share_name, "share")
+if artifact_path:
+    share_path = os.path.join(artifact_path, "share")
+    log.info("Copy share path to settings: %s" % share_path)
     if os.path.exists(share_path):
         for git_log_filename in os.listdir(share_path):
             git_log_filepath = os.path.join(share_path, git_log_filename)
@@ -237,6 +249,14 @@ if sys.platform == "win32":
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
+
+    # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
+    # if artifact_path:
+    #     libopenshot_path = os.path.join(artifact_path, "bin")
+    #
+    #     # Find all related SO files
+    #     for filename in find_files(libopenshot_path, ["*openshot*"]):
+    #         external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
 
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
