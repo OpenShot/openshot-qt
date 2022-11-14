@@ -479,13 +479,14 @@ build_exe_options["packages"] = python_packages
 build_exe_options["include_files"] = src_files + external_so_files
 build_exe_options["includes"] = python_modules
 build_exe_options["excludes"] = ["distutils",
-                                 "sentry_sdk.integrations.django",
                                  "numpy",
                                  "setuptools",
                                  "tkinter",
                                  "pydoc_data",
                                  "pycparser",
                                  "pkg_resources"]
+if sys.platform != "win32":
+    build_exe_options["excludes"].append("sentry_sdk.integrations.django")
 
 # Set options
 build_options["build_exe"] = build_exe_options
