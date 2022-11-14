@@ -231,13 +231,6 @@ if sys.platform == "win32":
         "OpenGL_accelerate",
     ])
 
-    # Manually add zmq dependency (windows does not freeze it correctly)
-    #import zmq
-    #python_packages.remove('zmq')
-    #zmq_path = os.path.normpath(os.path.dirname(inspect.getfile(zmq)))
-    #for filename in find_files(zmq_path, ["*"]):
-    #    src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
-
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
     MSYSTEM = os.getenv('MSYSTEM', "MINGW64").lower()
@@ -249,14 +242,6 @@ if sys.platform == "win32":
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
         src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
-
-    # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
-    # if artifact_path:
-    #     libopenshot_path = os.path.join(artifact_path, "bin")
-    #
-    #     # Find all related SO files
-    #     for filename in find_files(libopenshot_path, ["*openshot*"]):
-    #         external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
 
 elif sys.platform == "linux":
     # Find libopenshot.so path (GitLab copies artifacts into local build/install folder)
