@@ -232,11 +232,11 @@ if sys.platform == "win32":
     ])
 
     # Manually add zmq dependency (windows does not freeze it correctly)
-    import zmq
-    python_packages.remove('zmq')
-    zmq_path = os.path.normpath(os.path.dirname(inspect.getfile(zmq)))
-    for filename in find_files(zmq_path, ["*"]):
-        src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
+    #import zmq
+    #python_packages.remove('zmq')
+    #zmq_path = os.path.normpath(os.path.dirname(inspect.getfile(zmq)))
+    #for filename in find_files(zmq_path, ["*"]):
+    #    src_files.append((filename, os.path.join("lib", "zmq", os.path.relpath(filename, start=zmq_path))))
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
