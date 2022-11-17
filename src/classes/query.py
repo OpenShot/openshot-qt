@@ -244,8 +244,8 @@ class File(QueryObject):
 
         # Try to expand path relative to project folder
         app = get_app()
-        if (app and hasattr("project", app)
-           and hasattr("current_filepath", app.project)):
+        if (app and hasattr(app, "project")
+           and hasattr(app.project, "current_filepath")):
             project_folder = os.path.dirname(app.project.current_filepath)
             file_path = os.path.abspath(os.path.join(project_folder, file_path))
 
