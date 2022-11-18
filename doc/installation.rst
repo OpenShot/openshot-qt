@@ -21,9 +21,12 @@
 Installation
 ============
 
-The latest and greatest version of OpenShot Video Editor for Linux,
-Mac, and Windows can be downloaded fromm the official download page at
-https://www.openshot.org/download/.
+The latest **stable** version of OpenShot Video Editor for Linux,
+Mac, Chrome OS, and Windows can be downloaded from the official download page at
+https://www.openshot.org/download/. You can find our latest **unstable** versions at
+https://www.openshot.org/download#daily (these versions are updated very frequently,
+and often contain many bug fixes not released in our stable build, but they might
+also contain some new issues).
 
 Linux
 ^^^^^
