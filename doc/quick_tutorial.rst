@@ -26,6 +26,22 @@ Using OpenShot is very easy, and this tutorial will take you through the basics 
 **under 5 minutes**. After this tutorial, you will be able to make a simple photo
 slide-show with music.
 
+Video Tutorials
+---------------
+
+If you prefer to learn by **watching videos** instead of reading, we have many official video tutorials
+that cover a wide range of beginner and introductory topics. These videos are a great next step
+on your way to master OpenShot Video Editor!
+
+- `Video: Getting Started <https://youtu.be/1k-ISfd-YBE>`_
+- `Video: The Basics (Part 1) <https://youtu.be/VE6awGSr22Q>`_
+- `Video: The Basics (Part 2) <https://youtu.be/6PA98QL9tkw>`_
+- `Video: Basic Animation <https://youtu.be/P3zIprwr1rk>`_
+- `Video: Trim, Slice, and Split <https://youtu.be/BQS2tmgD_Rk>`_
+- `Video: Chroma Key <https://youtu.be/2sushecqMs4>`_
+- `Video: Masks & Transitions <https://youtu.be/2sushecqMs4>`_
+- `Video: Backup & Recovery <https://youtu.be/5XaWBTBTpTo>`_
+
 Step 1 – Import media files
 ---------------------------
 
@@ -41,14 +57,19 @@ Alternative methods to add files to your projects are described in the section
 The "Show All", "Video", "Audio", "Image" filters above the added files
 allows you to only see the file types you are interested in.
 
-Step 2 – Arrange Videos and Photos on Timeline
+Step 2 – Arrange Clips on Timeline
 ----------------------------------------------
 
 Next, drag each video or photo onto a track in the timeline (as seen in the illustration).
-The timeline represents your final video, so arrange your photos in whatever sequence you want
+The timeline represents your final video, so arrange your photos (i.e. clips) in whatever sequence you want
 them to appear in your video. If you overlap two clips, OpenShot will automatically create a
 smooth fade between them, displayed by blue rounded rectangles between the clips. Remember,
 you can rearrange the clips as many times as needed by simply dragging and dropping them.
+
+You can also shorten or lengthen each clip, by clicking the left or right edge and dragging
+your mouse. For example, if you want a photo to last longer than 10 seconds (the default duration),
+simply grab the right edge of the photo (on the timeline), and drag it to the right (to increase
+the clip's duration).
 
 .. image:: images/quick-start-timeline-drop.jpg
 
@@ -86,4 +107,4 @@ Choose from one of the many preset export options, and click the *Export Video* 
 You should now have a basic understanding of how OpenShot works. Importing, Arranging,
 Previewing, and Exporting. Hopefully this tutorial took less than 5 minutes for you to
 complete. Please read the rest of this guide for a more detailed understanding of OpenShot,
-and it's advanced features. Enjoy!
+and it's advanced features and capabilities.
