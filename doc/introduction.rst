@@ -68,11 +68,17 @@ Video editing benefits from modern, multi-core CPUs with **fast clock speeds** (
 and fast hard disk drives. Basically, you want the best computer you can afford when video editing. Here are the
 **minimum system requirements**:
 
+TL;DR
+^^^^^
+Most computers manufactured after 2017 will run OpenShot
+
+Minimum Specifications
+^^^^^^^^^^^^^^^^^^^^^^
 - 64-bit Operating System (*Linux, OS X, Chrome OS, Windows 7/8/10/11*)
 - Multi-core processor with 64-bit support
-    - Minimum cores: 2 (*recommended: 6 cores*)
-    - Minimum threads: 4 (*recommended: 6 threads*)
-    - Minimum clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)
+    - Minimum cores: 2 (*recommended: 6+ cores*)
+    - Minimum threads: 4 (*recommended: 6+ threads*)
+    - Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)
 - 4GB of RAM (*16+ GB recommended*)
 - 1 GB of hard-disk space for installation & usage (*recommended: 50+ GB available hard-disk space for media, videos, images, and storage*)
 - Optional: Solid-state drive (SSD), if utilizing disk-caching add an additional 10GB of hard-disk space
