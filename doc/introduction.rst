@@ -27,11 +27,11 @@ easy-to-use interface and rich feature-set.
 Features
 --------
 * Free & open-source (licensed under GPLv3)
-* Cross-platform (Linux, OS X, Chrome OS, & Windows)
+* Cross-platform (Linux, OS X, Chrome OS, and Windows)
 * Easy-to-use user interface (designed for beginners, built-in tutorial)
 * Supports most video, audio, & image formats (based on FFmpeg)
 * Includes popular video profiles & presets (over 70+ profiles, including YouTube HD)
-* Advanced timeline (including drag & drop, scrolling, panning, zooming, and snapping)
+* Advanced timeline (including drag and drop, scrolling, panning, zooming, and snapping)
 * Advanced clips (including trimming, alpha, scaling, location, rotation, and shearing)
 * Real-time preview (multi-threaded, and optimized for performance)
 * Simple & advanced views (or customize your own unique view)
