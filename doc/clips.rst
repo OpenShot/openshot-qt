@@ -105,10 +105,13 @@ These presets can be accessed by right clicking on a clip.
 
 Transform
 ---------
-To quickly adjust the location and scale of a clip, select a clip on the timeline, right click and choose **Transform**.
-Grab any of the small blue handles to adjust scale, and grab the middle circle to move the image. Note: Pay close
-attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
-position, to help create animations.
+To quickly adjust the location, scale, rotation, and shear of a clip, select a clip on the timeline. By default,
+the selected clip appears in the preview window with transform controls (blue lines and squares). Or if disabled,
+right click on a clip and choose **Transform**. Dragging the blue squares will adjust scale, and dragging the center
+will move the image. Dragging the mouse on the outside of the blue lines will rotate the image. Dragging along the
+blue lines will shear the image in that direction. Dragging the circle in the middle will move the origin point
+that controls where we rotate the image. Note: Pay close attention to the play-head position (red playback line).
+Key frames are automatically created at the current playback position, to help create animations.
 
 .. image:: images/clip-transform.jpg
 
@@ -132,30 +135,40 @@ close attention to where the play-head (i.e. red playback line) is. Key frames a
 position, to help create animations.
 
 .. table::
-   :widths: 20
+   :widths: 24
 
-   ==================  ============
-   Name                Description
-   ==================  ============
-   Gravity Type        The gravity of a clip determines where it snaps to its parent
-   Scale Type          The scale determines how a clip should be resized to fit its parent
-   Frame Display Type  The format to display the frame number (if any)
-   Scale X             Curve representing the horizontal scaling in percent (0 to 1)
-   Scale Y             Curve representing the vertical scaling in percent (0 to 1)
-   Location X          Curve representing the relative X position in percent based on the gravity (-1 to 1)
-   Location Y          Curve representing the relative Y position in percent based on the gravity (-1 to 1)
-   Rotation            Curve representing the rotation (0 to 360)
-   Alpha               Curve representing the alpha (1 to 0)
-   Time                Curve representing the frames over time to play (used for speed and direction of video)
-   Volume              Curve representing the volume (0 to 1)
-   Shear X             Curve representing X shear angle in degrees (-45.0=left, 45.0=right)
-   Shear Y             Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
-   Channel Filter      A number representing an audio channel to filter (clears all other channels)
-   Channel Mapping     A number representing an audio channel to output (only works when filtering a channel)
-   Has Audio           An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
-   Has Video           An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
-   Waveform            Should a waveform be used instead of the clip's image
-   Waveform Color      Curve representing the color of the audio wave form
-   ==================  ============
+   ======================  ============
+   Name                    Description
+   ======================  ============
+   Alpha                   Curve representing the alpha (1 to 0)
+   Channel Filter          A number representing an audio channel to filter (clears all other channels)
+   Channel Mapping         A number representing an audio channel to output (only works when filtering a channel)
+   Frame Number            The format to display the frame number (if any)
+   Duration                The length of the clip (in seconds)
+   End                     The end trimming position of the clip (in seconds)
+   Gravity                 The gravity of a clip determines where it snaps to its parent
+   Enable Audio            An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
+   Enable Video            An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
+   ID                      A randomly generated GUID (globally unique identifier) assigned to each clip
+   Track                   The layer which holds the clip (higher tracks are rendered on top of lower tracks)
+   Location X              Curve representing the relative X position in percent based on the gravity (-1 to 1)
+   Location Y              Curve representing the relative Y position in percent based on the gravity (-1 to 1)
+   Volume Mixing           The volume mixing choices control how volume is adjusted before mixing (None=don't adjust volume of this clip, Reduce=lower the volume to 80%, Average=divide volume based on # of concurrent clips)
+   Origin X                Curve representing the rotation origin point, X position in percent (-1 to 1)
+   Origin Y                Curve representing the rotation origin point, Y position in percent (-1 to 1)
+   Parent                  The parent object to this clip, which makes many of these keyframe values initialize to the parent value
+   Position                The position of the clip on the timeline (in seconds, 0.0 is the beginning of the timeline)
+   Rotation                Curve representing the rotation (0 to 360)
+   Scale                   The scale determines how a clip should be resized to fit its parent
+   Scale X                 Curve representing the horizontal scaling in percent (0 to 1)
+   Scale Y                 Curve representing the vertical scaling in percent (0 to 1)
+   Shear X                 Curve representing X shear angle in degrees (-45.0=left, 45.0=right)
+   Shear Y                 Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
+   Start                   The start trimming position of the clip (in seconds)
+   Time                    Curve representing the frames over time to play (used for speed and direction of video)
+   Volume                  Curve representing the volume (0 to 1)
+   Wave Color              Curve representing the color of the audio wave form
+   Waveform                Should a waveform be used instead of the clip's image
+   ======================  ============
 
 For more info on key frames and animation, see :ref:`animation_ref`.
