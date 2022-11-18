@@ -8,8 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 2.6.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2022-11-07 10:14:41.405601\n"
-"POT-Creation-Date: 2022-11-07 15:46:00.696548\n"
+"POT-Creation-Date: 2022-11-17 11:06:14.558040\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -40,7 +39,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/export.py:147
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:636
 #: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:719
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2441
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2436
 msgid "Untitled Project"
 msgstr ""
 
@@ -113,11 +112,11 @@ msgstr ""
 msgid "Become a Supporter"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:307
+#: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:308
 msgid "translator-credits"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:396
+#: /home/jonathan/apps/openshot-qt-git/src/windows/about.py:400
 msgid "OpenShot on GitHub"
 msgstr ""
 
@@ -356,7 +355,7 @@ msgstr ""
 msgid "Are you sure you want to cancel the export?"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/emojis_listview.py:177
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/emojis_listview.py:180
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:970
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:973
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1026
@@ -401,7 +400,7 @@ msgstr ""
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:475
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:704
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/properties_model.py:793
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2009
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2004
 #, python-format
 msgid "Track %s"
 msgstr ""
@@ -561,7 +560,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:371
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:379
 msgid ""
 "<b>Welcome!</b> OpenShot Video Editor is an award-winning, open-source video "
 "editing application! This tutorial will walk you through the basics."
@@ -569,54 +568,54 @@ msgid ""
 "improve OpenShot?"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:378
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:386
 msgid ""
 "<b>Project Files:</b> Get started with your project by adding video, audio, "
 "and image files here. Drag and drop files from your file system."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:385
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:393
 msgid ""
 "<b>Timeline:</b> Arrange your clips on the timeline here. Overlap clips to "
 "create automatic transitions. Access lots of fun presets and options by "
 "right-clicking on clips."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:392
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:400
 msgid ""
 "<b>Video Preview:</b> Watch your timeline video preview here. Use the "
 "buttons (play, rewind, fast-forward) to control the video playback."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:398
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:406
 msgid ""
 "<b>Properties:</b> View and change advanced properties of clips and effects "
 "here. Right-clicking on clips is usually faster than manually changing "
 "properties."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:405
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:413
 msgid ""
 "<b>Transitions:</b> Create a gradual fade from one clip to another. Drag and "
 "drop a transition onto the timeline and position it on top of a clip "
 "(usually at the beginning or ending)."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:412
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:420
 msgid ""
 "<b>Effects:</b> Adjust brightness, contrast, saturation, and add exciting "
 "special effects. Drag and drop an effect onto the timeline and position it "
 "on top of a clip (or track)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:419
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:427
 msgid ""
 "<b>Emojis:</b> Add exciting and colorful emojis to your project! Drag and "
 "drop an emoji onto the timeline. The emoji will become a new Clip when "
 "dropped on the Timeline."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:426
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/tutorial.py:434
 msgid ""
 "<b>Export Video:</b> When you are ready to create your finished video, click "
 "this button to export your timeline as a single video file."
@@ -1120,17 +1119,17 @@ msgstr ""
 msgid "Initializing"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:513
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:515
 msgid "Version Detected: {}"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:517
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:519
 msgid ""
 "Error Output:\n"
 "{}"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:521
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:523
 msgid ""
 "\n"
 "Blender, the free open source 3D content creation suite, is required for "
@@ -1146,7 +1145,7 @@ msgid ""
 "{}"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:928
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/blender_listview.py:930
 msgid "No frame was found in the output from Blender"
 msgstr ""
 
@@ -1255,16 +1254,16 @@ msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:56
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:104
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:58
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:69
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:102
 msgid "Thumb"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/add_to_timeline_model.py:56
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/transition_model.py:104
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:58
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/blender_model.py:69
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/credits_model.py:55
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/titles_model.py:80
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/titles_model.py:91
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:159
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/emoji_model.py:77
 #: /home/jonathan/apps/openshot-qt-git/src/windows/models/effects_model.py:102
@@ -1323,7 +1322,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/titles_model.py:145
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/titles_model.py:156
 #, python-format
 msgid "%s is not a valid image file."
 msgstr ""
@@ -1332,12 +1331,12 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:337
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:338
 #, python-format
 msgid "Importing %(count)d / %(total)d"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:359
+#: /home/jonathan/apps/openshot-qt-git/src/windows/models/files_model.py:361
 #, python-format
 msgid "Imported %(count)d files"
 msgstr ""
@@ -1420,97 +1419,97 @@ msgstr ""
 msgid "Import Files..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:782
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:778
 #, python-format
 msgid "%s is not a valid video, audio, or image file."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:801
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:797
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:668
 msgid "Import Image Sequence"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:802
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:798
 #, python-format
 msgid "Would you like to import %s as an image sequence?"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1111
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1109
 msgid "Save Frame..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1111
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1109
 msgid "Image files (*.png)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1115
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1113
 msgid "Save Frame cancelled..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1153
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1151
 #, python-format
 msgid "Saved Frame to %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1155
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1153
 #, python-format
 msgid "Failed to save image to %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1943
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1938
 msgid "Error Removing Track"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1943
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:1938
 msgid "You must keep at least 1 track"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2011
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2006
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1525
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1528
 msgid "Rename Track"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2011
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2006
 msgid "Track Name:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2198
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2193
 msgid "Docks"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2392
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2387
 msgid "Enter caption text..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2620
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2615
 msgid "Recent Projects"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2629
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2624
 msgid "No Recent Projects"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2685
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2701
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2719
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2729
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:3117
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2680
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2696
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2714
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2724
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:3112
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:441
 msgid "Filter"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2782
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2777
 msgid "Caption Toolbar"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2845
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2840
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1537
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:1540
 msgid "Update Available"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2846
+#: /home/jonathan/apps/openshot-qt-git/src/windows/main_window.py:2841
 #, python-format
 msgid "Update Available: <b>%s</b>"
 msgstr ""
@@ -1528,40 +1527,40 @@ msgstr ""
 msgid "Select Region"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:239
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:242
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/export.ui:986
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/file-properties.ui:117
 msgid "Browse..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:301
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:304
 msgid "Default"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:339 Settings
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:342 Settings
 #: for hw-decoder
 msgid "No acceleration"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:346
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:349
 #, python-format
 msgid "Graphics Card %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:354
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:357
 #, python-format
 msgid "Graphics card selection not supported in %s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:441
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:448
 msgid "Select executable file"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:642
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:652
 msgid "Restart Required"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:643
+#: /home/jonathan/apps/openshot-qt-git/src/windows/preferences.py:653
 msgid "Please restart OpenShot for all preferences to take effect."
 msgstr ""
 
