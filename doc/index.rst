@@ -37,6 +37,7 @@ Table of Contents:
    files
    clips
    transitions
+   effects
    animation
    titles
    profiles
