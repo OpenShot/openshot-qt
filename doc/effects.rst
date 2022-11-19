@@ -67,11 +67,11 @@ Add colored bars around your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   bottom                      ``(float, 0 to 0.5)``
-   color                       ``(color)``
-   left                        ``(float, 0 to 0.5)``
-   right                       ``(float, 0 to 0.5)``
-   top                         ``(float, 0 to 0.5)``
+   bottom                      ``(float, 0 to 0.5)`` The curve to adjust the bottom bar size
+   color                       ``(color)`` The curve to adjust the color of bars
+   left                        ``(float, 0 to 0.5)`` The curve to adjust the left bar size
+   right                       ``(float, 0 to 0.5)`` The curve to adjust the right bar size
+   top                         ``(float, 0 to 0.5)`` The curve to adjust the top bar size
    ==========================  ============
 
 Blur
@@ -84,10 +84,10 @@ Adjust the blur of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   horizontal_radius           ``(float, 0 to 100)``
-   iterations                  ``(float, 0 to 100)``
-   sigma                       ``(float, 0 to 100)``
-   vertical_radius             ``(float, 0 to 100)``
+   horizontal_radius           ``(float, 0 to 100)`` Horizontal blur radius keyframe. The size of the horizontal blur operation in pixels.
+   iterations                  ``(float, 0 to 100)`` Iterations keyframe. The # of blur iterations per pixel. 3 iterations = Gaussian.
+   sigma                       ``(float, 0 to 100)`` Sigma keyframe. The amount of spread in the blur operation. Should be larger than radius.
+   vertical_radius             ``(float, 0 to 100)`` Vertical blur radius keyframe. The size of the vertical blur operation in pixels.
    ==========================  ============
 
 Brightness & Contrast
@@ -100,8 +100,8 @@ Adjust the brightness and contrast of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   brightness                  ``(float, -1 to 1)``
-   contrast                    ``(float, 0 to 100)``
+   brightness                  ``(float, -1 to 1)`` The curve to adjust the brightness
+   contrast                    ``(float, 0 to 100)`` The curve to adjust the contrast (3 is typical, 20 is a lot, 100 is max. 0 is invalid)
    ==========================  ============
 
 Caption
@@ -114,23 +114,23 @@ Add text captions on top of your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   background                  ``(color)``
-   background_alpha            ``(float, 0 to 1)``
-   background_corner           ``(float, 0 to 60)``
-   background_padding          ``(float, 0 to 60)``
-   caption_font                ``(font)``
-   caption_text                ``(caption)``
-   color                       ``(color)``
-   fade_in                     ``(float, 0 to 3)``
-   fade_out                    ``(float, 0 to 3)``
-   font_alpha                  ``(float, 0 to 1)``
-   font_size                   ``(float, 0 to 200)``
-   left                        ``(float, 0 to 0.5)``
-   line_spacing                ``(float, 0 to 5)``
-   right                       ``(float, 0 to 0.5)``
-   stroke                      ``(color)``
-   stroke_width                ``(float, 0 to 10)``
-   top                         ``(float, 0 to 1)``
+   background                  ``(color)`` Color of caption area background
+   background_alpha            ``(float, 0 to 1)`` Background color alpha
+   background_corner           ``(float, 0 to 60)`` Background corner radius
+   background_padding          ``(float, 0 to 60)`` Background padding
+   caption_font                ``(font)`` Font name or family name
+   caption_text                ``(caption)`` VTT/Subrip formatted caption text (multi-line)
+   color                       ``(color)`` Color of caption text
+   fade_in                     ``(float, 0 to 3)`` Fade in per caption (# of seconds)
+   fade_out                    ``(float, 0 to 3)`` Fade out per caption (# of seconds)
+   font_alpha                  ``(float, 0 to 1)`` Font color alpha
+   font_size                   ``(float, 0 to 200)`` Font size in points
+   left                        ``(float, 0 to 0.5)`` Size of left margin
+   line_spacing                ``(float, 0 to 5)`` Distance between lines (1.0 default)
+   right                       ``(float, 0 to 0.5)`` Size of right margin
+   stroke                      ``(color)`` Color of text border / stroke
+   stroke_width                ``(float, 0 to 10)`` Width of text border / stroke
+   top                         ``(float, 0 to 1)`` Size of top margin
    ==========================  ============
 
 Chroma Key (Greenscreen)
@@ -143,10 +143,10 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
    ==========================  ============
    Name                        Description
    ==========================  ============
-   color                       ``(color)``
-   fuzz                        ``(float, 0 to 125)``
-   halo                        ``(float, 0 to 125)``
-   keymethod                   ``(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])``
+   color                       ``(color)`` The color to match
+   fuzz                        ``(float, 0 to 125)`` The fuzz factor (or threshold)
+   halo                        ``(float, 0 to 125)`` The additional threshold for halo elimination.
+   keymethod                   ``(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])`` The keying method or algorithm to use.
    ==========================  ============
 
 Color Saturation
@@ -159,10 +159,10 @@ Adjust the color saturation.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   saturation                  ``(float, 0 to 4)``
-   saturation_B                ``(float, 0 to 4)``
-   saturation_G                ``(float, 0 to 4)``
-   saturation_R                ``(float, 0 to 4)``
+   saturation                  ``(float, 0 to 4)`` The curve to adjust the overall saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
+   saturation_B                ``(float, 0 to 4)`` The curve to adjust blue saturation of the frame's image
+   saturation_G                ``(float, 0 to 4)`` The curve to adjust green saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
+   saturation_R                ``(float, 0 to 4)`` The curve to adjust red saturation of the frame's image
    ==========================  ============
 
 Color Shift
@@ -175,14 +175,14 @@ Shift the colors of an image up, down, left, and right (with infinite wrapping).
    ==========================  ============
    Name                        Description
    ==========================  ============
-   alpha_x                     ``(float, -1 to 1)``
-   alpha_y                     ``(float, -1 to 1)``
-   blue_x                      ``(float, -1 to 1)``
-   blue_y                      ``(float, -1 to 1)``
-   green_x                     ``(float, -1 to 1)``
-   green_y                     ``(float, -1 to 1)``
-   red_x                       ``(float, -1 to 1)``
-   red_y                       ``(float, -1 to 1)``
+   alpha_x                     ``(float, -1 to 1)`` Shift the Alpha X coordinates (left or right)
+   alpha_y                     ``(float, -1 to 1)`` Shift the Alpha Y coordinates (up or down)
+   blue_x                      ``(float, -1 to 1)`` Shift the Blue X coordinates (left or right)
+   blue_y                      ``(float, -1 to 1)`` Shift the Blue Y coordinates (up or down)
+   green_x                     ``(float, -1 to 1)`` Shift the Green X coordinates (left or right)
+   green_y                     ``(float, -1 to 1)`` Shift the Green Y coordinates (up or down)
+   red_x                       ``(float, -1 to 1)`` Shift the Red X coordinates (left or right)
+   red_y                       ``(float, -1 to 1)`` Shift the Red Y coordinates (up or down)
    ==========================  ============
 
 Crop
@@ -195,12 +195,12 @@ Crop out any part of your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   bottom                      ``(float, 0 to 1)``
-   left                        ``(float, 0 to 1)``
-   right                       ``(float, 0 to 1)``
-   top                         ``(float, 0 to 1)``
-   x                           ``(float, -1 to 1)``
-   y                           ``(float, -1 to 1)``
+   bottom                      ``(float, 0 to 1)`` Size of bottom bar
+   left                        ``(float, 0 to 1)`` Size of left bar
+   right                       ``(float, 0 to 1)`` Size of right bar
+   top                         ``(float, 0 to 1)`` Size of top bar
+   x                           ``(float, -1 to 1)`` X-offset
+   y                           ``(float, -1 to 1)`` Y-offset
    ==========================  ============
 
 Deinterlace
@@ -213,7 +213,7 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
    ==========================  ============
    Name                        Description
    ==========================  ============
-   isOdd                       ``(bool, choices: ['Yes', 'No'])``
+   isOdd                       ``(bool, choices: ['Yes', 'No'])`` Use odd or even lines
    ==========================  ============
 
 Hue
@@ -226,7 +226,7 @@ Adjust the hue / color of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   hue                         ``(float, 0 to 1)``
+   hue                         ``(float, 0 to 1)`` The curve to adjust the percentage of hue shift
    ==========================  ============
 
 Negative
@@ -243,11 +243,11 @@ Detect objects through the video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   class_filter                ``(string)``
-   confidence_threshold        ``(float, 0 to 1)``
-   display_box_text            ``(int, choices: ['Off', 'On'])``
-   objects                     None
-   selected_object_index       ``(int, 0 to 200)``
+   class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
+   confidence_threshold        ``(float, 0 to 1)`` Minimum confidence value to display the detected objects
+   display_box_text            ``(int, choices: ['Off', 'On'])`` Draw a rectangle around detected objects
+   objects                     ``(list)`` List of detected object ids
+   selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that was selected to modify its properties
    ==========================  ============
 
 Pixelate
@@ -260,11 +260,11 @@ Pixelate (increase or decrease) the number of visible pixels.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   bottom                      ``(float, 0 to 1)``
-   left                        ``(float, 0 to 1)``
-   pixelization                ``(float, 0 to 0.99)``
-   right                       ``(float, 0 to 1)``
-   top                         ``(float, 0 to 1)``
+   bottom                      ``(float, 0 to 1)`` The curve to adjust the bottom margin size
+   left                        ``(float, 0 to 1)`` The curve to adjust the left margin size
+   pixelization                ``(float, 0 to 0.99)`` The curve to adjust the amount of pixelization
+   right                       ``(float, 0 to 1)`` The curve to adjust the right margin size
+   top                         ``(float, 0 to 1)`` The curve to adjust the top margin size
    ==========================  ============
 
 Shift
@@ -277,8 +277,8 @@ Shift the image up, down, left, and right (with infinite wrapping).
    ==========================  ============
    Name                        Description
    ==========================  ============
-   x                           ``(float, -1 to 1)``
-   y                           ``(float, -1 to 1)``
+   x                           ``(float, -1 to 1)`` Shift the X coordinates (left or right)
+   y                           ``(float, -1 to 1)`` Shift the Y coordinates (up or down)
    ==========================  ============
 
 Stabilizer
@@ -291,21 +291,12 @@ Stabilize video clip to remove undesired shaking and jitter.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   zoom                        ``(float, 0 to 2)``
+   zoom                        ``(float, 0 to 2)`` Percentage to zoom into the clip, to crop off the shaking and uneven edges
    ==========================  ============
 
 Tracker
 ^^^^^^^
-Track the selected bounding box through the video.
-
-.. table::
-   :widths: 26
-
-   ==========================  ============
-   Name                        Description
-   ==========================  ============
-   objects                     ``(None)``
-   ==========================  ============
+Track the selected bounding box through the video. The tracked object can be selected as a parent on other clips.
 
 Wave
 ^^^^
@@ -317,11 +308,11 @@ Distort the frame's image into a wave pattern.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   amplitude                   ``(float, 0 to 5)``
-   multiplier                  ``(float, 0 to 10)``
-   shift_x                     ``(float, 0 to 1000)``
-   speed_y                     ``(float, 0 to 300)``
-   wavelength                  ``(float, 0 to 3)``
+   amplitude                   ``(float, 0 to 5)`` The height of the wave
+   multiplier                  ``(float, 0 to 10)`` Amount to multiply the wave (make it bigger)
+   shift_x                     ``(float, 0 to 1000)`` Amount to shift X-axis
+   speed_y                     ``(float, 0 to 300)`` Speed of the wave on the Y-axis
+   wavelength                  ``(float, 0 to 3)`` The length of the wave
    ==========================  ============
 
 Audio Effects

@@ -121,7 +121,7 @@ Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
 a clip. Each effect is represented by a small letter icon. Clicking the effect icon will populate the properties of that
-effect, and allow you to edit (and animate) them.
+effect, and allow you to edit (and animate) them. For the full list of effects, see :ref:`effects_ref`.
 
 .. image:: images/clip-effects.jpg
 
