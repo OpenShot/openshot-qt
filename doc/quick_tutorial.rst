@@ -107,4 +107,4 @@ Choose from one of the many preset export options, and click the *Export Video* 
 You should now have a basic understanding of how OpenShot works. Importing, Arranging,
 Previewing, and Exporting. Hopefully this tutorial took less than 5 minutes for you to
 complete. Please read the rest of this guide for a more detailed understanding of OpenShot,
-and it's advanced features and capabilities.
+and its advanced features and capabilities.

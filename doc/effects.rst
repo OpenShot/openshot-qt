@@ -23,7 +23,7 @@ Effects
 =======
 
 Effects are used in OpenShot to enhance or modify the audio or video of a clip. They can modify pixels and audio data,
-and can generally enhance your video projects. Each effect has it's own set of properties, most which can be animated
+and can generally enhance your video projects. Each effect has its own set of properties, most which can be animated
 over time.
 
 Effects can be added to any clip by dragging and dropping them. Each effect is represented by a small colored
@@ -67,11 +67,11 @@ Add colored bars around your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   bottom                      (float, 0 to 0.5)
-   color                       (color)
-   left                        (float, 0 to 0.5)
-   right                       (float, 0 to 0.5)
-   top                         (float, 0 to 0.5)
+   bottom                      ``(float, 0 to 0.5)``
+   color                       ``(color)``
+   left                        ``(float, 0 to 0.5)``
+   right                       ``(float, 0 to 0.5)``
+   top                         ``(float, 0 to 0.5)``
    ==========================  ============
 
 Blur
@@ -84,10 +84,10 @@ Adjust the blur of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   horizontal_radius           (float, 0 to 100)
-   iterations                  (float, 0 to 100)
-   sigma                       (float, 0 to 100)
-   vertical_radius             (float, 0 to 100)
+   horizontal_radius           ``(float, 0 to 100)``
+   iterations                  ``(float, 0 to 100)``
+   sigma                       ``(float, 0 to 100)``
+   vertical_radius             ``(float, 0 to 100)``
    ==========================  ============
 
 Brightness & Contrast
@@ -100,8 +100,8 @@ Adjust the brightness and contrast of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   brightness                  (float, -1 to 1)
-   contrast                    (float, 0 to 100)
+   brightness                  ``(float, -1 to 1)``
+   contrast                    ``(float, 0 to 100)``
    ==========================  ============
 
 Caption
@@ -114,23 +114,23 @@ Add text captions on top of your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   background                  (color)
-   background_alpha            (float, 0 to 1)
-   background_corner           (float, 0 to 60)
-   background_padding          (float, 0 to 60)
-   caption_font                (font)
-   caption_text                (caption)
-   color                       (color)
-   fade_in                     (float, 0 to 3)
-   fade_out                    (float, 0 to 3)
-   font_alpha                  (float, 0 to 1)
-   font_size                   (float, 0 to 200)
-   left                        (float, 0 to 0.5)
-   line_spacing                (float, 0 to 5)
-   right                       (float, 0 to 0.5)
-   stroke                      (color)
-   stroke_width                (float, 0 to 10)
-   top                         (float, 0 to 1)
+   background                  ``(color)``
+   background_alpha            ``(float, 0 to 1)``
+   background_corner           ``(float, 0 to 60)``
+   background_padding          ``(float, 0 to 60)``
+   caption_font                ``(font)``
+   caption_text                ``(caption)``
+   color                       ``(color)``
+   fade_in                     ``(float, 0 to 3)``
+   fade_out                    ``(float, 0 to 3)``
+   font_alpha                  ``(float, 0 to 1)``
+   font_size                   ``(float, 0 to 200)``
+   left                        ``(float, 0 to 0.5)``
+   line_spacing                ``(float, 0 to 5)``
+   right                       ``(float, 0 to 0.5)``
+   stroke                      ``(color)``
+   stroke_width                ``(float, 0 to 10)``
+   top                         ``(float, 0 to 1)``
    ==========================  ============
 
 Chroma Key (Greenscreen)
@@ -143,10 +143,10 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
    ==========================  ============
    Name                        Description
    ==========================  ============
-   color                       (color)
-   fuzz                        (float, 0 to 125)
-   halo                        (float, 0 to 125)
-   keymethod                   (int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])
+   color                       ``(color)``
+   fuzz                        ``(float, 0 to 125)``
+   halo                        ``(float, 0 to 125)``
+   keymethod                   ``(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])``
    ==========================  ============
 
 Color Saturation
@@ -159,10 +159,10 @@ Adjust the color saturation.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   saturation                  (float, 0 to 4)
-   saturation_B                (float, 0 to 4)
-   saturation_G                (float, 0 to 4)
-   saturation_R                (float, 0 to 4)
+   saturation                  ``(float, 0 to 4)``
+   saturation_B                ``(float, 0 to 4)``
+   saturation_G                ``(float, 0 to 4)``
+   saturation_R                ``(float, 0 to 4)``
    ==========================  ============
 
 Color Shift
@@ -175,14 +175,14 @@ Shift the colors of an image up, down, left, and right (with infinite wrapping).
    ==========================  ============
    Name                        Description
    ==========================  ============
-   alpha_x                     (float, -1 to 1)
-   alpha_y                     (float, -1 to 1)
-   blue_x                      (float, -1 to 1)
-   blue_y                      (float, -1 to 1)
-   green_x                     (float, -1 to 1)
-   green_y                     (float, -1 to 1)
-   red_x                       (float, -1 to 1)
-   red_y                       (float, -1 to 1)
+   alpha_x                     ``(float, -1 to 1)``
+   alpha_y                     ``(float, -1 to 1)``
+   blue_x                      ``(float, -1 to 1)``
+   blue_y                      ``(float, -1 to 1)``
+   green_x                     ``(float, -1 to 1)``
+   green_y                     ``(float, -1 to 1)``
+   red_x                       ``(float, -1 to 1)``
+   red_y                       ``(float, -1 to 1)``
    ==========================  ============
 
 Crop
@@ -195,12 +195,12 @@ Crop out any part of your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   bottom                      (float, 0 to 1)
-   left                        (float, 0 to 1)
-   right                       (float, 0 to 1)
-   top                         (float, 0 to 1)
-   x                           (float, -1 to 1)
-   y                           (float, -1 to 1)
+   bottom                      ``(float, 0 to 1)``
+   left                        ``(float, 0 to 1)``
+   right                       ``(float, 0 to 1)``
+   top                         ``(float, 0 to 1)``
+   x                           ``(float, -1 to 1)``
+   y                           ``(float, -1 to 1)``
    ==========================  ============
 
 Deinterlace
@@ -213,7 +213,7 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
    ==========================  ============
    Name                        Description
    ==========================  ============
-   isOdd                       (bool, choices: ['Yes', 'No'])
+   isOdd                       ``(bool, choices: ['Yes', 'No'])``
    ==========================  ============
 
 Hue
@@ -226,7 +226,7 @@ Adjust the hue / color of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   hue                         (float, 0 to 1)
+   hue                         ``(float, 0 to 1)``
    ==========================  ============
 
 Negative
@@ -243,11 +243,11 @@ Detect objects through the video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   class_filter                (string)
-   confidence_threshold        (float, 0 to 1)
-   display_box_text            (int, choices: ['Off', 'On'])
+   class_filter                ``(string)``
+   confidence_threshold        ``(float, 0 to 1)``
+   display_box_text            ``(int, choices: ['Off', 'On'])``
    objects                     None
-   selected_object_index       (int, 0 to 200)
+   selected_object_index       ``(int, 0 to 200)``
    ==========================  ============
 
 Pixelate
@@ -260,11 +260,11 @@ Pixelate (increase or decrease) the number of visible pixels.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   bottom                      (float, 0 to 1)
-   left                        (float, 0 to 1)
-   pixelization                (float, 0 to 0.99)
-   right                       (float, 0 to 1)
-   top                         (float, 0 to 1)
+   bottom                      ``(float, 0 to 1)``
+   left                        ``(float, 0 to 1)``
+   pixelization                ``(float, 0 to 0.99)``
+   right                       ``(float, 0 to 1)``
+   top                         ``(float, 0 to 1)``
    ==========================  ============
 
 Shift
@@ -277,8 +277,8 @@ Shift the image up, down, left, and right (with infinite wrapping).
    ==========================  ============
    Name                        Description
    ==========================  ============
-   x                           (float, -1 to 1)
-   y                           (float, -1 to 1)
+   x                           ``(float, -1 to 1)``
+   y                           ``(float, -1 to 1)``
    ==========================  ============
 
 Stabilizer
@@ -291,7 +291,7 @@ Stabilize video clip to remove undesired shaking and jitter.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   zoom                        (float, 0 to 2)
+   zoom                        ``(float, 0 to 2)``
    ==========================  ============
 
 Tracker
@@ -304,7 +304,7 @@ Track the selected bounding box through the video.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   objects                     (None)
+   objects                     ``(None)``
    ==========================  ============
 
 Wave
@@ -317,11 +317,11 @@ Distort the frame's image into a wave pattern.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   amplitude                   (float, 0 to 5)
-   multiplier                  (float, 0 to 10)
-   shift_x                     (float, 0 to 1000)
-   speed_y                     (float, 0 to 300)
-   wavelength                  (float, 0 to 3)
+   amplitude                   ``(float, 0 to 5)``
+   multiplier                  ``(float, 0 to 10)``
+   shift_x                     ``(float, 0 to 1000)``
+   speed_y                     ``(float, 0 to 300)``
+   wavelength                  ``(float, 0 to 3)``
    ==========================  ============
 
 Audio Effects
@@ -341,12 +341,12 @@ Reduce the volume of loud sounds or amplify quiet sounds.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   attack                      (float, 0.1 to 100)
-   bypass                      (bool)
-   makeup_gain                 (float, -12 to 12)
-   ratio                       (float, 1 to 100)
-   release                     (float, 10 to 1000)
-   threshold                   (float, -60 to 0)
+   attack                      ``(float, 0.1 to 100)``
+   bypass                      ``(bool)``
+   makeup_gain                 ``(float, -12 to 12)``
+   ratio                       ``(float, 1 to 100)``
+   release                     ``(float, 10 to 1000)``
+   threshold                   ``(float, -60 to 0)``
    ==========================  ============
 
 Delay
@@ -359,7 +359,7 @@ Adjust the synchronism between the audio and video track.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   delay_time                  (float, 0 to 5)
+   delay_time                  ``(float, 0 to 5)``
    ==========================  ============
 
 Distortion
@@ -372,10 +372,10 @@ Alter the audio by clipping the signal.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   distortion_type             (int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])
-   input_gain                  (int, -24 to 24)
-   output_gain                 (int, -24 to 24)
-   tone                        (int, -24 to 24)
+   distortion_type             ``(int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])``
+   input_gain                  ``(int, -24 to 24)``
+   output_gain                 ``(int, -24 to 24)``
+   tone                        ``(int, -24 to 24)``
    ==========================  ============
 
 Echo
@@ -388,9 +388,9 @@ Reflection of sound with a delay after the direct sound.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   echo_time                   (float, 0 to 5)
-   feedback                    (float, 0 to 1)
-   mix                         (float, 0 to 1)
+   echo_time                   ``(float, 0 to 5)``
+   feedback                    ``(float, 0 to 1)``
+   mix                         ``(float, 0 to 1)``
    ==========================  ============
 
 Expander
@@ -403,12 +403,12 @@ Louder parts of audio becomes relatively louder and quieter parts becomes quiete
    ==========================  ============
    Name                        Description
    ==========================  ============
-   attack                      (float, 0.1 to 100)
-   bypass                      (bool)
-   makeup_gain                 (float, -12 to 12)
-   ratio                       (float, 1 to 100)
-   release                     (float, 10 to 1000)
-   threshold                   (float, -60 to 0)
+   attack                      ``(float, 0.1 to 100)``
+   bypass                      ``(bool)``
+   makeup_gain                 ``(float, -12 to 12)``
+   ratio                       ``(float, 1 to 100)``
+   release                     ``(float, 10 to 1000)``
+   threshold                   ``(float, -60 to 0)``
    ==========================  ============
 
 Noise
@@ -421,7 +421,7 @@ Random signal having equal intensity at different frequencies.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   level                       (int, 0 to 100)
+   level                       ``(int, 0 to 100)``
    ==========================  ============
 
 Parametric EQ
@@ -434,10 +434,10 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
    ==========================  ============
    Name                        Description
    ==========================  ============
-   filter_type                 (int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])
-   frequency                   (int, 20 to 20000)
-   gain                        (int, -24 to 24)
-   q_factor                    (float, 0 to 20)
+   filter_type                 ``(int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])``
+   frequency                   ``(int, 20 to 20000)``
+   gain                        ``(int, -24 to 24)``
+   q_factor                    ``(float, 0 to 20)``
    ==========================  ============
 
 Robotization
@@ -450,9 +450,9 @@ Transform the voice present in an audio track into a robotic voice effect.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   fft_size                    (int, choices: ['128', '256', '512', '1024', '2048'])
-   hop_size                    (int, choices: ['1/2', '1/4', '1/8'])
-   window_type                 (int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])
+   fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
+   hop_size                    ``(int, choices: ['1/2', '1/4', '1/8'])``
+   window_type                 ``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``
    ==========================  ============
 
 Whisperization
@@ -465,9 +465,9 @@ Transform the voice present in an audio track into a whispering voice effect.
    ==========================  ============
    Name                        Description
    ==========================  ============
-   fft_size                    (int, choices: ['128', '256', '512', '1024', '2048'])
-   hop_size                    (int, choices: ['1/2', '1/4', '1/8'])
-   window_type                 (int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])
+   fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
+   hop_size                    ``(int, choices: ['1/2', '1/4', '1/8'])``
+   window_type                 ``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``
    ==========================  ============
 
 For more info on key frames and animation, see :ref:`animation_ref`.
