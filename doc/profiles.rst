@@ -74,6 +74,24 @@ into the file):
     display_aspect_num=16
     display_aspect_den=9
 
+.. table::
+   :widths: 24
+
+   ======================  ============
+   Profile Property        Description
+   ======================  ============
+   description             The friendly name of the profile (this is what OpenShot displays in the user interface)
+   frame_rate_num          The frame rate numerator. All frame rates are expressed as fractions. For example, ``30 FPS == 30/1``.
+   frame_rate_den          The frame rate denominator. All frame rates are expressed as fractions. For example, ``29.97 FPS == 30,000/1001``.
+   width                   The number of horizontal pixels in the image
+   height                  The number of vertical pixels in the image
+   progressive             ```(0 or 1)``` If 1, both even and odd rows of pixels are used. If 0, only odd or even rows of pixels are used.
+   sample_aspect_num       The numerator of the **SAR** (sample/pixel shape aspect ratio), ``1:1`` ratio would represent a square pixel, ``2:1`` ratio would represent a ``2x1`` rectangle pixel shape, etc...
+   sample_aspect_den       The denominator of the **SAR** (sample/pixel shape aspect ratio)
+   display_aspect_num      The numerator of the **DAR** (display aspect ratio), ``(width/height) X (sample aspect ratio)``. This is the final ratio of the image displayed on screen, reduced to the smallest fraction possible (common ratios are 16:9 for wide formats, 4:3 for legacy television formats).
+   display_aspect_den      The denominator of the **DAR** (display aspect ratio)
+   ======================  ============
+
 Once you restart OpenShot, you will see your custom profile appear in the list of Profiles.
 
 Profile List
@@ -82,7 +100,7 @@ Profile List
 OpenShot includes a large list of common profiles.
 
 =====================================  ======  ======  ======  ======  ======  ==========
-Profile Name                           Width   Height  FPS     DAR     PAR     Interlaced
+Profile Name                           Width   Height  FPS     DAR     SAR     Interlaced
 =====================================  ======  ======  ======  ======  ======  ==========
 1024x576 16:9 PAL                      1024    576     25.00   16:9    1:1     No
 2.5K QHD 1440p 23.98 fps               2560    1440    23.98   16:9    1:1     No
