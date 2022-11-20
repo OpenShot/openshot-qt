@@ -1,4 +1,4 @@
-.. Copyright (c) 2008-2016 OpenShot Studios, LLC
+.. Copyright (c) 2008-2020 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -25,10 +25,13 @@ Profiles
 A profile is a collection of common video settings (size, frame rate, aspect ratio, etc...). Profiles are used
 during editing, previewing, and exporting to provide a quick way to switch between common combinations of these settings.
 
+If you often use the same profile, you can set a default under:
+**Edit >> Preferences >> Preview >> Default Profile**
+
 Project Profile
 ---------------
 
-The project profile is used when previewing your project and editing. The default project profile is "HD 720p 24fps".
+The project profile is used when previewing your project and editing. The default project profile is "HD 720p 30fps".
 It is best practice to always switch to your target profile before you begin editing. For example, if you are targeting
 1080p 30fps, switch to that profile before you begin editing your project.
 
@@ -58,8 +61,8 @@ The export profile always defaults to your current project profile, but can be c
 Custom Profile
 --------------
 Although OpenShot has more than 70 profiles included by default, you can also create your own custom profiles. Create a
-new file in the */.openshot_qt/profiles/* folder. Use the following text as your template (i.e. copy and paste this
-into the file):
+new file in the ``~/.openshot_qt/profiles/`` or ``C:\Users\USERNAME\.openshot_qt\profiles`` folder. Use the following
+text as your template (i.e. copy and paste this into the new file):
 
 .. code-block:: python
 
@@ -83,7 +86,7 @@ into the file):
    description             The friendly name of the profile (this is what OpenShot displays in the user interface)
    frame_rate_num          The frame rate numerator. All frame rates are expressed as fractions. For example, ``30 FPS == 30/1``.
    frame_rate_den          The frame rate denominator. All frame rates are expressed as fractions. For example, ``29.97 FPS == 30,000/1001``.
-   width                   The number of horizontal pixels in the image
+   width                   The number of horizontal pixels in the image. By reversing the values for `width` and `height`, you can create a vertical profile.
    height                  The number of vertical pixels in the image
    progressive             ```(0 or 1)``` If 1, both even and odd rows of pixels are used. If 0, only odd or even rows of pixels are used.
    sample_aspect_num       The numerator of the **SAR** (sample/pixel shape aspect ratio), ``1:1`` ratio would represent a square pixel, ``2:1`` ratio would represent a ``2x1`` rectangle pixel shape, etc...
