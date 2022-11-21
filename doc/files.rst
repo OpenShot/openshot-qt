@@ -36,8 +36,6 @@ Import Files
 ------------
 These are all possible methods to import media files into OpenShot:
 
-.. |importfiles_icon| image:: ../images/Humanity/actions/16/list-add.svg
-
 .. table::
    :widths: 25
 
@@ -47,11 +45,9 @@ These are all possible methods to import media files into OpenShot:
    Drag and Drop                Drag and drop the files from your file manager (file explorer, finder, etc...).
    Context menu (`File Menu`_)  Right click anywhere in the **Project Files** panel and choose :guilabel:`Import Files`.
    Main Menu                    In the main menu choose: :guilabel:`File\→Import Files`.
-   Toolbar button               Click the |importfiles_icon| toolbar button in the main toolbar.
+   Toolbar button               Click the :guilabel:`+` toolbar button in the main toolbar.
    Keyboard shortcut            Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac).
    ===========================  ============
-
-
 
 .. image:: images/quick-start-drop-files.jpg
 
