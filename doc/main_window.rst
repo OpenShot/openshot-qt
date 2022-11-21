@@ -30,7 +30,7 @@ Overview
 
 .. table::
    :widths: 5 22 73
-   
+
    ==  ==================  ============
    #   Name                Description
    ==  ==================  ============
@@ -51,8 +51,8 @@ For step-by-step instructions on the basic usage of OpenShot, be sure to read th
 
 Built-in Tutorial
 -----------------
-When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will point out and explain
-the basics. Clicking **Next** will jump to the next topic. You can always view this tutorial again from the **Help\→Tutorial** menu.
+When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will demonstrate and explain
+the basics. Clicking :guilabel:`Next` will jump to the next topic. You can always view this tutorial again from the :menuselection:`Help --> Tutorial` menu.
 
 .. image:: images/built-in-tutorial.jpg
 
@@ -61,10 +61,12 @@ the basics. Clicking **Next** will jump to the next topic. You can always view t
 Tracks & Layers
 ------------------
 
-OpenShot uses tracks to layer videos and images. The top most track is the top layer, and the bottom track is the bottom layer.
-If you are familiar with layers in a photo editing application, then you should be quite familiar with this concept.
-OpenShot will mix each layer together, just like a photo editing application. You can have an unlimited number of tracks, but
-typically a video project will not need more than 5 tracks.
+OpenShot uses tracks to layer videos and images. The top most track is the top
+layer, and the bottom track is the bottom layer. If you are familiar with layers
+in a photo editing application, then you should be quite familiar with this
+concept. OpenShot will stack the layers and mix each one together, just like a
+photo editing application. You can have an unlimited number of tracks, but
+typically a simple video project will not need more than 5 tracks.
 
 For example, imagine a 3 track video project
 
@@ -72,7 +74,7 @@ For example, imagine a 3 track video project
 
 .. table::
    :widths: 5 18 77
-   
+
    ==  ==================  ============
    #   Name                Description
    ==  ==================  ============
@@ -85,8 +87,11 @@ For example, imagine a 3 track video project
 
 Keyboard Shortcuts
 ------------------
-Here is a list of the default keyboard shortcuts supported by OpenShot. You can configure these shortcuts
-in the Preferences dialog. Learning a few of these shortcuts can save you a bunch of time!
+Here is a list of the default keyboard shortcuts supported by OpenShot. You can
+configure these shortcuts in the Preferences window, which is opened by selecting
+:menuselection:`Edit --> Preferences` from the OpenShot menu bar.
+(On macOS, choose :menuselection:`OpenShot Video Editor --> Preferences`.)
+Learning a few of these shortcuts can save you a bunch of time!
 
 =========================  ============
 Shortcut                   Action
