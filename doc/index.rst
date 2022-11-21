@@ -46,3 +46,4 @@ Table of Contents:
    developers
    contributing
    learn_more
+   glossary
