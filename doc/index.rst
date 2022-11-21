@@ -42,6 +42,7 @@ Table of Contents:
    titles
    profiles
    import_export
+   preferences
    developers
    contributing
    learn_more
