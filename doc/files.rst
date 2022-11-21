@@ -103,9 +103,9 @@ Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cu
 Export Clip
 -----------
 If you want your clips available outside of your OpenShot project, or want to copy all your video assets to one place,
-you can do this with the **Export Clip** dialog.
-Simply :kbd:`Ctrl+Click` to select any clips or files you like. Then right click and choose **Export Clips**.
-In the dialog that appears, choose a destination folder, and click **Export**.
+you can do this with the **Export Clip** dialog. Simply :kbd:`Ctrl+Click` to select any clips or files you like,
+then right click and choose **Export Clips**. In the dialog that appears, choose a destination folder, and
+click **Export**.
 
 Add to Timeline
 ---------------
