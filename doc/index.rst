@@ -33,6 +33,7 @@ Table of Contents:
    introduction
    installation
    quick_tutorial
+   getting_started
    main_window
    files
    clips
