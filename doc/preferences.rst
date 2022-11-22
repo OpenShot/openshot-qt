@@ -33,7 +33,7 @@ adjust the audio settings under the Preview tab.
 General
 -------
 
-.. image:: images/preferences-1-general.png
+.. image:: images/preferences-1-general.jpg
 
 The General tab of the Preferences window allows you to modify the settings that apply to OpenShot as a whole.
 
@@ -55,7 +55,7 @@ The General tab of the Preferences window allows you to modify the settings that
 Preview
 -------
 
-.. image:: images/preferences-2-preview.png
+.. image:: images/preferences-2-preview.jpg
 
 The Preview tab of the Preferences window allows you to set a **Default Video Profile** for your project, if you have
 a preference for a specific editing profile. More about `profiles <profiles.html>`_. Also, you can adjust the
@@ -76,7 +76,7 @@ real-time preview audio settings, for example, which audio device and sample rat
 Autosave
 --------
 
-.. image:: images/preferences-3-autosave.png
+.. image:: images/preferences-3-autosave.jpg
 
 Autosave is a saving function in OpenShot which automatically saves the current changes to your project after
 a specific number of minutes, helping to reduce the risk or impact of data loss in case of a crash, freeze
@@ -97,7 +97,7 @@ process with older versions contained in the recovery folder.
 Cache
 -----
 
-.. image:: images/preferences-4-cache.png
+.. image:: images/preferences-4-cache.jpg
 
 Cache settings can be adjusted to make real-time playback faster or less CPU intensive. The cache is used
 to store image and audio data for each frame of video requested. The more frames that are cached, the
@@ -125,14 +125,14 @@ set of cache values, which should allow most computers to playback video and aud
 Debug
 -----
 
-.. image:: images/preferences-5-debug.png
+.. image:: images/preferences-5-debug.jpg
 
 Here you can modify how much data should be logged. Normally, *Debug Mode (verbose)* is off.
 The default port is 5556. If you want to help improve OpenShot you can enable **Send Anonymous Metrics and Errors**.
 
 Performance
 -----------
-.. image:: images/preferences-6-performance.png
+.. image:: images/preferences-6-performance.jpg
 
 Please keep in mind that hardware acceleration is experimental at the moment. OpenShot supports both decoding and
 encoding acceleration. For more information take a look at our `Github <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_.
@@ -151,7 +151,7 @@ NOTE: On systems with older graphics cards, hardware acceleration may not always
 
 Keyboard
 --------
-.. image:: images/preferences-7-keyboard.png
+.. image:: images/preferences-7-keyboard.jpg
 
 This is where hotkeys can be seen and re-assigned, as described under 
 :ref:`keyboard_shortcut_ref`. 
