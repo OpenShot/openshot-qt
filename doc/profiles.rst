@@ -97,10 +97,1819 @@ text as your template (i.e. copy and paste this into the new file):
 
 Once you restart OpenShot, you will see your custom profile appear in the list of Profiles.
 
+Preset List
+-----------
+
+OpenShot includes a large list of common profiles and their associated video export settings (``video codec``,
+``audio codec``, ``audio channels``, ``audio sample rate``, etc...), which targets specific websites and devices.
+
+All Formats
+^^^^^^^^^^^
+
+AVI (h.264)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             avi
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+AVI (mpeg2)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             avi
+   Video Codec              mpeg2video
+   Audio Codec              mp2
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+AVI (mpeg4)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             avi
+   Video Codec              mpeg4
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+FLV (h.264)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             flv
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (av1)
+~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              libaom-av1
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      50 crf
+   Video Bitrate (med)      23 crf
+   Video Bitrate (high)     1 crf
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (h.264 dx)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              h264_dxva2
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (h.264 nv)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              h264_nvenc
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (h.264 qsv)
+~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              h264_qsv
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (h.264 videotoolbox)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              h264_videotoolbox
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (h.264)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MKV (h.265)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              libx265
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      50 crf
+   Video Bitrate (med)      23 crf
+   Video Bitrate (high)     0 crf
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MOV (h.264)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mov
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MOV (mpeg2)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mov
+   Video Codec              mpeg2video
+   Audio Codec              mp2
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MOV (mpeg4)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mov
+   Video Codec              mpeg4
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (AV1 rav1e)
+~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              librav1e
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      200 qp
+   Video Bitrate (med)      100 qp
+   Video Bitrate (high)     50 qp
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (AV1 svt)
+~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libsvtav1
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      60 qp
+   Video Bitrate (med)      50 qp
+   Video Bitrate (high)     30 qp
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (HEVC va)
+~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              hevc_vaapi
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (Xvid)
+~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libxvid
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264 dx)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              h264_dxva2
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264 nv)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              h264_nvenc
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264 qsv)
+~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              h264_qsv
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264 va)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              h264_vaapi
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264 va)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mkv
+   Video Codec              h264_vaapi
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264 videotoolbox)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              h264_videotoolbox
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.264)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (h.265)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx265
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      50 crf
+   Video Bitrate (med)      23 crf
+   Video Bitrate (high)     0 crf
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MP4 (mpeg4)
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              mpeg4
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+MPEG (mpeg2)
+~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mpeg
+   Video Codec              mpeg2video
+   Audio Codec              mp2
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+OGG (theora/flac)
+~~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             ogg
+   Video Codec              libtheora
+   Audio Codec              flac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+OGG (theora/vorbis)
+~~~~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             ogg
+   Video Codec              libtheora
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+WEBM (AV1 aom)
+~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             webm
+   Video Codec              libaom-av1
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      50 crf
+   Video Bitrate (med)      35 crf
+   Video Bitrate (high)     10 crf
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+WEBM (vp9)
+~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             webm
+   Video Codec              libvpx-vp9
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      50 crf
+   Video Bitrate (med)      30 crf
+   Video Bitrate (high)     5 crf
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+WEBM (vp9) lossless
+~~~~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             webm
+   Video Codec              libvpx-vp9
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      50 crf
+   Video Bitrate (med)      23 crf
+   Video Bitrate (high)     0 crf
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+WEBM (vpx)
+~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             webm
+   Video Codec              libvpx
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+WEBP (vp9 va)
+~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             webm
+   Video Codec              vp9_vaapi
+   Audio Codec              libopus
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+Device
+^^^^^^
+
+Apple TV
+~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (high)     5 Mb/s
+   Audio Bitrate (high)     256 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 720p 30 fps
+   ==========================
+
+Chromebook
+~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             webm
+   Video Codec              libvpx
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   All Profiles
+   ==========================
+
+Nokia nHD
+~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             avi
+   Video Codec              libxvid
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      1 Mb/s
+   Video Bitrate (med)      3 Mb/s
+   Video Bitrate (high)     5 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   Mobile 360p
+   ==========================
+
+Xbox 360
+~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             avi
+   Video Codec              libxvid
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      2 Mb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     8 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   DV/DVD Widescreen NTSC
+   HD 1080p 29.97 fps
+   HD 720p 29.97 fps
+   ==========================
+
+Web
+^^^
+
+Flickr-HD
+~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mov
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 1080p 25 fps
+   HD 1080p 29.97 fps
+   HD 720p 25 fps
+   HD 720p 29.97 fps
+   ==========================
+
+Instagram
+~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      3.5 Mb/s
+   Video Bitrate (high)     5.50 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 1080p 25 fps
+   HD 1080p 30 fps
+   HD 720p 25 fps
+   HD 720p 30 fps
+   HD Vertical 1080p 30 fps
+   HD Vertical 720p 30 fps
+   ==========================
+
+Metacafe
+~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              mpeg4
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              44100
+   Video Bitrate (low)      2 Mb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     8 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   VGA NTSC
+   ==========================
+
+Picasa
+~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              44100
+   Video Bitrate (low)      2 Mb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     8 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   VGA NTSC
+   ==========================
+
+Twitter
+~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      1.7 Mb/s
+   Video Bitrate (high)     3.5 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 1080p 25 fps
+   HD 1080p 30 fps
+   HD 720p 25 fps
+   HD 720p 30 fps
+   HD Vertical 1080p 30 fps
+   HD Vertical 720p 30 fps
+   ==========================
+
+Vimeo
+~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      2 Mb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     8 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   VGA NTSC
+   VGA Widescreen NTSC
+   ==========================
+
+Vimeo-HD
+~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      4 Mb/s
+   Video Bitrate (med)      8 Mb/s
+   Video Bitrate (high)     12 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 1080p 23.98 fps
+   HD 1080p 24 fps
+   HD 1080p 25 fps
+   HD 1080p 29.97 fps
+   HD 1080p 30 fps
+   HD 720p 23.98 fps
+   HD 720p 24 fps
+   HD 720p 25 fps
+   HD 720p 29.97 fps
+   HD 720p 30 fps
+   ==========================
+
+Wikipedia
+~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             ogg
+   Video Codec              libtheora
+   Audio Codec              libvorbis
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      384 kb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   QVGA 29.97 fps
+   ==========================
+
+YouTube HD
+~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      8 Mb/s
+   Video Bitrate (med)      10 Mb/s
+   Video Bitrate (high)     12 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 1080p 23.98 fps
+   HD 1080p 24 fps
+   HD 1080p 25 fps
+   HD 1080p 29.97 fps
+   HD 1080p 30 fps
+   HD 1080p 50 fps
+   HD 1080p 59.94 fps
+   HD 1080p 60 fps
+   ==========================
+
+YouTube HD (2K)
+~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      16 Mb/s
+   Video Bitrate (med)      20 Mb/s
+   Video Bitrate (high)     24 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   2.5K QHD 1440p 23.98 fps
+   2.5K QHD 1440p 24 fps
+   2.5K QHD 1440p 25 fps
+   2.5K QHD 1440p 29.97 fps
+   2.5K QHD 1440p 30 fps
+   2.5K QHD 1440p 50 fps
+   2.5K QHD 1440p 59.94 fps
+   2.5K QHD 1440p 60 fps
+   ==========================
+
+YouTube HD (4K)
+~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      45 Mb/s
+   Video Bitrate (med)      56 Mb/s
+   Video Bitrate (high)     68 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   4K UHD 2160p 23.98 fps
+   4K UHD 2160p 24 fps
+   4K UHD 2160p 25 fps
+   4K UHD 2160p 29.97 fps
+   4K UHD 2160p 30 fps
+   4K UHD 2160p 50 fps
+   4K UHD 2160p 59.94 fps
+   4K UHD 2160p 60 fps
+   ==========================
+
+YouTube Standard
+~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      2 Mb/s
+   Video Bitrate (med)      5 Mb/s
+   Video Bitrate (high)     8 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      256 kb/s
+   Audio Bitrate (high)     320 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 720p 23.98 fps
+   HD 720p 24 fps
+   HD 720p 25 fps
+   HD 720p 29.97 fps
+   HD 720p 30 fps
+   HD 720p 50 fps
+   HD 720p 59.94 fps
+   HD 720p 60 fps
+   VGA NTSC
+   VGA Widescreen NTSC
+   ==========================
+
+DVD
+^^^
+
+DVD-NTSC
+~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             dvd
+   Video Codec              mpeg2video
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      1 Mb/s
+   Video Bitrate (med)      3 Mb/s
+   Video Bitrate (high)     5 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      192 kb/s
+   Audio Bitrate (high)     256 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   DV/DVD NTSC
+   DV/DVD Widescreen NTSC
+   ==========================
+
+DVD-PAL
+~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             dvd
+   Video Codec              mpeg2video
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      1 Mb/s
+   Video Bitrate (med)      3 Mb/s
+   Video Bitrate (high)     5 Mb/s
+   Audio Bitrate (low)      128 kb/s
+   Audio Bitrate (med)      192 kb/s
+   Audio Bitrate (high)     256 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   DV/DVD PAL
+   DV/DVD Widescreen PAL
+   ==========================
+
+Blu-Ray/AVCHD
+^^^^^^^^^^^^^
+
+AVCHD Disks
+~~~~~~~~~~~
+
+.. table::
+   :widths: 26
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp4
+   Video Codec              libx264
+   Audio Codec              aac
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      15 Mb/s
+   Video Bitrate (high)     40 Mb/s
+   Audio Bitrate (low)      256 kb/s
+   Audio Bitrate (high)     256 kb/s
+   =======================  ============
+
+.. table::
+   :widths: 26
+
+   ==========================
+   Profiles
+   ==========================
+   HD 1080i 25 fps
+   HD 1080i 30 fps
+   HD 1080p 25 fps
+   ==========================
+
 Profile List
 ------------
 
 OpenShot includes a large list of common profiles.
+
+Definitions
+^^^^^^^^^^^
+
+- **FPS**: Frames Per Second
+- **DAR**: Display Aspect Ratio (i.e. 1920:1080 reduces to 16:9 aspect ratio)
+- **SAR**: Sample Aspect Ratio (i.e. 1:1 ratio == square pixel, 2:1 horizontal rectangular pixel). The SAR directly affects the display aspect ratio. For example, a 4:3 video can be displayed as 16:9, if it uses rectangular pixels.
 
 =====================================  ======  ======  ======  ======  ======  ==========
 Profile Name                           Width   Height  FPS     DAR     SAR     Interlaced
