@@ -149,7 +149,7 @@ close attention to where the play-head (i.e. red playback line) is. Key frames a
 position, to help create animations.
 
 .. table::
-   :widths: 24
+   :widths: 24 60
 
    ======================  ============
    Name                    Description

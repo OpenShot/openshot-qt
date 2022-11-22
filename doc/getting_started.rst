@@ -43,11 +43,10 @@ Computer
 --------
 Video editing does not require an expensive machine, especially if you are a 
 beginner. It would be best if you had a decent monitor and graphics card. If
-you have an older computer, check your system specifications against OpenShot's 
-`minimum system requirements <introduction.html#system-requirements>`_ 
-to make sure it works for video editing. Unfortunately, many older computers
-are not fast enough for video editing, and you should upgrade your whole 
-system, if possible.
+you have an older computer, check your system specifications against OpenShot's
+:ref:`min_system_req_ref` to make sure it works for video editing.
+Unfortunately, many older computers are not fast enough for video editing, and you
+should upgrade your whole system, if possible.
 
 
 Accessories
@@ -115,8 +114,8 @@ essential tips and techniques you need to know to become a skilled video editor.
 #. Learn the Lingo
     Video editing is not just a hobby or a profession; it is an industry. And
     just like any industry, there is a ton of jargon to learn. Practically
-    speaking, you do not need to know all the terms on 
-    `this list <glossary.html#definitions>`_ to become a better video editor,
+    speaking, you do not need to know all the terms on the
+    :ref:`glossary_ref` to become a better video editor,
     but a fundamental knowledge of the terms may help you communicate better 
     with other video editors or clients.
 

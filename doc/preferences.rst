@@ -58,7 +58,7 @@ Preview
 .. image:: images/preferences-2-preview.jpg
 
 The Preview tab of the Preferences window allows you to set a **Default Video Profile** for your project, if you have
-a preference for a specific editing profile. More about `profiles <profiles.html>`_. Also, you can adjust the
+a preference for a specific editing profile. More about :ref:`profiles_ref`. Also, you can adjust the
 real-time preview audio settings, for example, which audio device and sample rate to use.
 
 .. table::

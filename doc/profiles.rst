@@ -23,7 +23,8 @@ Profiles
 ========
 
 A profile is a collection of common video settings (size, frame rate, aspect ratio, etc...). Profiles are used
-during editing, previewing, and exporting to provide a quick way to switch between common combinations of these settings.
+during editing, previewing, and exporting to provide a quick way to switch between common combinations of
+these settings.
 
 If you often use the same profile, you can set a default under:
 **Edit >> Preferences >> Preview >> Default Profile**
@@ -33,7 +34,8 @@ Project Profile
 
 The project profile is used when previewing your project and editing. The default project profile is "HD 720p 30fps".
 It is best practice to always switch to your target profile before you begin editing. For example, if you are targeting
-1080p 30fps, switch to that profile before you begin editing your project.
+1080p 30fps, switch to that profile before you begin editing your project. For a full list of included profiles
+see :ref:`profile_list_ref`.
 
 .. image:: images/profiles.jpg
 
@@ -60,9 +62,10 @@ The export profile always defaults to your current project profile, but can be c
 
 Custom Profile
 --------------
-Although OpenShot has more than 70 profiles included by default, you can also create your own custom profiles. Create a
-new file in the ``~/.openshot_qt/profiles/`` or ``C:\Users\USERNAME\.openshot_qt\profiles`` folder. Use the following
-text as your template (i.e. copy and paste this into the new file):
+Although OpenShot has more than 70 profiles (:ref:`profile_list_ref`) included in OpenShot, you can also create
+your own custom profiles. Create a new file in the ``~/.openshot_qt/profiles/`` or
+``C:\Users\USERNAME\.openshot_qt\profiles`` folder. Use the following text as your template (i.e. copy and
+paste this into the new file):
 
 .. code-block:: python
 
@@ -78,7 +81,7 @@ text as your template (i.e. copy and paste this into the new file):
     display_aspect_den=9
 
 .. table::
-   :widths: 24
+   :widths: 24 60
 
    ======================  ============
    Profile Property        Description
@@ -97,6 +100,8 @@ text as your template (i.e. copy and paste this into the new file):
 
 Once you restart OpenShot, you will see your custom profile appear in the list of Profiles.
 
+.. _preset_list_ref:
+
 Preset List
 -----------
 
@@ -110,7 +115,7 @@ AVI (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -134,7 +139,7 @@ AVI (mpeg2)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -158,7 +163,7 @@ AVI (mpeg4)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -182,7 +187,7 @@ FLV (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -206,7 +211,7 @@ MKV (av1)
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -230,7 +235,7 @@ MKV (h.264 dx)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -254,7 +259,7 @@ MKV (h.264 nv)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -278,7 +283,7 @@ MKV (h.264 qsv)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -302,7 +307,7 @@ MKV (h.264 videotoolbox)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -326,7 +331,7 @@ MKV (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -350,7 +355,7 @@ MKV (h.265)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -374,7 +379,7 @@ MOV (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -398,7 +403,7 @@ MOV (mpeg2)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -422,7 +427,7 @@ MOV (mpeg4)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -446,7 +451,7 @@ MP4 (AV1 rav1e)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -470,7 +475,7 @@ MP4 (AV1 svt)
 ~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -494,7 +499,7 @@ MP4 (HEVC va)
 ~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -518,7 +523,7 @@ MP4 (Xvid)
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -542,7 +547,7 @@ MP4 (h.264 dx)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -566,7 +571,7 @@ MP4 (h.264 nv)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -590,7 +595,7 @@ MP4 (h.264 qsv)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -614,7 +619,7 @@ MP4 (h.264 va)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -638,7 +643,7 @@ MP4 (h.264 va)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -662,7 +667,7 @@ MP4 (h.264 videotoolbox)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -686,7 +691,7 @@ MP4 (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -710,7 +715,7 @@ MP4 (h.265)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -734,7 +739,7 @@ MP4 (mpeg4)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -758,7 +763,7 @@ MPEG (mpeg2)
 ~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -782,7 +787,7 @@ OGG (theora/flac)
 ~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -806,7 +811,7 @@ OGG (theora/vorbis)
 ~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -830,7 +835,7 @@ WEBM (AV1 aom)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -854,7 +859,7 @@ WEBM (vp9)
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -878,7 +883,7 @@ WEBM (vp9) lossless
 ~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -902,7 +907,7 @@ WEBM (vpx)
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -926,7 +931,7 @@ WEBP (vp9 va)
 ~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -953,7 +958,7 @@ Apple TV
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -973,7 +978,7 @@ Chromebook
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -997,7 +1002,7 @@ Nokia nHD
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1021,7 +1026,7 @@ Xbox 360
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1050,7 +1055,7 @@ Flickr-HD
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1077,7 +1082,7 @@ Instagram
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1106,7 +1111,7 @@ Metacafe
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1130,7 +1135,7 @@ Picasa
 ~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1154,7 +1159,7 @@ Twitter
 ~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1183,7 +1188,7 @@ Vimeo
 ~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1208,7 +1213,7 @@ Vimeo-HD
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1241,7 +1246,7 @@ Wikipedia
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1265,7 +1270,7 @@ YouTube HD
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1296,7 +1301,7 @@ YouTube HD (2K)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1327,7 +1332,7 @@ YouTube HD (4K)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1358,7 +1363,7 @@ YouTube Standard
 ~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1394,7 +1399,7 @@ DVD-NTSC
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1419,7 +1424,7 @@ DVD-PAL
 ~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1447,7 +1452,7 @@ AVCHD Disks
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    =======================  ============
    Attribute                Description
@@ -1466,6 +1471,8 @@ AVCHD Disks
                             | HD 1080i 30 fps
                             | HD 1080p 25 fps
    =======================  ============
+
+.. _profile_list_ref:
 
 Profile List
 ------------

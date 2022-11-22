@@ -46,7 +46,7 @@ Alpha Mask / Wipe Transition
 Uses a grayscale mask image to gradually wipe / transition between 2 images.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -62,7 +62,7 @@ Bars
 Add colored bars around your video.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -79,7 +79,7 @@ Blur
 Adjust the blur of the frame's image.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -95,7 +95,7 @@ Brightness & Contrast
 Adjust the brightness and contrast of the frame's image.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -109,7 +109,7 @@ Caption
 Add text captions on top of your video.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -138,7 +138,7 @@ Chroma Key (Greenscreen)
 Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -154,7 +154,7 @@ Color Saturation
 Adjust the color saturation.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -170,7 +170,7 @@ Color Shift
 Shift the colors of an image up, down, left, and right (with infinite wrapping).
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -190,7 +190,7 @@ Crop
 Crop out any part of your video.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -208,7 +208,7 @@ Deinterlace
 Remove interlacing from a video (i.e. even or odd horizontal lines)
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -221,7 +221,7 @@ Hue
 Adjust the hue / color of the frame's image.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -238,7 +238,7 @@ Object Detector
 Detect objects through the video.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -255,7 +255,7 @@ Pixelate
 Pixelate (increase or decrease) the number of visible pixels.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -272,7 +272,7 @@ Shift
 Shift the image up, down, left, and right (with infinite wrapping).
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -286,7 +286,7 @@ Stabilizer
 Stabilize video clip to remove undesired shaking and jitter.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -303,7 +303,7 @@ Wave
 Distort the frame's image into a wave pattern.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -327,7 +327,7 @@ Compressor
 Reduce the volume of loud sounds or amplify quiet sounds.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -345,7 +345,7 @@ Delay
 Adjust the synchronism between the audio and video track.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -358,7 +358,7 @@ Distortion
 Alter the audio by clipping the signal.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -374,7 +374,7 @@ Echo
 Reflection of sound with a delay after the direct sound.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -389,7 +389,7 @@ Expander
 Louder parts of audio becomes relatively louder and quieter parts becomes quieter.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -407,7 +407,7 @@ Noise
 Random signal having equal intensity at different frequencies.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -420,7 +420,7 @@ Parametric EQ
 Filter that allows you to adjust the volume level of a frequency in the audio track.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -436,7 +436,7 @@ Robotization
 Transform the voice present in an audio track into a robotic voice effect.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description
@@ -451,7 +451,7 @@ Whisperization
 Transform the voice present in an audio track into a whispering voice effect.
 
 .. table::
-   :widths: 26
+   :widths: 26 80
 
    ==========================  ============
    Name                        Description

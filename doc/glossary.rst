@@ -19,6 +19,8 @@
 
 .. Edited September 26, 2020 - [USA]TechDude
 
+.. _glossary_ref:
+
 Glossary
 ========
 
@@ -36,32 +38,34 @@ Definitions
 These definitions are a work-in-progress. Please let us know if you need a term defined by
 contacting support@openshot.org.
 
-`-A- <glossary.html#a>`__
-`-B- <glossary.html#b>`__
-`-C- <glossary.html#c>`__
-`-D- <glossary.html#d>`__
-`-E- <glossary.html#e>`__
-`-F- <glossary.html#f>`__
-`-G- <glossary.html#g>`__
-`-H- <glossary.html#h>`__
-`-I- <glossary.html#i>`__
-`-J- <glossary.html#j>`__
-`-K- <glossary.html#k>`__
-`-L- <glossary.html#l>`__
-`-M- <glossary.html#m>`__
-`-N- <glossary.html#n>`__
-`-O- <glossary.html#o>`__
-`-P- <glossary.html#p>`__
+:ref:`letter_A_ref`
+:ref:`letter_B_ref`
+:ref:`letter_C_ref`
+:ref:`letter_D_ref`
+:ref:`letter_E_ref`
+:ref:`letter_F_ref`
+:ref:`letter_G_ref`
+:ref:`letter_H_ref`
+:ref:`letter_I_ref`
+:ref:`letter_J_ref`
+:ref:`letter_K_ref`
+:ref:`letter_L_ref`
+:ref:`letter_M_ref`
+:ref:`letter_N_ref`
+:ref:`letter_O_ref`
+:ref:`letter_P_ref`
 -Q-
-`-R- <glossary.html#r>`__
-`-S- <glossary.html#s>`__
-`-T- <glossary.html#t>`__
+:ref:`letter_R_ref`
+:ref:`letter_S_ref`
+:ref:`letter_T_ref`
 -U-
-`-V- <glossary.html#v>`__
-`-W- <glossary.html#w>`__
+:ref:`letter_V_ref`
+:ref:`letter_W_ref`
 -X-
 -Y-
-`-Z- <glossary.html#z>`__
+:ref:`letter_Z_ref`
+
+.. _letter_A_ref:
 
 -A-
 ~~~
@@ -88,6 +92,8 @@ ATSC:
 Audio Sample Rate:
    The number of samples taken per second to reproduce audio digitally.  The higher the sample rate, the higher the quality of the digital audio.  A rate of 44,100 samples per second produces CD-quality audio and captures the range of human hearing.
 
+.. _letter_B_ref:
+
 -B-
 ~~~
 B-roll: 
@@ -102,7 +108,9 @@ Blue Screen:
    A blue screen is a blue background that the subject stands in front of that the computer later replaces with another background in post-production.  See also blue screen compositing and green screen.
 Blue Screen Compositing:
    The process of making all blue elements in an image transparent and placing a different background underneath.   
-   
+
+.. _letter_C_ref:
+
 -C-
 ~~~
 Capture:
@@ -136,6 +144,8 @@ Cut-in (Insert Shot):
 Cutting on Action:
    Cutting on action is a technique used to create a more interesting scene. The concept is simple… when you cut in the middle of an action, it will appear less jarring and more visual interesting. 
 
+.. _letter_D_ref:
+
 -D-
 ~~~
 Data Rate:
@@ -148,7 +158,9 @@ Digitize:
    To convert analog video or audio to digital form.
 Dissolve:
    Dissolve is an image transition effect where one picture gradually disappears as another appears.  Also called a cross-fade.
-   
+
+.. _letter_E_ref:
+
 -E-
 ~~~
 Editing:
@@ -159,6 +171,8 @@ Encode:
    To merge the individual video signals (for example, red, green, and blue) into a combined signal, or to convert a video file to a different format using a codec.
 Export:
    Export refers to the process of assembling your edited video project into a single file that then plays back on its own, shared, or uploaded.
+
+.. _letter_F_ref:
 
 -F-
 ~~~
@@ -185,6 +199,8 @@ Frame Rate:
 Frequency:
    The number of audio cycles per second, expressed in hertz (Hz).  Frequency determines the pitch of a sound.
 
+.. _letter_G_ref:
+
 -G-
 ~~~
 Gamma:
@@ -197,6 +213,8 @@ Green screen
    A green background that the subject stands in front of that is another background in post-production.
 Green Screen Compositing
    The process of making all green elements in an image transparent and placing a different background underneath, so it appears that the subject is in a different location.
+
+.. _letter_H_ref:
 
 -H-
 ~~~
@@ -217,6 +235,8 @@ Hiss:
 Hue:
    The shade of a color.  This is the general color category into which the color falls.  For example, pink, crimson, and plum are different colors, but they all fall under the hue of red.  White, black, and gray tones are not hues.
 
+.. _letter_I_ref:
+
 -I-
 ~~~
 Image Stabilizer:
@@ -230,6 +250,8 @@ Interpolation:
 Intertitles:
    Titles that appear on their own between footage.  Commonly seen in silent movies to substitute dialogue, also used as chapter headings.
 
+.. _letter_J_ref:
+
 -J-
 ~~~
 J-Cut:
@@ -238,13 +260,17 @@ Jog
    To move forward or backward through video by playing it one field or frame at a time.
 Jump Cut:
    A jump cut is an unnatural, abrupt switch between shots identical in the subject but slightly different in screen location, so the subject appears to jump from one screen location to another.
-   
+
+.. _letter_K_ref:
+
 -K-
 ~~~
 Key:
    A method for creating transparency, such as a bluescreen key or a chroma key.
 Keyframe:
    A keyframe is a frame that contains a record of specific settings (e.g., scale, rotation, brightness).  Start and endpoints for animated effects.  By setting multiple keyframes, you can adjust these parameters as the video plays to animate certain aspects.
+
+.. _letter_L_ref:
 
 -L-
 ~~~
@@ -260,6 +286,8 @@ Lossless:
    A compression scheme that results in no loss of data from decompressing the file.  Lossless files are generally quite large (but still smaller than uncompressed versions) and sometimes require considerable processing power to decode the data.
 Lossy:
    Lossy compression is a compression scheme that degrades quality.  Lossy algorithms compress digital data by eliminating the data least sensitive to the human eye and offer the highest compression rates available.
+
+.. _letter_M_ref:
 
 -M-
 ~~~
@@ -282,6 +310,8 @@ Montage:
 Motion Artifact:
    Visual interference caused by the difference between the frame rate of the camera and the motion of the object.  The most common display of this is when filming a computer or television screen.  The screen flickers or a line scans down it, which is the difference in frame rates and a lack of synchronization between the camera and television.
 
+.. _letter_N_ref:
+
 -N-
 ~~~
 Noise:
@@ -293,6 +323,8 @@ Numerator:
 NTSC:
    NTSC is an abbreviation for National Television Standards Committee.  NTSC is the group that initially developed the black & white and subsequently color television system.  The United States, Japan, and many other countries use NTSC.  Five-hundred twenty-five interlaced lines make up NTSC that display at a rate of 29.97 frames per second.  ATSC Has now superseded by NTSC.
 
+.. _letter_O_ref:
+
 -O-
 ~~~
 Offline Editing:
@@ -301,6 +333,8 @@ Online Editing:
    Doing all editing (including the rough cut) on the same clips that produce the final cut.
 Opacity:
    An inverse measure of the level of transparency in an image, which is of importance when compositing.  An image's alpha channel stores its opacity information.
+
+.. _letter_P_ref:
 
 -P-
 ~~~
@@ -326,7 +360,9 @@ Poster Frame:
    A single frame of a clip, selected as a thumbnail to indicate the clip's contents.
 Project:
    A project is all the files, transitions, effects, and animations that you make or use within OpenShot.
-   
+
+.. _letter_R_ref:
+
 -R-
 ~~~
 Raw Footage:
@@ -347,6 +383,8 @@ Roll:
    Roll is a text effect commonly seen in end credits, where text typically moves from the bottom to the top of the screen.
 Rough cut:
    A rough cut is a preliminary edit of footage in the approximate sequence, length, and content of a finished program.
+
+.. _letter_S_ref:
 
 -S-
 ~~~
@@ -389,6 +427,8 @@ Sync (Synchronization):
 SECAM:
    Systeme Electronique Couleur Avec Memoire, a TV format used mainly in Eastern Europe, Russia, and Africa. 
 
+.. _letter_T_ref:
+
 -T-
 ~~~
 Tilt:
@@ -414,6 +454,8 @@ Transition:
 Trim:
    Removing frames from the beginning, middle, or end of a clip.
 
+.. _letter_V_ref:
+
 -V-
 ~~~
 Video Format:
@@ -423,12 +465,16 @@ Voiceover:
 VTR:
    A Videotape recorder also referred to as a 'deck'.  Decks duplicate videotapes and inputting and outputting from a computer.
 
+.. _letter_W_ref:
+
 -W-
 ~~~
 Widescreen:
    A format in which the width-to-height ratio of the frame is greater than 4:3 so that it is significantly wider than it is tall.
 Wipe:
    A wipe is a transition from one shot to another.  The edge of the transition moves across the original image as a line or a pattern, revealing the new shot.
+
+.. _letter_Z_ref:
 
 -Z-
 ~~~

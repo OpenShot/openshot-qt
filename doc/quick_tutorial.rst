@@ -32,7 +32,7 @@ To help understand the steps below, here are some definitions of a few basic
 terms used in this tutorial.
 
 .. table::
-   :widths: 15
+   :widths: 15 60
 
    =============  ============
    Term           Description

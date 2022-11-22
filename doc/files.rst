@@ -135,7 +135,7 @@ This will launch the file properties dialog, which displays information about yo
 .. image:: images/file-properties.jpg
 
 .. table::
-   :widths: 5 24
+   :widths: 5 24 60
    
    ==  ====================  ============
    #   Name                  Description

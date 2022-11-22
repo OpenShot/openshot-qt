@@ -62,6 +62,8 @@ Screenshot
 ----------
 .. image:: images/ui-example.jpg
 
+.. _min_system_req_ref:
+
 System Requirements
 -------------------
 Video editing benefits from modern, multi-core CPUs with **fast clock speeds** (GHz), large amounts of memory,
