@@ -127,16 +127,8 @@ AVI (h.264)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 AVI (mpeg2)
 ~~~~~~~~~~~
@@ -159,16 +151,8 @@ AVI (mpeg2)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 AVI (mpeg4)
 ~~~~~~~~~~~
@@ -191,16 +175,8 @@ AVI (mpeg4)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 FLV (h.264)
 ~~~~~~~~~~~
@@ -223,16 +199,8 @@ FLV (h.264)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (av1)
 ~~~~~~~~~
@@ -255,16 +223,8 @@ MKV (av1)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (h.264 dx)
 ~~~~~~~~~~~~~~
@@ -287,16 +247,8 @@ MKV (h.264 dx)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (h.264 nv)
 ~~~~~~~~~~~~~~
@@ -319,16 +271,8 @@ MKV (h.264 nv)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (h.264 qsv)
 ~~~~~~~~~~~~~~~
@@ -351,16 +295,8 @@ MKV (h.264 qsv)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (h.264 videotoolbox)
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -383,16 +319,8 @@ MKV (h.264 videotoolbox)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (h.264)
 ~~~~~~~~~~~
@@ -415,16 +343,8 @@ MKV (h.264)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MKV (h.265)
 ~~~~~~~~~~~
@@ -447,16 +367,8 @@ MKV (h.265)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MOV (h.264)
 ~~~~~~~~~~~
@@ -479,16 +391,8 @@ MOV (h.264)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MOV (mpeg2)
 ~~~~~~~~~~~
@@ -511,16 +415,8 @@ MOV (mpeg2)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MOV (mpeg4)
 ~~~~~~~~~~~
@@ -543,16 +439,8 @@ MOV (mpeg4)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (AV1 rav1e)
 ~~~~~~~~~~~~~~~
@@ -575,16 +463,8 @@ MP4 (AV1 rav1e)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (AV1 svt)
 ~~~~~~~~~~~~~
@@ -607,16 +487,8 @@ MP4 (AV1 svt)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (HEVC va)
 ~~~~~~~~~~~~~
@@ -639,16 +511,8 @@ MP4 (HEVC va)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (Xvid)
 ~~~~~~~~~~
@@ -671,16 +535,8 @@ MP4 (Xvid)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264 dx)
 ~~~~~~~~~~~~~~
@@ -703,16 +559,8 @@ MP4 (h.264 dx)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264 nv)
 ~~~~~~~~~~~~~~
@@ -735,16 +583,8 @@ MP4 (h.264 nv)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264 qsv)
 ~~~~~~~~~~~~~~~
@@ -767,16 +607,8 @@ MP4 (h.264 qsv)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264 va)
 ~~~~~~~~~~~~~~
@@ -799,16 +631,8 @@ MP4 (h.264 va)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264 va)
 ~~~~~~~~~~~~~~
@@ -831,16 +655,8 @@ MP4 (h.264 va)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264 videotoolbox)
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -863,16 +679,8 @@ MP4 (h.264 videotoolbox)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.264)
 ~~~~~~~~~~~
@@ -895,16 +703,8 @@ MP4 (h.264)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (h.265)
 ~~~~~~~~~~~
@@ -927,16 +727,8 @@ MP4 (h.265)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MP4 (mpeg4)
 ~~~~~~~~~~~
@@ -959,16 +751,8 @@ MP4 (mpeg4)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 MPEG (mpeg2)
 ~~~~~~~~~~~~
@@ -991,16 +775,8 @@ MPEG (mpeg2)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 OGG (theora/flac)
 ~~~~~~~~~~~~~~~~~
@@ -1023,16 +799,8 @@ OGG (theora/flac)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 OGG (theora/vorbis)
 ~~~~~~~~~~~~~~~~~~~
@@ -1055,16 +823,8 @@ OGG (theora/vorbis)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 WEBM (AV1 aom)
 ~~~~~~~~~~~~~~
@@ -1087,16 +847,8 @@ WEBM (AV1 aom)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 WEBM (vp9)
 ~~~~~~~~~~
@@ -1119,16 +871,8 @@ WEBM (vp9)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 WEBM (vp9) lossless
 ~~~~~~~~~~~~~~~~~~~
@@ -1151,16 +895,8 @@ WEBM (vp9) lossless
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 WEBM (vpx)
 ~~~~~~~~~~
@@ -1183,16 +919,8 @@ WEBM (vpx)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 WEBP (vp9 va)
 ~~~~~~~~~~~~~
@@ -1215,16 +943,8 @@ WEBP (vp9 va)
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 Device
 ^^^^^^
@@ -1246,16 +966,8 @@ Apple TV
    Sample Rate              48000
    Video Bitrate (high)     5 Mb/s
    Audio Bitrate (high)     256 kb/s
+   Profiles                 HD 720p 30 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 720p 30 fps
-   ==========================
 
 Chromebook
 ~~~~~~~~~~
@@ -1278,16 +990,8 @@ Chromebook
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 All
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   All Profiles
-   ==========================
 
 Nokia nHD
 ~~~~~~~~~
@@ -1310,16 +1014,8 @@ Nokia nHD
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 Mobile 360p
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   Mobile 360p
-   ==========================
 
 Xbox 360
 ~~~~~~~~
@@ -1342,18 +1038,10 @@ Xbox 360
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | DV/DVD Widescreen NTSC
+                            | HD 1080p 29.97 fps
+                            | HD 720p 29.97 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   DV/DVD Widescreen NTSC
-   HD 1080p 29.97 fps
-   HD 720p 29.97 fps
-   ==========================
 
 Web
 ^^^
@@ -1379,19 +1067,11 @@ Flickr-HD
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 | HD 1080p 25 fps
+                            | HD 1080p 29.97 fps
+                            | HD 720p 25 fps
+                            | HD 720p 29.97 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 1080p 25 fps
-   HD 1080p 29.97 fps
-   HD 720p 25 fps
-   HD 720p 29.97 fps
-   ==========================
 
 Instagram
 ~~~~~~~~~
@@ -1414,21 +1094,13 @@ Instagram
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 | HD 1080p 25 fps
+                            | HD 1080p 30 fps
+                            | HD 720p 25 fps
+                            | HD 720p 30 fps
+                            | HD Vertical 1080p 30 fps
+                            | HD Vertical 720p 30 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 1080p 25 fps
-   HD 1080p 30 fps
-   HD 720p 25 fps
-   HD 720p 30 fps
-   HD Vertical 1080p 30 fps
-   HD Vertical 720p 30 fps
-   ==========================
 
 Metacafe
 ~~~~~~~~
@@ -1451,16 +1123,8 @@ Metacafe
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 VGA NTSC
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   VGA NTSC
-   ==========================
 
 Picasa
 ~~~~~~
@@ -1483,16 +1147,8 @@ Picasa
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 VGA NTSC
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   VGA NTSC
-   ==========================
 
 Twitter
 ~~~~~~~
@@ -1515,21 +1171,13 @@ Twitter
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 | HD 1080p 25 fps
+                            | HD 1080p 30 fps
+                            | HD 720p 25 fps
+                            | HD 720p 30 fps
+                            | HD Vertical 1080p 30 fps
+                            | HD Vertical 720p 30 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 1080p 25 fps
-   HD 1080p 30 fps
-   HD 720p 25 fps
-   HD 720p 30 fps
-   HD Vertical 1080p 30 fps
-   HD Vertical 720p 30 fps
-   ==========================
 
 Vimeo
 ~~~~~
@@ -1552,17 +1200,9 @@ Vimeo
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | VGA NTSC
+                            | VGA Widescreen NTSC
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   VGA NTSC
-   VGA Widescreen NTSC
-   ==========================
 
 Vimeo-HD
 ~~~~~~~~
@@ -1585,25 +1225,17 @@ Vimeo-HD
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | HD 1080p 23.98 fps
+                            | HD 1080p 24 fps
+                            | HD 1080p 25 fps
+                            | HD 1080p 29.97 fps
+                            | HD 1080p 30 fps
+                            | HD 720p 23.98 fps
+                            | HD 720p 24 fps
+                            | HD 720p 25 fps
+                            | HD 720p 29.97 fps
+                            | HD 720p 30 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 1080p 23.98 fps
-   HD 1080p 24 fps
-   HD 1080p 25 fps
-   HD 1080p 29.97 fps
-   HD 1080p 30 fps
-   HD 720p 23.98 fps
-   HD 720p 24 fps
-   HD 720p 25 fps
-   HD 720p 29.97 fps
-   HD 720p 30 fps
-   ==========================
 
 Wikipedia
 ~~~~~~~~~
@@ -1626,16 +1258,8 @@ Wikipedia
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
+   Profiles                 QVGA 29.97 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   QVGA 29.97 fps
-   ==========================
 
 YouTube HD
 ~~~~~~~~~~
@@ -1658,23 +1282,15 @@ YouTube HD
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | HD 1080p 23.98 fps
+                            | HD 1080p 24 fps
+                            | HD 1080p 25 fps
+                            | HD 1080p 29.97 fps
+                            | HD 1080p 30 fps
+                            | HD 1080p 50 fps
+                            | HD 1080p 59.94 fps
+                            | HD 1080p 60 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 1080p 23.98 fps
-   HD 1080p 24 fps
-   HD 1080p 25 fps
-   HD 1080p 29.97 fps
-   HD 1080p 30 fps
-   HD 1080p 50 fps
-   HD 1080p 59.94 fps
-   HD 1080p 60 fps
-   ==========================
 
 YouTube HD (2K)
 ~~~~~~~~~~~~~~~
@@ -1697,23 +1313,15 @@ YouTube HD (2K)
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | 2.5K QHD 1440p 23.98 fps
+                            | 2.5K QHD 1440p 24 fps
+                            | 2.5K QHD 1440p 25 fps
+                            | 2.5K QHD 1440p 29.97 fps
+                            | 2.5K QHD 1440p 30 fps
+                            | 2.5K QHD 1440p 50 fps
+                            | 2.5K QHD 1440p 59.94 fps
+                            | 2.5K QHD 1440p 60 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   2.5K QHD 1440p 23.98 fps
-   2.5K QHD 1440p 24 fps
-   2.5K QHD 1440p 25 fps
-   2.5K QHD 1440p 29.97 fps
-   2.5K QHD 1440p 30 fps
-   2.5K QHD 1440p 50 fps
-   2.5K QHD 1440p 59.94 fps
-   2.5K QHD 1440p 60 fps
-   ==========================
 
 YouTube HD (4K)
 ~~~~~~~~~~~~~~~
@@ -1736,23 +1344,15 @@ YouTube HD (4K)
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | 4K UHD 2160p 23.98 fps
+                            | 4K UHD 2160p 24 fps
+                            | 4K UHD 2160p 25 fps
+                            | 4K UHD 2160p 29.97 fps
+                            | 4K UHD 2160p 30 fps
+                            | 4K UHD 2160p 50 fps
+                            | 4K UHD 2160p 59.94 fps
+                            | 4K UHD 2160p 60 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   4K UHD 2160p 23.98 fps
-   4K UHD 2160p 24 fps
-   4K UHD 2160p 25 fps
-   4K UHD 2160p 29.97 fps
-   4K UHD 2160p 30 fps
-   4K UHD 2160p 50 fps
-   4K UHD 2160p 59.94 fps
-   4K UHD 2160p 60 fps
-   ==========================
 
 YouTube Standard
 ~~~~~~~~~~~~~~~~
@@ -1775,25 +1375,17 @@ YouTube Standard
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      256 kb/s
    Audio Bitrate (high)     320 kb/s
+   Profiles                 | HD 720p 23.98 fps
+                            | HD 720p 24 fps
+                            | HD 720p 25 fps
+                            | HD 720p 29.97 fps
+                            | HD 720p 30 fps
+                            | HD 720p 50 fps
+                            | HD 720p 59.94 fps
+                            | HD 720p 60 fps
+                            | VGA NTSC
+                            | VGA Widescreen NTSC
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 720p 23.98 fps
-   HD 720p 24 fps
-   HD 720p 25 fps
-   HD 720p 29.97 fps
-   HD 720p 30 fps
-   HD 720p 50 fps
-   HD 720p 59.94 fps
-   HD 720p 60 fps
-   VGA NTSC
-   VGA Widescreen NTSC
-   ==========================
 
 DVD
 ^^^
@@ -1819,17 +1411,9 @@ DVD-NTSC
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      192 kb/s
    Audio Bitrate (high)     256 kb/s
+   Profiles                 | DV/DVD NTSC
+                            | DV/DVD Widescreen NTSC
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   DV/DVD NTSC
-   DV/DVD Widescreen NTSC
-   ==========================
 
 DVD-PAL
 ~~~~~~~
@@ -1852,17 +1436,9 @@ DVD-PAL
    Audio Bitrate (low)      128 kb/s
    Audio Bitrate (med)      192 kb/s
    Audio Bitrate (high)     256 kb/s
+   Profiles                 | DV/DVD PAL
+                            | DV/DVD Widescreen PAL
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   DV/DVD PAL
-   DV/DVD Widescreen PAL
-   ==========================
 
 Blu-Ray/AVCHD
 ^^^^^^^^^^^^^
@@ -1886,18 +1462,10 @@ AVCHD Disks
    Video Bitrate (high)     40 Mb/s
    Audio Bitrate (low)      256 kb/s
    Audio Bitrate (high)     256 kb/s
+   Profiles                 | HD 1080i 25 fps
+                            | HD 1080i 30 fps
+                            | HD 1080p 25 fps
    =======================  ============
-
-.. table::
-   :widths: 26
-
-   ==========================
-   Profiles
-   ==========================
-   HD 1080i 25 fps
-   HD 1080i 30 fps
-   HD 1080p 25 fps
-   ==========================
 
 Profile List
 ------------
