@@ -253,7 +253,7 @@ L-Cut:
 Letterbox:
    A technique used to preserve the original aspect ratio of a motion picture when played on a TV.  Letterboxing adds black bars to the top and bottom of the screen.
 Linear Editing:
-   A form of video editing in which lays out cuts sequentially, one by one, to produce the final scene.  This contrasts with non-linear editing in which allows cutting in any order.
+   A form of video editing which lays out cuts sequentially, one by one, to produce the final scene. This contrasts with non-linear editing which allows cutting in any order.
 Log:
    A record of start and end timecode, reel numbers, scene descriptions, and other information for a specified clip.
 Lossless:
@@ -379,7 +379,7 @@ Standard Definition (SD):
 Step:
    The act of moving forward or backward through video one frame at a time.
 Still Frame:
-   A single frame of video repeated, so it appears to have no motion.
+   A single frame of video is repeated, so it appears to have no motion.
 Straight Cut:
    The most common edit, consecutive clips placed one after another in the Timeline window.  Straight cuts are preferable to transitions when the scenes are similar, and you do not want edits to be noticeable.
 Superimposing:

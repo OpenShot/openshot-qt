@@ -26,8 +26,9 @@ Files can be viewed and managed in the **Project Files** panel.
 
 Note that imported files are not copied anywhere, they remain in the physical location they
 were before and are simply being made available to your video project. So, they must not be
-deleted or moved after adding them to your project. The "Show All", "Video", "Audio",
-"Image" filters above the files allows you to only see the file types you are interested in. You can also toggle the view between details and thumbnails view of your files.
+deleted, renamed, or moved after adding them to your project. The "Show All", "Video", "Audio",
+"Image" filters above the files allows you to only see the file types you are interested in.
+You can also toggle the view between details and thumbnails view of your files.
 
 
 .. _import_files_ref:
