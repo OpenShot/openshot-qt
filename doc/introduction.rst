@@ -24,39 +24,41 @@ OpenShot Video Editor is an award-winning, open-source video editor, available o
 Linux, Mac, and Windows. OpenShot can create stunning videos, films, and animations with an
 easy-to-use interface and rich feature-set.
 
+.. image:: images/openshot-banner.jpg
+
 Features
 --------
-* Free & open-source (licensed under GPLv3)
-* Cross-platform (Linux, OS X, Chrome OS, and Windows)
-* Easy-to-use user interface (designed for beginners, built-in tutorial)
-* Supports most video, audio, & image formats (based on FFmpeg)
-* Includes popular video profiles & presets (over 70+ profiles, including YouTube HD)
-* Advanced timeline (including drag and drop, scrolling, panning, zooming, and snapping)
-* Advanced clips (including trimming, alpha, scaling, location, rotation, and shearing)
-* Real-time preview (multi-threaded, and optimized for performance)
-* Simple & advanced views (or customize your own unique view)
-* Powerful, curve-based Keyframe animations (`linear`, `Bézier`, and `constant` interpolation)
-* Compositing, image overlays, watermarks, & transparency
-* Unlimited tracks / layers (support for complex projects)
-* Video transitions, masks, & wipes (grayscale images and animated masks)
-* Video & audio effects (including brightness, gamma, hue, chroma key / blue screen, and more)
-* Image sequences & 2D animations (`001.png`, `002.png`, `003.png`, etc...)
-* Blender 3D integration (animated 3D title templates)
-* SVG file support & editing (scalable vector graphics used for titles and credits)
-* Audio mixing, waveform, & editing
-* Emojis (open-source stickers & artwork included)
-* Frame accuracy (step through each frame of video)
-* Time mapping & speed changes on clips (slow/fast, forward/backward)
-* Advanced AI motion tracking, object detection, & stabilization effects
-* Credits & captions (scrolling and animated)
-* Hardware accelerated encoding & decoding (supports NVIDIA, AMD, Intel and more)
-* Import & export edits (EDL and Final Cut Pro formats, supports most video editors)
-* Desktop integration (drag and drop from file managers)
-* JSON project format (compatible with `OpenShot Cloud API <https://www.openshot.org/cloud-api/>`_ for cloud-based automation)
-* Customizable keyboard shortcuts for most operations
-* Translations available in 100+ languages
-* Community support (`Join our community <https://openshot.org/forum/>`_ to ask questions and discuss topics)
-* Professional support also available: `Schedule a call <https://calendly.com/openshot-support/desktop>`_
+- **Free & open-source** (licensed under GPLv3)
+- **Cross-platform** (Linux, OS X, Chrome OS, and Windows)
+- **Easy-to-use user interface** (designed for beginners, built-in tutorial)
+- **Supports most video, audio, & image formats** (based on FFmpeg)
+- **Includes popular video profiles & presets** (over 70+ profiles, including YouTube HD)
+- **Advanced timeline** (including drag and drop, scrolling, panning, zooming, and snapping)
+- **Advanced clips** (including trimming, alpha, scaling, location, rotation, and shearing)
+- **Real-time preview** (multi-threaded, and optimized for performance)
+- **Simple & advanced views** (or customize your own unique view)
+- **Powerful, curve-based Keyframe animations** (`linear`, `Bézier`, and `constant` interpolation)
+- **Compositing, image overlays, watermarks, & transparency**
+- **Unlimited tracks / layers** (support for complex projects)
+- **Video transitions, masks, & wipes** (grayscale images and animated masks)
+- **Video & audio effects** (including brightness, gamma, hue, chroma key / blue screen, and more)
+- **Image sequences & 2D animations** (`001.png`, `002.png`, `003.png`, etc...)
+- **Blender 3D integration** (animated 3D title templates)
+- **Vector file support & editing** (SVG / scalable vector graphics used for titles and credits)
+- **Audio mixing, waveform, & editing**
+- **Emojis** (open-source stickers & artwork included)
+- **Frame accuracy** (step through each frame of video)
+- **Time mapping & speed changes** (slow/fast, forward/backward)
+- **Advanced AI** (motion tracking, object detection, & stabilization effects)
+- **Credits & captions** (scrolling and animated)
+- **Hardware accelerated** (encoding & decoding supports NVIDIA, AMD, Intel and more)
+- **Import & export** (EDL and Final Cut Pro formats, supports most video editors)
+- **Desktop integration** (drag and drop from file managers)
+- **JSON project format** (compatible with `OpenShot Cloud API <https://www.openshot.org/cloud-api/>`_ for cloud-based automation)
+- **Customizable keyboard shortcuts**
+- **Translations** (available in 100+ languages)
+- **Community support** (`Join our community <https://openshot.org/forum/>`_ to ask questions and discuss topics)
+- **Professional support**: `Schedule a call <https://calendly.com/openshot-support/desktop>`_
 
 Screenshot
 ----------

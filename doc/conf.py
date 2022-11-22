@@ -295,7 +295,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'OpenShotVideoEditor.tex', 'OpenShot Video Editor Documentation',
-     'Jonathan Thomas', 'manual'),
+     'OpenShot Studios, LLC', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
