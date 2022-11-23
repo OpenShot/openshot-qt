@@ -32,7 +32,7 @@ Overview
 .. image:: images/animation-overview.jpg
 
 .. table::
-   :widths: 5 32
+   :widths: 5 20 60
 
    ==  ==================  ============
    #   Name                Description
@@ -41,15 +41,16 @@ Overview
    1   Blue Property       When the play-head is on an interpolated value, the property appears blue
    2   Value Slider        Click and drag your mouse to adjust the value (this automatically creates a key frame if needed)
    3   Play-head           Position the play-head over a clip where you need a key frame
-   4   Key frame Markers   Small green tick marks are drawn at all key frame positions (on a clip)
+   4   Key frame Markers   Small icons are displayed on the bottom of the clip for each active keyframe (`circle=Bézier, diamond=linear, square=constant`). These icons are filtered based on the property window. For example, if you filter only ``scale_x``, you will only see the icons for ``scale_x`` keyframes, for example.
    ==  ==================  ============
 
 Key Frames
 ----------
 To create a key frame in OpenShot, simply position the play-head (i.e. playback position) at any point over a clip,
-and edit properties in the property dialog. If the property supports key frames, it will turn green, and a small green
-tick mark will appear on your clip at that position. Move your play-head to another point over that clip, and adjust
-the properties again. All animations require at least 2 key frames, but can support an unlimited number of them.
+and edit properties in the property dialog. If the property supports key frames, it will turn green, and a small icon
+(`circle=Bézier, diamond=linear, square=constant`) will appear on the bottom of your clip at that position. Move your
+play-head to another point over that clip, and adjust the properties again. All animations require at least 2 key
+frames, but can support an unlimited number of them.
 
 To adjust the **interpolation mode**, right click on the small graph icon next to a property value.
 
@@ -64,8 +65,9 @@ To adjust the **interpolation mode**, right click on the small graph icon next t
    Constant            Interpolated values stay the same until the next key frame, and jump to the new value
    ==================  ============
 
-For more info on clip properties, see :ref:`clip_properties_ref`. For more info on preset animations, see :ref:`clip_presets_ref`.
-For more info on creating key frames for location and scale, see :ref:`clip_transform_ref`.
+| For more info on creating key frames for location, rotation, scale, shear, and location, see :ref:`clip_transform_ref`.
+| For more info on preset animations, see :ref:`clip_presets_ref`.
+| For more info on clip properties, see :ref:`clip_properties_ref`.
 
 Bézier Presets
 --------------
@@ -82,6 +84,8 @@ Image Sequences
 ---------------
 If you have a sequence of similarly named images (such as, cat001.png, cat002.png, cat003.png, etc...), you can simply
 drag and drop one of them into OpenShot, and you will be prompted to import the entire sequence.
+
+.. image:: images/import-image-sequence.jpg
 
 To adjust the frame rate of the animation, right click and choose **File Properties** in the **Project Files** panel,
 and adjust the frame rate. Once you have set the correct frame rate, drag the animation onto the timeline.
