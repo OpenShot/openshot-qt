@@ -26,8 +26,9 @@ Files can be viewed and managed in the **Project Files** panel.
 
 Note that imported files are not copied anywhere, they remain in the physical location they
 were before and are simply being made available to your video project. So, they must not be
-deleted or moved after adding them to your project. The "Show All", "Video", "Audio",
-"Image" filters above the files allows you to only see the file types you are interested in. You can also toggle the view between details and thumbnails view of your files.
+deleted, renamed, or moved after adding them to your project. The "Show All", "Video", "Audio",
+"Image" filters above the files allows you to only see the file types you are interested in.
+You can also toggle the view between details and thumbnails view of your files.
 
 
 .. _import_files_ref:
@@ -35,8 +36,6 @@ deleted or moved after adding them to your project. The "Show All", "Video", "Au
 Import Files
 ------------
 These are all possible methods to import media files into OpenShot:
-
-.. |importfiles_icon| image:: ../images/Humanity/actions/16/list-add.svg
 
 .. table::
    :widths: 25
@@ -47,11 +46,9 @@ These are all possible methods to import media files into OpenShot:
    Drag and Drop                Drag and drop the files from your file manager (file explorer, finder, etc...).
    Context menu (`File Menu`_)  Right click anywhere in the **Project Files** panel and choose :guilabel:`Import Files`.
    Main Menu                    In the main menu choose: :guilabel:`File\→Import Files`.
-   Toolbar button               Click the |importfiles_icon| toolbar button in the main toolbar.
+   Toolbar button               Click the :guilabel:`+` toolbar button in the main toolbar.
    Keyboard shortcut            Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac).
    ===========================  ============
-
-
 
 .. image:: images/quick-start-drop-files.jpg
 
@@ -103,9 +100,9 @@ Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cu
 Export Clip
 -----------
 If you want your clips available outside of your OpenShot project, or want to copy all your video assets to one place,
-you can do this with the **Export Clip** dialog.
-Simply :kbd:`Ctrl+Click` to select any clips or files you like. Then right click and choose **Export Clips**.
-In the dialog that appears, choose a destination folder, and click **Export**.
+you can do this with the **Export Clip** dialog. Simply :kbd:`Ctrl+Click` to select any clips or files you like,
+then right click and choose **Export Clips**. In the dialog that appears, choose a destination folder, and
+click **Export**.
 
 Add to Timeline
 ---------------
@@ -138,7 +135,7 @@ This will launch the file properties dialog, which displays information about yo
 .. image:: images/file-properties.jpg
 
 .. table::
-   :widths: 5 24
+   :widths: 5 24 60
    
    ==  ====================  ============
    #   Name                  Description

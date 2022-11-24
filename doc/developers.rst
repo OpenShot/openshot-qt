@@ -89,6 +89,8 @@ unofficial Ubuntu repository, which has our software packages available to downl
                         libjsoncpp-dev \
                         libmagick++-dev \
                         libopenshot-audio-dev \
+                        libprotobuf-dev \
+                        libqt5svg5-dev \
                         libswscale-dev \
                         libunittest++-dev \
                         libxcursor-dev \
@@ -97,6 +99,7 @@ unofficial Ubuntu repository, which has our software packages available to downl
                         libzmq3-dev \
                         pkg-config \
                         python3-dev \
+                        protobuf-compiler \
                         qtbase5-dev \
                         qtmultimedia5-dev \
                         swig
@@ -177,11 +180,10 @@ you should now see your changes!
 
 GitHub Issues
 -------------
-Now that you have successfully compiled and launched OpenShot Video Editor,
+Now that you have successfully compiled and launched OpenShot Video Editor from source code,
 be sure to check out our list of bug reports on GitHub: `OpenShot Issues`_.
-Also, feel free to send me an email:
-`jonathan@openshot.org <mailto:jonathan@openshot.org>`_ and introduce yourself!
-I'm always here to help if you have any questions.
+Also, you are encouraged to fill out our quick `contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_
+and introduce yourself!
 
 Share your Changes
 ------------------
