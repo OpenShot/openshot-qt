@@ -22,7 +22,7 @@
 Profiles
 ========
 
-A profile is a collection of common video settings (size, frame rate, aspect ratio, etc...). Profiles are used
+A video profile is a collection of common video settings (*size, frame rate, aspect ratio*). Profiles are used
 during editing, previewing, and exporting to provide a quick way to switch between common combinations of
 these settings.
 
@@ -32,7 +32,7 @@ If you often use the same profile, you can set a default profile:
 Project Profile
 ---------------
 
-The project profile is used when previewing your project and editing. The default project profile is "HD 720p 30fps".
+The project profile is used when previewing your project and editing. The default project profile is ``HD 720p 30fps``.
 It is best practice to always switch to your target profile before you begin editing. For example, if you are targeting
 1080p 30fps, switch to that profile before you begin editing your project. For a full list of included profiles
 see :ref:`profile_list_ref`.

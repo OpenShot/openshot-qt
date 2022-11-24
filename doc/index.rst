@@ -41,6 +41,7 @@ Table of Contents:
    clips
    transitions
    effects
+   export
    animation
    titles
    profiles
