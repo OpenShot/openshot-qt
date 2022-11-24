@@ -39,7 +39,7 @@ To adjust a property, you can:
 *	double click on its value and enter a value. Numerical values display to 2 decimal places, but you can enter more precise numbers. You can often enter valid values that are outside the range offered by the slider adjustment.
 *	right-click or double-click to select an option (for non-numerical values)
 
-Clip properties are part of the animation system. If you change a clip property, you create a
+Clip properties are part of the :ref:`animation_ref` system. If you change a clip property, you create a
 keyframe at the current position of the playhead. If you want a property to apply throughout
 the clip, you must place the playhead at (or before) the start of the clip before making
 the change. An easy way to locate the start of a clip is to use ‘next/previous marker’ on
