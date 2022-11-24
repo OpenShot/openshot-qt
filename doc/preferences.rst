@@ -135,7 +135,7 @@ Performance
 .. image:: images/preferences-6-performance.jpg
 
 Please keep in mind that hardware acceleration is experimental at the moment. OpenShot supports both decoding and
-encoding acceleration. For more information take a look at our `Github <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_.
+encoding acceleration. For more information take a look at our `Github HW-ACCEL Doc <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_.
 NOTE: On systems with older graphics cards, hardware acceleration may not always be faster than CPU encoding.
 
 .. TODO Performance settings
@@ -155,3 +155,33 @@ Keyboard
 
 This is where hotkeys can be seen and re-assigned, as described under 
 :ref:`keyboard_shortcut_ref`. 
+
+Location
+--------
+
+.. image:: images/preferences-8-location.jpg
+
+Default file path locations for saving/opening projects, importing files, and exporting videos can
+be configured here. This can save you time by defaulting the open/save file dialogs to the most appropriate
+starting folder (options described below).
+
+.. table::
+   :widths: 36 80
+
+   ================================  ==================
+   Setting                           Description
+   ================================  ==================
+   File Import                       Default folder to choose when importing a file
+   Save or Open Project              Default folder to choose when saving or opening a project file
+   Video Export                      Default folder to choose when exporting a video
+   ================================  ==================
+
+.. table::
+   :widths: 25 80
+
+   ================================  ==================
+   Values                            Description
+   ================================  ==================
+   **Recent Folder**                 The last folder used for this same operation. Project folders, Import folders, and Export folders are tracked separately.
+   **Project Folder**                The current project folder (or the user's home folder, if the project is not yet saved)
+   ================================  ==================
