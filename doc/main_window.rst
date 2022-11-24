@@ -52,7 +52,7 @@ For step-by-step instructions on the basic usage of OpenShot, be sure to read th
 Built-in Tutorial
 -----------------
 When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will demonstrate and explain
-the basics. Clicking :guilabel:`Next` will jump to the next topic. You can always view this tutorial again from the :menuselection:`Help --> Tutorial` menu.
+the basics. Clicking :guilabel:`Next` will jump to the next topic. You can always view this tutorial again from the :guilabel:`Help→Tutorial` menu.
 
 .. image:: images/built-in-tutorial.jpg
 
@@ -89,8 +89,8 @@ Keyboard Shortcuts
 ------------------
 Here is a list of the default keyboard shortcuts supported by OpenShot. You can
 configure these shortcuts in the Preferences window, which is opened by selecting
-:menuselection:`Edit --> Preferences` from the OpenShot menu bar.
-(On macOS, choose :menuselection:`OpenShot Video Editor --> Preferences`.)
+:guilabel:`Edit→Preferences` from the OpenShot menu bar.
+(On macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.)
 Learning a few of these shortcuts can save you a bunch of time!
 
 =========================  ============

@@ -26,8 +26,8 @@ A profile is a collection of common video settings (size, frame rate, aspect rat
 during editing, previewing, and exporting to provide a quick way to switch between common combinations of
 these settings.
 
-If you often use the same profile, you can set a default under:
-**Edit >> Preferences >> Preview >> Default Profile**
+If you often use the same profile, you can set a default profile:
+:guilabel:`Edit→Preferences→Preview`.
 
 Project Profile
 ---------------

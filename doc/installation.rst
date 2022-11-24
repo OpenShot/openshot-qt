@@ -71,7 +71,7 @@ Linux (AppImage)
 Most Linux distributions have a version of OpenShot in their software
 repositories, which can be installed using your package manager / software store.
 However, these packaged versions are often very outdated (be sure to check the version number:
-`Help->About OpenShot`). For this reason, we recommend installing an AppImage from the
+:guilabel:`Help→About OpenShot`). For this reason, we recommend installing an AppImage from the
 `official download page <https://www.openshot.org/download/>`_. Once downloaded, right click on
 the AppImage file, choose Properties, and mark the file as **Executable**. Finally, double click the
 AppImage to launch OpenShot.

@@ -208,7 +208,7 @@ Gamma:
 GPU:
    Graphics processing unit.  A microprocessor with built-in capabilities for handling 3D graphics more efficiently than a CPU (central processing unit).
 Gravity:
-   Gravity in OpenShot is a property of each clip that sets the clip's initial position on the screen.  (→main article)
+   Gravity in OpenShot is a property of each clip that sets the clip's initial position on the screen.
 Green screen
    A green background that the subject stands in front of that is another background in post-production.
 Green Screen Compositing

@@ -23,7 +23,7 @@ Preferences
 ===========
 
 The Preferences window contains many important settings and configuration options for OpenShot. They can be
-found in the top menu under **Edit→Preferences**. Many settings will require OpenShot to be restarted after your
+found in the top menu under :guilabel:`Edit→Preferences`. Many settings will require OpenShot to be restarted after your
 changes are applied.
 
 NOTE: Some features such as `Animated Titles` and `external SVG editing` require setting the paths for **Blender** and
