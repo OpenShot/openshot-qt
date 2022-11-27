@@ -33,7 +33,7 @@ linux-builder:
   except:
   - tags
   tags:
-    - linux-bionic
+    - linux-focal
 
 mac-builder:
   stage: build
