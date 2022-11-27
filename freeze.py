@@ -529,8 +529,7 @@ elif sys.platform == "linux":
                          "lib/libopenshot*",
                          "translations/",
                          "locales/",
-                         "libQt5WebKit.so.5",
-                         "libx264.so.152"]
+                         "libQt5WebKit.so.5"]
                 for path in paths:
                     full_path = os.path.join(build_path, frozen_path, path)
                     for remove_path in glob.glob(full_path):
