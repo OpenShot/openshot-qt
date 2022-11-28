@@ -363,6 +363,7 @@ elif sys.platform == "linux":
                 and os.path.exists(libpath)
                 and "libnvidia-glcore.so" not in libpath
                 and libpath_file not in [
+                    "libpthread.so.0",
                     "libc.so.6",
                     "libstdc++.so.6",
                     "libGL.so.1",
