@@ -357,7 +357,10 @@ elif sys.platform == "linux":
             # And ignore paths that start with /lib
             libpath = libdetailsparts[0].strip()
             libpath_file = os.path.basename(libpath)
-            log.info("libpath: %s, libpath_file: %s" % (libpath, libpath_file))
+            log.info("libpath: %s, libpath_file: %s, exists: %s, not lib: %s" % (libpath,
+                                                                                 libpath_file,
+                                                                                 os.path.exists(libpath),
+                                                                                 not libpath.startswith("/lib")))
 
             if (libpath
                 and os.path.exists(libpath)
