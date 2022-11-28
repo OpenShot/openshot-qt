@@ -387,7 +387,7 @@ def main():
             # Was the AppImage creation successful
             if not app_image_success or errors_detected:
                 # AppImage failed
-                error("AppImageKit Error: AppImageAssistant did not output the AppImage file")
+                error("AppImageKit Error: appimagetool did not output the AppImage file")
                 needs_upload = False
 
                 # Delete build (since something failed)

@@ -470,7 +470,7 @@ build_exe_options["excludes"] = ["distutils",
                                  "pydoc_data",
                                  "pycparser",
                                  "pkg_resources"]
-if sys.platform != "win32":
+if sys.platform != "darwin":
     build_exe_options["excludes"].append("sentry_sdk.integrations.django")
 
 # Set options
