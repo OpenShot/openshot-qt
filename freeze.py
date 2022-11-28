@@ -407,8 +407,9 @@ elif sys.platform == "linux":
                     "libselinux.so.1",
                     ]:
                 external_so_files.append((libpath, libpath_file))
-                # Any other lib deps that fail to meet the inclusion
-                # criteria above will be silently skipped over
+            else:
+                log.info("Skipping external library: %s" % libpath)
+
 
     log.info("external_so_files: %s" % str(external_so_files))
 
