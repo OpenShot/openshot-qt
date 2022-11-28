@@ -377,7 +377,7 @@ def main():
             # Create AppImage (OpenShot-%s-x86_64.AppImage)
             app_image_success = False
             for line in run_command(" ".join([
-                '/home/ubuntu/apps/AppImageKit/AppImageAssistant',
+                '/home/ubuntu/apps/AppImageKit/appimagetool-x86_64.AppImage',
                 '"%s"' % app_dir_path,
                 '"%s"' % app_build_path,
             ])):
