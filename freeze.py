@@ -357,14 +357,10 @@ elif sys.platform == "linux":
             # And ignore paths that start with /lib
             libpath = libdetailsparts[0].strip()
             libpath_file = os.path.basename(libpath)
-            log.info("libpath: %s, libpath_file: %s, exists: %s, not lib: %s" % (libpath,
-                                                                                 libpath_file,
-                                                                                 os.path.exists(libpath),
-                                                                                 not libpath.startswith("/lib")))
+            log.info("libpath: %s, libpath_file: %s" % (libpath, libpath_file))
 
             if (libpath
                 and os.path.exists(libpath)
-                and not libpath.startswith("/lib")
                 and "libnvidia-glcore.so" not in libpath
                 and libpath_file not in [
                     "libstdc++.so.6",
