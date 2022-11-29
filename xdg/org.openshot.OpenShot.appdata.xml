@@ -6,9 +6,7 @@
   <project_license>GPL-3.0-or-later</project_license>
   <name>OpenShot Video Editor</name>
   <developer_name>OpenShot Studios, LLC</developer_name>
-  <summary>
-    An easy to use, quick to learn, and surprisingly powerful video editor
-  </summary>
+  <summary>An easy to use, quick to learn, and surprisingly powerful video editor</summary>
   <description>
     <p>
       OpenShot Video Editor is a free, open-source, non-linear video editor. It
@@ -19,15 +17,15 @@
     <p>
       Features include:
       <ul>
-      <li>Multiple tracks (layers)</li>
-      <li>Compositing, image overlays, and watermarks</li>
-      <li>Audio mixing and editing</li>
-      <li>Support for image sequences (rotoscoping)</li>
-      <li>Key-frame animation</li>
-      <li>Video effects (chroma-key)</li>
-      <li>Transitions (lumas and masks)</li>
-      <li>Titles with integrated editor and templates</li>
-      <li>3D animation (titles and effects)</li>
+          <li>Multiple tracks (layers)</li>
+          <li>Compositing, image overlays, and watermarks</li>
+          <li>Audio mixing and editing</li>
+          <li>Support for image sequences (rotoscoping)</li>
+          <li>Key-frame animation</li>
+          <li>Video effects (chroma-key)</li>
+          <li>Transitions (lumas and masks)</li>
+          <li>Titles with integrated editor and templates</li>
+          <li>3D animation (titles and effects)</li>
       </ul>
     </p>
   </description>
