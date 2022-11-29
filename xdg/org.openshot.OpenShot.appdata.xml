@@ -42,7 +42,6 @@
         <li><em>Import &amp; export</em> (EDL and Final Cut Pro formats, supports most video editors)</li>
         <li><em>Customizable keyboard shortcuts</em></li>
         <li><em>Translations</em> (available in 100+ languages)</li>
-        <li><em>Community support</em> (https://openshot.org/forum/)</li>
     </ul>
   </description>
   <url type="donation">https://www.openshot.org/donate/</url>
@@ -62,7 +61,6 @@
   </content_rating>
   <provides>
     <binary>openshot-qt</binary>
-    <id>org.openshot.OpenShot</id>
   </provides>
   <releases>
     <release version="2.6.1" date="2021-09-04"/>
