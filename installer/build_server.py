@@ -340,7 +340,6 @@ def main():
             # Install MIME handler
             dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
             os.makedirs(dest, exist_ok=True)
-
             shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
                             os.path.join(dest, "openshot-qt.xml"))
 
@@ -349,14 +348,10 @@ def main():
             os.makedirs(dest, exist_ok=True)
 
             desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.appdata.xml")
-            desk_out = os.path.join(dest, "org.openshot.OpenShot.appdata.xml")
+            desk_out = os.path.join(dest, "openshot-qt.appdata.xml")
             with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
                 for line in inf:
-                    if "launchable" in line:
-                        outf.write(line.replace("org.openshot.OpenShot", "openshot-qt"))
-                    else:
-                        outf.write(line)
-
+                    outf.write(line.replace("org.openshot.OpenShot", "openshot-qt"))
 
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
