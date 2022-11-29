@@ -263,7 +263,6 @@ elif sys.platform == "linux":
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
     # Add QtWebEngineProcess (if found)
-    # /usr/lib/x86_64-linux-gnu/
     web_process_path = ARCHLIB + "qt5/libexec/QtWebEngineProcess"
     if os.path.exists(web_process_path):
         external_so_files.append(
