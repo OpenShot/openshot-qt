@@ -362,12 +362,16 @@ def main():
                         outf.write("Exec=openshot-qt-launch %F\n")
                     else:
                         outf.write(line)
+            # Copy modified .desktop file to usr/share/applciations
+            dest = os.path.join(app_dir_path, "usr", "share", "applications")
+            os.makedirs(dest, exist_ok=True)
+            shutil.copytree(desk_out, os.path.join(app_dir_path, "usr", "share", "applications"))
 
-            # Copy desktop integration wrapper (prompts users to install shortcut)
+            # Rename executable launcher script
             launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
             os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
 
-            # Create AppRun.64 file (the real one)
+            # Create AppRun file
             app_run_path = os.path.join(app_dir_path, "AppRun")
             shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
