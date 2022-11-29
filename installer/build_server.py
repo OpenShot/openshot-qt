@@ -355,6 +355,8 @@ def main():
                 for line in inf:
                     if line.startswith("Exec="):
                         outf.write("Exec=openshot-qt-launch.wrapper %F\n")
+                    elif line.startswith("Icon="):
+                        outf.write("Icon=appimagekit-openshot-qt\n")
                     else:
                         outf.write(line)
 
