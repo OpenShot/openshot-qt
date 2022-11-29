@@ -61,6 +61,7 @@
   </content_rating>
   <provides>
     <binary>openshot-qt</binary>
+    <id>org.openshot.OpenShot.desktop</id>
   </provides>
   <releases>
     <release version="2.6.1" date="2021-09-04"/>
