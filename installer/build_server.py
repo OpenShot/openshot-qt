@@ -366,7 +366,7 @@ def main():
             dest = os.path.join(app_dir_path, "usr", "share", "applications")
             os.makedirs(dest, exist_ok=True)
             shutil.copyfile(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"),
-                            os.path.join(app_dir_path, "usr", "share", "applications", "org.openshot.OpenShot.desktop"))
+                            os.path.join(dest, "org.openshot.OpenShot.desktop"))
 
             # Rename executable launcher script
             launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
