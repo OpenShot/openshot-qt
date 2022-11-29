@@ -13,36 +13,36 @@
         and Windows. OpenShot can create stunning videos, films, and animations with an easy-to-use interface
         and rich set of features.
     </p>
-      <p><em>Features include:</em></p>
+        <p><em>Features include:</em></p>
     <ul>
-        <li><p><em>Free &amp; open-source</em> (licensed under GPLv3)</p></li>
-        <li><p><em>Cross-platform</em> (Linux, OS X, Chrome OS, and Windows)</p></li>
-        <li><p><em>Easy-to-use user interface</em> (designed for beginners, built-in tutorial)</p></li>
-        <li><p><em>Supports most video, audio, &amp; image formats</em> (based on FFmpeg)</p></li>
-        <li><p><em>Includes popular video profiles &amp; presets</em> (over 70+ profiles, including YouTube HD)</p></li>
-        <li><p><em>Advanced timeline</em> (including drag and drop, scrolling, panning, zooming, and snapping)</p></li>
-        <li><p><em>Advanced clips</em> (including trimming, alpha, scaling, location, rotation, and shearing)</p></li>
-        <li><p><em>Real-time preview</em> (multi-threaded, and optimized for performance)</p></li>
-        <li><p><em>Simple &amp; advanced views</em> (or customize your own unique view)</p></li>
-        <li><p><em>Powerful, curve-based Keyframe animations</em> (<cite>linear</cite>, <cite>Bézier</cite>, and <cite>constant</cite> interpolation)</p></li>
-        <li><p><em>Compositing, image overlays, watermarks, &amp; transparency</em></p></li>
-        <li><p><em>Unlimited tracks / layers</em> (support for complex projects)</p></li>
-        <li><p><em>Video transitions, masks, &amp; wipes</em> (grayscale images and animated masks)</p></li>
-        <li><p><em>Video &amp; audio effects</em> (including brightness, gamma, hue, chroma key / blue screen, and more)</p></li>
-        <li><p><em>Image sequences &amp; 2D animations</em> (<cite>001.png</cite>, <cite>002.png</cite>, <cite>003.png</cite>, etc…)</p></li>
-        <li><p><em>Blender 3D integration</em> (animated 3D title templates)</p></li>
-        <li><p><em>Vector file support &amp; editing</em> (SVG / scalable vector graphics used for titles and credits)</p></li>
-        <li><p><em>Audio mixing, waveform, &amp; editing</em></p></li>
-        <li><p><em>Emojis</em> (open-source stickers &amp; artwork included)</p></li>
-        <li><p><em>Frame accuracy</em> (step through each frame of video)</p></li>
-        <li><p><em>Time mapping &amp; speed changes</em> (slow/fast, forward/backward)</p></li>
-        <li><p><em>Advanced AI</em> (motion tracking, object detection, &amp; stabilization effects)</p></li>
-        <li><p><em>Credits &amp; captions</em> (scrolling and animated)</p></li>
-        <li><p><em>Hardware accelerated</em> (encoding &amp; decoding supports NVIDIA, AMD, Intel and more)</p></li>
-        <li><p><em>Import &amp; export</em> (EDL and Final Cut Pro formats, supports most video editors)</p></li>
-        <li><p><em>Customizable keyboard shortcuts</em></p></li>
-        <li><p><em>Translations</em> (available in 100+ languages)</p></li>
-        <li><p><em>Community support</em> (https://openshot.org/forum/)</p></li>
+        <li><em>Free &amp; open-source</em> (licensed under GPLv3)</li>
+        <li><em>Cross-platform</em> (Linux, OS X, Chrome OS, and Windows)</li>
+        <li><em>Easy-to-use user interface</em> (designed for beginners, built-in tutorial)</li>
+        <li><em>Supports most video, audio, &amp; image formats</em> (based on FFmpeg)</li>
+        <li><em>Includes popular video profiles &amp; presets</em> (over 70+ profiles, including YouTube HD)</li>
+        <li><em>Advanced timeline</em> (including drag and drop, scrolling, panning, zooming, and snapping)</li>
+        <li><em>Advanced clips</em> (including trimming, alpha, scaling, location, rotation, and shearing)</li>
+        <li><em>Real-time preview</em> (multi-threaded, and optimized for performance)</li>
+        <li><em>Simple &amp; advanced views</em> (or customize your own unique view)</li>
+        <li><em>Powerful, curve-based Keyframe animations</em> (<cite>linear</cite>, <cite>Bézier</cite>, and <cite>constant</cite> interpolation)</li>
+        <li><em>Compositing, image overlays, watermarks, &amp; transparency</em></li>
+        <li><em>Unlimited tracks / layers</em> (support for complex projects)</li>
+        <li><em>Video transitions, masks, &amp; wipes</em> (grayscale images and animated masks)</li>
+        <li><em>Video &amp; audio effects</em> (including brightness, gamma, hue, chroma key / blue screen, and more)</li>
+        <li><em>Image sequences &amp; 2D animations</em> (<cite>001.png</cite>, <cite>002.png</cite>, <cite>003.png</cite>, etc…)</li>
+        <li><em>Blender 3D integration</em> (animated 3D title templates)</li>
+        <li><em>Vector file support &amp; editing</em> (SVG / scalable vector graphics used for titles and credits)</li>
+        <li><em>Audio mixing, waveform, &amp; editing</em></li>
+        <li><em>Emojis</em> (open-source stickers &amp; artwork included)</li>
+        <li><em>Frame accuracy</em> (step through each frame of video)</li>
+        <li><em>Time mapping &amp; speed changes</em> (slow/fast, forward/backward)</li>
+        <li><em>Advanced AI</em> (motion tracking, object detection, &amp; stabilization effects)</li>
+        <li><em>Credits &amp; captions</em> (scrolling and animated)</li>
+        <li><em>Hardware accelerated</em> (encoding &amp; decoding supports NVIDIA, AMD, Intel and more)</li>
+        <li><em>Import &amp; export</em> (EDL and Final Cut Pro formats, supports most video editors)</li>
+        <li><em>Customizable keyboard shortcuts</em></li>
+        <li><em>Translations</em> (available in 100+ languages)</li>
+        <li><em>Community support</em> (https://openshot.org/forum/)</li>
     </ul>
   </description>
   <url type="donation">https://www.openshot.org/donate/</url>
