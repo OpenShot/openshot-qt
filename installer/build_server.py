@@ -341,17 +341,13 @@ def main():
             dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
             os.makedirs(dest, exist_ok=True)
             shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
-                            os.path.join(dest, "openshot-qt.xml"))
+                            os.path.join(dest, "org.openshot.OpenShot.xml"))
 
             # Install AppStream XML metadata
             dest = os.path.join(app_dir_path, "usr", "share", "metainfo")
             os.makedirs(dest, exist_ok=True)
-
-            desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.appdata.xml")
-            desk_out = os.path.join(dest, "openshot-qt.appdata.xml")
-            with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
-                for line in inf:
-                    outf.write(line.replace("org.openshot.OpenShot", "openshot-qt"))
+            shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.appdata.xml"),
+                            os.path.join(dest, "org.openshot.OpenShot.appdata.xml"))
 
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
@@ -359,7 +355,7 @@ def main():
 
             # Copy .desktop file, replacing Exec= commandline
             desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-            desk_out = os.path.join(app_dir_path, "openshot-qt.desktop")
+            desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
             with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
                 for line in inf:
                     if line.startswith("Exec="):
@@ -385,8 +381,7 @@ def main():
             for line in run_command(" ".join([
                 '/home/ubuntu/apps/AppImageKit/appimagetool-x86_64.AppImage',
                 '"%s"' % app_dir_path,
-                '"%s"' % app_build_path,
-                '--no-appstream'
+                '"%s"' % app_build_path
             ])):
                 output(line)
             app_image_success = os.path.exists(app_build_path)

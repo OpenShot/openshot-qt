@@ -62,7 +62,7 @@
   </content_rating>
   <provides>
     <binary>openshot-qt</binary>
-    <id>openshot-qt</id>
+    <id>org.openshot.OpenShot</id>
   </provides>
   <releases>
     <release version="2.6.1" date="2021-09-04"/>
