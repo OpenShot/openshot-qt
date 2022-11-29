@@ -365,7 +365,7 @@ def main():
             # Copy modified .desktop file to usr/share/applciations
             dest = os.path.join(app_dir_path, "usr", "share", "applications")
             os.makedirs(dest, exist_ok=True)
-            shutil.copytree(desk_out, os.path.join(app_dir_path, "usr", "share", "applications"))
+            shutil.copyfile(desk_out, os.path.join(app_dir_path, "usr", "share", "applications"))
 
             # Rename executable launcher script
             launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
