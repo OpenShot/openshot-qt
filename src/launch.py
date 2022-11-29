@@ -46,7 +46,7 @@ import argparse
 
 try:
     # This needs to be imported before PyQt5
-    # To prevent some issues on Linux: wrapping/forcing older libc versions
+    # To prevent some issues on AppImage build: wrapping/forcing older glibc versions
     import openshot
 except ImportError:
     pass
