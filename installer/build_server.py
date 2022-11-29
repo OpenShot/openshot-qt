@@ -386,6 +386,7 @@ def main():
                 '/home/ubuntu/apps/AppImageKit/appimagetool-x86_64.AppImage',
                 '"%s"' % app_dir_path,
                 '"%s"' % app_build_path,
+                '--no-appstream'
             ])):
                 output(line)
             app_image_success = os.path.exists(app_build_path)
