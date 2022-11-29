@@ -344,6 +344,16 @@ def main():
             shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
                             os.path.join(dest, "openshot-qt.xml"))
 
+            # Install AppStream XML metadata
+            dest = os.path.join(app_dir_path, "usr", "share", "metainfo")
+            os.makedirs(dest, exist_ok=True)
+
+            desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.appdata.xml")
+            desk_out = os.path.join(dest, "openshot-qt.appdata.xml")
+            with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
+                for line in inf:
+                    outf.write(line.replace("org.openshot.OpenShot", "openshot-qt"))
+
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
                             os.path.join(app_dir_path, "usr", "bin"))

@@ -31,16 +31,13 @@
       </ul>
     </p>
   </description>
-  <provides>
-    <binary>openshot-qt</binary>
-  </provides>
-  <url type="donation">https://www.openshot.org/donate</url>
-  <url type="help">https://www.openshot.org/user-guide</url>
-  <url type="homepage">https://www.openshot.org</url>
-  <url type="bugtracker">https://github.com/OpenShot/openshot-qt/issues</url>
+  <url type="donation">https://www.openshot.org/donate/</url>
+  <url type="help">https://www.openshot.org/user-guide/</url>
+  <url type="homepage">https://www.openshot.org/</url>
+  <url type="bugtracker">https://www.openshot.org/issues/new/</url>
   <screenshots>
     <screenshot type="default">
-      <image  height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
+      <image height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
     </screenshot>
     <screenshot>
       <image height="555" width="780">https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
