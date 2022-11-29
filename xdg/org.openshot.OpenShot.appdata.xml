@@ -24,12 +24,12 @@
         <li><em>Advanced clips</em> (including trimming, alpha, scaling, location, rotation, and shearing)</li>
         <li><em>Real-time preview</em> (multi-threaded, and optimized for performance)</li>
         <li><em>Simple &amp; advanced views</em> (or customize your own unique view)</li>
-        <li><em>Powerful, curve-based Keyframe animations</em> (<cite>linear</cite>, <cite>Bézier</cite>, and <cite>constant</cite> interpolation)</li>
+        <li><em>Powerful, curve-based Keyframe animations</em> (linear, Bézier, and constant interpolation)</li>
         <li><em>Compositing, image overlays, watermarks, &amp; transparency</em></li>
         <li><em>Unlimited tracks / layers</em> (support for complex projects)</li>
         <li><em>Video transitions, masks, &amp; wipes</em> (grayscale images and animated masks)</li>
         <li><em>Video &amp; audio effects</em> (including brightness, gamma, hue, chroma key / blue screen, and more)</li>
-        <li><em>Image sequences &amp; 2D animations</em> (<cite>001.png</cite>, <cite>002.png</cite>, <cite>003.png</cite>, etc…)</li>
+        <li><em>Image sequences &amp; 2D animations</em> (001.png, 002.png, 003.png, etc…)</li>
         <li><em>Blender 3D integration</em> (animated 3D title templates)</li>
         <li><em>Vector file support &amp; editing</em> (SVG / scalable vector graphics used for titles and credits)</li>
         <li><em>Audio mixing, waveform, &amp; editing</em></li>
