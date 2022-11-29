@@ -410,9 +410,6 @@ elif sys.platform == "linux":
             else:
                 log.info("Skipping external library: %s" % libpath)
 
-
-    log.info("external_so_files: %s" % str(external_so_files))
-
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
     for filename in find_files("openshot_qt", ["*"]):
