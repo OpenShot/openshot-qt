@@ -150,7 +150,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             # Get FPS info
             fps_num = get_app().project.get("fps").get("num", 24)
-            fps_den = get_app().project.get("fps").get("den", 1)
+            fps_den = get_app().project.get("fps").get("den", 1) or 1
             fps_float = float(fps_num / fps_den)
 
             # Determine scale factor

@@ -49,31 +49,7 @@ import openshot
 
 
 def parse_changelog(changelog_path):
-    """Read changelog entries from provided file path."""
-    changelog_list = []
-    if not os.path.exists(changelog_path):
-        return None
-    # Attempt to open changelog with utf-8, and then utf-16 (for unix / windows support)
-    for encoding_name in ('utf_8', 'utf_16'):
-        try:
-            with codecs.open(
-                    changelog_path, 'r', encoding=encoding_name
-                    ) as changelog_file:
-                for line in changelog_file:
-                    changelog_list.append({
-                        'hash': line[:9].strip(),
-                        'date': line[9:20].strip(),
-                        'author': line[20:45].strip(),
-                        'subject': line[45:].strip(),
-                        })
-                break
-        except Exception:
-            log.warning('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
-    return changelog_list
-
-
-def parse_new_changelog(changelog_path):
-    """Parse changelog data from specified new-format file."""
+    """Parse changelog data from specified gitlab-ci generated file."""
     if not os.path.exists(changelog_path):
         return None
     changelog_list = None
@@ -81,16 +57,16 @@ def parse_new_changelog(changelog_path):
         try:
             with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
                 # Generate match object with fields from all matching lines
-                matches = re.findall(
-                    r"^-\s?([0-9a-f]{40})\s(\d{4,4}-\d{2,2}-\d{2,2})\s(.*)\s\[(.*)\]\s*$",
-                    changelog_file.read(), re.MULTILINE)
+                matches = re.findall(r"(\w{6,10})\s+(\d{4}-\d{2}-\d{2})\s+(.*)\s{2,99}?(.*)",
+                                     changelog_file.read(), re.MULTILINE)
                 log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_path))
                 changelog_list = [{
-                    "hash": entry[0],
-                    "date": entry[1],
-                    "subject": entry[2],
-                    "author": entry[3],
+                    "hash": entry[0].strip(),
+                    "date": entry[1].strip(),
+                    "author": entry[2].strip(),
+                    "subject": entry[3].strip(),
                     } for entry in matches]
+                break
         except UnicodeError:
             log.debug('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
             continue
@@ -409,17 +385,12 @@ class Changelog(QDialog):
 
         # Read changelog file for each project
         for project in ['openshot-qt', 'libopenshot', 'libopenshot-audio']:
-            new_changelog_path = os.path.join(info.PATH, 'resources', '{}.log'.format(project))
-            old_changelog_path = os.path.join(info.PATH, 'settings', '{}.log'.format(project))
-            if os.path.exists(new_changelog_path):
-                log.debug("Reading changelog file: {}".format(new_changelog_path))
-                changelog_list = parse_new_changelog(new_changelog_path)
-            elif os.path.isfile(old_changelog_path):
-                log.debug("Reading legacy changelog file: {}".format(old_changelog_path))
-                changelog_list = parse_changelog(old_changelog_path)
+            changelog_path = os.path.join(info.PATH, 'settings', '{}.log'.format(project))
+            if os.path.exists(changelog_path):
+                log.debug("Reading changelog file: {}".format(changelog_path))
+                changelog_list = parse_changelog(changelog_path)
             else:
                 changelog_list = None
-            # Hopefully we found ONE of the two
             if changelog_list is None:
                 log.warn("Could not load changelog for {}".format(project))
                 # Hide the tab for this changelog
