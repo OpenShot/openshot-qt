@@ -340,9 +340,14 @@ def main():
             # Install MIME handler
             dest = os.path.join(app_dir_path, "usr", "share", "mime", "packages")
             os.makedirs(dest, exist_ok=True)
-
             shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.xml"),
-                            os.path.join(dest, "openshot-qt.xml"))
+                            os.path.join(dest, "org.openshot.OpenShot.xml"))
+
+            # Install AppStream XML metadata
+            dest = os.path.join(app_dir_path, "usr", "share", "metainfo")
+            os.makedirs(dest, exist_ok=True)
+            shutil.copyfile(os.path.join(PATH, "xdg", "org.openshot.OpenShot.appdata.xml"),
+                            os.path.join(dest, "org.openshot.OpenShot.appdata.xml"))
 
             # Copy the entire frozen app
             shutil.copytree(os.path.join(PATH, "build", exe_dir),
@@ -350,36 +355,38 @@ def main():
 
             # Copy .desktop file, replacing Exec= commandline
             desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")
-            desk_out = os.path.join(app_dir_path, "openshot-qt.desktop")
+            desk_out = os.path.join(app_dir_path, "org.openshot.OpenShot.desktop")
             with open(desk_in, "r") as inf, open(desk_out, "w") as outf:
                 for line in inf:
                     if line.startswith("Exec="):
-                        outf.write("Exec=openshot-qt-launch.wrapper %F\n")
+                        outf.write("Exec=openshot-qt-launch %F\n")
                     else:
                         outf.write(line)
+            # Copy modified .desktop file to usr/share/applciations
+            dest = os.path.join(app_dir_path, "usr", "share", "applications")
+            os.makedirs(dest, exist_ok=True)
+            shutil.copyfile(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"),
+                            os.path.join(dest, "org.openshot.OpenShot.desktop"))
 
-            # Copy desktop integration wrapper (prompts users to install shortcut)
+            # Rename executable launcher script
             launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
             os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
-            desktop_wrapper = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch.wrapper")
-            shutil.copyfile("/home/ubuntu/apps/AppImageKit/desktopintegration", desktop_wrapper)
 
-            # Create AppRun.64 file (the real one)
+            # Create AppRun file
             app_run_path = os.path.join(app_dir_path, "AppRun")
             shutil.copyfile("/home/ubuntu/apps/AppImageKit/AppRun", app_run_path)
 
             # Add execute bit to file mode for AppRun and scripts
             st = os.stat(app_run_path)
             os.chmod(app_run_path, st.st_mode | stat.S_IEXEC)
-            os.chmod(desktop_wrapper, st.st_mode | stat.S_IEXEC)
             os.chmod(launcher_path, st.st_mode | stat.S_IEXEC)
 
             # Create AppImage (OpenShot-%s-x86_64.AppImage)
             app_image_success = False
             for line in run_command(" ".join([
-                '/home/ubuntu/apps/AppImageKit/AppImageAssistant',
+                '/home/ubuntu/apps/AppImageKit/appimagetool-x86_64.AppImage',
                 '"%s"' % app_dir_path,
-                '"%s"' % app_build_path,
+                '"%s"' % app_build_path
             ])):
                 output(line)
             app_image_success = os.path.exists(app_build_path)
@@ -387,7 +394,7 @@ def main():
             # Was the AppImage creation successful
             if not app_image_success or errors_detected:
                 # AppImage failed
-                error("AppImageKit Error: AppImageAssistant did not output the AppImage file")
+                error("AppImageKit Error: appimagetool did not output the AppImage file")
                 needs_upload = False
 
                 # Delete build (since something failed)
