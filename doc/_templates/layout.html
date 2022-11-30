@@ -1,22 +1,11 @@
 {% extends "!layout.html" %}
 {% set css_files = css_files + ["_static/tablefix.css"] %}
 {%- block footer %}
+  <script src="//cdn.openshot.org/static/vendor/iframeSizer/iframeResizer.contentWindow.min.js"></script>
   <script>
     $( document ).ready(function() {
-        console.log( "OpenShot Documentation page ready" );
-        const height = document.body.scrollHeight;
-        const href = location.href;
-        if (window.parent) {
-            location.href.includes('index.html')
-            window.parent.postMessage(
-                {height, href}
-            );
-        }
-    });
-
-    <!-- Adds target=_blank to external links -->
-    $(document).ready(function () {
-      $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        <!-- Adds target=_blank to external links -->
+        $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
     });
   </script>
 {% endblock %}
