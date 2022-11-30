@@ -6,41 +6,51 @@
   <project_license>GPL-3.0-or-later</project_license>
   <name>OpenShot Video Editor</name>
   <developer_name>OpenShot Studios, LLC</developer_name>
-  <summary>
-    An easy to use, quick to learn, and surprisingly powerful video editor
-  </summary>
+  <summary>An easy to use, quick to learn, and surprisingly powerful video editor</summary>
   <description>
     <p>
-      OpenShot Video Editor is a free, open-source, non-linear video editor. It
-      can create and edit videos and movies using many popular video, audio,
-      image formats. Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,
-      Xbox, and more!
+        OpenShot Video Editor is an award-winning, open-source video editor, available on Linux, Mac, Chrome OS,
+        and Windows. OpenShot can create stunning videos, films, and animations with an easy-to-use interface
+        and rich set of features.
     </p>
-    <p>
-      Features include:
-      <ul>
-      <li>Multiple tracks (layers)</li>
-      <li>Compositing, image overlays, and watermarks</li>
-      <li>Audio mixing and editing</li>
-      <li>Support for image sequences (rotoscoping)</li>
-      <li>Key-frame animation</li>
-      <li>Video effects (chroma-key)</li>
-      <li>Transitions (lumas and masks)</li>
-      <li>Titles with integrated editor and templates</li>
-      <li>3D animation (titles and effects)</li>
-      </ul>
-    </p>
+        <p><em>Features include:</em></p>
+    <ul>
+        <li><em>Free &amp; open-source</em> (licensed under GPLv3)</li>
+        <li><em>Cross-platform</em> (Linux, OS X, Chrome OS, and Windows)</li>
+        <li><em>Easy-to-use user interface</em> (designed for beginners, built-in tutorial)</li>
+        <li><em>Supports most video, audio, &amp; image formats</em> (based on FFmpeg)</li>
+        <li><em>Includes popular video profiles &amp; presets</em> (over 70+ profiles, including YouTube HD)</li>
+        <li><em>Advanced timeline</em> (including drag and drop, scrolling, panning, zooming, and snapping)</li>
+        <li><em>Advanced clips</em> (including trimming, alpha, scaling, location, rotation, and shearing)</li>
+        <li><em>Real-time preview</em> (multi-threaded, and optimized for performance)</li>
+        <li><em>Simple &amp; advanced views</em> (or customize your own unique view)</li>
+        <li><em>Powerful, curve-based Keyframe animations</em> (linear, Bézier, and constant interpolation)</li>
+        <li><em>Compositing, image overlays, watermarks, &amp; transparency</em></li>
+        <li><em>Unlimited tracks / layers</em> (support for complex projects)</li>
+        <li><em>Video transitions, masks, &amp; wipes</em> (grayscale images and animated masks)</li>
+        <li><em>Video &amp; audio effects</em> (including brightness, gamma, hue, chroma key / blue screen, and more)</li>
+        <li><em>Image sequences &amp; 2D animations</em> (001.png, 002.png, 003.png, etc…)</li>
+        <li><em>Blender 3D integration</em> (animated 3D title templates)</li>
+        <li><em>Vector file support &amp; editing</em> (SVG / scalable vector graphics used for titles and credits)</li>
+        <li><em>Audio mixing, waveform, &amp; editing</em></li>
+        <li><em>Emojis</em> (open-source stickers &amp; artwork included)</li>
+        <li><em>Frame accuracy</em> (step through each frame of video)</li>
+        <li><em>Time mapping &amp; speed changes</em> (slow/fast, forward/backward)</li>
+        <li><em>Advanced AI</em> (motion tracking, object detection, &amp; stabilization effects)</li>
+        <li><em>Credits &amp; captions</em> (scrolling and animated)</li>
+        <li><em>Hardware accelerated</em> (encoding &amp; decoding supports NVIDIA, AMD, Intel and more)</li>
+        <li><em>Import &amp; export</em> (EDL and Final Cut Pro formats, supports most video editors)</li>
+        <li><em>Customizable keyboard shortcuts</em></li>
+        <li><em>Translations</em> (available in 100+ languages)</li>
+    </ul>
   </description>
-  <provides>
-    <binary>openshot-qt</binary>
-  </provides>
-  <url type="donation">https://www.openshot.org/donate</url>
-  <url type="help">https://www.openshot.org/user-guide</url>
-  <url type="homepage">https://www.openshot.org</url>
-  <url type="bugtracker">https://github.com/OpenShot/openshot-qt/issues</url>
+  <url type="donation">https://www.openshot.org/donate/</url>
+  <url type="help">https://www.openshot.org/user-guide/</url>
+  <url type="homepage">https://www.openshot.org/</url>
+  <url type="bugtracker">https://www.openshot.org/issues/new/</url>
   <screenshots>
     <screenshot type="default">
-      <image  height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
+      <image height="637" width="975">https://www.openshot.org/static/img/gallery/ui-example.jpg</image>
     </screenshot>
     <screenshot>
       <image height="555" width="780">https://www.openshot.org/static/img/gallery/title-editor.jpg</image>
@@ -51,7 +61,7 @@
   </content_rating>
   <provides>
     <binary>openshot-qt</binary>
-    <id>openshot-qt</id>
+    <id>org.openshot.OpenShot.desktop</id>
   </provides>
   <releases>
     <release version="2.6.1" date="2021-09-04"/>

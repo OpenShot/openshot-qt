@@ -258,7 +258,7 @@ elif sys.platform == "linux":
             external_so_files.append((filename, os.path.relpath(filename, start=libopenshot_path)))
 
     # Add libresvg (if found)
-    resvg_path = "/usr/local/lib/libresvg.so"
+    resvg_path = "/usr/lib/libresvg.so"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
@@ -287,7 +287,7 @@ elif sys.platform == "linux":
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
-    babl_ext_path = "/usr/local/lib/babl-0.1"
+    babl_ext_path = ARCHLIB + "babl-0.1/"
     for filename in find_files(babl_ext_path, ["*.so"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
@@ -305,7 +305,7 @@ elif sys.platform == "linux":
     pyqt5_mod_files = []
     from importlib import import_module
     for submod in ['Qt', 'QtSvg', 'QtWidgets', 'QtCore', 'QtGui', 'QtDBus']:
-        mod_name  = "PyQt5.{}".format(submod)
+        mod_name = "PyQt5.{}".format(submod)
         mod = import_module(mod_name)
         pyqt5_mod_files.append(inspect.getfile(mod))
     # Optional additions
@@ -320,7 +320,6 @@ elif sys.platform == "linux":
             pyqt5_mod_files.append(inspect.getfile(mod))
         except ImportError as ex:
             log.warning("Skipping {}: {}".format(mod_name, ex))
-
 
     lib_list = pyqt5_mod_files
     for lib_name in [
@@ -339,6 +338,7 @@ elif sys.platform == "linux":
 
         # Loop through each line of output (which outputs dependencies - one per line)
         for line in depends:
+            log.info("ldd raw line: %s" % line)
             lineparts = line.split("=>")
             libname = lineparts[0].strip()
 
@@ -356,11 +356,16 @@ elif sys.platform == "linux":
             # And ignore paths that start with /lib
             libpath = libdetailsparts[0].strip()
             libpath_file = os.path.basename(libpath)
+            log.info("libpath: %s, libpath_file: %s" % (libpath, libpath_file))
+
             if (libpath
                 and os.path.exists(libpath)
-                and not libpath.startswith("/lib")
                 and "libnvidia-glcore.so" not in libpath
                 and libpath_file not in [
+                    "libdl.so.2",
+                    "librt.so.1",
+                    "libpthread.so.0",
+                    "libc.so.6",
                     "libstdc++.so.6",
                     "libGL.so.1",
                     "libxcb.so.1",
@@ -401,8 +406,8 @@ elif sys.platform == "linux":
                     "libselinux.so.1",
                     ]:
                 external_so_files.append((libpath, libpath_file))
-                # Any other lib deps that fail to meet the inclusion
-                # criteria above will be silently skipped over
+            else:
+                log.info("Skipping external library: %s" % libpath)
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
@@ -470,7 +475,7 @@ build_exe_options["excludes"] = ["distutils",
                                  "pydoc_data",
                                  "pycparser",
                                  "pkg_resources"]
-if sys.platform != "win32":
+if sys.platform == "darwin":
     build_exe_options["excludes"].append("sentry_sdk.integrations.django")
 
 # Set options

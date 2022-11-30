@@ -44,6 +44,13 @@ import sys
 import os
 import argparse
 
+try:
+    # This needs to be imported before PyQt5
+    # To prevent some issues on AppImage build: wrapping/forcing older glibc versions
+    import openshot
+except ImportError:
+    pass
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
