@@ -18,7 +18,7 @@
       {%- if hasdoc('copyright') %}
         {% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
       {%- else %}
-      {% trans copyright=copyright|e %}&copy; Copyright {{ copyright }} - <a href="http://www.openshot.org/">www.openshot.org</a>.{% endtrans %}
+      {% trans copyright=copyright|e %}&copy; Copyright {{ copyright }} - <a data-iframe-height href="http://www.openshot.org/">www.openshot.org</a>.{% endtrans %}
       {%- endif %}
     {%- endif %}
 
