@@ -7,5 +7,26 @@
         <!-- Adds target=_blank to external links -->
         $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
     });
+
+    // *** iFrame resize & scrolling support ***
+    // Send the current page href to the parent site (if found)
+    // Give up after 5 tries (for example, if viewing these pages
+    // by themselves, with no parent openshot.org iFrame
+    let messageAttempts = 0;
+    function trySendMessage(){
+        messageAttempts++;
+        if ('parentIFrame' in window) {
+            const href = frameElement.contentWindow.location.href;
+            const type = "document-loaded";
+            window.parentIFrame.sendMessage({href, type});
+        } else {
+            // If not, try again in one second
+            if (messageAttempts < 5) {
+                setTimeout(trySendMessage, 250);
+            }
+      }
+    }
+    trySendMessage();
+
   </script>
 {% endblock %}
