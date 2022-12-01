@@ -53,26 +53,21 @@ def parse_changelog(changelog_path):
     if not os.path.exists(changelog_path):
         return None
     changelog_list = None
-    for encoding_name in ('utf_8', 'utf_16'):
-        try:
-            with codecs.open(changelog_path, 'r', encoding=encoding_name) as changelog_file:
-                # Generate match object with fields from all matching lines
-                matches = re.findall(r"(\w{6,10})\s+(\d{4}-\d{2}-\d{2})\s+(.*)\s{2,99}?(.*)",
-                                     changelog_file.read(), re.MULTILINE)
-                log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_path))
-                changelog_list = [{
-                    "hash": entry[0].strip(),
-                    "date": entry[1].strip(),
-                    "author": entry[2].strip(),
-                    "subject": entry[3].strip(),
-                    } for entry in matches]
-                break
-        except UnicodeError:
-            log.debug('Failed to parse log file %s with encoding %s' % (changelog_path, encoding_name))
-            continue
-        except Exception:
-            log.warning("Parse error reading {}".format(changelog_path), exc_info=1)
-            return None
+    try:
+        with codecs.open(changelog_path, 'r', encoding='utf_8') as changelog_file:
+            # Generate match object with fields from all matching lines
+            matches = re.findall(r"(\w{6,10})\s+(\d{4}-\d{2}-\d{2})\s+(.*)\s{2,99}?(.*)",
+                                 changelog_file.read(), re.MULTILINE)
+            log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_path))
+            changelog_list = [{
+                "hash": entry[0].strip(),
+                "date": entry[1].strip(),
+                "author": entry[2].strip(),
+                "subject": entry[3].strip(),
+                } for entry in matches]
+    except Exception:
+        log.warning("Parse error reading {}".format(changelog_path), exc_info=1)
+        return None
     return changelog_list
 
 
