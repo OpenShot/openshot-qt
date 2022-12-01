@@ -16,7 +16,7 @@
     function trySendMessage(){
         messageAttempts++;
         if ('parentIFrame' in window) {
-            const href = frameElement.contentWindow.location.href;
+            const href = window.location.href;
             const type = "document-loaded";
             window.parentIFrame.sendMessage({href, type});
         } else {
