@@ -52,22 +52,27 @@ def parse_changelog(changelog_path):
     """Parse changelog data from specified gitlab-ci generated file."""
     if not os.path.exists(changelog_path):
         return None
-    changelog_list = None
+    changelog_regex = re.compile(r'(\w{6,10})\s+(\d{4}-\d{2}-\d{2})\s+(.*)\s{2,99}?(.*)')
+    changelog_list = []
     try:
         with codecs.open(changelog_path, 'r', encoding='utf_8') as changelog_file:
-            # Generate match object with fields from all matching lines
-            matches = re.findall(r"(\w{6,10})\s+(\d{4}-\d{2}-\d{2})\s+(.*)\s{2,99}?(.*)",
-                                 changelog_file.read(), re.MULTILINE)
-            log.debug("Parsed {} changelog lines from {}".format(len(matches), changelog_path))
-            changelog_list = [{
-                "hash": entry[0].strip(),
-                "date": entry[1].strip(),
-                "author": entry[2].strip(),
-                "subject": entry[3].strip(),
-                } for entry in matches]
+            # Split changelog safely (since multiline regex fails to parse the windows line endings correctly)
+            # All our log files use unit line endings (even on Windows)
+            change_log_lines = changelog_file.read().split("\n")
+            for change in change_log_lines:
+                # Generate match object with fields from all matching lines
+                match = changelog_regex.findall(change)
+                if match:
+                    changelog_list.append({
+                        "hash": match[0][0].strip(),
+                        "date": match[0][1].strip(),
+                        "author": match[0][2].strip(),
+                        "subject": match[0][3].strip(),
+                        })
     except Exception:
         log.warning("Parse error reading {}".format(changelog_path), exc_info=1)
         return None
+    log.debug("Parsed {} changelog lines from {}".format(len(changelog_list), changelog_path))
     return changelog_list
 
 
