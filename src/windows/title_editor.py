@@ -29,6 +29,7 @@
 import os
 import re
 import shutil
+import sys
 import functools
 import subprocess
 import tempfile
@@ -87,6 +88,13 @@ class TitleEditor(QDialog):
 
         # Track metrics
         track_metric_screen("title-screen")
+
+        # Get environment variables needed for launching a process without trying to load libraries
+        # from our frozen app bundle
+        self.env = dict(os.environ)
+        if sys.platform == "linux":
+            self.env.pop('LD_LIBRARY_PATH', None)
+            log.debug('Removing custom LD_LIBRARY_PATH from environment variables when launching Inkscape')
 
         # Initialize variables
         self.template_name = ""
@@ -624,7 +632,7 @@ class TitleEditor(QDialog):
         try:
             # launch advanced title editor
             log.info("Advanced title editor command: %s", str([prog, self.filename]))
-            p = subprocess.Popen([prog, self.filename])
+            p = subprocess.Popen([prog, self.filename], env=self.env)
             # wait for process to finish, then update preview
             p.communicate()
             self.load_svg_template(filename_field=filename_text)
