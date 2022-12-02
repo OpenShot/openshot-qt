@@ -751,14 +751,13 @@ class Worker(QObject):
         self.version = None
         self.process = None
         self.canceled = False
+
+        # Get environment variables needed for launching a process without trying to load libraries
+        # from our frozen app bundle
         self.env = dict(os.environ)
-        if sys.platform == "linux" and os.path.exists('/lib/x86_64-linux-gnu/'):
-            # If on Linux, verify we have the following LD library path defined.
-            # This is needed for Blender to use the system libraries instead
-            # of our AppImage libraries (i.e. our libtiff.so.5 is missing symbols,
-            # compared to libtiff.so.5 on newer distros for some reason).
-            self.env['LD_LIBRARY_PATH'] = '/lib/x86_64-linux-gnu/'
-            log.debug(f'Appending system path before launching blender: {self.env.get("LD_LIBRARY_PATH")}')
+        if sys.platform == "linux":
+            self.env.pop('LD_LIBRARY_PATH', None)
+            log.debug('Removing custom LD_LIBRARY_PATH from environment variables when launching Blender')
 
         self.startupinfo = None
         if sys.platform == 'win32':
