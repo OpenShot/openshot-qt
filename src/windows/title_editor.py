@@ -29,6 +29,7 @@
 import os
 import re
 import shutil
+import sys
 import functools
 import subprocess
 import tempfile
@@ -87,6 +88,14 @@ class TitleEditor(QDialog):
 
         # Track metrics
         track_metric_screen("title-screen")
+
+        self.env = dict(os.environ)
+        if sys.platform == "linux" and os.path.exists('/lib/x86_64-linux-gnu/'):
+            # If on Linux, verify we have the following LD library path defined.
+            # This is needed for Inkscape to use the system libraries instead
+            # of our AppImage libraries
+            self.env['LD_LIBRARY_PATH'] = '/lib/x86_64-linux-gnu/'
+            log.debug(f'Appending system path before launching inkscape: {self.env.get("LD_LIBRARY_PATH")}')
 
         # Initialize variables
         self.template_name = ""
@@ -624,7 +633,7 @@ class TitleEditor(QDialog):
         try:
             # launch advanced title editor
             log.info("Advanced title editor command: %s", str([prog, self.filename]))
-            p = subprocess.Popen([prog, self.filename])
+            p = subprocess.Popen([prog, self.filename], env=self.env)
             # wait for process to finish, then update preview
             p.communicate()
             self.load_svg_template(filename_field=filename_text)

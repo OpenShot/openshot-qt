@@ -758,6 +758,7 @@ class Worker(QObject):
             # of our AppImage libraries (i.e. our libtiff.so.5 is missing symbols,
             # compared to libtiff.so.5 on newer distros for some reason).
             self.env['LD_LIBRARY_PATH'] = '/lib/x86_64-linux-gnu/'
+            log.debug(f'Appending system path before launching blender: {self.env.get("LD_LIBRARY_PATH")}')
 
         self.startupinfo = None
         if sys.platform == 'win32':
