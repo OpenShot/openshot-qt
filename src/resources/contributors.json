@@ -166,5 +166,14 @@
         "name": "Brenno Caldato",
         "email": null,
         "website": "https://github.com/BrennoCaldato"
+    },
+    {
+        "icons": [
+            "d",
+            "s"
+        ],
+        "name": "Raffi Mesdjian",
+        "email": null,
+        "website": "http://openshot.org/developers/raffi/"
     }
 ]
