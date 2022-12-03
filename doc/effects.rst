@@ -169,6 +169,15 @@ Color Shift
 ^^^^^^^^^^^
 Shift the colors of an image up, down, left, and right (with infinite wrapping).
 
+**Each pixel has 4 color channels:**
+
+- Red, Green, Blue, and Alpha (i.e. transparency)
+- Each channel value is between 0 and 255
+
+The Color Shift effect simply "moves" or "translates" a specific color channel on the X or Y axis. *Not all video and
+image formats support an alpha channel, and in those cases, you will not see any changes when adjusting the color
+shift of the alpha channel.*
+
 .. table::
    :widths: 26 80
 
