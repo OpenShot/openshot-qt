@@ -30,6 +30,8 @@ NOTE: Some features such as `Animated Titles` and `external SVG editing` require
 **Inkscape** under the General tab. And if you notice audio playback issues, such as audio drift, you many need to
 adjust the audio settings under the Preview tab.
 
+.. _preferences_general_ref:
+
 General
 -------
 
