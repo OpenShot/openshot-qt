@@ -183,7 +183,7 @@ AVI (mpeg4)
    Profiles                 All
    =======================  ============
 
-FLV (h.264)
+GIF (animated)
 ~~~~~~~~~~~
 
 .. table::
@@ -192,18 +192,18 @@ FLV (h.264)
    =======================  ============
    Attribute                Description
    =======================  ============
-   Video Format             flv
-   Video Codec              libx264
-   Audio Codec              libmp3lame
-   Audio Channels           2
-   Audio Channel Layout     Stereo
-   Sample Rate              48000
+   Video Format             gif
+   Video Codec              gif
+   Audio Codec              N/A
+   Audio Channels           N/A
+   Audio Channel Layout     N/A
+   Sample Rate              N/A
    Video Bitrate (low)      384 kb/s
    Video Bitrate (med)      5 Mb/s
    Video Bitrate (high)     15.00 Mb/s
-   Audio Bitrate (low)      96 kb/s
-   Audio Bitrate (med)      128 kb/s
-   Audio Bitrate (high)     192 kb/s
+   Audio Bitrate (low)      N/A
+   Audio Bitrate (med)      N/A
+   Audio Bitrate (high)     N/A
    Profiles                 All
    =======================  ============
 
@@ -441,6 +441,30 @@ MOV (mpeg4)
    Video Bitrate (low)      384 kb/s
    Video Bitrate (med)      5 Mb/s
    Video Bitrate (high)     15.00 Mb/s
+   Audio Bitrate (low)      96 kb/s
+   Audio Bitrate (med)      128 kb/s
+   Audio Bitrate (high)     192 kb/s
+   Profiles                 All
+   =======================  ============
+
+MP3 (audio only)
+~~~~~~~~~~~~~~~~
+
+.. table::
+   :widths: 26 80
+
+   =======================  ============
+   Attribute                Description
+   =======================  ============
+   Video Format             mp3
+   Video Codec              N/A
+   Audio Codec              libmp3lame
+   Audio Channels           2
+   Audio Channel Layout     Stereo
+   Sample Rate              48000
+   Video Bitrate (low)      N/A
+   Video Bitrate (med)      N/A
+   Video Bitrate (high)     N/A
    Audio Bitrate (low)      96 kb/s
    Audio Bitrate (med)      128 kb/s
    Audio Bitrate (high)     192 kb/s
