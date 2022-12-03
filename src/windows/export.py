@@ -473,6 +473,17 @@ class Export(QDialog):
                                 for profile_name in self.profile_names:
                                     profiles_list.append(profile_name)
 
+                            # Allow targets to override the following setting (export to)
+                            # Export to:  "Video & Audio", "Video Only", "Audio Only", "Image Sequence"
+                            # Default to "Video & Audio" if XML export-to element missing
+                            export_to_options = [_("Video & Audio"), _("Video Only"),
+                                                 _("Audio Only"), _("Image Sequence")]
+                            export_to = export_to_options[0]
+                            if xmldoc.getElementsByTagName("export-to"):
+                                export_to = _(xmldoc.getElementsByTagName("export-to")[0].childNodes[0].data)
+                            if export_to in export_to_options:
+                                self.cboExportTo.setCurrentIndex(export_to_options.index(export_to))
+
                             # get the video bit rate(s)
                             videobitrate = xmldoc.getElementsByTagName("videobitrate")
                             for rate in videobitrate:
