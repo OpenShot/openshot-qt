@@ -52,7 +52,6 @@ These are all possible methods to import media files into OpenShot:
 
 .. image:: images/quick-start-drop-files.jpg
 
-
 File Menu
 ---------
 To view the file menu, right click on a file (in the **Project Files** panel). Here are the actions you can use from the
@@ -73,6 +72,8 @@ Add to Timeline       Add many files to the timeline in one step
 File Properties       View the properties of a file, such as frame rate, size, etc...
 Remove from Project   Remove a file from the project
 ====================  ============
+
+.. _split_clip_ref:
 
 Split Clip
 ----------
@@ -97,12 +98,19 @@ to repeat the steps for your next clip. When you are finished, simply close the 
 
 Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
 
-Export Clip
------------
+Export Clips
+------------
 If you want your clips available outside of your OpenShot project, or want to copy all your video assets to one place,
-you can do this with the **Export Clip** dialog. Simply :kbd:`Ctrl+Click` to select any clips or files you like,
-then right click and choose **Export Clips**. In the dialog that appears, choose a destination folder, and
-click **Export**.
+you can do this with the **Export Clips** dialog. Simply :kbd:`Ctrl+Click` to select any clips or files you like,
+then :kbd:`Right Click` and choose :guilabel:`Export Clips`. In the dialog that appears, choose a destination folder, and
+click :guilabel:`Export`.
+
+NOTE: This will export each clip using it's **original video profile** (width, height, framerate, aspect ratio, etc...). It
+also supports any :ref:`split_clip_ref` (described above). For example, if you have split a long video file into
+many different clips (and named them), you can now export all the clips as separate video files (using the original
+clip's video profile).
+
+.. image:: images/export-clips-dialog.jpg
 
 Add to Timeline
 ---------------
