@@ -36,7 +36,7 @@ from PyQt5.QtWidgets import (
     QWidget, QDialog, QMessageBox, QFileDialog,
     QVBoxLayout, QHBoxLayout, QSizePolicy,
     QScrollArea, QLabel, QLineEdit, QPushButton,
-    QDoubleSpinBox, QComboBox, QCheckBox, QSpinBox,
+    QDoubleSpinBox, QComboBox, QCheckBox, QSpinBox, QStyle,
 )
 from PyQt5.QtGui import QKeySequence, QIcon
 
@@ -318,43 +318,20 @@ class Preferences(QDialog):
                             elif os_platform == "Linux" and v not in ("0", "1", "2", "6"):
                                 value_list.remove(value_item)
 
-                        # Remove hardware mode items which cannot decode the example video
-                        log.debug("Preparing to test hardware decoding: %s", value_list)
-                        for value_item in list(value_list):
-                            v = value_item["value"]
-                            if (not self.testHardwareDecode(value_list, v, 0)
-                               and not self.testHardwareDecode(value_list, v, 1)):
-                                value_list.remove(value_item)
-                        log.debug("Completed hardware decoding testing")
+                            # Add test button
+                            extraWidget = QPushButton(_("Test"))
+                            extraWidget.clicked.connect(functools.partial(self.testHardwareDecode, widget,
+                                                                          param, extraWidget))
 
                     # Replace %s dropdown values for hardware acceleration
                     if param["setting"] in ("graca_number_en", "graca_number_de"):
+                        value_list = []
                         for card_index in range(0, 3):
-                            # Test each graphics card, and only include valid ones
-                            if card_index in self.hardware_tests_cards and self.hardware_tests_cards.get(card_index):
-                                # Loop through valid modes supported by this card
-                                for mode in self.hardware_tests_cards.get(card_index):
-                                    # Add supported graphics card for each mode (duplicates are okay)
-                                    if mode == 0:
-                                        # cpu only
-                                        value_list.append({
-                                            "value": card_index,
-                                            "name": _("No acceleration"),
-                                            "icon": mode
-                                            })
-                                    else:
-                                        # hardware accelerated
-                                        value_list.append({
-                                            "value": card_index,
-                                            "name": _("Graphics Card %s") % (card_index + 1),
-                                            "icon": mode
-                                            })
-
-                        if os_platform in ["Darwin", "Windows"]:
-                            # Disable graphics card selection for Mac and Windows (since libopenshot
-                            # only supports device selection on Linux)
-                            widget.setEnabled(False)
-                            widget.setToolTip(_("Graphics card selection not supported in %s") % os_platform)
+                            # hardware accelerated
+                            value_list.append({
+                                "value": card_index,
+                                "name": _("Graphics Card %s") % card_index
+                            })
 
                     # Add normal values
                     box_index = 0
@@ -570,40 +547,22 @@ class Preferences(QDialog):
         # Check for restart
         self.check_for_restart(param)
 
-    def testHardwareDecode(self, all_decoders, decoder, decoder_card="0"):
-        """Test specific settings for hardware decode, so the UI can remove unsupported options."""
+    def testHardwareDecode(self, widget, param, btn):
+        """Test specific settings for hardware decode"""
+        all_decoders = param.get("values", [])
         is_supported = False
-        example_media = os.path.join(info.RESOURCES_PATH, "hardware-example.mp4")
-        decoder_name = next(item for item in all_decoders if item["value"] == str(decoder)).get("name", "Unknown")
-
-        # Persist decoder card results
-        if decoder_card not in self.hardware_tests_cards:
-            # Init new decoder card list
-            self.hardware_tests_cards[decoder_card] = []
-        if int(decoder) in self.hardware_tests_cards.get(decoder_card):
-            # Test already run and succeeded
-            return True
 
         # Keep track of previous settings
         current_decoder = openshot.Settings.Instance().HARDWARE_DECODER
         current_decoder_card = openshot.Settings.Instance().HW_DE_DEVICE_SET
-        current_decoder_name = next(
-            item for item in all_decoders
-            if item["value"] == str(current_decoder)
-            ).get("name", "Unknown")
-        log.debug(
-            "Current hardware decoder: %s (%s-%s)",
+        current_decoder_name = next(item for item in all_decoders
+                                    if item["value"] == str(current_decoder)).get("name", "Unknown")
+        log.debug("Testing hardware decoder: %s (Decoder Type: %s, Graphics Card: %s)",
             current_decoder_name, current_decoder, current_decoder_card)
 
         try:
-            # Temp override hardware settings (to test them)
-            log.debug(
-                "Testing hardware decoder: %s (%s-%s)",
-                decoder_name, decoder, decoder_card)
-            openshot.Settings.Instance().HARDWARE_DECODER = int(decoder)
-            openshot.Settings.Instance().HW_DE_DEVICE_SET = int(decoder_card)
-
             # Find reader
+            example_media = os.path.join(info.RESOURCES_PATH, "hardware-example.mp4")
             clip = openshot.Clip(example_media)
             reader = clip.Reader()
 
@@ -613,26 +572,27 @@ class Preferences(QDialog):
             # Test decoded pixel values for a valid decode (based on hardware-example.mp4)
             if reader.GetFrame(0).CheckPixel(0, 0, 2, 133, 255, 255, 5):
                 is_supported = True
-                self.hardware_tests_cards[decoder_card].append(int(decoder))
-                log.debug(
-                    "Successful hardware decoder! %s (%s-%s)",
-                    decoder_name, decoder, decoder_card)
+                log.debug("Successful test of hardware decoder: %s (Decoder Type: %s, Graphics Card: %s)",
+                          current_decoder_name, current_decoder, current_decoder_card)
             else:
-                log.debug(
-                    "CheckPixel failed testing hardware decoding (i.e. wrong color found): %s (%s-%s)",
-                    decoder_name, decoder, decoder_card)
+                log.debug("Failed test of hardware decoder (incorrect pixel color found): "
+                          "%s (Decoder Type: %s, Graphics Card: %s)",
+                          current_decoder_name, current_decoder, current_decoder_card)
 
             reader.Close()
             clip.Close()
 
-        except Exception:
-            log.debug(
-                "Exception trying to test hardware decoding (this is expected): %s (%s-%s)",
-                decoder_name, decoder, decoder_card)
+        except Exception as ex:
+            log.debug("Exception testing hardware decoder: %s (Decoder Type: %s, Graphics Card: %s) %s",
+                      current_decoder_name, current_decoder, current_decoder_card, str(ex))
 
-        # Resume current settings
-        openshot.Settings.Instance().HARDWARE_DECODER = current_decoder
-        openshot.Settings.Instance().HW_DE_DEVICE_SET = current_decoder_card
+        # Show icon on test button (checkmark vs X)
+        icon_name = "SP_DialogApplyButton"
+        if not is_supported:
+            icon_name = "SP_DialogCancelButton"
+        pixmapi = getattr(QStyle, icon_name)
+        icon = self.style().standardIcon(pixmapi)
+        btn.setIcon(icon)
 
         return is_supported
 

@@ -465,7 +465,7 @@
     "type": "dropdown",
     "value": "0",
     "values": [],
-    "restart": true
+    "restart": false
   },
   {
     "min": 0,
