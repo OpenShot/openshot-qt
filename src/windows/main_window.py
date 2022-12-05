@@ -2795,7 +2795,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.caption_model_row = None
 
         # Get project's initial zoom value
-        initial_scale = get_app().project.get("scale") or 15.0
+        initial_scale = float(get_app().project.get("scale") or 15.0)
 
         # Setup Zoom Slider widget
         from windows.views.zoom_slider import ZoomSlider
