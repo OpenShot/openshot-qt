@@ -973,11 +973,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if we are at the end of our last clip, and the user clicks play, we
         do not want to start playback."""
         # Get max frame (based on last clip) and current frame
-        max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
-        current_frame = self.preview_thread.current_frame
-        if current_frame is not None:
-            next_frame = current_frame + requested_speed
-            return next_frame <= max_frame and next_frame > 0
+        timeline_sync = get_app().window.timeline_sync
+        if timeline_sync and timeline_sync.timeline:
+            max_frame = timeline_sync.timeline.GetMaxFrame()
+            current_frame = self.preview_thread.current_frame
+            if current_frame is not None:
+                next_frame = current_frame + requested_speed
+                return next_frame <= max_frame and next_frame > 0
         return False
 
     def actionPlay_trigger(self):
@@ -986,7 +988,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if player.Mode() == openshot.PLAYBACK_PAUSED:
             # Start playback
             if self.should_play():
-                max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
                 self.PlaySignal.emit()
         else:
             # Pause playback
