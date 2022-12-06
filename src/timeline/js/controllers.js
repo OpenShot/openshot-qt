@@ -579,7 +579,7 @@ App.controller("TimelineCtrl", function ($scope) {
       $scope.selectTransition("", true);
     }
     // Call slice method and exit (don't actually select the clip)
-    if (id !== "" && $scope.enable_razor && $scope.Qt && event) {
+    if (id !== "" && $scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
       var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
       timeline.RazorSliceAtCursor(id, "", cursor_seconds);
 
@@ -632,7 +632,7 @@ App.controller("TimelineCtrl", function ($scope) {
       $scope.selectClip("", true);
     }
     // Call slice method and exit (don't actually select the transition)
-    if (id !== "" && $scope.enable_razor && $scope.Qt && event) {
+    if (id !== "" && $scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
       var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
       timeline.RazorSliceAtCursor("", id, cursor_seconds);
 
