@@ -137,7 +137,7 @@ class SettingStore(JsonDataStore):
         log.error("Given action is not valid %s" % action)
         return None
 
-    def setDefaultPath(self, action: pathType, recent_path: str):
+    def setDefaultPath(self, action: actionType, recent_path: str):
         """
         Change the path setting corresponding to the given action
         """
@@ -147,9 +147,13 @@ class SettingStore(JsonDataStore):
         if not os.path.exists(recent_path):
             log.error(f"{recent_path} is not a valid path")
             return
+        if info.USER_PATH == recent_path:
+            log.info(f"Ignore setting recent path: {recent_path}, most likely due to backup recovery")
+            return
+
         try:
             setting = self.pathSettings(action)
-            log.debug(f"Setting %s to %s" % (action.value, recent_path))
+            log.debug(f"Setting {setting['path']} to {recent_path}")
             self.set(setting["path"], recent_path)
         except:
             log.error(f"Error; action: {action}; recent_path: {recent_path}")
