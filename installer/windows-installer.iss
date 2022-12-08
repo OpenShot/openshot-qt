@@ -52,6 +52,10 @@ SignedUninstallerDir=..\build\
 PrivilegesRequiredOverridesAllowed=commandline
 AllowNoIcons=yes
 
+[Messages]
+; Format DisplayName shown on Add/Remove Programs
+NameAndVersion=%1 %2
+
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "afrikaans"; MessagesFile: "compiler:Languages\Afrikaans.isl"
