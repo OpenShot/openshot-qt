@@ -28,13 +28,14 @@
 import os
 from time import strftime
 
-VERSION = "2.6.1-dev"
-MINIMUM_LIBOPENSHOT_VERSION = "0.2.8"
-DATE = "20210904000000"
+VERSION = "3.0.0"
+MINIMUM_LIBOPENSHOT_VERSION = "0.3.0"
+DATE = "20221201000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
-DESCRIPTION = "Create and edit stunning videos, movies, and animations"
+DESCRIPTION = "Create and edit stunning videos, films, and animations with an " \
+              "easy-to-use interface and rich set of features."
 COMPANY_NAME = "OpenShot Studios, LLC"
 COPYRIGHT = "Copyright (c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()

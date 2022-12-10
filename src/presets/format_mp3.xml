@@ -2,16 +2,17 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">MKV (av1)</title>
-	<videoformat>mkv</videoformat>
-	<videocodec>libaom-av1</videocodec>
-	<audiocodec>libvorbis</audiocodec>
+	<title translatable="True">MP3 (audio only)</title>
+    <export-to>Audio Only</export-to>
+	<videoformat>mp3</videoformat>
+	<videocodec>mpeg2video</videocodec>
+	<audiocodec>libmp3lame</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
-	 low="50 crf"
-	 med="23 crf"
-	 high="1 crf"></videobitrate>
+	 low="384 kb/s"
+	 med="5 Mb/s"
+	 high="15.00 Mb/s"></videobitrate>
 	<audiobitrate
 	 low="96 kb/s"
 	 med="128 kb/s"

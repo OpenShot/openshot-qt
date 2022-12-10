@@ -2,7 +2,7 @@
 <!DOCTYPE openshot-export-option>
 <export-option>
 	<type translatable="True">All Formats</type>
-	<title translatable="True">MP4 (h.264 va)</title>
+	<title translatable="True">MKV (h.264 va)</title>
 	<videoformat>mkv</videoformat>
 	<videocodec>h264_vaapi</videocodec>
 	<audiocodec>aac</audiocodec>

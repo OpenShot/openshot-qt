@@ -230,7 +230,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Reset the scale when loading new JSON
         if action.type == "load":
             # Set the scale again (to project setting)
-            initial_scale = get_app().project.get("scale") or 15.0
+            initial_scale = float(get_app().project.get("scale") or 15.0)
             self.window.sliderZoomWidget.setZoomFactor(initial_scale)
 
     @pyqtSlot(str, bool, bool, bool)
@@ -2829,7 +2829,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.redraw_audio_timer.start()
 
         # Only update scale if different
-        current_scale = float(get_app().project.get("scale"))
+        current_scale = float(get_app().project.get("scale") or 15.0)
 
         # Save current zoom
         if newScale != current_scale:

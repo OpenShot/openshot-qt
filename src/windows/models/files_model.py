@@ -120,13 +120,13 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Don't clear the existing items if only deleting things
                 self.update_model(clear=False, delete_file_id=action.key[1].get('id', ''))
             elif action.type == "update" and action.key[0].lower() == "files":
-                # Do nothing for file updates
-                pass
+                # Update a single file (if found)
+                self.update_model(clear=False, update_file_id=action.key[1].get('id', ''))
             else:
                 # Clear existing items
                 self.update_model(clear=True)
 
-    def update_model(self, clear=True, delete_file_id=None):
+    def update_model(self, clear=True, delete_file_id=None, update_file_id=None):
         log.debug("updating files model.")
         app = get_app()
 
@@ -149,6 +149,24 @@ class FilesModel(QObject, updates.UpdateInterface):
             self.model.removeRows(row_num, 1, id_index.parent())
             self.model.submit()
             self.model_ids.pop(delete_file_id)
+
+        # Update a file (if update_file_id passed in)
+        if update_file_id in self.model_ids:
+            # Use the persistent index we stored to find the row
+            id_index = self.model_ids[update_file_id]
+
+            # sanity check
+            if not id_index.isValid() or update_file_id != id_index.data():
+                log.warning("Couldn't update {} in model!".format(update_file_id))
+                return
+
+            # lookup File object
+            f = File.get(id=update_file_id)
+            if f:
+                # Update "tags" in model (if different)
+                row_num = id_index.row()
+                if f.data.get("tags") != self.model.item(row_num, 2).text():
+                    self.model.item(row_num, 2).setText(f.data.get("tags"))
 
         # Clear all items
         if clear:
@@ -560,6 +578,19 @@ class FilesModel(QObject, updates.UpdateInterface):
         cur_id = self.current_file_id()
         if cur_id:
             return File.get(id=cur_id)
+        else:
+            return None
+
+    def value_updated(self, item):
+        """ Table cell change event - when tags are updated on a file"""
+        if item.column() == 2:
+            # Get updated tag value
+            tags_value = item.data(0)
+            f = self.current_file()
+            if f:
+                # Save tags to file object
+                f.data["tags"] = tags_value
+                f.save()
 
     def __init__(self, *args):
 
@@ -573,7 +604,6 @@ class FilesModel(QObject, updates.UpdateInterface):
         self.model.setColumnCount(6)
         self.model_ids = {}
         self.ignore_updates = False
-
         self.ignore_image_sequence_paths = []
 
         # Create proxy model (for sorting and filtering)
@@ -583,6 +613,9 @@ class FilesModel(QObject, updates.UpdateInterface):
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
+
+        # Connect data changed signal
+        self.model.itemChanged.connect(self.value_updated)
 
         # Create selection model to share between views
         self.selection_model = QItemSelectionModel(self.proxy_model)

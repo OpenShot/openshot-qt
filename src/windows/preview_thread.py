@@ -27,6 +27,7 @@
 
 import time
 import sip
+import math
 
 from PyQt5.QtCore import QObject, QThread, QTimer, pyqtSlot, pyqtSignal, QCoreApplication
 from PyQt5.QtWidgets import QMessageBox
@@ -99,7 +100,7 @@ class PreviewParent(QObject, UpdateInterface):
         log.info('Detected default audio device sample rate: %d' % detected_rate)
 
         s = get_app().get_settings()
-        rate = int(s.get("default-samplerate"))
+        rate = int(s.get("default-samplerate") or 41000)
         if detected_rate != rate:
             log.warning("Your sample rate (%d) does not match OpenShot (%d). "
                         "This can potentially play audio too fast/slow if not fixed. "
@@ -162,7 +163,7 @@ class PlayerWorker(QObject):
     position_changed = pyqtSignal(int)
     mode_changed = pyqtSignal(object)
     error_found = pyqtSignal(object)
-    sample_rate_found = pyqtSignal(float)
+    sample_rate_found = pyqtSignal(int)
     finished = pyqtSignal()
 
     @pyqtSlot(object, object)
@@ -192,9 +193,10 @@ class PlayerWorker(QObject):
 
     def CheckDefaultSampleRate(self):
         """Check for default audio sample rate (from default device)"""
-        if self.player.GetDefaultSampleRate():
+        detected_sample_rate = float(self.player.GetDefaultSampleRate())
+        if detected_sample_rate and not math.isnan(detected_sample_rate) and detected_sample_rate > 0.0:
             # Emit sample_rate_found signal
-            self.sample_rate_found.emit(self.player.GetDefaultSampleRate())
+            self.sample_rate_found.emit(round(detected_sample_rate))
 
     @pyqtSlot()
     def Start(self):

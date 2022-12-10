@@ -24,9 +24,10 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={code:GetAppId|4BB0DCDC-BC24-49EC-8937-72956C33A470}
+AppId={code:GetAppId|{{4BB0DCDC-BC24-49EC-8937-72956C33A470}}
 AppName=OpenShot Video Editor
 AppVersion={#VERSION}
+AppVerName={#MyAppName} {#VERSION}
 VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
@@ -134,6 +135,8 @@ Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; V
 Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
 ; Launcher association for data files of type OpenShotProject
 Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
+; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
 
 [Files]
 ; Add all frozen files from cx_Freeze build

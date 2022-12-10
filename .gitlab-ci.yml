@@ -170,7 +170,7 @@ deployer:
   only:
     - /^release.*$/
   tags:
-    - linux-bionic
+    - linux
 
 publisher:
   stage: publish
@@ -186,4 +186,4 @@ publisher:
   only:
     - /^release.*$/
   tags:
-    - linux-bionic
+    - linux
