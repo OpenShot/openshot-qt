@@ -387,11 +387,9 @@ elif sys.platform == "linux":
                     #"libpango-1.0.so.0",
                     #"libpangocairo-1.0.so.0",
                     #"libpangoft2-1.0.so.0",
-
                     "libdrm.so.2",
                     "libfreetype.so.6",
                     "libfontconfig.so.1",
-                    "libcairo.so.2",
                     "libharfbuzz.so.0",
                     "libthai.so.0",
                     ]
