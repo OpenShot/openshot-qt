@@ -57,11 +57,9 @@ except ImportError:
 extlinks = {
     # alias: (url_template, prefix)
     'openshot-github':
-        ('https://github.com/OpenShot/%s', ''),
+        ('https://github.com/OpenShot/%s', '%s'),
     'libopenshot-wiki':
-        ('https://github.com/OpenShot/libopenshot/wiki/%s', ''),
-    'openshot-issue':
-        ('https://github.com/OpenShot/openshot-qt/issues/%s', 'issue ')
+        ('https://github.com/OpenShot/libopenshot/wiki/%s', '%s'),
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -99,7 +97,7 @@ release = info.VERSION
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
