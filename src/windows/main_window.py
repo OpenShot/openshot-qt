@@ -126,7 +126,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def closeEvent(self, event):
 
         app = get_app()
-        # Some window managers handels dragging of the modal messages incorrectly if other windows are open
+        # Some window managers handle dragging of the modal messages incorrectly if other windows are open
         # Hide tutorial window first
         self.tutorial_manager.hide_dialog()
 
@@ -152,6 +152,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt - don't quit
                 event.ignore()
                 return
+
+        # If already shutting down, ignore
+        # Some versions of Qt fire this CloseEvent() method twice
+        if self.shutting_down:
+            log.debug("Already shutting down, skipping the closeEvent() method")
+            return
+        else:
+            self.shutting_down = True
 
         # Log the exit routine
         log.info('---------------- Shutting down -----------------')
@@ -183,16 +191,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Stop preview thread (and wait for it to end)
         self.preview_thread.player.CloseAudioDevice()
         self.preview_thread.kill()
-        self.videoPreview.deleteLater()
-        self.videoPreview = None
+        if self.videoPreview:
+            self.videoPreview.deleteLater()
+            self.videoPreview = None
         self.preview_parent.Stop()
 
         # Clean-up Timeline
-        if self.timeline_sync and self.timeline_sync.timeline:
+        if self.timeline_sync and hasattr(self.timeline_sync, 'timeline'):
             # Clear all clips & close all readers
             self.timeline_sync.timeline.Close()
             self.timeline_sync.timeline.Clear()
-            del self.timeline_sync.timeline
+            self.timeline_sync.timeline = None
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -3020,6 +3029,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Create main window base class
         super().__init__(*args)
         self.initialized = False
+        self.shutting_down = False
 
         # set window on app for reference during initialization of children
         app = get_app()
