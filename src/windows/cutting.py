@@ -364,8 +364,9 @@ class Cutting(QDialog):
 
         # Stop playback
         get_app().updates.disconnect_listener(self.videoPreview)
-        self.videoPreview.deleteLater()
-        self.videoPreview = None
+        if self.videoPreview:
+            self.videoPreview.deleteLater()
+            self.videoPreview = None
         self.preview_parent.Stop()
 
         # Close readers
