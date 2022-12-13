@@ -58,7 +58,7 @@ from classes.importers.final_cut_pro import import_xml
 from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
 from classes.query import File, Clip, Transition, Marker, Track, Effect
-from classes.thumbnail import httpThumbnailServerThread
+from classes.thumbnail import httpThumbnailServerThread, httpThumbnailException
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
 from classes.version import get_current_Version
@@ -124,11 +124,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Save window settings on close
     def closeEvent(self, event):
-
         app = get_app()
-        # Some window managers handle dragging of the modal messages incorrectly if other windows are open
-        # Hide tutorial window first
-        self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
         if app.project.needs_save():
@@ -164,8 +160,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Log the exit routine
         log.info('---------------- Shutting down -----------------')
 
-        # Close any tutorial dialogs
-        self.tutorial_manager.exit_manager()
+        if self.tutorial_manager:
+            # Close any tutorial dialogs (if any)
+            self.tutorial_manager.hide_dialog()
+            self.tutorial_manager.exit_manager()
 
         # Save settings
         self.save_settings()
@@ -179,22 +177,25 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Stop threads
         self.StopSignal.emit()
 
-        # Stop thumbnail server thread
-        self.http_server_thread.kill()
+        # Stop thumbnail server thread (if any)
+        if self.http_server_thread:
+            self.http_server_thread.kill()
 
-        # Stop ZMQ polling thread
-        get_app().logger_libopenshot.kill()
+        # Stop ZMQ polling thread (if any)
+        if app.logger_libopenshot:
+            app.logger_libopenshot.kill()
 
         # Process any queued events
         QCoreApplication.processEvents()
 
         # Stop preview thread (and wait for it to end)
-        self.preview_thread.player.CloseAudioDevice()
-        self.preview_thread.kill()
-        if self.videoPreview:
-            self.videoPreview.deleteLater()
-            self.videoPreview = None
-        self.preview_parent.Stop()
+        if self.preview_thread:
+            self.preview_thread.player.CloseAudioDevice()
+            self.preview_thread.kill()
+            if self.videoPreview:
+                self.videoPreview.deleteLater()
+                self.videoPreview = None
+            self.preview_parent.Stop()
 
         # Clean-up Timeline
         if self.timeline_sync and hasattr(self.timeline_sync, 'timeline'):
@@ -3036,6 +3037,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.window = self
         _ = app._tr
 
+        # Initialize a few things needed to exist
+        self.http_server_thread = None
+        self.preview_thread = None
+        self.timeline_sync = None
+
         # Load user settings for window
         s = app.get_settings()
         self.recent_menu = None
@@ -3086,12 +3092,26 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.FoundVersionSignal.connect(self.foundCurrentVersion)
         get_current_Version()
 
+        # Initialize and start the thumbnail HTTP server
+        try:
+            self.http_server_thread = httpThumbnailServerThread()
+            self.http_server_thread.start()
+
+        except httpThumbnailException as ex:
+            # Show error message to user
+            msg = QMessageBox()
+            msg.setWindowTitle(_("Error starting local HTTP server"))
+            error_title = _("Failed multiple attempts to start server:")
+            msg.setText(f"{error_title}\n\n{ex}")
+            msg.exec_()
+
+            # Quit event loop, and stop initializing main window
+            log.info(f"Quiting OpenShot due to failed local HTTP thumbnail server: {ex}")
+            get_app().mode = "quit"
+            return
+
         # Connect signals
         self.RecoverBackup.connect(self.recover_backup)
-
-        # Initialize and start the thumbnail HTTP server
-        self.http_server_thread = httpThumbnailServerThread()
-        self.http_server_thread.start()
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)

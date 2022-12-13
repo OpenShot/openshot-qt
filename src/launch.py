@@ -215,8 +215,8 @@ def main():
         print("   availableSizes: %s" % screen.availableSize())
 
     # Launch GUI and start event loop
-    app.gui()
-    sys.exit(app.exec_())
+    if app.gui():
+        sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
