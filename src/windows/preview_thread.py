@@ -100,12 +100,18 @@ class PreviewParent(QObject, UpdateInterface):
         log.info('Detected default audio device sample rate: %d' % detected_rate)
 
         s = get_app().get_settings()
-        rate = int(s.get("default-samplerate") or 41000)
+        rate = int(s.get("default-samplerate") or 48000)
         if detected_rate != rate:
-            log.warning("Your sample rate (%d) does not match OpenShot (%d). "
-                        "This can potentially play audio too fast/slow if not fixed. "
-                        "Adjust your 'Preferences->Preview->Default Sample Rate to match your "
-                        "system rate: %d, and restart OpenShot." % (detected_rate, rate, detected_rate))
+            log.warning("Your sample rate (%d) does not match OpenShot (%d)."
+                        "Adjusting your 'Preferences->Preview->Default Sample Rate to match your "
+                        "system rate: %d." % (detected_rate, rate, detected_rate))
+
+            # Update default sample rate in settings
+            s.set("default-samplerate", detected_rate)
+
+            # Update current project's sample rate, so we don't have some crazy
+            # audio drift due to mis-matching sample rates
+            get_app().updates.update(["sample_rate"], detected_rate)
 
     def Stop(self):
         """Disconnect preview parent from update manager and stop worker thread"""
