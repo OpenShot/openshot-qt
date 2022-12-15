@@ -75,7 +75,7 @@ function drawAudio(scope, clip_id) {
 
     // Get audio canvas context
     var audio_canvas = element.find(".audio");
-    if (!audio_canvas) {
+    if (!audio_canvas.length) {
       return;
     }
     var ctx = audio_canvas[0].getContext("2d", {alpha: false});
