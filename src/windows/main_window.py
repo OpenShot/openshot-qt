@@ -3223,11 +3223,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             lib_settings.HW_EN_DEVICE_SET = 0
 
-        # Set audio playback settings
-        if s.get("playback-audio-device"):
-            lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
-        else:
-            lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = ""
+        # Set audio device settings (used for playback of audio)
+        # - OLD settings only includes device name (i.e. "PulseAudio Sound Server")
+        # - NEW settings include both device name and type (double pipe delimited)
+        #   (i.e. "PulseAudio Sound Server||ALSA")
+        playback_device_value = s.get("playback-audio-device") or ""
+        playback_device_parts = playback_device_value.split("||")
+        playback_device_name = playback_device_parts[0]
+        playback_device_type = ""
+        if len(playback_device_parts) == 2:
+            # This might be empty for older settings, which only included the device name
+            playback_device_type = playback_device_parts[1]
+        # Set libopenshot settings
+        lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = playback_device_name
+        lib_settings.PLAYBACK_AUDIO_DEVICE_TYPE = playback_device_type
 
         # Set scaling mode to lower quality scaling (for faster previews)
         lib_settings.HIGH_QUALITY_SCALING = False
