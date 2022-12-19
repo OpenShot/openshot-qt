@@ -58,7 +58,7 @@ from classes.importers.final_cut_pro import import_xml
 from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
 from classes.query import File, Clip, Transition, Marker, Track, Effect
-from classes.thumbnail import httpThumbnailServerThread
+from classes.thumbnail import httpThumbnailServerThread, httpThumbnailException
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
 from classes.version import get_current_Version
@@ -124,11 +124,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Save window settings on close
     def closeEvent(self, event):
-
         app = get_app()
-        # Some window managers handels dragging of the modal messages incorrectly if other windows are open
-        # Hide tutorial window first
-        self.tutorial_manager.hide_dialog()
 
         # Prompt user to save (if needed)
         if app.project.needs_save():
@@ -153,11 +149,21 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 event.ignore()
                 return
 
+        # If already shutting down, ignore
+        # Some versions of Qt fire this CloseEvent() method twice
+        if self.shutting_down:
+            log.debug("Already shutting down, skipping the closeEvent() method")
+            return
+        else:
+            self.shutting_down = True
+
         # Log the exit routine
         log.info('---------------- Shutting down -----------------')
 
-        # Close any tutorial dialogs
-        self.tutorial_manager.exit_manager()
+        if self.tutorial_manager:
+            # Close any tutorial dialogs (if any)
+            self.tutorial_manager.hide_dialog()
+            self.tutorial_manager.exit_manager()
 
         # Save settings
         self.save_settings()
@@ -171,28 +177,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Stop threads
         self.StopSignal.emit()
 
-        # Stop thumbnail server thread
-        self.http_server_thread.kill()
+        # Stop thumbnail server thread (if any)
+        if self.http_server_thread:
+            self.http_server_thread.kill()
 
-        # Stop ZMQ polling thread
-        get_app().logger_libopenshot.kill()
+        # Stop ZMQ polling thread (if any)
+        if app.logger_libopenshot:
+            app.logger_libopenshot.kill()
 
         # Process any queued events
         QCoreApplication.processEvents()
 
         # Stop preview thread (and wait for it to end)
-        self.preview_thread.player.CloseAudioDevice()
-        self.preview_thread.kill()
-        self.videoPreview.deleteLater()
-        self.videoPreview = None
-        self.preview_parent.Stop()
+        if self.preview_thread:
+            self.preview_thread.player.CloseAudioDevice()
+            self.preview_thread.kill()
+            if self.videoPreview:
+                self.videoPreview.deleteLater()
+                self.videoPreview = None
+            self.preview_parent.Stop()
 
         # Clean-up Timeline
-        if self.timeline_sync and self.timeline_sync.timeline:
+        if self.timeline_sync and hasattr(self.timeline_sync, 'timeline'):
             # Clear all clips & close all readers
             self.timeline_sync.timeline.Close()
             self.timeline_sync.timeline.Clear()
-            del self.timeline_sync.timeline
+            self.timeline_sync.timeline = None
 
         # Destroy lock file
         self.destroy_lock_file()
@@ -3020,11 +3030,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Create main window base class
         super().__init__(*args)
         self.initialized = False
+        self.shutting_down = False
 
         # set window on app for reference during initialization of children
         app = get_app()
         app.window = self
         _ = app._tr
+
+        # Initialize a few things needed to exist
+        self.http_server_thread = None
+        self.preview_thread = None
+        self.timeline_sync = None
 
         # Load user settings for window
         s = app.get_settings()
@@ -3076,12 +3092,26 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.FoundVersionSignal.connect(self.foundCurrentVersion)
         get_current_Version()
 
+        # Initialize and start the thumbnail HTTP server
+        try:
+            self.http_server_thread = httpThumbnailServerThread()
+            self.http_server_thread.start()
+
+        except httpThumbnailException as ex:
+            # Show error message to user
+            msg = QMessageBox()
+            msg.setWindowTitle(_("Error starting local HTTP server"))
+            error_title = _("Failed multiple attempts to start server:")
+            msg.setText(f"{error_title}\n\n{ex}")
+            msg.exec_()
+
+            # Quit event loop, and stop initializing main window
+            log.info(f"Quiting OpenShot due to failed local HTTP thumbnail server: {ex}")
+            get_app().mode = "quit"
+            return
+
         # Connect signals
         self.RecoverBackup.connect(self.recover_backup)
-
-        # Initialize and start the thumbnail HTTP server
-        self.http_server_thread = httpThumbnailServerThread()
-        self.http_server_thread.start()
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
@@ -3193,11 +3223,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             lib_settings.HW_EN_DEVICE_SET = 0
 
-        # Set audio playback settings
-        if s.get("playback-audio-device"):
-            lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = str(s.get("playback-audio-device"))
-        else:
-            lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = ""
+        # Set audio device settings (used for playback of audio)
+        # - OLD settings only includes device name (i.e. "PulseAudio Sound Server")
+        # - NEW settings include both device name and type (double pipe delimited)
+        #   (i.e. "PulseAudio Sound Server||ALSA")
+        playback_device_value = s.get("playback-audio-device") or ""
+        playback_device_parts = playback_device_value.split("||")
+        playback_device_name = playback_device_parts[0]
+        playback_device_type = ""
+        if len(playback_device_parts) == 2:
+            # This might be empty for older settings, which only included the device name
+            playback_device_type = playback_device_parts[1]
+        # Set libopenshot settings
+        lib_settings.PLAYBACK_AUDIO_DEVICE_NAME = playback_device_name
+        lib_settings.PLAYBACK_AUDIO_DEVICE_TYPE = playback_device_type
 
         # Set scaling mode to lower quality scaling (for faster previews)
         lib_settings.HIGH_QUALITY_SCALING = False

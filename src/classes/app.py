@@ -195,6 +195,10 @@ class OpenShotApp(QApplication):
         ))
 
     def gui(self):
+        """
+        Initialize GUI and main window.
+        :return: bool: True if the GUI has no errors, False if we fail to initialize the GUI
+        """
         from classes import language, sentry, ui_util, logger_libopenshot
         from PyQt5.QtGui import QFont, QFontDatabase as QFD
 
@@ -272,6 +276,11 @@ class OpenShotApp(QApplication):
         log.debug("Creating main interface window")
         self.window = MainWindow()
 
+        # Check for gui launch failures
+        if self.mode == "quit":
+            self.window.close()
+            return False
+
         # Clear undo/redo history
         self.window.updateStatusChanged(False, False)
 
@@ -282,19 +291,20 @@ class OpenShotApp(QApplication):
         if len(args) < 2:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
             self.window.RecoverBackup.emit()
-            return
+            return True
 
         log.info('Process command-line arguments: %s', args[1:])
 
         # Auto load project if passed as argument
         if args[1].endswith(".osp"):
             self.window.OpenProjectSignal.emit(args[1])
-            return
+            return True
 
         # Start a new project and auto import any media files
         self.project.load("")
         for arg in args[1:]:
             self.window.filesView.add_file(arg)
+        return True
 
     def settings_load_error(self, filepath=None):
         """Use QMessageBox to warn the user of a settings load issue"""

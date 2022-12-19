@@ -45,10 +45,7 @@ class LoggerLibOpenShot(Thread):
 
     def kill(self):
         self.running = False
-        if self.context:
-            self.context.destroy()
-        if self.socket:
-            self.socket.close()
+        log.info('Shutting down libopenshot logger')
 
     def run(self):
         # Running
@@ -93,3 +90,12 @@ class LoggerLibOpenShot(Thread):
                     log.info(msg.strip().decode('UTF-8'))
             except Exception as ex:
                 log.warning(ex)
+
+        # Close zmq connection
+        if self.context:
+            self.context.destroy()
+        if self.socket:
+            self.socket.close()
+        if openshot.ZmqLogger.Instance():
+            # Close libopenshot logger
+            openshot.ZmqLogger.Instance().Close()

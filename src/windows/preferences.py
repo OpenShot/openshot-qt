@@ -280,10 +280,12 @@ class Preferences(QDialog):
                         # Loop through audio devices
                         value_list.append({"name": "Default", "value": ""})
                         for audio_device in get_app().window.preview_thread.player.GetAudioDeviceNames():
+                            # Text:  Type first, then device name  (i.e. "ALSA: PulseAudio Sound Server")
+                            # Value: Name first, ||, then device type  (i.e. "PulseAudio Sound Server||ALSA")
                             value_list.append({
                                 "name": "%s: %s" % (audio_device[1], audio_device[0]),
-                                "value": audio_device[0],
-                                })
+                                "value": "%s||%s" % (audio_device[0], audio_device[1])
+                            })
 
                     # Overwrite value list (for language dropdown)
                     if param["setting"] == "default-language":

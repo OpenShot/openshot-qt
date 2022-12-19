@@ -247,11 +247,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         except Exception:
             # Failed to parse json, do nothing
             log.warning('Failed to parse clip JSON data', exc_info=1)
+            return
 
         # Search for matching clip in project data (if any)
-        existing_clip = Clip.get(id=clip_data["id"])
+        existing_clip = Clip.get(id=clip_data.get("id"))
         if not existing_clip:
             # Create a new clip (if not exists)
+            log.debug("Create new clip object from clip_data: %s" % clip_data)
             existing_clip = Clip()
 
         # Update clip data
