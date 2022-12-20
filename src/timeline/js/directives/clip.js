@@ -135,6 +135,9 @@ App.directive("tlClip", function ($timeout) {
               // prevent less than zero
               new_left = 0.0;
               new_position -= scope.clip.start;
+            } else if (new_left >= new_right) {
+              // prevent resizing past right edge
+              new_left = new_right;
             } else {
               new_position -= delta_time;
             }
@@ -145,6 +148,9 @@ App.directive("tlClip", function ($timeout) {
             if (new_right > scope.clip.duration) {
               // prevent greater than duration
               new_right = scope.clip.duration;
+            } else if (new_right < new_left) {
+              // Prevent resizing past left edge
+              new_right = new_left;
             }
           }
 

@@ -233,6 +233,23 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             initial_scale = float(get_app().project.get("scale") or 15.0)
             self.window.sliderZoomWidget.setZoomFactor(initial_scale)
 
+    def delete_invalid_timeline_item(self, item):
+        """Delete an invalid timeline item (clip or transitions) if the basic
+           data does not make sense - i.e. negative duration"""
+        # Verify integrity of basic data
+        if item.data["position"] < 0.0:
+            item.data["position"] = 0.0
+        if item.data["start"] < 0.0:
+            item.data["start"] = 0.0
+        if item.data["end"] < item.data["start"]:
+            item.data["end"] = item.data["start"]
+        if item.data["end"] - item.data["start"] <= 0.0:
+            log.warning("Negative or zero duration is not possible, so deleting item instead: item_id: %s" % item.id)
+            get_app().window.clearSelections()
+            item.delete()
+            return True
+        return False
+
     @pyqtSlot(str, bool, bool, bool)
     def update_clip_data(self, clip_json, only_basic_props=True, ignore_reader=False, ignore_refresh=False):
         """ Javascript callable function to update the project data when a clip changes.
@@ -267,6 +284,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             existing_clip.data["position"] = clip_data["position"]
             existing_clip.data["start"] = clip_data["start"]
             existing_clip.data["end"] = clip_data["end"]
+
+        # Delete invalid items (i.e. negative duration)
+        if self.delete_invalid_timeline_item(existing_clip):
+            return
 
         # Always remove the Reader attribute (since nothing updates it,
         # and we are wrapping clips in FrameMappers anyway)
@@ -405,6 +426,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             existing_item.data["end"] = transition_data["end"]
             existing_item.data["brightness"] = brightness
             existing_item.data["contrast"] = contrast
+
+        # Delete invalid items (i.e. negative duration)
+        if self.delete_invalid_timeline_item(existing_item):
+            return
 
         # Save transition
         existing_item.save()
