@@ -27,6 +27,7 @@
 AppId={code:GetAppId|{{4BB0DCDC-BC24-49EC-8937-72956C33A470}}
 AppName=OpenShot Video Editor
 AppVersion={#VERSION}
+AppVerName={#MyAppName} {#VERSION}
 VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
@@ -51,12 +52,6 @@ SignedUninstaller=yes
 SignedUninstallerDir=..\build\
 PrivilegesRequiredOverridesAllowed=commandline
 AllowNoIcons=yes
-
-#if ONLY_64_BIT == "x64"
-    AppVerName={#MyAppName} {#VERSION}
-#else
-    AppVerName={#MyAppName} {#VERSION} (32-bit)
-#endif
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
