@@ -1322,6 +1322,21 @@ App.controller("TimelineCtrl", function ($scope) {
     return style;
   };
 
+  // Determine which z-index to assign for a clip / transition.
+  // Selected items z-index should be larger than unselected items.
+  // The index is passed in, and represents the current position
+  // in the render loop (1, 2, 3, etc...)
+  $scope.getZindex = function (item, starting_index, index) {
+    let unselected_zindex = starting_index;
+    let selected_zindex = starting_index + 1000;
+
+    if (item.selected) {
+      return selected_zindex + index;
+    } else {
+      return unselected_zindex + index;
+    }
+  };
+
   $scope.markerPath = function(marker) {
     var dir = "media/images/markers";
     var marker_file;
