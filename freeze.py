@@ -485,14 +485,16 @@ exes = [Executable("openshot_qt/launch.py",
                    icon=os.path.join(PATH, "xdg", iconFile),
                    shortcutName="%s" % info.PRODUCT_NAME,
                    shortcutDir="ProgramMenuFolder",
-                   targetName=exe_name)]
+                   targetName=exe_name,
+                   copyright=info.COPYRIGHT)]
 
 try:
     # Include extra launcher configuration, if defined
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
-                targetName=extra_exe['name']))
+                targetName=extra_exe['name'],
+                copyright=info.COPYRIGHT))
 except NameError:
     pass
 

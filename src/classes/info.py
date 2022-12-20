@@ -37,7 +37,7 @@ GPL_VERSION = "3"
 DESCRIPTION = "Create and edit stunning videos, films, and animations with an " \
               "easy-to-use interface and rich set of features."
 COMPANY_NAME = "OpenShot Studios, LLC"
-COPYRIGHT = "Copyright (c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
+COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
 # Application paths
