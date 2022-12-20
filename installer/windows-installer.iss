@@ -32,7 +32,7 @@ VersionInfoVersion={#VERSION}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
 AppSupportURL={#MySupportURL}
-AppCopyright=Copyright (c) 2008-2019 {#MyAppPublisher}
+AppCopyright=(c) 2008-2022 {#MyAppPublisher}
 DefaultDirName={code:GetDefaultDirName|OpenShot Video Editor}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
@@ -52,6 +52,10 @@ SignedUninstaller=yes
 SignedUninstallerDir=..\build\
 PrivilegesRequiredOverridesAllowed=commandline
 AllowNoIcons=yes
+
+#if ONLY_64_BIT != "x64"
+    AppVerName={#MyAppName} {#VERSION} (32-bit)
+#endif
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
