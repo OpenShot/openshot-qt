@@ -54,7 +54,7 @@ AllowNoIcons=yes
 
 #if ONLY_64_BIT == "x64"
     AppVerName={#MyAppName} {#VERSION}
-@else
+#else
     AppVerName={#MyAppName} {#VERSION} (32-bit)
 #endif
 
