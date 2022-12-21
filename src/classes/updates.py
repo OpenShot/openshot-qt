@@ -56,9 +56,9 @@ class UpdateAction:
     """A data structure representing a single update manager action,
     including any necessary data to reverse the action."""
 
-    def __init__(self, type=None, key=[], values=None, old_values=None, transaction=None):
+    def __init__(self, type=None, key=None, values=None, old_values=None, transaction=None):
         self.type = type  # insert, update, or delete
-        self.key = key  # list which contains the path to the item, for example: ["clips",{"id":"123"}]
+        self.key = key or []  # list which contains the path to the item, for example: ["clips",{"id":"123"}]
         self.values = values
         self.old_values = old_values
         self.transaction = transaction

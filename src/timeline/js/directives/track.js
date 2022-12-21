@@ -70,7 +70,7 @@ App.directive("tlTrack", function ($timeout) {
           var selected_item_count = ui_selected.length;
 
           // Get uuid to group all these updates as a single transaction
-          var tid = timeline.get_uuid()
+          var tid = timeline.get_uuid();
 
           // with each dragged clip, find out which track they landed on
           // Loop through each selected item, and remove the selection if multiple items are selected
@@ -127,7 +127,7 @@ App.directive("tlTrack", function ($timeout) {
             if (drop_track_num !== -1) {
 
               // find the item in the json data
-              item_data = null;
+              let item_data = null;
               if (item_type === "clip") {
                 item_data = findElement(scope.project.clips, "id", item_num);
               } else if (item_type === "transition") {
