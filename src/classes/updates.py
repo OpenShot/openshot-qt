@@ -282,12 +282,22 @@ class UpdateManager:
         return reverse
 
     def undo(self):
-        """ Undo the last UpdateAction (and notify all listeners and watchers) """
+        """ Undo the last UpdateAction (and notify all listeners and watchers).
+            Continue until all identical transaction ids have been found. """
+        last_transaction = None
+        for last_action in reversed(self.actionHistory):
+            # Compare transaction ids
+            if last_transaction and last_transaction != last_action.transaction:
+                # Different transaction, skip
+                continue
+            else:
+                last_transaction = last_action.transaction or str(uuid.uuid4())
+                self.actionHistory.remove(last_action)
 
-        if len(self.actionHistory) > 0:
-            # Get last action from history (remove)
-            last_action = self.actionHistory.pop().copy()
+            # Copy action
+            last_action = last_action.copy()
 
+            # Add action to redo list
             self.redoHistory.append(last_action)
             self.pending_action = None
             # Get reverse of last action and perform it
@@ -296,22 +306,29 @@ class UpdateManager:
             # Remove selections for deleted items (if any)
             if reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "clips":
                 # unselect deleted clip
-                item_id = reverse.key[1].get("id")
                 get_app().window.clearSelections()
             elif reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "effects":
                 # unselect deleted effect
-                item_id = reverse.key[1].get("id")
                 get_app().window.clearSelections()
 
             # Perform next undo action
             self.dispatch_action(reverse)
 
     def redo(self):
-        """ Redo the last UpdateAction (and notify all listeners and watchers) """
+        """ Redo the last UpdateAction (and notify all listeners and watchers).
+            Continue until all identical transaction ids have been found. """
+        last_transaction = None
+        for next_action in reversed(self.redoHistory):
+            # Compare transaction ids
+            if last_transaction and last_transaction != next_action.transaction:
+                # Different transaction, skip
+                continue
+            else:
+                last_transaction = next_action.transaction or str(uuid.uuid4())
+                self.redoHistory.remove(next_action)
 
-        if len(self.redoHistory) > 0:
-            # Get last undone action off redo history (remove)
-            next_action = self.redoHistory.pop().copy()
+            # Copy action
+            next_action = next_action.copy()
 
             # Remove ID from insert (if found)
             if next_action.type == "insert" and isinstance(next_action.key[-1], dict) and "id" in next_action.key[-1]:
