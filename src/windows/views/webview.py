@@ -182,8 +182,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
     # Create signal for adding waveforms to clips
-    audioDataReady = pyqtSignal(str, object)
-    fileAudioDataReady = pyqtSignal(str, object)
+    clipAudioDataReady = pyqtSignal(str, object, str)
+    fileAudioDataReady = pyqtSignal(str, object, str)
 
     @pyqtSlot()
     def page_ready(self):
@@ -1062,22 +1062,36 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             clip.data = {"ui": {"audio_data": []}}
             clip.save()
 
-    def fileAudioDataReady_Triggered(self, file_id, ui_data):
-        log.debug("fileAudioDataReady_Triggered recieved for file: %s" % file_id)
+    def fileAudioDataReady_Triggered(self, file_id, ui_data, tid):
+        log.debug("fileAudioDataReady_Triggered received for file: %s" % file_id)
+
+        # Transaction id to group all deletes together
+        get_app().updates.transaction_id = tid
+
         get_app().window.actionClearWaveformData.setEnabled(True)
         file = File.get(id=file_id)
         if file:
             file.data = ui_data
             file.save()
 
-    def audioDataReady_Triggered(self, clip_id, ui_data):
+        # Clear transaction id
+        get_app().updates.transaction_id = None
+
+    def clipAudioDataReady_Triggered(self, clip_id, ui_data, tid):
         # When audio data has been calculated, add it to a clip
-        log.debug("audioDataReady_Triggered recieved for clip: %s" % clip_id)
+        log.debug("clipAudioDataReady_Triggered received for clip: %s" % clip_id)
+
+        # Transaction id to group all deletes together
+        get_app().updates.transaction_id = tid
+
         get_app().window.actionClearWaveformData.setEnabled(True)
         clip = Clip.get(id=clip_id)
         if clip:
             clip.data = ui_data
             clip.save()
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
 
     def Thumbnail_Updated(self, clip_id):
         """Callback when thumbnail needs to be updated"""
@@ -3320,5 +3334,5 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         QTimer.singleShot(1500, self.cache_renderer.start)
 
         # connect signal to receive waveform data
-        self.audioDataReady.connect(self.audioDataReady_Triggered)
+        self.clipAudioDataReady.connect(self.clipAudioDataReady_Triggered)
         self.fileAudioDataReady.connect(self.fileAudioDataReady_Triggered)

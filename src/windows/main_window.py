@@ -431,6 +431,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Clear audio data from current project"""
         files = File.filter()
 
+        # Transaction id to group all deletes together
+        get_app().updates.transaction_id = str(uuid.uuid4())
+
         for file in files:
             if "audio_data" in file.data.get("ui", {}):
                 file_path = file.data.get("path")
@@ -444,6 +447,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 log.debug("Clip %s has audio data. Deleting it." % clip.id)
                 del clip.data["ui"]["audio_data"]
                 clip.save()
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
 
         get_app().window.actionClearWaveformData.setEnabled(False)
 
