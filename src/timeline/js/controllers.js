@@ -1267,11 +1267,15 @@ App.controller("TimelineCtrl", function ($scope) {
    */
   $scope.getTrackAtY = function (y) {
     // Loop through each layer (looking for the closest track based on Y coordinate)
+    let tolerance = 24;
     for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
       var layer = $scope.project.layers[layer_index];
 
       // Compare position of track to Y param and return first matching layer
-      if (layer.y > y) {
+      // Consider a tolerance around the cursor position
+      if (layer.y > (y - tolerance)) {
+        return layer;
+      } else if (layer.y > (y + tolerance)) {
         return layer;
       }
     }
