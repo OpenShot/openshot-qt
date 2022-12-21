@@ -30,6 +30,7 @@
 from classes.logger import log
 from classes.app import get_app
 import json
+import uuid
 
 
 class UpdateWatcher:
@@ -55,12 +56,18 @@ class UpdateAction:
     """A data structure representing a single update manager action,
     including any necessary data to reverse the action."""
 
-    def __init__(self, type=None, key=[], values=None, partial_update=False, old_values=None):
+    def __init__(self, type=None, key=[], values=None, old_values=None, transaction=None):
         self.type = type  # insert, update, or delete
         self.key = key  # list which contains the path to the item, for example: ["clips",{"id":"123"}]
         self.values = values
         self.old_values = old_values
-        self.partial_update = partial_update
+        self.transaction = transaction
+
+        # Set transaction id - used with undo/redo to group
+        # a set of related UpdateAction objects
+        if not transaction:
+            # Auto set transaction id to GUID
+            self.transaction = str(uuid.uuid4())
 
     def copy(self):
         """Create and return a copy of UpdateAction - with no references to the original"""
@@ -80,8 +87,8 @@ class UpdateAction:
             data_dict = {"type": self.type,
                          "key": self.key,
                          "value": json.loads(json.dumps(self.values)),
-                         "partial": self.partial_update,
-                         "old_values": json.loads(json.dumps(self.old_values))}
+                         "old_values": json.loads(json.dumps(self.old_values)),
+                         "transaction": self.transaction}
 
             # Always remove 'history' key (if found). This prevents nested "history"
             # attributes when a project dict is loaded.
@@ -114,7 +121,6 @@ class UpdateAction:
         self.key = update_action_dict.get("key")
         self.values = update_action_dict.get("value")
         self.old_values = update_action_dict.get("old_values")
-        self.partial_update = update_action_dict.get("partial")
 
         # Always remove 'history' key (if found). This prevents nested "history"
         # attributes when a project dict is loaded.
@@ -141,6 +147,7 @@ class UpdateManager:
         self.ignore_history = False  # Ignore saving actions to history, to prevent a huge undo/redo list
         self.last_action = None  # The last action processed
         self.pending_action = None  # Last action not added to actionHistory list
+        self.transaction_id = None  # The current transaction id to be attached to any UpdateActions created
 
     def load_history(self, project):
         """Load history from project"""
@@ -251,7 +258,7 @@ class UpdateManager:
     # caused by actions.
     def get_reverse_action(self, action):
         """ Convert an UpdateAction into the opposite type (i.e. 'insert' becomes an 'delete') """
-        reverse = UpdateAction(action.type, action.key, action.values, action.partial_update)
+        reverse = UpdateAction(action.type, action.key, action.values)
         # On adds, setup remove
         if action.type == "insert":
             reverse.type = "delete"
@@ -345,7 +352,7 @@ class UpdateManager:
         """ Insert a new UpdateAction into the UpdateManager
         (this action will then be distributed to all listeners) """
 
-        self.last_action = UpdateAction('insert', key, values)
+        self.last_action = UpdateAction('insert', key, values, transaction=self.transaction_id)
         if self.ignore_history:
             self.pending_action = self.last_action
         else:
@@ -354,11 +361,11 @@ class UpdateManager:
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
-    def update(self, key, values, partial_update=False):
+    def update(self, key, values):
         """ Update the UpdateManager with an UpdateAction
         (this action will then be distributed to all listeners) """
 
-        self.last_action = UpdateAction('update', key, values, partial_update)
+        self.last_action = UpdateAction('update', key, values, transaction=self.transaction_id)
         if self.ignore_history:
             self.pending_action = self.last_action
         else:
@@ -369,14 +376,14 @@ class UpdateManager:
             self.actionHistory.append(self.last_action)
         self.dispatch_action(self.last_action)
 
-    def update_untracked(self, key, values, partial_update=False):
+    def update_untracked(self, key, values):
         """ Update the UpdateManager with an UpdateAction, without creating
         a new entry in the history table
         (this action will then be distributed to all listeners) """
         previous_ignore = self.ignore_history
         previous_pending = self.pending_action
         self.ignore_history = True
-        self.update(key, values, partial_update)
+        self.update(key, values)
         self.ignore_history = previous_ignore
         self.pending_action = previous_pending
 
@@ -384,7 +391,7 @@ class UpdateManager:
         """ Delete an item from the UpdateManager with an UpdateAction
         (this action will then be distributed to all listeners) """
 
-        self.last_action = UpdateAction('delete', key)
+        self.last_action = UpdateAction('delete', key, transaction=self.transaction_id)
         if self.ignore_history:
             self.pending_action = self.last_action
         else:

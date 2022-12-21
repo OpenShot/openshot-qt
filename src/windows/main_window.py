@@ -34,6 +34,7 @@ import functools
 from time import sleep
 from uuid import uuid4
 import json
+import uuid
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
@@ -1824,6 +1825,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionRemove_from_Project_trigger(self):
         log.debug("actionRemove_from_Project_trigger")
 
+        # Transaction id to group all deletes together
+        tid = str(uuid.uuid4())
+
+        # Set transaction id (if any)
+        get_app().updates.transaction_id = tid
+
         # Loop through selected files
         for f in self.selected_files():
             if not f:
@@ -1841,6 +1848,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Remove file (after clips are deleted)
             f.delete()
 
+        # Clear transaction id
+        get_app().updates.transaction_id = None
+
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
@@ -1850,6 +1860,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         locked_tracks = [l.get("number")
                          for l in get_app().project.get('layers')
                          if l.get("lock", False)]
+
+        # Transaction id to group all deletes together
+        tid = str(uuid.uuid4())
+
+        # Set transaction id (if any)
+        get_app().updates.transaction_id = tid
 
         # Loop through selected clips
         for clip_id in json.loads(json.dumps(self.selected_clips)):
@@ -1862,6 +1878,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
                 # Remove clip
                 c.delete()
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
@@ -1915,6 +1934,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                          for l in get_app().project.get('layers')
                          if l.get("lock", False)]
 
+        # Transaction id to group all deletes together
+        tid = str(uuid.uuid4())
+
+        # Set transaction id (if any)
+        get_app().updates.transaction_id = tid
+
         # Loop through selected clips
         for tran_id in json.loads(json.dumps(self.selected_transitions)):
             # Find matching file
@@ -1927,6 +1952,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Remove transition
                 t.delete()
 
+        # Clear transaction id
+        get_app().updates.transaction_id = None
+
         # Refresh preview
         self.refreshFrameSignal.emit()
 
@@ -1935,6 +1963,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Get translation function
         _ = get_app()._tr
+
+        # Transaction id to group all deletes together
+        tid = str(uuid.uuid4())
+
+        # Set transaction id (if any)
+        get_app().updates.transaction_id = tid
 
         track_id = self.selected_tracks[0]
         max_track_number = len(get_app().project.get("layers"))
@@ -1953,15 +1987,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for clip in Clip.filter(layer=selected_track_number):
             # Clear selected clips
             self.removeSelection(clip.id, "clip")
-
             clip.delete()
 
         # Revove all transitions on this track first
         for trans in Transition.filter(layer=selected_track_number):
+            self.removeSelection(trans.id, "transition")
             trans.delete()
 
         # Remove track
         selected_track.delete()
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
 
         # Clear selected track
         self.selected_tracks = []

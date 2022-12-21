@@ -173,7 +173,7 @@ App.directive("tlClip", function ($timeout) {
 
           // update clip in Qt (very important =)
           if (scope.Qt) {
-            timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false);
+            timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false, null);
           }
 
           //resize the audio canvas to match the new clip width

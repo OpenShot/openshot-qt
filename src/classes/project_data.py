@@ -146,12 +146,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         """Prevent calling JsonDataStore set() method. It is not allowed in ProjectDataStore, as changes come from UpdateManager."""
         raise RuntimeError("ProjectDataStore.set() is not allowed. Changes must route through UpdateManager.")
 
-    def _set(self, key, values=None, add=False, partial_update=False, remove=False):
+    def _set(self, key, values=None, add=False, remove=False):
         """ Store setting, but adding isn't allowed. All possible settings must be in default settings file. """
 
         log.debug(
-            "_set key: %s values: %s add: %s partial: %s remove: %s",
-            key, values, add, partial_update, remove)
+            "_set key: %s, values: %s, add: %s, remove: %s",
+            key, values, add, remove)
         parent, my_key = None, ""
 
         # Verify key is valid type
@@ -1003,7 +1003,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         elif action.type == "update":
             # Update existing item
-            old_vals = self._set(action.key, action.values, partial_update=action.partial_update)
+            old_vals = self._set(action.key, action.values)
             action.set_old_values(old_vals)  # Save previous values to reverse this action
             self.has_unsaved_changes = True
 
