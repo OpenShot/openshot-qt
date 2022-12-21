@@ -1642,8 +1642,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch,
                 key.matches(self.getShortcutByName("deleteItem1")) == QKeySequence.ExactMatch,
                 ]):
+            # Set delete transaction id
+            tid = str(uuid.uuid4())
+            get_app().updates.transaction_id = tid
             # Delete selected clip / transition
             self.actionRemoveClip.trigger()
+
+            # Set delete transaction id (again)
+            get_app().updates.transaction_id = tid
             self.actionRemoveTransition.trigger()
 
         # Menu shortcuts
@@ -1861,11 +1867,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                          for l in get_app().project.get('layers')
                          if l.get("lock", False)]
 
-        # Transaction id to group all deletes together
-        tid = str(uuid.uuid4())
-
-        # Set transaction id (if any)
-        get_app().updates.transaction_id = tid
+        # Set transaction id (if not already set)
+        get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
 
         # Loop through selected clips
         for clip_id in json.loads(json.dumps(self.selected_clips)):
@@ -1934,11 +1937,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                          for l in get_app().project.get('layers')
                          if l.get("lock", False)]
 
-        # Transaction id to group all deletes together
-        tid = str(uuid.uuid4())
-
-        # Set transaction id (if any)
-        get_app().updates.transaction_id = tid
+        # Set transaction id (if not already set)
+        get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
 
         # Loop through selected clips
         for tran_id in json.loads(json.dumps(self.selected_transitions)):
