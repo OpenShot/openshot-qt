@@ -1832,10 +1832,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         log.debug("actionRemove_from_Project_trigger")
 
         # Transaction id to group all deletes together
-        tid = str(uuid.uuid4())
-
-        # Set transaction id (if any)
-        get_app().updates.transaction_id = tid
+        get_app().updates.transaction_id = str(uuid.uuid4())
 
         # Loop through selected files
         for f in self.selected_files():
@@ -1965,10 +1962,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         _ = get_app()._tr
 
         # Transaction id to group all deletes together
-        tid = str(uuid.uuid4())
-
-        # Set transaction id (if any)
-        get_app().updates.transaction_id = tid
+        get_app().updates.transaction_id = str(uuid.uuid4())
 
         track_id = self.selected_tracks[0]
         max_track_number = len(get_app().project.get("layers"))
@@ -1983,13 +1977,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             QMessageBox.warning(self, _("Error Removing Track"), _("You must keep at least 1 track"))
             return
 
-        # Revove all clips on this track first
+        # Remove all clips on this track first
         for clip in Clip.filter(layer=selected_track_number):
             # Clear selected clips
             self.removeSelection(clip.id, "clip")
             clip.delete()
 
-        # Revove all transitions on this track first
+        # Remove all transitions on this track first
         for trans in Transition.filter(layer=selected_track_number):
             self.removeSelection(trans.id, "transition")
             trans.delete()
