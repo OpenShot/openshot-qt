@@ -2962,6 +2962,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
 
+            # Group transactions
+            tid = self.get_uuid()
+
             # Create clip object for this file
             c = openshot.Clip(file_path)
 
@@ -3001,10 +3004,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             new_clip["duration"] *= fps_diff
 
             # Add clip to timeline
-            self.update_clip_data(new_clip, only_basic_props=False)
+            self.update_clip_data(new_clip, only_basic_props=False, transaction_id=tid)
 
             # temp hold item_id
             self.item_id = new_clip.get('id')
+            self.item_tid = tid
 
             # Init javascript bounding box (for snapping support)
             self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, self.item_id))
@@ -3043,6 +3047,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
+            # Group transactions
+            tid = self.get_uuid()
+
             # Open up QtImageReader for transition Image
             transition_reader = openshot.QtImageReader(file_ids[0])
 
@@ -3067,10 +3074,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             }
 
             # Send to update manager
-            self.update_transition_data(transitions_data, only_basic_props=False)
+            self.update_transition_data(transitions_data, only_basic_props=False, transaction_id=tid)
 
             # temp keep track of id
             self.item_id = transitions_data.get('id')
+            self.item_tid = tid
 
             # Init javascript bounding box (for snapping support)
             self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, self.item_id))
@@ -3178,7 +3186,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         if self.item_type in ["clip", "transition"] and self.item_id:
             # Update most recent clip
-            self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}');".format(self.item_type, self.item_id))
+            self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}', '{}');".format(self.item_type,
+                                                                                              self.item_id,
+                                                                                              self.item_tid))
 
         elif self.item_type == "effect":
             # Add effect only on drop
@@ -3236,6 +3246,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.new_item = False
         self.item_type = None
         self.item_id = None
+        self.item_tid = None
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
@@ -3312,6 +3323,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         self.new_item = False
         self.item_type = None
         self.item_id = None
+        self.item_tid = None
 
         # Delayed zoom audio redraw
         self.redraw_audio_timer = QTimer(self)

@@ -859,7 +859,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Get JSON of most recent item (used by Qt)
-  $scope.updateRecentItemJSON = function (item_type, item_id) {
+  $scope.updateRecentItemJSON = function (item_type, item_id, item_tid) {
 
     // Find item in JSON
     var item_object = null;
@@ -887,10 +887,10 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // update clip in Qt (very important =)
     if (item_type === "clip") {
-      timeline.update_clip_data(JSON.stringify(item_object), true, true, false, null);
+      timeline.update_clip_data(JSON.stringify(item_object), true, true, false, item_tid);
     }
     else if (item_type === "transition") {
-      timeline.update_transition_data(JSON.stringify(item_object), true, false, null);
+      timeline.update_transition_data(JSON.stringify(item_object), true, false, item_tid);
     }
 
     // Resize timeline if it's too small to contain all clips
