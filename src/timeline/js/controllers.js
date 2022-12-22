@@ -724,57 +724,71 @@ App.controller("TimelineCtrl", function ($scope) {
 // Show clip context menu
   $scope.showClipMenu = function (clip_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("DEBUG", "$scope.showClipMenu");
-      $scope.selectClip(clip_id, false, event);
-      timeline.ShowClipMenu(clip_id);
+      setTimeout(function() {
+        timeline.qt_log("DEBUG", "$scope.showClipMenu");
+        $scope.selectClip(clip_id, false, event);
+        timeline.ShowClipMenu(clip_id);
+      });
     }
   };
 
 // Show clip context menu
   $scope.showEffectMenu = function (effect_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("DEBUG", "$scope.showEffectMenu");
-      timeline.ShowEffectMenu(effect_id);
+      setTimeout(function() {
+        timeline.qt_log("DEBUG", "$scope.showEffectMenu");
+        timeline.ShowEffectMenu(effect_id);
+      });
     }
   };
 
 // Show transition context menu
   $scope.showTransitionMenu = function (tran_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("DEBUG", "$scope.showTransitionMenu");
-      $scope.selectTransition(tran_id, false, event);
-      timeline.ShowTransitionMenu(tran_id);
+      setTimeout(function() {
+        timeline.qt_log("DEBUG", "$scope.showTransitionMenu");
+        $scope.selectTransition(tran_id, false, event);
+        timeline.ShowTransitionMenu(tran_id);
+      });
     }
   };
 
 // Show track context menu
   $scope.showTrackMenu = function (layer_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("DEBUG", "$scope.showTrackMenu");
-      timeline.ShowTrackMenu(layer_id);
+      setTimeout(function() {
+        timeline.qt_log("DEBUG", "$scope.showTrackMenu");
+        timeline.ShowTrackMenu(layer_id);
+      });
     }
   };
 
 // Show marker context menu
   $scope.showMarkerMenu = function (marker_id) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("DEBUG", "$scope.showMarkerMenu");
-      timeline.ShowMarkerMenu(marker_id);
+      setTimeout(function() {
+        timeline.qt_log("DEBUG", "$scope.showMarkerMenu");
+        timeline.ShowMarkerMenu(marker_id);
+      });
     }
   };
 
   // Show playhead context menu
   $scope.showPlayheadMenu = function (position) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.qt_log("DEBUG", "$scope.showPlayheadMenu");
-      timeline.ShowPlayheadMenu(position);
+      setTimeout(function() {
+        timeline.qt_log("DEBUG", "$scope.showPlayheadMenu");
+        timeline.ShowPlayheadMenu(position);
+      });
     }
   };
 
   // Show timeline context menu
   $scope.showTimelineMenu = function (e, layer_number) {
     if ($scope.Qt && !$scope.enable_razor) {
-      timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX, null).position, layer_number);
+      setTimeout(function() {
+        timeline.ShowTimelineMenu($scope.getJavaScriptPosition(e.pageX, null).position, layer_number);
+      });
     }
   };
 
@@ -845,7 +859,7 @@ App.controller("TimelineCtrl", function ($scope) {
   };
 
   // Get JSON of most recent item (used by Qt)
-  $scope.updateRecentItemJSON = function (item_type, item_id) {
+  $scope.updateRecentItemJSON = function (item_type, item_id, item_tid) {
 
     // Find item in JSON
     var item_object = null;
@@ -873,10 +887,10 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // update clip in Qt (very important =)
     if (item_type === "clip") {
-      timeline.update_clip_data(JSON.stringify(item_object), true, true, false);
+      timeline.update_clip_data(JSON.stringify(item_object), true, true, false, item_tid);
     }
     else if (item_type === "transition") {
-      timeline.update_transition_data(JSON.stringify(item_object), true, false);
+      timeline.update_transition_data(JSON.stringify(item_object), true, false, item_tid);
     }
 
     // Resize timeline if it's too small to contain all clips

@@ -32,6 +32,7 @@ from classes.query import File, Clip
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt
 import openshot
+import uuid
 
 # Get settings
 s = get_app().get_settings()
@@ -61,9 +62,10 @@ def get_waveform_thread(file_id, clip_list):
 
     arg1: file id to get the audio data of.
     arg2: list of clips to update when the audio data is ready.
+    arg3: tid: transaction id to group waveform saves together
     """
 
-    def getAudioData(file, channel=-1):
+    def getAudioData(file, channel=-1, tid=None):
         """
         Update the file query object with audio data (if found).
         """
@@ -98,7 +100,7 @@ def get_waveform_thread(file_id, clip_list):
 
         # Update file with audio data (only if all channels requested)
         if channel == -1:
-            get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": max_samples_vector}})
+            get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": max_samples_vector}}, tid)
 
         # Restore cursor
         get_app().restoreOverrideCursor()
@@ -114,13 +116,18 @@ def get_waveform_thread(file_id, clip_list):
         log.info("File does not have audio. Skipping")
         return
 
+    # Transaction id to group all deletes together
+    tid = str(uuid.uuid4())
+
     # If the file doesn't have audio data, generate it.
     # A pending audio_data process will have audio_data == [-999]
     file_audio_data = file.data.get("ui", {}).get("audio_data", [])
     if not file_audio_data:
-        # Generate audio data for a specific file
         log.debug("Generating audio data for file %s" % file.id)
-        file_audio_data = getAudioData(file)
+        # Save empty 'audio_data' property before we get audio samples
+        get_app().window.timeline.fileAudioDataReady.emit(file.id, {"ui": {"audio_data": None}}, tid)
+        # Generate audio data for a specific file
+        file_audio_data = getAudioData(file, tid=tid)
 
     if not file_audio_data:
         log.info("No audio data found. Aborting")
@@ -135,18 +142,15 @@ def get_waveform_thread(file_id, clip_list):
         channel_filter = int(clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1))
         if channel_filter != -1:
             # Some kind of filtering is happening, so we need to re-generate waveform data for this clip
-            file_audio_data = getAudioData(file, channel_filter)
+            file_audio_data = getAudioData(file, channel_filter, tid=tid)
 
         # Get File's audio data (since it has changed)
         if not file_audio_data:
             log.info("File has no audio, so we cannot find any waveform audio data")
             continue
 
-        # If clip already has waveform, remove it to re-calculate.
-        # (Used when volume changes the shape of the waveform)
-        if bool(clip.data.get("ui", {}).get("audio_data", [])):
-            log.debug("Removing pre-existing audio data")
-            get_app().window.timeline.audioDataReady.emit(clip.id, {"ui": {"audio_data": None}})
+        # Save empty 'audio_data' property before we get audio samples
+        get_app().window.timeline.clipAudioDataReady.emit(clip.id, {"ui": {"audio_data": None}}, tid)
 
         # Loop through samples from the file, applying this clip's volume curve
         clip_audio_data = []
@@ -173,4 +177,4 @@ def get_waveform_thread(file_id, clip_list):
             clip_audio_data.append(file_audio_data[sample_index] * volume)
 
         # Save this data to the clip object
-        get_app().window.timeline.audioDataReady.emit(clip.id, {"ui": {"audio_data": clip_audio_data}})
+        get_app().window.timeline.clipAudioDataReady.emit(clip.id, {"ui": {"audio_data": clip_audio_data}}, tid)

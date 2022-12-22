@@ -145,7 +145,7 @@ App.directive("tlTransition", function () {
 
           // update transition in Qt (very important =)
           if (scope.Qt) {
-            timeline.update_transition_data(JSON.stringify(scope.transition), true, false);
+            timeline.update_transition_data(JSON.stringify(scope.transition), true, false, null);
           }
 
           dragLoc = null;
