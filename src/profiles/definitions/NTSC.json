@@ -21,7 +21,7 @@
         {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
       ]
     },
-    { "width": 426, "height": 240, "notes": "square quarter wide",
+    { "width": 427, "height": 240, "notes": "square quarter wide",
       "fps":  [
         {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
       ]
