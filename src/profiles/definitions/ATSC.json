@@ -1,0 +1,263 @@
+{
+  "name": "Advanced Television Systems Committee",
+  "abbreviation": "ATSC",
+  "description": "American set of standards for digital television broadcast",
+  "category": "broadcast",
+  "profiles": [
+    { "width": 1920, "height": 1080, "notes": "HDTV",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 1280, "height": 720, "notes": "HDTV",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 704, "height": 480, "notes": "NTSC SD",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 640, "height": 480, "notes": "NTSC SD",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 480, "height": 480, "notes": "NTSC SD",
+      "fps":  [
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 1920, "height": 1080, "notes": "PAL HDTV",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 19, "den": 9}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 1280, "height": 720, "notes": "PAL HDTV",
+      "fps":  [
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 720, "height": 576, "notes": "PAL SD",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 544, "height": 576, "notes": "PAL SD",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 480, "height": 576, "notes": "PAL SD",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 352, "height": 576, "notes": "PAL SD",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 352, "height": 288, "notes": "PAL SD",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 1920, "height": 1080, "notes": "AVC HDTV",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 19, "den": 9}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 1440, "height": 1080, "notes": "AVC HDTV",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 1280, "height": 720, "notes": "AVC HDTV",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
+      ]
+    },
+    { "width": 720, "height": 480, "notes": "AVC SD",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 19, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 704, "height": 480, "notes": "AVC SD",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 19, "den": 9}, "notes": "anamorphic" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 640, "height": 480, "notes": "AVC SD",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 544, "height": 480, "notes": "AVC SD (three quarters)",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 528, "height": 480, "notes": "AVC SD (three quarters)",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 352, "height": 480, "notes": "AVC SD (half)",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 352, "height": 240, "notes": "AVC SD (SIF)",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    },
+    { "width": 176, "height": 120, "notes": "AVC SD (SIF half)",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
+      ]
+    }
+  ]
+}

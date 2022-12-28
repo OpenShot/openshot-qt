@@ -1,0 +1,22 @@
+{
+  "name": "Super Video CD",
+  "abbreviation": "SVCD",
+  "description": "Format used for distributing films on standard 120 mm (4.7 in) optical discs",
+  "category": "disc",
+  "profiles": [
+    { "width": 480, "height": 480, "notes": "NTSC",
+      "fps":  [
+        {"num":  24000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  24000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    },
+    { "width": 480, "height": 576, "notes": "PAL/SECAM",
+      "fps":  [
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
+        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
+      ]
+    }
+  ]
+}
