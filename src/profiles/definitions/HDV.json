@@ -1,26 +1,24 @@
 {
-  "name": "High-Definition Video",
-  "abbreviation": "HDV",
-  "description": "Format for recording of high-definition video on DV cassette tape",
-  "category": "tape",
-  "profiles": [
-    { "width": 1440, "height": 1080, "notes": "HDTV",
-      "fps":  [
-        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" },
-        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    },
-    { "width": 1280, "height": 720, "notes": "HDTV",
-      "fps":  [
-        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  30, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    }
-  ]
+    "name": "High-Definition Video",
+    "abbreviation": "HDV",
+    "description": "Format for recording of high-definition video on DV cassette tape",
+    "category": "tape",
+    "profiles": [
+        { "width": 1440, "height": 1080, "notes": "HDTV", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 4, "den": 3}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 4, "den": 3}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 4, "den": 3}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 4, "den": 3}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 4, "den": 3}}
+            ]
+        },
+        { "width": 1280, "height": 720, "notes": "HDTV", "fps": [
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        }
+    ]
 }

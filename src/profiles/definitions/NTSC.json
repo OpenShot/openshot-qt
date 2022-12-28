@@ -1,40 +1,34 @@
 {
-  "name": "National Television System Committee",
-  "abbreviation": "NTSC",
-  "description": "American standard for analog television broadcast",
-  "category": "broadcast",
-  "profiles": [
-    { "width": 704, "height": 480, "notes": "",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    },
-    { "width": 720, "height": 480, "notes": "",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    },
-    { "width": 320, "height": 240, "notes": "square quarter",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
-      ]
-    },
-    { "width": 427, "height": 240, "notes": "square quarter wide",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 640, "height": 480, "notes": "square",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
-      ]
-    },
-    { "width": 854, "height": 480, "notes": "square wide",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    }
-  ]
+    "name": "National Television System Committee",
+    "abbreviation": "NTSC",
+    "description": "American standard for analog television broadcast",
+    "category": "broadcast",
+    "profiles": [
+        { "width": 704, "height": 480, "notes": "", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 40, "den": 33}}
+            ]
+        },
+        { "width": 720, "height": 480, "notes": "", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 8, "den": 9}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 32, "den": 27}}
+            ]
+        },
+        { "width": 320, "height": 240, "notes": "square quarter", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 427, "height": 240, "notes": "square quarter wide", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 640, "height": 480, "notes": "square", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 854, "height": 480, "notes": "square wide", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        }
+    ]
 }

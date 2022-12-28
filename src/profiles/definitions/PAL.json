@@ -1,40 +1,34 @@
 {
-  "name": "Phase Alternating Line",
-  "abbreviation": "PAL",
-  "description": "European standard for analog television broadcast",
-  "category": "broadcast",
-  "profiles": [
-    { "width": 704, "height": 576, "notes": "",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    },
-    { "width": 720, "height": 576, "notes": "",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    },
-    { "width": 384, "height": 288, "notes": "square quarter",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
-      ]
-    },
-    { "width": 512, "height": 288, "notes": "square quarter wide",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 768, "height": 576, "notes": "square",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "" }
-      ]
-    },
-    { "width": 1024, "height": 576, "notes": "square wide",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    }
-  ]
+    "name": "Phase Alternating Line",
+    "abbreviation": "PAL",
+    "description": "European standard for analog television broadcast",
+    "category": "broadcast",
+    "profiles": [
+        { "width": 704, "height": 576, "notes": "", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 720, "height": 576, "notes": "", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 16, "den": 15}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 64, "den": 45}}
+            ]
+        },
+        { "width": 384, "height": 288, "notes": "square quarter", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 512, "height": 288, "notes": "square quarter wide", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 768, "height": 576, "notes": "square", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1024, "height": 576, "notes": "square wide", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        }
+    ]
 }

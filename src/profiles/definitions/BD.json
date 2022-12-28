@@ -1,62 +1,55 @@
 {
-  "name": "Blu-ray",
-  "abbreviation": "BD",
-  "description": "Format used to store HD digital video on Blu-ray discs",
-  "category": "disc",
-  "profiles": [
-    { "width": 3840, "height": 2160, "notes": "4K UHD HEVC",
-      "fps":  [
-        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 1920, "height": 1080, "notes": "HD HEVC",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  60, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 1920, "height": 1080, "notes": "HD",
-      "fps":  [
-        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 1440, "height": 1080, "notes": "HD",
-      "fps":  [
-        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 1280, "height": 720, "notes": "HD",
-      "fps":  [
-        {"num":  24000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  24, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  50, "den":  1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" },
-        {"num":  60000, "den":  1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "" }
-      ]
-    },
-    { "width": 720, "height": 480, "notes": "SD NTSC",
-      "fps":  [
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
-        {"num":  30000, "den":  1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    },
-    { "width": 720, "height": 576, "notes": "SD PAL",
-      "fps":  [
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "" },
-        {"num":  25, "den":  1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic" }
-      ]
-    }
-  ]
+    "name": "Blu-ray",
+    "abbreviation": "BD",
+    "description": "Format used to store HD digital video on Blu-ray discs",
+    "category": "disc",
+    "profiles": [
+        { "width": 3840, "height": 2160, "notes": "4K UHD HEVC", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1920, "height": 1080, "notes": "HD HEVC", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1920, "height": 1080, "notes": "HD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1440, "height": 1080, "notes": "HD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 4, "den": 3}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 4, "den": 3}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 4, "den": 3}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 4, "den": 3}}
+            ]
+        },
+        { "width": 1280, "height": 720, "notes": "HD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 720, "height": 480, "notes": "SD NTSC", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 8, "den": 9}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 32, "den": 27}}
+            ]
+        },
+        { "width": 720, "height": 576, "notes": "SD PAL", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 16, "den": 15}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "anamorphic", "sar": {"num": 64, "den": 45}}
+            ]
+        }
+    ]
 }
