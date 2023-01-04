@@ -287,37 +287,69 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         s = get_app().get_settings()
         default_profile = s.get("default-profile")
 
+        # Loop through legacy profiles
+        LEGACY_PROFILE_PATH = os.path.join(info.PROFILES_PATH, "legacy")
+        legacy_profile = None
+        for legacy_filename in os.listdir(LEGACY_PROFILE_PATH):
+            legacy_profile_path = os.path.join(LEGACY_PROFILE_PATH, legacy_filename)
+            try:
+                # Load Profile and append description
+                profile = openshot.Profile(legacy_profile_path)
+                if default_profile == profile.info.description:
+                    legacy_profile = profile
+                    break
+            except RuntimeError as e:
+                # Ignore legacy parsing errors
+                pass
+
         # Loop through profiles
         profile_dirs = [info.USER_PROFILES_PATH, info.PROFILES_PATH]
         available_dirs = [f for f in profile_dirs if os.path.exists(f)]
+        profile = None
         for profile_folder in available_dirs:
-            for file in os.listdir(profile_folder):
+            for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_path):
+                    continue
                 try:
                     # Load Profile and append description
-                    profile = openshot.Profile(profile_path)
+                    temp_profile = openshot.Profile(profile_path)
 
-                    if default_profile == profile.info.description:
-                        log.info("Setting default profile to %s" % profile.info.description)
-
-                        # Update default profile
-                        self._data["profile"] = profile.info.description
-                        self._data["width"] = profile.info.width
-                        self._data["height"] = profile.info.height
-                        self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
-                        self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
-                        self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+                    if default_profile == temp_profile.info.description:
+                        profile = self.apply_profile(temp_profile)
+                        break
+                    elif legacy_profile and legacy_profile.Key() == temp_profile.Key():
+                        # Switch from legacy profile to new profile
+                        profile = self.apply_profile(temp_profile)
                         break
 
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
+        # Update default profile (if it changed)
+        if profile and default_profile != profile.info.description:
+            log.info(f"Updating default-profile from legacy `{default_profile}` to `{profile.info.description}`.")
+            s.set("default-profile", profile.info.description)
+
         # Apply default audio playback settings to this data structure
         self.apply_default_audio_settings()
 
         # Set default project ID
         self._data["id"] = self.generate_id()
+
+    def apply_profile(self, profile):
+        """Apply a specific profile to the current project data"""
+        log.info("Setting profile to %s" % profile.info.description)
+
+        # Update default profile
+        self._data["profile"] = profile.info.description
+        self._data["width"] = profile.info.width
+        self._data["height"] = profile.info.height
+        self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
+        self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
+        self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+        return profile
 
     def load(self, file_path, clear_thumbnails=True):
         """ Load project from file """
