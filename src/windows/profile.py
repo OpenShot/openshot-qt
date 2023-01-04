@@ -73,24 +73,22 @@ class Profile(QDialog):
         self.profile_names = []
         self.profile_paths = {}
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
-            for file in os.listdir(profile_folder):
+            for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_path):
+                    continue
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
 
                     # Add description of Profile to list
-                    profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
-                    self.profile_names.append(profile_name)
-                    self.profile_paths[profile_name] = profile_path
+                    self.profile_names.append(profile.LongNameWithDesc())
+                    self.profile_paths[profile.LongNameWithDesc()] = profile_path
 
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing
                     # the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
-
-        # Sort list
-        self.profile_names.sort()
 
         # Loop through sorted profiles
         for box_index, profile_name in enumerate(self.profile_names):
@@ -179,7 +177,6 @@ class Profile(QDialog):
         win.timeline_sync.timeline.ApplyMapperToClips()
 
         # Update Window Title and stored index
-        win.SetWindowTitle(profile.info.description)
         self.initial_index = index
 
         # Seek to the same location, adjusted for new frame rate

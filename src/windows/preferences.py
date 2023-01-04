@@ -263,16 +263,16 @@ class Preferences(QDialog):
                         value_list = []
                         # Loop through profiles
                         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
-                            for file in os.listdir(profile_folder):
+                            for file in reversed(sorted(os.listdir(profile_folder))):
                                 # Load Profile and append description
                                 profile_path = os.path.join(profile_folder, file)
+                                if os.path.isdir(profile_path):
+                                    continue
                                 profile = openshot.Profile(profile_path)
                                 value_list.append({
-                                    "name": profile.info.description,
+                                    "name": profile.LongName(),
                                     "value": profile.info.description
                                     })
-                        # Sort profile list
-                        value_list.sort(key=operator.itemgetter("name"))
 
                     # Overwrite value list (for audio device list dropdown)
                     if param["setting"] == "playback-audio-device":
