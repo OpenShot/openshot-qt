@@ -48,6 +48,19 @@ class CompactJSONEncoder(json.JSONEncoder):
         return self.encode(o)
 
 
+def save_profile(definition_path, json_details):
+    """Save a profile with compact formatting"""
+    print(f" - Updating JSON {definition_path}")
+    with open(definition_path, "w") as f1:
+        formatted_json = json.dumps(json_details, indent=4, cls=CompactJSONEncoder)
+        formatted_json = re.sub('\n            ', ' ', formatted_json, flags=re.DOTALL)
+        formatted_json = re.sub(',\n            ', ', ', formatted_json, flags=re.DOTALL)
+        formatted_json = re.sub('}, {', '},\n                {', formatted_json, flags=re.DOTALL)
+        formatted_json = re.sub('\\[{', '[\n                {', formatted_json, flags=re.DOTALL)
+        formatted_json = re.sub('}]', '}\n            ]', formatted_json, flags=re.DOTALL)
+        f1.write(formatted_json)
+
+
 PATH = os.path.dirname(os.path.realpath(__file__))
 
 # Check for arg value
@@ -71,34 +84,49 @@ FOUND_SAMPLE_RATIOS = []
 
 # Parse legacy profiles
 PROFILE_PATH = os.path.dirname(PATH)
+LEGACY_PROFILE_PATH = os.path.join(PROFILE_PATH, "legacy")
+
 legacy_profiles = {}
-LEGACY_SAMPLE_RATIOS = {}
-for profile_name in os.listdir(PROFILE_PATH):
-    profile_path = os.path.join(PROFILE_PATH, profile_name)
+for profile_name in os.listdir(LEGACY_PROFILE_PATH):
+    profile_path = os.path.join(LEGACY_PROFILE_PATH, profile_name)
     if not os.path.isdir(profile_path):
         profile = openshot.Profile(profile_path)
-        profile_key = "%04dx%04d@%d/%d@%d:%d|%d" % (profile.info.width, profile.info.height, profile.info.fps.num,
-                                            profile.info.fps.den, profile.info.display_ratio.num,
-                                            profile.info.display_ratio.den, not profile.info.interlaced_frame)
-        legacy_profiles[profile_key] = (profile, profile_name)
-        LEGACY_SAMPLE_RATIOS[(profile.info.pixel_ratio.num, profile.info.pixel_ratio.den)] = profile
+        # Only consider profiles with 'legacy' name
+        profile_key = profile.Key()
+        if profile_key not in legacy_profiles:
+            legacy_profiles[profile_key] = [(profile, profile_name)]
+        else:
+            legacy_profiles[profile_key].append((profile, profile_name))
 
 # Parse each definition *.json file in /definitions/ directory
 print("Reading JSON profile definitions")
-new_profiles = {}
+NEW_PROFILES = {}
 for definition in os.listdir(PATH):
     if definition.endswith(".json"):
         print(f"- {definition}")
         definition_path = os.path.join(PATH, definition)
         with open(definition_path, "r") as f:
             json_details = json.loads(f.read())
+            profile_abr = json_details.get("abbreviation")
+            profile_category = json_details.get("category")
 
             # Loop through profiles
             for p in json_details.get("profiles", []):
                 for r in p.get("fps", []):
+                    # Populate Profile object (for helper functions)
+                    profile = openshot.Profile()
+                    profile.info.width = p.get("width")
+                    profile.info.height = p.get("height")
+                    profile.info.fps.num = r.get("num")
+                    profile.info.fps.den = r.get("den")
+                    profile.info.display_ratio.num = r.get("dar").get("num")
+                    profile.info.display_ratio.den = r.get("dar").get("den")
+                    profile.info.pixel_ratio.num = r.get("sar").get("num")
+                    profile.info.pixel_ratio.den = r.get("sar").get("den")
+
                     # Verify accurate DAR
-                    size = openshot.Fraction(p.get("width"), p.get("height"))
-                    dar = openshot.Fraction(r.get("dar").get("num"), r.get("dar").get("den"))
+                    size = openshot.Fraction(profile.info.width, profile.info.height)
+                    dar = profile.info.display_ratio
                     size.Reduce()
                     dar.Reduce()
                     smallest_diff = 1.0
@@ -122,56 +150,106 @@ for definition in os.listdir(PATH):
                         # Add sample ratio
                         r["sar"] = {"num": 1, "den": 1}
 
-                    profile_key = "%04dx%04d@%d/%d@%d:%d|%d" % (p.get("width"), p.get("height"), r.get("num"),
-                                                                r.get("den"),  r.get("dar").get("num"),
-                                                                r.get("dar").get("den"), r.get("progressive"))
-                    new_profiles[profile_key] = (p, r)
+                    profile_key = profile.Key()
+
+                    # Add profile to dict
+                    # We can have multiple matches for a single key though
+                    if profile_key not in NEW_PROFILES:
+                        NEW_PROFILES[profile_key] = [(p, r, profile_abr, profile_category)]
+                    else:
+                        NEW_PROFILES[profile_key].append((p, r, profile_abr, profile_category))
 
             if mode == "update":
                 # Save definition json
-                print(f" - Updating JSON {definition}")
-                with open(definition_path, "w") as f1:
-                    formatted_json = json.dumps(json_details, indent=4, cls=CompactJSONEncoder)
-                    formatted_json = re.sub('\n            ', ' ', formatted_json, flags=re.DOTALL)
-                    formatted_json = re.sub(',\n            ', ', ', formatted_json, flags=re.DOTALL)
-                    formatted_json = re.sub('}, {', '},\n                {', formatted_json, flags=re.DOTALL)
-                    formatted_json = re.sub('\\[{', '[\n                {', formatted_json, flags=re.DOTALL)
-                    formatted_json = re.sub('}]', '}\n            ]', formatted_json, flags=re.DOTALL)
-                    f1.write(formatted_json)
+                save_profile(definition_path, json_details)
 
 if mode == "validate":
     # Compare legacy and new profiles
     unmatched = []
     matched = []
     for legacy_key in legacy_profiles.keys():
-        if legacy_key not in new_profiles.keys():
+        if legacy_key in NEW_PROFILES.keys():
             legacy = legacy_profiles[legacy_key]
-            unmatched.append(f"{legacy_key} {legacy[1]}")
+            unmatched.append(f"{legacy_key} {legacy[0][1]}")
         else:
             legacy = legacy_profiles[legacy_key]
-            new_profile = new_profiles[legacy_key]
-            matched.append((legacy[1], new_profile))
+            new_profile = NEW_PROFILES[legacy_key]
+            matched.append((legacy[0][1], new_profile))
 
     print(f"\nUnmatched Legacy Profiles: {len(unmatched)}/{len(legacy_profiles.keys())}")
     for key in unmatched:
         legacy = legacy_profiles[key.split(" ")[0]]
-        s = openshot.Fraction(legacy[0].info.pixel_ratio.num, legacy[0].info.pixel_ratio.den)
-        print(f" - {key} = {round(legacy[0].info.width * s.ToDouble())}x{legacy[0].info.height}")
+        s = openshot.Fraction(legacy[0][0].info.pixel_ratio.num, legacy[0][0].info.pixel_ratio.den)
+        print(f" - {key} = {round(legacy[0][0].info.width * s.ToDouble())}x{legacy[0][0].info.height}")
 
     # Compare new profiles and legacy profiles
     unmatched = []
-    # for new in new_profiles.keys():
+    # for new in NEW_PROFILES.keys():
     #     if new not in legacy_profiles.keys():
     #         unmatched.append(new)
-    print(f"\nUnmatched New Profiles: {len(unmatched)}/{len(new_profiles.keys())}")
+    print(f"\nUnmatched New Profiles: {len(unmatched)}/{len(NEW_PROFILES.keys())}")
     # for key in unmatched:
     #     print(f" - {key}")
 
+if mode == "generate":
+    # Delete legacy profiles
+    for profile_name in os.listdir(PROFILE_PATH):
+        profile_path = os.path.join(PROFILE_PATH, profile_name)
+        if not os.path.isdir(profile_path):
+            os.unlink(profile_path)
+
+    for new_key in reversed(sorted(NEW_PROFILES.keys())):
+        tags = []
+        for p in NEW_PROFILES[new_key]:
+            # Format file name for new profile
+            profile_abr = p[2]
+            profile_notes = p[0].get("notes")
+            fps_notes = p[1].get("notes")
+            for possible_tag in [profile_abr, profile_notes, fps_notes]:
+                if possible_tag and possible_tag not in ["HDTV", "VGA", "FB"] and possible_tag not in tags:
+                    tags.append(possible_tag)
+
+            progressive = p[1].get("progressive")
+            size = {"width": p[0].get("width"), "height": p[0].get("height")}
+            fps = {"num": p[1].get("num"), "den": p[1].get("den")}
+            dar = p[1].get("dar")
+            sar = p[1].get("sar")
+            interlaced_string = "i"
+            progressive_string = "0"
+            if progressive:
+                interlaced_string = "p"
+                progressive_string = "1"
+            fps_string = f'{fps.get("num")}'
+            if p[1].get("den") != 1:
+                fps_string = f'{(fps.get("num") / fps.get("den")):.04}'
+            anamorphic_string = ""
+            if fps_notes == "anamorphic":
+                anamorphic_string = "_anamorphic"
+            profile_name = f'{size.get("width"):05}x{size.get("height"):04}{interlaced_string}{fps_string.replace(".", "")}_{dar.get("num")}:{dar.get("den")}{anamorphic_string}'
+            profile_path = os.path.join(PROFILE_PATH, profile_name)
+
+        # Create new profile file
+        profile_body = f"""description={" ".join(tags)} {p[0].get("height")}{interlaced_string} {fps_string} fps
+frame_rate_num={fps.get("num")}
+frame_rate_den={fps.get("den")}
+width={size.get("width")}
+height={size.get("height")}
+progressive={progressive_string}
+sample_aspect_num={sar.get("num")}
+sample_aspect_den={sar.get("den")}
+display_aspect_num={dar.get("num")}
+display_aspect_den={dar.get("den")}"""
+
+        # Write file
+        print(f"Generating profile file: {profile_name}")
+        with open(profile_path, "w") as profile_file_object:
+            profile_file_object.write(profile_body)
+
 if mode == "display":
     # Print new profiles
-    print(f"\nNEW Profiles: {len(new_profiles.keys())}")
-    for new_key in reversed(sorted(new_profiles.keys())):
-        p = new_profiles[new_key]
-        s = openshot.Fraction(p[1].get("sar").get("num"), p[1].get("sar").get("den"))
-        s.Reduce()
-        print(f' - {p[0].get("width")}x{p[0].get("height")} = {round(p[0].get("width") * s.ToDouble())}x{p[0].get("height")}\t\t({s.num}:{s.den})\t\t{new_key}')
+    print(f"\nNEW Profiles: {len(NEW_PROFILES.keys())}")
+    for new_key in reversed(sorted(NEW_PROFILES.keys())):
+        for p in NEW_PROFILES[new_key]:
+            s = openshot.Fraction(p[1].get("sar").get("num"), p[1].get("sar").get("den"))
+            s.Reduce()
+            print(f' - {p[0].get("width")}x{p[0].get("height")} = {round(p[0].get("width") * s.ToDouble())}x{p[0].get("height")}\t\t({s.num}:{s.den})\t\t{new_key}')
