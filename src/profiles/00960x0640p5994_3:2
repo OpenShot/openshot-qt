@@ -1,0 +1,10 @@
+description=DVGA 640p 59.94 fps
+frame_rate_num=60000
+frame_rate_den=1001
+width=960
+height=640
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=3
+display_aspect_den=2

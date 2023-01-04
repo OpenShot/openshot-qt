@@ -1,0 +1,10 @@
+description=nHD 360p 60 fps
+frame_rate_num=60
+frame_rate_den=1
+width=640
+height=360
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=16
+display_aspect_den=9

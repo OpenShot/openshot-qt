@@ -1,0 +1,10 @@
+description=QQVGA 120p 29.97 fps
+frame_rate_num=30000
+frame_rate_den=1001
+width=160
+height=120
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=4
+display_aspect_den=3

@@ -1,0 +1,10 @@
+description=WSVGA 576p 30 fps
+frame_rate_num=30
+frame_rate_den=1
+width=1024
+height=576
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=16
+display_aspect_den=9
