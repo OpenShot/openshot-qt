@@ -1,0 +1,10 @@
+description=NTSC BD SD NTSC DVB DVD NTSC SD D-1 ATSC AVC SD 480p 29.97 fps
+frame_rate_num=30000
+frame_rate_den=1001
+width=720
+height=480
+progressive=1
+sample_aspect_num=8
+sample_aspect_den=9
+display_aspect_num=4
+display_aspect_den=4
