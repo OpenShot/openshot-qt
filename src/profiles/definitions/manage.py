@@ -201,6 +201,17 @@ if mode == "generate":
     for new_key in reversed(sorted(NEW_PROFILES.keys())):
         tags = []
         for p in NEW_PROFILES[new_key]:
+            # Populate Profile object (for helper functions)
+            profile = openshot.Profile()
+            profile.info.width = p[0].get("width")
+            profile.info.height = p[0].get("height")
+            profile.info.fps.num = p[1].get("num")
+            profile.info.fps.den = p[1].get("den")
+            profile.info.display_ratio.num = p[1].get("dar").get("num")
+            profile.info.display_ratio.den = p[1].get("dar").get("den")
+            profile.info.pixel_ratio.num = p[1].get("sar").get("num")
+            profile.info.pixel_ratio.den = p[1].get("sar").get("den")
+
             # Format file name for new profile
             profile_abr = p[2]
             profile_notes = p[0].get("notes")
@@ -209,36 +220,29 @@ if mode == "generate":
                 if possible_tag and possible_tag not in ["HDTV", "VGA", "FB"] and possible_tag not in tags:
                     tags.append(possible_tag)
 
-            progressive = p[1].get("progressive")
-            size = {"width": p[0].get("width"), "height": p[0].get("height")}
-            fps = {"num": p[1].get("num"), "den": p[1].get("den")}
-            dar = p[1].get("dar")
-            sar = p[1].get("sar")
             interlaced_string = "i"
             progressive_string = "0"
-            if progressive:
+            if not profile.info.interlaced_frame:
                 interlaced_string = "p"
                 progressive_string = "1"
-            fps_string = f'{fps.get("num")}'
-            if p[1].get("den") != 1:
-                fps_string = f'{(fps.get("num") / fps.get("den")):.04}'
-            anamorphic_string = ""
-            if fps_notes == "anamorphic":
-                anamorphic_string = "_anamorphic"
-            profile_name = f'{size.get("width"):05}x{size.get("height"):04}{interlaced_string}{fps_string.replace(".", "")}_{dar.get("num")}:{dar.get("den")}{anamorphic_string}'
+            fps_string = f'{profile.info.fps.num}'
+            if profile.info.fps.den != 1:
+                fps_string = f'{profile.info.fps.ToDouble():.04}'
+
+            profile_name = profile.Key()
             profile_path = os.path.join(PROFILE_PATH, profile_name)
 
         # Create new profile file
-        profile_body = f"""description={" ".join(tags)} {p[0].get("height")}{interlaced_string} {fps_string} fps
-frame_rate_num={fps.get("num")}
-frame_rate_den={fps.get("den")}
-width={size.get("width")}
-height={size.get("height")}
+        profile_body = f"""description={" ".join(tags)} {profile.info.height}{interlaced_string} {fps_string} fps
+frame_rate_num={profile.info.fps.num}
+frame_rate_den={profile.info.fps.den}
+width={profile.info.width}
+height={profile.info.height}
 progressive={progressive_string}
-sample_aspect_num={sar.get("num")}
-sample_aspect_den={sar.get("den")}
-display_aspect_num={dar.get("num")}
-display_aspect_den={dar.get("den")}"""
+sample_aspect_num={profile.info.pixel_ratio.num}
+sample_aspect_den={profile.info.pixel_ratio.den}
+display_aspect_num={profile.info.display_ratio.num}
+display_aspect_den={profile.info.display_ratio.num}"""
 
         # Write file
         print(f"Generating profile file: {profile_name}")
@@ -250,6 +254,17 @@ if mode == "display":
     print(f"\nNEW Profiles: {len(NEW_PROFILES.keys())}")
     for new_key in reversed(sorted(NEW_PROFILES.keys())):
         for p in NEW_PROFILES[new_key]:
-            s = openshot.Fraction(p[1].get("sar").get("num"), p[1].get("sar").get("den"))
-            s.Reduce()
-            print(f' - {p[0].get("width")}x{p[0].get("height")} = {round(p[0].get("width") * s.ToDouble())}x{p[0].get("height")}\t\t({s.num}:{s.den})\t\t{new_key}')
+            # Populate Profile object (for helper functions)
+            profile = openshot.Profile()
+            profile.info.width = p[0].get("width")
+            profile.info.height = p[0].get("height")
+            profile.info.fps.num = p[1].get("num")
+            profile.info.fps.den = p[1].get("den")
+            profile.info.display_ratio.num = p[1].get("dar").get("num")
+            profile.info.display_ratio.den = p[1].get("dar").get("den")
+            profile.info.pixel_ratio.num = p[1].get("sar").get("num")
+            profile.info.pixel_ratio.den = p[1].get("sar").get("den")
+
+            sar = profile.info.pixel_ratio
+            sar.Reduce()
+            print(f'{profile.Key()}\t\t{profile.ShortName()}\t\t{profile.LongName()}\t\t{profile.LongNameWithDesc()}')
