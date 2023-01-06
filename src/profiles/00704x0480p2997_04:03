@@ -1,4 +1,4 @@
-description=NTSC CIF 4SIF(525) DVD NTSC SD 4SIF ATSC NTSC SD AVC SD 480p 29.97 fps
+description=CIF 4SIF(525) NTSC DVD NTSC SD 4SIF ATSC NTSC SD AVC SD 480p 29.97 fps
 frame_rate_num=30000
 frame_rate_den=1001
 width=704

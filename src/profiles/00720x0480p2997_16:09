@@ -1,4 +1,4 @@
-description=NTSC anamorphic BD SD NTSC DVB DVD NTSC SD D-1 ATSC AVC SD 480p 29.97 fps
+description=DVD NTSC SD D-1 anamorphic ATSC AVC SD 480p 29.97 fps
 frame_rate_num=30000
 frame_rate_den=1001
 width=720

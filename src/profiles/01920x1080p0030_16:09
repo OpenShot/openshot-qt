@@ -1,4 +1,4 @@
-description=DVB ATSC AVC HDTV Horizontal FHD FHD 1080p 30 fps
+description=ATSC AVC HDTV Horizontal FHD FHD 1080p 30 fps
 frame_rate_num=30
 frame_rate_den=1
 width=1920

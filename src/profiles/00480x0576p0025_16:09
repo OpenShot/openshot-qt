@@ -1,4 +1,4 @@
-description=SVCD PAL/SECAM anamorphic ATSC PAL SD 576p 25 fps
+description=ATSC PAL SD anamorphic 576p 25 fps
 frame_rate_num=25
 frame_rate_den=1
 width=480
