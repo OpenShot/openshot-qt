@@ -14,6 +14,14 @@ import json
 import openshot
 
 
+PATH = os.path.dirname(os.path.realpath(__file__))
+PROFILE_PATH = os.path.dirname(PATH)
+LEGACY_PROFILE_PATH = os.path.join(PROFILE_PATH, "legacy")
+PRESET_REGEX = re.compile(r'.*<projectprofile>(.*)</projectprofile>')
+legacy_profiles = {}
+NEW_PROFILES = {}
+
+
 class CompactJSONEncoder(json.JSONEncoder):
     """A JSON Encoder that puts nested lists on one line (more compact)."""
     def __init__(self, *args, **kwargs):
@@ -61,7 +69,17 @@ def save_profile(definition_path, json_details):
         f1.write(formatted_json)
 
 
-PATH = os.path.dirname(os.path.realpath(__file__))
+def replace_preset_profile(match):
+    """Replace matched string"""
+    legacy_profile_name = match.groups(0)[0]
+    for key, profile_details in legacy_profiles.items():
+        for profile_tuple in profile_details:
+            legacy_profile = profile_tuple[0]
+            if legacy_profile_name == legacy_profile.info.description:
+                new_profile_path = os.path.join(PROFILE_PATH, legacy_profile.Key())
+                new_profile_obj = openshot.Profile(new_profile_path)
+                return f"\t<projectprofile>{new_profile_obj.info.description}</projectprofile>"
+
 
 # Check for arg value
 mode = ""
@@ -82,11 +100,7 @@ FOUND_SAMPLE_RATIOS = []
 #     for m in range(1, 1000):
 #         SAMPLE_RATIOS.append((n, m))
 
-# Parse legacy profiles
-PROFILE_PATH = os.path.dirname(PATH)
-LEGACY_PROFILE_PATH = os.path.join(PROFILE_PATH, "legacy")
 
-legacy_profiles = {}
 for profile_name in os.listdir(LEGACY_PROFILE_PATH):
     profile_path = os.path.join(LEGACY_PROFILE_PATH, profile_name)
     if not os.path.isdir(profile_path):
@@ -100,7 +114,6 @@ for profile_name in os.listdir(LEGACY_PROFILE_PATH):
 
 # Parse each definition *.json file in /definitions/ directory
 print("Reading JSON profile definitions")
-NEW_PROFILES = {}
 for definition in os.listdir(PATH):
     if definition.endswith(".json"):
         print(f"- {definition}")
@@ -123,6 +136,7 @@ for definition in os.listdir(PATH):
                     profile.info.display_ratio.den = r.get("dar").get("den")
                     profile.info.pixel_ratio.num = r.get("sar").get("num")
                     profile.info.pixel_ratio.den = r.get("sar").get("den")
+                    profile.info.interlaced_frame = not r.get("progressive")
 
                     # Verify accurate DAR
                     size = openshot.Fraction(profile.info.width, profile.info.height)
@@ -211,6 +225,7 @@ if mode == "generate":
             profile.info.display_ratio.den = p[1].get("dar").get("den")
             profile.info.pixel_ratio.num = p[1].get("sar").get("num")
             profile.info.pixel_ratio.den = p[1].get("sar").get("den")
+            profile.info.interlaced_frame = not p[1].get("progressive")
 
             # Format file name for new profile
             profile_abr = p[2]
@@ -249,6 +264,16 @@ display_aspect_den={profile.info.display_ratio.num}"""
         with open(profile_path, "w") as profile_file_object:
             profile_file_object.write(profile_body)
 
+    # Migrate any related presets
+    PRESETS_PATH = os.path.join(os.path.dirname(os.path.dirname(PATH)), "presets")
+    for preset_name in os.listdir(PRESETS_PATH):
+        preset_path = os.path.join(PRESETS_PATH, preset_name)
+        with open(preset_path, "r") as f:
+            preset_body = f.read()
+            preset_body = re.sub(PRESET_REGEX, replace_preset_profile, preset_body)
+            with open(preset_path, "w") as f1:
+                f1.write(preset_body)
+
 if mode == "display":
     # Print new profiles
     print(f"\nNEW Profiles: {len(NEW_PROFILES.keys())}")
@@ -264,6 +289,7 @@ if mode == "display":
             profile.info.display_ratio.den = p[1].get("dar").get("den")
             profile.info.pixel_ratio.num = p[1].get("sar").get("num")
             profile.info.pixel_ratio.den = p[1].get("sar").get("den")
+            profile.info.interlaced_frame = not p[1].get("progressive")
 
             sar = profile.info.pixel_ratio
             sar.Reduce()
