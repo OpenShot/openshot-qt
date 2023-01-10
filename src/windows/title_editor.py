@@ -297,7 +297,7 @@ class TitleEditor(QDialog):
             title_text.append(text)
 
             # Set font size (for possible font dialog)
-            s = node.attributes["style"].value
+            s = node.getAttribute("style")
             ard = style_to_dict(s)
             fs = ard.get("font-size")
             if fs and fs.endswith("px"):
@@ -459,7 +459,7 @@ class TitleEditor(QDialog):
         for node in self.text_nodes + self.tspan_nodes:
 
             # Get the value in the style attribute and turn into a dict
-            s = node.attributes["style"].value
+            s = node.getAttribute("style")
             ard = style_to_dict(s)
             # Get fill color or default to white
             color = ard.get("fill", "#FFF")
@@ -503,7 +503,7 @@ class TitleEditor(QDialog):
                         for stop_node in ref_node.childNodes:
                             if stop_node.nodeName == "stop":
                                 # get color from stop
-                                ard = style_to_dict(stop_node.attributes["style"].value)
+                                ard = style_to_dict(stop_node.getAttribute("style"))
                                 if "stop-color" in ard:
                                     return ard.get("stop-color")
         return ""
@@ -513,7 +513,7 @@ class TitleEditor(QDialog):
 
         if self.rect_node:
             # All backgrounds should be the first (index 0) rect tag in the svg
-            s = self.rect_node[0].attributes["style"].value
+            s = self.rect_node[0].getAttribute("style")
             ard = style_to_dict(s)
 
             # Get fill color or default to black + full opacity
@@ -538,7 +538,7 @@ class TitleEditor(QDialog):
         # Loop through each TEXT element
         for text_child in self.text_nodes + self.tspan_nodes:
             # set the style elements for the main text node
-            s = text_child.attributes["style"].value
+            s = text_child.getAttribute("style")
             ard = style_to_dict(s)
             set_if_existing(ard, "font-style", self.font_style)
             set_if_existing(ard, "font-family", f"'{self.font_family}'")
@@ -557,7 +557,7 @@ class TitleEditor(QDialog):
 
         if self.rect_node:
             # Turn the style attribute into a dict for modification
-            s = self.rect_node[0].attributes["style"].value
+            s = self.rect_node[0].getAttribute("style")
             ard = style_to_dict(s)
             ard.update({
                 "fill": color,
@@ -572,7 +572,7 @@ class TitleEditor(QDialog):
         # Loop through each TEXT element
         for text_child in self.text_nodes + self.tspan_nodes:
             # SET TEXT PROPERTIES
-            s = text_child.attributes["style"].value
+            s = text_child.getAttribute("style")
             ard = style_to_dict(s)
             ard.update({
                 "fill": color,
