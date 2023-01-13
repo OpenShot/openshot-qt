@@ -4,7 +4,7 @@
     "description": "Format used to store and transmit digital video used in video teleconferencing systems",
     "category": "computer",
     "profiles": [
-        { "width": 128, "height": 96, "notes": "SQCIF", "fps": [
+        { "width": 128, "height": 96, "notes": "SQ CIF", "fps": [
                 {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD", "sar": {"num": 1, "den": 1}},
                 {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD", "sar": {"num": 1, "den": 1}}

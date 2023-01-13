@@ -248,6 +248,17 @@ if mode == "generate":
             fps_string = f'{profile.info.fps.num}'
             if profile.info.fps.den != 1:
                 fps_string = f'{profile.info.fps.ToDouble():.04}'
+
+            # Move tags (NTSC/PAL first, Anamorphic last)
+            for first in ["SD", "HD", "NTSC", "PAL"]:
+                if first in tags:
+                    tags.remove(first)
+                    tags.insert(0, first)
+            for last in ["Anamorphic", ]:
+                if last in tags:
+                    tags.remove(last)
+                    tags.append(last)
+
             profile.info.description = f'{" ".join(tags)} {profile.info.height}{interlaced_string} {fps_string} fps'
 
             profile_name = profile.Key()

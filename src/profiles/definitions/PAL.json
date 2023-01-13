@@ -22,7 +22,7 @@
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 768, "height": 576, "notes": "PAL SD Square", "fps": [
+        { "width": 768, "height": 576, "notes": "PAL SD SQ", "fps": [
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
