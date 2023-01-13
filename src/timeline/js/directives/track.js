@@ -71,6 +71,7 @@ App.directive("tlTrack", function ($timeout) {
 
           // Get uuid to group all these updates as a single transaction
           var tid = timeline.get_uuid();
+          var drop_track_num = -1;
 
           // with each dragged clip, find out which track they landed on
           // Loop through each selected item, and remove the selection if multiple items are selected
@@ -120,8 +121,10 @@ App.directive("tlTrack", function ($timeout) {
               item_left = 0;
             }
 
-            // get track the item was dropped on
-            var drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
+            // get track the item was dropped on (only 1 time, use same layer for all dropped clips)
+            if (drop_track_num == -1) {
+              drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
+            }
 
             // if the droptrack was found, update the json
             if (drop_track_num !== -1) {
