@@ -37,7 +37,7 @@
                 {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 720, "height": 1280, "notes": "HD vertical", "fps": [
+        { "width": 720, "height": 1280, "notes": "HD Vertical", "fps": [
                 {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 24, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
@@ -70,7 +70,7 @@
                 {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 2560, "height": 1440, "notes": "(W)QHD", "fps": [
+        { "width": 2560, "height": 1440, "notes": "WQHD", "fps": [
                 {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
@@ -103,7 +103,7 @@
                 {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 5120, "height": 2880, "notes": "5K", "fps": [
+        { "width": 5120, "height": 2880, "notes": "5K UHD", "fps": [
                 {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
@@ -125,7 +125,7 @@
                 {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 15360, "height": 8640, "notes": "16K", "fps": [
+        { "width": 15360, "height": 8640, "notes": "16K UHD", "fps": [
                 {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
