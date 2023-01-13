@@ -116,7 +116,7 @@ for profile_name in os.listdir(LEGACY_PROFILE_PATH):
 # Parse each definition *.json file in /definitions/ directory
 print("Reading JSON profile definitions")
 for definition in os.listdir(PATH):
-    if definition.endswith(".json") and definition != "CIF.json":
+    if definition.endswith(".json"):
         print(f"- {definition}")
         definition_path = os.path.join(PATH, definition)
         with open(definition_path, "r") as f:
@@ -187,7 +187,7 @@ if mode == "validate":
     unmatched = []
     matched = []
     for legacy_key in legacy_profiles.keys():
-        if legacy_key in NEW_PROFILES.keys():
+        if legacy_key not in NEW_PROFILES.keys():
             legacy = legacy_profiles[legacy_key]
             unmatched.append(f"{legacy_key} {legacy[0][1]}")
         else:
