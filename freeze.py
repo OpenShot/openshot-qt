@@ -391,7 +391,7 @@ elif sys.platform == "linux":
                     "libfreetype.so.6",
                     "libfontconfig.so.1",
                     "libharfbuzz.so.0",
-                    "libthai.so.0",
+                    #"libthai.so.0",
                     ]
                ) or libpath_file in [
                     "libgcrypt.so.11",
