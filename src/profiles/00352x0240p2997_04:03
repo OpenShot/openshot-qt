@@ -1,4 +1,4 @@
-description=VCD NTSC CIF SIF DVD NTSC SD SIF MPEG-1 SIF/VCD SD 240p 29.97 fps
+description=NTSC SD SIF Anamorphic VCD 240p 29.97 fps
 frame_rate_num=30000
 frame_rate_den=1001
 width=352

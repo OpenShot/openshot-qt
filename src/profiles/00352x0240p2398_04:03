@@ -1,4 +1,4 @@
-description=VCD NTSC ATSC AVC SD (SIF) 240p 23.98 fps
+description=NTSC SD SIF Anamorphic 240p 23.98 fps
 frame_rate_num=24000
 frame_rate_den=1001
 width=352

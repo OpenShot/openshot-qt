@@ -1,4 +1,4 @@
-description=ATSC AVC SD (SIF half) 120p 23.98 fps
+description=NTSC SD SIF 1/2 Anamorphic 120p 23.98 fps
 frame_rate_num=24000
 frame_rate_den=1001
 width=176

@@ -1,4 +1,4 @@
-description=ATSC NTSC SD AVC SD 480p 23.98 fps
+description=NTSC SD Anamorphic 480p 23.98 fps
 frame_rate_num=24000
 frame_rate_den=1001
 width=704

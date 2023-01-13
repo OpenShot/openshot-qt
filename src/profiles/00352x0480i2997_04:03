@@ -1,4 +1,4 @@
-description=DVD NTSC SD CVD ATSC AVC SD (half) 480i 29.97 fps
+description=NTSC SD CVD Anamorphic 1/2 480i 29.97 fps
 frame_rate_num=30000
 frame_rate_den=1001
 width=352

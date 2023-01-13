@@ -1,4 +1,4 @@
-description=ATSC NTSC SD AVC SD 480i 30 fps
+description=NTSC SD Anamorphic 480i 30 fps
 frame_rate_num=30
 frame_rate_den=1
 width=704

@@ -1,4 +1,4 @@
-description=DVB NTSC 480i 59.94 fps
+description=NTSC SD Anamorphic 480i 59.94 fps
 frame_rate_num=60000
 frame_rate_den=1001
 width=720

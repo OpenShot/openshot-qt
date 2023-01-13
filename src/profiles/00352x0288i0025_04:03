@@ -1,4 +1,4 @@
-description=DVD PAL SD CIF ATSC PAL SD 288i 25 fps
+description=PAL SD CIF Anamorphic 288i 25 fps
 frame_rate_num=25
 frame_rate_den=1
 width=352
