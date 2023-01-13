@@ -79,22 +79,6 @@ App.directive("tlTrack", function ($timeout) {
           ui_selected.each(function (index) {
             var item = $(this);
 
-            // Remove all selections
-            if (ui_selected.length > 1) {
-              for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
-                scope.project.clips[clip_index].selected = false;
-                if (scope.Qt) {
-                  timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
-                }
-              }
-              for (var tran_index = 0; tran_index < scope.project.effects.length; tran_index++) {
-                scope.project.effects[tran_index].selected = false;
-                if (scope.Qt) {
-                  timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
-                }
-              }
-            }
-
             // Determine type of item
             var item_type = null;
             if (item.hasClass("clip")) {
@@ -121,10 +105,8 @@ App.directive("tlTrack", function ($timeout) {
               item_left = 0;
             }
 
-            // get track the item was dropped on (only 1 time, use same layer for all dropped clips)
-            if (drop_track_num == -1) {
-              drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
-            }
+            // get track the item was dropped on
+            drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
 
             // if the droptrack was found, update the json
             if (drop_track_num !== -1) {
