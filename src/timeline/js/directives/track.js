@@ -71,28 +71,13 @@ App.directive("tlTrack", function ($timeout) {
 
           // Get uuid to group all these updates as a single transaction
           var tid = timeline.get_uuid();
+          var drop_track_num = -1;
 
           // with each dragged clip, find out which track they landed on
           // Loop through each selected item, and remove the selection if multiple items are selected
           // If only 1 item is selected, leave it selected
           ui_selected.each(function (index) {
             var item = $(this);
-
-            // Remove all selections
-            if (ui_selected.length > 1) {
-              for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
-                scope.project.clips[clip_index].selected = false;
-                if (scope.Qt) {
-                  timeline.removeSelection(scope.project.clips[clip_index].id.replace("clip_", ""), "clip");
-                }
-              }
-              for (var tran_index = 0; tran_index < scope.project.effects.length; tran_index++) {
-                scope.project.effects[tran_index].selected = false;
-                if (scope.Qt) {
-                  timeline.removeSelection(scope.project.effects[tran_index].id.replace("transition_", ""), "transition");
-                }
-              }
-            }
 
             // Determine type of item
             var item_type = null;
@@ -121,7 +106,7 @@ App.directive("tlTrack", function ($timeout) {
             }
 
             // get track the item was dropped on
-            var drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
+            drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
 
             // if the droptrack was found, update the json
             if (drop_track_num !== -1) {
