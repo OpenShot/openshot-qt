@@ -17,6 +17,6 @@
 	 med="192 kb/s"
 	 high="256 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>DV/DVD PAL</projectprofile>
-	<projectprofile>DV/DVD Widescreen PAL</projectprofile>
+	<projectprofile>PAL SD Anamorphic 576i 25 fps</projectprofile>
+	<projectprofile>PAL SD Widescreen Anamorphic 576i 25 fps</projectprofile>
 </export-option>

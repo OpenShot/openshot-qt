@@ -17,6 +17,6 @@
 	 med="192 kb/s"
 	 high="256 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>DV/DVD NTSC</projectprofile>
-	<projectprofile>DV/DVD Widescreen NTSC</projectprofile>
+	<projectprofile>NTSC SD Anamorphic 480i 29.97 fps</projectprofile>
+	<projectprofile>NTSC SD Widescreen Anamorphic 480i 29.97 fps</projectprofile>
 </export-option>

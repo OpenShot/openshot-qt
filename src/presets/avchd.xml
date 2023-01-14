@@ -17,7 +17,7 @@
 	 med=""
 	 high="256 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>HD 1080i 25 fps</projectprofile>
-	<projectprofile>HD 1080i 30 fps</projectprofile>
-	<projectprofile>HD 1080p 25 fps</projectprofile>
+	<projectprofile>FHD PAL 1080i 25 fps</projectprofile>
+	<projectprofile>FHD 1080i 30 fps</projectprofile>
+	<projectprofile>FHD PAL 1080p 25 fps</projectprofile>
 </export-option>

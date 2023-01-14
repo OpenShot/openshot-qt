@@ -17,5 +17,5 @@
 	 med="256 kb/s"
 	 high="320 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>Mobile 360p</projectprofile>
+	<projectprofile>NTSC SD 1/4 QVGA 240p 29.97 fps</projectprofile>
 </export-option>

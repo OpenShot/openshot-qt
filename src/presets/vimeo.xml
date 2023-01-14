@@ -17,6 +17,6 @@
 	 med="256 kb/s"
 	 high="320 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>VGA NTSC</projectprofile>
-	<projectprofile>VGA Widescreen NTSC</projectprofile>
+	<projectprofile>NTSC SD SQ VGA 480p 29.97 fps</projectprofile>
+	<projectprofile>NTSC SD Wide FWVGA 480p 29.97 fps</projectprofile>
 </export-option>
