@@ -73,13 +73,22 @@ def save_profile(definition_path, json_details):
 def replace_preset_profile(match):
     """Replace matched string"""
     legacy_profile_name = match.groups(0)[0]
+    # LEGACY PROFILES
     for key, profile_details in legacy_profiles.items():
         for profile_tuple in profile_details:
             legacy_profile = profile_tuple[0]
             if legacy_profile_name == legacy_profile.info.description:
                 new_profile_path = os.path.join(PROFILE_PATH, legacy_profile.Key())
-                new_profile_obj = openshot.Profile(new_profile_path)
-                return f"\t<projectprofile>{new_profile_obj.info.description}</projectprofile>"
+                profile_obj = openshot.Profile(new_profile_path)
+                return f"\t<projectprofile>{profile_obj.info.description}</projectprofile>"
+    # NEW PROFILES (if needed)
+    for profile_name in sorted(os.listdir(PROFILE_PATH)):
+        profile_path = os.path.join(PROFILE_PATH, profile_name)
+        if not os.path.isdir(profile_path):
+            profile_obj = openshot.Profile(profile_path)
+            if legacy_profile_name == profile_obj.info.description:
+                return f"\t<projectprofile>{profile_obj.info.description}</projectprofile>"
+    raise Exception(f"No matching legacy profile found for {legacy_profile_name}")
 
 
 # Check for arg value
@@ -250,7 +259,7 @@ if mode == "generate":
                 fps_string = f'{profile.info.fps.ToDouble():.04}'
 
             # Move tags (NTSC/PAL first, Anamorphic last)
-            for first in ["SD", "HD", "NTSC", "PAL"]:
+            for first in ["SD", "HD", "NTSC", "PAL", "FHD", "UHD", "4K", "5K", "8K", "16K"]:
                 if first in tags:
                     tags.remove(first)
                     tags.insert(0, first)
@@ -291,6 +300,7 @@ display_aspect_den={profile.info.display_ratio.num}"""
     PRESETS_PATH = os.path.join(os.path.dirname(os.path.dirname(PATH)), "presets")
     for preset_name in os.listdir(PRESETS_PATH):
         preset_path = os.path.join(PRESETS_PATH, preset_name)
+        print(f"Updating preset file: {preset_name}")
         with open(preset_path, "r") as f:
             preset_body = f.read()
             preset_body = re.sub(PRESET_REGEX, replace_preset_profile, preset_body)
