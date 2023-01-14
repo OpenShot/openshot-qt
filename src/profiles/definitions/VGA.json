@@ -70,7 +70,7 @@
                 {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 2560, "height": 1440, "notes": "WQHD", "fps": [
+        { "width": 2560, "height": 1440, "notes": "2.5K WQHD", "fps": [
                 {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
@@ -81,7 +81,7 @@
                 {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
             ]
         },
-        { "width": 3200, "height": 1800, "notes": "QHD+", "fps": [
+        { "width": 3200, "height": 1800, "notes": "3K QHD+", "fps": [
                 {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
                 {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
