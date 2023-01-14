@@ -43,12 +43,12 @@
         },
         { "width": 720, "height": 480, "notes": "NTSC SD", "fps": [
                 {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 8, "den": 9}},
-                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 32, "den": 27}}
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Widescreen Anamorphic", "sar": {"num": 32, "den": 27}}
             ]
         },
         { "width": 720, "height": 576, "notes": "PAL SD", "fps": [
                 {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 16, "den": 15}},
-                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 64, "den": 45}}
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Widescreen Anamorphic", "sar": {"num": 64, "den": 45}}
             ]
         }
     ]

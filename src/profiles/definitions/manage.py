@@ -268,7 +268,12 @@ if mode == "generate":
                     tags.remove(last)
                     tags.append(last)
 
-            profile.info.description = f'{" ".join(tags)} {profile.info.height}{interlaced_string} {fps_string} fps'
+            if "Vertical" in tags:
+                # Exception for vertical formats - we refer to the original width (i.e. 720p Vertical instead of 1280p)
+                profile.info.description = f'{" ".join(tags)} {profile.info.width}{interlaced_string} {fps_string} fps'
+            else:
+                # Non-vertical resolutions (normal)
+                profile.info.description = f'{" ".join(tags)} {profile.info.height}{interlaced_string} {fps_string} fps'
 
             profile_name = profile.Key()
             profile_path = os.path.join(PROFILE_PATH, profile_name)
@@ -289,7 +294,7 @@ progressive={progressive_string}
 sample_aspect_num={profile.info.pixel_ratio.num}
 sample_aspect_den={profile.info.pixel_ratio.den}
 display_aspect_num={profile.info.display_ratio.num}
-display_aspect_den={profile.info.display_ratio.num}"""
+display_aspect_den={profile.info.display_ratio.den}"""
 
         # Write file
         print(f"Generating profile file: {profile_name}")
