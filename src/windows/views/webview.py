@@ -382,12 +382,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         fps_float = float(fps["num"]) / float(fps["den"])
         duration = existing_item.data["end"] - existing_item.data["start"]
         position = transition_data["position"]
+        layer = transition_data["layer"]
 
         # Determine if transition is intersecting a clip
         # For example, the left side of a clip, or the right side, so we can determine
         # which direction the wipe should be moving in
         is_forward_direction = True
-        for intersecting_clip in Clip.filter(intersect=position):
+        for intersecting_clip in Clip.filter(intersect=position, layer=layer):
             log.debug(f"Intersecting Clip: {intersecting_clip}")
             diff_from_start = abs(intersecting_clip.data.get("position", 0.0) - position)
             diff_from_end = abs((intersecting_clip.data.get("position", 0.0) + \
