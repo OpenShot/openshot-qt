@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2023 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -31,12 +31,13 @@ import functools
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QSizePolicy
 
 from classes import info, ui_util
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen
+from windows.views.profiles_treeview import ProfilesTreeView
 
 
 class Profile(QDialog):
@@ -70,8 +71,9 @@ class Profile(QDialog):
         self.initial_index = 0
 
         # Loop through profiles
-        self.profile_names = []
-        self.profile_paths = {}
+        self.profile_list = []
+        self.project_profile = None
+        self.project_index = 0
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
@@ -80,112 +82,97 @@ class Profile(QDialog):
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
+                    if profile.info.description == get_app().project.get(['profile']):
+                        self.project_profile = profile
+                        self.project_index = len(self.profile_list)
+                        self.setWindowTitle(f'{_("Choose Profile")} [{profile.info.description}]')
 
                     # Add description of Profile to list
-                    self.profile_names.append(profile.LongNameWithDesc())
-                    self.profile_paths[profile.LongNameWithDesc()] = profile_path
+                    self.profile_list.append(profile)
 
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing
                     # the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
-        # Loop through sorted profiles
-        for box_index, profile_name in enumerate(self.profile_names):
-            # Add to dropdown
-            self.cboProfile.addItem(profile_name, self.profile_paths[profile_name])
+        # Create treeview
+        self.profileListView = ProfilesTreeView(self.profile_list)
+        self.profileListView.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.verticalLayout.insertWidget(1, self.profileListView)
 
-            # Set default (if it matches the project)
-            if get_app().project.get(['profile']) in profile_name:
-                self.initial_index = box_index
+        # Select project profile (if any)
+        if self.project_profile:
+            model_index = self.profileListView.profiles_model.proxy_model.index(self.project_index, 1)
+            self.profileListView.select_profile(model_index)
 
         # Connect signals
-        self.cboProfile.currentIndexChanged.connect(self.dropdown_index_changed)
-        self.cboProfile.activated.connect(self.dropdown_activated)
+        self.txtProfileFilter.textChanged.connect(self.profileListView.refresh_view)
+        self.txtProfileFilter.textChanged.connect(self.profileListView.refresh_view)
+        self.profileListView.FilterCountChanged.connect(self.profileCountChanged)
 
-        # Set current item (from project)
-        self.cboProfile.setCurrentIndex(self.initial_index)
+    def profileCountChanged(self, new_count):
+        """Profile filter count changed"""
+        self.lblCount.setText(f"{new_count}")
 
-    def dropdown_index_changed(self, index):
-        # Get profile path
-        value = self.cboProfile.itemData(index)
+    def accept(self):
+        """ Ok button clicked """
+        super(Profile, self).accept()
 
-        # Load profile
-        profile = openshot.Profile(value)
+        # Get selected profile (if any, and if different than current project)
+        profile = self.profileListView.get_profile()
+        if profile and profile.info.description != get_app().project.get(['profile']):
 
-        # Set labels
-        self.lblSize.setText("%sx%s" % (profile.info.width, profile.info.height))
-        self.lblFPS.setText("%0.2f" % (profile.info.fps.ToFloat()))
-        # (Note: Takes advantage of openshot.Fraction's __string__ method
-        # which outputs the value with the format "{num}:{den}")
-        self.lblOther.setText("DAR: %s, SAR: %s, Interlaced: %s" % (
-            profile.info.display_ratio,
-            profile.info.pixel_ratio,
-            profile.info.interlaced_frame))
+            win = get_app().window
+            proj = get_app().project
+            updates = get_app().updates
 
-    def dropdown_activated(self, index):
-        # Ignore if the selection wasn't changed
-        if index == self.initial_index:
-            return
+            # Get current FPS (prior to changing)
+            current_fps = proj.get("fps")
+            current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
+            fps_factor = float(profile.info.fps.ToFloat() / current_fps_float)
 
-        win = get_app().window
-        proj = get_app().project
-        updates = get_app().updates
+            # Get current playback frame
+            current_frame = win.preview_thread.current_frame
+            adjusted_frame = round(current_frame * fps_factor)
 
-        # Get profile path & load
-        value = self.cboProfile.itemData(index)
-        profile = openshot.Profile(value)
+            # Update timeline settings
+            updates.update(["profile"], profile.info.description)
+            updates.update(["width"], profile.info.width)
+            updates.update(["height"], profile.info.height)
+            updates.update(["fps"], {
+                "num": profile.info.fps.num,
+                "den": profile.info.fps.den,
+                })
+            updates.update(["display_ratio"], {
+                "num": profile.info.display_ratio.num,
+                "den": profile.info.display_ratio.den,
+                })
+            updates.update(["pixel_ratio"], {
+                "num": profile.info.pixel_ratio.num,
+                "den": profile.info.pixel_ratio.den,
+                })
 
-        # Get current FPS (prior to changing)
-        current_fps = proj.get("fps")
-        current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
-        fps_factor = float(profile.info.fps.ToFloat() / current_fps_float)
+            # Rescale all keyframes and reload project
+            if fps_factor != 1.0:
+                # Get a copy of rescaled project data (this does not modify the active project... yet)
+                rescaled_app_data = proj.rescale_keyframes(fps_factor)
 
-        # Get current playback frame
-        current_frame = win.preview_thread.current_frame
-        adjusted_frame = round(current_frame * fps_factor)
+                # Apply rescaled data to active project
+                proj._data = rescaled_app_data
 
-        # Update timeline settings
-        updates.update(["profile"], profile.info.description)
-        updates.update(["width"], profile.info.width)
-        updates.update(["height"], profile.info.height)
-        updates.update(["fps"], {
-            "num": profile.info.fps.num,
-            "den": profile.info.fps.den,
-            })
-        updates.update(["display_ratio"], {
-            "num": profile.info.display_ratio.num,
-            "den": profile.info.display_ratio.den,
-            })
-        updates.update(["pixel_ratio"], {
-            "num": profile.info.pixel_ratio.num,
-            "den": profile.info.pixel_ratio.den,
-            })
+                # Distribute all project data through update manager
+                updates.load(rescaled_app_data)
 
-        # Rescale all keyframes and reload project
-        if fps_factor != 1.0:
-            # Get a copy of rescaled project data (this does not modify the active project... yet)
-            rescaled_app_data = proj.rescale_keyframes(fps_factor)
+            # Force ApplyMapperToClips to apply these changes
+            win.timeline_sync.timeline.ApplyMapperToClips()
 
-            # Apply rescaled data to active project
-            proj._data = rescaled_app_data
+            # Seek to the same location, adjusted for new frame rate
+            win.SeekSignal.emit(adjusted_frame)
 
-            # Distribute all project data through update manager
-            updates.load(rescaled_app_data)
-
-        # Force ApplyMapperToClips to apply these changes
-        win.timeline_sync.timeline.ApplyMapperToClips()
-
-        # Update Window Title and stored index
-        self.initial_index = index
-
-        # Seek to the same location, adjusted for new frame rate
-        win.SeekSignal.emit(adjusted_frame)
-
-        # Refresh frame (since size of preview might have changed)
-        QTimer.singleShot(500, win.refreshFrameSignal.emit)
-        QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
-                                                 win.videoPreview.size()))
+            # Refresh frame (since size of preview might have changed)
+            QTimer.singleShot(500, win.refreshFrameSignal.emit)
+            QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
+                                                     win.videoPreview.size()))
 
     def closeEvent(self, event):
         """Signal for closing Profile window"""
