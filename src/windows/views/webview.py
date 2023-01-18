@@ -394,6 +394,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             diff_from_end = abs((intersecting_clip.data.get("position", 0.0) + \
                                 (intersecting_clip.data.get("end", 0.0) - intersecting_clip.data.get("start", 0.0))) \
                                 - position)
+            if diff_from_end <= 0.25:
+                # Ignore when a transition is less than 1/2 second from the right edge of a clip
+                continue
             smallest_diff = min(diff_from_start, diff_from_end)
             if smallest_diff < diff_from_edge:
                 diff_from_edge = smallest_diff
@@ -401,6 +404,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                     is_forward_direction = False
                 else:
                     is_forward_direction = True
+            log.debug(f'Intersecting Clip: pos:{intersecting_clip.data.get("position")}, '
+                      f'from start: {diff_from_start}, from end: {diff_from_end}, '
+                      f'is forward: {is_forward_direction}')
         log.debug(f"Is transition moving in a forward direction? {is_forward_direction}")
 
         # Determine existing brightness and contrast ranges (if any)
