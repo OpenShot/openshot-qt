@@ -174,6 +174,9 @@ class Profile(QDialog):
             QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
                                                      win.videoPreview.size()))
 
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+
     def closeEvent(self, event):
         """Signal for closing Profile window"""
         # Invoke the close button

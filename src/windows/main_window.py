@@ -306,9 +306,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
-        # Disable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
-
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
@@ -339,9 +336,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Update max size (for fast previews)
         self.MaxSizeChanged.emit(self.videoPreview.size())
-
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
     def actionAnimatedTitle_trigger(self):
         # show dialog
@@ -499,9 +493,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Ignore the request
             return
 
-        # Disable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
-
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
@@ -575,9 +566,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
-
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
         # Restore normal cursor
         app.restoreOverrideCursor()

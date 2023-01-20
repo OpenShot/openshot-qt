@@ -78,8 +78,14 @@ class TimelineSync(UpdateInterface):
                                                               "layers", "scale", "profile"]:
             return
 
+        # Disable video caching temporarily
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
         try:
             if action.type == "load":
+                # Clear any selections in UI (since we are clearing the timeline)
+                self.window.clearSelections()
+
                 # Clear any existing clips & effects (free memory)
                 self.timeline.Close()
                 self.timeline.Clear()
@@ -104,6 +110,9 @@ class TimelineSync(UpdateInterface):
         except Exception as e:
             log.info("Error applying JSON to timeline object in libopenshot: %s. %s" %
                      (e, action.json(is_array=True)))
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
