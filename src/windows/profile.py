@@ -46,7 +46,7 @@ class Profile(QDialog):
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'profile.ui')
 
-    def __init__(self):
+    def __init__(self, initial_profile_desc=None):
 
         # Create dialog class
         QDialog.__init__(self)
@@ -64,15 +64,13 @@ class Profile(QDialog):
         # Track metrics
         track_metric_screen("profile-screen")
 
-        # Disable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
-
         # Keep track of starting selection
         self.initial_index = 0
 
         # Loop through profiles
         self.profile_list = []
         self.project_profile = None
+        self.selected_profile = None
         self.project_index = 0
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in reversed(sorted(os.listdir(profile_folder))):
@@ -82,7 +80,7 @@ class Profile(QDialog):
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
-                    if profile.info.description == get_app().project.get(['profile']):
+                    if profile.info.description == initial_profile_desc or profile.Key() == initial_profile_desc:
                         self.project_profile = profile
                         self.project_index = len(self.profile_list)
                         self.setWindowTitle(f'{_("Choose Profile")} [{profile.info.description}]')
@@ -116,66 +114,15 @@ class Profile(QDialog):
 
     def accept(self):
         """ Ok button clicked """
-        super(Profile, self).accept()
-
         # Get selected profile (if any, and if different than current project)
         profile = self.profileListView.get_profile()
         if profile and profile.info.description != get_app().project.get(['profile']):
-
-            win = get_app().window
-            proj = get_app().project
-            updates = get_app().updates
-
-            # Get current FPS (prior to changing)
-            current_fps = proj.get("fps")
-            current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
-            fps_factor = float(profile.info.fps.ToFloat() / current_fps_float)
-
-            # Get current playback frame
-            current_frame = win.preview_thread.current_frame
-            adjusted_frame = round(current_frame * fps_factor)
-
-            # Update timeline settings
-            updates.update(["profile"], profile.info.description)
-            updates.update(["width"], profile.info.width)
-            updates.update(["height"], profile.info.height)
-            updates.update(["fps"], {
-                "num": profile.info.fps.num,
-                "den": profile.info.fps.den,
-                })
-            updates.update(["display_ratio"], {
-                "num": profile.info.display_ratio.num,
-                "den": profile.info.display_ratio.den,
-                })
-            updates.update(["pixel_ratio"], {
-                "num": profile.info.pixel_ratio.num,
-                "den": profile.info.pixel_ratio.den,
-                })
-
-            # Rescale all keyframes and reload project
-            if fps_factor != 1.0:
-                # Get a copy of rescaled project data (this does not modify the active project... yet)
-                rescaled_app_data = proj.rescale_keyframes(fps_factor)
-
-                # Apply rescaled data to active project
-                proj._data = rescaled_app_data
-
-                # Distribute all project data through update manager
-                updates.load(rescaled_app_data)
-
-            # Force ApplyMapperToClips to apply these changes
-            win.timeline_sync.timeline.ApplyMapperToClips()
-
-            # Seek to the same location, adjusted for new frame rate
-            win.SeekSignal.emit(adjusted_frame)
-
-            # Refresh frame (since size of preview might have changed)
-            QTimer.singleShot(500, win.refreshFrameSignal.emit)
-            QTimer.singleShot(500, functools.partial(win.MaxSizeChanged.emit,
-                                                     win.videoPreview.size()))
-
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+            # New profile selected (different than current project)
+            self.selected_profile = profile
+            super(Profile, self).accept()
+        else:
+            # No profile or same as current project
+            self.reject()
 
     def closeEvent(self, event):
         """Signal for closing Profile window"""
@@ -183,8 +130,6 @@ class Profile(QDialog):
         self.reject()
 
     def reject(self):
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
-
+        """Window closed without choosing a new profile"""
         # Close dialog
         super(Profile, self).reject()

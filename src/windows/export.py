@@ -185,13 +185,16 @@ class Export(QDialog):
             functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
         self.ExportFrame.connect(self.updateProgressBar)
+        self.btnBrowseProfiles.clicked.connect(self.btnBrowseProfiles_clicked)
 
         # ********* Advanced Profile List **********
         # Loop through profiles
         self.profile_names = []
         self.profile_paths = {}
+        self.current_project_profile = get_app().project.get(['profile'])
+        self.selected_profile = None
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
-            for file in os.listdir(profile_folder):
+            for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
                 try:
                     # Load Profile
@@ -202,22 +205,22 @@ class Export(QDialog):
                     self.profile_names.append(profile_name)
                     self.profile_paths[profile_name] = profile_path
 
+                    # Add to dropdown
+                    self.cboProfile.addItem(
+                        self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
+
+                    # Set default profile (if it matches the project)
+                    if self.current_project_profile == profile.info.description:
+                        self.selected_profile = profile_name
+
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
-        # Sort list
-        self.profile_names.sort()
-
         # Loop through sorted profiles
-        self.selected_profile = None
-        for box_index, profile_name in enumerate(self.profile_names):
+        for box_index, profile_name in enumerate(sorted(self.profile_names)):
             # Add to dropdown
             self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
-
-            # Set default profile (if it matches the project)
-            if get_app().project.get(['profile']) in profile_name:
-                self.selected_profile = profile_name
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
@@ -464,12 +467,18 @@ class Export(QDialog):
                             # get the basic profile
                             all_profiles = False
                             if profiles:
+                                # Disable profile filter button
+                                self.btnBrowseProfiles.setEnabled(False)
+
                                 # if profiles are defined, show them
                                 for profile in profiles:
                                     profiles_list.append(_(profile.childNodes[0].data))
                             else:
                                 # show all profiles
                                 all_profiles = True
+
+                                # Enable profile filter button
+                                self.btnBrowseProfiles.setEnabled(True)
                                 for profile_name in self.profile_names:
                                     profiles_list.append(profile_name)
 
@@ -543,8 +552,9 @@ class Export(QDialog):
                         log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
             # init the profiles combo
-            for item in sorted(profiles_list):
-                self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
+            for item in profiles_list:
+                self.cboSimpleVideoProfile.addItem(
+                    self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
 
             # select the project's current profile
             profile_index = self.getVideoProfileIndex(self.selected_profile)
@@ -571,13 +581,21 @@ class Export(QDialog):
             else:
                 self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
 
-    def getVideoProfileIndex(self, profile_name):
-        """Get the index of a profile name (-1 if not found)"""
-        for index in range(self.cboSimpleVideoProfile.count()):
-            combo_profile = self.cboSimpleVideoProfile.itemText(index)
-            if combo_profile == profile_name:
-                return index
-        return -1
+    def getVideoProfileIndex(self, profile_name=None, profile_key=None):
+        """Get the index of a profile name or profile key (-1 if not found)"""
+        if profile_name:
+            for index in range(self.cboSimpleVideoProfile.count()):
+                combo_profile = self.cboSimpleVideoProfile.itemText(index)
+                if combo_profile == profile_name:
+                    return index
+            return -1
+        if profile_key:
+            for index in range(self.cboSimpleVideoProfile.count()):
+                combo_profile_path = self.cboSimpleVideoProfile.itemData(index)
+                combo_profile = openshot.Profile(combo_profile_path)
+                if combo_profile.Key() == profile_key:
+                    return index
+            return -1
 
     def cboSimpleVideoProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
@@ -624,6 +642,31 @@ class Export(QDialog):
         if os.path.exists(file_path):
             self.s.setDefaultPath(self.s.actionType.EXPORT, file_path)
             self.txtExportFolder.setText(file_path)
+
+    def btnBrowseProfiles_clicked(self):
+        """Search profile button clicked"""
+        # Get current selection profile object
+        current_profile = openshot.Profile(self.cboSimpleVideoProfile.currentData())
+
+        # Show dialog (init to current selection)
+        from windows.profile import Profile
+        log.debug("Showing profile dialog")
+        win = Profile(current_profile.Key())
+        # Run the dialog event loop - blocking interaction on this window during this time
+        result = win.exec_()
+
+        profile = win.selected_profile
+        if result == QDialog.Accepted and profile:
+
+            # select the project's current profile
+            profile_index = self.getVideoProfileIndex(profile_key=profile.Key())
+            if profile_index != -1:
+                # Re-select project profile (if found in list)
+                self.cboSimpleVideoProfile.setCurrentIndex(profile_index)
+            else:
+                # Previous profile not in list, so
+                # default to first profile in list
+                self.cboSimpleVideoProfile.setCurrentIndex(0)
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0

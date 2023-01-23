@@ -285,7 +285,28 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         # Get default profile
         s = get_app().get_settings()
-        default_profile = s.get("default-profile")
+        default_profile_desc = s.get("default-profile")
+
+        # Get profile (if any)
+        profile = self.get_profile(profile_desc=default_profile_desc)
+        if not profile:
+            # Fallback, in case of missing/invalid default profile
+            profile = self.get_profile(profile_desc="HD 720p 30 fps")
+
+        # Update default profile (if it changed)
+        if profile and default_profile_desc != profile.info.description:
+            log.info(f"Updating default-profile from legacy `{default_profile_desc}` to `{profile.info.description}`.")
+            s.set("default-profile", profile.info.description)
+
+        # Apply default audio playback settings to this data structure
+        self.apply_default_audio_settings()
+
+        # Set default project ID
+        self._data["id"] = self.generate_id()
+
+    def get_profile(self, profile_desc=None, profile_key=None):
+        """Attempt to find a specific profile"""
+        profile = None
 
         # Loop through legacy profiles
         LEGACY_PROFILE_PATH = os.path.join(info.PROFILES_PATH, "legacy")
@@ -294,9 +315,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             legacy_profile_path = os.path.join(LEGACY_PROFILE_PATH, legacy_filename)
             try:
                 # Load Profile and append description
-                profile = openshot.Profile(legacy_profile_path)
-                if default_profile == profile.info.description:
-                    legacy_profile = profile
+                temp_profile = openshot.Profile(legacy_profile_path)
+                if profile_desc == temp_profile.info.description:
+                    legacy_profile = temp_profile
                     break
             except RuntimeError as e:
                 # Ignore legacy parsing errors
@@ -305,7 +326,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Loop through profiles
         profile_dirs = [info.USER_PROFILES_PATH, info.PROFILES_PATH]
         available_dirs = [f for f in profile_dirs if os.path.exists(f)]
-        profile = None
         for profile_folder in available_dirs:
             for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
@@ -315,7 +335,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # Load Profile and append description
                     temp_profile = openshot.Profile(profile_path)
 
-                    if default_profile == temp_profile.info.description:
+                    if profile_desc == temp_profile.info.description:
                         profile = self.apply_profile(temp_profile)
                         break
                     elif legacy_profile and legacy_profile.Key() == temp_profile.Key():
@@ -327,16 +347,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
-        # Update default profile (if it changed)
-        if profile and default_profile != profile.info.description:
-            log.info(f"Updating default-profile from legacy `{default_profile}` to `{profile.info.description}`.")
-            s.set("default-profile", profile.info.description)
-
-        # Apply default audio playback settings to this data structure
-        self.apply_default_audio_settings()
-
-        # Set default project ID
-        self._data["id"] = self.generate_id()
+        return profile
 
     def apply_profile(self, profile):
         """Apply a specific profile to the current project data"""
@@ -417,6 +428,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Upgrade any data structures
             self.upgrade_project_data_structures()
+
+            # Get profile (if any)
+            project_profile_desc = self._data.get("profile", "HD 720p 30 fps")
+            profile = self.get_profile(profile_desc=project_profile_desc)
+            if not profile:
+                # Fallback, in case of missing/invalid default profile
+                profile = self.get_profile(profile_desc="HD 720p 30 fps")
 
             # Apply default audio playback settings to this data structure
             self.apply_default_audio_settings()
