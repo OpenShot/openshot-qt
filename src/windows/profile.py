@@ -107,10 +107,15 @@ class Profile(QDialog):
         self.txtProfileFilter.textChanged.connect(self.profileListView.refresh_view)
         self.txtProfileFilter.textChanged.connect(self.profileListView.refresh_view)
         self.profileListView.FilterCountChanged.connect(self.profileCountChanged)
+        self.profileListView.doubleClicked.connect(self.profileDoubleClick)
 
     def profileCountChanged(self, new_count):
         """Profile filter count changed"""
         self.lblCount.setText(f"{new_count}")
+
+    def profileDoubleClick(self):
+        """Profile tree was double clicked"""
+        self.accept()
 
     def accept(self):
         """ Ok button clicked """
