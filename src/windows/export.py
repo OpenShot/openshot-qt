@@ -201,7 +201,7 @@ class Export(QDialog):
                     profile = openshot.Profile(profile_path)
 
                     # Add description of Profile to list
-                    profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
+                    profile_name = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
                     self.profile_names.append(profile_name)
                     self.profile_paths[profile_name] = profile_path
 

@@ -269,8 +269,9 @@ class Preferences(QDialog):
                                 if os.path.isdir(profile_path):
                                     continue
                                 profile = openshot.Profile(profile_path)
+                                profile_lbl = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
                                 value_list.append({
-                                    "name": profile.LongName(),
+                                    "name": profile_lbl,
                                     "value": profile.info.description
                                     })
 
