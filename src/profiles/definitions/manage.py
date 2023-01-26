@@ -7,6 +7,7 @@
 #  - "update": Update all JSON definition sample ratios
 #  - "preview": Using only JSON definitions, display all profiles to the screen
 #  - "display": Print all existing profiles to the screen
+#  - "doc": Print documentation markdown (used for manually updating our docs)
 
 import re
 import os
@@ -14,9 +15,12 @@ import sys
 import json
 import openshot
 
+from xml.dom import minidom as xml
+
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 PROFILE_PATH = os.path.dirname(PATH)
+PRESETS_PATH = os.path.join(os.path.dirname(PROFILE_PATH), "presets")
 LEGACY_PROFILE_PATH = os.path.join(PROFILE_PATH, "legacy")
 PRESET_REGEX = re.compile(r'.*<projectprofile>(.*)</projectprofile>')
 legacy_profiles = {}
@@ -340,3 +344,124 @@ if mode == "display":
         if not os.path.isdir(profile_path):
             profile = openshot.Profile(profile_path)
             print(f'{profile.info.description}')
+
+if mode == "doc":
+    def lookup_layout(layout):
+        if layout == "3":
+            return "Stereo"
+        elif layout == "4":
+            return "Mono"
+        elif layout == "7":
+            return "Surround"
+
+    # Print existing profiles
+    print("\n%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
+    for profile_name in reversed(sorted(os.listdir(PROFILE_PATH))):
+        profile_path = os.path.join(PROFILE_PATH, profile_name)
+        if not os.path.isdir(profile_path):
+            profile = openshot.Profile(profile_path)
+            padded_name = profile.info.description.ljust(45)
+            padded_width = str(profile.info.width).ljust(6)
+            padded_height = str(profile.info.height).ljust(6)
+            padded_ratio = f"{profile.info.display_ratio.num}:{profile.info.display_ratio.den}".ljust(6)
+            padded_pixel_ratio = f"{profile.info.pixel_ratio.num}:{profile.info.pixel_ratio.den}".ljust(6)
+            if profile.info.interlaced_frame:
+                padded_interlaced = "Yes".ljust(6)
+            else:
+                padded_interlaced = "No".ljust(6)
+            fps_padded = f"{profile.info.fps.ToFloat():.2f}".ljust(6)
+            print(f"{padded_name}  {padded_width}  {padded_height}  {fps_padded}  {padded_ratio}  {padded_pixel_ratio}  {padded_interlaced}")
+    print("%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
+
+    # Print existing presets
+    presets = []
+    preset_types = []
+    preset_type_names = {}
+    for preset_folder in [PRESETS_PATH]:
+        for file in os.listdir(preset_folder):
+            preset_path = os.path.join(preset_folder, file)
+
+            xmldoc = xml.parse(preset_path)
+            type = xmldoc.getElementsByTagName("type")
+            presets.append(type[0].childNodes[0].data)
+            if xmldoc.getElementsByTagName("projectprofile"):
+                project_profiles = []
+                for profile in xmldoc.getElementsByTagName("projectprofile"):
+                    project_profiles.append(profile.childNodes[0].data)
+            else:
+                project_profiles = ["All Profiles"]
+
+            # Get video and audio codec names (if any)
+            video_codec = ""
+            if xmldoc.getElementsByTagName("videocodec")[0].childNodes:
+                video_codec = xmldoc.getElementsByTagName("videocodec")[0].childNodes[0].data
+            audio_codec = ""
+            if xmldoc.getElementsByTagName("audiocodec")[0].childNodes:
+                audio_codec = xmldoc.getElementsByTagName("audiocodec")[0].childNodes[0].data
+
+            preset_type_names[xmldoc.getElementsByTagName("type")[0].childNodes[0].data] = xmldoc.getElementsByTagName("type")[0].childNodes[0].data
+            preset_types.append({
+                "type": xmldoc.getElementsByTagName("type")[0].childNodes[0].data,
+                "title": xmldoc.getElementsByTagName("title")[0].childNodes[0].data,
+                "videoformat": xmldoc.getElementsByTagName("videoformat")[0].childNodes[0].data,
+                "videocodec": video_codec,
+                "audiocodec": audio_codec,
+                "audiochannels": xmldoc.getElementsByTagName("audiochannels")[0].childNodes[0].data,
+                "audiochannellayout": xmldoc.getElementsByTagName("audiochannellayout")[0].childNodes[0].data,
+                "videobitrate": { "low": xmldoc.getElementsByTagName("videobitrate")[0].attributes["low"].childNodes[0].data,
+                                  "med": xmldoc.getElementsByTagName("videobitrate")[0].attributes["med"].childNodes[0].data,
+                                  "high": xmldoc.getElementsByTagName("videobitrate")[0].attributes["high"].childNodes[0].data},
+                "audiobitrate": { "low": xmldoc.getElementsByTagName("audiobitrate")[0].attributes["low"].childNodes[0].data,
+                                  "med": xmldoc.getElementsByTagName("audiobitrate")[0].attributes["med"].childNodes[0].data,
+                                  "high": xmldoc.getElementsByTagName("audiobitrate")[0].attributes["high"].childNodes[0].data},
+                "samplerate": int(xmldoc.getElementsByTagName("samplerate")[0].childNodes[0].data),
+                "projectprofile": project_profiles
+            })
+
+    for preset_type_name in preset_type_names:
+        print()
+        print(preset_type_name)
+        print("".ljust(len(preset_type_name), "^"))
+
+        for preset in sorted(preset_types, key=lambda d: d['title']):
+            if preset.get("type") == preset_type_name:
+                print()
+                print(f"{preset.get('title')}")
+                print("".ljust(len(preset.get('title')), "~"))
+                print()
+                print(f".. table::")
+                print(f"   :widths: 26")
+                print(f"")
+                print(f"   =======================  ============")
+                print(f"   Attribute                Description")
+                print(f"   =======================  ============")
+                print(f"   Video Format             {preset.get('videoformat').upper()}")
+                if preset.get('videocodec'):
+                    print(f"   Video Codec              {preset.get('videocodec')}")
+                if preset.get('audiocodec'):
+                    print(f"   Audio Codec              {preset.get('audiocodec')}")
+                    print(f"   Audio Channels           {preset.get('audiochannels')}")
+                    print(f"   Audio Channel Layout     {lookup_layout(preset.get('audiochannellayout'))}")
+                    print(f"   Sample Rate              {preset.get('samplerate')}")
+                if preset.get('videocodec'):
+                    if preset.get("videobitrate").get("low"):
+                        print(f'   Video Bitrate (low)      {preset.get("videobitrate").get("low")}')
+                    if preset.get("videobitrate").get("med"):
+                        print(f'   Video Bitrate (med)      {preset.get("videobitrate").get("med")}')
+                    if preset.get("videobitrate").get("high"):
+                        print(f'   Video Bitrate (high)     {preset.get("videobitrate").get("high")}')
+                if preset.get('samplerate') > 0:
+                    if preset.get("audiobitrate").get("low"):
+                        print(f'   Audio Bitrate (low)      {preset.get("audiobitrate").get("low")}')
+                    if preset.get("audiobitrate").get("med"):
+                        print(f'   Audio Bitrate (med)      {preset.get("audiobitrate").get("med")}')
+                    if preset.get("audiobitrate").get("high"):
+                        print(f'   Audio Bitrate (high)     {preset.get("audiobitrate").get("high")}')
+
+                preset_profiles = sorted(preset.get("projectprofile"))
+                profile_label = f'   | {preset_profiles[0]}'
+                print(f"   Profiles              {profile_label}")
+                if len(preset_profiles) > 1:
+                    for profile in preset_profiles[1:]:
+                        print(f'                            | {profile.ljust(26)}')
+                print(f"   =======================  ============")

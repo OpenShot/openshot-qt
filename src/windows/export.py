@@ -320,6 +320,12 @@ class Export(QDialog):
         self.timeline.info.channels = self.txtChannels.value()
         self.timeline.info.channel_layout = self.cboChannelLayout.currentData()
 
+        # Disable audio (if not needed)
+        if self.timeline.info.sample_rate == 0 or self.timeline.info.channels == 0:
+            self.timeline.info.has_audio = False
+        else:
+            self.timeline.info.has_audio = True
+
         # Determine max frame (based on clips)
         self.timeline_length_int = self.timeline.GetMaxFrame()
 
@@ -360,7 +366,9 @@ class Export(QDialog):
                         for title in titles:
                             project_types.append(_(title.childNodes[0].data))
                         for codec in videocodecs:
-                            codec_text = codec.childNodes[0].data
+                            codec_text = ""
+                            if codec.childNodes:
+                                codec_text = codec.childNodes[0].data
                             if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
                             elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
@@ -371,7 +379,7 @@ class Export(QDialog):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
                             elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
-                            elif openshot.FFmpegWriter.IsValidCodec(codec_text):
+                            elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
 
                 except ExpatError as e:
@@ -473,6 +481,7 @@ class Export(QDialog):
                                 # if profiles are defined, show them
                                 for profile in profiles:
                                     profiles_list.append(_(profile.childNodes[0].data))
+                                profiles_list = sorted(profiles_list)
                             else:
                                 # show all profiles
                                 all_profiles = True
@@ -513,7 +522,10 @@ class Export(QDialog):
                             vf = xmldoc.getElementsByTagName("videoformat")
                             self.txtVideoFormat.setText(vf[0].childNodes[0].data)
                             vc = xmldoc.getElementsByTagName("videocodec")
-                            self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+                            if vc[0].childNodes:
+                                self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+                            else:
+                                self.txtVideoCodec.setText("")
                             sr = xmldoc.getElementsByTagName("samplerate")
                             self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
                             c = xmldoc.getElementsByTagName("audiochannels")
@@ -522,22 +534,25 @@ class Export(QDialog):
 
                             # check for compatible audio codec
                             ac = xmldoc.getElementsByTagName("audiocodec")
-                            audio_codec_name = ac[0].childNodes[0].data
-                            if audio_codec_name == "aac":
-                                # Determine which version of AAC encoder is available
-                                if openshot.FFmpegWriter.IsValidCodec("libfaac"):
-                                    self.txtAudioCodec.setText("libfaac")
-                                elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
-                                    self.txtAudioCodec.setText("libvo_aacenc")
-                                elif openshot.FFmpegWriter.IsValidCodec("aac"):
-                                    self.txtAudioCodec.setText("aac")
+                            if ac[0].childNodes:
+                                audio_codec_name = ac[0].childNodes[0].data
+                                if audio_codec_name == "aac":
+                                    # Determine which version of AAC encoder is available
+                                    if openshot.FFmpegWriter.IsValidCodec("libfaac"):
+                                        self.txtAudioCodec.setText("libfaac")
+                                    elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
+                                        self.txtAudioCodec.setText("libvo_aacenc")
+                                    elif openshot.FFmpegWriter.IsValidCodec("aac"):
+                                        self.txtAudioCodec.setText("aac")
+                                    else:
+                                        # fallback audio codec
+                                        self.txtAudioCodec.setText("ac3")
                                 else:
                                     # fallback audio codec
-                                    self.txtAudioCodec.setText("ac3")
+                                    self.txtAudioCodec.setText(audio_codec_name)
                             else:
-                                # fallback audio codec
-
-                                self.txtAudioCodec.setText(audio_codec_name)
+                                # no valid audio codec
+                                self.txtAudioCodec.setText("")
 
                             for layout_index, layout in enumerate(self.channel_layout_choices):
                                 if layout == int(c[0].childNodes[0].data):

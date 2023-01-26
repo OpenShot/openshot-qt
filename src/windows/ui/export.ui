@@ -835,10 +835,10 @@
                 </sizepolicy>
                </property>
                <property name="minimum">
-                <number>1000</number>
+                <number>0</number>
                </property>
                <property name="maximum">
-                <number>128000</number>
+                <number>384000</number>
                </property>
               </widget>
              </item>

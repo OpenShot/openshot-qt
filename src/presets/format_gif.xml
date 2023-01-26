@@ -6,16 +6,16 @@
     <export-to>Video Only</export-to>
 	<videoformat>gif</videoformat>
 	<videocodec>gif</videocodec>
-	<audiocodec>aac</audiocodec>
-	<audiochannels>2</audiochannels>
-	<audiochannellayout>3</audiochannellayout>
+	<audiocodec></audiocodec>
+	<audiochannels>0</audiochannels>
+	<audiochannellayout>4</audiochannellayout>
 	<videobitrate
 	 low="384 kb/s"
 	 med="5 Mb/s"
 	 high="15.00 Mb/s"></videobitrate>
 	<audiobitrate
-	 low="96 kb/s"
-	 med="128 kb/s"
-	 high="192 kb/s"></audiobitrate>
-	<samplerate>48000</samplerate>
+	 low="0 kb/s"
+	 med="0 kb/s"
+	 high="0 kb/s"></audiobitrate>
+	<samplerate>0</samplerate>
 </export-option>
