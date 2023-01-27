@@ -44,7 +44,7 @@ class CompactJSONEncoder(json.JSONEncoder):
             self.indentation_level -= 1
             return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
 
-        elif isinstance(o, dict):
+        if isinstance(o, dict):
             self.indentation_level += 1
             output = [self.indent_str + f"{json.dumps(k)}: {self.encode(v)}" for k, v in o.items()]
             self.indentation_level -= 1
@@ -167,7 +167,7 @@ for definition in os.listdir(PATH):
                             print(f"ERROR: {p} - {r}: size: {size.num}:{size.den}, {dar.num}:{dar.den}")
                         else:
                             if smallest_diff > 0.01:
-                                raise Exception(f"ERROR: BAD SAMPLE RATIO: {smallest_diff} ({smallest_fraction[0]}:{smallest_fraction[0]}) for {p.get('width')}x{p.get('height')} @ {r.get('dar').get('num')}:{r.get('dar').get('den')}")
+                                raise Exception(f"ERROR: BAD SAMPLE RATIO: {smallest_diff} ({smallest_fraction[0]}")
                             r["sar"] = {"num": smallest_fraction[0], "den": smallest_fraction[1]}
                             if float(smallest_fraction[0] / smallest_fraction[1]) != 1.0 and "Anamorphic" not in r["notes"]:
                                 r["notes"] = f'{r["notes"]} Anamorphic'.strip()
@@ -381,8 +381,8 @@ if mode == "doc":
             preset_path = os.path.join(preset_folder, file)
 
             xmldoc = xml.parse(preset_path)
-            type = xmldoc.getElementsByTagName("type")
-            presets.append(type[0].childNodes[0].data)
+            simple_type = xmldoc.getElementsByTagName("type")
+            presets.append(simple_type[0].childNodes[0].data)
             if xmldoc.getElementsByTagName("projectprofile"):
                 project_profiles = []
                 for profile in xmldoc.getElementsByTagName("projectprofile"):
