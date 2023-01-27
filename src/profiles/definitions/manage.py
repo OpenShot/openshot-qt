@@ -15,7 +15,7 @@ import sys
 import json
 import openshot
 
-from xml.dom import minidom as xml
+from defusedxml import minidom as xml
 
 
 PATH = os.path.dirname(os.path.realpath(__file__))
@@ -38,11 +38,11 @@ class CompactJSONEncoder(json.JSONEncoder):
         if isinstance(o, (list, tuple)):
             if "dar" in o[0]:
                 return "[" + ", ".join(json.dumps(el) for el in o) + "]"
-            else:
-                self.indentation_level += 1
-                output = [self.indent_str + self.encode(el) for el in o]
-                self.indentation_level -= 1
-                return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
+
+            self.indentation_level += 1
+            output = [self.indent_str + self.encode(el) for el in o]
+            self.indentation_level -= 1
+            return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
 
         elif isinstance(o, dict):
             self.indentation_level += 1
@@ -55,10 +55,6 @@ class CompactJSONEncoder(json.JSONEncoder):
     @property
     def indent_str(self) -> str:
         return " " * self.indentation_level * self.indent
-
-    def iterencode(self, o, **kwargs):
-        """Required to also work with `json.dump`."""
-        return self.encode(o)
 
 
 def save_profile(definition_path, json_details):
@@ -78,7 +74,7 @@ def replace_preset_profile(match):
     """Replace matched string"""
     legacy_profile_name = match.groups(0)[0]
     # LEGACY PROFILES
-    for key, profile_details in legacy_profiles.items():
+    for profile_details in legacy_profiles.values():
         for profile_tuple in profile_details:
             legacy_profile = profile_tuple[0]
             if legacy_profile_name == legacy_profile.info.description:
@@ -86,10 +82,10 @@ def replace_preset_profile(match):
                 profile_obj = openshot.Profile(new_profile_path)
                 return f"\t<projectprofile>{profile_obj.info.description}</projectprofile>"
     # NEW PROFILES (if needed)
-    for profile_name in sorted(os.listdir(PROFILE_PATH)):
-        profile_path = os.path.join(PROFILE_PATH, profile_name)
-        if not os.path.isdir(profile_path):
-            profile_obj = openshot.Profile(profile_path)
+    for new_profile_name in sorted(os.listdir(PROFILE_PATH)):
+        new_profile_path = os.path.join(PROFILE_PATH, new_profile_name)
+        if not os.path.isdir(new_profile_path):
+            profile_obj = openshot.Profile(new_profile_path)
             if legacy_profile_name == profile_obj.info.description:
                 return f"\t<projectprofile>{profile_obj.info.description}</projectprofile>"
     raise Exception(f"No matching legacy profile found for {legacy_profile_name}")
@@ -349,13 +345,14 @@ if mode == "doc":
     def lookup_layout(layout):
         if layout == "3":
             return "Stereo"
-        elif layout == "4":
+        if layout == "4":
             return "Mono"
-        elif layout == "7":
+        if layout == "7":
             return "Surround"
 
     # Print existing profiles
-    print("\n%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
+    print("\n%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
+                                            "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
     for profile_name in reversed(sorted(os.listdir(PROFILE_PATH))):
         profile_path = os.path.join(PROFILE_PATH, profile_name)
         if not os.path.isdir(profile_path):
@@ -370,8 +367,10 @@ if mode == "doc":
             else:
                 padded_interlaced = "No".ljust(6)
             fps_padded = f"{profile.info.fps.ToFloat():.2f}".ljust(6)
-            print(f"{padded_name}  {padded_width}  {padded_height}  {fps_padded}  {padded_ratio}  {padded_pixel_ratio}  {padded_interlaced}")
-    print("%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
+            print(f"{padded_name}  {padded_width}  {padded_height}  {fps_padded}  "
+                  f"{padded_ratio}  {padded_pixel_ratio}  {padded_interlaced}")
+    print("%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
+                                          "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
 
     # Print existing presets
     presets = []
@@ -399,7 +398,8 @@ if mode == "doc":
             if xmldoc.getElementsByTagName("audiocodec")[0].childNodes:
                 audio_codec = xmldoc.getElementsByTagName("audiocodec")[0].childNodes[0].data
 
-            preset_type_names[xmldoc.getElementsByTagName("type")[0].childNodes[0].data] = xmldoc.getElementsByTagName("type")[0].childNodes[0].data
+            preset_type_names[xmldoc.getElementsByTagName("type")[0].childNodes[0].data] = \
+                xmldoc.getElementsByTagName("type")[0].childNodes[0].data
             preset_types.append({
                 "type": xmldoc.getElementsByTagName("type")[0].childNodes[0].data,
                 "title": xmldoc.getElementsByTagName("title")[0].childNodes[0].data,
