@@ -1498,9 +1498,12 @@ OpenShot includes a large list of common profiles.
 Definitions
 ^^^^^^^^^^^
 
+- **Profile Name**: This is a short, friendly name for a video profile (FHD 1080p 30 fps, for example)
 - **FPS**: Frames Per Second
 - **DAR**: Display Aspect Ratio (i.e. 1920:1080 reduces to 16:9 aspect ratio)
-- **SAR**: Sample Aspect Ratio (i.e. 1:1 ratio == square pixel, 2:1 horizontal rectangular pixel). The SAR directly affects the display aspect ratio. For example, a 4:3 video can be displayed as 16:9, if it uses rectangular pixels.
+- **SAR**: Sample Aspect Ratio (i.e. 1:1 ratio == square pixel, 2:1 horizontal rectangular pixel). The SAR directly affects the display aspect ratio. For example, a 4:3 video can be displayed as 16:9, if it uses rectangular pixels. However, rectangular pixels will cause the final display width to be adjusted.
+- **PAR**: Pixel Aspect Ratio (identical to SAR - but some people prefer this term instead)
+- **SAR Adjusted Width**: This is the width of the final display image, taking SAR (i.e. non-square pixels) into account
 - **Interlaced**: Display alternating lines of the video image (odd lines, even lines), mostly used by analog broadcasting
 - **NTSC**: NTSC is an analog TV color system used mostly in America (usually 29.97 fps)
 - **PAL**: PAL is an analog TV color system used in Europe, Australia, and much of the rest of the world (usually 25 fps)
@@ -1510,419 +1513,421 @@ Definitions
 - **HD**: High Definition (usually defined as any resolution at equal or greater than 1280x720 pixels)
 - **SD**: Standard Definition (usually defined as any resolution smaller than 1280x720 pixels)
 
-=============================================  ======  ======  ======  ======  ======  ======
-16K UHD 8640p 59.94 fps                        15360   8640    59.94   16:9    1:1     No
-16K UHD 8640p 29.97 fps                        15360   8640    29.97   16:9    1:1     No
-16K UHD 8640p 23.98 fps                        15360   8640    23.98   16:9    1:1     No
-16K UHD 8640p 60 fps                           15360   8640    60.00   16:9    1:1     No
-16K UHD 8640p 50 fps                           15360   8640    50.00   16:9    1:1     No
-16K UHD 8640p 30 fps                           15360   8640    30.00   16:9    1:1     No
-16K UHD 8640p 25 fps                           15360   8640    25.00   16:9    1:1     No
-16K UHD 8640p 24 fps                           15360   8640    24.00   16:9    1:1     No
-8K UHD 4320p 59.94 fps                         7680    4320    59.94   16:9    1:1     No
-8K UHD 4320p 29.97 fps                         7680    4320    29.97   16:9    1:1     No
-8K UHD 4320p 23.98 fps                         7680    4320    23.98   16:9    1:1     No
-8K UHD 4320p 60 fps                            7680    4320    60.00   16:9    1:1     No
-8K UHD 4320p 50 fps                            7680    4320    50.00   16:9    1:1     No
-8K UHD 4320p 30 fps                            7680    4320    30.00   16:9    1:1     No
-8K UHD 4320p 25 fps                            7680    4320    25.00   16:9    1:1     No
-8K UHD 4320p 24 fps                            7680    4320    24.00   16:9    1:1     No
-5K UHD 2880p 59.94 fps                         5120    2880    59.94   16:9    1:1     No
-5K UHD 2880p 29.97 fps                         5120    2880    29.97   16:9    1:1     No
-5K UHD 2880p 23.98 fps                         5120    2880    23.98   16:9    1:1     No
-5K UHD 2880p 60 fps                            5120    2880    60.00   16:9    1:1     No
-5K UHD 2880p 50 fps                            5120    2880    50.00   16:9    1:1     No
-5K UHD 2880p 30 fps                            5120    2880    30.00   16:9    1:1     No
-5K UHD 2880p 25 fps                            5120    2880    25.00   16:9    1:1     No
-5K UHD 2880p 24 fps                            5120    2880    24.00   16:9    1:1     No
-4K UHD 2160p 59.94 fps                         3840    2160    59.94   16:9    1:1     No
-4K UHD 2160p 29.97 fps                         3840    2160    29.97   16:9    1:1     No
-4K UHD 2160p 23.98 fps                         3840    2160    23.98   16:9    1:1     No
-4K UHD 2160p 60 fps                            3840    2160    60.00   16:9    1:1     No
-4K UHD 2160p 50 fps                            3840    2160    50.00   16:9    1:1     No
-4K UHD 2160p 30 fps                            3840    2160    30.00   16:9    1:1     No
-4K UHD 2160p 25 fps                            3840    2160    25.00   16:9    1:1     No
-4K UHD 2160p 24 fps                            3840    2160    24.00   16:9    1:1     No
-3K QHD+ 1800p 59.94 fps                        3200    1800    59.94   16:9    1:1     No
-3K QHD+ 1800p 29.97 fps                        3200    1800    29.97   16:9    1:1     No
-3K QHD+ 1800p 23.98 fps                        3200    1800    23.98   16:9    1:1     No
-3K QHD+ 1800p 60 fps                           3200    1800    60.00   16:9    1:1     No
-3K QHD+ 1800p 50 fps                           3200    1800    50.00   16:9    1:1     No
-3K QHD+ 1800p 30 fps                           3200    1800    30.00   16:9    1:1     No
-3K QHD+ 1800p 25 fps                           3200    1800    25.00   16:9    1:1     No
-3K QHD+ 1800p 24 fps                           3200    1800    24.00   16:9    1:1     No
-2.5K WQHD 1440p 59.94 fps                      2560    1440    59.94   16:9    1:1     No
-2.5K WQHD 1440p 29.97 fps                      2560    1440    29.97   16:9    1:1     No
-2.5K WQHD 1440p 23.98 fps                      2560    1440    23.98   16:9    1:1     No
-2.5K WQHD 1440p 60 fps                         2560    1440    60.00   16:9    1:1     No
-2.5K WQHD 1440p 50 fps                         2560    1440    50.00   16:9    1:1     No
-2.5K WQHD 1440p 30 fps                         2560    1440    30.00   16:9    1:1     No
-2.5K WQHD 1440p 25 fps                         2560    1440    25.00   16:9    1:1     No
-2.5K WQHD 1440p 24 fps                         2560    1440    24.00   16:9    1:1     No
-FHD 1080p 59.94 fps                            1920    1080    59.94   16:9    1:1     No
-FHD 1080p 29.97 fps                            1920    1080    29.97   16:9    1:1     No
-FHD 1080p 23.98 fps                            1920    1080    23.98   16:9    1:1     No
-FHD 1080p 60 fps                               1920    1080    60.00   16:9    1:1     No
-FHD PAL 1080p 50 fps                           1920    1080    50.00   16:9    1:1     No
-FHD 1080p 30 fps                               1920    1080    30.00   16:9    1:1     No
-FHD PAL 1080p 25 fps                           1920    1080    25.00   16:9    1:1     No
-FHD 1080p 24 fps                               1920    1080    24.00   16:9    1:1     No
-FHD 1080i 29.97 fps                            1920    1080    29.97   16:9    1:1     Yes
-FHD 1080i 30 fps                               1920    1080    30.00   16:9    1:1     Yes
-FHD PAL 1080i 25 fps                           1920    1080    25.00   16:9    1:1     Yes
-FHD Anamorphic 1035i 29.97 fps                 1920    1035    29.97   16:9    23:24   Yes
-FHD Anamorphic 1035i 30 fps                    1920    1035    30.00   16:9    23:24   Yes
-FHD Anamorphic 1035i 25 fps                    1920    1035    25.00   16:9    23:24   Yes
-HD+ 900p 59.94 fps                             1600    900     59.94   16:9    1:1     No
-HD+ 900p 29.97 fps                             1600    900     29.97   16:9    1:1     No
-HD+ 900p 23.98 fps                             1600    900     23.98   16:9    1:1     No
-HD+ 900p 60 fps                                1600    900     60.00   16:9    1:1     No
-HD+ 900p 50 fps                                1600    900     50.00   16:9    1:1     No
-HD+ 900p 30 fps                                1600    900     30.00   16:9    1:1     No
-HD+ 900p 25 fps                                1600    900     25.00   16:9    1:1     No
-HD+ 900p 24 fps                                1600    900     24.00   16:9    1:1     No
-HD Anamorphic 1152i 25 fps                     1440    1152    25.00   16:9    64:45   Yes
-HD Anamorphic 1080p 59.94 fps                  1440    1080    59.94   16:9    4:3     No
-HD Anamorphic 1080p 29.97 fps                  1440    1080    29.97   16:9    4:3     No
-HD Anamorphic 1080p 23.98 fps                  1440    1080    23.98   16:9    4:3     No
-HD Anamorphic 1080p 60 fps                     1440    1080    60.00   16:9    4:3     No
-HD Anamorphic 1080p 50 fps                     1440    1080    50.00   16:9    4:3     No
-HD Anamorphic 1080p 30 fps                     1440    1080    30.00   16:9    4:3     No
-HD Anamorphic 1080p 25 fps                     1440    1080    25.00   16:9    4:3     No
-HD Anamorphic 1080p 24 fps                     1440    1080    24.00   16:9    4:3     No
-HD Anamorphic 1080i 29.97 fps                  1440    1080    29.97   16:9    4:3     Yes
-HD Anamorphic 1080i 30 fps                     1440    1080    30.00   16:9    4:3     Yes
-HD Anamorphic 1080i 25 fps                     1440    1080    25.00   16:9    4:3     Yes
-NTSC SD 16CIF Anamorphic 1152p 29.97 fps       1408    1152    29.97   4:3     12:11   No
-PAL SD 16CIF Anamorphic 1152p 25 fps           1408    1152    25.00   4:3     12:11   No
-PAL SD 16CIF Anamorphic 1152p 15 fps           1408    1152    15.00   4:3     12:11   No
-HD 720p 59.94 fps                              1280    720     59.94   16:9    1:1     No
-HD 720p 29.97 fps                              1280    720     29.97   16:9    1:1     No
-HD 720p 23.98 fps                              1280    720     23.98   16:9    1:1     No
-HD 720p 60 fps                                 1280    720     60.00   16:9    1:1     No
-PAL HD 720p 50 fps                             1280    720     50.00   16:9    1:1     No
-HD 720p 30 fps                                 1280    720     30.00   16:9    1:1     No
-HD 720p 25 fps                                 1280    720     25.00   16:9    1:1     No
-HD 720p 24 fps                                 1280    720     24.00   16:9    1:1     No
-FHD Vertical 1080p 59.94 fps                   1080    1920    59.94   9:16    1:1     No
-FHD Vertical 1080p 29.97 fps                   1080    1920    29.97   9:16    1:1     No
-FHD Vertical 1080p 23.98 fps                   1080    1920    23.98   9:16    1:1     No
-FHD Vertical 1080p 60 fps                      1080    1920    60.00   9:16    1:1     No
-FHD Vertical 1080p 50 fps                      1080    1920    50.00   9:16    1:1     No
-FHD Vertical 1080p 30 fps                      1080    1920    30.00   9:16    1:1     No
-FHD Vertical 1080p 25 fps                      1080    1920    25.00   9:16    1:1     No
-FHD Vertical 1080p 24 fps                      1080    1920    24.00   9:16    1:1     No
-HD Vertical 1080p 60 fps                       1080    1350    60.00   4:5     1:1     No
-HD Vertical 1080p 50 fps                       1080    1350    50.00   4:5     1:1     No
-HD Vertical 1080p 30 fps                       1080    1350    30.00   4:5     1:1     No
-HD Vertical 1080p 25 fps                       1080    1350    25.00   4:5     1:1     No
-HD Vertical 1080p 24 fps                       1080    1350    24.00   4:5     1:1     No
-HD Square 1080p 60 fps                         1080    1080    60.00   1:1     1:1     No
-HD Square 1080p 50 fps                         1080    1080    50.00   1:1     1:1     No
-HD Square 1080p 30 fps                         1080    1080    30.00   1:1     1:1     No
-HD Square 1080p 25 fps                         1080    1080    25.00   1:1     1:1     No
-HD Square 1080p 24 fps                         1080    1080    24.00   1:1     1:1     No
-WSVGA 600p 59.94 fps                           1024    600     59.94   128:75  1:1     No
-WSVGA 600p 29.97 fps                           1024    600     29.97   128:75  1:1     No
-WSVGA 600p 23.98 fps                           1024    600     23.98   128:75  1:1     No
-WSVGA 600p 60 fps                              1024    600     60.00   128:75  1:1     No
-WSVGA 600p 50 fps                              1024    600     50.00   128:75  1:1     No
-WSVGA 600p 30 fps                              1024    600     30.00   128:75  1:1     No
-WSVGA 600p 25 fps                              1024    600     25.00   128:75  1:1     No
-WSVGA 600p 24 fps                              1024    600     24.00   128:75  1:1     No
-WSVGA 600p 15 fps                              1024    600     15.00   128:75  1:1     No
-WSVGA 576p 59.94 fps                           1024    576     59.94   16:9    1:1     No
-WSVGA 576p 29.97 fps                           1024    576     29.97   16:9    1:1     No
-WSVGA 576p 23.98 fps                           1024    576     23.98   16:9    1:1     No
-WSVGA 576p 60 fps                              1024    576     60.00   16:9    1:1     No
-WSVGA 576p 50 fps                              1024    576     50.00   16:9    1:1     No
-WSVGA 576p 30 fps                              1024    576     30.00   16:9    1:1     No
-PAL SD Wide WSVGA 576p 25 fps                  1024    576     25.00   16:9    1:1     No
-WSVGA 576p 24 fps                              1024    576     24.00   16:9    1:1     No
-WSVGA 576p 15 fps                              1024    576     15.00   16:9    1:1     No
-DVGA 640p 59.94 fps                            960     640     59.94   3:2     1:1     No
-DVGA 640p 29.97 fps                            960     640     29.97   3:2     1:1     No
-DVGA 640p 23.98 fps                            960     640     23.98   3:2     1:1     No
-DVGA 640p 60 fps                               960     640     60.00   3:2     1:1     No
-DVGA 640p 50 fps                               960     640     50.00   3:2     1:1     No
-DVGA 640p 30 fps                               960     640     30.00   3:2     1:1     No
-DVGA 640p 25 fps                               960     640     25.00   3:2     1:1     No
-DVGA 640p 24 fps                               960     640     24.00   3:2     1:1     No
-DVGA 640p 15 fps                               960     640     15.00   3:2     1:1     No
-qHD 540p 59.94 fps                             960     540     59.94   16:9    1:1     No
-qHD 540p 29.97 fps                             960     540     29.97   16:9    1:1     No
-qHD 540p 23.98 fps                             960     540     23.98   16:9    1:1     No
-qHD 540p 60 fps                                960     540     60.00   16:9    1:1     No
-qHD 540p 50 fps                                960     540     50.00   16:9    1:1     No
-qHD 540p 30 fps                                960     540     30.00   16:9    1:1     No
-qHD 540p 25 fps                                960     540     25.00   16:9    1:1     No
-qHD 540p 24 fps                                960     540     24.00   16:9    1:1     No
-FWVGA 480p 59.94 fps                           854     480     59.94   16:9    1:1     No
-NTSC SD Wide FWVGA 480p 29.97 fps              854     480     29.97   16:9    1:1     No
-FWVGA 480p 23.98 fps                           854     480     23.98   16:9    1:1     No
-FWVGA 480p 60 fps                              854     480     60.00   16:9    1:1     No
-FWVGA 480p 50 fps                              854     480     50.00   16:9    1:1     No
-FWVGA 480p 30 fps                              854     480     30.00   16:9    1:1     No
-FWVGA 480p 25 fps                              854     480     25.00   16:9    1:1     No
-FWVGA 480p 24 fps                              854     480     24.00   16:9    1:1     No
-FWVGA 480p 15 fps                              854     480     15.00   16:9    1:1     No
-SVGA 600p 59.94 fps                            800     600     59.94   4:3     1:1     No
-SVGA 600p 29.97 fps                            800     600     29.97   4:3     1:1     No
-SVGA 600p 23.98 fps                            800     600     23.98   4:3     1:1     No
-SVGA 600p 60 fps                               800     600     60.00   4:3     1:1     No
-SVGA 600p 50 fps                               800     600     50.00   4:3     1:1     No
-SVGA 600p 30 fps                               800     600     30.00   4:3     1:1     No
-SVGA 600p 25 fps                               800     600     25.00   4:3     1:1     No
-SVGA 600p 24 fps                               800     600     24.00   4:3     1:1     No
-SVGA 600p 15 fps                               800     600     15.00   4:3     1:1     No
-WVGA 480p 59.94 fps                            800     480     59.94   5:3     1:1     No
-WVGA 480p 29.97 fps                            800     480     29.97   5:3     1:1     No
-WVGA 480p 23.98 fps                            800     480     23.98   5:3     1:1     No
-WVGA 480p 60 fps                               800     480     60.00   5:3     1:1     No
-WVGA 480p 50 fps                               800     480     50.00   5:3     1:1     No
-WVGA 480p 30 fps                               800     480     30.00   5:3     1:1     No
-WVGA 480p 25 fps                               800     480     25.00   5:3     1:1     No
-WVGA 480p 24 fps                               800     480     24.00   5:3     1:1     No
-WVGA 480p 15 fps                               800     480     15.00   5:3     1:1     No
-PAL SD SQ 576p 25 fps                          768     576     25.00   4:3     1:1     No
-WVGA 480p 59.94 fps                            768     480     59.94   16:10   1:1     No
-WVGA 480p 29.97 fps                            768     480     29.97   16:10   1:1     No
-WVGA 480p 23.98 fps                            768     480     23.98   16:10   1:1     No
-WVGA 480p 60 fps                               768     480     60.00   16:10   1:1     No
-WVGA 480p 50 fps                               768     480     50.00   16:10   1:1     No
-WVGA 480p 30 fps                               768     480     30.00   16:10   1:1     No
-WVGA 480p 25 fps                               768     480     25.00   16:10   1:1     No
-WVGA 480p 24 fps                               768     480     24.00   16:10   1:1     No
-WVGA 480p 15 fps                               768     480     15.00   16:10   1:1     No
-HD Vertical 720p 59.94 fps                     720     1280    59.94   9:16    1:1     No
-HD Vertical 720p 29.97 fps                     720     1280    29.97   9:16    1:1     No
-HD Vertical 720p 23.98 fps                     720     1280    23.98   9:16    1:1     No
-HD Vertical 720p 60 fps                        720     1280    60.00   9:16    1:1     No
-HD Vertical 720p 50 fps                        720     1280    50.00   9:16    1:1     No
-HD Vertical 720p 30 fps                        720     1280    30.00   9:16    1:1     No
-HD Vertical 720p 25 fps                        720     1280    25.00   9:16    1:1     No
-HD Vertical 720p 24 fps                        720     1280    24.00   9:16    1:1     No
-PAL SD Anamorphic 576p 50 fps                  720     576     50.00   16:9    64:45   No
-PAL SD Anamorphic 576p 50 fps                  720     576     50.00   4:3     16:15   No
-PAL SD Widescreen Anamorphic 576p 25 fps       720     576     25.00   16:9    64:45   No
-PAL SD Anamorphic 576p 25 fps                  720     576     25.00   4:3     16:15   No
-PAL SD Widescreen Anamorphic 576i 25 fps       720     576     25.00   16:9    64:45   Yes
-PAL SD Anamorphic 576i 25 fps                  720     576     25.00   4:3     16:15   Yes
-NTSC SD Anamorphic 486p 23.98 fps              720     486     23.98   16:9    6:5     No
-NTSC SD Anamorphic 486p 23.98 fps              720     486     23.98   4:3     9:10    No
-NTSC SD Anamorphic 486i 29.97 fps              720     486     29.97   16:9    6:5     Yes
-NTSC SD Anamorphic 486i 29.97 fps              720     486     29.97   4:3     9:10    Yes
-NTSC SD Anamorphic 480p 59.94 fps              720     480     59.94   16:9    32:27   No
-NTSC SD Anamorphic 480p 59.94 fps              720     480     59.94   4:3     8:9     No
-WVGA 480p 59.94 fps                            720     480     59.94   3:2     1:1     No
-NTSC SD Widescreen Anamorphic 480p 29.97 fps   720     480     29.97   16:9    32:27   No
-NTSC SD Anamorphic 480p 29.97 fps              720     480     29.97   4:3     8:9     No
-WVGA 480p 29.97 fps                            720     480     29.97   3:2     1:1     No
-NTSC SD Anamorphic 480p 23.98 fps              720     480     23.98   16:9    32:27   No
-NTSC SD Anamorphic 480p 23.98 fps              720     480     23.98   4:3     8:9     No
-WVGA 480p 23.98 fps                            720     480     23.98   3:2     1:1     No
-NTSC SD Anamorphic 480p 60 fps                 720     480     60.00   16:9    32:27   No
-NTSC SD Anamorphic 480p 60 fps                 720     480     60.00   4:3     8:9     No
-WVGA 480p 60 fps                               720     480     60.00   3:2     1:1     No
-NTSC SD Anamorphic 480p 50 fps                 720     480     50.00   16:9    32:27   No
-NTSC SD Anamorphic 480p 50 fps                 720     480     50.00   4:3     8:9     No
-WVGA 480p 50 fps                               720     480     50.00   3:2     1:1     No
-NTSC SD Anamorphic 480p 30 fps                 720     480     30.00   16:9    32:27   No
-NTSC SD Anamorphic 480p 30 fps                 720     480     30.00   4:3     8:9     No
-WVGA 480p 30 fps                               720     480     30.00   3:2     1:1     No
-NTSC SD Anamorphic 480p 25 fps                 720     480     25.00   16:9    32:27   No
-NTSC SD Anamorphic 480p 25 fps                 720     480     25.00   4:3     8:9     No
-WVGA 480p 25 fps                               720     480     25.00   3:2     1:1     No
-NTSC SD Anamorphic 480p 24 fps                 720     480     24.00   16:9    32:27   No
-NTSC SD Anamorphic 480p 24 fps                 720     480     24.00   4:3     8:9     No
-WVGA 480p 24 fps                               720     480     24.00   3:2     1:1     No
-WVGA 480p 15 fps                               720     480     15.00   3:2     1:1     No
-NTSC SD Anamorphic 480i 59.94 fps              720     480     59.94   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 59.94 fps              720     480     59.94   4:3     8:9     Yes
-NTSC SD Widescreen Anamorphic 480i 29.97 fps   720     480     29.97   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 29.97 fps              720     480     29.97   4:3     8:9     Yes
-NTSC SD Anamorphic 480i 23.98 fps              720     480     23.98   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 23.98 fps              720     480     23.98   4:3     8:9     Yes
-NTSC SD Anamorphic 480i 60 fps                 720     480     60.00   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 60 fps                 720     480     60.00   4:3     8:9     Yes
-NTSC SD Anamorphic 480i 30 fps                 720     480     30.00   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 30 fps                 720     480     30.00   4:3     8:9     Yes
-NTSC SD Anamorphic 480i 25 fps                 720     480     25.00   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 25 fps                 720     480     25.00   4:3     8:9     Yes
-NTSC SD Anamorphic 480i 24 fps                 720     480     24.00   16:9    32:27   Yes
-NTSC SD Anamorphic 480i 24 fps                 720     480     24.00   4:3     8:9     Yes
-PAL SD 4CIF 4SIF Anamorphic 576p 29.97 fps     704     576     29.97   4:3     12:11   No
-PAL SD 4CIF 4SIF Anamorphic 576p 25 fps        704     576     25.00   4:3     12:11   No
-PAL SD 4CIF 4SIF Anamorphic 576p 15 fps        704     576     15.00   4:3     12:11   No
-PAL SD Anamorphic 576i 25 fps                  704     576     25.00   16:9    16:11   Yes
-PAL SD Anamorphic 576i 25 fps                  704     576     25.00   4:3     12:11   Yes
-NTSC SD Anamorphic 480p 59.94 fps              704     480     59.94   16:9    40:33   No
-NTSC SD Anamorphic 480p 59.94 fps              704     480     59.94   4:3     10:11   No
-NTSC SD Anamorphic 480p 29.97 fps              704     480     29.97   16:9    40:33   No
-NTSC SD 4SIF Anamorphic 480p 29.97 fps         704     480     29.97   4:3     10:11   No
-NTSC SD Anamorphic 480p 23.98 fps              704     480     23.98   16:9    40:33   No
-NTSC SD Anamorphic 480p 23.98 fps              704     480     23.98   4:3     10:11   No
-NTSC SD Anamorphic 480p 60 fps                 704     480     60.00   16:9    40:33   No
-NTSC SD Anamorphic 480p 60 fps                 704     480     60.00   4:3     10:11   No
-NTSC SD Anamorphic 480p 50 fps                 704     480     50.00   16:9    40:33   No
-NTSC SD Anamorphic 480p 50 fps                 704     480     50.00   4:3     10:11   No
-NTSC SD Anamorphic 480p 30 fps                 704     480     30.00   16:9    40:33   No
-NTSC SD Anamorphic 480p 30 fps                 704     480     30.00   4:3     10:11   No
-NTSC SD Anamorphic 480p 25 fps                 704     480     25.00   16:9    40:33   No
-NTSC SD 4SIF Anamorphic 480p 25 fps            704     480     25.00   4:3     10:11   No
-NTSC SD Anamorphic 480p 24 fps                 704     480     24.00   16:9    40:33   No
-NTSC SD Anamorphic 480p 24 fps                 704     480     24.00   4:3     10:11   No
-NTSC SD 4SIF Anamorphic 480p 15 fps            704     480     15.00   4:3     10:11   No
-NTSC SD Anamorphic 480i 29.97 fps              704     480     29.97   16:9    40:33   Yes
-NTSC SD 4SIF Anamorphic 480i 29.97 fps         704     480     29.97   4:3     10:11   Yes
-NTSC SD Anamorphic 480i 30 fps                 704     480     30.00   16:9    40:33   Yes
-NTSC SD Anamorphic 480i 30 fps                 704     480     30.00   4:3     10:11   Yes
-NTSC SD Anamorphic 480i 25 fps                 704     480     25.00   16:9    40:33   Yes
-NTSC SD Anamorphic 480i 25 fps                 704     480     25.00   4:3     10:11   Yes
-NTSC SD VGA 480p 59.94 fps                     640     480     59.94   4:3     1:1     No
-NTSC SD SQ VGA 480p 29.97 fps                  640     480     29.97   4:3     1:1     No
-NTSC SD VGA 480p 23.98 fps                     640     480     23.98   4:3     1:1     No
-NTSC SD VGA 480p 60 fps                        640     480     60.00   4:3     1:1     No
-NTSC SD VGA 480p 50 fps                        640     480     50.00   4:3     1:1     No
-NTSC SD VGA 480p 30 fps                        640     480     30.00   4:3     1:1     No
-NTSC SD VGA 480p 25 fps                        640     480     25.00   4:3     1:1     No
-NTSC SD VGA 480p 24 fps                        640     480     24.00   4:3     1:1     No
-VGA 480p 15 fps                                640     480     15.00   4:3     1:1     No
-NTSC SD 480i 29.97 fps                         640     480     29.97   4:3     1:1     Yes
-NTSC SD 480i 23.98 fps                         640     480     23.98   4:3     1:1     Yes
-NTSC SD 480i 30 fps                            640     480     30.00   4:3     1:1     Yes
-NTSC SD 480i 25 fps                            640     480     25.00   4:3     1:1     Yes
-NTSC SD 480i 24 fps                            640     480     24.00   4:3     1:1     Yes
-nHD 360p 59.94 fps                             640     360     59.94   16:9    1:1     No
-nHD 360p 29.97 fps                             640     360     29.97   16:9    1:1     No
-nHD 360p 23.98 fps                             640     360     23.98   16:9    1:1     No
-nHD 360p 60 fps                                640     360     60.00   16:9    1:1     No
-nHD 360p 50 fps                                640     360     50.00   16:9    1:1     No
-nHD 360p 30 fps                                640     360     30.00   16:9    1:1     No
-nHD 360p 25 fps                                640     360     25.00   16:9    1:1     No
-nHD 360p 24 fps                                640     360     24.00   16:9    1:1     No
-PAL SD Anamorphic 576p 25 fps                  544     576     25.00   16:9    32:17   No
-PAL SD Anamorphic 576p 25 fps                  544     576     25.00   4:3     24:17   No
-PAL SD Anamorphic 576i 25 fps                  544     576     25.00   16:9    32:17   Yes
-PAL SD Anamorphic 576i 25 fps                  544     576     25.00   4:3     24:17   Yes
-NTSC SD 3/4 Anamorphic 480p 23.98 fps          544     480     23.98   4:3     20:17   No
-NTSC SD 3/4 Anamorphic 480p 25 fps             544     480     25.00   4:3     20:17   No
-NTSC SD 3/4 Anamorphic 480i 29.97 fps          544     480     29.97   4:3     20:17   Yes
-NTSC SD 3/4 Anamorphic 480i 25 fps             544     480     25.00   4:3     20:17   Yes
-NTSC SD 3/4 Anamorphic 480p 23.98 fps          528     480     23.98   4:3     40:33   No
-NTSC SD 3/4 Anamorphic 480p 25 fps             528     480     25.00   4:3     40:33   No
-NTSC SD 3/4 Anamorphic 480i 29.97 fps          528     480     29.97   4:3     40:33   Yes
-NTSC SD 3/4 Anamorphic 480i 25 fps             528     480     25.00   4:3     40:33   Yes
-PAL SD 1/4 Wide 288p 25 fps                    512     288     25.00   16:9    1:1     No
-PAL SD Anamorphic 576p 25 fps                  480     576     25.00   16:9    32:15   No
-PAL SD Anamorphic 576p 25 fps                  480     576     25.00   4:3     8:5     No
-PAL SD Anamorphic 576i 25 fps                  480     576     25.00   16:9    32:15   Yes
-PAL SD Anamorphic 576i 25 fps                  480     576     25.00   4:3     8:5     Yes
-NTSC SD Anamorphic 480i 29.97 fps              480     480     29.97   16:9    16:9    Yes
-NTSC SD Anamorphic 480i 29.97 fps              480     480     29.97   4:3     4:3     Yes
-NTSC SD Anamorphic 480i 23.98 fps              480     480     23.98   16:9    16:9    Yes
-NTSC SD Anamorphic 480i 23.98 fps              480     480     23.98   4:3     4:3     Yes
-NTSC SD Anamorphic 480i 30 fps                 480     480     30.00   4:3     4:3     Yes
-HVGA 320p 59.94 fps                            480     320     59.94   3:2     1:1     No
-HVGA 320p 29.97 fps                            480     320     29.97   3:2     1:1     No
-HVGA 320p 23.98 fps                            480     320     23.98   3:2     1:1     No
-HVGA 320p 60 fps                               480     320     60.00   3:2     1:1     No
-HVGA 320p 50 fps                               480     320     50.00   3:2     1:1     No
-HVGA 320p 30 fps                               480     320     30.00   3:2     1:1     No
-HVGA 320p 25 fps                               480     320     25.00   3:2     1:1     No
-HVGA 320p 24 fps                               480     320     24.00   3:2     1:1     No
-HVGA 320p 15 fps                               480     320     15.00   3:2     1:1     No
-NTSC SD 1/4 Wide 240p 29.97 fps                427     240     29.97   16:9    1:1     No
-WQVGA 240p 59.94 fps                           400     240     59.94   5:3     1:1     No
-WQVGA 240p 29.97 fps                           400     240     29.97   5:3     1:1     No
-WQVGA 240p 23.98 fps                           400     240     23.98   5:3     1:1     No
-WQVGA 240p 60 fps                              400     240     60.00   5:3     1:1     No
-WQVGA 240p 50 fps                              400     240     50.00   5:3     1:1     No
-WQVGA 240p 30 fps                              400     240     30.00   5:3     1:1     No
-WQVGA 240p 25 fps                              400     240     25.00   5:3     1:1     No
-WQVGA 240p 24 fps                              400     240     24.00   5:3     1:1     No
-WQVGA 240p 15 fps                              400     240     15.00   5:3     1:1     No
-PAL SD 1/4 288p 25 fps                         384     288     25.00   4:3     1:1     No
-WQVGA 240p 59.94 fps                           384     240     59.94   16:10   1:1     No
-WQVGA 240p 29.97 fps                           384     240     29.97   16:10   1:1     No
-WQVGA 240p 23.98 fps                           384     240     23.98   16:10   1:1     No
-WQVGA 240p 60 fps                              384     240     60.00   16:10   1:1     No
-WQVGA 240p 50 fps                              384     240     50.00   16:10   1:1     No
-WQVGA 240p 30 fps                              384     240     30.00   16:10   1:1     No
-WQVGA 240p 25 fps                              384     240     25.00   16:10   1:1     No
-WQVGA 240p 24 fps                              384     240     24.00   16:10   1:1     No
-WQVGA 240p 15 fps                              384     240     15.00   16:10   1:1     No
-WQVGA 240p 59.94 fps                           360     240     59.94   3:2     1:1     No
-WQVGA 240p 29.97 fps                           360     240     29.97   3:2     1:1     No
-WQVGA 240p 23.98 fps                           360     240     23.98   3:2     1:1     No
-WQVGA 240p 60 fps                              360     240     60.00   3:2     1:1     No
-WQVGA 240p 50 fps                              360     240     50.00   3:2     1:1     No
-WQVGA 240p 30 fps                              360     240     30.00   3:2     1:1     No
-WQVGA 240p 25 fps                              360     240     25.00   3:2     1:1     No
-WQVGA 240p 24 fps                              360     240     24.00   3:2     1:1     No
-WQVGA 240p 15 fps                              360     240     15.00   3:2     1:1     No
-PAL SD Anamorphic 576p 25 fps                  352     576     25.00   16:9    32:11   No
-PAL SD CVD Anamorphic 576p 25 fps              352     576     25.00   4:3     24:11   No
-PAL SD Anamorphic 576i 25 fps                  352     576     25.00   16:9    32:11   Yes
-PAL SD CVD Anamorphic 576i 25 fps              352     576     25.00   4:3     24:11   Yes
-NTSC SD CVD Anamorphic 480p 29.97 fps          352     480     29.97   4:3     20:11   No
-NTSC SD 1/2 Anamorphic 480p 23.98 fps          352     480     23.98   4:3     20:11   No
-NTSC SD 1/2 Anamorphic 480p 25 fps             352     480     25.00   4:3     20:11   No
-NTSC SD CVD 1/2 Anamorphic 480i 29.97 fps      352     480     29.97   4:3     20:11   Yes
-NTSC SD 1/2 Anamorphic 480i 25 fps             352     480     25.00   4:3     20:11   Yes
-PAL SD CIF SIF Anamorphic 288p 29.97 fps       352     288     29.97   4:3     12:11   No
-PAL SD Anamorphic 288p 25 fps                  352     288     25.00   16:9    16:11   No
-PAL SD CIF SIF VCD Anamorphic 288p 25 fps      352     288     25.00   4:3     12:11   No
-PAL SD CIF SIF Anamorphic 288p 15 fps          352     288     15.00   4:3     12:11   No
-PAL SD Anamorphic 288i 25 fps                  352     288     25.00   16:9    16:11   Yes
-PAL SD CIF Anamorphic 288i 25 fps              352     288     25.00   4:3     12:11   Yes
-NTSC SD SIF VCD Anamorphic 240p 29.97 fps      352     240     29.97   4:3     10:11   No
-NTSC SD SIF Anamorphic 240p 23.98 fps          352     240     23.98   4:3     10:11   No
-NTSC SD SIF Anamorphic 240p 25 fps             352     240     25.00   4:3     10:11   No
-NTSC SD SIF Anamorphic 240p 15 fps             352     240     15.00   4:3     10:11   No
-NTSC SD SIF Anamorphic 240i 29.97 fps          352     240     29.97   4:3     10:11   Yes
-QVGA 240p 59.94 fps                            320     240     59.94   4:3     1:1     No
-NTSC SD 1/4 QVGA 240p 29.97 fps                320     240     29.97   4:3     1:1     No
-QVGA 240p 23.98 fps                            320     240     23.98   4:3     1:1     No
-QVGA 240p 60 fps                               320     240     60.00   4:3     1:1     No
-QVGA 240p 50 fps                               320     240     50.00   4:3     1:1     No
-QVGA 240p 30 fps                               320     240     30.00   4:3     1:1     No
-QVGA 240p 25 fps                               320     240     25.00   4:3     1:1     No
-QVGA 240p 24 fps                               320     240     24.00   4:3     1:1     No
-QVGA 240p 15 fps                               320     240     15.00   4:3     1:1     No
-HQVGA 160p 59.94 fps                           256     160     59.94   16:10   1:1     No
-HQVGA 160p 29.97 fps                           256     160     29.97   16:10   1:1     No
-HQVGA 160p 23.98 fps                           256     160     23.98   16:10   1:1     No
-HQVGA 160p 60 fps                              256     160     60.00   16:10   1:1     No
-HQVGA 160p 50 fps                              256     160     50.00   16:10   1:1     No
-HQVGA 160p 30 fps                              256     160     30.00   16:10   1:1     No
-HQVGA 160p 25 fps                              256     160     25.00   16:10   1:1     No
-HQVGA 160p 24 fps                              256     160     24.00   16:10   1:1     No
-HQVGA 160p 15 fps                              256     160     15.00   16:10   1:1     No
-HQVGA 160p 59.94 fps                           240     160     59.94   3:2     1:1     No
-HQVGA 160p 29.97 fps                           240     160     29.97   3:2     1:1     No
-HQVGA 160p 23.98 fps                           240     160     23.98   3:2     1:1     No
-HQVGA 160p 60 fps                              240     160     60.00   3:2     1:1     No
-HQVGA 160p 50 fps                              240     160     50.00   3:2     1:1     No
-HQVGA 160p 30 fps                              240     160     30.00   3:2     1:1     No
-HQVGA 160p 25 fps                              240     160     25.00   3:2     1:1     No
-HQVGA 160p 24 fps                              240     160     24.00   3:2     1:1     No
-HQVGA 160p 15 fps                              240     160     15.00   3:2     1:1     No
-PAL SD QCIF Anamorphic 144p 29.97 fps          176     144     29.97   4:3     12:11   No
-PAL SD QCIF Anamorphic 144p 25 fps             176     144     25.00   4:3     12:11   No
-PAL SD QCIF Anamorphic 144p 15 fps             176     144     15.00   4:3     12:11   No
-NTSC SD SIF 1/2 Anamorphic 120p 23.98 fps      176     120     23.98   4:3     10:11   No
-NTSC SD SIF 1/2 Anamorphic 120p 25 fps         176     120     25.00   4:3     10:11   No
-QQVGA 120p 59.94 fps                           160     120     59.94   4:3     1:1     No
-QQVGA 120p 29.97 fps                           160     120     29.97   4:3     1:1     No
-QQVGA 120p 23.98 fps                           160     120     23.98   4:3     1:1     No
-QQVGA 120p 60 fps                              160     120     60.00   4:3     1:1     No
-QQVGA 120p 50 fps                              160     120     50.00   4:3     1:1     No
-QQVGA 120p 30 fps                              160     120     30.00   4:3     1:1     No
-QQVGA 120p 25 fps                              160     120     25.00   4:3     1:1     No
-QQVGA 120p 24 fps                              160     120     24.00   4:3     1:1     No
-QQVGA 120p 15 fps                              160     120     15.00   4:3     1:1     No
-NTSC SD SQ CIF 96p 29.97 fps                   128     96      29.97   4:3     1:1     No
-NTSC SD SQ CIF 96p 25 fps                      128     96      25.00   4:3     1:1     No
-NTSC SD SQ CIF 96p 15 fps                      128     96      15.00   4:3     1:1     No
-=============================================  ======  ======  ======  ======  ======  ======
+=============================================  ======  ======  ======  ======  ======  ==========  ==================
+Profile Name                                   Width   Height  FPS     DAR     SAR     Interlaced  SAR Adjusted Width
+=============================================  ======  ======  ======  ======  ======  ==========  ==================
+16K UHD 8640p 59.94 fps                        15360   8640    59.94   16:9    1:1     No          15360
+16K UHD 8640p 29.97 fps                        15360   8640    29.97   16:9    1:1     No          15360
+16K UHD 8640p 23.98 fps                        15360   8640    23.98   16:9    1:1     No          15360
+16K UHD 8640p 60 fps                           15360   8640    60.00   16:9    1:1     No          15360
+16K UHD 8640p 50 fps                           15360   8640    50.00   16:9    1:1     No          15360
+16K UHD 8640p 30 fps                           15360   8640    30.00   16:9    1:1     No          15360
+16K UHD 8640p 25 fps                           15360   8640    25.00   16:9    1:1     No          15360
+16K UHD 8640p 24 fps                           15360   8640    24.00   16:9    1:1     No          15360
+8K UHD 4320p 59.94 fps                         7680    4320    59.94   16:9    1:1     No          7680
+8K UHD 4320p 29.97 fps                         7680    4320    29.97   16:9    1:1     No          7680
+8K UHD 4320p 23.98 fps                         7680    4320    23.98   16:9    1:1     No          7680
+8K UHD 4320p 60 fps                            7680    4320    60.00   16:9    1:1     No          7680
+8K UHD 4320p 50 fps                            7680    4320    50.00   16:9    1:1     No          7680
+8K UHD 4320p 30 fps                            7680    4320    30.00   16:9    1:1     No          7680
+8K UHD 4320p 25 fps                            7680    4320    25.00   16:9    1:1     No          7680
+8K UHD 4320p 24 fps                            7680    4320    24.00   16:9    1:1     No          7680
+5K UHD 2880p 59.94 fps                         5120    2880    59.94   16:9    1:1     No          5120
+5K UHD 2880p 29.97 fps                         5120    2880    29.97   16:9    1:1     No          5120
+5K UHD 2880p 23.98 fps                         5120    2880    23.98   16:9    1:1     No          5120
+5K UHD 2880p 60 fps                            5120    2880    60.00   16:9    1:1     No          5120
+5K UHD 2880p 50 fps                            5120    2880    50.00   16:9    1:1     No          5120
+5K UHD 2880p 30 fps                            5120    2880    30.00   16:9    1:1     No          5120
+5K UHD 2880p 25 fps                            5120    2880    25.00   16:9    1:1     No          5120
+5K UHD 2880p 24 fps                            5120    2880    24.00   16:9    1:1     No          5120
+4K UHD 2160p 59.94 fps                         3840    2160    59.94   16:9    1:1     No          3840
+4K UHD 2160p 29.97 fps                         3840    2160    29.97   16:9    1:1     No          3840
+4K UHD 2160p 23.98 fps                         3840    2160    23.98   16:9    1:1     No          3840
+4K UHD 2160p 60 fps                            3840    2160    60.00   16:9    1:1     No          3840
+4K UHD 2160p 50 fps                            3840    2160    50.00   16:9    1:1     No          3840
+4K UHD 2160p 30 fps                            3840    2160    30.00   16:9    1:1     No          3840
+4K UHD 2160p 25 fps                            3840    2160    25.00   16:9    1:1     No          3840
+4K UHD 2160p 24 fps                            3840    2160    24.00   16:9    1:1     No          3840
+3K QHD+ 1800p 59.94 fps                        3200    1800    59.94   16:9    1:1     No          3200
+3K QHD+ 1800p 29.97 fps                        3200    1800    29.97   16:9    1:1     No          3200
+3K QHD+ 1800p 23.98 fps                        3200    1800    23.98   16:9    1:1     No          3200
+3K QHD+ 1800p 60 fps                           3200    1800    60.00   16:9    1:1     No          3200
+3K QHD+ 1800p 50 fps                           3200    1800    50.00   16:9    1:1     No          3200
+3K QHD+ 1800p 30 fps                           3200    1800    30.00   16:9    1:1     No          3200
+3K QHD+ 1800p 25 fps                           3200    1800    25.00   16:9    1:1     No          3200
+3K QHD+ 1800p 24 fps                           3200    1800    24.00   16:9    1:1     No          3200
+2.5K WQHD 1440p 59.94 fps                      2560    1440    59.94   16:9    1:1     No          2560
+2.5K WQHD 1440p 29.97 fps                      2560    1440    29.97   16:9    1:1     No          2560
+2.5K WQHD 1440p 23.98 fps                      2560    1440    23.98   16:9    1:1     No          2560
+2.5K WQHD 1440p 60 fps                         2560    1440    60.00   16:9    1:1     No          2560
+2.5K WQHD 1440p 50 fps                         2560    1440    50.00   16:9    1:1     No          2560
+2.5K WQHD 1440p 30 fps                         2560    1440    30.00   16:9    1:1     No          2560
+2.5K WQHD 1440p 25 fps                         2560    1440    25.00   16:9    1:1     No          2560
+2.5K WQHD 1440p 24 fps                         2560    1440    24.00   16:9    1:1     No          2560
+FHD 1080p 59.94 fps                            1920    1080    59.94   16:9    1:1     No          1920
+FHD 1080p 29.97 fps                            1920    1080    29.97   16:9    1:1     No          1920
+FHD 1080p 23.98 fps                            1920    1080    23.98   16:9    1:1     No          1920
+FHD 1080p 60 fps                               1920    1080    60.00   16:9    1:1     No          1920
+FHD PAL 1080p 50 fps                           1920    1080    50.00   16:9    1:1     No          1920
+FHD 1080p 30 fps                               1920    1080    30.00   16:9    1:1     No          1920
+FHD PAL 1080p 25 fps                           1920    1080    25.00   16:9    1:1     No          1920
+FHD 1080p 24 fps                               1920    1080    24.00   16:9    1:1     No          1920
+FHD 1080i 29.97 fps                            1920    1080    29.97   16:9    1:1     Yes         1920
+FHD 1080i 30 fps                               1920    1080    30.00   16:9    1:1     Yes         1920
+FHD PAL 1080i 25 fps                           1920    1080    25.00   16:9    1:1     Yes         1920
+FHD Anamorphic 1035i 29.97 fps                 1920    1035    29.97   16:9    23:24   Yes         1840
+FHD Anamorphic 1035i 30 fps                    1920    1035    30.00   16:9    23:24   Yes         1840
+FHD Anamorphic 1035i 25 fps                    1920    1035    25.00   16:9    23:24   Yes         1840
+HD+ 900p 59.94 fps                             1600    900     59.94   16:9    1:1     No          1600
+HD+ 900p 29.97 fps                             1600    900     29.97   16:9    1:1     No          1600
+HD+ 900p 23.98 fps                             1600    900     23.98   16:9    1:1     No          1600
+HD+ 900p 60 fps                                1600    900     60.00   16:9    1:1     No          1600
+HD+ 900p 50 fps                                1600    900     50.00   16:9    1:1     No          1600
+HD+ 900p 30 fps                                1600    900     30.00   16:9    1:1     No          1600
+HD+ 900p 25 fps                                1600    900     25.00   16:9    1:1     No          1600
+HD+ 900p 24 fps                                1600    900     24.00   16:9    1:1     No          1600
+HD Anamorphic 1152i 25 fps                     1440    1152    25.00   16:9    64:45   Yes         2048
+HD Anamorphic 1080p 59.94 fps                  1440    1080    59.94   16:9    4:3     No          1920
+HD Anamorphic 1080p 29.97 fps                  1440    1080    29.97   16:9    4:3     No          1920
+HD Anamorphic 1080p 23.98 fps                  1440    1080    23.98   16:9    4:3     No          1920
+HD Anamorphic 1080p 60 fps                     1440    1080    60.00   16:9    4:3     No          1920
+HD Anamorphic 1080p 50 fps                     1440    1080    50.00   16:9    4:3     No          1920
+HD Anamorphic 1080p 30 fps                     1440    1080    30.00   16:9    4:3     No          1920
+HD Anamorphic 1080p 25 fps                     1440    1080    25.00   16:9    4:3     No          1920
+HD Anamorphic 1080p 24 fps                     1440    1080    24.00   16:9    4:3     No          1920
+HD Anamorphic 1080i 29.97 fps                  1440    1080    29.97   16:9    4:3     Yes         1920
+HD Anamorphic 1080i 30 fps                     1440    1080    30.00   16:9    4:3     Yes         1920
+HD Anamorphic 1080i 25 fps                     1440    1080    25.00   16:9    4:3     Yes         1920
+NTSC SD 16CIF Anamorphic 1152p 29.97 fps       1408    1152    29.97   4:3     12:11   No          1536
+PAL SD 16CIF Anamorphic 1152p 25 fps           1408    1152    25.00   4:3     12:11   No          1536
+PAL SD 16CIF Anamorphic 1152p 15 fps           1408    1152    15.00   4:3     12:11   No          1536
+HD 720p 59.94 fps                              1280    720     59.94   16:9    1:1     No          1280
+HD 720p 29.97 fps                              1280    720     29.97   16:9    1:1     No          1280
+HD 720p 23.98 fps                              1280    720     23.98   16:9    1:1     No          1280
+HD 720p 60 fps                                 1280    720     60.00   16:9    1:1     No          1280
+PAL HD 720p 50 fps                             1280    720     50.00   16:9    1:1     No          1280
+HD 720p 30 fps                                 1280    720     30.00   16:9    1:1     No          1280
+HD 720p 25 fps                                 1280    720     25.00   16:9    1:1     No          1280
+HD 720p 24 fps                                 1280    720     24.00   16:9    1:1     No          1280
+FHD Vertical 1080p 59.94 fps                   1080    1920    59.94   9:16    1:1     No          1080
+FHD Vertical 1080p 29.97 fps                   1080    1920    29.97   9:16    1:1     No          1080
+FHD Vertical 1080p 23.98 fps                   1080    1920    23.98   9:16    1:1     No          1080
+FHD Vertical 1080p 60 fps                      1080    1920    60.00   9:16    1:1     No          1080
+FHD Vertical 1080p 50 fps                      1080    1920    50.00   9:16    1:1     No          1080
+FHD Vertical 1080p 30 fps                      1080    1920    30.00   9:16    1:1     No          1080
+FHD Vertical 1080p 25 fps                      1080    1920    25.00   9:16    1:1     No          1080
+FHD Vertical 1080p 24 fps                      1080    1920    24.00   9:16    1:1     No          1080
+HD Vertical 1080p 60 fps                       1080    1350    60.00   4:5     1:1     No          1080
+HD Vertical 1080p 50 fps                       1080    1350    50.00   4:5     1:1     No          1080
+HD Vertical 1080p 30 fps                       1080    1350    30.00   4:5     1:1     No          1080
+HD Vertical 1080p 25 fps                       1080    1350    25.00   4:5     1:1     No          1080
+HD Vertical 1080p 24 fps                       1080    1350    24.00   4:5     1:1     No          1080
+HD Square 1080p 60 fps                         1080    1080    60.00   1:1     1:1     No          1080
+HD Square 1080p 50 fps                         1080    1080    50.00   1:1     1:1     No          1080
+HD Square 1080p 30 fps                         1080    1080    30.00   1:1     1:1     No          1080
+HD Square 1080p 25 fps                         1080    1080    25.00   1:1     1:1     No          1080
+HD Square 1080p 24 fps                         1080    1080    24.00   1:1     1:1     No          1080
+WSVGA 600p 59.94 fps                           1024    600     59.94   128:75  1:1     No          1024
+WSVGA 600p 29.97 fps                           1024    600     29.97   128:75  1:1     No          1024
+WSVGA 600p 23.98 fps                           1024    600     23.98   128:75  1:1     No          1024
+WSVGA 600p 60 fps                              1024    600     60.00   128:75  1:1     No          1024
+WSVGA 600p 50 fps                              1024    600     50.00   128:75  1:1     No          1024
+WSVGA 600p 30 fps                              1024    600     30.00   128:75  1:1     No          1024
+WSVGA 600p 25 fps                              1024    600     25.00   128:75  1:1     No          1024
+WSVGA 600p 24 fps                              1024    600     24.00   128:75  1:1     No          1024
+WSVGA 600p 15 fps                              1024    600     15.00   128:75  1:1     No          1024
+WSVGA 576p 59.94 fps                           1024    576     59.94   16:9    1:1     No          1024
+WSVGA 576p 29.97 fps                           1024    576     29.97   16:9    1:1     No          1024
+WSVGA 576p 23.98 fps                           1024    576     23.98   16:9    1:1     No          1024
+WSVGA 576p 60 fps                              1024    576     60.00   16:9    1:1     No          1024
+WSVGA 576p 50 fps                              1024    576     50.00   16:9    1:1     No          1024
+WSVGA 576p 30 fps                              1024    576     30.00   16:9    1:1     No          1024
+PAL SD Wide WSVGA 576p 25 fps                  1024    576     25.00   16:9    1:1     No          1024
+WSVGA 576p 24 fps                              1024    576     24.00   16:9    1:1     No          1024
+WSVGA 576p 15 fps                              1024    576     15.00   16:9    1:1     No          1024
+DVGA 640p 59.94 fps                            960     640     59.94   3:2     1:1     No          960
+DVGA 640p 29.97 fps                            960     640     29.97   3:2     1:1     No          960
+DVGA 640p 23.98 fps                            960     640     23.98   3:2     1:1     No          960
+DVGA 640p 60 fps                               960     640     60.00   3:2     1:1     No          960
+DVGA 640p 50 fps                               960     640     50.00   3:2     1:1     No          960
+DVGA 640p 30 fps                               960     640     30.00   3:2     1:1     No          960
+DVGA 640p 25 fps                               960     640     25.00   3:2     1:1     No          960
+DVGA 640p 24 fps                               960     640     24.00   3:2     1:1     No          960
+DVGA 640p 15 fps                               960     640     15.00   3:2     1:1     No          960
+qHD 540p 59.94 fps                             960     540     59.94   16:9    1:1     No          960
+qHD 540p 29.97 fps                             960     540     29.97   16:9    1:1     No          960
+qHD 540p 23.98 fps                             960     540     23.98   16:9    1:1     No          960
+qHD 540p 60 fps                                960     540     60.00   16:9    1:1     No          960
+qHD 540p 50 fps                                960     540     50.00   16:9    1:1     No          960
+qHD 540p 30 fps                                960     540     30.00   16:9    1:1     No          960
+qHD 540p 25 fps                                960     540     25.00   16:9    1:1     No          960
+qHD 540p 24 fps                                960     540     24.00   16:9    1:1     No          960
+FWVGA 480p 59.94 fps                           854     480     59.94   16:9    1:1     No          854
+NTSC SD Wide FWVGA 480p 29.97 fps              854     480     29.97   16:9    1:1     No          854
+FWVGA 480p 23.98 fps                           854     480     23.98   16:9    1:1     No          854
+FWVGA 480p 60 fps                              854     480     60.00   16:9    1:1     No          854
+FWVGA 480p 50 fps                              854     480     50.00   16:9    1:1     No          854
+FWVGA 480p 30 fps                              854     480     30.00   16:9    1:1     No          854
+FWVGA 480p 25 fps                              854     480     25.00   16:9    1:1     No          854
+FWVGA 480p 24 fps                              854     480     24.00   16:9    1:1     No          854
+FWVGA 480p 15 fps                              854     480     15.00   16:9    1:1     No          854
+SVGA 600p 59.94 fps                            800     600     59.94   4:3     1:1     No          800
+SVGA 600p 29.97 fps                            800     600     29.97   4:3     1:1     No          800
+SVGA 600p 23.98 fps                            800     600     23.98   4:3     1:1     No          800
+SVGA 600p 60 fps                               800     600     60.00   4:3     1:1     No          800
+SVGA 600p 50 fps                               800     600     50.00   4:3     1:1     No          800
+SVGA 600p 30 fps                               800     600     30.00   4:3     1:1     No          800
+SVGA 600p 25 fps                               800     600     25.00   4:3     1:1     No          800
+SVGA 600p 24 fps                               800     600     24.00   4:3     1:1     No          800
+SVGA 600p 15 fps                               800     600     15.00   4:3     1:1     No          800
+WVGA 480p 59.94 fps                            800     480     59.94   5:3     1:1     No          800
+WVGA 480p 29.97 fps                            800     480     29.97   5:3     1:1     No          800
+WVGA 480p 23.98 fps                            800     480     23.98   5:3     1:1     No          800
+WVGA 480p 60 fps                               800     480     60.00   5:3     1:1     No          800
+WVGA 480p 50 fps                               800     480     50.00   5:3     1:1     No          800
+WVGA 480p 30 fps                               800     480     30.00   5:3     1:1     No          800
+WVGA 480p 25 fps                               800     480     25.00   5:3     1:1     No          800
+WVGA 480p 24 fps                               800     480     24.00   5:3     1:1     No          800
+WVGA 480p 15 fps                               800     480     15.00   5:3     1:1     No          800
+PAL SD SQ 576p 25 fps                          768     576     25.00   4:3     1:1     No          768
+WVGA 480p 59.94 fps                            768     480     59.94   16:10   1:1     No          768
+WVGA 480p 29.97 fps                            768     480     29.97   16:10   1:1     No          768
+WVGA 480p 23.98 fps                            768     480     23.98   16:10   1:1     No          768
+WVGA 480p 60 fps                               768     480     60.00   16:10   1:1     No          768
+WVGA 480p 50 fps                               768     480     50.00   16:10   1:1     No          768
+WVGA 480p 30 fps                               768     480     30.00   16:10   1:1     No          768
+WVGA 480p 25 fps                               768     480     25.00   16:10   1:1     No          768
+WVGA 480p 24 fps                               768     480     24.00   16:10   1:1     No          768
+WVGA 480p 15 fps                               768     480     15.00   16:10   1:1     No          768
+HD Vertical 720p 59.94 fps                     720     1280    59.94   9:16    1:1     No          720
+HD Vertical 720p 29.97 fps                     720     1280    29.97   9:16    1:1     No          720
+HD Vertical 720p 23.98 fps                     720     1280    23.98   9:16    1:1     No          720
+HD Vertical 720p 60 fps                        720     1280    60.00   9:16    1:1     No          720
+HD Vertical 720p 50 fps                        720     1280    50.00   9:16    1:1     No          720
+HD Vertical 720p 30 fps                        720     1280    30.00   9:16    1:1     No          720
+HD Vertical 720p 25 fps                        720     1280    25.00   9:16    1:1     No          720
+HD Vertical 720p 24 fps                        720     1280    24.00   9:16    1:1     No          720
+PAL SD Anamorphic 576p 50 fps                  720     576     50.00   16:9    64:45   No          1024
+PAL SD Anamorphic 576p 50 fps                  720     576     50.00   4:3     16:15   No          768
+PAL SD Widescreen Anamorphic 576p 25 fps       720     576     25.00   16:9    64:45   No          1024
+PAL SD Anamorphic 576p 25 fps                  720     576     25.00   4:3     16:15   No          768
+PAL SD Widescreen Anamorphic 576i 25 fps       720     576     25.00   16:9    64:45   Yes         1024
+PAL SD Anamorphic 576i 25 fps                  720     576     25.00   4:3     16:15   Yes         768
+NTSC SD Anamorphic 486p 23.98 fps              720     486     23.98   16:9    6:5     No          864
+NTSC SD Anamorphic 486p 23.98 fps              720     486     23.98   4:3     9:10    No          648
+NTSC SD Anamorphic 486i 29.97 fps              720     486     29.97   16:9    6:5     Yes         864
+NTSC SD Anamorphic 486i 29.97 fps              720     486     29.97   4:3     9:10    Yes         648
+NTSC SD Anamorphic 480p 59.94 fps              720     480     59.94   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 59.94 fps              720     480     59.94   4:3     8:9     No          640
+WVGA 480p 59.94 fps                            720     480     59.94   3:2     1:1     No          720
+NTSC SD Widescreen Anamorphic 480p 29.97 fps   720     480     29.97   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 29.97 fps              720     480     29.97   4:3     8:9     No          640
+WVGA 480p 29.97 fps                            720     480     29.97   3:2     1:1     No          720
+NTSC SD Anamorphic 480p 23.98 fps              720     480     23.98   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 23.98 fps              720     480     23.98   4:3     8:9     No          640
+WVGA 480p 23.98 fps                            720     480     23.98   3:2     1:1     No          720
+NTSC SD Anamorphic 480p 60 fps                 720     480     60.00   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 60 fps                 720     480     60.00   4:3     8:9     No          640
+WVGA 480p 60 fps                               720     480     60.00   3:2     1:1     No          720
+NTSC SD Anamorphic 480p 50 fps                 720     480     50.00   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 50 fps                 720     480     50.00   4:3     8:9     No          640
+WVGA 480p 50 fps                               720     480     50.00   3:2     1:1     No          720
+NTSC SD Anamorphic 480p 30 fps                 720     480     30.00   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 30 fps                 720     480     30.00   4:3     8:9     No          640
+WVGA 480p 30 fps                               720     480     30.00   3:2     1:1     No          720
+NTSC SD Anamorphic 480p 25 fps                 720     480     25.00   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 25 fps                 720     480     25.00   4:3     8:9     No          640
+WVGA 480p 25 fps                               720     480     25.00   3:2     1:1     No          720
+NTSC SD Anamorphic 480p 24 fps                 720     480     24.00   16:9    32:27   No          853
+NTSC SD Anamorphic 480p 24 fps                 720     480     24.00   4:3     8:9     No          640
+WVGA 480p 24 fps                               720     480     24.00   3:2     1:1     No          720
+WVGA 480p 15 fps                               720     480     15.00   3:2     1:1     No          720
+NTSC SD Anamorphic 480i 59.94 fps              720     480     59.94   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 59.94 fps              720     480     59.94   4:3     8:9     Yes         640
+NTSC SD Widescreen Anamorphic 480i 29.97 fps   720     480     29.97   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 29.97 fps              720     480     29.97   4:3     8:9     Yes         640
+NTSC SD Anamorphic 480i 23.98 fps              720     480     23.98   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 23.98 fps              720     480     23.98   4:3     8:9     Yes         640
+NTSC SD Anamorphic 480i 60 fps                 720     480     60.00   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 60 fps                 720     480     60.00   4:3     8:9     Yes         640
+NTSC SD Anamorphic 480i 30 fps                 720     480     30.00   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 30 fps                 720     480     30.00   4:3     8:9     Yes         640
+NTSC SD Anamorphic 480i 25 fps                 720     480     25.00   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 25 fps                 720     480     25.00   4:3     8:9     Yes         640
+NTSC SD Anamorphic 480i 24 fps                 720     480     24.00   16:9    32:27   Yes         853
+NTSC SD Anamorphic 480i 24 fps                 720     480     24.00   4:3     8:9     Yes         640
+PAL SD 4CIF 4SIF Anamorphic 576p 29.97 fps     704     576     29.97   4:3     12:11   No          768
+PAL SD 4CIF 4SIF Anamorphic 576p 25 fps        704     576     25.00   4:3     12:11   No          768
+PAL SD 4CIF 4SIF Anamorphic 576p 15 fps        704     576     15.00   4:3     12:11   No          768
+PAL SD Anamorphic 576i 25 fps                  704     576     25.00   16:9    16:11   Yes         1024
+PAL SD Anamorphic 576i 25 fps                  704     576     25.00   4:3     12:11   Yes         768
+NTSC SD Anamorphic 480p 59.94 fps              704     480     59.94   16:9    40:33   No          853
+NTSC SD Anamorphic 480p 59.94 fps              704     480     59.94   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 29.97 fps              704     480     29.97   16:9    40:33   No          853
+NTSC SD 4SIF Anamorphic 480p 29.97 fps         704     480     29.97   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 23.98 fps              704     480     23.98   16:9    40:33   No          853
+NTSC SD Anamorphic 480p 23.98 fps              704     480     23.98   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 60 fps                 704     480     60.00   16:9    40:33   No          853
+NTSC SD Anamorphic 480p 60 fps                 704     480     60.00   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 50 fps                 704     480     50.00   16:9    40:33   No          853
+NTSC SD Anamorphic 480p 50 fps                 704     480     50.00   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 30 fps                 704     480     30.00   16:9    40:33   No          853
+NTSC SD Anamorphic 480p 30 fps                 704     480     30.00   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 25 fps                 704     480     25.00   16:9    40:33   No          853
+NTSC SD 4SIF Anamorphic 480p 25 fps            704     480     25.00   4:3     10:11   No          640
+NTSC SD Anamorphic 480p 24 fps                 704     480     24.00   16:9    40:33   No          853
+NTSC SD Anamorphic 480p 24 fps                 704     480     24.00   4:3     10:11   No          640
+NTSC SD 4SIF Anamorphic 480p 15 fps            704     480     15.00   4:3     10:11   No          640
+NTSC SD Anamorphic 480i 29.97 fps              704     480     29.97   16:9    40:33   Yes         853
+NTSC SD 4SIF Anamorphic 480i 29.97 fps         704     480     29.97   4:3     10:11   Yes         640
+NTSC SD Anamorphic 480i 30 fps                 704     480     30.00   16:9    40:33   Yes         853
+NTSC SD Anamorphic 480i 30 fps                 704     480     30.00   4:3     10:11   Yes         640
+NTSC SD Anamorphic 480i 25 fps                 704     480     25.00   16:9    40:33   Yes         853
+NTSC SD Anamorphic 480i 25 fps                 704     480     25.00   4:3     10:11   Yes         640
+NTSC SD VGA 480p 59.94 fps                     640     480     59.94   4:3     1:1     No          640
+NTSC SD SQ VGA 480p 29.97 fps                  640     480     29.97   4:3     1:1     No          640
+NTSC SD VGA 480p 23.98 fps                     640     480     23.98   4:3     1:1     No          640
+NTSC SD VGA 480p 60 fps                        640     480     60.00   4:3     1:1     No          640
+NTSC SD VGA 480p 50 fps                        640     480     50.00   4:3     1:1     No          640
+NTSC SD VGA 480p 30 fps                        640     480     30.00   4:3     1:1     No          640
+NTSC SD VGA 480p 25 fps                        640     480     25.00   4:3     1:1     No          640
+NTSC SD VGA 480p 24 fps                        640     480     24.00   4:3     1:1     No          640
+VGA 480p 15 fps                                640     480     15.00   4:3     1:1     No          640
+NTSC SD 480i 29.97 fps                         640     480     29.97   4:3     1:1     Yes         640
+NTSC SD 480i 23.98 fps                         640     480     23.98   4:3     1:1     Yes         640
+NTSC SD 480i 30 fps                            640     480     30.00   4:3     1:1     Yes         640
+NTSC SD 480i 25 fps                            640     480     25.00   4:3     1:1     Yes         640
+NTSC SD 480i 24 fps                            640     480     24.00   4:3     1:1     Yes         640
+nHD 360p 59.94 fps                             640     360     59.94   16:9    1:1     No          640
+nHD 360p 29.97 fps                             640     360     29.97   16:9    1:1     No          640
+nHD 360p 23.98 fps                             640     360     23.98   16:9    1:1     No          640
+nHD 360p 60 fps                                640     360     60.00   16:9    1:1     No          640
+nHD 360p 50 fps                                640     360     50.00   16:9    1:1     No          640
+nHD 360p 30 fps                                640     360     30.00   16:9    1:1     No          640
+nHD 360p 25 fps                                640     360     25.00   16:9    1:1     No          640
+nHD 360p 24 fps                                640     360     24.00   16:9    1:1     No          640
+PAL SD Anamorphic 576p 25 fps                  544     576     25.00   16:9    32:17   No          1024
+PAL SD Anamorphic 576p 25 fps                  544     576     25.00   4:3     24:17   No          768
+PAL SD Anamorphic 576i 25 fps                  544     576     25.00   16:9    32:17   Yes         1024
+PAL SD Anamorphic 576i 25 fps                  544     576     25.00   4:3     24:17   Yes         768
+NTSC SD 3/4 Anamorphic 480p 23.98 fps          544     480     23.98   4:3     20:17   No          640
+NTSC SD 3/4 Anamorphic 480p 25 fps             544     480     25.00   4:3     20:17   No          640
+NTSC SD 3/4 Anamorphic 480i 29.97 fps          544     480     29.97   4:3     20:17   Yes         640
+NTSC SD 3/4 Anamorphic 480i 25 fps             544     480     25.00   4:3     20:17   Yes         640
+NTSC SD 3/4 Anamorphic 480p 23.98 fps          528     480     23.98   4:3     40:33   No          640
+NTSC SD 3/4 Anamorphic 480p 25 fps             528     480     25.00   4:3     40:33   No          640
+NTSC SD 3/4 Anamorphic 480i 29.97 fps          528     480     29.97   4:3     40:33   Yes         640
+NTSC SD 3/4 Anamorphic 480i 25 fps             528     480     25.00   4:3     40:33   Yes         640
+PAL SD 1/4 Wide 288p 25 fps                    512     288     25.00   16:9    1:1     No          512
+PAL SD Anamorphic 576p 25 fps                  480     576     25.00   16:9    32:15   No          1024
+PAL SD Anamorphic 576p 25 fps                  480     576     25.00   4:3     8:5     No          768
+PAL SD Anamorphic 576i 25 fps                  480     576     25.00   16:9    32:15   Yes         1024
+PAL SD Anamorphic 576i 25 fps                  480     576     25.00   4:3     8:5     Yes         768
+NTSC SD Anamorphic 480i 29.97 fps              480     480     29.97   16:9    16:9    Yes         853
+NTSC SD Anamorphic 480i 29.97 fps              480     480     29.97   4:3     4:3     Yes         640
+NTSC SD Anamorphic 480i 23.98 fps              480     480     23.98   16:9    16:9    Yes         853
+NTSC SD Anamorphic 480i 23.98 fps              480     480     23.98   4:3     4:3     Yes         640
+NTSC SD Anamorphic 480i 30 fps                 480     480     30.00   4:3     4:3     Yes         640
+HVGA 320p 59.94 fps                            480     320     59.94   3:2     1:1     No          480
+HVGA 320p 29.97 fps                            480     320     29.97   3:2     1:1     No          480
+HVGA 320p 23.98 fps                            480     320     23.98   3:2     1:1     No          480
+HVGA 320p 60 fps                               480     320     60.00   3:2     1:1     No          480
+HVGA 320p 50 fps                               480     320     50.00   3:2     1:1     No          480
+HVGA 320p 30 fps                               480     320     30.00   3:2     1:1     No          480
+HVGA 320p 25 fps                               480     320     25.00   3:2     1:1     No          480
+HVGA 320p 24 fps                               480     320     24.00   3:2     1:1     No          480
+HVGA 320p 15 fps                               480     320     15.00   3:2     1:1     No          480
+NTSC SD 1/4 Wide 240p 29.97 fps                427     240     29.97   16:9    1:1     No          427
+WQVGA 240p 59.94 fps                           400     240     59.94   5:3     1:1     No          400
+WQVGA 240p 29.97 fps                           400     240     29.97   5:3     1:1     No          400
+WQVGA 240p 23.98 fps                           400     240     23.98   5:3     1:1     No          400
+WQVGA 240p 60 fps                              400     240     60.00   5:3     1:1     No          400
+WQVGA 240p 50 fps                              400     240     50.00   5:3     1:1     No          400
+WQVGA 240p 30 fps                              400     240     30.00   5:3     1:1     No          400
+WQVGA 240p 25 fps                              400     240     25.00   5:3     1:1     No          400
+WQVGA 240p 24 fps                              400     240     24.00   5:3     1:1     No          400
+WQVGA 240p 15 fps                              400     240     15.00   5:3     1:1     No          400
+PAL SD 1/4 288p 25 fps                         384     288     25.00   4:3     1:1     No          384
+WQVGA 240p 59.94 fps                           384     240     59.94   16:10   1:1     No          384
+WQVGA 240p 29.97 fps                           384     240     29.97   16:10   1:1     No          384
+WQVGA 240p 23.98 fps                           384     240     23.98   16:10   1:1     No          384
+WQVGA 240p 60 fps                              384     240     60.00   16:10   1:1     No          384
+WQVGA 240p 50 fps                              384     240     50.00   16:10   1:1     No          384
+WQVGA 240p 30 fps                              384     240     30.00   16:10   1:1     No          384
+WQVGA 240p 25 fps                              384     240     25.00   16:10   1:1     No          384
+WQVGA 240p 24 fps                              384     240     24.00   16:10   1:1     No          384
+WQVGA 240p 15 fps                              384     240     15.00   16:10   1:1     No          384
+WQVGA 240p 59.94 fps                           360     240     59.94   3:2     1:1     No          360
+WQVGA 240p 29.97 fps                           360     240     29.97   3:2     1:1     No          360
+WQVGA 240p 23.98 fps                           360     240     23.98   3:2     1:1     No          360
+WQVGA 240p 60 fps                              360     240     60.00   3:2     1:1     No          360
+WQVGA 240p 50 fps                              360     240     50.00   3:2     1:1     No          360
+WQVGA 240p 30 fps                              360     240     30.00   3:2     1:1     No          360
+WQVGA 240p 25 fps                              360     240     25.00   3:2     1:1     No          360
+WQVGA 240p 24 fps                              360     240     24.00   3:2     1:1     No          360
+WQVGA 240p 15 fps                              360     240     15.00   3:2     1:1     No          360
+PAL SD Anamorphic 576p 25 fps                  352     576     25.00   16:9    32:11   No          1024
+PAL SD CVD Anamorphic 576p 25 fps              352     576     25.00   4:3     24:11   No          768
+PAL SD Anamorphic 576i 25 fps                  352     576     25.00   16:9    32:11   Yes         1024
+PAL SD CVD Anamorphic 576i 25 fps              352     576     25.00   4:3     24:11   Yes         768
+NTSC SD CVD Anamorphic 480p 29.97 fps          352     480     29.97   4:3     20:11   No          640
+NTSC SD 1/2 Anamorphic 480p 23.98 fps          352     480     23.98   4:3     20:11   No          640
+NTSC SD 1/2 Anamorphic 480p 25 fps             352     480     25.00   4:3     20:11   No          640
+NTSC SD CVD 1/2 Anamorphic 480i 29.97 fps      352     480     29.97   4:3     20:11   Yes         640
+NTSC SD 1/2 Anamorphic 480i 25 fps             352     480     25.00   4:3     20:11   Yes         640
+PAL SD CIF SIF Anamorphic 288p 29.97 fps       352     288     29.97   4:3     12:11   No          384
+PAL SD Anamorphic 288p 25 fps                  352     288     25.00   16:9    16:11   No          512
+PAL SD CIF SIF VCD Anamorphic 288p 25 fps      352     288     25.00   4:3     12:11   No          384
+PAL SD CIF SIF Anamorphic 288p 15 fps          352     288     15.00   4:3     12:11   No          384
+PAL SD Anamorphic 288i 25 fps                  352     288     25.00   16:9    16:11   Yes         512
+PAL SD CIF Anamorphic 288i 25 fps              352     288     25.00   4:3     12:11   Yes         384
+NTSC SD SIF VCD Anamorphic 240p 29.97 fps      352     240     29.97   4:3     10:11   No          320
+NTSC SD SIF Anamorphic 240p 23.98 fps          352     240     23.98   4:3     10:11   No          320
+NTSC SD SIF Anamorphic 240p 25 fps             352     240     25.00   4:3     10:11   No          320
+NTSC SD SIF Anamorphic 240p 15 fps             352     240     15.00   4:3     10:11   No          320
+NTSC SD SIF Anamorphic 240i 29.97 fps          352     240     29.97   4:3     10:11   Yes         320
+QVGA 240p 59.94 fps                            320     240     59.94   4:3     1:1     No          320
+NTSC SD 1/4 QVGA 240p 29.97 fps                320     240     29.97   4:3     1:1     No          320
+QVGA 240p 23.98 fps                            320     240     23.98   4:3     1:1     No          320
+QVGA 240p 60 fps                               320     240     60.00   4:3     1:1     No          320
+QVGA 240p 50 fps                               320     240     50.00   4:3     1:1     No          320
+QVGA 240p 30 fps                               320     240     30.00   4:3     1:1     No          320
+QVGA 240p 25 fps                               320     240     25.00   4:3     1:1     No          320
+QVGA 240p 24 fps                               320     240     24.00   4:3     1:1     No          320
+QVGA 240p 15 fps                               320     240     15.00   4:3     1:1     No          320
+HQVGA 160p 59.94 fps                           256     160     59.94   16:10   1:1     No          256
+HQVGA 160p 29.97 fps                           256     160     29.97   16:10   1:1     No          256
+HQVGA 160p 23.98 fps                           256     160     23.98   16:10   1:1     No          256
+HQVGA 160p 60 fps                              256     160     60.00   16:10   1:1     No          256
+HQVGA 160p 50 fps                              256     160     50.00   16:10   1:1     No          256
+HQVGA 160p 30 fps                              256     160     30.00   16:10   1:1     No          256
+HQVGA 160p 25 fps                              256     160     25.00   16:10   1:1     No          256
+HQVGA 160p 24 fps                              256     160     24.00   16:10   1:1     No          256
+HQVGA 160p 15 fps                              256     160     15.00   16:10   1:1     No          256
+HQVGA 160p 59.94 fps                           240     160     59.94   3:2     1:1     No          240
+HQVGA 160p 29.97 fps                           240     160     29.97   3:2     1:1     No          240
+HQVGA 160p 23.98 fps                           240     160     23.98   3:2     1:1     No          240
+HQVGA 160p 60 fps                              240     160     60.00   3:2     1:1     No          240
+HQVGA 160p 50 fps                              240     160     50.00   3:2     1:1     No          240
+HQVGA 160p 30 fps                              240     160     30.00   3:2     1:1     No          240
+HQVGA 160p 25 fps                              240     160     25.00   3:2     1:1     No          240
+HQVGA 160p 24 fps                              240     160     24.00   3:2     1:1     No          240
+HQVGA 160p 15 fps                              240     160     15.00   3:2     1:1     No          240
+PAL SD QCIF Anamorphic 144p 29.97 fps          176     144     29.97   4:3     12:11   No          192
+PAL SD QCIF Anamorphic 144p 25 fps             176     144     25.00   4:3     12:11   No          192
+PAL SD QCIF Anamorphic 144p 15 fps             176     144     15.00   4:3     12:11   No          192
+NTSC SD SIF 1/2 Anamorphic 120p 23.98 fps      176     120     23.98   4:3     10:11   No          160
+NTSC SD SIF 1/2 Anamorphic 120p 25 fps         176     120     25.00   4:3     10:11   No          160
+QQVGA 120p 59.94 fps                           160     120     59.94   4:3     1:1     No          160
+QQVGA 120p 29.97 fps                           160     120     29.97   4:3     1:1     No          160
+QQVGA 120p 23.98 fps                           160     120     23.98   4:3     1:1     No          160
+QQVGA 120p 60 fps                              160     120     60.00   4:3     1:1     No          160
+QQVGA 120p 50 fps                              160     120     50.00   4:3     1:1     No          160
+QQVGA 120p 30 fps                              160     120     30.00   4:3     1:1     No          160
+QQVGA 120p 25 fps                              160     120     25.00   4:3     1:1     No          160
+QQVGA 120p 24 fps                              160     120     24.00   4:3     1:1     No          160
+QQVGA 120p 15 fps                              160     120     15.00   4:3     1:1     No          160
+NTSC SD SQ CIF 96p 29.97 fps                   128     96      29.97   4:3     1:1     No          128
+NTSC SD SQ CIF 96p 25 fps                      128     96      25.00   4:3     1:1     No          128
+NTSC SD SQ CIF 96p 15 fps                      128     96      15.00   4:3     1:1     No          128
+=============================================  ======  ======  ======  ======  ======  ==========  ==================

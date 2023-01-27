@@ -351,8 +351,11 @@ if mode == "doc":
             return "Surround"
 
     # Print existing profiles
-    print("\n%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
-                                            "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
+    #   ==========  ==================
+    dividing_line = "%s  %s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="),
+                                                          "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
+                                                          "".ljust(10, "="), "".ljust(18, "="))
+    print(f"\n{dividing_line}")
     for profile_name in reversed(sorted(os.listdir(PROFILE_PATH))):
         profile_path = os.path.join(PROFILE_PATH, profile_name)
         if not os.path.isdir(profile_path):
@@ -363,14 +366,15 @@ if mode == "doc":
             padded_ratio = f"{profile.info.display_ratio.num}:{profile.info.display_ratio.den}".ljust(6)
             padded_pixel_ratio = f"{profile.info.pixel_ratio.num}:{profile.info.pixel_ratio.den}".ljust(6)
             if profile.info.interlaced_frame:
-                padded_interlaced = "Yes".ljust(6)
+                padded_interlaced = "Yes".ljust(10)
             else:
-                padded_interlaced = "No".ljust(6)
+                padded_interlaced = "No".ljust(10)
             fps_padded = f"{profile.info.fps.ToFloat():.2f}".ljust(6)
+            sar_display_width = round(profile.info.width * profile.info.pixel_ratio.ToFloat())
+            padded_sar_display_width = str(sar_display_width).ljust(18)
             print(f"{padded_name}  {padded_width}  {padded_height}  {fps_padded}  "
-                  f"{padded_ratio}  {padded_pixel_ratio}  {padded_interlaced}")
-    print("%s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
-                                          "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "=")))
+                  f"{padded_ratio}  {padded_pixel_ratio}  {padded_interlaced}  {padded_sar_display_width}")
+    print(dividing_line)
 
     # Print existing presets
     presets = []
