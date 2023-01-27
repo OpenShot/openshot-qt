@@ -352,9 +352,9 @@ if mode == "doc":
 
     # Print existing profiles
     #   ==========  ==================
-    dividing_line = "%s  %s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="),
-                                                          "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
-                                                          "".ljust(10, "="), "".ljust(18, "="))
+    dividing_line = "   %s  %s  %s  %s  %s  %s  %s  %s" % ("".ljust(45, "="), "".ljust(6, "="), "".ljust(6, "="),
+                                                           "".ljust(6, "="), "".ljust(6, "="), "".ljust(6, "="),
+                                                           "".ljust(10, "="), "".ljust(18, "="))
     print(f"\n{dividing_line}")
     for profile_name in reversed(sorted(os.listdir(PROFILE_PATH))):
         profile_path = os.path.join(PROFILE_PATH, profile_name)
@@ -372,7 +372,7 @@ if mode == "doc":
             fps_padded = f"{profile.info.fps.ToFloat():.2f}".ljust(6)
             sar_display_width = round(profile.info.width * profile.info.pixel_ratio.ToFloat())
             padded_sar_display_width = str(sar_display_width).ljust(18)
-            print(f"{padded_name}  {padded_width}  {padded_height}  {fps_padded}  "
+            print(f"   {padded_name}  {padded_width}  {padded_height}  {fps_padded}  "
                   f"{padded_ratio}  {padded_pixel_ratio}  {padded_interlaced}  {padded_sar_display_width}")
     print(dividing_line)
 
