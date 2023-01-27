@@ -49,8 +49,6 @@ class ProfilesProxyModel(QSortFilterProxyModel):
                self.filterRegExp().indexIn(profile_desc.lower()) >= 0 or \
                self.filterRegExp().indexIn(profile_dar) >= 0
 
-        return super(ProfilesProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
-
 
 class ProfilesStandardItemModel(QStandardItemModel):
     def __init__(self, parent=None):

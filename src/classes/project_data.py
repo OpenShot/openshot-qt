@@ -319,7 +319,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if profile_desc == temp_profile.info.description:
                     legacy_profile = temp_profile
                     break
-            except RuntimeError as e:
+            except RuntimeError:
                 # Ignore legacy parsing errors
                 pass
 
@@ -338,7 +338,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     if profile_desc == temp_profile.info.description:
                         profile = self.apply_profile(temp_profile)
                         break
-                    elif legacy_profile and legacy_profile.Key() == temp_profile.Key():
+                    if legacy_profile and legacy_profile.Key() == temp_profile.Key():
                         # Switch from legacy profile to new profile
                         profile = self.apply_profile(temp_profile)
                         break

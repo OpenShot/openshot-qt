@@ -103,6 +103,3 @@ class ProfilesTreeView(QTreeView):
         # Resize columns (initial data)
         for column in range(self.columns):
             self.resizeColumnToContents(column)
-
-        # setup filter events
-        app = get_app()

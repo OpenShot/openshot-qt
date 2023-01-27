@@ -218,9 +218,10 @@ class Export(QDialog):
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
         # Loop through sorted profiles
-        for box_index, profile_name in enumerate(sorted(self.profile_names)):
+        for profile_name in sorted(self.profile_names):
             # Add to dropdown
-            self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
+            self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)),
+                                    self.getProfilePath(profile_name))
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
