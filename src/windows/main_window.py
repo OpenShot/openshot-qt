@@ -533,7 +533,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.SetWindowTitle()
 
                 # Reset undo/redo history
-                app.updates.reset()
                 app.updates.load_history(app.project)
 
                 # Refresh files views
@@ -1811,6 +1810,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if result == QDialog.Accepted and profile and profile.info.description != get_app().project.get(['profile']):
             proj = get_app().project
 
+            # Group transactions
+            tid = str(uuid.uuid4())
+
             # Get current FPS (prior to changing)
             current_fps = proj.get("fps")
             current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
@@ -1821,6 +1823,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             adjusted_frame = round(current_frame * fps_factor)
 
             # Update timeline settings
+            get_app().updates.transaction_id = tid
             get_app().updates.update(["profile"], profile.info.description)
             get_app().updates.update(["width"], profile.info.width)
             get_app().updates.update(["height"], profile.info.height)
@@ -1836,6 +1839,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 "num": profile.info.pixel_ratio.num,
                 "den": profile.info.pixel_ratio.den,
                 })
+            get_app().updates.transaction_id = None
 
             # Rescale all keyframes and reload project
             if fps_factor != 1.0:
@@ -1846,7 +1850,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 proj._data = rescaled_app_data
 
                 # Distribute all project data through update manager
-                get_app().updates.load(rescaled_app_data)
+                get_app().updates.load(rescaled_app_data, reset_history=False)
 
             # Force ApplyMapperToClips to apply these changes
             self.timeline_sync.timeline.ApplyMapperToClips()
