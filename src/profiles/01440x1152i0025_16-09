@@ -1,0 +1,10 @@
+description=HD Anamorphic 1152i 25 fps
+frame_rate_num=25
+frame_rate_den=1
+width=1440
+height=1152
+progressive=0
+sample_aspect_num=64
+sample_aspect_den=45
+display_aspect_num=16
+display_aspect_den=9

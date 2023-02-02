@@ -1,0 +1,17 @@
+{
+    "name": "Video CD",
+    "abbreviation": "VCD",
+    "description": "Format used for distributing films on standard 120 mm (4.7 in) optical discs",
+    "category": "disc",
+    "profiles": [
+        { "width": 352, "height": 240, "notes": "NTSC SD SIF", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 288, "notes": "PAL SD CIF", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+description=PAL SD Anamorphic 288i 25 fps
+frame_rate_num=25
+frame_rate_den=1
+width=352
+height=288
+progressive=0
+sample_aspect_num=16
+sample_aspect_den=11
+display_aspect_num=16
+display_aspect_den=9

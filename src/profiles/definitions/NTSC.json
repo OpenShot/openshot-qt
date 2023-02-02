@@ -1,0 +1,34 @@
+{
+    "name": "National Television System Committee",
+    "abbreviation": "NTSC",
+    "description": "American standard for analog television broadcast",
+    "category": "broadcast",
+    "profiles": [
+        { "width": 704, "height": 480, "notes": "NTSC SD", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 40, "den": 33}}
+            ]
+        },
+        { "width": 720, "height": 480, "notes": "NTSC SD", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 8, "den": 9}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 32, "den": 27}}
+            ]
+        },
+        { "width": 320, "height": 240, "notes": "NTSC SD 1/4", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 427, "height": 240, "notes": "NTSC SD 1/4 Wide", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 640, "height": 480, "notes": "NTSC SD SQ", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 854, "height": 480, "notes": "NTSC SD Wide", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        }
+    ]
+}

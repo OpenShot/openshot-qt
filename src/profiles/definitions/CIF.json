@@ -1,0 +1,50 @@
+{
+    "name": "Common Intermediate Format",
+    "abbreviation": "CIF",
+    "description": "Format used to store and transmit digital video used in video teleconferencing systems",
+    "category": "computer",
+    "profiles": [
+        { "width": 128, "height": 96, "notes": "SQ CIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 176, "height": 144, "notes": "QCIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 240, "notes": "SIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 10, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 288, "notes": "CIF SIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        },
+        { "width": 704, "height": 480, "notes": "4SIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 10, "den": 11}}
+            ]
+        },
+        { "width": 704, "height": 576, "notes": "4CIF 4SIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        },
+        { "width": 1408, "height": 1152, "notes": "16CIF", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "PAL SD Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "NTSC SD Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        }
+    ]
+}

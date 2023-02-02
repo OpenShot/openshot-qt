@@ -354,13 +354,14 @@ class UpdateManager:
         self.update_watchers()
 
     # Perform load action (loading all project data), clearing history for taking a new path
-    def load(self, values):
+    def load(self, values, reset_history=True):
         """ Load all project data via an UpdateAction into the UpdateManager
         (this action will then be distributed to all listeners) """
 
         self.last_action = UpdateAction('load', '', values)
-        self.redoHistory.clear()
-        self.actionHistory.clear()
+        if reset_history:
+            self.redoHistory.clear()
+            self.actionHistory.clear()
         self.pending_action = None
         self.dispatch_action(self.last_action)
 

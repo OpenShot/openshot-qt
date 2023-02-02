@@ -306,9 +306,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
-        # Disable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
-
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
@@ -339,9 +336,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Update max size (for fast previews)
         self.MaxSizeChanged.emit(self.videoPreview.size())
-
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
     def actionAnimatedTitle_trigger(self):
         # show dialog
@@ -499,9 +493,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Ignore the request
             return
 
-        # Disable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
-
         # Stop preview thread
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
@@ -542,7 +533,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.SetWindowTitle()
 
                 # Reset undo/redo history
-                app.updates.reset()
                 app.updates.load_history(app.project)
 
                 # Refresh files views
@@ -575,9 +565,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
-
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
         # Restore normal cursor
         app.restoreOverrideCursor()
@@ -1809,9 +1796,76 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Show dialog
         from windows.profile import Profile
         log.debug("Showing profile dialog")
-        win = Profile()
+
+        # Get current project profile description
+        current_project_profile_desc = get_app().project.get(['profile'])
+
+        # Disable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+
+        win = Profile(current_project_profile_desc)
         # Run the dialog event loop - blocking interaction on this window during this time
-        win.exec_()
+        result = win.exec_()
+        profile = win.selected_profile
+        if result == QDialog.Accepted and profile and profile.info.description != get_app().project.get(['profile']):
+            proj = get_app().project
+
+            # Group transactions
+            tid = str(uuid.uuid4())
+
+            # Get current FPS (prior to changing)
+            current_fps = proj.get("fps")
+            current_fps_float = float(current_fps["num"]) / float(current_fps["den"])
+            fps_factor = float(profile.info.fps.ToFloat() / current_fps_float)
+
+            # Get current playback frame
+            current_frame = self.preview_thread.current_frame
+            adjusted_frame = round(current_frame * fps_factor)
+
+            # Update timeline settings
+            get_app().updates.transaction_id = tid
+            get_app().updates.update(["profile"], profile.info.description)
+            get_app().updates.update(["width"], profile.info.width)
+            get_app().updates.update(["height"], profile.info.height)
+            get_app().updates.update(["fps"], {
+                "num": profile.info.fps.num,
+                "den": profile.info.fps.den,
+                })
+            get_app().updates.update(["display_ratio"], {
+                "num": profile.info.display_ratio.num,
+                "den": profile.info.display_ratio.den,
+                })
+            get_app().updates.update(["pixel_ratio"], {
+                "num": profile.info.pixel_ratio.num,
+                "den": profile.info.pixel_ratio.den,
+                })
+            get_app().updates.transaction_id = None
+
+            # Rescale all keyframes and reload project
+            if fps_factor != 1.0:
+                # Get a copy of rescaled project data (this does not modify the active project... yet)
+                rescaled_app_data = proj.rescale_keyframes(fps_factor)
+
+                # Apply rescaled data to active project
+                proj._data = rescaled_app_data
+
+                # Distribute all project data through update manager
+                get_app().updates.load(rescaled_app_data, reset_history=False)
+
+            # Force ApplyMapperToClips to apply these changes
+            self.timeline_sync.timeline.ApplyMapperToClips()
+
+            # Seek to the same location, adjusted for new frame rate
+            self.SeekSignal.emit(adjusted_frame)
+
+            # Refresh frame (since size of preview might have changed)
+            QTimer.singleShot(500, self.refreshFrameSignal.emit)
+            QTimer.singleShot(500, functools.partial(self.MaxSizeChanged.emit,
+                                                     self.videoPreview.size()))
+
+        # Enable video caching
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+
 
     def actionSplitClip_trigger(self):
         log.debug("actionSplitClip_trigger")

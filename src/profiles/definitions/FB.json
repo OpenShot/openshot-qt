@@ -1,0 +1,51 @@
+{
+    "name": "Facebook",
+    "abbreviation": "FB",
+    "description": "Recommended video sizes supported by Facebook/Instagram",
+    "category": "website",
+    "profiles": [
+        { "width": 3840, "height": 2160, "notes": "4K UHD", "fps": [
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1920, "height": 1080, "notes": "FHD", "fps": [
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1080, "height": 1080, "notes": "HD Square", "fps": [
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 1, "den": 1}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 1, "den": 1}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 1, "den": 1}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 1, "den": 1}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 1, "den": 1}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1080, "height": 1350, "notes": "HD Vertical", "fps": [
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 4, "den": 5}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 5}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 4, "den": 5}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 4, "den": 5}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 4, "den": 5}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1080, "height": 1920, "notes": "FHD Vertical", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+description=PAL SD 16CIF Anamorphic 1152p 25 fps
+frame_rate_num=25
+frame_rate_den=1
+width=1408
+height=1152
+progressive=1
+sample_aspect_num=12
+sample_aspect_den=11
+display_aspect_num=4
+display_aspect_den=3

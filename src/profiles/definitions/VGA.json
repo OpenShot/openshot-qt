@@ -1,0 +1,344 @@
+{
+    "name": "Graphics Display Resolution",
+    "abbreviation": "VGA",
+    "description": "Common display dimensions for electronic displays and devices",
+    "category": "computer",
+    "profiles": [
+        { "width": 640, "height": 360, "notes": "nHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 960, "height": 540, "notes": "qHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1280, "height": 720, "notes": "HD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 720, "height": 1280, "notes": "HD Vertical", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 9, "den": 16}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1600, "height": 900, "notes": "HD+", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1920, "height": 1080, "notes": "FHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 2560, "height": 1440, "notes": "2.5K WQHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 3200, "height": 1800, "notes": "3K QHD+", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 3840, "height": 2160, "notes": "4K UHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 5120, "height": 2880, "notes": "5K UHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 7680, "height": 4320, "notes": "8K UHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 15360, "height": 8640, "notes": "16K UHD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 160, "height": 120, "notes": "QQVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 240, "height": 160, "notes": "HQVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 256, "height": 160, "notes": "HQVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 320, "height": 240, "notes": "QVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 384, "height": 240, "notes": "WQVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 360, "height": 240, "notes": "WQVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 400, "height": 240, "notes": "WQVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 480, "height": 320, "notes": "HVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 640, "height": 480, "notes": "VGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 768, "height": 480, "notes": "WVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 10}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 720, "height": 480, "notes": "WVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 800, "height": 480, "notes": "WVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 5, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 854, "height": 480, "notes": "FWVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 800, "height": 600, "notes": "SVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1024, "height": 576, "notes": "WSVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 1024, "height": 600, "notes": "WSVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 128, "den": 75}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        },
+        { "width": 960, "height": 640, "notes": "DVGA", "fps": [
+                {"num": 15, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 24, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 30, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 50, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60000, "den": 1001, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}},
+                {"num": 60, "den": 1, "progressive": true, "dar": {"num": 3, "den": 2}, "notes": "", "sar": {"num": 1, "den": 1}}
+            ]
+        }
+    ]
+}

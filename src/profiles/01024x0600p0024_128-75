@@ -1,0 +1,10 @@
+description=WSVGA 600p 24 fps
+frame_rate_num=24
+frame_rate_den=1
+width=1024
+height=600
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=128
+display_aspect_den=75

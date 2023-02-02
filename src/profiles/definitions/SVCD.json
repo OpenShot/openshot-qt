@@ -1,0 +1,20 @@
+{
+    "name": "Super Video CD",
+    "abbreviation": "SVCD",
+    "description": "Format used for distributing films on standard 120 mm (4.7 in) optical discs",
+    "category": "disc",
+    "profiles": [
+        { "width": 480, "height": 480, "notes": "NTSC SD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 4, "den": 3}},
+                {"num": 24000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 16, "den": 9}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 4, "den": 3}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 16, "den": 9}}
+            ]
+        },
+        { "width": 480, "height": 576, "notes": "PAL SD", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 8, "den": 5}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 32, "den": 15}}
+            ]
+        }
+    ]
+}

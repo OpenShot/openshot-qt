@@ -1,0 +1,10 @@
+description=HD 720p 59.94 fps
+frame_rate_num=60000
+frame_rate_den=1001
+width=1280
+height=720
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=16
+display_aspect_den=9

@@ -1,0 +1,10 @@
+description=NTSC SD VGA 480p 50 fps
+frame_rate_num=50
+frame_rate_den=1
+width=640
+height=480
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=4
+display_aspect_den=3

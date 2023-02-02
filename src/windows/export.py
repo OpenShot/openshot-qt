@@ -185,39 +185,43 @@ class Export(QDialog):
             functools.partial(self.cboSimpleQuality_index_changed, self.cboSimpleQuality))
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
         self.ExportFrame.connect(self.updateProgressBar)
+        self.btnBrowseProfiles.clicked.connect(self.btnBrowseProfiles_clicked)
 
         # ********* Advanced Profile List **********
         # Loop through profiles
         self.profile_names = []
         self.profile_paths = {}
+        self.current_project_profile = get_app().project.get(['profile'])
+        self.selected_profile = None
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
-            for file in os.listdir(profile_folder):
+            for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
 
                     # Add description of Profile to list
-                    profile_name = "%s (%sx%s)" % (profile.info.description, profile.info.width, profile.info.height)
+                    profile_name = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
                     self.profile_names.append(profile_name)
                     self.profile_paths[profile_name] = profile_path
+
+                    # Add to dropdown
+                    self.cboProfile.addItem(
+                        self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
+
+                    # Set default profile (if it matches the project)
+                    if self.current_project_profile == profile.info.description:
+                        self.selected_profile = profile_name
 
                 except RuntimeError as e:
                     # This exception occurs when there's a problem parsing the Profile file - display a message and continue
                     log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
-        # Sort list
-        self.profile_names.sort()
-
         # Loop through sorted profiles
-        self.selected_profile = None
-        for box_index, profile_name in enumerate(self.profile_names):
+        for profile_name in sorted(self.profile_names):
             # Add to dropdown
-            self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
-
-            # Set default profile (if it matches the project)
-            if get_app().project.get(['profile']) in profile_name:
-                self.selected_profile = profile_name
+            self.cboProfile.addItem(self.getProfileName(self.getProfilePath(profile_name)),
+                                    self.getProfilePath(profile_name))
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
@@ -317,6 +321,12 @@ class Export(QDialog):
         self.timeline.info.channels = self.txtChannels.value()
         self.timeline.info.channel_layout = self.cboChannelLayout.currentData()
 
+        # Disable audio (if not needed)
+        if self.timeline.info.sample_rate == 0 or self.timeline.info.channels == 0:
+            self.timeline.info.has_audio = False
+        else:
+            self.timeline.info.has_audio = True
+
         # Determine max frame (based on clips)
         self.timeline_length_int = self.timeline.GetMaxFrame()
 
@@ -357,7 +367,9 @@ class Export(QDialog):
                         for title in titles:
                             project_types.append(_(title.childNodes[0].data))
                         for codec in videocodecs:
-                            codec_text = codec.childNodes[0].data
+                            codec_text = ""
+                            if codec.childNodes:
+                                codec_text = codec.childNodes[0].data
                             if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
                             elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
@@ -368,7 +380,7 @@ class Export(QDialog):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
                             elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
-                            elif openshot.FFmpegWriter.IsValidCodec(codec_text):
+                            elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":
                                 acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
 
                 except ExpatError as e:
@@ -464,12 +476,19 @@ class Export(QDialog):
                             # get the basic profile
                             all_profiles = False
                             if profiles:
+                                # Disable profile filter button
+                                self.btnBrowseProfiles.setEnabled(False)
+
                                 # if profiles are defined, show them
                                 for profile in profiles:
                                     profiles_list.append(_(profile.childNodes[0].data))
+                                profiles_list = sorted(profiles_list)
                             else:
                                 # show all profiles
                                 all_profiles = True
+
+                                # Enable profile filter button
+                                self.btnBrowseProfiles.setEnabled(True)
                                 for profile_name in self.profile_names:
                                     profiles_list.append(profile_name)
 
@@ -504,7 +523,10 @@ class Export(QDialog):
                             vf = xmldoc.getElementsByTagName("videoformat")
                             self.txtVideoFormat.setText(vf[0].childNodes[0].data)
                             vc = xmldoc.getElementsByTagName("videocodec")
-                            self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+                            if vc[0].childNodes:
+                                self.txtVideoCodec.setText(vc[0].childNodes[0].data)
+                            else:
+                                self.txtVideoCodec.setText("")
                             sr = xmldoc.getElementsByTagName("samplerate")
                             self.txtSampleRate.setValue(int(sr[0].childNodes[0].data))
                             c = xmldoc.getElementsByTagName("audiochannels")
@@ -513,22 +535,25 @@ class Export(QDialog):
 
                             # check for compatible audio codec
                             ac = xmldoc.getElementsByTagName("audiocodec")
-                            audio_codec_name = ac[0].childNodes[0].data
-                            if audio_codec_name == "aac":
-                                # Determine which version of AAC encoder is available
-                                if openshot.FFmpegWriter.IsValidCodec("libfaac"):
-                                    self.txtAudioCodec.setText("libfaac")
-                                elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
-                                    self.txtAudioCodec.setText("libvo_aacenc")
-                                elif openshot.FFmpegWriter.IsValidCodec("aac"):
-                                    self.txtAudioCodec.setText("aac")
+                            if ac[0].childNodes:
+                                audio_codec_name = ac[0].childNodes[0].data
+                                if audio_codec_name == "aac":
+                                    # Determine which version of AAC encoder is available
+                                    if openshot.FFmpegWriter.IsValidCodec("libfaac"):
+                                        self.txtAudioCodec.setText("libfaac")
+                                    elif openshot.FFmpegWriter.IsValidCodec("libvo_aacenc"):
+                                        self.txtAudioCodec.setText("libvo_aacenc")
+                                    elif openshot.FFmpegWriter.IsValidCodec("aac"):
+                                        self.txtAudioCodec.setText("aac")
+                                    else:
+                                        # fallback audio codec
+                                        self.txtAudioCodec.setText("ac3")
                                 else:
                                     # fallback audio codec
-                                    self.txtAudioCodec.setText("ac3")
+                                    self.txtAudioCodec.setText(audio_codec_name)
                             else:
-                                # fallback audio codec
-
-                                self.txtAudioCodec.setText(audio_codec_name)
+                                # no valid audio codec
+                                self.txtAudioCodec.setText("")
 
                             for layout_index, layout in enumerate(self.channel_layout_choices):
                                 if layout == int(c[0].childNodes[0].data):
@@ -543,8 +568,9 @@ class Export(QDialog):
                         log.error("Failed to parse file '%s' as a preset: %s" % (preset_path, e))
 
             # init the profiles combo
-            for item in sorted(profiles_list):
-                self.cboSimpleVideoProfile.addItem(self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
+            for item in profiles_list:
+                self.cboSimpleVideoProfile.addItem(
+                    self.getProfileName(self.getProfilePath(item)), self.getProfilePath(item))
 
             # select the project's current profile
             profile_index = self.getVideoProfileIndex(self.selected_profile)
@@ -571,13 +597,21 @@ class Export(QDialog):
             else:
                 self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
 
-    def getVideoProfileIndex(self, profile_name):
-        """Get the index of a profile name (-1 if not found)"""
-        for index in range(self.cboSimpleVideoProfile.count()):
-            combo_profile = self.cboSimpleVideoProfile.itemText(index)
-            if combo_profile == profile_name:
-                return index
-        return -1
+    def getVideoProfileIndex(self, profile_name=None, profile_key=None):
+        """Get the index of a profile name or profile key (-1 if not found)"""
+        if profile_name:
+            for index in range(self.cboSimpleVideoProfile.count()):
+                combo_profile = self.cboSimpleVideoProfile.itemText(index)
+                if combo_profile == profile_name:
+                    return index
+            return -1
+        if profile_key:
+            for index in range(self.cboSimpleVideoProfile.count()):
+                combo_profile_path = self.cboSimpleVideoProfile.itemData(index)
+                combo_profile = openshot.Profile(combo_profile_path)
+                if combo_profile.Key() == profile_key:
+                    return index
+            return -1
 
     def cboSimpleVideoProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
@@ -624,6 +658,31 @@ class Export(QDialog):
         if os.path.exists(file_path):
             self.s.setDefaultPath(self.s.actionType.EXPORT, file_path)
             self.txtExportFolder.setText(file_path)
+
+    def btnBrowseProfiles_clicked(self):
+        """Search profile button clicked"""
+        # Get current selection profile object
+        current_profile = openshot.Profile(self.cboSimpleVideoProfile.currentData())
+
+        # Show dialog (init to current selection)
+        from windows.profile import Profile
+        log.debug("Showing profile dialog")
+        win = Profile(current_profile.Key())
+        # Run the dialog event loop - blocking interaction on this window during this time
+        result = win.exec_()
+
+        profile = win.selected_profile
+        if result == QDialog.Accepted and profile:
+
+            # select the project's current profile
+            profile_index = self.getVideoProfileIndex(profile_key=profile.Key())
+            if profile_index != -1:
+                # Re-select project profile (if found in list)
+                self.cboSimpleVideoProfile.setCurrentIndex(profile_index)
+            else:
+                # Previous profile not in list, so
+                # default to first profile in list
+                self.cboSimpleVideoProfile.setCurrentIndex(0)
 
     def convert_to_bytes(self, BitRateString):
         bit_rate_bytes = 0

@@ -5,7 +5,7 @@
 	<title translatable="True">DVD-PAL</title>
 	<videoformat>dvd</videoformat>
 	<videocodec>mpeg2video</videocodec>
-	<audiocodec>aac</audiocodec>
+	<audiocodec>ac3</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
@@ -17,6 +17,6 @@
 	 med="192 kb/s"
 	 high="256 kb/s"></audiobitrate>
 	<samplerate>48000</samplerate>
-	<projectprofile>DV/DVD PAL</projectprofile>
-	<projectprofile>DV/DVD Widescreen PAL</projectprofile>
+	<projectprofile>PAL SD Anamorphic 576i 25 fps</projectprofile>
+	<projectprofile>PAL SD Widescreen Anamorphic 576i 25 fps</projectprofile>
 </export-option>

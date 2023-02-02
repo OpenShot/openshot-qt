@@ -5,14 +5,14 @@
 	<title translatable="True">MP3 (audio only)</title>
     <export-to>Audio Only</export-to>
 	<videoformat>mp3</videoformat>
-	<videocodec>mpeg2video</videocodec>
+	<videocodec></videocodec>
 	<audiocodec>libmp3lame</audiocodec>
 	<audiochannels>2</audiochannels>
 	<audiochannellayout>3</audiochannellayout>
 	<videobitrate
-	 low="384 kb/s"
-	 med="5 Mb/s"
-	 high="15.00 Mb/s"></videobitrate>
+	 low="0 kb/s"
+	 med="0 Mb/s"
+	 high="0 Mb/s"></videobitrate>
 	<audiobitrate
 	 low="96 kb/s"
 	 med="128 kb/s"

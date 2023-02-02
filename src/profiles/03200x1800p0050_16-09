@@ -1,0 +1,10 @@
+description=3K QHD+ 1800p 50 fps
+frame_rate_num=50
+frame_rate_den=1
+width=3200
+height=1800
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=16
+display_aspect_den=9

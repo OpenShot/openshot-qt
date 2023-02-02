@@ -19,6 +19,6 @@
 	<samplerate>48000</samplerate>
 	<projectprofile>HD 720p 25 fps</projectprofile>
 	<projectprofile>HD 720p 29.97 fps</projectprofile>
-	<projectprofile>HD 1080p 25 fps</projectprofile>
-	<projectprofile>HD 1080p 29.97 fps</projectprofile>
+	<projectprofile>FHD PAL 1080p 25 fps</projectprofile>
+	<projectprofile>FHD 1080p 29.97 fps</projectprofile>
 </export-option>

@@ -1,0 +1,60 @@
+{
+    "name": "DVD-Video",
+    "abbreviation": "DVD",
+    "description": "Format used to store digital video on DVD discs",
+    "category": "disc",
+    "profiles": [
+        { "width": 720, "height": 576, "notes": "PAL SD", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 16, "den": 15}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Widescreen Anamorphic", "sar": {"num": 64, "den": 45}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 16, "den": 15}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "Widescreen Anamorphic", "sar": {"num": 64, "den": 45}}
+            ]
+        },
+        { "width": 704, "height": 576, "notes": "PAL SD", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 576, "notes": "PAL SD CVD", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 24, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 24, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 288, "notes": "PAL SD CIF", "fps": [
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 12, "den": 11}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        },
+        { "width": 720, "height": 480, "notes": "NTSC SD", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 8, "den": 9}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Widescreen Anamorphic", "sar": {"num": 32, "den": 27}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 8, "den": 9}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "Widescreen Anamorphic", "sar": {"num": 32, "den": 27}}
+            ]
+        },
+        { "width": 704, "height": 480, "notes": "NTSC SD 4SIF", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 480, "notes": "NTSC SD CVD", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 20, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 20, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 240, "notes": "NTSC SD SIF", "fps": [
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}},
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 288, "notes": "CIF VCD SD", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 12, "den": 11}}
+            ]
+        },
+        { "width": 352, "height": 240, "notes": "SIF VCD SD", "fps": [
+                {"num": 30000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 10, "den": 11}}
+            ]
+        }
+    ]
+}

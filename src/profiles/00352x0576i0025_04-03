@@ -1,0 +1,10 @@
+description=PAL SD CVD Anamorphic 576i 25 fps
+frame_rate_num=25
+frame_rate_den=1
+width=352
+height=576
+progressive=0
+sample_aspect_num=24
+sample_aspect_den=11
+display_aspect_num=4
+display_aspect_den=3

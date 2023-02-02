@@ -1,0 +1,22 @@
+{
+    "name": "D-1 (Sony)",
+    "abbreviation": "D1",
+    "description": "The first major professional digital video format.",
+    "category": "tape",
+    "profiles": [
+        { "width": 720, "height": 486, "notes": "NTSC SD", "fps": [
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 9, "den": 10}},
+                {"num": 24000, "den": 1001, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 6, "den": 5}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 9, "den": 10}},
+                {"num": 30000, "den": 1001, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 6, "den": 5}}
+            ]
+        },
+        { "width": 720, "height": 576, "notes": "PAL SD", "fps": [
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 16, "den": 15}},
+                {"num": 25, "den": 1, "progressive": true, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 64, "den": 45}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 4, "den": 3}, "notes": "Anamorphic", "sar": {"num": 16, "den": 15}},
+                {"num": 25, "den": 1, "progressive": false, "dar": {"num": 16, "den": 9}, "notes": "Anamorphic", "sar": {"num": 64, "den": 45}}
+            ]
+        }
+    ]
+}

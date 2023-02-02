@@ -197,7 +197,6 @@ class PlayerWorker(QObject):
         # Check active audio device name and type from audio device
         active_audio_device = self.player.GetCurrentAudioDevice()
         audio_device_value = f"{active_audio_device.get_name()}||{active_audio_device.get_type()}"
-        log.info(audio_device_value)
         if s.get("playback-audio-device") != audio_device_value:
             log.warning("Your active audio device (%s) does not match OpenShot (%s). "
                         "Adjusting your 'Preferences->Playback->Audio Device' to match your "
