@@ -222,8 +222,7 @@ class PropertiesModel(updates.UpdateInterface):
                 keyframe_list = [clip_data[property_key]]
 
             # Loop through each keyframe (red, blue, and green)
-            for keyframe in keyframe_list:
-
+            for keyframe_index, keyframe in enumerate(keyframe_list):
                 # Keyframe
                 # Loop through points, find a matching points on this frame
                 closest_point = None
@@ -246,6 +245,32 @@ class PropertiesModel(updates.UpdateInterface):
                     clip_updated = True
                     log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
                     keyframe["Points"].remove(point_to_delete)
+
+                    # Check for 0 keyframes (and use sane defaults instead of the 0.0 default value)
+                    default_value = None
+                    if not keyframe["Points"]:
+                        if property_key in ["alpha", "scale_x", "scale_y", "time", "volume"]:
+                            default_value = 1.0
+                        elif property_key in ["origin_x", "origin_y"]:
+                            default_value = 0.5
+                        elif property_key in ["location_x", "location_y", "rotation", "shear_x", "shear_y"]:
+                            default_value = 0.0
+                        elif property_key in ["has_audio", "has_video", "channel_filter", "channel_mapping"]:
+                            default_value = -1.0
+                        elif property_key in ["wave_color"]:
+                            if keyframe_index == 0:
+                                # Red
+                                default_value = 0.0
+                            elif keyframe_index == 1:
+                                # Blue
+                                default_value = 255.0
+                            elif keyframe_index == 2:
+                                # Green
+                                default_value = 123.0
+                        if default_value is not None:
+                            keyframe["Points"].append({
+                                'co': {'X': self.frame_number, 'Y': default_value},
+                                'interpolation': 1})
 
             # Determine if waveforms are impacted by this change
             has_waveform = False
