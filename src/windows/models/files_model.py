@@ -295,6 +295,13 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Determine media type
                 file_data["media_type"] = get_media_type(file_data)
 
+                # Check for audio-only files
+                if file_data.get("has_audio") and not file_data.get("has_video"):
+                    # Audio-only file should match the current project size and FPS
+                    project = get_app().project
+                    file_data["width"] = project.get("width")
+                    file_data["height"] = project.get("height")
+
                 # Save new file to the project data
                 new_file = File()
                 new_file.data = file_data

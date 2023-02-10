@@ -1839,6 +1839,23 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 "num": profile.info.pixel_ratio.num,
                 "den": profile.info.pixel_ratio.den,
                 })
+
+            # Update size of audio-only files
+            # Used by our video transform handles (if waveforms are visible)
+            for file in File.filter():
+                # Check for audio-only files
+                if file.data.get("has_audio") and not file.data.get("has_video"):
+                    # Audio-only file should match the current project size and FPS
+                    file.data["width"] = proj.get("width")
+                    file.data["height"] = proj.get("height")
+                    file.save()
+
+                    # Change all related clips
+                    for clip in Clip.filter(file_id=file.id):
+                        clip.data["reader"] = file.data
+                        clip.save()
+
+            # Clear transaction id
             get_app().updates.transaction_id = None
 
             # Rescale all keyframes and reload project
