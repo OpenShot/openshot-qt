@@ -888,9 +888,6 @@ class Export(QDialog):
         # Mark project file as unsaved
         get_app().project.has_unsaved_changes = True
 
-        # Set MaxSize (so we don't have any downsampling)
-        self.timeline.SetMaxSize(video_settings.get("width"), video_settings.get("height"))
-
         # Set lossless cache settings (temporarily)
         export_cache_object = openshot.CacheMemory(500)
         self.timeline.SetCache(export_cache_object)
@@ -903,8 +900,11 @@ class Export(QDialog):
             # Load the "export" Timeline reader with the JSON from the real timeline
             self.timeline.SetJson(json.dumps(rescaled_app_data))
 
-            # Re-update the timeline FPS again (since the timeline just got clobbered)
-            self.updateFrameRate()
+        # Re-update the timeline FPS again (since the timeline just got clobbered)
+        self.updateFrameRate()
+
+        # Set MaxSize (so we don't have any downsampling)
+        self.timeline.SetMaxSize(video_settings.get("width"), video_settings.get("height"))
 
         # Apply mappers to timeline readers
         self.timeline.ApplyMapperToClips()
