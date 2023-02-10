@@ -194,22 +194,12 @@ class AddToTimeline(QDialog):
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
             new_clip["title"] = filename
+            new_clip["reader"] = file.data
 
             # Skip any clips that are missing a 'reader' attribute
             # TODO: Determine why this even happens, as it shouldn't be possible
             if not new_clip.get("reader"):
                 continue  # Skip to next file
-
-            # Overwrite frame rate (incase the user changed it in the File Properties)
-            file_properties_fps = float(file.data["fps"]["num"]) / float(file.data["fps"]["den"])
-            file_fps = float(new_clip["reader"]["fps"]["num"]) / float(new_clip["reader"]["fps"]["den"])
-            fps_diff = file_fps / file_properties_fps
-            new_clip["reader"]["fps"]["num"] = file.data["fps"]["num"]
-            new_clip["reader"]["fps"]["den"] = file.data["fps"]["den"]
-            # Scale duration / length / and end properties
-            new_clip["reader"]["duration"] *= fps_diff
-            new_clip["end"] *= fps_diff
-            new_clip["duration"] *= fps_diff
 
             # Check for optional start and end attributes
             start_time = 0
