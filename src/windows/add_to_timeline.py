@@ -217,6 +217,8 @@ class AddToTimeline(QDialog):
             if file.data["media_type"] == "image":
                 end_time = image_length
                 new_clip["end"] = end_time
+            else:
+                new_clip["end"] = end_time
 
             # Adjust Fade of Clips (if no transition is chosen)
             if not transition_path:

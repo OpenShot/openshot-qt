@@ -47,6 +47,8 @@ from classes.logger import log
 from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.effect_init import effect_options
+from classes.thumbnail import GetThumbPath
+
 
 # Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"
@@ -1105,10 +1107,15 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-    def Thumbnail_Updated(self, clip_id):
+    def Thumbnail_Updated(self, clip_id, thumbnail_frame=1):
         """Callback when thumbnail needs to be updated"""
-        # Pass to javascript timeline (and render)
-        self.run_js(JS_SCOPE_SELECTOR + ".updateThumbnail('" + clip_id + "');")
+        clips = Clip.filter(id=clip_id)
+        for clip in clips:
+            # Force thumbnail image to be refreshed (for a particular frame #)
+            GetThumbPath(clip.data.get("file_id"), thumbnail_frame, clear_cache=True)
+
+            # Pass to javascript timeline (and render)
+            self.run_js(JS_SCOPE_SELECTOR + ".updateThumbnail('" + clip_id + "');")
 
     def Split_Audio_Triggered(self, action, clip_ids):
         """Callback for split audio context menus"""
@@ -2995,6 +3002,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 new_clip["start"] = file.data['start']
             if 'end' in file.data:
                 new_clip["end"] = file.data['end']
+            else:
+                new_clip["end"] = new_clip["reader"]["duration"]
 
             # Set position and closet track
             new_clip["position"] = js_position

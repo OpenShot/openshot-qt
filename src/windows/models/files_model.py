@@ -45,7 +45,7 @@ from classes.image_types import get_media_type
 from classes.query import File
 from classes.logger import log
 from classes.app import get_app
-from requests import get
+from classes.thumbnail import GetThumbPath
 
 import openshot
 
@@ -203,7 +203,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                     thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
                 # Get thumb path
-                thumb_icon = QIcon(self.get_thumb_path(file.id, thumbnail_frame))
+                thumb_icon = QIcon(GetThumbPath(file.id, thumbnail_frame))
             else:
                 # Audio file
                 thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
@@ -314,17 +314,13 @@ class FilesModel(QObject, updates.UpdateInterface):
                 if seq_info:
                     # Update file with image sequence path & name
                     new_path = seq_info.get("path")
-                    new_file.data["name"] = os.path.basename(new_path)
 
                     # Load image sequence (to determine duration and video_length)
                     clip = openshot.Clip(new_path)
+                    new_file.data = json.loads(clip.Reader().Json())
                     if clip and clip.info.duration > 0.0:
-
                         # Update file details
-                        new_file.data["path"] = new_path
                         new_file.data["media_type"] = "video"
-                        new_file.data["duration"] = clip.Reader().info.duration
-                        new_file.data["video_length"] = "%s" % clip.Reader().info.video_length
 
                         if seq_info and "fps" in seq_info:
                             # Blender Titles specify their fps in seq_info
@@ -489,30 +485,6 @@ class FilesModel(QObject, updates.UpdateInterface):
         log.debug("Importing file list: {}".format(media_paths))
         self.add_files(media_paths, quiet=import_quietly)
 
-    def get_thumb_path(
-            self, file_id, thumbnail_frame, clear_cache=False):
-        """Get thumbnail path by invoking HTTP thumbnail request"""
-
-        # Clear thumb cache (if requested)
-        thumb_cache = ""
-        if clear_cache:
-            thumb_cache = "no-cache/"
-
-        # Connect to thumbnail server and get image
-        thumb_server_details = get_app().window.http_server_thread.server_address
-        thumb_address = "http://%s:%s/thumbnails/%s/%s/path/%s" % (
-            thumb_server_details[0],
-            thumb_server_details[1],
-            file_id,
-            thumbnail_frame,
-            thumb_cache)
-        r = get(thumb_address)
-        if r.ok:
-            # Update thumbnail path to real one
-            return r.text
-        else:
-            return ''
-
     def update_file_thumbnail(self, file_id):
         """Update/re-generate the thumbnail of a specific file"""
         file = File.get(id=file_id)
@@ -540,7 +512,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                     thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
                 # Get thumb path
-                thumb_icon = QIcon(self.get_thumb_path(file.id, thumbnail_frame, clear_cache=True))
+                thumb_icon = QIcon(GetThumbPath(file.id, thumbnail_frame, clear_cache=True))
             else:
                 # Audio file
                 thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
