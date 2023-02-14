@@ -13,10 +13,8 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M45.1152,44"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M15.1152,37c0,0,3-4,2-5"/>
     <ellipse cx="12.0313" cy="48" rx="7.0312" ry="7" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M45.1152,44"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M15.1152,37c3.0498,1.8311,6.4639,3.9277,7,5c1,2,1,9,1,9h20c0,0-0.4863-6.0371-12.2812-10 c-1.9756-0.6631-11.4951-7.2236-6.7188-12"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M12.1152,35.1201c-1.1953-0.6806-2-1.1201-2-1.1201s3.7842-6.3921,9-9c4-2,11-3,11-3v3l-6,4l4,3c0,0,6.7149-3.6279,10-1 c1.875,1.5,4,5,4,5s8-2,11-5v-3l14-3l-1,3c0,0-22.4902,16.167-28.4902,16.167"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M15.1152,37c0,0,3-4,2-5"/>

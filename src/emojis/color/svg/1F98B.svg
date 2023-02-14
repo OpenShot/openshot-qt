@@ -1,27 +1,25 @@
 <svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
   <g id="color">
-    <rect x="28" y="26" width="5" height="5" fill="#F4AA41" stroke="none"/>
-    <rect x="41" y="26" width="5" height="5" fill="#F4AA41" stroke="none"/>
-    <path fill="#E27022" stroke="none" d="M32,30c-6.3454,0.2919-20,0.0758-20,15.8696S34,41,34,41"/>
-    <path fill="#E27022" stroke="none" d="M42,30c6.3454,0.2919,20.5808,0.0758,20.5808,15.8696S40,40,40,40"/>
-    <path fill="#F4AA41" stroke="none" d="M40.6391,20.5921c0,0,17.8007-14.2406,17.8007-3.5601s-6.2303,5.3402-8.0103,8.9004 s-4.4502,0.89-4.4502,0.89L42,27l-3,6"/>
-    <path fill="#F4AA41" stroke="none" d="M33.3609,20.5921c0,0-17.8007-14.2406-17.8007-3.5601s6.2302,5.3402,8.0103,8.9004S28,27,28,27h5l2,6"/>
-    <ellipse cx="36.921" cy="17.9219" rx="3.5601" ry="2.6701" fill="#A57939" stroke="none"/>
-    <ellipse cx="36.921" cy="22.3721" rx="3.5601" ry="1.7801" fill="#6A462F" stroke="none"/>
-    <path fill="#A57939" stroke="none" d="M36.3298,24.309c-8.1753,0.759,0.6444,22.9841,0.6444,22.9841S47.2839,23.292,36.3298,24.309z"/>
+    <path fill="#92D3F5" stroke="none" d="m35.892 22.845c-1.1677-0.75117-2.3515-1.5127-4.2562-2.536-1.9047-1.0233-4.5628-2.3295-7.3719-3.0366-2.8091-0.70712-5.7684-0.81539-8.9995-0.92767-3.2311-0.11228-6.7338-0.22857-8.7991 0.71011s-2.694 2.9321-0.63572 6.7601 6.8063 9.4959 11.128 11.07 8.2242-0.93837 11.039-2.5076c2.8152-1.5692 4.5425-2.1943 6.2711-2.8198"/>
+    <path fill="#92D3F5" stroke="#92D3F5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m32.103 44.066c-0.75813 3.7545-1.516 7.5079-3.6638 9.4562-2.1478 1.9483-5.6846 2.0927-7.9036-0.93857-2.219-3.0312-3.1212-9.2385-2.4695-12.725 0.65167-3.4868 2.8607-4.2531 5.602-5.4795 2.7413-1.2264 6.0204-2.9151 9.3011-4.6046z"/>
+    <path fill="#92D3F5" stroke="none" d="m36.108 22.845c1.1677-0.75117 2.3515-1.5127 4.2562-2.536 1.9047-1.0233 4.5628-2.3295 7.3719-3.0366 2.8091-0.70712 5.7684-0.81539 8.9995-0.92767 3.2311-0.11228 6.7338-0.22857 8.7992 0.71041 2.0654 0.93898 2.6939 2.9319 0.63551 6.76-2.0584 3.8281-6.8031 9.492-11.126 11.068-4.3233 1.576-8.226-0.93668-11.041-2.5058-2.815-1.5691-4.5423-2.1941-6.2708-2.8196"/>
+    <path fill="#92D3F5" stroke="#92D3F5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m39.897 44.066c0.75813 3.7545 1.516 7.5079 3.6638 9.4562 2.1478 1.9483 5.6846 2.0927 7.9036-0.93857 2.219-3.0312 3.1212-9.2385 2.4697-12.725-0.65148-3.4867-2.8579-4.2521-5.6008-5.4791-2.7429-1.227-6.022-2.9157-9.3024-4.605 z"/>
+    <ellipse cx="35.807" cy="17.922" rx="3.5601" ry="2.6701" fill="#9B9B9A" stroke="none"/>
+    <ellipse cx="35.819" cy="23.563" rx="3.353" ry="2.7346" fill="#3F3F3F" stroke="none"/>
+    <path fill="#9B9B9A" stroke="none" d="m35.394 26.812c-6.3212 0.67634 0.6061 20.481 0.6061 20.481s7.8636-21.387-0.6061-20.481z"/>
   </g>
   <g id="hair"/>
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M40.6391,20.5921c0,0,17.8007-14.2406,17.8007-3.5601s-6.2303,5.3402-8.0103,8.9004s-4.4502,0.89-4.4502,0.89"/>
-    <line x1="35.1409" x2="33.3609" y1="14.771" y2="11.5817" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="38.9977" x2="40.4811" y1="14.8452" y2="11.5817" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M33.3609,20.5921c0,0-17.8007-14.2406-17.8007-3.5601s6.2302,5.3402,8.0103,8.9004s4.4502,0.89,4.4502,0.89"/>
-    <ellipse cx="36.921" cy="17.9219" rx="3.5601" ry="2.6701" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <ellipse cx="36.921" cy="22.3721" rx="3.5601" ry="1.7801" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M36.3298,24.309c-8.1753,0.759,0.6444,22.9841,0.6444,22.9841S47.2839,23.292,36.3298,24.309z"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M28,31c-6.3454,0.2919-16-0.9242-16,14.8696s19.5808-3.9167,19.5808-3.9167"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M46.5808,31c6.3454,0.2919,16-0.9242,16,14.8696S43,41.9529,43,41.9529"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m32.103 44.066c-0.75813 3.7545-1.516 7.5079-3.6638 9.4562-2.1478 1.9483-5.6846 2.0927-7.9036-0.93857-2.219-3.0312-3.1212-9.2385-2.4695-12.725 0.65167-3.4868 2.8581-4.2522 5.0655-5.0179"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m32.39 20.592c-2.6586-1.3063-5.3167-2.6125-8.1258-3.3196-2.8091-0.70712-5.7684-0.81539-8.9995-0.92767-3.2311-0.11228-6.7338-0.22857-8.7991 0.71011s-2.694 2.9321-0.63572 6.7601 6.8063 9.4959 11.128 11.07 8.2242-0.93837 12.129-3.4522"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m39.61 20.592c2.6586-1.3063 5.3167-2.6125 8.1258-3.3196 2.8091-0.70712 5.7684-0.81539 8.9995-0.92767 3.2311-0.11228 6.7338-0.22857 8.7992 0.71041 2.0654 0.93898 2.6939 2.9319 0.63551 6.76-2.0584 3.8281-6.8031 9.492-11.126 11.068-4.3233 1.576-8.226-0.93668-12.13-3.4502"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m39.897 44.066c0.75813 3.7545 1.516 7.5079 3.6638 9.4562 2.1478 1.9483 5.6846 2.0927 7.9036-0.93857 2.219-3.0312 3.1212-9.2385 2.4697-12.725-0.65148-3.4867-2.858-4.2521-5.0657-5.018"/>
+    <ellipse cx="36" cy="17.922" rx="3.5601" ry="2.6701" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <ellipse cx="36" cy="23.563" rx="3.353" ry="2.7346" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m35.392 26.812c-6.3212 0.67634 0.60836 20.481 0.60836 20.481s7.8614-21.387-0.60836-20.481z"/>
+    <line x1="37.968" x2="39.452" y1="14.845" y2="11.582" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="34.032" x2="32.548" y1="14.845" y2="11.582" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
 </svg>

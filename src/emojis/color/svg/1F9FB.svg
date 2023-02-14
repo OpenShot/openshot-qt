@@ -1,19 +1,15 @@
 <svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
   <g id="color">
-    <path fill="#d0cfce" d="M44.6572,55.5807c3.4381-2.325,10.0736-7.3631,10.0736-7.3631V18.9432c-1.7678,1.5784-7.5955,4.3984-10.0736,5.1556"/>
-    <ellipse cx="32.0767" cy="20.4671" rx="3.5538" ry="1.6226" fill="#fff"/>
+    <path fill="#fff" d="m11.41 56.6c8.303 12.49 32.7 6.093 39.05 3.446l0.7008-44.25c-0.9537-3.003-22.19-15.83-39.75-0.3751z"/>
+    <path fill="#d0cfce" d="m47.37 61.41c4.514-3.053 13.23-9.667 13.23-9.667v-38.44c-2.321 2.072-9.972 5.775-13.23 6.769"/>
+    <ellipse cx="30.85" cy="15.3" rx="4.666" ry="2.13" fill="#fff"/>
   </g>
   <g id="line">
-    <ellipse cx="32.406" cy="20.8484" rx="15.1368" ry="5.5336" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="M17.2692,51.9165c0,3.0611,6.7773,5.5315,15.1335,5.5315,8.367,0,12.8494-1.7918,16.5212-4.3771"/>
-    <line x1="17.2692" x2="17.2692" y1="20.5582" y2="51.9194" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
-    <g>
-      <line x1="32.406" x2="32.406" y1="26.382" y2="28.882" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="32.406" x2="32.406" y1="34.0952" y2="52.3414" fill="none" stroke="#000" stroke-dasharray="5.2132 5.2132" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="32.406" x2="32.406" y1="54.9479" y2="57.4479" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    </g>
-    <line x1="47.547" x2="47.547" y1="23.0135" y2="20.8439" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M44.6572,24.0988s7.2386-2.6577,10.0361-5.1556V48.2177s-5.212,5.6515-11.5388,7.8246"/>
-    <ellipse cx="32.0767" cy="20.8439" rx="3.5538" ry="1.6226" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <ellipse cx="31.23" cy="15.32" rx="20.18" ry="7.368" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m11.05 14.93 1e-6 41.76c0 4.074 9.037 7.363 20.18 7.363 6.02 0 10.53-0.6946 14.26-1.873 8.515-2.892 15.46-10.42 15.46-10.42v-38.98c-3.73 3.326-13.38 6.865-13.38 6.865"/>
+    <line x1="31.23" x2="31.23" y1="22.69" y2="26.01" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="31.23" x2="31.23" y1="32.96" y2="57.25" fill="none" stroke="#000" stroke-dasharray="5.2132, 5.2132" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line x1="31.23" x2="31.23" y1="60.72" y2="64.05" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <ellipse cx="30.79" cy="15.31" rx="4.739" ry="2.16" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
   </g>
 </svg>

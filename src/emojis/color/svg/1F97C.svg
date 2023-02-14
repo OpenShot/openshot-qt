@@ -1,22 +1,22 @@
 <svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
   <g id="color">
-    <path id="Lab_Coat_Color_1" fill="#fff" d="M22.7533,15.2636c-2.7882,6.0459-9.9021,28.4251-9.9021,28.4251s1.7292.4715,6.99,2.563l5.0809-15.9212L22.7533,59.0663c2.1667,2.9359,14.1113,3.7278,14.1113,3.7278s.2875-32.6316,0-35.1819A54.9673,54.9673,0,0,0,34.3263,18.47,37.8,37.8,0,0,0,30.35,10.4773S23.7944,13.0063,22.7533,15.2636Z"/>
-    <polyline id="Lab_Coat_Color_2" fill="#fff" points="27.592 11.855 26.814 19.201 29.234 19.201 27.681 21.942 36.865 29.318"/>
-    <path id="Lab_Coat_Color_3" fill="#fff" d="M36.9924,27.6122c.5146-4.5652,3.7021-17.2377,3.7021-17.2377s7.2171,3.584,8.4351,5.7508C52.5274,22.17,59.1488,43.3522,59.1488,43.3522s-2.2463.8884-7.5068,2.98L48.1364,32.0759l.7988,28.2451c-2.1666,2.9359-11.9428,2.4731-11.9428,2.4731"/>
-    <polyline id="Lab_Coat_Color_4" fill="#fff" points="43.549 11.95 45.215 19.201 42.352 19.201 44.046 21.851 36.992 29.318"/>
-    <path id="Lab_Coat_Color_5" fill="#fff" d="M40.6945,10.3745a14.0517,14.0517,0,0,0-10.3444.1028"/>
-    <polygon id="Lab_Coat_Color_6" fill="#d0cfce" points="27.371 11.806 27.046 18.882 29.093 19.45 27.688 22.425 36.992 29.035 29.99 10.622 27.371 11.806"/>
-    <path id="Lab_Coat_Color_7" fill="#9b9b9a" d="M36.8646,24.8748l3.83-14.5a14.0517,14.0517,0,0,0-10.3444.1028"/>
-    <path id="Lab_Coat_Color_8" fill="#d0cfce" d="M40.6945,10.3745c.4779.2433,2.9437,1.9632,2.9437,1.9632L45.13,18.8293l-2.6271.6072,1.544,2.4147-7.3847,6.3147Z"/>
+    <path fill="#fff" stroke-width="1.097" d="m23.28 13.06c-3.06 6.635-10.1 31.96-10.1 31.96s0.4394 0.04908 6.213 2.344l3.89-15.82-1.823 29.76c2.378 3.222 15.49 4.091 15.49 4.091s-0.6375-34.11-0.953-36.91c-0.6376-3.418-0.6166-8.474-1.833-11.73-1.103-3.086-0.9946-6.143-2.791-8.884 0 0-6.946 2.715-8.088 5.192z"/>
+    <polyline fill="#fff" points="27.59 11.86 26.81 19.2 29.23 19.2 27.68 21.94 36.86 29.32"/>
+    <path fill="#fff" stroke-width="1.097" d="m37.09 26.78c0.5647-5.01 4.063-18.92 4.063-18.92s7.92 3.933 9.257 6.311c3.729 6.634 8.079 31.42 8.079 31.42 0 0.2121-0.4397 1.726-6.213 1.767l-3.89-15.82 1.81 31.14c-2.378 3.222-13.11 2.714-13.11 2.714"/>
+    <polyline fill="#fff" points="43.55 11.95 45.22 19.2 42.35 19.2 44.05 21.85 36.99 29.32"/>
+    <path fill="#fff" d="m40.69 10.37a14.05 14.05 0 0 0-10.34 0.1028"/>
+    <path fill="#d0cfce" stroke-width="1.097" d="m28.5 9.167-1.87 8.09h3.177l-1.88 2.941 8.075 8.459-4.627-20.79z"/>
+    <path fill="#9b9b9a" stroke-width="1.097" d="m36 28.66 4.627-20.79c-3.661-1.407-5.623-1.48-9.255 0z"/>
+    <path fill="#d0cfce" stroke-width="1.097" d="m41.15 7.868c0.5245 0.267 2.407 1.343 2.407 1.343l1.849 8.047h-3.177l1.88 2.941-7.384 7.195z"/>
   </g>
   <g id="line">
-    <path id="Lab_Coat_Line_1" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22.7533,15.2636c-2.7882,6.0459-9.9021,28.4251-9.9021,28.4251s1.7292.4715,6.99,2.563l5.0809-15.9212L22.7533,59.0663c2.1667,2.9359,14.1113,3.7278,14.1113,3.7278s.2875-32.6316,0-35.1819C36.6366,25.59,30.35,10.4773,30.35,10.4773S23.7944,13.0063,22.7533,15.2636Z"/>
-    <path id="Lab_Coat_Line_2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M36.9924,27.6122c.5146-4.5652,3.7021-17.2377,3.7021-17.2377s7.2171,3.584,8.4351,5.7508C52.5274,22.17,59.1488,43.3522,59.1488,43.3522s-2.2463.8884-7.5068,2.98L48.1364,32.0759l.7988,28.2451c-2.1666,2.9359-11.9428,2.4731-11.9428,2.4731"/>
-    <polyline id="Lab_Coat_Line_3" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="27.592 11.855 26.814 19.201 29.234 19.201 27.681 21.942 36.865 29.318"/>
-    <polyline id="Lab_Coat_Line_4" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="43.549 11.95 45.215 19.201 42.352 19.201 44.046 21.851 36.992 29.318"/>
-    <path id="Lab_Coat_Line_5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M40.6945,10.3745a14.0517,14.0517,0,0,0-10.3444.1028"/>
-    <line id="Lab_Coat_Line_6" x1="40.8957" x2="45.215" y1="31.0173" y2="31.0173" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <path id="Lab_Coat_Line_6-2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M28.7541,46.149h4.3193v3.4579a2.5561,2.5561,0,0,1-2.5561,2.5561H28.7541V49.5764"/>
-    <path id="Lab_Coat_Line_6-3" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M45.0722,46.149H40.7528v3.4579A2.5562,2.5562,0,0,0,43.309,52.163h1.7632V49.5764"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219" d="m43.65 9.517 1.757 7.74h-3.177l1.88 2.941-7.828 8.286"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219" d="m40.7 7.462c-3.702-1.423-5.686-1.496-9.358 0"/>
+    <line x1="40.35" x2="45.14" y1="30.37" y2="30.37" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219" d="m26.88 47.16h4.793v3.837a2.837 2.837 0 0 1-2.837 2.837h-1.957v-2.87"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219" d="m44.98 47.16h-4.793v3.837a2.837 2.837 0 0 0 2.837 2.837h1.957v-2.87"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219" d="m31.34 7.462s-7.092 4.17-8.444 6.574c-3.771 6.708-9.712 30.98-9.712 30.98s2.3 2.141 6.213 2.344l3.89-15.82-0.8865 31.34c4.346 4.067 24.16 3.111 26.87 0l-0.8865-31.34 3.89 15.82c3.72 1.048 6.213-1.767 6.213-1.767s-6-25.53-9.771-32.24c-1.352-2.405-8.02-5.901-8.02-5.901s-3.628 15.96-4.679 21.02c-1.051-5.066-4.679-21.02-4.679-21.02z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.219" d="m28.38 9.504-1.748 7.753h3.177l-1.88 2.941 7.828 8.286"/>
+    <path fill="none" stroke="#000" stroke-linejoin="round" stroke-width="2.219" d="m36 28.48v37.04"/>
   </g>
 </svg>

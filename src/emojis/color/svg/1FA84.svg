@@ -1,6 +1,6 @@
 <svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
   <g id="line-supplement">
-    <rect x="33.6248" y="20.0448" width="4.6535" height="32.1987" transform="rotate(44.93 35.952 36.144)"/>
+    <rect x="33.6248" y="20.0448" width="4.6535" height="32.1987" transform="matrix(.70797 .70624 -.70624 .70797 36.025 -14.836)"/>
   </g>
   <g id="color">
     <rect x="33.6248" y="20.0448" width="4.6535" height="32.1987" transform="rotate(44.93 35.952 36.144)" fill="#3f3f3f"/>
@@ -8,7 +8,7 @@
     <circle cx="56" cy="28.3101" r="2" fill="#fcea2b"/>
   </g>
   <g id="line">
-    <rect x="34.2628" y="9.2771" rx="0.4398" width="3.3851" height="53.5249" transform="rotate(44.93 35.955 36.04)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <rect x="34.2628" y="9.2771" rx="0.4398" width="3.3851" height="53.5249" transform="matrix(.70797 .70624 -.70624 .70797 35.953 -14.8682)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="45.3062" x2="47.6346" y1="23.8732" y2="26.0854" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="23.4413" x2="25.8379" y1="46.1937" y2="48.5844" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="47.5749" x2="47.5749" y1="8.9583" y2="7.2929" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>

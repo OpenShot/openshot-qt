@@ -11,8 +11,6 @@
   <g id="skin-shadow"/>
   <g id="line">
     <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="35.4541,20.5625 35.4541,15.1018 31.1106,10.7583"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M39.8538,24.1763"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M38.124,24.557"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M57.7417,25.5951c3.6482,4.9493,4.3968,13.296,1.4093,21.1329c-3.8569,10.1286-12.4875,15.573-19.2735,12.1633 c-0.4877-0.2459-0.953-0.5297-1.3942-0.849c-1.2846-0.9296-3.0462-0.93-4.3311-0.0009c-0.4421,0.3197-0.9078,0.6038-1.396,0.8499 c-6.7971,3.4097-15.4276-2.0347-19.2846-12.1633c-3.8569-10.1174-1.4756-21.0845,5.3102-24.4942 c3.1079-1.5539,6.5959-1.2633,9.838,0.4919c0,0,0.0559,0.0336,0.1677,0.0895c0.7379,0.3913,3.9128,1.9564,7.0878,1.9564 c0.7267,0,1.4911-0.0826,2.2487-0.2145c0,0,1.1885-0.182,2.126-0.4632"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M48.4527,17.2241c3.9562,1.3292,6.8444,5.8193,6.8444,5.8193s-5.0134,1.8354-8.9696,0.5062 c-3.9508-1.3274-6.8444-5.8193-6.8444-5.8193S44.5019,15.8967,48.4527,17.2241z"/>
   </g>

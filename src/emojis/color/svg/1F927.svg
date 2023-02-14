@@ -7,8 +7,6 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M52.7699,43.9754"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M24.9288,43.9754"/>
     <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="28.4877,27.4126 35.0747,31.4266 28.4877,35.1645"/>
     <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="50.1521,27.4126 43.5651,31.4266 50.1521,35.1645"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M38.0831,58.9821C38.3872,58.994,38.6929,59,39,59c12.7022,0,23-10.2978,23-23c0-12.7031-10.2978-23-23-23 c-12.7031,0-23,10.2969-23,23c0,1.914,0.2338,3.7733,0.6744,5.5511"/>

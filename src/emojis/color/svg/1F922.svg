@@ -6,7 +6,6 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M12.9973,33.1878"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M27.2671,22.3665c-0.2383,1.5436-1.039,2.9427-2.2496,3.9289c-1.1065,1.1138-2.5889,1.7724-4.156,1.8514"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M44.7329,22.3665c0.2383,1.5436,1.039,2.9427,2.2496,3.9289c1.1065,1.1138,2.5889,1.7724,4.156,1.8514"/>
     <circle cx="36.0027" cy="36" r="23" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>

@@ -9,9 +9,6 @@
     <path fill="#EA5A47" stroke="none" d="M39.0161,22.8385c-0.0018,1.6129,1.9173,2.6679,4.5145,2.7789s4.7591-1.1201,4.8288-2.7498l-0.0008-0.3155 c-0.0191-1.632-2.1412-2.9744-4.7397-2.9983C41.0203,19.5299,38.997,21.2065,39.0161,22.8385"/>
     <path fill="#D22F27" stroke="none" d="M43.174,24.8175c-0.6105-1.4165,0.3289-3.1838,2.0983-3.9475c0.9179-0.3962,1.9603-0.3538,2.8746-0.035 c1.4172,0.4941,2.4105,1.8808,2.3753,3.3822c-0.0051,0.2183-0.0355,0.4264-0.1035,0.6054"/>
     <path fill="#D22F27" stroke="none" d="M43.174,23.8299c-0.6105,1.4165,0.3289,3.1838,2.0983,3.9475c0.9179,0.3962,1.9603,0.3538,2.8746,0.035 c1.4172-0.4941,2.4105-1.8808,2.3753-3.3822c-0.0051-0.2183-0.0355-0.4264-0.1035-0.6054"/>
-    <path fill="none" stroke="#b1cc33" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22.51,31.1543"/>
-    <path fill="none" stroke="#a57939" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M50.9336,27.4205"/>
-    <path fill="none" stroke="#a57939" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M48.2713,29.0961"/>
   </g>
   <g id="hair"/>
   <g id="skin"/>
@@ -28,6 +25,5 @@
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34.8042,26.9378c-2.0326,3.7956-0.6035,8.5203,3.1921,10.5529s8.5203,0.6035,10.5529-3.1921"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M25.9293,32.3094 c3.992,4.886,2.805,12.462,2.805,12.462s-7.66-0.347-11.653-5.233s-2.805-12.462-2.805-12.462S21.9373,27.4274,25.9293,32.3094z"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M37.1043,40.8644 c-3.438,3.548-7.676,10.246-5.829,20.735"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M37.4663,24.7443"/>
   </g>
 </svg>
