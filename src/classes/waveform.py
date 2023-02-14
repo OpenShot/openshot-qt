@@ -41,7 +41,7 @@ s = get_app().get_settings()
 SAMPLES_PER_SECOND = 20
 
 
-def get_audio_data(files: dict):
+def get_audio_data(files: dict, transaction_id=None):
     """Get a Clip object form libopenshot, and grab audio data
         For for the given files and clips, start threads to gather audio data.
 
@@ -52,11 +52,11 @@ def get_audio_data(files: dict):
         clip_list = files[file_id]
 
         log.info("Clip loaded, start thread")
-        t = threading.Thread(target=get_waveform_thread, args=[file_id, clip_list], daemon=True)
+        t = threading.Thread(target=get_waveform_thread, args=[file_id, clip_list, transaction_id], daemon=True)
         t.start()
 
 
-def get_waveform_thread(file_id, clip_list):
+def get_waveform_thread(file_id, clip_list, transaction_id):
     """
     For the given file ID and clip IDs, update audio data.
 
@@ -117,7 +117,10 @@ def get_waveform_thread(file_id, clip_list):
         return
 
     # Transaction id to group all deletes together
-    tid = str(uuid.uuid4())
+    if transaction_id:
+        tid = transaction_id
+    else:
+        tid = str(uuid.uuid4())
 
     # If the file doesn't have audio data, generate it.
     # A pending audio_data process will have audio_data == [-999]

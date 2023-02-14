@@ -1046,7 +1046,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Clear transform
             self.window.TransformSignal.emit("")
 
-    def Show_Waveform_Triggered(self, clip_ids):
+    def Show_Waveform_Triggered(self, clip_ids, transaction_id=None):
         """Show a waveform for all selected clips"""
 
         # Group clip IDs under each File ID
@@ -1062,7 +1062,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             files[file_id].append(clip.data.get("id"))
 
         # Get audio data for all "selected" files/clips
-        get_audio_data(files)
+        get_audio_data(files, transaction_id=transaction_id)
 
     def Hide_Waveform_Triggered(self, clip_ids):
         """Hide the waveform for the selected clip"""
@@ -1116,6 +1116,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
         # Get translation method
         _ = get_app()._tr
+
+        # Group transactions
+        tid = self.get_uuid()
+        get_app().updates.transaction_id = tid
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -1179,7 +1183,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                 # Generate waveform for new clip
                 log.info("Generate waveform for split audio track clip id: %s" % clip.id)
-                self.Show_Waveform_Triggered([clip.id])
+                self.Show_Waveform_Triggered([clip.id], transaction_id=tid)
 
             if action == MENU_SPLIT_AUDIO_MULTIPLE:
                 # Get # of channels on clip
@@ -1232,7 +1236,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                 # Generate waveform for new clip
                 log.info("Generate waveform for split audio track clip ids: %s" % str(separate_clip_ids))
-                self.Show_Waveform_Triggered(separate_clip_ids)
+                self.Show_Waveform_Triggered(separate_clip_ids, transaction_id=tid)
 
         for clip_id in clip_ids:
 
@@ -1248,8 +1252,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             clip.data["has_audio"] = {"Points": [p_object]}
 
             # Save filter on original clip
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=tid)
             clip.save()
+
+        # Clear transaction
+        get_app().updates.transaction_id = None
 
     def Layout_Triggered(self, action, clip_ids):
         """Callback for the layout context menus"""
