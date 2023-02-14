@@ -27,6 +27,7 @@
  """
 
 import os
+import uuid
 from operator import itemgetter
 from random import shuffle, randint, uniform
 
@@ -151,6 +152,10 @@ class AddToTimeline(QDialog):
     def accept(self):
         """ Ok button clicked """
         log.info('accept')
+
+        # Transaction id to group all updates together
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = tid
 
         # Get settings from form
         start_position = self.txtStartTime.value()
@@ -375,6 +380,9 @@ class AddToTimeline(QDialog):
 
             # Increment position by length of clip
             position += (end_time - start_time)
+
+        # Clear transaction
+        get_app().updates.transaction_id = None
 
         # Accept dialog
         super(AddToTimeline, self).accept()
