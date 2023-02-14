@@ -104,11 +104,13 @@ class EmojisModel():
                 # get name of transition
                 emoji = emoji_lookup.get(fileBaseName, {})
                 emoji_name = _(emoji.get("annotation", fileBaseName).capitalize())
-                emoji_type = _(emoji.get("group", "user").split('-')[0].capitalize())
+                emoji_group_name = _(emoji.get("group", "user").split('-')[0].capitalize())
+                emoji_group_id = emoji.get("group", "user")
+                emoji_group_tuple = (emoji_group_name, emoji_group_id)
 
                 # Track unique emoji groups
-                if emoji_type not in self.emoji_groups:
-                    self.emoji_groups.append(emoji_type)
+                if emoji_group_tuple not in self.emoji_groups:
+                    self.emoji_groups.append(emoji_group_tuple)
 
                 # Check for thumbnail path (in build-in cache)
                 thumb_path = os.path.join(info.IMAGES_PATH, "cache",  "{}.png".format(fileBaseName))
@@ -157,8 +159,12 @@ class EmojisModel():
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
-                # Append filterable group
-                col = QStandardItem(emoji_type)
+                # Append filterable group name
+                col = QStandardItem(emoji_group_name)
+                row.append(col)
+
+                # Append filterable group id
+                col = QStandardItem(emoji_group_id)
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
@@ -171,7 +177,7 @@ class EmojisModel():
         # Create standard model
         self.app = get_app()
         self.model = EmojiStandardItemModel()
-        self.model.setColumnCount(2)
+        self.model.setColumnCount(3)
         self.model_paths = {}
         self.emoji_groups = []
 

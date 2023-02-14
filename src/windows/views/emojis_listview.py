@@ -112,15 +112,16 @@ class EmojisListView(QListView):
 
     @pyqtSlot(int)
     def group_changed(self, index=-1):
-        item = get_app().window.emojiFilterGroup.itemData(index)
-        self.group_model.setFilterFixedString(item)
-        self.group_model.setFilterKeyColumn(1)
+        emoji_group_name = get_app().window.emojiFilterGroup.itemText(index)
+        emoji_group_id = get_app().window.emojiFilterGroup.itemData(index)
+        self.group_model.setFilterFixedString(emoji_group_id)
+        self.group_model.setFilterKeyColumn(2)
 
         # Save current emoji filter to settings
         s = get_app().get_settings()
-        setting_emoji_group = s.get('emoji_group_filter') or 'smileys-emotion'
-        if setting_emoji_group != item:
-            s.set('emoji_group_filter', item)
+        setting_emoji_group_id = s.get('emoji_group_filter') or 'smileys-emotion'
+        if setting_emoji_group_id != emoji_group_id:
+            s.set('emoji_group_filter', emoji_group_id)
 
         self.refresh_view()
 
@@ -170,7 +171,7 @@ class EmojisListView(QListView):
 
         # Get default emoji filter group
         s = get_app().get_settings()
-        default_type = s.get('emoji_group_filter') or 'smileys-emotion'
+        default_group_id = s.get('emoji_group_filter') or 'smileys-emotion'
 
         # setup filter events
         self.win.emojisFilter.textChanged.connect(self.filter_changed)
@@ -179,9 +180,10 @@ class EmojisListView(QListView):
         self.win.emojiFilterGroup.clear()
         self.win.emojiFilterGroup.addItem(_("Show All"), "")
         dropdown_index = 0
-        for index, emoji_type in enumerate(sorted(self.emojis_model.emoji_groups)):
-            self.win.emojiFilterGroup.addItem(_(emoji_type.capitalize()), emoji_type)
-            if emoji_type == default_type:
+        for index, emoji_group_tuple in enumerate(sorted(self.emojis_model.emoji_groups)):
+            emoji_group_name, emoji_group_id = emoji_group_tuple
+            self.win.emojiFilterGroup.addItem(emoji_group_name, emoji_group_id)
+            if emoji_group_id == default_group_id:
                 # Initialize emoji filter group to settings
                 # Off by one, due to 'show all' choice above
                 dropdown_index = index + 1
