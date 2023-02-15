@@ -1,0 +1,15 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <circle cx="36" cy="36" r="28" fill="#92D3F5"/>
+    <path fill="#92D3F5" fill-rule="evenodd" d="M34.3116 27.1581L34.3196 27.2048C36.3227 26.8575 38.4542 27.1834 40.3524 28.2793C44.6571 30.7646 46.1319 36.2689 43.6467 40.5735L30.3856 63.5424C41.8282 65.8209 53.9433 60.7391 60.1011 50.0735C64.3105 42.7826 64.8683 34.3855 62.3419 27H36C35.4229 27 34.8585 27.0543 34.3116 27.1581Z" clip-rule="evenodd"/>
+    <path fill="#61B2E4" fill-rule="evenodd" d="M27 43.5L8.20227 32.6171C9.87243 18.7484 21.681 8 36 8C48.3156 8 58.7741 15.9511 62.5222 27H36C31.0294 27 27 31.0294 27 36C27 38.1919 27.7836 40.2008 29.0858 41.7618L27 43.5Z" clip-rule="evenodd"/>
+    <circle cx="36" cy="36" r="9" fill="#61B2E4"/>
+  </g>
+  <g id="line">
+    <circle cx="36" cy="36" r="10" fill="none" stroke="#000" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-width="2" d="M44.6602 41L33.1602 60.9186"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-width="2" d="M11.0814 33.1603L31 44.6603"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-width="2" d="M36 26H59"/>
+    <circle cx="36" cy="36" r="28" fill="none" stroke="#000" stroke-width="2"/>
+  </g>
+</svg>

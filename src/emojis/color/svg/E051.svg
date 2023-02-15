@@ -1,0 +1,39 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <circle cx="36" cy="36" r="28" fill="#92D3F5"/>
+    <path fill="#61B2E4" d="M15.0124 55.5856L54.5856 16.0124C54.8285 16.2388 55.0684 16.4704 55.3051 16.7071C66.2398 27.6418 66.2398 45.3704 55.3051 56.3051C44.3704 67.2398 26.6418 67.2398 15.7071 56.3051C15.4704 56.0684 15.2388 55.8285 15.0124 55.5856Z"/>
+    <path fill="#fff" d="M33.2 33.2L24 48L38.8 38.8"/>
+    <path fill="#EA5A47" d="M33.2 33.2L48 24L38.8 38.8"/>
+    <g>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M36 14V11"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M36 61V58"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M58 36H61"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 36H14"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M51.5564 20.4436L53.6777 18.3223"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.3223 53.6777L20.4437 51.5563"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M51.5563 51.5563L53.6777 53.6777"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.3223 18.3223L20.4436 20.4436"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M47 16.9474L48.5 14.3494"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23.5 57.6506L25 55.0526"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M55.0526 47L57.6506 48.5"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.3494 23.5L16.9474 25"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M57.2504 30.306L60.1482 29.5295"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.8519 42.4705L14.7496 41.694"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M41.694 57.2504L42.4705 60.1481"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M29.5295 11.8519L30.306 14.7496"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M55.0526 25L57.6506 23.5"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.3494 48.5L16.9474 47"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M47 55.0526L48.5 57.6506"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23.5 14.3494L25 16.9474"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M57.2504 41.694L60.1482 42.4705"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.8519 29.5295L14.7496 30.306"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M30.306 57.2504L29.5295 60.1481"/>
+      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M42.4705 11.8519L41.694 14.7496"/>
+    </g>
+  </g>
+  <g id="line">
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M36 64C51.464 64 64 51.464 64 36C64 20.536 51.464 8 36 8C20.536 8 8 20.536 8 36C8 51.464 20.536 64 36 64Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M33.2 33.2L24 48L38.8 38.8"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M33.2 33.2L48 24L38.8 38.8"/>
+  </g>
+</svg>

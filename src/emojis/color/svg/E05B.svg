@@ -1,0 +1,12 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <polygon fill="#3f3f3f" points="16.757 11.706 35.867 23.499 17.273 34.948 16.757 11.706"/>
+    <polygon fill="#e27022" points="36.556 47.688 55.838 35.55 36.642 24.015 36.556 47.688"/>
+    <polygon fill="#9b9b9a" points="17.101 35.895 36.297 48.204 17.015 60.256 17.101 35.895"/>
+  </g>
+  <g id="line">
+    <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="36.263 23.347 16.783 10.958 16.783 35.736 36.263 23.347"/>
+    <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="55.743 35.736 36.263 23.347 36.263 48.125 55.743 35.736"/>
+    <polygon fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="36.263 48.125 16.783 35.736 16.783 60.514 36.263 48.125"/>
+  </g>
+</svg>
