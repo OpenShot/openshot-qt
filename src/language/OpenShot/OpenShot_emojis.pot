@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 3.0.0)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2023-02-15 13:41:12.091714\n"
+"POT-Creation-Date: 2023-02-15 14:31:23.294686\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -62,6 +62,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Upside-down face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Melting face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -137,11 +141,19 @@ msgid "Money-mouth face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Hugging face"
+msgid "Smiling face with open hands"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Face with hand over mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with open eyes and hand over mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with peeking eye"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -150,6 +162,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Thinking face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Saluting face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -173,6 +189,14 @@ msgid "Face without mouth"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Dotted line face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face in clouds"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Smirking face"
 msgstr ""
 
@@ -186,6 +210,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Grimacing face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face exhaling"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -249,7 +277,11 @@ msgid "Woozy face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Dizzy face"
+msgid "Face with crossed-out eyes"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face with spiral eyes"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -285,6 +317,10 @@ msgid "Confused face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Face with diagonal mouth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Worried face"
 msgstr ""
 
@@ -314,6 +350,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Pleading face"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Face holding back tears"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -381,7 +421,7 @@ msgid "Face with steam from nose"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Pouting face"
+msgid "Enraged face"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -534,6 +574,14 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Broken heart"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Heart on fire"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mending heart"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -729,6 +777,10 @@ msgid "Deer"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Bison"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Cow face"
 msgstr ""
 
@@ -793,6 +845,10 @@ msgid "Elephant"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Mammoth"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Rhinoceros"
 msgstr ""
 
@@ -826,6 +882,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Chipmunk"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beaver"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -929,6 +989,14 @@ msgid "Owl"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Dodo"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Feather"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Flamingo"
 msgstr ""
 
@@ -989,6 +1057,10 @@ msgid "Dolphin"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Seal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Fish"
 msgstr ""
 
@@ -1013,6 +1085,10 @@ msgid "Spiral shell"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Coral"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Snail"
 msgstr ""
 
@@ -1033,11 +1109,19 @@ msgid "Honeybee"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Beetle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Lady beetle"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Cricket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cockroach"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1081,6 +1165,10 @@ msgid "White flower"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Lotus"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Rosette"
 msgstr ""
 
@@ -1110,6 +1198,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Seedling"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Potted plant"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1154,6 +1246,14 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Leaf fluttering in wind"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Empty nest"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Nest with eggs"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1261,6 +1361,10 @@ msgid "Hot pepper"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Bell pepper"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Cucumber"
 msgstr ""
 
@@ -1286,6 +1390,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Peanuts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Beans"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1398,6 +1506,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Pot of food"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fondue"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1581,6 +1693,10 @@ msgid "Hot beverage"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Teapot"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Teacup without handle"
 msgstr ""
 
@@ -1621,7 +1737,15 @@ msgid "Tumbler glass"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Pouring liquid"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Cup with straw"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bubble tea"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1654,6 +1778,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Kitchen knife"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Jar"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1742,6 +1870,18 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Brick"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Rock"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wood"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hut"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -1890,6 +2030,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Carousel horse"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Playground slide"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -2085,6 +2229,10 @@ msgid "Fuel pump"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Wheel"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Police car light"
 msgstr ""
 
@@ -2106,6 +2254,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Anchor"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ring buoy"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -2729,7 +2881,7 @@ msgid "Curling stone"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Direct hit"
+msgid "Bullseye"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -2754,6 +2906,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Nazar amulet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hamsa"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -2782,6 +2938,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Piñata"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mirror ball"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -2837,7 +2997,15 @@ msgid "Thread"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Sewing needle"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Yarn"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Knot"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3001,6 +3169,10 @@ msgid "Billed cap"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Military helmet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Rescue worker’s helmet"
 msgstr ""
 
@@ -3097,6 +3269,10 @@ msgid "Saxophone"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Accordion"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Guitar"
 msgstr ""
 
@@ -3150,6 +3326,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Battery"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Low battery"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3330,6 +3510,10 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Money bag"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Coin"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3585,7 +3769,11 @@ msgid "Crossed swords"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Pistol"
+msgid "Water pistol"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Boomerang"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3597,7 +3785,15 @@ msgid "Shield"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Carpentry saw"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Wrench"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Screwdriver"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3629,11 +3825,19 @@ msgid "Chains"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Hook"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Toolbox"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Magnet"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ladder"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3681,11 +3885,31 @@ msgid "Adhesive bandage"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Crutch"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Stethoscope"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "X-ray"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Door"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Elevator"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mirror"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Window"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3717,6 +3941,10 @@ msgid "Bathtub"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Mouse trap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Razor"
 msgstr ""
 
@@ -3741,7 +3969,15 @@ msgid "Roll of paper"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Bucket"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Soap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bubbles"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -3769,11 +4005,23 @@ msgid "Coffin"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Headstone"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Funeral urn"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Moai"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Placard"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Identification card"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -4133,6 +4381,10 @@ msgid "Divide"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Heavy equals sign"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Infinity"
 msgstr ""
 
@@ -4145,7 +4397,7 @@ msgid "Exclamation question mark"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Question mark"
+msgid "Red question mark"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -4157,7 +4409,7 @@ msgid "White exclamation mark"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
-msgid "Exclamation mark"
+msgid "Red exclamation mark"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
@@ -4418,6 +4670,98 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Github"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Linkedin"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Android"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Musicbrainz"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Openfoodfact"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Openstreetmap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wikidata"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Firefox"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Safari"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Opera"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chromium"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chrome"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Netscape navigator"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Internet explorer"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Edge"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Inaturalist"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Gitlab"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mastodon"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Peertube"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pixelfed"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Signal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Ubuntu"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Windows"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Apple"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
