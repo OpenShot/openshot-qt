@@ -33,6 +33,6 @@
     <rect x="24.7007" y="35.1812" rx="1.3284" width="6" height="3" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="24.6477" x2="44.6102" y1="53.4569" y2="53.4569" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="25.9808" x2="43.3369" y1="56.5235" y2="56.5235" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <rect x="38.4342" y="35.1812" rx="1.3284" width="6" height="3" transform="rotate(-180 41.434 36.681)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <rect x="38.4342" y="35.1812" rx="1.3284" width="6" height="3" transform="matrix(-1 0 0 -1 82.868 73.362)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
   </g>
 </svg>

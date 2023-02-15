@@ -1,0 +1,21 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#3f3f3f" d="M36,8.0712c-15.4246,0-27.9288,12.5042-27.9288,27.9288s12.5042,27.9288,27.9288,27.9288,27.9288-12.5042,27.9288-27.9288-12.5042-27.9288-27.9288-27.9288Zm0,48.8445c-11.5514,0-20.9156-9.3643-20.9156-20.9156S24.4486,15.0844,36,15.0844s20.9156,9.3642,20.9156,20.9156-9.3643,20.9156-20.9156,20.9156Z"/>
+    <path fill="#3f3f3f" d="M36,29.2437c-3.7314,0-6.7562,3.0249-6.7562,6.7563s3.0248,6.7562,6.7562,6.7562,6.7562-3.0248,6.7562-6.7562-3.0248-6.7563-6.7562-6.7563Zm0,9.7563c-1.6569,0-3-1.3431-3-3s1.3431-3,3-3,3,1.3431,3,3-1.3431,3-3,3Z"/>
+  </g>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="hair"/>
+  <g id="line">
+    <circle cx="36" cy="36" r="27.9288" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <circle cx="36" cy="36" r="21.2979" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="21.0324" x2="31.2227" y1="50.9676" y2="40.7773" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="41.4785" x2="37.7487" y1="56.4461" y2="42.5264" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="56.4461" x2="42.5258" y1="41.4785" y2="37.7486" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="50.9676" x2="40.7774" y1="21.0324" y2="31.2226" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="30.5215" x2="34.2517" y1="15.5539" y2="29.4751" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="15.5539" x2="29.473" y1="30.5215" y2="34.2511" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <circle cx="36" cy="36" r="6.7563" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <circle cx="36" cy="36" r="3" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

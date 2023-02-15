@@ -17,7 +17,7 @@
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M30.1909,45.2984a4.6637,4.6637,0,1,0,8.732,2.338,4.6953,4.6953,0,0,1-.3334.522"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M30.0307,35.2045a3.6692,3.6692,0,1,0-5.4566-4.5612,3.6908,3.6908,0,0,1,.4109-.262"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M46.0094,41.45a.9212.9212,0,0,0,1.1346-.6873l.3727-1.5183a7.5664,7.5664,0,0,0,1.7679-8.6451,1.6806,1.6806,0,0,0-1.242-1.3673"/>
-    <path fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M45.5815,45.6005a.9316.9316,0,0,0,.4694-.612.9212.9212,0,0,0-.6874-1.1345l.4473-1.822"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M45.5815,45.6005a.9316.9316,0,0,0,.4694-.612.9212.9212,0,0,0-.6874-1.1345l.4473-1.822"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M38,21a3,3,0,0,1,0,6"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M38.5,37.5a2,2,0,0,1,0-4"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M25,42a2,2,0,0,1,0-4"/>

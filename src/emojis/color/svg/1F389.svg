@@ -7,7 +7,6 @@
     <polygon fill="#EA5A47" stroke="none" points="20.8045,32.1625 27.5011,38.8591 39.2002,50.5583 32.9273,53.4217 24.7555,45.2498 18.1504,38.6447"/>
     <polygon fill="#D22F27" stroke="none" points="26.5369,47.0312 32.9273,53.4216 39.2003,50.5582 31.3616,42.7197"/>
     <ellipse cx="30.2951" cy="14.4579" rx="2" ry="1.9708" fill="#8967aa" stroke="none"/>
-    <path fill="#ea5a47" stroke="none" d="M23,37"/>
     <ellipse cx="60.2951" cy="18.4579" rx="2" ry="1.9708" fill="#f1b31c" stroke="none"/>
     <ellipse cx="57.2951" cy="39.4579" rx="2" ry="1.9708" fill="#d22f27" stroke="none"/>
   </g>

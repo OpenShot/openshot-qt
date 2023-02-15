@@ -10,9 +10,6 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34.02,40.1638"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34.02,40.1638"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34.02,40.1638"/>
     <line x1="20.8988" x2="23.2618" y1="46.9101" y2="49.1996" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M52.3386,22.2637c0,0,1.3423-0.0178,2.2362-0.5799c0.8941-0.562,1.0716-1.066,1.0637-1.542s0.7356-2.3263,2.3062-2.7289 c1.5708-0.4028,2.4877-1.2997,2.128-2.2506c-0.3598-0.9508-2.1142-0.6964-2.5538-0.6898 c-0.4397,0.0066-3.1881,1.6713-3.1881,1.6713s-3.5106,2.3476-3.9665,2.9203c-0.4557,0.5728-0.5206,1.0193-0.5206,1.0193 L26.2045,43.1537"/>
     <ellipse cx="22.7523" cy="47.7785" rx="5.4696" ry="5.4697" transform="matrix(0.9999 -0.0158 0.0158 0.9999 -0.751 0.3649)" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>

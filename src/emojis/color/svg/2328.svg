@@ -1,34 +1,51 @@
 <svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
   <g id="color">
-    <rect x="4.5" y="16" width="64" height="40" fill="#D0CFCE" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path transform="translate(0 .408)" fill="#d0cfce" d="m5 18.09h62v35.82h-62z"/>
+    <rect x="9" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="60" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="16.29" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="23.57" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="30.86" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="38.14" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="45.43" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="52.71" y="25" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="20.5" y="34.5" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="48.5" y="34.5" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="9" y="44" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="16" y="44" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="53" y="44" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="60" y="44" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="41.5" y="34.5" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="34.5" y="34.5" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="27.5" y="34.5" width="3" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="22.93" y="44" width="26.14" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="9" y="34.5" width="7.5" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
+    <rect x="55.5" y="34.5" width="7.5" height="3" fill="#9b9b9a" fill-rule="evenodd" stroke="#9b9b9a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.999"/>
   </g>
   <g id="hair"/>
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <rect x="4.5" y="16" width="64" height="40" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="7.5" x2="11.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="16.5" x2="20.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="25.5" x2="29.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="34.5" x2="38.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="43.5" x2="47.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="52.5" x2="56.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="61.5" x2="65.5" y1="23.3681" y2="23.3681" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="7.5" x2="15.5" y1="30.3951" y2="30.3951" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="21.5" x2="25.5" y1="30.3951" y2="30.3951" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="30.5" x2="34.5" y1="30.3951" y2="30.3951" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="39.5" x2="43.5" y1="30.3951" y2="30.3951" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="48.5" x2="52.5" y1="30.3951" y2="30.3951" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="57.5" x2="61.5" y1="30.3951" y2="30.3951" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="7.5" x2="20.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="16.5" x2="20.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="25.5" x2="29.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="34.5" x2="38.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="43.5" x2="47.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="52.5" x2="56.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="61.5" x2="65.5" y1="37.4221" y2="37.4221" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="57.5" x2="61.5" y1="48.4761" y2="48.4761" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="7.5" x2="11.5" y1="48.4761" y2="48.4761" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line x1="23.5" x2="51.5" y1="48.4761" y2="48.4761" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m5 18.5h62v35h-62z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m9 47h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m22.93 47h26.14v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m16 47h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m53 47h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m60 47h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m55.5 37.5h7.5v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m16.29 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m23.57 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m30.86 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m38.14 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m45.43 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m52.71 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m60 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m9 28h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m9 37.5h7.5v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m48.5 37.5h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m41.5 37.5h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m34.5 37.5h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m27.5 37.5h3v-3"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m20.5 37.5h3v-3"/>
   </g>
 </svg>

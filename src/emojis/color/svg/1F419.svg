@@ -11,8 +11,6 @@
   <g id="skin-shadow"/>
   <g id="line">
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M60,30c2-6-3-6-3-6c-7,1-2,7-2,7s6,11-4.5833,10.6142C39.8333,41.2284,43,31,43,31c6.0698-5.0974,4-11,4-11c-3-10-11-9-11-9 s-8-1-11,8c0,0-3,9,4,12c0,0,4,11-8,11c0,0-10,0-4-13c0,0,2-7-4-5c0,0-3,1-2,6"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M12,30"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M34,32"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M33,33c0,0,4,11-7,14c0,0-7-1-7,5s4,6,6,5s3-4,3-4"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M38.7091,33c0,0-4,11,7,14c0,0,7-1,7,5s-4,6-6,5s-3-4-3-4"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M19.1157,45c0,0-2,1-4-1s-4-1-4-1s-4,1-1,5c0,0,1,2,4,1"/>

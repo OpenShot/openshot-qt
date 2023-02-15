@@ -13,18 +13,11 @@
   <g id="skin-shadow"/>
   <g id="line">
     <line x1="61.65" x2="57.61" y1="54.4498" y2="52.1998" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M52.4177,47.264"/>
     <line x1="57.55" x2="54.34" y1="59.5798" y2="57.7998" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M46.2611,55.4728"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M55.496,60.6033"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M12.92,46.4798c0,0-0.01-0.01,0-0.01c-0.67-2.19-1.03-4.5-1.03-6.9l3.59-32.32l10.83,10.57c2.82-1.19,5.92-1.85,9.18-1.85h1.02 c3.26,0,6.36,0.66,9.18,1.85l10.83-10.57l3.59,32.32c0,2.59-0.41,5.07-1.19,7.4"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M24.7,60.5598c3.23,1.67,6.9,2.61,10.79,2.61h1.02c3.75,0,7.28-0.87,10.43-2.42"/>
     <line x1="14.1" x2="10.35" y1="52.3598" y2="54.4498" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M19.5823,47.264"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M10.3474,52.3945"/>
     <line x1="17.25" x2="14.45" y1="58.0198" y2="59.5798" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M25.7389,55.4728"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M16.504,60.6033"/>
     <ellipse cx="36" cy="51.7194" rx="6.4518" ry="7.7514" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <ellipse cx="24.4558" cy="34.194" rx="7.7513" ry="6.4517" transform="matrix(0.3339 -0.9426 0.9426 0.3339 -15.9415 45.8287)" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <ellipse cx="46.8396" cy="34.1948" rx="6.4517" ry="7.7513" transform="matrix(0.9426 -0.3339 0.3339 0.9426 -8.7295 17.6024)" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>

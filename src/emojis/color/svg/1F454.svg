@@ -10,10 +10,8 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M55.1712,45.8674"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M16.1319,13.7776c-3.292,0-5.9607,2.6687-5.9607,5.9607v38.0785c0,3.292,2.6687,5.9607,5.9607,5.9607h38.0785 c3.292,0,5.9607-2.6687,5.9607-5.9607V19.7383c0-3.292-2.6687-5.9607-5.9607-5.9607"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M24.3844,13.8748l7.8234,8.4142l-4.9887,8.0302c-11.1293-13.7647-7.3184-17.5417-7.3184-17.5417s14.3783-13,30.6143,0 c0,0,3.8109,3.7769-7.3184,17.5417l-4.9887-8.0302l7.9138-8.5115"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M19.9176,13.7776"/>
     <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="36.6791,31.6198 33.6717,31.6198 29.6463,63.7776 40.696,63.7776"/>
     <polygon fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" points="36.6791,24.6625 33.6717,24.6625 32.168,28.1411 33.6717,31.6198 36.6791,31.6198 38.1829,28.1411"/>
   </g>

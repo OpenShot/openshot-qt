@@ -7,18 +7,10 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M47.7797,67.1932"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M45.4833,56.2166"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M47.2327,42.9522"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M54.6515,59.695"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M45.4833,56.2166"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M47.2327,42.9522"/>
     <line x1="39.6742" x2="41.2082" y1="30.2782" y2="29.3319" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="40.2874" x2="42.1499" y1="34.7762" y2="33.7121" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="40.9201" x2="42.747" y1="39.3144" y2="37.959" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <line x1="41.6799" x2="43.4299" y1="44.2521" y2="42.5051" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M47.9788,67.1744l-0.2473,0.0124c-1.9476,0.0976-4.528-0.6466-6.0516-3.8582c-1.3826-2.9143-1.9445-6.7954-2.7225-13.1606 c-1.7866-14.6171-3.5588-35.4876-6.1067-37.1668c-3.6575-2.4104-16.4202-2.7051-15.939-3.24 c0.102-0.1134,0.4415-0.2152,1.6139-0.2573c0.4613-0.0166,0.0362-1.4799,0.6104-1.4837 c1.1638-0.0077,3.7966,0.2283,5.2394,0.2793c0.2471,0.0088,0.5007,1.0585,0.7517,1.0691 c4.3901,0.1854,8.9637,0.8552,11.0332,1.7268c0.5752,0.2423,1.2915,0.562,1.8241,2.5387 c2.0671,7.6717,8.1527,43.2176,9.8464,43.2176c1.6937,0,1.3243-18.9038,0.1054-21.0217 c-1.2188-2.1179,10.4479,6.9191,10.4479,6.9191s-2.0679,1.2514-2.8921,4.0368c-0.8243,2.7854-0.3793,12.9091-0.3793,12.9091 c0,4.0863-3.268,7.4093-7.333,7.4982"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M47.7797,67.1932"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M54.6515,59.695"/>
   </g>
 </svg>

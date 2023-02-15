@@ -1,0 +1,26 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <path fill="#8967AA" d="M34 9.14584L12 21.75V49.25L34 61.8542V9.14584Z"/>
+    <path fill="#F4AA41" d="M38 9.14584L60 21.75V49.25L38 61.8542V9.14584Z"/>
+    <path fill="#B399C8" d="M18 26.76L23 24L28 26.76V47L23 44.24L18 47V26.76Z"/>
+  </g>
+  <g id="line">
+    <path fill="#000" d="M12 21.75L11.5029 20.8823C11.1919 21.0605 11 21.3915 11 21.75H12ZM34 9.14583H35C35 8.78916 34.81 8.45949 34.5014 8.28064C34.1929 8.10179 33.8124 8.10084 33.5029 8.27815L34 9.14583ZM12 49.25H11C11 49.6085 11.1919 49.9395 11.5029 50.1177L12 49.25ZM34 61.8542L33.5029 62.7219C33.8124 62.8992 34.1929 62.8982 34.5014 62.7194C34.81 62.5405 35 62.2108 35 61.8542H34ZM60 49.25L60.4971 50.1177C60.8081 49.9395 61 49.6085 61 49.25H60ZM38 61.8542H37C37 62.2108 37.19 62.5405 37.4986 62.7194C37.8071 62.8982 38.1876 62.8992 38.4971 62.7219L38 61.8542ZM60 21.75H61C61 21.3915 60.8081 21.0605 60.4971 20.8823L60 21.75ZM38 9.14583L38.4971 8.27815C38.1876 8.10084 37.8071 8.10179 37.4986 8.28064C37.19 8.45949 37 8.78916 37 9.14583H38ZM12.4971 22.6177L34.4971 10.0135L33.5029 8.27815L11.5029 20.8823L12.4971 22.6177ZM13 49.25V21.75H11V49.25H13ZM34.4971 60.9865L12.4971 48.3823L11.5029 50.1177L33.5029 62.7219L34.4971 60.9865ZM35 61.8542V9.14583H33V61.8542H35ZM59.5029 48.3823L37.5029 60.9865L38.4971 62.7219L60.4971 50.1177L59.5029 48.3823ZM59 21.75V49.25H61V21.75H59ZM37.5029 10.0135L59.5029 22.6177L60.4971 20.8823L38.4971 8.27815L37.5029 10.0135ZM37 9.14583V61.8542H39V9.14583H37Z"/>
+    <path fill="none" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M18 26.76L23 24L28 26.76V47L23 44.24L18 47V26.76Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-width="2" d="M31 16.0549C26.8284 16.5161 23.5161 19.8284 23.0549 24"/>
+    <circle cx="47" cy="28" r="2" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="47" cy="42" r="2" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="47" cy="20" r="2" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="55" cy="41" r="2" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="55" cy="33" r="2" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="55" cy="25" r="2" fill="none" stroke="#000" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M38 30H40L44 34H48L53 39"/>
+    <path fill="none" stroke="#000" stroke-width="2" d="M50.5 37.5L53 35"/>
+    <path fill="none" stroke="#000" stroke-width="2" d="M55 31V27"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M38 16H42L45 19"/>
+    <circle r="2" transform="matrix(1 0 0 -1 47 50)" fill="none" stroke="#000" stroke-width="2"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M38 54H42L45 51"/>
+    <path fill="none" stroke="#000" stroke-width="2" d="M47 22V26"/>
+    <path fill="none" stroke="#000" stroke-width="2" d="M47 44V48"/>
+  </g>
+</svg>

@@ -7,10 +7,8 @@
   <g id="skin"/>
   <g id="skin-shadow"/>
   <g id="line">
-    <path fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2" d="M44.1255,42.1994"/>
     <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="35.7895,63.9434 35.7895,52.7764 28.1585,45.2604"/>
     <line x1="35.7895" x2="40.1575" y1="52.7764" y2="48.2304" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2" d="M45.3155,41.4304"/>
     <path fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M63.3745,25.7734 c0-5-5.289-9.061-11.813-9.061c-0.5451,0.0044-1.0895,0.0378-1.631,0.1c-2.763-5.216-8.762-8.839-15.738-8.839 c-9.593,0-17.369,6.836-17.369,15.268c0.0017,0.5574,0.0378,1.1141,0.108,1.667c-4.288,1.359-7.306,4.595-7.306,8.374 c0,5,5.289,9.061,11.813,9.061c2.4798,0.021,4.922-0.6072,7.084-1.822c2.791,2.229,7.257,3.681,12.307,3.681 c8.461,0,15.32-4.057,15.32-9.061c-0.0014-0.3308-0.0329-0.6609-0.094-0.986C60.3485,32.7954,63.3745,29.5574,63.3745,25.7734z"/>
   </g>
 </svg>

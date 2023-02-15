@@ -8,7 +8,7 @@
   </g>
   <g id="line">
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M28.5,32.88a49.3636,49.3636,0,0,1-2.1924-12.5929,3.5779,3.5779,0,0,1,2.9713-3.6183,41.7747,41.7747,0,0,1,13.4416-.0317,3.5806,3.5806,0,0,1,2.9713,3.6183A51.9888,51.9888,0,0,1,43.4326,33.4"/>
-    <rect x="26.3064" y="34.5551" rx="1.5533" width="19.3872" height="3.1066" transform="rotate(-167.673 36 36.108)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <rect x="26.3064" y="34.5551" rx="1.5533" width="19.3872" height="3.1066" transform="matrix(-.976 -.213 .213 -.976 63.461 79.069)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M37.1559,37.9509l-8.7769,1.918A1.5579,1.5579,0,0,1,26.53,38.683h0a1.5579,1.5579,0,0,1,1.1859-1.8491L29.88,36.361"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M37.308,34.7378l6.313-1.38A1.5578,1.5578,0,0,1,45.47,34.5442h0a1.5577,1.5577,0,0,1-1.1859,1.849"/>
     <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M31.2846,21.06a55.1412,55.1412,0,0,0,2.3261,12.9364"/>

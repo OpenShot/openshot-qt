@@ -1,4 +1,4 @@
-<svg id="emoji" x="0" y="0" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg id="emoji" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <g id="color">
     <circle cx="18.8248" cy="55.0572" r="5.0001" fill="#D0CFCE"/>
     <circle cx="55.3418" cy="55.0572" r="5.0001" fill="#D0CFCE"/>
@@ -12,8 +12,6 @@
   <g id="skin-shadow"/>
   <g id="line">
     <line x1="29.9153" x2="34.7793" y1="14.2621" y2="15.2164" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M29.9153,14.2621"/>
-    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M26.833,13.6574"/>
     <line x1="21.9031" x2="26.833" y1="12.6902" y2="13.6574" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
     <circle cx="18.8248" cy="55.0572" r="5.0001" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"/>
     <circle cx="55.3418" cy="55.0572" r="5.0001" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"/>

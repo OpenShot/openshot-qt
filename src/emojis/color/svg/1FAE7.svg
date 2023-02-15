@@ -1,0 +1,24 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="line-supplement">
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M40 47.091C40.243 46.6518 40.5461 46.2506 40.8984 45.8984C41.2506 45.5461 41.6518 45.243 42.091 45"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M48.5 25.5C48.6162 25.29 48.7612 25.0981 48.9296 24.9296C49.0981 24.7612 49.29 24.6162 49.5 24.5"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M18 21.3456C18.3888 20.6429 18.8738 20.0009 19.4374 19.4374C20.0009 18.8738 20.6429 18.3888 21.3456 18"/>
+  </g>
+  <g id="color">
+    <path fill="#92D3F5" d="M24.5 39C31.9558 39 38 32.9558 38 25.5C38 18.0442 31.9558 12 24.5 12C17.0442 12 11 18.0442 11 25.5C11 32.9558 17.0442 39 24.5 39Z"/>
+    <path fill="#92D3F5" d="M51.2987 35.7002C55.6578 35.7002 59.1916 32.1665 59.1916 27.8073C59.1916 23.4482 55.6578 19.9144 51.2987 19.9144C46.9395 19.9144 43.4058 23.4482 43.4058 27.8073C43.4058 32.1665 46.9395 35.7002 51.2987 35.7002Z"/>
+    <path fill="#92D3F5" d="M44 60C49.5228 60 54 55.5228 54 50C54 44.4772 49.5228 40 44 40C38.4772 40 34 44.4772 34 50C34 55.5228 38.4772 60 44 60Z"/>
+    <path fill="none" stroke="#61B2E4" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" d="M32 25.5C32 29.0899 29.0899 32 25.5 32"/>
+    <path fill="none" stroke="#61B2E4" stroke-linecap="round" stroke-linejoin="round" stroke-width="6" d="M50 50C50 52.7614 47.7614 55 45 55"/>
+    <path fill="none" stroke="#61B2E4" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="M55.5 28.5C55.5 30.1569 54.1569 31.5 52.5 31.5"/>
+    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M40 47.091C40.243 46.6518 40.5461 46.2506 40.8984 45.8984C41.2506 45.5461 41.6518 45.243 42.091 45"/>
+    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M48.5 25.5C48.6162 25.29 48.7612 25.0981 48.9296 24.9296C49.0981 24.7612 49.29 24.6162 49.5 24.5"/>
+    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M18 21.3456C18.3888 20.6429 18.8738 20.0009 19.4374 19.4374C20.0009 18.8738 20.6429 18.3888 21.3456 18"/>
+  </g>
+  <g id="line">
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M25.5 39C32.9558 39 39 32.9558 39 25.5C39 18.0442 32.9558 12 25.5 12C18.0442 12 12 18.0442 12 25.5C12 32.9558 18.0442 39 25.5 39Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M52 36C56.4183 36 60 32.4183 60 28C60 23.5817 56.4183 20 52 20C47.5817 20 44 23.5817 44 28C44 32.4183 47.5817 36 52 36Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M45 60C50.5228 60 55 55.5228 55 50C55 44.4772 50.5228 40 45 40C39.4772 40 35 44.4772 35 50C35 55.5228 39.4772 60 45 60Z"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M45 60C50.5228 60 55 55.5228 55 50C55 44.4772 50.5228 40 45 40C39.4772 40 35 44.4772 35 50C35 55.5228 39.4772 60 45 60Z"/>
+  </g>
+</svg>

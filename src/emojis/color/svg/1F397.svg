@@ -1,4 +1,4 @@
-<svg id="emoji" x="0" y="0" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg id="emoji" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <g id="color">
     <path fill="#D22F27" d="M21.8,62.4L33,66l20-42.7c2.9-6,0-13.4-5.7-15.3"/>
     <polyline fill="#EA5A47" points="45,48.5 38.5,61.6 40.2,65 51.4,61.5"/>

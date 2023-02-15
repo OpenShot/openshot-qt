@@ -29,7 +29,10 @@ from classes import info
 import os
 import json
 
-REMOVE_CATEGORIES = ['flags', 'extras-unicode', 'extras-openmoji', 'component', 'symbols', 'people-body']
+REMOVE_GROUPS = ['flags', 'extras-unicode', 'component', 'people-body']
+REMOVE_SUBGROUPS = ['alphanum', 'keycap', 'transport-sign', 'religion,', 'animals-nature', 'climate-environment',
+                    'emergency', 'flags', 'food-drink', 'gardening', 'healthcare', 'objects', 'people',
+                    'smileys-emotion', 'symbol-other', 'symbols', 'technology', 'travel-places']
 
 
 # Get emoji metadata
@@ -40,7 +43,7 @@ with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
 # Parse emoji metadata, and reshape data
 emoji_lookup = {}
 for emoji in emoji_metadata:
-    if emoji.get('group') not in REMOVE_CATEGORIES:
+    if emoji.get('group') not in REMOVE_GROUPS and emoji.get('subgroups') not in REMOVE_SUBGROUPS:
         emoji_lookup[emoji.get("hexcode")] = emoji
 
 # Loop through files and remove unused emojis

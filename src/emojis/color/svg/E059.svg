@@ -1,0 +1,18 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <polygon fill="#f1b31c" points="12.231 33.089 8.011 44.143 35.645 64.14 12.231 33.089"/>
+    <polygon fill="#f1b31c" points="36.047 64.441 63.982 43.741 60.264 33.793 36.047 64.441"/>
+    <polygon fill="#ea5a47" points="25.496 32.888 19.265 13.092 11.729 33.089 25.496 32.888"/>
+    <polygon fill="#ea5a47" points="46.296 33.29 60.465 33.29 53.029 13.193 46.296 33.29"/>
+    <polygon fill="#ea5a47" points="25.998 33.089 35.946 63.637 46.799 33.391 25.998 33.089"/>
+    <polygon fill="#e27022" points="12.131 32.888 25.998 33.089 35.946 63.738 12.131 32.888"/>
+    <polygon fill="#e27022" points="46.598 33.089 36.851 62.934 59.963 33.391 46.598 33.089"/>
+  </g>
+  <g id="line">
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.28,43.3818,18.011,13.8687a1.1007,1.1007,0,0,1,2.0964.018l5.9675,19.2065,20.2165-.0016,5.7173-19.2323a1.1006,1.1006,0,0,1,2.0947-.0216l9.6344,28.8251a1.2305,1.2305,0,0,1-.4247,1.3714l-27.2549,20.62L8.7247,44.7621A1.2307,1.2307,0,0,1,8.28,43.3818Z"/>
+    <line x1="11.6729" x2="26.6254" y1="33.0916" y2="33.0916" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="45.5862" x2="60.5387" y1="33.0916" y2="33.0916" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="60.337 33.079 36.245 64.617 11.79 33.079"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M46.7818,33.5822c-.2592.9938-10.5371,31.0347-10.5371,31.0347.0794-.3042-9.9348-30.7256-9.9348-30.7256"/>
+  </g>
+</svg>
