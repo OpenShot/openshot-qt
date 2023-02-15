@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 3.0.0)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2023-02-14 15:49:10.686769\n"
+"POT-Creation-Date: 2023-02-15 13:41:12.091714\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -4009,6 +4009,102 @@ msgid "Ophiuchus"
 msgstr ""
 
 #: Emoji Metadata (Displayed Name)
+msgid "Shuffle tracks button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Repeat button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Repeat single button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Play button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fast-forward button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Next track button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Play or pause button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Reverse button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fast reverse button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Last track button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Upwards button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fast up button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Downwards button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Fast down button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pause button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Stop button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Record button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Eject button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cinema"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Dim button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Bright button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Antenna bars"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Vibration mode"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mobile phone off"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
 msgid "Female sign"
 msgstr ""
 
@@ -4294,4 +4390,248 @@ msgstr ""
 
 #: Emoji Metadata (Displayed Name)
 msgid "Black square button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Twitter"
+msgstr ""
+
+#: Emoji Metadata (Group Filter name)
+msgid "Extras"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Pinterest"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Facebook"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Instagram"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Youtube"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Github"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Tap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Double tap"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Three finger operation"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Move"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Swipe"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Scroll horizontal"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Page move"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Swipe left"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Swipe up"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Swipe right"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Swipe down"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Finger pushing button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Exit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Mark"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Toggle button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Location indicator"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Scale"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Locomotion"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Toggle button state b"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "People dialogue"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Safety"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Chats"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Collaboration"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Interview"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Intricate"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Simple"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Return, back button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Close"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Forward"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hamburger menu"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Upload"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Download"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Share"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Wifi"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Copy"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Contacts"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Filter"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Cursor"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Details"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Hold"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Duplicate"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Save"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Edit"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Home button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Add button"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Archive"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Overview"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Delete"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Comment"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "More information"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Sort"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Inbox"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Compose"
+msgstr ""
+
+#: Emoji Metadata (Displayed Name)
+msgid "Add contact"
 msgstr ""
