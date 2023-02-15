@@ -30,6 +30,7 @@ import re
 import openshot
 import socket
 import time
+from requests import get
 from threading import Thread
 from classes import info
 from classes.query import File
@@ -45,6 +46,30 @@ from socketserver import ThreadingMixIn
 #  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1/
 #  http://127.0.0.1:33723/thumbnails/9ATJTBQ71V/1
 REGEX_THUMBNAIL_URL = re.compile(r"/thumbnails/(?P<file_id>.+?)/(?P<file_frame>\d+)/*(?P<only_path>path)?/*(?P<no_cache>no-cache)?")
+
+
+def GetThumbPath(file_id, thumbnail_frame, clear_cache=False):
+    """Get thumbnail path by invoking HTTP thumbnail request"""
+
+    # Clear thumb cache (if requested)
+    thumb_cache = ""
+    if clear_cache:
+        thumb_cache = "no-cache/"
+
+    # Connect to thumbnail server and get image
+    thumb_server_details = get_app().window.http_server_thread.server_address
+    thumb_address = "http://%s:%s/thumbnails/%s/%s/path/%s" % (
+        thumb_server_details[0],
+        thumb_server_details[1],
+        file_id,
+        thumbnail_frame,
+        thumb_cache)
+    r = get(thumb_address)
+    if r.ok:
+        # Update thumbnail path to real one
+        return r.text
+    else:
+        return ''
 
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):

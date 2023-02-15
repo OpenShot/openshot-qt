@@ -106,7 +106,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     MaxSizeChanged = pyqtSignal(object)
     InsertKeyframe = pyqtSignal(object)
     OpenProjectSignal = pyqtSignal(str)
-    ThumbnailUpdated = pyqtSignal(str)
+    ThumbnailUpdated = pyqtSignal(str, int)
     FileUpdated = pyqtSignal(str)
     CaptionTextUpdated = pyqtSignal(str, object)
     CaptionTextLoaded = pyqtSignal(str, object)
@@ -1839,6 +1839,23 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 "num": profile.info.pixel_ratio.num,
                 "den": profile.info.pixel_ratio.den,
                 })
+
+            # Update size of audio-only files
+            # Used by our video transform handles (if waveforms are visible)
+            for file in File.filter():
+                # Check for audio-only files
+                if file.data.get("has_audio") and not file.data.get("has_video"):
+                    # Audio-only file should match the current project size and FPS
+                    file.data["width"] = proj.get("width")
+                    file.data["height"] = proj.get("height")
+                    file.save()
+
+                    # Change all related clips
+                    for clip in Clip.filter(file_id=file.id):
+                        clip.data["reader"] = file.data
+                        clip.save()
+
+            # Clear transaction id
             get_app().updates.transaction_id = None
 
             # Rescale all keyframes and reload project
@@ -2145,18 +2162,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:
-
-            # BRUTE FORCE approach: go through all clips and update file data
-            clips = Clip.filter(file_id=f.id)
-            for c in clips:
-                # update clip
-                c.data["reader"] = f.data
-                c.data["duration"] = f.data["duration"]
-                c.save()
-
-                # Emit thumbnail update signal (to update timeline thumb image)
-                self.ThumbnailUpdated.emit(c.id)
-
             log.info('File Properties Finished')
         else:
             log.info('File Properties Cancelled')

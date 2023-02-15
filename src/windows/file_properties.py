@@ -35,11 +35,13 @@ from PyQt5.QtWidgets import (
 # Python module for libopenshot (required video editing module installed separately)
 import openshot
 
+from uuid import uuid4
 from classes import info, ui_util
 from classes.app import get_app
 from classes.image_types import get_media_type
 from classes.logger import log
 from classes.metrics import track_metric_screen
+from classes.query import Clip
 
 
 class FileProperties(QDialog):
@@ -77,6 +79,16 @@ class FileProperties(QDialog):
 
         # Dynamically load tabs from settings data
         self.settings_data = self.s.get_all_settings()
+
+        # Initialize Form
+        self.channel_layout_choices = []
+        self.initialize()
+
+    def initialize(self):
+        """Init all form elements / textboxes / etc..."""
+        # get translations
+        app = get_app()
+        _ = app._tr
 
         # Get file properties
         filename = os.path.basename(self.file.data["path"])
@@ -119,7 +131,7 @@ class FileProperties(QDialog):
         self.txtAudioBitRate.setValue(int(self.file.data["audio_bit_rate"]))
 
         # Populate output field
-        self.txtOutput.setText(json.dumps(file.data, sort_keys=True, indent=2))
+        self.txtOutput.setText(json.dumps(self.file.data, sort_keys=True, indent=2))
 
         # Add channel layouts
         selected_channel_layout_index = 0
@@ -213,6 +225,9 @@ class FileProperties(QDialog):
             # verify path is valid (and prompt for image sequence if detected)
             self.verifyPath(new_path)
 
+            # re-init form
+            self.initialize()
+
     def accept(self):
         new_path = self.txtFilePath.text()
         if new_path and self.file.data.get("path") != new_path:
@@ -222,22 +237,56 @@ class FileProperties(QDialog):
         # Update file details
         self.file.data["name"] = self.txtFileName.text()
         self.file.data["tags"] = self.txtTags.text()
+        
+        # Determine if FPS changed
+        fps_float = self.txtFrameRateNum.value() / self.txtFrameRateDen.value()
+        if self.file.data["fps"]["num"] != self.txtFrameRateNum.value() or \
+                self.file.data["fps"]["den"] != self.txtFrameRateDen.value():
+            original_fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
+            # Update file 'fps' and 'video_timebase'
+            self.file.data["fps"]["num"] = self.txtFrameRateNum.value()
+            self.file.data["fps"]["den"] = self.txtFrameRateDen.value()
+            self.file.data["video_timebase"]["num"] = self.txtFrameRateDen.value()
+            self.file.data["video_timebase"]["den"] = self.txtFrameRateNum.value()
 
-        # Update Framerate
-        self.file.data["fps"]["num"] = self.txtFrameRateNum.value()
-        self.file.data["fps"]["den"] = self.txtFrameRateDen.value()
+            # Scale 'start' and 'end' properties by FPS difference
+            fps_diff = original_fps_float / fps_float
+            self.file.data["duration"] *= fps_diff
+            if "start" in self.file.data:
+                self.file.data["start"] *= fps_diff
+            if "end" in self.file.data:
+                self.file.data["end"] *= fps_diff
 
-        # Update start / end frame
-        fps_float = float(self.file.data["fps"]["num"]) / float(self.file.data["fps"]["den"])
-        if self.txtStartFrame.value() != 1 or self.txtEndFrame.value() != int(self.file.data["video_length"]):
+        # Scale 'start' and 'end' file attributes (if changed)
+        elif self.txtStartFrame.value() != 1 or self.txtEndFrame.value() != int(self.file.data["video_length"]):
+            # Scale 'start' and 'end' properties by FPS difference
             self.file.data["start"] = (self.txtStartFrame.value() - 1) / fps_float
             self.file.data["end"] = (self.txtEndFrame.value() - 1) / fps_float
+
+        # Transaction id to group all updates together
+        tid = str(uuid4())
+        get_app().updates.transaction_id = tid
 
         # Save file object
         self.file.save()
 
         # Update file info & thumbnail
         get_app().window.FileUpdated.emit(self.file.id)
+
+        # Update related clips
+        for clip in Clip.filter(file_id=self.file.id):
+            clip.data["reader"] = self.file.data
+            clip.data["duration"] = self.file.data["duration"]
+            if clip.data["end"] > clip.data["duration"]:
+                clip.data["end"] = clip.data["duration"]
+            clip.save()
+
+            # Emit thumbnail update signal (to update timeline thumb image)
+            thumbnail_frame = (clip.data["start"] * fps_float) + 1
+            get_app().window.ThumbnailUpdated.emit(clip.id, thumbnail_frame)
+
+        # Done grouping transactions
+        get_app().updates.transaction_id = None
 
         # Accept dialog
         super(FileProperties, self).accept()
