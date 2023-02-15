@@ -29,8 +29,10 @@ from classes import info
 import os
 import json
 
-REMOVE_GROUPS = ['flags', 'extras-unicode', 'extras-openmoji', 'component', 'people-body']
-REMOVE_SUBGROUPS = ['av-symbol', 'alphanum', 'keycap', 'transport-sign', 'religion,']
+REMOVE_GROUPS = ['flags', 'extras-unicode', 'component', 'people-body']
+REMOVE_SUBGROUPS = ['alphanum', 'keycap', 'transport-sign', 'religion,', 'animals-nature', 'climate-environment',
+                    'emergency', 'flags', 'food-drink', 'gardening', 'healthcare', 'objects', 'people',
+                    'smileys-emotion', 'symbol-other', 'symbols', 'technology', 'travel-places']
 
 
 # Get emoji metadata
