@@ -2461,7 +2461,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 clip.data['time'] = {"Points": [p_object]}
 
                 # Get the ending frame
-                end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+                end_of_clip = round(float(clip.data["end"]) * fps_float)
 
                 # Determine the beginning and ending of this animation
                 start_animation = round(float(clip.data["start"]) * fps_float) + 1
