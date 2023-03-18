@@ -111,9 +111,7 @@ class About(QDialog):
             log.warn("No changelog files found, disabling button")
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
-        description_text = _(
-            "OpenShot Video Editor 2.x is the next generation of the award-winning <br/>"
-            "OpenShot video editing platform.")
+        description_text = _("OpenShot Video Editor is an Award-Winning, Free, and<br> Open-Source Video Editor for Linux, Mac, and Windows.")
         learnmore_text = _('Learn more')
         copyright_text = _('Copyright &copy; %(begin_year)s-%(current_year)s') % {
             'begin_year': '2008',
@@ -127,7 +125,7 @@ class About(QDialog):
               </p>
               <p style="font-size:10pt;margin-bottom:12px;">%s
                 <a href="https://www.openshot.org/%s?r=about-us"
-                   style="text-decoration:none;">%s</a>.
+                   style="text-decoration:none;">%s</a>
               </p>
             </div>
             </body></html>
