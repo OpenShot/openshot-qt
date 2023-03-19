@@ -192,6 +192,7 @@ class About(QDialog):
             else:
                 log.warning("Failed to find current release: %s" % r.status_code)
             release_git_SHA = release_details.get("sha", "")
+            release_notes = release_details.get("notes", "")
 
             # get translations
             self.app = get_app()
@@ -211,8 +212,8 @@ class About(QDialog):
                             log.warning("Official release detected with SHA (%s) for v%s" %
                                         (release_git_SHA, info.VERSION))
                             build_name = build_name.replace("-candidate", "")
-                            frozen_version_label = "<br/><br/><b>%s (Official)</b><br/>Build Date: %s" % \
-                                (build_name, version_info.get('date'))
+                            frozen_version_label = '<br/><br/><b>%s (Official)</b><br/>Release Date: %s<br><a href="%s" style="text-decoration:none;">Release Notes</a>' % \
+                                (build_name, version_info.get('date'), release_notes)
                         else:
                             # Display current build name - unedited
                             log.warning("Build SHA (%s) does not match an official release SHA (%s) for v%s" %
