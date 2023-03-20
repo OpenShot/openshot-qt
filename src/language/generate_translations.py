@@ -221,7 +221,9 @@ for effect in props:
 # Append Emoji Data
 emoji_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
-emoji_ignore_keys = ("Keyboard", "Sunset", "Key", "Right arrow", "Left arrow")
+emoji_ignore_keys = ("Keyboard", "Sunset", "Key", "Right arrow", "Left arrow", "Bubbles",
+                     "Twitter", "Instagram", "Scale", "Simple", "Close", "Forward", "Copy",
+                     "Filter", "Details")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
 

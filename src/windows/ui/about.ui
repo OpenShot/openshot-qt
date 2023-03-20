@@ -59,6 +59,9 @@
        <property name="textFormat">
         <enum>Qt::RichText</enum>
        </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>

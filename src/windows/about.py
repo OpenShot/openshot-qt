@@ -31,7 +31,7 @@ import codecs
 import re
 from functools import partial
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog
 
@@ -42,6 +42,8 @@ from classes.metrics import track_metric_screen
 from windows.views.credits_treeview import CreditsTreeView
 from windows.views.changelog_treeview import ChangelogTreeView
 
+import requests
+import threading
 import json
 import datetime
 
@@ -80,6 +82,7 @@ class About(QDialog):
     """ About Dialog """
 
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'about.ui')
+    releaseFound = pyqtSignal(str)
 
     def __init__(self):
         # Create dialog class
@@ -111,9 +114,7 @@ class About(QDialog):
             log.warn("No changelog files found, disabling button")
 
         create_text = _('Create &amp; Edit Amazing Videos and Movies')
-        description_text = _(
-            "OpenShot Video Editor 2.x is the next generation of the award-winning <br/>"
-            "OpenShot video editing platform.")
+        description_text = _("OpenShot Video Editor is an Award-Winning, Free, and<br> Open-Source Video Editor for Linux, Mac, and Windows.")
         learnmore_text = _('Learn more')
         copyright_text = _('Copyright &copy; %(begin_year)s-%(current_year)s') % {
             'begin_year': '2008',
@@ -127,7 +128,7 @@ class About(QDialog):
               </p>
               <p style="font-size:10pt;margin-bottom:12px;">%s
                 <a href="https://www.openshot.org/%s?r=about-us"
-                   style="text-decoration:none;">%s</a>.
+                   style="text-decoration:none;">%s</a>
               </p>
             </div>
             </body></html>
@@ -157,25 +158,81 @@ class About(QDialog):
         self.btnlicense.clicked.connect(self.load_license)
         self.btnchangelog.clicked.connect(self.load_changelog)
 
-        # Look for frozen version info
-        frozen_version_label = ""
-        version_path = os.path.join(info.PATH, "settings", "version.json")
-        if os.path.exists(version_path):
-            with open(version_path, "r", encoding="UTF-8") as f:
-                version_info = json.loads(f.read())
-                if version_info:
-                    frozen_version_label = "<br/><br/><b>%s</b><br/>Build Date: %s" % \
-                        (version_info.get('build_name'), version_info.get('date'))
-
-        # Init some variables
-        openshot_qt_version = _("Version: %s") % info.VERSION
-        libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
-        self.txtversion.setText(
-            "<b>%s</b><br/>%s%s" % (openshot_qt_version, libopenshot_version, frozen_version_label))
-        self.txtversion.setAlignment(Qt.AlignCenter)
-
         # Track metrics
         track_metric_screen("about-screen")
+
+        # Connect signals
+        self.releaseFound.connect(self.display_release)
+
+        # Load release details from HTTP
+        self.get_current_release()
+
+    def display_release(self, version_text):
+
+        self.txtversion.setText(version_text)
+        self.txtversion.setAlignment(Qt.AlignCenter)
+
+    def get_current_release(self):
+        """Get the current version """
+        t = threading.Thread(target=self.get_release_from_http, daemon=True)
+        t.start()
+
+    def get_release_from_http(self):
+        """Get the current version # from openshot.org"""
+        RELEASE_URL = 'http://www.openshot.org/releases/%s/'
+
+        # Send metric HTTP data
+        try:
+            release_details = {}
+            r = requests.get(RELEASE_URL % info.VERSION,
+                             headers={"user-agent": "openshot-qt-%s" % info.VERSION}, verify=False)
+            if r.ok:
+                log.warning("Found current release: %s" % r.json())
+                release_details = r.json()
+            else:
+                log.warning("Failed to find current release: %s" % r.status_code)
+            release_git_SHA = release_details.get("sha", "")
+            release_notes = release_details.get("notes", "")
+
+            # get translations
+            self.app = get_app()
+            _ = self.app._tr
+
+            # Look for frozen version info
+            frozen_version_label = ""
+            version_path = os.path.join(info.PATH, "settings", "version.json")
+            if os.path.exists(version_path):
+                with open(version_path, "r", encoding="UTF-8") as f:
+                    version_info = json.loads(f.read())
+                    if version_info:
+                        frozen_git_SHA = version_info.get("openshot-qt", {}).get("CI_COMMIT_SHA", "")
+                        build_name = version_info.get('build_name')
+                        if frozen_git_SHA == release_git_SHA:
+                            # Remove -release-candidate... from build name
+                            log.warning("Official release detected with SHA (%s) for v%s" %
+                                        (release_git_SHA, info.VERSION))
+                            build_name = build_name.replace("-candidate", "")
+                            frozen_version_label = '<br/><br/><b>%s (Official)</b><br/>Release Date: %s<br><a href="%s" style="text-decoration:none;">Release Notes</a>' % \
+                                (build_name, version_info.get('date'), release_notes)
+                        else:
+                            # Display current build name - unedited
+                            log.warning("Build SHA (%s) does not match an official release SHA (%s) for v%s" %
+                                        (frozen_git_SHA, release_git_SHA, info.VERSION))
+                            frozen_version_label = "<br/><br/><b>%s</b><br/>Build Date: %s" % \
+                                (build_name, version_info.get('date'))
+
+            # Init some variables
+            openshot_qt_version = _("Version: %s") % info.VERSION
+            libopenshot_version = "libopenshot: %s" % openshot.OPENSHOT_VERSION_FULL
+
+            # emit release found
+            self.releaseFound.emit("<b>%s</b><br/>%s%s" % (openshot_qt_version,
+                                                           libopenshot_version,
+                                                           frozen_version_label))
+
+        except Exception as Ex:
+            log.error("Failed to get version from: %s" % RELEASE_URL % info.VERSION)
+
 
     def load_credit(self):
         """ Load Credits for everybody who has contributed in several domain for Openshot """

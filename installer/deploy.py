@@ -103,6 +103,7 @@ def main():
 
         # Get version info
         openshot_qt_version = version_info.get('openshot-qt', {}).get('VERSION', 'N/A')
+        release_git_sha = version_info.get('openshot-qt', {}).get('CI_COMMIT_SHA', 'N/A')
 
         # Verify branch names are all the same (across the 3 repos)
         original_git_branch = ''
@@ -300,7 +301,8 @@ def main():
                 auth=auth,
                 data={
                     "version": openshot_qt_version,
-                    "changelog": log_title + combined_log_markdown
+                    "changelog": log_title + combined_log_markdown,
+                    "sha": release_git_sha
                     })
             if not r.ok:
                 raise Exception(
