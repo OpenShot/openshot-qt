@@ -28,9 +28,9 @@
 import os
 from time import strftime
 
-VERSION = "3.0.0"
-MINIMUM_LIBOPENSHOT_VERSION = "0.3.0"
-DATE = "20221201000000"
+VERSION = "3.1.0"
+MINIMUM_LIBOPENSHOT_VERSION = "0.3.1"
+DATE = "20230321000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
