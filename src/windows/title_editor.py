@@ -33,15 +33,16 @@ import sys
 import functools
 import subprocess
 import tempfile
+import threading
 
 # TODO: Is there a defusedxml substitute for getDOMImplementation?
 # Is one even necessary, or is it safe to use xml.dom.minidom for that?
 from xml.dom import minidom
 
-from PyQt5.QtCore import Qt, pyqtSlot, QTimer
+from PyQt5.QtCore import Qt, pyqtSlot, QTimer, pyqtSignal
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import (
-    QWidget, QGraphicsScene,
+    QWidget,
     QMessageBox, QDialog, QColorDialog, QFontDialog,
     QPushButton, QLineEdit, QLabel
 )
@@ -63,6 +64,7 @@ class TitleEditor(QDialog):
 
     # Path to ui file
     ui_path = os.path.join(info.PATH, 'windows', 'ui', 'title-editor.ui')
+    thumbnailReady = pyqtSignal(object)
 
     def __init__(self, *args, edit_file_path=None, duplicate=False, **kwargs):
 
@@ -71,7 +73,7 @@ class TitleEditor(QDialog):
 
         # A timer to pause until user input stops before updating the svg
         self.update_timer = QTimer(self)
-        self.update_timer.setInterval(300)
+        self.update_timer.setInterval(50)
         self.update_timer.setSingleShot(True)
         self.update_timer.timeout.connect(self.save_and_reload)
 
@@ -97,6 +99,7 @@ class TitleEditor(QDialog):
             log.debug('Removing custom LD_LIBRARY_PATH from environment variables when launching Inkscape')
 
         # Initialize variables
+        self.is_thread_busy = False
         self.template_name = ""
         imp = minidom.getDOMImplementation()
         self.xmldoc = imp.createDocument(None, "any", None)
@@ -129,6 +132,9 @@ class TitleEditor(QDialog):
         # Disable Save button on window load
         self.buttonBox.button(self.buttonBox.Save).setEnabled(False)
 
+        # Connect thumbnail listener
+        self.thumbnailReady.connect(self.display_pixmap)
+
         # If editing existing title svg file
         if self.edit_file_path:
             # Hide list of templates
@@ -142,6 +148,10 @@ class TitleEditor(QDialog):
 
             # Display image (slight delay to allow screen to be shown first)
             QTimer.singleShot(50, self.display_svg)
+
+    def display_pixmap(self, display_pixmap):
+        """Display pixmap of SVG on UI thread"""
+        self.lblPreviewLabel.setPixmap(display_pixmap)
 
     def txtLine_changed(self, txtWidget):
 
@@ -194,7 +204,7 @@ class TitleEditor(QDialog):
         display_pixmap = QtGui.QIcon(tmp_filename).pixmap(self.lblPreviewLabel.size())
 
         # Display temp image
-        self.lblPreviewLabel.setPixmap(display_pixmap)
+        self.thumbnailReady.emit(display_pixmap)
 
         # Remove temporary file
         os.unlink(tmp_filename)
@@ -375,8 +385,19 @@ class TitleEditor(QDialog):
 
     def save_and_reload(self):
         """Something changed, so update temp SVG and redisplay"""
+        if not self.is_thread_busy:
+            t = threading.Thread(target=self.save_and_reload_thread, daemon=True)
+            t.start()
+        else:
+            # Keep retrying until we succeed
+            self.update_timer.start()
+
+    def save_and_reload_thread(self):
+        """Run inside thread, to update and display new SVG - so we don't block the main UI thread"""
+        self.is_thread_busy = True
         self.writeToFile(self.xmldoc)
         self.display_svg()
+        self.is_thread_busy = False
 
     @pyqtSlot(QtGui.QColor)
     def color_callback(self, save_fn, refresh_fn, color):
