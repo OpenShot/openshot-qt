@@ -21,18 +21,18 @@ Introduction
 ============
 
 OpenShot Video Editor is an award-winning, open-source video editor, available on
-Windows, Linux, macOS and ChromeOS. OpenShot can create stunning videos, films, and 
-animations with an easy-to-use interface and rich feature-set.
+Linux, Mac, and Windows. OpenShot can create stunning videos, films, and animations with an
+easy-to-use interface and rich feature-set.
 
 .. image:: images/openshot-banner.jpg
 
 Features
 --------
 - **Free & open-source** (licensed under GPLv3)
-- **Cross-platform** (Linux, macOS, ChromeOS, and Windows)
+- **Cross-platform** (Linux, OS X, Chrome OS, and Windows)
 - **Easy-to-use user interface** (designed for beginners, built-in tutorial)
 - **Supports most video, audio, & image formats** (based on FFmpeg)
-- **Includes popular video profiles & presets** (over 500 profiles, including Social Media)
+- **Includes popular video profiles & presets** (over 70+ profiles, including YouTube HD)
 - **Advanced timeline** (including drag and drop, scrolling, panning, zooming, and snapping)
 - **Advanced clips** (including trimming, alpha, scaling, location, rotation, and shearing)
 - **Real-time preview** (multi-threaded, and optimized for performance)
@@ -42,7 +42,7 @@ Features
 - **Unlimited tracks / layers** (support for complex projects)
 - **Video transitions, masks, & wipes** (grayscale images and animated masks)
 - **Video & audio effects** (including brightness, gamma, hue, chroma key / blue screen, and more)
-- **Image sequences & 2D animations** (`image001.png`, `image002.png`, `image003.png`, etc...)
+- **Image sequences & 2D animations** (`001.png`, `002.png`, `003.png`, etc...)
 - **Blender 3D integration** (animated 3D title templates)
 - **Vector file support & editing** (SVG / scalable vector graphics used for titles and credits)
 - **Audio mixing, waveform, & editing**
@@ -51,7 +51,7 @@ Features
 - **Time mapping & speed changes** (slow/fast, forward/backward)
 - **Advanced AI** (motion tracking, object detection, & stabilization effects)
 - **Credits & captions** (scrolling and animated)
-- **Hardware accelerated** (EXPERIMENTAL! Encoding & decoding supports NVIDIA, AMD, Intel and more)
+- **Hardware accelerated** (encoding & decoding supports NVIDIA, AMD, Intel and more)
 - **Import & export** (EDL and Final Cut Pro formats, supports most video editors)
 - **Desktop integration** (drag and drop from file managers)
 - **JSON project format** (compatible with `OpenShot Cloud API <https://www.openshot.org/cloud-api/>`_ for cloud-based automation)
@@ -68,30 +68,24 @@ Screenshot
 
 System Requirements
 -------------------
-Video editing benefits from modern, multi-core CPUs with fast clock speeds (GHz), large amounts of memory, and fast internal storage devices.  You want the best computer you can afford when video editing.  Here are the minimum system requirements.
+Video editing benefits from modern, multi-core CPUs with **fast clock speeds** (GHz), large amounts of memory,
+and fast hard disk drives. Basically, you want the best computer you can afford when video editing. Here are the
+**minimum system requirements**:
 
-Minimum System Requirements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-<TL;DR>
-^^^^^^^
-
-Most computers custom-built or manufactured after 2017 with an Intel® processor will run OpenShot.
+TL;DR
+^^^^^
+Most computers manufactured after 2017 will run OpenShot
 
 Minimum Specifications
 ^^^^^^^^^^^^^^^^^^^^^^
-- **Central Processing Unit**: 
-    - *64-bit x86_64 Multi-core processor* (Intel® required for some downloadable binaries)
-    - *Minimum cores*: 2 (6+ cores recommended)
-    - *Minimum threads*: 4 (6+ threads recommended)
-    - *Minimum turbo clock speed*: 2.7 GHz (3.4+ GHz recommended)
-- **System Memory**: 4GB of RAM (16+ GB recommended)
-- **Operating System**: 64-bit Operating System (Windows 8/8.1/10/11, macOS 10.15+, most Linux distributions, ChromeOS 83 and later)
-- **Internal Storage**: 1GB of storage space for installation & usage (50+ GB available storage space for media recommended)
-- **Optional**: Solid-state device (SSD).  If utilizing disk caching, add 10GB of storage space (PCIe NVMe recommended)
-- **Optional**: External storage devices (USB 3.1/4 or Thunderbolt 3/4 ports and devices recommended)
-- **Note**: OpenShot's downloadable binaries are only available for Intel® x86_64 processors.  AMD x86_64 processors will run OpenShot in Windows and Linux.  You can run OpenShot on AMD and ARM processors in Windows, macOS, Linux, and ChromeOS if you download and compile the source code on your computer.
-- **Note**: Hardware Acceleration is currently experimental in OpenShot.  NVIDIA NVENC acceleration is only available in Linux operating systems.  OpenShot v2.6.0 and later includes Intel® Quick Sync Video encoding in Windows operating systems.  If you have a CPU that supports Intel® QSV encoding, you can use the encoder by choosing the appropriate Target on OpenShot's Export Video window.
+- 64-bit Operating System (*Linux, OS X, Chrome OS, Windows 7/8/10/11*)
+- Multi-core processor with 64-bit support
+    - Minimum cores: 2 (*recommended: 6+ cores*)
+    - Minimum threads: 4 (*recommended: 6+ threads*)
+    - Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)
+- 4GB of RAM (*16+ GB recommended*)
+- 1 GB of hard-disk space for installation & usage (*recommended: 50+ GB available hard-disk space for media, videos, images, and storage*)
+- Optional: Solid-state drive (SSD), if utilizing disk-caching add an additional 10GB of hard-disk space
 
 License
 -------
