@@ -70,8 +70,8 @@ System Requirements
 -------------------
 Video editing benefits from modern, multi-core CPUs with fast clock speeds (GHz), large amounts of memory, and fast internal storage devices.  You want the best computer you can afford when video editing.  Here are the minimum system requirements.
 
-**Minimum System Requirements**:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Minimum System Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 <TL;DR>
 ^^^^^^^
@@ -80,17 +80,18 @@ Most computers custom-built or manufactured after 2017 with an Intel® processor
 
 Minimum Specifications
 ^^^^^^^^^^^^^^^^^^^^^^
+- **Central Processing Unit**: 
+    - *64-bit x86_64 Multi-core processor* (Intel® required for some downloadable binaries)
+    - *Minimum cores*: 2 (6+ cores recommended)
+    - *Minimum threads*: 4 (6+ threads recommended)
+    - *Minimum turbo clock speed*: 2.7 GHz (3.4+ GHz recommended)
+- **System Memory**: 4GB of RAM (16+ GB recommended)
 - **Operating System**: 64-bit Operating System (Windows 8/8.1/10/11, macOS 10.15+, most Linux distributions, ChromeOS 83 and later)
-- Central Processor: 64-bit x86_64 Multi-core processor (Intel® required for some downloadable binaries)
-    - Minimum cores: 2 (6+ cores recommended)
-    - Minimum threads: 4 (6+ threads recommended)
-    - Minimum turbo clock speed: 2.7 GHz (3.4+ GHz recommended)
-- System Memory: 4GB of RAM (16+ GB recommended)
-- Internal Storag-: 1GB of storage space for installation & usage (50+ GB available storage space for media recommended)
-- Optional: Solid-state device (SSD).  If utilizing disk caching, add 10GB of storage space (PCIe NVMe recommended)
-- Optional: External storage devices (USB 3.1/4 or Thunderbolt 3/4 ports and devices recommended)
-- Note: OpenShot's downloadable binaries are only available for Intel® x86_64 processors.  AMD x86_64 processors will run OpenShot in Windows and Linux.  You can run OpenShot on AMD and ARM processors in Windows, macOS, Linux, and ChromeOS if you download and compile the source code on your computer.
-- Note: Hardware Acceleration is currently experimental in OpenShot.  NVIDIA NVENC acceleration is only available in Linux operating systems.  OpenShot v2.6.0 and later includes Intel® Quick Sync Video encoding in Windows operating systems.  If you have a CPU that supports Intel® QSV encoding, you can use the encoder by choosing the appropriate Target on OpenShot's Export Video window.
+- **Internal Storage**: 1GB of storage space for installation & usage (50+ GB available storage space for media recommended)
+- **Optional**: Solid-state device (SSD).  If utilizing disk caching, add 10GB of storage space (PCIe NVMe recommended)
+- **Optional**: External storage devices (USB 3.1/4 or Thunderbolt 3/4 ports and devices recommended)
+- **Note**: OpenShot's downloadable binaries are only available for Intel® x86_64 processors.  AMD x86_64 processors will run OpenShot in Windows and Linux.  You can run OpenShot on AMD and ARM processors in Windows, macOS, Linux, and ChromeOS if you download and compile the source code on your computer.
+- **Note**: Hardware Acceleration is currently experimental in OpenShot.  NVIDIA NVENC acceleration is only available in Linux operating systems.  OpenShot v2.6.0 and later includes Intel® Quick Sync Video encoding in Windows operating systems.  If you have a CPU that supports Intel® QSV encoding, you can use the encoder by choosing the appropriate Target on OpenShot's Export Video window.
 
 License
 -------
