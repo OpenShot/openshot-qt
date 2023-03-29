@@ -321,8 +321,9 @@ class FilesModel(QObject, updates.UpdateInterface):
                     if clip and clip.info.duration > 0.0:
                         # Update file details
                         new_file.data["media_type"] = "video"
+                        duration = new_file.data["duration"]
 
-                        if seq_info and "fps" in seq_info:
+                        if seq_info and "fps" in seq_info and "length_multiplier" in seq_info:
                             # Blender Titles specify their fps in seq_info
                             fps_num = seq_info.get("fps", {}).get("num", 25)
                             fps_den = seq_info.get("fps", {}).get("den", 1)
@@ -332,9 +333,15 @@ class FilesModel(QObject, updates.UpdateInterface):
                             fps_num = get_app().project.get("fps").get("num", 30)
                             fps_den = get_app().project.get("fps").get("den", 1)
                             log.debug("Image Sequence using project FPS: %s / %s" % (fps_num, fps_den))
-                        new_file.data["fps"] = {"num": fps_num, "den": fps_den}
 
-                        log.info(f"Imported '{new_path}' as image sequence with '{fps_num}/{fps_den}' FPS")
+                        # Adjust FPS (difference between 25 FPS and actual FPS)
+                        duration *= 25.0 / (float(fps_num) / float(fps_den))
+                        new_file.data["duration"] = duration
+                        new_file.data["fps"] = {"num": fps_num, "den": fps_den}
+                        new_file.data["video_timebase"] = {"num": fps_den, "den": fps_num}
+
+                        log.info(f"Imported '{new_path}' as image sequence with '{fps_num}/{fps_den}' FPS "
+                                 f"and '{duration}' duration")
 
                         # Remove any other image sequence files from the list we're processing
                         match_glob = "{}{}.{}".format(seq_info.get("base_name"), '[0-9]*', seq_info.get("extension"))
