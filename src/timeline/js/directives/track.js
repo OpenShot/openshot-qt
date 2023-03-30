@@ -70,7 +70,7 @@ App.directive("tlTrack", function ($timeout) {
           var selected_item_count = ui_selected.length;
 
           // Get uuid to group all these updates as a single transaction
-          var tid = timeline.get_uuid();
+          var tid = uuidv4();
           var drop_track_num = -1;
 
           // with each dragged clip, find out which track they landed on
