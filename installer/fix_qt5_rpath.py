@@ -35,8 +35,7 @@ def fix_rpath(PATH):
 
            # Change ID path of library files
            # Sometimes, the ID has an absolute path or invalid @rpath embedded in it, which breaks our frozen exe
-           call(["install_name_tool", file_path, "-id", executable_path],
-                stdout=subprocess.STDOUT, stderr=subprocess.DEVNULL)
+           call(["install_name_tool", file_path, "-id", executable_path])
 
            # Loop through all dependencies of each library/executable
            raw_output = subprocess.Popen(["oTool", "-L", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
@@ -51,8 +50,7 @@ def fix_rpath(PATH):
                        if not os.path.exists(os.path.join(PATH, dependency_name)):
                            print("ERROR: /usr/local PATH not found in EXE folder: %s" % dependency_path)
                        else:
-                           call(["install_name_tool", file_path, "-change", dependency_path, dependency_exe_path],
-                                stdout=subprocess.STDOUT, stderr=subprocess.DEVNULL)
+                           call(["install_name_tool", file_path, "-change", dependency_path, dependency_exe_path])
 
 
 def print_min_versions(PATH):
