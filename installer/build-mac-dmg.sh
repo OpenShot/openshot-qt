@@ -42,6 +42,9 @@ mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"; ln -s "../Resources/qt
 mv "$OS_PATH/MacOS/openshot-qt.hqx" "$OS_PATH/Resources/openshot-qt.hqx"; ln -s "../Resources/openshot-qt.hqx" "$OS_PATH/MacOS/openshot-qt.hqx";
 mv "$OS_PATH/MacOS/lib/launch.py" "$OS_PATH/Resources/launch.py"; ln -s "../../Resources/launch.py" "$OS_PATH/MacOS/lib/launch.py";
 
+echo "Symlink lib folder into Resources - needed to find lib/babl-ext at runtime"
+ln -s "$OS_PATH/MacOS/lib" "../../Resources/lib";
+
 echo "Fix permissions inside MacOS folder (all everyone to read and execute all the files inside this *.app bundle)"
 chmod -R a+rx "$OS_PATH/"*
 
