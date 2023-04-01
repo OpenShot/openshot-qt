@@ -39,7 +39,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 
 from PyQt5.QtCore import QFileInfo, pyqtSlot, QUrl, Qt, QCoreApplication, QTimer, pyqtSignal
 from PyQt5.QtGui import QCursor, QKeySequence, QColor
-from PyQt5.QtWidgets import QMenu, QDialog
+from PyQt5.QtWidgets import QMenu, QDialog, QShortcut
 
 from classes import info, updates
 from classes.app import get_app
@@ -3309,6 +3309,43 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             # Log the exception and ignore
             log.warning("Exception processing timeline cache: %s", ex)
 
+    def seekPreviousFrame(self):
+        """Handle previous-frame keypress"""
+        player = get_app().window.preview_thread.player
+        frame_num = player.Position() - 1
+
+        # Seek to prevoius frame
+        get_app().window.PauseSignal.emit()
+        get_app().window.SpeedSignal.emit(0)
+        get_app().window.previewFrameSignal.emit(frame_num)
+
+        # Notify properties dialog
+        get_app().window.propertyTableView.select_frame(frame_num)
+
+    def seekNextFrame(self):
+        """Handle next-frame keypress"""
+        player = get_app().window.preview_thread.player
+        frame_num = player.Position() + 1
+
+        # Seek to next frame
+        get_app().window.PauseSignal.emit()
+        get_app().window.SpeedSignal.emit(0)
+        get_app().window.previewFrameSignal.emit(frame_num)
+
+        # Notify properties dialog
+        get_app().window.propertyTableView.select_frame(frame_num)
+
+    def playToggle(self):
+        """Handle play-pause-toggle keypress"""
+        player = get_app().window.preview_thread.player
+        frame_num = player.Position()
+
+        # Toggle Play/Pause
+        get_app().window.actionPlay.trigger()
+
+        # Notify properties dialog
+        get_app().window.propertyTableView.select_frame(frame_num)
+
     def __init__(self, window):
         super().__init__()
         self.setObjectName("TimelineWebView")
@@ -3366,3 +3403,13 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         # connect signal to receive waveform data
         self.clipAudioDataReady.connect(self.clipAudioDataReady_Triggered)
         self.fileAudioDataReady.connect(self.fileAudioDataReady_Triggered)
+
+        # Use shortcuts to override keypress capturing for arrow keys
+        # This is needed mostly due to WebEngine backend eating keypress events
+        # This approach works well for ALL backends though
+        QShortcut(app.window.getShortcutByName("seekPreviousFrame"), self, activated=self.seekPreviousFrame)
+        QShortcut(app.window.getShortcutByName("seekNextFrame"), self, activated=self.seekNextFrame)
+        QShortcut(app.window.getShortcutByName("playToggle"), self, activated=self.playToggle)
+        QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle)
+        QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle)
+        QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle)

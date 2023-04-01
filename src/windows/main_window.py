@@ -1592,44 +1592,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
-        # Basic shortcuts i.e just a letter
-        if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
-            # Pause video
-            self.PauseSignal.emit()
-            self.SpeedSignal.emit(0)
-            # Seek to previous frame
-            self.SeekSignal.emit(player.Position() - 1)
-
-            # Notify properties dialog
-            self.propertyTableView.select_frame(player.Position())
-
-        elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
-            # Pause video
-            self.PauseSignal.emit()
-            self.SpeedSignal.emit(0)
-            # Seek to next frame
-            self.SeekSignal.emit(player.Position() + 1)
-
-            # Notify properties dialog
-            self.propertyTableView.select_frame(player.Position())
-
-        elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
+        if key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
             # Toggle rewind and start playback
             self.actionRewind.trigger()
 
         elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.ExactMatch:
             # Toggle fastforward button and start playback
             self.actionFastForward.trigger()
-
-        elif any([
-                key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch,
-                ]):
-            # Toggle playbutton and show properties
-            self.actionPlay.trigger()
-            self.propertyTableView.select_frame(player.Position())
 
         elif any([
                 key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch,
