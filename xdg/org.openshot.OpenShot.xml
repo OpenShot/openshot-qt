@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
   <mime-type type="application/vnd.openshot-qt-project">
-    <comment>OpenShot 2.0 project</comment>
+    <comment>OpenShot project</comment>
     <glob pattern="*.osp"/>
     <generic-icon name="openshot-qt-doc"/>
   </mime-type>

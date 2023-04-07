@@ -39,7 +39,7 @@ import uuid
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
     Qt, pyqtSignal, pyqtSlot, QCoreApplication, PYQT_VERSION_STR,
-    QTimer, QDateTime, QFileInfo, QUrl,
+    QTimer, QDateTime, QFileInfo, QUrl, QEvent
     )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
 from PyQt5.QtWidgets import (
@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QInputDialog,
     QAction, QActionGroup, QSizePolicy,
     QStatusBar, QToolBar, QToolButton,
-    QLineEdit, QComboBox, QTextEdit
+    QLineEdit, QComboBox, QTextEdit, QShortcut
 )
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates
@@ -98,6 +98,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     StopSignal = pyqtSignal()
     SeekSignal = pyqtSignal(int)
     SpeedSignal = pyqtSignal(float)
+    SeekPreviousFrame = pyqtSignal()
+    SeekNextFrame = pyqtSignal()
+    PlayPauseToggleSignal = pyqtSignal()
     RecoverBackup = pyqtSignal()
     FoundVersionSignal = pyqtSignal(str)
     TransformSignal = pyqtSignal(str)
@@ -1554,6 +1557,43 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Center the timeline on the current playhead position """
         self.timeline.centerOnPlayhead()
 
+    def handleSeekPreviousFrame(self):
+        """Handle previous-frame keypress"""
+        player = get_app().window.preview_thread.player
+        frame_num = player.Position() - 1
+
+        # Seek to previous frame
+        get_app().window.PauseSignal.emit()
+        get_app().window.SpeedSignal.emit(0)
+        get_app().window.previewFrameSignal.emit(frame_num)
+
+        # Notify properties dialog
+        get_app().window.propertyTableView.select_frame(frame_num)
+
+    def handleSeekNextFrame(self):
+        """Handle next-frame keypress"""
+        player = get_app().window.preview_thread.player
+        frame_num = player.Position() + 1
+
+        # Seek to next frame
+        get_app().window.PauseSignal.emit()
+        get_app().window.SpeedSignal.emit(0)
+        get_app().window.previewFrameSignal.emit(frame_num)
+
+        # Notify properties dialog
+        get_app().window.propertyTableView.select_frame(frame_num)
+
+    def handlePlayPauseToggleSignal(self):
+        """Handle play-pause-toggle keypress"""
+        player = get_app().window.preview_thread.player
+        frame_num = player.Position()
+
+        # Toggle Play/Pause
+        get_app().window.actionPlay.trigger()
+
+        # Notify properties dialog
+        get_app().window.propertyTableView.select_frame(frame_num)
+
     def getShortcutByName(self, setting_name):
         """ Get a key sequence back from the setting name """
         s = get_app().get_settings()
@@ -1592,44 +1632,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
 
-        # Basic shortcuts i.e just a letter
-        if key.matches(self.getShortcutByName("seekPreviousFrame")) == QKeySequence.ExactMatch:
-            # Pause video
-            self.PauseSignal.emit()
-            self.SpeedSignal.emit(0)
-            # Seek to previous frame
-            self.SeekSignal.emit(player.Position() - 1)
-
-            # Notify properties dialog
-            self.propertyTableView.select_frame(player.Position())
-
-        elif key.matches(self.getShortcutByName("seekNextFrame")) == QKeySequence.ExactMatch:
-            # Pause video
-            self.PauseSignal.emit()
-            self.SpeedSignal.emit(0)
-            # Seek to next frame
-            self.SeekSignal.emit(player.Position() + 1)
-
-            # Notify properties dialog
-            self.propertyTableView.select_frame(player.Position())
-
-        elif key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
+        if key.matches(self.getShortcutByName("rewindVideo")) == QKeySequence.ExactMatch:
             # Toggle rewind and start playback
             self.actionRewind.trigger()
 
         elif key.matches(self.getShortcutByName("fastforwardVideo")) == QKeySequence.ExactMatch:
             # Toggle fastforward button and start playback
             self.actionFastForward.trigger()
-
-        elif any([
-                key.matches(self.getShortcutByName("playToggle")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle1")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle2")) == QKeySequence.ExactMatch,
-                key.matches(self.getShortcutByName("playToggle3")) == QKeySequence.ExactMatch,
-                ]):
-            # Toggle playbutton and show properties
-            self.actionPlay.trigger()
-            self.propertyTableView.select_frame(player.Position())
 
         elif any([
                 key.matches(self.getShortcutByName("deleteItem")) == QKeySequence.ExactMatch,
@@ -3121,12 +3130,44 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.emojiListView = EmojisListView(self.emojis_model)
         self.tabEmojis.layout().addWidget(self.emojiListView)
 
+    def seekPreviousFrame(self):
+        """Handle previous-frame keypress"""
+        # Ignore certain focused widgets
+        get_app().window.SeekPreviousFrame.emit()
+
+    def seekNextFrame(self):
+        """Handle next-frame keypress"""
+        get_app().window.SeekNextFrame.emit()
+
+    def playToggle(self):
+        """Handle play-pause-toggle keypress"""
+        get_app().window.PlayPauseToggleSignal.emit()
+
+    def eventFilter(self, obj, event):
+        """Filter out certain QShortcuts - for example, arrow keys used
+        in our files, transitions, effects, and emojis views."""
+        if event.type() == QEvent.ShortcutOverride:
+            if self.emojiListView.hasFocus() or self.filesView.hasFocus() or \
+                    self.transitionsView.hasFocus() or self.effectsView.hasFocus():
+                # Mark event as 'handled' so it stops propagating
+                event.accept()
+
+            elif self.propertyTableView.hasFocus() and \
+                    (event.key() == get_app().window.getShortcutByName("playToggle") or
+                     event.key() == get_app().window.getShortcutByName("playToggle1") or
+                     event.key() == get_app().window.getShortcutByName("playToggle2") or
+                     event.key() == get_app().window.getShortcutByName("playToggle3")):
+                # Mark event as 'handled' so it stops propagating
+                event.accept()
+        return super(MainWindow, self).eventFilter(obj, event)
+
     def __init__(self, *args):
 
         # Create main window base class
         super().__init__(*args)
         self.initialized = False
         self.shutting_down = False
+        self.installEventFilter(self)
 
         # set window on app for reference during initialization of children
         app = get_app()
@@ -3208,6 +3249,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Connect signals
         self.RecoverBackup.connect(self.recover_backup)
+        self.SeekPreviousFrame.connect(self.handleSeekPreviousFrame)
+        self.SeekNextFrame.connect(self.handleSeekNextFrame)
+        self.PlayPauseToggleSignal.connect(self.handlePlayPauseToggleSignal)
 
         # Create the timeline sync object (used for previewing timeline)
         self.timeline_sync = TimelineSync(self)
@@ -3398,3 +3442,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Main window is initialized
         self.initialized = True
+
+        # Use shortcuts to override keypress capturing for arrow keys
+        # These keys are a bit special, and other approaches fail on certain
+        # combinations of OS and Webview backend
+        QShortcut(app.window.getShortcutByName("seekPreviousFrame"), self, activated=self.seekPreviousFrame, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("seekNextFrame"), self, activated=self.seekNextFrame, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle"), self, activated=self.playToggle, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle, context=Qt.WindowShortcut)

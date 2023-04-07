@@ -25,7 +25,7 @@ def fix_rpath(PATH):
            relative_path = os.path.relpath(root, PATH)
 
            # Skip common file extensions (speed things up)
-           if os.path.splitext(file_path)[-1] in non_executables or basename.startswith("."):
+           if os.path.splitext(file_path)[-1] in non_executables or basename.startswith(".") or "profiles" in file_path:
                continue
 
            # Build exe path (relative from the app dir)
@@ -35,7 +35,6 @@ def fix_rpath(PATH):
 
            # Change ID path of library files
            # Sometimes, the ID has an absolute path or invalid @rpath embedded in it, which breaks our frozen exe
-           print ("ID: %s: install_name_tool %s -id %s" % (basename, file_path, executable_path))
            call(["install_name_tool", file_path, "-id", executable_path])
 
            # Loop through all dependencies of each library/executable
@@ -43,7 +42,6 @@ def fix_rpath(PATH):
            for output in raw_output.split("\n")[1:-1]:
                if output and "is not an object file" not in output and ".o):" not in output:
                    dependency_path = output.split('\t')[1].split(' ')[0]
-                   dependency_version = output.split('\t')[1].split(' (')[1].replace(')', '')
                    dependency_base_path, dependency_name = os.path.split(dependency_path)
 
                    # If @rpath or /usr/local found in dependency path, update with @executable_path instead
@@ -52,7 +50,6 @@ def fix_rpath(PATH):
                        if not os.path.exists(os.path.join(PATH, dependency_name)):
                            print("ERROR: /usr/local PATH not found in EXE folder: %s" % dependency_path)
                        else:
-                           print('-- Dependency: %s: install_name_tool "%s" -change "%s" "%s"' % (dependency_name, file_path, dependency_path, dependency_exe_path))
                            call(["install_name_tool", file_path, "-change", dependency_path, dependency_exe_path])
 
 

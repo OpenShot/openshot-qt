@@ -27,6 +27,7 @@
 
 import os
 import functools
+import json
 
 from PyQt5.QtCore import pyqtSignal, QTimer
 from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy
@@ -91,7 +92,7 @@ class Cutting(QDialog):
         self.fps = float(self.fps_num) / float(self.fps_den)
         self.width = int(file.data['width'])
         self.height = int(file.data['height'])
-        self.sample_rate = int(file.data['sample_rate'])
+        self.sample_rate = get_app().project.get("sample_rate")
         self.channels = int(file.data['channels'])
         self.channel_layout = int(file.data['channel_layout'])
 
@@ -108,8 +109,8 @@ class Cutting(QDialog):
 
         # Create an instance of a libopenshot Timeline object
         self.r = openshot.Timeline(
-            self.videoPreview.width(),
-            self.videoPreview.height(),
+            viewport_rect.width(),
+            viewport_rect.height(),
             openshot.Fraction(self.fps_num, self.fps_den),
             self.sample_rate,
             self.channels,
@@ -120,6 +121,7 @@ class Cutting(QDialog):
         try:
             # Add clip for current preview file
             self.clip = openshot.Clip(self.file_path)
+            self.clip.SetJson(json.dumps({"reader": file.data}))
 
             # Show waveform for audio files
             if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:

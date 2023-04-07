@@ -682,7 +682,10 @@ Blender Path: {}
         # All animated titles are created at an assumed default 25.0 FPS
         self.fps = self.app.project.get("fps")
         fps_float = self.fps["num"] / float(self.fps["den"])
-        self.project_fps_diff = fps_float / 25.0
+
+        # NOTE: Blender can only use INT precision when remapping
+        # frames. 1X, 2X, 3X, etc...  not 1.2X
+        self.project_fps_diff = round(fps_float / 25.0)
 
         # Init dictionary which holds the values to the template parameters
         self.params = {}
