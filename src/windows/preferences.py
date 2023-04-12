@@ -255,6 +255,7 @@ class Preferences(QDialog):
 
                     # create spinner
                     widget = QComboBox()
+                    widget.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
 
                     # Get values
                     value_list = param["values"]
@@ -274,6 +275,12 @@ class Preferences(QDialog):
                                     "name": profile_lbl,
                                     "value": profile.info.description
                                     })
+
+                        # Add test button
+                        extraWidget = QPushButton()
+                        extraWidget.setToolTip(_("Search Profiles"))
+                        extraWidget.setIcon(QIcon(":/icons/Humanity/mimes/16/video-x-generic.svg"))
+                        extraWidget.clicked.connect(functools.partial(self.btnBrowseProfiles_clicked, widget))
 
                     # Overwrite value list (for audio device list dropdown)
                     if param["setting"] == "playback-audio-device":
@@ -339,8 +346,8 @@ class Preferences(QDialog):
                     # Add normal values
                     box_index = 0
                     for value_item in value_list:
-                        k = value_item["name"]
-                        v = value_item["value"]
+                        k = value_item.get("name")
+                        v = value_item.get("value")
                         i = value_item.get("icon", None)
 
                         # Translate dropdown item (if needed)
@@ -549,6 +556,54 @@ class Preferences(QDialog):
 
         # Check for restart
         self.check_for_restart(param)
+
+    def btnBrowseProfiles_clicked(self, widget):
+        """Search profile button clicked"""
+        # Get current selection profile object
+        profile_description = widget.currentData()
+
+        # Find matching profile path
+        matching_profile_path = None
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            for file in reversed(sorted(os.listdir(profile_folder))):
+                # Load Profile and append description
+                matching_profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(matching_profile_path):
+                    continue
+                profile = openshot.Profile(matching_profile_path)
+                if profile.info.description == profile_description:
+                    break
+
+        # Load matching profile
+        current_profile = openshot.Profile(matching_profile_path)
+
+        # Show dialog (init to current selection)
+        from windows.profile import Profile
+        log.debug("Showing profile dialog")
+        win = Profile(current_profile.Key())
+        # Run the dialog event loop - blocking interaction on this window during this time
+        result = win.exec_()
+
+        profile = win.selected_profile
+        if result == QDialog.Accepted and profile:
+
+            # select the project's current profile
+            profile_index = self.getVideoProfileIndex(widget, profile)
+            if profile_index != -1:
+                # Re-select project profile (if found in list)
+                widget.setCurrentIndex(profile_index)
+            else:
+                # Previous profile not in list, so
+                # default to first profile in list
+                widget.setCurrentIndex(0)
+
+    def getVideoProfileIndex(self, widget, profile):
+        """Get the index of a profile name or profile key (-1 if not found)"""
+        for index in range(widget.count()):
+            combo_profile_description = widget.itemData(index)
+            if profile.info.description == combo_profile_description:
+                return index
+        return -1
 
     def testHardwareDecode(self, widget, param, btn):
         """Test specific settings for hardware decode"""
