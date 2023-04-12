@@ -220,12 +220,7 @@ if mode == "validate":
     #     print(f" - {key}")
 
 if mode == "generate":
-    # Delete legacy profiles
-    for profile_name in os.listdir(PROFILE_PATH):
-        profile_path = os.path.join(PROFILE_PATH, profile_name)
-        if not os.path.isdir(profile_path):
-            os.unlink(profile_path)
-
+    unique_profile_names = {}
     for new_key in reversed(sorted(NEW_PROFILES.keys())):
         tags = []
         for p in NEW_PROFILES[new_key]:
@@ -275,6 +270,12 @@ if mode == "generate":
                 # Non-vertical resolutions (normal)
                 profile.info.description = f'{" ".join(tags)} {profile.info.height}{interlaced_string} {fps_string} fps'
 
+            # Track profile names for uniqueness
+            if profile.info.description not in unique_profile_names.keys():
+                unique_profile_names[profile.info.description] = [profile.Key()]
+            elif profile.Key() not in unique_profile_names[profile.info.description]:
+                unique_profile_names[profile.info.description].append(profile.Key())
+
             profile_name = profile.Key()
             profile_path = os.path.join(PROFILE_PATH, profile_name)
 
@@ -311,6 +312,24 @@ display_aspect_den={profile.info.display_ratio.den}"""
             preset_body = re.sub(PRESET_REGEX, replace_preset_profile, preset_body)
             with open(preset_path, "w") as f1:
                 f1.write(preset_body)
+
+    # Iterate through duplicate profile names (and give a unique descriptive name)
+    # For now, we'll add the DAR to the end of the description
+    for profile_name, keys in unique_profile_names.items():
+        if len(keys) > 1:
+            for key in keys:
+                profile_path = os.path.join(PROFILE_PATH, key)
+                profile = openshot.Profile(profile_path)
+                # Create unique name (since more than 2 profiles use the same name)
+                unique_profile_name = f'{profile_name} [{profile.info.display_ratio.num}:{profile.info.display_ratio.den}]'
+                print(f'Updating name for uniqueness: {unique_profile_name} in profile: {profile.Key()}')
+
+                # Write file with description updated for uniqueness
+                with open(profile_path, "r") as read_file_object:
+                    profile_body = read_file_object.read()
+                    profile_body = profile_body.replace(profile_name, unique_profile_name)
+                    with open(profile_path, "w") as profile_file_object:
+                        profile_file_object.write(profile_body)
 
 if mode == "preview":
     # Print new profiles

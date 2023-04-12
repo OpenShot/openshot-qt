@@ -1,4 +1,4 @@
-description=NTSC SD 3/4 Anamorphic 480i 29.97 fps
+description=NTSC SD 3/4 Anamorphic 480i 29.97 fps [4:3]
 frame_rate_num=30000
 frame_rate_den=1001
 width=528

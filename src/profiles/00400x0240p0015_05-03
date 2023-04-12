@@ -1,4 +1,4 @@
-description=WQVGA 240p 15 fps
+description=WQVGA 240p 15 fps [5:3]
 frame_rate_num=15
 frame_rate_den=1
 width=400
