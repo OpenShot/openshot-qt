@@ -196,6 +196,8 @@ class Export(QDialog):
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_path):
+                    continue
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
