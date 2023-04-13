@@ -1,4 +1,4 @@
-description=HQVGA 160p 30 fps [16:10]
+description=HQVGA 160p 30 fps - 256x160 | 16:10
 frame_rate_num=30
 frame_rate_den=1
 width=256

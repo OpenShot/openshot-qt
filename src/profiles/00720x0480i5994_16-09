@@ -1,4 +1,4 @@
-description=NTSC SD Anamorphic 480i 59.94 fps [16:9]
+description=NTSC SD Anamorphic 480i 59.94 fps - 720x480 | 16:9
 frame_rate_num=60000
 frame_rate_den=1001
 width=720
