@@ -192,7 +192,8 @@ class PropertiesTableView(QTableView):
             self.selected_item = model.item(row, 1)
 
         # Is the user dragging on the value column
-        if self.selected_label and self.selected_item:
+        if self.selected_label and self.selected_item and \
+                self.selected_label.data() and type(self.selected_label.data()) == tuple:
             # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
             get_app().updates.ignore_history = True
 
@@ -344,7 +345,7 @@ class PropertiesTableView(QTableView):
         selected_label = model.item(row, 0)
         self.selected_item = model.item(row, 1)
 
-        if selected_label:
+        if selected_label and selected_label.data() and type(selected_label.data()) == tuple:
             cur_property = selected_label.data()
             property_type = cur_property[1]["type"]
 
@@ -436,22 +437,13 @@ class PropertiesTableView(QTableView):
         _ = get_app()._tr
 
         # If item selected
-        if selected_label:
+        if selected_label and selected_label.data() and type(selected_label.data()) == tuple:
+            cur_property = selected_label.data()
+
             # Clear menu if models updated
             if self.menu_reset:
                 self.choices = []
                 self.menu_reset = False
-
-            # Get data from selected item
-            try:
-                cur_property = self.selected_label.data()
-            except Exception:
-                log.debug('Failed to access data on selected label widget')
-                return
-
-            if type(cur_property) != tuple:
-                log.debug('Failed to access valid data on current selected label widget')
-                return
 
             property_name = cur_property[1]["name"]
             self.property_type = cur_property[1]["type"]

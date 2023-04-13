@@ -475,25 +475,26 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     raw_properties_effect = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
                     # Get properties for the first object in dict. PropertiesJSON should return one object at the time
                     tmp = raw_properties_effect.get('objects')
-                    obj_id = list(tmp.keys())[0]
-                    raw_properties_effect = raw_properties_effect.get('objects').get(obj_id)
+                    if tmp:
+                        obj_id = list(tmp.keys())[0]
+                        raw_properties_effect = raw_properties_effect.get('objects').get(obj_id)
 
-                    # Check if the tracked object is visible in this frame
-                    if raw_properties_effect.get('visible'):
-                        if raw_properties_effect.get('visible').get('value') == 1:
-                            # Get the selected bounding box values
-                            rotation = raw_properties_effect['rotation']['value']
-                            x1 = raw_properties_effect['x1']['value']
-                            y1 = raw_properties_effect['y1']['value']
-                            x2 = raw_properties_effect['x2']['value']
-                            y2 = raw_properties_effect['y2']['value']
-                            self.drawTransformHandler(
-                                painter,
-                                sx, sy,
-                                source_width, source_height,
-                                origin_x, origin_y,
-                                x1, y1, x2, y2,
-                                rotation)
+                        # Check if the tracked object is visible in this frame
+                        if raw_properties_effect.get('visible'):
+                            if raw_properties_effect.get('visible').get('value') == 1:
+                                # Get the selected bounding box values
+                                rotation = raw_properties_effect['rotation']['value']
+                                x1 = raw_properties_effect['x1']['value']
+                                y1 = raw_properties_effect['y1']['value']
+                                x2 = raw_properties_effect['x2']['value']
+                                y2 = raw_properties_effect['y2']['value']
+                                self.drawTransformHandler(
+                                    painter,
+                                    sx, sy,
+                                    source_width, source_height,
+                                    origin_x, origin_y,
+                                    x1, y1, x2, y2,
+                                    rotation)
             else:
                 self.drawTransformHandler(
                     painter,
@@ -1055,10 +1056,14 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             if self.transforming_effect_object.info.has_tracked_object:
                 # Get properties of effect at current frame
                 raw_properties = json.loads(self.transforming_effect_object.PropertiesJSON(clip_frame_number))
+                objects = raw_properties.get('objects', {})
+                if not objects:
+                    return
+
                 # Get properties for the first object in dict.
                 # PropertiesJSON should return one object at the time
-                obj_id = list(raw_properties.get('objects').keys())[0]
-                raw_properties = raw_properties.get('objects').get(obj_id)
+                obj_id = list(objects.keys())[0]
+                raw_properties = objects.get(obj_id)
 
                 if not raw_properties.get('visible'):
                     self.mouse_position = event.pos()
