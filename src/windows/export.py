@@ -110,12 +110,12 @@ class Export(QDialog):
         project_timeline.ClearAllCache()
 
         # Get the original timeline settings
-        width = project_timeline.info.width
-        height = project_timeline.info.height
+        width = int(project_timeline.info.width)
+        height = int(project_timeline.info.height)
         fps = project_timeline.info.fps
-        sample_rate = project_timeline.info.sample_rate
-        channels = project_timeline.info.channels
-        channel_layout = project_timeline.info.channel_layout
+        sample_rate = int(project_timeline.info.sample_rate)
+        channels = int(project_timeline.info.channels)
+        channel_layout = int(project_timeline.info.channel_layout)
 
         # Create new "export" openshot.Timeline object
         self.timeline = openshot.Timeline(

@@ -50,8 +50,8 @@ class TimelineSync(UpdateInterface):
         channel_layout = project.get("channel_layout")
 
         # Create an instance of a libopenshot Timeline object
-        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels,
-                                          channel_layout)
+        self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]),
+                                          sample_rate, channels, channel_layout)
         self.timeline.info.channel_layout = channel_layout
         self.timeline.info.has_audio = True
         self.timeline.info.has_video = True

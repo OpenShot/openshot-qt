@@ -323,14 +323,16 @@ class PlayerWorker(QObject):
 
             # Get some settings from the project
             fps = project.get("fps")
-            width = project.get("width")
-            height = project.get("height")
-            sample_rate = project.get("sample_rate")
-            channels = project.get("channels")
-            channel_layout = project.get("channel_layout")
+            width = int(project.get("width"))
+            height = int(project.get("height"))
+            sample_rate = int(project.get("sample_rate"))
+            channels = int(project.get("channels"))
+            channel_layout = int(project.get("channel_layout"))
 
             # Create an instance of a libopenshot Timeline object
-            self.clip_reader = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]), sample_rate, channels, channel_layout)
+            self.clip_reader = openshot.Timeline(width, height,
+                                                 openshot.Fraction(fps["num"], fps["den"]),
+                                                 sample_rate, channels, channel_layout)
             self.clip_reader.info.channel_layout = channel_layout
             self.clip_reader.info.has_audio = True
             self.clip_reader.info.has_video = True

@@ -92,7 +92,7 @@ class Cutting(QDialog):
         self.fps = float(self.fps_num) / float(self.fps_den)
         self.width = int(file.data['width'])
         self.height = int(file.data['height'])
-        self.sample_rate = get_app().project.get("sample_rate")
+        self.sample_rate = int(get_app().project.get("sample_rate"))
         self.channels = int(file.data['channels'])
         self.channel_layout = int(file.data['channel_layout'])
 
