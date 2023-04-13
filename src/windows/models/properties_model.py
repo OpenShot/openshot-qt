@@ -285,13 +285,17 @@ class PropertiesModel(updates.UpdateInterface):
                     has_waveform = True
 
             # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data[property_key]}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
+            if not object_id:
+                clip_data = {property_key: clip_data.get(property_key)}
+            else:
+                # If objects dict detected - don't reduce the # of objects
+                objects[object_id] = clip_data
+                clip_data = {'objects': objects}
 
             # Save changes
             if clip_updated:
                 # Save
+                c.data = clip_data
                 c.save()
 
                 # Update waveforms (if needed)
@@ -411,13 +415,17 @@ class PropertiesModel(updates.UpdateInterface):
                                 })
 
                 # Reduce # of clip properties we are saving (performance boost)
-                clip_data = {property_key: clip_data[property_key]}
-                if object_id:
-                    clip_data = {'objects': {object_id: clip_data}}
+                if not object_id:
+                    clip_data = {property_key: clip_data.get(property_key)}
+                else:
+                    # If objects dict detected - don't reduce the # of objects
+                    objects[object_id] = clip_data
+                    clip_data = {'objects': objects}
 
                 # Save changes
                 if clip_updated:
                     # Save
+                    c.data = clip_data
                     c.save()
 
                     # Update the preview
