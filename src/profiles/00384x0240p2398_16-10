@@ -1,4 +1,4 @@
-description=WQVGA 240p 23.98 fps
+description=WQVGA 240p 23.98 fps - 384x240 | 16:10
 frame_rate_num=24000
 frame_rate_den=1001
 width=384

@@ -1,4 +1,4 @@
-description=HQVGA 160p 30 fps
+description=HQVGA 160p 30 fps - 240x160 | 3:2
 frame_rate_num=30
 frame_rate_den=1
 width=240

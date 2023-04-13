@@ -1,4 +1,4 @@
-description=WVGA 480p 30 fps
+description=WVGA 480p 30 fps - 800x480 | 5:3
 frame_rate_num=30
 frame_rate_den=1
 width=800

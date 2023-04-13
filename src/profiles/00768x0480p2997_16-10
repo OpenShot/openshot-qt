@@ -1,4 +1,4 @@
-description=WVGA 480p 29.97 fps
+description=WVGA 480p 29.97 fps - 768x480 | 16:10
 frame_rate_num=30000
 frame_rate_den=1001
 width=768
