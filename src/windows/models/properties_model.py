@@ -208,7 +208,11 @@ class PropertiesModel(updates.UpdateInterface):
         # Create reference
         clip_data = c.data
         if object_id:
-            clip_data = c.data.get('objects').get(object_id)
+            objects = c.data.get('objects', {})
+            clip_data = objects.pop(object_id, {})
+            if not clip_data:
+                log.debug("No clip data found for this object id")
+                return
 
         if property_key in clip_data:  # Update clip attribute
             log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
@@ -331,7 +335,11 @@ class PropertiesModel(updates.UpdateInterface):
                 # Create reference
                 clip_data = c.data
                 if object_id:
-                    clip_data = c.data.get('objects').get(object_id)
+                    objects = c.data.get('objects', {})
+                    clip_data = objects.pop(object_id, {})
+                    if not clip_data:
+                        log.debug("No clip data found for this object id")
+                        return
 
                 # Update clip attribute
                 if property_key in clip_data:
