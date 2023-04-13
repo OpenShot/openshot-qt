@@ -446,9 +446,11 @@ class PropertiesModel(updates.UpdateInterface):
         clip_id, item_type = item.data()
 
         # Get value (if any)
-        if item.text():
+        if item.text() or value:
             # Set and format value based on property type
-            if value is not None:
+            if value == "None":
+                new_value = ""
+            elif value is not None:
                 # Override value
                 new_value = value
             elif property_type == "string":

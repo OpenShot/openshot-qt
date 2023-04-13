@@ -486,10 +486,7 @@ class PropertiesTableView(QTableView):
                             if (clip_path == clip_instance_path):
                                 # Generate the clip icon to show in the selection menu
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                        effect_choices = [{"name": "None",
-                                            "value": "None",
-                                            "selected": False,
-                                            "icon": QIcon()}]
+                        effect_choices = []
                         # Iterate through clip's effects
                         for effect_data in clip_instance_data["effects"]:
                             # Make sure the user can only set a parent effect of the same type as this effect
@@ -528,12 +525,12 @@ class PropertiesTableView(QTableView):
 
             # Handle property to set the Tracked Object's child clip
             if property_key == "child_clip_id" and not self.choices:
-                clip_choices = [{
+                self.choices.append({
                     "name": "None",
                     "value": "None",
                     "selected": False,
                     "icon": QIcon()
-                }]
+                })
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 current_effect = timeline_instance.GetClipEffect(clip_id)
@@ -565,18 +562,8 @@ class PropertiesTableView(QTableView):
             # Handle clip attach options
             if property_key == "parentObjectId" and not self.choices:
                 # Add all Clips as choices - initialize with None
-                tracked_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
+                tracked_choices = []
+                clip_choices = []
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 # Loop through timeline's clips
@@ -630,6 +617,7 @@ class PropertiesTableView(QTableView):
                                               "value": tracked_objects,
                                               "selected": False,
                                               "icon": clip_instance_icon})
+                self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
                 self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
                 self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
