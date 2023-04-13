@@ -205,12 +205,16 @@ class PropertiesTableView(QTableView):
             cursor_value = event.x() - value_column_x
             cursor_value_percent = cursor_value / self.columnWidth(1)
 
+            # Get data from selected item
             try:
                 cur_property = self.selected_label.data()
             except Exception:
-                # If item is deleted during this drag... an exception can occur
-                # Just ignore, since this is harmless
                 log.debug('Failed to access data on selected label widget')
+                return
+
+            if type(cur_property) != tuple:
+                log.debug('Failed to access valid data on current selected label widget')
+                return
 
             property_key = cur_property[0]
             property_name = cur_property[1]["name"]
@@ -439,7 +443,16 @@ class PropertiesTableView(QTableView):
                 self.menu_reset = False
 
             # Get data from selected item
-            cur_property = selected_label.data()
+            try:
+                cur_property = self.selected_label.data()
+            except Exception:
+                log.debug('Failed to access data on selected label widget')
+                return
+
+            if type(cur_property) != tuple:
+                log.debug('Failed to access valid data on current selected label widget')
+                return
+
             property_name = cur_property[1]["name"]
             self.property_type = cur_property[1]["type"]
             points = cur_property[1]["points"]
