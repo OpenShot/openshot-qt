@@ -94,15 +94,15 @@ class SelectRegion(QDialog):
         self.file_path = file.absolute_path()
 
         c_info = clip.Reader().info
-        self.fps = c_info.fps.ToInt() #float(self.fps_num) / float(self.fps_den)
-        self.fps_num = self.fps #int(file.data['fps']['num'])
-        self.fps_den = 1 #int(file.data['fps']['den'])
-        self.width = c_info.width #int(file.data['width'])
-        self.height = c_info.height #int(file.data['height'])
-        self.sample_rate = c_info.sample_rate #int(file.data['sample_rate'])
-        self.channels = c_info.channels #int(file.data['channels'])
-        self.channel_layout = c_info.channel_layout #int(file.data['channel_layout'])
-        self.video_length = int(self.clip.Duration() * self.fps) + 1 #int(file.data['video_length'])
+        self.fps = c_info.fps.ToInt()
+        self.fps_num = c_info.fps.num
+        self.fps_den = c_info.fps.den
+        self.width = c_info.width
+        self.height = c_info.height
+        self.sample_rate = int(c_info.sample_rate)
+        self.channels = int(c_info.channels)
+        self.channel_layout = int(c_info.channel_layout)
+        self.video_length = int(self.clip.Duration() * self.fps) + 1
 
         # Apply effects to region frames
         for effect in clip.Effects():
@@ -125,7 +125,9 @@ class SelectRegion(QDialog):
         self.viewport_rect = self.videoPreview.centeredViewport(self.width, self.height)
 
         # Create an instance of a libopenshot Timeline object
-        self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(), openshot.Fraction(self.fps_num, self.fps_den), self.sample_rate, self.channels, self.channel_layout)
+        self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(),
+                                   openshot.Fraction(self.fps_num, self.fps_den),
+                                   self.sample_rate, self.channels, self.channel_layout)
         self.r.info.channel_layout = self.channel_layout
         self.r.SetMaxSize(self.viewport_rect.width(), self.viewport_rect.height())
 
