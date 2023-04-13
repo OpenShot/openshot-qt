@@ -79,6 +79,7 @@ class TimelineSync(UpdateInterface):
             return
 
         # Disable video caching temporarily
+        caching_value = openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
 
         try:
@@ -111,8 +112,8 @@ class TimelineSync(UpdateInterface):
             log.info("Error applying JSON to timeline object in libopenshot: %s. %s" %
                      (e, action.json(is_array=True)))
 
-        # Enable video caching
-        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+        # Resume video caching original value
+        openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = caching_value
 
     def MaxSizeChangedCB(self, new_size):
         """Callback for max sized change (i.e. max size of video widget)"""
