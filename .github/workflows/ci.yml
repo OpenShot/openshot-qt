@@ -23,8 +23,5 @@ jobs:
         pip3 install setuptools wheel sentry-sdk
         pip3 install cx_Freeze==6.1 distro defusedxml requests certifi chardet urllib3
 
-    - name: Build Python package
-      run: python3 freeze.py build
-
     - name: Test
       run: python3 ./src/tests/query_tests.py -platform minimal
