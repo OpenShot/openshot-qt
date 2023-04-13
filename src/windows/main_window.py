@@ -396,7 +396,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             c.save()
 
             # Emit thumbnail update signal (to update timeline thumb image)
-            self.ThumbnailUpdated.emit(c.id)
+            self.ThumbnailUpdated.emit(c.id, 1)
 
         # Update preview
         self.refreshFrameSignal.emit()
