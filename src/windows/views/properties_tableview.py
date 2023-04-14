@@ -456,12 +456,6 @@ class PropertiesTableView(QTableView):
 
             # Handle parent effect options
             if property_key == "parent_effect_id" and not self.choices:
-                clip_choices = [{
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                }]
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 # Instantiate this effect
@@ -469,12 +463,13 @@ class PropertiesTableView(QTableView):
                 effect_json = json.loads(effect.Json())
 
                 # Loop through timeline's clips
+                clip_choices = []
                 for clip_instance in timeline_instance.Clips():
                     clip_instance_id = clip_instance.Id()
                     # Avoid parent a clip effect to it's own effect
-                    if (clip_instance_id != effect.ParentClipId()):
+                    if clip_instance_id != effect.ParentClipId():
                         # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id = clip_instance_id).data
+                        clip_instance_data = Clip.get(id=clip_instance_id).data
                         # Path to the clip file
                         clip_instance_path = clip_instance_data["reader"]["path"]
                         # Iterate through all clip files on the timeline
@@ -483,7 +478,7 @@ class PropertiesTableView(QTableView):
                             clip_name = clip_index.sibling(clip_number, 1).data()
                             clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
                             # Check if the timeline's clip file name matches the clip the user selected
-                            if (clip_path == clip_instance_path):
+                            if clip_path == clip_instance_path:
                                 # Generate the clip icon to show in the selection menu
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
                         effect_choices = []
@@ -498,11 +493,14 @@ class PropertiesTableView(QTableView):
                                                 "value": effect_id,
                                                 "selected": False,
                                                 "icon": effect_icon})
-                        self.choices.append({"name": _(clip_instance_data["title"]),
-                                            "value": effect_choices,
-                                            "selected": False,
-                                            "icon": clip_instance_icon})
+                        if effect_choices:
+                            clip_choices.append({"name": _(clip_instance_data["title"]),
+                                                "value": effect_choices,
+                                                "selected": False,
+                                                "icon": clip_instance_icon})
 
+                self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
+                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle selected object options (ObjectDetection effect)
             if property_key == "selected_object_index" and not self.choices:
@@ -519,48 +517,12 @@ class PropertiesTableView(QTableView):
                                 "name": str(object_index),
                                 "value": str(object_index),
                                 "selected": False,
-                                "icon": QIcon()
+                                "icon": None
                             })
                 self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
 
-            # Handle property to set the Tracked Object's child clip
-            if property_key == "child_clip_id" and not self.choices:
-                self.choices.append({
-                    "name": "None",
-                    "value": "None",
-                    "selected": False,
-                    "icon": QIcon()
-                })
-                # Instantiate the timeline
-                timeline_instance = get_app().window.timeline_sync.timeline
-                current_effect = timeline_instance.GetClipEffect(clip_id)
-
-                # Loop through timeline's clips
-                for clip_instance in timeline_instance.Clips():
-                    clip_instance_id = clip_instance.Id()
-
-                    # Avoid attach a clip to it's own object
-                    if (clip_instance_id != clip_id and (current_effect and clip_instance_id != current_effect.ParentClip().Id())):
-                        # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id = clip_instance_id).data
-                        # Path to the clip file
-                        clip_instance_path = clip_instance_data["reader"]["path"]
-                        # Iterate through all clip files on the timeline
-                        for clip_number in range(self.files_model.rowCount()):
-                            clip_index = self.files_model.index(clip_number, 0)
-                            clip_name = clip_index.sibling(clip_number, 1).data()
-                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
-                            # Check if the timeline's clip file name matches the clip the user selected
-                            if (clip_path == clip_instance_path):
-                                # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                                self.choices.append({"name": clip_instance_data["title"],
-                                              "value": clip_instance_id,
-                                              "selected": False,
-                                              "icon": clip_instance_icon})
-
             # Handle clip attach options
-            if property_key == "parentObjectId" and not self.choices:
+            if property_key in ["parentObjectId", "child_clip_id"] and not self.choices:
                 # Add all Clips as choices - initialize with None
                 tracked_choices = []
                 clip_choices = []
@@ -569,10 +531,15 @@ class PropertiesTableView(QTableView):
                 # Loop through timeline's clips
                 for clip_instance in timeline_instance.Clips():
                     clip_instance_id = clip_instance.Id()
+                    # Look up parent clip id (if effect)
+                    parent_clip_id = clip_id
+                    if item_type == "effect":
+                        parent_clip_id = Effect.get(id=clip_id).parent.get("id")
+
                     # Avoid attach a clip to it's own object
-                    if (clip_instance_id != clip_id):
+                    if clip_instance_id != parent_clip_id:
                         # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id = clip_instance_id).data
+                        clip_instance_data = Clip.get(id=clip_instance_id).data
                         # Path to the clip file
                         clip_instance_path = clip_instance_data["reader"]["path"]
                         # Iterate through all clip files on the timeline
@@ -581,7 +548,7 @@ class PropertiesTableView(QTableView):
                             clip_name = clip_index.sibling(clip_number, 1).data()
                             clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
                             # Check if the timeline's clip file name matches the clip the user selected
-                            if (clip_path == clip_instance_path):
+                            if clip_path == clip_instance_path:
                                 # Generate the clip icon to show in the selection menu
                                 clip_instance_icon = clip_index.data(Qt.DecorationRole)
                                 clip_choices.append({"name": clip_instance_data["title"],
@@ -613,12 +580,14 @@ class PropertiesTableView(QTableView):
                                                             "value": str(object_id),
                                                             "selected": False,
                                                             "icon": QIcon(tracked_object_icon)})
-                        tracked_choices.append({"name": clip_instance_data["title"],
-                                              "value": tracked_objects,
-                                              "selected": False,
-                                              "icon": clip_instance_icon})
+                        if tracked_objects:
+                            tracked_choices.append({"name": clip_instance_data["title"],
+                                                  "value": tracked_objects,
+                                                  "selected": False,
+                                                  "icon": clip_instance_icon})
                 self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
-                self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
+                if property_key == "parentObjectId" and tracked_choices:
+                    self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
                 self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle reader type values
