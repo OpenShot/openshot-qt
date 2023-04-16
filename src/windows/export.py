@@ -131,8 +131,17 @@ class Export(QDialog):
         self.timeline.info.duration = project_timeline.info.duration
 
         # Load the "export" Timeline reader with the JSON from the real timeline
-        json_timeline = json.dumps(get_app().project._data)
-        self.timeline.SetJson(json_timeline)
+        try:
+            json_timeline = json.dumps(get_app().project._data)
+            self.timeline.SetJson(json_timeline)
+        except Exception as ex:
+            msg = QMessageBox()
+            msg.setWindowTitle(_("Project Data Error"))
+            msg.setText(_("Sorry, an error was encountered while parsing your project data: \n'%(error)s'.\n\n"
+                          "Please save your project and inspect in a JSON editor to repair." %
+                          {"error": str(ex)}))
+            msg.exec_()
+            return
 
         # Open the "export" Timeline reader
         self.timeline.Open()
