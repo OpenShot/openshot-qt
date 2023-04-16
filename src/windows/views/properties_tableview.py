@@ -500,7 +500,8 @@ class PropertiesTableView(QTableView):
                                                 "icon": clip_instance_icon})
 
                 self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
-                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
+                if clip_choices:
+                    self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle selected object options (ObjectDetection effect)
             if property_key == "selected_object_index" and not self.choices:
@@ -519,7 +520,8 @@ class PropertiesTableView(QTableView):
                                 "selected": False,
                                 "icon": None
                             })
-                self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
+                if object_index_choices:
+                    self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
 
             # Handle clip attach options
             if property_key in ["parentObjectId", "child_clip_id"] and not self.choices:
@@ -535,6 +537,7 @@ class PropertiesTableView(QTableView):
                     parent_clip_id = clip_id
                     if item_type == "effect":
                         parent_clip_id = Effect.get(id=clip_id).parent.get("id")
+                        log.debug(f"Lookup parent clip ID for effect: '{clip_id}' = '{parent_clip_id}'")
 
                     # Avoid attach a clip to it's own object
                     if clip_instance_id != parent_clip_id:
@@ -580,7 +583,6 @@ class PropertiesTableView(QTableView):
                                                             "value": str(object_id),
                                                             "selected": False,
                                                             "icon": QIcon(tracked_object_icon)})
-                        if tracked_objects:
                             tracked_choices.append({"name": clip_instance_data["title"],
                                                   "value": tracked_objects,
                                                   "selected": False,
@@ -588,7 +590,8 @@ class PropertiesTableView(QTableView):
                 self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
                 if property_key == "parentObjectId" and tracked_choices:
                     self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
-                self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
+                if clip_choices:
+                    self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle reader type values
             if self.property_type == "reader" and not self.choices:
@@ -610,7 +613,8 @@ class PropertiesTableView(QTableView):
                                          })
 
                 # Add root file choice
-                self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
+                if file_choices:
+                    self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
 
                 # Add all transitions
                 trans_choices = []
@@ -717,6 +721,7 @@ class PropertiesTableView(QTableView):
                 menu.popup(event.globalPos())
 
             # Menu for choices
+            log.debug(f"Context menu choices: {self.choices}")
             if not self.choices:
                 return
             for choice in self.choices:
@@ -761,6 +766,7 @@ class PropertiesTableView(QTableView):
                         Choice_Action.triggered.connect(self.Choice_Action_Triggered)
 
             # Show choice menuk
+            log.debug(f"Display context menu: {menu.children()}")
             menu.popup(event.globalPos())
 
     def Bezier_Action_Triggered(self, preset=[]):
