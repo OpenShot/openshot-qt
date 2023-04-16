@@ -141,6 +141,11 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
     for clip_id in clip_list:
         clip = Clip.get(id=clip_id)
 
+        if not clip:
+            # Ignore null clip
+            log.debug(f"No clip found for ID: {clip_id}. Skipping waveform generation.")
+            continue
+
         # Check for channel mapping and filters
         channel_filter = int(clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1))
         if channel_filter != -1:
