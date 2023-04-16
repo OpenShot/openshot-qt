@@ -456,45 +456,40 @@ class PropertiesTableView(QTableView):
 
             # Handle parent effect options
             if property_key == "parent_effect_id" and not self.choices:
-                # Instantiate the timeline
-                timeline_instance = get_app().window.timeline_sync.timeline
                 # Instantiate this effect
-                effect = timeline_instance.GetClipEffect(clip_id)
-                effect_json = json.loads(effect.Json())
+                effect = Effect.get(id=clip_id)
 
                 # Loop through timeline's clips
                 clip_choices = []
-                for clip_instance in timeline_instance.Clips():
-                    clip_instance_id = clip_instance.Id()
-                    # Avoid parent a clip effect to it's own effect
-                    if clip_instance_id != effect.ParentClipId():
-                        # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id=clip_instance_id).data
-                        # Path to the clip file
-                        clip_instance_path = clip_instance_data["reader"]["path"]
-                        # Iterate through all clip files on the timeline
-                        for clip_number in range(self.files_model.rowCount()):
-                            clip_index = self.files_model.index(clip_number, 0)
-                            clip_name = clip_index.sibling(clip_number, 1).data()
-                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
-                            # Check if the timeline's clip file name matches the clip the user selected
-                            if clip_path == clip_instance_path:
-                                # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
+                for clip in Clip.filter():
+                    file_id = clip.data.get("file_id")
+
+                    # Look up parent clip id (if effect)
+                    parent_clip_id = effect.parent.get("id")
+
+                    # Avoid attach a clip to it's own object
+                    if clip.id != parent_clip_id:
+                        # Iterate through all project files (to find matching QIcon)
+                        for file_index in range(self.files_model.rowCount()):
+                            file_row = self.files_model.index(file_index, 0)
+                            project_file_id = file_row.sibling(file_index, 5).data()
+                            if file_id == project_file_id:
+                                clip_instance_icon = file_row.data(Qt.DecorationRole)
+                                break
+
                         effect_choices = []
                         # Iterate through clip's effects
-                        for effect_data in clip_instance_data["effects"]:
+                        for clip_effect_data in clip.data["effects"]:
                             # Make sure the user can only set a parent effect of the same type as this effect
-                            if effect_data['class_name'] == effect_json['class_name']:
-                                effect_id = effect_data["id"]
-                                effect_name = effect_data['class_name']
-                                effect_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % effect_data['class_name'].lower())))
+                            if clip_effect_data['class_name'] == effect.data['class_name']:
+                                effect_id = clip_effect_data["id"]
+                                effect_icon = QIcon(QPixmap(os.path.join(info.PATH, "effects", "icons", "%s.png" % clip_effect_data['class_name'].lower())))
                                 effect_choices.append({"name": effect_id,
                                                 "value": effect_id,
                                                 "selected": False,
                                                 "icon": effect_icon})
                         if effect_choices:
-                            clip_choices.append({"name": _(clip_instance_data["title"]),
+                            clip_choices.append({"name": _(clip.data["title"]),
                                                 "value": effect_choices,
                                                 "selected": False,
                                                 "icon": clip_instance_icon})
@@ -531,8 +526,9 @@ class PropertiesTableView(QTableView):
                 # Instantiate the timeline
                 timeline_instance = get_app().window.timeline_sync.timeline
                 # Loop through timeline's clips
-                for clip_instance in timeline_instance.Clips():
-                    clip_instance_id = clip_instance.Id()
+                for clip in Clip.filter():
+                    file_id = clip.data.get("file_id")
+
                     # Look up parent clip id (if effect)
                     parent_clip_id = clip_id
                     if item_type == "effect":
@@ -540,22 +536,15 @@ class PropertiesTableView(QTableView):
                         log.debug(f"Lookup parent clip ID for effect: '{clip_id}' = '{parent_clip_id}'")
 
                     # Avoid attach a clip to it's own object
-                    if clip_instance_id != parent_clip_id:
-                        # Clip's propertyJSON data
-                        clip_instance_data = Clip.get(id=clip_instance_id).data
-                        # Path to the clip file
-                        clip_instance_path = clip_instance_data["reader"]["path"]
-                        # Iterate through all clip files on the timeline
-                        for clip_number in range(self.files_model.rowCount()):
-                            clip_index = self.files_model.index(clip_number, 0)
-                            clip_name = clip_index.sibling(clip_number, 1).data()
-                            clip_path = os.path.join(clip_index.sibling(clip_number, 4).data(), clip_name)
-                            # Check if the timeline's clip file name matches the clip the user selected
-                            if clip_path == clip_instance_path:
-                                # Generate the clip icon to show in the selection menu
-                                clip_instance_icon = clip_index.data(Qt.DecorationRole)
-                                clip_choices.append({"name": clip_instance_data["title"],
-                                              "value": clip_instance_id,
+                    if clip.id != parent_clip_id:
+                        # Iterate through all project files (to find matching QIcon)
+                        for file_index in range(self.files_model.rowCount()):
+                            file_row = self.files_model.index(file_index, 0)
+                            project_file_id = file_row.sibling(file_index, 5).data()
+                            if file_id == project_file_id:
+                                clip_instance_icon = file_row.data(Qt.DecorationRole)
+                                clip_choices.append({"name": clip.data["title"],
+                                              "value": clip.id,
                                               "selected": False,
                                               "icon": clip_instance_icon})
                         # Get the pixmap of the clip icon
@@ -563,7 +552,7 @@ class PropertiesTableView(QTableView):
                         icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
                         # Add tracked objects to the selection menu
                         tracked_objects = []
-                        for effect in clip_instance_data["effects"]:
+                        for effect in clip.data["effects"]:
                             # Check if effect has a tracked object
                             if effect.get("has_tracked_object"):
                                 # Instantiate the effect
@@ -583,7 +572,7 @@ class PropertiesTableView(QTableView):
                                                             "value": str(object_id),
                                                             "selected": False,
                                                             "icon": QIcon(tracked_object_icon)})
-                            tracked_choices.append({"name": clip_instance_data["title"],
+                            tracked_choices.append({"name": clip.data["title"],
                                                   "value": tracked_objects,
                                                   "selected": False,
                                                   "icon": clip_instance_icon})
