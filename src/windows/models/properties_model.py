@@ -208,7 +208,11 @@ class PropertiesModel(updates.UpdateInterface):
         # Create reference
         clip_data = c.data
         if object_id:
-            clip_data = c.data.get('objects').get(object_id)
+            objects = c.data.get('objects', {})
+            clip_data = objects.pop(object_id, {})
+            if not clip_data:
+                log.debug("No clip data found for this object id")
+                return
 
         if property_key in clip_data:  # Update clip attribute
             log_id = "{}/{}".format(clip_id, object_id) if object_id else clip_id
@@ -281,13 +285,17 @@ class PropertiesModel(updates.UpdateInterface):
                     has_waveform = True
 
             # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data[property_key]}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
+            if not object_id:
+                clip_data = {property_key: clip_data.get(property_key)}
+            else:
+                # If objects dict detected - don't reduce the # of objects
+                objects[object_id] = clip_data
+                clip_data = {'objects': objects}
 
             # Save changes
             if clip_updated:
                 # Save
+                c.data = clip_data
                 c.save()
 
                 # Update waveforms (if needed)
@@ -331,7 +339,11 @@ class PropertiesModel(updates.UpdateInterface):
                 # Create reference
                 clip_data = c.data
                 if object_id:
-                    clip_data = c.data.get('objects').get(object_id)
+                    objects = c.data.get('objects', {})
+                    clip_data = objects.pop(object_id, {})
+                    if not clip_data:
+                        log.debug("No clip data found for this object id")
+                        return
 
                 # Update clip attribute
                 if property_key in clip_data:
@@ -403,13 +415,17 @@ class PropertiesModel(updates.UpdateInterface):
                                 })
 
                 # Reduce # of clip properties we are saving (performance boost)
-                clip_data = {property_key: clip_data[property_key]}
-                if object_id:
-                    clip_data = {'objects': {object_id: clip_data}}
+                if not object_id:
+                    clip_data = {property_key: clip_data.get(property_key)}
+                else:
+                    # If objects dict detected - don't reduce the # of objects
+                    objects[object_id] = clip_data
+                    clip_data = {'objects': objects}
 
                 # Save changes
                 if clip_updated:
                     # Save
+                    c.data = clip_data
                     c.save()
 
                     # Update the preview
@@ -434,12 +450,15 @@ class PropertiesModel(updates.UpdateInterface):
         property_type = property[1]["type"]
         property_key = property[0]
         object_id = property[1]["object_id"]
+        objects = {}
         clip_id, item_type = item.data()
 
         # Get value (if any)
-        if item.text():
+        if item.text() or value:
             # Set and format value based on property type
-            if value is not None:
+            if value == "None":
+                new_value = ""
+            elif value is not None:
                 # Override value
                 new_value = value
             elif property_type == "string":
@@ -478,12 +497,16 @@ class PropertiesModel(updates.UpdateInterface):
             # Get effect object
             c = Effect.get(id=clip_id)
 
-        if c:
+        if c and c.data:
 
             # Create reference
             clip_data = c.data
             if object_id:
-                clip_data = c.data.get('objects').get(object_id)
+                objects = c.data.get('objects', {})
+                clip_data = objects.pop(object_id, {})
+                if not clip_data:
+                    log.debug("No clip data found for this object id")
+                    return
 
             # Update clip attribute
             if property_key in clip_data:
@@ -616,9 +639,12 @@ class PropertiesModel(updates.UpdateInterface):
                     has_waveform = True
 
             # Reduce # of clip properties we are saving (performance boost)
-            clip_data = {property_key: clip_data.get(property_key)}
-            if object_id:
-                clip_data = {'objects': {object_id: clip_data}}
+            if not object_id:
+                clip_data = {property_key: clip_data.get(property_key)}
+            else:
+                # If objects dict detected - don't reduce the # of objects
+                objects[object_id] = clip_data
+                clip_data = {'objects': objects}
 
             # Save changes
             if clip_updated:
@@ -766,7 +792,7 @@ class PropertiesModel(updates.UpdateInterface):
             # Append ROW to MODEL (if does not already exist in model)
             self.model.appendRow(row)
 
-        else:
+        elif name in self.items and self.items[name]["row"]:
             # Update the value of the existing model
             # Get 1st Column
             col = self.items[name]["row"][0]
