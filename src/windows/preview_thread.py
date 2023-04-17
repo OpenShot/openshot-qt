@@ -178,21 +178,35 @@ class PlayerWorker(QObject):
             self.error_found.emit(audio_error)
 
         # Check active sample rate from audio device
+        # Parse string as float ("48000.0" -> 48000   OR   NaN)
         detected_sample_rate = float(self.player.GetDefaultSampleRate())
         if detected_sample_rate and not math.isnan(detected_sample_rate) and detected_sample_rate > 0.0:
+            # Convert float to Integer
+            detected_sample_rate_int = round(detected_sample_rate)
+
             s = get_app().get_settings()
-            rate = int(s.get("default-samplerate") or 48000)
-            if detected_sample_rate != rate:
+            settings_sample_rate = int(s.get("default-samplerate") or 48000)
+            if detected_sample_rate_int != settings_sample_rate:
                 log.warning("Your sample rate (%d) does not match OpenShot (%d). "
                             "Adjusting your 'Preferences->Preview->Default Sample Rate to match your "
-                            "system rate: %d." % (detected_sample_rate, rate, detected_sample_rate))
+                            "system rate: %d." % (detected_sample_rate_int,
+                                                  settings_sample_rate,
+                                                  detected_sample_rate_int))
 
                 # Update default sample rate in settings
-                s.set("default-samplerate", detected_sample_rate)
+                s.set("default-samplerate", detected_sample_rate_int)
 
                 # Update current project's sample rate, so we don't have some crazy
                 # audio drift due to mis-matching sample rates
-                get_app().updates.update(["sample_rate"], detected_sample_rate)
+                get_app().updates.update(["sample_rate"], detected_sample_rate_int)
+
+        # Convert float 'settings' sample rate to Integer, if detected
+        if type(s.get("default-samplerate")) == float:
+            s.set("default-samplerate", detected_sample_rate_int)
+
+        # Convert float 'project' sample rate to Integer, if detected
+        if type(get_app().project.get("sample_rate")) == float:
+            get_app().updates.update(["sample_rate"], round(get_app().project.get("sample_rate")))
 
         # Check active audio device name and type from audio device
         active_audio_device = self.player.GetCurrentAudioDevice()
