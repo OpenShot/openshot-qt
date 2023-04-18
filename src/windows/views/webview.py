@@ -219,6 +219,11 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             log.error("Error duplicating UpdateAction", exc_info=1)
             return
 
+        # Bail out if change unrelated to webview
+        if action.key and action.key[0] not in ["clips", "effects"]:
+            log.debug(f"Skipping unneeded webview update for '{action.key[0]}'")
+            return
+
         # Send a JSON version of the UpdateAction to the timeline webview method: applyJsonDiff()
         if action.type == "load":
             # Set thumbnail server
