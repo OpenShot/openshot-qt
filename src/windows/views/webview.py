@@ -220,7 +220,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             return
 
         # Bail out if change unrelated to webview
-        if action.key and action.key[0] not in ["clips", "effects", "duration"]:
+        if action.key and action.key[0] not in ["clips", "effects", "duration", "layers", "markers"]:
             log.debug(f"Skipping unneeded webview update for '{action.key[0]}'")
             return
 
