@@ -2545,26 +2545,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Is this a saved project?
         if not app.project.current_filepath:
-            # Not saved yet
-            self.setWindowTitle(
-                "%s %s [%s] - %s" % (
-                    save_indicator,
-                    _("Untitled Project"),
-                    profile,
-                    "OpenShot Video Editor",
-                    ))
+            # Not saved yet (use singleShot since this method can be invoked by our preview thread)
+            QTimer.singleShot(0, functools.partial(self.setWindowTitle,
+                "%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, "OpenShot Video Editor")))
         else:
             # Yes, project is saved
             # Get just the filename
             filename = os.path.basename(app.project.current_filepath)
             filename = os.path.splitext(filename)[0]
-            self.setWindowTitle(
-                "%s %s [%s] - %s" % (
-                    save_indicator,
-                    filename,
-                    profile,
-                    "OpenShot Video Editor",
-                    ))
+            # Use singleShot since this method can be invoked by our preview thread
+            QTimer.singleShot(0, functools.partial(self.setWindowTitle,
+                "%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor")))
 
     # Update undo and redo buttons enabled/disabled to available changes
     def updateStatusChanged(self, undo_status, redo_status):
