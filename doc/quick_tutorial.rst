@@ -57,7 +57,7 @@ on your way to master OpenShot Video Editor!
 - `Video: Basic Animation <https://youtu.be/P3zIprwr1rk>`_
 - `Video: Trim, Slice, and Split <https://youtu.be/BQS2tmgD_Rk>`_
 - `Video: Chroma Key <https://youtu.be/2sushecqMs4>`_
-- `Video: Masks & Transitions <https://youtu.be/2sushecqMs4>`_
+- `Video: Masks & Transitions <https://youtu.be/Hd9k3x0diOo>`_
 - `Video: Backup & Recovery <https://youtu.be/5XaWBTBTpTo>`_
 
 Step 1 – Import Photos & Music
