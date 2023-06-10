@@ -54,7 +54,7 @@ Uses a grayscale mask image to gradually wipe / transition between 2 images.
    brightness                  ``(float, -1 to 1)`` This curve controls the motion across the wipe
    contrast                    ``(float, 0 to 20)`` This curve controls the hardness and softness of the wipe edge
    reader                      ``(reader)`` This reader can use any image or video as input for your grayscale wipe
-   replace_image               ``(int, choices: ['Yes', 'No'])`` Replace the clips image with the current grayscale wipe image, useful for troubleshooting
+   replace_image               ``(bool, choices: ['Yes', 'No'])`` Replace the clips image with the current grayscale wipe image, useful for troubleshooting
    ==========================  ============
 
 Bars
@@ -210,6 +210,7 @@ Crop out any part of your video.
    top                         ``(float, 0 to 1)`` Size of top bar
    x                           ``(float, -1 to 1)`` X-offset
    y                           ``(float, -1 to 1)`` Y-offset
+   resize                      ``(bool, choices: ['Yes', 'No'])`` Replace the frame image with the cropped area (allows automatic scaling of the cropped image)
    ==========================  ============
 
 Deinterlace
