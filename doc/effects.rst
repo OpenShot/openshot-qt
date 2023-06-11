@@ -34,6 +34,18 @@ position, to help create animations.
 
 .. image:: images/clip-effects.jpg
 
+Sequencing
+----------
+
+Effects are normally applied **before** the Clip processes keyframes. This allows the effect to process the raw image of
+the clip, before the clip applies properties such as scaling, rotation, location, etc... Normally, this is the preferred
+sequence of events, and this is the default behavior of effects in OpenShot. However, you can optionally override this
+behavior with the ``Apply Before Clip Keyframes`` property.
+
+If you set the ``Apply Before Clip Keyframes`` property to ``No``, the effect will be sequenced **after** the clip scales, rotates,
+and applies keyframes to the image. This can be useful on certain effects, such as the **Mask** effect, when you want
+to animate a clip first and then apply a static mask to the clip.
+
 Video Effects
 -------------
 
@@ -51,10 +63,11 @@ Uses a grayscale mask image to gradually wipe / transition between 2 images.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    brightness                  ``(float, -1 to 1)`` This curve controls the motion across the wipe
    contrast                    ``(float, 0 to 20)`` This curve controls the hardness and softness of the wipe edge
    reader                      ``(reader)`` This reader can use any image or video as input for your grayscale wipe
-   replace_image               ``(int, choices: ['Yes', 'No'])`` Replace the clips image with the current grayscale wipe image, useful for troubleshooting
+   replace_image               ``(bool, choices: ['Yes', 'No'])`` Replace the clips image with the current grayscale wipe image, useful for troubleshooting
    ==========================  ============
 
 Bars
@@ -67,6 +80,7 @@ Add colored bars around your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 0.5)`` The curve to adjust the bottom bar size
    color                       ``(color)`` The curve to adjust the color of bars
    left                        ``(float, 0 to 0.5)`` The curve to adjust the left bar size
@@ -84,6 +98,7 @@ Adjust the blur of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    horizontal_radius           ``(float, 0 to 100)`` Horizontal blur radius keyframe. The size of the horizontal blur operation in pixels.
    iterations                  ``(float, 0 to 100)`` Iterations keyframe. The # of blur iterations per pixel. 3 iterations = Gaussian.
    sigma                       ``(float, 0 to 100)`` Sigma keyframe. The amount of spread in the blur operation. Should be larger than radius.
@@ -100,6 +115,7 @@ Adjust the brightness and contrast of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    brightness                  ``(float, -1 to 1)`` The curve to adjust the brightness
    contrast                    ``(float, 0 to 100)`` The curve to adjust the contrast (3 is typical, 20 is a lot, 100 is max. 0 is invalid)
    ==========================  ============
@@ -114,6 +130,7 @@ Add text captions on top of your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    background                  ``(color)`` Color of caption area background
    background_alpha            ``(float, 0 to 1)`` Background color alpha
    background_corner           ``(float, 0 to 60)`` Background corner radius
@@ -143,6 +160,7 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    color                       ``(color)`` The color to match
    fuzz                        ``(float, 0 to 125)`` The fuzz factor (or threshold)
    halo                        ``(float, 0 to 125)`` The additional threshold for halo elimination.
@@ -159,6 +177,7 @@ Adjust the color saturation.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    saturation                  ``(float, 0 to 4)`` The curve to adjust the overall saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
    saturation_B                ``(float, 0 to 4)`` The curve to adjust blue saturation of the frame's image
    saturation_G                ``(float, 0 to 4)`` The curve to adjust green saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
@@ -184,6 +203,7 @@ shift of the alpha channel.*
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    alpha_x                     ``(float, -1 to 1)`` Shift the Alpha X coordinates (left or right)
    alpha_y                     ``(float, -1 to 1)`` Shift the Alpha Y coordinates (up or down)
    blue_x                      ``(float, -1 to 1)`` Shift the Blue X coordinates (left or right)
@@ -204,12 +224,14 @@ Crop out any part of your video.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 1)`` Size of bottom bar
    left                        ``(float, 0 to 1)`` Size of left bar
    right                       ``(float, 0 to 1)`` Size of right bar
    top                         ``(float, 0 to 1)`` Size of top bar
    x                           ``(float, -1 to 1)`` X-offset
    y                           ``(float, -1 to 1)`` Y-offset
+   resize                      ``(bool, choices: ['Yes', 'No'])`` Replace the frame image with the cropped area (allows automatic scaling of the cropped image)
    ==========================  ============
 
 Deinterlace
@@ -222,6 +244,7 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    isOdd                       ``(bool, choices: ['Yes', 'No'])`` Use odd or even lines
    ==========================  ============
 
@@ -235,6 +258,7 @@ Adjust the hue / color of the frame's image.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    hue                         ``(float, 0 to 1)`` The curve to adjust the percentage of hue shift
    ==========================  ============
 
@@ -252,6 +276,7 @@ Detect objects through the video.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
    confidence_threshold        ``(float, 0 to 1)`` Minimum confidence value to display the detected objects
    display_box_text            ``(int, choices: ['Off', 'On'])`` Draw a rectangle around detected objects
@@ -269,6 +294,7 @@ Pixelate (increase or decrease) the number of visible pixels.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 1)`` The curve to adjust the bottom margin size
    left                        ``(float, 0 to 1)`` The curve to adjust the left margin size
    pixelization                ``(float, 0 to 0.99)`` The curve to adjust the amount of pixelization
@@ -286,6 +312,7 @@ Shift the image up, down, left, and right (with infinite wrapping).
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    x                           ``(float, -1 to 1)`` Shift the X coordinates (left or right)
    y                           ``(float, -1 to 1)`` Shift the Y coordinates (up or down)
    ==========================  ============
@@ -300,6 +327,7 @@ Stabilize video clip to remove undesired shaking and jitter.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    zoom                        ``(float, 0 to 2)`` Percentage to zoom into the clip, to crop off the shaking and uneven edges
    ==========================  ============
 
@@ -317,6 +345,7 @@ Distort the frame's image into a wave pattern.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    amplitude                   ``(float, 0 to 5)`` The height of the wave
    multiplier                  ``(float, 0 to 10)`` Amount to multiply the wave (make it bigger)
    shift_x                     ``(float, 0 to 1000)`` Amount to shift X-axis
@@ -341,6 +370,7 @@ Reduce the volume of loud sounds or amplify quiet sounds.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    attack                      ``(float, 0.1 to 100)``
    bypass                      ``(bool)``
    makeup_gain                 ``(float, -12 to 12)``
@@ -359,6 +389,7 @@ Adjust the synchronism between the audio and video track.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    delay_time                  ``(float, 0 to 5)``
    ==========================  ============
 
@@ -372,6 +403,7 @@ Alter the audio by clipping the signal.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    distortion_type             ``(int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])``
    input_gain                  ``(int, -24 to 24)``
    output_gain                 ``(int, -24 to 24)``
@@ -388,6 +420,7 @@ Reflection of sound with a delay after the direct sound.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    echo_time                   ``(float, 0 to 5)``
    feedback                    ``(float, 0 to 1)``
    mix                         ``(float, 0 to 1)``
@@ -403,6 +436,7 @@ Louder parts of audio becomes relatively louder and quieter parts becomes quiete
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    attack                      ``(float, 0.1 to 100)``
    bypass                      ``(bool)``
    makeup_gain                 ``(float, -12 to 12)``
@@ -421,6 +455,7 @@ Random signal having equal intensity at different frequencies.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    level                       ``(int, 0 to 100)``
    ==========================  ============
 
@@ -434,6 +469,7 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    filter_type                 ``(int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])``
    frequency                   ``(int, 20 to 20000)``
    gain                        ``(int, -24 to 24)``
@@ -450,6 +486,7 @@ Transform the voice present in an audio track into a robotic voice effect.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
    hop_size                    ``(int, choices: ['1/2', '1/4', '1/8'])``
    window_type                 ``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``
@@ -465,6 +502,7 @@ Transform the voice present in an audio track into a whispering voice effect.
    ==========================  ============
    Name                        Description
    ==========================  ============
+   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
    hop_size                    ``(int, choices: ['1/2', '1/4', '1/8'])``
    window_type                 ``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``
