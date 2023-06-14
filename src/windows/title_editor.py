@@ -321,7 +321,7 @@ class TitleEditor(QDialog):
             label.setToolTip(label_line_text)
 
             # create text editor for each text element in title
-            widget = QLineEdit(_(text))
+            widget = QLineEdit(text)
             widget.setFixedHeight(28)
             widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
             layout.addRow(label, widget)
