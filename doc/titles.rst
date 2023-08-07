@@ -17,12 +17,12 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-Titles
-======
+Text & Titles
+=============
 
-Adding text and titles is an important aspect of video editing, and OpenShot comes with an easy to use Title Editor. Use
+Adding text and titles is an important aspect of video editing, and OpenShot comes with an easy-to-use Title Editor. Use
 the Title menu (located in the main menu of OpenShot) to launch the Title Editor. You can also use the keyboard shortcut
-**Ctrl+T**.
+:kbd:`Ctrl+T`.
 
 Overview
 --------
@@ -41,10 +41,10 @@ Overview
    4   Save                Save and add the title to your project
    ==  ==================  ============
 
-Custom Titles
--------------
-OpenShot can use any vector SVG image file as a title template. Just add an SVG image file to your 
-*.openshot_qt/title_templates/* folder, and it will appear the next time you open the Title Editor interface. You can
+Custom Title Templates
+----------------------
+OpenShot can use any vector SVG image file as a custom title template. Just add an SVG image file to your
+``~/.openshot_qt/title_templates/`` folder, and it will appear the next time you open the Title Editor dialog. You can
 also right click on any SVG files in your **Project Files** panel, and choose **Edit Title** or **Duplicate Title**.
 
 3D Animated Titles
@@ -62,6 +62,20 @@ in the main menu of OpenShot) to launch the Animated Title editor. You can also 
 3   Title Properties    Change the text, colors, and advanced properties
 4   Render              Render the 3D animation, and add it to your project
 ==  ==================  ============
+
+Importing Text
+--------------
+
+You can generate text & titles in many different programs, such as Blender, Inkscape, Krita, Gimp, etc... Before you
+can import text into OpenShot, you must first export the text from these programs into a compatible image format that
+contains a **transparent background** and **alpha** channel.
+
+The ``SVG`` format is a great choice for vector graphics (curves, shapes, text effects and paths), however
+it is **not** always 100% compatible with OpenShot. Thus, we recommend using ``PNG`` format, which is a great web-based
+image format that can include a transparent background and alpha channel. A transparent background and alpha channel
+are needed for OpenShot to allow the text to not cover up videos and images on the timeline below them.
+
+For information on importing animated sequences into OpenShot, please see :ref:`animation_image_seq_ref`.
 
 Installing Inkscape & Blender
 -----------------------------

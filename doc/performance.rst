@@ -1,0 +1,70 @@
+.. Copyright (c) 2008-2023 OpenShot Studios, LLC
+ (http://www.openshotstudios.com). This file is part of
+ OpenShot Video Editor (http://www.openshot.org), an open-source project
+ dedicated to delivering high quality video editing and animation solutions
+ to the world.
+
+.. OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+.. OpenShot Video Editor is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+.. You should have received a copy of the GNU General Public License
+ along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+
+.. _performance_ref:
+
+Performance
+===========
+
+The preview window is the area that the video will playback on the screen. The preview window utilizes a real-time
+video render from OpenShot Video Editor, including audio playback. This is the primary area for watching
+back your edits, giving you the feedback needed to make adjustments.
+
+Real-Time Preview
+-----------------
+
+Many factors affect how smoothly the **real-time preview** is rendered on your computer. This requires a fast, modern
+multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many of the important factors below.
+See :ref:`min_system_req_ref`.
+
+   ==================  ============
+   Factor              Description
+   ==================  ============
+   CPU                 If your CPU is too slow or has too few cores, you will likely experience a slow, choppy preview.
+                       We recommend installing OpenShot on decent, modern computer. See :ref:`min_system_req_ref`.
+   Memory              If your available RAM memory is too limited, you will likely see huge drops in real-time
+                       performance, and your entire system will lag. We recommend installing additional RAM in your
+                       computer, if possible.
+   Cache               Your cache settings in the OpenShot Preferences are very important for determining how many
+                       frames to processes in advance. A value too low or too high can cause lag during the real-time
+                       video preview. The cache is also related to the available RAM. The higher the cache values, the more
+                       RAM and CPU is needed. We recommend experimenting with the Cache Preferences in OpenShot if you are
+                       experiencing issues with smooth playback. See :ref:`preferences_cache_ref`.
+   Preview Size        The height x width of your preview dock (widget) is very important for smooth real-time previews.
+                       The larger the window size, the more pixels must be rendered per frame, and the more CPU and RAM
+                       are required. It is recommended to keep reducing the preview window size until you achieve smooth
+                       video playback. On a slower computer, the preview window size might need to be very small for
+                       real-time previews (i.e. 320 x 240).
+   FPS (Frame Rate)    The FPS of your project is also very important, and a large factor for smooth video playback. For
+                       example, a 60 FPS video must render twice the number of frames, compared to a 30 FPS video. If
+                       you are experiencing slow downs in real-time performance, it can be helpful to reduce your project's
+                       FPS to a lower value, such as 30 or 24.
+   Matching Rates      It is very important to match your source assets FPS and Sample Rate with your Project FPS and Project
+                       sample rate. If either rate does not match exactly, it requires lots of additional CPU and RAM for
+                       OpenShot to normalize the mismatching rates. This can lead to audio pops, mis-alignments, duplicate frames, and extra
+                       lag in the real-time video preview. You can right-click a file and choose :guilabel:`File Properties`, to
+                       inspect the source asset rates, and ensure they match your Project settings (shown at the top of OpenShot).
+                       See :ref:`file_properties_ref`.
+   Source Assets       For example, if you are editing 4K 60 FPS source assets, this is likely going to put a strain on your system. A
+                       common solution is using another tool (such as FFmpeg) to create a copy (or proxy) of all your source assets,
+                       at a lower resolution (and maybe even a lower FPS). It is recommended to keep these proxy video files
+                       in their own folder, separate from the original video files. Once you have completed your video editing with
+                       the proxy files, simply copy/paste your `*.osp` project file back into the original folder, and export
+                       the higher quality, original files.
+   ==================  ============

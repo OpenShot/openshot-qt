@@ -96,6 +96,8 @@ in your original project folder location (i.e. the folder that contains your bro
 recovery folder, and if you still have issues with the recovered ``*.osp`` file, you can repeat this
 process with older versions contained in the recovery folder.
 
+.. _preferences_cache_ref:
+
 Cache
 -----
 
@@ -187,3 +189,18 @@ starting folder (options described below).
    **Recent Folder**                 The last folder used for this same operation. Project folders, Import folders, and Export folders are tracked separately.
    **Project Folder**                The current project folder (or the user's home folder, if the project is not yet saved)
    ================================  ==================
+
+.. _preferences_reset_ref:
+
+Reset (Default Values)
+----------------------
+
+To reset **all** preferences to their default values, please delete the ``openshot.settings`` file and
+re-launch OpenShot. The settings file can be located at this path: ``~/.openshot_qt/openshot.settings`` or
+``C:\Users\USERNAME\.openshot_qt\openshot.settings``. When OpenShot is re-launched, it will create the
+``.openshot_qt`` folder (if missing) and create the `openshot.settings` file with default values (if missing).
+
+Optionally, you can delete the entire ``.openshot_qt`` folder and re-launch OpenShot. However, please make a
+**backup** of the recovery folder first, since it contains backup copies of all your existing projects (``*.osp`` files):
+``~/.openshot_qt/recovery/`` or ``C:\Users\USERNAME\.openshot_qt\recovery``. This is the quickest method to achieve
+a **clean install** of OpenShot.

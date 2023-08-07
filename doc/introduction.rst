@@ -86,6 +86,7 @@ Minimum Specifications
 - 4GB of RAM (*16+ GB recommended*)
 - 1 GB of hard-disk space for installation & usage (*recommended: 50+ GB available hard-disk space for media, videos, images, and storage*)
 - Optional: Solid-state drive (SSD), if utilizing disk-caching add an additional 10GB of hard-disk space
+- For factors related to real-time previews, see :ref:`performance_ref`.
 
 License
 -------

@@ -47,6 +47,7 @@ Table of Contents:
    profiles
    import_export
    preferences
+   performance
    developers
    contributing
    learn_more
