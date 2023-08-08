@@ -48,7 +48,7 @@ Features
 - **Audio mixing, waveform, & editing**
 - **Emojis** (open-source stickers & artwork included)
 - **Frame accuracy** (step through each frame of video)
-- **Time mapping & speed changes** (slow/fast, forward/backward)
+- **Time re-mapping & speed changes** (slow/fast, forward/backward)
 - **Advanced AI** (motion tracking, object detection, & stabilization effects)
 - **Credits & captions** (scrolling and animated)
 - **Hardware accelerated** (encoding & decoding supports NVIDIA, AMD, Intel and more)

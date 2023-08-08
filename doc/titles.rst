@@ -24,6 +24,12 @@ Adding text and titles is an important aspect of video editing, and OpenShot com
 the Title menu (located in the main menu of OpenShot) to launch the Title Editor. You can also use the keyboard shortcut
 :kbd:`Ctrl+T`.
 
+Titles are simply vector image files with transparent backgrounds (``*.svg``). OpenShot comes with many easy-to-use
+templates, but you can also create your own or import new templates into OpenShot. These templates allow you to quickly
+change the text, font, size, color, and background color. You can also launch an advanced, external SVG editor for
+further customizations (if needed). Once the title is added to your project, drag and drop the title on a
+Track above a video clip. The transparent background will allow the video below it appear behind the text.
+
 Overview
 --------
 
@@ -37,7 +43,7 @@ Overview
    ==  ==================  ============
    1   Choose a Template   Choose from any available vector title template
    2   Preview Title       Preview your title as you make changes
-   3   Title Properties    Change the text, colors, or edit in an advanced SVG image editor (such as Inkscape)
+   3   Title Properties    Change the text, font, size, colors, or edit in an advanced, external SVG image editor (such as Inkscape)
    4   Save                Save and add the title to your project
    ==  ==================  ============
 
@@ -80,10 +86,11 @@ For information on importing animated sequences into OpenShot, please see :ref:`
 Installing Inkscape & Blender
 -----------------------------
 
-These features require the latest version of Blender (https://www.blender.org/download/) and
-Inkscape (https://inkscape.org/release/) be installed, and the OpenShot **Preferences** updated with the
-correct paths to the Blender & Inkscape executable. See the :ref:`preferences_general_ref` tab in Preferences. NOTE: The
-minimum supported version of Blender is 2.8+. Older version of Blender are not compatible with OpenShot Video Editor.
+Some features (:guilabel:`Advanced Editor` and :guilabel:`Animated Titles`) require the latest version of
+Blender (https://www.blender.org/download/) and Inkscape (https://inkscape.org/release/) be installed, and the
+OpenShot **Preferences** updated with the correct paths to the Blender & Inkscape executables.
+See the :ref:`preferences_general_ref` tab in Preferences. NOTE: The minimum supported version of
+Blender is 2.8+. Older version of Blender are not compatible with OpenShot Video Editor.
 
 For a detailed guide on how to install these dependencies, see
 `Blender & Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-Inkscape-Guide>`_.

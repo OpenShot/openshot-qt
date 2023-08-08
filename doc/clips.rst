@@ -131,6 +131,25 @@ Key frames are automatically created at the current playback position, to help c
 
 For more info on key frames and animation, see :ref:`animation_ref`.
 
+Time Re-mapping
+---------------
+Adjusting the speed and direction of a clip can be achieved using the :guilabel:`Time` property. You can
+use one of the available presets (`normal, fast, slow, freeze, freeze & zoom, forward, backward`), by right clicking
+on a Clip and choosing the :guilabel:`Time` menu. Many common presets are available in this menu, for reversing,
+speeding up, and slowing down a video clip.
+
+Optionally, you can manually set key-frame values for the :guilabel:`Time` property. The value represents the
+`frame number` at the position of the key-frame. This can be tricky to determine and might require a calculator to find
+the needed values. For example, if the beginning of your Clip sets a time value of ``300`` (i.e. `frame 300`),
+and the end of your clip sets a time value of ``1`` (`frame 1`), OpenShot will play this clip backwards, starting
+at frame 300 and ending at frame 1, at the appropriate speed (based on where these key-frames are set on the timeline).
+NOTE: To determine the total number of frames in a clip, multiply the duration of the file with the FPS of the project (for
+example: ``47.0 sec clip duration X 24.0 Project FPS = 1128 total frames``).
+
+This allows for some very complex scenarios, such as jump cutting inside a clip, reversing a portion of a clip,
+slowing down a portion of a clip, freezing on a frame, and much more. See :ref:`animation_ref` for more
+details on manual key-frame animations.
+
 Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto

@@ -109,7 +109,7 @@ Cache settings can be adjusted to make real-time playback faster or less CPU int
 to store image and audio data for each frame of video requested. The more frames that are cached, the
 smoother the real-time playback will be. However, the more that needs to be cached requires more
 CPU to generate the cache. There is a balance, and the default settings provide a generally sane
-set of cache values, which should allow most computers to playback video and audio smoothly.
+set of cache values, which should allow most computers to playback video and audio smoothly. See :ref:`playback_ref`.
 
 .. table::
    :widths: 36 80
@@ -200,9 +200,13 @@ Reset (Default Values)
 To reset **all** preferences to their default values, please delete the ``openshot.settings`` file and
 re-launch OpenShot. The settings file can be located at this path: ``~/.openshot_qt/openshot.settings`` or
 ``C:\Users\USERNAME\.openshot_qt\openshot.settings``. When OpenShot is re-launched, it will create the
-``.openshot_qt`` folder (if missing) and create the `openshot.settings` file with default values (if missing).
+missing ``openshot.settings`` file with default values.
 
-Optionally, you can delete the entire ``.openshot_qt`` folder and re-launch OpenShot. However, please make a
-**backup** of the recovery folder first, since it contains backup copies of all your existing projects (``*.osp`` files):
-``~/.openshot_qt/recovery/`` or ``C:\Users\USERNAME\.openshot_qt\recovery``. This is the quickest method to achieve
-a **clean install** of OpenShot.
+Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch OpenShot. However, please make a
+**backup** of any customized folders: **emojis, presets, profiles, recovery, title_templates, transitions,
+or yolo**. For example, your ``/recovery/`` sub-folder contains backup copies of all your
+existing projects (``*.osp`` files). Deleting the ``.openshot_qt/`` folder is the quickest method to
+achieve a **clean install** of OpenShot (i.e. restoring all default preferences and settings). See our
+`step-by-step guide <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-OpenShot>`_ for more
+information about **clean installs** of OpenShot.
+
