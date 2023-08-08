@@ -47,7 +47,7 @@ Table of Contents:
    profiles
    import_export
    preferences
-   performance
+   playback
    developers
    contributing
    learn_more

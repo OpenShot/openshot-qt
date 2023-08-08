@@ -135,20 +135,20 @@ the previous ``openshot.settings`` file (for a clean install with **default pref
 Windows
 -------
 
-1. Open **Control Panel** from the Start menu
-2. Click on **Programs and Features**
-3. Select OpenShot Video Editor, then click **Uninstall**
+#. Open **Control Panel** from the Start menu
+#. Click on **Programs and Features**
+#. Select OpenShot Video Editor, then click **Uninstall**
 
 Mac
 ---
 
-1. Open **Finder** and go to **Applications**
-2. Drag the OpenShot Video Editor icon to the **Trash** in the Dock
-3. Right-click **Trash** and choose **Empty Trash**
+#. Open **Finder** and go to **Applications**
+#. Drag the OpenShot Video Editor icon to the **Trash** in the Dock
+#. Right-click **Trash** and choose **Empty Trash**
 
 Ubuntu (Linux)
 --------------
 
-1. Open up **Files**
-2. Locate the ``*.AppImage`` and delete the file
-3. OR click Activities, Right-click on OpenShot Video Editor icon, and choose **Remove AppImage from System**
+#. Open up **Files**
+#. Locate the ``*.AppImage`` and delete the file
+#. OR click Activities, Right-click on OpenShot Video Editor icon, and choose **Remove AppImage from System**

@@ -33,9 +33,9 @@ makes the whole process much more manageable.
 
 There are three main jobs of video editing:
 
-1. Remove mistakes or unwanted sections
-2. Keep the video moving at an engaging pace
-3. Insert supporting footage, audio, or titles
+#. Remove mistakes or unwanted sections
+#. Keep the video moving at an engaging pace
+#. Insert supporting footage, audio, or titles
 
 Use these three points as a checklist as you edit.
 
@@ -47,7 +47,6 @@ you have an older computer, check your system specifications against OpenShot's
 :ref:`min_system_req_ref` to make sure it works for video editing.
 Unfortunately, many older computers are not fast enough for video editing, and you
 should upgrade your whole system, if possible.
-
 
 Accessories
 -----------
@@ -68,7 +67,6 @@ Becoming a great video editor isn’t effortless, but with practice and patience
 you’ll be editing like a professional in no time. Here are a few of the 
 essential tips and techniques you need to know to become a skilled video editor.
 
-
 #. Pick the Right Computer
     While having a great computer won’t necessarily make you a great video 
     editor, a faster computer will allow you to focus more of your time on the 
@@ -77,11 +75,11 @@ essential tips and techniques you need to know to become a skilled video editor.
     depends on your own preferences.
 
 #. Keep Shooting
-    Record more video that you think you will need for your project. Include
+    Record more video and audio than you think you will need for your project. Include
     video that enhances the scene, sets a mood, or tells a story. You can use
-    the extra video for smooth transitions in your project. If you are
-    comfortable using multiple devices, use two devices simultaneously the 
-    insert video from either device into your project.
+    the extra video for smooth transitions in your project. If your project requires
+    voice overs or narration, we suggest using an external application to record
+    your microphone (since OpenShot does not include any recording capabilities yet).
 
 #. Organize Your Project Files
     Composition is the key to success, whether you are running Linux, on a Mac, 
@@ -91,7 +89,7 @@ essential tips and techniques you need to know to become a skilled video editor.
     but if you move them after your project is saved, you could lose your 
     entire project. Organizing before you begin editing can be very
     advantageous.
- 
+
 #. Watch Everything
     Watching everything is the first step in the editing process. Writer and
     filmmaker David Andrew Stoler says there is gold in the most unlikely of 

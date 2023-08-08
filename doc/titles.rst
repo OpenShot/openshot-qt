@@ -82,7 +82,8 @@ Installing Inkscape & Blender
 
 These features require the latest version of Blender (https://www.blender.org/download/) and
 Inkscape (https://inkscape.org/release/) be installed, and the OpenShot **Preferences** updated with the
-correct paths to the Blender & Inkscape executable. See the :ref:`preferences_general_ref` tab in Preferences.
+correct paths to the Blender & Inkscape executable. See the :ref:`preferences_general_ref` tab in Preferences. NOTE: The
+minimum supported version of Blender is 2.8+. Older version of Blender are not compatible with OpenShot Video Editor.
 
 For a detailed guide on how to install these dependencies, see
 `Blender & Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-Inkscape-Guide>`_.

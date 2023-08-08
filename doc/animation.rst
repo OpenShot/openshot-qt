@@ -67,7 +67,7 @@ To adjust the **interpolation mode**, right click on the small graph icon next t
 
 | For more info on creating key frames for location, rotation, scale, shear, and location, see :ref:`clip_transform_ref`.
 | For more info on preset animations, see :ref:`clip_presets_ref`.
-| For more info on clip properties, see :ref:`clip_properties_ref`.
+| For a full list of key frames, see :ref:`clip_properties_ref`.
 
 Bézier Presets
 --------------

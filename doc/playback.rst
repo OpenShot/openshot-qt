@@ -17,21 +17,21 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. _performance_ref:
+.. _playback_ref:
 
-Performance
-===========
+Playback
+========
 
-The preview window is the area that the video will playback on the screen. The preview window utilizes a real-time
-video render from OpenShot Video Editor, including audio playback. This is the primary area for watching
-back your edits, giving you the feedback needed to make adjustments.
+The preview window is where video & audio playback takes place in OpenShot Video Editor. The preview window
+utilizes real-time video rendering, caching, re-sampling, and image scaling. This is the primary area for watching
+back (and listening to) your edits, giving you the feedback needed to make adjustments. It is also one of the most
+costly operations to your CPU, and requires a decent computer and some reasonable assumptions and factors (listed below).
 
 Real-Time Preview
 -----------------
 
-Many factors affect how smoothly the **real-time preview** is rendered on your computer. This requires a fast, modern
+Many factors affect how smoothly the **real-time video preview** can playback on your computer. This requires a fast, modern
 multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many of the important factors below.
-See :ref:`min_system_req_ref`.
 
    ==================  ============
    Factor              Description
@@ -40,7 +40,7 @@ See :ref:`min_system_req_ref`.
                        We recommend installing OpenShot on decent, modern computer. See :ref:`min_system_req_ref`.
    Memory              If your available RAM memory is too limited, you will likely see huge drops in real-time
                        performance, and your entire system will lag. We recommend installing additional RAM in your
-                       computer, if possible.
+                       computer, if possible. See :ref:`min_system_req_ref`.
    Cache               Your cache settings in the OpenShot Preferences are very important for determining how many
                        frames to processes in advance. A value too low or too high can cause lag during the real-time
                        video preview. The cache is also related to the available RAM. The higher the cache values, the more
@@ -67,4 +67,9 @@ See :ref:`min_system_req_ref`.
                        in their own folder, separate from the original video files. Once you have completed your video editing with
                        the proxy files, simply copy/paste your `*.osp` project file back into the original folder, and export
                        the higher quality, original files.
+   Audio Device        If you are still having issues with audio lag or sync, please verify you are using the correct
+                       Audio Device for playback (in the OpenShot Preferences). See :ref:`preferences_preview_ref`. Also,
+                       verify your default audio device (on your operating system) is using the same sample rate. On
+                       certain operating systems (such as Windows), mismatching sample rates can cause severe audio
+                       / video sync problems.
    ==================  ============

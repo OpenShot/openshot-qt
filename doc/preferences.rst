@@ -49,10 +49,12 @@ The General tab of the Preferences window allows you to modify the settings that
    Default Theme                     Humanity:Dark  Choose your theme for OpenShot, either Light, Dark or None
    Image Length (seconds)            10.00          How long the image displays on the screen when added to the timeline
    Volume                            75.00          The percentage of the volume of the clip when added to the timeline
-   Blender Command (path)            *<blank>*      The path to the binary for Blender
+   Blender Command (path)            *<blank>*      The path to the binary for Blender (version 2.8+)
    Advanced Title Editor (path)      *<blank>*      The path to the binary for Inkscape
    Show Export Dialog when Finished  *<checked>*    Displays the Export Video windows after the export is finished
    ================================  =============  ===========
+
+.. _preferences_preview_ref:
 
 Preview
 -------
@@ -138,7 +140,7 @@ Performance
 -----------
 .. image:: images/preferences-6-performance.jpg
 
-Please keep in mind that hardware acceleration is experimental at the moment. OpenShot supports both decoding and
+Please keep in mind that GPU hardware acceleration is experimental at the moment. OpenShot supports both decoding and
 encoding acceleration. For more information take a look at our `Github HW-ACCEL Doc <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_.
 NOTE: On systems with older graphics cards, hardware acceleration may not always be faster than CPU encoding.
 
