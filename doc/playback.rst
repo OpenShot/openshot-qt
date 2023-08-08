@@ -21,7 +21,6 @@
 
 Playback
 ========
-
 The preview window is where video & audio playback takes place in OpenShot Video Editor. The preview window
 utilizes real-time video rendering, caching, re-sampling, and image scaling. This is the primary area for watching
 back (and listening to) your edits, giving you the feedback needed to make adjustments. It is also one of the most
@@ -29,9 +28,11 @@ costly operations to your CPU, and requires a decent computer and some reasonabl
 
 Real-Time Preview
 -----------------
-
 Many factors affect how smoothly the **real-time video preview** can playback on your computer. This requires a fast, modern
 multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many of the important factors below.
+
+.. table::
+   :widths: 22 80
 
    ==================  ============
    Factor              Description
@@ -71,5 +72,33 @@ multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many 
                        Audio Device for playback (in the OpenShot Preferences). See :ref:`preferences_preview_ref`. Also,
                        verify your default audio device (on your operating system) is using the same sample rate. On
                        certain operating systems (such as Windows), mismatching sample rates can cause severe audio
-                       / video sync problems.
+                       / video sync problems. Be sure to restart OpenShot after changing the audio device.
+   ==================  ============
+
+Audio Troubleshooting
+---------------------
+If you are still experiencing audio related issues, and the above real-time playback factors did not resolve
+your issue, here are some additional troubleshooting steps you can take.
+
+.. table::
+   :widths: 22 80
+
+   ==================  ============
+   Step                Description
+   ==================  ============
+   Latest Daily Build  Verify you are running the latest daily build of OpenShot: https://www.openshot.org/download#daily
+   Clean Install       See :ref:`preferences_reset_ref` for a clean install
+   Audio Device        Check that the Playback Audio Device is set correctly for your sound output under Preferences
+                       in the Preview tab. Restart OpenShot after changing the settings. You can also try a different
+                       audio device (USB, audio over HDMI from the video card, etc.) to rule out other audio issues.
+                       Disable `automatic sound suppression` for voice calls during microphone activity, and disable
+                       `Audio Enhancements` under the advanced settings tab of your audio device (not all audio devices
+                       have these settings). See :ref:`preferences_preview_ref`.
+   Sample Rate         Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on the Preview tab of the
+                       Preferences window match your hardware. You can also check these settings in the operating system
+                       control panel (i.e. Windows Sound Control Panel). See :ref:`preferences_preview_ref`.
+   Headphones          If you're using headphones, plug them in before starting OpenShot. Launching OpenShot with no
+                       speakers, headphones, or valid audio playback device can cause OpenShot to freeze during playback.
+   OS Updates          Update your operating system and any pending security updates. Some audio issues, especially
+                       audio device specific issues, can be resolved with an operating system update.
    ==================  ============

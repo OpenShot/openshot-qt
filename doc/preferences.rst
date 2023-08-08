@@ -205,8 +205,11 @@ missing ``openshot.settings`` file with default values.
 Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch OpenShot. However, please make a
 **backup** of any customized folders: **emojis, presets, profiles, recovery, title_templates, transitions,
 or yolo**. For example, your ``/recovery/`` sub-folder contains backup copies of all your
-existing projects (``*.osp`` files). Deleting the ``.openshot_qt/`` folder is the quickest method to
-achieve a **clean install** of OpenShot (i.e. restoring all default preferences and settings). See our
+existing projects (``*.osp`` files).
+
+Deleting the ``.openshot_qt/`` folder is the quickest method to
+achieve a **clean install** of OpenShot (i.e. restoring all default preferences and settings). When OpenShot
+is re-launched, it will create any missing folders (i.e. ``.openshot_qt/``) and settings files. See our
 `step-by-step guide <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-OpenShot>`_ for more
 information about **clean installs** of OpenShot.
 
