@@ -52,6 +52,10 @@ multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many 
                        are required. It is recommended to keep reducing the preview window size until you achieve smooth
                        video playback. On a slower computer, the preview window size might need to be very small for
                        real-time previews (i.e. 320 x 240).
+   Profile             Your project profile determines which size (width x height) and frame rate (FPS) are used during both
+                       playback and exporting. For example, if you are using a FHD 1920x1080 sized profile, you can also choose a
+                       smaller profile with the same aspect ratio (``16x9`` in this example), to improve the preview speed
+                       on slower computers. See :ref:`profiles_ref` for more information on available profiles.
    FPS (Frame Rate)    The FPS of your project is also very important, and a large factor for smooth video playback. For
                        example, a 60 FPS video must render twice the number of frames, compared to a 30 FPS video. If
                        you are experiencing slow downs in real-time performance, it can be helpful to reduce your project's
@@ -97,6 +101,8 @@ your issue, here are some additional troubleshooting steps you can take.
    Sample Rate         Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on the Preview tab of the
                        Preferences window match your hardware. You can also check these settings in the operating system
                        control panel (i.e. Windows Sound Control Panel). See :ref:`preferences_preview_ref`.
+   Volume              Ensure that the volume does not exceed 100% on overlapping clips (such as an audio track combined
+                       with a video track). Lower the volume on individual clips if needed. See :ref:`clip_volume_mixing_ref`.
    Headphones          If you're using headphones, plug them in before starting OpenShot. Launching OpenShot with no
                        speakers, headphones, or valid audio playback device can cause OpenShot to freeze during playback.
    OS Updates          Update your operating system and any pending security updates. Some audio issues, especially

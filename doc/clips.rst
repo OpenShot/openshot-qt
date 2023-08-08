@@ -204,12 +204,9 @@ position, to help create animations.
    Waveform                Bool        Should a waveform be used instead of the clip's image
    ======================  ==========  ============
 
-Details
+Gravity
 """""""
-
-**Gravity**:
-
-  Gravity sets an initial position for the clip, once it has been scaled as above. The options are:
+Gravity sets an initial position for the clip, once it has been scaled as above. The options are:
 
   - *Top Left* – the top and left edges of the clip align with the top and left edges of the screen
   - *Top Center* – the top edge of the clip aligns with the top edge of the screen; the clip is horizontally centered on the screen.
@@ -221,24 +218,26 @@ Details
   - *Bottom Center* – the bottom edge of the clip aligns with the bottom edge of the screen; the clip is horizontally centered on the screen.
   - Bottom Right – the bottom and right edges of the clip align with the bottom and right edges of the screen
 
-**Scale**:
-
- This is the initial resizing method, which may be further adjusted by Scale X and Scale Y (below). The options are:
+Scale
+"""""
+This is the initial resizing method, which may be further adjusted by Scale X and Scale Y (below). The options are:
 
  - *Best Fit* (default) – the clip is as large as possible without changing the aspect ratio.
  - *Crop* – the aspect ratio of the clip is maintained while the clip is enlarged to fill the entire screen, even if that means some of it will be cropped.
  - *None* – the clip is its original size.
  - *Stretch* – the clip is stretched to fill the entire screen, changing the aspect ratio if necessary.
 
-**Volume Mixing**:
+.. _clip_volume_mixing_ref:
 
- Mixing audio involves adjusting volume levels so that they maintain a good range within each clip, and then adjusting them in proportion to other clips used in the project. The following values are available:
+Volume Mixing
+"""""""""""""
+Mixing audio involves adjusting volume levels so that they maintain a good range within each clip, and then adjusting them in proportion to other clips used in the project. The following values are available:
 
  - **None** - Make no adjustments to volume data before mixing audio
  - **Average** - Automatically divide the volume of each clip based on the # of overlapping clips. For example, 2 overlapping clips would each have 50% volume.
  - **Reduce** - Automatically reduce the clip's volume by 20%, allowing it to mix with other clips, and reducing the likelihood of over-volume loud events.
 
- Consider the following guidelines when adjusting volume levels:
+Consider the following guidelines when adjusting volume levels:
 
  - If you combine particularly loud audio clips on multiple tracks, clipping (a staccato distortion) may occur. To avoid clipping, reduce volume levels.
  - If you need to adjust the volume separately in different parts of a clip (for example, one person’s voice is faint, while later another’s is too loud), you can use keyframes to vary the volume throughout the clip.
