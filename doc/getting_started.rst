@@ -4,8 +4,8 @@
  dedicated to delivering high quality video editing and animation solutions
  to the world.
 
-.. OpenShot Video Editor is free software: you can redistribute it and/or 
- modify it under the terms of the GNU General Public License as published by
+.. OpenShot Video Editor is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
@@ -17,8 +17,6 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
-.. Edited September 25, 2020 - [USA]TechDude
- 
 Video Editing Basics
 ====================
 
@@ -42,7 +40,7 @@ Use these three points as a checklist as you edit.
 Computer
 --------
 Video editing does not require an expensive machine, especially if you are a 
-beginner. It would be best if you had a decent monitor and graphics card. If
+beginner. However, it would be best if you had a more recent monitor and graphics card. If
 you have an older computer, check your system specifications against OpenShot's
 :ref:`min_system_req_ref` to make sure it works for video editing.
 Unfortunately, many older computers are not fast enough for video editing, and you

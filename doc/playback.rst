@@ -24,12 +24,12 @@ Playback
 The preview window is where video & audio playback takes place in OpenShot Video Editor. The preview window
 utilizes real-time video rendering, caching, re-sampling, and image scaling. This is the primary area for watching
 back (and listening to) your edits, giving you the feedback needed to make adjustments. It is also one of the most
-costly operations to your CPU, and requires a decent computer and some reasonable assumptions and factors (listed below).
+costly operations to your CPU, and requires a modern computer and some reasonable assumptions and factors (listed below).
 
 Real-Time Preview
 -----------------
 Many factors affect how smoothly the **real-time video preview** can playback on your computer. This requires a fast, modern
-multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many of the important factors below.
+multi-threaded CPU, lots of RAM (memory), and a modern GPU. We have listed many of the important factors below.
 
 .. table::
    :widths: 22 80
@@ -38,7 +38,8 @@ multi-threaded CPU, lots of RAM (memory), and a decent GPU. We have listed many 
    Factor              Description
    ==================  ============
    CPU                 If your CPU is too slow or has too few cores, you will likely experience a slow, choppy preview.
-                       We recommend installing OpenShot on decent, modern computer. See :ref:`min_system_req_ref`.
+                       We recommend installing OpenShot on fairly modern computer. See :ref:`min_system_req_ref` for
+                       more details on the hardware requirements for OpenShot Video Editor.
    Memory              If your available RAM memory is too limited, you will likely see huge drops in real-time
                        performance, and your entire system will lag. We recommend installing additional RAM in your
                        computer, if possible. See :ref:`min_system_req_ref`.
