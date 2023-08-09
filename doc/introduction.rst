@@ -48,7 +48,7 @@ Features
 - **Audio mixing, waveform, & editing**
 - **Emojis** (open-source stickers & artwork included)
 - **Frame accuracy** (step through each frame of video)
-- **Time mapping & speed changes** (slow/fast, forward/backward)
+- **Time re-mapping & speed changes** (slow/fast, forward/backward)
 - **Advanced AI** (motion tracking, object detection, & stabilization effects)
 - **Credits & captions** (scrolling and animated)
 - **Hardware accelerated** (encoding & decoding supports NVIDIA, AMD, Intel and more)
@@ -86,6 +86,7 @@ Minimum Specifications
 - 4GB of RAM (*16+ GB recommended*)
 - 1 GB of hard-disk space for installation & usage (*recommended: 50+ GB available hard-disk space for media, videos, images, and storage*)
 - Optional: Solid-state drive (SSD), if utilizing disk-caching add an additional 10GB of hard-disk space
+- For factors related to real-time previews, see :ref:`playback_ref`.
 
 License
 -------

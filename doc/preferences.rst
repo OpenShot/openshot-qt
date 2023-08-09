@@ -49,10 +49,12 @@ The General tab of the Preferences window allows you to modify the settings that
    Default Theme                     Humanity:Dark  Choose your theme for OpenShot, either Light, Dark or None
    Image Length (seconds)            10.00          How long the image displays on the screen when added to the timeline
    Volume                            75.00          The percentage of the volume of the clip when added to the timeline
-   Blender Command (path)            *<blank>*      The path to the binary for Blender
+   Blender Command (path)            *<blank>*      The path to the binary for Blender (version 2.8+)
    Advanced Title Editor (path)      *<blank>*      The path to the binary for Inkscape
    Show Export Dialog when Finished  *<checked>*    Displays the Export Video windows after the export is finished
    ================================  =============  ===========
+
+.. _preferences_preview_ref:
 
 Preview
 -------
@@ -96,6 +98,8 @@ in your original project folder location (i.e. the folder that contains your bro
 recovery folder, and if you still have issues with the recovered ``*.osp`` file, you can repeat this
 process with older versions contained in the recovery folder.
 
+.. _preferences_cache_ref:
+
 Cache
 -----
 
@@ -105,7 +109,7 @@ Cache settings can be adjusted to make real-time playback faster or less CPU int
 to store image and audio data for each frame of video requested. The more frames that are cached, the
 smoother the real-time playback will be. However, the more that needs to be cached requires more
 CPU to generate the cache. There is a balance, and the default settings provide a generally sane
-set of cache values, which should allow most computers to playback video and audio smoothly.
+set of cache values, which should allow most computers to playback video and audio smoothly. See :ref:`playback_ref`.
 
 .. table::
    :widths: 36 80
@@ -136,7 +140,7 @@ Performance
 -----------
 .. image:: images/preferences-6-performance.jpg
 
-Please keep in mind that hardware acceleration is experimental at the moment. OpenShot supports both decoding and
+Please keep in mind that GPU hardware acceleration is experimental at the moment. OpenShot supports both decoding and
 encoding acceleration. For more information take a look at our `Github HW-ACCEL Doc <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_.
 NOTE: On systems with older graphics cards, hardware acceleration may not always be faster than CPU encoding.
 
@@ -187,3 +191,25 @@ starting folder (options described below).
    **Recent Folder**                 The last folder used for this same operation. Project folders, Import folders, and Export folders are tracked separately.
    **Project Folder**                The current project folder (or the user's home folder, if the project is not yet saved)
    ================================  ==================
+
+.. _preferences_reset_ref:
+
+Reset (Default Values)
+----------------------
+
+To reset **all** preferences to their default values, please delete the ``openshot.settings`` file and
+re-launch OpenShot. The settings file can be located at this path: ``~/.openshot_qt/openshot.settings`` or
+``C:\Users\USERNAME\.openshot_qt\openshot.settings``. When OpenShot is re-launched, it will create the
+missing ``openshot.settings`` file with default values.
+
+Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch OpenShot. However, please make a
+**backup** of any customized folders: **emojis, presets, profiles, recovery, title_templates, transitions,
+or yolo**. For example, your ``/recovery/`` sub-folder contains backup copies of all your
+existing projects (``*.osp`` files).
+
+Deleting the ``.openshot_qt/`` folder is the quickest method to
+achieve a **clean install** of OpenShot (i.e. restoring all default preferences and settings). When OpenShot
+is re-launched, it will create any missing folders (i.e. ``.openshot_qt/``) and settings files. See our
+`step-by-step guide <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-OpenShot>`_ for more
+information about **clean installs** of OpenShot.
+

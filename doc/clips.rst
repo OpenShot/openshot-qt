@@ -131,6 +131,25 @@ Key frames are automatically created at the current playback position, to help c
 
 For more info on key frames and animation, see :ref:`animation_ref`.
 
+Time Re-mapping
+---------------
+Adjusting the speed and direction of a clip can be achieved using the :guilabel:`Time` property. You can
+use one of the available presets (`normal, fast, slow, freeze, freeze & zoom, forward, backward`), by right clicking
+on a Clip and choosing the :guilabel:`Time` menu. Many common presets are available in this menu, for reversing,
+speeding up, and slowing down a video clip.
+
+Optionally, you can manually set key-frame values for the :guilabel:`Time` property. The value represents the
+`frame number` at the position of the key-frame. This can be tricky to determine and might require a calculator to find
+the needed values. For example, if the beginning of your Clip sets a time value of ``300`` (i.e. `frame 300`),
+and the end of your clip sets a time value of ``1`` (`frame 1`), OpenShot will play this clip backwards, starting
+at frame 300 and ending at frame 1, at the appropriate speed (based on where these key-frames are set on the timeline).
+NOTE: To determine the total number of frames in a clip, multiply the duration of the file with the FPS of the project (for
+example: ``47.0 sec clip duration X 24.0 Project FPS = 1128 total frames``).
+
+This allows for some very complex scenarios, such as jump cutting inside a clip, reversing a portion of a clip,
+slowing down a portion of a clip, freezing on a frame, and much more. See :ref:`animation_ref` for more
+details on manual key-frame animations.
+
 Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
@@ -141,56 +160,53 @@ effect, and allow you to edit (and animate) them. For the full list of effects, 
 
 .. _clip_properties_ref:
 
-Properties
-----------
+Clip Properties
+---------------
 Below is a list of clip properties which can be edited, and in most cases, animated over time. To view a clip's properties,
 right click and choose **Properties**. The property editor will appear, where you can change these properties. Note: Pay
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
 position, to help create animations.
 
 .. table::
-   :widths: 24 60
+   :widths: 18 18 70
 
-   ======================  ============
-   Name                    Description
-   ======================  ============
-   Alpha                   Curve representing the alpha (1 to 0)
-   Channel Filter          A number representing an audio channel to filter (clears all other channels)
-   Channel Mapping         A number representing an audio channel to output (only works when filtering a channel)
-   Frame Number            The format to display the frame number (if any)
-   Duration                The length of the clip (in seconds)
-   End                     The end trimming position of the clip (in seconds)
-   Gravity                 The gravity of a clip determines where it snaps to its parent (details below)
-   Enable Audio            An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
-   Enable Video            An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
-   ID                      A randomly generated GUID (globally unique identifier) assigned to each clip
-   Track                   The layer which holds the clip (higher tracks are rendered on top of lower tracks)
-   Location X              Curve representing the relative X position in percent based on the gravity (-1 to 1)
-   Location Y              Curve representing the relative Y position in percent based on the gravity (-1 to 1)
-   Volume Mixing           The volume mixing choices control how volume is adjusted before mixing (None=don't adjust volume of this clip, Reduce=lower the volume to 80%, Average=divide volume based on # of concurrent clips, details below)
-   Origin X                Curve representing the rotation origin point, X position in percent (-1 to 1)
-   Origin Y                Curve representing the rotation origin point, Y position in percent (-1 to 1)
-   Parent                  The parent object to this clip, which makes many of these keyframe values initialize to the parent value
-   Position                The position of the clip on the timeline (in seconds, 0.0 is the beginning of the timeline)
-   Rotation                Curve representing the rotation (0 to 360)
-   Scale                   The scale determines how a clip should be resized to fit its parent (details below)
-   Scale X                 Curve representing the horizontal scaling in percent (0 to 1)
-   Scale Y                 Curve representing the vertical scaling in percent (0 to 1)
-   Shear X                 Curve representing X shear angle in degrees (-45.0=left, 45.0=right)
-   Shear Y                 Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
-   Start                   The start trimming position of the clip (in seconds)
-   Time                    Curve representing the frames over time to play (used for speed and direction of video)
-   Volume                  Curve representing the volume (0 to 1)
-   Wave Color              Curve representing the color of the audio wave form
-   Waveform                Should a waveform be used instead of the clip's image
-   ======================  ============
+   ======================  ==========  ============
+   Name                    Type        Description
+   ======================  ==========  ============
+   Alpha                   Key-Frame   Curve representing the alpha (1 to 0)
+   Channel Filter          Key-Frame   A number representing an audio channel to filter (clears all other channels)
+   Channel Mapping         Key-Frame   A number representing an audio channel to output (only works when filtering a channel)
+   Frame Number            Enum        The format to display the frame number (if any)
+   Duration                Float       The length of the clip (in seconds)
+   End                     Float       The end trimming position of the clip (in seconds)
+   Gravity                 Enum        The gravity of a clip determines where it snaps to its parent (details below)
+   Enable Audio            Enum        An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
+   Enable Video            Enum        An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
+   ID                      String      A randomly generated GUID (globally unique identifier) assigned to each clip
+   Track                   Int         The layer which holds the clip (higher tracks are rendered on top of lower tracks)
+   Location X              Key-Frame   Curve representing the relative X position in percent based on the gravity (-1 to 1)
+   Location Y              Key-Frame   Curve representing the relative Y position in percent based on the gravity (-1 to 1)
+   Volume Mixing           Enum        The volume mixing choices control how volume is adjusted before mixing (None=don't adjust volume of this clip, Reduce=lower the volume to 80%, Average=divide volume based on # of concurrent clips, details below)
+   Origin X                Key-Frame   Curve representing the rotation origin point, X position in percent (-1 to 1)
+   Origin Y                Key-Frame   Curve representing the rotation origin point, Y position in percent (-1 to 1)
+   Parent                  String      The parent object to this clip, which makes many of these keyframe values initialize to the parent value
+   Position                Float       The position of the clip on the timeline (in seconds, 0.0 is the beginning of the timeline)
+   Rotation                Key-Frame   Curve representing the rotation (0 to 360)
+   Scale                   Enum        The scale determines how a clip should be resized to fit its parent (details below)
+   Scale X                 Key-Frame   Curve representing the horizontal scaling in percent (0 to 1)
+   Scale Y                 Key-Frame   Curve representing the vertical scaling in percent (0 to 1)
+   Shear X                 Key-Frame   Curve representing X shear angle in degrees (-45.0=left, 45.0=right)
+   Shear Y                 Key-Frame   Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
+   Start                   Float       The start trimming position of the clip (in seconds)
+   Time                    Key-Frame   Curve representing the frames over time to play (used for speed and direction of video)
+   Volume                  Key-Frame   Curve representing the volume (0 to 1)
+   Wave Color              Key-Frame   Curve representing the color of the audio wave form
+   Waveform                Bool        Should a waveform be used instead of the clip's image
+   ======================  ==========  ============
 
-Details
+Gravity
 """""""
-
-**Gravity**:
-
-  Gravity sets an initial position for the clip, once it has been scaled as above. The options are:
+Gravity sets an initial position for the clip, once it has been scaled as above. The options are:
 
   - *Top Left* – the top and left edges of the clip align with the top and left edges of the screen
   - *Top Center* – the top edge of the clip aligns with the top edge of the screen; the clip is horizontally centered on the screen.
@@ -202,24 +218,26 @@ Details
   - *Bottom Center* – the bottom edge of the clip aligns with the bottom edge of the screen; the clip is horizontally centered on the screen.
   - Bottom Right – the bottom and right edges of the clip align with the bottom and right edges of the screen
 
-**Scale**:
-
- This is the initial resizing method, which may be further adjusted by Scale X and Scale Y (below). The options are:
+Scale
+"""""
+This is the initial resizing method, which may be further adjusted by Scale X and Scale Y (below). The options are:
 
  - *Best Fit* (default) – the clip is as large as possible without changing the aspect ratio.
  - *Crop* – the aspect ratio of the clip is maintained while the clip is enlarged to fill the entire screen, even if that means some of it will be cropped.
  - *None* – the clip is its original size.
  - *Stretch* – the clip is stretched to fill the entire screen, changing the aspect ratio if necessary.
 
-**Volume Mixing**:
+.. _clip_volume_mixing_ref:
 
- Mixing audio involves adjusting volume levels so that they maintain a good range within each clip, and then adjusting them in proportion to other clips used in the project. The following values are available:
+Volume Mixing
+"""""""""""""
+Mixing audio involves adjusting volume levels so that they maintain a good range within each clip, and then adjusting them in proportion to other clips used in the project. The following values are available:
 
  - **None** - Make no adjustments to volume data before mixing audio
  - **Average** - Automatically divide the volume of each clip based on the # of overlapping clips. For example, 2 overlapping clips would each have 50% volume.
  - **Reduce** - Automatically reduce the clip's volume by 20%, allowing it to mix with other clips, and reducing the likelihood of over-volume loud events.
 
- Consider the following guidelines when adjusting volume levels:
+Consider the following guidelines when adjusting volume levels:
 
  - If you combine particularly loud audio clips on multiple tracks, clipping (a staccato distortion) may occur. To avoid clipping, reduce volume levels.
  - If you need to adjust the volume separately in different parts of a clip (for example, one person’s voice is faint, while later another’s is too loud), you can use keyframes to vary the volume throughout the clip.

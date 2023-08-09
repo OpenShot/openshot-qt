@@ -21,12 +21,19 @@
 Installation
 ============
 
-The latest **stable** version of OpenShot Video Editor for Linux,
+The latest official **stable** version of OpenShot Video Editor for Linux,
 Mac, Chrome OS, and Windows can be downloaded from the official download page at
 https://www.openshot.org/download/. You can find our latest **unstable** versions
 (i.e. daily builds) at https://www.openshot.org/download#daily (these versions are
 updated very frequently, and often contain many improvements not yet released in our stable
 build).
+
+Clean Install
+^^^^^^^^^^^^^
+
+If you are upgrading from a previous version of OpenShot or are experiencing a crash after
+launching OpenShot, please see :ref:`preferences_reset_ref` for instructions on clearing
+the previous ``openshot.settings`` file (for a clean install with **default preferences**).
 
 Windows (Installer)
 ^^^^^^^^^^^^^^^^^^^
@@ -115,3 +122,33 @@ OpenShot successfully.
 - Under "Linux (Beta)" select "Turn On". Default values are fine.
 - When the Terminal appears (i.e. black window), Copy/Paste the following command:
     - ``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``
+
+Uninstall
+^^^^^^^^^
+
+To fully uninstall OpenShot from your system, you must **manually delete** the ``.openshot_qt`` folder:
+``~/.openshot_qt/`` or ``C:\Users\USERNAME\.openshot_qt\``, which contains all
+settings and files used by OpenShot. Be sure to **backup** any recovery files of your existing
+projects first (\*.osp files). Please see :ref:`preferences_reset_ref` for instructions on clearing
+the previous ``openshot.settings`` file (for a clean install with **default preferences**).
+
+Windows
+-------
+
+#. Open **Control Panel** from the Start menu
+#. Click on **Programs and Features**
+#. Select OpenShot Video Editor, then click **Uninstall**
+
+Mac
+---
+
+#. Open **Finder** and go to **Applications**
+#. Drag the OpenShot Video Editor icon to the **Trash** in the Dock
+#. Right-click **Trash** and choose **Empty Trash**
+
+Ubuntu (Linux)
+--------------
+
+#. Open up **Files**
+#. Locate the ``*.AppImage`` and delete the file
+#. OR click Activities, Right-click on OpenShot Video Editor icon, and choose **Remove AppImage from System**

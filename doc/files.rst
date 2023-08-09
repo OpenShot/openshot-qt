@@ -134,6 +134,8 @@ all files you need to add, right click, and choose Add to Timeline.
    6   Transitions         Choose a specific transition to use between files, random, or none
    ==  ==================  ============
 
+.. _file_properties_ref:
+
 Properties
 ----------
 To view the properties of any imported file in your video project, right click on the file, and choose **File Properties**.

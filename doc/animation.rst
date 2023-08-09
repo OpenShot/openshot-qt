@@ -67,7 +67,7 @@ To adjust the **interpolation mode**, right click on the small graph icon next t
 
 | For more info on creating key frames for location, rotation, scale, shear, and location, see :ref:`clip_transform_ref`.
 | For more info on preset animations, see :ref:`clip_presets_ref`.
-| For more info on clip properties, see :ref:`clip_properties_ref`.
+| For a full list of key frames, see :ref:`clip_properties_ref`.
 
 Bézier Presets
 --------------
@@ -80,10 +80,14 @@ To choose a curve preset, right click on the small graph icon next to a key fram
 
 .. image:: images/curve-presets.jpg
 
+.. _animation_image_seq_ref:
+
 Image Sequences
 ---------------
 If you have a sequence of similarly named images (such as, cat001.png, cat002.png, cat003.png, etc...), you can simply
-drag and drop one of them into OpenShot, and you will be prompted to import the entire sequence.
+drag and drop one of them into OpenShot, and you will be prompted to import the entire sequence. OpenShot will playback
+these sequential images rapidly, as if they are frames in a video. The rate or speed in which these images are displayed
+is based on their frame rate.
 
 .. image:: images/import-image-sequence.jpg
 

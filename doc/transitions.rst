@@ -72,7 +72,7 @@ with the **Brightness** curve, or held at a constant value to create a transpare
 
 Custom Transition
 -----------------
-Any greyscale image can be used as a transition (or mask), by adding it to your */.openshot_qt/transitions/* folder. Just
+Any greyscale image can be used as a transition (or mask), by adding it to your ``~/.openshot_qt/transitions/`` folder. Just
 be sure to name your file something that is easily recognizable, and restart OpenShot. Your custom transition/mask will now show
 up in the list of transitions.
 

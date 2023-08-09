@@ -157,3 +157,56 @@ Not Set                    Save Current Frame
 :kbd:`-`                   Zoom Out
 :kbd:`Ctrl+Middle Button`  Scroll Timeline
 =========================  ============
+
+Menu
+----
+The following menu options are available on the main window on OpenShot. Most of these options can be accessed
+by the keyboard shortcuts mentioned above. On some Operating Systems (such as macOS) a few of these options
+are renamed and/or rearranged.
+
+.. table::
+   :widths: 10 73
+
+   ==================  ============
+   Name                Description
+   ==================  ============
+   File                :guilabel:`New Project`, :guilabel:`Open Project`, :guilabel:`Recent Projects`,
+                       :guilabel:`Save Project`, :guilabel:`Import Files`, :guilabel:`Choose Profile`,
+                       :guilabel:`Import`, :guilabel:`Export`, :guilabel:`Quit`
+   Edit                :guilabel:`Undo`, :guilabel:`Redo`, :guilabel:`Clear`, :guilabel:`Preferences`
+   Title               :guilabel:`Title`, :guilabel:`Animated Title`
+   View                :guilabel:`Toolbar`, :guilabel:`Fullscreen`, :guilabel:`Views` `(Simple, Advanced, Freeze, Show All)`,
+                       :guilabel:`Docks`
+   Help                :guilabel:`Contents`, :guilabel:`Tutorial`, :guilabel:`Report a Bug`, :guilabel:`Ask a Question`,
+                       :guilabel:`Translate`, :guilabel:`Donate`, :guilabel:`About`
+   ==================  ============
+
+Views
+-----
+
+The OpenShot main window is composed of multiple **docks**. These **docks** are arranged and snapped together
+into a grouping that we call a **View**. OpenShot comes with two primary views: :guilabel:`Simple View` and
+:guilabel:`Advanced View`.
+
+Simple View
+^^^^^^^^^^^
+This is the **default** view, and is designed to be easy-to-use, especially for first-time users. It contains
+:guilabel:`Project Files` on the top left, :guilabel:`Preview Window` on the top right, and :guilabel:`Timeline` on
+the bottom. If you accidentally close or move a dock, you can quickly reset all the docks back to their default
+location using the :guilabel:`View->Views->Simple View` menu at the top of the screen.
+
+Advanced View
+^^^^^^^^^^^^^
+This is an advanced view, which adds more docks to the screen at once, improving access to many features that are
+not visible in Simple View. Once you have mastered the Simple View, we recommend giving this view a try as well.
+NOTE: You can also drag and drop the docks anywhere you would like, for a fully custom view.
+
+Docks
+^^^^^
+Each widget on the OpenShot main window is contained in a **dock**. These docks can be dragged and snapped around the
+main window, and even grouped together (into tabs). OpenShot will always save your main window dock layout when you
+exit the program. Re-launching OpenShot will restore your custom dock layout automatically.
+
+If you have accidentally closed or moved a dock and can no longer find it, there are a couple easy solutions.
+First, you can use the :guilabel:`View->Views->Simple View` menu option at the top of the screen, to restore the view back to its
+default. Or you can use the :guilabel:`View->Views->Docks->...` menu to show or hide specific dock widgets on the main window.
