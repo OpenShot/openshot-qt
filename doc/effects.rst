@@ -26,13 +26,52 @@ Effects are used in OpenShot to enhance or modify the audio or video of a clip. 
 and can generally enhance your video projects. Each effect has its own set of properties, most which can be animated
 over time.
 
-Effects can be added to any clip by dragging and dropping them. Each effect is represented by a small colored
-icon and the first letter of the effect name. To view an effect's properties, click on the effect icon.
-The property editor will appear, where you can edit these properties. Note: Pay close attention to where
-the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
-position, to help create animations.
+Effects can be added to any clip by dragging and dropping them from the Effects dock to a clip. Each effect is 
+represented by a small colored  icon and the first letter of the effect name. To view an effect's properties, 
+click on the effect icon. The property editor will appear, where you can edit these properties. Note: Pay 
+close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at 
+the current playback position, to help create animations quickly.
 
 .. image:: images/clip-effects.jpg
+
+List of Effects
+---------------
+OpenShot Video Editor has a total of 27 built-in video and audio effects.
+
+.. table::
+   :widths: 30 10 80
+
+   =============================  ============  ===============
+   Name                           Type          Description
+   =============================  ============  ===============
+   Alpha Mask / Wipe Transition   Video         Uses a grayscale mask image to gradually wipe / transition between 2 images.
+   Bars                           video         Add colored bars around your video.
+   Blur                           video         Adjust the blur of the image.
+   Brightness & Contrast          video         Adjust the brightness and contrast of the frame's image.
+   Caption                        video         Add text captions on top of your video.
+   Chroma Key (Greenscreen)       video         Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).
+   Color Saturation               video         Adjust the color saturation.
+   Color Shift                    video         Shift the colors of an image up, down, left, and right (with infinite wrapping).
+   Crop                           video         Crop out any part of your video.
+   Deinterlace                    video         Remove interlacing from a video (i.e. even or odd horizontal lines)
+   Hue                            video         Adjust the hue / color of the frame's image.
+   Negative                       video         Negates the colors, producing a negative of the image.
+   Object Detector                video         Detect objects through the video.
+   Pixelate                       video         Pixelate (increase or decrease) the number of visible pixels.
+   Shift                          video         Shift the image up, down, left, and right (with infinite wrapping).
+   Stabilizer                     video         Stabilize video clip to remove undesired shaking and jitter.
+   Tracker                        video         Track the selected bounding box through the video.
+   Wave                           video         Distort the frame's image into a wave pattern.
+   Compressor                     audio         Reduce the volume of loud sounds or amplify quiet sounds.
+   Delay                          audio         Adjust the synchronism between the audio and video track.
+   Distortion                     audio         Alter the audio by clipping the signal.
+   Echo                           audio         Reflection of sound with a delay after the direct sound.
+   Expander                       audio         Louder parts of audio becomes relatively louder and quieter parts becomes quieter.
+   Noise                          audio         Random signal having equal intensity at different frequencies.
+   Parametric EQ                  audio         Filter that allows you to adjust the volume level of a frequency in the audio track.
+   Robotization                   audio         Transform the voice present in an audio track into a robotic voice effect.
+   Whisperization                 audio         Transform the voice present in an audio track into a whispering voice effect.
+   =============================  ============  ===============
 
 Sequencing
 ----------
