@@ -80,8 +80,9 @@ Step 2 – Add Photos to Timeline
 Next, drag each video or photo onto a track in the timeline (as seen in the illustration).
 The timeline represents your final video, so arrange your photos (i.e. clips) in whatever sequence you want
 them to appear in your video. If you overlap two clips, OpenShot will automatically create a
-smooth fade between them, displayed by blue rounded rectangles between the clips. Remember,
-you can rearrange the clips as many times as needed by simply dragging and dropping them.
+smooth fade between them (only affects the image, and not audio), displayed by blue rounded rectangles
+between the clips. Remember, you can rearrange the clips as many times as needed by simply
+dragging and dropping them.
 
 You can also shorten or lengthen each clip, by clicking the left or right edge and dragging
 your mouse. For example, if you want a photo to last longer than 10 seconds (the default duration),

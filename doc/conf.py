@@ -33,7 +33,8 @@ from classes import info
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.extlinks'
+    'sphinx.ext.extlinks',
+    'sphinx_markdown_builder'
 ]
 
 try:

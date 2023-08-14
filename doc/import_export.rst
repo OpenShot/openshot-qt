@@ -30,10 +30,10 @@ EDL (Edit Decision Lists)
 The following features are supported when importing and exporting an EDL file with OpenShot.
 
 .. table::
-   :widths: 25
+   :widths: 25 80
 
    ====================  ============
-   Name                  Description
+   EDL Option Name       Description
    ====================  ============
    EDL Format            CMX-3600 (a very widely supported variation)
    Single Track          Only a single track can be imported at a time (this is a limitation of the EDL format)
@@ -42,6 +42,9 @@ The following features are supported when importing and exporting an EDL file wi
    Opacity               Opacity keyframes are supported
    Audio Levels          Volume keyframes are supported
    ====================  ============
+
+Example EDL Output
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
    :caption: Example EDL format supported by OpenShot:
@@ -81,10 +84,10 @@ is supported in many video editors (not just Final Cut Pro). In fact, most comme
 support for importing and exporting this same XML format.
 
 .. table::
-   :widths: 25
+   :widths: 25 80
 
    ====================  ============
-   Name                  Description
+   XML Option Name       Description
    ====================  ============
    XML Format            Final Cut Pro format (but most commercial video editors also support this format)
    All Tracks            All video and audio tracks are supported

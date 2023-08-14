@@ -41,7 +41,7 @@ which is the default export view.
    :widths: 10 30
 
    ==================  ============
-   Name                Description
+   Simple Setting      Description
    ==================  ============
    Profile             Common presets (combinations of presets and video profiles grouped by category, for example: **Web**)
    Target              Target presets related to the current profile (collections of common formats, codecs, and quality settings, see :ref:`preset_list_ref`)
@@ -65,7 +65,7 @@ Advanced Options
    :widths: 10 30
 
    ==================  ============
-   Name                Description
+   Advanced Setting    Description
    ==================  ============
    Export To           Export both `video & audio`, `only audio`, `only video`, or an `image sequence`
    Start Frame         The first frame to export (default is 1)
@@ -81,7 +81,7 @@ Profile
    :widths: 10 30
 
    ==================  ============
-   Name                Description
+   Profile Setting     Description
    ==================  ============
    Profile             The video profile to use during export (collection of size, frame rate, and aspect ratios, see :ref:`profile_list_ref`)
    Width               The width of the video export (in pixels)
@@ -101,7 +101,7 @@ Image Sequence Settings
    :widths: 10 30
 
    ==================  ============
-   Name                Description
+   Image Setting Name  Description
    ==================  ============
    Image Format        The string format that represents the output file name in an sequence of images. For example, %05d.png would pad a number with 5 digits: 00001.png, 00002.png.
    ==================  ============
@@ -115,7 +115,7 @@ Video Settings
    :widths: 10 30
 
    ==================  ============
-   Name                Description
+   Video Setting Name  Description
    ==================  ============
    Video Format        The name of the container format (``mp4``, ``mov``, ``avi``, ``webm``, etc...)
    Video Codec         The name of the video codec used during video encoding (``libx264``, ``mpeg4``, ``libaom-av1``, etc...)
@@ -131,7 +131,7 @@ Audio Settings
    :widths: 10 30
 
    ==================  ============
-   Name                Description
+   Audio Setting Name  Description
    ==================  ============
    Audio Codec         The name of the audio codec used during audio encoding (``aac``, ``mp2``, ``libmp3lame``, etc...)
    Sample Rate         The number of audio samples per second. Common values are ``44100`` and ``48000``.
