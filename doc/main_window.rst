@@ -168,7 +168,7 @@ are renamed and/or rearranged.
    :widths: 10 73
 
    ==================  ============
-   Name                Description
+   Menu Name           Description
    ==================  ============
    File                :guilabel:`New Project`, :guilabel:`Open Project`, :guilabel:`Recent Projects`,
                        :guilabel:`Save Project`, :guilabel:`Import Files`, :guilabel:`Choose Profile`,

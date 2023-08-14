@@ -130,10 +130,10 @@ AVI (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             AVI
    Video Codec              libx264
@@ -154,10 +154,10 @@ AVI (mpeg2)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             AVI
    Video Codec              mpeg2video
@@ -178,10 +178,10 @@ AVI (mpeg4)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             AVI
    Video Codec              mpeg4
@@ -202,10 +202,10 @@ GIF (animated)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             GIF
    Video Codec              gif
@@ -219,10 +219,10 @@ MKV (h.264 dx)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              h264_dxva2
@@ -243,10 +243,10 @@ MKV (h.264 nv)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              h264_nvenc
@@ -267,10 +267,10 @@ MKV (h.264 qsv)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              h264_qsv
@@ -291,10 +291,10 @@ MKV (h.264 va)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              h264_vaapi
@@ -315,10 +315,10 @@ MKV (h.264 videotoolbox)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              h264_videotoolbox
@@ -339,10 +339,10 @@ MKV (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              libx264
@@ -363,10 +363,10 @@ MKV (h.265)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MKV
    Video Codec              libx265
@@ -387,10 +387,10 @@ MOV (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MOV
    Video Codec              libx264
@@ -411,10 +411,10 @@ MOV (mpeg2)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MOV
    Video Codec              mpeg2video
@@ -435,10 +435,10 @@ MOV (mpeg4)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MOV
    Video Codec              mpeg4
@@ -459,10 +459,10 @@ MP3 (audio only)
 ~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP3
    Audio Codec              libmp3lame
@@ -479,10 +479,10 @@ MP4 (AV1 rav1e)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              librav1e
@@ -503,10 +503,10 @@ MP4 (AV1 svt)
 ~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libsvtav1
@@ -527,10 +527,10 @@ MP4 (HEVC va)
 ~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              hevc_vaapi
@@ -551,10 +551,10 @@ MP4 (Xvid)
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libxvid
@@ -575,10 +575,10 @@ MP4 (h.264 dx)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              h264_dxva2
@@ -599,10 +599,10 @@ MP4 (h.264 nv)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              h264_nvenc
@@ -623,10 +623,10 @@ MP4 (h.264 qsv)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              h264_qsv
@@ -647,10 +647,10 @@ MP4 (h.264 va)
 ~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              h264_vaapi
@@ -671,10 +671,10 @@ MP4 (h.264 videotoolbox)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              h264_videotoolbox
@@ -695,10 +695,10 @@ MP4 (h.264)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -719,10 +719,10 @@ MP4 (h.265)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx265
@@ -743,10 +743,10 @@ MP4 (mpeg4)
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              mpeg4
@@ -767,10 +767,10 @@ MPEG (mpeg2)
 ~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MPEG
    Video Codec              mpeg2video
@@ -791,10 +791,10 @@ OGG (theora/flac)
 ~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             OGG
    Video Codec              libtheora
@@ -815,10 +815,10 @@ OGG (theora/vorbis)
 ~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             OGG
    Video Codec              libtheora
@@ -839,10 +839,10 @@ WEBM (vp9)
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             WEBM
    Video Codec              libvpx-vp9
@@ -863,10 +863,10 @@ WEBM (vp9) lossless
 ~~~~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             WEBM
    Video Codec              libvpx-vp9
@@ -887,10 +887,10 @@ WEBM (vpx)
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             WEBM
    Video Codec              libvpx
@@ -911,10 +911,10 @@ WEBP (vp9 va)
 ~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             WEBM
    Video Codec              vp9_vaapi
@@ -938,10 +938,10 @@ Apple TV
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -958,10 +958,10 @@ Chromebook
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             WEBM
    Video Codec              libvpx
@@ -982,10 +982,10 @@ Nokia nHD
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             AVI
    Video Codec              libxvid
@@ -1006,10 +1006,10 @@ Xbox 360
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             AVI
    Video Codec              libxvid
@@ -1035,10 +1035,10 @@ Flickr-HD
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MOV
    Video Codec              libx264
@@ -1062,10 +1062,10 @@ Instagram
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1093,10 +1093,10 @@ Metacafe
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              mpeg4
@@ -1117,10 +1117,10 @@ Picasa
 ~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1141,10 +1141,10 @@ Twitter
 ~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1172,10 +1172,10 @@ Vimeo
 ~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1197,10 +1197,10 @@ Vimeo-HD
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1230,10 +1230,10 @@ Wikipedia
 ~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             OGG
    Video Codec              libtheora
@@ -1254,10 +1254,10 @@ YouTube HD
 ~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1293,10 +1293,10 @@ YouTube HD (2K)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1324,10 +1324,10 @@ YouTube HD (4K)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1355,10 +1355,10 @@ YouTube HD (8K)
 ~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1386,10 +1386,10 @@ YouTube Standard
 ~~~~~~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1430,10 +1430,10 @@ DVD-NTSC
 ~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             DVD
    Video Codec              mpeg2video
@@ -1455,10 +1455,10 @@ DVD-PAL
 ~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             DVD
    Video Codec              mpeg2video
@@ -1483,10 +1483,10 @@ AVCHD Disks
 ~~~~~~~~~~~
 
 .. table::
-   :widths: 26
+   :widths: 30 30
 
    =======================  ============
-   Attribute                Description
+   Preset Attribute         Description
    =======================  ============
    Video Format             MP4
    Video Codec              libx264
@@ -1508,28 +1508,34 @@ AVCHD Disks
 Profile List
 ------------
 
-OpenShot includes a large list of common profiles.
+OpenShot includes over 400 built-in video profiles. These profiles match the most common
+video project sizes and frame rates used around the world. It is recommended to edit your
+project using the same profile as you intend to export. You can also edit your project with
+different profiles which match your target aspect ratio, for example: all ``16:9`` profiles
+are generally compatible with each other. Sometimes it can be useful to edit a project in
+a lower resolution profile, and export in a higher resolution profile. A full list of
+profiles is provided below.
 
-Definitions
-^^^^^^^^^^^
+Profile Definitions
+^^^^^^^^^^^^^^^^^^^
 
-- **Profile Name**: This is a short, friendly name for a video profile (FHD 1080p 30 fps, for example)
+- **Profile Name**: Short, friendly name for a video profile (e.g., FHD 1080p 30 fps)
 - **FPS**: Frames Per Second
-- **DAR**: Display Aspect Ratio (i.e. 1920:1080 reduces to 16:9 aspect ratio)
-- **SAR**: Sample Aspect Ratio (i.e. 1:1 ratio == square pixel, 2:1 horizontal rectangular pixel). The SAR directly affects the display aspect ratio. For example, a 4:3 video can be displayed as 16:9, if it uses rectangular pixels. However, rectangular pixels will cause the final display width to be adjusted.
-- **PAR**: Pixel Aspect Ratio (identical to SAR - but some people prefer this term instead)
-- **SAR Adjusted Width**: This is the width of the final display image, taking SAR (i.e. non-square pixels) into account
-- **Interlaced**: Display alternating lines of the video image (odd lines, even lines), mostly used by analog broadcasting
-- **NTSC**: NTSC is an analog TV color system used mostly in America (usually 29.97 fps)
-- **PAL**: PAL is an analog TV color system used in Europe, Australia, and much of the rest of the world (usually 25 fps)
+- **DAR**: Display Aspect Ratio (e.g., 1920:1080 becomes 16:9)
+- **SAR**: Sample Aspect Ratio (e.g., 1:1 square pixel, 2:1 horizontal rectangular pixel). The SAR directly affects the display aspect ratio. For instance, a 4:3 video can be displayed as 16:9 using rectangular pixels. Non-square pixels adjust the final display width.
+- **PAR**: Pixel Aspect Ratio (identical to SAR)
+- **SAR Adjusted Width**: Final display width considering SAR
+- **Interlaced**: Alternating odd and even lines, used in analog broadcasting
+- **NTSC**: Analog TV system in America (usually 29.97 fps)
+- **PAL**: Analog TV system in Europe, Australia, and much of the world (usually 25 fps)
 - **UHD**: Ultra High Definition
 - **QHD**: Quad High Definition
 - **FHD**: Full High Definition
-- **HD**: High Definition (usually defined as any resolution at equal or greater than 1280x720 pixels)
-- **SD**: Standard Definition (usually defined as any resolution smaller than 1280x720 pixels)
+- **HD**: High Definition (equal or greater than 1280x720 pixels)
+- **SD**: Standard Definition (smaller than 1280x720 pixels)
 
 .. table::
-   :widths: 100
+   :widths: 60 5 5 5 5 5 14 20
 
    =============================================  ======  ======  ======  ======  ======  ==========  ==================
    Profile Name                                   Width   Height  FPS     DAR     SAR     Interlaced  SAR Adjusted Width

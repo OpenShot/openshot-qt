@@ -41,7 +41,7 @@ These are all possible methods to import media files into OpenShot:
    :widths: 25
 
    ===========================  ============
-   Name                         Description
+   Import File Method           Description
    ===========================  ============
    Drag and Drop                Drag and drop the files from your file manager (file explorer, finder, etc...).
    Context menu (`File Menu`_)  Right click anywhere in the **Project Files** panel and choose :guilabel:`Import Files`.
@@ -60,7 +60,7 @@ file menu.
 .. image:: images/file-menu.jpg
 
 ====================  ============
-Name                  Description
+File Context Option   Description
 ====================  ============
 Import Files...       Import files into your project
 Thumbnail/Detail      Toggle the view between details and thumbnails
@@ -129,9 +129,9 @@ all files you need to add, right click, and choose Add to Timeline.
    1   Selected Files      The list of selected files that need to be added to the timeline
    2   Order of Files      Use these buttons to reorder the list of files (move up, move down, randomize, remove)
    3   Timeline Position   Choose the starting position and track where these files need to be inserted on the timeline
-   4   Fade Options        Fade in, fade out, both, or none
+   4   Fade Options        Fade in, fade out, both, or none (only affects the image, and not audio)
    5   Zoom Options        Zoom in, zoom out, or none
-   6   Transitions         Choose a specific transition to use between files, random, or none
+   6   Transitions         Choose a specific transition to use between files, random, or none (only affects the image, and not the audio)
    ==  ==================  ============
 
 .. _file_properties_ref:

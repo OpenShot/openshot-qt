@@ -22,28 +22,23 @@
 Clips
 =====
 
-Each media file you add to the OpenShot timeline is called a clip and is
-visualized by a dark, rounded rectangle (as seen in the screenshot below). A
-clip has many properties, which affect how and when the clip is rendered and
-composited, such as position, layer, scale, location, rotation, and alpha. OpenShot can
-animate these properties over time, and when combined, can create some amazing effects.
+When media files are added to the OpenShot timeline, they are represented by a "clip", visualized as
+rounded rectangles. Clips possess various properties, affecting rendering and compositing. These
+include position, layer, scale, location, rotation, and alpha, which can be animated for
+stunning effects.
 
-To display a clip's properties, either right-click and choose ``Properties`` or
-double click on the clip. Clip properties appear in the properties dock, in
-alphabetical order. These properties can be filtered by typing a few letters
-in the filter box, at the top of the property panel.
+View a clip's properties by right-clicking and selecting "Properties" or double-clicking the clip.
+Properties appear alphabetically in the dock, with filter options available at the top.
 
-To adjust a property, you can:
+To adjust a property:
+- Drag the slider for coarse changes.
+- Double-click to enter precise values.
+- Right/double-click for non-numerical options.
 
-*	click on its value and drag the slider from side to side for a coarse adjustment
-*	double click on its value and enter a value. Numerical values display to 2 decimal places, but you can enter more precise numbers. You can often enter valid values that are outside the range offered by the slider adjustment.
-*	right-click or double-click to select an option (for non-numerical values)
-
-Clip properties are part of the :ref:`animation_ref` system. If you change a clip property, you create a
-keyframe at the current position of the playhead. If you want a property to apply throughout
-the clip, you must place the playhead at (or before) the start of the clip before making
-the change. An easy way to locate the start of a clip is to use ‘next/previous marker’ on
-the Timeline toolbar.
+Clip properties are integral to the :ref:`animation_ref` system. When you modify a clip property, a
+keyframe is generated at the current playhead position. For a property to span the entire clip,
+position the playhead at or before the clip's start before making adjustments. A convenient way to
+identify a clip's start is by utilizing the 'next/previous marker' feature on the Timeline toolbar.
 
 .. image:: images/clip-overview.jpg
 
@@ -54,7 +49,7 @@ the Timeline toolbar.
    #   Name                Description
    ==  ==================  ============
    1   Clip 1              A video clip
-   2   Transition          A gradual fade transition between the 2 clips
+   2   Transition          A gradual fade transition between the 2 clip images (does not affect the audio)
    3   Clip 2              An image clip
    ==  ==================  ============
 
@@ -67,7 +62,7 @@ trimming). The most common method is simply clicking and dragging the left (or r
 Here is a list of all methods for cutting or trimming clips in OpenShot:
 
 .. table::
-   :widths: 30
+   :widths: 30 80
    
    ======================  ============
    Trim & Slice Method     Description
@@ -90,22 +85,23 @@ Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_re
 Preset Menu
 -----------
 OpenShot has tons of great preset animations and clip properties, such as fading, sliding, zooming, etc...
-These presets can be accessed by right clicking on a clip.
+These presets can be accessed by right clicking on a clip. A preset sets one (or more) clip properties
+for the user without needing to manually set the key-frame clip properties.
 
 .. image:: images/clip-presets.jpg
 
 .. table::
-   :widths: 20
+   :widths: 20 80
    
    ==================  ============
-   Name                Description
+   Preset Name         Description
    ==================  ============
-   Fade                Fade in or out a clip (often easier than using a transition)
+   Fade                Fade the image in or out (often easier than using a transition)
    Animate             Zoom and slide a clip
-   Rotate              Rotate or flip a video
+   Rotate              Rotate or flip a clip
    Layout              Make a video smaller or larger, and snap to any corner
    Time                Reverse and speed up or slow down video
-   Volume              Fade in or out the volume for a clip
+   Volume              Fade in or out the volume for a clip, or adjust the levels
    Separate Audio      Create a clip for each audio track
    Slice               Cut the clip at the play-head position
    Transform           Enable transform mode
@@ -165,15 +161,18 @@ Clip Properties
 Below is a list of clip properties which can be edited, and in most cases, animated over time. To view a clip's properties,
 right click and choose **Properties**. The property editor will appear, where you can change these properties. Note: Pay
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
-position, to help create animations.
+position, to help create animations. When animating clip properties, you can fade a clip from opaque to transparent
+with ``alpha``, slide a clip around the screen with ``location_x`` and ``location_y``, scale a clip smaller
+or larger with the ``scale_x`` and ``scale_y``, fade the volume of a clip quieter or louder with ``volume``, and much
+more. See the table below for a full list of clip properties.
 
 .. table::
    :widths: 18 18 70
 
    ======================  ==========  ============
-   Name                    Type        Description
+   Clip Property Name      Type        Description
    ======================  ==========  ============
-   Alpha                   Key-Frame   Curve representing the alpha (1 to 0)
+   Alpha                   Key-Frame   Curve representing the alpha for fading the image and adding transparency (1 to 0)
    Channel Filter          Key-Frame   A number representing an audio channel to filter (clears all other channels)
    Channel Mapping         Key-Frame   A number representing an audio channel to output (only works when filtering a channel)
    Frame Number            Enum        The format to display the frame number (if any)
@@ -199,7 +198,7 @@ position, to help create animations.
    Shear Y                 Key-Frame   Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)
    Start                   Float       The start trimming position of the clip (in seconds)
    Time                    Key-Frame   Curve representing the frames over time to play (used for speed and direction of video)
-   Volume                  Key-Frame   Curve representing the volume (0 to 1)
+   Volume                  Key-Frame   Curve representing the volume for fading audio quieter/louder, mute, or adjusting levels (0 to 1)
    Wave Color              Key-Frame   Curve representing the color of the audio wave form
    Waveform                Bool        Should a waveform be used instead of the clip's image
    ======================  ==========  ============

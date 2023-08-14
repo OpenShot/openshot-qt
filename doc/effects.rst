@@ -26,52 +26,54 @@ Effects are used in OpenShot to enhance or modify the audio or video of a clip. 
 and can generally enhance your video projects. Each effect has its own set of properties, most which can be animated
 over time.
 
-Effects can be added to any clip by dragging and dropping them from the Effects dock to a clip. Each effect is 
-represented by a small colored  icon and the first letter of the effect name. To view an effect's properties, 
-click on the effect icon. The property editor will appear, where you can edit these properties. Note: Pay 
-close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at 
-the current playback position, to help create animations quickly.
+Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is
+represented by a small colored icon and the first letter of the effect name. To view an effect's properties,
+right click on the effect icon, and choose :guilabel:`Properties`. The property editor will appear, where you
+can edit these properties. Note: Pay close attention to where the play-head (i.e. red playback line) is.
+Key frames are automatically created at the current playback position, to help create animations quickly.
 
 .. image:: images/clip-effects.jpg
 
 List of Effects
 ---------------
-OpenShot Video Editor has a total of 27 built-in video and audio effects.
+OpenShot Video Editor has a total of 27 built-in video and audio effects: 18 video effects and 9 audio effects.
+These effects can be added to a clip by dragging the effect onto a clip. The following table contains
+the name and short description of each effect.
 
 .. table::
-   :widths: 30 10 80
+   :widths: 30 80
 
-   =============================  ============  ===============
-   Name                           Type          Description
-   =============================  ============  ===============
-   Alpha Mask / Wipe Transition   Video         Uses a grayscale mask image to gradually wipe / transition between 2 images.
-   Bars                           video         Add colored bars around your video.
-   Blur                           video         Adjust the blur of the image.
-   Brightness & Contrast          video         Adjust the brightness and contrast of the frame's image.
-   Caption                        video         Add text captions on top of your video.
-   Chroma Key (Greenscreen)       video         Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).
-   Color Saturation               video         Adjust the color saturation.
-   Color Shift                    video         Shift the colors of an image up, down, left, and right (with infinite wrapping).
-   Crop                           video         Crop out any part of your video.
-   Deinterlace                    video         Remove interlacing from a video (i.e. even or odd horizontal lines)
-   Hue                            video         Adjust the hue / color of the frame's image.
-   Negative                       video         Negates the colors, producing a negative of the image.
-   Object Detector                video         Detect objects through the video.
-   Pixelate                       video         Pixelate (increase or decrease) the number of visible pixels.
-   Shift                          video         Shift the image up, down, left, and right (with infinite wrapping).
-   Stabilizer                     video         Stabilize video clip to remove undesired shaking and jitter.
-   Tracker                        video         Track the selected bounding box through the video.
-   Wave                           video         Distort the frame's image into a wave pattern.
-   Compressor                     audio         Reduce the volume of loud sounds or amplify quiet sounds.
-   Delay                          audio         Adjust the synchronism between the audio and video track.
-   Distortion                     audio         Alter the audio by clipping the signal.
-   Echo                           audio         Reflection of sound with a delay after the direct sound.
-   Expander                       audio         Louder parts of audio becomes relatively louder and quieter parts becomes quieter.
-   Noise                          audio         Random signal having equal intensity at different frequencies.
-   Parametric EQ                  audio         Filter that allows you to adjust the volume level of a frequency in the audio track.
-   Robotization                   audio         Transform the voice present in an audio track into a robotic voice effect.
-   Whisperization                 audio         Transform the voice present in an audio track into a whispering voice effect.
-   =============================  ============  ===============
+   =============================  ===============
+   Effect Name                    Effect Description
+   =============================  ===============
+   Alpha Mask / Wipe Transition   Grayscale mask transition between images.
+   Bars                           Add colored bars around your video.
+   Blur                           Adjust image blur.
+   Brightness & Contrast          Modify frame's brightness and contrast.
+   Caption                        Add text captions to any clip.
+   Chroma Key (Greenscreen)       Replace color with transparency.
+   Color Saturation               Adjust color intensity.
+   Color Shift                    Shift image colors in various directions.
+   Crop                           Crop out parts of your video.
+   Deinterlace                    Remove interlacing from video.
+   Hue                            Adjust hue / color.
+   Negative                       Produce a negative image.
+   Object Detector                Detect objects in video.
+   Pixelate                       Increase or decrease visible pixels.
+   Shift                          Shift image in different directions.
+   Stabilizer                     Reduce video shake.
+   Tracker                        Track bounding box in video.
+   Wave                           Distort image into a wave pattern.
+   Compressor                     Reduce loudness or amplify quiet sounds.
+   Delay                          Adjust audio-video synchronism.
+   Distortion                     Clip audio signal for distortion.
+   Echo                           Add delayed sound reflection.
+   Expander                       Make loud parts relatively louder.
+   Noise                          Add random equal-intensity signals.
+   Parametric EQ                  Adjust frequency volume in audio.
+   Robotization                   Transform audio into robotic voice.
+   Whisperization                 Transform audio into whispers.
+   =============================  ===============
 
 Sequencing
 ----------
@@ -94,13 +96,13 @@ entering different values into the properties, and observing the results.
 
 Alpha Mask / Wipe Transition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Uses a grayscale mask image to gradually wipe / transition between 2 images.
+Uses a grayscale mask image to gradually wipe / transition between 2 images (only affects the image, and not the audio track)
 
 .. table::
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    brightness                  ``(float, -1 to 1)`` This curve controls the motion across the wipe
@@ -117,7 +119,7 @@ Add colored bars around your video.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 0.5)`` The curve to adjust the bottom bar size
@@ -135,7 +137,7 @@ Adjust the blur of the frame's image.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    horizontal_radius           ``(float, 0 to 100)`` Horizontal blur radius keyframe. The size of the horizontal blur operation in pixels.
@@ -152,7 +154,7 @@ Adjust the brightness and contrast of the frame's image.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    brightness                  ``(float, -1 to 1)`` The curve to adjust the brightness
@@ -161,13 +163,24 @@ Adjust the brightness and contrast of the frame's image.
 
 Caption
 ^^^^^^^
-Add text captions on top of your video.
+Add text captions on top of your video. We support both VTT (WebVTT) and SubRip (SRT) subtitle file formats. These
+formats are used to display captions or subtitles in videos. They allow you to add text-based subtitles to video content,
+making it more accessible to a wider audience, especially for those who are deaf or hard of hearing. The Caption
+effect can even animate the text fading in/out, and supports any font, size, color, and margin. OpenShot also has an
+easy-to-use Caption editor, where you can quickly insert captions at the playhead position, or edit all your caption
+text in one place.
+
+.. code-block:: bash
+
+   # Show a caption, starting at 5 seconds and ending at 10 seconds.
+   00:00:05.000 --> 00:00:10.000
+   Hello, welcome to our video!
 
 .. table::
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    background                  ``(color)`` Color of caption area background
@@ -197,7 +210,7 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    color                       ``(color)`` The color to match
@@ -214,7 +227,7 @@ Adjust the color saturation.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    saturation                  ``(float, 0 to 4)`` The curve to adjust the overall saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
@@ -240,7 +253,7 @@ shift of the alpha channel.*
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    alpha_x                     ``(float, -1 to 1)`` Shift the Alpha X coordinates (left or right)
@@ -261,7 +274,7 @@ Crop out any part of your video.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 1)`` Size of bottom bar
@@ -281,7 +294,7 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    isOdd                       ``(bool, choices: ['Yes', 'No'])`` Use odd or even lines
@@ -295,7 +308,7 @@ Adjust the hue / color of the frame's image.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    hue                         ``(float, 0 to 1)`` The curve to adjust the percentage of hue shift
@@ -313,7 +326,7 @@ Detect objects through the video.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
@@ -331,7 +344,7 @@ Pixelate (increase or decrease) the number of visible pixels.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 1)`` The curve to adjust the bottom margin size
@@ -349,7 +362,7 @@ Shift the image up, down, left, and right (with infinite wrapping).
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    x                           ``(float, -1 to 1)`` Shift the X coordinates (left or right)
@@ -364,7 +377,7 @@ Stabilize video clip to remove undesired shaking and jitter.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    zoom                        ``(float, 0 to 2)`` Percentage to zoom into the clip, to crop off the shaking and uneven edges
@@ -382,7 +395,7 @@ Distort the frame's image into a wave pattern.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    amplitude                   ``(float, 0 to 5)`` The height of the wave
@@ -407,7 +420,7 @@ Reduce the volume of loud sounds or amplify quiet sounds.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    attack                      ``(float, 0.1 to 100)``
@@ -426,7 +439,7 @@ Adjust the synchronism between the audio and video track.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    delay_time                  ``(float, 0 to 5)``
@@ -440,7 +453,7 @@ Alter the audio by clipping the signal.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    distortion_type             ``(int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])``
@@ -457,7 +470,7 @@ Reflection of sound with a delay after the direct sound.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    echo_time                   ``(float, 0 to 5)``
@@ -473,7 +486,7 @@ Louder parts of audio becomes relatively louder and quieter parts becomes quiete
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    attack                      ``(float, 0.1 to 100)``
@@ -492,7 +505,7 @@ Random signal having equal intensity at different frequencies.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    level                       ``(int, 0 to 100)``
@@ -506,7 +519,7 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    filter_type                 ``(int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])``
@@ -523,7 +536,7 @@ Transform the voice present in an audio track into a robotic voice effect.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
@@ -539,7 +552,7 @@ Transform the voice present in an audio track into a whispering voice effect.
    :widths: 26 80
 
    ==========================  ============
-   Name                        Description
+   Property Name               Description
    ==========================  ============
    apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
