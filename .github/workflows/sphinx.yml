@@ -22,7 +22,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip3 install sphinx_markdown_builder
+        sudo pip3 install sphinx_markdown_builder
 
     # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
