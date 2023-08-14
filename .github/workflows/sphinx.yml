@@ -19,6 +19,11 @@ jobs:
 
     # Steps are a sequence of tasks that will be executed as part of the job
     steps:
+
+    - name: Install dependencies
+      run: |
+        pip3 install sphinx_markdown_builder
+
     # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
     # Builds docs using sphinx
