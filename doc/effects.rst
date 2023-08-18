@@ -23,7 +23,7 @@ Effects
 =======
 
 Effects are used in OpenShot to enhance or modify the audio or video of a clip. They can modify pixels and audio data,
-and can generally enhance your video projects. Each effect has its own set of properties, most which can be animated
+and can generally enhance your video projects. Each effect has its own set of properties, most of which can be animated
 over time.
 
 Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is
@@ -86,6 +86,17 @@ behavior with the ``Apply Before Clip Keyframes`` property.
 If you set the ``Apply Before Clip Keyframes`` property to ``No``, the effect will be sequenced **after** the clip scales, rotates,
 and applies keyframes to the image. This can be useful on certain effects, such as the **Mask** effect, when you want
 to animate a clip first and then apply a static mask to the clip.
+
+.. _effect_parent_ref:
+
+Effect Parent
+-------------
+The ``parent`` attribute of an effect sets the initial keyframe values to the parent effect. For example, if many effects all point to the 
+same parent effect, they will inherit all their default properties, such as font size, font color, and background color for a ``Caption`` effect.
+In the example of many ``Caption`` effects using the same Parent effect, it is an efficient way to manage a large number of these effects. 
+
+NOTE: The ``parent`` attribute for effects should be linked to the same type of parent effect, otherwise their defaut initial values
+will not match. Also see :ref:`clip_parent_ref`.
 
 Video Effects
 -------------
@@ -266,9 +277,13 @@ shift of the alpha channel.*
    red_y                       ``(float, -1 to 1)`` Shift the Red Y coordinates (up or down)
    ==========================  ============
 
+.. _effects_crop_ref:
+
 Crop
 ^^^^
-Crop out any part of your video.
+Crop out any part of a video clip. This effect is the primary method for cropping a Clip in OpenShot. The ``left``, ``right``,
+``top``, and ``bottom`` key-frames can even be animated, for a moving and resizing cropped area. You can leave the cropped area
+blank, or you can dynamically resize the cropped area to fill the screen.
 
 .. table::
    :widths: 26 80
@@ -385,7 +400,7 @@ Stabilize video clip to remove undesired shaking and jitter.
 
 Tracker
 ^^^^^^^
-Track the selected bounding box through the video. The tracked object can be selected as a parent on other clips.
+Track the selected bounding box through the video. The tracked object can be selected as a parent on other clips. See :ref:`clip_parent_ref`.
 
 Wave
 ^^^^
@@ -480,7 +495,7 @@ Reflection of sound with a delay after the direct sound.
 
 Expander
 ^^^^^^^^
-Louder parts of audio becomes relatively louder and quieter parts becomes quieter.
+Louder parts of audio become relatively louder and quieter parts become quieter.
 
 .. table::
    :widths: 26 80

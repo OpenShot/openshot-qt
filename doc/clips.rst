@@ -28,9 +28,11 @@ include position, layer, scale, location, rotation, and alpha, which can be anim
 stunning effects.
 
 View a clip's properties by right-clicking and selecting "Properties" or double-clicking the clip.
-Properties appear alphabetically in the dock, with filter options available at the top.
+Properties appear alphabetically in the dock, with filter options available at the top. 
+See :ref:`clip_properties_ref`.
 
 To adjust a property:
+
 - Drag the slider for coarse changes.
 - Double-click to enter precise values.
 - Right/double-click for non-numerical options.
@@ -57,9 +59,15 @@ identify a clip's start is by utilizing the 'next/previous marker' feature on th
 
 Trimming & Slicing
 ------------------
-OpenShot has many easy ways to adjust the start and end trim positions of a clip (otherwise known as
-trimming). The most common method is simply clicking and dragging the left (or right) edge of the clip.
-Here is a list of all methods for cutting or trimming clips in OpenShot:
+OpenShot has many easy ways to adjust the start and end trim positions of a clip (also known as
+trimming). The most common method is simply clicking and dragging the left (or right) edge of the clip. Trimming
+a clip can be used to remove unwanted sections from the beginning and/or ending of a clip.
+
+To slice a clip into smaller sections, OpenShot provides many different options, including dividing/slicing a
+clip at the play-head (i.e. vertical red playback line) position. Trimming and Slicing clips are two very powerful 
+tools when editing a video project, allowing the user to quickly rearrange sections of video and remove unwanted sections.
+
+Here is a list of all methods for cutting and/or trimming clips in OpenShot:
 
 .. table::
    :widths: 30 80
@@ -71,7 +79,7 @@ Here is a list of all methods for cutting or trimming clips in OpenShot:
    **Slice**               When the play-head (i.e. vertical red playback line) is overlapping a clip, right click on the clip,
                            and choose :guilabel:`Slice`.
    **Slice All**           When the play-head is overlapping many clips, right click on the play-head, and choose
-                           :guilabel:`Slice All` (it will cut all intersecting clips on all tracks).
+                           :guilabel:`Slice All` (all intersecting clips on all tracks will be cut/sliced).
    **Split Clip Dialog**   Right click on a file, and choose :guilabel:`Split Clip`. A dialog will appear which allows
                            for creating lots of small cuts in a single video file.
    **Razor Tool**          The :guilabel:`razor tool` from the **Edit Toolbar** cuts a clip wherever you click on it.
@@ -84,9 +92,19 @@ Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_re
 
 Preset Menu
 -----------
-OpenShot has tons of great preset animations and clip properties, such as fading, sliding, zooming, etc...
-These presets can be accessed by right clicking on a clip. A preset sets one (or more) clip properties
-for the user without needing to manually set the key-frame clip properties.
+OpenShot has tons of great preset animations and clip properties, such as fading, sliding, zooming, 
+reversing time, adjusting volume, etc... These presets can be accessed by right clicking on a clip. 
+A preset sets one (or more) clip properties for the user without needing to manually set the 
+key-frame clip properties. See :ref:`clip_properties_ref`.
+
+Some Presets allow the user to target either the start, end, or entire clip. Also, most presets allow
+the user to reset a specific clip property. For example, when using the ``Volume`` preset, the user has
+the following menu options: 
+
+- **Reset** - This will reset the volume to the original level.
+- **Start of Clip** - Your volume level selection will apply at the Beginning of the clip.
+- **End of Clip** - Your volume level selection will apply to the End of the clip.
+- **Entire Clip** - Your volume level selection will apply to the Entire clip.
 
 .. image:: images/clip-presets.jpg
 
@@ -101,8 +119,8 @@ for the user without needing to manually set the key-frame clip properties.
    Rotate              Rotate or flip a clip
    Layout              Make a video smaller or larger, and snap to any corner
    Time                Reverse and speed up or slow down video
-   Volume              Fade in or out the volume for a clip, or adjust the levels
-   Separate Audio      Create a clip for each audio track
+   Volume              Fade in or out the volume, reduce or increase the volume of a clip, or mute
+   Separate Audio      Separate the audio from a clip. This preset can either create a single detached audio clip (positioned on a layer below the original clip), or multiple detached audio clips (one per audio track, positioned on multiple layers below the original clip)
    Slice               Cut the clip at the play-head position
    Transform           Enable transform mode
    Display             Show waveform or thumbnail for a clip
@@ -115,13 +133,22 @@ for the user without needing to manually set the key-frame clip properties.
 
 Transform
 ---------
-To quickly adjust the location, scale, rotation, and shear of a clip, select a clip on the timeline. By default,
-the selected clip appears in the preview window with transform controls (blue lines and squares). Or if disabled,
-right click on a clip and choose **Transform**. Dragging the blue squares will adjust scale, and dragging the center
-will move the image. Dragging the mouse on the outside of the blue lines will rotate the image. Dragging along the
-blue lines will shear the image in that direction. Dragging the circle in the middle will move the origin point
-that controls where we rotate the image. Note: Pay close attention to the play-head position (red playback line).
-Key frames are automatically created at the current playback position, to help create animations.
+To quickly adjust the location, scale, rotation, and shear of a clip, select a clip on the timeline to activate
+the transform tool. By default, the selected clip appears in the preview window with transform controls (blue lines and squares). 
+Or if the transform tool is disabled, right click on a clip and choose **Transform**. 
+
+Dragging the blue squares will 
+adjust scale, and dragging the center will move the image. Dragging the mouse on the outside of the blue lines will 
+rotate the image. Dragging along the blue lines will shear the image in that direction. Dragging the circle in the 
+middle will move the origin point that controls the center of rotation. 
+
+Note: Pay close attention to the play-head 
+position (red playback line). Key frames are automatically created at the current playback position, to help quickly create 
+animations. If you want to transform a clip with **no animation**, be sure the playhead is positioned before (to the left)
+of your clip. You can also manually adjust these same clip properties in the property editor, see :ref:`clip_properties_ref`.
+
+Note: To crop a clip in OpenShot, you must use the :ref:`effects_crop_ref` effect. Cropping is not a feature of 
+the transform tool.
 
 .. image:: images/clip-transform.jpg
 
@@ -131,7 +158,7 @@ Time Re-mapping
 ---------------
 Adjusting the speed and direction of a clip can be achieved using the :guilabel:`Time` property. You can
 use one of the available presets (`normal, fast, slow, freeze, freeze & zoom, forward, backward`), by right clicking
-on a Clip and choosing the :guilabel:`Time` menu. Many common presets are available in this menu, for reversing,
+on a Clip and choosing the :guilabel:`Time` menu. Many presets are available in this menu for reversing,
 speeding up, and slowing down a video clip.
 
 Optionally, you can manually set key-frame values for the :guilabel:`Time` property. The value represents the
@@ -159,12 +186,16 @@ effect, and allow you to edit (and animate) them. For the full list of effects, 
 Clip Properties
 ---------------
 Below is a list of clip properties which can be edited, and in most cases, animated over time. To view a clip's properties,
-right click and choose **Properties**. The property editor will appear, where you can change these properties. Note: Pay
+right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties. Note: Pay
 close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
-position, to help create animations. When animating clip properties, you can fade a clip from opaque to transparent
-with ``alpha``, slide a clip around the screen with ``location_x`` and ``location_y``, scale a clip smaller
-or larger with the ``scale_x`` and ``scale_y``, fade the volume of a clip quieter or louder with ``volume``, and much
-more. See the table below for a full list of clip properties.
+position, to help quickly create animations. 
+
+When animating clip properties, you can fade a clip from opaque to transparent with ``alpha``, slide a clip around the 
+screen with ``location_x`` and ``location_y``, scale a clip smaller or larger with the ``scale_x`` and ``scale_y``, 
+fade the volume of a clip quieter or louder with ``volume``, and much more. If you want to set a single, static clip property with 
+**no animation**, be sure the playhead is positioned before (to the left) of your clip when adjusting the property value.
+
+See the table below for a full list of clip properties.
 
 .. table::
    :widths: 18 18 70
@@ -199,48 +230,69 @@ more. See the table below for a full list of clip properties.
    Start                   Float       The start trimming position of the clip (in seconds)
    Time                    Key-Frame   Curve representing the frames over time to play (used for speed and direction of video)
    Volume                  Key-Frame   Curve representing the volume for fading audio quieter/louder, mute, or adjusting levels (0 to 1)
-   Wave Color              Key-Frame   Curve representing the color of the audio wave form
+   Wave Color              Key-Frame   Curve representing the color of the audio waveform
    Waveform                Bool        Should a waveform be used instead of the clip's image
    ======================  ==========  ============
 
 Gravity
 """""""
-Gravity sets an initial position for the clip, once it has been scaled as above. The options are:
+The :guilabel:`Gravity` clip property sets the initial display position coordinate (X,Y) for the clip, after it has been 
+scaled (see :ref:`clip_scale_ref`). This affects where the clip picture is initially displayed on the screen, for example
+``Top Left`` or ``Bottom Right``. The default gravity option is ``Center``, which displays the picture in the very
+center of the screen. The gravity options are:
 
-  - *Top Left* – the top and left edges of the clip align with the top and left edges of the screen
-  - *Top Center* – the top edge of the clip aligns with the top edge of the screen; the clip is horizontally centered on the screen.
-  - *Top Right* – the top and right edges of the clip align with the top and right edges of the screen
-  - *Left* – the left edge of the clip aligns with the left edge of the screen; the clip is vertically centered on the screen.
-  - *Center* (default) – the clip is centered horizontally and vertically on the screen.
-  - *Right* – the right edge of the clip aligns with the right edge of the screen; the clip is vertically centered on the screen.
-  - *Bottom Left* – the bottom and left edges of the clip align with the bottom and left edges of the screen
-  - *Bottom Center* – the bottom edge of the clip aligns with the bottom edge of the screen; the clip is horizontally centered on the screen.
-  - Bottom Right – the bottom and right edges of the clip align with the bottom and right edges of the screen
+  - **Top Left** – The top and left edges of the clip align with the top and left edges of the screen
+  - **Top Center** – The top edge of the clip aligns with the top edge of the screen; the clip is horizontally centered on the screen.
+  - **Top Right** – The top and right edges of the clip align with the top and right edges of the screen
+  - **Left** – The left edge of the clip aligns with the left edge of the screen; the clip is vertically centered on the screen.
+  - **Center** (default) – The clip is centered horizontally and vertically on the screen.
+  - **Right** – The right edge of the clip aligns with the right edge of the screen; the clip is vertically centered on the screen.
+  - **Bottom Left** – The bottom and left edges of the clip align with the bottom and left edges of the screen
+  - **Bottom Center** – The bottom edge of the clip aligns with the bottom edge of the screen; the clip is horizontally centered on the screen.
+  - **Bottom Right** – The bottom and right edges of the clip align with the bottom and right edges of the screen
+
+.. _clip_parent_ref:
+
+Clip Parent
+"""""""""""
+The ``parent`` attribute of a clip sets the initial keyframe values to the parent object. For example, if many clips all point to the 
+same parent clip, they will inherit all their default properties, such as ``location_x``, ``location_y``, ``scale_x``, ``scale_y``, etc... 
+This can be very useful in certain circumstances, such as when you have many clips that need to move or scale together. 
+
+You can also set the ``parent`` attribute to a ``Tracker`` or ``Object Detector`` effect, so the clip follows the location and scale 
+of a tracked object. Also see :ref:`effect_parent_ref`.
+
+.. _clip_scale_ref:
 
 Scale
 """""
-This is the initial resizing method, which may be further adjusted by Scale X and Scale Y (below). The options are:
+This property is the initial resizing or scaling method used to display the picture of a clip, which may be further adjusted by the 
+:guilabel:`Scale X` and :guilabel:`Scale Y` clip properties (see :ref:`clip_properties_ref`). It is recommended to use assets with the same aspect 
+ratio as your project profile, which allows many of these resizing methods to fully scale your clip up to the size 
+of the screen, without adding any black bars on the edges. The scale methods are:
 
- - *Best Fit* (default) – the clip is as large as possible without changing the aspect ratio.
- - *Crop* – the aspect ratio of the clip is maintained while the clip is enlarged to fill the entire screen, even if that means some of it will be cropped.
- - *None* – the clip is its original size.
- - *Stretch* – the clip is stretched to fill the entire screen, changing the aspect ratio if necessary.
+ - **Best Fit** (default) – The clip is as large as possible without changing the aspect ratio. This might result in black bars on certain sides of the picture, if the aspect ratio does not exactly match your project size.
+ - **Crop** – The aspect ratio of the clip is maintained while the clip is enlarged to fill the entire screen, even if that means some of it will be cropped. This prevents black bars around the picture, but if the aspect ratio of the clip does not match the project size, some of the picture will be cropped off.
+ - **None** – The clip is displayed in its original size. This is not recommended, since the picture will not scale correctly if you change the project profile (or project size).
+ - **Stretch** – The clip is stretched to fill the entire screen, changing the aspect ratio if necessary.
 
 .. _clip_volume_mixing_ref:
 
 Volume Mixing
 """""""""""""
-Mixing audio involves adjusting volume levels so that they maintain a good range within each clip, and then adjusting them in proportion to other clips used in the project. The following values are available:
+Mixing audio involves adjusting volume levels so that **overlapping clips** do not become too loud (creating audio distortion and loss of
+audio clarity). If you combine particularly loud audio clips on multiple tracks, clipping (a staccato audio distortion) may occur. 
+To avoid distortion, OpenShot might need to reduce the volume levels in overlapping clips. The following audio mixing methods are available:
 
- - **None** - Make no adjustments to volume data before mixing audio
- - **Average** - Automatically divide the volume of each clip based on the # of overlapping clips. For example, 2 overlapping clips would each have 50% volume.
- - **Reduce** - Automatically reduce the clip's volume by 20%, allowing it to mix with other clips, and reducing the likelihood of over-volume loud events.
+ - **None** - Make no adjustments to volume data before mixing audio. Overlapping clips will combine audio at full volume, with no reduction.
+ - **Average** - Automatically divide the volume of each clip based on the # of overlapping clips. For example, 2 overlapping clips would each have 50% volume, 3 overlapping clips would each have 33% volume, etc...
+ - **Reduce** - Automatically reduce overlapping clips volume by 20%, which reduces the likelihood of becoming too loud, but does not always prevent audio distortion. For example, if you have 10 loud clips overlapping, each with a 20% reduction in volume, it might still exceed the max allowable volume and exhibit audio distortion.
 
-Consider the following guidelines when adjusting volume levels:
+For quickly adjusting the volume of a clip, you can use the simple :guilabel:`Volume Preset` menu. See :ref:`clip_presets_ref`.
+For precise control over the volume of a clip, you can manually set the :guilabel:`Volume Key-frame`. See :ref:`clip_properties_ref`.
 
- - If you combine particularly loud audio clips on multiple tracks, clipping (a staccato distortion) may occur. To avoid clipping, reduce volume levels.
- - If you need to adjust the volume separately in different parts of a clip (for example, one person’s voice is faint, while later another’s is too loud), you can use keyframes to vary the volume throughout the clip.
- - If the original level of a clip is much too high or low, you can change the input level. However, adjusting the level will not remove any distortion that may have resulted from recording the clip too high. In those cases, it is best to re-record the clip.
+Note: If the original recorded audio level of a clip is too high or too low, you can still change the volume level in OpenShot, however it might 
+not remove distortion caused by these extreme audio levels. In those cases, it is probably best to re-record the audio clip.
 
 More Information
 ----------------

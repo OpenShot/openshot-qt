@@ -28,7 +28,7 @@ Titles are simply vector image files with transparent backgrounds (``*.svg``). O
 templates, but you can also create your own or import new templates into OpenShot. These templates allow you to quickly
 change the text, font, size, color, and background color. You can also launch an advanced, external SVG editor for
 further customizations (if needed). Once the title is added to your project, drag and drop the title on a
-Track above a video clip. The transparent background will allow the video below it appear behind the text.
+Track above a video clip. The transparent background will allow the video below to appear behind the text.
 
 Overview
 --------
@@ -36,7 +36,7 @@ Overview
 .. image:: images/title-editor.jpg
 
 .. table::
-   :widths: 5 26
+   :widths: 5 26 60
 
    ==  ==================  ============
    #   Name                Description
@@ -49,14 +49,17 @@ Overview
 
 Custom Title Templates
 ----------------------
-OpenShot can use any vector SVG image file as a custom title template. Just add an SVG image file to your
-``~/.openshot_qt/title_templates/`` folder, and it will appear the next time you open the Title Editor dialog. You can
+OpenShot can use any vector SVG image file as a custom title template in the :guilabel:`Title Editor` dialog. Just add an SVG image file to your
+``~/.openshot_qt/title_templates/`` folder, and it will appear the next time you launch the :guilabel:`Title Editor` dialog. You can
 also right click on any SVG files in your **Project Files** panel, and choose **Edit Title** or **Duplicate Title**.
+
+Note: These SVG templates are only used by the :guilabel:`Title Editor` dialog, and not :guilabel:`Animated Title` dialog.
 
 3D Animated Titles
 ------------------
 Adding a 3D animated title is just as easy, using our **Animated Title** dialog. Use the Title menu (located
 in the main menu of OpenShot) to launch the Animated Title editor. You can also use the keyboard shortcut **Ctrl+B**.
+Note: Blender must be installed and configured before this feature will work in OpenShot. See :ref:`blender_install_ref`.
 
 .. image:: images/animated-title.jpg
 
@@ -83,14 +86,23 @@ are needed for OpenShot to allow the text to not cover up videos and images on t
 
 For information on importing animated sequences into OpenShot, please see :ref:`animation_image_seq_ref`.
 
-Installing Inkscape & Blender
------------------------------
+Installing Inkscape
+-------------------
 
-Some features (:guilabel:`Advanced Editor` and :guilabel:`Animated Titles`) require the latest version of
-Blender (https://www.blender.org/download/) and Inkscape (https://inkscape.org/release/) be installed, and the
-OpenShot **Preferences** updated with the correct paths to the Blender & Inkscape executables.
-See the :ref:`preferences_general_ref` tab in Preferences. NOTE: The minimum supported version of
-Blender is 2.8+. Older version of Blender are not compatible with OpenShot Video Editor.
+The :guilabel:`Advanced Editor` feature in the :guilabel:`Title Editor` dialog requires the latest version of
+Inkscape (https://inkscape.org/release/) be installed and the OpenShot **Preferences** updated with the 
+correct path to the Inkscape executable. See the :ref:`preferences_general_ref` tab in Preferences. 
 
-For a detailed guide on how to install these dependencies, see
+.. _blender_install_ref:
+
+Installing Blender
+------------------
+
+The :guilabel:`Animated Title` feature in OpenShot requires the latest version of
+Blender (https://www.blender.org/download/) be installed and the OpenShot **Preferences** updated 
+with the correct path to the Blender executable. See the :ref:`preferences_general_ref` tab 
+in Preferences. NOTE: The minimum supported version of Blender is 2.8+. Older versions of Blender are 
+not compatible with OpenShot Video Editor.
+
+For a detailed guide on how to install these dependencies, see 
 `Blender & Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-Inkscape-Guide>`_.
