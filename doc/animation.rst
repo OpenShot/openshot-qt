@@ -55,7 +55,7 @@ frames, but can support an unlimited number of them.
 To adjust the **interpolation mode**, right click on the small graph icon next to a property value.
 
 .. table::
-   :widths: 12
+   :widths: 20 80
 
    ========================  ============
    Key-frame Interpolation    Description
@@ -97,7 +97,7 @@ and adjust the frame rate. Once you have set the correct frame rate, drag the an
 .. image:: images/file-properties.jpg
 
 .. table::
-   :widths: 5 25
+   :widths: 5 20 80
 
    ==  ====================  ============
    #   Name                  Description

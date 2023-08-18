@@ -27,7 +27,7 @@ found in the top menu under :guilabel:`Edit→Preferences`. Many settings will r
 changes are applied.
 
 NOTE: Some features such as `Animated Titles` and `external SVG editing` require setting the paths for **Blender** and
-**Inkscape** under the General tab. And if you notice audio playback issues, such as audio drift, you many need to
+**Inkscape** under the General tab. And if you notice audio playback issues, such as audio drift, you may need to
 adjust the audio settings under the Preview tab.
 
 .. _preferences_general_ref:
@@ -40,7 +40,7 @@ General
 The General tab of the Preferences window allows you to modify the settings that apply to OpenShot as a whole.
 
 .. table::
-   :widths: 30 15
+   :widths: 30 15 60
 
    ================================  =============  ===========
    Setting                           Default        Description
@@ -66,7 +66,7 @@ a preference for a specific editing profile. More about :ref:`profiles_ref`. Als
 real-time preview audio settings, for example, which audio device and sample rate to use.
 
 .. table::
-   :widths: 30 20
+   :widths: 30 15 60
 
    ================================  ==================  ===========
    Setting                           Default             Description

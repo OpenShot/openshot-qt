@@ -28,7 +28,7 @@ Note that imported files are not copied anywhere, they remain in the physical lo
 were before and are simply being made available to your video project. So, they must not be
 deleted, renamed, or moved after adding them to your project. The "Show All", "Video", "Audio",
 "Image" filters above the files allows you to only see the file types you are interested in.
-You can also toggle the view between details and thumbnails view of your files.
+You can also toggle the view between :guilabel:`details` and :guilabel:`thumbnails` view of your files.
 
 
 .. _import_files_ref:
@@ -38,7 +38,7 @@ Import Files
 These are all possible methods to import media files into OpenShot:
 
 .. table::
-   :widths: 25
+   :widths: 25 80
 
    ===========================  ============
    Import File Method           Description
@@ -85,7 +85,7 @@ to repeat the steps for your next clip. When you are finished, simply close the 
 .. image:: images/file-split-dialog.jpg
 
 .. table::
-   :widths: 5 20
+   :widths: 5 20 80
 
    ==  ==================  ============
    #   Name                Description
@@ -105,7 +105,7 @@ you can do this with the **Export Clips** dialog. Simply :kbd:`Ctrl+Click` to se
 then :kbd:`Right Click` and choose :guilabel:`Export Clips`. In the dialog that appears, choose a destination folder, and
 click :guilabel:`Export`.
 
-NOTE: This will export each clip using it's **original video profile** (width, height, framerate, aspect ratio, etc...). It
+NOTE: This will export each clip using its **original video profile** (width, height, framerate, aspect ratio, etc...). It
 also supports any :ref:`split_clip_ref` (described above). For example, if you have split a long video file into
 many different clips (and named them), you can now export all the clips as separate video files (using the original
 clip's video profile).
@@ -114,14 +114,14 @@ clip's video profile).
 
 Add to Timeline
 ---------------
-In certain cases, you might need to add many files to the timeline at the same time. For example, a photo slide show,
+In certain cases, you might need to add many files to the timeline at the same time. For example, a photo slideshow,
 or a large number of short video clips. The **Add to Timeline** dialog can automate this task for you. First, select
 all files you need to add, right click, and choose Add to Timeline.
 
 .. image:: images/file-add-to-timeline.jpg
 
 .. table::
-   :widths: 5 28
+   :widths: 5 28 80
 
    ==  ==================  ============
    #   Name                Description
@@ -161,3 +161,23 @@ Remove from Project
 -------------------
 
 This will remove a file from the project. It will not delete the underlying physical file though, so removing a file from the project merely makes it unavailable for this video project.
+
+Missing Files
+-------------
+
+When you create and save a project in OpenShot, any files imported into the software (such as videos, audio, and images) 
+must remain accessible throughout the project's duration. This means that these imported files should not be renamed, deleted, 
+or moved to different folders. Additionally, the full path where these files are located should not be renamed either. 
+This principle applies to other video editing software as well.
+
+For example, users might move or delete folders, unplug their USB devices, or move or delete their project files. Any of these examples 
+cause a :guilabel:`Missing File` message, in which OpenShot prompts you to locate the folder of the missing file(s). Depending on the 
+number of files you added to your project, OpenShot could prompt you many times to find the missing files.
+
+When OpenShot saves a project, all file paths are converted to **relative** file paths. As long as you keep all assets organized in
+the same parent folder (including the \*.osp project file), you will be able to move your project folder without triggering any
+missing file(s) prompts. You can even move a self-contained project folder to another computer without any issues.
+
+Everyone has their unique way of organizing files, and it's crucial to remember not to make changes to file paths, rename files, 
+or delete files when working with video editors, as it can lead to missing file issues. For a detailed guide on missing file(s), 
+see `The Case of “Missing Files”! <https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_
