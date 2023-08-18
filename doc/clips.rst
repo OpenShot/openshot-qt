@@ -154,25 +154,6 @@ the transform tool.
 
 For more info on key frames and animation, see :ref:`animation_ref`.
 
-Time Re-mapping
----------------
-Adjusting the speed and direction of a clip can be achieved using the :guilabel:`Time` property. You can
-use one of the available presets (`normal, fast, slow, freeze, freeze & zoom, forward, backward`), by right clicking
-on a Clip and choosing the :guilabel:`Time` menu. Many presets are available in this menu for reversing,
-speeding up, and slowing down a video clip.
-
-Optionally, you can manually set key-frame values for the :guilabel:`Time` property. The value represents the
-`frame number` at the position of the key-frame. This can be tricky to determine and might require a calculator to find
-the needed values. For example, if the beginning of your Clip sets a time value of ``300`` (i.e. `frame 300`),
-and the end of your clip sets a time value of ``1`` (`frame 1`), OpenShot will play this clip backwards, starting
-at frame 300 and ending at frame 1, at the appropriate speed (based on where these key-frames are set on the timeline).
-NOTE: To determine the total number of frames in a clip, multiply the duration of the file with the FPS of the project (for
-example: ``47.0 sec clip duration X 24.0 Project FPS = 1128 total frames``).
-
-This allows for some very complex scenarios, such as jump cutting inside a clip, reversing a portion of a clip,
-slowing down a portion of a clip, freezing on a frame, and much more. See :ref:`animation_ref` for more
-details on manual key-frame animations.
-
 Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
@@ -234,6 +215,52 @@ See the table below for a full list of clip properties.
    Waveform                Bool        Should a waveform be used instead of the clip's image
    ======================  ==========  ============
 
+Alpha
+"""""
+The :guilabel:`Alpha` property is a key-frame curve that represents the alpha value, determining fading and transparency 
+of the image in the clip. The curve ranges from 1 (fully opaque) to 0 (completely transparent).
+
+- **Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly transition clips.
+- **Tip:** Use keyframes to create complex fading patterns, such as fading in and then fading out for a ghostly effect.
+
+Channel Filter
+""""""""""""""
+The :guilabel:`Channel Filter` property is a key-frame curve used for audio manipulation. It specifies a single audio 
+channel to be filtered while clearing all other channels.
+
+- **Usage Example:** Isolating and enhancing specific audio elements, like isolating vocals from a song.
+- **Tip:** Combine with the "Channel Mapping" property to route the filtered channel to a specific audio output.
+
+Channel Mapping
+"""""""""""""""
+The :guilabel:`Channel Mapping` property is a key-frame curve that defines the output audio channel for the clip. 
+This property works in conjunction with the "Channel Filter" property and specifies which channel is retained in the output.
+
+- **Usage Example:** Keeping the filtered channel's audio while discarding others for an unconventional audio mix.
+- **Tip:** Experiment with mapping different channels to create unique audio effects, like panning sounds between speakers.
+
+Frame Number
+""""""""""""
+The :guilabel:`Frame Number` property specifies the format in which the frame numbers are displayed within the clip, if applicable.
+
+- **Usage Example:** Displaying frame numbers in the top left corner of the clip, as either absolute frame number or relative to the start of the clip.
+- **Tip:** This can help with identifying precise frame numbers or troubleshooting a problem.
+
+Duration
+""""""""
+The :guilabel:`Duration` property is a float value indicating the length of the clip in seconds.
+
+- **Usage Example:** Adjusting the duration of a clip to fit a specific time slot in the project.
+- **Tip:** Consider using the "Duration" property for clips that need to match specific time intervals, such as dialogue or scenes.
+
+End
+"""
+The :guilabel:`End` property defines the trimming point at the end of the clip in seconds, allowing you to control how much 
+of the clip is visible in the timeline.
+
+- **Usage Example:** Trimming the end of a clip to align with another clip or trimming off unwanted sections of the clip.
+- **Tip:** Combine the "Start" and "End" properties to precisely control the visible portion of the clip.
+
 Gravity
 """""""
 The :guilabel:`Gravity` clip property sets the initial display position coordinate (X,Y) for the clip, after it has been 
@@ -251,35 +278,55 @@ center of the screen. The gravity options are:
   - **Bottom Center** – The bottom edge of the clip aligns with the bottom edge of the screen; the clip is horizontally centered on the screen.
   - **Bottom Right** – The bottom and right edges of the clip align with the bottom and right edges of the screen
 
-.. _clip_parent_ref:
+Enable Audio
+""""""""""""
+The :guilabel:`Enable Audio` property is an enumeration that overrides the default audio setting for the clip. 
+Possible values: -1 (undefined), 0 (no audio), 1 (audio enabled).
 
-Clip Parent
-"""""""""""
-The ``parent`` attribute of a clip sets the initial keyframe values to the parent object. For example, if many clips all point to the 
-same parent clip, they will inherit all their default properties, such as ``location_x``, ``location_y``, ``scale_x``, ``scale_y``, etc... 
-This can be very useful in certain circumstances, such as when you have many clips that need to move or scale together. 
+- **Usage Example:** Turning off unwanted audio for a clip, like ambient noise.
+- **Tip:** Use this property to control audio playback for specific clips, especially clips which have no useful audio track.
 
-You can also set the ``parent`` attribute to a ``Tracker`` or ``Object Detector`` effect, so the clip follows the location and scale 
-of a tracked object. Also see :ref:`effect_parent_ref`.
+Enable Video
+""""""""""""
+The :guilabel:`Enable Video` property is an enumeration that overrides the default video setting for the clip. 
+Possible values: -1 (undefined), 0 (no video), 1 (video enabled).
 
-.. _clip_scale_ref:
+- **Usage Example:** Disabling the video of a clip while retaining its audio for creating audio-only sequences.
+- **Tip:** This property can be helpful when creating scenes with audio commentary or voiceovers.
 
-Scale
+ID
+""
+The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique Identifier) assigned to each clip, ensuring its uniqueness.
+
+- **Usage Example:** Referencing specific clips within custom scripts or automation tasks.
+- **Tip:** While typically managed behind the scenes, understanding clip IDs can aid in advanced project customization.
+
+Track
 """""
-This property is the initial resizing or scaling method used to display the picture of a clip, which may be further adjusted by the 
-:guilabel:`Scale X` and :guilabel:`Scale Y` clip properties (see :ref:`clip_properties_ref`). It is recommended to use assets with the same aspect 
-ratio as your project profile, which allows many of these resizing methods to fully scale your clip up to the size 
-of the screen, without adding any black bars on the edges. The scale methods are:
+The :guilabel:`Track` property is an integer indicating the layer on which the clip is placed. Clips on higher tracks are rendered 
+above those on lower tracks.
 
- - **Best Fit** (default) – The clip is as large as possible without changing the aspect ratio. This might result in black bars on certain sides of the picture, if the aspect ratio does not exactly match your project size.
- - **Crop** – The aspect ratio of the clip is maintained while the clip is enlarged to fill the entire screen, even if that means some of it will be cropped. This prevents black bars around the picture, but if the aspect ratio of the clip does not match the project size, some of the picture will be cropped off.
- - **None** – The clip is displayed in its original size. This is not recommended, since the picture will not scale correctly if you change the project profile (or project size).
- - **Stretch** – The clip is stretched to fill the entire screen, changing the aspect ratio if necessary.
+- **Usage Example:** Arranging clips in different layers for creating visual depth and complexity.
+- **Tip:** Use higher tracks for elements that need to appear above others, like text overlays or graphics.
+
+Location X and Location Y
+"""""""""""""""""""""""""
+The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-frame curves that determine the relative position of the clip, 
+expressed in percentages, based on the specified gravity. The range for these curves is -1 to 1. See :ref:`clip_transform_ref`.
+
+- **Usage Example:** Animating a clip's movement across the screen using key-frame curves for both X and Y locations.
+- **Tip:** Combine with gravity settings to create dynamic animations that adhere to consistent alignment rules.
 
 .. _clip_volume_mixing_ref:
 
 Volume Mixing
 """""""""""""
+The :guilabel:`Volume Mixing` property is an enumeration that controls how volume adjustments are applied before mixing audio. 
+Options: None (no adjustment), Reduce (volume lowered to 80%), Average (volume divided based on the number of concurrent clips).
+
+- **Usage Example:** Automatically lowering the volume of a clip to allow background music to stand out more prominently.
+- **Tip:** Experiment with volume mixing options to achieve balanced audio levels across different clips.
+
 Mixing audio involves adjusting volume levels so that **overlapping clips** do not become too loud (creating audio distortion and loss of
 audio clarity). If you combine particularly loud audio clips on multiple tracks, clipping (a staccato audio distortion) may occur. 
 To avoid distortion, OpenShot might need to reduce the volume levels in overlapping clips. The following audio mixing methods are available:
@@ -289,10 +336,128 @@ To avoid distortion, OpenShot might need to reduce the volume levels in overlapp
  - **Reduce** - Automatically reduce overlapping clips volume by 20%, which reduces the likelihood of becoming too loud, but does not always prevent audio distortion. For example, if you have 10 loud clips overlapping, each with a 20% reduction in volume, it might still exceed the max allowable volume and exhibit audio distortion.
 
 For quickly adjusting the volume of a clip, you can use the simple :guilabel:`Volume Preset` menu. See :ref:`clip_presets_ref`.
-For precise control over the volume of a clip, you can manually set the :guilabel:`Volume Key-frame`. See :ref:`clip_properties_ref`.
+For precise control over the volume of a clip, you can manually set the :guilabel:`Volume Key-frame`. See :ref:`clip_volume_ref`.
 
-Note: If the original recorded audio level of a clip is too high or too low, you can still change the volume level in OpenShot, however it might 
-not remove distortion caused by these extreme audio levels. In those cases, it is probably best to re-record the audio clip.
+Origin X and Origin Y
+"""""""""""""""""""""
+The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame curves that define the rotation origin point's position in percentages. 
+The range for these curves is -1 to 1. See :ref:`clip_transform_ref`.
+
+- **Usage Example:** Rotating a clip around a specific point, such as a character's pivot joint.
+- **Tip:** Set the origin point to achieve controlled and natural-looking rotations during animations.
+
+.. _clip_parent_ref:
+
+Clip Parent
+"""""""""""
+The :guilabel:`Parent` property of a clip sets the initial keyframe values to the parent object. For example, if many clips all point to the 
+same parent clip, they will inherit all their default properties, such as ``location_x``, ``location_y``, ``scale_x``, ``scale_y``, etc... 
+This can be very useful in certain circumstances, such as when you have many clips that need to move or scale together. 
+
+- **Usage Example:** Creating complex animations by establishing a parent-child relationship between clips.
+- **Tip:** Utilize this property to propagate changes from the parent clip to child clips for consistent animations.
+- **Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or ``Object Detector`` effect, so the clip follows the location and scale of a tracked object. Also see :ref:`effect_parent_ref`.
+
+Position
+""""""""
+The :guilabel:`Position` property determines the clip's position on the timeline in seconds, with 0.0 indicating the beginning.
+
+- **Usage Example:** Timing a clip's appearance to coincide with specific events in the project.
+- **Tip:** Adjust the position to synchronize clips with audio cues or visual elements.
+
+Rotation
+""""""""
+The :guilabel:`Rotation` property is a key-frame curve that controls the rotation angle of the clip, 
+ranging from 0 to 360 degrees. See :ref:`clip_transform_ref`.
+
+- **Usage Example:** Simulating a spinning effect by animating the rotation curve.
+- **Tip:** Use this property creatively for effects like rotating text or emulating camera movement.
+
+.. _clip_scale_ref:
+
+Scale
+"""""
+The :guilabel:`Scale` property is the initial resizing or scaling method used to display the picture of a clip, which may be further adjusted by the 
+:guilabel:`Scale X` and :guilabel:`Scale Y` clip properties (see :ref:`clip_scale_x_ref`). It is recommended to use assets with the same aspect 
+ratio as your project profile, which allows many of these resizing methods to fully scale your clip up to the size 
+of the screen, without adding any black bars on the edges. The scale methods are:
+
+ - **Best Fit** (default) – The clip is as large as possible without changing the aspect ratio. This might result in black bars on certain sides of the picture, if the aspect ratio does not exactly match your project size.
+ - **Crop** – The aspect ratio of the clip is maintained while the clip is enlarged to fill the entire screen, even if that means some of it will be cropped. This prevents black bars around the picture, but if the aspect ratio of the clip does not match the project size, some of the picture will be cropped off.
+ - **None** – The clip is displayed in its original size. This is not recommended, since the picture will not scale correctly if you change the project profile (or project size).
+ - **Stretch** – The clip is stretched to fill the entire screen, changing the aspect ratio if necessary.
+
+.. _clip_scale_x_ref:
+
+Scale X and Scale Y
+"""""""""""""""""""
+The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame curves that represent horizontal and vertical scaling in percentages, 
+respectively. The range for these curves is 0 to 1. See :ref:`clip_transform_ref`.
+
+- **Usage Example:** Creating a zoom-in effect by animating the Scale X and Scale Y curves simultaneously.
+- **Tip:** Combine scaling with rotation and location properties for dynamic transformations.
+
+Shear X and Shear Y
+"""""""""""""""""""
+The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame curves that represent X and Y shear 
+angles in degrees, respectively. See :ref:`clip_transform_ref`.
+
+- **Usage Example:** Adding a dynamic tilt effect to a clip by animating the shear angles.
+- **Tip:** Use shear properties for creating slanted or skewed animations. 
+
+Start
+"""""
+The :guilabel:`Start` property defines the trimming point at the beginning of the clip in seconds.
+
+- **Usage Example:** Removing the initial portion of a clip to focus on a specific scene or moment.
+- **Tip:** Utilize the "Start" property in combination with the "End" property for precise clip trimming.
+
+Time
+""""
+The :guilabel:`Time` property is a key-frame curve that represents frames played over time, affecting the speed and direction of the video.
+You can use one of the available presets (`normal, fast, slow, freeze, freeze & zoom, forward, backward`), by right clicking
+on a Clip and choosing the :guilabel:`Time` menu. Many presets are available in this menu for reversing,
+speeding up, and slowing down a video clip, see :ref:`clip_presets_ref`.
+
+Optionally, you can manually set key-frame values for the :guilabel:`Time` property. The value represents the
+`frame number` at the position of the key-frame. This can be tricky to determine and might require a calculator to find
+the needed values. For example, if the beginning of your Clip sets a time value of ``300`` (i.e. `frame 300`),
+and the end of your clip sets a time value of ``1`` (`frame 1`), OpenShot will play this clip backwards, starting
+at frame 300 and ending at frame 1, at the appropriate speed (based on where these key-frames are set on the timeline).
+NOTE: To determine the total number of frames in a clip, multiply the duration of the file with the FPS of the project (for
+example: ``47.0 sec clip duration X 24.0 Project FPS = 1128 total frames``).
+
+This allows for some very complex scenarios, such as jump cutting inside a clip, reversing a portion of a clip,
+slowing down a portion of a clip, freezing on a frame, and much more. See :ref:`animation_ref` for more
+details on manual key-frame animations.
+
+- **Usage Example:** Creating a slow-motion or time-lapse effect by modifying the time curve.
+- **Tip:** Adjust the "Time" property to control video playback speed for dramatic visual impact.
+
+.. _clip_volume_ref:
+
+Volume
+""""""
+The :guilabel:`Volume` property is a key-frame curve that controls audio volume or level, ranging from 0 (mute) to 1 (full volume).
+For automatic adjustment of volume, see :ref:`clip_volume_mixing_ref`.
+
+- **Usage Example:** Gradually fading out background music as dialogue becomes more prominent, or increasing or lowering the volume of a clip.
+- **Tip:** Combine multiple volume key-frames for nuanced audio adjustments, such as ducking the level of the music when dialog is spoken.
+- **Tip:** For **quickly** adjusting the volume of a clip you can use the simple :guilabel:`Volume Preset` menu. See :ref:`clip_presets_ref`.
+
+Wave Color
+""""""""""
+The :guilabel:`Wave Color` property is a key-frame curve that represents the color of the audio waveform visualization.
+
+- **Usage Example:** Matching the waveform color to the project's overall visual theme.
+- **Tip:** Experiment with different colors to enhance the visual appeal of the waveform or animate the color over time.
+
+Waveform
+""""""""
+The :guilabel:`Waveform` property is a boolean that determines whether a waveform visualization is used instead of the clip's image.
+
+- **Usage Example:** Displaying an audio waveform in place of the video for visually highlighting audio patterns.
+- **Tip:** Use waveform visualization for emphasizing music beats or voice modulations.
 
 More Information
 ----------------

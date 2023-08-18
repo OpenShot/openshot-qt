@@ -91,11 +91,11 @@ to animate a clip first and then apply a static mask to the clip.
 
 Effect Parent
 -------------
-The ``parent`` attribute of an effect sets the initial keyframe values to the parent effect. For example, if many effects all point to the 
-same parent effect, they will inherit all their default properties, such as font size, font color, and background color for a ``Caption`` effect.
+The :guilabel:`Parent` property of an effect sets the initial keyframe values to a parent effect. For example, if many effects all point to the 
+same parent effect, they will inherit all their initial properties, such as font size, font color, and background color for a ``Caption`` effect.
 In the example of many ``Caption`` effects using the same Parent effect, it is an efficient way to manage a large number of these effects. 
 
-NOTE: The ``parent`` attribute for effects should be linked to the same type of parent effect, otherwise their defaut initial values
+NOTE: The ``parent`` property for effects should be linked to the **same type** of parent effect, otherwise their defaut initial values
 will not match. Also see :ref:`clip_parent_ref`.
 
 Video Effects
