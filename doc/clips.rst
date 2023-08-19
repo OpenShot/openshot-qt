@@ -129,36 +129,143 @@ the following menu options:
    Remove Clip         Remove a clip from the timeline
    ==================  ============
 
+Fade
+""""
+The :guilabel:`Fade` preset enables smooth transitions by gradually increasing or decreasing the clip's opacity. It
+creates a fade-in or fade-out of the clip image, ideal for introducing or concluding clips. 
+See :ref:`clip_alpha_ref` key-frame.
+
+- **Usage Example:** Applying a fade-out to a video clip to gently conclude a scene.
+- **Tip:** Adjust the duration of the fade effect (slow or fast) to control its timing and intensity.
+
+Animate
+"""""""
+The :guilabel:`Animate` preset adds dynamic motion to clips, combining zooming and sliding animations. It
+animates a clip by zooming in or out while sliding across the screen. It can **slide** in many specific
+directions, or slide and zoom to a **random** location. See :ref:`clip_location_x_ref` and 
+:ref:`clip_scale_x_ref` key-frames.
+
+- **Usage Example:** Using the animate preset to simulate a camera movement across a landscape shot.
+- **Tip:** Experiment with different animation speeds and directions for diverse visual effects.
+
+Rotate
+""""""
+The :guilabel:`Rotate` preset introduces rotation and flipping effects to clips, enhancing their visual appeal. It
+enables rotation and flipping of a clip for creative visual transformations. See :ref:`clip_rotation_ref` key-frame.
+
+- **Usage Example:** Rotating a photo or video by 90 degree (a portrait video to a landscape)
+- **Tip:** Use rotation presets in combination with key-frame curves for complex animations.
+
+Layout
+""""""
+The :guilabel:`Layout` preset adjusts the size of a clip and snaps it to a chosen corner of the screen. It
+resizes a clip and anchors it to a corner or the center, useful for picture-in-picture or watermark effects.
+See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key-frames.
+
+- **Usage Example:** Placing a logo in the corner of a video using the layout preset.
+- **Tip:** Combine with animation presets for dynamic transitions involving resizing and repositioning.
+
+Time
+""""
+The :guilabel:`Time` preset manipulates clip playback speed, allowing for reverse playback or time-lapse effects. It
+alters the speed and direction of a clip's playback, enhancing visual storytelling. 
+See :ref:`clip_time_ref` key-frame.
+
+- **Usage Example:** Creating a slow-motion effect to emphasize a specific action.
+- **Tip:** Use time presets to creatively manipulate the pacing of your video.
+
+Volume
+""""""
+The :guilabel:`Volume` preset controls audio properties, facilitating smooth volume adjustments. It
+manages audio volume, including fading in/out, reducing/increasing volume, or muting.
+See :ref:`clip_volume_ref` key-frame.
+
+- **Usage Example:** Applying a gradual volume fade-out to transition between scenes.
+- **Tip:** Utilize volume presets for quickly lowering or raising volume levels.
+
+Separate Audio
+""""""""""""""
+The :guilabel:`Separate Audio` preset splits the audio from a clip, creating detached audio clips positioned 
+below the original clip on the timeline. This preset can either create a **single** detached audio clip 
+(positioned on a layer below the original clip) or **multiple** detached audio clips 
+(one per audio track, positioned on multiple layers below the original clip).
+
+- **Usage Example:** Extracting background music from a video clip for independent control.
+- **Tip:** Use this preset to fine-tune audio elements separately from the visual content.
+
+Slice
+"""""
+The :guilabel:`Slice` preset cuts a clip at the play-head position, creating two separate clips. It
+divides a clip into two distinct parts at the current play-head position. See :ref:`clips_cutting_slicing_ref`.
+
+- **Usage Example:** Splitting a clip to remove an unwanted section.
+- **Tip:** Quickly cut a clip into many smaller clips, for easy rearranging.
+
 .. _clip_transform_ref:
 
 Transform
----------
+"""""""""
+The :guilabel:`Transform` preset activates the **transform tool** for a clip, allowing for quick adjustments to 
+location, scale, rotation, shear, and rotation origin point.
+
 To quickly adjust the location, scale, rotation, and shear of a clip, select a clip on the timeline to activate
 the transform tool. By default, the selected clip appears in the preview window with transform controls (blue lines and squares). 
 Or if the transform tool is disabled, right click on a clip and choose **Transform**. 
 
-Dragging the blue squares will 
-adjust scale, and dragging the center will move the image. Dragging the mouse on the outside of the blue lines will 
-rotate the image. Dragging along the blue lines will shear the image in that direction. Dragging the circle in the 
-middle will move the origin point that controls the center of rotation. 
+- Dragging the blue squares will adjust the **scale** of the image.
+- Dragging the center will move the **location** of the image.
+- Dragging the mouse on the outside of the blue lines will **rotate** the image.
+- Dragging along the blue lines will **shear** the image in that direction.
+- Dragging the circle in the middle will move the **origin point** that controls the center of **rotation**. 
 
 Note: Pay close attention to the play-head 
 position (red playback line). Key frames are automatically created at the current playback position, to help quickly create 
 animations. If you want to transform a clip with **no animation**, be sure the playhead is positioned before (to the left)
 of your clip. You can also manually adjust these same clip properties in the property editor, see :ref:`clip_properties_ref`.
 
-Note: To crop a clip in OpenShot, you must use the :ref:`effects_crop_ref` effect. Cropping is not a feature of 
-the transform tool.
-
 .. image:: images/clip-transform.jpg
 
-For more info on key frames and animation, see :ref:`animation_ref`.
+- **Usage Example:** Using transform mode to resize and reposition a clip for a picture-in-picture effect.
+- **Tip:** Utilize this preset to precisely control a clip's appearance.
+- **Tip:** To crop a clip in OpenShot, you must use the :ref:`effects_crop_ref` effect. Cropping is not a feature of the transform tool.
+
+Display
+"""""""
+The :guilabel:`Display` preset toggles the display mode of a clip on the timeline, showing either its 
+waveform or thumbnail.
+
+- **Usage Example:** Displaying the audio waveform for precise audio editing.
+- **Tip:** Use this preset to focus on specific aspects of a clip's audio during editing.
+
+Properties
+""""""""""
+The :guilabel:`Properties` preset opens the properties panel for a clip, allowing quick access for adjustments
+to clip properties, such as location, scale, rotation, etc... See :ref:`clip_properties_ref`.
+
+- **Usage Example:** Adjusting clip properties like opacity, volume, or position.
+- **Tip:** Apply this preset to streamline adjustments to all clip properties in a single dock.
+
+Copy / Paste
+""""""""""""
+The :guilabel:`Copy / Paste` preset facilitates copying and pasting keyframes or 
+duplicating an entire clip along with its keyframes.
+
+- **Usage Example:** Duplicating a clip with intricate animations for reuse in different parts of the project.
+- **Tip:** Use this preset to replicate animations or effects across multiple clips.
+
+Remove Clip
+"""""""""""
+The :guilabel:`Remove Clip` preset deletes a clip and its associated elements from the timeline.
+
+- **Usage Example:** Deleting unused or redundant clips to declutter the project.
+- **Tip:** Be cautious when using this preset, as it permanently removes clips from the timeline.
 
 Effects
 -------
 In addition to the many clip properties which can be animated and adjusted, you can also drop an effect directly onto
-a clip. Each effect is represented by a small letter icon. Clicking the effect icon will populate the properties of that
-effect, and allow you to edit (and animate) them. For the full list of effects, see :ref:`effects_ref`.
+a clip from the effects dock. Each effect is represented by a small colored letter icon. Clicking the effect icon 
+will populate the properties of that effect, and allow you to edit (and animate) them. 
+For the full list of effects, see :ref:`effects_ref`.
 
 .. image:: images/clip-effects.jpg
 
@@ -214,6 +321,8 @@ See the table below for a full list of clip properties.
    Wave Color              Key-Frame   Curve representing the color of the audio waveform
    Waveform                Bool        Should a waveform be used instead of the clip's image
    ======================  ==========  ============
+
+.. _clip_alpha_ref:
 
 Alpha
 """""
@@ -309,6 +418,8 @@ above those on lower tracks.
 - **Usage Example:** Arranging clips in different layers for creating visual depth and complexity.
 - **Tip:** Use higher tracks for elements that need to appear above others, like text overlays or graphics.
 
+.. _clip_location_x_ref:
+
 Location X and Location Y
 """""""""""""""""""""""""
 The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-frame curves that determine the relative position of the clip, 
@@ -365,6 +476,8 @@ The :guilabel:`Position` property determines the clip's position on the timeline
 - **Usage Example:** Timing a clip's appearance to coincide with specific events in the project.
 - **Tip:** Adjust the position to synchronize clips with audio cues or visual elements.
 
+.. _clip_rotation_ref:
+
 Rotation
 """"""""
 The :guilabel:`Rotation` property is a key-frame curve that controls the rotation angle of the clip, 
@@ -411,6 +524,8 @@ The :guilabel:`Start` property defines the trimming point at the beginning of th
 
 - **Usage Example:** Removing the initial portion of a clip to focus on a specific scene or moment.
 - **Tip:** Utilize the "Start" property in combination with the "End" property for precise clip trimming.
+
+.. _clip_time_ref:
 
 Time
 """"
