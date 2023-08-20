@@ -28,9 +28,10 @@ over time.
 
 Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is
 represented by a small colored icon and the first letter of the effect name. To view an effect's properties,
-right click on the effect icon, and choose :guilabel:`Properties`. The property editor will appear, where you
-can edit these properties. Note: Pay close attention to where the play-head (i.e. red playback line) is.
-Key frames are automatically created at the current playback position, to help create animations quickly.
+right-click on the effect icon, revealing the context menu, and choose :guilabel:`Properties`. The property
+editor will appear, where you can edit these properties. Note: Pay close attention to where the play-head
+(i.e. red playback line) is. Key frames are automatically created at the current playback position,
+to help create animations quickly.
 
 .. image:: images/clip-effects.jpg
 
@@ -181,9 +182,9 @@ effect can even animate the text fading in/out, and supports any font, size, col
 easy-to-use Caption editor, where you can quickly insert captions at the playhead position, or edit all your caption
 text in one place.
 
-.. code-block:: bash
+.. code-block:: console
+   :caption: Show a caption, starting at 5 seconds and ending at 10 seconds.
 
-   # Show a caption, starting at 5 seconds and ending at 10 seconds.
    00:00:05.000 --> 00:00:10.000
    Hello, welcome to our video!
 

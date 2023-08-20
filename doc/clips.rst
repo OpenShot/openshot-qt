@@ -90,14 +90,14 @@ Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_re
 
 .. _clip_presets_ref:
 
-Preset Menu
------------
+Context Menu
+------------
 OpenShot has tons of great preset animations and clip properties, such as fading, sliding, zooming, 
-reversing time, adjusting volume, etc... These presets can be accessed by right clicking on a clip. 
-A preset sets one (or more) clip properties for the user without needing to manually set the 
-key-frame clip properties. See :ref:`clip_properties_ref`.
+reversing time, adjusting volume, etc... These presets can be accessed by right-clicking on a clip,
+revealing the context menu. A preset sets one (or more) clip properties for the user without needing
+to manually set the key-frame clip properties. See :ref:`clip_properties_ref`.
 
-Some Presets allow the user to target either the start, end, or entire clip. Also, most presets allow
+Some presets allow the user to target either the start, end, or entire clip, and most presets allow
 the user to reset a specific clip property. For example, when using the ``Volume`` preset, the user has
 the following menu options: 
 
