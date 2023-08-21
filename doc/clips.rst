@@ -22,25 +22,25 @@
 Clips
 =====
 
-When project files (videos, images, and audio) are added to the OpenShot timeline, they are
-represented by a "clip", visualized as rounded rectangles. Clips possess various properties,
-affecting rendering and compositing. These include position, :guilabel:`layer`, :guilabel:`scale`,
-:guilabel:`location`, :guilabel:`rotation`, and :guilabel:`alpha`, which can be animated for stunning effects.
+In OpenShot, when you add project file (videos, images, and audio) to the timeline, they appear as **clips**
+represented by rounded rectangles. These clips come with different properties that influence how they're rendered
+and composited. These properties include the clip's :guilabel:`position`, :guilabel:`layer`, :guilabel:`scale`,
+:guilabel:`location`, :guilabel:`rotation`, and :guilabel:`alpha`.
 
-View a clip's properties by right-clicking and selecting "Properties" or double-clicking the clip.
-Properties appear alphabetically in the dock, with filter options available at the top. 
-See :ref:`clip_properties_ref`.
+You can examine a clip's properties by either right-clicking and selecting :guilabel:`Properties` or by double-clicking the clip.
+The properties are listed alphabetically in the Property dock, and you can use the filter options at the top to
+find specific properties. See :ref:`clip_properties_ref` for a list of all clip properties.
 
-To adjust a property:
+To **make adjustments** to a property:
 
-- Drag the slider for coarse changes.
-- Double-click to enter precise values.
-- Right/double-click for non-numerical options.
+- For **rough** changes, you can drag the slider.
+- For **precise** adjustments, double-click the property to enter exact values.
+- If the property involves **non-numerical choices**, right-click or double-click for options.
 
-Clip properties are integral to the :ref:`animation_ref` system. When you modify a clip property, a
-keyframe is generated at the current playhead position. For a property to span the entire clip,
-position the playhead at or before the clip's start before making adjustments. A convenient way to
-identify a clip's start is by utilizing the 'next/previous marker' feature on the Timeline toolbar.
+Clip properties play a vital role in the :ref:`animation_ref` system. Whenever you modify a clip property, a
+``key-frame`` is automatically created at the current playhead position. If you want a property change to apply
+throughout the entire clip, ensure the playhead is positioned at or before the clip's start, before making adjustments.
+You can easily find a clip's start by using the :guilabel:`next/previous marker` feature on the Timeline toolbar.
 
 .. image:: images/clip-overview.jpg
 
