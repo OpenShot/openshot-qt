@@ -24,14 +24,27 @@ Effects
 
 Effects are used in OpenShot to enhance or modify the audio or video of a clip. They can modify pixels and audio data,
 and can generally enhance your video projects. Each effect has its own set of properties, most of which can be animated
-over time.
+over time, for example varying the :guilabel:`Brightness & Contrast` of a clip over time.
 
 Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is
-represented by a small colored icon and the first letter of the effect name. To view an effect's properties,
-right-click on the effect icon, revealing the context menu, and choose :guilabel:`Properties`. The property
-editor will appear, where you can edit these properties. Note: Pay close attention to where the play-head
+represented by a small colored icon and the first letter of the effect name. Note: Pay close attention to where the play-head
 (i.e. red playback line) is. Key frames are automatically created at the current playback position,
 to help create animations quickly.
+
+To view an effect's properties, right-click on the effect icon, revealing the context menu, and choose :guilabel:`Properties`.
+The property editor will appear, where you can edit these properties. Properties appear alphabetically in the dock,
+with filter options available at the top. See :ref:`clip_properties_ref`.
+
+To adjust a property:
+
+- Drag the slider for coarse changes.
+- Double-click to enter precise values.
+- Right/double-click for non-numerical options.
+
+Effect properties are integral to the :ref:`animation_ref` system. When you modify an effect property, a
+keyframe is generated at the current playhead position. For a property to span the entire clip,
+position the playhead at or before the clip's start before making adjustments. A convenient way to
+identify a clip's start is by utilizing the 'next/previous marker' feature on the Timeline toolbar.
 
 .. image:: images/clip-effects.jpg
 
@@ -76,6 +89,82 @@ the name and short description of each effect.
    Whisperization                 Transform audio into whispers.
    =============================  ===============
 
+Effect Properties
+-----------------
+Below is a list of **common** effect properties, shared by all effects in OpenShot. To view an effect's properties,
+right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties. Note: Pay
+close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback
+position, to help quickly create animations.
+
+See the table below for a list of common effect properties. Only the **common properties** that all effects share are listed here.
+Each effect also has many **unique properties**, which are specific to each effect, see :ref:`effect_video_effects_ref` for
+more information on individual effects and their unique properties.
+
+.. table::
+   :widths: 18 18 70
+
+   ======================  ==========  ============
+   Effect Property Name    Type        Description
+   ======================  ==========  ============
+   Duration                Float       The length of the effect (in seconds). Read-only property. Most effects default to the length of a clip. This property is hidden when an effect belongs to a clip.
+   End                     Float       The end trimming position of the effect (in seconds). This property is hidden when an effect belongs to a clip.
+   ID                      String      A randomly generated GUID (globally unique identifier) assigned to each effect. Read-only property.
+   Parent                  String      The parent object to this effect, which makes many of these keyframe values initialize to the parent value.
+   Position                Float       The position of the effect on the timeline (in seconds). This property is hidden when an effect belongs to a clip.
+   Start                   Float       The start trimming position of the effect (in seconds). This property is hidden when an effect belongs to a clip.
+   Track                   Int         The layer which holds the effect (higher tracks are rendered on top of lower tracks). This property is hidden when an effect belongs to a clip.
+   ======================  ==========  ============
+
+Duration
+""""""""
+The :guilabel:`Duration` property is a float value indicating the length of the effect in seconds. This is a Read-only property.
+This is calculated by: End - Start. To modify duration, you must edit the :guilabel:`Start` and/or :guilabel:`End` effect properties.
+
+*NOTE: Most effects in OpenShot default the effect duration to the clip duration, and hide this property from the editor.*
+
+End
+"""
+The :guilabel:`End` property defines the trimming point at the end of the effect in seconds, allowing you to control how much
+of the effect is visible in the timeline. Changing this property will impact the :guilabel:`Duration` effect property.
+
+*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*
+
+ID
+""
+The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique Identifier) assigned to each effect,
+ensuring its uniqueness. This is a Read-only property, and assigned by OpenShot when an effect is created.
+
+Track
+"""""
+The :guilabel:`Track` property is an integer indicating the layer on which the effect is placed. Effects on higher tracks are rendered
+above those on lower tracks.
+
+*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*
+
+.. _effect_parent_ref:
+
+Effect Parent
+-------------
+The :guilabel:`Parent` property of an effect sets the initial keyframe values to a parent effect. For example, if many effects all point to the
+same parent effect, they will inherit all their initial properties, such as font size, font color, and background color for a ``Caption`` effect.
+In the example of many ``Caption`` effects using the same Parent effect, it is an efficient way to manage a large number of these effects.
+
+NOTE: The ``parent`` property for effects should be linked to the **same type** of parent effect, otherwise their default initial values
+will not match. Also see :ref:`clip_parent_ref`.
+
+Position
+""""""""
+The :guilabel:`Position` property determines the effect's position on the timeline in seconds, with 0.0 indicating the beginning.
+
+*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*
+
+Start
+"""""
+The :guilabel:`Start` property defines the trimming point at the beginning of the effect in seconds.
+Changing this property will impact the :guilabel:`Duration` effect property.
+
+*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*
+
 Sequencing
 ----------
 
@@ -88,16 +177,7 @@ If you set the ``Apply Before Clip Keyframes`` property to ``No``, the effect wi
 and applies keyframes to the image. This can be useful on certain effects, such as the **Mask** effect, when you want
 to animate a clip first and then apply a static mask to the clip.
 
-.. _effect_parent_ref:
-
-Effect Parent
--------------
-The :guilabel:`Parent` property of an effect sets the initial keyframe values to a parent effect. For example, if many effects all point to the 
-same parent effect, they will inherit all their initial properties, such as font size, font color, and background color for a ``Caption`` effect.
-In the example of many ``Caption`` effects using the same Parent effect, it is an efficient way to manage a large number of these effects. 
-
-NOTE: The ``parent`` property for effects should be linked to the **same type** of parent effect, otherwise their defaut initial values
-will not match. Also see :ref:`clip_parent_ref`.
+.. _effect_video_effects_ref:
 
 Video Effects
 -------------
@@ -107,7 +187,7 @@ data of a clip. Below is a list of video effects, and their properties. Often it
 entering different values into the properties, and observing the results.
 
 Alpha Mask / Wipe Transition
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""
 Uses a grayscale mask image to gradually wipe / transition between 2 images (only affects the image, and not the audio track)
 
 .. table::
@@ -124,7 +204,7 @@ Uses a grayscale mask image to gradually wipe / transition between 2 images (onl
    ==========================  ============
 
 Bars
-^^^^
+""""
 Add colored bars around your video.
 
 .. table::
@@ -142,7 +222,7 @@ Add colored bars around your video.
    ==========================  ============
 
 Blur
-^^^^
+""""
 Adjust the blur of the frame's image.
 
 .. table::
@@ -159,7 +239,7 @@ Adjust the blur of the frame's image.
    ==========================  ============
 
 Brightness & Contrast
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 Adjust the brightness and contrast of the frame's image.
 
 .. table::
@@ -174,7 +254,7 @@ Adjust the brightness and contrast of the frame's image.
    ==========================  ============
 
 Caption
-^^^^^^^
+"""""""
 Add text captions on top of your video. We support both VTT (WebVTT) and SubRip (SRT) subtitle file formats. These
 formats are used to display captions or subtitles in videos. They allow you to add text-based subtitles to video content,
 making it more accessible to a wider audience, especially for those who are deaf or hard of hearing. The Caption
@@ -215,7 +295,7 @@ text in one place.
    ==========================  ============
 
 Chroma Key (Greenscreen)
-^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""
 Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).
 
 .. table::
@@ -232,7 +312,7 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
    ==========================  ============
 
 Color Saturation
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 Adjust the color saturation.
 
 .. table::
@@ -249,7 +329,7 @@ Adjust the color saturation.
    ==========================  ============
 
 Color Shift
-^^^^^^^^^^^
+"""""""""""
 Shift the colors of an image up, down, left, and right (with infinite wrapping).
 
 **Each pixel has 4 color channels:**
@@ -281,7 +361,7 @@ shift of the alpha channel.*
 .. _effects_crop_ref:
 
 Crop
-^^^^
+""""
 Crop out any part of a video clip. This effect is the primary method for cropping a Clip in OpenShot. The ``left``, ``right``,
 ``top``, and ``bottom`` key-frames can even be animated, for a moving and resizing cropped area. You can leave the cropped area
 blank, or you can dynamically resize the cropped area to fill the screen.
@@ -303,7 +383,7 @@ blank, or you can dynamically resize the cropped area to fill the screen.
    ==========================  ============
 
 Deinterlace
-^^^^^^^^^^^
+"""""""""""
 Remove interlacing from a video (i.e. even or odd horizontal lines)
 
 .. table::
@@ -317,7 +397,7 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
    ==========================  ============
 
 Hue
-^^^
+"""
 Adjust the hue / color of the frame's image.
 
 .. table::
@@ -331,11 +411,11 @@ Adjust the hue / color of the frame's image.
    ==========================  ============
 
 Negative
-^^^^^^^^
+""""""""
 Negates the colors, producing a negative of the image.
 
 Object Detector
-^^^^^^^^^^^^^^^
+"""""""""""""""
 Detect objects through the video.
 
 .. table::
@@ -353,7 +433,7 @@ Detect objects through the video.
    ==========================  ============
 
 Pixelate
-^^^^^^^^
+""""""""
 Pixelate (increase or decrease) the number of visible pixels.
 
 .. table::
@@ -371,7 +451,7 @@ Pixelate (increase or decrease) the number of visible pixels.
    ==========================  ============
 
 Shift
-^^^^^
+"""""
 Shift the image up, down, left, and right (with infinite wrapping).
 
 .. table::
@@ -386,7 +466,7 @@ Shift the image up, down, left, and right (with infinite wrapping).
    ==========================  ============
 
 Stabilizer
-^^^^^^^^^^
+""""""""""
 Stabilize video clip to remove undesired shaking and jitter.
 
 .. table::
@@ -400,11 +480,11 @@ Stabilize video clip to remove undesired shaking and jitter.
    ==========================  ============
 
 Tracker
-^^^^^^^
+"""""""
 Track the selected bounding box through the video. The tracked object can be selected as a parent on other clips. See :ref:`clip_parent_ref`.
 
 Wave
-^^^^
+""""
 Distort the frame's image into a wave pattern.
 
 .. table::
@@ -429,7 +509,7 @@ their properties. Often it is best to experiment with an effect, entering differ
 and observing the results.
 
 Compressor
-^^^^^^^^^^
+""""""""""
 Reduce the volume of loud sounds or amplify quiet sounds.
 
 .. table::
@@ -448,7 +528,7 @@ Reduce the volume of loud sounds or amplify quiet sounds.
    ==========================  ============
 
 Delay
-^^^^^
+"""""
 Adjust the synchronism between the audio and video track.
 
 .. table::
@@ -462,7 +542,7 @@ Adjust the synchronism between the audio and video track.
    ==========================  ============
 
 Distortion
-^^^^^^^^^^
+""""""""""
 Alter the audio by clipping the signal.
 
 .. table::
@@ -479,7 +559,7 @@ Alter the audio by clipping the signal.
    ==========================  ============
 
 Echo
-^^^^
+""""
 Reflection of sound with a delay after the direct sound.
 
 .. table::
@@ -495,7 +575,7 @@ Reflection of sound with a delay after the direct sound.
    ==========================  ============
 
 Expander
-^^^^^^^^
+""""""""
 Louder parts of audio become relatively louder and quieter parts become quieter.
 
 .. table::
@@ -514,7 +594,7 @@ Louder parts of audio become relatively louder and quieter parts become quieter.
    ==========================  ============
 
 Noise
-^^^^^
+"""""
 Random signal having equal intensity at different frequencies.
 
 .. table::
@@ -528,7 +608,7 @@ Random signal having equal intensity at different frequencies.
    ==========================  ============
 
 Parametric EQ
-^^^^^^^^^^^^^
+"""""""""""""
 Filter that allows you to adjust the volume level of a frequency in the audio track.
 
 .. table::
@@ -545,7 +625,7 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
    ==========================  ============
 
 Robotization
-^^^^^^^^^^^^
+""""""""""""
 Transform the voice present in an audio track into a robotic voice effect.
 
 .. table::
@@ -561,7 +641,7 @@ Transform the voice present in an audio track into a robotic voice effect.
    ==========================  ============
 
 Whisperization
-^^^^^^^^^^^^^^
+""""""""""""""
 Transform the voice present in an audio track into a whispering voice effect.
 
 .. table::

@@ -22,7 +22,8 @@ Export
 
 Exporting converts your OpenShot project (clips, effects, animations, titles) into a single video output
 file (using a process called ``video encoding``). By using the default settings, the exported video will be compatible
-with most media players (such as VLC) and websites (such as YouTube, Vimeo, Facebook).
+with most media players (such as VLC) and websites (such as YouTube, Vimeo, Facebook) and creates a
+``MP4 (h.264 + AAC)`` formatted video file. See :ref:`profiles_mp4_h264_ref`.
 
 Click on the :guilabel:`Export Video` icon at the top of the screen (or use the :guilabel:`File→Export Video` menu).
 The default values will work fine, so just click the :guilabel:`Export Video` button to render your

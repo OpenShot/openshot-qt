@@ -22,10 +22,10 @@
 Clips
 =====
 
-When media files are added to the OpenShot timeline, they are represented by a "clip", visualized as
-rounded rectangles. Clips possess various properties, affecting rendering and compositing. These
-include position, layer, scale, location, rotation, and alpha, which can be animated for
-stunning effects.
+When project files (videos, images, and audio) are added to the OpenShot timeline, they are
+represented by a "clip", visualized as rounded rectangles. Clips possess various properties,
+affecting rendering and compositing. These include position, :guilabel:`layer`, :guilabel:`scale`,
+:guilabel:`location`, :guilabel:`rotation`, and :guilabel:`alpha`, which can be animated for stunning effects.
 
 View a clip's properties by right-clicking and selecting "Properties" or double-clicking the clip.
 Properties appear alphabetically in the dock, with filter options available at the top. 
@@ -295,12 +295,12 @@ See the table below for a full list of clip properties.
    Channel Filter          Key-Frame   A number representing an audio channel to filter (clears all other channels)
    Channel Mapping         Key-Frame   A number representing an audio channel to output (only works when filtering a channel)
    Frame Number            Enum        The format to display the frame number (if any)
-   Duration                Float       The length of the clip (in seconds)
+   Duration                Float       The length of the clip (in seconds). Read-only property. This is calculated by: End - Start.
    End                     Float       The end trimming position of the clip (in seconds)
    Gravity                 Enum        The gravity of a clip determines where it snaps to its parent (details below)
    Enable Audio            Enum        An optional override to determine if this clip has audio (-1=undefined, 0=no, 1=yes)
    Enable Video            Enum        An optional override to determine if this clip has video (-1=undefined, 0=no, 1=yes)
-   ID                      String      A randomly generated GUID (globally unique identifier) assigned to each clip
+   ID                      String      A randomly generated GUID (globally unique identifier) assigned to each clip. Read-only property.
    Track                   Int         The layer which holds the clip (higher tracks are rendered on top of lower tracks)
    Location X              Key-Frame   Curve representing the relative X position in percent based on the gravity (-1 to 1)
    Location Y              Key-Frame   Curve representing the relative Y position in percent based on the gravity (-1 to 1)
@@ -357,15 +357,16 @@ The :guilabel:`Frame Number` property specifies the format in which the frame nu
 
 Duration
 """"""""
-The :guilabel:`Duration` property is a float value indicating the length of the clip in seconds.
+The :guilabel:`Duration` property is a float value indicating the length of the clip in seconds. This is a Read-only property.
+This is calculated by: End - Start. To modify duration, you must edit the :guilabel:`Start` and/or :guilabel:`End` clip properties.
 
-- **Usage Example:** Adjusting the duration of a clip to fit a specific time slot in the project.
+- **Usage Example:** Inspect the duration of a clip to ensure it fits a specific time slot in the project.
 - **Tip:** Consider using the "Duration" property for clips that need to match specific time intervals, such as dialogue or scenes.
 
 End
 """
 The :guilabel:`End` property defines the trimming point at the end of the clip in seconds, allowing you to control how much 
-of the clip is visible in the timeline.
+of the clip is visible in the timeline. Changing this property will impact the :guilabel:`Duration` clip property.
 
 - **Usage Example:** Trimming the end of a clip to align with another clip or trimming off unwanted sections of the clip.
 - **Tip:** Combine the "Start" and "End" properties to precisely control the visible portion of the clip.
@@ -405,7 +406,8 @@ Possible values: -1 (undefined), 0 (no video), 1 (video enabled).
 
 ID
 ""
-The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique Identifier) assigned to each clip, ensuring its uniqueness.
+The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique Identifier) assigned to each clip,
+ensuring its uniqueness. This is a Read-only property, and assigned by OpenShot when a clip is created.
 
 - **Usage Example:** Referencing specific clips within custom scripts or automation tasks.
 - **Tip:** While typically managed behind the scenes, understanding clip IDs can aid in advanced project customization.
@@ -521,6 +523,7 @@ angles in degrees, respectively. See :ref:`clip_transform_ref`.
 Start
 """""
 The :guilabel:`Start` property defines the trimming point at the beginning of the clip in seconds.
+Changing this property will impact the :guilabel:`Duration` clip property.
 
 - **Usage Example:** Removing the initial portion of a clip to focus on a specific scene or moment.
 - **Tip:** Utilize the "Start" property in combination with the "End" property for precise clip trimming.

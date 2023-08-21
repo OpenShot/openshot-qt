@@ -120,8 +120,9 @@ Once you restart OpenShot, you will see your custom profile appear in the list o
 Preset List
 -----------
 
-OpenShot includes a large list of common profiles and their associated video export settings (``video codec``,
-``audio codec``, ``audio channels``, ``audio sample rate``, etc...), which targets specific websites and devices.
+OpenShot includes many **export presets**, which combine our list of common profiles and their associated video export settings (``video codec``,
+``audio codec``, ``audio channels``, ``audio sample rate``, etc...), which target specific output formats, websites, and devices. The **default
+export preset** used by OpenShot is ``MP4 (h.264 + AAC)``, see :ref:`profiles_mp4_h264_ref`.
 
 All Formats
 ^^^^^^^^^^^
@@ -691,8 +692,13 @@ MP4 (h.264 videotoolbox)
    Profiles                 | All Profiles
    =======================  ============
 
+.. _profiles_mp4_h264_ref:
+
 MP4 (h.264)
 ~~~~~~~~~~~
+
+This is the default export preset used by OpenShot. This format is compatible
+with most media players (such as VLC) and websites (such as YouTube, Vimeo, Facebook).
 
 .. table::
    :widths: 30 30
