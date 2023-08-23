@@ -22,7 +22,7 @@
 Clips
 =====
 
-In OpenShot, when you add project file (videos, images, and audio) to the timeline, they appear as **clips**
+In OpenShot, when you add project files (videos, images, and audio) to the timeline, they appear as **clips**
 represented by rounded rectangles. These clips come with different properties that influence how they're rendered
 and composited. These properties include the clip's :guilabel:`position`, :guilabel:`layer`, :guilabel:`scale`,
 :guilabel:`location`, :guilabel:`rotation`, and :guilabel:`alpha`.
