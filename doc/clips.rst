@@ -150,11 +150,12 @@ directions, or slide and zoom to a **random** location. See :ref:`clip_location_
 
 Rotate
 """"""
-The :guilabel:`Rotate` preset introduces rotation and flipping effects to clips, enhancing their visual appeal. It
-enables rotation and flipping of a clip for creative visual transformations. See :ref:`clip_rotation_ref` key-frame.
+The :guilabel:`Rotate` preset introduces easy rotation and flipping of clips, enhancing their visual appeal. It
+enables orientation adjustment, by rotating and flipping a clip for creative visual transformations. See :ref:`clip_rotation_ref` key-frame.
 
 - **Usage Example:** Rotating a photo or video by 90 degree (a portrait video to a landscape)
-- **Tip:** Use rotation presets in combination with key-frame curves for complex animations.
+- **Usage Example:** If your video is oriented sideways (90 degrees), you can rotate it clockwise or counterclockwise by 90 degrees to bring it to the correct orientation. This can be useful when you accidentally recorded a video in portrait mode when you intended it to be landscape.
+- **Usage Example:** If your video is upside down, you can rotate it by 180 degrees to flip it to the correct orientation. This can happen if you accidentally held your camera the wrong way while recording.
 
 Layout
 """"""
@@ -483,10 +484,15 @@ The :guilabel:`Position` property determines the clip's position on the timeline
 Rotation
 """"""""
 The :guilabel:`Rotation` property is a key-frame curve that controls the rotation angle of the clip, 
-ranging from 0 to 360 degrees. See :ref:`clip_transform_ref`.
+ranging from -360 to 360 degrees. You can rotate clockwise or counterclockwise. Quickly adjust the orientation angle of
+a clip (sideways, upside down, right side up, portrait, landscape), flip a clip, or animate the rotation.  See :ref:`clip_transform_ref`.
 
 - **Usage Example:** Simulating a spinning effect by animating the rotation curve.
 - **Tip:** Use this property creatively for effects like rotating text or emulating camera movement.
+- **Tip:** Experiment with rotating your video at different angles, not just 90 or 180 degrees. Sometimes a slight tilt or a specific angle can add creative flair to your video, especially for artistic or storytelling purposes.
+- **Tip:** After rotating your video, you might end up with black bars around the edges. Consider cropping and resizing the video to eliminate these bars and maintain a clean, polished look.
+- **Tip:** If you're dealing with vertical videos that are meant to be watched on horizontal screens, rotate them by 90 degrees and then scale them up to fill the frame. This way, your vertical video will occupy more screen real estate.
+- **Tip:** If the horizon in your video appears slanted due to camera tilt, use rotation to level it. This is particularly important for landscape shots to maintain a professional and visually pleasing appearance.
 
 .. _clip_scale_ref:
 
@@ -510,6 +516,8 @@ The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame curves 
 respectively. The range for these curves is 0 to 1. See :ref:`clip_transform_ref`.
 
 - **Usage Example:** Creating a zoom-in effect by animating the Scale X and Scale Y curves simultaneously.
+- **Tip:** Scale the image larger than the screen, only revealing a portion of the video. This is a simple way to crop a portion of the video.
+- **Tip:** Scale the horizontal and vertical elements separately, to squash and stretch the image in fun ways.
 - **Tip:** Combine scaling with rotation and location properties for dynamic transformations.
 
 Shear X and Shear Y

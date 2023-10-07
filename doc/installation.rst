@@ -31,8 +31,8 @@ build).
 Clean Install
 ^^^^^^^^^^^^^
 
-If you are upgrading from a previous version of OpenShot or are experiencing a crash after
-launching OpenShot, please see :ref:`preferences_reset_ref` for instructions on clearing
+If you are upgrading from a previous version of OpenShot or are experiencing a crash or error
+message after launching OpenShot, please see :ref:`preferences_reset_ref` for instructions on clearing
 the previous ``openshot.settings`` file (for a clean install with **default preferences**).
 
 Windows (Installer)
