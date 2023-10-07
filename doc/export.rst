@@ -76,6 +76,15 @@ Advanced Options
 Profile
 ^^^^^^^
 
+A video profile is a collection of common video settings (*size, frame rate, aspect ratio*). Profiles are used
+during editing, previewing, and exporting to provide a quick way to switch between common combinations of
+these settings. The :guilabel:`Export Dialog` will **default** to the same profile used by the project.
+
+*NOTE: It is important to choose a **Profile** with the same **aspect ratio** used when editing your project. If
+you are exporting at a **different aspect ratio**, it might stretch the image, crop the image, add black bars, or otherwise
+introduce an issue which changes the exported video, making it appear differently than the :guilabel:`Preview` inside
+OpenShot.*
+
 .. image:: images/export-advanced-profile.jpg
 
 .. table::
