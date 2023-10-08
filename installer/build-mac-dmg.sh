@@ -3,6 +3,7 @@
 # XXX: These paths should be set using `brew prefix` commands,
 #      for future-proofing against upgrades
 PATH=/usr/local/Cellar/python@3.7/3.7.9_2/Frameworks/Python.framework/Versions/3.7/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
+MAC_NOTARIZE_PASSWORD=$1
 
 # Get Version
 VERSION=$(grep -E '^VERSION = "(.*)"' src/classes/info.py | awk '{print $3}' | tr -d '"')
@@ -64,54 +65,31 @@ appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
 echo "Code Sign DMG"
 codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/openshot.entitlements" --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
 
-echo "Notarize DMG file (send to apple)"
+echo "Notarize DMG file (submit to Apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
 # RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-notarize_output=$(xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_DMG_NAME")
+notarize_output=$(xcrun notarytool submit --apple-id "jonathan@openshot.org" --password "$MAC_NOTARIZE_PASSWORD" --team-id "C94ZNQ5JF3" --wait "build/$OS_DMG_NAME")
 echo "$notarize_output"
 
-echo "Parse Notarize Output and get Notarization RequestUUID"
-pat='RequestUUID = (.*)'
+echo "Parse Notarize Output and get Notarization ID & Status"
+pat='.*id: (.*)\n.*status: ([^'$'\n'']*)'
 [[ "$notarize_output" =~ $pat ]]
 REQUEST_UUID="${BASH_REMATCH[1]}"
-echo " RequestUUID Found: $REQUEST_UUID"
+echo " Notarization ID: $REQUEST_UUID"
+REQUEST_STATUS="${BASH_REMATCH[2]}"
+echo " Notarization Status: $REQUEST_STATUS"
 
 if [ "$REQUEST_UUID" == "" ]; then
-    echo "Failed to locate REQUEST_UUID, exiting with error."
+    echo "Failed to locate Notarization ID, exiting with error."
+    exit 1
+fi
+if [ "$REQUEST_STATUS" != "Accepted" ]; then
+    echo "Failed to locate Notarization Status of Accepted, exiting with error."
     exit 1
 fi
 
-echo "Check Notarization Progress... (list recent notarization records)"
-xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | head -n 10
-
-echo "Check Notarization Info (loop until status detected)"
-# Wait up to 60 minutes for notarization status to change
-START=$(date +%s)
-while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
-    notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
-    echo "$notarize_info"
-
-    # Match status (stop at newline)
-    pat='Status: ([^'$'\n'']*)'
-    [[ "$notarize_info" =~ $pat ]]
-    notarize_status="${BASH_REMATCH[1]}"
-    echo "Notarization Status Found: $notarize_status"
-
-    if [ "$notarize_status" != "in progress" ] && [ "$notarize_status" != "" ]; then
-      echo "Wait for notarization to appear in --notarization-history/"
-      verify_output=$(xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | grep "$REQUEST_UUID")
-      if [ "$verify_output" != "" ]; then
-        echo "Notarization record found, and ready for stapling!"
-        break
-      fi
-    fi
-
-    # Wait a few seconds (so we don't spam the API)
-    sleep 60
-done
-
 # Wait a few more seconds (otherwise the stapler can sometimes fail to find the ticket)
-sleep 180
+sleep 120
 
 echo "Staple Notarization Ticket to DMG"
 xcrun stapler staple "build/$OS_DMG_NAME"
