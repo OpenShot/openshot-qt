@@ -64,10 +64,10 @@ appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
 echo "Code Sign DMG"
 codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/openshot.entitlements" --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
 
-echo "Notarize DMG file (send to apple)"
+echo "Notarize DMG file (submit to Apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
 # RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-notarize_output=$(xcrun altool --notarize-app --primary-bundle-id "org.openshot.openshot-qt.zip" --username "jonathan@openshot.org" --password "@keychain:NOTARIZE_AUTH" --file "build/$OS_DMG_NAME")
+notarize_output=$(xcrun notarytool submit --keychain-profile "NOTARIZE_AUTH_PROFILE" --wait "build/$OS_DMG_NAME")
 echo "$notarize_output"
 
 echo "Parse Notarize Output and get Notarization RequestUUID"
@@ -82,13 +82,13 @@ if [ "$REQUEST_UUID" == "" ]; then
 fi
 
 echo "Check Notarization Progress... (list recent notarization records)"
-xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | head -n 10
+xcrun notarytool history --keychain-profile "NOTARIZE_AUTH_PROFILE" | head -n 10
 
 echo "Check Notarization Info (loop until status detected)"
 # Wait up to 60 minutes for notarization status to change
 START=$(date +%s)
 while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
-    notarize_info=$(xcrun altool --notarization-info "$REQUEST_UUID" -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH")
+    notarize_info=$(xcrun notarytool info --keychain-profile "NOTARIZE_AUTH_PROFILE" "$REQUEST_UUID")
     echo "$notarize_info"
 
     # Match status (stop at newline)
@@ -99,7 +99,7 @@ while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
 
     if [ "$notarize_status" != "in progress" ] && [ "$notarize_status" != "" ]; then
       echo "Wait for notarization to appear in --notarization-history/"
-      verify_output=$(xcrun altool --notarization-history 0 -u "jonathan@openshot.org" -p "@keychain:NOTARIZE_AUTH" | grep "$REQUEST_UUID")
+      verify_output=$(xcrun notarytool history --keychain-profile "NOTARIZE_AUTH_PROFILE" | grep "$REQUEST_UUID")
       if [ "$verify_output" != "" ]; then
         echo "Notarization record found, and ready for stapling!"
         break
