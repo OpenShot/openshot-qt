@@ -71,47 +71,24 @@ notarize_output=$(xcrun notarytool submit --keychain-profile "NOTARIZE_AUTH_PROF
 echo "$notarize_output"
 
 echo "Parse Notarize Output and get Notarization RequestUUID"
-pat='RequestUUID = (.*)'
+pat='.*id: (.*)\n.*status: ([^'$'\n'']*)'
 [[ "$notarize_output" =~ $pat ]]
 REQUEST_UUID="${BASH_REMATCH[1]}"
-echo " RequestUUID Found: $REQUEST_UUID"
+echo " Notarization ID: $REQUEST_UUID"
+REQUEST_STATUS="${BASH_REMATCH[2]}"
+echo " Notarization Status: $REQUEST_STATUS"
 
 if [ "$REQUEST_UUID" == "" ]; then
-    echo "Failed to locate REQUEST_UUID, exiting with error."
+    echo "Failed to locate Notarization ID, exiting with error."
+    exit 1
+fi
+if [ "$REQUEST_STATUS" != "Accepted" ]; then
+    echo "Failed to locate Notarization Status of Accepted, exiting with error."
     exit 1
 fi
 
-echo "Check Notarization Progress... (list recent notarization records)"
-xcrun notarytool history --keychain-profile "NOTARIZE_AUTH_PROFILE" | head -n 10
-
-echo "Check Notarization Info (loop until status detected)"
-# Wait up to 60 minutes for notarization status to change
-START=$(date +%s)
-while [ "$(( $(date +%s) - 3600 ))" -lt "$START" ]; do
-    notarize_info=$(xcrun notarytool info --keychain-profile "NOTARIZE_AUTH_PROFILE" "$REQUEST_UUID")
-    echo "$notarize_info"
-
-    # Match status (stop at newline)
-    pat='Status: ([^'$'\n'']*)'
-    [[ "$notarize_info" =~ $pat ]]
-    notarize_status="${BASH_REMATCH[1]}"
-    echo "Notarization Status Found: $notarize_status"
-
-    if [ "$notarize_status" != "in progress" ] && [ "$notarize_status" != "" ]; then
-      echo "Wait for notarization to appear in --notarization-history/"
-      verify_output=$(xcrun notarytool history --keychain-profile "NOTARIZE_AUTH_PROFILE" | grep "$REQUEST_UUID")
-      if [ "$verify_output" != "" ]; then
-        echo "Notarization record found, and ready for stapling!"
-        break
-      fi
-    fi
-
-    # Wait a few seconds (so we don't spam the API)
-    sleep 60
-done
-
 # Wait a few more seconds (otherwise the stapler can sometimes fail to find the ticket)
-sleep 180
+sleep 120
 
 echo "Staple Notarization Ticket to DMG"
 xcrun stapler staple "build/$OS_DMG_NAME"
