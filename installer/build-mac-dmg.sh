@@ -68,7 +68,7 @@ codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/openshot.e
 echo "Notarize DMG file (submit to Apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
 # RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-notarize_output=$(xcrun notarytool submit --apple-id "jonathan@openshot.org" --password "$MAC_NOTARIZE_PASSWORD" --wait "build/$OS_DMG_NAME")
+notarize_output=$(xcrun notarytool submit --apple-id "jonathan@openshot.org" --password "$MAC_NOTARIZE_PASSWORD" --team-id "C94ZNQ5JF3" --wait "build/$OS_DMG_NAME")
 echo "$notarize_output"
 
 echo "Parse Notarize Output and get Notarization ID & Status"
