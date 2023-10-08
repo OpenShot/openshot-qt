@@ -3,6 +3,7 @@
 # XXX: These paths should be set using `brew prefix` commands,
 #      for future-proofing against upgrades
 PATH=/usr/local/Cellar/python@3.7/3.7.9_2/Frameworks/Python.framework/Versions/3.7/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
+MAC_NOTARIZE_PASSWORD=$1
 
 # Get Version
 VERSION=$(grep -E '^VERSION = "(.*)"' src/classes/info.py | awk '{print $3}' | tr -d '"')
@@ -67,10 +68,10 @@ codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/openshot.e
 echo "Notarize DMG file (submit to Apple)"
 # No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
 # RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-notarize_output=$(xcrun notarytool submit --keychain-profile "NOTARIZE_AUTH_PROFILE" --wait "build/$OS_DMG_NAME")
+notarize_output=$(xcrun notarytool submit --apple-id "jonathan@openshot.org" --password "$MAC_NOTARIZE_PASSWORD" --wait "build/$OS_DMG_NAME")
 echo "$notarize_output"
 
-echo "Parse Notarize Output and get Notarization RequestUUID"
+echo "Parse Notarize Output and get Notarization ID & Status"
 pat='.*id: (.*)\n.*status: ([^'$'\n'']*)'
 [[ "$notarize_output" =~ $pat ]]
 REQUEST_UUID="${BASH_REMATCH[1]}"

@@ -234,6 +234,10 @@ def main():
         if len(sys.argv) >= 8:
             git_branch_name = sys.argv[7]
 
+        mac_password = ""
+        if len(sys.argv) >= 9:
+            mac_password = sys.argv[8]
+
         # Start log
         output(
             "%s Build Log for %s (branch: %s)" % (
@@ -405,7 +409,7 @@ def main():
             app_image_success = False
 
             # Build app.bundle and create DMG
-            for line in run_command("bash installer/build-mac-dmg.sh"):
+            for line in run_command(f'bash installer/build-mac-dmg.sh "{mac_password}"'):
                 output(line)
                 if (
                         ("error".encode("UTF-8") in line
