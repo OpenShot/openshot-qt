@@ -34,7 +34,7 @@ from classes import info
 # ones.
 extensions = [
     'sphinx.ext.extlinks',
-    'sphinx_markdown_builder'
+    #'sphinx_markdown_builder' (pip3 install sphinx_markdown_builder)
 ]
 
 try:
