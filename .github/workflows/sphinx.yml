@@ -15,12 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Create Sphinx log file
-      run: mkdir -p /tmp && touch /tmp/sphinx-log
     - uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "doc/"
-        pre-build-command: pip3 install sphinx_markdown_builder
+        pre-build-command: "mkdir -p /tmp && touch /tmp/sphinx-log && pip3 install sphinx_markdown_builder"
     - uses: actions/upload-artifact@v3
       with:
         name: UserGuideHTML
