@@ -15,11 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: ammaraskar/sphinx-action@master
+    - name: Set up Python
+      uses: actions/setup-python@v3
       with:
-        docs-folder: "doc/"
-        pre-build-command: "mkdir -p /tmp && touch /tmp/sphinx-log && pip3 install sphinx_markdown_builder"
+        python-version: '3.x'
+    - name: Install Sphinx and dependencies
+      run: pip install sphinx sphinx_markdown_builder
+    - name: Build Documentation
+      run: cd docs && make doc
     - uses: actions/upload-artifact@v3
       with:
-        name: UserGuideHTML
-        path: "doc/_build/html/"
+        name: Documentation
+        path: "docs/_build/html/"
+
