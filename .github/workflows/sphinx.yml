@@ -1,7 +1,6 @@
 # Github Actions workflow to generate documentation
 # Uses the following shared task definitions:
 # - (checkout, upload artifact) from Github
-# - sphinx-action maintained by @ammaraskar
 name: Sphinx build
 
 # Controls when the action will run.
@@ -10,24 +9,21 @@ on:
 - push
 - pull_request
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps are a sequence of tasks that will be executed as part of the job
     steps:
-    # Check out repository under $GITHUB_WORKSPACE
-    - uses: actions/checkout@v3
-    # Builds docs using sphinx
-    - uses: ammaraskar/sphinx-action@master
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v3
       with:
-        docs-folder: "doc/"
-        pre-build-command: pip3 install sphinx_markdown_builder
-    # Create an artifact out of the generated HTML
+        python-version: '3.x'
+    - name: Install Sphinx & Dependencies
+      run: pip install sphinx sphinx_markdown_builder sphinx_rtd_theme
+    - name: Build Documentation
+      run: cd "$GITHUB_WORKSPACE/doc" && make html
     - uses: actions/upload-artifact@v3
       with:
-        name: UserGuideHTML
-        path: "doc/_build/html/"
+        name: Documentation
+        path: "$GITHUB_WORKSPACE/doc/_build/html/"
+
