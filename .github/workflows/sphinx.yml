@@ -22,11 +22,10 @@ jobs:
     # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
     # Builds docs using sphinx
-    - uses: ammaraskar/sphinx-action@master
+    - uses: ammaraskar/sphinx-action@v0.4
       with:
         docs-folder: "doc/"
         pre-build-command: pip3 install sphinx_markdown_builder
-        build-command: "sphinx-build -b html . _build"
     # Create an artifact out of the generated HTML
     - uses: actions/upload-artifact@v3
       with:
