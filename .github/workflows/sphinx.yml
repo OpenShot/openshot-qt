@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: '3.x'
     - name: Install Sphinx and dependencies
-      run: pip install sphinx sphinx_markdown_builder
+      run: pip install sphinx sphinx_markdown_builder sphinx_rtd_theme
     - name: Check docs directory and Build Documentation
       run: |
         if [ -d "$GITHUB_WORKSPACE/doc" ]; then
