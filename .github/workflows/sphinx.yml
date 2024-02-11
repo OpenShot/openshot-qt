@@ -14,9 +14,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4  # Updated to use v4
-    - name: List directory contents
-      run: ls -la "$GITHUB_WORKSPACE"
+    - uses: actions/checkout@v4
+    - name: List Documentation Folder
+      run: ls -la "$GITHUB_WORKSPACE/doc"
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
@@ -26,9 +26,9 @@ jobs:
     - name: Check docs directory and Build Documentation
       run: |
         if [ -d "$GITHUB_WORKSPACE/doc" ]; then
-          cd "$GITHUB_WORKSPACE/doc" && ls -la && make doc
+          cd "$GITHUB_WORKSPACE/doc" && make html
         else
-          echo "Documentation directory not found!"
+          echo "No Documenation Found!"
           exit 1
         fi
     - uses: actions/upload-artifact@v3
