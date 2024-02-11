@@ -10,23 +10,17 @@ on:
 - push
 - pull_request
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps are a sequence of tasks that will be executed as part of the job
     steps:
-    # Check out repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v3
-    # Builds docs using sphinx
+    - name: Create Sphinx log file
+      run: mkdir -p /tmp && touch /tmp/sphinx-log
     - uses: ammaraskar/sphinx-action@v0.4
       with:
         docs-folder: "doc/"
         pre-build-command: pip3 install sphinx_markdown_builder
-    # Create an artifact out of the generated HTML
     - uses: actions/upload-artifact@v3
       with:
         name: UserGuideHTML
