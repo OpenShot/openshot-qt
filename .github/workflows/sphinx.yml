@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Create Sphinx log file
       run: mkdir -p /tmp && touch /tmp/sphinx-log
-    - uses: ammaraskar/sphinx-action@v0.4
+    - uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "doc/"
         pre-build-command: pip3 install sphinx_markdown_builder
