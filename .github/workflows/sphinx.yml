@@ -1,7 +1,6 @@
 # Github Actions workflow to generate documentation
 # Uses the following shared task definitions:
 # - (checkout, upload artifact) from Github
-# - sphinx-action maintained by @ammaraskar
 name: Sphinx build
 
 # Controls when the action will run.
@@ -15,22 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: List Documentation Folder
-      run: ls -la "$GITHUB_WORKSPACE/doc"
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
-    - name: Install Sphinx and dependencies
+    - name: Install Sphinx & Dependencies
       run: pip install sphinx sphinx_markdown_builder sphinx_rtd_theme
-    - name: Check docs directory and Build Documentation
-      run: |
-        if [ -d "$GITHUB_WORKSPACE/doc" ]; then
-          cd "$GITHUB_WORKSPACE/doc" && make html
-        else
-          echo "No Documenation Found!"
-          exit 1
-        fi
+    - name: Build Documentation
+      run: cd "$GITHUB_WORKSPACE/doc" && make html
     - uses: actions/upload-artifact@v3
       with:
         name: Documentation
