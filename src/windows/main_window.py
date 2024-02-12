@@ -1020,7 +1020,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
-        self.timeline.movePlayhead(position_frames)
+        if hasattr(self.timeline, 'movePlayhead'):
+            self.timeline.movePlayhead(position_frames)
 
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable follow mode """
@@ -3248,7 +3249,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline_sync = TimelineSync(self)
 
         # Setup timeline
-        self.timeline = TimelineWebView(self)
+        if s.get("experimental_timeline"):
+            self.timeline = QWidget(self)
+        else:
+            self.timeline = TimelineWebView(self)
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
