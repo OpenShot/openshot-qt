@@ -39,13 +39,6 @@ QMainWindow {
     color: #91C3FF;
 }
 
-QWidget {
-    font-family: Ubuntu;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-}
-
 QMenuBar {
     background-color: #283241;
     color: #91C3FF;
@@ -184,11 +177,17 @@ QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transition
         from classes import ui_util
         from classes.logger import log
         from PyQt5.QtWidgets import QStyleFactory
+        from PyQt5.QtGui import QFont
 
         log.info("Setting Fusion dark palette")
         self.app.setStyle(QStyleFactory.create("Fusion"))
         dark_palette = ui_util.make_dark_palette(self.app.palette())
         self.app.setPalette(dark_palette)
+
+        # Set font for all widgets
+        font = QFont("Ubuntu")
+        font.setPointSizeF(8)
+        self.app.setFont(font)
 
         # Move tabs to top
         self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.North)
