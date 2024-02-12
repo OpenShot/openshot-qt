@@ -3274,8 +3274,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
         self.propertyTableView = PropertiesTableView(self)
         self.selectionLabel = SelectionLabel(self)
-        self.dockPropertiesContent.layout().addWidget(self.selectionLabel, 0, 1)
-        self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 2, 1)
+        self.dockPropertiesContents.layout().addWidget(self.selectionLabel, 0, 1)
+        self.dockPropertiesContents.layout().addWidget(self.propertyTableView, 2, 1)
 
         # Init selection containers
         self.clearSelections()
@@ -3302,6 +3302,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()
+        self.videoPreview.setObjectName("videoPreview")
         self.tabVideo.layout().insertWidget(0, self.videoPreview)
 
         # Load window state and geometry

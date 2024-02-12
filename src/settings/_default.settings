@@ -15,21 +15,8 @@
     "setting": "theme",
     "type": "dropdown",
     "translate_values": true,
-    "values": [
-      {
-        "value": "Humanity",
-        "name": "Humanity"
-      },
-      {
-        "value": "Humanity: Dark",
-        "name": "Humanity: Dark"
-      },
-      {
-        "value": "No Theme",
-        "name": "No Theme"
-      }
-    ],
-    "restart": true
+    "values": [],
+    "restart": false
   },
   {
     "value": "",
