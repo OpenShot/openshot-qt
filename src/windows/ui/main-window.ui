@@ -1731,9 +1731,6 @@
    <property name="toolTip">
     <string>Insert Timestamp</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+C</string>
-   </property>
   </action>
   <action name="actionClearWaveformData">
    <property name="enabled">
