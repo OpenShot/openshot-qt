@@ -1670,6 +1670,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 clip.type = 'insert'
                 clip.data.pop('id')
 
+                # Update effect IDs
+                clip.data['effects'] = [{k: (get_app().project.generate_id() if k == 'id' else v)
+                                         for k, v in effect.items()} for effect in clip.data['effects']]
+
                 # Adjust the position and track
                 clip.data['position'] += position_diff
                 clip.data['layer'] += layer_diff
