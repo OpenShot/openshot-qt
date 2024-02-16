@@ -372,6 +372,18 @@ def main():
             shutil.copyfile(os.path.join(app_dir_path, "org.openshot.OpenShot.desktop"),
                             os.path.join(dest, "org.openshot.OpenShot.desktop"))
 
+            # Add TTF fonts needed for AppImage
+            source_fonts = "/usr/share/fonts/truetype/"
+            for source_font_folder in ['ubuntu', 'ttf-bitstream-vera']:
+                source_folder_path = os.path.join(source_fonts, source_font_folder)
+                target_folder_path = os.path.join(app_dir_path, "usr", "share", "fonts", "truetype", source_font_folder)
+                os.makedirs(target_folder_path, exist_ok=True)
+                for filename in os.listdir(source_folder_path):
+                    if filename.endswith(".ttf"):
+                        output("Copy TTF font file into AppImage: %s" % os.path.join(target_folder_path, filename))
+                        shutil.copyfile(os.path.join(source_folder_path, filename),
+                                        os.path.join(target_folder_path, filename))
+
             # Rename executable launcher script
             launcher_path = os.path.join(app_dir_path, "usr", "bin", "openshot-qt-launch")
             os.rename(os.path.join(app_dir_path, "usr", "bin", "launch-linux.sh"), launcher_path)
