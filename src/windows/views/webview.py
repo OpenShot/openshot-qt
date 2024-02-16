@@ -1598,6 +1598,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             elif action == MENU_COPY_EFFECTS:
                 self.copy_clipboard[clip_id]['effects'] = clip.data['effects']
 
+
         # Loop through transition objects
         for tran_id in tran_ids:
 
@@ -1669,6 +1670,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 clip.type = 'insert'
                 clip.data.pop('id')
 
+                # Update effect IDs
+                clip.data['effects'] = [{k: (get_app().project.generate_id() if k == 'id' else v)
+                                         for k, v in effect.items()} for effect in clip.data['effects']]
+
                 # Adjust the position and track
                 clip.data['position'] += position_diff
                 clip.data['layer'] += layer_diff
@@ -1706,6 +1711,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 # Apply clipboard to clip (there should only be a single key in this dict)
                 for k, v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
                     if k != 'id':
+                        if k == 'effects':
+                            # Update effect IDs
+                            v = [{k: (get_app().project.generate_id() if k == 'id' else v)
+                                  for k, v in effect.items()} for effect in v]
                         # Overwrite clips properties (which are in the clipboard)
                         clip.data[k] = v
 
