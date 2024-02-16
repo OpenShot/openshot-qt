@@ -3134,6 +3134,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Handle play-pause-toggle keypress"""
         get_app().window.PlayPauseToggleSignal.emit()
 
+    def copyAll(self):
+        """Handle Copy QShortcut (selected clips / transitions)"""
+        self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
+
+    def pasteAll(self):
+        """Handle Paste QShortcut (at timeline position, same track as original clip)"""
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
+        self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
+
     def eventFilter(self, obj, event):
         """Filter out certain QShortcuts - for example, arrow keys used
         in our files, transitions, effects, and emojis views."""
@@ -3443,3 +3454,5 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle, context=Qt.WindowShortcut)
         QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle, context=Qt.WindowShortcut)
         QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("copyAll"), self, activated=self.copyAll, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("pasteAll"), self, activated=self.pasteAll, context=Qt.WindowShortcut)
