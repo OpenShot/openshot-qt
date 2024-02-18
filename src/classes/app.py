@@ -35,7 +35,7 @@ import traceback
 import json
 
 from PyQt5.QtCore import PYQT_VERSION_STR, QT_VERSION_STR, pyqtSlot
-from PyQt5.QtWidgets import QApplication, QStyleFactory, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMessageBox
 
 # Disable sandbox support for QtWebEngine (required on some Linux distros
 # for the QtWebEngineWidgets to be rendered, otherwise no timeline is visible).
@@ -148,6 +148,9 @@ class OpenShotApp(QApplication):
         if self.mode == "unittest" or not self.settings.get('send_metrics'):
             sentry.disable_tracing()
 
+        # Empty window
+        self.window = None
+
     def show_environment(self, info, openshot):
         log = self.log
         try:
@@ -199,8 +202,7 @@ class OpenShotApp(QApplication):
         Initialize GUI and main window.
         :return: bool: True if the GUI has no errors, False if we fail to initialize the GUI
         """
-        from classes import language, sentry, ui_util, logger_libopenshot
-        from PyQt5.QtGui import QFont, QFontDatabase as QFD
+        from classes import language, sentry, logger_libopenshot
 
         _ = self._tr
         info = self.info
@@ -209,9 +211,6 @@ class OpenShotApp(QApplication):
         # Init translation system
         language.init_language()
         sentry.set_tag("locale", info.CURRENT_LANGUAGE)
-
-        # Load ui theme if not set by OS
-        ui_util.load_theme()
 
         # Test for permission issues (and display message if needed)
         try:
@@ -247,34 +246,15 @@ class OpenShotApp(QApplication):
         # Track which dockable window received a context menu
         self.context_menu_object = None
 
-        # Set Font for any theme
-        log.debug("Loading UI theme")
-        if self.settings.get("theme") != "No Theme":
-            # Load embedded font
-            font_path = os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf")
-            if os.path.exists(font_path):
-                log.info("Setting font to %s", font_path)
-                try:
-                    font_id = QFD.addApplicationFont(font_path)
-                    font_family = QFD.applicationFontFamilies(font_id)[0]
-                    font = QFont(font_family)
-                    font.setPointSizeF(10.5)
-                    QApplication.setFont(font)
-                except Exception:
-                    log.warning("Error setting Ubuntu-R.ttf QFont", exc_info=1)
-
-        # Set Dark Theme, if selected
-        if self.settings.get("theme") == "Humanity: Dark":
-            log.info("Setting custom dark theme")
-            self.setStyle(QStyleFactory.create("Fusion"))
-            darkPalette = ui_util.make_dark_palette(self.palette())
-            self.setPalette(darkPalette)
-            self.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 0px solid white; }")
-
         # Create main window
         from windows.main_window import MainWindow
         log.debug("Creating main interface window")
         self.window = MainWindow()
+
+        # Instantiate Theme Manager (Singleton)
+        from themes.manager import ThemeManager, ThemeName
+        theme_enum = ThemeName.find_by_name(self.settings.get("theme"))
+        ThemeManager(self).apply_theme(theme_enum)
 
         # Check for gui launch failures
         if self.mode == "quit":

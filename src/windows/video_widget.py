@@ -330,7 +330,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             True)
 
         # Fill the whole widget with the solid color
-        painter.fillRect(event.rect(), QColor("#191919"))
+        background_color = self.palette().color(self.palette().Normal, self.palette().Window)
+        painter.fillRect(event.rect(), background_color)
 
         # Find centered viewport
         viewport_rect = self.centeredViewport(self.width(), self.height())

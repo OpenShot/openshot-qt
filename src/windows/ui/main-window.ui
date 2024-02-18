@@ -238,7 +238,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="dockFilesContents">
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="leftMargin">
       <number>9</number>
@@ -298,7 +298,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3">
+   <widget class="QWidget" name="dockTransitionsContents">
     <layout class="QGridLayout" name="gridLayout_4">
      <property name="leftMargin">
       <number>9</number>
@@ -325,7 +325,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContentsEmoji">
+   <widget class="QWidget" name="dockEmojisContents">
     <layout class="QGridLayout" name="gridLayoutEmoji">
      <property name="leftMargin">
       <number>9</number>
@@ -352,7 +352,7 @@
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4">
+   <widget class="QWidget" name="dockEffectsContents">
     <layout class="QGridLayout" name="gridLayout_5">
      <property name="leftMargin">
       <number>9</number>
@@ -382,7 +382,7 @@
    <property name="visible">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="dockWidgetContentsCaption">
+   <widget class="QWidget" name="dockCaptionContents">
     <layout class="QGridLayout" name="gridLayoutCaption">
      <property name="leftMargin">
       <number>9</number>
@@ -415,7 +415,7 @@
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockPropertiesContent">
+   <widget class="QWidget" name="dockPropertiesContents">
     <layout class="QGridLayout" name="gridLayout_6">
      <property name="leftMargin">
       <number>9</number>
