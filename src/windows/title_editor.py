@@ -162,7 +162,7 @@ class TitleEditor(QDialog):
         """
         available_fonts = self.font_db.families()
         fallback_fonts = ['DejaVu Sans', 'Liberation Sans', 'Noto Sans', 'FreeSans',
-                          'Ubuntu', 'Cantarell', 'Sans-serif', 'Arial']
+                          'Ubuntu', 'Cantarell', 'Open Sans', 'Sans-serif', 'Arial']
 
         # Check if the requested font is available
         available_fonts = self.font_db.families()
