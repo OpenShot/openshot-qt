@@ -379,14 +379,6 @@
     "setting": "send_metrics"
   },
   {
-    "value": false,
-    "title": "Use Experimental Timeline (not recommended)",
-    "type": "bool",
-    "category": "Debug",
-    "setting": "experimental_timeline",
-    "restart": true
-  },
-  {
     "value": true,
     "title": "Show Export Dialog when Finished",
     "type": "bool",

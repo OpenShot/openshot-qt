@@ -59,29 +59,25 @@ JS_SCOPE_SELECTOR = "$('body').scope()"
 ViewClass = None
 
 # Setup timeline
-s = get_app().get_settings()
-if s.get("experimental_timeline"):
-    # Load qwidget-based timeline
+if info.WEB_BACKEND and info.WEB_BACKEND == "qwidget":
     ViewClass = TimelineWidget
+elif info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
+    from .timeline_backend.webkit import TimelineWebKitView
+    ViewClass = TimelineWebKitView
+elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
+    from .timeline_backend.webengine import TimelineWebEngineView
+    ViewClass = TimelineWebEngineView
 else:
-    # Load webview-based timeline
-    if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
-        from .timeline_backend.webkit import TimelineWebKitView
-        ViewClass = TimelineWebKitView
-    elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
-        from .timeline_backend.webengine import TimelineWebEngineView
-        ViewClass = TimelineWebEngineView
-    else:
+    try:
+        from .timeline_backend.webengine import TimelineWebEngineView as ViewClass
+    except ImportError as ex:
         try:
-            from .timeline_backend.webengine import TimelineWebEngineView as ViewClass
-        except ImportError as ex:
-            try:
-                from .timeline_backend.webkit import TimelineWebKitView as ViewClass
-            except ImportError:
-                log.error("Import failure loading WebKit backend", exc_info=1)
-            finally:
-                if not ViewClass:
-                    raise RuntimeError("Need PyQt5.QtWebEngine (or PyQt5.QtWebView on Win32)") from ex
+            from .timeline_backend.webkit import TimelineWebKitView as ViewClass
+        except ImportError:
+            log.error("Import failure loading WebKit backend", exc_info=1)
+        finally:
+            if not ViewClass:
+                raise RuntimeError("Need PyQt5.QtWebEngine (or PyQt5.QtWebView on Win32)") from ex
 
 
 class TimelineView(updates.UpdateInterface, ViewClass):
