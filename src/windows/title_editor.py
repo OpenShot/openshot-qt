@@ -53,7 +53,6 @@ from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
-from windows.views.titles_listview import TitlesListView
 from windows.color_picker import ColorPicker
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
 from windows.views.titles_listview import TitlesListView
@@ -116,7 +115,7 @@ class TitleEditor(QDialog):
 
         self.font_weight = 'normal'
         self.font_style = 'normal'
-        self.font_size_ratio = 1
+        self.font_size_ratio = 1.0
 
         self.new_title_text = ""
         self.sub_title_text = ""
@@ -355,6 +354,10 @@ class TitleEditor(QDialog):
             widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
             layout.addRow(label, widget)
 
+        # Set font
+        self.set_font_attributes(self.qfont.family())
+        self.writeToFile(self.xmldoc)
+
         # Add Font button
         label = QLabel(_("Font:"))
         label.setToolTip(_("Font:"))
@@ -497,9 +500,10 @@ class TitleEditor(QDialog):
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
-            if (oldfontinfo.pixelSize() > 0):
+            self.font_size_ratio = 1.0
+            if oldfontinfo.pixelSize() > 0:
                 self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
-            self.set_font_style()
+            self.set_font_attributes(self.font_family, self.font_style, self.font_size_ratio)
             self.update_timer.start()
 
     def update_font_color_button(self):
@@ -583,19 +587,24 @@ class TitleEditor(QDialog):
             self.bg_color_code = color
             log.debug("Set color of background-color button to %s", color.name())
 
-    def set_font_style(self):
+    def set_font_attributes(self, font_family, font_style=None, font_size_ratio=0):
         '''sets the font properties'''
+        log.debug(f"Setting font-family to {font_family}.")
+
         # Loop through each TEXT element
         for text_child in self.text_nodes + self.tspan_nodes:
             # set the style elements for the main text node
             s = text_child.getAttribute("style")
             ard = style_to_dict(s)
-            set_if_existing(ard, "font-style", self.font_style)
-            set_if_existing(ard, "font-family", f"'{self.font_family}'")
-            new_font_size_pixel = 0
-            if 'font-size' in ard:
-                new_font_size_pixel = self.font_size_ratio * float(ard['font-size'][:-2])
-            set_if_existing(ard, "font-size", f"{new_font_size_pixel}px")
+            if font_family:
+                set_if_existing(ard, "font-family", f"'{font_family}'")
+            if font_style:
+                set_if_existing(ard, "font-style", font_style)
+            if font_size_ratio:
+                new_font_size_pixel = 100
+                if 'font-size' in ard:
+                    new_font_size_pixel = font_size_ratio * float(ard['font-size'][:-2])
+                set_if_existing(ard, "font-size", f"{new_font_size_pixel}px")
             self.title_style_string = dict_to_style(ard)
 
             # set the text node
