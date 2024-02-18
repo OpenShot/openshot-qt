@@ -1,11 +1,11 @@
 """
  @file
- @brief This file contains the zoom slider QWidget (for interactive zooming/panning on the timeline)
+ @brief This file contains a custom QWidget-based timeline - to replace older, webview-based timelines
  @author Jonathan Thomas <jonathan@openshot.org>
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2024 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -26,22 +26,102 @@
  """
 
 from PyQt5.QtCore import (
-    Qt, QCoreApplication, QRectF, QTimer
+    Qt, QCoreApplication, QRectF, QTimer, QPointF
 )
 from PyQt5.QtGui import (
     QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget
 
-import openshot  # Python module for libopenshot (required video editing module installed separately)
+import openshot
 
 from classes import updates
 from classes.app import get_app
 from classes.query import Clip, Track, Transition, Marker
+import json
 
 
-class ZoomSlider(QWidget, updates.UpdateInterface):
-    """ A QWidget used to zoom and pan around a Timeline"""
+class TimelineWidget(QWidget):
+    def __init__(self, parent=None):
+        super(TimelineWidget, self).__init__(parent)
+
+        # Enable drag and drop
+        self.new_item = None
+        self.item_type = None
+        self.setAcceptDrops(True)
+
+        # Translate object
+        _ = get_app()._tr
+
+        # Init default values
+        self.leftHandle = None
+        self.rightHandle = None
+        self.centerHandle = None
+        self.mouse_pressed = False
+        self.mouse_dragging = False
+        self.mouse_position = None
+        self.zoom_factor = 15.0
+        self.scrollbar_position = [0.0, 0.0, 0.0, 0.0]
+        self.scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
+        self.left_handle_rect = QRectF()
+        self.left_handle_dragging = False
+        self.right_handle_rect = QRectF()
+        self.right_handle_dragging = False
+        self.scroll_bar_rect = QRectF()
+        self.scroll_bar_dragging = False
+        self.clip_rects = []
+        self.clip_rects_selected = []
+        self.marker_rects = []
+        self.current_frame = 0
+        self.is_auto_center = True
+        self.min_distance = 0.02
+
+        # Load icon (using display DPI)
+        self.cursors = {}
+        for cursor_name in ["move", "resize_x", "hand"]:
+            icon = QIcon(":/cursors/cursor_%s.png" % cursor_name)
+            self.cursors[cursor_name] = QCursor(icon.pixmap(24, 24))
+
+        # Init Qt widget's properties (background repainting, etc...)
+        super().setAttribute(Qt.WA_OpaquePaintEvent)
+        super().setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        # Add self as listener to project data updates (used to update the timeline)
+        get_app().updates.add_listener(self)
+
+        # Set mouse tracking
+        self.setMouseTracking(True)
+
+        # Get a reference to the window object
+        self.win = get_app().window
+
+        # Connect zoom functionality
+        self.win.TimelineScrolled.connect(self.update_scrollbars)
+
+        self.win.TimelineResize.connect(self.delayed_resize_callback)
+
+        # Connect Selection signals
+        self.win.SelectionChanged.connect(self.handle_selection)
+
+        # Show Property timer
+        # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
+        self.delayed_size = None
+        self.delayed_resize_timer = QTimer(self)
+        self.delayed_resize_timer.setInterval(100)
+        self.delayed_resize_timer.setSingleShot(True)
+        self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)
+
+    def run_js(self, code, callback=None, retries=0):
+        """Placeholder due to webview compatibility"""
+        pass
+
+    def setup_js_data(self):
+        """Placeholder due to webview compatibility"""
+        pass
+
+    def get_html(self):
+        """Placeholder due to webview compatibility"""
+        pass
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -131,7 +211,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         playhead_color = QColor(Qt.red)
         playhead_color.setAlphaF(0.5)
-        playhead_pen = QPen(QBrush(playhead_color), 1.0)
+        playhead_pen = QPen(QBrush(playhead_color), 2.0)
         playhead_pen.setCosmetic(True)
 
         handle_color = QColor("#a653a0ed")
@@ -173,8 +253,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             painter.setPen(playhead_pen)
             playhead_x = ((self.current_frame / fps_float) * pixels_per_second)
-            playhead_rect = QRectF(playhead_x, 0, 0.5, len(layers) * vertical_factor)
-            painter.drawRect(playhead_rect)
+            painter.drawLine(QPointF(playhead_x, 0), QPointF(playhead_x, len(layers) * vertical_factor))
 
             # Draw scroll bars (if available)
             if self.scrollbar_position:
@@ -208,13 +287,67 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 right_handle_path.addRoundedRect(self.right_handle_rect, handle_width, handle_width)
                 painter.fillPath(right_handle_path, handle_color)
 
-            # Determine if play-head is inside scroll area
-            if get_app().window.preview_thread.player.Mode() == openshot.PLAYBACK_PLAY and self.is_auto_center:
-                if not self.scroll_bar_rect.contains(playhead_rect):
-                    get_app().window.TimelineCenter.emit()
+            # # Determine if play-head is inside scroll area
+            # if get_app().window.preview_thread.player.Mode() == openshot.PLAYBACK_PLAY and self.is_auto_center:
+            #     if not self.scroll_bar_rect.contains(playhead_rect):
+            #         get_app().window.TimelineCenter.emit()
 
         # End painter
         painter.end()
+
+    def dragEnterEvent(self, event):
+        # Check if the drag event contains the data type you can handle
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+        # If a plain text drag accept
+        if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().html():
+            # get type of dropped data
+            self.item_type = event.mimeData().html()
+
+            # Track that a new item is being 'added'
+            self.new_item = True
+
+            # Get the mime data (i.e. list of files, list of transitions, etc...)
+            data = json.loads(event.mimeData().text())
+            pos = event.posF()
+
+            # create the item
+            # if self.item_type == "clip":
+            #     self.addClip(data, pos)
+            # elif self.item_type == "transition":
+            #     self.addTransition(data, pos)
+
+            # accept all events, even if a new clip is not being added
+            event.accept()
+
+        # Accept a plain file URL (from the OS)
+        elif not self.new_item and event.mimeData().hasUrls():
+            # Track that a new item is being 'added'
+            self.new_item = True
+            self.item_type = "os_drop"
+
+            # accept event
+            event.accept()
+
+        # DEBUG
+        self.new_item = False
+
+    def dragMoveEvent(self, event):
+        # Optional: Provide feedback to the user about the drag operation
+        event.accept()
+
+    def dropEvent(self, event):
+        # Handle the dropped data
+        for url in event.mimeData().urls():
+            filepath = url.toLocalFile()
+            print(f"Dropped file: {filepath}")
+            # Process the dropped file (e.g., add it to the timeline)
+
+        event.accept()
+
 
     def mousePressEvent(self, event):
         """Capture mouse press event"""
@@ -473,68 +606,3 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """Connect playback signals"""
         self.win.preview_thread.position_changed.connect(self.update_playhead_pos)
         self.win.PlaySignal.connect(self.handle_play)
-
-    def __init__(self, *args):
-        # Invoke parent init
-        QWidget.__init__(self, *args)
-
-        # Translate object
-        _ = get_app()._tr
-
-        # Init default values
-        self.leftHandle = None
-        self.rightHandle = None
-        self.centerHandle = None
-        self.mouse_pressed = False
-        self.mouse_dragging = False
-        self.mouse_position = None
-        self.zoom_factor = 15.0
-        self.scrollbar_position = [0.0, 0.0, 0.0, 0.0]
-        self.scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
-        self.left_handle_rect = QRectF()
-        self.left_handle_dragging = False
-        self.right_handle_rect = QRectF()
-        self.right_handle_dragging = False
-        self.scroll_bar_rect = QRectF()
-        self.scroll_bar_dragging = False
-        self.clip_rects = []
-        self.clip_rects_selected = []
-        self.marker_rects = []
-        self.current_frame = 0
-        self.is_auto_center = True
-        self.min_distance = 0.02
-
-        # Load icon (using display DPI)
-        self.cursors = {}
-        for cursor_name in ["move", "resize_x", "hand"]:
-            icon = QIcon(":/cursors/cursor_%s.png" % cursor_name)
-            self.cursors[cursor_name] = QCursor(icon.pixmap(24, 24))
-
-        # Init Qt widget's properties (background repainting, etc...)
-        super().setAttribute(Qt.WA_OpaquePaintEvent)
-        super().setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
-        # Add self as listener to project data updates (used to update the timeline)
-        get_app().updates.add_listener(self)
-
-        # Set mouse tracking
-        self.setMouseTracking(True)
-
-        # Get a reference to the window object
-        self.win = get_app().window
-
-        # Connect zoom functionality
-        self.win.TimelineScrolled.connect(self.update_scrollbars)
-
-        self.win.TimelineResize.connect(self.delayed_resize_callback)
-
-        # Connect Selection signals
-        self.win.SelectionChanged.connect(self.handle_selection)
-
-        # Show Property timer
-        # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)
-        self.delayed_size = None
-        self.delayed_resize_timer = QTimer(self)
-        self.delayed_resize_timer.setInterval(100)
-        self.delayed_resize_timer.setSingleShot(True)
-        self.delayed_resize_timer.timeout.connect(self.delayed_resize_callback)

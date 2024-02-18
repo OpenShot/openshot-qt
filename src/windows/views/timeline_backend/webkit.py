@@ -1,6 +1,6 @@
 """
  @file
- @brief WebKit backend for TimelineWebView
+ @brief WebKit backend for TimelineView
  @author Jonathan Thomas <jonathan@openshot.org>
  @author FeRD (Frank Dana) <ferdnyc@gmail.com>
 

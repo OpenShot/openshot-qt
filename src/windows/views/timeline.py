@@ -48,6 +48,7 @@ from classes.query import File, Clip, Transition, Track
 from classes.waveform import get_audio_data
 from classes.effect_init import effect_options
 from classes.thumbnail import GetThumbPath
+from .timeline_backend.qwidget import TimelineWidget
 
 
 # Constants used by this file
@@ -152,32 +153,39 @@ MENU_SPLIT_AUDIO_MULTIPLE = 1
 # Import shenanigans
 WEBVIEW_LOADED = None
 
-if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
-    from .webview_backend.webkit import TimelineWebKitView
-    WebViewClass = TimelineWebKitView
-    WEBVIEW_LOADED = True
-elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
-    from .webview_backend.webengine import TimelineWebEngineView
-    WebViewClass = TimelineWebEngineView
-    WEBVIEW_LOADED = True
+
+# Setup timeline
+s = get_app().get_settings()
+
+if s.get("experimental_timeline"):
+    # Load qwidget-based timeline
+    ViewClass = TimelineWidget
 else:
-    try:
-        from .webview_backend.webengine import TimelineWebEngineView as WebViewClass
+    # Load webview-based timeline
+    if info.WEB_BACKEND and info.WEB_BACKEND == "webkit":
+        from .timeline_backend.webkit import TimelineWebKitView
+        ViewClass = TimelineWebKitView
         WEBVIEW_LOADED = True
-    except ImportError as ex:
+    elif info.WEB_BACKEND and info.WEB_BACKEND == "webengine":
+        from .timeline_backend.webengine import TimelineWebEngineView
+        ViewClass = TimelineWebEngineView
+        WEBVIEW_LOADED = True
+    else:
         try:
-            from .webview_backend.webkit import TimelineWebKitView as WebViewClass
+            from .timeline_backend.webengine import TimelineWebEngineView as ViewClass
             WEBVIEW_LOADED = True
-        except ImportError:
-            log.error("Import failure loading WebKit backend", exc_info=1)
-        finally:
-            if not WEBVIEW_LOADED:
-                raise RuntimeError(
-                    "Need PyQt5.QtWebEngine (or PyQt5.QtWebView on Win32)"
-                    ) from ex
+        except ImportError as ex:
+            try:
+                from .timeline_backend.webkit import TimelineWebKitView as ViewClass
+                WEBVIEW_LOADED = True
+            except ImportError:
+                log.error("Import failure loading WebKit backend", exc_info=1)
+            finally:
+                if not WEBVIEW_LOADED:
+                    raise RuntimeError("Need PyQt5.QtWebEngine (or PyQt5.QtWebView on Win32)") from ex
 
 
-class TimelineWebView(updates.UpdateInterface, WebViewClass):
+class TimelineView(updates.UpdateInterface, ViewClass):
     """ A Web(Engine)View QWidget used to load the Timeline """
 
     # Path to html file
@@ -186,6 +194,12 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
     # Create signal for adding waveforms to clips
     clipAudioDataReady = pyqtSignal(str, object, str)
     fileAudioDataReady = pyqtSignal(str, object, str)
+
+    def connect_playback(self):
+        """Connect playback signals to new experimental qwidget based timeline"""
+        if ViewClass == TimelineWidget:
+            # Propagate to timeline qwidget
+            TimelineWidget.connect_playback(self)
 
     @pyqtSlot()
     def page_ready(self):
@@ -211,6 +225,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        if ViewClass == TimelineWidget:
+            # Propagate to timeline qwidget
+            TimelineWidget.changed(self, action)
+
         try:
             # Duplicate UpdateAction, and remove unused action attribute (old_values)
             action = action.copy()
@@ -3325,7 +3343,7 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
     def __init__(self, window):
         super().__init__()
-        self.setObjectName("TimelineWebView")
+        self.setObjectName("TimelineView")
 
         app = get_app()
         self.window = window

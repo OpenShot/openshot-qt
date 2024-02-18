@@ -75,7 +75,7 @@ from windows.views.emojis_listview import EmojisListView
 from windows.views.files_listview import FilesListView
 from windows.views.files_treeview import FilesTreeView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
-from windows.views.webview import TimelineWebView
+from windows.views.timeline import TimelineView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
@@ -3260,10 +3260,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline_sync = TimelineSync(self)
 
         # Setup timeline
-        if s.get("experimental_timeline"):
-            self.timeline = QWidget(self)
-        else:
-            self.timeline = TimelineWebView(self)
+        self.timeline = TimelineView(self)
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
@@ -3334,6 +3331,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
+        self.timeline.connect_playback()
 
         # Set play/pause callbacks
         self.PauseSignal.connect(self.onPauseCallback)
