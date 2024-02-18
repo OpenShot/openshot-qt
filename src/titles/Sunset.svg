@@ -305,10 +305,10 @@
        transform="matrix(1.959791,0,0,1.959791,-921.39753,-518.28209)"
        id="text2395"
        xml:space="preserve"
-       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"><tspan
+       style="font-size:116.20991516px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;filter:url(#filter3998);font-family:DejaVu Sans;"><tspan
          x="961.7674"
          y="570.69897"
          id="tspan2397"
-         style="font-size:82.35334778px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold">The Title</tspan></text>
+         style="font-size:82.35334778px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:url(#radialGradient3654);fill-opacity:1;stroke:none;font-family:DejaVu Sans;">The Title</tspan></text>
   </g>
 </svg>

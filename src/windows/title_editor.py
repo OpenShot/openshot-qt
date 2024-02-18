@@ -40,7 +40,7 @@ import threading
 from xml.dom import minidom
 
 from PyQt5.QtCore import Qt, pyqtSlot, QTimer, pyqtSignal
-from PyQt5 import QtGui
+from PyQt5.QtGui import QFontDatabase, QColor, QIcon, QFont, QFontInfo
 from PyQt5.QtWidgets import (
     QWidget,
     QMessageBox, QDialog, QColorDialog, QFontDialog,
@@ -53,7 +53,6 @@ from classes import info, ui_util
 from classes.logger import log
 from classes.app import get_app
 from classes.metrics import track_metric_screen
-from windows.views.titles_listview import TitlesListView
 from windows.color_picker import ColorPicker
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
 from windows.views.titles_listview import TitlesListView
@@ -70,6 +69,9 @@ class TitleEditor(QDialog):
 
         # Create dialog class
         super().__init__(*args, **kwargs)
+
+        # Init font DB
+        self.font_db = QFontDatabase()
 
         # A timer to pause until user input stops before updating the svg
         self.update_timer = QTimer(self)
@@ -104,8 +106,8 @@ class TitleEditor(QDialog):
         imp = minidom.getDOMImplementation()
         self.xmldoc = imp.createDocument(None, "any", None)
 
-        self.bg_color_code = QtGui.QColor(Qt.black)
-        self.font_color_code = QtGui.QColor(Qt.white)
+        self.bg_color_code = QColor(Qt.black)
+        self.font_color_code = QColor(Qt.white)
 
         self.bg_style_string = ""
         self.title_style_string = ""
@@ -113,17 +115,18 @@ class TitleEditor(QDialog):
 
         self.font_weight = 'normal'
         self.font_style = 'normal'
-        self.font_size_ratio = 1
+        self.font_size_ratio = 1.0
 
         self.new_title_text = ""
         self.sub_title_text = ""
         self.subTitle = False
 
         self.display_name = ""
-        self.font_family = "Bitstream Vera Sans"
         self.tspan_nodes = None
 
-        self.qfont = QtGui.QFont(self.font_family)
+        self.default_font_family = "DejaVu Sans"
+        self.font_family = self.default_font_family
+        self.qfont = self.get_font(self.font_family)
 
         # Add titles list view
         self.titlesView = TitlesListView(parent=self, window=self)
@@ -148,6 +151,33 @@ class TitleEditor(QDialog):
 
             # Display image (slight delay to allow screen to be shown first)
             QTimer.singleShot(50, self.display_svg)
+
+    def get_font(self, requested_font_name):
+        """
+        Checks for a valid font name and returns a QFont object.
+        If the requested font is not available, it falls back to common fonts.
+
+        :param requested_font_name: The name of the font to search for.
+        :return: QFont object of either the requested font or the first available fallback font.
+        """
+        available_fonts = self.font_db.families()
+        fallback_fonts = ['DejaVu Sans', 'Liberation Sans', 'Noto Sans', 'FreeSans',
+                          'Ubuntu', 'Cantarell', 'Open Sans', 'Sans-serif', 'Arial']
+
+        # Check if the requested font is available
+        available_fonts = self.font_db.families()
+        for font in available_fonts:
+            if requested_font_name in font:
+                return QFont(font)
+
+        # Try fallback fonts
+        for fallback in fallback_fonts:
+            for font in available_fonts:
+                if fallback in font:
+                    return QFont(font)
+
+        # Return the default font
+        return QFont()
 
     def display_pixmap(self, display_pixmap):
         """Display pixmap of SVG on UI thread"""
@@ -201,7 +231,7 @@ class TitleEditor(QDialog):
         clip.Close()
 
         # Attempt to load saved thumbnail
-        display_pixmap = QtGui.QIcon(tmp_filename).pixmap(self.lblPreviewLabel.size())
+        display_pixmap = QIcon(tmp_filename).pixmap(self.lblPreviewLabel.size())
 
         # Display temp image
         self.thumbnailReady.emit(display_pixmap)
@@ -232,10 +262,8 @@ class TitleEditor(QDialog):
         self.tspan_nodes = self.xmldoc.getElementsByTagName('tspan')
 
         # Reset default font
-        self.font_family = "Bitstream Vera Sans"
-        if self.qfont:
-            del self.qfont
-        self.qfont = QtGui.QFont(self.font_family)
+        self.font_family = self.default_font_family
+        self.qfont = QFont(self.get_font(self.font_family))
 
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
@@ -326,6 +354,10 @@ class TitleEditor(QDialog):
             widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
             layout.addRow(label, widget)
 
+        # Set font
+        self.set_font_attributes(self.qfont.family())
+        self.writeToFile(self.xmldoc)
+
         # Add Font button
         label = QLabel(_("Font:"))
         label.setToolTip(_("Font:"))
@@ -399,7 +431,7 @@ class TitleEditor(QDialog):
         self.display_svg()
         self.is_thread_busy = False
 
-    @pyqtSlot(QtGui.QColor)
+    @pyqtSlot(QColor)
     def color_callback(self, save_fn, refresh_fn, color):
         """Update SVG color after user selection"""
         if not color or not color.isValid():
@@ -409,14 +441,14 @@ class TitleEditor(QDialog):
         self.update_timer.start()
 
     @staticmethod
-    def best_contrast(bg: QtGui.QColor) -> QtGui.QColor:
+    def best_contrast(bg: QColor) -> QColor:
         """Choose text color for best contrast against a background"""
         colrgb = bg.getRgbF()
         # Compute perceptive luminance of background color
         lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
         if (lum < 0.5):
-            return QtGui.QColor(Qt.white)
-        return QtGui.QColor(Qt.black)
+            return QColor(Qt.white)
+        return QColor(Qt.black)
 
     def btnFontColor_clicked(self):
         app = get_app()
@@ -463,14 +495,15 @@ class TitleEditor(QDialog):
         # Update SVG font
         if ok and font is not oldfont:
             self.qfont = font
-            fontinfo = QtGui.QFontInfo(font)
-            oldfontinfo = QtGui.QFontInfo(oldfont)
+            fontinfo = QFontInfo(font)
+            oldfontinfo = QFontInfo(oldfont)
             self.font_family = fontinfo.family()
             self.font_style = fontinfo.styleName()
             self.font_weight = fontinfo.weight()
-            if (oldfontinfo.pixelSize() > 0):
+            self.font_size_ratio = 1.0
+            if oldfontinfo.pixelSize() > 0:
                 self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
-            self.set_font_style()
+            self.set_font_attributes(self.font_family, self.font_style, self.font_size_ratio)
             self.update_timer.start()
 
     def update_font_color_button(self):
@@ -494,7 +527,7 @@ class TitleEditor(QDialog):
             # Get opacity or default to opaque
             opacity = float(ard.get("opacity", 1.0))
 
-            color = QtGui.QColor(color)
+            color = QColor(color)
             text_color = self.best_contrast(color)
             # Set the color of the button, ignoring alpha
             self.btnFontColor.setStyleSheet(
@@ -541,7 +574,7 @@ class TitleEditor(QDialog):
             color = ard.get("fill", "#000")
             opacity = float(ard.get("opacity", 1.0))
 
-            color = QtGui.QColor(color)
+            color = QColor(color)
             text_color = self.best_contrast(color)
 
             # Set the colors of the button, ignoring opacity
@@ -554,19 +587,24 @@ class TitleEditor(QDialog):
             self.bg_color_code = color
             log.debug("Set color of background-color button to %s", color.name())
 
-    def set_font_style(self):
+    def set_font_attributes(self, font_family, font_style=None, font_size_ratio=0):
         '''sets the font properties'''
+        log.debug(f"Setting font-family to {font_family}.")
+
         # Loop through each TEXT element
         for text_child in self.text_nodes + self.tspan_nodes:
             # set the style elements for the main text node
             s = text_child.getAttribute("style")
             ard = style_to_dict(s)
-            set_if_existing(ard, "font-style", self.font_style)
-            set_if_existing(ard, "font-family", f"'{self.font_family}'")
-            new_font_size_pixel = 0
-            if 'font-size' in ard:
-                new_font_size_pixel = self.font_size_ratio * float(ard['font-size'][:-2])
-            set_if_existing(ard, "font-size", f"{new_font_size_pixel}px")
+            if font_family:
+                set_if_existing(ard, "font-family", f"'{font_family}'")
+            if font_style:
+                set_if_existing(ard, "font-style", font_style)
+            if font_size_ratio:
+                new_font_size_pixel = 100
+                if 'font-size' in ard:
+                    new_font_size_pixel = font_size_ratio * float(ard['font-size'][:-2])
+                set_if_existing(ard, "font-size", f"{new_font_size_pixel}px")
             self.title_style_string = dict_to_style(ard)
 
             # set the text node
