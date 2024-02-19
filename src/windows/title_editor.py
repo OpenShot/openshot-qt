@@ -683,21 +683,23 @@ class TitleEditor(QDialog):
 
     def btnAdvanced_clicked(self):
         """Use an external editor to edit the image"""
-        # Get editor executable from settings
+        # Get editor executable from settings (or placeholder text)
+        _ = self.app._tr
         s = get_app().get_settings()
-        prog = s.get("title_editor")
-        # Store filename field to display on reload
+        prog = s.get("title_editor").strip() or _("Advanced Title Editor (path)")
+
+        # Get filename field to display on reload
         filename_text = self.txtFileName.text().strip()
         try:
             # launch advanced title editor
             log.info("Advanced title editor command: %s", str([prog, self.filename]))
             p = subprocess.Popen([prog, self.filename], env=self.env)
+
             # wait for process to finish, then update preview
             p.communicate()
             self.load_svg_template(filename_field=filename_text)
             self.display_svg()
+
         except OSError:
-            _ = self.app._tr
-            msg = QMessageBox(self)
-            msg.setText(_("Please install %s to use this function" % prog))
-            msg.exec_()
+            QMessageBox.warning(self, _("Settings Error"),
+                                _("Please install %s to use this function" % f"<b>{prog}</b>"))
