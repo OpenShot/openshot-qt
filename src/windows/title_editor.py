@@ -686,7 +686,11 @@ class TitleEditor(QDialog):
         # Get editor executable from settings (or placeholder text)
         _ = self.app._tr
         s = get_app().get_settings()
-        prog = s.get("title_editor").strip() or _("Advanced Title Editor (path)")
+        prog = s.get("title_editor").strip()
+        setting_name = _("Advanced Title Editor (path)")
+        prog_warning = ""
+        if prog.strip():
+            prog_warning = f": [{prog}]"
 
         # Get filename field to display on reload
         filename_text = self.txtFileName.text().strip()
@@ -702,4 +706,4 @@ class TitleEditor(QDialog):
 
         except OSError:
             QMessageBox.warning(self, _("Settings Error"),
-                                _("Please install %s to use this function" % f"<b>{prog}</b>"))
+                                _("Please install %s to use this function" % f"<b>{setting_name}{prog_warning}</b>"))
