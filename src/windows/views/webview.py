@@ -1624,6 +1624,10 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
         """Callback for paste context menus"""
         log.debug(action)
 
+        # Group transactions
+        tid = self.get_uuid()
+        get_app().updates.transaction_id = tid
+
         # Get list of clipboard items (that are complete clips or transitions)
         # i.e. ignore partial clipboard items (keyframes / effects / etc...)
         clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
@@ -1739,6 +1743,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
 
                 # Save changes
                 tran.save()
+
+        get_app().updates.transaction_id = None
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
         """Callback for clip nudges"""
