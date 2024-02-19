@@ -238,7 +238,21 @@ class SelectRegion(QDialog):
 
     def accept(self):
         """ Ok button clicked """
+        # get translations
+        app = get_app()
+        _ = app._tr
 
+        # Check if the sliderVideo is not at its minimum value
+        if self.sliderVideo.value() != self.sliderVideo.minimum():
+            # Show a warning message box to the user
+            QMessageBox.warning(self, _("Invalid Region"),
+                                _("Please choose a region at the beginning of the clip"))
+
+            # Reset the slider to its minimum value
+            self.sliderVideo.setValue(self.sliderVideo.minimum())
+            return
+
+        # Continue with the rest of the accept method
         self.shutdownPlayer()
         get_app().window.SelectRegionSignal.emit("")
         super(SelectRegion, self).accept()
