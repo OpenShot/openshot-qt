@@ -607,7 +607,7 @@ class PropertiesModel(updates.UpdateInterface):
                 elif property_type == "string":
                     clip_updated = True
                     try:
-                        clip_data[property_key] = str(new_value)
+                        clip_data[property_key] = str(new_value or "")
                     except Exception:
                         log.warn('Invalid String value passed to property', exc_info=1)
 
