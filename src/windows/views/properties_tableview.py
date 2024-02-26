@@ -520,7 +520,7 @@ class PropertiesTableView(QTableView):
                     self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
 
             # Handle clip attach options
-            if property_key in ["parentObjectId", "child_clip_id"] and not self.choices:
+            if property_key in ["parentObjectId"] and not self.choices:
                 # Add all Clips as choices - initialize with None
                 tracked_choices = []
                 clip_choices = []
