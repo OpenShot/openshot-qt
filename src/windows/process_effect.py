@@ -316,12 +316,9 @@ class ProcessEffect(QDialog):
 
     def accept(self):
         """ Start processing effect """
-        # Disable UI
-        # for child_widget in self.scrollAreaWidgetContents.children():
-        #     child_widget.setEnabled(False)
-
         # Enable ProgressBar
         self.progressBar.setEnabled(True)
+        self.process_button.setEnabled(False)
 
         # Print effect settings
         log.info(self.context)
