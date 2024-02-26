@@ -508,10 +508,11 @@ class PropertiesTableView(QTableView):
                 visible_objects = json.loads(effect.GetVisibleObjects(frame_number))
                 # Add visible objects as choices
                 object_index_choices = []
-                for object_index in visible_objects["visible_objects_index"]:
+                for enum_index, object_index in enumerate(visible_objects["visible_objects_index"]):
+                    class_name = visible_objects["visible_class_names"][enum_index]
                     object_index_choices.append({
-                                "name": str(object_index),
-                                "value": str(object_index),
+                                "name": f"{class_name}: {object_index}",
+                                "value": object_index,
                                 "selected": False,
                                 "icon": None
                             })
@@ -732,25 +733,32 @@ class PropertiesTableView(QTableView):
 
                 SubMenuSize = 25
                 SubMenuNumber = 0
-                if len(choice["value"]) > SubMenuSize:
-                    SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
-                else:
-                    SubMenu = SubMenuRoot
-                for i, sub_choice in enumerate(choice["value"], 1):
-                    # Divide SubMenu if it's item is a list
-                    if type(sub_choice["value"]) == list:
-                        SubSubMenu = SubMenu.addMenu(sub_choice["icon"], sub_choice["name"])
+                ValueSize = len(choice["value"])
+                SubMenu = SubMenuRoot
+
+                for i, sub_choice in enumerate(choice["value"], start=1):
+                    # Check if the sub-choice's value is a list, indicating a need for a sub-sub-menu
+                    if isinstance(sub_choice["value"], list):
+                        SubSubMenu = SubMenu.addMenu(sub_choice.get("icon", ""), sub_choice["name"])
                         for sub_sub_choice in sub_choice["value"]:
-                            Choice_Action = SubSubMenu.addAction(
-                                sub_sub_choice["icon"], sub_sub_choice["name"])
+                            Choice_Action = SubSubMenu.addAction(sub_sub_choice["name"])
+                            if sub_sub_choice["icon"]:
+                                Choice_Action.setIcon(sub_sub_choice["icon"])
                             Choice_Action.setData(sub_sub_choice["value"])
                             Choice_Action.triggered.connect(self.Choice_Action_Triggered)
                     else:
-                        if i % SubMenuSize == 0:
+                        # Determine if a new sub-menu needs to be created based on the current item index
+                        if ValueSize > SubMenuSize and (i % SubMenuSize == 1 or i == 1):
                             SubMenuNumber += 1
-                            SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
-                        Choice_Action = SubMenu.addAction(
-                            sub_choice["icon"], _(sub_choice["name"]))
+                            start_range = i
+                            end_range = min(i + SubMenuSize - 1, len(choice["value"]))
+                            range_label = f"{start_range}-{end_range}" if start_range != end_range else f"{start_range}"
+                            SubMenu = SubMenuRoot.addMenu(range_label)
+
+                        # Add the current choice to the current sub-menu
+                        Choice_Action = SubMenu.addAction(_(sub_choice["name"]))
+                        if sub_choice["icon"]:
+                            Choice_Action.setIcon(sub_choice["icon"])
                         Choice_Action.setData(sub_choice["value"])
                         Choice_Action.triggered.connect(self.Choice_Action_Triggered)
 
