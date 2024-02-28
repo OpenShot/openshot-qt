@@ -438,8 +438,7 @@ Properties
    ==========================  ============
    class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
    confidence_threshold        ``(float, 0 to 1)`` Minimum confidence value to display the detected objects
-   display_box_text            ``(int, choices: ['Off', 'On'])`` Draw a rectangle around detected objects
-   objects                     ``(list)`` List of detected object ids
+   display_box_text            ``(int, choices: ['Off', 'On'])`` Draw name and ID of tracked objects (affects all tracked objects)
    selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that was selected to modify its properties
    draw_box                    ``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the tracked object
    box_id                      ``(string)`` Internal ID of a tracked object box for identification purposes
