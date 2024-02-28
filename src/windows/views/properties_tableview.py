@@ -499,7 +499,14 @@ class PropertiesTableView(QTableView):
                     self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle selected object options (ObjectDetection effect)
-            if property_key == "selected_object_index" and not self.choices:
+            if property_key in ["selected_object_index", "class_filter"] and not self.choices:
+                if property_key == "class_filter":
+                    # Use only class_name (if it has not already been added to the choices)
+                    tracked_object_menu_name = _("Tracked Classes")
+                    self.choices.append({"name": _("Clear"), "value": "", "selected": False, "icon": None})
+                else:
+                    tracked_object_menu_name = _("Tracked Objects")
+
                 # Get all visible object's indexes
                 timeline_instance = get_app().window.timeline_sync.timeline
                 # Instantiate the effect
@@ -510,14 +517,25 @@ class PropertiesTableView(QTableView):
                 object_index_choices = []
                 for enum_index, object_index in enumerate(visible_objects["visible_objects_index"]):
                     class_name = visible_objects["visible_class_names"][enum_index]
-                    object_index_choices.append({
-                                "name": f"{class_name}: {object_index}",
-                                "value": str(object_index),
-                                "selected": False,
-                                "icon": None
-                            })
+                    object_name = f"{class_name}: {object_index}"
+                    object_value = f"{object_index}"
+                    skip_choice = False
+                    if property_key == "class_filter":
+                        # Use only class_name (if it has not already been added to the choices)
+                        tracked_object_menu_name = _("Tracked Classes")
+                        object_name = f"{class_name}"
+                        object_value = f"{class_name}"
+                        skip_choice = any(d.get('name') == class_name for d in object_index_choices)
+
+                    if not skip_choice:
+                        object_index_choices.append({
+                                    "name": object_name,
+                                    "value": object_value,
+                                    "selected": False,
+                                    "icon": None
+                                })
                 if object_index_choices:
-                    self.choices.append({"name": _("Tracked Objects"), "value": object_index_choices, "selected": False, "icon": None})
+                    self.choices.append({"name": tracked_object_menu_name, "value": object_index_choices, "selected": False, "icon": None})
 
             # Handle clip attach options
             if property_key in ["parentObjectId"] and not self.choices:
