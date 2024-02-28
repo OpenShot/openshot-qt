@@ -470,7 +470,7 @@ This can be very useful in certain circumstances, such as when you have many cli
 
 - **Usage Example:** Creating complex animations by establishing a parent-child relationship between clips.
 - **Tip:** Utilize this property to propagate changes from the parent clip to child clips for consistent animations.
-- **Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or ``Object Detector`` effect, so the clip follows the location and scale of a tracked object. Also see :ref:`effect_parent_ref`.
+- **Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or ``Object Detector`` tracked object, so the clip follows the location and scale of a tracked object. Also see :ref:`effect_parent_ref`.
 
 Position
 """"""""
