@@ -726,19 +726,15 @@ class PropertiesTableView(QTableView):
                 Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
-                menu.popup(event.globalPos())
-
-            # Menu for choices
-            log.debug(f"Context menu choices: {self.choices}")
-            if not self.choices:
-                return
+                menu.addSeparator()
 
             # Format menu nesting
-            self.menu = self.build_menu(self.choices)
+            log.debug(f"Context menu choices: {self.choices}")
+            self.menu = self.build_menu(self.choices, menu)
 
-            # Show choice menuk
-            log.debug(f"Display context menu: {menu.children()}")
-            self.menu.popup(event.globalPos())
+            # Show context menu (if any options present)
+            if self.menu.children():
+                self.menu.popup(event.globalPos())
 
     def build_menu(self, data, parent_menu=None):
         """Build a QMenu, included nested sub-menus, and divide lists if too large"""
