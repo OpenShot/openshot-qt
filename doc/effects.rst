@@ -189,7 +189,10 @@ entering different values into the properties, and observing the results.
 
 Alpha Mask / Wipe Transition
 """"""""""""""""""""""""""""
-Uses a grayscale mask image to gradually wipe / transition between 2 images (only affects the image, and not the audio track)
+The Alpha Mask / Wipe Transition effect leverages a grayscale mask to create a dynamic transition between two images
+or video clips. In this effect, the light areas of the mask reveal the new image, while the dark areas conceal it,
+allowing for creative and custom transitions that go beyond standard fade or wipe techniques. This effect only
+affects the image, and not the audio track.
 
 .. table::
    :widths: 26 80
@@ -205,7 +208,9 @@ Uses a grayscale mask image to gradually wipe / transition between 2 images (onl
 
 Bars
 """"
-Add colored bars around your video.
+The Bars effect adds colored bars around your video frame, which can be used for aesthetic purposes, to frame
+the video within a certain aspect ratio, or to simulate the appearance of viewing content on a different display
+device. This effect is particularly useful for creating a cinematic or broadcast look.
 
 .. table::
    :widths: 26 80
@@ -222,7 +227,9 @@ Add colored bars around your video.
 
 Blur
 """"
-Adjust the blur of the frame's image.
+The Blur effect softens the image, reducing detail and texture. This can be used to create a sense of depth,
+draw attention to specific parts of the frame, or simply to apply a stylistic choice for aesthetic purposes.
+The intensity of the blur can be adjusted to achieve the desired level of softness.
 
 .. table::
    :widths: 26 80
@@ -238,7 +245,9 @@ Adjust the blur of the frame's image.
 
 Brightness & Contrast
 """""""""""""""""""""
-Adjust the brightness and contrast of the frame's image.
+The Brightness & Contrast effect allows for the adjustment of the overall lightness or darkness of the image
+(brightness) and the difference between the darkest and lightest parts of the image (contrast). This effect can be
+used to correct poorly lit videos or to create dramatic lighting effects for artistic purposes.
 
 .. table::
    :widths: 26 80
@@ -292,7 +301,10 @@ text in one place.
 
 Chroma Key (Greenscreen)
 """"""""""""""""""""""""
-Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).
+The Chroma Key (Greenscreen) effect replaces a specific color (or chroma) in the video (commonly green or blue)
+with transparency, allowing for the compositing of the video over a different background. This effect is widely used
+in film and television production for creating visual effects and placing subjects in settings that would be otherwise
+impossible or impractical to shoot in.
 
 .. table::
    :widths: 26 80
@@ -308,7 +320,9 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
 
 Color Saturation
 """"""""""""""""
-Adjust the color saturation.
+The Color Saturation effect adjusts the intensity and vibrancy of colors within the video. Increasing saturation
+can make colors more vivid and eye-catching, while decreasing it can create a more subdued, almost
+black-and-white appearance.
 
 .. table::
    :widths: 26 80
@@ -355,9 +369,11 @@ shift of the alpha channel.*
 
 Crop
 """"
-Crop out any part of a video clip. This effect is the primary method for cropping a Clip in OpenShot. The ``left``, ``right``,
-``top``, and ``bottom`` key-frames can even be animated, for a moving and resizing cropped area. You can leave the cropped area
-blank, or you can dynamically resize the cropped area to fill the screen.
+The Crop effect removes unwanted outer areas from the video frame, allowing you to focus on a particular part of the
+shot, change the aspect ratio, or remove distracting elements from the edges of the frame. This effect is the
+primary method for cropping a Clip in OpenShot. The ``left``, ``right``, ``top``, and ``bottom`` key-frames can
+even be animated, for a moving and resizing cropped area. You can leave the cropped area blank, or you can
+dynamically resize the cropped area to fill the screen.
 
 .. table::
    :widths: 26 80
@@ -376,7 +392,9 @@ blank, or you can dynamically resize the cropped area to fill the screen.
 
 Deinterlace
 """""""""""
-Remove interlacing from a video (i.e. even or odd horizontal lines)
+The Deinterlace effect is used to remove interlacing artifacts from video footage, which are commonly seen as
+horizontal lines across moving objects. This effect is essential for converting interlaced video (such as from
+older video cameras or broadcast sources) into a progressive format suitable for modern displays.
 
 .. table::
    :widths: 26 80
@@ -389,7 +407,9 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
 
 Hue
 """
-Adjust the hue / color of the frame's image.
+The Hue effect adjusts the overall color balance of the video, changing the hues without affecting the brightness or
+saturation. This can be used for color correction or to apply dramatic color effects that transform the mood of
+the footage.
 
 .. table::
    :widths: 26 80
@@ -402,13 +422,16 @@ Adjust the hue / color of the frame's image.
 
 Negative
 """"""""
-Negates the colors, producing a negative of the image.
+The Negative effect inverts the colors of the video, producing an image that resembles a photographic negative.
+This can be used for artistic effects, to create a surreal or otherworldly look, or to highlight specific elements
+within the frame.
 
 Object Detector
 """""""""""""""
-The Object Detector is a sophisticated tool designed to identify and track various objects throughout a video sequence.
-Leveraging an advanced deep neural network, this feature can recognize multiple object types, such as vehicles, people, animals,
-and more, making it invaluable for a wide range of video editing and analysis applications.
+The Object Detector effect employs machine learning algorithms (such as neural networks) to identify and highlight
+objects within the video frame. It can recognize multiple object types, such as vehicles, people, animals,
+and more! This can be used for analytical purposes, to add interactive elements to videos, or to track the movement
+of specific objects across the frame.
 
 Class Filters & Confidence
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -462,7 +485,9 @@ Properties
 
 Pixelate
 """"""""
-Pixelate (increase or decrease) the number of visible pixels.
+The Pixelate effect increases or decreases the size of the pixels in the video, creating a mosaic-like appearance.
+This can be used to obscure details (such as faces or license plates for privacy reasons), or as a stylistic effect
+to evoke a retro, digital, or abstract aesthetic.
 
 .. table::
    :widths: 26 80
@@ -479,7 +504,9 @@ Pixelate (increase or decrease) the number of visible pixels.
 
 Shift
 """""
-Shift the image up, down, left, and right (with infinite wrapping).
+The Shift effect moves the entire image in different directions (up, down, left, and right with infinite wrapping),
+creating a sense of motion or disorientation. This can be used for transitions, to simulate camera movement, or to
+add dynamic motion to static shots.
 
 .. table::
    :widths: 26 80
@@ -493,7 +520,9 @@ Shift the image up, down, left, and right (with infinite wrapping).
 
 Stabilizer
 """"""""""
-Stabilize video clip to remove undesired shaking and jitter.
+The Stabilizer effect reduces unwanted shake and jitter in handheld or unstable video footage, resulting in smoother,
+more professional-looking shots. This is particularly useful for action scenes, handheld shots, or any footage where
+a tripod was not used.
 
 .. table::
    :widths: 26 80
@@ -506,9 +535,11 @@ Stabilize video clip to remove undesired shaking and jitter.
 
 Tracker
 """""""
-Track any object moving in a video clip (by drawing a rectangle around it). When tracking an object, be sure to select
-the entire object, which is visible at the start of a clip, and choose one of the following ``Tracking Type`` algorithms.
-The tracking algorithm then follows this object from frame to frame, recording its position, scale, and sometimes rotation.
+The Tracker effect allows for the tracking of a specific object or area within the video frame across multiple frames.
+This can be used for motion tracking, adding effects or annotations that follow the movement of objects, or for
+stabilizing footage based on a tracked point.When tracking an object, be sure to select the entire object, which is
+visible at the start of a clip, and choose one of the following ``Tracking Type`` algorithms. The tracking algorithm
+then follows this object from frame to frame, recording its position, scale, and sometimes rotation.
 
 Tracking Type
 ^^^^^^^^^^^^^
@@ -560,7 +591,8 @@ Properties
 
 Wave
 """"
-Distort the frame's image into a wave pattern.
+The Wave effect distorts the image into a wave-like pattern, simulating effects like heat haze, water reflections,
+or other forms of distortion. The speed, amplitude, and direction of the waves can be adjusted.
 
 .. table::
    :widths: 26 80
@@ -584,7 +616,9 @@ and observing the results.
 
 Compressor
 """"""""""
-Reduce the volume of loud sounds or amplify quiet sounds.
+The Compressor effect in audio processing reduces the dynamic range of the audio signal, making loud sounds
+quieter and quiet sounds louder. This creates a more consistent volume level, useful for balancing the loudness
+of different audio sources or for achieving a particular sound characteristic in music production.
 
 .. table::
    :widths: 26 80
@@ -602,7 +636,9 @@ Reduce the volume of loud sounds or amplify quiet sounds.
 
 Delay
 """""
-Adjust the synchronism between the audio and video track.
+The Delay effect adds an echo to the audio signal, repeating the sound after a short delay. This can create a sense
+of space and depth in the audio, and is commonly used for creative effects in music, sound design, and audio
+post-production.
 
 .. table::
    :widths: 26 80
@@ -615,7 +651,9 @@ Adjust the synchronism between the audio and video track.
 
 Distortion
 """"""""""
-Alter the audio by clipping the signal.
+The Distortion effect intentionally clips the audio signal, adding harmonic and non-harmonic overtones. This can
+create a gritty, aggressive sound characteristic of many electric guitar tones and is used for both musical and
+sound design purposes.
 
 .. table::
    :widths: 26 80
@@ -631,7 +669,9 @@ Alter the audio by clipping the signal.
 
 Echo
 """"
-Reflection of sound with a delay after the direct sound.
+The Echo effect, similar to delay, repeats the audio signal at intervals, but with a focus on creating a distinct
+repetition of sound that mimics natural echoes. This can be used to simulate acoustic environments or for creative
+sound effects.
 
 .. table::
    :widths: 26 80
@@ -646,7 +686,9 @@ Reflection of sound with a delay after the direct sound.
 
 Expander
 """"""""
-Louder parts of audio become relatively louder and quieter parts become quieter.
+The Expander effect increases the dynamic range of audio, making quiet sounds quieter and leaving loud sounds
+unaffected. This is the opposite of compression and is used to reduce background noise or increase the dynamic
+impact of audio.
 
 .. table::
    :widths: 26 80
@@ -664,7 +706,9 @@ Louder parts of audio become relatively louder and quieter parts become quieter.
 
 Noise
 """""
-Random signal having equal intensity at different frequencies.
+The Noise effect adds random, equal-intensity signals across the frequency spectrum to the audio, simulating the sound
+of white noise. This can be used for sound masking, as a component in sound design, or for testing and calibration
+purposes.
 
 .. table::
    :widths: 26 80
@@ -677,7 +721,9 @@ Random signal having equal intensity at different frequencies.
 
 Parametric EQ
 """""""""""""
-Filter that allows you to adjust the volume level of a frequency in the audio track.
+The Parametric EQ (Equalizer) effect allows for precise adjustments to the volume level of specific frequency ranges
+in the audio signal. This can be used for corrective measures, such as removing unwanted tones, or creatively, to
+shape the tonal balance of the audio.
 
 .. table::
    :widths: 26 80
@@ -693,7 +739,9 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
 
 Robotization
 """"""""""""
-Transform the voice present in an audio track into a robotic voice effect.
+The Robotization effect transforms the audio to sound mechanical or robotic, by applying a combination of pitch
+modulation and synthesis techniques. This effect is widely used for character voices in media, creative music
+production, and sound design.
 
 .. table::
    :widths: 26 80
@@ -708,7 +756,9 @@ Transform the voice present in an audio track into a robotic voice effect.
 
 Whisperization
 """"""""""""""
-Transform the voice present in an audio track into a whispering voice effect.
+The Whisperization effect transforms the audio to mimic a whispering voice, often by filtering out certain
+frequencies and adding noise. This can be used for artistic effects in music, sound design for film and video, or
+in audio storytelling to convey secrecy or intimacy.
 
 .. table::
    :widths: 26 80
