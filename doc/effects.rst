@@ -269,6 +269,7 @@ easy-to-use Caption editor, where you can quickly insert captions at the playhea
 text in one place.
 
 .. code-block:: console
+
    :caption: Show a caption, starting at 5 seconds and ending at 10 seconds.
 
    00:00:05.000 --> 00:00:10.000
