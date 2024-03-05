@@ -461,9 +461,10 @@ Properties
    ==========================  ============
    class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
    confidence_threshold        ``(float, 0 to 1)`` Minimum confidence value to display the detected objects
-   display_box_text            ``(int, choices: ['Off', 'On'])`` Draw name and ID of tracked objects (affects all tracked objects)
-   selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that was selected to modify its properties
-   draw_box                    ``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the tracked object
+   display_box_text            ``(int, choices: ['Yes', 'No'])`` Draw class name and ID of ALL tracked objects
+   display_boxes               ``(int, choices: ['Yes', 'No'])`` Draw bounding box around ALL tracked objects (a quick way to hide all tracked objects)
+   selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that is `selected` to modify its properties
+   draw_box                    ``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the selected tracked object
    box_id                      ``(string)`` Internal ID of a tracked object box for identification purposes
    x1                          ``(float, 0 to 1)`` Top left X coordinate of a tracked object box, normalized to the video frame width
    y1                          ``(float, 0 to 1)`` Top left Y coordinate of a tracked object box, normalized to the video frame height
@@ -474,7 +475,7 @@ Properties
    scale_x                     ``(float, 0 to 1)`` Scaling factor in the X direction for the tracked object box, relative to its original size
    scale_y                     ``(float, 0 to 1)`` Scaling factor in the Y direction for the tracked object box, relative to its original size
    rotation                    ``(float, 0 to 360)`` Rotation angle of the tracked object box, in degrees
-   visible                     ``(int, choices: ['Yes', 'No'])`` Whether the tracked object box is visible in the current frame
+   visible                     ``(bool)`` Is the tracked object box visible in the current frame. Read-only property.
    stroke                      ``(color)`` Color of the stroke (border) around the tracked object box
    stroke_width                ``(int, 1 to 10)`` Width of the stroke (border) around the tracked object box
    stroke_alpha                ``(float, 0 to 1)`` Opacity of the stroke (border) around the tracked object box
@@ -580,7 +581,7 @@ Properties
    scale_x                     ``(float, 0 to 1)`` Scaling factor in the X direction for the tracked object box, relative to its original size
    scale_y                     ``(float, 0 to 1)`` Scaling factor in the Y direction for the tracked object box, relative to its original size
    rotation                    ``(float, 0 to 360)`` Rotation angle of the tracked object box, in degrees
-   visible                     ``(int, choices: ['Yes', 'No'])`` Whether the tracked object box is visible in the current frame
+   visible                     ``(bool)`` Is the tracked object box visible in the current frame. Read-only property.
    stroke                      ``(color)`` Color of the stroke (border) around the tracked object box
    stroke_width                ``(int, 1 to 10)`` Width of the stroke (border) around the tracked object box
    stroke_alpha                ``(float, 0 to 1)`` Opacity of the stroke (border) around the tracked object box

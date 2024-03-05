@@ -433,6 +433,12 @@ class PropertiesTableView(QTableView):
         self.selected_item = selected_value
         frame_number = self.clip_properties_model.frame_number
 
+        # Skip any read-only properties
+        cur_property = selected_label.data()
+        readonly = cur_property[1]["readonly"]
+        if readonly:
+            return
+
         # Get translation object
         _ = get_app()._tr
 
