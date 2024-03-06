@@ -243,9 +243,18 @@ class PropertiesTableView(QTableView):
                     # Get effect object
                     c = Effect.get(id=item_id)
 
-                if c and property_key in c.data:
+                if c and c.data:
                     # Grab the original data for this item/property
-                    self.original_data = c.data
+                    if property_key in c.data:
+                        self.original_data = c.data
+                    else:
+                        # If the property is not found, search in the tracked objects (if any)
+                        objects_dict = c.data.get("objects", {})
+                        for obj_id, obj in objects_dict.items():
+                            if property_key in obj:
+                                # use parent effect data (if match found)
+                                self.original_data = c.data
+                                break
 
             # For numeric values, apply percentage within parameter's allowable range
             if property_type in ["float", "int"] and property_name != "Track":
@@ -306,7 +315,7 @@ class PropertiesTableView(QTableView):
 
         # Enable video caching again
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
-        log.debug('mouseReleaseEvent: Start caching frames on timeline')
+        log.debug('mouseReleaseEvent: apply_last_action to history')
 
         # Add final update to undo/redo history
         get_app().updates.apply_last_action_to_history(self.original_data)
