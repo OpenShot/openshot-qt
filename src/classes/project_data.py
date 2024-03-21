@@ -771,10 +771,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         self.is_keyframe_valid(crop_height, 1.0),
                        ]):
                     # Apply crop effect to clip (which wasn't available in 2.5.x)
-                    log.info(
-                        "Migrating OpenShot 2.5 crop properties for clip %s",
-                        clip.get("id", "<unknown>")
-                    )
+                    log.info("Migrating OpenShot 2.5 crop properties for clip %s", clip.get("id", "<unknown>"))
                     from json import loads as jl
                     effect = openshot.EffectInfo().CreateEffect("Crop")
                     effect.Id(get_app().project.generate_id())
@@ -795,6 +792,49 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                     # Append effect JSON to clip
                     clip["effects"].append(effect_json)
+
+
+        elif openshot_version <= "3.1.1":
+
+            # Reverse alpha value for Tracker & Object Detector tracked boxes
+            log.debug("Scanning OpenShot project for legacy TrackedObjectBBox (background_alpha, stroke_alpha)")
+
+            for clip in self._data.get("clips", []):
+                for effect in clip.get("effects", []):
+                    if effect.get("name") in ["Tracker", "Object Detector"]:
+
+                        # Update display_box_text
+                        if "display_box_text" in effect:
+                            log.info("Migrating legacy Object Detector display_box_text property "
+                                     "for clip %s", clip.get("id", "<unknown>"))
+                            display_box_text_points = effect.get("display_box_text", {}).get("Points", [])
+                            for point in display_box_text_points:
+                                if "co" in point:
+                                    display_box_text = point.get("co", {}).get("Y", 1.0)
+                                    point["co"]["Y"] = 1.0 - display_box_text
+                            if not display_box_text_points:
+                                # Default to text visible
+                                display_box_text_points.append(json.loads(openshot.Point(1.0).Json()))
+
+                        # Update tracked objects
+                        objects = effect.get("objects", {})
+                        for tracked_key, tracked_data in objects.items():
+                            log.info("Migrating legacy TrackedObjectBBox alpha properties "
+                                     "for clip %s and tracked object: %s", clip.get("id", "<unknown>"), tracked_key)
+
+                            # Update background_alpha points directly
+                            background_alpha_points = tracked_data.get("background_alpha", {}).get("Points", [])
+                            for point in background_alpha_points:
+                                if "co" in point:
+                                    background_alpha = point.get("co", {}).get("Y", 1.0)
+                                    point["co"]["Y"] = 1.0 - background_alpha
+
+                            # Update stroke_alpha points directly
+                            stroke_alpha_points = tracked_data.get("stroke_alpha", {}).get("Points", [])
+                            for point in stroke_alpha_points:
+                                if "co" in point:
+                                    stroke_alpha = point.get("co", {}).get("Y", 1.0)
+                                    point["co"]["Y"] = 1.0 - stroke_alpha
 
         # Fix default project id (if found)
         if self._data.get("id") == "T0":
