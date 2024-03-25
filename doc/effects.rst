@@ -447,7 +447,8 @@ How Parenting Works
 Once you have tracked objects, you can "parent" other :ref:`clips_ref` to them. This means that the second clip,
 which could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it.
 If the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size
-(gets closer to the camera), the child clip also scales up.
+(gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be
+on a Track higher than the tracked objects, and set the appropriate :ref:`clip_scale_ref` property.
 
 See :ref:`clip_parent_ref`.
 
@@ -558,7 +559,8 @@ How Parenting Works
 Once you have a tracked object, you can "parent" other :ref:`clips_ref` to it. This means that the second clip,
 which could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it.
 If the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size
-(gets closer to the camera), the child clip also scales up.
+(gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be
+on a Track higher than the tracked objects, and set the appropriate :ref:`clip_scale_ref` property.
 
 See :ref:`clip_parent_ref`.
 
