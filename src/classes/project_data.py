@@ -822,6 +822,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             log.info("Migrating legacy TrackedObjectBBox alpha properties "
                                      "for clip %s and tracked object: %s", clip.get("id", "<unknown>"), tracked_key)
 
+                            # Update Child Clip ID to Parent property (if any)
+                            child_clip_id = tracked_data.get("child_clip_id")
+                            if child_clip_id:
+                                for child_clip in self._data.get("clips", []):
+                                    if child_clip.get("id") == child_clip_id:
+                                        log.info(f"Migrating child_clip_id {child_clip_id} to parent property for tracked object {tracked_key}")
+                                        child_clip["parentObjectId"] = tracked_key
+
                             # Update background_alpha points directly
                             background_alpha_points = tracked_data.get("background_alpha", {}).get("Points", [])
                             for point in background_alpha_points:
