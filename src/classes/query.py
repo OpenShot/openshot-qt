@@ -26,7 +26,6 @@
  """
 
 import os
-import copy
 import json
 
 from classes import info
@@ -348,7 +347,7 @@ class Effect(QueryObject):
                             object = Effect()
                             object.id = child["id"]
                             object.key = ["clips", {"id": clip["id"]}, "effects", {"id": object.id}]
-                            object.data = child
+                            object.data = json.loads(json.dumps(child))
                             object.type = "update"
                             object.parent = clip
                             matching_objects.append(object)

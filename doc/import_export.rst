@@ -47,6 +47,7 @@ Example EDL Output
 ^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
+
    :caption: Example EDL format supported by OpenShot:
 
     TITLE: Clips - TRACK 5

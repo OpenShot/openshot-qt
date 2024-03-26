@@ -243,9 +243,18 @@ class PropertiesTableView(QTableView):
                     # Get effect object
                     c = Effect.get(id=item_id)
 
-                if c and property_key in c.data:
+                if c and c.data:
                     # Grab the original data for this item/property
-                    self.original_data = c.data
+                    if property_key in c.data:
+                        self.original_data = c.data
+                    else:
+                        # If the property is not found, search in the tracked objects (if any)
+                        objects_dict = c.data.get("objects", {})
+                        for obj_id, obj in objects_dict.items():
+                            if property_key in obj:
+                                # use parent effect data (if match found)
+                                self.original_data = c.data
+                                break
 
             # For numeric values, apply percentage within parameter's allowable range
             if property_type in ["float", "int"] and property_name != "Track":
@@ -306,7 +315,7 @@ class PropertiesTableView(QTableView):
 
         # Enable video caching again
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
-        log.debug('mouseReleaseEvent: Start caching frames on timeline')
+        log.debug('mouseReleaseEvent: apply_last_action to history')
 
         # Add final update to undo/redo history
         get_app().updates.apply_last_action_to_history(self.original_data)
@@ -433,6 +442,12 @@ class PropertiesTableView(QTableView):
         self.selected_item = selected_value
         frame_number = self.clip_properties_model.frame_number
 
+        # Skip any read-only properties
+        cur_property = selected_label.data()
+        readonly = cur_property[1]["readonly"]
+        if readonly:
+            return
+
         # Get translation object
         _ = get_app()._tr
 
@@ -499,7 +514,14 @@ class PropertiesTableView(QTableView):
                     self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
 
             # Handle selected object options (ObjectDetection effect)
-            if property_key == "selected_object_index" and not self.choices:
+            if property_key in ["selected_object_index", "class_filter"] and not self.choices:
+                if property_key == "class_filter":
+                    # Use only class_name (if it has not already been added to the choices)
+                    tracked_object_menu_name = _("Tracked Classes")
+                    self.choices.append({"name": _("Clear"), "value": "", "selected": False, "icon": None})
+                else:
+                    tracked_object_menu_name = _("Tracked Objects")
+
                 # Get all visible object's indexes
                 timeline_instance = get_app().window.timeline_sync.timeline
                 # Instantiate the effect
@@ -508,18 +530,30 @@ class PropertiesTableView(QTableView):
                 visible_objects = json.loads(effect.GetVisibleObjects(frame_number))
                 # Add visible objects as choices
                 object_index_choices = []
-                for object_index in visible_objects["visible_objects_index"]:
-                    object_index_choices.append({
-                                "name": str(object_index),
-                                "value": str(object_index),
-                                "selected": False,
-                                "icon": None
-                            })
+                for enum_index, object_index in enumerate(visible_objects["visible_objects_index"]):
+                    class_name = visible_objects["visible_class_names"][enum_index]
+                    object_name = f"{class_name}: {object_index}"
+                    object_value = f"{object_index}"
+                    skip_choice = False
+                    if property_key == "class_filter":
+                        # Use only class_name (if it has not already been added to the choices)
+                        tracked_object_menu_name = _("Tracked Classes")
+                        object_name = f"{class_name}"
+                        object_value = f"{class_name}"
+                        skip_choice = any(d.get('name') == class_name for d in object_index_choices)
+
+                    if not skip_choice:
+                        object_index_choices.append({
+                                    "name": object_name,
+                                    "value": object_value,
+                                    "selected": False,
+                                    "icon": None
+                                })
                 if object_index_choices:
-                    self.choices.append({"name": _("Detected Objects"), "value": object_index_choices, "selected": False, "icon": None})
+                    self.choices.append({"name": tracked_object_menu_name, "value": object_index_choices, "selected": False, "icon": None})
 
             # Handle clip attach options
-            if property_key in ["parentObjectId", "child_clip_id"] and not self.choices:
+            if property_key in ["parentObjectId"] and not self.choices:
                 # Add all Clips as choices - initialize with None
                 tracked_choices = []
                 clip_choices = []
@@ -557,25 +591,25 @@ class PropertiesTableView(QTableView):
                             if effect.get("has_tracked_object"):
                                 # Instantiate the effect
                                 effect_instance = timeline_instance.GetClipEffect(effect["id"])
-                                # Get the visible object's ids
-                                visible_objects_id = json.loads(effect_instance.GetVisibleObjects(frame_number))["visible_objects_id"]
-                                for object_id in visible_objects_id:
-                                    # Get the Tracked Object properties
-                                    object_properties = json.loads(timeline_instance.GetTrackedObjectValues(object_id, 0))
-                                    x1 = object_properties['x1']
-                                    y1 = object_properties['y1']
-                                    x2 = object_properties['x2']
-                                    y2 = object_properties['y2']
-                                    # Get the tracked object's icon from the clip's icon
-                                    tracked_object_icon = icon_pixmap.copy(QRect(x1*icon_size, y1*icon_size, (x2-x1)*icon_size, (y2-y1)*icon_size)).scaled(icon_size, icon_size)
-                                    tracked_objects.append({"name": str(object_id),
-                                                            "value": str(object_id),
-                                                            "selected": False,
-                                                            "icon": QIcon(tracked_object_icon)})
-                            tracked_choices.append({"name": clip.data["title"],
-                                                  "value": tracked_objects,
-                                                  "selected": False,
-                                                  "icon": clip_instance_icon})
+                                # Get the indexes and IDs of the visible objects
+                                visible_objects = json.loads(effect_instance.GetVisibleObjects(frame_number))
+                                # Add visible objects as choices
+                                for enum_index, object_index in enumerate(visible_objects["visible_objects_index"]):
+                                    if "visible_class_names" in visible_objects:
+                                        class_name = visible_objects["visible_class_names"][enum_index]
+                                    else:
+                                        class_name = "Tracked Region"
+                                    tracked_objects.append({
+                                        "name": f"{class_name}: {object_index}",
+                                        "value": str(object_index),
+                                        "selected": False,
+                                        "icon": None
+                                    })
+
+                                tracked_choices.append({"name": clip.data["title"],
+                                                      "value": tracked_objects,
+                                                      "selected": False,
+                                                      "icon": clip_instance_icon})
                 self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
                 if property_key == "parentObjectId" and tracked_choices:
                     self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
@@ -707,56 +741,48 @@ class PropertiesTableView(QTableView):
                 Insert_Action.triggered.connect(self.Insert_Action_Triggered)
                 Remove_Action = menu.addAction(_("Remove Keyframe"))
                 Remove_Action.triggered.connect(self.Remove_Action_Triggered)
-                menu.popup(event.globalPos())
+                menu.addSeparator()
 
-            # Menu for choices
+            # Format menu nesting
             log.debug(f"Context menu choices: {self.choices}")
-            if not self.choices:
-                return
-            for choice in self.choices:
-                if type(choice["value"]) != list:
-                    # Just add root choice item
-                    Choice_Action = menu.addAction(_(choice["name"]))
-                    Choice_Action.setData(choice["value"])
-                    Choice_Action.triggered.connect(self.Choice_Action_Triggered)
-                    continue
+            self.menu = self.build_menu(self.choices, menu)
 
-                # Add sub-choice items (for nested choice lists)
-                # Divide into smaller QMenus (since large lists cover the entire screen)
-                # For example: Transitions -> 1 -> sub items
-                SubMenu = None
-                if choice.get("icon") is not None:
-                    SubMenuRoot = menu.addMenu(choice["icon"], choice["name"])
+            # Show context menu (if any options present)
+            if self.menu.children():
+                self.menu.popup(event.globalPos())
+
+    def build_menu(self, data, parent_menu=None):
+        """Build a QMenu, included nested sub-menus, and divide lists if too large"""
+        if parent_menu is None:
+            parent_menu = QMenu()
+
+        SubMenuSize = 25
+        for choice in data:
+            if isinstance(choice["value"], list) and choice["value"]:
+                log.info("Add submenu: " + choice["name"])
+                if choice.get("icon"):
+                    SubMenuRoot = parent_menu.addMenu(QIcon(choice["icon"]), choice["name"])
                 else:
-                    SubMenuRoot = menu.addMenu(choice["name"])
+                    SubMenuRoot = parent_menu.addMenu(choice["name"])
 
-                SubMenuSize = 25
-                SubMenuNumber = 0
+                # Check if the list needs to be divided into sub-menus
                 if len(choice["value"]) > SubMenuSize:
-                    SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
+                    for i in range(0, len(choice["value"]), SubMenuSize):
+                        range_label = f"{i + 1}-{min(i + SubMenuSize, len(choice['value']))}"
+                        SubMenu = SubMenuRoot.addMenu(range_label)
+                        self.build_menu(choice["value"][i:i + SubMenuSize], SubMenu)
                 else:
-                    SubMenu = SubMenuRoot
-                for i, sub_choice in enumerate(choice["value"], 1):
-                    # Divide SubMenu if it's item is a list
-                    if type(sub_choice["value"]) == list:
-                        SubSubMenu = SubMenu.addMenu(sub_choice["icon"], sub_choice["name"])
-                        for sub_sub_choice in sub_choice["value"]:
-                            Choice_Action = SubSubMenu.addAction(
-                                sub_sub_choice["icon"], sub_sub_choice["name"])
-                            Choice_Action.setData(sub_sub_choice["value"])
-                            Choice_Action.triggered.connect(self.Choice_Action_Triggered)
-                    else:
-                        if i % SubMenuSize == 0:
-                            SubMenuNumber += 1
-                            SubMenu = SubMenuRoot.addMenu(str(SubMenuNumber))
-                        Choice_Action = SubMenu.addAction(
-                            sub_choice["icon"], _(sub_choice["name"]))
-                        Choice_Action.setData(sub_choice["value"])
-                        Choice_Action.triggered.connect(self.Choice_Action_Triggered)
+                    self.build_menu(choice["value"], SubMenuRoot)
+            else:
+                # Single choice, not a list, add directly to the menu
+                log.info(" - Add choice: " + choice["name"])
+                Choice_Action = parent_menu.addAction(choice["name"])
+                if choice.get("icon"):
+                    Choice_Action.setIcon(QIcon(choice["icon"]))
+                Choice_Action.setData(choice["value"])
+                Choice_Action.triggered.connect(self.Choice_Action_Triggered)
 
-            # Show choice menuk
-            log.debug(f"Display context menu: {menu.children()}")
-            menu.popup(event.globalPos())
+        return parent_menu
 
     def Bezier_Action_Triggered(self, preset=[]):
         log.info("Bezier_Action_Triggered: %s" % str(preset))
@@ -850,6 +876,7 @@ class PropertiesTableView(QTableView):
         self.original_data = None
         self.lock_selection = False
         self.prev_row = None
+        self.menu = None
 
         # Context menu icons
         self.bezier_icon = QIcon(QPixmap(os.path.join(info.IMAGES_PATH, "keyframe-%s.png" % openshot.BEZIER)))

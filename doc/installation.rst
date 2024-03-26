@@ -55,6 +55,7 @@ from the `official download page <https://www.openshot.org/download/>`_, open th
 and type the following commands:
 
 ..  code-block:: console
+
     :caption: Install portable version of OpenShot (no administrator permissions required)
 
     cd C:\Users\USER\Downloads\
@@ -97,6 +98,7 @@ For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a PPA
 manager, making it possible to install our latest version, without relying on our AppImages.
 
 ..  code-block:: console
+
     :caption: Stable PPA (Contains only official releases)
 
     sudo add-apt-repository ppa:openshot.developers/ppa
@@ -104,6 +106,7 @@ manager, making it possible to install our latest version, without relying on ou
     sudo apt install openshot-qt python3-openshot
 
 ..  code-block:: console
+
     :caption: Daily PPA (Highly experimental and unstable, for testers)
 
     sudo add-apt-repository ppa:openshot.developers/libopenshot-daily

@@ -349,7 +349,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)
 
-        if self.transforming_clip:
+        if self.transforming_clip and self.transforming_clip_object:
             # Draw transform handles on top of video preview
             # Get framerate
             fps = get_app().project.get("fps")

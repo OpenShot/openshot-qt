@@ -113,6 +113,7 @@ more information on individual effects and their unique properties.
    Position                Float       The position of the effect on the timeline (in seconds). This property is hidden when an effect belongs to a clip.
    Start                   Float       The start trimming position of the effect (in seconds). This property is hidden when an effect belongs to a clip.
    Track                   Int         The layer which holds the effect (higher tracks are rendered on top of lower tracks). This property is hidden when an effect belongs to a clip.
+   Apply Before Clip       Boolean     Apply this effect before the Clip processes keyframes? (default is Yes)
    ======================  ==========  ============
 
 Duration
@@ -188,7 +189,10 @@ entering different values into the properties, and observing the results.
 
 Alpha Mask / Wipe Transition
 """"""""""""""""""""""""""""
-Uses a grayscale mask image to gradually wipe / transition between 2 images (only affects the image, and not the audio track)
+The Alpha Mask / Wipe Transition effect leverages a grayscale mask to create a dynamic transition between two images
+or video clips. In this effect, the light areas of the mask reveal the new image, while the dark areas conceal it,
+allowing for creative and custom transitions that go beyond standard fade or wipe techniques. This effect only
+affects the image, and not the audio track.
 
 .. table::
    :widths: 26 80
@@ -196,7 +200,6 @@ Uses a grayscale mask image to gradually wipe / transition between 2 images (onl
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    brightness                  ``(float, -1 to 1)`` This curve controls the motion across the wipe
    contrast                    ``(float, 0 to 20)`` This curve controls the hardness and softness of the wipe edge
    reader                      ``(reader)`` This reader can use any image or video as input for your grayscale wipe
@@ -205,7 +208,9 @@ Uses a grayscale mask image to gradually wipe / transition between 2 images (onl
 
 Bars
 """"
-Add colored bars around your video.
+The Bars effect adds colored bars around your video frame, which can be used for aesthetic purposes, to frame
+the video within a certain aspect ratio, or to simulate the appearance of viewing content on a different display
+device. This effect is particularly useful for creating a cinematic or broadcast look.
 
 .. table::
    :widths: 26 80
@@ -213,7 +218,6 @@ Add colored bars around your video.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 0.5)`` The curve to adjust the bottom bar size
    color                       ``(color)`` The curve to adjust the color of bars
    left                        ``(float, 0 to 0.5)`` The curve to adjust the left bar size
@@ -223,7 +227,9 @@ Add colored bars around your video.
 
 Blur
 """"
-Adjust the blur of the frame's image.
+The Blur effect softens the image, reducing detail and texture. This can be used to create a sense of depth,
+draw attention to specific parts of the frame, or simply to apply a stylistic choice for aesthetic purposes.
+The intensity of the blur can be adjusted to achieve the desired level of softness.
 
 .. table::
    :widths: 26 80
@@ -231,7 +237,6 @@ Adjust the blur of the frame's image.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    horizontal_radius           ``(float, 0 to 100)`` Horizontal blur radius keyframe. The size of the horizontal blur operation in pixels.
    iterations                  ``(float, 0 to 100)`` Iterations keyframe. The # of blur iterations per pixel. 3 iterations = Gaussian.
    sigma                       ``(float, 0 to 100)`` Sigma keyframe. The amount of spread in the blur operation. Should be larger than radius.
@@ -240,7 +245,9 @@ Adjust the blur of the frame's image.
 
 Brightness & Contrast
 """""""""""""""""""""
-Adjust the brightness and contrast of the frame's image.
+The Brightness & Contrast effect allows for the adjustment of the overall lightness or darkness of the image
+(brightness) and the difference between the darkest and lightest parts of the image (contrast). This effect can be
+used to correct poorly lit videos or to create dramatic lighting effects for artistic purposes.
 
 .. table::
    :widths: 26 80
@@ -248,7 +255,6 @@ Adjust the brightness and contrast of the frame's image.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    brightness                  ``(float, -1 to 1)`` The curve to adjust the brightness
    contrast                    ``(float, 0 to 100)`` The curve to adjust the contrast (3 is typical, 20 is a lot, 100 is max. 0 is invalid)
    ==========================  ============
@@ -263,6 +269,7 @@ easy-to-use Caption editor, where you can quickly insert captions at the playhea
 text in one place.
 
 .. code-block:: console
+
    :caption: Show a caption, starting at 5 seconds and ending at 10 seconds.
 
    00:00:05.000 --> 00:00:10.000
@@ -274,7 +281,6 @@ text in one place.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    background                  ``(color)`` Color of caption area background
    background_alpha            ``(float, 0 to 1)`` Background color alpha
    background_corner           ``(float, 0 to 60)`` Background corner radius
@@ -296,7 +302,10 @@ text in one place.
 
 Chroma Key (Greenscreen)
 """"""""""""""""""""""""
-Replaces the color (or chroma) of the frame with transparency (i.e. keys out the color).
+The Chroma Key (Greenscreen) effect replaces a specific color (or chroma) in the video (commonly green or blue)
+with transparency, allowing for the compositing of the video over a different background. This effect is widely used
+in film and television production for creating visual effects and placing subjects in settings that would be otherwise
+impossible or impractical to shoot in.
 
 .. table::
    :widths: 26 80
@@ -304,7 +313,6 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    color                       ``(color)`` The color to match
    fuzz                        ``(float, 0 to 125)`` The fuzz factor (or threshold)
    halo                        ``(float, 0 to 125)`` The additional threshold for halo elimination.
@@ -313,7 +321,9 @@ Replaces the color (or chroma) of the frame with transparency (i.e. keys out the
 
 Color Saturation
 """"""""""""""""
-Adjust the color saturation.
+The Color Saturation effect adjusts the intensity and vibrancy of colors within the video. Increasing saturation
+can make colors more vivid and eye-catching, while decreasing it can create a more subdued, almost
+black-and-white appearance.
 
 .. table::
    :widths: 26 80
@@ -321,7 +331,6 @@ Adjust the color saturation.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    saturation                  ``(float, 0 to 4)`` The curve to adjust the overall saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
    saturation_B                ``(float, 0 to 4)`` The curve to adjust blue saturation of the frame's image
    saturation_G                ``(float, 0 to 4)`` The curve to adjust green saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)
@@ -347,7 +356,6 @@ shift of the alpha channel.*
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    alpha_x                     ``(float, -1 to 1)`` Shift the Alpha X coordinates (left or right)
    alpha_y                     ``(float, -1 to 1)`` Shift the Alpha Y coordinates (up or down)
    blue_x                      ``(float, -1 to 1)`` Shift the Blue X coordinates (left or right)
@@ -362,9 +370,11 @@ shift of the alpha channel.*
 
 Crop
 """"
-Crop out any part of a video clip. This effect is the primary method for cropping a Clip in OpenShot. The ``left``, ``right``,
-``top``, and ``bottom`` key-frames can even be animated, for a moving and resizing cropped area. You can leave the cropped area
-blank, or you can dynamically resize the cropped area to fill the screen.
+The Crop effect removes unwanted outer areas from the video frame, allowing you to focus on a particular part of the
+shot, change the aspect ratio, or remove distracting elements from the edges of the frame. This effect is the
+primary method for cropping a Clip in OpenShot. The ``left``, ``right``, ``top``, and ``bottom`` key-frames can
+even be animated, for a moving and resizing cropped area. You can leave the cropped area blank, or you can
+dynamically resize the cropped area to fill the screen.
 
 .. table::
    :widths: 26 80
@@ -372,7 +382,6 @@ blank, or you can dynamically resize the cropped area to fill the screen.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 1)`` Size of bottom bar
    left                        ``(float, 0 to 1)`` Size of left bar
    right                       ``(float, 0 to 1)`` Size of right bar
@@ -384,7 +393,9 @@ blank, or you can dynamically resize the cropped area to fill the screen.
 
 Deinterlace
 """""""""""
-Remove interlacing from a video (i.e. even or odd horizontal lines)
+The Deinterlace effect is used to remove interlacing artifacts from video footage, which are commonly seen as
+horizontal lines across moving objects. This effect is essential for converting interlaced video (such as from
+older video cameras or broadcast sources) into a progressive format suitable for modern displays.
 
 .. table::
    :widths: 26 80
@@ -392,13 +403,14 @@ Remove interlacing from a video (i.e. even or odd horizontal lines)
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    isOdd                       ``(bool, choices: ['Yes', 'No'])`` Use odd or even lines
    ==========================  ============
 
 Hue
 """
-Adjust the hue / color of the frame's image.
+The Hue effect adjusts the overall color balance of the video, changing the hues without affecting the brightness or
+saturation. This can be used for color correction or to apply dramatic color effects that transform the mood of
+the footage.
 
 .. table::
    :widths: 26 80
@@ -406,17 +418,42 @@ Adjust the hue / color of the frame's image.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    hue                         ``(float, 0 to 1)`` The curve to adjust the percentage of hue shift
    ==========================  ============
 
 Negative
 """"""""
-Negates the colors, producing a negative of the image.
+The Negative effect inverts the colors of the video, producing an image that resembles a photographic negative.
+This can be used for artistic effects, to create a surreal or otherworldly look, or to highlight specific elements
+within the frame.
 
 Object Detector
 """""""""""""""
-Detect objects through the video.
+The Object Detector effect employs machine learning algorithms (such as neural networks) to identify and highlight
+objects within the video frame. It can recognize multiple object types, such as vehicles, people, animals,
+and more! This can be used for analytical purposes, to add interactive elements to videos, or to track the movement
+of specific objects across the frame.
+
+Class Filters & Confidence
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+To adjust the detection process to your specific needs, the Object Detector includes properties for ``class filters``
+and ``confidence thresholds``. By setting a class filter, such as "Truck" or "Person," you can instruct the detector to
+focus on specific types of objects, limiting the types of objects tracked. The confidence threshold allows you to
+set a minimum level of certainty for detections, ensuring that only objects detected with a confidence level above
+this threshold are considered, which helps in reducing false positives and focusing on more accurate detections.
+
+How Parenting Works
+^^^^^^^^^^^^^^^^^^^
+Once you have tracked objects, you can "parent" other :ref:`clips_ref` to them. This means that the second clip,
+which could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it.
+If the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size
+(gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be
+on a Track higher than the tracked objects, and set the appropriate :ref:`clip_scale_ref` property.
+
+See :ref:`clip_parent_ref`.
+
+Properties
+^^^^^^^^^^
 
 .. table::
    :widths: 26 80
@@ -424,17 +461,36 @@ Detect objects through the video.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    class_filter                ``(string)`` Type of object class to filter (i.e. car, person)
    confidence_threshold        ``(float, 0 to 1)`` Minimum confidence value to display the detected objects
-   display_box_text            ``(int, choices: ['Off', 'On'])`` Draw a rectangle around detected objects
-   objects                     ``(list)`` List of detected object ids
-   selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that was selected to modify its properties
+   display_box_text            ``(int, choices: ['Yes', 'No'])`` Draw class name and ID of ALL tracked objects
+   display_boxes               ``(int, choices: ['Yes', 'No'])`` Draw bounding box around ALL tracked objects (a quick way to hide all tracked objects)
+   selected_object_index       ``(int, 0 to 200)`` Index of the tracked object that is `selected` to modify its properties
+   draw_box                    ``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the selected tracked object
+   box_id                      ``(string)`` Internal ID of a tracked object box for identification purposes
+   x1                          ``(float, 0 to 1)`` Top left X coordinate of a tracked object box, normalized to the video frame width
+   y1                          ``(float, 0 to 1)`` Top left Y coordinate of a tracked object box, normalized to the video frame height
+   x2                          ``(float, 0 to 1)`` Bottom right X coordinate of a tracked object box, normalized to the video frame width
+   y2                          ``(float, 0 to 1)`` Bottom right Y coordinate of a tracked object box, normalized to the video frame height
+   delta_x                     ``(float, -1.0 to 1)`` Horizontal movement delta of the tracked object box from its previous position
+   delta_y                     ``(float, -1.0 to 1)`` Vertical movement delta of the tracked object box from its previous position
+   scale_x                     ``(float, 0 to 1)`` Scaling factor in the X direction for the tracked object box, relative to its original size
+   scale_y                     ``(float, 0 to 1)`` Scaling factor in the Y direction for the tracked object box, relative to its original size
+   rotation                    ``(float, 0 to 360)`` Rotation angle of the tracked object box, in degrees
+   visible                     ``(bool)`` Is the tracked object box visible in the current frame. Read-only property.
+   stroke                      ``(color)`` Color of the stroke (border) around the tracked object box
+   stroke_width                ``(int, 1 to 10)`` Width of the stroke (border) around the tracked object box
+   stroke_alpha                ``(float, 0 to 1)`` Opacity of the stroke (border) around the tracked object box
+   background_alpha            ``(float, 0 to 1)`` Opacity of the background fill inside the tracked object box
+   background_corner           ``(int, 0 to 150)`` Radius of the corners for the background fill inside the tracked object box
+   background                  ``(color)`` Color of the background fill inside the tracked object box
    ==========================  ============
 
 Pixelate
 """"""""
-Pixelate (increase or decrease) the number of visible pixels.
+The Pixelate effect increases or decreases the size of the pixels in the video, creating a mosaic-like appearance.
+This can be used to obscure details (such as faces or license plates for privacy reasons), or as a stylistic effect
+to evoke a retro, digital, or abstract aesthetic.
 
 .. table::
    :widths: 26 80
@@ -442,7 +498,6 @@ Pixelate (increase or decrease) the number of visible pixels.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    bottom                      ``(float, 0 to 1)`` The curve to adjust the bottom margin size
    left                        ``(float, 0 to 1)`` The curve to adjust the left margin size
    pixelization                ``(float, 0 to 0.99)`` The curve to adjust the amount of pixelization
@@ -452,7 +507,9 @@ Pixelate (increase or decrease) the number of visible pixels.
 
 Shift
 """""
-Shift the image up, down, left, and right (with infinite wrapping).
+The Shift effect moves the entire image in different directions (up, down, left, and right with infinite wrapping),
+creating a sense of motion or disorientation. This can be used for transitions, to simulate camera movement, or to
+add dynamic motion to static shots.
 
 .. table::
    :widths: 26 80
@@ -460,14 +517,15 @@ Shift the image up, down, left, and right (with infinite wrapping).
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    x                           ``(float, -1 to 1)`` Shift the X coordinates (left or right)
    y                           ``(float, -1 to 1)`` Shift the Y coordinates (up or down)
    ==========================  ============
 
 Stabilizer
 """"""""""
-Stabilize video clip to remove undesired shaking and jitter.
+The Stabilizer effect reduces unwanted shake and jitter in handheld or unstable video footage, resulting in smoother,
+more professional-looking shots. This is particularly useful for action scenes, handheld shots, or any footage where
+a tripod was not used.
 
 .. table::
    :widths: 26 80
@@ -475,17 +533,70 @@ Stabilize video clip to remove undesired shaking and jitter.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    zoom                        ``(float, 0 to 2)`` Percentage to zoom into the clip, to crop off the shaking and uneven edges
    ==========================  ============
 
 Tracker
 """""""
-Track the selected bounding box through the video. The tracked object can be selected as a parent on other clips. See :ref:`clip_parent_ref`.
+The Tracker effect allows for the tracking of a specific object or area within the video frame across multiple frames.
+This can be used for motion tracking, adding effects or annotations that follow the movement of objects, or for
+stabilizing footage based on a tracked point.When tracking an object, be sure to select the entire object, which is
+visible at the start of a clip, and choose one of the following ``Tracking Type`` algorithms. The tracking algorithm
+then follows this object from frame to frame, recording its position, scale, and sometimes rotation.
+
+Tracking Type
+^^^^^^^^^^^^^
+- **KCF:** (default) A blend of Boosting and MIL strategies, employing correlation filters on overlapping areas from 'bags' to accurately track and predict object movement. It offers higher speed and accuracy and can stop tracking when the object is lost but struggles to resume tracking after losing the object.
+- **MIL:** Improves upon Boosting by considering multiple potential positives ('bags') around the definite positive object, increasing robustness to noise and maintaining good accuracy. However, it shares the Boosting Tracker's drawbacks of low speed and difficulty in stopping tracking when the object is lost.
+- **BOOSTING:** Utilizes the online AdaBoost algorithm to enhance the classification of tracked objects by focusing on incorrectly classified ones. It requires setting the initial frame and treats nearby objects as background, adjusting to new frames based on maximum score areas. It's known for accurate tracking but suffers from low speed, noise sensitivity, and difficulty stopping tracking upon object loss.
+- **TLD:** Decomposes tracking into tracking, learning, and detection phases, allowing for adaptation and correction over time. While it can handle object scaling and occlusions reasonably well, it may behave unpredictably, with instability in tracking and detection.
+- **MEDIANFLOW:** Based on the Lucas-Kanade method, it analyzes forward and backward movement to estimate trajectory errors for real-time position prediction. It's fast and accurate under certain conditions but can lose track of fast-moving objects.
+- **MOSSE:** Utilizes adaptive correlations in Fourier space to maintain robustness against lighting, scale, and pose changes. It boasts very high tracking speeds and is better at continuing tracking after loss, but it may persist in tracking an absent object.
+- **CSRT:** Employs spatial reliability maps to adjust filter support, enhancing the ability to track non-rectangular objects and perform well even with object overlaps. However, it is slower and may not operate reliably when the object is lost.
+
+How Parenting Works
+^^^^^^^^^^^^^^^^^^^
+Once you have a tracked object, you can "parent" other :ref:`clips_ref` to it. This means that the second clip,
+which could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it.
+If the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size
+(gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be
+on a Track higher than the tracked objects, and set the appropriate :ref:`clip_scale_ref` property.
+
+See :ref:`clip_parent_ref`.
+
+Properties
+^^^^^^^^^^
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ====================================================================
+   Property Name               Description
+   ==========================  ====================================================================
+   draw_box                    ``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the tracked object
+   box_id                      ``(string)`` Internal ID of a tracked object box for identification purposes
+   x1                          ``(float, 0 to 1)`` Top left X coordinate of a tracked object box, normalized to the video frame width
+   y1                          ``(float, 0 to 1)`` Top left Y coordinate of a tracked object box, normalized to the video frame height
+   x2                          ``(float, 0 to 1)`` Bottom right X coordinate of a tracked object box, normalized to the video frame width
+   y2                          ``(float, 0 to 1)`` Bottom right Y coordinate of a tracked object box, normalized to the video frame height
+   delta_x                     ``(float, -1.0 to 1)`` Horizontal movement delta of the tracked object box from its previous position
+   delta_y                     ``(float, -1.0 to 1)`` Vertical movement delta of the tracked object box from its previous position
+   scale_x                     ``(float, 0 to 1)`` Scaling factor in the X direction for the tracked object box, relative to its original size
+   scale_y                     ``(float, 0 to 1)`` Scaling factor in the Y direction for the tracked object box, relative to its original size
+   rotation                    ``(float, 0 to 360)`` Rotation angle of the tracked object box, in degrees
+   visible                     ``(bool)`` Is the tracked object box visible in the current frame. Read-only property.
+   stroke                      ``(color)`` Color of the stroke (border) around the tracked object box
+   stroke_width                ``(int, 1 to 10)`` Width of the stroke (border) around the tracked object box
+   stroke_alpha                ``(float, 0 to 1)`` Opacity of the stroke (border) around the tracked object box
+   background_alpha            ``(float, 0 to 1)`` Opacity of the background fill inside the tracked object box
+   background_corner           ``(int, 0 to 150)`` Radius of the corners for the background fill inside the tracked object box
+   background                  ``(color)`` Color of the background fill inside the tracked object box
+   ==========================  ====================================================================
 
 Wave
 """"
-Distort the frame's image into a wave pattern.
+The Wave effect distorts the image into a wave-like pattern, simulating effects like heat haze, water reflections,
+or other forms of distortion. The speed, amplitude, and direction of the waves can be adjusted.
 
 .. table::
    :widths: 26 80
@@ -493,7 +604,6 @@ Distort the frame's image into a wave pattern.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    amplitude                   ``(float, 0 to 5)`` The height of the wave
    multiplier                  ``(float, 0 to 10)`` Amount to multiply the wave (make it bigger)
    shift_x                     ``(float, 0 to 1000)`` Amount to shift X-axis
@@ -510,7 +620,9 @@ and observing the results.
 
 Compressor
 """"""""""
-Reduce the volume of loud sounds or amplify quiet sounds.
+The Compressor effect in audio processing reduces the dynamic range of the audio signal, making loud sounds
+quieter and quiet sounds louder. This creates a more consistent volume level, useful for balancing the loudness
+of different audio sources or for achieving a particular sound characteristic in music production.
 
 .. table::
    :widths: 26 80
@@ -518,7 +630,6 @@ Reduce the volume of loud sounds or amplify quiet sounds.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    attack                      ``(float, 0.1 to 100)``
    bypass                      ``(bool)``
    makeup_gain                 ``(float, -12 to 12)``
@@ -529,7 +640,9 @@ Reduce the volume of loud sounds or amplify quiet sounds.
 
 Delay
 """""
-Adjust the synchronism between the audio and video track.
+The Delay effect adds an echo to the audio signal, repeating the sound after a short delay. This can create a sense
+of space and depth in the audio, and is commonly used for creative effects in music, sound design, and audio
+post-production.
 
 .. table::
    :widths: 26 80
@@ -537,13 +650,14 @@ Adjust the synchronism between the audio and video track.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    delay_time                  ``(float, 0 to 5)``
    ==========================  ============
 
 Distortion
 """"""""""
-Alter the audio by clipping the signal.
+The Distortion effect intentionally clips the audio signal, adding harmonic and non-harmonic overtones. This can
+create a gritty, aggressive sound characteristic of many electric guitar tones and is used for both musical and
+sound design purposes.
 
 .. table::
    :widths: 26 80
@@ -551,7 +665,6 @@ Alter the audio by clipping the signal.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    distortion_type             ``(int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])``
    input_gain                  ``(int, -24 to 24)``
    output_gain                 ``(int, -24 to 24)``
@@ -560,7 +673,9 @@ Alter the audio by clipping the signal.
 
 Echo
 """"
-Reflection of sound with a delay after the direct sound.
+The Echo effect, similar to delay, repeats the audio signal at intervals, but with a focus on creating a distinct
+repetition of sound that mimics natural echoes. This can be used to simulate acoustic environments or for creative
+sound effects.
 
 .. table::
    :widths: 26 80
@@ -568,7 +683,6 @@ Reflection of sound with a delay after the direct sound.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    echo_time                   ``(float, 0 to 5)``
    feedback                    ``(float, 0 to 1)``
    mix                         ``(float, 0 to 1)``
@@ -576,7 +690,9 @@ Reflection of sound with a delay after the direct sound.
 
 Expander
 """"""""
-Louder parts of audio become relatively louder and quieter parts become quieter.
+The Expander effect increases the dynamic range of audio, making quiet sounds quieter and leaving loud sounds
+unaffected. This is the opposite of compression and is used to reduce background noise or increase the dynamic
+impact of audio.
 
 .. table::
    :widths: 26 80
@@ -584,7 +700,6 @@ Louder parts of audio become relatively louder and quieter parts become quieter.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    attack                      ``(float, 0.1 to 100)``
    bypass                      ``(bool)``
    makeup_gain                 ``(float, -12 to 12)``
@@ -595,7 +710,9 @@ Louder parts of audio become relatively louder and quieter parts become quieter.
 
 Noise
 """""
-Random signal having equal intensity at different frequencies.
+The Noise effect adds random, equal-intensity signals across the frequency spectrum to the audio, simulating the sound
+of white noise. This can be used for sound masking, as a component in sound design, or for testing and calibration
+purposes.
 
 .. table::
    :widths: 26 80
@@ -603,13 +720,14 @@ Random signal having equal intensity at different frequencies.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    level                       ``(int, 0 to 100)``
    ==========================  ============
 
 Parametric EQ
 """""""""""""
-Filter that allows you to adjust the volume level of a frequency in the audio track.
+The Parametric EQ (Equalizer) effect allows for precise adjustments to the volume level of specific frequency ranges
+in the audio signal. This can be used for corrective measures, such as removing unwanted tones, or creatively, to
+shape the tonal balance of the audio.
 
 .. table::
    :widths: 26 80
@@ -617,7 +735,6 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    filter_type                 ``(int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])``
    frequency                   ``(int, 20 to 20000)``
    gain                        ``(int, -24 to 24)``
@@ -626,7 +743,9 @@ Filter that allows you to adjust the volume level of a frequency in the audio tr
 
 Robotization
 """"""""""""
-Transform the voice present in an audio track into a robotic voice effect.
+The Robotization effect transforms the audio to sound mechanical or robotic, by applying a combination of pitch
+modulation and synthesis techniques. This effect is widely used for character voices in media, creative music
+production, and sound design.
 
 .. table::
    :widths: 26 80
@@ -634,7 +753,6 @@ Transform the voice present in an audio track into a robotic voice effect.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
    hop_size                    ``(int, choices: ['1/2', '1/4', '1/8'])``
    window_type                 ``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``
@@ -642,7 +760,9 @@ Transform the voice present in an audio track into a robotic voice effect.
 
 Whisperization
 """"""""""""""
-Transform the voice present in an audio track into a whispering voice effect.
+The Whisperization effect transforms the audio to mimic a whispering voice, often by filtering out certain
+frequencies and adding noise. This can be used for artistic effects in music, sound design for film and video, or
+in audio storytelling to convey secrecy or intimacy.
 
 .. table::
    :widths: 26 80
@@ -650,7 +770,6 @@ Transform the voice present in an audio track into a whispering voice effect.
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   apply_before_clip           ``(bool, choices: ['Yes', 'No'])`` Apply this effect before the Clip processes keyframes? (default is Yes)
    fft_size                    ``(int, choices: ['128', '256', '512', '1024', '2048'])``
    hop_size                    ``(int, choices: ['1/2', '1/4', '1/8'])``
    window_type                 ``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``
