@@ -303,16 +303,11 @@ class UpdateManager:
             # Get reverse of last action and perform it
             reverse = self.get_reverse_action(last_action)
 
-            # Remove selections for deleted items (if any)
-            if reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "clips":
-                # unselect deleted clip
-                get_app().window.clearSelections()
-            elif reverse.type == "delete" and len(reverse.key) == 2 and reverse.key[0] == "effects":
-                # unselect deleted effect
-                get_app().window.clearSelections()
-
             # Perform next undo action
             self.dispatch_action(reverse)
+
+            # Verify selections are still valid objects
+            get_app().window.verifySelections()
 
     def redo(self):
         """ Redo the last UpdateAction (and notify all listeners and watchers).
