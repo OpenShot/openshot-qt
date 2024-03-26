@@ -2627,8 +2627,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             elif item_type == "effect" and item_id in self.selected_effects:
                 self.selected_effects.remove(item_id)
 
-        if not self.selected_clips:
-            # Clear properties view (if no other clips are selected)
+        if not self.selected_clips and not self.selected_effects and not self.selected_transitions:
+            # Clear properties view (if no other items are selected)
             if self.propertyTableView:
                 self.propertyTableView.loadProperties.emit("", "")
 
@@ -2930,6 +2930,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Clear selection in properties view
         if self.propertyTableView:
             self.propertyTableView.loadProperties.emit("", "")
+
+    def verifySelections(self):
+        """Clear any invalid selections"""
+        for clip_id in self.selected_clips:
+            if not Clip.get(id=clip_id):
+                self.removeSelection(clip_id, "clip")
+
+        for tran_id in self.selected_transitions:
+            if not Transition.get(id=tran_id):
+                self.removeSelection(tran_id, "transition")
+
+        for effect_id in self.selected_effects:
+            if not Effect.get(id=effect_id):
+                self.removeSelection(effect_id, "effect")
 
     def foundCurrentVersion(self, version):
         """Handle the callback for detecting the current version on openshot.org"""
