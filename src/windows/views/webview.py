@@ -135,8 +135,9 @@ MENU_COPY_KEYFRAMES_ROTATE = 4
 MENU_COPY_KEYFRAMES_LOCATION = 5
 MENU_COPY_KEYFRAMES_TIME = 6
 MENU_COPY_KEYFRAMES_VOLUME = 7
-MENU_COPY_EFFECTS = 8
-MENU_PASTE = 9
+MENU_COPY_KEYFRAMES_SHEAR = 8
+MENU_COPY_EFFECTS = 9
+MENU_PASTE = 10
 
 MENU_COPY_TRANSITION = 10
 MENU_COPY_KEYFRAMES_BRIGHTNESS = 11
@@ -625,6 +626,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
             Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
             Copy_Keyframes_Scale.triggered.connect(partial(
                 self.Copy_Triggered, MENU_COPY_KEYFRAMES_SCALE, [clip_id], []))
+            Copy_Keyframes_Shear = Keyframe_Menu.addAction(_("Shear"))
+            Copy_Keyframes_Shear.triggered.connect(partial(
+                self.Copy_Triggered, MENU_COPY_KEYFRAMES_SHEAR, [clip_id], []))
             Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
             Copy_Keyframes_Rotate.triggered.connect(partial(
                 self.Copy_Triggered, MENU_COPY_KEYFRAMES_ROTATE, [clip_id], []))
@@ -1573,6 +1577,8 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+                self.copy_clipboard[clip_id]['shear_x'] = clip.data['shear_x']
+                self.copy_clipboard[clip_id]['shear_y'] = clip.data['shear_y']
                 self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
                 self.copy_clipboard[clip_id]['location_x'] = clip.data['location_x']
                 self.copy_clipboard[clip_id]['location_y'] = clip.data['location_y']
@@ -1584,6 +1590,9 @@ class TimelineWebView(updates.UpdateInterface, WebViewClass):
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+            elif action == MENU_COPY_KEYFRAMES_SHEAR:
+                self.copy_clipboard[clip_id]['shear_x'] = clip.data['shear_x']
+                self.copy_clipboard[clip_id]['shear_y'] = clip.data['shear_y']
             elif action == MENU_COPY_KEYFRAMES_ROTATE:
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
