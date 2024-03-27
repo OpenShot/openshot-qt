@@ -198,3 +198,9 @@ QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transition
         # Apply new stylesheet
         self.app.setStyleSheet(self.style_sheet)
 
+        # Apply timeline theme
+        self.app.window.timeline.apply_theme("""
+            body {
+              background: #141923;
+            }
+        """)

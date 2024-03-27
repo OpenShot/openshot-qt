@@ -109,6 +109,11 @@ class TimelineWebEngineView(QWebEngineView):
         # else
         return self.page().runJavaScript(code)
 
+    def apply_theme(self, css):
+        """Apply additional theme to web-view"""
+        single_line_css = css.replace("\n", "")
+        self.run_js(f"$('body').scope().setTheme('{single_line_css}');")
+
     def setup_js_data(self):
         # Export self as a javascript object in webview
         log.info("Registering WebChannel connection with WebEngine")

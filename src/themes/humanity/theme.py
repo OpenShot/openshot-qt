@@ -52,6 +52,9 @@ QToolTip {
         self.app.setPalette(dark_palette)
         self.app.setStyleSheet(self.style_sheet)
 
+        # Apply timeline theme
+        self.app.window.timeline.apply_theme("")
+
 
 class HumanityLightTheme(BaseTheme):
     def __init__(self, app):
@@ -61,3 +64,26 @@ class HumanityLightTheme(BaseTheme):
 
     def apply_theme(self):
         super().apply_theme()
+
+        # Apply timeline theme
+        self.app.window.timeline.apply_theme("""
+            body {
+              background: #f0f0f0;
+            }
+           #ruler_time {
+              color: #000000;
+            }
+           .ruler_time {
+              color: #000000;
+            }
+            .track_name {
+              color: #000000;
+              background: linear-gradient(to right, #ffffff 0%, #d3d3d3 100%);
+            }
+            .track {
+              background: linear-gradient(to bottom, #d3d3d3 0%, #ffffff 100%);
+            }
+            .clip {
+              background: #c9c9c9;
+            }
+        """)

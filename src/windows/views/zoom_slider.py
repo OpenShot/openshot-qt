@@ -111,7 +111,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
         # Fill the whole widget with the solid color (background solid color)
-        painter.fillRect(event.rect(), QColor("#191919"))
+        background_color = self.palette().color(self.palette().Base)
+        painter.fillRect(event.rect(), background_color)
 
         # Create pens / colors
         clip_pen = QPen(QBrush(QColor("#53a0ed")), 1.5)

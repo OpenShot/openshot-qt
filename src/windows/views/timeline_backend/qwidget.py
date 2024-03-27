@@ -115,6 +115,10 @@ class TimelineWidget(QWidget):
         """Placeholder due to webview compatibility"""
         pass
 
+    def apply_theme(self, css):
+        """Apply additional theme to web-view"""
+        self.setStyle(css)
+
     def setup_js_data(self):
         """Placeholder due to webview compatibility"""
         pass
