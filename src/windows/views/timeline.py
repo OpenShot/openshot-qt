@@ -538,6 +538,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
             Copy_Keyframes_Scale.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_SCALE, [clip_id], []))
+            Copy_Keyframes_Shear = Keyframe_Menu.addAction(_("Shear"))
+            Copy_Keyframes_Shear.triggered.connect(partial(
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_SHEAR, [clip_id], []))
             Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
             Copy_Keyframes_Rotate.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_ROTATE, [clip_id], []))
@@ -1486,6 +1489,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+                self.copy_clipboard[clip_id]['shear_x'] = clip.data['shear_x']
+                self.copy_clipboard[clip_id]['shear_y'] = clip.data['shear_y']
                 self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
                 self.copy_clipboard[clip_id]['location_x'] = clip.data['location_x']
                 self.copy_clipboard[clip_id]['location_y'] = clip.data['location_y']
@@ -1497,6 +1502,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
                 self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+            elif action == MenuCopy.KEYFRAMES_SHEAR:
+                self.copy_clipboard[clip_id]['shear_x'] = clip.data['shear_x']
+                self.copy_clipboard[clip_id]['shear_y'] = clip.data['shear_y']
             elif action == MenuCopy.KEYFRAMES_ROTATE:
                 self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
                 self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
@@ -1536,6 +1544,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
         """Callback for paste context menus"""
         log.debug(action)
+
+        # Group transactions
+        tid = self.get_uuid()
+        get_app().updates.transaction_id = tid
 
         # Get list of clipboard items (that are complete clips or transitions)
         # i.e. ignore partial clipboard items (keyframes / effects / etc...)
@@ -1652,6 +1664,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                 # Save changes
                 tran.save()
+
+        get_app().updates.transaction_id = None
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
         """Callback for clip nudges"""

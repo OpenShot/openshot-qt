@@ -607,7 +607,7 @@ class PropertiesModel(updates.UpdateInterface):
                 elif property_type == "string":
                     clip_updated = True
                     try:
-                        clip_data[property_key] = str(new_value)
+                        clip_data[property_key] = str(new_value or "")
                     except Exception:
                         log.warn('Invalid String value passed to property', exc_info=1)
 
@@ -902,8 +902,17 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Get raw unordered JSON properties
             raw_properties = json.loads(c.PropertiesJSON(self.frame_number))
-            objects_raw_properties = raw_properties.pop('objects', None)
 
+            # If a tracked object is found in this list, insert those properties as well
+            tracked_object_id = None
+            tracked_object_properties = {}
+            tracked_objects_raw_properties = raw_properties.pop('objects', None)
+            if tracked_objects_raw_properties:
+                tracked_object_id = list(tracked_objects_raw_properties.keys())[0]
+                tracked_object_properties = tracked_objects_raw_properties[tracked_object_id]
+                raw_properties.update(tracked_object_properties)
+
+            # Sort all properties (by 'name')
             all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
 
             # Check if filter was changed (if so, wipe previous model data)
@@ -928,14 +937,12 @@ class PropertiesModel(updates.UpdateInterface):
 
             # Loop through properties, and build a model
             for property in all_properties.items():
-                self.set_property(property, filter, c, item_type)
-
-            # Insert objects properties from custom effects
-            if objects_raw_properties:
-                for obj_id in objects_raw_properties:
-                    objects_all_properties = OrderedDict(sorted(objects_raw_properties[obj_id].items(), key=lambda x: x[1]['name']))
-                    for property in objects_all_properties.items():
-                        self.set_property(property, filter, c, item_type, object_id=obj_id)
+                if property[0] in tracked_object_properties:
+                    # Add tracked object property
+                    self.set_property(property, filter, c, item_type, object_id=tracked_object_id)
+                else:
+                    # Add base property
+                    self.set_property(property, filter, c, item_type)
 
             # Update the values on the next call to this method (instead of adding rows)
             self.new_item = False

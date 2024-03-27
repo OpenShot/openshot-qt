@@ -25,5 +25,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: Documentation
-        path: "$GITHUB_WORKSPACE/doc/_build/html/"
+        path: "doc/_build/html/"
 

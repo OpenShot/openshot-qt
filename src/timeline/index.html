@@ -30,7 +30,7 @@
         <script type="text/javascript" src="js/directives/clip.js"></script>
         <script type="text/javascript" src="js/directives/transition.js"></script>
         <script type="text/javascript" src="js/directives/misc.js"></script>
-        <script type="text/javascript" src="media/js/ui-bootstrap-tpls-0.7.0.min.js"></script>
+        <script type="text/javascript" src="media/js/ui-bootstrap-tpls-1.3.3.min.js"></script>
 
         <!-- OpenShot StyleSheets -->
         <link type="text/css" rel="stylesheet" href="media/css/main.css" />
@@ -85,17 +85,18 @@
 				<!-- CLIPS -->
 				<div ng-hide tl-clip ng-repeat="clip in project.clips" id="clip_{{clip.id}}" ng-click="selectClip(clip.id, true, $event)" ng-right-click="showClipMenu(clip.id, $event)" class="clip droppable" ng-class="getClipStyle(clip)" style="width:{{(clip.end - clip.start) * pixelsPerSecond}}px; left:{{clip.position * pixelsPerSecond}}px; top:{{getTrackTop(clip.layer)}}px;z-index:{{getZindex(clip, 1000, $index)}};">
 					<div class="clip_top">
-						<div tl-clip-menu class="menu clip_menu" ng-if="!enable_razor" ng-mousedown="showClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
+						<div tl-clip-menu class="menu clip_menu" ng-if="!enable_razor" ng-mousedown="showClipMenu(clip.id, $event)" tooltip-enable="!enable_razor" uib-tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400"></div>
 
 						<!-- CLIP EFFECTS -->
 						<div ng-if="!enable_razor" class="effect-container" id="effects_{{clip.id}}">
-							<div class="clip_effects" ng-repeat="effect in clip.effects" id="effect_{{effect.id}}" style="background-color: {{ getEffectColor(effect.type) }};" ng-click="selectEffect(effect.id); $event.stopPropagation();" ng-right-click="showEffectMenu(effect.id); $event.stopPropagation();" tooltip="{{effect.type}} ({{$index+1}}/{{clip.effects.length}})"  tooltip-placement="bottom" tooltip-popup-delay="400">
+                            <div class="clip_effects" ng-if="clip.parentObjectId" uib-tooltip="Parent" tooltip-placement="bottom" tooltip-popup-delay="400">P</div>
+							<div class="clip_effects" ng-repeat="effect in clip.effects" id="effect_{{effect.id}}" style="background-color: {{ getEffectColor(effect.type) }};" ng-click="selectEffect(effect.id); $event.stopPropagation();" ng-right-click="showEffectMenu(effect.id); $event.stopPropagation();" uib-tooltip="{{effect.type}} ({{$index+1}}/{{clip.effects.length}})"  tooltip-placement="bottom" tooltip-popup-delay="400">
 								{{effect.type[0]}}
 							</div>
 						</div>
 
 						<!-- CLIP LABEL -->
-						<div class="clip_label" ng-class="getClipLabelStyle(clip)" tooltip-enable="!enable_razor" tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400">{{clip.title}}</div>
+						<div class="clip_label" ng-class="getClipLabelStyle(clip)" tooltip-enable="!enable_razor" uib-tooltip="{{clip.title}}" tooltip-placement="bottom" tooltip-popup-delay="400">{{clip.title}}</div>
                         <br class="cleared">
 					</div>
 					<br class="cleared">
