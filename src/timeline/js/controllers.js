@@ -70,6 +70,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
   $scope.ThumbServer = "http://127.0.0.1/";
+  $scope.ThemeCSS = "";
 
   // Method to set if Qt is detected (which clears demo data
   // and updates the document_is_ready variable in openshot-qt)
@@ -1316,6 +1317,13 @@ App.controller("TimelineCtrl", function ($scope) {
       return "track";
     }
   };
+
+  // Set the CSS theme for this timeline dynamically
+  $scope.setTheme = function (css) {
+    $scope.$apply(function () {
+      $scope.ThemeCSS = css;
+    });
+  }
 
   // Determine which CSS classes are used on a clip
   $scope.getClipStyle = function (clip) {

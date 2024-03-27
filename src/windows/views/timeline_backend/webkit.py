@@ -1,6 +1,6 @@
 """
  @file
- @brief WebEngine backend for TimelineWebView
+ @brief WebKit backend for TimelineView
  @author Jonathan Thomas <jonathan@openshot.org>
  @author FeRD (Frank Dana) <ferdnyc@gmail.com>
 
@@ -27,63 +27,53 @@
  """
 
 import os
-import logging
 from functools import partial
 
 from classes import info
 from classes.logger import log
 
 from PyQt5.QtCore import QFileInfo, QUrl, Qt, QTimer
-from PyQt5.QtGui import QColor
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
-from PyQt5.QtWebChannel import QWebChannel
+from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 
 
-class LoggingWebEnginePage(QWebEnginePage):
+class LoggingWebKitPage(QWebPage):
     """Override console.log message to display messages"""
-    def javaScriptConsoleMessage(self, level, msg, line, source):
-        log.log(
-            self.levels[level],
-            '%s@L%d: %s', os.path.basename(source), line, msg)
+    def javaScriptConsoleMessage(self, msg, line, source, *args):
+        self.log_fn('%s@L%d: %s' % (os.path.basename(source), line, msg))
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-        self.setObjectName("LoggingWebEnginePage")
-        self.levels = [logging.INFO, logging.WARNING, logging.ERROR]
+        self.setObjectName("LoggingWebKitPage")
+        self.log_fn = log.warning
 
 
-class TimelineWebEngineView(QWebEngineView):
-    """QtWebEngine Timeline Widget"""
+class TimelineWebKitView(QWebView):
+    """QtWebKit Timeline Widget"""
 
     def __init__(self):
         """Initialization code required for widget"""
         super().__init__()
-        self.setObjectName("TimelineWebEngineView")
+        self.setObjectName("TimeWebKitView")
 
         self.document_is_ready = False
         self.html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
-        # Connect logging web page (for console.log)
-        self.new_page = LoggingWebEnginePage(self)
-        self.setPage(self.new_page)
-
-        # Set background color of timeline
-        self.page().setBackgroundColor(QColor("#363636"))
-
         # Delete the webview when closed
         self.setAttribute(Qt.WA_DeleteOnClose)
 
-        # Enable smooth scrolling on timeline
-        self.settings().setAttribute(self.settings().ScrollAnimatorEnabled, True)
+        # Connect logging web page (for console.log)
+        self.new_page = LoggingWebKitPage(self)
+        self.setPage(self.new_page)
+
+        # Disable image caching on timeline
+        self.settings().setObjectCacheCapacities(0, 0, 0)
 
         # Set url from configuration (QUrl takes absolute paths for file system paths, create from QFileInfo)
-        self.webchannel = QWebChannel(self.page())
         self.setHtml(self.get_html(), QUrl.fromLocalFile(QFileInfo(self.html_path).absoluteFilePath()))
-        self.page().setWebChannel(self.webchannel)
 
         # Connect signal of javascript initialization to our javascript reference init function
-        log.info("WebEngine backend initializing")
-        self.page().loadStarted.connect(self.setup_js_data)
+        log.info("WebKit backend initializing")
+        self.page().mainFrame().javaScriptWindowObjectCleared.connect(self.setup_js_data)
 
     def run_js(self, code, callback=None, retries=0):
         """Run JS code async and optionally have a callback for response"""
@@ -97,22 +87,27 @@ class TimelineWebEngineView(QWebEngineView):
                     code)
             elif retries % 5 == 0:
                 log.warning(
-                    "WebEngine backend still not ready after %d retries.",
-                    retries)
+                    "WebKit backend still not ready after %d retries.", retries)
             else:
                 log.debug("Script queued, %d retries so far", retries)
             QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))
             return None
         # Execute JS code
         if callback:
-            return self.page().runJavaScript(code, callback)
-        # else
-        return self.page().runJavaScript(code)
+            # Pass output to callback
+            callback(self.page().mainFrame().evaluateJavaScript(code))
+        else:
+            return self.page().mainFrame().evaluateJavaScript(code)
+
+    def apply_theme(self, css):
+        """Apply additional theme to web-view"""
+        single_line_css = css.replace("\n", "")
+        self.run_js(f"$('body').scope().setTheme('{single_line_css}');")
 
     def setup_js_data(self):
         # Export self as a javascript object in webview
-        log.info("Registering WebChannel connection with WebEngine")
-        self.webchannel.registerObject('timeline', self)
+        log.info("Registering objects with WebKit")
+        self.page().mainFrame().addToJavaScriptWindowObject('timeline', self)
 
     def get_html(self):
         """Get HTML for Timeline, adjusted for mixin"""
@@ -121,7 +116,7 @@ class TimelineWebEngineView(QWebEngineView):
         return html.replace(
             '<!--MIXIN_JS_INCLUDE-->',
             """
-                <script type="text/javascript" src="js/mixin_webengine.js"></script>
+                <script type="text/javascript" src="js/mixin_webkit.js"></script>
             """)
 
     def keyPressEvent(self, event):
@@ -129,6 +124,7 @@ class TimelineWebEngineView(QWebEngineView):
         key_value = event.key()
         if key_value in [Qt.Key_Shift, Qt.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
-            return QWebEngineView.keyPressEvent(self, event)
-        # Ignore most keypresses
-        event.ignore()
+            return QWebView.keyPressEvent(self, event)
+        else:
+            # Ignore most keypresses
+            event.ignore()

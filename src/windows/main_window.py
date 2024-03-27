@@ -75,7 +75,7 @@ from windows.views.emojis_listview import EmojisListView
 from windows.views.files_listview import FilesListView
 from windows.views.files_treeview import FilesTreeView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
-from windows.views.webview import TimelineWebView
+from windows.views.timeline import TimelineView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
@@ -1020,7 +1020,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
-        self.timeline.movePlayhead(position_frames)
+        if hasattr(self.timeline, 'movePlayhead'):
+            self.timeline.movePlayhead(position_frames)
 
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable follow mode """
@@ -3273,7 +3274,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline_sync = TimelineSync(self)
 
         # Setup timeline
-        self.timeline = TimelineWebView(self)
+        self.timeline = TimelineView(self)
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
@@ -3299,8 +3300,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
         self.propertyTableView = PropertiesTableView(self)
         self.selectionLabel = SelectionLabel(self)
-        self.dockPropertiesContent.layout().addWidget(self.selectionLabel, 0, 1)
-        self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 2, 1)
+        self.dockPropertiesContents.layout().addWidget(self.selectionLabel, 0, 1)
+        self.dockPropertiesContents.layout().addWidget(self.propertyTableView, 2, 1)
 
         # Init selection containers
         self.clearSelections()
@@ -3327,6 +3328,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()
+        self.videoPreview.setObjectName("videoPreview")
         self.tabVideo.layout().insertWidget(0, self.videoPreview)
 
         # Load window state and geometry
@@ -3343,6 +3345,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
+        self.timeline.connect_playback()
 
         # Set play/pause callbacks
         self.PauseSignal.connect(self.onPauseCallback)

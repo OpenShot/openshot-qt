@@ -290,6 +290,11 @@ for setting in settings:
             for value in setting.get("values", []):
                 export_text[value["name"]] = "Settings for %s" % setting["setting"]
 
+# Include UI Theme Names (for translation)
+from themes.manager import ThemeName
+for theme_name in ThemeName.get_sorted_theme_names():
+    export_text[theme_name] = "User-Interface Theme Name"
+
 # Loop through transitions and add to POT file
 transitions_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 transitions_ignore_keys = ("Common", "Fade")

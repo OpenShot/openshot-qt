@@ -50,7 +50,7 @@ from . import openshot_rc  # noqa
 DEFAULT_THEME_NAME = "Humanity"
 
 
-def load_theme():
+def load_icon_theme():
     """ Load the current OS theme, or fallback to a default one """
 
     s = get_app().get_settings()

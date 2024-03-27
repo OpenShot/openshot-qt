@@ -295,6 +295,15 @@ class Preferences(QDialog):
                                 "value": "%s||%s" % (audio_device[0], audio_device[1])
                             })
 
+                    # Overwrite value list (for theme names)
+                    if param["setting"] == "theme":
+                        from themes.manager import ThemeName
+                        value_list = []
+                        for theme_name in ThemeName.get_sorted_theme_names():
+                            value_list.append({
+                                "name": _(theme_name), "value": theme_name
+                            })
+
                     # Overwrite value list (for language dropdown)
                     if param["setting"] == "default-language":
                         value_list = []
@@ -553,6 +562,12 @@ class Preferences(QDialog):
 
         if param["setting"] == "graca_number_en":
             openshot.Settings.Instance().HW_EN_DEVICE_SET = int(value)
+
+        if param["setting"] == "theme":
+            # Apply selected theme to UI
+            from themes.manager import ThemeManager, ThemeName
+            theme_enum = ThemeName.find_by_name(value)
+            ThemeManager().apply_theme(theme_enum)
 
         # Check for restart
         self.check_for_restart(param)
