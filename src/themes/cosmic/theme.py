@@ -50,11 +50,15 @@ QMenu {
     background-color: #141923;
     color: #91C3FF;
     padding: 6px;
-    min-width: 160px;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-width: 40px;
+    border: 1.2px solid #0078FF;
+    border-radius: 3px 3px 0px 0px;
 }
 
 QMenu::item {
-    padding: 6px;
+    padding: 6px 6px 6px 20px;
 }
 
 QMenu::item:selected {
@@ -169,6 +173,74 @@ QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transition
     border-style: solid;
     border-color: #0078FF;
 }
+
+QScrollBar:vertical {
+    border: none;
+    background: transparent;
+    width: 8px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(145, 195, 255, 51);
+    border-radius: 4px;
+    min-height: 20px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+    border: none;
+    background: transparent;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: transparent;
+}
+
+QComboBox {
+    background-color: #141923;
+    color: #FFFFFF;
+    border-radius: 4px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 40px;
+    border: none;
+}
+
+QComboBox::down-arrow {
+    image: url(themes/cosmic/images/dropdown-arrow.svg);
+}
+
+QComboBox QAbstractItemView {
+    color: #FFFFFF;
+    border: 1.2px solid #0078FF;
+    border-radius: 3px 3px 0px 0px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #141923;
+    text-align: left;
+}
+
+QComboBox::item:selected {
+    border: none;
+    text-align: left;
+    background-color: #192332;
+}
+
+QComboBox::item:checked {
+    font-weight: bold;
+    background-color: #192332;
+}
+
+QComboBox::indicator::checked {
+    image: url(themes/cosmic/images/dropdown-tick.svg);
+}
         """
 
     def apply_theme(self):
@@ -203,8 +275,13 @@ QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transition
             body {
               background: #141923;
             }
+            ::-webkit-scrollbar {
+              width: 8px;
+              height: 8px;
+            }
             ::-webkit-scrollbar-thumb {
-              background-color: #283241;
+                background: rgba(145, 195, 255, .2);
+                border-radius: 4px;
             }
             ::-webkit-scrollbar-track {
               background: #141923;
