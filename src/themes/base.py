@@ -84,6 +84,3 @@ class BaseTheme:
 
         # Move tabs to bottom
         self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.South)
-
-        # Apply timeline theme
-        self.app.window.timeline.apply_theme("")
