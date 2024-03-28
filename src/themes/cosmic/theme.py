@@ -318,4 +318,40 @@ QTableView {
               background: #141923;
               box-shadow: none;
             }
+            .track_name {
+              background: #192332;
+              border-top-left-radius: 0px;
+              border-bottom-left-radius: 0px;
+              border: 1px solid #192332;
+              border-left: 4px solid #0078FF;
+              box-shadow: none;
+              margin-left: 0px;
+            }
+            .track_top {
+              padding-top: 4px;
+              padding-left: 10px;
+              background: none;
+            }
+            .track_label {
+              text-shadow: none;
+            }
+            .track {
+              background: #283241;
+              border: 1px solid #283241;
+              border-radius: 0px;
+            }
+            .clip {
+              background: #192332;
+              border: 1px solid #0078FF;
+              box-sizing: border-box;
+            }
+            .clip_top {
+              background: none;
+            }
+            .ui-selecting {
+              border: 1px solid yellow !important;
+            }
+            .ui-selected {
+              border: 1px solid red !important;
+            }
         """)
