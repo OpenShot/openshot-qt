@@ -39,6 +39,24 @@ QMainWindow {
     color: #91C3FF;
 }
 
+QDialog {
+    background-color: #192332;
+    color: #91C3FF;
+}
+
+QWidget#Simple, QWidget#Advanced, QWidget#PreferencePanel {
+    background-color: #141923;
+    border: none;
+}
+
+QScrollArea {
+    border: none;
+}
+
+QTabWidget {
+    border: none;
+}
+
 QMenuBar {
     background-color: #283241;
     color: #91C3FF;
@@ -197,7 +215,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }
 
 QComboBox {
-    background-color: #141923;
+    background-color: #121212;
     color: #FFFFFF;
     border-radius: 4px;
     padding: 6px;

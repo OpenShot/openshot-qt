@@ -165,6 +165,7 @@ class Preferences(QDialog):
                     # Create tab widget and layout
                     layout = QVBoxLayout()
                     tabWidget = QWidget(self)
+                    tabWidget.setObjectName("PreferencePanel")
                     tabWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
                     tabWidget.setLayout(layout)
                     scroll_area.setWidget(tabWidget)
