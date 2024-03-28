@@ -160,7 +160,7 @@ QTabBar::tab:selected {
     color: rgba(145, 195, 255, 1.0);
 }
 
-QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLineEdit#emojisFilter {
+QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLineEdit#emojisFilter, QLineEdit#txtPropertyFilter {
     background-color: #192332;
     border-radius: 4px;
     padding: 6px;
@@ -168,7 +168,7 @@ QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLi
     padding-right: 8px;
 }
 
-QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transitionsFilter:focus, QLineEdit#emojisFilter:focus {
+QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transitionsFilter:focus, QLineEdit#emojisFilter:focus, QLineEdit#txtPropertyFilter:focus {
     border-width: 1.2px;
     border-style: solid;
     border-color: #0078FF;
@@ -240,6 +240,19 @@ QComboBox::item:checked {
 
 QComboBox::indicator::checked {
     image: url(themes/cosmic/images/dropdown-tick.svg);
+}
+
+QHeaderView::section {
+    background-color: #141923;
+    color: #91C3FF;
+    padding: 4px;
+    border: none;
+    corner-radius: 4px;
+}
+
+QTableView {
+    background-color: #141923;
+    gridline-color: #141923;
 }
         """
 
