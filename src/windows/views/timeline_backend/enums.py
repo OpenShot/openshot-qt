@@ -123,6 +123,7 @@ class MenuCopy(Enum):
     KEYFRAMES_ALL = auto()
     KEYFRAMES_ALPHA = auto()
     KEYFRAMES_SCALE = auto()
+    KEYFRAMES_SHEAR = auto()
     KEYFRAMES_ROTATE = auto()
     KEYFRAMES_LOCATION = auto()
     KEYFRAMES_TIME = auto()
