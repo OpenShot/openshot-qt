@@ -44,7 +44,7 @@ QToolTip {
 
         from classes import ui_util
         from classes.logger import log
-        from PyQt5.QtWidgets import QStyleFactory, QTabWidget
+        from PyQt5.QtWidgets import QStyleFactory
 
         log.info("Setting Fusion dark palette")
         self.app.setStyle(QStyleFactory.create("Fusion"))
@@ -84,6 +84,9 @@ class HumanityLightTheme(BaseTheme):
               background: linear-gradient(to bottom, #d3d3d3 0%, #ffffff 100%);
             }
             .clip {
-              background: #c9c9c9;
+              background: linear-gradient(to bottom, #b3b3b3 0%, #cccccc 100%);
+            }
+            .clip_effects {
+              background: rgba(54, 25, 25, 0.6);
             }
         """)

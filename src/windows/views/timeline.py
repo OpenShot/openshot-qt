@@ -1880,7 +1880,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.Fade_Triggered(MenuFade.IN_FAST, clip_ids, "Start of Clip")
                 self.Fade_Triggered(MenuFade.OUT_FAST, clip_ids, "End of Clip")
                 return
-            elif position == "Entire Clip" and action == MenuFade.IN_OUT_SLOW:
+            if position == "Entire Clip" and action == MenuFade.IN_OUT_SLOW:
                 # Call this method for the start and end of the clip
                 self.Fade_Triggered(MenuFade.IN_SLOW, clip_ids, "Start of Clip")
                 self.Fade_Triggered(MenuFade.OUT_SLOW, clip_ids, "End of Clip")
@@ -2143,7 +2143,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.Volume_Triggered(MenuVolume.FADE_IN_FAST, clip_ids, "Start of Clip")
                 self.Volume_Triggered(MenuVolume.FADE_OUT_FAST, clip_ids, "End of Clip")
                 return
-            elif position == "Entire Clip" and action == MenuVolume.FADE_IN_OUT_SLOW:
+            if position == "Entire Clip" and action == MenuVolume.FADE_IN_OUT_SLOW:
                 # Call this method for the start and end of the clip
                 self.Volume_Triggered(MenuVolume.FADE_IN_SLOW, clip_ids, "Start of Clip")
                 self.Volume_Triggered(MenuVolume.FADE_OUT_SLOW, clip_ids, "End of Clip")

@@ -29,7 +29,7 @@ from PyQt5.QtCore import (
     Qt, QCoreApplication, QRectF, QTimer
 )
 from PyQt5.QtGui import (
-    QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
+    QPainter, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget
 

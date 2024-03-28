@@ -35,8 +35,11 @@ class BaseTheme:
         self.style_sheet = ""
         self.app = app
 
-    def set_dock_content_margins(self, margins=[0, 0, 0, 0]):
+    def set_dock_content_margins(self, margins=None):
         # Set content margins on dock widgets
+        if margins is None:
+            margins = [0, 0, 0, 0]
+
         from PyQt5.QtWidgets import QWidget
         for dock in self.app.window.getDocks():
             for child in dock.children():

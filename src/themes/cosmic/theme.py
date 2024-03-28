@@ -203,4 +203,11 @@ QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transition
             body {
               background: #141923;
             }
+            ::-webkit-scrollbar-thumb {
+              background-color: #283241;
+            }
+            ::-webkit-scrollbar-track {
+              background: #141923;
+              box-shadow: none;
+            }
         """)

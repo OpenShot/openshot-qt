@@ -29,16 +29,12 @@ from PyQt5.QtCore import (
     Qt, QCoreApplication, QRectF, QTimer, QPointF
 )
 from PyQt5.QtGui import (
-    QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
+    QPainter, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget
 
-import openshot
-
-from classes import updates
 from classes.app import get_app
 from classes.query import Clip, Track, Transition, Marker
-import json
 
 
 class TimelineWidget(QWidget):
@@ -113,19 +109,16 @@ class TimelineWidget(QWidget):
 
     def run_js(self, code, callback=None, retries=0):
         """Placeholder due to webview compatibility"""
-        pass
 
     def apply_theme(self, css):
         """Apply additional theme to web-view"""
-        self.setStyle(css)
+        self.setStyleSheet(css)
 
     def setup_js_data(self):
         """Placeholder due to webview compatibility"""
-        pass
 
     def get_html(self):
         """Placeholder due to webview compatibility"""
-        pass
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -231,7 +224,6 @@ class TimelineWidget(QWidget):
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
             pixels_per_second = event.rect().width() / project_duration
-            project_pixel_width = max(0, project_duration * pixels_per_second)
             scroll_width = (self.scrollbar_position[1] - self.scrollbar_position[0]) * event.rect().width()
 
             # Get FPS info
@@ -314,9 +306,10 @@ class TimelineWidget(QWidget):
             # Track that a new item is being 'added'
             self.new_item = True
 
+            # TODO: Implement drag n drop
             # Get the mime data (i.e. list of files, list of transitions, etc...)
-            data = json.loads(event.mimeData().text())
-            pos = event.posF()
+            # data = json.loads(event.mimeData().text())
+            # pos = event.posF()
 
             # create the item
             # if self.item_type == "clip":
