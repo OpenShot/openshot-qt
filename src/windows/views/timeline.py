@@ -39,7 +39,7 @@ from random import uniform
 import openshot
 from PyQt5.QtCore import pyqtSlot, Qt, QCoreApplication, QTimer, pyqtSignal
 from PyQt5.QtGui import QCursor, QKeySequence
-from PyQt5.QtWidgets import QMenu, QDialog
+from PyQt5.QtWidgets import QDialog
 
 from classes import info, updates
 from classes.app import get_app
@@ -53,6 +53,7 @@ from .timeline_backend.enums import (
     MenuTransform, MenuTime, MenuCopy, MenuSlice, MenuSplitAudio
 )
 from .timeline_backend.qwidget import TimelineWidget
+from .menu import StyledContextMenu
 
 # Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"
@@ -409,14 +410,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         intersecting_clips = Clip.filter(intersect=position)
         intersecting_trans = Transition.filter(intersect=position)
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         if intersecting_clips or intersecting_trans:
             # Get list of clip ids
             clip_ids = [c.id for c in intersecting_clips]
             trans_ids = [t.id for t in intersecting_trans]
 
             # Add split clip menu
-            Slice_Menu = QMenu(_("Slice All"), self)
+            Slice_Menu = StyledContextMenu(title=_("Slice All"), parent=self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
             Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
             Slice_Keep_Both.triggered.connect(partial(
@@ -432,7 +433,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             menu.addMenu(Slice_Menu)
 
             # Add clear cache menu
-            Cache_Menu = QMenu(_("Cache"), self)
+            Cache_Menu = StyledContextMenu(title=_("Cache"), parent=self)
             Cache_Menu.addAction(self.window.actionClearAllCache)
             menu.addMenu(Cache_Menu)
 
@@ -445,7 +446,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Set the selected clip (if needed)
         self.addSelection(effect_id, 'effect', True)
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         # Properties
         menu.addAction(self.window.actionProperties)
 
@@ -475,7 +476,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if not have_clipboard:
             return
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         Paste_Clip = menu.addAction(_("Paste"))
         Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
         Paste_Clip.triggered.connect(
@@ -512,7 +513,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
         # Create blank context menu
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
 
         # Copy Menu
         if len(tran_ids) + len(clip_ids) > 1:
@@ -522,12 +523,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids))
         else:
             # Only a single clip is selected (Show normal copy menus)
-            Copy_Menu = QMenu(_("Copy"), self)
+            Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
             Copy_Clip = Copy_Menu.addAction(_("Clip"))
             Copy_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
             Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MenuCopy.CLIP, [clip_id], []))
 
-            Keyframe_Menu = QMenu(_("Keyframes"), self)
+            Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
             Copy_Keyframes_All.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [clip_id], []))
@@ -575,7 +576,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Alignment Menu (if multiple selections)
         if len(clip_ids) > 1:
-            Alignment_Menu = QMenu(_("Align"), self)
+            Alignment_Menu = StyledContextMenu(title=_("Align"), parent=self)
             Align_Left = Alignment_Menu.addAction(_("Left"))
             Align_Left.triggered.connect(partial(self.Align_Triggered, MenuAlign.LEFT, clip_ids, tran_ids))
             Align_Right = Alignment_Menu.addAction(_("Right"))
@@ -585,7 +586,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             menu.addMenu(Alignment_Menu)
 
         # Fade In Menu
-        Fade_Menu = QMenu(_("Fade"), self)
+        Fade_Menu = StyledContextMenu(title=_("Fade"), parent=self)
         Fade_None = Fade_Menu.addAction(_("No Fade"))
         Fade_None.triggered.connect(partial(self.Fade_Triggered, MenuFade.NONE, clip_ids))
         Fade_Menu.addSeparator()
@@ -594,7 +595,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             ("End of Clip", _("End of Clip")),
             ("Entire Clip", _("Entire Clip"))
         ]:
-            Position_Menu = QMenu(position_label, self)
+            Position_Menu = StyledContextMenu(title=position_label, parent=self)
 
             if position == "Start of Clip":
                 Fade_In_Fast = Position_Menu.addAction(_("Fade In (Fast)"))
@@ -631,7 +632,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Fade_Menu)
 
         # Animate Menu
-        Animate_Menu = QMenu(_("Animate"), self)
+        Animate_Menu = StyledContextMenu(title=_("Animate"), parent=self)
         Animate_None = Animate_Menu.addAction(_("No Animation"))
         Animate_None.triggered.connect(partial(self.Animate_Triggered, MenuAnimate.NONE, clip_ids))
         Animate_Menu.addSeparator()
@@ -640,10 +641,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             ("End of Clip", _("End of Clip")),
             ("Entire Clip", _("Entire Clip"))
         ]:
-            Position_Menu = QMenu(position_label, self)
+            Position_Menu = StyledContextMenu(title=position_label, parent=self)
 
             # Scale
-            Scale_Menu = QMenu(_("Zoom"), self)
+            Scale_Menu = StyledContextMenu(title=_("Zoom"), parent=self)
             Animate_In_50_100 = Scale_Menu.addAction(_("Zoom In (50% to 100%)"))
             Animate_In_50_100.triggered.connect(partial(
                 self.Animate_Triggered, MenuAnimate.IN_50_100, clip_ids, position))
@@ -665,7 +666,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Position_Menu.addMenu(Scale_Menu)
 
             # Center to Edge
-            Center_Edge_Menu = QMenu(_("Center to Edge"), self)
+            Center_Edge_Menu = StyledContextMenu(title=_("Center to Edge"), parent=self)
             Animate_Center_Top = Center_Edge_Menu.addAction(_("Center to Top"))
             Animate_Center_Top.triggered.connect(partial(
                 self.Animate_Triggered, MenuAnimate.CENTER_TOP, clip_ids, position))
@@ -681,7 +682,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Position_Menu.addMenu(Center_Edge_Menu)
 
             # Edge to Center
-            Edge_Center_Menu = QMenu(_("Edge to Center"), self)
+            Edge_Center_Menu = StyledContextMenu(title=_("Edge to Center"), parent=self)
             Animate_Top_Center = Edge_Center_Menu.addAction(_("Top to Center"))
             Animate_Top_Center.triggered.connect(partial(
                 self.Animate_Triggered, MenuAnimate.TOP_CENTER, clip_ids, position))
@@ -697,7 +698,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Position_Menu.addMenu(Edge_Center_Menu)
 
             # Edge to Edge
-            Edge_Edge_Menu = QMenu(_("Edge to Edge"), self)
+            Edge_Edge_Menu = StyledContextMenu(title=_("Edge to Edge"), parent=self)
             Animate_Top_Bottom = Edge_Edge_Menu.addAction(_("Top to Bottom"))
             Animate_Top_Bottom.triggered.connect(partial(
                 self.Animate_Triggered, MenuAnimate.TOP_BOTTOM, clip_ids, position))
@@ -724,7 +725,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Animate_Menu)
 
         # Rotate Menu
-        Rotation_Menu = QMenu(_("Rotate"), self)
+        Rotation_Menu = StyledContextMenu(title=_("Rotate"), parent=self)
         Rotation_None = Rotation_Menu.addAction(_("No Rotation"))
         Rotation_None.triggered.connect(partial(
             self.Rotate_Triggered, MenuRotate.NONE, clip_ids))
@@ -741,7 +742,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Rotation_Menu)
 
         # Layout Menu
-        Layout_Menu = QMenu(_("Layout"), self)
+        Layout_Menu = StyledContextMenu(title=_("Layout"), parent=self)
         Layout_None = Layout_Menu.addAction(_("Reset Layout"))
         Layout_None.triggered.connect(partial(
             self.Layout_Triggered, MenuLayout.NONE, clip_ids))
@@ -771,7 +772,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Layout_Menu)
 
         # Time Menu
-        Time_Menu = QMenu(_("Time"), self)
+        Time_Menu = StyledContextMenu(title=_("Time"), parent=self)
         Time_None = Time_Menu.addAction(_("Reset Time"))
         Time_None.triggered.connect(partial(self.Time_Triggered, MenuTime.NONE, clip_ids, '1X'))
         Time_Menu.addSeparator()
@@ -780,13 +781,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             (_("Fast"), ['2X', '4X', '8X', '16X']),
             (_("Slow"), ['1/2X', '1/4X', '1/8X', '1/16X'])
         ]:
-            Speed_Menu = QMenu(speed, self)
+            Speed_Menu = StyledContextMenu(title=speed, parent=self)
 
             for direction, direction_value in [
                 (_("Forward"), MenuTime.FORWARD),
                 (_("Backward"), MenuTime.BACKWARD)
             ]:
-                Direction_Menu = QMenu(direction, self)
+                Direction_Menu = StyledContextMenu(title=direction, parent=self)
 
                 for actual_speed in speed_values:
                     # Add menu option
@@ -805,7 +806,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             (_("Freeze"), MenuTime.FREEZE),
             (_("Freeze && Zoom"), MenuTime.FREEZE_ZOOM)
         ]:
-            Freeze_Menu = QMenu(freeze_type, self)
+            Freeze_Menu = StyledContextMenu(title=freeze_type, parent=self)
 
             for freeze_seconds in [2, 4, 6, 8, 10, 20, 30]:
                 # Add menu option
@@ -820,7 +821,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Time_Menu)
 
         # Volume Menu
-        Volume_Menu = QMenu(_("Volume"), self)
+        Volume_Menu = StyledContextMenu(title=_("Volume"), parent=self)
         Volume_None = Volume_Menu.addAction(_("Reset Volume"))
         Volume_None.triggered.connect(partial(self.Volume_Triggered, MenuVolume.NONE, clip_ids))
         Volume_Menu.addSeparator()
@@ -829,7 +830,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             ("End of Clip", _("End of Clip")),
             ("Entire Clip", _("Entire Clip"))
         ]:
-            Position_Menu = QMenu(position_label, self)
+            Position_Menu = StyledContextMenu(title=position_label, parent=self)
 
             if position == "Start of Clip":
                 Fade_In_Fast = Position_Menu.addAction(_("Fade In (Fast)"))
@@ -902,7 +903,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Volume_Menu)
 
         # Add separate audio menu
-        Split_Audio_Channels_Menu = QMenu(_("Separate Audio"), self)
+        Split_Audio_Channels_Menu = StyledContextMenu(title=_("Separate Audio"), parent=self)
         Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
         Split_Single_Clip.triggered.connect(partial(
             self.Split_Audio_Triggered, MenuSplitAudio.SINGLE, clip_ids))
@@ -921,7 +922,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip))
             ):
                 # Add split clip menu
-                Slice_Menu = QMenu(_("Slice"), self)
+                Slice_Menu = StyledContextMenu(title=_("Slice"), parent=self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
                 Slice_Keep_Both.triggered.connect(partial(
                     self.Slice_Triggered, MenuSlice.KEEP_BOTH, [clip_id], [], playhead_position))
@@ -941,7 +942,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Add clip display menu (waveform or thumbnail)
         menu.addSeparator()
-        Waveform_Menu = QMenu(_("Display"), self)
+        Waveform_Menu = StyledContextMenu(title=_("Display"), parent=self)
         ShowWaveform = Waveform_Menu.addAction(_("Show Waveform"))
         ShowWaveform.triggered.connect(partial(self.Show_Waveform_Triggered, clip_ids))
         HideWaveform = Waveform_Menu.addAction(_("Show Thumbnail"))
@@ -2587,7 +2588,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get playhead position
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
 
         # Copy Menu
         if len(tran_ids) + len(clip_ids) > 1:
@@ -2597,12 +2598,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids))
         else:
             # Only a single transitions is selected (show normal transition copy menu)
-            Copy_Menu = QMenu(_("Copy"), self)
+            Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
             Copy_Tran = Copy_Menu.addAction(_("Transition"))
             Copy_Tran.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
             Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MenuCopy.TRANSITION, [], [tran_id]))
 
-            Keyframe_Menu = QMenu(_("Keyframes"), self)
+            Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
             Copy_Keyframes_All.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [], [tran_id]))
@@ -2632,7 +2633,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Alignment Menu (if multiple selections)
         if len(clip_ids) > 1:
-            Alignment_Menu = QMenu(_("Align"), self)
+            Alignment_Menu = StyledContextMenu(title=_("Align"), parent=self)
             Align_Left = Alignment_Menu.addAction(_("Left"))
             Align_Left.triggered.connect(partial(self.Align_Triggered, MenuAlign.LEFT, clip_ids, tran_ids))
             Align_Right = Alignment_Menu.addAction(_("Right"))
@@ -2649,7 +2650,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if (playhead_position >= position_of_tran
                and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran))):
                 # Add split transition menu
-                Slice_Menu = QMenu(_("Slice"), self)
+                Slice_Menu = StyledContextMenu(title=_("Slice"), parent=self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
                 Slice_Keep_Both.triggered.connect(partial(
                     self.Slice_Triggered, MenuSlice.KEEP_BOTH, [], [tran_id], playhead_position))
@@ -2690,7 +2691,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         locked = track.data.get("lock", False)
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
@@ -2711,7 +2712,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if marker_id not in self.window.selected_markers:
             self.window.selected_markers = [marker_id]
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         menu.addAction(self.window.actionRemoveMarker)
         return menu.exec_(QCursor.pos())
 

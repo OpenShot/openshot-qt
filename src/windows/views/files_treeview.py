@@ -31,12 +31,13 @@ import os
 
 from PyQt5.QtCore import QSize, Qt, QPoint
 from PyQt5.QtGui import QDrag, QCursor
-from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QMenu, QSizePolicy, QHeaderView
+from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QSizePolicy, QHeaderView
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
+from .menu import StyledContextMenu
 
 
 class FilesTreeView(QTreeView):
@@ -54,7 +55,7 @@ class FilesTreeView(QTreeView):
         index = self.indexAt(event.pos())
 
         # Build menu
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionThumbnailView)

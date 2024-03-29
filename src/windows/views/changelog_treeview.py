@@ -26,20 +26,17 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 import webbrowser
-from urllib.parse import urlparse
 from functools import partial
 
-from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtWidgets import QListView, QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QApplication
+from PyQt5.QtWidgets import QListView, QTreeView, QAbstractItemView, QSizePolicy, QHeaderView, QApplication
 from PyQt5.QtGui import QCursor
 
 from classes.logger import log
 from classes.app import get_app
 from windows.models.changelog_model import ChangelogModel
+from .menu import StyledContextMenu
 
-import json
 
 class ChangelogTreeView(QTreeView):
     """ A ListView QWidget used on the changelog window """
@@ -67,7 +64,7 @@ class ChangelogTreeView(QTreeView):
         if row != -1:
             selected_hash = model.item(row, 0).text()
 
-            menu = QMenu(self)
+            menu = StyledContextMenu(parent=self)
             copy_action = menu.addAction(_("Copy Hash"))
             copy_action.triggered.connect(partial(self.CopyHashMenuTriggered, selected_hash))
             github_action = menu.addAction(_("View on GitHub"))

@@ -72,11 +72,15 @@ QMenu {
     padding-right: 8px;
     min-width: 40px;
     border: 1.2px solid #0078FF;
-    border-radius: 3px 3px 0px 0px;
+    border-radius: 3px 3px;
 }
 
 QMenu::item {
-    padding: 6px 6px 6px 20px;
+    padding: 6px 14px 6px 10px;
+}
+
+QMenu::item::checked {
+    padding: 6px 12px 6px 20px;
 }
 
 QMenu::item:selected {
@@ -271,6 +275,14 @@ QHeaderView::section {
 QTableView {
     background-color: #141923;
     gridline-color: #141923;
+}
+
+QTreeView {
+    background-color: #141923;
+}
+
+QListView {
+    background-color: #141923;
 }
         """
 

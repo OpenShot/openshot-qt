@@ -26,20 +26,17 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
-from urllib.parse import urlparse
-
 import webbrowser
-from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtWidgets import QListView, QTreeView, QMessageBox, QAbstractItemView, QMenu, QSizePolicy, QHeaderView, QApplication
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QListView, QTreeView, QAbstractItemView, QSizePolicy, QHeaderView, QApplication
 from PyQt5.QtGui import QCursor
 from functools import partial
 
 from classes.logger import log
 from classes.app import get_app
 from windows.models.credits_model import CreditsModel
+from .menu import StyledContextMenu
 
-import json
 
 class CreditsTreeView(QTreeView):
     """ A ListView QWidget used on the credits window """
@@ -75,7 +72,7 @@ class CreditsTreeView(QTreeView):
             email = model.item(row, 3).text()
             website = model.item(row, 4).text()
 
-            menu = QMenu(self)
+            menu = StyledContextMenu(parent=self)
             if email:
                 copy_action = menu.addAction(_("Copy E-mail"))
                 copy_action.triggered.connect(partial(self.CopyEmailTriggered, email))

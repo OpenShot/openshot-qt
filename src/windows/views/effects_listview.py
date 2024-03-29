@@ -27,11 +27,12 @@
 
 from PyQt5.QtCore import QSize, QPoint, Qt, QRegExp
 from PyQt5.QtGui import QDrag
-from PyQt5.QtWidgets import QListView, QMenu, QAbstractItemView
+from PyQt5.QtWidgets import QListView, QAbstractItemView
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
+from .menu import StyledContextMenu
 
 
 class EffectsListView(QListView):
@@ -44,7 +45,7 @@ class EffectsListView(QListView):
         app = get_app()
         app.context_menu_object = "effects"
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         menu.addAction(self.win.actionDetailsView)
         menu.popup(event.globalPos())
 
