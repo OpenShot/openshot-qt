@@ -206,17 +206,6 @@ img {
   opacity: 1;
 }
 
-.playhead-line-small {
-  z-index: 9999;
-  position: absolute;
-  height: 20px;
-  top: 32px;
-  margin-left: 12px;
-  width: 1px;
-  background-color: #ff0024;
-  opacity: 1;
-}
-
 .playhead-top {
   cursor: move;
   z-index: 9999;

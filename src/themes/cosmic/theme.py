@@ -366,4 +366,20 @@ QListView {
             .ui-selected {
               border: 1px solid red !important;
             }
+            .playhead-top {
+              margin-left: -6px;
+              margin-top: 20px;
+              width: 12px;
+              height: 188px;
+              background-image: url(../themes/cosmic/images/playhead.svg);
+            }
+            .playhead-line {
+              z-index: 9999;
+              position: absolute;
+              height: 316px;
+              top: 0;
+              width: 2px;
+              background-color: #FABE0A;
+              margin: -1px;
+            }
         """)
