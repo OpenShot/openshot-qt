@@ -60,102 +60,75 @@ function getTrackContainerHeight() {
   return $("#track-container").height() - track_margin;
 }
 
-// Draw the audio wave on a clip
+// Draw the audio waveform for a clip
 function drawAudio(scope, clip_id) {
-  //get the clip in the scope
+  // Find clip in scope
   var clip = findElement(scope.project.clips, "id", clip_id);
+  if (!clip.ui || !clip.ui.audio_data) {
+    return;
+  }
 
-  if (clip.ui && clip.ui.audio_data) {
-    var element = $("#clip_" + clip_id);
+  // Find audio canvas
+  var element = $("#clip_" + clip_id);
+  var audio_canvas = element.find(".audio");
+  if (audio_canvas.length === 0) {
+    return;
+  }
 
-    // Determine start and stop samples
-    var samples_per_second = 20;
-    var block_width = 2; // 2 pixel wide blocks as smallest size
-    var start_sample = Math.round(clip.start * samples_per_second);
-    var end_sample = clip.end * samples_per_second;
+  // Init canvas and init variables
+  var ctx = audio_canvas[0].getContext("2d");
+  var samples_per_second = 20;
+  var start_sample = Math.round(clip.start * samples_per_second);
+  var end_sample = Math.round(clip.end * samples_per_second);
+  var sample_divisor = samples_per_second / scope.pixelsPerSecond;
+  var block_width = 2;
+  var color = "#2a82da"; // rgb(42,130,218)
+  var color_transp = "rgba(42,130,218,0.5)";
+  ctx.strokeStyle = color;
 
-    // Determine divisor for zoom scale
-    var sample_divisor = samples_per_second / scope.pixelsPerSecond;
+  // Scale waveform to smaller % of clip height
+  var bottom_edge = audio_canvas.height();
+  var scale = bottom_edge * 0.85;
 
-    //show audio container
-    element.find(".audio-container").fadeIn(100);
+  drawWaveform(ctx, clip.ui.audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge);
+}
 
-    // Get audio canvas context
-    var audio_canvas = element.find(".audio");
-    if (!audio_canvas.length) {
-      return;
-    }
-    var ctx = audio_canvas[0].getContext("2d", {alpha: false});
+// Draw audio waveform from audio samples
+function drawWaveform(ctx, audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge) {
+  var last_x = 0;
+  var avg = 0;
+  var avg_cnt = 0;
+  var max = 0;
 
-    // Clear canvas
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  // Loop through audio samples (calculate average and max amplitude)
+  for (var i = start_sample; i < end_sample; i++) {
+    var sample = Math.abs(audio_data[i]);
+    var x = Math.floor((i + 1 - start_sample) / sample_divisor);
+    avg += sample;
+    avg_cnt++;
+    max = Math.max(max, sample);
 
-    var color = "#2a82da"; // rgb(42,130,218)
-    var color_transp = "rgba(42,130,218,0.5)";
+    if (x >= last_x + block_width || i === end_sample - 1) {
+      drawBar(ctx, last_x, x, max * scale, avg / avg_cnt * scale, color_transp, color, bottom_edge);
 
-    ctx.strokeStyle = color;
-
-    // Find the midpoint
-    var mid_point = audio_canvas.height() - 8;
-    var scale = mid_point;
-
-    // Draw the mid-point line
-    ctx.beginPath();
-    ctx.lineWidth = 1;
-    ctx.moveTo(0, mid_point);
-    ctx.lineTo(audio_canvas.width(), mid_point);
-    ctx.stroke();
-
-
-    var sample = 0.0,
-      // Variables for accumulation
-      avg = 0.0,
-      avg_cnt = 0,
-      max = 0.0,
-      last_x = 0;
-
-    // Ensure that the waveform canvas doesn't exceed its max
-    // dimensions, even if it means we can't draw the full audio.
-    // (If we try to go over the max width, the whole canvas disappears)
-    var final_sample = end_sample;
-    var audio_width = (end_sample - start_sample) / sample_divisor;
-    var usable_width = scope.canvasMaxWidth(audio_width);
-    if (audio_width > usable_width) {
-      // Just go as far as we can, then cut off the remaining waveform
-      final_sample = (usable_width * sample_divisor) - 1;
-    }
-
-    // Go through all of the (reduced) samples
-    // And whenever enough are "collected", draw a block
-    for (var i = start_sample; i < final_sample; i++) {
-      // Flip negative values up
-      sample = Math.abs(clip.ui.audio_data[i]);
-      // X-Position of *next* sample
-      var x = Math.floor((i + 1 - start_sample) / sample_divisor);
-
-      avg += sample;
-      avg_cnt++;
-      max = Math.max(max, sample);
-
-      if (x >= last_x + block_width || i === final_sample - 1) {
-        // Block wide enough or last block -> draw it
-
-        // Draw the slightly transparent max-bar
-        ctx.fillStyle = color_transp;
-        ctx.fillRect(last_x, mid_point, x - last_x, -(max * scale));
-
-        // Draw the fully visible average-bar
-        ctx.fillStyle = color;
-        ctx.fillRect(last_x, mid_point, x - last_x, -(avg / avg_cnt * scale));
-
-        // Reset all the variables for accumulation
-        last_x = x;
-        avg = 0;
-        avg_cnt = 0;
-        max = 0;
-      }
+      // Reset for the next bar
+      last_x = x;
+      avg = 0;
+      avg_cnt = 0;
+      max = 0;
     }
   }
+}
+
+// Draw each bar of the audio waveform (a wave is made up from lots of vertical lines)
+function drawBar(ctx, startX, endX, maxHeight, avgHeight, transpColor, fillColor, bottom_edge) {
+  // Draw the slightly transparent max-bar
+  ctx.fillStyle = transpColor;
+  ctx.fillRect(startX, bottom_edge - maxHeight, endX - startX, maxHeight);
+
+  // Draw the fully visible average-bar
+  ctx.fillStyle = fillColor;
+  ctx.fillRect(startX, bottom_edge - avgHeight, endX - startX, avgHeight);
 }
 
 function padNumber(value, pad_length) {

@@ -26,7 +26,7 @@
  """
 import os
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTabWidget
+from PyQt5.QtWidgets import QTabWidget, QWidget
 from themes.manager import ThemeManager
 
 
@@ -35,17 +35,22 @@ class BaseTheme:
         self.style_sheet = ""
         self.app = app
 
-    def set_dock_content_margins(self, margins=None):
-        # Set content margins on dock widgets
-        if margins is None:
-            margins = [0, 0, 0, 0]
+    def set_dock_margins(self, content_margins=None, layout_margins=None, object_name=None):
+        """ Set content margins on dock widgets with an optional objectName filter. """
+        if content_margins is None:
+            content_margins = [0, 0, 0, 0]
 
-        from PyQt5.QtWidgets import QWidget
         for dock in self.app.window.getDocks():
             for child in dock.children():
                 if isinstance(child, QWidget):
-                    if child.objectName().startswith("dock") and child.objectName().endswith("Contents"):
-                        child.setContentsMargins(*margins)
+                    # Check filter or use all children
+                    if object_name is None or child.objectName() == object_name:
+                        if child.objectName().startswith("dock") and child.objectName().endswith("Contents"):
+                            # Set content margins on QDock* widget
+                            child.setContentsMargins(*content_margins)
+                        if layout_margins:
+                            # Set content margins on the QDock Layout (which has additional margins)
+                            child.layout().setContentsMargins(*layout_margins)
 
     def apply_theme(self):
         # Get initial style and palette
@@ -80,7 +85,7 @@ class BaseTheme:
         ui_util.load_icon_theme()
 
         # Set dock widget content margins to 0
-        self.set_dock_content_margins()
+        self.set_dock_margins()
 
         # Move tabs to bottom
         self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.South)

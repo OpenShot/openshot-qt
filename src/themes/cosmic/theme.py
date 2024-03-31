@@ -149,11 +149,19 @@ QDockWidget QWidget {
     border: none;
 }
 
-QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#dockEmojisContents, QWidget#dockEffectsContents, QWidget#dockCaptionContents, QWidget#dockVideoContents, QWidget#dockPropertiesContents, QWidget#dockTimelineContents {
+QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#dockEmojisContents, QWidget#dockEffectsContents, QWidget#dockCaptionContents, QWidget#dockVideoContents, QWidget#dockPropertiesContents {
     background-color: #141923;
     border-radius: 4px;
     margin-left: 16px;
     margin-right: 16px;
+}
+
+QDockWidget QWidget#dockTimelineContents {
+    background-color: #141923;
+    border-radius: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
 }
 
 QDockWidget::close-button, QDockWidget::float-button {
@@ -269,7 +277,6 @@ QHeaderView::section {
     color: #91C3FF;
     padding: 4px;
     border: none;
-    corner-radius: 4px;
 }
 
 QTableView {
@@ -308,7 +315,8 @@ QListView {
         self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.North)
 
         # Set dock widget content margins to 0
-        self.set_dock_content_margins([16, 0, 16, 0])
+        self.set_dock_margins([16, 0, 16, 0])
+        self.set_dock_margins([0, 0, 0, 0], [0, 10, 0, 0], "dockTimelineContents")
 
         # Apply new stylesheet
         self.app.setStyleSheet(self.style_sheet)
@@ -338,6 +346,7 @@ QListView {
               border-left: 4px solid #0078FF;
               box-shadow: none;
               margin-left: 0px;
+              height: 48px;
             }
             .track_top {
               padding-top: 4px;
@@ -351,14 +360,45 @@ QListView {
               background: #283241;
               border: 1px solid #283241;
               border-radius: 0px;
+              height: 48px;
             }
             .clip {
               background: #192332;
               border: 1px solid #0078FF;
               box-sizing: border-box;
+              height: 48px;
+              min-height: 48px;
+              display: flex;
             }
             .clip_top {
               background: none;
+              position: absolute;
+              top: 0;
+              width: 100%;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              z-index: 2;
+            }
+            .thumb-container {
+              margin-top: 0px;
+            }
+            .audio-container {
+              margin-top: 0px;
+              object-fit: cover;
+              align-self: flex-start;
+              z-index: 0;
+            }
+            .audio {
+              border-radius: 8px;
+            }
+            .thumb {
+              border-radius: 8px;
+              margin: 0px;
+              height: 100%;
+              object-fit: cover;
+              align-self: flex-start;
+              z-index: 1;
             }
             .ui-selecting {
               border: 1px solid yellow !important;
@@ -381,5 +421,14 @@ QListView {
               width: 2px;
               background-color: #FABE0A;
               margin: -1px;
+            }
+            .point_bezier {
+              background-image: url(../themes/cosmic/images/keyframe-bezier.svg);
+            }
+            .point_linear {
+              background-image: url(../themes/cosmic/images/keyframe-linear.svg);
+            }
+            .point_constant {
+              background-image: url(../themes/cosmic/images/keyframe-constant.svg);
             }
         """)
