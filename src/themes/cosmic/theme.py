@@ -389,6 +389,14 @@ QListView {
               align-self: flex-start;
               z-index: 0;
             }
+            .thumb-container, .audio-container {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              overflow: hidden;
+            }
             .audio {
               border-radius: 8px;
             }
