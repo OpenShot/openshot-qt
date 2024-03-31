@@ -60,9 +60,6 @@ App.directive("tlTrack", function ($timeout) {
           var vert_scroll_offset = scrolling_tracks.scrollTop();
           var horz_scroll_offset = scrolling_tracks.scrollLeft();
 
-          // Get scrollbar offsets
-          var scrolling_tracks_offset_top = scrolling_tracks.offset().top;
-
           // Keep track of each dropped clip (to check for missing transitions below, after they have been dropped)
           var dropped_clips = [];
           var position_diff = 0; // the time diff to apply to multiple selections (if any)
@@ -93,12 +90,11 @@ App.directive("tlTrack", function ($timeout) {
             // get the item properties we need
             var item_id = item.attr("id");
             var item_num = item_id.substr(item_id.indexOf("_") + 1);
-            var item_middle = item.position().top + (item.height() / 2); // find middle of clip
             var item_left = item.position().left;
 
             // Adjust top and left coordinates for scrollbars
             item_left = parseFloat(item_left + horz_scroll_offset);
-            item_middle = parseFloat(item_middle - scrolling_tracks_offset_top + vert_scroll_offset);
+            var item_top = parseFloat(item.position().top + vert_scroll_offset);
 
             // make sure the item isn't dropped off too far to the left
             if (item_left < 0) {
@@ -106,11 +102,9 @@ App.directive("tlTrack", function ($timeout) {
             }
 
             // get track the item was dropped on
-            drop_track_num = findTrackAtLocation(scope, parseInt(item_middle, 10));
+            drop_track = findTrackAtLocation(scope, parseInt(item_top, 10));
 
-            // if the droptrack was found, update the json
-            if (drop_track_num !== -1) {
-
+            if (drop_track != null) {
               // find the item in the json data
               let item_data = null;
               if (item_type === "clip") {
@@ -128,7 +122,7 @@ App.directive("tlTrack", function ($timeout) {
               // change the clip's track and position in the json data
               scope.$apply(function () {
                 //set track
-                item_data.layer = drop_track_num;
+                item_data.layer = drop_track.number;
                 item_data.position += position_diff;
                 item_data.position = (Math.round((item_data.position * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
               });

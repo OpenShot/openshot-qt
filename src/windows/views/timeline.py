@@ -3132,7 +3132,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Move clip on timeline
         if self.item_type in ["clip", "transition"]:
-            self.run_js(JS_SCOPE_SELECTOR + ".moveItem({}, {}, '{}');".format(pos.x(), pos.y(), self.item_type))
+            self.run_js(JS_SCOPE_SELECTOR + ".moveItem({}, {});".format(pos.x(), pos.y()))
 
     # Drop an item on the timeline
     def dropEvent(self, event):

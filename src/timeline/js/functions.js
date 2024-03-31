@@ -164,24 +164,26 @@ function secondsToTime(secs, fps_num, fps_den) {
 
 // Find the closest track number (based on a Y coordinate)
 function findTrackAtLocation(scope, top) {
+  var closestTrack = null;
+  var minDistance = Infinity;
 
   // Loop through each layer (looking for the closest track based on Y coordinate)
-  var track_position = 0;
-  var track_number = 0;
-  for (var layer_index = scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
+  for (var layer_index = 0; layer_index < scope.project.layers.length; layer_index++) {
     var layer = scope.project.layers[layer_index];
 
-    // Compare position of track to Y param (of unlocked tracks)
+    // Consider only unlocked tracks
     if (!layer.lock) {
-      if ((top < layer.y && top > track_position) || track_position === 0) {
-        // return first matching layer
-        track_position = layer.y;
-        track_number = layer.number;
+      var distance = Math.abs(top - layer.y);
+
+      // Update if this layer is closer than the previous closest
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestTrack = layer;
       }
     }
   }
 
-  return track_number;
+  return closestTrack;
 }
 
 // Find the closest track number (based on a Y coordinate)
