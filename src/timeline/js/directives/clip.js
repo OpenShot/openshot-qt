@@ -29,7 +29,6 @@
 
 /*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio */
 // Init variables
-var dragging = false;
 var resize_disabled = false;
 var previous_drag_position = null;
 var start_clips = {};
@@ -54,7 +53,7 @@ App.directive("tlClip", function ($timeout) {
         minWidth: 1,
         maxWidth: scope.clip.length * scope.pixelsPerSecond,
         start: function (e, ui) {
-          dragging = true;
+          scope.setDragging(true);
 
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
@@ -91,7 +90,7 @@ App.directive("tlClip", function ($timeout) {
 
         },
         stop: function (e, ui) {
-          dragging = false;
+          scope.setDragging(false);
 
           // Show keyframe points
           element.find(".point").fadeIn(100);
@@ -276,7 +275,7 @@ App.directive("tlClip", function ($timeout) {
         cancel: ".effect-container,.clip_menu,.point",
         start: function (event, ui) {
           previous_drag_position = null;
-          dragging = true;
+          scope.setDragging(true);
 
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
@@ -316,7 +315,7 @@ App.directive("tlClip", function ($timeout) {
 
           // Clear previous drag position
           previous_drag_position = null;
-          dragging = false;
+          scope.setDragging(false);
         },
         drag: function (e, ui) {
           var previous_x = ui.originalPosition.left;

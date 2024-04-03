@@ -71,6 +71,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.enable_sorting = true;
   $scope.ThumbServer = "http://127.0.0.1/";
   $scope.ThemeCSS = "";
+  $scope.dragging = false;
 
   // Method to set if Qt is detected (which clears demo data
   // and updates the document_is_ready variable in openshot-qt)
@@ -1305,6 +1306,14 @@ $scope.updateLayerIndex = function () {
     else {
       return "track";
     }
+  };
+
+  $scope.setDragging = function(value) {
+    $scope.dragging = value;
+  };
+
+  $scope.getDragging = function() {
+    return $scope.dragging;
   };
 
   // Set the CSS theme for this timeline dynamically

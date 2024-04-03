@@ -29,7 +29,6 @@
 
 /*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Init Variables
-var dragging = false;
 var resize_disabled = false;
 var previous_drag_position = null;
 var start_transitions = {};
@@ -53,7 +52,7 @@ App.directive("tlTransition", function () {
         handles: "e, w",
         minWidth: 1,
         start: function (e, ui) {
-          dragging = true;
+          scope.setDragging(true);
           resize_disabled = false;
 
           // Set selections
@@ -84,7 +83,7 @@ App.directive("tlTransition", function () {
 
         },
         stop: function (e, ui) {
-          dragging = false;
+          scope.setDragging(false);
 
           // Show keyframe points
           element.find(".point").fadeIn(100);
@@ -202,12 +201,12 @@ App.directive("tlTransition", function () {
       //handle hover over on the transition
       element.hover(
         function () {
-          if (!dragging) {
+          if (!scope.getDragging()) {
             element.addClass("highlight_transition", 200, "easeInOutCubic");
           }
         },
         function () {
-          if (!dragging) {
+          if (!scope.getDragging()) {
             element.removeClass("highlight_transition", 200, "easeInOutCubic");
           }
         }
@@ -221,7 +220,7 @@ App.directive("tlTransition", function () {
         cancel: ".transition_menu, .point",
         start: function (event, ui) {
           previous_drag_position = null;
-          dragging = true;
+          scope.setDragging(true);
 
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
@@ -260,7 +259,7 @@ App.directive("tlTransition", function () {
 
           // Clear previous drag position
           previous_drag_position = null;
-          dragging = false;
+          scope.setDragging(false);
 
         },
         drag: function (e, ui) {
