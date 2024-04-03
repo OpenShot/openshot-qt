@@ -216,9 +216,7 @@ App.directive("tlTransition", function () {
 
       //handle draggability of transition
       element.draggable({
-        snap: ".track", // snaps to a track
-        snapMode: "inner",
-        snapTolerance: 20,
+        snap: false,
         scroll: true,
         cancel: ".transition_menu, .point",
         start: function (event, ui) {

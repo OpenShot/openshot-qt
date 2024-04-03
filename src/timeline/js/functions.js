@@ -348,6 +348,25 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
     scope.hideSnapline();
   }
 
+  // Find the nearest track based on the adjusted top position
+  var nearest_track = findTrackAtLocation(scope, bounding_box.top);
+  if (nearest_track !== null) {
+    var track_offset = nearest_track.y - bounding_box.top;
+
+    // Snap bounding box to nearest track
+    y_offset += track_offset;
+    bounding_box.top += track_offset;
+    bounding_box.bottom += track_offset;
+    snapping_result.top += track_offset;
+  }
+
+  // Find bottom track (for accurate bottom bounding box detection)
+  var lastTrack = scrolling_tracks.find(".track").last();
+  var bottom_edge_last_track = 0;
+  if (lastTrack.length) {
+    bottom_edge_last_track = lastTrack.position().top + lastTrack.height() + scrolling_tracks.scrollTop();
+  }
+
   // Check overall timeline constraints (i.e don't let clips be dragged outside the timeline)
   if (bounding_box.left < 0) {
     // Left border
@@ -363,10 +382,10 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
     bounding_box.bottom = bounding_box.height;
     snapping_result.top = previous_y + y_offset;
   }
-  if (bounding_box.bottom > scrolling_tracks.height) {
+  if (bounding_box.bottom > bottom_edge_last_track) {
     // Bottom border
-    y_offset -= (bounding_box.bottom - scrolling_tracks.height);
-    bounding_box.bottom = scrolling_tracks.height;
+    y_offset -= (bounding_box.bottom - bottom_edge_last_track);
+    bounding_box.bottom = bottom_edge_last_track;
     bounding_box.top = bounding_box.bottom - bounding_box.height;
     snapping_result.top = previous_y + y_offset;
   }

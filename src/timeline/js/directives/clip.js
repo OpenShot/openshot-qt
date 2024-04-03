@@ -271,9 +271,7 @@ App.directive("tlClip", function ($timeout) {
 
       //handle draggability of clip
       element.draggable({
-        snap: ".track", // snaps to a track
-        snapMode: "inner",
-        snapTolerance: 20,
+        snap: false,
         scroll: true,
         cancel: ".effect-container,.clip_menu,.point",
         start: function (event, ui) {

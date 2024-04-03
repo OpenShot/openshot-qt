@@ -362,6 +362,13 @@ QListView {
               border-radius: 0px;
               height: 48px;
             }
+            .transition {
+              height: 48px;
+              min-height: 48px;
+            }
+            .transition_top {
+              background: none;
+            }
             .clip {
               background: #192332;
               border: 1px solid #0078FF;

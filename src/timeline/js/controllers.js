@@ -1312,6 +1312,13 @@ $scope.updateLayerIndex = function () {
     $scope.$apply(function () {
       $scope.ThemeCSS = css;
     });
+
+    // Update track Y coordinates after theme is applied
+    setTimeout(function() {
+      $scope.$apply(function () {
+        $scope.updateLayerIndex();
+      });
+    }, 0);
   }
 
   // Determine which CSS classes are used on a clip
