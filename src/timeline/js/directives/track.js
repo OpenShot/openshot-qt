@@ -102,8 +102,7 @@ App.directive("tlTrack", function ($timeout) {
             }
 
             // get track the item was dropped on
-            drop_track = findTrackAtLocation(scope, parseInt(item_top, 10));
-
+            let drop_track = findTrackAtLocation(scope, parseInt(item_top, 10));
             if (drop_track != null) {
               // find the item in the json data
               let item_data = null;

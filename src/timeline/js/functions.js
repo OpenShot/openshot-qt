@@ -60,6 +60,45 @@ function getTrackContainerHeight() {
   return $("#track-container").height() - track_margin;
 }
 
+// Draw each bar of the audio waveform (a wave is made up from lots of vertical lines)
+function drawBar(ctx, startX, endX, maxHeight, avgHeight, transpColor, fillColor, bottom_edge) {
+  // Draw the slightly transparent max-bar
+  ctx.fillStyle = transpColor;
+  ctx.fillRect(startX, bottom_edge - maxHeight, endX - startX, maxHeight);
+
+  // Draw the fully visible average-bar
+  ctx.fillStyle = fillColor;
+  ctx.fillRect(startX, bottom_edge - avgHeight, endX - startX, avgHeight);
+}
+
+// Draw audio waveform from audio samples
+function drawWaveform(ctx, audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge) {
+  var last_x = 0;
+  var avg = 0;
+  var avg_cnt = 0;
+  var max = 0;
+
+  // Loop through audio samples (calculate average and max amplitude)
+  for (var i = start_sample; i < end_sample; i++) {
+    var sample = Math.abs(audio_data[i]);
+    var x = Math.floor((i + 1 - start_sample) / sample_divisor);
+    avg += sample;
+    avg_cnt++;
+    max = Math.max(max, sample);
+
+    if (x >= last_x + block_width || i === end_sample - 1) {
+      drawBar(ctx, last_x, x, max * scale, avg / avg_cnt * scale, color_transp, color, bottom_edge);
+
+      // Reset for the next bar
+      last_x = x;
+      avg = 0;
+      avg_cnt = 0;
+      max = 0;
+    }
+  }
+}
+
+
 // Draw the audio waveform for a clip
 function drawAudio(scope, clip_id) {
   // Find clip in scope
@@ -91,44 +130,6 @@ function drawAudio(scope, clip_id) {
   var scale = bottom_edge * 0.85;
 
   drawWaveform(ctx, clip.ui.audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge);
-}
-
-// Draw audio waveform from audio samples
-function drawWaveform(ctx, audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge) {
-  var last_x = 0;
-  var avg = 0;
-  var avg_cnt = 0;
-  var max = 0;
-
-  // Loop through audio samples (calculate average and max amplitude)
-  for (var i = start_sample; i < end_sample; i++) {
-    var sample = Math.abs(audio_data[i]);
-    var x = Math.floor((i + 1 - start_sample) / sample_divisor);
-    avg += sample;
-    avg_cnt++;
-    max = Math.max(max, sample);
-
-    if (x >= last_x + block_width || i === end_sample - 1) {
-      drawBar(ctx, last_x, x, max * scale, avg / avg_cnt * scale, color_transp, color, bottom_edge);
-
-      // Reset for the next bar
-      last_x = x;
-      avg = 0;
-      avg_cnt = 0;
-      max = 0;
-    }
-  }
-}
-
-// Draw each bar of the audio waveform (a wave is made up from lots of vertical lines)
-function drawBar(ctx, startX, endX, maxHeight, avgHeight, transpColor, fillColor, bottom_edge) {
-  // Draw the slightly transparent max-bar
-  ctx.fillStyle = transpColor;
-  ctx.fillRect(startX, bottom_edge - maxHeight, endX - startX, maxHeight);
-
-  // Draw the fully visible average-bar
-  ctx.fillStyle = fillColor;
-  ctx.fillRect(startX, bottom_edge - avgHeight, endX - startX, avgHeight);
 }
 
 function padNumber(value, pad_length) {

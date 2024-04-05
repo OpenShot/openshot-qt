@@ -28,7 +28,7 @@
 
 
 // Initialize the main controller module
-/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement*/
+/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement, findTrackAtLocation*/
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)
@@ -980,22 +980,10 @@ $scope.moveItem = function (x, y) {
   bounding_box.previous_x = results.position.left;
   bounding_box.previous_y = results.position.top;
 
-  // Adjust for differences in Qt coordinate drag system
-  // TODO: Not sure why this is needed to "feel" correct
-  var qt_coord_offset = -24
-
-  // Find the nearest track based on the adjusted top position
-  var nearest_track = findTrackAtLocation($scope, top + qt_coord_offset);
-  if (nearest_track !== null) {
-    bounding_box.track_position = nearest_track.y;
-  } else {
-    bounding_box.track_position = 0;
-  }
-
   // Update the element's position
   if (bounding_box.element) {
     bounding_box.element.css("left", results.position.left + "px"); // Ensure units (px) are included for clarity
-    bounding_box.element.css("top", bounding_box.track_position + "px");
+    bounding_box.element.css("top", results.position.top + "px");
   }
 };
 

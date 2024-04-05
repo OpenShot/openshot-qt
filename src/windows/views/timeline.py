@@ -3130,9 +3130,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get cursor position
         pos = event.posF()
 
+        # Set an offset for the Y coordinate
+        # This is due to the drag_item_center (24, 24) set on dragStart in Qt
+        qt_y_offset = -24.0
+
         # Move clip on timeline
         if self.item_type in ["clip", "transition"]:
-            self.run_js(JS_SCOPE_SELECTOR + ".moveItem({}, {});".format(pos.x(), pos.y()))
+            self.run_js(JS_SCOPE_SELECTOR + ".moveItem({}, {});".format(pos.x(), pos.y() + qt_y_offset))
 
     # Drop an item on the timeline
     def dropEvent(self, event):

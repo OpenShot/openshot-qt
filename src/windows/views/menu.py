@@ -63,7 +63,7 @@ class StyledContextMenu(QMenu):
             if len(radius_values) == 1:
                 radius = float(radius_values[0])
                 return {'x': radius, 'y': radius}
-            elif len(radius_values) == 2:
+            if len(radius_values) == 2:
                 return {'x': float(radius_values[0]), 'y': float(radius_values[1])}
         return None
 
