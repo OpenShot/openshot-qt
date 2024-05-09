@@ -39,6 +39,8 @@ class BaseTheme:
         """ Set content margins on dock widgets with an optional objectName filter. """
         if content_margins is None:
             content_margins = [0, 0, 0, 0]
+        if layout_margins is None:
+            layout_margins = [9, 9, 9, 9]
 
         for dock in self.app.window.getDocks():
             for child in dock.children():
@@ -48,7 +50,7 @@ class BaseTheme:
                         if child.objectName().startswith("dock") and child.objectName().endswith("Contents"):
                             # Set content margins on QDock* widget
                             child.setContentsMargins(*content_margins)
-                        if layout_margins:
+                        if child.layout() and layout_margins:
                             # Set content margins on the QDock Layout (which has additional margins)
                             child.layout().setContentsMargins(*layout_margins)
 
