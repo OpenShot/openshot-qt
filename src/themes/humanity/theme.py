@@ -89,15 +89,20 @@ class HumanityLightTheme(BaseTheme):
               margin-top: 10px;
               color: #000000;
               background: linear-gradient(to bottom, #dedddd, #d2d2d3);
+              box-shadow: none;
             }
             .track {
               margin-top: 10px;
               background: #e5e7ea;
+              box-shadow: none;
             }
             .clip {
               background: #fedc66;
               border-top: 1px solid #cd8d00;
               border-bottom: 1px solid #cd8d00;
+            }
+            .ui-selected {
+                filter: brightness(1.1);
             }
             .clip_label {
               color: #383730;

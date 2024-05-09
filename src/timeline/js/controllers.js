@@ -262,9 +262,13 @@ App.controller("TimelineCtrl", function ($scope) {
     // Find this tracks Y location
     var track_id = "div#track_" + layer;
     if ($(track_id).length) {
-      return $(track_id).position().top + vert_scroll_offset;
-    }
-    else {
+      var trackElement = $(track_id);
+      var topPosition = trackElement.position().top;
+      var marginTop = parseInt(trackElement.css('margin-top'), 10);
+
+      // Include the margin in the position calculation
+      return topPosition + vert_scroll_offset + marginTop;
+    } else {
       return 0;
     }
   };
@@ -492,11 +496,16 @@ App.controller("TimelineCtrl", function ($scope) {
       // in-between frames, and thus less likely to repeat or skip a frame).
       clip_position = (Math.round((clip_position * $scope.project.fps.num) / $scope.project.fps.den) * $scope.project.fps.den ) / $scope.project.fps.num;
 
-      clip_json.position = clip_position;
-      clip_json.layer = $scope.getTrackAtY(y).number;
+      // Get the nearest track
+      var nearest_track = findTrackAtLocation($scope, y);
+      if (nearest_track !== null) {
+        // Set clip properties and add clip
+        clip_json.position = clip_position;
+        clip_json.layer = nearest_track.number;
 
-      // Push new clip onto stack
-      $scope.project.clips.push(clip_json);
+        // Push new clip onto stack
+        $scope.project.clips.push(clip_json);
+      }
     });
   };
 
@@ -856,8 +865,13 @@ App.controller("TimelineCtrl", function ($scope) {
     var scrolling_tracks_offset_top = scrolling_tracks.offset().top;
     y += scrolling_tracks.scrollTop();
 
-    // Return number of track
-    return parseInt($scope.getTrackAtY(y - scrolling_tracks_offset_top).number, 10);
+      // Get the nearest track
+      var nearest_track = findTrackAtLocation($scope, y);
+      if (nearest_track !== null) {
+        return nearest_track.number;
+      } else {
+        return 0;
+      }
   };
 
   // Get JSON of most recent item (used by Qt)
@@ -877,7 +891,14 @@ App.controller("TimelineCtrl", function ($scope) {
     }
     // Get position of item
     var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
-    var layer_num = $scope.getTrackAtY(bounding_box.track_position).number;
+
+    // Get the nearest track
+    var nearest_track = findTrackAtLocation($scope, bounding_box.top);
+    if (nearest_track !== null) {
+      layer_num = nearest_track.number;
+    } else {
+      layer_num = 0;
+    }
 
     // update scope with final position of items
     $scope.$apply(function () {
@@ -1251,34 +1272,6 @@ $scope.updateLayerIndex = function () {
       $scope.$apply(function () {
         $scope.snapline = false;
       });
-    }
-  };
-
-  // Find a track JSON object at a given y coordinate (if any)
-  /**
-   * @return {object}
-   */
-  $scope.getTrackAtY = function (y) {
-    // Loop through each layer (looking for the closest track based on Y coordinate)
-    let tolerance = 24;
-    for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
-      var layer = $scope.project.layers[layer_index];
-
-      // Compare position of track to Y param and return first matching layer
-      // Consider a tolerance around the cursor position
-      if (layer.y > (y - tolerance)) {
-        return layer;
-      } else if (layer.y > (y + tolerance)) {
-        return layer;
-      }
-    }
-
-    // no layer found (return top layer... if any)
-    if ($scope.project.layers.length > 0) {
-      return $scope.project.layers[0];
-    }
-    else {
-      return null;
     }
   };
 
