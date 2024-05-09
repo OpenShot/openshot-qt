@@ -70,21 +70,37 @@ class HumanityLightTheme(BaseTheme):
             body {
               background: #f0f0f0;
             }
-           #ruler_time {
-              color: #000000;
+            #ruler_time {
+              color: #c9c9c9;
             }
            .ruler_time {
-              color: #000000;
+              color: #c9c9c9;
+            }
+            #ruler_label {
+              height: 43px;
+              background: linear-gradient(to bottom, #3c3c3c, #0a070a);
+              margin-bottom: 0px;
+            }
+            #scrolling_ruler {
+              background: linear-gradient(to bottom, #3c3c3c, #0a070a);
+              margin-bottom: 0px;
             }
             .track_name {
+              margin-top: 10px;
               color: #000000;
-              background: linear-gradient(to right, #ffffff 0%, #d3d3d3 100%);
+              background: linear-gradient(to bottom, #dedddd, #d2d2d3);
             }
             .track {
-              background: linear-gradient(to bottom, #d3d3d3 0%, #ffffff 100%);
+              margin-top: 10px;
+              background: #e5e7ea;
             }
             .clip {
-              background: linear-gradient(to bottom, #b3b3b3 0%, #cccccc 100%);
+              background: #fedc66;
+              border-top: 1px solid #cd8d00;
+              border-bottom: 1px solid #cd8d00;
+            }
+            .clip_label {
+              color: #383730;
             }
             .clip_effects {
               background: rgba(54, 25, 25, 0.6);
