@@ -60,19 +60,26 @@ class ThemeManager:
             cls._instance.app = app
             cls._instance.original_style = app.style().objectName() if app else None
             cls._instance.original_palette = app.palette() if app else None
+            cls._instance.current_theme = None
         return cls._instance
 
     def apply_theme(self, theme_name):
         """Apply a new UI theme. Expects a ThemeName ENUM as the arg."""
         if theme_name == ThemeName.HUMANITY_DARK:
             from themes.humanity.theme import HumanityDarkTheme
-            HumanityDarkTheme(self.app).apply_theme()
+            self.current_theme = HumanityDarkTheme(self.app)
         elif theme_name == ThemeName.HUMANITY_LIGHT:
             from themes.humanity.theme import HumanityLightTheme
-            HumanityLightTheme(self.app).apply_theme()
+            self.current_theme = HumanityLightTheme(self.app)
         elif theme_name == ThemeName.COSMIC:
             from themes.cosmic.theme import CosmicTheme
-            CosmicTheme(self.app).apply_theme()
+            self.current_theme = CosmicTheme(self.app)
         else:
             from themes.base import BaseTheme
-            BaseTheme(self.app).apply_theme()
+            self.current_theme = BaseTheme(self.app)
+
+        self.current_theme.apply_theme()
+
+    def get_current_theme(self):
+        """Return the current theme instance, or None if no theme is applied."""
+        return self.current_theme

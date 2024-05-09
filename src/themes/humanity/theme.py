@@ -37,6 +37,11 @@ QToolTip {
     background-color: #2a82da; 
     border: 0px solid white; 
 }
+
+.property_value {
+    foreground-color: #217dd4
+    background-color: #565656;
+}
         """
 
     def apply_theme(self):
@@ -60,6 +65,10 @@ class HumanityLightTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
+.property_value {
+    foreground-color: #217dd4
+    background-color: #7f7f7f;
+}
         """
 
     def apply_theme(self):

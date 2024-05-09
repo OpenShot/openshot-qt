@@ -291,6 +291,11 @@ QTreeView {
 QListView {
     background-color: #141923;
 }
+
+.property_value {
+    foreground-color: #0078FF
+    background-color: #283241;
+}
         """
 
     def apply_theme(self):
