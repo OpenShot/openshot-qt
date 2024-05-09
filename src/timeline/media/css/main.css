@@ -88,7 +88,7 @@ img {
 #ruler_time {
   font-size: 13pt;
   color: #999;
-  padding-top: 14px;
+  padding-top: 12px;
   padding-left: 17px;
 }
 
@@ -482,7 +482,7 @@ img {
   background-image: url(../images/transition.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 66px;
+  background-size: calc(100% + 2px) 66px;
 }
 
 .transition_label {

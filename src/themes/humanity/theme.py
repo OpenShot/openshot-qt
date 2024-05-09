@@ -86,20 +86,30 @@ class HumanityLightTheme(BaseTheme):
               margin-bottom: 0px;
             }
             .track_name {
-              margin-top: 10px;
+              margin-top: 8px;
               color: #000000;
               background: linear-gradient(to bottom, #dedddd, #d2d2d3);
               box-shadow: none;
             }
             .track {
-              margin-top: 10px;
+              margin-top: 8px;
               background: #e5e7ea;
               box-shadow: none;
             }
+            .transition_top {
+              background: none;
+              border-radius: 0px;
+            }
+            .transition {
+              border: 1px solid #0192c1;
+              border-radius: 0px;
+              box-shadow: none;
+            }
             .clip {
+              border-radius: 0px;
               background: #fedc66;
-              border-top: 1px solid #cd8d00;
-              border-bottom: 1px solid #cd8d00;
+              border: 1px solid #cd8d00;
+              box-shadow: none;
             }
             .ui-selected {
                 filter: brightness(1.1);
@@ -109,5 +119,14 @@ class HumanityLightTheme(BaseTheme):
             }
             .clip_effects {
               background: rgba(54, 25, 25, 0.6);
+            }
+            .point_bezier {
+              background-image: url(../themes/humanity/images/keyframe-bezier.svg);
+            }
+            .point_linear {
+              background-image: url(../themes/humanity/images/keyframe-linear.svg);
+            }
+            .point_constant {
+              background-image: url(../themes/humanity/images/keyframe-constant.svg);
             }
         """)
