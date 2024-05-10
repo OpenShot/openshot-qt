@@ -264,7 +264,7 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($(track_id).length) {
       var trackElement = $(track_id);
       var topPosition = trackElement.position().top;
-      var marginTop = parseInt(trackElement.css('margin-top'), 10);
+      var marginTop = parseInt(trackElement.css("margin-top"), 10);
 
       // Include the margin in the position calculation
       return topPosition + vert_scroll_offset + marginTop;
@@ -893,11 +893,10 @@ App.controller("TimelineCtrl", function ($scope) {
     var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
 
     // Get the nearest track
+    var layer_num = 0;
     var nearest_track = findTrackAtLocation($scope, bounding_box.top);
     if (nearest_track !== null) {
       layer_num = nearest_track.number;
-    } else {
-      layer_num = 0;
     }
 
     // update scope with final position of items

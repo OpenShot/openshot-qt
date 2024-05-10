@@ -111,8 +111,6 @@ class PropertyDelegate(QItemDelegate):
         theme = ThemeManager().get_current_theme()
         foreground_color = theme.get_color(".property_value", "foreground-color")
         background_color = theme.get_color(".property_value", "background-color")
-        log.info(foreground_color.name())
-        log.info(background_color.name())
 
         # set background color
         painter.setPen(QPen(Qt.NoPen))

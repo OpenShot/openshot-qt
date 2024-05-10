@@ -56,10 +56,7 @@ class BaseTheme:
             # Check for color validity and return QColor
             if QColor(color_code).isValid():
                 return QColor(color_code)
-            else:
-                return QColor("black")
         return QColor("black")
-
 
     def set_dock_margins(self, content_margins=None, layout_margins=None, object_name=None):
         """ Set content margins on dock widgets with an optional objectName filter. """
