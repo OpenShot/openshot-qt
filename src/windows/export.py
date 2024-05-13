@@ -86,7 +86,9 @@ class Export(QDialog):
 
         # Add buttons to interface
         self.cancel_button = QPushButton(_('Cancel'))
+        self.cancel_button.setObjectName("cancelButton")
         self.export_button = QPushButton(_('Export Video'))
+        self.export_button.setObjectName("acceptButton")
         self.close_button = QPushButton(_('Done'))
         self.buttonBox.addButton(self.close_button, QDialogButtonBox.RejectRole)
         self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)

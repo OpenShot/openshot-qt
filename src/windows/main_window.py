@@ -1361,16 +1361,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionSnappingTool_trigger(self, checked=True):
         log.info("actionSnappingTool_trigger")
+        _ = get_app()._tr
 
         # Enable / Disable snapping mode
         self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
+        if self.actionSnappingTool.isChecked():
+            self.actionSnappingTool.setText(_("Disable Snapping"))
+            self.actionSnappingTool.setToolTip(_("Disable Snapping"))
+        else:
+            self.actionSnappingTool.setText(_("Enable Snapping"))
+            self.actionSnappingTool.setToolTip(_("Enable Snapping"))
 
     def actionRazorTool_trigger(self, checked=True):
         """Toggle razor tool on and off"""
         log.info('actionRazorTool_trigger')
+        _ = get_app()._tr
 
         # Enable / Disable razor mode
         self.timeline.SetRazorMode(checked)
+        if self.actionRazorTool.isChecked():
+            self.actionRazorTool.setText(_("Disable Razor"))
+            self.actionRazorTool.setToolTip(_("Disable Razor"))
+        else:
+            self.actionRazorTool.setText(_("Enable Razor"))
+            self.actionRazorTool.setToolTip(_("Enable Razor"))
 
     def actionAddMarker_trigger(self, checked=True):
         log.info("actionAddMarker_trigger")
@@ -2867,19 +2881,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Add Timeline toolbar
         self.timelineToolbar = QToolBar("Timeline Toolbar", self)
-
-        self.timelineToolbar.addAction(self.actionAddTrack)
-        self.timelineToolbar.addSeparator()
-
-        # rest of options
-        self.timelineToolbar.addAction(self.actionSnappingTool)
-        self.timelineToolbar.addAction(self.actionRazorTool)
-        self.timelineToolbar.addSeparator()
-        self.timelineToolbar.addAction(self.actionAddMarker)
-        self.timelineToolbar.addAction(self.actionPreviousMarker)
-        self.timelineToolbar.addAction(self.actionNextMarker)
-        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
-        self.timelineToolbar.addSeparator()
+        self.timelineToolbar.setObjectName("timelineToolbar")
 
         # Add Video Preview toolbar
         self.captionToolbar = QToolBar(_("Caption Toolbar"))

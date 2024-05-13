@@ -44,7 +44,7 @@ from PyQt5.QtGui import QFontDatabase, QColor, QIcon, QFont, QFontInfo
 from PyQt5.QtWidgets import (
     QWidget,
     QMessageBox, QDialog, QColorDialog, QFontDialog,
-    QPushButton, QLineEdit, QLabel
+    QPushButton, QLineEdit, QLabel, QDialogButtonBox
 )
 
 import openshot
@@ -89,6 +89,20 @@ class TitleEditor(QDialog):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Set up the buttons
+        self.buttonBox = QDialogButtonBox(QDialogButtonBox.Save | QDialogButtonBox.Cancel)
+        self.saveButton = self.buttonBox.button(QDialogButtonBox.Save)
+        self.cancelButton = self.buttonBox.button(QDialogButtonBox.Cancel)
+
+        # Set object names (for theme styles)
+        self.saveButton.setObjectName("acceptButton")
+        self.cancelButton.setObjectName("cancelButton")
+        self.layout().addWidget(self.buttonBox)
+
+        # Connect the buttons
+        self.saveButton.clicked.connect(self.accept)
+        self.cancelButton.clicked.connect(self.reject)
 
         # Track metrics
         track_metric_screen("title-screen")

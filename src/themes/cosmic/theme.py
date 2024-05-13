@@ -27,7 +27,7 @@
 
 from ..base import BaseTheme
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTabWidget
+from PyQt5.QtWidgets import QTabWidget, QWidget
 
 
 class CosmicTheme(BaseTheme):
@@ -60,7 +60,7 @@ QTabWidget {
 QMenuBar {
     background-color: #283241;
     color: #91C3FF;
-    padding: 6px;
+    padding: 0px;
     border: none;
 }
 
@@ -102,8 +102,9 @@ QToolBar#toolBar {
 
 QToolBar#toolBar QToolButton {
     background-color: #283241;
-    margin: 2px;
-    padding: 4px;
+    color: #91C3FF;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 QToolBar#toolBar QToolButton:hover {
@@ -114,19 +115,74 @@ QToolBar#toolBar QToolButton:pressed {
     background-color: #323C50;
 }
 
-QToolBar QToolButton {
-    color: #91C3FF;
-    padding: 6px;
-    padding-left: 8px;
-    padding-right: 10px;
-}
-
 QToolBar QToolButton:hover {
     background-color: #192332;
 }
 
 QToolBar QToolButton:pressed {
     background-color: #192332;
+}
+
+QToolBar#timelineToolbar {
+    background-color: #192332;
+    spacing: 0px;
+    padding: 0px;
+    border: none;
+}
+
+QToolBar#timelineToolbar QToolButton {
+    color: #91C3FF;
+    background-color: #141923;
+    padding: 8px;
+    margin-bottom: 4px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 4px;
+}
+
+QToolBar#timelineToolbar QToolButton:hover {
+    background-color: #283241;
+}
+
+QToolBar#timelineToolbar QToolButton:pressed {
+    background-color: #283241;
+}
+
+QToolBar#timelineToolbar QToolButton:checked {
+    background-color: #141923;
+}
+
+QPushButton#acceptButton {
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    background-color: #0078FF;
+    color: #FFFFFF;
+}
+
+QPushButton#acceptButton:hover {
+    background-color: #006EE6;
+}
+
+QPushButton {
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    background-color: #192332;
+    color: #91C3FF;
+}
+
+QPushButton:hover {
+    background-color: #283241 
+}
+
+QMessageBox QPushButton[text="&Yes"] {
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    background-color: #0078FF;
+    color: #FFFFFF;
+}
+
+QWidget#settingsContainer {
+    background-color: #141923;
 }
 
 QDockWidget {
@@ -157,7 +213,6 @@ QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#
 }
 
 QDockWidget QWidget#dockTimelineContents {
-    background-color: #141923;
     border-radius: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -296,15 +351,22 @@ QListView {
     foreground-color: #0078FF
     background-color: #283241;
 }
+
+.zoom_slider_playhead {
+    background-color: #FABE0A;
+}
         """
 
     def apply_theme(self):
         super().apply_theme()
 
+        from classes.app import get_app
         from classes import ui_util
         from classes.logger import log
         from PyQt5.QtWidgets import QStyleFactory
         from PyQt5.QtGui import QFont
+
+        _ = get_app()._tr
 
         log.info("Setting Fusion dark palette")
         self.app.setStyle(QStyleFactory.create("Fusion"))
@@ -325,6 +387,35 @@ QListView {
 
         # Apply new stylesheet
         self.app.setStyleSheet(self.style_sheet)
+
+        # Create a transparent spacer widget
+        spacer = QWidget(self.app.window)
+        spacer.setFixedSize(15, 1)
+        spacer.setStyleSheet("background: transparent;")
+
+        # Main toolbar buttons
+        toolbar_buttons = [
+            {"action": self.app.window.actionNew, "icon": "themes/cosmic/images/tool-new-project.svg", "style": Qt.ToolButtonTextBesideIcon},
+            {"action": self.app.window.actionOpen, "icon": "themes/cosmic/images/tool-open-project.svg", "style": Qt.ToolButtonTextBesideIcon},
+            {"action": self.app.window.actionProfile, "icon": "themes/cosmic/images/tool-profile.svg", "style": Qt.ToolButtonTextBesideIcon},
+            {"expand": True},
+            {"action": self.app.window.actionSave, "icon": "themes/cosmic/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
+            {"action": self.app.window.actionExportVideo, "icon": "themes/cosmic/images/tool-export.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background-color: #0078FF; color: #FFFFFF; }"},
+        ]
+        self.set_toolbar_buttons(self.app.window.toolBar, icon_size=20, settings=toolbar_buttons)
+
+        # Timeline toolbar buttons
+        timeline_buttons = [
+            {"action": self.app.window.actionAddTrack, "icon": "themes/cosmic/images/tool-add-track.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { margin-left: 15px; }"},
+            {"action": self.app.window.actionUndo, "icon": "themes/cosmic/images/tool-undo.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
+            {"action": self.app.window.actionRedo, "icon": "themes/cosmic/images/tool-redo.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},
+            {"action": self.app.window.actionSnappingTool, "icon": "themes/cosmic/images/tool-snapping.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
+            {"action": self.app.window.actionRazorTool, "icon": "themes/cosmic/images/tool-razor.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},
+            {"action": self.app.window.actionCenterOnPlayhead, "icon": "themes/cosmic/images/tool-center-playhead.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QWidget { margin-right: 10px; }"},
+            {"widget": self.app.window.sliderZoomWidget},
+            {"widget": spacer}
+        ]
+        self.set_toolbar_buttons(self.app.window.timelineToolbar, icon_size=12, settings=timeline_buttons)
 
         # Apply timeline theme
         self.app.window.timeline.apply_theme("""
@@ -381,6 +472,9 @@ QListView {
               height: 48px;
               min-height: 48px;
               display: flex;
+            }
+            .clip_label {
+              text-shadow: 1px 1px 1px black;
             }
             .clip_top {
               background: none;

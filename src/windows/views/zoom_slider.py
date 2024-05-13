@@ -38,6 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import updates
 from classes.app import get_app
 from classes.query import Clip, Track, Transition, Marker
+from themes.manager import ThemeManager
 
 
 class ZoomSlider(QWidget, updates.UpdateInterface):
@@ -106,6 +107,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """ Custom paint event """
         event.accept()
 
+        # Get theme colors
+        theme = ThemeManager().get_current_theme()
+        playhead_color = theme.get_color(".zoom_slider_playhead", "background-color")
+
         # Paint timeline preview on QWidget
         painter = QPainter(self)
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
@@ -130,8 +135,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         marker_pen = QPen(QBrush(marker_color), 1.0)
         marker_pen.setCosmetic(True)
 
-        playhead_color = QColor(Qt.red)
-        playhead_color.setAlphaF(0.5)
+        playhead_color = playhead_color
         playhead_pen = QPen(QBrush(playhead_color), 1.0)
         playhead_pen.setCosmetic(True)
 

@@ -27,9 +27,9 @@
 import os
 import re
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QTabWidget, QWidget
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtWidgets import QTabWidget, QWidget, QSizePolicy
 
 from themes.manager import ThemeManager
 
@@ -77,6 +77,57 @@ class BaseTheme:
                             # Set content margins on the QDock Layout (which has additional margins)
                             child.layout().setContentsMargins(*layout_margins)
 
+    def set_toolbar_buttons(self, toolbar, icon_size=24, settings=[]):
+        """Iterate through toolbar button settings, and apply them to each button.
+        [{"text": "", "icon": ""},...]
+        """
+        # List of colors for demonstration
+        toolbar.clear()
+
+        # Set icon size
+        toolbar.setIconSize(QSize(icon_size, icon_size))
+
+        for setting in settings:
+            # Button settings
+            button_action = setting.get("action", None)
+            button_icon = setting.get("icon", None)
+            button_style = setting.get("style", None)
+            button_stylesheet = setting.get("stylesheet", None)
+            widget = setting.get("widget", None)
+            expand = setting.get("expand", False)
+            divide = setting.get("divide", False)
+
+            if expand:
+                # Add spacer and 'New Version Available' toolbar button (default hidden)
+                spacer = QWidget(toolbar)
+                spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+                toolbar.addWidget(spacer)
+                continue
+
+            if divide:
+                # Create a divider
+                toolbar.addSeparator()
+                continue
+
+            if widget:
+                widget.setVisible(True)
+                if button_stylesheet:
+                    widget.setStyleSheet(button_stylesheet)
+                toolbar.addWidget(widget)
+                continue
+
+            # Create button from action
+            if button_action:
+                toolbar.addAction(button_action)
+                button = toolbar.widgetForAction(button_action)
+                if button_icon:
+                    button_action.setIcon(QIcon(button_icon))
+                if button_style:
+                    button.setToolButtonStyle(button_style)
+                if button_stylesheet:
+                    button.setStyleSheet(button_stylesheet)
+
+
     def apply_theme(self):
         # Get initial style and palette
         manager = ThemeManager()
@@ -114,3 +165,39 @@ class BaseTheme:
 
         # Move tabs to bottom
         self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.South)
+
+        # Main toolbar buttons
+        toolbar_buttons = [
+            {"action": self.app.window.actionNew, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionOpen, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionSave, "style": Qt.ToolButtonIconOnly},
+            {"divide": True},
+            {"action": self.app.window.actionUndo, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionRedo, "style": Qt.ToolButtonIconOnly},
+            {"divide": True},
+            {"action": self.app.window.actionImportFiles, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionProfile, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionFullscreen, "style": Qt.ToolButtonIconOnly},
+            {"divide": True},
+            {"action": self.app.window.actionExportVideo, "style": Qt.ToolButtonIconOnly},
+        ]
+        self.set_toolbar_buttons(self.app.window.toolBar, icon_size=24, settings=toolbar_buttons)
+
+        # Timeline toolbar buttons
+        timeline_buttons = [
+            {"action": self.app.window.actionAddTrack, "style": Qt.ToolButtonIconOnly},
+            {"divide": True},
+            {"action": self.app.window.actionSnappingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/snap.svg"},
+            {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
+            {"divide": True},
+            {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionPreviousMarker, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionNextMarker, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionCenterOnPlayhead, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/center-on-playhead.svg"},
+            {"divide": True},
+            {"widget": self.app.window.sliderZoomWidget}
+        ]
+        self.set_toolbar_buttons(self.app.window.timelineToolbar, icon_size=24, settings=timeline_buttons)
+
+        # Init icons from theme name
+        ui_util.init_ui(self.app.window)

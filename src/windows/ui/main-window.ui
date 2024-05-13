@@ -212,18 +212,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew"/>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
-   <addaction name="separator"/>
-   <addaction name="actionUndo"/>
-   <addaction name="actionRedo"/>
-   <addaction name="separator"/>
-   <addaction name="actionImportFiles"/>
-   <addaction name="actionProfile"/>
-   <addaction name="actionFullscreen"/>
-   <addaction name="separator"/>
-   <addaction name="actionExportVideo"/>
   </widget>
   <widget class="QDockWidget" name="dockFiles">
    <property name="sizePolicy">
@@ -884,10 +872,10 @@
      <normaloff>:/icons/Humanity/actions/16/edit-cut.svg</normaloff>:/icons/Humanity/actions/16/edit-cut.svg</iconset>
    </property>
    <property name="text">
-    <string>Razor Tool</string>
+    <string>Enable Razor</string>
    </property>
    <property name="toolTip">
-    <string>Razor Tool</string>
+    <string>Enable Razor</string>
    </property>
    <property name="shortcut">
     <string>R</string>
@@ -905,10 +893,10 @@
      <normaloff>:/icons/Humanity/actions/custom/snap.svg</normaloff>:/icons/Humanity/actions/custom/snap.svg</iconset>
    </property>
    <property name="text">
-    <string>Snapping Enabled</string>
+    <string>Disable Snapping</string>
    </property>
    <property name="toolTip">
-    <string>Snapping Enabled</string>
+    <string>Disable Snapping</string>
    </property>
   </action>
   <action name="actionAddMarker">

@@ -253,10 +253,26 @@ def connect_auto_events(window, elem, name):
     if hasattr(elem, 'trigger'):
         func_name = name + "_trigger"
         if hasattr(window, func_name) and callable(getattr(window, func_name)):
+            # Disconnect existing connections safely
+            try:
+                while True:
+                    elem.triggered.disconnect()
+            except TypeError:
+                pass  # No more connections to disconnect
+            # Connect the signal to the slot
             elem.triggered.connect(getattr(window, func_name))
+
+    # Similar approach for clicked signal
     if hasattr(elem, 'click'):
         func_name = name + "_click"
         if hasattr(window, func_name) and callable(getattr(window, func_name)):
+            # Disconnect existing connections safely
+            try:
+                while True:
+                    elem.clicked.disconnect()
+            except TypeError:
+                pass  # No more connections to disconnect
+            # Connect the signal to the slot
             elem.clicked.connect(getattr(window, func_name))
 
 
