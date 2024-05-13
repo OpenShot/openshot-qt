@@ -33,6 +33,10 @@ from PyQt5.QtWidgets import QTabWidget, QWidget
 class CosmicTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
+
+        from classes.app import get_app
+        _ = get_app()._tr
+
         self.style_sheet = """
 QMainWindow {
     background-color: #192332;
@@ -172,13 +176,6 @@ QPushButton {
 
 QPushButton:hover {
     background-color: #283241 
-}
-
-QMessageBox QPushButton[text="&Yes"] {
-    padding: 8px 16px 8px 12px;
-    border-radius: 4px;
-    background-color: #0078FF;
-    color: #FFFFFF;
 }
 
 QWidget#settingsContainer {
@@ -356,6 +353,14 @@ QListView {
     background-color: #FABE0A;
 }
         """
+        self.style_sheet = f"""
+QMessageBox QPushButton[text="&{_('Yes')}"] {{
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    background-color: #0078FF;
+    color: #FFFFFF;
+}}
+        """ + self.style_sheet
 
     def apply_theme(self):
         super().apply_theme()
