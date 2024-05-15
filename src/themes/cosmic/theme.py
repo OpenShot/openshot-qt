@@ -278,6 +278,28 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     background: transparent;
 }
 
+QScrollBar:horizontal {
+    border: none;
+    background: transparent;
+    height: 8px;
+}
+
+QScrollBar::handle:horizontal {
+    background: rgba(145, 195, 255, 51);
+    border-radius: 4px;
+    min-width: 20px;
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;
+    border: none;
+    background: transparent;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: transparent;
+}
+
 QComboBox {
     background-color: #121212;
     color: #FFFFFF;
@@ -341,6 +363,26 @@ QTreeView {
 }
 
 QListView {
+    background-color: #141923;
+}
+
+QWidget#Details, QWidget#Output {
+    background-color: #141923;
+}
+
+QWidget#Output QTextEdit {
+    color: #91C3FF;
+}
+
+QToolBox::tab {
+    color: #91C3FF;
+}
+
+QTabWidget QWidget#pageAdvancedOptions, QWidget#pageProfile, QWidget#pageImageSequenceSettings, QWidget#pageVideoSettings, QWidget#pageAudioSettings {
+    background-color: #141923;
+}
+
+QTabWidget QWidget#pageVideoDetails, QWidget#pageVideoFormat, QWidget#pageAudioFormat, QWidget#pageFrameSettings {
     background-color: #141923;
 }
 
