@@ -164,7 +164,7 @@ function secondsToTime(secs, fps_num, fps_den) {
 }
 
 // Find the closest track number (based on a Y coordinate)
-function findTrackAtLocation(scope, top) {
+function findTrackAtLocation(scope, mouseY) {
   var closestTrack = null;
   var minDistance = Infinity;
 
@@ -174,7 +174,9 @@ function findTrackAtLocation(scope, top) {
 
     // Consider only unlocked tracks
     if (!layer.lock) {
-      var distance = Math.abs(top - layer.y);
+      // Assuming each layer has a height property
+      var layerCenterY = layer.y + (layer.height / 2);
+      var distance = Math.abs(mouseY - layerCenterY);
 
       // Update if this layer is closer than the previous closest
       if (distance < minDistance) {
@@ -186,6 +188,7 @@ function findTrackAtLocation(scope, top) {
 
   return closestTrack;
 }
+
 
 // Find the closest track number (based on a Y coordinate)
 function hasLockedTrack(scope, top, bottom) {
@@ -303,7 +306,7 @@ function setBoundingBox(scope, item, item_type="clip") {
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip") {
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip", cursor_offset= {top: 0}) {
   let scrolling_tracks = $("#scrolling_tracks");
 
   // Store result of snapping logic (left, top)
@@ -350,7 +353,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   }
 
   // Find the nearest track based on the adjusted top position
-  var nearest_track = findTrackAtLocation(scope, bounding_box.top);
+  var nearest_track = findTrackAtLocation(scope, bounding_box.top + cursor_offset.top);
   if (nearest_track !== null) {
     var track_offset = nearest_track.y - bounding_box.top;
 

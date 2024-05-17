@@ -281,6 +281,14 @@ App.directive("tlClip", function ($timeout) {
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
 
+          // Store initial cursor vs draggable offset
+          var elementOffset = $(this).offset();
+          var cursorOffset = {
+              left: event.pageX - elementOffset.left,
+              top: event.pageY - elementOffset.top
+          };
+          $(this).data('offset', cursorOffset);
+
           var scrolling_tracks = $("#scrolling_tracks");
           var vert_scroll_offset = scrolling_tracks.scrollTop();
           var horz_scroll_offset = scrolling_tracks.scrollLeft();
@@ -319,6 +327,9 @@ App.directive("tlClip", function ($timeout) {
           scope.setDragging(false);
         },
         drag: function (e, ui) {
+          // Retrieve the initial cursor offset
+          var initialOffset = $(this).data('offset');
+
           var previous_x = ui.originalPosition.left;
           var previous_y = ui.originalPosition.top;
           if (previous_drag_position !== null) {
@@ -335,7 +346,7 @@ App.directive("tlClip", function ($timeout) {
           var y_offset = ui.position.top - previous_y;
 
           // Move the bounding box and apply snapping rules
-          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
+          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top, item_type="clip",cursor_offset=initialOffset);
           x_offset = results.x_offset;
           y_offset = results.y_offset;
 

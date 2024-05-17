@@ -863,7 +863,7 @@ App.controller("TimelineCtrl", function ($scope) {
     // Adjust for scrollbar position
     var scrolling_tracks = $("#scrolling_tracks");
     var scrolling_tracks_offset_top = scrolling_tracks.offset().top;
-    y += scrolling_tracks.scrollTop();
+    y += scrolling_tracks.scrollTop() - scrolling_tracks_offset_top;
 
       // Get the nearest track
       var nearest_track = findTrackAtLocation($scope, y);
@@ -1002,7 +1002,7 @@ $scope.moveItem = function (x, y) {
 
   // Update the element's position
   if (bounding_box.element) {
-    bounding_box.element.css("left", results.position.left + "px"); // Ensure units (px) are included for clarity
+    bounding_box.element.css("left", results.position.left + "px");
     bounding_box.element.css("top", results.position.top + "px");
   }
 };
@@ -1020,6 +1020,7 @@ $scope.updateLayerIndex = function () {
     if (layer_elem.length) {
       // Update the top offset relative to the scrolling_tracks
       layer.y = layer_elem.offset().top - scrolling_tracks_offset + scrolling_tracks.scrollTop();
+      layer.height = layer_elem.outerHeight();
     }
   }
 
