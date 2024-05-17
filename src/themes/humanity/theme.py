@@ -39,8 +39,12 @@ QToolTip {
 }
 
 .property_value {
-    foreground-color: #217dd4
+    foreground-color: #217dd4;
     background-color: #565656;
+}
+
+.zoom_slider_playhead {
+    background-color: #ff0024;
 }
 
 .video_widget {
@@ -70,8 +74,12 @@ class Fresh(BaseTheme):
         super().__init__(app)
         self.style_sheet = """
 .property_value {
-    foreground-color: #217dd4
+    foreground-color: #217dd4;
     background-color: #7f7f7f;
+}
+
+.zoom_slider_playhead {
+    background-color: #ff0024;
 }
 
 .video_widget {

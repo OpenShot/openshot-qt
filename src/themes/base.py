@@ -38,7 +38,7 @@ class BaseTheme:
     def __init__(self, app):
         self.style_sheet = """
 .property_value {
-    foreground-color: #b3b3b3
+    foreground-color: #b3b3b3;
     background-color: #343434;
 }
         """
@@ -47,13 +47,10 @@ class BaseTheme:
     def get_color(self, class_name, property_name):
         """Return a QColor from a stylesheet class and property."""
         # Regex to find the class and property with a color for more complex properties
-        pattern = rf"{re.escape(class_name)}\s*\{{[^}}]*?\b{re.escape(property_name)}:[^;]*?#([0-9a-fA-F]{{6}})[^;}}]*;"
+        pattern = rf"{re.escape(class_name)}\s*{{[^}}]*?{re.escape(property_name)}:\s*(#.*);"
         match = re.search(pattern, self.style_sheet, re.IGNORECASE)
         if match:
             color_code = match.group(1).strip()
-            if not color_code.startswith("#"):
-                color_code = f"#{color_code}"
-            # Check for color validity and return QColor
             if QColor(color_code).isValid():
                 return QColor(color_code)
         return QColor("black")

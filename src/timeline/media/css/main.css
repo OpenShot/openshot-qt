@@ -201,29 +201,35 @@ img {
   position: absolute;
   height: 316px;
   top: 0;
-  width: 1px;
+  width: 2px;
   background-color: #ff0024;
   opacity: 1;
+  margin: -1px;
 }
 
 .playhead-top {
   cursor: move;
   z-index: 9999;
   position: absolute;
-  margin-left: -12px;
-  margin-top: 12px;
-  width: 25px;
-  height: 32px;
-  background-image: url(../images/play_head.png);
+  margin-left: -6px;
+  margin-top: 20px;
+  width: 12px;
+  height: 188px;
+  background-image: url(../images/playhead.svg);
   opacity: 1;
 }
 
 .marker_icon {
+  cursor: pointer;
+  background-image: url(../images/markers/marker.svg);
+  background-color: transparent;
   position: absolute;
   bottom: 0;
-  margin-left: -6px;
-  width: 12px;
-  height: 14px;
+  margin-left: -4px;
+  width: 8px;
+  height: 10px;
+  border: none;
+  outline: none;
 }
 
 /* Clips */

@@ -784,6 +784,16 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
+// Show marker context menu
+  $scope.selectMarker = function (marker) {
+    var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+    var marker_position_frames = marker.position * frames_per_second;
+
+    if ($scope.Qt) {
+      timeline.SeekToKeyframe(marker_position_frames)
+    }
+  };
+
   // Show playhead context menu
   $scope.showPlayheadMenu = function (position) {
     if ($scope.Qt && !$scope.enable_razor) {
@@ -1347,19 +1357,6 @@ $scope.updateLayerIndex = function () {
     } else {
       return unselected_zindex + index;
     }
-  };
-
-  $scope.markerPath = function(marker) {
-    var dir = "media/images/markers";
-    var marker_file;
-    if(marker.hasOwnProperty("vector")) {
-      marker_file = `${marker.vector}.svg`;
-    } else if(marker.icon === "blue.png") {
-      marker_file = "blue.svg";
-    } else {
-      marker_file = marker.icon;
-    }
-    return `${dir}/${marker_file}`;
   };
 
   // Apply JSON diff from UpdateManager (this is how the user interface communicates changes

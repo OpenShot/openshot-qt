@@ -56,7 +56,7 @@
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
-				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="showMarkerMenu(marker.id)" ng-style="{'left': marker.position * pixelsPerSecond + 'px'}" class="marker_icon" ng-src="{{markerPath(marker)}}" draggable="false"/>
+				<span ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-click="selectMarker(marker)" ng-right-click="showMarkerMenu(marker.id)" ng-style="{'left': marker.position * pixelsPerSecond + 'px'}" class="marker_icon" draggable="false"/>
 			</span>
 			<br class="cleared">
 			
