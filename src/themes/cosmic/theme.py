@@ -394,6 +394,10 @@ QTabWidget QWidget#pageVideoDetails, QWidget#pageVideoFormat, QWidget#pageAudioF
 .zoom_slider_playhead {
     background-color: #FABE0A;
 }
+
+.video_widget {
+    background-color: #141923;
+}
         """
         self.style_sheet = f"""
 QMessageBox QPushButton[text="&{_('Yes')}"] {{

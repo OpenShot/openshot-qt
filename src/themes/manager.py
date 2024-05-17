@@ -30,8 +30,7 @@ from enum import Enum
 
 class ThemeName(Enum):
     """Friendly UI theme names used in settings"""
-    NO_THEME = "No Theme"
-    HUMANITY_LIGHT = "Humanity"
+    FRESH = "Fresh"
     HUMANITY_DARK = "Humanity: Dark"
     COSMIC = "Cosmic Dusk"
 
@@ -46,7 +45,7 @@ class ThemeName(Enum):
         for theme in ThemeName:
             if theme.value == name:
                 return theme
-        return ThemeName.NO_THEME
+        return ThemeName.HUMANITY_DARK
 
 
 class ThemeManager:
@@ -68,17 +67,19 @@ class ThemeManager:
         if theme_name == ThemeName.HUMANITY_DARK:
             from themes.humanity.theme import HumanityDarkTheme
             self.current_theme = HumanityDarkTheme(self.app)
-        elif theme_name == ThemeName.HUMANITY_LIGHT:
-            from themes.humanity.theme import HumanityLightTheme
-            self.current_theme = HumanityLightTheme(self.app)
+        elif theme_name == ThemeName.FRESH:
+            from themes.humanity.theme import Fresh
+            self.current_theme = Fresh(self.app)
         elif theme_name == ThemeName.COSMIC:
             from themes.cosmic.theme import CosmicTheme
             self.current_theme = CosmicTheme(self.app)
-        else:
-            from themes.base import BaseTheme
-            self.current_theme = BaseTheme(self.app)
 
+        # Set name on theme instance
+        self.current_theme.name = theme_name.value
+
+        # Apply theme
         self.current_theme.apply_theme()
+        return self.current_theme
 
     def get_current_theme(self):
         """Return the current theme instance, or None if no theme is applied."""

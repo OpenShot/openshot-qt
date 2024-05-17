@@ -42,6 +42,10 @@ QToolTip {
     foreground-color: #217dd4
     background-color: #565656;
 }
+
+.video_widget {
+    background-color: #191919;
+}
         """
 
     def apply_theme(self):
@@ -61,13 +65,17 @@ QToolTip {
         self.app.window.timeline.apply_theme("")
 
 
-class HumanityLightTheme(BaseTheme):
+class Fresh(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
 .property_value {
     foreground-color: #217dd4
     background-color: #7f7f7f;
+}
+
+.video_widget {
+    background-color: #dedede;
 }
         """
 

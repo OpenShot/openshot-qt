@@ -254,7 +254,10 @@ class OpenShotApp(QApplication):
         # Instantiate Theme Manager (Singleton)
         from themes.manager import ThemeManager, ThemeName
         theme_enum = ThemeName.find_by_name(self.settings.get("theme"))
-        ThemeManager(self).apply_theme(theme_enum)
+        theme = ThemeManager(self).apply_theme(theme_enum)
+
+        # Update theme in settings
+        self.settings.set("theme", theme.name)
 
         # Check for gui launch failures
         if self.mode == "quit":
