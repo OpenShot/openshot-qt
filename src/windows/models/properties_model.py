@@ -516,9 +516,19 @@ class PropertiesModel(updates.UpdateInterface):
                 # Check the type of property (some are keyframe, and some are not)
                 if property_type != "reader" and isinstance(clip_data[property_key], dict):
                     # Keyframe
+
                     # Protection from HUGE scale values
                     if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y']:
-                        new_value = max(min(new_value, 20), -20)
+                        width = clip_data.get("reader", {}).get("width", 0)
+                        height = clip_data.get("reader", {}).get("height", 0)
+                        max_multiple = 20
+                        if width > 0 and height > 0:
+                            # Calculate a scale multiple based on the dimensions
+                            # i.e. smaller images can scale larger, larger images can scale less
+                            max_multiple = round((2000 * 20) / max(width, height))
+
+                        # Apply the calculated max_multiple to new_value
+                        new_value = max(min(new_value, max_multiple), -max_multiple)
 
                     # Loop through points, find a matching points on this frame
                     found_point = False
