@@ -1006,6 +1006,30 @@
     <string>Clear</string>
    </property>
   </action>
+  <action name="actionRemoveGap">
+   <property name="icon">
+    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Gap</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Gap</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllGaps">
+   <property name="icon">
+    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove All Gaps</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove All Gaps</string>
+   </property>
+  </action>
   <action name="actionTransitionsShowAll">
    <property name="checkable">
     <bool>true</bool>

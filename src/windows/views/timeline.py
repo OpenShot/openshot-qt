@@ -456,8 +456,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         return menu.exec_(QCursor.pos())
 
     @pyqtSlot(float, int)
-    def ShowTimelineMenu(self, position, layer_id):
-        log.debug('ShowTimelineMenu: position: %s, layer: %s' % (position, layer_id))
+    def ShowTimelineMenu(self, position, layer_number):
+        log.debug('ShowTimelineMenu: position: %s, layer: %s' % (position, layer_number))
 
         # Get translation method
         _ = get_app()._tr
@@ -480,7 +480,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Combine and sort the clips and transitions by their position
         clips_and_transitions = sorted(
-            Clip.filter(layer=layer_id) + Transition.filter(layer=layer_id),
+            Clip.filter(layer=layer_number) + Transition.filter(layer=layer_number),
             key=lambda c: c.data.get("position", 0.0)
         )
 
@@ -503,7 +503,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             return
 
         # Get track object (ignore locked tracks)
-        track = Track.get(number=layer_id)
+        track = Track.get(number=layer_number)
         if not track:
             return
         locked = track.data.get("lock", False)
@@ -515,9 +515,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         if found_gap:
             # Add 'Remove Gap' Menu
-            Remove_Gap = menu.addAction(_("Remove Gap"))
-            Remove_Gap.triggered.connect(
-                partial(self.RemoveGap_Triggered, found_start, found_end, int(layer_id))
+            menu.addAction(self.window.actionRemoveGap)
+            try:
+                # Disconnect any previous connections
+                self.window.actionRemoveGap.triggered.disconnect()
+            except TypeError:
+                pass  # No previous connections
+            self.window.actionRemoveGap.triggered.connect(
+                partial(self.RemoveGap_Triggered, found_start, found_end, int(layer_number))
             )
         if have_clipboard and found_gap:
             menu.addSeparator()
@@ -526,7 +531,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Paste_Clip = menu.addAction(_("Paste"))
             Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
             Paste_Clip.triggered.connect(
-                partial(self.Paste_Triggered, MenuCopy.PASTE, float(position), int(layer_id), [], [])
+                partial(self.Paste_Triggered, MenuCopy.PASTE, float(position), int(layer_number), [], [])
             )
 
         # Show menu
@@ -1589,19 +1594,61 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             elif action == MenuCopy.KEYFRAMES_CONTRAST:
                 self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
 
-    def RemoveGap_Triggered(self, found_start, found_end, layer_id):
+    def RemoveGap_Triggered(self, found_start, found_end, layer_number):
         """Callback for removing gap context menus"""
-        log.info(f"Removing gap from {found_start} to {found_end} on layer {layer_id}")
+        log.info(f"Removing gap from {found_start} to {found_end} on layer {layer_number}")
 
         # Start transaction
         tid = str(uuid.uuid4())
         get_app().updates.transaction_id = tid
 
         gap_size = found_end - found_start
-        for clip in Clip.filter(layer=layer_id) + Transition.filter(layer=layer_id):
+        for clip in Clip.filter(layer=layer_number) + Transition.filter(layer=layer_number):
             if clip.data.get("position", 0.0) > found_start:
                 clip.data["position"] -= gap_size
                 clip.save()
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
+
+    def RemoveAllGaps_Triggered(self, found_start, layer_number):
+        """Callback for removing all gaps on a layer starting from the detected gap"""
+        log.info(f"Removing all gaps on layer {layer_number} starting from {found_start}")
+
+        # Start transaction
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = tid
+
+        # Combine and sort the clips and transitions by their position
+        clips_and_transitions = sorted(
+            Clip.filter(layer=layer_number) + Transition.filter(layer=layer_number),
+            key=lambda c: c.data.get("position", 0.0)
+        )
+
+        # Variable to track the end of the last clip/transition
+        last_end = found_start
+
+        # List to track modified clips for saving
+        modified_clips = []
+
+        # Iterate through the sorted list and remove gaps
+        for clip in clips_and_transitions:
+            left_edge = clip.data.get("position", 0.0)
+            right_edge = left_edge + (clip.data.get("end", 0.0) - clip.data.get("start", 0.0))
+
+            # Check if there is a gap between the end of the last clip/transition and the start of the current one
+            if left_edge > last_end:
+                gap_size = left_edge - last_end
+                clip.data["position"] -= gap_size
+                modified_clips.append(clip)
+                log.info(f"Removing gap from {last_end} to {left_edge} on layer {layer_number}")
+                last_end = right_edge - gap_size
+            else:
+                last_end = max(last_end, right_edge)
+
+        # Save only the modified clips
+        for clip in modified_clips:
+            clip.save()
 
         # Clear transaction id
         get_app().updates.transaction_id = None
@@ -2745,6 +2792,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def ShowTrackMenu(self, layer_id=None):
         log.info('ShowTrackMenu: %s', layer_id)
 
+        # Get translation method
+        _ = get_app()._tr
+
         # Get track object
         track = Track.get(id=layer_id)
         if not track:
@@ -2753,12 +2803,53 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if layer_id not in self.window.selected_tracks:
             self.window.selected_tracks = [layer_id]
 
+        # Find gaps on this track (if any)
+        found_gap = False
+        first_gap_start = 0.0
+        layer_number = track.data.get("number", 0)
+
+        # Combine and sort the clips and transitions by their position
+        clips_and_transitions = sorted(
+            Clip.filter(layer=layer_number) + Transition.filter(layer=layer_number),
+            key=lambda c: c.data.get("position", 0.0)
+        )
+
+        # Variable to track the end of the last clip/transition
+        last_end = 0.0
+
+        # Loop through the combined and sorted list
+        for clip in clips_and_transitions:
+            left_edge = clip.data.get("position", 0.0)
+            right_edge = left_edge + (clip.data.get("end", 0.0) - clip.data.get("start", 0.0))
+
+            # Check if there is a gap between the end of the last clip/transition and the start of the current one
+            if left_edge > last_end:
+                found_gap = True
+                first_gap_start = last_end
+                break  # Stop once the first gap is found
+
+            # Update the end of the last clip/transition
+            last_end = max(last_end, right_edge)
+
+        # Is track locked?
         locked = track.data.get("lock", False)
 
         menu = StyledContextMenu(parent=self)
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
+        if found_gap:
+            # Add 'Remove Gap' Menu
+            log.info(f"Found gap at {first_gap_start}")
+            menu.addAction(self.window.actionRemoveAllGaps)
+            try:
+                # Disconnect any previous connections
+                self.window.actionRemoveAllGaps.triggered.disconnect()
+            except TypeError:
+                pass  # No previous connections
+            self.window.actionRemoveAllGaps.triggered.connect(
+                partial(self.RemoveAllGaps_Triggered, first_gap_start, int(layer_number))
+            )
         if locked:
             menu.addAction(self.window.actionUnlockTrack)
             self.window.actionRemoveTrack.setEnabled(False)
