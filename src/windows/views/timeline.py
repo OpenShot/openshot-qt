@@ -473,16 +473,55 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             and (len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0)
         )
 
-        if not have_clipboard:
-            return
+        # Initialize variables to track the found gap
+        found_start = 0.0
+        found_end = float('inf')
+        found_gap = False
 
-        menu = StyledContextMenu(parent=self)
-        Paste_Clip = menu.addAction(_("Paste"))
-        Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
-        Paste_Clip.triggered.connect(
-            partial(self.Paste_Triggered, MenuCopy.PASTE, float(position), int(layer_id), [], [])
+        # Combine and sort the clips and transitions by their position
+        clips_and_transitions = sorted(
+            Clip.filter(layer=layer_id) + Transition.filter(layer=layer_id),
+            key=lambda c: c.data.get("position", 0.0)
         )
 
+        # Loop through the combined and sorted list
+        for clip in clips_and_transitions:
+            left_edge = clip.data.get("position", 0.0)
+            right_edge = left_edge + (clip.data.get("end", 0.0) - clip.data.get("start", 0.0))
+
+            # Check if the current clip starts after the found_end, indicating a gap
+            if left_edge > found_start and left_edge > position:
+                found_end = left_edge
+                found_gap = True
+                break  # Found the first gap after the given position
+
+            # Update the found_start to the end of the current clip
+            found_start = max(found_start, right_edge)
+
+        # Don't show context menu
+        if not have_clipboard and not found_gap:
+            return
+
+        # New context menu
+        menu = StyledContextMenu(parent=self)
+
+        if found_gap:
+            # Add 'Remove Gap' Menu
+            Remove_Gap = menu.addAction(_("Remove Gap"))
+            Remove_Gap.triggered.connect(
+                partial(self.RemoveGap_Triggered, found_start, found_end, int(layer_id))
+            )
+        if have_clipboard and found_gap:
+            menu.addSeparator()
+        if have_clipboard:
+            # Add 'Paste' Menu
+            Paste_Clip = menu.addAction(_("Paste"))
+            Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
+            Paste_Clip.triggered.connect(
+                partial(self.Paste_Triggered, MenuCopy.PASTE, float(position), int(layer_id), [], [])
+            )
+
+        # Show menu
         return menu.exec_(QCursor.pos())
 
     @pyqtSlot(str)
@@ -1541,6 +1580,23 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
             elif action == MenuCopy.KEYFRAMES_CONTRAST:
                 self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
+
+    def RemoveGap_Triggered(self, found_start, found_end, layer_id):
+        """Callback for removing gap context menus"""
+        log.info(f"Removing gap from {found_start} to {found_end} on layer {layer_id}")
+
+        # Start transaction
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = tid
+
+        gap_size = found_end - found_start
+        for clip in Clip.filter(layer=layer_id) + Transition.filter(layer=layer_id):
+            if clip.data.get("position", 0.0) > found_start:
+                clip.data["position"] -= gap_size
+                clip.save()
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
 
     def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
         """Callback for paste context menus"""
