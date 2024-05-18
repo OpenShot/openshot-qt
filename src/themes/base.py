@@ -31,6 +31,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QColor, QIcon
 from PyQt5.QtWidgets import QTabWidget, QWidget, QSizePolicy
 
+from classes import ui_util
 from themes.manager import ThemeManager
 
 
@@ -198,3 +199,10 @@ class BaseTheme:
 
         # Init icons from theme name
         ui_util.init_ui(self.app.window)
+
+    def togglePlayIcon(self, isPlay):
+        """ Toggle the play icon from play to pause and back """
+        if not isPlay:
+            ui_util.setup_icon(self.app.window, self.app.window.actionPlay, "actionPlay")
+        else:
+            ui_util.setup_icon(self.app.window, self.app.window.actionPlay, "actionPlay", "media-playback-pause")

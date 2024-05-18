@@ -1086,7 +1086,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def onPlayCallback(self):
         """Handle when playback is started"""
         # Set icon on Play button
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+        if self.initialized:
+            from themes.manager import ThemeManager
+            theme = ThemeManager().get_current_theme()
+            if theme:
+                theme.togglePlayIcon(True)
 
     def onPauseCallback(self):
         """Handle when playback is paused"""
@@ -1094,7 +1098,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.propertyTableView.select_frame(self.preview_thread.player.Position())
 
         # Set icon on Pause button
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay")
+        if self.initialized:
+            from themes.manager import ThemeManager
+            theme = ThemeManager().get_current_theme()
+            if theme:
+                theme.togglePlayIcon(False)
 
     def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
@@ -2851,32 +2859,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Add Video Preview toolbar
         self.videoToolbar = QToolBar("Video Toolbar")
-
-        # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
-        ospacer1 = QWidget(self)
-        ospacer1.setMinimumSize(32, 1)  # actionSaveFrame
-        self.videoToolbar.addWidget(ospacer1)
-
-        # Add left spacer
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.videoToolbar.addWidget(spacer)
-
-        # Playback controls (centered)
-        self.videoToolbar.addAction(self.actionJumpStart)
-        self.videoToolbar.addAction(self.actionRewind)
-        self.videoToolbar.addAction(self.actionPlay)
-        self.videoToolbar.addAction(self.actionFastForward)
-        self.videoToolbar.addAction(self.actionJumpEnd)
-
-        # Add right spacer
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.videoToolbar.addWidget(spacer)
-
-        # Other controls (right-aligned)
-        self.videoToolbar.addAction(self.actionSaveFrame)
-
         self.tabVideo.layout().addWidget(self.videoToolbar)
 
         # Add Timeline toolbar
