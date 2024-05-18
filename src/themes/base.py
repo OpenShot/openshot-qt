@@ -187,7 +187,7 @@ class BaseTheme:
             {"action": self.app.window.actionSnappingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/snap.svg"},
             {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
             {"divide": True},
-            {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/actions/add_marker.svg"},
             {"action": self.app.window.actionPreviousMarker, "style": Qt.ToolButtonIconOnly},
             {"action": self.app.window.actionNextMarker, "style": Qt.ToolButtonIconOnly},
             {"action": self.app.window.actionCenterOnPlayhead, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/center-on-playhead.svg"},
