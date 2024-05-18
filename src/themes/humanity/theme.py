@@ -69,7 +69,7 @@ QToolTip {
         self.app.window.timeline.apply_theme("")
 
 
-class Fresh(BaseTheme):
+class Retro(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """

@@ -30,7 +30,7 @@ from enum import Enum
 
 class ThemeName(Enum):
     """Friendly UI theme names used in settings"""
-    FRESH = "Fresh"
+    RETRO = "Retro"
     HUMANITY_DARK = "Humanity: Dark"
     COSMIC = "Cosmic Dusk"
 
@@ -67,9 +67,9 @@ class ThemeManager:
         if theme_name == ThemeName.HUMANITY_DARK:
             from themes.humanity.theme import HumanityDarkTheme
             self.current_theme = HumanityDarkTheme(self.app)
-        elif theme_name == ThemeName.FRESH:
-            from themes.humanity.theme import Fresh
-            self.current_theme = Fresh(self.app)
+        elif theme_name == ThemeName.RETRO:
+            from themes.humanity.theme import Retro
+            self.current_theme = Retro(self.app)
         elif theme_name == ThemeName.COSMIC:
             from themes.cosmic.theme import CosmicTheme
             self.current_theme = CosmicTheme(self.app)
