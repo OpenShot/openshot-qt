@@ -502,6 +502,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if not have_clipboard and not found_gap:
             return
 
+        # Get track object (ignore locked tracks)
+        track = Track.get(number=layer_id)
+        if not track:
+            return
+        locked = track.data.get("lock", False)
+        if locked:
+            return
+
         # New context menu
         menu = StyledContextMenu(parent=self)
 
