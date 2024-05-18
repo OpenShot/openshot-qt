@@ -516,6 +516,10 @@ class PropertiesModel(updates.UpdateInterface):
                 # Check the type of property (some are keyframe, and some are not)
                 if property_type != "reader" and isinstance(clip_data[property_key], dict):
                     # Keyframe
+                    # Protection from HUGE scale values
+                    if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y']:
+                        new_value = max(min(new_value, 20), -20)
+
                     # Loop through points, find a matching points on this frame
                     found_point = False
                     point_to_delete = None
