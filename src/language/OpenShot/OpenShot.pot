@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 3.1.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2024-05-17 19:05:54.756552\n"
+"POT-Creation-Date: 2024-05-17 21:58:03.040793\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -666,20 +666,20 @@ msgid "Slice All"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:421
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:926
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2654
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:965
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2710
 msgid "Keep Both Sides"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:425
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:929
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2657
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:968
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2713
 msgid "Keep Left Side"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:429
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:932
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2660
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:971
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2716
 msgid "Keep Right Side"
 msgstr ""
 
@@ -688,458 +688,462 @@ msgstr ""
 msgid "Cache"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:480
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:572
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2629
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:510
+msgid "Remove Gap"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:518
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:611
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2685
 #: Settings for pasteAll
 msgid "Paste"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:521
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:526
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2596
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2601
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:560
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:565
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2652
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2657
 #: Settings for copyAll
 msgid "Copy"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:527
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:566
 #: libopenshot (Clip Properties)
 msgid "Clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:531
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2606
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:570
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2662
 msgid "Keyframes"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:532
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2607
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:571
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2663
 msgid "All"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:536
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:575
 #: libopenshot (Clip Properties)
 msgid "Alpha"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:539
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:578
 #: libopenshot (Clip Properties)
 msgid "Scale"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:542
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:581
 msgid "Shear"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:545
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:584
 #: libopenshot (Clip Properties)
 msgid "Rotation"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:548
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:587
 #: Settings Category for Location
 msgid "Location"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:551
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:775
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:590
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:814
 #: libopenshot (Clip Properties)
 msgid "Time"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:554
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:824
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:593
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:863
 #: effect_init (Effect parameter for Example) Settings volume
 msgid "Volume"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:559
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:598
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/main-window.ui:338
 msgid "Effects"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:579
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2636
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:618
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2692
 msgid "Align"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:580
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2637
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:619
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2693
 #: libopenshot (Clip Properties)
 msgid "Left"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:582
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2639
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:621
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2695
 #: libopenshot (Clip Properties)
 msgid "Right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:589
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:628
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:240
 msgid "Fade"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:590
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:629
 msgid "No Fade"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:594
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:640
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:829
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:633
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:679
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:868
 msgid "Start of Clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:595
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:641
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:830
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:634
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:680
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:869
 msgid "End of Clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:596
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:642
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:831
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:681
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:870
 msgid "Entire Clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:601
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:836
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:640
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:875
 msgid "Fade In (Fast)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:604
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:839
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:643
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:878
 msgid "Fade In (Slow)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:609
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:844
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:648
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:883
 msgid "Fade Out (Fast)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:612
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:847
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:651
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:886
 msgid "Fade Out (Slow)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:617
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:852
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:656
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:891
 msgid "Fade In and Out (Fast)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:620
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:855
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:659
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:894
 msgid "Fade In and Out (Slow)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:624
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:859
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:663
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:898
 msgid "Fade In (Entire Clip)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:627
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:862
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:666
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:901
 msgid "Fade Out (Entire Clip)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:635
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:674
 msgid "Animate"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:636
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:675
 msgid "No Animation"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:647
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:686
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:307
 msgid "Zoom"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:648
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:687
 msgid "Zoom In (50% to 100%)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:651
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:690
 msgid "Zoom In (75% to 100%)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:654
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:693
 msgid "Zoom In (100% to 150%)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:657
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:696
 msgid "Zoom Out (100% to 75%)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:660
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:699
 msgid "Zoom Out (100% to 50%)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:663
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:702
 msgid "Zoom Out (150% to 100%)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:669
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:708
 msgid "Center to Edge"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:670
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:709
 msgid "Center to Top"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:673
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:712
 msgid "Center to Left"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:676
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:715
 msgid "Center to Right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:679
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:718
 msgid "Center to Bottom"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:685
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:724
 msgid "Edge to Center"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:686
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:725
 msgid "Top to Center"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:689
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:728
 msgid "Left to Center"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:692
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:731
 msgid "Right to Center"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:695
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:734
 msgid "Bottom to Center"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:701
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:740
 msgid "Edge to Edge"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:702
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:741
 msgid "Top to Bottom"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:705
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:744
 msgid "Left to Right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:708
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:747
 msgid "Right to Left"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:711
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:750
 msgid "Bottom to Top"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:718
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:757
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:487
 #: /home/jonathan/apps/openshot-qt-git/src/windows/add_to_timeline.py:499
 msgid "Random"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:728
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:767
 msgid "Rotate"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:729
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:768
 msgid "No Rotation"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:733
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:772
 msgid "Rotate 90 (Right)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:736
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:775
 msgid "Rotate 90 (Left)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:739
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:778
 msgid "Rotate 180 (Flip)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:745
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:784
 msgid "Layout"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:746
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:785
 msgid "Reset Layout"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:750
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:789
 msgid "1/4 Size - Center"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:753
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:792
 msgid "1/4 Size - Top Left"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:756
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:795
 msgid "1/4 Size - Top Right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:759
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:798
 msgid "1/4 Size - Bottom Left"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:762
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:801
 msgid "1/4 Size - Bottom Right"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:766
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:805
 msgid "Show All (Maintain Ratio)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:769
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:808
 msgid "Show All (Distort)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:776
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:815
 msgid "Reset Time"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:780
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:819
 msgid "Normal"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:781
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:820
 msgid "Fast"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:782
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:821
 msgid "Slow"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:787
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:826
 msgid "Forward"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:788
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:827
 msgid "Backward"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:806
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:845
 msgid "Freeze"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:807
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:846
 msgid "Freeze && Zoom"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:813
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:852
 msgid "{} seconds"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:825
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:864
 msgid "Reset Volume"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:868
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:907
 msgid "Level 100%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:871
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:910
 msgid "Level 90%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:874
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:913
 msgid "Level 80%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:877
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:916
 msgid "Level 70%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:880
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:919
 msgid "Level 60%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:883
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:922
 msgid "Level 50%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:886
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:925
 msgid "Level 40%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:889
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:928
 msgid "Level 30%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:892
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:931
 msgid "Level 20%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:895
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:934
 msgid "Level 10%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:898
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:937
 msgid "Level 0%"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:906
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:945
 msgid "Separate Audio"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:907
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:946
 msgid "Single Clip (all channels)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:910
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:949
 msgid "Multiple Clips (each channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:925
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2653
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:964
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2709
 msgid "Slice"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:945
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:984
 msgid "Display"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:946
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:985
 msgid "Show Waveform"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:948
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:987
 msgid "Show Thumbnail"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:1108
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:1147
 msgid "(all channels)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:1154
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:1193
 #, python-format
 msgid "(channel %s)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2602
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2658
 #: /home/jonathan/apps/openshot-qt-git/src/windows/ui/add-to-timeline.ui:341
 msgid "Transition"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2611
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2667
 #: libopenshot (Clip Properties)
 msgid "Brightness"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2614
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2670
 #: libopenshot (Clip Properties)
 msgid "Contrast"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2666
+#: /home/jonathan/apps/openshot-qt-git/src/windows/views/timeline.py:2722
 msgid "Reverse Transition"
 msgstr ""
 
