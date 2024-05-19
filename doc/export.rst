@@ -113,7 +113,7 @@ Image Sequence Settings
    ==================  ============
    Image Setting Name  Description
    ==================  ============
-   Image Format        The string format that represents the output file name in an sequence of images. For example, %05d.png would pad a number with 5 digits: 00001.png, 00002.png.
+   Image Format        The string format that represents the output file name in a sequence of images. For example, %05d.png would pad a number with 5 digits: 00001.png, 00002.png.
    ==================  ============
 
 Video Settings
