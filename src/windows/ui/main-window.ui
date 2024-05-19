@@ -129,6 +129,7 @@
     <addaction name="separator"/>
     <addaction name="actionImportFiles"/>
     <addaction name="actionProfile"/>
+    <addaction name="actionSaveFrame"/>
     <addaction name="separator"/>
     <addaction name="menuImport_Project"/>
     <addaction name="menuExport"/>
