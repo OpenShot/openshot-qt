@@ -3311,6 +3311,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.addEffect(data, pos)
 
         elif self.item_type == "os_drop":
+            # Switch to Files dock
+            self.window.dockFiles.setVisible(True)
+            self.window.dockFiles.raise_()
+            self.window.dockFiles.activateWindow()
+
             # Add new files to project
             self.window.filesView.dropEvent(event)
 
