@@ -44,6 +44,14 @@ QMainWindow {
     color: #91C3FF;
 }
 
+QWidget#tutorial {
+    background-color: #192332;
+    border: 1.2px solid #0078FF;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+
 QDialog {
     background-color: #192332;
     color: #91C3FF;
