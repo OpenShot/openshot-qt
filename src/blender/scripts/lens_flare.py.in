@@ -103,7 +103,7 @@ bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_right.y = 
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material.001"]
 bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Base Color"].default_value = params["diffuse_color"]
-bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Emission"].default_value = params["diffuse_color"]
+bpy.data.materials["Material.001"].node_tree.nodes["Principled BSDF"].inputs[26].default_value  # Emission color
 bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Alpha"].default_value = params["alpha"]
 
 # Change Composite Node settings
