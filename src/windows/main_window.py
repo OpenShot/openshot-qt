@@ -761,6 +761,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
         try:
+            # Switch to Files dock
+            self.dockFiles.setVisible(True)
+            self.dockFiles.raise_()
+            self.dockFiles.activateWindow()
+
             # Import list of files
             self.files_model.process_urls(qurl_list)
 
