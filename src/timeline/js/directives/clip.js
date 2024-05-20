@@ -287,7 +287,7 @@ App.directive("tlClip", function ($timeout) {
               left: event.pageX - elementOffset.left,
               top: event.pageY - elementOffset.top
           };
-          $(this).data('offset', cursorOffset);
+          $(this).data("offset", cursorOffset);
 
           var scrolling_tracks = $("#scrolling_tracks");
           var vert_scroll_offset = scrolling_tracks.scrollTop();
@@ -328,7 +328,7 @@ App.directive("tlClip", function ($timeout) {
         },
         drag: function (e, ui) {
           // Retrieve the initial cursor offset
-          var initialOffset = $(this).data('offset');
+          var initialOffset = $(this).data("offset");
 
           var previous_x = ui.originalPosition.left;
           var previous_y = ui.originalPosition.top;

@@ -790,7 +790,7 @@ App.controller("TimelineCtrl", function ($scope) {
     var marker_position_frames = marker.position * frames_per_second;
 
     if ($scope.Qt) {
-      timeline.SeekToKeyframe(marker_position_frames)
+      timeline.SeekToKeyframe(marker_position_frames);
     }
   };
 
