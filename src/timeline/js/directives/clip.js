@@ -346,7 +346,7 @@ App.directive("tlClip", function ($timeout) {
           var y_offset = ui.position.top - previous_y;
 
           // Move the bounding box and apply snapping rules
-          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top, item_type="clip",cursor_offset=initialOffset);
+          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top, "clip", initialOffset);
           x_offset = results.x_offset;
           y_offset = results.y_offset;
 

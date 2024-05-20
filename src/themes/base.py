@@ -75,7 +75,7 @@ class BaseTheme:
                             # Set content margins on the QDock Layout (which has additional margins)
                             child.layout().setContentsMargins(*layout_margins)
 
-    def set_toolbar_buttons(self, toolbar, icon_size=24, settings=[]):
+    def set_toolbar_buttons(self, toolbar, icon_size=24, settings=None):
         """Iterate through toolbar button settings, and apply them to each button.
         [{"text": "", "icon": ""},...]
         """
@@ -138,7 +138,7 @@ class BaseTheme:
         # Hide main window status bar
         self.app.window.statusBar.hide()
 
-        from classes import info, ui_util
+        from classes import info
         from classes.logger import log
         from PyQt5.QtGui import QFont, QFontDatabase
 
