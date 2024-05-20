@@ -197,6 +197,18 @@ class BaseTheme:
         ]
         self.set_toolbar_buttons(self.app.window.timelineToolbar, icon_size=24, settings=timeline_buttons)
 
+        # Video toolbar
+        toolbar_buttons = [
+            {"expand": True},
+            {"action": self.app.window.actionJumpStart, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionRewind, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionPlay, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionFastForward, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionJumpEnd, "style": Qt.ToolButtonIconOnly},
+            {"expand": True}
+        ]
+        self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=24, settings=toolbar_buttons)
+
         # Init icons from theme name
         ui_util.init_ui(self.app.window)
 
