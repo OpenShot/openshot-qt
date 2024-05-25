@@ -131,8 +131,10 @@ class BaseTheme:
         manager = ThemeManager()
 
         # Apply the stylesheet to the entire application
-        self.app.setStyle(manager.original_style)
-        self.app.setPalette(manager.original_palette)
+        if manager.original_style:
+            self.app.setStyle(manager.original_style)
+        if manager.original_palette:
+            self.app.setPalette(manager.original_palette)
         self.app.setStyleSheet(self.style_sheet)
 
         # Hide main window status bar
