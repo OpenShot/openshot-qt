@@ -151,6 +151,10 @@ class OpenShotApp(QApplication):
         # Empty window
         self.window = None
 
+        # Instantiate Theme Manager (Singleton)
+        from themes.manager import ThemeManager
+        ThemeManager(self)
+
     def show_environment(self, info, openshot):
         log = self.log
         try:
@@ -254,7 +258,7 @@ class OpenShotApp(QApplication):
         # Instantiate Theme Manager (Singleton)
         from themes.manager import ThemeManager, ThemeName
         theme_enum = ThemeName.find_by_name(self.settings.get("theme"))
-        theme = ThemeManager(self).apply_theme(theme_enum)
+        theme = ThemeManager().apply_theme(theme_enum)
 
         # Update theme in settings
         self.settings.set("theme", theme.name)

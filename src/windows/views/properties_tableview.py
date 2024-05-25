@@ -109,6 +109,8 @@ class PropertyDelegate(QItemDelegate):
 
         # Get theme colors
         theme = ThemeManager().get_current_theme()
+        if not theme:
+            return
         foreground_color = theme.get_color(".property_value", "foreground-color")
         background_color = theme.get_color(".property_value", "background-color")
 

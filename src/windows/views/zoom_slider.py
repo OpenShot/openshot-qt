@@ -109,6 +109,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Get theme colors
         theme = ThemeManager().get_current_theme()
+        if not theme:
+            return
         playhead_color = theme.get_color(".zoom_slider_playhead", "background-color")
 
         # Paint timeline preview on QWidget

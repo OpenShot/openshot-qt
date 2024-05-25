@@ -332,6 +332,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Get theme colors (if any)
         theme = ThemeManager().get_current_theme()
+        if not theme:
+            return
         background_color = theme.get_color(".video_widget", "background-color")
         painter.fillRect(event.rect(), background_color)
 
