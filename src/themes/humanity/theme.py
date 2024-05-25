@@ -80,7 +80,11 @@ class Retro(BaseTheme):
 QComboBox::item {
     height: 24px;
 }
-        
+
+QMainWindow::separator:hover {
+    background: #dedede;
+}
+
 .property_value {
     foreground-color: #217dd4;
     background-color: #7f7f7f;
