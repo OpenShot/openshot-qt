@@ -340,6 +340,10 @@ QComboBox QAbstractItemView {
     text-align: left;
 }
 
+QComboBox::item {
+    height: 24px;
+}
+
 QComboBox::item:selected {
     border: none;
     text-align: left;

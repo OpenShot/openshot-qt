@@ -38,6 +38,10 @@ QToolTip {
     border: 0px solid white; 
 }
 
+QComboBox::item {
+    height: 24px;
+}
+
 .property_value {
     foreground-color: #217dd4;
     background-color: #565656;
@@ -73,6 +77,10 @@ class Retro(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
+QComboBox::item {
+    height: 24px;
+}
+        
 .property_value {
     foreground-color: #217dd4;
     background-color: #7f7f7f;
