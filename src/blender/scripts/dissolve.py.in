@@ -53,7 +53,7 @@ def acquireAndName(name):
     obj.name = name
     return obj
 
-def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font):
+def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font, wind_field_strength, wind_field_noise, turbulence_field_strength, turbulence_field_size):
     """ Create and animate the exploding text """
 
     newText = title
@@ -132,9 +132,9 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     # Particle parameters
     particle_system.count = nb_quads
     particle_system.frame_start = 10
-    particle_system.frame_end = 60
-    particle_system.lifetime = 50
-    particle_system.timestep = 1
+    particle_system.frame_end = 120
+    particle_system.lifetime = 110
+    particle_system.timestep = 0.1
     particle_system.normal_factor = 0.0
     particle_system.use_dynamic_rotation = True
     particle_system.render_type = 'NONE'
@@ -151,9 +151,9 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     active_object_wind_field.name = 'WindField'
     # Settings
     wind_field = active_object_wind_field.field
-    wind_field.strength = 1.0
+    wind_field.strength = wind_field_strength
     wind_field.flow = 1.0
-    wind_field.noise = 0.0
+    wind_field.noise = wind_field_noise
     wind_field.seed = 27
     wind_field.apply_to_location = True
     wind_field.apply_to_rotation = True
@@ -165,8 +165,8 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
     active_object_turbulence_field.name = 'TurbulenceField'
     # Settings
     turbulence_field = active_object_turbulence_field.field
-    turbulence_field.strength = 15
-    turbulence_field.size = 0.75
+    turbulence_field.strength = turbulence_field_strength
+    turbulence_field.size = turbulence_field_size
     turbulence_field.flow = 0.5
     turbulence_field.seed = 23
     turbulence_field.apply_to_location = True
@@ -306,6 +306,8 @@ else:
 createDissolveText(
     params["title"], params["extrude"], params["bevel_depth"],
     params["spacemode"], params["text_size"], params["width"], font,
+    params["wind_field_strength"], params["wind_field_noise"],
+    params["turbulence_field_strength"], params["turbulence_field_size"]
 )
 
 # Change the material settings (color, alpha, etc...)
