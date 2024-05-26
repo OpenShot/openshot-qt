@@ -3439,14 +3439,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Apply saved window geometry/state from settings
         if self.saved_geometry:
             try:
-                self.restoreGeometry(self.saved_geometry)
+                QTimer.singleShot(100, functools.partial(self.restoreGeometry, self.saved_geometry))
             except Exception as e:
-                log.warning(f"Error restoring window geometry: {e}")
+                log.error(f"Error restoring window geometry: {e}")
         if self.saved_state:
             try:
-                self.restoreState(self.saved_state)
+                QTimer.singleShot(100, functools.partial(self.restoreState, self.saved_state))
             except Exception as e:
-                log.warning(f"Error restoring window state: {e}")
+                log.error(f"Error restoring window state: {e}")
 
         # Save settings
         s.save()
