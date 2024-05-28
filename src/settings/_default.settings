@@ -26,6 +26,13 @@
     "setting": "unique_install_id"
   },
   {
+    "value": true,
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "adjust_scaling_factor"
+  },
+  {
     "value": "smileys-emotion",
     "title": "",
     "type": "hidden",
