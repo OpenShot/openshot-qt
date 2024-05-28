@@ -28,7 +28,8 @@ import os
 import re
 
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtGui import QColor, QIcon, QPixmap, QPainter
+from PyQt5.QtSvg import QSvgRenderer
 from PyQt5.QtWidgets import QTabWidget, QWidget, QSizePolicy
 
 from classes import ui_util
@@ -45,6 +46,17 @@ class BaseTheme:
         """
         self.app = app
 
+    def create_svg_icon(self, svg_path, size):
+        """Create Dynamic High DPI icons"""
+        renderer = QSvgRenderer(svg_path)
+        image = QPixmap(size * self.app.devicePixelRatio())
+        image.fill(Qt.transparent)
+        painter = QPainter(image)
+        renderer.render(painter)
+        painter.end()
+        image.setDevicePixelRatio(self.app.devicePixelRatio())
+        return QIcon(image)
+        
     def get_color(self, class_name, property_name):
         """Return a QColor from a stylesheet class and property."""
         # Regex to find the class and property with a color for more complex properties
@@ -71,7 +83,7 @@ class BaseTheme:
                         if child.objectName().startswith("dock") and child.objectName().endswith("Contents"):
                             # Set content margins on QDock* widget
                             child.setContentsMargins(*content_margins)
-                        if child.objectName().startswith("dock") and child.layout() and layout_margins:
+                        if child.layout() and layout_margins:
                             # Set content margins on the QDock Layout (which has additional margins)
                             child.layout().setContentsMargins(*layout_margins)
 
@@ -83,7 +95,8 @@ class BaseTheme:
         toolbar.clear()
 
         # Set icon size
-        toolbar.setIconSize(QSize(icon_size, icon_size))
+        qsize_icon = QSize(icon_size, icon_size)
+        toolbar.setIconSize(qsize_icon)
 
         for setting in settings:
             # Button settings
@@ -119,7 +132,8 @@ class BaseTheme:
                 toolbar.addAction(button_action)
                 button = toolbar.widgetForAction(button_action)
                 if button_icon:
-                    button_action.setIcon(QIcon(button_icon))
+                    qicon_instance = self.create_svg_icon(button_icon, qsize_icon)
+                    button_action.setIcon(qicon_instance)
                 if button_style:
                     button.setToolButtonStyle(button_style)
                 if button_stylesheet:
