@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
   <assemblyIdentity
-    version="VERSION"
     processorArchitecture="ARCHITECTURE"
     name="org.openshot.openshot-qt"
     type="win32"
