@@ -3167,22 +3167,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 event.accept()
         return super(MainWindow, self).eventFilter(obj, event)
 
-    def adjust_scaling(self):
-        """Adjust scaling factor for new screen. This is primarily to adjust our
-        scaling factor to match the OS display scaling on the primary screen where
-        OpenShot is displayed."""
-        screen = get_app().primaryScreen()
-        logical_dpi = screen.logicalDotsPerInch()
-        physical_dpi = screen.physicalDotsPerInch()
-        scale_factor = logical_dpi / physical_dpi
-        os.environ['QT_SCALE_FACTOR'] = str(scale_factor)
-        log.info(f"Adjusted QT_SCALE_FACTOR factor dynamically to: {scale_factor}")
-
-    def on_screen_changed(self, new_screen):
-        """Listen for screen changes"""
-        log.info(f"Detected screen change: {new_screen}")
-        self.adjust_scaling()
-
     def __init__(self, *args):
 
         # Create main window base class
@@ -3466,14 +3450,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Save settings
         s.save()
-
-        # Listen for screen changes (i.e. High DPI to Low DPI screen)
-        if s.get("adjust_scaling_factor"):
-            log.info("Listen to screen display scaling changes...")
-            for screen in app.screens():
-                screen.logicalDotsPerInchChanged.connect(self.on_screen_changed)
-        else:
-            log.info("Ignore screen display scaling changes...")
 
         # Refresh frame
         QTimer.singleShot(100, self.refreshFrameSignal.emit)

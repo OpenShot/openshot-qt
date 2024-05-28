@@ -206,16 +206,8 @@ def main():
     except AttributeError:
         pass
 
-    # Manually set scale factor per monitor
-    screen_factors = []
-    for screen in app.screens():
-        logical_dpi = screen.logicalDotsPerInch()
-        physical_dpi = screen.physicalDotsPerInch()
-        scale_factor = logical_dpi / physical_dpi
-        screen_factors.append(f"{screen.name()}={scale_factor}")
-    screen_factor_env = ';'.join(screen_factors)
-    print(f"Set QT_SCREEN_SCALE_FACTORS: {screen_factor_env}")
-    os.environ['QT_SCREEN_SCALE_FACTORS'] = screen_factor_env
+    # Manually set scale factor rounding (to not round)
+    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "PassThrough"
 
     # Launch GUI and start event loop
     if app.gui():
