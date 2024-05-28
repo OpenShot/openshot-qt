@@ -109,7 +109,7 @@ windows-builder-x64:
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
     - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
     - $manifestPath = "installer/windows.manifest"
-    - (Get-Content $manifestPath) -replace "VERSION", $VERSION -replace "ARCHITECTURE", "x64" | Set-Content $manifestPath
+    - (Get-Content $manifestPath) -creplace "VERSION", $VERSION -creplace "ARCHITECTURE", "x64" | Set-Content $manifestPath
     - rcedit-x64.exe "$EXE_PATH" --application-manifest installer/windows.manifest
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
   when: always
@@ -151,7 +151,7 @@ windows-builder-x86:
     - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
     - editbin /LARGEADDRESSAWARE "$EXE_PATH"
     - $manifestPath = "installer/windows.manifest"
-    - (Get-Content $manifestPath) -replace "VERSION", $VERSION -replace "ARCHITECTURE", "x86" | Set-Content $manifestPath
+    - (Get-Content $manifestPath) -creplace "VERSION", $VERSION -creplace "ARCHITECTURE", "x86" | Set-Content $manifestPath
     - rcedit-x86.exe "$EXE_PATH" --application-manifest installer/windows.manifest
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
   when: always
