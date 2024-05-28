@@ -108,6 +108,8 @@ windows-builder-x64:
     - git log "$PREV_GIT_LABEL..@" --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
     - python3 -u freeze.py build --git-branch=$CI_COMMIT_REF_NAME
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
+    - (Get-Content $manifestPath) -replace "VERSION", $env:VERSION -replace "ARCHITECTURE", "x64" | Set-Content $manifestPath
+    - rcedit-x64.exe build/install-x64/bin/openshot-qt.exe --application-manifest installer/windows.manifest
   when: always
   except:
   - tags
@@ -147,6 +149,8 @@ windows-builder-x86:
     - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
     - editbin /LARGEADDRESSAWARE "$EXE_PATH"
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
+    - (Get-Content $manifestPath) -replace "VERSION", $env:VERSION -replace "ARCHITECTURE", "x86" | Set-Content $manifestPath
+    - rcedit-x64.exe build/install-x64/bin/openshot-qt.exe --application-manifest installer/windows.manifest
   when: always
   except:
   - tags
