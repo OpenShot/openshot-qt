@@ -110,7 +110,7 @@ windows-builder-x64:
     - $EXE_PATH = "$CI_PROJECT_DIR\build\exe.mingw-" + $PY_ABI + "\openshot-qt.exe"
     - $manifestPath = "installer/windows.manifest"
     - (Get-Content $manifestPath) -creplace "ARCHITECTURE", "amd64" | Set-Content $manifestPath
-    - mt.exe -manifest installer/windows.manifest
+    - mt.exe -manifest installer/windows.manifest -validate_manifest
     - mt.exe  -manifest installer/windows.manifest -outputresource:$EXE_PATH;1
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "False" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
   when: always
@@ -153,7 +153,7 @@ windows-builder-x86:
     - editbin /LARGEADDRESSAWARE "$EXE_PATH"
     - $manifestPath = "installer/windows.manifest"
     - (Get-Content $manifestPath) -creplace "ARCHITECTURE", "x86" | Set-Content $manifestPath
-    - mt.exe -manifest installer/windows.manifest
+    - mt.exe -manifest installer/windows.manifest -validate_manifest
     - mt.exe  -manifest installer/windows.manifest -outputresource:$EXE_PATH;1
     - python3 -u installer/build_server.py "$SLACK_TOKEN" "$WINDOWS_KEY" "$WINDOWS_PASSWORD" "$GITHUB_USER" "$GITHUB_PASS" "True" "$CI_COMMIT_REF_NAME" "$MAC_PASSWORD"
   when: always
