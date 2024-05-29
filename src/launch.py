@@ -71,6 +71,9 @@ except ImportError:
     pass
 
 try:
+    # Manually set scale factor rounding (for Windows to not round 150% scaling)
+    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "PassThrough"
+
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
@@ -205,9 +208,6 @@ def main():
         app.setDesktopFile("org.openshot.OpenShot")
     except AttributeError:
         pass
-
-    # Manually set scale factor rounding (to not round)
-    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "PassThrough"
 
     # Launch GUI and start event loop
     if app.gui():
