@@ -105,7 +105,7 @@ Installing Blender
 The :guilabel:`Animated Title` feature in OpenShot requires the latest version of
 Blender (https://www.blender.org/download/) be installed and the OpenShot **Preferences** updated 
 with the correct path to the Blender executable. See the :ref:`preferences_general_ref` tab 
-in Preferences. NOTE: The minimum supported version of Blender is 2.8+. Older versions of Blender are 
+in Preferences. NOTE: The minimum supported version of Blender is 4.1+. Older versions of Blender are
 not compatible with OpenShot Video Editor.
 
 For a detailed guide on how to install these dependencies, see 

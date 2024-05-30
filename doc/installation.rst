@@ -90,6 +90,29 @@ and creating a launcher for it, see our
 
 .. image:: images/linux-appimage-permissions.jpg
 
+Unable to Launch AppImage?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Please verify that the ``libfuse2`` library is installed, which is required to mount and read an AppImage.
+On newer versions of Ubuntu (i.e. 22.04+), ``libfuse2`` is not installed by default. You can install it with
+the following command:
+
+..  code-block:: console
+
+    sudo apt install libfuse2
+
+Install AppImage Launcher
+~~~~~~~~~~~~~~~~~~~~~~~~~
+If you plan on using OpenShot often, you will probably want an integrated launcher for our AppImage.
+We recommend using AppImageLauncher, which is the officially supported way to launch (and manage) AppImage files on
+your Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), there is an official
+AppImageLauncher PPA:
+
+..  code-block:: console
+
+    sudo add-apt-repository ppa:appimagelauncher-team/stable
+    sudo apt update
+    sudo apt install appimagelauncher
+
 Linux (PPA)
 ^^^^^^^^^^^
 
@@ -97,17 +120,19 @@ For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a PPA
 (Personal Package Archive), which adds our official OpenShot software repository to your package
 manager, making it possible to install our latest version, without relying on our AppImages.
 
-..  code-block:: console
+Stable PPA (Contains only official releases)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    :caption: Stable PPA (Contains only official releases)
+..  code-block:: console
 
     sudo add-apt-repository ppa:openshot.developers/ppa
     sudo apt update
     sudo apt install openshot-qt python3-openshot
 
-..  code-block:: console
+Daily PPA (Highly experimental and unstable, for testers)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    :caption: Daily PPA (Highly experimental and unstable, for testers)
+..  code-block:: console
 
     sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
     sudo apt update
@@ -136,21 +161,21 @@ projects first (\*.osp files). Please see :ref:`preferences_reset_ref` for instr
 the previous ``openshot.settings`` file (for a clean install with **default preferences**).
 
 Windows
--------
+~~~~~~~
 
 #. Open **Control Panel** from the Start menu
 #. Click on **Programs and Features**
 #. Select OpenShot Video Editor, then click **Uninstall**
 
 Mac
----
+~~~
 
 #. Open **Finder** and go to **Applications**
 #. Drag the OpenShot Video Editor icon to the **Trash** in the Dock
 #. Right-click **Trash** and choose **Empty Trash**
 
 Ubuntu (Linux)
---------------
+~~~~~~~~~~~~~~
 
 #. Open up **Files**
 #. Locate the ``*.AppImage`` and delete the file

@@ -57,6 +57,7 @@ Features
 - **JSON project format** (`OpenShot Cloud API <https://www.openshot.org/cloud-api/>`_ compatible)
 - **Customizable shortcuts**
 - **Translations** (100+ languages)
+- **High DPI** monitor support
 - **Community support** (`Visit our forum <https://openshot.org/forum/>`_)
 
 Screenshot

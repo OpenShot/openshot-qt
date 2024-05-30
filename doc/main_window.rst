@@ -88,6 +88,8 @@ For example, imagine a 3 track video project
 Timeline Toolbar
 ----------------
 
+.. image:: images/timeline.jpg
+
 .. table::
    :widths: 20 73
 
@@ -124,7 +126,7 @@ Shortcut                   Action
 :kbd:`Ctrl+B`              Animated Title
 :kbd:`Ctrl+Up`             Center on Playhead
 :kbd:`Ctrl+P`              Choose Profile
-:kbd:`Ctrl+Shift+ESC`      Clear All Cache
+:kbd:`Ctrl+Shift+ESC`      Clear All Cache (regenerate video preview)
 :kbd:`Ctrl+C`              Copy
 :kbd:`Delete`              Delete Item
 :kbd:`Backspace`           Delete Item (Alternate 1)
@@ -279,3 +281,46 @@ exit the program. Re-launching OpenShot will restore your custom dock layout aut
 If you have accidentally closed or moved a dock and can no longer find it, there are a couple easy solutions.
 First, you can use the :guilabel:`View->Views->Simple View` menu option at the top of the screen, to restore the view back to its
 default. Or you can use the :guilabel:`View->Views->Docks->...` menu to show or hide specific dock widgets on the main window.
+
+High DPI / 4K Monitors
+----------------------
+
+OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) monitors, ensuring that the interface looks
+sharp and is easily readable on displays with various DPI settings. This support is particularly beneficial for users
+with 4K monitors or other high-resolution displays.
+
+Per Monitor DPI Awareness
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its scaling dynamically depending on the DPI
+settings of each connected monitor. This ensures a consistent and high-quality user experience across different displays.
+
+DPI Scaling on Windows
+^^^^^^^^^^^^^^^^^^^^^^
+
+On Windows, OpenShot rounds the scaling factor to the nearest whole value to maintain visual integrity. This rounding
+helps avoid visual artifacts in the UI rendering and ensures that the interface elements remain crisp and well-aligned.
+Due to this rounding, scaling options can sometimes lead to increased font-sizes and a feeling that the UI elements
+are a bit too large.
+
+- **125% scaling** rounds to **100%**
+- **150% scaling** rounds to **200%**
+
+Workarounds for Fine-Grained Adjustment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+While rounding helps maintain a clean interface, there are workarounds for users who require more precise control
+over the scaling. However, these methods are **not recommended** due to potential visual artifacts:
+
+- **QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**
+
+   - Setting this environment variable can disable rounding and allow more precise scaling.
+   - **Note:** This may cause visual artifacts, particularly in the timeline, and is not recommended.
+
+- **QT_SCALE_FACTOR=0.75** (or similar value)
+
+   - Manually setting the scale factor can provide finer adjustments to the font and UI scaling.
+   - **Note:** This method can also lead to visual artifacts and make OpenShot harder to use.
+
+For more info on adjusting these environment variables, please visit
+https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large.

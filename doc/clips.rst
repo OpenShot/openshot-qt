@@ -88,6 +88,22 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
 
 Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
 
+Remove Gap
+""""""""""
+The :guilabel:`Remove Gap` context menu option deletes the gap between two clips on the timeline, shifting all subsequent clips to close the gap.
+Right click on a gap between clips to find this option. The option is only available when a gap is detected.
+
+- **Usage Example:** Use this option when you want to quickly eliminate a specific gap between clips caused by trimming or the razor tool.
+- **Tip:** If you have many gaps on a single track, you can also right click on the track name, and select :guilabel:`Remove All Gaps`.
+
+Remove All Gaps
+"""""""""""""""
+The :guilabel:`Remove All Gaps` context menu option removes all gaps between clips on the timeline, shifting all clips to ensure there are no empty spaces.
+Right click on a track name to find this option. The option is only available when gaps are detected.
+
+- **Usage Example:** Ideal for tracks that contain back-to-back clips, such as a photo slideshow, where no gaps are desired.
+- **Tip:** Review the entire track after using this option to ensure that no clips are unintentionally moved.
+
 .. _clip_presets_ref:
 
 Context Menu
@@ -513,7 +529,8 @@ of the screen, without adding any black bars on the edges. The scale methods are
 Scale X and Scale Y
 """""""""""""""""""
 The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame curves that represent horizontal and vertical scaling in percentages, 
-respectively. The range for these curves is 0 to 1. See :ref:`clip_transform_ref`.
+respectively. The range for these curves is 0 to 1. See :ref:`clip_transform_ref`. OpenShot limits the max scale values based
+on the file type and the project size, to prevent crashes and performance issues.
 
 - **Usage Example:** Creating a zoom-in effect by animating the Scale X and Scale Y curves simultaneously.
 - **Tip:** Scale the image larger than the screen, only revealing a portion of the video. This is a simple way to crop a portion of the video.
@@ -523,7 +540,8 @@ respectively. The range for these curves is 0 to 1. See :ref:`clip_transform_ref
 Shear X and Shear Y
 """""""""""""""""""
 The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame curves that represent X and Y shear 
-angles in degrees, respectively. See :ref:`clip_transform_ref`.
+angles in degrees, respectively. See :ref:`clip_transform_ref`. OpenShot limits the max shear values based
+on the file type and the project size, to prevent crashes and performance issues.
 
 - **Usage Example:** Adding a dynamic tilt effect to a clip by animating the shear angles.
 - **Tip:** Use shear properties for creating slanted or skewed animations. 
