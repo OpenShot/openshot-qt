@@ -17,6 +17,8 @@
 .. You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
 
+.. _text_and_titles_ref:
+
 Text & Titles
 =============
 
@@ -54,6 +56,8 @@ OpenShot can use any vector SVG image file as a custom title template in the :gu
 also right click on any SVG files in your **Project Files** panel, and choose **Edit Title** or **Duplicate Title**.
 
 Note: These SVG templates are only used by the :guilabel:`Title Editor` dialog, and not :guilabel:`Animated Title` dialog.
+
+.. _animated_titles_ref:
 
 3D Animated Titles
 ------------------

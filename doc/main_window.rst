@@ -38,7 +38,7 @@ Overview
    2   Function Tabs       Switch between Project Files, Transitions, Effects, and Emojis.
    3   Project Files       All audio, video, and image files that have been imported into your project.
    4   Preview Window      This is the area that the video will playback on the screen.
-   5   Edit Toolbar        This toolbar contains buttons used for snapping, inserting markers, slicing razor, and jumping between markers.
+   5   Timeline Toolbar    This toolbar contains buttons used for snapping, inserting markers, slicing razor, jumping between markers, and centering the timeline on the playhead. See :ref:`timeline_toolbar_ref`.
    6   Zoom Slider         This slider will adjust the time-scale of your timeline. Drag the left or right edge to zoom in or out. Drag the blue area to scroll the timeline left or right. Clips and transitions are displayed as simple rectangles, to give you context for adjusting the zoom to specific clips.
    7   Play-head / Ruler   The ruler shows the time-scale, and the red line is the play-head. The play-head represents the current playback position. Hold :kbd:`Shift` key while dragging the playhead to snap to nearby clips.
    8   Timeline            The timeline visualizes your video project, and each clip and transition in your project. You can drag the mouse to select, move, or delete multiple items.
@@ -82,6 +82,27 @@ For example, imagine a 3 track video project
    2   Middle Track        Clips in the middle (might or might not be visible, depending on what is above them)
    3   Bottom Track        Clips on this track will always be on the bottom. Often audio clips are placed on lower tracks.
    ==  ==================  ============
+
+.. _timeline_toolbar_ref:
+
+Timeline Toolbar
+----------------
+
+.. table::
+   :widths: 20 73
+
+   ===========================  ============
+   Name                         Description
+   ===========================  ============
+   Add Track                    Add a new track to the timeline. New projects start with 5 tracks by default.
+   Snapping                     Toggle between snapping and non-snapping modes. Snapping makes it easier to place clips next to other clips.
+   Razor Tool                   Toggle the razor tool on and off. This tool will cut a clip exactly where you click on it, splitting a clip into 2 clips.
+   Add Marker                   Add a marker to the timeline at the current playhead position. This can be useful for returning to a specific position on the timeline.
+   Previous Marker              Jump to the previous marker. This moves the playhead to the left, seeking to the next marker or important position (i.e. start / end positions of clips).
+   Next Marker                  Jump to the next marker. This moves the playhead to the right, seeking to the next marker or important position (i.e. start / end positions of clips).
+   Center Timeline on Playhead  This centers the timeline on the playhead position. This can be useful if the playhead is not visible and you want to quickly scroll the timeline to that position.
+   Zoom Slider                  This controls the visible portion of the timeline. Adjusting the left/right handles will zoom in/out of your timeline, keeping a specific section of your project in view.
+   ===========================  ============
 
 .. _keyboard_shortcut_ref:
 
@@ -164,22 +185,49 @@ The following menu options are available on the main window on OpenShot. Most of
 by the keyboard shortcuts mentioned above. On some Operating Systems (such as macOS) a few of these options
 are renamed and/or rearranged.
 
-.. table::
-   :widths: 10 73
+.. list-table::
+   :widths: 16 80
+   :header-rows: 1
 
-   ==================  ============
-   Menu Name           Description
-   ==================  ============
-   File                :guilabel:`New Project`, :guilabel:`Open Project`, :guilabel:`Recent Projects`,
-                       :guilabel:`Save Project`, :guilabel:`Import Files`, :guilabel:`Choose Profile`,
-                       :guilabel:`Import`, :guilabel:`Export`, :guilabel:`Quit`
-   Edit                :guilabel:`Undo`, :guilabel:`Redo`, :guilabel:`Clear`, :guilabel:`Preferences`
-   Title               :guilabel:`Title`, :guilabel:`Animated Title`
-   View                :guilabel:`Toolbar`, :guilabel:`Fullscreen`, :guilabel:`Views` `(Simple, Advanced, Freeze, Show All)`,
-                       :guilabel:`Docks`
-   Help                :guilabel:`Contents`, :guilabel:`Tutorial`, :guilabel:`Report a Bug`, :guilabel:`Ask a Question`,
-                       :guilabel:`Translate`, :guilabel:`Donate`, :guilabel:`About`
-   ==================  ============
+   * - Menu Name
+     - Description
+   * - File
+     -
+       - :guilabel:`New Project` Create a blank new project.
+       - :guilabel:`Open Project` Open an existing project.
+       - :guilabel:`Recent Projects` Access recently opened projects.
+       - :guilabel:`Save Project` Save the current project.
+       - :guilabel:`Import Files` Import media files into the project.
+       - :guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, 720p @ 24fps, ...*).
+       - :guilabel:`Save Current Frame` Save the current preview video frame as an image.
+       - :guilabel:`Import Project` Import another project into the current project (*Adobe and Final Cut Pro formats partially supported*).
+       - :guilabel:`Export Project` Export the current project to a specified format (*EDL, Adobe, and Final Cut Pro formats partially supported*).
+       - :guilabel:`Quit` Exit the application.
+   * - Edit
+     -
+       - :guilabel:`Undo` Undo the last action.
+       - :guilabel:`Redo` Redo the last undone action.
+       - :guilabel:`Clear` Clear the current history or waveform cached data. This makes the `.osp project` file a much smaller file size.
+       - :guilabel:`Preferences` Open the preferences dialog to customize settings.
+   * - Title
+     -
+       - :guilabel:`Title` Add a SVG vector title to the project. See :ref:`text_and_titles_ref`.
+       - :guilabel:`Animated Title` Add an animated title to the project. See :ref:`animated_titles_ref`.
+   * - View
+     -
+       - :guilabel:`Toolbar` Show or hide the main window toolbar.
+       - :guilabel:`Fullscreen` Toggle fullscreen mode.
+       - :guilabel:`Views` Switch or reset the main window layout (*Simple, Advanced, Freeze, Show All*).
+       - :guilabel:`Docks` Show or hide various dockable panels (*Captions, Effects, Emojis, Project Files, Properties, Transitions, Video Preview*).
+   * - Help
+     -
+       - :guilabel:`Contents` Open the user guide online.
+       - :guilabel:`Tutorial` Access the built-in tutorial for new users.
+       - :guilabel:`Report a Bug` Report a bug or issue.
+       - :guilabel:`Ask a Question` Ask a question about the software.
+       - :guilabel:`Translate` Contribute to translations of the software.
+       - :guilabel:`Donate` Make a donation to support the project.
+       - :guilabel:`About` View information about the software (version, contributors, translators, changelog, and supporters).
 
 Views
 -----
@@ -206,6 +254,27 @@ Docks
 Each widget on the OpenShot main window is contained in a **dock**. These docks can be dragged and snapped around the
 main window, and even grouped together (into tabs). OpenShot will always save your main window dock layout when you
 exit the program. Re-launching OpenShot will restore your custom dock layout automatically.
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Dock Name
+     - Description
+   * - Captions
+     - Manage and add captions or subtitles to your video project. Allows you to create, edit, and manage caption data. See :ref:`caption_effect_ref` effect.
+   * - Effects
+     - Browse and apply video and audio effects to your video clips. Includes filters, color adjustments, and special effects. See :ref:`effects_ref`.
+   * - Emojis
+     - Add emoji graphics to your video project. Choose from a variety of emojis to enhance your video content.
+   * - Project Files
+     - View and manage all the media files imported into your project. Organize, filter, and tag video, audio, and image files. See :ref:`files_ref`.
+   * - Properties
+     - View and edit the properties of a selected effect, transition, or clip. Adjust settings such as duration, size, position, etc... See :ref:`clip_properties_ref`.
+   * - Transitions
+     - Browse and apply transitions between video clips. Choose from a variety of transition wipes to create smooth changes between scenes. See :ref:`transitions_ref`.
+   * - Video Preview
+     - Preview the current state of your video project. Allows you to play back and review your edits in real-time. See :ref:`playback_ref`.
 
 If you have accidentally closed or moved a dock and can no longer find it, there are a couple easy solutions.
 First, you can use the :guilabel:`View->Views->Simple View` menu option at the top of the screen, to restore the view back to its

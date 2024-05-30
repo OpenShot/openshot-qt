@@ -82,7 +82,7 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
                            :guilabel:`Slice All` (all intersecting clips on all tracks will be cut/sliced).
    **Split Clip Dialog**   Right click on a file, and choose :guilabel:`Split Clip`. A dialog will appear which allows
                            for creating lots of small cuts in a single video file.
-   **Razor Tool**          The :guilabel:`razor tool` from the **Edit Toolbar** cuts a clip wherever you click on it.
+   **Razor Tool**          The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip wherever you click on it.
                            So be careful, it is easy and dangerous!
    ======================  ============
 
