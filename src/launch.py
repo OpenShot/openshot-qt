@@ -71,8 +71,11 @@ except ImportError:
     pass
 
 try:
-    # Manually set scale factor rounding (for Windows to not round 150% scaling)
-    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "PassThrough"
+    # Manually set display scale factor rounding
+    # Use "PassThrough" for fractional sizes on Windows (i.e. 150%), although PassThrough
+    # introduces artifacts and issues on the Web-based timeline widget (i.e. no borders, not high DPI, etc...)
+    # TODO: Switch back to PassThrough when timeline widget is replaced with QWidget
+    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "Round"
 
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
