@@ -98,7 +98,7 @@ JT = {"name": "Jonathan Thomas",
 DESKTOP_ID = "org.openshot.OpenShot.desktop"
 
 # Blender minimum version required (a string value)
-BLENDER_MIN_VERSION = "2.80"
+BLENDER_MIN_VERSION = "4.1"
 
 # Data-model debugging enabler
 MODEL_TEST = False

@@ -29,7 +29,7 @@ from PyQt5.QtCore import (
     Qt, QCoreApplication, QRectF, QTimer
 )
 from PyQt5.QtGui import (
-    QPainter, QPixmap, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
+    QPainter, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
 )
 from PyQt5.QtWidgets import QSizePolicy, QWidget
 
@@ -38,6 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import updates
 from classes.app import get_app
 from classes.query import Clip, Track, Transition, Marker
+from themes.manager import ThemeManager
 
 
 class ZoomSlider(QWidget, updates.UpdateInterface):
@@ -56,7 +57,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             layers[layer.data.get('number')] = count
 
         # Wait for timeline object and valid scrollbar positions
-        if hasattr(get_app().window, "timeline") and self.scrollbar_position[2] != 0.0:
+        # TODO: Fix commented out logic
+        if hasattr(get_app().window, "timeline"):  # and self.scrollbar_position[2] != 0.0:
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
             pixels_per_second = self.width() / project_duration
@@ -105,12 +107,19 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """ Custom paint event """
         event.accept()
 
+        # Get theme colors
+        theme = ThemeManager().get_current_theme()
+        if not theme:
+            return
+        playhead_color = theme.get_color(".zoom_slider_playhead", "background-color")
+
         # Paint timeline preview on QWidget
         painter = QPainter(self)
         painter.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform | QPainter.TextAntialiasing, True)
 
         # Fill the whole widget with the solid color (background solid color)
-        painter.fillRect(event.rect(), QColor("#191919"))
+        background_color = self.palette().color(self.palette().Base)
+        painter.fillRect(event.rect(), background_color)
 
         # Create pens / colors
         clip_pen = QPen(QBrush(QColor("#53a0ed")), 1.5)
@@ -128,8 +137,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         marker_pen = QPen(QBrush(marker_color), 1.0)
         marker_pen.setCosmetic(True)
 
-        playhead_color = QColor(Qt.red)
-        playhead_color.setAlphaF(0.5)
+        playhead_color = playhead_color
         playhead_pen = QPen(QBrush(playhead_color), 1.0)
         playhead_pen.setCosmetic(True)
 
@@ -141,7 +149,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         layers = Track.filter()
 
         # Wait for timeline object and valid scrollbar positions
-        if get_app().window.timeline and self.scrollbar_position[2] != 0.0:
+        # TODO: Fix commented out logic
+        if get_app().window.timeline:  # and self.scrollbar_position[2] != 0.0:
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
             pixels_per_second = event.rect().width() / project_duration

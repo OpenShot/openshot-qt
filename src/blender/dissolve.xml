@@ -60,6 +60,27 @@
 		<default>1.0</default>
 	</param>
 
+  	<param name="wind_field_strength" type="spinner" title="Wind Field Strength" description="">
+		<min>0.0</min>
+		<max>15.0</max>
+		<default>0.5</default>
+	</param>
+  	<param name="wind_field_noise" type="spinner" title="Wind Field Noise" description="">
+		<min>0.0</min>
+		<max>15.0</max>
+		<default>2.5</default>
+	</param>
+  	<param name="turbulence_field_strength" type="spinner" title="Turbulence Field Strength" description="">
+		<min>0.0</min>
+		<max>30.0</max>
+		<default>10.0</default>
+	</param>
+  	<param name="turbulence_field_size" type="spinner" title="Turbulence Field Size" description="">
+		<min>0.0</min>
+		<max>15.0</max>
+		<default>1.5</default>
+	</param>
+
 	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
 		<default>#7F7F7F</default>
 	</param>
@@ -71,9 +92,9 @@
 	</param>
 	
 	<param name="end_frame" type="spinner" title="End Frame" description="">
-		<min>128</min>
-		<max>128</max>
-		<default>128</default>
+		<min>160</min>
+		<max>160</max>
+		<default>160</default>
 	</param>
 	
 	<!-- SPEED -->

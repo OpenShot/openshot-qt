@@ -195,7 +195,7 @@ App.directive("tlRuler", function ($timeout) {
 
       // Move playhead to new position (if it's not currently being animated)
       element.on("mousemove", function (e) {
-        if (e.which === 1 && !scope.playhead_animating) { // left button
+        if (e.which === 1 && !scope.playhead_animating && !scope.getDragging()) { // left button
           // Calculate the playhead bounding box movement
           let cursor_position = e.pageX - $("#ruler").offset().left;
           let new_position = cursor_position;

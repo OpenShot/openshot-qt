@@ -59,7 +59,9 @@ class AnimatedTitle(QDialog):
 
         # Add render controls
         self.btnRender = QPushButton(_('Render'))
+        self.btnRender.setObjectName("acceptButton")
         self.btnCancel = QPushButton(_('Cancel'))
+        self.btnCancel.setObjectName("cancelButton")
         self.buttonBox.addButton(self.btnRender, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.btnCancel, QDialogButtonBox.RejectRole)
 

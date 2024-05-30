@@ -88,7 +88,7 @@ img {
 #ruler_time {
   font-size: 13pt;
   color: #999;
-  padding-top: 14px;
+  padding-top: 12px;
   padding-left: 17px;
 }
 
@@ -152,7 +152,6 @@ img {
 
 .track_label {
   padding-top: 2px;
-  padding-left: 2px;
   padding-left: 4px;
   text-shadow: 0 0 10px #ffffff;
 }
@@ -202,40 +201,35 @@ img {
   position: absolute;
   height: 316px;
   top: 0;
-  width: 1px;
+  width: 2px;
   background-color: #ff0024;
   opacity: 1;
-}
-
-.playhead-line-small {
-  z-index: 9999;
-  position: absolute;
-  height: 20px;
-  top: 32px;
-  margin-left: 12px;
-  width: 1px;
-  background-color: #ff0024;
-  opacity: 1;
+  margin: -1px;
 }
 
 .playhead-top {
   cursor: move;
   z-index: 9999;
   position: absolute;
-  margin-left: -12px;
-  margin-top: 12px;
-  width: 25px;
-  height: 32px;
-  background-image: url(../images/play_head.png);
+  margin-left: -6px;
+  margin-top: 20px;
+  width: 12px;
+  height: 188px;
+  background-image: url(../images/playhead.svg);
   opacity: 1;
 }
 
 .marker_icon {
+  cursor: pointer;
+  background-image: url(../images/markers/marker.svg);
+  background-color: transparent;
   position: absolute;
   bottom: 0;
-  margin-left: -6px;
-  width: 12px;
-  height: 14px;
+  margin-left: -4px;
+  width: 8px;
+  height: 10px;
+  border: none;
+  outline: none;
 }
 
 /* Clips */
@@ -395,7 +389,7 @@ img {
 }
 
 .audio-container {
-  margin-top: -20px;
+  margin-top: -24px;
   height: 46px;
 }
 
@@ -494,7 +488,7 @@ img {
   background-image: url(../images/transition.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 66px;
+  background-size: calc(100% + 2px) 66px;
 }
 
 .transition_label {

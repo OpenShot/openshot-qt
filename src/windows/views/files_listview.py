@@ -28,12 +28,13 @@
 
 from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
 from PyQt5.QtGui import QDrag, QCursor
-from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
+from PyQt5.QtWidgets import QListView, QAbstractItemView
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
+from .menu import StyledContextMenu
 
 
 class FilesListView(QListView):
@@ -51,7 +52,7 @@ class FilesListView(QListView):
         index = self.indexAt(event.pos())
 
         # Build menu
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
 
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionDetailsView)

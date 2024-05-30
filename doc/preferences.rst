@@ -49,10 +49,20 @@ The General tab of the Preferences window allows you to modify the settings that
    Default Theme                     Humanity:Dark  Choose your theme for OpenShot, either Light, Dark or None
    Image Length (seconds)            10.00          How long the image displays on the screen when added to the timeline
    Volume                            75.00          The percentage of the volume of the clip when added to the timeline
-   Blender Command (path)            *<blank>*      The path to the binary for Blender (version 2.8+)
+   Blender Command (path)            *<blank>*      The path to the binary for Blender (version 4.1+)
    Advanced Title Editor (path)      *<blank>*      The path to the binary for Inkscape
    Show Export Dialog when Finished  *<checked>*    Displays the Export Video windows after the export is finished
    ================================  =============  ===========
+
+Themes
+""""""
+OpenShot comes with 3 standard themes, which change the look and feel of the program.
+
+- **Retro:** A light theme that offers a classic and clean appearance. This theme uses light gray and white tones, making it ideal for users who prefer a bright and high-contrast interface. It provides a traditional look that is easy on the eyes, especially in well-lit environments.
+- **Humanity Dark:** [Default Theme] A dark theme with dark gray tones, providing a modern and sleek look. This theme is designed for users who prefer working in low-light conditions or who enjoy a more subdued and professional appearance. The dark gray background reduces glare and eye strain, making it suitable for extended editing sessions.
+- **Cosmic Dusk:** A bluish theme with a more modern UI design, enhancing the visual aesthetics of the editor. This theme features shades of blue and purple, giving the interface a contemporary and dynamic feel. It combines modern aesthetics with functionality, offering a fresh and visually appealing workspace for video editing.
+
+.. image:: images/themes.jpg
 
 .. _preferences_preview_ref:
 
@@ -87,7 +97,7 @@ a specific number of minutes, helping to reduce the risk or impact of data loss 
 or user error.
 
 Recovery
-^^^^^^^^
+""""""""
 
 Before each save, a copy of the current project is created in a recovery folder, to further
 reduce the risk of data loss. The recovery folder is located at ``~/.openshot_qt/recovery/`` or
@@ -152,7 +162,7 @@ NOTE: On systems with older graphics cards, hardware acceleration may not always
          Advices is N(cores-1) or N(Threads-1) ?
  Hardware Decoder max width/height  Can be found where? Link to HW manufacturers?
  Use Blender GPU rendering: Default = on?
-    (May be default in Blender 2.8? - 
+    (May be default in Blender 4.1? -
     May work backfire if system has multiple GPUs and high-end GPU recognizes Blender automatically)
 
 Keyboard

@@ -47,14 +47,20 @@
 		<default>3.21</default>
 	</param>
 
-	<param name="diffuse_color" type="color" title="Diffuse Color" description="">
-		<default>#ffffff</default>
-	</param>
-	
 	<param name="alpha" type="spinner" title="Alpha" description="">
 		<min>0.0</min>
-		<max>50.0</max>
-		<default>10.0</default>
+		<max>0.0</max>
+		<default>1.0</default>
+	</param>
+
+	<param name="diffuse_color" type="color" title="Emission Color" description="">
+		<default>#ffffff</default>
+	</param>
+
+	<param name="strength" type="spinner" title="Emission Strength" description="">
+		<min>0.0</min>
+		<max>30.0</max>
+		<default>6.0</default>
 	</param>
 
 	<param name="glare1_type" type="dropdown" title="Glare 1: Type of Glare" description="">

@@ -28,7 +28,7 @@
 
 
 // Initialize the main controller module
-/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement*/
+/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement, findTrackAtLocation*/
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)
@@ -70,6 +70,8 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.track_label = "Track %s";
   $scope.enable_sorting = true;
   $scope.ThumbServer = "http://127.0.0.1/";
+  $scope.ThemeCSS = "";
+  $scope.dragging = false;
 
   // Method to set if Qt is detected (which clears demo data
   // and updates the document_is_ready variable in openshot-qt)
@@ -260,9 +262,13 @@ App.controller("TimelineCtrl", function ($scope) {
     // Find this tracks Y location
     var track_id = "div#track_" + layer;
     if ($(track_id).length) {
-      return $(track_id).position().top + vert_scroll_offset;
-    }
-    else {
+      var trackElement = $(track_id);
+      var topPosition = trackElement.position().top;
+      var marginTop = parseInt(trackElement.css("margin-top"), 10);
+
+      // Include the margin in the position calculation
+      return topPosition + vert_scroll_offset + marginTop;
+    } else {
       return 0;
     }
   };
@@ -490,11 +496,16 @@ App.controller("TimelineCtrl", function ($scope) {
       // in-between frames, and thus less likely to repeat or skip a frame).
       clip_position = (Math.round((clip_position * $scope.project.fps.num) / $scope.project.fps.den) * $scope.project.fps.den ) / $scope.project.fps.num;
 
-      clip_json.position = clip_position;
-      clip_json.layer = $scope.getTrackAtY(y).number;
+      // Get the nearest track
+      var nearest_track = findTrackAtLocation($scope, y);
+      if (nearest_track !== null) {
+        // Set clip properties and add clip
+        clip_json.position = clip_position;
+        clip_json.layer = nearest_track.number;
 
-      // Push new clip onto stack
-      $scope.project.clips.push(clip_json);
+        // Push new clip onto stack
+        $scope.project.clips.push(clip_json);
+      }
     });
   };
 
@@ -773,6 +784,16 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
+// Show marker context menu
+  $scope.selectMarker = function (marker) {
+    var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
+    var marker_position_frames = marker.position * frames_per_second;
+
+    if ($scope.Qt) {
+      timeline.SeekToKeyframe(marker_position_frames);
+    }
+  };
+
   // Show playhead context menu
   $scope.showPlayheadMenu = function (position) {
     if ($scope.Qt && !$scope.enable_razor) {
@@ -852,10 +873,15 @@ App.controller("TimelineCtrl", function ($scope) {
     // Adjust for scrollbar position
     var scrolling_tracks = $("#scrolling_tracks");
     var scrolling_tracks_offset_top = scrolling_tracks.offset().top;
-    y += scrolling_tracks.scrollTop();
+    y += scrolling_tracks.scrollTop() - scrolling_tracks_offset_top;
 
-    // Return number of track
-    return parseInt($scope.getTrackAtY(y - scrolling_tracks_offset_top).number, 10);
+      // Get the nearest track
+      var nearest_track = findTrackAtLocation($scope, y);
+      if (nearest_track !== null) {
+        return nearest_track.number;
+      } else {
+        return 0;
+      }
   };
 
   // Get JSON of most recent item (used by Qt)
@@ -874,9 +900,14 @@ App.controller("TimelineCtrl", function ($scope) {
       return;
     }
     // Get position of item
-    var scrolling_tracks_offset_top = $("#scrolling_tracks").offset().top;
     var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
-    var layer_num = $scope.getTrackAtY(bounding_box.track_position - scrolling_tracks_offset_top).number;
+
+    // Get the nearest track
+    var layer_num = 0;
+    var nearest_track = findTrackAtLocation($scope, bounding_box.top);
+    if (nearest_track !== null) {
+      layer_num = nearest_track.number;
+    }
 
     // update scope with final position of items
     $scope.$apply(function () {
@@ -958,76 +989,55 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
-  // Move a new clip to the timeline
-  $scope.moveItem = function (x, y, item_type) {
-    var scrolling_tracks = $("#scrolling_tracks");
-    x += scrolling_tracks.scrollLeft();
-    y += scrolling_tracks.scrollTop();
+$scope.moveItem = function (x, y) {
+  // Adjust x and y to account for the scroll position
+  var scrolling_tracks = $("#scrolling_tracks");
+  x += scrolling_tracks.scrollLeft();
+  y += scrolling_tracks.scrollTop();
 
-    // Convert x and y into timeline vars
-    var scrolling_tracks_offset_left = scrolling_tracks.offset().left;
-    var scrolling_tracks_offset_top = scrolling_tracks.offset().top;
+  // Calculate relative x and y within the scrolling_tracks container
+  var left = x - scrolling_tracks.offset().left;
+  var top = y - scrolling_tracks.offset().top;
 
-    // Calculate the x,y of cursor
-    var left = parseFloat(x - scrolling_tracks_offset_left);
-    var top = parseFloat(y - scrolling_tracks_offset_top);
+  // Calculate movement offsets
+  var x_offset = left - bounding_box.previous_x;
+  var y_offset = top - bounding_box.previous_y;
 
-    // Calculate amount to move transitions
-    var x_offset = left - bounding_box.previous_x;
-    var y_offset = top - bounding_box.previous_y;
+  // Move the bounding box with snapping rules applied
+  var results = moveBoundingBox($scope, bounding_box.previous_x, bounding_box.previous_y, x_offset, y_offset, left, top);
 
-    // Move the bounding box and apply snapping rules
-    var results = moveBoundingBox($scope, bounding_box.previous_x, bounding_box.previous_y, x_offset, y_offset, left, top);
+  // Update previous position to the new one
+  bounding_box.previous_x = results.position.left;
+  bounding_box.previous_y = results.position.top;
 
-    // Track previous values
-    bounding_box.previous_x = results.position.left;
-    bounding_box.previous_y = results.position.top;
+  // Update the element's position
+  if (bounding_box.element) {
+    bounding_box.element.css("left", results.position.left + "px");
+    bounding_box.element.css("top", results.position.top + "px");
+  }
+};
 
-    // Loop through each layer (looking for the closest track based on Y coordinate)
-    bounding_box.track_position = 0;
-    for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
-      var layer = $scope.project.layers[layer_index];
+$scope.updateLayerIndex = function () {
+  var scrolling_tracks = $("#scrolling_tracks");
+  var scrolling_tracks_offset = scrolling_tracks.offset().top;
 
-      // Compare position of track to Y param (for unlocked tracks)
-      if (!layer.lock) {
-        if ((top < layer.y && top > bounding_box.track_position) || bounding_box.track_position === 0) {
-          // return first matching layer
-          bounding_box.track_position = layer.y;
-        }
-      }
+  // Loop through each layer
+  for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
+    var layer = $scope.project.layers[layer_index];
+
+    // Find track element on screen (bound to this layer)
+    var layer_elem = $("#track_" + layer.number);
+    if (layer_elem.length) {
+      // Update the top offset relative to the scrolling_tracks
+      layer.y = layer_elem.offset().top - scrolling_tracks_offset + scrolling_tracks.scrollTop();
+      layer.height = layer_elem.outerHeight();
     }
-    //change the element location
-    if (bounding_box.element) {
-      bounding_box.element.css("left", results.position.left);
-      bounding_box.element.css("top", bounding_box.track_position - scrolling_tracks_offset_top);
-    }
-  };
+  }
 
-  // Update X,Y indexes of tracks / layers (anytime the project.layers scope changes)
-  $scope.updateLayerIndex = function () {
-
-    if ($scope.Qt) {
-      timeline.qt_log("DEBUG", "updateLayerIndex");
-    }
-
-    var scrolling_tracks = $("#scrolling_tracks");
-    var vert_scroll_offset = scrolling_tracks.scrollTop();
-
-    // Loop through each layer
-    for (var layer_index = 0; layer_index < $scope.project.layers.length; layer_index++) {
-      var layer = $scope.project.layers[layer_index];
-
-      // Find element on screen (bound to this layer)
-      var layer_elem = $("#track_" + layer.number);
-      if (layer_elem.offset()) {
-        // Update the top offset
-        layer.y = layer_elem.offset().top + vert_scroll_offset;
-      }
-    }
-    // Update playhead height
-    $scope.playhead_height = $("#track-container").height();
-    $(".playhead-line").height($scope.playhead_height);
-  };
+  // Update playhead height
+  $scope.playhead_height = $("#track-container").height();
+  $(".playhead-line").height($scope.playhead_height);
+};
 
   // Sort clips and transitions by position
   $scope.sortItems = function () {
@@ -1275,34 +1285,6 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   };
 
-  // Find a track JSON object at a given y coordinate (if any)
-  /**
-   * @return {object}
-   */
-  $scope.getTrackAtY = function (y) {
-    // Loop through each layer (looking for the closest track based on Y coordinate)
-    let tolerance = 24;
-    for (var layer_index = $scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
-      var layer = $scope.project.layers[layer_index];
-
-      // Compare position of track to Y param and return first matching layer
-      // Consider a tolerance around the cursor position
-      if (layer.y > (y - tolerance)) {
-        return layer;
-      } else if (layer.y > (y + tolerance)) {
-        return layer;
-      }
-    }
-
-    // no layer found (return top layer... if any)
-    if ($scope.project.layers.length > 0) {
-      return $scope.project.layers[0];
-    }
-    else {
-      return null;
-    }
-  };
-
   // Determine which CSS classes are used on a track
   /**
    * @return {string}
@@ -1316,6 +1298,28 @@ App.controller("TimelineCtrl", function ($scope) {
       return "track";
     }
   };
+
+  $scope.setDragging = function(value) {
+    $scope.dragging = value;
+  };
+
+  $scope.getDragging = function() {
+    return $scope.dragging;
+  };
+
+  // Set the CSS theme for this timeline dynamically
+  $scope.setTheme = function (css) {
+    $scope.$apply(function () {
+      $scope.ThemeCSS = css;
+    });
+
+    // Update track Y coordinates after theme is applied
+    setTimeout(function() {
+      $scope.$apply(function () {
+        $scope.updateLayerIndex();
+      });
+    }, 0);
+  }
 
   // Determine which CSS classes are used on a clip
   $scope.getClipStyle = function (clip) {
@@ -1353,19 +1357,6 @@ App.controller("TimelineCtrl", function ($scope) {
     } else {
       return unselected_zindex + index;
     }
-  };
-
-  $scope.markerPath = function(marker) {
-    var dir = "media/images/markers";
-    var marker_file;
-    if(marker.hasOwnProperty("vector")) {
-      marker_file = `${marker.vector}.svg`;
-    } else if(marker.icon === "blue.png") {
-      marker_file = "blue.svg";
-    } else {
-      marker_file = marker.icon;
-    }
-    return `${dir}/${marker_file}`;
   };
 
   // Apply JSON diff from UpdateManager (this is how the user interface communicates changes

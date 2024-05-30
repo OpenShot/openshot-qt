@@ -75,7 +75,7 @@ from windows.views.emojis_listview import EmojisListView
 from windows.views.files_listview import FilesListView
 from windows.views.files_treeview import FilesTreeView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
-from windows.views.webview import TimelineWebView
+from windows.views.timeline import TimelineView
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
@@ -761,6 +761,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
 
         try:
+            # Switch to Files dock
+            self.dockFiles.setVisible(True)
+            self.dockFiles.raise_()
+            self.dockFiles.activateWindow()
+
             # Import list of files
             self.files_model.process_urls(qurl_list)
 
@@ -1020,7 +1025,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def movePlayhead(self, position_frames):
         """Update playhead position"""
         # Notify preview thread
-        self.timeline.movePlayhead(position_frames)
+        if hasattr(self.timeline, 'movePlayhead'):
+            self.timeline.movePlayhead(position_frames)
 
     def SetPlayheadFollow(self, enable_follow):
         """ Enable / Disable follow mode """
@@ -1085,7 +1091,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def onPlayCallback(self):
         """Handle when playback is started"""
         # Set icon on Play button
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay", "media-playback-pause")
+        if self.initialized:
+            from themes.manager import ThemeManager
+            theme = ThemeManager().get_current_theme()
+            if theme:
+                theme.togglePlayIcon(True)
 
     def onPauseCallback(self):
         """Handle when playback is paused"""
@@ -1093,7 +1103,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.propertyTableView.select_frame(self.preview_thread.player.Position())
 
         # Set icon on Pause button
-        ui_util.setup_icon(self, self.actionPlay, "actionPlay")
+        if self.initialized:
+            from themes.manager import ThemeManager
+            theme = ThemeManager().get_current_theme()
+            if theme:
+                theme.togglePlayIcon(False)
 
     def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
@@ -1360,16 +1374,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionSnappingTool_trigger(self, checked=True):
         log.info("actionSnappingTool_trigger")
+        _ = get_app()._tr
 
         # Enable / Disable snapping mode
         self.timeline.SetSnappingMode(self.actionSnappingTool.isChecked())
+        if self.actionSnappingTool.isChecked():
+            self.actionSnappingTool.setText(_("Disable Snapping"))
+            self.actionSnappingTool.setToolTip(_("Disable Snapping"))
+        else:
+            self.actionSnappingTool.setText(_("Enable Snapping"))
+            self.actionSnappingTool.setToolTip(_("Enable Snapping"))
 
     def actionRazorTool_trigger(self, checked=True):
         """Toggle razor tool on and off"""
         log.info('actionRazorTool_trigger')
+        _ = get_app()._tr
 
         # Enable / Disable razor mode
         self.timeline.SetRazorMode(checked)
+        if self.actionRazorTool.isChecked():
+            self.actionRazorTool.setText(_("Disable Razor"))
+            self.actionRazorTool.setToolTip(_("Disable Razor"))
+        else:
+            self.actionRazorTool.setText(_("Enable Razor"))
+            self.actionRazorTool.setToolTip(_("Enable Razor"))
 
     def actionAddMarker_trigger(self, checked=True):
         log.info("actionAddMarker_trigger")
@@ -2836,49 +2864,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Add Video Preview toolbar
         self.videoToolbar = QToolBar("Video Toolbar")
-
-        # Add fixed spacer(s) (one for each "Other control" to keep playback controls centered)
-        ospacer1 = QWidget(self)
-        ospacer1.setMinimumSize(32, 1)  # actionSaveFrame
-        self.videoToolbar.addWidget(ospacer1)
-
-        # Add left spacer
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.videoToolbar.addWidget(spacer)
-
-        # Playback controls (centered)
-        self.videoToolbar.addAction(self.actionJumpStart)
-        self.videoToolbar.addAction(self.actionRewind)
-        self.videoToolbar.addAction(self.actionPlay)
-        self.videoToolbar.addAction(self.actionFastForward)
-        self.videoToolbar.addAction(self.actionJumpEnd)
-
-        # Add right spacer
-        spacer = QWidget(self)
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.videoToolbar.addWidget(spacer)
-
-        # Other controls (right-aligned)
-        self.videoToolbar.addAction(self.actionSaveFrame)
-
         self.tabVideo.layout().addWidget(self.videoToolbar)
 
         # Add Timeline toolbar
         self.timelineToolbar = QToolBar("Timeline Toolbar", self)
-
-        self.timelineToolbar.addAction(self.actionAddTrack)
-        self.timelineToolbar.addSeparator()
-
-        # rest of options
-        self.timelineToolbar.addAction(self.actionSnappingTool)
-        self.timelineToolbar.addAction(self.actionRazorTool)
-        self.timelineToolbar.addSeparator()
-        self.timelineToolbar.addAction(self.actionAddMarker)
-        self.timelineToolbar.addAction(self.actionPreviousMarker)
-        self.timelineToolbar.addAction(self.actionNextMarker)
-        self.timelineToolbar.addAction(self.actionCenterOnPlayhead)
-        self.timelineToolbar.addSeparator()
+        self.timelineToolbar.setObjectName("timelineToolbar")
 
         # Add Video Preview toolbar
         self.captionToolbar = QToolBar(_("Caption Toolbar"))
@@ -3273,7 +3263,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline_sync = TimelineSync(self)
 
         # Setup timeline
-        self.timeline = TimelineWebView(self)
+        self.timeline = TimelineView(self)
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
@@ -3299,8 +3289,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.txtPropertyFilter.setPlaceholderText(_("Filter"))
         self.propertyTableView = PropertiesTableView(self)
         self.selectionLabel = SelectionLabel(self)
-        self.dockPropertiesContent.layout().addWidget(self.selectionLabel, 0, 1)
-        self.dockPropertiesContent.layout().addWidget(self.propertyTableView, 2, 1)
+        self.dockPropertiesContents.layout().addWidget(self.selectionLabel, 0, 1)
+        self.dockPropertiesContents.layout().addWidget(self.propertyTableView, 2, 1)
 
         # Init selection containers
         self.clearSelections()
@@ -3327,6 +3317,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Setup video preview QWidget
         self.videoPreview = VideoWidget()
+        self.videoPreview.setObjectName("videoPreview")
         self.tabVideo.layout().insertWidget(0, self.videoPreview)
 
         # Load window state and geometry
@@ -3343,6 +3334,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.preview_parent.Init(self, self.timeline_sync.timeline, self.videoPreview)
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
+        self.timeline.connect_playback()
 
         # Set play/pause callbacks
         self.PauseSignal.connect(self.onPauseCallback)
@@ -3446,9 +3438,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Apply saved window geometry/state from settings
         if self.saved_geometry:
-            self.restoreGeometry(self.saved_geometry)
+            try:
+                QTimer.singleShot(100, functools.partial(self.restoreGeometry, self.saved_geometry))
+            except Exception as e:
+                log.error(f"Error restoring window geometry: {e}")
         if self.saved_state:
-            self.restoreState(self.saved_state)
+            try:
+                QTimer.singleShot(100, functools.partial(self.restoreState, self.saved_state))
+            except Exception as e:
+                log.error(f"Error restoring window state: {e}")
 
         # Save settings
         s.save()

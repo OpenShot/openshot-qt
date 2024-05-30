@@ -44,6 +44,7 @@ from classes import openshot_rc  # noqa
 from classes.logger import log
 from classes.app import get_app
 from classes.query import Clip, Effect
+from themes.manager import ThemeManager
 
 
 class VideoWidget(QWidget, updates.UpdateInterface):
@@ -329,8 +330,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             | QPainter.TextAntialiasing,
             True)
 
-        # Fill the whole widget with the solid color
-        painter.fillRect(event.rect(), QColor("#191919"))
+        # Get theme colors (if any)
+        theme = ThemeManager().get_current_theme()
+        if not theme:
+            return
+        background_color = theme.get_color(".video_widget", "background-color")
+        painter.fillRect(event.rect(), background_color)
 
         # Find centered viewport
         viewport_rect = self.centeredViewport(self.width(), self.height())

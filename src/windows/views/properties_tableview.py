@@ -30,13 +30,13 @@ import json
 import functools
 from operator import itemgetter
 
-from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot, QRect
+from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
-    QCursor, QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
+    QIcon, QColor, QBrush, QPen, QPalette, QPixmap,
     QPainter, QPainterPath, QLinearGradient, QFont, QFontInfo,
 )
 from PyQt5.QtWidgets import (
-    QTableView, QAbstractItemView, QMenu, QSizePolicy,
+    QTableView, QAbstractItemView, QSizePolicy,
     QHeaderView, QItemDelegate, QStyle, QLabel,
     QPushButton, QHBoxLayout, QFrame, QFontDialog
 )
@@ -48,6 +48,8 @@ from classes.query import Clip, Effect, Transition
 
 from windows.models.properties_model import PropertiesModel
 from windows.color_picker import ColorPicker
+from themes.manager import ThemeManager
+from .menu import StyledContextMenu
 
 import openshot
 
@@ -105,6 +107,13 @@ class PropertyDelegate(QItemDelegate):
         else:
             value_percent = 0.0
 
+        # Get theme colors
+        theme = ThemeManager().get_current_theme()
+        if not theme:
+            return
+        foreground_color = theme.get_color(".property_value", "foreground-color")
+        background_color = theme.get_color(".property_value", "background-color")
+
         # set background color
         painter.setPen(QPen(Qt.NoPen))
         if property_type == "color":
@@ -116,9 +125,9 @@ class PropertyDelegate(QItemDelegate):
         else:
             # Normal Keyframe
             if option.state & QStyle.State_Selected:
-                painter.setBrush(QColor("#575757"))
+                painter.setBrush(background_color)
             else:
-                painter.setBrush(QColor("#3e3e3e"))
+                painter.setBrush(background_color)
 
         if readonly:
             # Set text color for read only fields
@@ -126,7 +135,7 @@ class PropertyDelegate(QItemDelegate):
         else:
             path = QPainterPath()
             path.addRoundedRect(QRectF(option.rect), 15, 15)
-            painter.fillPath(path, QColor("#3e3e3e"))
+            painter.fillPath(path, background_color)
             painter.drawPath(path)
 
             # Render mask rectangle
@@ -137,8 +146,8 @@ class PropertyDelegate(QItemDelegate):
 
             # gradient for value box
             gradient = QLinearGradient(option.rect.topLeft(), option.rect.topRight())
-            gradient.setColorAt(0, QColor("#828282"))
-            gradient.setColorAt(1, QColor("#828282"))
+            gradient.setColorAt(0, foreground_color)
+            gradient.setColorAt(1, foreground_color)
 
             # Render progress
             painter.setBrush(gradient)
@@ -473,6 +482,8 @@ class PropertiesTableView(QTableView):
             if property_key == "parent_effect_id" and not self.choices:
                 # Instantiate this effect
                 effect = Effect.get(id=clip_id)
+                if not effect:
+                    return
 
                 # Loop through timeline's clips
                 clip_choices = []
@@ -718,7 +729,7 @@ class PropertiesTableView(QTableView):
             ]
 
             # Add menu options for keyframes
-            menu = QMenu(self)
+            menu = StyledContextMenu(parent=self)
             if self.property_type == "color":
                 Color_Action = menu.addAction(_("Select a Color"))
                 Color_Action.triggered.connect(functools.partial(self.Color_Picker_Triggered, cur_property))
@@ -752,9 +763,9 @@ class PropertiesTableView(QTableView):
                 self.menu.popup(event.globalPos())
 
     def build_menu(self, data, parent_menu=None):
-        """Build a QMenu, included nested sub-menus, and divide lists if too large"""
+        """Build a Context Menu, included nested sub-menus, and divide lists if too large"""
         if parent_menu is None:
-            parent_menu = QMenu()
+            parent_menu = StyledContextMenu(parent=self)
 
         SubMenuSize = 25
         for choice in data:
@@ -920,7 +931,7 @@ class SelectionLabel(QFrame):
 
     def getMenu(self):
         # Build menu for selection button
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
 
         # Get translation object
         _ = get_app()._tr

@@ -27,11 +27,12 @@
 
 from PyQt5.QtCore import Qt, QSize, QPoint, QRegExp
 from PyQt5.QtGui import QDrag
-from PyQt5.QtWidgets import QListView, QAbstractItemView, QMenu
+from PyQt5.QtWidgets import QListView, QAbstractItemView
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
+from .menu import StyledContextMenu
 
 
 class TransitionsListView(QListView):
@@ -46,7 +47,7 @@ class TransitionsListView(QListView):
         app = get_app()
         app.context_menu_object = "transitions"
 
-        menu = QMenu(self)
+        menu = StyledContextMenu(parent=self)
         menu.addAction(self.win.actionDetailsView)
         menu.popup(event.globalPos())
 

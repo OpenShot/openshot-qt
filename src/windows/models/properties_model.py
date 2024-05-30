@@ -516,6 +516,23 @@ class PropertiesModel(updates.UpdateInterface):
                 # Check the type of property (some are keyframe, and some are not)
                 if property_type != "reader" and isinstance(clip_data[property_key], dict):
                     # Keyframe
+
+                    # Protection from HUGE scale values
+                    if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y']:
+                        width = get_app().project.get("width")
+                        height = get_app().project.get("height")
+                        is_svg = clip_data.get("reader", {}).get("path", "").lower().endswith("svg")
+                        if is_svg:
+                            max_multiple = 15
+                        else:
+                            max_multiple = 50
+                        if width > 0 and height > 0:
+                            # Clamp the max scale based on project size
+                            max_multiple = round((2000 * max_multiple) / max(width, height))
+
+                        # Apply the calculated max_multiple to new_value
+                        new_value = max(min(new_value, max_multiple), -max_multiple)
+
                     # Loop through points, find a matching points on this frame
                     found_point = False
                     point_to_delete = None

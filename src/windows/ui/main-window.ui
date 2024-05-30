@@ -129,6 +129,7 @@
     <addaction name="separator"/>
     <addaction name="actionImportFiles"/>
     <addaction name="actionProfile"/>
+    <addaction name="actionSaveFrame"/>
     <addaction name="separator"/>
     <addaction name="menuImport_Project"/>
     <addaction name="menuExport"/>
@@ -212,18 +213,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew"/>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
-   <addaction name="separator"/>
-   <addaction name="actionUndo"/>
-   <addaction name="actionRedo"/>
-   <addaction name="separator"/>
-   <addaction name="actionImportFiles"/>
-   <addaction name="actionProfile"/>
-   <addaction name="actionFullscreen"/>
-   <addaction name="separator"/>
-   <addaction name="actionExportVideo"/>
   </widget>
   <widget class="QDockWidget" name="dockFiles">
    <property name="sizePolicy">
@@ -238,7 +227,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="dockFilesContents">
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="leftMargin">
       <number>9</number>
@@ -298,7 +287,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3">
+   <widget class="QWidget" name="dockTransitionsContents">
     <layout class="QGridLayout" name="gridLayout_4">
      <property name="leftMargin">
       <number>9</number>
@@ -325,7 +314,7 @@
    <attribute name="dockWidgetArea">
     <number>4</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContentsEmoji">
+   <widget class="QWidget" name="dockEmojisContents">
     <layout class="QGridLayout" name="gridLayoutEmoji">
      <property name="leftMargin">
       <number>9</number>
@@ -352,7 +341,7 @@
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4">
+   <widget class="QWidget" name="dockEffectsContents">
     <layout class="QGridLayout" name="gridLayout_5">
      <property name="leftMargin">
       <number>9</number>
@@ -382,7 +371,7 @@
    <property name="visible">
     <bool>false</bool>
    </property>
-   <widget class="QWidget" name="dockWidgetContentsCaption">
+   <widget class="QWidget" name="dockCaptionContents">
     <layout class="QGridLayout" name="gridLayoutCaption">
      <property name="leftMargin">
       <number>9</number>
@@ -415,7 +404,7 @@
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockPropertiesContent">
+   <widget class="QWidget" name="dockPropertiesContents">
     <layout class="QGridLayout" name="gridLayout_6">
      <property name="leftMargin">
       <number>9</number>
@@ -491,37 +480,6 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockTutorialContents">
-    <property name="focusPolicy">
-     <enum>Qt::ClickFocus</enum>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::NoContextMenu</enum>
-    </property>
-    <property name="visible">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout"/>
-     </item>
-    </layout>
-   </widget>
   </widget>
   <widget class="QDockWidget" name="dockTimeline">
    <property name="minimumSize">
@@ -884,10 +842,10 @@
      <normaloff>:/icons/Humanity/actions/16/edit-cut.svg</normaloff>:/icons/Humanity/actions/16/edit-cut.svg</iconset>
    </property>
    <property name="text">
-    <string>Razor Tool</string>
+    <string>Enable Razor</string>
    </property>
    <property name="toolTip">
-    <string>Razor Tool</string>
+    <string>Enable Razor</string>
    </property>
    <property name="shortcut">
     <string>R</string>
@@ -905,10 +863,10 @@
      <normaloff>:/icons/Humanity/actions/custom/snap.svg</normaloff>:/icons/Humanity/actions/custom/snap.svg</iconset>
    </property>
    <property name="text">
-    <string>Snapping Enabled</string>
+    <string>Disable Snapping</string>
    </property>
    <property name="toolTip">
-    <string>Snapping Enabled</string>
+    <string>Disable Snapping</string>
    </property>
   </action>
   <action name="actionAddMarker">
@@ -932,10 +890,10 @@
      <normaloff>:/icons/Humanity/actions/16/go-first.svg</normaloff>:/icons/Humanity/actions/16/go-first.svg</iconset>
    </property>
    <property name="text">
-    <string>Previous Key Point</string>
+    <string>Previous Marker</string>
    </property>
    <property name="toolTip">
-    <string>Previous Key Point</string>
+    <string>Previous Marker</string>
    </property>
   </action>
   <action name="actionNextMarker">
@@ -944,10 +902,10 @@
      <normaloff>:/icons/Humanity/actions/16/go-last.svg</normaloff>:/icons/Humanity/actions/16/go-last.svg</iconset>
    </property>
    <property name="text">
-    <string>Next Key Point</string>
+    <string>Next Marker</string>
    </property>
    <property name="toolTip">
-    <string>Next Key Point</string>
+    <string>Next Marker</string>
    </property>
   </action>
   <action name="actionCenterOnPlayhead">
@@ -1016,6 +974,30 @@
    </property>
    <property name="toolTip">
     <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionRemoveGap">
+   <property name="icon">
+    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Gap</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Gap</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllGaps">
+   <property name="icon">
+    <iconset theme="edit-clear" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-clear.svg</normaloff>:/icons/Humanity/actions/16/edit-clear.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove All Gaps</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove All Gaps</string>
    </property>
   </action>
   <action name="actionTransitionsShowAll">

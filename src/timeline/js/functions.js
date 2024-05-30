@@ -60,102 +60,76 @@ function getTrackContainerHeight() {
   return $("#track-container").height() - track_margin;
 }
 
-// Draw the audio wave on a clip
-function drawAudio(scope, clip_id) {
-  //get the clip in the scope
-  var clip = findElement(scope.project.clips, "id", clip_id);
+// Draw each bar of the audio waveform (a wave is made up from lots of vertical lines)
+function drawBar(ctx, startX, endX, maxHeight, avgHeight, transpColor, fillColor, bottom_edge) {
+  // Draw the slightly transparent max-bar
+  ctx.fillStyle = transpColor;
+  ctx.fillRect(startX, bottom_edge - maxHeight, endX - startX, maxHeight);
 
-  if (clip.ui && clip.ui.audio_data) {
-    var element = $("#clip_" + clip_id);
+  // Draw the fully visible average-bar
+  ctx.fillStyle = fillColor;
+  ctx.fillRect(startX, bottom_edge - avgHeight, endX - startX, avgHeight);
+}
 
-    // Determine start and stop samples
-    var samples_per_second = 20;
-    var block_width = 2; // 2 pixel wide blocks as smallest size
-    var start_sample = Math.round(clip.start * samples_per_second);
-    var end_sample = clip.end * samples_per_second;
+// Draw audio waveform from audio samples
+function drawWaveform(ctx, audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge) {
+  var last_x = 0;
+  var avg = 0;
+  var avg_cnt = 0;
+  var max = 0;
 
-    // Determine divisor for zoom scale
-    var sample_divisor = samples_per_second / scope.pixelsPerSecond;
+  // Loop through audio samples (calculate average and max amplitude)
+  for (var i = start_sample; i < end_sample; i++) {
+    var sample = Math.abs(audio_data[i]);
+    var x = Math.floor((i + 1 - start_sample) / sample_divisor);
+    avg += sample;
+    avg_cnt++;
+    max = Math.max(max, sample);
 
-    //show audio container
-    element.find(".audio-container").fadeIn(100);
+    if (x >= last_x + block_width || i === end_sample - 1) {
+      drawBar(ctx, last_x, x, max * scale, avg / avg_cnt * scale, color_transp, color, bottom_edge);
 
-    // Get audio canvas context
-    var audio_canvas = element.find(".audio");
-    if (!audio_canvas.length) {
-      return;
-    }
-    var ctx = audio_canvas[0].getContext("2d", {alpha: false});
-
-    // Clear canvas
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-    var color = "#2a82da"; // rgb(42,130,218)
-    var color_transp = "rgba(42,130,218,0.5)";
-
-    ctx.strokeStyle = color;
-
-    // Find the midpoint
-    var mid_point = audio_canvas.height() - 8;
-    var scale = mid_point;
-
-    // Draw the mid-point line
-    ctx.beginPath();
-    ctx.lineWidth = 1;
-    ctx.moveTo(0, mid_point);
-    ctx.lineTo(audio_canvas.width(), mid_point);
-    ctx.stroke();
-
-
-    var sample = 0.0,
-      // Variables for accumulation
-      avg = 0.0,
-      avg_cnt = 0,
-      max = 0.0,
-      last_x = 0;
-
-    // Ensure that the waveform canvas doesn't exceed its max
-    // dimensions, even if it means we can't draw the full audio.
-    // (If we try to go over the max width, the whole canvas disappears)
-    var final_sample = end_sample;
-    var audio_width = (end_sample - start_sample) / sample_divisor;
-    var usable_width = scope.canvasMaxWidth(audio_width);
-    if (audio_width > usable_width) {
-      // Just go as far as we can, then cut off the remaining waveform
-      final_sample = (usable_width * sample_divisor) - 1;
-    }
-
-    // Go through all of the (reduced) samples
-    // And whenever enough are "collected", draw a block
-    for (var i = start_sample; i < final_sample; i++) {
-      // Flip negative values up
-      sample = Math.abs(clip.ui.audio_data[i]);
-      // X-Position of *next* sample
-      var x = Math.floor((i + 1 - start_sample) / sample_divisor);
-
-      avg += sample;
-      avg_cnt++;
-      max = Math.max(max, sample);
-
-      if (x >= last_x + block_width || i === final_sample - 1) {
-        // Block wide enough or last block -> draw it
-
-        // Draw the slightly transparent max-bar
-        ctx.fillStyle = color_transp;
-        ctx.fillRect(last_x, mid_point, x - last_x, -(max * scale));
-
-        // Draw the fully visible average-bar
-        ctx.fillStyle = color;
-        ctx.fillRect(last_x, mid_point, x - last_x, -(avg / avg_cnt * scale));
-
-        // Reset all the variables for accumulation
-        last_x = x;
-        avg = 0;
-        avg_cnt = 0;
-        max = 0;
-      }
+      // Reset for the next bar
+      last_x = x;
+      avg = 0;
+      avg_cnt = 0;
+      max = 0;
     }
   }
+}
+
+
+// Draw the audio waveform for a clip
+function drawAudio(scope, clip_id) {
+  // Find clip in scope
+  var clip = findElement(scope.project.clips, "id", clip_id);
+  if (!clip.ui || !clip.ui.audio_data) {
+    return;
+  }
+
+  // Find audio canvas
+  var element = $("#clip_" + clip_id);
+  var audio_canvas = element.find(".audio");
+  if (audio_canvas.length === 0) {
+    return;
+  }
+
+  // Init canvas and init variables
+  var ctx = audio_canvas[0].getContext("2d");
+  var samples_per_second = 20;
+  var start_sample = Math.round(clip.start * samples_per_second);
+  var end_sample = Math.round(clip.end * samples_per_second);
+  var sample_divisor = samples_per_second / scope.pixelsPerSecond;
+  var block_width = 2;
+  var color = "#2a82da"; // rgb(42,130,218)
+  var color_transp = "rgba(42,130,218,0.5)";
+  ctx.strokeStyle = color;
+
+  // Scale waveform to smaller % of clip height
+  var bottom_edge = audio_canvas.height();
+  var scale = bottom_edge * 0.85;
+
+  drawWaveform(ctx, clip.ui.audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge);
 }
 
 function padNumber(value, pad_length) {
@@ -190,26 +164,31 @@ function secondsToTime(secs, fps_num, fps_den) {
 }
 
 // Find the closest track number (based on a Y coordinate)
-function findTrackAtLocation(scope, top) {
+function findTrackAtLocation(scope, mouseY) {
+  var closestTrack = null;
+  var minDistance = Infinity;
 
   // Loop through each layer (looking for the closest track based on Y coordinate)
-  var track_position = 0;
-  var track_number = 0;
-  for (var layer_index = scope.project.layers.length - 1; layer_index >= 0; layer_index--) {
+  for (var layer_index = 0; layer_index < scope.project.layers.length; layer_index++) {
     var layer = scope.project.layers[layer_index];
 
-    // Compare position of track to Y param (of unlocked tracks)
+    // Consider only unlocked tracks
     if (!layer.lock) {
-      if ((top < layer.y && top > track_position) || track_position === 0) {
-        // return first matching layer
-        track_position = layer.y;
-        track_number = layer.number;
+      // Assuming each layer has a height property
+      var layerCenterY = layer.y + (layer.height / 2);
+      var distance = Math.abs(mouseY - layerCenterY);
+
+      // Update if this layer is closer than the previous closest
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestTrack = layer;
       }
     }
   }
 
-  return track_number;
+  return closestTrack;
 }
+
 
 // Find the closest track number (based on a Y coordinate)
 function hasLockedTrack(scope, top, bottom) {
@@ -327,7 +306,7 @@ function setBoundingBox(scope, item, item_type="clip") {
 }
 
 // Move bounding box (apply snapping and constraints)
-function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip") {
+function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip", cursor_offset= {top: 0}) {
   let scrolling_tracks = $("#scrolling_tracks");
 
   // Store result of snapping logic (left, top)
@@ -373,6 +352,25 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
     scope.hideSnapline();
   }
 
+  // Find the nearest track based on the adjusted top position
+  var nearest_track = findTrackAtLocation(scope, bounding_box.top + cursor_offset.top);
+  if (nearest_track !== null) {
+    var track_offset = nearest_track.y - bounding_box.top;
+
+    // Snap bounding box to nearest track
+    y_offset += track_offset;
+    bounding_box.top += track_offset;
+    bounding_box.bottom += track_offset;
+    snapping_result.top += track_offset;
+  }
+
+  // Find bottom track (for accurate bottom bounding box detection)
+  var lastTrack = scrolling_tracks.find(".track").last();
+  var bottom_edge_last_track = 0;
+  if (lastTrack.length) {
+    bottom_edge_last_track = lastTrack.position().top + lastTrack.height() + scrolling_tracks.scrollTop();
+  }
+
   // Check overall timeline constraints (i.e don't let clips be dragged outside the timeline)
   if (bounding_box.left < 0) {
     // Left border
@@ -388,10 +386,10 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
     bounding_box.bottom = bounding_box.height;
     snapping_result.top = previous_y + y_offset;
   }
-  if (bounding_box.bottom > scrolling_tracks.height) {
+  if (bounding_box.bottom > bottom_edge_last_track) {
     // Bottom border
-    y_offset -= (bounding_box.bottom - scrolling_tracks.height);
-    bounding_box.bottom = scrolling_tracks.height;
+    y_offset -= (bounding_box.bottom - bottom_edge_last_track);
+    bounding_box.bottom = bottom_edge_last_track;
     bounding_box.top = bounding_box.bottom - bounding_box.height;
     snapping_result.top = previous_y + y_offset;
   }

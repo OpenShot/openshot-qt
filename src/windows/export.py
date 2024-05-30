@@ -86,7 +86,9 @@ class Export(QDialog):
 
         # Add buttons to interface
         self.cancel_button = QPushButton(_('Cancel'))
+        self.cancel_button.setObjectName("cancelButton")
         self.export_button = QPushButton(_('Export Video'))
+        self.export_button.setObjectName("acceptButton")
         self.close_button = QPushButton(_('Done'))
         self.buttonBox.addButton(self.close_button, QDialogButtonBox.RejectRole)
         self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)
@@ -321,7 +323,7 @@ class Export(QDialog):
         # Update channels to match layout
         self.txtChannels.setValue(channels)
 
-    def updateFrameRate(self):
+    def updateFrameRate(self, set_limits=True):
         """Callback for changing the frame rate"""
         # Adjust the main timeline reader
         self.timeline.info.width = self.txtWidth.value()
@@ -338,12 +340,13 @@ class Export(QDialog):
         else:
             self.timeline.info.has_audio = True
 
-        # Determine max frame (based on clips)
-        self.timeline_length_int = self.timeline.GetMaxFrame()
+        if set_limits:
+            # Determine max frame (based on clips)
+            self.timeline_length_int = self.timeline.GetMaxFrame()
 
-        # Set the min and max frame numbers for this project
-        self.txtStartFrame.setValue(1)
-        self.txtEndFrame.setValue(self.timeline_length_int)
+            # Set the min and max frame numbers for this project
+            self.txtStartFrame.setValue(1)
+            self.txtEndFrame.setValue(self.timeline_length_int)
 
         # Calculate differences between editing/preview FPS and export FPS
         current_fps = get_app().project.get("fps")
@@ -912,7 +915,7 @@ class Export(QDialog):
             self.timeline.SetJson(json.dumps(rescaled_app_data))
 
         # Re-update the timeline FPS again (since the timeline just got clobbered)
-        self.updateFrameRate()
+        self.updateFrameRate(set_limits=False)
 
         # Set MaxSize (so we don't have any downsampling)
         self.timeline.SetMaxSize(video_settings.get("width"), video_settings.get("height"))

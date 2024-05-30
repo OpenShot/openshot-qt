@@ -71,6 +71,12 @@ except ImportError:
     pass
 
 try:
+    # Manually set display scale factor rounding
+    # Use "PassThrough" for fractional sizes on Windows (i.e. 150%), although PassThrough
+    # introduces artifacts and issues on the Web-based timeline widget (i.e. no borders, not high DPI, etc...)
+    # TODO: Switch back to PassThrough when timeline widget is replaced with QWidget
+    os.environ['QT_SCALE_FACTOR_ROUNDING_POLICY'] = "Round"
+
     # Enable High-DPI resolutions
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
@@ -114,7 +120,7 @@ def main():
         '(requires Qt 5.11+)')
     parser.add_argument(
         '-b', '--web-backend', action='store',
-        choices=['auto', 'webkit', 'webengine'], default='auto',
+        choices=['auto', 'webkit', 'webengine', 'qwidget'], default='auto',
         help="Web backend to use for Timeline")
     parser.add_argument(
         '-d', '--debug', action='store_true',
@@ -205,14 +211,6 @@ def main():
         app.setDesktopFile("org.openshot.OpenShot")
     except AttributeError:
         pass
-
-    # DEBUG
-    for screen in app.screens():
-        print("Screen %s" % screen.name())
-        print("   devicePixelRatio: %s" % screen.devicePixelRatio())
-        print("   logicalDotsPerInch: %s" % screen.logicalDotsPerInch())
-        print("   physicalDotsPerInch: %s" % screen.physicalDotsPerInch())
-        print("   availableSizes: %s" % screen.availableSize())
 
     # Launch GUI and start event loop
     if app.gui():

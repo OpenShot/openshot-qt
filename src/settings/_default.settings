@@ -15,21 +15,8 @@
     "setting": "theme",
     "type": "dropdown",
     "translate_values": true,
-    "values": [
-      {
-        "value": "Humanity",
-        "name": "Humanity"
-      },
-      {
-        "value": "Humanity: Dark",
-        "name": "Humanity: Dark"
-      },
-      {
-        "value": "No Theme",
-        "name": "No Theme"
-      }
-    ],
-    "restart": true
+    "values": [],
+    "restart": false
   },
   {
     "value": "",
@@ -37,6 +24,13 @@
     "type": "hidden",
     "category": "General",
     "setting": "unique_install_id"
+  },
+  {
+    "value": true,
+    "title": "",
+    "type": "hidden",
+    "category": "General",
+    "setting": "adjust_scaling_factor"
   },
   {
     "value": "smileys-emotion",

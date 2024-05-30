@@ -259,6 +259,8 @@ used to correct poorly lit videos or to create dramatic lighting effects for art
    contrast                    ``(float, 0 to 100)`` The curve to adjust the contrast (3 is typical, 20 is a lot, 100 is max. 0 is invalid)
    ==========================  ============
 
+.. _caption_effect_ref:
+
 Caption
 """""""
 Add text captions on top of your video. We support both VTT (WebVTT) and SubRip (SRT) subtitle file formats. These

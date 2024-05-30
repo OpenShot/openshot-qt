@@ -29,7 +29,6 @@
 
 /*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Init Variables
-var dragging = false;
 var resize_disabled = false;
 var previous_drag_position = null;
 var start_transitions = {};
@@ -53,7 +52,7 @@ App.directive("tlTransition", function () {
         handles: "e, w",
         minWidth: 1,
         start: function (e, ui) {
-          dragging = true;
+          scope.setDragging(true);
           resize_disabled = false;
 
           // Set selections
@@ -84,7 +83,7 @@ App.directive("tlTransition", function () {
 
         },
         stop: function (e, ui) {
-          dragging = false;
+          scope.setDragging(false);
 
           // Show keyframe points
           element.find(".point").fadeIn(100);
@@ -202,12 +201,12 @@ App.directive("tlTransition", function () {
       //handle hover over on the transition
       element.hover(
         function () {
-          if (!dragging) {
+          if (!scope.getDragging()) {
             element.addClass("highlight_transition", 200, "easeInOutCubic");
           }
         },
         function () {
-          if (!dragging) {
+          if (!scope.getDragging()) {
             element.removeClass("highlight_transition", 200, "easeInOutCubic");
           }
         }
@@ -216,17 +215,23 @@ App.directive("tlTransition", function () {
 
       //handle draggability of transition
       element.draggable({
-        snap: ".track", // snaps to a track
-        snapMode: "inner",
-        snapTolerance: 20,
+        snap: false,
         scroll: true,
         cancel: ".transition_menu, .point",
         start: function (event, ui) {
           previous_drag_position = null;
-          dragging = true;
+          scope.setDragging(true);
 
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Store initial cursor vs draggable offset
+          var elementOffset = $(this).offset();
+          var cursorOffset = {
+              left: event.pageX - elementOffset.left,
+              top: event.pageY - elementOffset.top
+          };
+          $(this).data("offset", cursorOffset);
 
           var scrolling_tracks = $("#scrolling_tracks");
           var vert_scroll_offset = scrolling_tracks.scrollTop();
@@ -262,10 +267,13 @@ App.directive("tlTransition", function () {
 
           // Clear previous drag position
           previous_drag_position = null;
-          dragging = false;
+          scope.setDragging(false);
 
         },
         drag: function (e, ui) {
+          // Retrieve the initial cursor offset
+          var initialOffset = $(this).data("offset");
+
           var previous_x = ui.originalPosition.left;
           var previous_y = ui.originalPosition.top;
           if (previous_drag_position !== null) {
@@ -282,7 +290,7 @@ App.directive("tlTransition", function () {
           var y_offset = ui.position.top - previous_y;
 
           // Move the bounding box and apply snapping rules
-          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top);
+          var results = moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, ui.position.left, ui.position.top, "clip", initialOffset);
           x_offset = results.x_offset;
           y_offset = results.y_offset;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="openshot-timeline">
+<html ng-app="openshot-timeline" ng-controller="TimelineCtrl">
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <META name="author" content="OpenShot Studios, LLC">
@@ -7,7 +7,7 @@
         <META name="license" content="GPLv3">
         <link rel="icon" type="image/png" href="../images/openshot.png" />
         <title>OpenShot Timeline</title>
-        
+
         <!-- JQuery & Angular -->
         <link type="text/css" rel="stylesheet" href="media/css/jquery-ui.css" />
         <link type="text/css" rel="stylesheet" href="media/css/ui-darkness/jquery-ui.theme.css" />
@@ -37,8 +37,11 @@
         <link type="text/css" rel="stylesheet" href="media/css/debug.css" />		
         <!-- JQuery & Bootstrap StyleSheets -->
         <link type="text/css" rel="stylesheet" href="media/css/bootstrap.min.css">
+
+        <!-- Inject dynamic theme CSS here -->
+        <style ng-bind="ThemeCSS"></style>
 </head>
-<body tl-body ng-controller="TimelineCtrl" ng-cloak onload="forceDrawRuler()">
+<body tl-body ng-cloak onload="forceDrawRuler()">
 		
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
@@ -47,15 +50,13 @@
 		<!-- RULER (right of screen) -->
 		<div id="scrolling_ruler">
 			<!-- PLAYHEAD TOP -->
-			<div tl-playhead class="playhead playhead-top" id="playhead" ng-right-click="showPlayheadMenu(project.playhead_position)" style="left:{{project.playhead_position * pixelsPerSecond}}px;">
-				<div class="playhead-line-small"></div>
-			</div>
+			<div tl-playhead class="playhead playhead-top" id="playhead" ng-right-click="showPlayheadMenu(project.playhead_position)" style="left:{{project.playhead_position * pixelsPerSecond}}px;"></div>
 			<!-- Ruler is width of the timeline -->
 			<div tl-ruler id="ruler" style="width: {{project.duration * pixelsPerSecond}}px;"></div>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
-				<img ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-right-click="showMarkerMenu(marker.id)" ng-style="{'left': marker.position * pixelsPerSecond + 'px'}" class="marker_icon" ng-src="{{markerPath(marker)}}" draggable="false"/>
+				<span ng-repeat="marker in project.markers" id="marker_{{marker.id}}_{{$index}}" ng-click="selectMarker(marker)" ng-right-click="showMarkerMenu(marker.id)" ng-style="{'left': marker.position * pixelsPerSecond + 'px'}" class="marker_icon" draggable="false"/>
 			</span>
 			<br class="cleared">
 			

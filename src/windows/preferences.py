@@ -165,6 +165,7 @@ class Preferences(QDialog):
                     # Create tab widget and layout
                     layout = QVBoxLayout()
                     tabWidget = QWidget(self)
+                    tabWidget.setObjectName("PreferencePanel")
                     tabWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
                     tabWidget.setLayout(layout)
                     scroll_area.setWidget(tabWidget)
@@ -293,6 +294,15 @@ class Preferences(QDialog):
                             value_list.append({
                                 "name": "%s: %s" % (audio_device[1], audio_device[0]),
                                 "value": "%s||%s" % (audio_device[0], audio_device[1])
+                            })
+
+                    # Overwrite value list (for theme names)
+                    if param["setting"] == "theme":
+                        from themes.manager import ThemeName
+                        value_list = []
+                        for theme_name in ThemeName.get_sorted_theme_names():
+                            value_list.append({
+                                "name": _(theme_name), "value": theme_name
                             })
 
                     # Overwrite value list (for language dropdown)
@@ -553,6 +563,12 @@ class Preferences(QDialog):
 
         if param["setting"] == "graca_number_en":
             openshot.Settings.Instance().HW_EN_DEVICE_SET = int(value)
+
+        if param["setting"] == "theme":
+            # Apply selected theme to UI
+            from themes.manager import ThemeManager, ThemeName
+            theme_enum = ThemeName.find_by_name(value)
+            ThemeManager().apply_theme(theme_enum)
 
         # Check for restart
         self.check_for_restart(param)

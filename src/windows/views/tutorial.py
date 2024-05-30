@@ -209,6 +209,7 @@ class TutorialManager(QObject):
                 int(tutorial_details["x"]),
                 int(tutorial_details["y"]))
             tutorial_dialog = TutorialDialog(tutorial_id, tutorial_details["text"], tutorial_details["arrow"], self)
+            tutorial_dialog.setObjectName("tutorial")
 
             # Connect signals
             tutorial_dialog.btn_next_tip.clicked.connect(functools.partial(self.next_tip, tutorial_id))

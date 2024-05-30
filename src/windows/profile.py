@@ -31,7 +31,7 @@ import functools
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QDialog, QSizePolicy
+from PyQt5.QtWidgets import QDialog, QSizePolicy, QDialogButtonBox
 
 from classes import info, ui_util
 from classes.app import get_app
@@ -66,6 +66,20 @@ class Profile(QDialog):
 
         # Keep track of starting selection
         self.initial_index = 0
+
+        # Set up the buttons
+        self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        self.okButton = self.buttonBox.button(QDialogButtonBox.Ok)
+        self.cancelButton = self.buttonBox.button(QDialogButtonBox.Cancel)
+
+        # Set object names (for theme styles)
+        self.okButton.setObjectName("acceptButton")
+        self.cancelButton.setObjectName("cancelButton")
+        self.layout().addWidget(self.buttonBox)
+
+        # Connect the buttons
+        self.okButton.clicked.connect(self.accept)
+        self.cancelButton.clicked.connect(self.reject)
 
         # Loop through profiles
         self.profile_list = []

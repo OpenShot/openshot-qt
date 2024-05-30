@@ -53,150 +53,193 @@ def acquireAndName(name):
     obj.name = name
     return obj
 
-def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font):
-    """ Create aned animate the exploding texte """
+def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, font, wind_field_strength, wind_field_noise, turbulence_field_strength, turbulence_field_size):
+    """ Create and animate the exploding text """
 
-    # create text
-    bpy.ops.object.text_add(
-        radius=1.0,
-        enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0),
-        rotation=(pi / 2, 0.0, 0.0),
-    )
-    Text = acquireAndName('Text')
+    newText = title
 
-    Text.data.body = title
+    # Function to delete an object if it exists
+    def delete_object(obj_name):
+        obj = bpy.data.objects.get(obj_name)
+        if obj:
+            bpy.context.view_layer.objects.active = obj
+            obj.select_set(True)
+            bpy.ops.object.delete(use_global=False)
+            bpy.ops.object.select_all(action='DESELECT')
 
-    # text size
-    Text.data.size = textsize
-    Text.data.space_character = width
-    Text.data.font = font
-    # centering text
-    Text.data.align_x = spacemode
-    # extrude text
-    Text.data.extrude = extrude
+    # Create text
+    bpy.ops.object.text_add(align='WORLD', enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
+    active_object_text = bpy.context.object
 
-    # bevel text
-    Text.data.bevel_depth = bevel_depth
-    Text.data.bevel_resolution = 5
-    # adjust text position
-    Text.location.z = -Text.dimensions[1] / 3
+    # Ensure the text object is selected and active
+    active_object_text.select_set(True)
+    bpy.context.view_layer.objects.active = active_object_text
 
-    # affect dissolve material
-    Text.data.materials.append(bpy.data.materials['DissolveMaterial'])
+    # Delete previous objects
+    delete_object('TurbulenceField')
+    delete_object('Plane')
+    delete_object('WindField')
 
-    # convert to mesh to apply effect
+    # Rename text object and ensure it is active
+    try:
+        active_object_text.name = 'Text'
+    except ReferenceError as e:
+        print(f"Error renaming object: {e}")
+
+    # Rotating text
+    active_object_text.rotation_euler = (pi / 2, 0.0, 0.0)  # x, y, z axis
+    active_object_text.location = (0, 0, 0)  # x, y, z location
+
+    # Changing text
+    active_object_text.data.body = newText
+
+    # Centering text
+    active_object_text.data.align_x = spacemode
+    # Extrude text
+    active_object_text.data.extrude = extrude
+    # Bevel text
+    active_object_text.data.bevel_depth = bevel_depth
+    active_object_text.data.bevel_resolution = 5
+
+    # Text size
+    active_object_text.data.size = textsize
+    active_object_text.location.z = -active_object_text.dimensions[1] / 3
+
+    # Convert to mesh to apply effect
     bpy.ops.object.convert(target='MESH', keep_original=False)
 
-    # add remesh modifier to text
-    bpy.ops.object.modifier_add(type='REMESH')
-    # modifying parameters
-    Text.modifiers['Remesh'].octree_depth = 9  # 10 best quality but vertices number too high
-    Text.modifiers['Remesh'].scale = 0.99
-    Text.modifiers['Remesh'].mode = 'SMOOTH'
-    Text.modifiers['Remesh'].use_remove_disconnected = False
-    # apply this modifier
+    # Apply dissolve material
+    material = bpy.data.materials.get('DissolveMaterial')
+    if material:
+        active_object_text.data.materials.append(material)
+
+    # Add remesh modifier to text
+    remesh_modifier = active_object_text.modifiers.new(name='Remesh', type='REMESH')
+    # Modify parameters
+    remesh_modifier.octree_depth = 9  # 10 best quality but vertices number too high
+    remesh_modifier.scale = 0.99
+    remesh_modifier.mode = 'SMOOTH'
+    remesh_modifier.use_remove_disconnected = False
+    # Apply this modifier
     bpy.ops.object.modifier_apply(modifier="Remesh")
 
-    # Nb quads for particle system
-    NbQuads = len(Text.data.polygons.values())
+    # Number of quads for particle system
+    nb_quads = len(active_object_text.data.polygons)
 
-    # Add Particle System
+    # Add particle system
     bpy.ops.object.particle_system_add()
-    ParticleSystem = Text.particle_systems[0]
-    PSSettings = ParticleSystem.settings
-
+    particle_system = active_object_text.particle_systems[-1].settings
     # Particle parameters
-    PSSettings.count = NbQuads
-    PSSettings.frame_start = 10
-    PSSettings.frame_end = 30
-    PSSettings.lifetime = 90
-    ParticleSystem.point_cache.frame_step = 1
-    PSSettings.normal_factor = 0.0
-    # not useful
-    PSSettings.render_type = 'OBJECT'
-    PSSettings.instance_object = bpy.data.objects['Sphere']
-    PSSettings.effector_weights.gravity = 0
-    PSSettings.use_dynamic_rotation = True
-    PSSettings.use_adaptive_subframes = True
-    PSSettings.courant_target = 0.2
+    particle_system.count = nb_quads
+    particle_system.frame_start = 10
+    particle_system.frame_end = 120
+    particle_system.lifetime = 110
+    particle_system.timestep = 0.1
+    particle_system.normal_factor = 0.0
+    particle_system.use_dynamic_rotation = True
+    particle_system.render_type = 'NONE'
+    particle_system.display_method = 'DOT'
+    particle_system.effector_weights.gravity = 0
+    particle_system.use_adaptive_subframes = True
+    particle_system.courant_target = 0.2
+
+    bpy.ops.object.select_all(action='DESELECT')
 
     # Adding Wind force field on center and rotate it -90 on Y
-    bpy.ops.object.effector_add(
-        type='WIND', radius=1.0,
-        enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0),
-        rotation=(0, -pi / 2, 0),
-    )
-    WindField = acquireAndName('WindField')
-
-    # settings
-    WindField.field.strength = 1.0
-    WindField.field.flow = 1.0
-    WindField.field.noise = 0.0
-    WindField.field.seed = 27
-    WindField.field.apply_to_location = True
-    WindField.field.apply_to_rotation = True
-    WindField.field.use_absorption = False
+    bpy.ops.object.effector_add(type='WIND', align='WORLD', enter_editmode=False, location=(0, 0, 0), rotation=(0, -pi/2, 0))
+    active_object_wind_field = bpy.context.object
+    active_object_wind_field.name = 'WindField'
+    # Settings
+    wind_field = active_object_wind_field.field
+    wind_field.strength = wind_field_strength
+    wind_field.flow = 1.0
+    wind_field.noise = wind_field_noise
+    wind_field.seed = 27
+    wind_field.apply_to_location = True
+    wind_field.apply_to_rotation = True
+    wind_field.use_absorption = False
 
     # Adding Turbulence Force Field
-    bpy.ops.object.effector_add(
-        type='TURBULENCE', radius=1.0,
-        enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0),
-        rotation=(0, 0, 0),
-    )
-    TurbulenceField = acquireAndName('TurbulenceField')
+    bpy.ops.object.effector_add(type='TURBULENCE', align='WORLD', enter_editmode=False, location=(0, 0, 0), rotation=(0, 0, 0))
+    active_object_turbulence_field = bpy.context.object
+    active_object_turbulence_field.name = 'TurbulenceField'
+    # Settings
+    turbulence_field = active_object_turbulence_field.field
+    turbulence_field.strength = turbulence_field_strength
+    turbulence_field.size = turbulence_field_size
+    turbulence_field.flow = 0.5
+    turbulence_field.seed = 23
+    turbulence_field.apply_to_location = True
+    turbulence_field.apply_to_rotation = True
+    turbulence_field.use_absorption = False
 
-    # settings
-    TurbulenceField.field.strength = 15
-    TurbulenceField.field.size = 0.75
-    TurbulenceField.field.flow = 0.5
-    TurbulenceField.field.seed = 23
-    TurbulenceField.field.apply_to_location = True
-    TurbulenceField.field.apply_to_rotation = True
-    TurbulenceField.field.use_absorption = False
+    bpy.ops.object.select_all(action='DESELECT')
 
-    select(Text)
+    # Selecting Text
+    bpy.context.view_layer.objects.active = active_object_text
+    active_object_text.select_set(True)
 
-    # adding wipe texture to text
+    # Adding wipe texture to text
     sTex = bpy.data.textures.new('Wipe', type='BLEND')
     sTex.use_color_ramp = True
 
-    TexSlot = PSSettings.texture_slots.add()
-    TexSlot.texture = sTex
-    TexSlot.texture_coords = 'OBJECT'
-    TexSlot.use_map_time = True
+    tex_slot = particle_system.texture_slots.add()
+    tex_slot.texture = sTex
 
-    deselect()
+    bpy.ops.object.select_all(action='DESELECT')
 
     # Create plane for controlling action of particle system (based on time)
-    # if text is created on the fly 'Wipe' texture does not work! don't know really why!
-    # so use of an existing plane, and resize it to the text x dimension
-    bpy.ops.mesh.primitive_plane_add(
-        size=2.0, calc_uvs=True,
-        enter_editmode=False, align='WORLD',
-        location=(0.0, 0.0, 0.0),
-        rotation=(pi / 2, 0, 0),
-    )
-    Plane = acquireAndName('Plane')
+    bpy.ops.mesh.primitive_plane_add(align='WORLD', enter_editmode=False, location=(0, 0, 0), rotation=(pi/2, 0, 0))
+    active_object_plane = bpy.context.object
+    active_object_plane.name = 'Plane'
     # Change dimensions
-    Plane.dimensions = (
-        (Text.dimensions[0] * 1.2),
-        (Text.dimensions[1] * 1.2),
-        0)
-    # hide plane for render
-    Plane.hide_render = True
+    active_object_plane.dimensions = (active_object_text.dimensions[0] * 1.2, active_object_text.dimensions[1] * 1.2, 0)
+    # Hide plane for render
+    active_object_plane.hide_render = True
+    # Show as wire in 3D
+    active_object_plane.display_type = 'WIRE'
 
-    TexSlot.object = Plane
-    select(Text)
-    Text.data.update()
+    bpy.ops.object.select_all(action='DESELECT')
+
+    # Selecting Text
+    bpy.context.view_layer.objects.active = active_object_text
+    active_object_text.select_set(True)
+
+    tex_slot.texture_coords = 'OBJECT'
+    tex_slot.object = active_object_plane
+    tex_slot.use_map_time = True
+
+    active_object_text.data.update()
 
     bpy.ops.object.modifier_add(type='EXPLODE')
     bpy.ops.mesh.uv_texture_add()  # name UVMap by default
-    Text.modifiers['Explode'].particle_uv = 'UVMap'
-    Text.modifiers['Explode'].show_dead = False
-    Text.data.update()
+
+    material_slot = active_object_text.data.materials[0].node_tree.nodes.get('Texture')
+    if material_slot:
+        material_slot.texture_coords = 'UV'
+        material_slot.uv_layer = 'UVMap'
+        material_slot.use_map_alpha = True
+        material_slot.alpha_factor = 1.0
+
+    explode_modifier = active_object_text.modifiers['Explode']
+    explode_modifier.particle_uv = 'UVMap'
+    active_object_text.data.update()
+
+    bpy.ops.object.select_all(action='DESELECT')
+
+    # Selecting Text
+    bpy.context.view_layer.objects.active = active_object_text
+    active_object_text.select_set(True)
+
+    tex_slot.texture_coords = 'OBJECT'
+    tex_slot.object = active_object_plane
+
+    tex_slot.use_map_time = False
+    tex_slot.use_map_time = True
+    active_object_text.particle_systems['ParticleSystem'].settings.lifetime = 80
+
+    active_object_text.data.update()
+
 
 
 # Debug Info:
@@ -263,13 +306,13 @@ else:
 createDissolveText(
     params["title"], params["extrude"], params["bevel_depth"],
     params["spacemode"], params["text_size"], params["width"], font,
+    params["wind_field_strength"], params["wind_field_noise"],
+    params["turbulence_field_strength"], params["turbulence_field_size"]
 )
 
 # Change the material settings (color, alpha, etc...)
 DissolveMaterial = bpy.data.materials["DissolveMaterial"]
-DissolveMaterial.node_tree.nodes["Principled BSDF"].inputs['Emission'].default_value = params["diffuse_color"]
-TextMaterial = bpy.data.materials["TextMaterial"]
-TextMaterial.node_tree.nodes["Principled BSDF"].inputs['Emission'].default_value = params["diffuse_color"]
+DissolveMaterial.node_tree.nodes["Principled BSDF"].inputs[26].default_value = params["diffuse_color"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
