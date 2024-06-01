@@ -52,6 +52,7 @@ from PyQt5.QtWidgets import (
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates
 from classes.app import get_app
+from windows.views.timeline_backend.enums import MenuCopy, MenuSlice
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
@@ -1767,7 +1768,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Get list of clip ids
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
-                self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
+                self.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, clip_ids, trans_ids, playhead_position)
         elif key.matches(self.getShortcutByName("sliceAllKeepLeftSide")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
@@ -1775,7 +1776,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Get list of clip ids
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
-                self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
+                self.timeline.Slice_Triggered(MenuSlice.KEEP_LEFT, clip_ids, trans_ids, playhead_position)
         elif key.matches(self.getShortcutByName("sliceAllKeepRightSide")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
@@ -1783,7 +1784,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Get list of clip ids
                 clip_ids = [c.id for c in intersecting_clips]
                 trans_ids = [t.id for t in intersecting_trans]
-                self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+                self.timeline.Slice_Triggered(MenuSlice.KEEP_RIGHT, clip_ids, trans_ids, playhead_position)
         elif key.matches(self.getShortcutByName("sliceSelectedKeepBothSides")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
@@ -1791,7 +1792,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Get list of clip ids
                 clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
                 trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
-                self.timeline.Slice_Triggered(0, clip_ids, trans_ids, playhead_position)
+                self.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, clip_ids, trans_ids, playhead_position)
         elif key.matches(self.getShortcutByName("sliceSelectedKeepLeftSide")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
@@ -1799,7 +1800,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Get list of clip ids
                 clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
                 trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
-                self.timeline.Slice_Triggered(1, clip_ids, trans_ids, playhead_position)
+                self.timeline.Slice_Triggered(MenuSlice.KEEP_LEFT, clip_ids, trans_ids, playhead_position)
         elif key.matches(self.getShortcutByName("sliceSelectedKeepRightSide")) == QKeySequence.ExactMatch:
             intersecting_clips = Clip.filter(intersect=playhead_position)
             intersecting_trans = Transition.filter(intersect=playhead_position)
@@ -1807,12 +1808,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Get list of ids that are also selected
                 clip_ids = [c.id for c in intersecting_clips if c.id in self.selected_clips]
                 trans_ids = [t.id for t in intersecting_trans if t.id in self.selected_transitions]
-                self.timeline.Slice_Triggered(2, clip_ids, trans_ids, playhead_position)
+                self.timeline.Slice_Triggered(MenuSlice.KEEP_RIGHT, clip_ids, trans_ids, playhead_position)
 
         elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
-            self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
+            self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
-            self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
+            self.timeline.Paste_Triggered(MenuCopy.PASTE, float(playhead_position), -1, [], [])
         elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.ExactMatch:
             self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.ExactMatch:
@@ -3140,14 +3141,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def copyAll(self):
         """Handle Copy QShortcut (selected clips / transitions)"""
-        self.timeline.Copy_Triggered(-1, self.selected_clips, self.selected_transitions)
+        self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions)
 
     def pasteAll(self):
         """Handle Paste QShortcut (at timeline position, same track as original clip)"""
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
-        self.timeline.Paste_Triggered(9, float(playhead_position), -1, [], [])
+        self.timeline.Paste_Triggered(MenuCopy.PASTE, float(playhead_position), -1, [], [])
 
     def eventFilter(self, obj, event):
         """Filter out certain QShortcuts - for example, arrow keys used
