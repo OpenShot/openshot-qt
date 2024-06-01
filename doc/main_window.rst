@@ -158,7 +158,7 @@ Not Set                    Edit Title
 :kbd:`Ctrl+Q`              Quit
 :kbd:`Ctrl+Y`              Redo
 :kbd:`J`                   Rewind
-Not Set                    Save Current Frame
+Not Set                    Save Current Frame / Camera Icon
 :kbd:`Ctrl+S`              Save Project
 :kbd:`Ctrl+Shift+S`        Save Project As...
 :kbd:`Ctrl+A`              Select All
@@ -201,7 +201,7 @@ are renamed and/or rearranged.
        - :guilabel:`Save Project` Save the current project.
        - :guilabel:`Import Files` Import media files into the project.
        - :guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, 720p @ 24fps, ...*).
-       - :guilabel:`Save Current Frame` Save the current preview video frame as an image.
+       - :guilabel:`Save Current Frame` Save the current preview video frame as an image (sometimes represented with a camera icon).
        - :guilabel:`Import Project` Import another project into the current project (*Adobe and Final Cut Pro formats partially supported*).
        - :guilabel:`Export Project` Export the current project to a specified format (*EDL, Adobe, and Final Cut Pro formats partially supported*).
        - :guilabel:`Quit` Exit the application.
