@@ -165,6 +165,8 @@ NOTE: On systems with older graphics cards, hardware acceleration may not always
     (May be default in Blender 4.1? -
     May work backfire if system has multiple GPUs and high-end GPU recognizes Blender automatically)
 
+.. _preferences_keyboard_ref:
+
 Keyboard
 --------
 .. image:: images/preferences-7-keyboard.jpg
