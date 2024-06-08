@@ -48,6 +48,7 @@ Table of Contents:
    import_export
    preferences
    playback
+   troubleshoot
    developers
    contributing
    learn_more
