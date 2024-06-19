@@ -104,6 +104,7 @@ class BaseTheme:
             button_icon = setting.get("icon", None)
             button_style = setting.get("style", None)
             button_stylesheet = setting.get("stylesheet", None)
+            button_visible = setting.get("visible", True)
             widget = setting.get("widget", None)
             expand = setting.get("expand", False)
             divide = setting.get("divide", False)
@@ -130,7 +131,9 @@ class BaseTheme:
             # Create button from action
             if button_action:
                 toolbar.addAction(button_action)
+                button_action.setVisible(button_visible)
                 button = toolbar.widgetForAction(button_action)
+                button.setObjectName(f"tool-{button_action.objectName()}")
                 if button_icon:
                     qicon_instance = self.create_svg_icon(button_icon, qsize_icon)
                     button_action.setIcon(qicon_instance)
