@@ -28,7 +28,7 @@
 import os
 from time import strftime
 
-VERSION = "3.1.0"
+VERSION = "3.1.1-dev"
 MINIMUM_LIBOPENSHOT_VERSION = "0.3.2"
 DATE = "20230417000000"
 NAME = "openshot-qt"
