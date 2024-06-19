@@ -207,19 +207,21 @@ class About(QDialog):
                     if version_info:
                         frozen_git_SHA = version_info.get("openshot-qt", {}).get("CI_COMMIT_SHA", "")
                         build_name = version_info.get('build_name')
+                        string_release_date = _("Release Date")
+                        string_release_notes = _("Release Notes")
+                        string_official = _("Official")
+                        version_date = version_info.get("date")
                         if frozen_git_SHA == release_git_SHA:
                             # Remove -release-candidate... from build name
                             log.warning("Official release detected with SHA (%s) for v%s" %
                                         (release_git_SHA, info.VERSION))
                             build_name = build_name.replace("-candidate", "")
-                            frozen_version_label = '<br/><br/><b>%s (Official)</b><br/>Release Date: %s<br><a href="%s" style="text-decoration:none;">Release Notes</a>' % \
-                                (build_name, version_info.get('date'), release_notes)
+                            frozen_version_label = f'<br/><br/><b>{build_name} ({string_official})</b><br/>{string_release_date}: {version_date}<br><a href="{release_notes}" style="text-decoration:none;">{string_release_notes}</a>'
                         else:
                             # Display current build name - unedited
                             log.warning("Build SHA (%s) does not match an official release SHA (%s) for v%s" %
                                         (frozen_git_SHA, release_git_SHA, info.VERSION))
-                            frozen_version_label = "<br/><br/><b>%s</b><br/>Build Date: %s" % \
-                                (build_name, version_info.get('date'))
+                            frozen_version_label = f"<br/><br/><b>{build_name}</b><br/>{string_release_date}: {version_date}"
 
             # Init some variables
             openshot_qt_version = _("Version: %s") % info.VERSION

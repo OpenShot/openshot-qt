@@ -767,6 +767,9 @@ class PropertiesTableView(QTableView):
         if parent_menu is None:
             parent_menu = StyledContextMenu(parent=self)
 
+        # Get translation object
+        _ = get_app()._tr
+
         SubMenuSize = 25
         for choice in data:
             if isinstance(choice["value"], list) and choice["value"]:
@@ -787,7 +790,7 @@ class PropertiesTableView(QTableView):
             else:
                 # Single choice, not a list, add directly to the menu
                 log.info(" - Add choice: " + choice["name"])
-                Choice_Action = parent_menu.addAction(choice["name"])
+                Choice_Action = parent_menu.addAction(_(choice["name"]))
                 if choice.get("icon"):
                     Choice_Action.setIcon(QIcon(choice["icon"]))
                 Choice_Action.setData(choice["value"])

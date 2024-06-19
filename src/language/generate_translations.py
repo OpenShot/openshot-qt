@@ -238,7 +238,7 @@ with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
 
 # Loop through the Blender XML
 blender_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
-blender_ignore_keys = ("Title", "Alpha", "Blur")
+blender_ignore_keys = ("Title", "Alpha", "Blur", "Font Name", "Yes", "No", "On", "Off", "Default")
 for file in os.listdir(blender_path):
     if os.path.isfile(os.path.join(blender_path, file)):
         # load xml effect file
@@ -259,6 +259,15 @@ for file in os.listdir(blender_path):
                 translation_key = param.attributes["title"].value
                 if translation_key not in blender_ignore_keys:
                     blender_text[param.attributes["title"].value] = full_file_path
+
+                    # Loop through child nodes of each param
+                    for child in param.childNodes:
+                        if child.nodeName == "values":
+                            for value in child.getElementsByTagName("value"):
+                                if value.hasAttribute("name"):
+                                    value_name = value.getAttribute("name")
+                                    if value_name not in blender_ignore_keys:
+                                        blender_text[value_name] = full_file_path
 
 # Loop through the Export Settings XML
 export_text = {}

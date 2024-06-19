@@ -191,6 +191,10 @@ QWidget#settingsContainer {
     background-color: #141923;
 }
 
+QWidget#scrollAreaWidgetContents {
+    background-color: #141923;
+}
+
 QDockWidget {
     background-color: #141923;
     titlebar-close-icon: url(themes/cosmic/images/dock-close.svg);
