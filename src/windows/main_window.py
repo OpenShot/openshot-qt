@@ -2942,21 +2942,27 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Compare versions (alphabetical compare of version strings should work fine)
         if info.VERSION < version:
-            # Add spacer and 'New Version Available' toolbar button (default hidden)
-            spacer = QWidget(self)
-            spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-            self.toolBar.addWidget(spacer)
-
             # Update text for QAction
             self.actionUpdate.setVisible(True)
             self.actionUpdate.setText(_("Update Available"))
             self.actionUpdate.setToolTip(_("Update Available: <b>%s</b>") % version)
 
-            # Add update available button (with icon and text)
-            updateButton = QToolButton()
-            updateButton.setDefaultAction(self.actionUpdate)
-            updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-            self.toolBar.addWidget(updateButton)
+            # Add toolbar button for non-cosmic dusk themes
+            # Cosmic dusk has a hidden toolbar button which is made visible
+            # by the setVisible() call above this
+            from themes.manager import ThemeManager, ThemeName
+            theme = ThemeManager().get_current_theme()
+            if theme and theme.name != ThemeName.COSMIC.value:
+                # Add spacer and 'New Version Available' toolbar button (default hidden)
+                spacer = QWidget(self)
+                spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+                self.toolBar.addWidget(spacer)
+
+                # Add update available button (with icon and text)
+                updateButton = QToolButton(self)
+                updateButton.setDefaultAction(self.actionUpdate)
+                updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                self.toolBar.addWidget(updateButton)
 
         # Initialize sentry exception tracing (now that we know the current version)
         from classes import sentry
