@@ -1474,9 +1474,6 @@ $scope.updateLayerIndex = function () {
       }
     }
 
-    // Apply all changes
-    $scope.$apply();
-
     // return true
     return true;
   };
