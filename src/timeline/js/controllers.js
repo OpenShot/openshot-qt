@@ -1367,7 +1367,6 @@ $scope.updateLayerIndex = function () {
    * @return {boolean}
    */
   $scope.applyJsonDiff = function (jsonDiff) {
-
     // Loop through each UpdateAction
     for (var action_index = 0; action_index < jsonDiff.length; action_index++) {
       var action = jsonDiff[action_index];
@@ -1382,17 +1381,16 @@ $scope.updateLayerIndex = function () {
 
         // Check the key type
         if (key_value.constructor === String) {
-          // Does the key value exist in scope?, No match, bail out
+          // Does the key value exist in scope?, No match, skip this action
           if (!current_object.hasOwnProperty(key_value)) {
-            return false;
+            continue;
           }
           // set current level and previous level
           previous_object = current_object;
           current_object = current_object[key_value];
           current_key = key_value;
 
-        }
-        else if (key_value.constructor === Object) {
+        } else if (key_value.constructor === Object) {
           // Get the id from the object (if any)
           var id = null;
           if ("id" in key_value) {
@@ -1427,43 +1425,43 @@ $scope.updateLayerIndex = function () {
           if (current_object.constructor === Array) {
             // push new element into array
             current_object.push(action.value);
-          }
-          else {
+          } else {
             // replace the entire value
             if (previous_object.constructor === Array) {
               // replace entire value in OBJECT
               previous_object[current_position] = action.value;
-            }
-            else if (previous_object.constructor === Object) {
+            } else if (previous_object.constructor === Object) {
               // replace entire value in OBJECT
               previous_object[current_key] = action.value;
             }
           }
-        }
-        else if (action.type === "update") {
+        } else if (action.type === "update") {
           // UPDATE OBJECT
           // Update: If action and current object are Objects
           if (current_object.constructor === Object && action.value.constructor === Object) {
             for (var update_key in action.value) {
-              current_object[update_key] = action.value[update_key];
+              if (action.value.hasOwnProperty(update_key)) {
+                current_object[update_key] = action.value[update_key];
+              }
             }
-          }
-          else {
+          } else {
             // replace the entire value
             if (previous_object.constructor === Array) {
               // replace entire value in OBJECT
               previous_object[current_position] = action.value;
-            }
-            else if (previous_object.constructor === Object) {
+            } else if (previous_object.constructor === Object) {
               // replace entire value in OBJECT
               previous_object[current_key] = action.value;
             }
           }
-        }
-        else if (action.type === "delete") {
+        } else if (action.type === "delete") {
           // DELETE OBJECT
-          // delete current object from it's parent (previous object)
-          previous_object.splice(current_position, 1);
+          // delete current object from its parent (previous object)
+          if (previous_object.constructor === Array) {
+            previous_object.splice(current_position, 1);
+          } else if (previous_object.constructor === Object) {
+            delete previous_object[current_key];
+          }
         }
         // Resize timeline if it's too small to contain all clips
         $scope.resizeTimeline();
