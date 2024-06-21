@@ -231,9 +231,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_position = event.pos().x()
         self.scrollbar_position_previous = self.scrollbar_position
 
-        # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
-        get_app().updates.ignore_history = True
-
     def mouseReleaseEvent(self, event):
         """Capture mouse release event"""
         event.accept()
