@@ -25,10 +25,14 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from ..base import BaseTheme
+import os
+
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTabWidget, QWidget
 from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QTabWidget, QWidget
+
+from classes.info import PATH
+from ..base import BaseTheme
 
 
 class CosmicTheme(BaseTheme):
@@ -640,6 +644,8 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
         button = self.app.window.videoToolbar.widgetForAction(self.app.window.actionPlay)
         if button:
             if not isPlay:
-                button.setIcon(QIcon("themes/cosmic/images/tool-media-play.svg"))
+                play_icon_path = os.path.join(PATH, "themes/cosmic/images/tool-media-play.svg")
+                button.setIcon(QIcon(play_icon_path))
             else:
-                button.setIcon(QIcon("themes/cosmic/images/tool-media-pause.svg"))
+                pause_icon_path = os.path.join(PATH, "themes/cosmic/images/tool-media-pause.svg")
+                button.setIcon(QIcon(pause_icon_path))
