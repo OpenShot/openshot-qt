@@ -233,4 +233,4 @@ class FilesTreeView(QTreeView):
         self.files_model.ModelRefreshed.connect(self.refresh_view)
 
         # setup filter events
-        # self.files_model.model.itemChanged.connect(self.value_updated)
+        self.files_model.model.itemChanged.connect(self.value_updated)
