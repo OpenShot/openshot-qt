@@ -72,12 +72,6 @@ class Cutting(QDialog):
         # Track metrics
         track_metric_screen("cutting-screen")
 
-        # If preview, hide cutting controls
-        if preview:
-            self.lblInstructions.setVisible(False)
-            self.widgetControls.setVisible(False)
-            self.setWindowTitle(_("Preview"))
-
         self.start_frame = 1
         self.start_image = None
         self.end_frame = 1
@@ -95,6 +89,15 @@ class Cutting(QDialog):
         self.sample_rate = int(get_app().project.get("sample_rate"))
         self.channels = int(file.data['channels'])
         self.channel_layout = int(file.data['channel_layout'])
+
+        # If preview, hide cutting controls
+        if preview:
+            self.lblInstructions.setVisible(False)
+            self.widgetControls.setVisible(False)
+            self.setWindowTitle(_("Preview"))
+            self.start_frame = round(file.data.get("start", 0) * self.fps) + 1
+            self.end_frame = round(file.data.get("end", 0) * self.fps)
+            self.video_length = (self.end_frame - self.start_frame) + 1
 
         # Open video file with Reader
         log.info(self.file_path)
@@ -162,14 +165,9 @@ class Cutting(QDialog):
         self.sliderVideo.setSingleStep(1)
         self.sliderVideo.setPageStep(24)
 
-        # Determine if a start or end attribute is in this file
-        start_frame = 1
-        if 'start' in self.file.data:
-            start_frame = (float(self.file.data['start']) * self.fps) + 1
-
         # Display start frame (and then the previous frame)
-        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
-        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
+        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, self.start_frame + 1))
+        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, self.start_frame))
 
         # Connect signals
         self.actionPlay.triggered.connect(self.actionPlay_Triggered)
@@ -343,8 +341,8 @@ class Cutting(QDialog):
         self.file.id = None
         self.file.key = None
         self.file.type = 'insert'
-        self.file.data['start'] = (self.start_frame-1) / self.fps
-        self.file.data['end'] = (self.end_frame-1) / self.fps
+        self.file.data['start'] = (self.start_frame - 1) / self.fps
+        self.file.data['end'] = self.end_frame / self.fps
         if self.txtName.text():
             self.file.data['name'] = self.txtName.text()
         self.file.save()
