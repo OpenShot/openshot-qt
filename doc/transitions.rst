@@ -28,8 +28,8 @@ overlap two clips, and can be added manually by dragging one onto the timeline f
 A transition must be placed on top of a clip (overlapping it), with the most common location being the beginning or end
 or a clip.
 
-NOTE: Transitions **do not** affect **audio**, so if you are intending to fade in/out the
-audio volume of a clip, you must adjust the ``volume`` clip property. See :ref:`clip_properties_ref`.
+NOTE: Transitions **do not** affect **audio**, so if you are intending to fade in/out the audio volume of a clip,
+you must adjust the ``volume`` clip property. See :ref:`clip_properties_ref`
 
 Overview
 --------
@@ -51,6 +51,15 @@ fade from opaque to transparent, or transparent to opaque (does not affect the a
 direction of the fade. You can also manually adjust the **Brightness** curve, animating the visual fade in any way you wish.
 
 .. image:: images/transition-reverse.jpg
+
+Transparency
+------------
+If transitions are used on images or videos that contain transparency (*i.e. alpha channel*) this will result in the
+original clip disappearing abruptly (or popping out of existence), since OpenShot's transition system expects the 2nd
+clip to fully cover up the first clip. For example, if the 2nd clip does not fully cover the first clip,
+a transition might not be the best tool to use. Instead, you should consider adjusting the ``alpha`` property of the first
+clip to make it fade out where needed, see :ref:`clip_properties_ref` or :ref:`clip_presets_ref`. Alternatively, you can
+combine a transition and ``alpha`` fade when using transparent clips to more smoothly fade between then.
 
 Cutting & Slicing
 -----------------
