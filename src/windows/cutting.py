@@ -95,9 +95,12 @@ class Cutting(QDialog):
             self.lblInstructions.setVisible(False)
             self.widgetControls.setVisible(False)
             self.setWindowTitle(_("Preview"))
-            self.start_frame = round(file.data.get("start", 0) * self.fps) + 1
-            self.end_frame = round(file.data.get("end", 0) * self.fps)
-            self.video_length = (self.end_frame - self.start_frame) + 1
+
+            if float(file.data.get("start", 0.0)) > 0.0:
+                self.start_frame = round(file.data.get("start", 0) * self.fps) + 1
+            if float(file.data.get("end", 0.0)) > 0.0:
+                self.end_frame = round(file.data.get("end", 0) * self.fps)
+                self.video_length = (self.end_frame - self.start_frame) + 1
 
         # Open video file with Reader
         log.info(self.file_path)
