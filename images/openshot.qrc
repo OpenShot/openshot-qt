@@ -56,6 +56,11 @@
         <file>Humanity/actions/custom/snap.svg</file>
         <file>Humanity/actions/custom/center-on-playhead.svg</file>
         <file>Humanity/actions/custom/camera-photo-symbolic.svg</file>
+        <file>Humanity/actions/custom/paypal-icon.svg</file>
+        <file>Humanity/actions/custom/discord-icon.svg</file>
+        <file>Humanity/actions/custom/launchpad-icon.svg</file>
+        <file>Humanity/actions/custom/github-icon.svg</file>
+        <file>Humanity/actions/custom/reddit-icon.svg</file>
         <file>Humanity/mimes/16/font-x-generic.svg</file>
         <file>Humanity/mimes/16/video-x-generic.svg</file>
         <file>Humanity/status/16/dialog-error.svg</file>

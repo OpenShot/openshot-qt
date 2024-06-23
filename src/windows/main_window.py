@@ -931,13 +931,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionEffectsShowAudio_trigger(self, checked=True):
         self.refreshEffectsSignal.emit()
 
-    def actionHelpContents_trigger(self, checked=True):
-        try:
-            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
-        except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the online help")
-            log.error("Unable to open the Help Contents", exc_info=1)
-
     def actionAbout_trigger(self, checked=True):
         """Show about dialog"""
         from windows.about import About
@@ -945,40 +938,68 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 
-    def actionReportBug_trigger(self, checked=True):
+    def actionHelpContents_trigger(self, checked=True):
+        url = "https://www.openshot.org/%suser-guide/?app-menu" % info.website_language()
         try:
-            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
-            log.error("Unable to open the Bug Report page", exc_info=1)
+            error_msg = f"Unable to open the official User Guide url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
+
+    def actionReportBug_trigger(self, checked=True):
+        url = "https://www.openshot.org/%sissues/new/?app-menu" % info.website_language()
+        try:
+            webbrowser.open(url, new=1)
+        except Exception:
+            error_msg = f"Unable to open the Bug Report url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionAskQuestion_trigger(self, checked=True):
+        url = "https://www.reddit.com/r/OpenShot/"
         try:
-            webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
-            log.error("Unable to open the subreddit page", exc_info=1)
+            error_msg = f"Unable to open the official OpenShot subreddit url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
+
+    def actionDiscord_trigger(self, checked=True):
+        url = "https://www.openshot.org/discord/?app-menu"
+        try:
+            webbrowser.open(url, new=1)
+        except Exception:
+            error_msg = f"Unable to open the Discord community invite url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionTranslate_trigger(self, checked=True):
+        url = "https://translations.launchpad.net/openshot/2.0"
         try:
-            webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
-            log.error("Unable to open the translation page", exc_info=1)
+            error_msg = f"Unable to open the Translation url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionDonate_trigger(self, checked=True):
+        url = "https://www.openshot.org/%sdonate/?app-menu" % info.website_language()
         try:
-            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
-            log.error("Unable to open the donation page", exc_info=1)
+            error_msg = f"Unable to open the Donate url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionUpdate_trigger(self, checked=True):
+        url = "https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language()
         try:
-            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Download web page")
-            log.error("Unable to open the download page", exc_info=1)
+            error_msg = f"Unable to open the Download url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def should_play(self, requested_speed=0):
         """Determine if we should start playback, based on the current frame
