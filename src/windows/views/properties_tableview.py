@@ -861,6 +861,14 @@ class PropertiesTableView(QTableView):
 
     def Insert_Action_Triggered(self):
         log.info("Insert_Action_Triggered")
+
+        # Verify label has not been deleted
+        if (self.selected_label and sip.isdeleted(self.selected_label)) or \
+                (self.selected_item and sip.isdeleted(self.selected_item)):
+            log.debug("Property has been deleted, skipping")
+            self.selected_label = None
+            self.selected_item = None
+
         if self.selected_item:
             current_value = QLocale().system().toDouble(self.selected_item.text())[0]
             self.clip_properties_model.value_updated(self.selected_item, value=current_value)
