@@ -201,8 +201,8 @@ QWidget#scrollAreaWidgetContents {
 
 QDockWidget {
     background-color: #141923;
-    titlebar-close-icon: url(themes/cosmic/images/dock-close.svg);
-    titlebar-normal-icon: url(themes/cosmic/images/dock-float.svg);
+    titlebar-close-icon: url({PATH}themes/cosmic/images/dock-close.svg);
+    titlebar-normal-icon: url({PATH}themes/cosmic/images/dock-float.svg);
     color: #91C3FF;
     font-weight: 500;
     padding: 16px;
@@ -334,7 +334,7 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(themes/cosmic/images/dropdown-arrow.svg);
+    image: url({PATH}themes/cosmic/images/dropdown-arrow.svg);
 }
 
 QComboBox QAbstractItemView {
@@ -364,7 +364,7 @@ QComboBox::item:checked {
 }
 
 QComboBox::indicator::checked {
-    image: url(themes/cosmic/images/dropdown-tick.svg);
+    image: url({PATH}themes/cosmic/images/dropdown-tick.svg);
 }
 
 QHeaderView::section {
@@ -427,7 +427,7 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
     background-color: #0078FF;
     color: #FFFFFF;
 }}
-        """ + self.style_sheet
+        """ + self.style_sheet.replace("{PATH}", f"{PATH}/")
 
     def apply_theme(self):
         super().apply_theme()
