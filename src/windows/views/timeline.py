@@ -2305,7 +2305,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 MenuVolume.LEVEL_0
             ]:
                 # Add keyframes
-                p = openshot.Point(start_animation, float(action) / 100.0, openshot.BEZIER)
+                p = openshot.Point(start_animation, float(action.value) / 100.0, openshot.BEZIER)
                 p_object = json.loads(p.Json())
                 self.AddPoint(clip.data['volume'], p_object)
 
