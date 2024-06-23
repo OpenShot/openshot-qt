@@ -309,8 +309,9 @@ class PlayerWorker(QObject):
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
         # Check to see if this path is already loaded
-        # TODO: Determine why path is passed in as an empty string instead of None
-        if path == self.clip_path or (not path and not self.clip_path) or not os.path.exists(path):
+        if path == self.clip_path or (not path and not self.clip_path):
+            return
+        if path and not os.path.exists(path):
             log.warning(f"Cannot load missing file for preview: {path}")
             return
 

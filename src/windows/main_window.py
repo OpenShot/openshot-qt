@@ -1060,6 +1060,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f, preview=True)
+        win.setObjectName("cutting")
         win.show()
 
     def movePlayhead(self, position_frames):
@@ -1975,6 +1976,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f)
+        win.setObjectName("cutting")
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:

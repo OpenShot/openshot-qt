@@ -407,6 +407,25 @@ QTabWidget QWidget#pageVideoDetails, QWidget#pageVideoFormat, QWidget#pageAudioF
     background-color: #141923;
 }
 
+QWidget#cutting QPushButton#btnStart,QPushButton#btnEnd  {
+    border: 1px solid #006EE6;
+}
+
+QWidget#cutting QPushButton#btnStart:disabled,QPushButton#btnEnd:disabled {
+    color: #666666;
+    border: 1px solid #666666;
+}
+
+QWidget#cutting QPushButton#btnAddClip {
+    background-color: #006EE6;
+    color: #FFFFFF;
+}
+
+QWidget#cutting QPushButton#btnAddClip:disabled {
+    background-color: #283241;
+    color: #666666;
+}
+
 .property_value {
     foreground-color: #0078FF;
     background-color: #283241;
