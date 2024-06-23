@@ -30,8 +30,8 @@ import functools
 import json
 
 from PyQt5.QtCore import pyqtSignal, QTimer
-from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy, QSlider
+from PyQt5.QtCore import Qt, QEvent
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, time_parts
@@ -187,15 +187,29 @@ class Cutting(QDialog):
         self.btnClear.clicked.connect(self.btnClear_clicked)
         self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
         self.txtName.installEventFilter(self)
+        self.sliderVideo.installEventFilter(self)
         self.initialized = True
 
-    def eventFilter(self, source, event):
-        if event.type() == event.KeyPress and source is self.txtName:
+    def eventFilter(self, obj, event):
+        if event.type() == event.KeyPress and obj is self.txtName:
+            # Handle ENTER key to create new clip
             if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
                 if self.btnAddClip.isEnabled():
                     self.btnAddClip_clicked()
                     return True
-        return super().eventFilter(source, event)
+        if event.type() == QEvent.MouseButtonPress and isinstance(obj, QSlider):
+            # Handle QSlider click, jump to cursor position
+            if event.button() == Qt.LeftButton:
+                min_val = obj.minimum()
+                max_val = obj.maximum()
+
+                click_position = event.pos().x() if obj.orientation() == Qt.Horizontal else event.pos().y()
+                slider_length = obj.width() if obj.orientation() == Qt.Horizontal else obj.height()
+                new_value = min_val + ((max_val - min_val) * click_position) / slider_length
+
+                obj.setValue(int(new_value))
+                event.accept()
+        return super().eventFilter(obj, event)
 
     def actionPlay_Triggered(self):
         # Trigger play button (This action is invoked from the preview thread, so it must exist here)
