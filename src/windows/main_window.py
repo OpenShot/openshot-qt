@@ -251,8 +251,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         lock_path = os.path.join(info.USER_PATH, ".lock")
         # Check if it already exists
         if os.path.exists(lock_path):
-            last_log_line = exceptions.libopenshot_crash_recovery() or "No Log Detected"
-            log.error(f"Unhandled crash detected: {last_log_line}")
+            last_log_line = exceptions.libopenshot_crash_recovery()
+            if last_log_line:
+                log.error(f"Unhandled crash detected: {last_log_line}")
+            else:
+                log.warning(f"Unhandled shutdown detected: No Log Found")
             self.destroy_lock_file()
         else:
             # Normal startup, clear thumbnails
