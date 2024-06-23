@@ -411,13 +411,22 @@ class PropertiesTableView(QTableView):
             # Ignore blank selections
             return
 
+        caption_model_label = caption_model_row[0]
+        caption_model_value = caption_model_row[1]
+
+        # Verify label has not been deleted
+        if (caption_model_label and sip.isdeleted(caption_model_label)) or \
+                (caption_model_value and sip.isdeleted(caption_model_value)):
+            log.debug("Property has been deleted, skipping")
+            return
+
         # Get data model and selection
-        cur_property = caption_model_row[0].data()
+        cur_property = caption_model_label.data()
         property_type = cur_property[1]["type"]
 
         # Save caption text
         if property_type == "caption" and cur_property[1].get('memo') != new_caption_text:
-            self.clip_properties_model.value_updated(caption_model_row[1], value=new_caption_text)
+            self.clip_properties_model.value_updated(caption_model_value, value=new_caption_text)
 
     def select_item(self, item_id, item_type):
         """ Update the selected item in the properties window """
