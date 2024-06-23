@@ -74,6 +74,9 @@ def GetThumbPath(file_id, thumbnail_frame, clear_cache=False):
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
     """Create thumbnail image, and check for rotate metadata (if any)"""
+    if not os.path.exists(file_path):
+        log.warning(f"Cannot generate thumbnail for missing file: {file_path}")
+        return
 
     # Create a clip object and get the reader
     clip = openshot.Clip(file_path)
