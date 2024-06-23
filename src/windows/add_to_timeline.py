@@ -198,7 +198,7 @@ class AddToTimeline(QDialog):
             new_clip["position"] = position
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
-            new_clip["title"] = filename
+            new_clip["title"] = file.data.get("name", filename)
             new_clip["reader"] = file.data
 
             # Skip any clips that are missing a 'reader' attribute
@@ -452,9 +452,6 @@ class AddToTimeline(QDialog):
 
         # Update data in model
         self.treeFiles.timeline_model.update_model(files)
-
-        # Refresh view
-        self.treeFiles.refresh_view()
 
         # Init start position
         self.txtStartTime.setValue(position)

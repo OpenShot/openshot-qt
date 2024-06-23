@@ -33,6 +33,7 @@ from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
 from classes import info
 from classes.logger import log
 from classes.app import get_app
+from classes.thumbnail import GetThumbPath
 
 
 class TimelineModel():
@@ -60,14 +61,22 @@ class TimelineModel():
         for file in self.files:
             # Get attributes from file
             path, filename = os.path.split(file.data["path"])
+            media_type = file.data.get("media_type")
 
-            # Get thumbnail path
-            if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
-                # Determine thumb path
-                thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
+            # Generate thumbnail for file (if needed)
+            if media_type in ["video", "image"]:
+                # Check for start and end attributes (optional)
+                thumbnail_frame = 1
+                if 'start' in file.data:
+                    fps = file.data["fps"]
+                    fps_float = float(fps["num"]) / float(fps["den"])
+                    thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
+
+                # Get thumb path
+                thumb_icon = QIcon(GetThumbPath(file.id, thumbnail_frame))
             else:
                 # Audio file
-                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
+                thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
 
             row = []
 
@@ -76,8 +85,7 @@ class TimelineModel():
 
             # Append thumbnail
             col = QStandardItem()
-            col.setIcon(QIcon(thumb_path))
-            col.setText((name[:9] + '...') if len(name) > 10 else name)
+            col.setIcon(thumb_icon)
             col.setToolTip(filename)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
             row.append(col)
@@ -86,13 +94,6 @@ class TimelineModel():
             col = QStandardItem("Name")
             col.setData(filename, Qt.DisplayRole)
             col.setText((name[:20] + '...') if len(name) > 15 else name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-            row.append(col)
-
-            # Append Path
-            col = QStandardItem("Path")
-            col.setData(path, Qt.DisplayRole)
-            col.setText(path)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
             row.append(col)
 

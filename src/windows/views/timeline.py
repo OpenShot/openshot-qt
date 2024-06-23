@@ -3094,7 +3094,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Append missing attributes to Clip JSON
             new_clip = json.loads(c.Json())
             new_clip["file_id"] = file.id
-            new_clip["title"] = filename
+            new_clip["title"] = file.data.get("name", filename)
             new_clip["reader"] = file.data
 
             # Skip any clips that are missing a 'reader' attribute
