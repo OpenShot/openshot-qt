@@ -29,6 +29,7 @@ import os
 import json
 import functools
 from operator import itemgetter
+import sip
 
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
@@ -199,6 +200,13 @@ class PropertiesTableView(QTableView):
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
+
+        # Verify label has not been deleted
+        if (self.selected_label and sip.isdeleted(self.selected_label)) or \
+                (self.selected_item and sip.isdeleted(self.selected_item)):
+            log.debug("Property has been deleted, skipping")
+            self.selected_label = None
+            self.selected_item = None
 
         # Is the user dragging on the value column
         if self.selected_label and self.selected_item and \
