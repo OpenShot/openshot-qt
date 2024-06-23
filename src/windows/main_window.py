@@ -702,7 +702,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Delete recovery files which are 'too old'
             for backup_filepath in old_backup_files:
-                os.unlink(backup_filepath)
+                try:
+                    if os.path.exists(backup_filepath):
+                        os.unlink(backup_filepath)
+                        log.info(f"Deleted backup file: {backup_filepath}")
+                    else:
+                        log.warning(f"File not found: {backup_filepath}")
+                except PermissionError:
+                    log.warning(f"Permission denied: {backup_filepath}. Unable to delete.")
+                except Exception as e:
+                    log.error(f"Error deleting file {backup_filepath}: {e}", exc_info=True)
 
             # Save project
             log.info("Auto save project file: %s", file_path)
@@ -710,8 +719,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Remove backup.osp (if any)
             if os.path.exists(info.BACKUP_FILE):
-                # Delete backup.osp since we just saved the actual project
-                os.unlink(info.BACKUP_FILE)
+                try:
+                    # Delete backup.osp since we just saved the actual project
+                    os.unlink(info.BACKUP_FILE)
+                    log.info(f"Deleted backup file: {info.BACKUP_FILE}")
+                except PermissionError:
+                    log.warning(f"Permission denied: {info.BACKUP_FILE}. Unable to delete.")
+                except Exception as e:
+                    log.error(f"Error deleting file {info.BACKUP_FILE}: {e}", exc_info=True)
 
         else:
             # No saved project found
