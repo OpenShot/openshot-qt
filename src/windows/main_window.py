@@ -953,6 +953,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Show about dialog"""
         from windows.about import About
         win = About()
+        win.setObjectName("aboutDialog")
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 

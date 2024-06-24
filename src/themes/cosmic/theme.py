@@ -426,6 +426,13 @@ QWidget#cutting QPushButton#btnAddClip:disabled {
     color: #666666;
 }
 
+QWidget#aboutDialog QWidget#txtversion {
+    background-color: #141923;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+}
+
 .property_value {
     foreground-color: #0078FF;
     background-color: #283241;
