@@ -31,7 +31,6 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
-from PyQt5.QtCore import QSize
 
 
 class TimelineSync(UpdateInterface):

@@ -79,7 +79,7 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
     try:
         clip = openshot.Clip(file_path)
         reader = clip.Reader()
-    except RuntimeError as ex:
+    except RuntimeError:
         # Any failure calling Reader (i.e. file missing or corrupt) use placeholder thumbnail
         not_found_path = os.path.join(info.IMAGES_PATH, "NotFound@2x.png")
         shutil.copyfile(not_found_path, thumb_path)

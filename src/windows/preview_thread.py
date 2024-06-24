@@ -28,7 +28,6 @@
 import time
 import sip
 import math
-import os
 
 from PyQt5.QtCore import QObject, QThread, QTimer, pyqtSlot, pyqtSignal, QCoreApplication
 from PyQt5.QtWidgets import QMessageBox
