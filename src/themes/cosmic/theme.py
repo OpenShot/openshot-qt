@@ -439,6 +439,7 @@ QWidget#cutting QPushButton#btnAddClip:disabled {
     background-color: #141923;
 }
         """
+        path_unix_slashes = PATH.replace("\\", "/")
         self.style_sheet = f"""
 QMessageBox QPushButton[text="&{_('Yes')}"] {{
     padding: 8px 16px 8px 12px;
@@ -446,7 +447,7 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
     background-color: #0078FF;
     color: #FFFFFF;
 }}
-        """ + self.style_sheet.replace("{PATH}", f"{PATH}/")
+        """ + self.style_sheet.replace("{PATH}", f"{path_unix_slashes}/")
 
     def apply_theme(self):
         super().apply_theme()
