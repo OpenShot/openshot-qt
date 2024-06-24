@@ -30,6 +30,7 @@ import re
 import openshot
 import socket
 import time
+import shutil
 from requests import get
 from threading import Thread
 from classes import info
@@ -74,13 +75,17 @@ def GetThumbPath(file_id, thumbnail_frame, clear_cache=False):
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
     """Create thumbnail image, and check for rotate metadata (if any)"""
-    if not os.path.exists(file_path):
-        log.warning(f"Cannot generate thumbnail for missing file: {file_path}")
+    # Create a clip object and get the reader
+    try:
+        clip = openshot.Clip(file_path)
+        reader = clip.Reader()
+    except RuntimeError as ex:
+        # Any failure calling Reader (i.e. file missing or corrupt) use placeholder thumbnail
+        not_found_path = os.path.join(info.IMAGES_PATH, "NotFound@2x.png")
+        shutil.copyfile(not_found_path, thumb_path)
+        log.warning(f"Failed to generate thumbnail for missing file: {file_path}")
         return
 
-    # Create a clip object and get the reader
-    clip = openshot.Clip(file_path)
-    reader = clip.Reader()
     scale = get_app().devicePixelRatio()
 
     if scale > 1.0:

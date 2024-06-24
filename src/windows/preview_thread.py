@@ -311,9 +311,6 @@ class PlayerWorker(QObject):
         # Check to see if this path is already loaded
         if path == self.clip_path or (not path and not self.clip_path):
             return
-        if path and not os.path.exists(path):
-            log.warning(f"Cannot load missing file for preview: {path}")
-            return
 
         log.info("LoadFile %s" % path)
 
