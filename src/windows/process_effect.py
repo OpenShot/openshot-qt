@@ -32,7 +32,7 @@ import functools
 import webbrowser
 
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QBrush
+from PyQt5.QtGui import QBrush, QPainter
 from PyQt5.QtWidgets import *
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -40,6 +40,25 @@ from classes import info, ui_util, qt_types, updates
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import *
+
+
+class RegionButton(QPushButton):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.qimage = None
+
+    def setImage(self, qimage):
+        self.qimage = qimage
+        self.update()  # Trigger a repaint
+
+    def paintEvent(self, event):
+        super().paintEvent(event)
+        if self.qimage:
+            painter = QPainter(self)
+            resized_qimage = self.qimage.scaled(self.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+            painter.drawImage(0, 0, resized_qimage)
+        else:
+            super().paintEvent(event)  # Draw the normal button
 
 
 class ProcessEffect(QDialog):
@@ -123,7 +142,7 @@ class ProcessEffect(QDialog):
 
             if param["type"] == "rect":
                 # create QPushButton which opens up a display of the clip, with ability to select Rectangle
-                widget = QPushButton(_("Click to Select"))
+                widget = RegionButton(_("Click to Select"))
                 widget.setMinimumHeight(80)
                 widget.setToolTip(_(param["title"]))
                 widget.clicked.connect(functools.partial(self.rect_select_clicked, widget, param))
@@ -292,14 +311,8 @@ class ProcessEffect(QDialog):
                     # Resize QImage to match button size
                     resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
 
-                    # Draw Qimage onto QPushButton (to display region selection to user)
-                    palette = widget.palette()
-                    palette.setBrush(widget.backgroundRole(), QBrush(resized_qimage))
-                    widget.setFlat(True)
-                    widget.setAutoFillBackground(True)
-                    widget.setPalette(palette)
-
                     # Remove button text (so region QImage is more visible)
+                    widget.setImage(resized_qimage)
                     widget.setText("")
 
                 # If data found, add to context
