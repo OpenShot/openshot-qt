@@ -145,7 +145,7 @@ class TutorialDialog(QWidget):
 
         # Close action
         self.close_action = QAction(_("Hide Tutorial"), self)
-        self.close_action.setShortcut(QKeySequence(Qt.Key_Escape))
+        self.close_action.setShortcut(QKeySequence(Qt.Key.Key_Escape))
         self.close_action.setShortcutContext(Qt.ApplicationShortcut)
 
         # Create buttons

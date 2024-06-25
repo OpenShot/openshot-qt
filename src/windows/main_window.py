@@ -1687,7 +1687,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Abort handling if the key sequence is invalid
         if (key_value <= 0 or key_value in
-           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
+           [Qt.Key.Key_Shift, Qt.Key.Key_Alt, Qt.Key.Key_Control, Qt.Key.Key_Meta]):
             return
 
         # A valid keysequence was detected

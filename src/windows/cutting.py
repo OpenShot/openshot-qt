@@ -194,7 +194,7 @@ class Cutting(QDialog):
     def eventFilter(self, obj, event):
         if event.type() == event.KeyPress and obj is self.txtName:
             # Handle ENTER key to create new clip
-            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
                 if self.btnAddClip.isEnabled():
                     self.btnAddClip_clicked()
                     return True

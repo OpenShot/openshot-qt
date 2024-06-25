@@ -132,7 +132,7 @@ class TimelineWebEngineView(QWebEngineView):
     def keyPressEvent(self, event):
         """ Keypress callback for timeline """
         key_value = event.key()
-        if key_value in [Qt.Key_Shift, Qt.Key_Control]:
+        if key_value in [Qt.Key.Key_Shift, Qt.Key.Key_Control]:
             # Only pass a few keystrokes to the webview (CTRL and SHIFT)
             return QWebEngineView.keyPressEvent(self, event)
         # Ignore most keypresses
