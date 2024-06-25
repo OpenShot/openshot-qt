@@ -204,8 +204,8 @@ class Cutting(QDialog):
                 min_val = obj.minimum()
                 max_val = obj.maximum()
 
-                click_position = event.pos().x() if obj.orientation() == Qt.Horizontal else event.pos().y()
-                slider_length = obj.width() if obj.orientation() == Qt.Horizontal else obj.height()
+                click_position = event.pos().x() if obj.orientation() == Qt.Orientation.Horizontal else event.pos().y()
+                slider_length = obj.width() if obj.orientation() == Qt.Orientation.Horizontal else obj.height()
                 new_value = min_val + ((max_val - min_val) * click_position) / slider_length
 
                 obj.setValue(int(new_value))
