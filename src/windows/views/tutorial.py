@@ -166,7 +166,7 @@ class TutorialDialog(QWidget):
         self.setCursor(Qt.CursorShape.ArrowCursor)
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
-        self.setFocusPolicy(Qt.ClickFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
         # Make transparent
         self.setAttribute(Qt.WA_NoSystemBackground, True)
