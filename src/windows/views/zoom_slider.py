@@ -523,7 +523,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             self.cursors[cursor_name] = QCursor(icon.pixmap(24, 24))
 
         # Init Qt widget's properties (background repainting, etc...)
-        super().setAttribute(Qt.WA_OpaquePaintEvent)
+        super().setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         # Add self as listener to project data updates (used to update the timeline)

@@ -1484,7 +1484,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.mutex = QMutex()
 
         # Init Qt widget's properties (background repainting, etc...)
-        super().setAttribute(Qt.WA_OpaquePaintEvent)
+        super().setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
 
         # Add self as listener to project data updates (used to update the timeline)

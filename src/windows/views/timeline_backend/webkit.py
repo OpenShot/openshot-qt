@@ -59,7 +59,7 @@ class TimelineWebKitView(QWebView):
         self.html_path = os.path.join(info.PATH, 'timeline', 'index.html')
 
         # Delete the webview when closed
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # Connect logging web page (for console.log)
         self.new_page = LoggingWebKitPage(self)

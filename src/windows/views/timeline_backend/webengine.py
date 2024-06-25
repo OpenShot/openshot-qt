@@ -71,7 +71,7 @@ class TimelineWebEngineView(QWebEngineView):
         self.page().setBackgroundColor(QColor("#363636"))
 
         # Delete the webview when closed
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # Enable smooth scrolling on timeline
         self.settings().setAttribute(self.settings().ScrollAnimatorEnabled, True)

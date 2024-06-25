@@ -118,7 +118,7 @@ class TutorialDialog(QWidget):
         self.label.setTextFormat(Qt.TextFormat.RichText)
         self.label.setWordWrap(True)
         self.label.setStyleSheet("margin-left: 20px;")
-        self.label.setAttribute(Qt.WA_TransparentForMouseEvents)
+        self.label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
         vbox.addWidget(self.label)
 
         # Add error and anonymous metrics checkbox (for ID=0) tooltip
@@ -169,9 +169,9 @@ class TutorialDialog(QWidget):
         self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
         # Make transparent
-        self.setAttribute(Qt.WA_NoSystemBackground, True)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, True)
 
         # Connect close action signal
         self.close_action.triggered.connect(
@@ -439,8 +439,8 @@ class TutorialManager(QObject):
 
         # Configure tutorial frame
         self.dock.setTitleBarWidget(QWidget())  # Prevents window decoration
-        self.dock.setAttribute(Qt.WA_NoSystemBackground, True)
-        self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.dock.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.dock.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
         self.dock.setWindowFlags(Qt.FramelessWindowHint)
         self.dock.setFloating(True)
 
