@@ -715,7 +715,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         for h in handle_uis:
             if self.transform.mapToPolygon(
                     h["handle"].toRect()
-                    ).containsPoint(event.pos(), Qt.OddEvenFill):
+                    ).containsPoint(event.pos(), Qt.FillRule.OddEvenFill):
                 # Handle contains cursor
                 if self.transform_mode and self.transform_mode != h["mode"]:
                     # We're in different xform mode, skip
@@ -728,7 +728,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # If not over any handles, determne inside/outside clip rectangle
         r = non_handle_uis.get("region")
-        if self.transform.mapToPolygon(r.toRect()).containsPoint(event.pos(), Qt.OddEvenFill):
+        if self.transform.mapToPolygon(r.toRect()).containsPoint(event.pos(), Qt.FillRule.OddEvenFill):
             nh = non_handle_uis.get("inside", {})
         else:
             nh = non_handle_uis.get("outside", {})
@@ -983,7 +983,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     self.region_transform
                     and self.regionTopLeftHandle
                     and self.region_transform.mapToPolygon(
-                        self.regionTopLeftHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill)
+                        self.regionTopLeftHandle.toRect()).containsPoint(event.pos(), Qt.FillRule.OddEvenFill)
                     ):
                 if not self.region_mode or self.region_mode == 'scale_top_left':
                     self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), 0, 0, 0))
@@ -994,7 +994,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     self.region_transform
                     and self.regionBottomRightHandle
                     and self.region_transform.mapToPolygon(
-                        self.regionBottomRightHandle.toRect()).containsPoint(event.pos(), Qt.OddEvenFill)
+                        self.regionBottomRightHandle.toRect()).containsPoint(event.pos(), Qt.FillRule.OddEvenFill)
                     ):
                 if not self.region_mode or self.region_mode == 'scale_bottom_right':
                     self.setCursor(self.rotateCursor(self.cursors.get('resize_fdiag'), 0, 0, 0))
