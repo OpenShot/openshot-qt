@@ -158,7 +158,7 @@ class Preferences(QDialog):
                     # Create scrollarea
                     scroll_area = QScrollArea(self)
                     scroll_area.setWidgetResizable(True)
-                    scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+                    scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
                     scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                     scroll_area.setMinimumSize(675, 100)
 
