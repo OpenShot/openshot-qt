@@ -81,7 +81,7 @@ class TransitionsTreeView(QTreeView):
             self.hideColumn(2)
             self.hideColumn(3)
             self.setColumnWidth(0, 80)
-        self.sortByColumn(1, Qt.AscendingOrder)
+        self.sortByColumn(1, Qt.SortOrder.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init

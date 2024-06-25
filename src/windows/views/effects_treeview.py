@@ -83,7 +83,7 @@ class EffectsTreeView(QTreeView):
             self.hideColumn(3)
             self.hideColumn(4)
             self.setColumnWidth(0, 80)
-        self.sortByColumn(0, Qt.AscendingOrder)
+        self.sortByColumn(0, Qt.SortOrder.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init

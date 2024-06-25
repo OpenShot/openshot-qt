@@ -50,10 +50,10 @@ class ProfilesTreeView(QTreeView):
         self.is_filter_running = True
         self.model().setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.model().setFilterRegExp(QRegExp(filter_text.lower()))
-        self.model().sort(Qt.DescendingOrder)
+        self.model().sort(Qt.SortOrder.DescendingOrder)
 
         # Format columns
-        self.sortByColumn(0, Qt.DescendingOrder)
+        self.sortByColumn(0, Qt.SortOrder.DescendingOrder)
         self.setColumnHidden(0, True)
         self.is_filter_running = False
 

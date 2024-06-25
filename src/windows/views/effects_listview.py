@@ -83,7 +83,7 @@ class EffectsListView(QListView):
         filter_text = self.win.effectsFilter.text()
         self.model().setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
         self.model().setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
-        self.model().sort(Qt.AscendingOrder)
+        self.model().sort(Qt.SortOrder.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init
