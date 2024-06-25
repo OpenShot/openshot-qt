@@ -200,7 +200,7 @@ class Cutting(QDialog):
                     return True
         if event.type() == QEvent.MouseButtonPress and isinstance(obj, QSlider):
             # Handle QSlider click, jump to cursor position
-            if event.button() == Qt.LeftButton:
+            if event.button() == Qt.MouseButton.LeftButton:
                 min_val = obj.minimum()
                 max_val = obj.maximum()
 
