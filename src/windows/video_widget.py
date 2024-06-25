@@ -340,12 +340,12 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             # DRAW FRAME
             # Calculate new frame image size, maintaining aspect ratio
             pixSize = self.current_image.size()
-            pixSize.scale(event.rect().size(), Qt.KeepAspectRatio)
+            pixSize.scale(event.rect().size(), Qt.AspectRatioMode.KeepAspectRatio)
             self.curr_frame_size = pixSize
 
             # Scale image (take into account display scaling for High DPI monitors)
             scale = self.devicePixelRatioF()
-            scaledPix = self.current_image.scaled(pixSize * scale, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            scaledPix = self.current_image.scaled(pixSize * scale, Qt.AspectRatioMode.KeepAspectRatio, Qt.SmoothTransformation)
 
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)
@@ -388,13 +388,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 scale = openshot.SCALE_STRETCH
 
             if scale == openshot.SCALE_FIT:
-                source_size.scale(player_width, player_height, Qt.KeepAspectRatio)
+                source_size.scale(player_width, player_height, Qt.AspectRatioMode.KeepAspectRatio)
 
             elif scale == openshot.SCALE_STRETCH:
-                source_size.scale(player_width, player_height, Qt.IgnoreAspectRatio)
+                source_size.scale(player_width, player_height, Qt.AspectRatioMode.IgnoreAspectRatio)
 
             elif scale == openshot.SCALE_CROP:
-                source_size.scale(player_width, player_height, Qt.KeepAspectRatioByExpanding)
+                source_size.scale(player_width, player_height, Qt.AspectRatioMode.KeepAspectRatioByExpanding)
 
             # Get new source width / height (after scaling mode applied)
             source_width = source_size.width()
@@ -565,7 +565,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         aspectRatio = self.aspect_ratio.ToFloat() * self.pixel_ratio.ToFloat()
         viewport_size = QSizeF(aspectRatio, 1).scaled(
-                            window_size, Qt.KeepAspectRatio
+                            window_size, Qt.AspectRatioMode.KeepAspectRatio
                         ) * self.zoom
         viewport_rect = QRectF(QPointF(0, 0), viewport_size)
         viewport_rect.moveCenter(window_rect.center())
@@ -1364,7 +1364,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         # Scale project size (with aspect ratio) to the delayed widget size
         project_size = QSize(get_app().project.get("width"), get_app().project.get("height"))
-        project_size.scale(self.delayed_size, Qt.KeepAspectRatio)
+        project_size.scale(self.delayed_size, Qt.AspectRatioMode.KeepAspectRatio)
 
         if project_size.height() > 0:
             # Ensure width and height are divisible by 2
