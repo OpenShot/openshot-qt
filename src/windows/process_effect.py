@@ -125,7 +125,7 @@ class ProcessEffect(QDialog):
             if param["type"] == "link":
                 # create a clickable link
                 label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], _(param["title"])))
-                label.setTextInteractionFlags(Qt.TextBrowserInteraction)
+                label.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
                 label.linkActivated.connect(functools.partial(self.link_activated, widget, param))
 
             if param["type"] == "spinner":
