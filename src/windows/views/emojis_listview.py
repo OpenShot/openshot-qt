@@ -129,7 +129,7 @@ class EmojisListView(QListView):
     def filter_changed(self, filter_text=None):
         """Filter emoji with proxy class"""
 
-        self.model.setFilterRegExp(QRegExp(filter_text, Qt.CaseInsensitive))
+        self.model.setFilterRegExp(QRegExp(filter_text, Qt.CaseSensitivity.CaseInsensitive))
         self.model.setFilterKeyColumn(0)
         self.refresh_view()
 

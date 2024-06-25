@@ -156,7 +156,7 @@ class FilesListView(QListView):
         """Filter files with proxy class"""
         model = self.model()
         filter_text = self.win.filesFilter.text()
-        model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*'), Qt.CaseInsensitive))
+        model.setFilterRegExp(QRegExp(filter_text.replace(' ', '.*'), Qt.CaseSensitivity.CaseInsensitive))
 
         col = model.sortColumn()
         model.sort(col)

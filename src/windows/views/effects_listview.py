@@ -82,7 +82,7 @@ class EffectsListView(QListView):
         """Filter transitions with proxy class"""
         filter_text = self.win.effectsFilter.text()
         self.model().setFilterRegExp(QRegExp(filter_text.replace(' ', '.*')))
-        self.model().setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.model().setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.model().sort(Qt.AscendingOrder)
 
     def __init__(self, model):

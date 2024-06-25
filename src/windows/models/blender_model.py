@@ -161,9 +161,9 @@ class BlenderModel():
         # Create proxy model (for sorting and filtering)
         self.proxy_model = BlenderFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.proxy_model.setFilterKeyColumn(1)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 

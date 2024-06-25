@@ -48,7 +48,7 @@ class ProfilesTreeView(QTreeView):
     def refresh_view(self, filter_text=""):
         """Filter transitions with proxy class"""
         self.is_filter_running = True
-        self.model().setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.model().setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.model().setFilterRegExp(QRegExp(filter_text.lower()))
         self.model().sort(Qt.DescendingOrder)
 
