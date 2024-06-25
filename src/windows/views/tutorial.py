@@ -74,7 +74,7 @@ class TutorialDialog(QWidget):
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
         s = get_app().get_settings()
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             # Enabling metrics sending
             s.set("send_metrics", True)
             sentry.init_tracing()
@@ -133,9 +133,9 @@ class TutorialDialog(QWidget):
             checkbox_metrics.setText(_("Yes, I would like to improve OpenShot!"))
             checkbox_metrics.setStyleSheet("margin-left: 25px; margin-bottom: 5px;")
             if s.get("send_metrics"):
-                checkbox_metrics.setCheckState(Qt.Checked)
+                checkbox_metrics.setCheckState(Qt.CheckState.Checked)
             else:
-                checkbox_metrics.setCheckState(Qt.Unchecked)
+                checkbox_metrics.setCheckState(Qt.CheckState.Unchecked)
             checkbox_metrics.stateChanged.connect(functools.partial(self.checkbox_metrics_callback))
             vbox.addWidget(checkbox_metrics)
 

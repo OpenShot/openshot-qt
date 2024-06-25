@@ -177,10 +177,10 @@ class ProcessEffect(QDialog):
                 # create spinner
                 widget = QCheckBox()
                 if param["value"] == True:
-                    widget.setCheckState(Qt.Checked)
+                    widget.setCheckState(Qt.CheckState.Checked)
                     self.context[param["setting"]] = True
                 else:
-                    widget.setCheckState(Qt.Unchecked)
+                    widget.setCheckState(Qt.CheckState.Unchecked)
                     self.context[param["setting"]] = False
                 widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
 
@@ -253,7 +253,7 @@ class ProcessEffect(QDialog):
 
     def bool_value_changed(self, widget, param, state):
         """Boolean value change callback"""
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             self.context[param["setting"]] = True
         else:
             self.context[param["setting"]] = False
