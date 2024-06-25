@@ -478,7 +478,7 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
         self.app.setFont(font)
 
         # Move tabs to top
-        self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.North)
+        self.app.window.setTabPosition(Qt.DockWidgetArea.TopDockWidgetArea, QTabWidget.North)
 
         # Set dock widget content margins to 0
         self.set_dock_margins([16, 0, 16, 0])

@@ -188,7 +188,7 @@ class BaseTheme:
         self.set_dock_margins()
 
         # Move tabs to bottom
-        self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.South)
+        self.app.window.setTabPosition(Qt.DockWidgetArea.TopDockWidgetArea, QTabWidget.South)
 
         # Main toolbar buttons
         toolbar_buttons = [

@@ -2322,7 +2322,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
         for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 self.removeDockWidget(dock)
 
     def addDocks(self, docks, area):
@@ -2333,19 +2333,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def floatDocks(self, is_floating):
         """ Float or Un-Float all dockable widgets above main screen """
         for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 dock.setFloating(is_floating)
 
     def showDocks(self, docks):
         """ Show all dockable widgets on the main screen """
         for dock in docks:
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
 
     def freezeDock(self, dock, frozen=True):
         """ Freeze/unfreeze a dock widget on the main screen."""
-        if self.dockWidgetArea(dock) == Qt.NoDockWidgetArea:
+        if self.dockWidgetArea(dock) == Qt.DockWidgetArea.NoDockWidgetArea:
             # Don't freeze undockable widgets
             return
         if frozen:
@@ -2396,7 +2396,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockEmojis,
             self.dockVideo,
-            ], Qt.TopDockWidgetArea)
+            ], Qt.DockWidgetArea.TopDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
@@ -2422,13 +2422,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.removeDocks()
 
         # Add Docks
-        self.addDocks([self.dockFiles, self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockFiles, self.dockVideo], Qt.DockWidgetArea.TopDockWidgetArea)
         self.addDocks([
             self.dockEffects,
             self.dockTransitions,
             self.dockEmojis,
-            ], Qt.RightDockWidgetArea)
-        self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
+            ], Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDocks([self.dockProperties], Qt.DockWidgetArea.LeftDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockEmojis, self.dockEffects)
@@ -3319,10 +3319,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
-        self.setCorner(Qt.Corner.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.Corner.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.Corner.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.Corner.BottomRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.TopLeftCorner, Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomLeftCorner, Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.TopRightCorner, Qt.DockWidgetArea.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomRightCorner, Qt.DockWidgetArea.RightDockWidgetArea)
 
         self.initModels()
 
