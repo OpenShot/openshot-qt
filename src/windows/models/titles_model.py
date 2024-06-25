@@ -73,7 +73,7 @@ class TitleStandardItemModel(QStandardItemModel):
 
 
 class TitleRoles:
-    PathRole = Qt.UserRole + 11
+    PathRole = Qt.ItemDataRole.UserRole + 11
 
 
 class TitlesModel(QObject):

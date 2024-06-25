@@ -63,7 +63,7 @@ class FilesListView(QListView):
 
             # Look up file_id from 5th column of row
             id_index = index.sibling(index.row(), 5)
-            file_id = model.data(id_index, Qt.DisplayRole)
+            file_id = model.data(id_index, Qt.ItemDataRole.DisplayRole)
 
             # If a valid file selected, show file related options
             menu.addSeparator()
@@ -113,7 +113,7 @@ class FilesListView(QListView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)

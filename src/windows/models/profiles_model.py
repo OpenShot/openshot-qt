@@ -84,7 +84,7 @@ class ProfilesModel:
             flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
             item = QStandardItem(f"{profile.Key()}")
-            item.setData(profile, Qt.UserRole)
+            item.setData(profile, Qt.ItemDataRole.UserRole)
             row.append(item)
 
             item = QStandardItem(f"{profile.info.description}")

@@ -67,7 +67,7 @@ class EffectsTreeView(QTreeView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)

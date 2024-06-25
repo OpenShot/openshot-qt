@@ -203,21 +203,21 @@ class TransitionsModel(QObject):
 
                 # Append Filename
                 col = QStandardItem("Name")
-                col.setData(trans_name, Qt.DisplayRole)
+                col.setData(trans_name, Qt.ItemDataRole.DisplayRole)
                 col.setText(trans_name)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Media Type
                 col = QStandardItem("Type")
-                col.setData(type, Qt.DisplayRole)
+                col.setData(type, Qt.ItemDataRole.DisplayRole)
                 col.setText(type)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Path
                 col = QStandardItem("Path")
-                col.setData(path, Qt.DisplayRole)
+                col.setData(path, Qt.ItemDataRole.DisplayRole)
                 col.setText(path)
                 col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
                 row.append(col)

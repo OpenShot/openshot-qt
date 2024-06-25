@@ -783,7 +783,7 @@ class PropertiesModel(updates.UpdateInterface):
             if points > 1:
                 # Apply icon to cell
                 my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
-                col.setData(my_icon, Qt.DecorationRole)
+                col.setData(my_icon, Qt.ItemDataRole.DecorationRole)
 
                 # Set the background color of the cell
                 if keyframe:
@@ -876,7 +876,7 @@ class PropertiesModel(updates.UpdateInterface):
             if points > 1:
                 # Apply icon to cell
                 my_icon = QPixmap(":/curves/keyframe-%s.png" % interpolation)
-                col.setData(my_icon, Qt.DecorationRole)
+                col.setData(my_icon, Qt.ItemDataRole.DecorationRole)
 
                 # Set the background color of the cell
                 if keyframe:
@@ -890,7 +890,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # clear icon
                 my_icon = QPixmap()
-                col.setData(my_icon, Qt.DecorationRole)
+                col.setData(my_icon, Qt.ItemDataRole.DecorationRole)
 
             if type == "color":
                 # Update the color based on the color curves

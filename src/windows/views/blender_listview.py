@@ -404,9 +404,9 @@ class BlenderListView(QListView):
             return {}
 
         # Get all selected rows items
-        animation_title = current.sibling(current.row(), 1).data(Qt.DisplayRole)
-        xml_path = current.sibling(current.row(), 2).data(Qt.DisplayRole)
-        service = current.sibling(current.row(), 3).data(Qt.DisplayRole)
+        animation_title = current.sibling(current.row(), 1).data(Qt.ItemDataRole.DisplayRole)
+        xml_path = current.sibling(current.row(), 2).data(Qt.ItemDataRole.DisplayRole)
+        service = current.sibling(current.row(), 3).data(Qt.ItemDataRole.DisplayRole)
 
         # load xml effect file
         xmldoc = xml.parse(xml_path)

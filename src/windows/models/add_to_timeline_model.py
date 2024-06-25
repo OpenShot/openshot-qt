@@ -92,7 +92,7 @@ class TimelineModel():
 
             # Append Name
             col = QStandardItem("Name")
-            col.setData(filename, Qt.DisplayRole)
+            col.setData(filename, Qt.ItemDataRole.DisplayRole)
             col.setText((name[:20] + '...') if len(name) > 15 else name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
             row.append(col)

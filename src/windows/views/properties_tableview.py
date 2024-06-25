@@ -172,7 +172,7 @@ class PropertyDelegate(QItemDelegate):
             # Set text color
             painter.setPen(QPen(Qt.GlobalColor.white))
 
-        value = index.data(Qt.DisplayRole)
+        value = index.data(Qt.ItemDataRole.DisplayRole)
         if value:
             painter.drawText(option.rect, Qt.AlignmentFlag.AlignCenter, value)
 
@@ -520,7 +520,7 @@ class PropertiesTableView(QTableView):
                             file_row = self.files_model.index(file_index, 0)
                             project_file_id = file_row.sibling(file_index, 5).data()
                             if file_id == project_file_id:
-                                clip_instance_icon = file_row.data(Qt.DecorationRole)
+                                clip_instance_icon = file_row.data(Qt.ItemDataRole.DecorationRole)
                                 break
 
                         effect_choices = []
@@ -607,7 +607,7 @@ class PropertiesTableView(QTableView):
                             file_row = self.files_model.index(file_index, 0)
                             project_file_id = file_row.sibling(file_index, 5).data()
                             if file_id == project_file_id:
-                                clip_instance_icon = file_row.data(Qt.DecorationRole)
+                                clip_instance_icon = file_row.data(Qt.ItemDataRole.DecorationRole)
                                 clip_choices.append({"name": clip.data["title"],
                                               "value": clip.id,
                                               "selected": False,
@@ -655,7 +655,7 @@ class PropertiesTableView(QTableView):
                     idx = self.files_model.index(i, 0)
                     if not idx.isValid():
                         continue
-                    icon = idx.data(Qt.DecorationRole)
+                    icon = idx.data(Qt.ItemDataRole.DecorationRole)
                     name = idx.sibling(i, 1).data()
                     path = os.path.join(idx.sibling(i, 4).data(), name)
 
@@ -676,7 +676,7 @@ class PropertiesTableView(QTableView):
                     idx = self.transition_model.index(i, 0)
                     if not idx.isValid():
                         continue
-                    icon = idx.data(Qt.DecorationRole)
+                    icon = idx.data(Qt.ItemDataRole.DecorationRole)
                     name = idx.sibling(i, 1).data()
                     path = idx.sibling(i, 3).data()
 

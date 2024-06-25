@@ -189,27 +189,27 @@ class EffectsModel(QObject):
 
             # Append Name
             col = QStandardItem("Name")
-            col.setData(self.app._tr(title), Qt.DisplayRole)
+            col.setData(self.app._tr(title), Qt.ItemDataRole.DisplayRole)
             col.setText(self.app._tr(title))
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append Description
             col = QStandardItem("Description")
-            col.setData(self.app._tr(description), Qt.DisplayRole)
+            col.setData(self.app._tr(description), Qt.ItemDataRole.DisplayRole)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append Category
             col = QStandardItem("Category")
-            col.setData(category, Qt.DisplayRole)
+            col.setData(category, Qt.ItemDataRole.DisplayRole)
             col.setText(category)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)
 
             # Append Path
             col = QStandardItem("Effect")
-            col.setData(effect_name, Qt.DisplayRole)
+            col.setData(effect_name, Qt.ItemDataRole.DisplayRole)
             col.setText(effect_name)
             col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
             row.append(col)

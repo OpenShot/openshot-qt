@@ -57,7 +57,7 @@ class EmojisListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.model.mimeData(selected))
-        icon = self.model.data(selected[0], Qt.DecorationRole)
+        icon = self.model.data(selected[0], Qt.ItemDataRole.DecorationRole)
         drag.setPixmap(icon.pixmap(self.drag_item_size))
         drag.setHotSpot(self.drag_item_center)
 

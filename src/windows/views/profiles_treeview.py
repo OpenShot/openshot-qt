@@ -42,7 +42,7 @@ class ProfilesTreeView(QTreeView):
             self.selectionModel().clear()
         if not self.is_filter_running and selected and selected.first() and selected.first().indexes():
             # Selection changed due to user selection or init of treeview
-            self.selected_profile_object = selected.first().indexes()[0].data(Qt.UserRole)
+            self.selected_profile_object = selected.first().indexes()[0].data(Qt.ItemDataRole.UserRole)
         super().selectionChanged(selected, deselected)
 
     def refresh_view(self, filter_text=""):
