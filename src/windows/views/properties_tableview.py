@@ -1100,7 +1100,7 @@ class SelectionLabel(QFrame):
         self.btnSelectionName.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         # Support rich text
-        self.lblSelection.setTextFormat(Qt.RichText)
+        self.lblSelection.setTextFormat(Qt.TextFormat.RichText)
 
         hbox = QHBoxLayout()
         hbox.setContentsMargins(0, 0, 0, 0)

@@ -115,7 +115,7 @@ class TutorialDialog(QWidget):
         # Add label
         self.label = QLabel(self)
         self.label.setText(text)
-        self.label.setTextFormat(Qt.RichText)
+        self.label.setTextFormat(Qt.TextFormat.RichText)
         self.label.setWordWrap(True)
         self.label.setStyleSheet("margin-left: 20px;")
         self.label.setAttribute(Qt.WA_TransparentForMouseEvents)
