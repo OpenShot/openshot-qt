@@ -1500,11 +1500,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.win = get_app().window
 
         # Update title whenever playback speed changes.
-        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.PlaySignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.PauseSignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.SpeedSignal.connect(self.update_title, Qt.QueuedConnection)
-        self.win.StopSignal.connect(self.update_title, Qt.QueuedConnection)
+        self.win.PlaySignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.PlaySignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.PauseSignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.SpeedSignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
+        self.win.StopSignal.connect(self.update_title, Qt.ConnectionType.QueuedConnection)
 
         # Show Property timer
         # Timer to use a delay before sending MaxSizeChanged signals (so we don't spam libopenshot)

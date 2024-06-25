@@ -643,7 +643,7 @@ Blender Path: {}
 
         # Cleanup signals all 'round
         self.worker.finished.connect(self.worker.deleteLater)
-        self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
+        self.worker.finished.connect(self.background.quit, Qt.ConnectionType.DirectConnection)
         self.background.finished.connect(self.background.deleteLater)
         self.background.finished.connect(self.worker.deleteLater)
 
