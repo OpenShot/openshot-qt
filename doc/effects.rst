@@ -316,7 +316,7 @@ impossible or impractical to shoot in.
    Property Name               Description
    ==========================  ============
    color                       ``(color)`` The color to match
-   fuzz                        ``(float, 0 to 125)`` The fuzz factor (or threshold)
+   threshold                   ``(float, 0 to 125)`` The threshold (or fuzz factor) for matching similar colors. The larger the value the more colors that will be matched.
    halo                        ``(float, 0 to 125)`` The additional threshold for halo elimination.
    keymethod                   ``(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])`` The keying method or algorithm to use.
    ==========================  ============

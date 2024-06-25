@@ -800,6 +800,10 @@ class Worker(QObject):
             self.process.kill()
             self.blender_error_nodata.emit()
             return False
+        except FileNotFoundError:
+            log.warning("Blender executable not found. Please check the path.")
+            self.blender_error_nodata.emit()
+            return False
         except Exception:
             # Error running command.  Most likely the blender executable path in
             # the settings is incorrect, or is not a supported Blender version

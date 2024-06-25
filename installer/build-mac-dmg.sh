@@ -26,6 +26,7 @@ mv "$OS_PATH/MacOS/lib/classes" "$OS_PATH/Resources/classes"; ln -s "../../Resou
 mv "$OS_PATH/MacOS/lib/effects" "$OS_PATH/Resources/effects"; ln -s "../../Resources/effects" "$OS_PATH/MacOS/lib/effects";
 mv "$OS_PATH/MacOS/lib/emojis" "$OS_PATH/Resources/emojis"; ln -s "../../Resources/emojis" "$OS_PATH/MacOS/lib/emojis";
 mv "$OS_PATH/MacOS/lib/images" "$OS_PATH/Resources/images"; ln -s "../../Resources/images" "$OS_PATH/MacOS/lib/images";
+mv "$OS_PATH/MacOS/lib/themes" "$OS_PATH/Resources/themes"; ln -s "../../Resources/themes" "$OS_PATH/MacOS/lib/themes";
 mv "$OS_PATH/MacOS/lib/language" "$OS_PATH/Resources/language"; ln -s "../../Resources/language" "$OS_PATH/MacOS/lib/language";
 mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/qtwebengine_locales"; ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales";
 mv "$OS_PATH/MacOS/lib/presets" "$OS_PATH/Resources/presets"; ln -s "../../Resources/presets" "$OS_PATH/MacOS/lib/presets";

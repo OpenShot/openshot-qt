@@ -2305,7 +2305,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 MenuVolume.LEVEL_0
             ]:
                 # Add keyframes
-                p = openshot.Point(start_animation, float(action) / 100.0, openshot.BEZIER)
+                p = openshot.Point(start_animation, float(action.value) / 100.0, openshot.BEZIER)
                 p_object = json.loads(p.Json())
                 self.AddPoint(clip.data['volume'], p_object)
 
@@ -3094,7 +3094,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Append missing attributes to Clip JSON
             new_clip = json.loads(c.Json())
             new_clip["file_id"] = file.id
-            new_clip["title"] = filename
+            new_clip["title"] = file.data.get("name", filename)
             new_clip["reader"] = file.data
 
             # Skip any clips that are missing a 'reader' attribute

@@ -308,7 +308,6 @@ class PlayerWorker(QObject):
     def LoadFile(self, path=None):
         """ Load a media file into the video player """
         # Check to see if this path is already loaded
-        # TODO: Determine why path is passed in as an empty string instead of None
         if path == self.clip_path or (not path and not self.clip_path):
             return
 
@@ -361,8 +360,7 @@ class PlayerWorker(QObject):
                 new_clip = openshot.Clip(path)
                 self.clip_reader.AddClip(new_clip)
             except:
-                log.error('Failed to load media file into video player: %s' % path)
-                return
+                log.warning('Failed to load media file into video player: %s' % path)
 
             # Assign new clip_reader
             self.clip_path = path

@@ -122,12 +122,13 @@ class TimelineSync(UpdateInterface):
             time.sleep(0.5)
 
         # Increase based on DPI
-        new_size *= self.window.devicePixelRatioF()
+        scaled_width = round(new_size.width() * self.window.devicePixelRatioF())
+        scaled_height = round(new_size.height() * self.window.devicePixelRatioF())
 
-        log.info("Adjusting max size of preview image: %s" % new_size)
+        log.info(f"Adjusting max size of preview image: {scaled_width}x{scaled_height}")
 
         # Set new max video size (Based on preview widget size and display scaling)
-        self.timeline.SetMaxSize(new_size.width(), new_size.height())
+        self.timeline.SetMaxSize(scaled_width, scaled_height)
 
         # Clear timeline preview cache (since our video size has changed)
         self.timeline.ClearAllCache(True)

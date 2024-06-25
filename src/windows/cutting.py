@@ -30,7 +30,8 @@ import functools
 import json
 
 from PyQt5.QtCore import pyqtSignal, QTimer
-from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy
+from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy, QSlider
+from PyQt5.QtCore import Qt, QEvent
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
 from classes import info, ui_util, time_parts
@@ -72,17 +73,6 @@ class Cutting(QDialog):
         # Track metrics
         track_metric_screen("cutting-screen")
 
-        # If preview, hide cutting controls
-        if preview:
-            self.lblInstructions.setVisible(False)
-            self.widgetControls.setVisible(False)
-            self.setWindowTitle(_("Preview"))
-
-        self.start_frame = 1
-        self.start_image = None
-        self.end_frame = 1
-        self.end_image = None
-
         # Keep track of file object
         self.file = file
         self.file_path = file.absolute_path()
@@ -95,6 +85,27 @@ class Cutting(QDialog):
         self.sample_rate = int(get_app().project.get("sample_rate"))
         self.channels = int(file.data['channels'])
         self.channel_layout = int(file.data['channel_layout'])
+
+        self.start_frame = 1
+        self.start_image = None
+        self.end_frame = self.video_length
+        self.end_image = None
+
+        # If preview, hide cutting controls
+        if preview:
+            self.lblInstructions.setVisible(False)
+            self.widgetControls.setVisible(False)
+            self.setWindowTitle(_("Preview"))
+
+        if float(file.data.get("start", 0.0)) > 0.0:
+            self.start_frame = round(file.data.get("start", 0) * self.fps) + 1
+        if float(file.data.get("end", 0.0)) > 0.0:
+            self.end_frame = round(file.data.get("end", 0) * self.fps)
+            self.video_length = (self.end_frame - self.start_frame) + 1
+
+        # Set clip start / end
+        clip_start = file.data.get("start", 0.0)
+        clip_end = file.data.get("end", file.data.get("duration", 0.0))
 
         # Open video file with Reader
         log.info(self.file_path)
@@ -122,6 +133,8 @@ class Cutting(QDialog):
             # Add clip for current preview file
             self.clip = openshot.Clip(self.file_path)
             self.clip.SetJson(json.dumps({"reader": file.data}))
+            self.clip.Start(clip_start)
+            self.clip.End(clip_end)
 
             # Show waveform for audio files
             if not self.clip.Reader().info.has_video and self.clip.Reader().info.has_audio:
@@ -133,11 +146,10 @@ class Cutting(QDialog):
             # Update video_length property of the Timeline object
             self.r.info.video_length = self.video_length
 
-            if preview:
-                # Display frame #'s during preview
-                self.clip.display = openshot.FRAME_DISPLAY_CLIP
-
+            # Display frame #
+            self.clip.display = openshot.FRAME_DISPLAY_CLIP
             self.r.AddClip(self.clip)
+
         except Exception:
             log.error(
                 'Failed to load media file into preview player: %s',
@@ -162,14 +174,9 @@ class Cutting(QDialog):
         self.sliderVideo.setSingleStep(1)
         self.sliderVideo.setPageStep(24)
 
-        # Determine if a start or end attribute is in this file
-        start_frame = 1
-        if 'start' in self.file.data:
-            start_frame = (float(self.file.data['start']) * self.fps) + 1
-
         # Display start frame (and then the previous frame)
-        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, start_frame + 1))
-        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, start_frame))
+        QTimer.singleShot(500, functools.partial(self.sliderVideo.setValue, 2))
+        QTimer.singleShot(600, functools.partial(self.sliderVideo.setValue, 1))
 
         # Connect signals
         self.actionPlay.triggered.connect(self.actionPlay_Triggered)
@@ -179,7 +186,30 @@ class Cutting(QDialog):
         self.btnEnd.clicked.connect(self.btnEnd_clicked)
         self.btnClear.clicked.connect(self.btnClear_clicked)
         self.btnAddClip.clicked.connect(self.btnAddClip_clicked)
+        self.txtName.installEventFilter(self)
+        self.sliderVideo.installEventFilter(self)
         self.initialized = True
+
+    def eventFilter(self, obj, event):
+        if event.type() == event.KeyPress and obj is self.txtName:
+            # Handle ENTER key to create new clip
+            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+                if self.btnAddClip.isEnabled():
+                    self.btnAddClip_clicked()
+                    return True
+        if event.type() == QEvent.MouseButtonPress and isinstance(obj, QSlider):
+            # Handle QSlider click, jump to cursor position
+            if event.button() == Qt.LeftButton:
+                min_val = obj.minimum()
+                max_val = obj.maximum()
+
+                click_position = event.pos().x() if obj.orientation() == Qt.Horizontal else event.pos().y()
+                slider_length = obj.width() if obj.orientation() == Qt.Horizontal else obj.height()
+                new_value = min_val + ((max_val - min_val) * click_position) / slider_length
+
+                obj.setValue(int(new_value))
+                event.accept()
+        return super().eventFilter(obj, event)
 
     def actionPlay_Triggered(self):
         # Trigger play button (This action is invoked from the preview thread, so it must exist here)
@@ -339,15 +369,21 @@ class Cutting(QDialog):
         if 'name' in self.file.data:
             self.file.data.pop('name')
 
+        # Get initial start / end properties (if any)
+        previous_start = self.file.data.get("start", 0.0)
+
         # Save new file
         self.file.id = None
         self.file.key = None
         self.file.type = 'insert'
-        self.file.data['start'] = (self.start_frame-1) / self.fps
-        self.file.data['end'] = (self.end_frame-1) / self.fps
+        self.file.data['start'] = previous_start + ((self.start_frame - 1) / self.fps)
+        self.file.data['end'] = previous_start + (self.end_frame / self.fps)
         if self.txtName.text():
             self.file.data['name'] = self.txtName.text()
         self.file.save()
+
+        # Move to next frame
+        self.sliderVideo.setValue(self.end_frame + 1)
 
         # Reset form
         self.clearForm()

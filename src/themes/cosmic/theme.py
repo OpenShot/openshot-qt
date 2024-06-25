@@ -25,10 +25,14 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from ..base import BaseTheme
+import os
+
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTabWidget, QWidget
 from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QTabWidget, QWidget
+
+from classes.info import PATH
+from ..base import BaseTheme
 
 
 class CosmicTheme(BaseTheme):
@@ -197,8 +201,8 @@ QWidget#scrollAreaWidgetContents {
 
 QDockWidget {
     background-color: #141923;
-    titlebar-close-icon: url(themes/cosmic/images/dock-close.svg);
-    titlebar-normal-icon: url(themes/cosmic/images/dock-float.svg);
+    titlebar-close-icon: url({PATH}themes/cosmic/images/dock-close.svg);
+    titlebar-normal-icon: url({PATH}themes/cosmic/images/dock-float.svg);
     color: #91C3FF;
     font-weight: 500;
     padding: 16px;
@@ -330,7 +334,7 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(themes/cosmic/images/dropdown-arrow.svg);
+    image: url({PATH}themes/cosmic/images/dropdown-arrow.svg);
 }
 
 QComboBox QAbstractItemView {
@@ -360,7 +364,7 @@ QComboBox::item:checked {
 }
 
 QComboBox::indicator::checked {
-    image: url(themes/cosmic/images/dropdown-tick.svg);
+    image: url({PATH}themes/cosmic/images/dropdown-tick.svg);
 }
 
 QHeaderView::section {
@@ -403,6 +407,32 @@ QTabWidget QWidget#pageVideoDetails, QWidget#pageVideoFormat, QWidget#pageAudioF
     background-color: #141923;
 }
 
+QWidget#cutting QPushButton#btnStart,QPushButton#btnEnd  {
+    border: 1px solid #006EE6;
+}
+
+QWidget#cutting QPushButton#btnStart:disabled,QPushButton#btnEnd:disabled {
+    color: #666666;
+    border: 1px solid #666666;
+}
+
+QWidget#cutting QPushButton#btnAddClip {
+    background-color: #006EE6;
+    color: #FFFFFF;
+}
+
+QWidget#cutting QPushButton#btnAddClip:disabled {
+    background-color: #283241;
+    color: #666666;
+}
+
+QWidget#aboutDialog QWidget#txtversion {
+    background-color: #141923;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+}
+
 .property_value {
     foreground-color: #0078FF;
     background-color: #283241;
@@ -416,6 +446,7 @@ QTabWidget QWidget#pageVideoDetails, QWidget#pageVideoFormat, QWidget#pageAudioF
     background-color: #141923;
 }
         """
+        path_unix_slashes = PATH.replace("\\", "/")
         self.style_sheet = f"""
 QMessageBox QPushButton[text="&{_('Yes')}"] {{
     padding: 8px 16px 8px 12px;
@@ -423,7 +454,7 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
     background-color: #0078FF;
     color: #FFFFFF;
 }}
-        """ + self.style_sheet
+        """ + self.style_sheet.replace("{PATH}", f"{path_unix_slashes}/")
 
     def apply_theme(self):
         super().apply_theme()
@@ -640,6 +671,8 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
         button = self.app.window.videoToolbar.widgetForAction(self.app.window.actionPlay)
         if button:
             if not isPlay:
-                button.setIcon(QIcon("themes/cosmic/images/tool-media-play.svg"))
+                play_icon_path = os.path.join(PATH, "themes/cosmic/images/tool-media-play.svg")
+                button.setIcon(QIcon(play_icon_path))
             else:
-                button.setIcon(QIcon("themes/cosmic/images/tool-media-pause.svg"))
+                pause_icon_path = os.path.join(PATH, "themes/cosmic/images/tool-media-pause.svg")
+                button.setIcon(QIcon(pause_icon_path))

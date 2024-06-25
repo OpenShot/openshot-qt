@@ -186,14 +186,16 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionUpdate"/>
     <addaction name="actionHelpContents"/>
-    <addaction name="separator"/>
     <addaction name="actionTutorial"/>
+    <addaction name="separator"/>
     <addaction name="actionReportBug"/>
     <addaction name="actionAskQuestion"/>
+    <addaction name="actionDiscord"/>
     <addaction name="actionTranslate"/>
-    <addaction name="actionDonate"/>
     <addaction name="separator"/>
+    <addaction name="actionDonate"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -1221,8 +1223,8 @@
   </action>
   <action name="actionReportBug">
    <property name="icon">
-    <iconset theme="dialog-error" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/status/16/dialog-error.svg</normaloff>:/icons/Humanity/status/16/dialog-error.svg</iconset>
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/github-icon.svg</normaloff>:/icons/Humanity/actions/custom/github-icon.svg</iconset>
    </property>
    <property name="text">
     <string>Report a Bug...</string>
@@ -1230,8 +1232,8 @@
   </action>
   <action name="actionAskQuestion">
    <property name="icon">
-    <iconset theme="im-message-new" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/im-message-new.svg</normaloff>:/icons/Humanity/actions/16/im-message-new.svg</iconset>
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/reddit-icon.svg</normaloff>:/icons/Humanity/actions/custom/reddit-icon.svg</iconset>
    </property>
    <property name="text">
     <string>Ask a Question...</string>
@@ -1239,8 +1241,8 @@
   </action>
   <action name="actionTranslate">
    <property name="icon">
-    <iconset theme="stock_person" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/stock/16/stock_person.svg</normaloff>:/icons/Humanity/stock/16/stock_person.svg</iconset>
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/launchpad-icon.svg</normaloff>:/icons/Humanity/actions/custom/launchpad-icon.svg</iconset>
    </property>
    <property name="text">
     <string>Translate this Application...</string>
@@ -1248,8 +1250,8 @@
   </action>
   <action name="actionDonate">
    <property name="icon">
-    <iconset theme="bookmark-new" resource="../../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</normaloff>:/icons/Humanity/actions/16/bookmark-new.svg</iconset>
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/paypal-icon.svg</normaloff>:/icons/Humanity/actions/custom/paypal-icon.svg</iconset>
    </property>
    <property name="text">
     <string>Donate</string>
@@ -1265,6 +1267,15 @@
    </property>
    <property name="toolTip">
     <string>Open Help Contents</string>
+   </property>
+  </action>
+  <action name="actionDiscord">
+   <property name="icon">
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/discord-icon.svg</normaloff>:/icons/Humanity/actions/custom/discord-icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Join our Community...</string>
    </property>
   </action>
   <action name="actionSimple_View">

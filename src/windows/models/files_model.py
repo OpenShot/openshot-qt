@@ -530,6 +530,11 @@ class FilesModel(QObject, updates.UpdateInterface):
             item.setIcon(thumb_icon)
             item.setText(name)
 
+            # Update display name
+            text_index = id_index.sibling(id_index.row(), 1)
+            item = m.itemFromIndex(text_index)
+            item.setText(name)
+
             # Emit signal when model is updated
             self.ModelRefreshed.emit()
 

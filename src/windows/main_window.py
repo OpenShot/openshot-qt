@@ -251,8 +251,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         lock_path = os.path.join(info.USER_PATH, ".lock")
         # Check if it already exists
         if os.path.exists(lock_path):
-            last_log_line = exceptions.libopenshot_crash_recovery() or "No Log Detected"
-            log.error(f"Unhandled crash detected: {last_log_line}")
+            last_log_line = exceptions.libopenshot_crash_recovery()
+            if last_log_line:
+                log.error(f"Unhandled crash detected: {last_log_line}")
+            else:
+                log.warning(f"Unhandled shutdown detected: No Log Found")
             self.destroy_lock_file()
         else:
             # Normal startup, clear thumbnails
@@ -699,7 +702,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Delete recovery files which are 'too old'
             for backup_filepath in old_backup_files:
-                os.unlink(backup_filepath)
+                try:
+                    if os.path.exists(backup_filepath):
+                        os.unlink(backup_filepath)
+                        log.info(f"Deleted backup file: {backup_filepath}")
+                    else:
+                        log.warning(f"File not found: {backup_filepath}")
+                except PermissionError:
+                    log.warning(f"Permission denied: {backup_filepath}. Unable to delete.")
+                except Exception as e:
+                    log.error(f"Error deleting file {backup_filepath}: {e}", exc_info=True)
 
             # Save project
             log.info("Auto save project file: %s", file_path)
@@ -707,8 +719,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Remove backup.osp (if any)
             if os.path.exists(info.BACKUP_FILE):
-                # Delete backup.osp since we just saved the actual project
-                os.unlink(info.BACKUP_FILE)
+                try:
+                    # Delete backup.osp since we just saved the actual project
+                    os.unlink(info.BACKUP_FILE)
+                    log.info(f"Deleted backup file: {info.BACKUP_FILE}")
+                except PermissionError:
+                    log.warning(f"Permission denied: {info.BACKUP_FILE}. Unable to delete.")
+                except Exception as e:
+                    log.error(f"Error deleting file {info.BACKUP_FILE}: {e}", exc_info=True)
 
         else:
             # No saved project found
@@ -931,54 +949,76 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionEffectsShowAudio_trigger(self, checked=True):
         self.refreshEffectsSignal.emit()
 
-    def actionHelpContents_trigger(self, checked=True):
-        try:
-            webbrowser.open("https://www.openshot.org/%suser-guide/?app-menu" % info.website_language(), new=1)
-        except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the online help")
-            log.error("Unable to open the Help Contents", exc_info=1)
-
     def actionAbout_trigger(self, checked=True):
         """Show about dialog"""
         from windows.about import About
         win = About()
+        win.setObjectName("aboutDialog")
         # Run the dialog event loop - blocking interaction on this window during this time
         win.exec_()
 
-    def actionReportBug_trigger(self, checked=True):
+    def actionHelpContents_trigger(self, checked=True):
+        url = "https://www.openshot.org/%suser-guide/?app-menu" % info.website_language()
         try:
-            webbrowser.open("https://www.openshot.org/%sissues/new/?app-menu" % info.website_language(), new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Bug Report GitHub Issues web page")
-            log.error("Unable to open the Bug Report page", exc_info=1)
+            error_msg = f"Unable to open the official User Guide url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
+
+    def actionReportBug_trigger(self, checked=True):
+        url = "https://www.openshot.org/%sissues/new/?app-menu" % info.website_language()
+        try:
+            webbrowser.open(url, new=1)
+        except Exception:
+            error_msg = f"Unable to open the Bug Report url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionAskQuestion_trigger(self, checked=True):
+        url = "https://www.reddit.com/r/OpenShot/"
         try:
-            webbrowser.open("https://www.reddit.com/r/OpenShot/", new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the official OpenShot subreddit web page")
-            log.error("Unable to open the subreddit page", exc_info=1)
+            error_msg = f"Unable to open the official OpenShot subreddit url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
+
+    def actionDiscord_trigger(self, checked=True):
+        url = "https://www.openshot.org/discord/?app-menu"
+        try:
+            webbrowser.open(url, new=1)
+        except Exception:
+            error_msg = f"Unable to open the Discord community invite url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionTranslate_trigger(self, checked=True):
+        url = "https://translations.launchpad.net/openshot/2.0"
         try:
-            webbrowser.open("https://translations.launchpad.net/openshot/2.0", new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Translation web page")
-            log.error("Unable to open the translation page", exc_info=1)
+            error_msg = f"Unable to open the Translation url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionDonate_trigger(self, checked=True):
+        url = "https://www.openshot.org/%sdonate/?app-menu" % info.website_language()
         try:
-            webbrowser.open("https://www.openshot.org/%sdonate/?app-menu" % info.website_language(), new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Donate web page")
-            log.error("Unable to open the donation page", exc_info=1)
+            error_msg = f"Unable to open the Donate url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def actionUpdate_trigger(self, checked=True):
+        url = "https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language()
         try:
-            webbrowser.open("https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language(), new=1)
+            webbrowser.open(url, new=1)
         except Exception:
-            QMessageBox.information(self, "Error !", "Unable to open the Download web page")
-            log.error("Unable to open the download page", exc_info=1)
+            error_msg = f"Unable to open the Download url: {url}"
+            QMessageBox.information(self, "Error", error_msg)
+            log.error(error_msg, exc_info=1)
 
     def should_play(self, requested_speed=0):
         """Determine if we should start playback, based on the current frame
@@ -1021,6 +1061,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f, preview=True)
+        win.setObjectName("cutting")
         win.show()
 
     def movePlayhead(self, position_frames):
@@ -1936,6 +1977,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # show dialog
         from windows.cutting import Cutting
         win = Cutting(f)
+        win.setObjectName("cutting")
         # Run the dialog event loop - blocking interaction on this window during that time
         result = win.exec_()
         if result == QDialog.Accepted:

@@ -29,6 +29,7 @@ import os
 import json
 import functools
 from operator import itemgetter
+import sip
 
 from PyQt5.QtCore import Qt, QRectF, QLocale, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import (
@@ -199,6 +200,13 @@ class PropertiesTableView(QTableView):
         if model.item(row, 0):
             self.selected_label = model.item(row, 0)
             self.selected_item = model.item(row, 1)
+
+        # Verify label has not been deleted
+        if (self.selected_label and sip.isdeleted(self.selected_label)) or \
+                (self.selected_item and sip.isdeleted(self.selected_item)):
+            log.debug("Property has been deleted, skipping")
+            self.selected_label = None
+            self.selected_item = None
 
         # Is the user dragging on the value column
         if self.selected_label and self.selected_item and \
@@ -403,13 +411,22 @@ class PropertiesTableView(QTableView):
             # Ignore blank selections
             return
 
+        caption_model_label = caption_model_row[0]
+        caption_model_value = caption_model_row[1]
+
+        # Verify label has not been deleted
+        if (caption_model_label and sip.isdeleted(caption_model_label)) or \
+                (caption_model_value and sip.isdeleted(caption_model_value)):
+            log.debug("Property has been deleted, skipping")
+            return
+
         # Get data model and selection
-        cur_property = caption_model_row[0].data()
+        cur_property = caption_model_label.data()
         property_type = cur_property[1]["type"]
 
         # Save caption text
         if property_type == "caption" and cur_property[1].get('memo') != new_caption_text:
-            self.clip_properties_model.value_updated(caption_model_row[1], value=new_caption_text)
+            self.clip_properties_model.value_updated(caption_model_value, value=new_caption_text)
 
     def select_item(self, item_id, item_type):
         """ Update the selected item in the properties window """
@@ -844,6 +861,14 @@ class PropertiesTableView(QTableView):
 
     def Insert_Action_Triggered(self):
         log.info("Insert_Action_Triggered")
+
+        # Verify label has not been deleted
+        if (self.selected_label and sip.isdeleted(self.selected_label)) or \
+                (self.selected_item and sip.isdeleted(self.selected_item)):
+            log.debug("Property has been deleted, skipping")
+            self.selected_label = None
+            self.selected_item = None
+
         if self.selected_item:
             current_value = QLocale().system().toDouble(self.selected_item.text())[0]
             self.clip_properties_model.value_updated(self.selected_item, value=current_value)

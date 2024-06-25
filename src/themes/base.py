@@ -33,6 +33,7 @@ from PyQt5.QtSvg import QSvgRenderer
 from PyQt5.QtWidgets import QTabWidget, QWidget, QSizePolicy
 
 from classes import ui_util
+from classes.info import PATH
 from themes.manager import ThemeManager
 
 
@@ -108,6 +109,13 @@ class BaseTheme:
             widget = setting.get("widget", None)
             expand = setting.get("expand", False)
             divide = setting.get("divide", False)
+
+            # Update button_icon to abs path (if not found)
+            # This is needed for AppImage, where the relative path is wrong
+            if button_icon and not button_icon.startswith(":") and not os.path.exists(button_icon):
+                new_abs_path = os.path.join(PATH, button_icon)
+                if os.path.exists(new_abs_path):
+                    button_icon = new_abs_path
 
             if expand:
                 # Add spacer and 'New Version Available' toolbar button (default hidden)
