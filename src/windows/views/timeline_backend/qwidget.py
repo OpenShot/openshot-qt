@@ -210,7 +210,7 @@ class TimelineWidget(QWidget):
         marker_pen = QPen(QBrush(marker_color), 1.0)
         marker_pen.setCosmetic(True)
 
-        playhead_color = QColor(Qt.red)
+        playhead_color = QColor(Qt.GlobalColor.red)
         playhead_color.setAlphaF(0.5)
         playhead_pen = QPen(QBrush(playhead_color), 2.0)
         playhead_pen.setCosmetic(True)

@@ -120,8 +120,8 @@ class TitleEditor(QDialog):
         imp = minidom.getDOMImplementation()
         self.xmldoc = imp.createDocument(None, "any", None)
 
-        self.bg_color_code = QColor(Qt.black)
-        self.font_color_code = QColor(Qt.white)
+        self.bg_color_code = QColor(Qt.GlobalColor.black)
+        self.font_color_code = QColor(Qt.GlobalColor.white)
 
         self.bg_style_string = ""
         self.title_style_string = ""
@@ -461,8 +461,8 @@ class TitleEditor(QDialog):
         # Compute perceptive luminance of background color
         lum = (0.299 * colrgb[0] + 0.587 * colrgb[1] + 0.114 * colrgb[2])
         if (lum < 0.5):
-            return QColor(Qt.white)
-        return QColor(Qt.black)
+            return QColor(Qt.GlobalColor.white)
+        return QColor(Qt.GlobalColor.black)
 
     def btnFontColor_clicked(self):
         app = get_app()

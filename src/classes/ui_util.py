@@ -107,15 +107,15 @@ def get_default_icon(theme_name):
 
 def make_dark_palette(darkPalette: QPalette) -> QPalette:
     darkPalette.setColor(QPalette.Window, QColor(53, 53, 53))
-    darkPalette.setColor(QPalette.WindowText, Qt.white)
+    darkPalette.setColor(QPalette.WindowText, Qt.GlobalColor.white)
     darkPalette.setColor(QPalette.Base, QColor(25, 25, 25))
     darkPalette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
     darkPalette.setColor(QPalette.Light, QColor(68, 68, 68))
-    darkPalette.setColor(QPalette.Text, Qt.white)
+    darkPalette.setColor(QPalette.Text, Qt.GlobalColor.white)
     darkPalette.setColor(QPalette.Button, QColor(53, 53, 53))
-    darkPalette.setColor(QPalette.ButtonText, Qt.white)
+    darkPalette.setColor(QPalette.ButtonText, Qt.GlobalColor.white)
     darkPalette.setColor(QPalette.Highlight, QColor(42, 130, 218, 192))
-    darkPalette.setColor(QPalette.HighlightedText, Qt.black)
+    darkPalette.setColor(QPalette.HighlightedText, Qt.GlobalColor.black)
     #
     # Disabled palette
     #
@@ -125,11 +125,11 @@ def make_dark_palette(darkPalette: QPalette) -> QPalette:
     darkPalette.setColor(QPalette.Disabled, QPalette.Button, QColor(53, 53, 53, 128))
     darkPalette.setColor(QPalette.Disabled, QPalette.ButtonText, QColor(255, 255, 255, 128))
     darkPalette.setColor(QPalette.Disabled, QPalette.Highlight, QColor(151, 151, 151, 192))
-    darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.black)
+    darkPalette.setColor(QPalette.Disabled, QPalette.HighlightedText, Qt.GlobalColor.black)
 
     # Tooltips
     darkPalette.setColor(QPalette.ToolTipBase, QColor(42, 130, 218))
-    darkPalette.setColor(QPalette.ToolTipText, Qt.white)
+    darkPalette.setColor(QPalette.ToolTipText, Qt.GlobalColor.white)
     # Links
     darkPalette.setColor(QPalette.Link, QColor(85, 170, 255))
     darkPalette.setColor(QPalette.LinkVisited, QColor(136, 85, 255))

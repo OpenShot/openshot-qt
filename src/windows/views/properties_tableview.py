@@ -170,7 +170,7 @@ class PropertyDelegate(QItemDelegate):
                     self.curve_pixmaps[interpolation])
 
             # Set text color
-            painter.setPen(QPen(Qt.white))
+            painter.setPen(QPen(Qt.GlobalColor.white))
 
         value = index.data(Qt.DisplayRole)
         if value:

@@ -50,7 +50,7 @@ class BaseTheme:
         """Create Dynamic High DPI icons"""
         renderer = QSvgRenderer(svg_path)
         image = QPixmap(size * self.app.devicePixelRatio())
-        image.fill(Qt.transparent)
+        image.fill(Qt.GlobalColor.transparent)
         painter = QPainter(image)
         renderer.render(painter)
         painter.end()
