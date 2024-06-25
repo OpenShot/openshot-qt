@@ -3004,7 +3004,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     # Add update available button (with icon and text)
                     updateButton = QToolButton(self)
                     updateButton.setDefaultAction(self.actionUpdate)
-                    updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                    updateButton.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
                     self.toolBar.addWidget(updateButton)
             else:
                 log.warning("No ThemeManager loaded yet. Skip update available button.")
