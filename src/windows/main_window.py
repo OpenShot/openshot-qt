@@ -3510,11 +3510,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Use shortcuts to override keypress capturing for arrow keys
         # These keys are a bit special, and other approaches fail on certain
         # combinations of OS and Webview backend
-        QShortcut(app.window.getShortcutByName("seekPreviousFrame"), self, activated=self.seekPreviousFrame, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("seekNextFrame"), self, activated=self.seekNextFrame, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("copyAll"), self, activated=self.copyAll, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("pasteAll"), self, activated=self.pasteAll, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("seekPreviousFrame"), self, activated=self.seekPreviousFrame, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("seekNextFrame"), self, activated=self.seekNextFrame, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("copyAll"), self, activated=self.copyAll, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("pasteAll"), self, activated=self.pasteAll, context=Qt.ShortcutContext.WindowShortcut)
