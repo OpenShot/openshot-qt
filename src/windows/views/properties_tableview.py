@@ -119,7 +119,7 @@ class PropertyDelegate(QItemDelegate):
             log.warning("No ThemeManager loaded yet. Skip rendering properties widget.")
 
         # set background color
-        painter.setPen(QPen(Qt.NoPen))
+        painter.setPen(QPen(Qt.PenStyle.NoPen))
         if property_type == "color":
             # Color keyframe
             red = int(cur_property[1]["red"]["value"])

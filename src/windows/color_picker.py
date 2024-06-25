@@ -134,7 +134,7 @@ class CPAlphaShowLabel(QLabel):
         n = self.checkerboard_size
         pat = QPixmap(2 * n, 2 * n)
         p = QPainter(pat)
-        p.setPen(Qt.NoPen)
+        p.setPen(Qt.PenStyle.NoPen)
         # Paint a checkerboard pattern for the color to be overlaid on
         self.bg0 = QColor("#aaa")
         self.bg1 = QColor("#ccc")
@@ -148,7 +148,7 @@ class CPAlphaShowLabel(QLabel):
         """Show the current color, with checkerboard alpha"""
         event.accept()
         p = QPainter(self)
-        p.setPen(Qt.NoPen)
+        p.setPen(Qt.PenStyle.NoPen)
         if self.color.alphaF() < 1.0:
             # Draw a checkerboard pattern under the color
             p.drawTiledPixmap(event.rect(), self.pattern, QPoint(4,4))
