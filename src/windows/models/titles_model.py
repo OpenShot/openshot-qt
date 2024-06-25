@@ -162,7 +162,7 @@ class TitlesModel(QObject):
             icon.addFile(thumb_path)
 
             # Create item entry for model
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled
+            flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled
             item = QStandardItem(icon, title_name)
             item.setData(path, TitleRoles.PathRole)
             item.setToolTip(title_name)

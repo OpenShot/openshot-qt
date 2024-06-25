@@ -74,7 +74,7 @@ class CreditsModel():
                 continue
 
             row = []
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
             # Append type icon (PayPal, Kickstarter, Bitcoin, or Patreon)
             item = QStandardItem()

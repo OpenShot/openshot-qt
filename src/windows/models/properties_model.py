@@ -727,9 +727,9 @@ class PropertiesModel(updates.UpdateInterface):
             elif points > 1:
                 col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
             if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
-                col.setFlags(Qt.ItemIsEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsEnabled)
             else:
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable)
             row.append(col)
 
             # Append Value
@@ -799,13 +799,13 @@ class PropertiesModel(updates.UpdateInterface):
                 col.setBackground(QColor(red, green, blue))
 
             if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
-                col.setFlags(Qt.ItemIsEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsEnabled)
             else:
                 col.setFlags(
-                    Qt.ItemIsSelectable
-                    | Qt.ItemIsEnabled
-                    | Qt.ItemIsUserCheckable
-                    | Qt.ItemIsEditable)
+                    Qt.ItemFlag.ItemIsSelectable
+                    | Qt.ItemFlag.ItemIsEnabled
+                    | Qt.ItemFlag.ItemIsUserCheckable
+                    | Qt.ItemFlag.ItemIsEditable)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)

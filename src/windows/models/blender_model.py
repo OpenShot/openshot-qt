@@ -118,7 +118,7 @@ class BlenderModel():
                 icon.addFile(thumb_path)
 
                 row = []
-                flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable
+                flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable
                 # Append thumbnail
                 col = QStandardItem(self.app._tr(title))
                 col.setIcon(icon)

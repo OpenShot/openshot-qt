@@ -156,7 +156,7 @@ class EmojisModel():
                 col.setText(emoji_name)
                 col.setToolTip(emoji_name)
                 col.setData(path)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append filterable group name
