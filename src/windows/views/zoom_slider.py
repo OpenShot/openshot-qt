@@ -311,7 +311,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 new_left_pos = self.scrollbar_position_previous[0] - delta
                 is_left = True
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier) > 0:
                     # SHIFT key pressed (move )
                         if (self.scrollbar_position_previous[1] + delta) - new_left_pos > self.min_distance:
                             #both handles if we don't exceed min distance
@@ -336,7 +336,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 is_left = False
                 new_right_pos = self.scrollbar_position_previous[1] - delta
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier) > 0:
                     # SHIFT key pressed (move )
                         if new_right_pos - (self.scrollbar_position_previous[0] + delta) > self.min_distance:
                             #both handles if we don't exceed min distance

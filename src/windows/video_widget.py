@@ -945,7 +945,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     elif self.transform_mode == 'scale_right':
                         scale_x += x_motion / half_w
 
-                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                    if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ControlModifier) > 0:
                         # If CTRL key is pressed, fix the scale_y to the correct aspect ration
                         if scale_x:
                             scale_y = scale_x
@@ -1150,7 +1150,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         elif self.transform_mode == 'scale_right':
                             scale_x += x_motion / half_w
 
-                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+                        if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ControlModifier) > 0:
                             # If CTRL key is pressed, fix the scale_y to the correct aspect ratio
                             if scale_x:
                                 scale_y = scale_x
