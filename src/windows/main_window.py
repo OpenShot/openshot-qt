@@ -3319,10 +3319,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
-        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.TopLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomLeftCorner, Qt.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.TopRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomRightCorner, Qt.RightDockWidgetArea)
 
         self.initModels()
 
