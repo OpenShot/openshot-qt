@@ -441,7 +441,7 @@ class TutorialManager(QObject):
         self.dock.setTitleBarWidget(QWidget())  # Prevents window decoration
         self.dock.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
         self.dock.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
-        self.dock.setWindowFlags(Qt.FramelessWindowHint)
+        self.dock.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.dock.setFloating(True)
 
         # Timer for processing new tutorials
