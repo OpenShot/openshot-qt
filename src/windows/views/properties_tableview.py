@@ -146,7 +146,7 @@ class PropertyDelegate(QItemDelegate):
             painter.setBrush(QBrush(QColor("#000000")))
             mask_rect = QRectF(option.rect)
             mask_rect.setWidth(option.rect.width() * value_percent)
-            painter.setClipRect(mask_rect, Qt.IntersectClip)
+            painter.setClipRect(mask_rect, Qt.ClipOperation.IntersectClip)
 
             # gradient for value box
             gradient = QLinearGradient(option.rect.topLeft(), option.rect.topRight())
