@@ -2225,7 +2225,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionFullscreen_trigger(self):
         # Toggle fullscreen state (current state mask XOR WindowFullScreen)
-        self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
+        self.setWindowState(self.windowState() ^ Qt.WindowState.WindowFullScreen)
 
     def actionFile_Properties_trigger(self):
         log.info("Show file properties")
