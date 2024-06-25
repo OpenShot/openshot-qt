@@ -45,7 +45,7 @@ class EmojisListView(QListView):
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
         if event.mimeData().hasUrls():
-            event.setDropAction(Qt.CopyAction)
+            event.setDropAction(Qt.DropAction.CopyAction)
             event.accept()
 
     def startDrag(self, event):

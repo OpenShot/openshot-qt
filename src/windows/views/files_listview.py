@@ -95,7 +95,7 @@ class FilesListView(QListView):
             event.ignore()
             return
         event.accept()
-        event.setDropAction(Qt.CopyAction)
+        event.setDropAction(Qt.DropAction.CopyAction)
 
     def startDrag(self, supportedActions):
         """ Override startDrag method to display custom icon """
