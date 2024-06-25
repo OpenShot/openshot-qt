@@ -196,7 +196,7 @@ class FilesListView(QListView):
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         self.setWordWrap(False)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         self.files_model.ModelRefreshed.connect(self.refresh_view)
 

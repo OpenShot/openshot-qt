@@ -704,7 +704,7 @@ Blender Path: {}
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         # Hook up controls
         self.win.btnRefresh.clicked.connect(self.preview_timer.start)

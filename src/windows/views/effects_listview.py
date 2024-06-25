@@ -115,7 +115,7 @@ class EffectsListView(QListView):
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(False)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
         self.setStyleSheet('QListView::item { padding-top: 2px; }')
 
         # setup filter events
