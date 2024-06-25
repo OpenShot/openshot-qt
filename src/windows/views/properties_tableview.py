@@ -174,7 +174,7 @@ class PropertyDelegate(QItemDelegate):
 
         value = index.data(Qt.DisplayRole)
         if value:
-            painter.drawText(option.rect, Qt.AlignCenter, value)
+            painter.drawText(option.rect, Qt.AlignmentFlag.AlignCenter, value)
 
         painter.restore()
 

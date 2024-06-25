@@ -170,7 +170,7 @@ class About(QDialog):
     def display_release(self, version_text):
 
         self.txtversion.setText(version_text)
-        self.txtversion.setAlignment(Qt.AlignCenter)
+        self.txtversion.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def get_current_release(self):
         """Get the current version """
