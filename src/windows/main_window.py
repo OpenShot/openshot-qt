@@ -525,7 +525,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 return
 
         # Set cursor to waiting
-        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         try:
             if os.path.exists(file_path):
@@ -777,7 +777,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         )[0]
 
         # Set cursor to waiting
-        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         try:
             # Switch to Files dock
@@ -903,7 +903,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.PauseSignal.emit()
 
         # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         # Show dialog
         from windows.preferences import Preferences

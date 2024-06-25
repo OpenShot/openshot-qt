@@ -289,7 +289,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             elif self.scroll_bar_rect.contains(event.pos()):
                 self.setCursor(self.cursors.get('move'))
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
 
         # Detect dragging
         if self.mouse_pressed and not self.mouse_dragging:
@@ -302,7 +302,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             elif self.scroll_bar_rect.contains(event.pos()):
                 self.scroll_bar_dragging = True
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
 
         # Dragging handle
         if self.mouse_dragging:

@@ -275,7 +275,7 @@ class BlenderListView(QListView):
 
         # Show 'Wait' cursor
         if cursor:
-            QApplication.setOverrideCursor(Qt.WaitCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
     @pyqtSlot()
     def end_processing(self):

@@ -163,7 +163,7 @@ class TutorialDialog(QWidget):
 
         # Set layout, cursor, and size
         self.setLayout(vbox)
-        self.setCursor(Qt.ArrowCursor)
+        self.setCursor(Qt.CursorShape.ArrowCursor)
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
         self.setFocusPolicy(Qt.ClickFocus)

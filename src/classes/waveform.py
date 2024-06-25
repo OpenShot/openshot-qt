@@ -83,7 +83,7 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
             return
 
         # Show waiting cursor
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         # Extract audio waveform data (for all channels)
         # Use max RMS (root mean squared) value for each sample

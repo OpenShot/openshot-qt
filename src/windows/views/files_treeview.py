@@ -137,7 +137,7 @@ class FilesTreeView(QTreeView):
         # Use try/finally so we always reset the cursor
         try:
             # Set cursor to waiting
-            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+            get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
             qurl_list = event.mimeData().urls()
             log.info("Processing drop event for {} urls".format(len(qurl_list)))

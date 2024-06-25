@@ -707,7 +707,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             and self.resize_button.isVisible()
             and self.resize_button.rect().contains(event.pos())
         ):
-            self.setCursor(Qt.ArrowCursor)
+            self.setCursor(Qt.CursorShape.ArrowCursor)
             self.transform_mode = None
             return
 
@@ -978,7 +978,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 and self.resize_button.rect().contains(event.pos())
             ):
                 # Mouse over resize button (and not currently dragging)
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
             elif (
                     self.region_transform
                     and self.regionTopLeftHandle
@@ -1002,7 +1002,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                 if self.mouse_dragging and not self.region_mode:
                     self.region_mode = 'scale_bottom_right'
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
 
             # Initialize new region coordinates at current event.pos()
             if self.mouse_dragging and not self.region_mode:
