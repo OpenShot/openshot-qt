@@ -345,7 +345,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Scale image (take into account display scaling for High DPI monitors)
             scale = self.devicePixelRatioF()
-            scaledPix = self.current_image.scaled(pixSize * scale, Qt.AspectRatioMode.KeepAspectRatio, Qt.SmoothTransformation)
+            scaledPix = self.current_image.scaled(pixSize * scale, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
             # Calculate center of QWidget and Draw image
             painter.drawImage(viewport_rect, scaledPix)
@@ -677,7 +677,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         """Rotate cursor based on the current transform"""
         rotated_pixmap = pixmap.transformed(
             QTransform().rotate(rotation).shear(shear_x, shear_y).scale(0.8, 0.8),
-            Qt.SmoothTransformation)
+            Qt.TransformationMode.SmoothTransformation)
         return QCursor(rotated_pixmap)
 
     def checkTransformMode(self, rotation, shear_x, shear_y, event):

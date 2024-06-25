@@ -56,7 +56,7 @@ class RegionButton(QPushButton):
         super().paintEvent(event)
         if self.qimage:
             painter = QPainter(self)
-            resized_qimage = self.qimage.scaled(self.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.SmoothTransformation)
+            resized_qimage = self.qimage.scaled(self.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation)
             painter.drawImage(0, 0, resized_qimage)
         else:
             super().paintEvent(event)  # Draw the normal button
@@ -310,7 +310,7 @@ class ProcessEffect(QDialog):
                     region_qimage = win.videoPreview.region_qimage
 
                     # Resize QImage to match button size
-                    resized_qimage = region_qimage.scaled(widget.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.SmoothTransformation)
+                    resized_qimage = region_qimage.scaled(widget.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                     # Remove button text (so region QImage is more visible)
                     widget.setImage(resized_qimage)
