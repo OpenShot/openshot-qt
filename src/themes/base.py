@@ -163,7 +163,8 @@ class BaseTheme:
         self.app.setStyleSheet(self.style_sheet)
 
         # Hide main window status bar
-        self.app.window.statusBar.hide()
+        if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
+            self.app.window.statusBar.hide()
 
         from classes import info
         from classes.logger import log
