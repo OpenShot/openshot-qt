@@ -112,7 +112,7 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
     file = File.get(id=file_id)
 
     # Only generate audio for readers that actually contain audio
-    if not file.data.get("has_audio", False):
+    if not file or not file.data.get("has_audio", False):
         log.info("File does not have audio. Skipping")
         return
 
