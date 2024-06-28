@@ -688,7 +688,7 @@ App.controller("TimelineCtrl", function ($scope) {
    * @return {string}
    */
   $scope.getThumbPath = function (clip) {
-    if (!clip || !clip["reader"]) {
+    if (!clip || !clip.reader) {
       console.error("Invalid clip object or missing reader property in getThumbPath");
       return "../images/NotFound.svg";
     }
