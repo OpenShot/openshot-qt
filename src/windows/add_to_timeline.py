@@ -326,7 +326,7 @@ class AddToTimeline(QDialog):
                 # Add transition for this clip (if any)
                 # Open up QtImageReader for transition Image
                 if random_transition:
-                    random_index = randint(0, len(self.transitions))
+                    random_index = randint(0, len(self.transitions) - 1)
                     transition_path = self.transitions[random_index]
 
                 # Get reader for transition

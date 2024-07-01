@@ -112,7 +112,7 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
     file = File.get(id=file_id)
 
     # Only generate audio for readers that actually contain audio
-    if not file.data.get("has_audio", False):
+    if not file or not file.data.get("has_audio", False):
         log.info("File does not have audio. Skipping")
         return
 
@@ -163,6 +163,9 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
         # Loop through samples from the file, applying this clip's volume curve
         clip_audio_data = []
         clip_instance = get_app().window.timeline_sync.timeline.GetClip(clip.id)
+        if not clip_instance:
+            log.info("Clip not found, bailing out of waveform volume adjustments")
+            continue
         num_frames = clip_instance.info.video_length
 
         # Determine best guess # of samples (based on duration)

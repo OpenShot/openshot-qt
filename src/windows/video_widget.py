@@ -1436,6 +1436,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.leftHandle = None
         self.rightHandle = None
         self.centerHandle = None
+        self.topShearHandle = None
+        self.leftShearHandle = None
+        self.rightShearHandle = None
+        self.bottomShearHandle = None
         self.clipBounds = None
         self.originHandle = None
         self.mouse_pressed = False

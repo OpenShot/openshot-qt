@@ -518,7 +518,7 @@ class PropertiesModel(updates.UpdateInterface):
                     # Keyframe
 
                     # Protection from HUGE scale values
-                    if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y']:
+                    if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y'] and new_value:
                         width = get_app().project.get("width")
                         height = get_app().project.get("height")
                         is_svg = clip_data.get("reader", {}).get("path", "").lower().endswith("svg")
