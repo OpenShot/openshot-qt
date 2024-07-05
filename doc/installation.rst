@@ -151,6 +151,14 @@ OpenShot successfully.
 - When the Terminal appears (i.e. black window), Copy/Paste the following command:
     - ``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``
 
+Previous Versions
+^^^^^^^^^^^^^^^^^
+
+To download old versions of OpenShot Video Editor, you can visit https://github.com/OpenShot/openshot-qt/tags.
+Click on the version number you need, and scroll to the bottom, under the release notes. You will find
+download links for each operating system. Download the appropriate version for your computer, and
+follow the installation instructions above.
+
 Uninstall
 ^^^^^^^^^
 
