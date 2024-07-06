@@ -159,6 +159,8 @@ Click on the version number you need, and scroll to the bottom, under the releas
 download links for each operating system. Download the appropriate version for your computer, and
 follow the installation instructions above.
 
+NOTE: Projects (*.osp) made with newer versions of OpenShot Video Editor might not support older versions.
+
 Uninstall
 ^^^^^^^^^
 
