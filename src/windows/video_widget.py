@@ -330,17 +330,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
             True)
 
         # Get theme colors (if any)
-        # if get_app().theme_manager:
-        #     theme = get_app().theme_manager.get_current_theme()
-        #     if not theme:
-        #         log.warning("No theme loaded yet. Skip rendering video preview widget.")
-        #         return
-        #     background_color = theme.get_color(".video_widget", "background-color")
-        #     painter.fillRect(event.rect(), background_color)
-        # else:
-        #     log.warning("No ThemeManager loaded yet. Skip rendering video preview widget.")
-
-        background_color = QColor("#191919")
+        background_color = self.palette().color(self.backgroundRole())
         painter.fillRect(event.rect(), background_color)
 
         # Find centered viewport
