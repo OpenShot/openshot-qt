@@ -34,7 +34,6 @@ from PyQt5.QtWidgets import QTabWidget, QWidget, QSizePolicy
 
 from classes import ui_util
 from classes.info import PATH
-from themes.manager import ThemeManager
 
 
 class BaseTheme:
@@ -150,25 +149,24 @@ class BaseTheme:
                 if button_stylesheet:
                     button.setStyleSheet(button_stylesheet)
 
-
     def apply_theme(self):
-        # Get initial style and palette
-        manager = ThemeManager()
-
         # Apply the stylesheet to the entire application
-        if manager.original_style:
-            self.app.setStyle(manager.original_style)
-        if manager.original_palette:
-            self.app.setPalette(manager.original_palette)
+        from classes import info
+        from classes.logger import log
+        from PyQt5.QtGui import QFont, QFontDatabase
+
+        if not self.app.theme_manager:
+            log.warning("ThemeManager not initialized yet. Skip applying a theme.")
+
+        if self.app.theme_manager.original_style:
+            self.app.setStyle(self.app.theme_manager.original_style)
+        if self.app.theme_manager.original_palette:
+            self.app.setPalette(self.app.theme_manager.original_palette)
         self.app.setStyleSheet(self.style_sheet)
 
         # Hide main window status bar
         if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
             self.app.window.statusBar.hide()
-
-        from classes import info
-        from classes.logger import log
-        from PyQt5.QtGui import QFont, QFontDatabase
 
         # Load embedded font
         font_path = os.path.join(info.IMAGES_PATH, "fonts", "Ubuntu-R.ttf")

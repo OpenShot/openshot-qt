@@ -442,7 +442,7 @@ QWidget#aboutDialog QWidget#txtversion {
     background-color: #FABE0A;
 }
 
-.video_widget {
+QWidget#videoPreview {
     background-color: #141923;
 }
         """

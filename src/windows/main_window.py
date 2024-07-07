@@ -1134,10 +1134,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Handle when playback is started"""
         # Set icon on Play button
         if self.initialized:
-            from themes.manager import ThemeManager
-            theme = ThemeManager().get_current_theme()
-            if theme:
-                theme.togglePlayIcon(True)
+            if get_app().theme_manager:
+                theme = get_app().theme_manager.get_current_theme()
+                if theme:
+                    theme.togglePlayIcon(True)
 
     def onPauseCallback(self):
         """Handle when playback is paused"""
@@ -1146,10 +1146,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Set icon on Pause button
         if self.initialized:
-            from themes.manager import ThemeManager
-            theme = ThemeManager().get_current_theme()
-            if theme:
-                theme.togglePlayIcon(False)
+            if get_app().theme_manager:
+                theme = get_app().theme_manager.get_current_theme()
+                if theme:
+                    theme.togglePlayIcon(False)
 
     def actionSaveFrame_trigger(self, checked=True):
         log.info("actionSaveFrame_trigger")
@@ -2992,19 +2992,22 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Add toolbar button for non-cosmic dusk themes
             # Cosmic dusk has a hidden toolbar button which is made visible
             # by the setVisible() call above this
-            from themes.manager import ThemeManager, ThemeName
-            theme = ThemeManager().get_current_theme()
-            if theme and theme.name != ThemeName.COSMIC.value:
-                # Add spacer and 'New Version Available' toolbar button (default hidden)
-                spacer = QWidget(self)
-                spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-                self.toolBar.addWidget(spacer)
+            if get_app().theme_manager:
+                from themes.manager import ThemeName
+                theme = get_app().theme_manager.get_current_theme()
+                if theme and theme.name != ThemeName.COSMIC.value:
+                    # Add spacer and 'New Version Available' toolbar button (default hidden)
+                    spacer = QWidget(self)
+                    spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+                    self.toolBar.addWidget(spacer)
 
-                # Add update available button (with icon and text)
-                updateButton = QToolButton(self)
-                updateButton.setDefaultAction(self.actionUpdate)
-                updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-                self.toolBar.addWidget(updateButton)
+                    # Add update available button (with icon and text)
+                    updateButton = QToolButton(self)
+                    updateButton.setDefaultAction(self.actionUpdate)
+                    updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                    self.toolBar.addWidget(updateButton)
+            else:
+                log.warning("No ThemeManager loaded yet. Skip update available button.")
 
         # Initialize sentry exception tracing (now that we know the current version)
         from classes import sentry

@@ -49,7 +49,6 @@ from classes.query import Clip, Effect, Transition
 
 from windows.models.properties_model import PropertiesModel
 from windows.color_picker import ColorPicker
-from themes.manager import ThemeManager
 from .menu import StyledContextMenu
 
 import openshot
@@ -109,11 +108,15 @@ class PropertyDelegate(QItemDelegate):
             value_percent = 0.0
 
         # Get theme colors
-        theme = ThemeManager().get_current_theme()
-        if not theme:
-            return
-        foreground_color = theme.get_color(".property_value", "foreground-color")
-        background_color = theme.get_color(".property_value", "background-color")
+        if get_app().theme_manager:
+            theme = get_app().theme_manager.get_current_theme()
+            if not theme:
+                log.warning("No theme loaded yet. Skip rendering properties widget.")
+                return
+            foreground_color = theme.get_color(".property_value", "foreground-color")
+            background_color = theme.get_color(".property_value", "background-color")
+        else:
+            log.warning("No ThemeManager loaded yet. Skip rendering properties widget.")
 
         # set background color
         painter.setPen(QPen(Qt.NoPen))

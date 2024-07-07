@@ -51,7 +51,7 @@ QComboBox::item {
     background-color: #ff0024;
 }
 
-.video_widget {
+QWidget#videoPreview {
     background-color: #191919;
 }
         """
@@ -94,7 +94,7 @@ QMainWindow::separator:hover {
     background-color: #ff0024;
 }
 
-.video_widget {
+QWidget#videoPreview {
     background-color: #dedede;
 }
         """
