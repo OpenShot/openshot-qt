@@ -38,7 +38,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import updates
 from classes.app import get_app
 from classes.query import Clip, Track, Transition, Marker
-from themes.manager import ThemeManager
+from classes.logger import log
 
 
 class ZoomSlider(QWidget, updates.UpdateInterface):
@@ -108,10 +108,14 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         event.accept()
 
         # Get theme colors
-        theme = ThemeManager().get_current_theme()
-        if not theme:
-            return
-        playhead_color = theme.get_color(".zoom_slider_playhead", "background-color")
+        if get_app().theme_manager:
+            theme = get_app().theme_manager.get_current_theme()
+            if not theme:
+                log.warning("No theme loaded yet. Skip rendering zoom slider widget.")
+                return
+            playhead_color = theme.get_color(".zoom_slider_playhead", "background-color")
+        else:
+            log.warning("No ThemeManager loaded yet. Skip rendering zoom slider widget.")
 
         # Paint timeline preview on QWidget
         painter = QPainter(self)

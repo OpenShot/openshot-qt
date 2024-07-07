@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import threading
 from enum import Enum
 
 
@@ -51,31 +52,36 @@ class ThemeName(Enum):
 class ThemeManager:
     """Singleton Theme Manager class, used to easily switch between UI themes"""
     _instance = None
+    _lock = threading.Lock()
 
     def __new__(cls, app=None):
         """Override new method, so the same instance is always returned (i.e. singleton)"""
         if cls._instance is None:
-            cls._instance = super(ThemeManager, cls).__new__(cls)
-            cls._instance.app = app
-            cls._instance.original_style = app.style().objectName() if app else None
-            cls._instance.original_palette = app.palette() if app else None
-            cls._instance.current_theme = None
+            with cls._lock:
+                if cls._instance is None:
+                    cls._instance = super(ThemeManager, cls).__new__(cls)
+                    cls._instance.app = app
+                    cls._instance.original_style = app.style().objectName() if app else None
+                    cls._instance.original_palette = app.palette() if app else None
+                    cls._instance.current_theme = None
         return cls._instance
 
-    def apply_theme(self, theme_name):
+    def apply_theme(self, name):
         """Apply a new UI theme. Expects a ThemeName ENUM as the arg."""
-        if theme_name == ThemeName.HUMANITY_DARK:
+        theme_enum = ThemeName.find_by_name(name)
+
+        if theme_enum == ThemeName.HUMANITY_DARK:
             from themes.humanity.theme import HumanityDarkTheme
             self.current_theme = HumanityDarkTheme(self.app)
-        elif theme_name == ThemeName.RETRO:
+        elif theme_enum == ThemeName.RETRO:
             from themes.humanity.theme import Retro
             self.current_theme = Retro(self.app)
-        elif theme_name == ThemeName.COSMIC:
+        elif theme_enum == ThemeName.COSMIC:
             from themes.cosmic.theme import CosmicTheme
             self.current_theme = CosmicTheme(self.app)
 
         # Set name on theme instance
-        self.current_theme.name = theme_name.value
+        self.current_theme.name = theme_enum.value
 
         # Apply theme
         self.current_theme.apply_theme()

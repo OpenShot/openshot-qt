@@ -566,9 +566,8 @@ class Preferences(QDialog):
 
         if param["setting"] == "theme":
             # Apply selected theme to UI
-            from themes.manager import ThemeManager, ThemeName
-            theme_enum = ThemeName.find_by_name(value)
-            ThemeManager().apply_theme(theme_enum)
+            if get_app().theme_manager:
+                get_app().theme_manager.apply_theme(value)
 
         # Check for restart
         self.check_for_restart(param)
