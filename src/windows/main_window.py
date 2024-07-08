@@ -3485,6 +3485,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
 
+        # Apply theme
+        theme_name = s.get("theme")
+        theme = get_app().theme_manager.apply_theme(theme_name)
+        s.set("theme", theme.name)
+
         # Apply saved window geometry/state from settings
         if self.saved_geometry:
             self.restoreGeometry(self.saved_geometry)
