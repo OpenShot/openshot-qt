@@ -3494,7 +3494,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if self.saved_geometry:
             self.restoreGeometry(self.saved_geometry)
         if self.saved_state:
-            self.restoreState(self.saved_state)
+            QTimer.singleShot(0, functools.partial(self.restoreState, self.saved_state))
 
         # Save settings
         s.save()
