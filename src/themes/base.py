@@ -83,9 +83,9 @@ class BaseTheme:
                         if child.objectName().startswith("dock") and child.objectName().endswith("Contents"):
                             # Set content margins on QDock* widget
                             child.setContentsMargins(*content_margins)
-                        if child.layout() and layout_margins:
-                            # Set content margins on the QDock Layout (which has additional margins)
-                            child.layout().setContentsMargins(*layout_margins)
+                            if child.layout() and layout_margins:
+                                # Set content margins on the QDock Layout (which has additional margins)
+                                child.layout().setContentsMargins(*layout_margins)
 
     def set_toolbar_buttons(self, toolbar, icon_size=24, settings=None):
         """Iterate through toolbar button settings, and apply them to each button.

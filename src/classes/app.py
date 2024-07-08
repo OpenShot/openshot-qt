@@ -255,13 +255,6 @@ class OpenShotApp(QApplication):
         log.debug("Creating main interface window")
         self.window = MainWindow()
 
-        # Instantiate Theme Manager (Singleton)
-        theme_name = self.settings.get("theme")
-        theme = self.theme_manager.apply_theme(theme_name)
-
-        # Update theme in settings
-        self.settings.set("theme", theme.name)
-
         # Check for gui launch failures
         if self.mode == "quit":
             self.window.close()
@@ -272,6 +265,9 @@ class OpenShotApp(QApplication):
 
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
+
+        # Show main window
+        self.window.show()
 
         args = self.args
         if len(args) < 2:
