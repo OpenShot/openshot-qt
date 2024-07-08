@@ -273,9 +273,6 @@ class OpenShotApp(QApplication):
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
 
-        # Process any queued events
-        QApplication.processEvents()
-
         # Show main window
         self.window.show()
 
