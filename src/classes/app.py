@@ -273,6 +273,12 @@ class OpenShotApp(QApplication):
         # Connect our exit signals
         self.aboutToQuit.connect(self.cleanup)
 
+        # Process any queued events
+        QApplication.processEvents()
+
+        # Show main window
+        self.window.show()
+
         args = self.args
         if len(args) < 2:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)

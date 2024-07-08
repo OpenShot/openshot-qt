@@ -3482,21 +3482,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.toolBar.topLevelChanged.connect(
             functools.partial(self.freezeMainToolBar, None))
 
-        # Show window
-        self.show()
-
         # Create tutorial manager
         self.tutorial_manager = TutorialManager(self)
 
         # Apply saved window geometry/state from settings
         if self.saved_geometry:
             try:
-                QTimer.singleShot(100, functools.partial(self.restoreGeometry, self.saved_geometry))
+                QTimer.singleShot(0, functools.partial(self.restoreGeometry, self.saved_geometry))
             except Exception as e:
                 log.error(f"Error restoring window geometry: {e}")
         if self.saved_state:
             try:
-                QTimer.singleShot(100, functools.partial(self.restoreState, self.saved_state))
+                QTimer.singleShot(0, functools.partial(self.restoreState, self.saved_state))
             except Exception as e:
                 log.error(f"Error restoring window state: {e}")
 
