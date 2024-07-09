@@ -52,7 +52,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Handle change
-        if (action.key and action.key[0] in [
+        if (len(action.key) >= 1 and action.key[0] in [
                 "display_ratio", "pixel_ratio"
                 ] or action.type in ["load"]):
             # Update display ratio (if found)
