@@ -64,6 +64,7 @@
     <id>org.openshot.OpenShot.desktop</id>
   </provides>
   <releases>
+    <release version="3.2.1" date="2024-07-09"/>
     <release version="3.2.0" date="2024-06-19"/>
     <release version="3.1.1" date="2023-04-17"/>
     <release version="3.1.0" date="2023-03-21"/>
