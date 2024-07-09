@@ -61,16 +61,20 @@ class AddToTimeline(QDialog):
         if self.treeFiles.selected:
             selected_index = self.treeFiles.selected.row()
 
-        # Ignore if empty files
+        # Ignore if empty files or no selection
         if not files or selected_index is None:
             return
 
-        # New index
-        new_index = max(selected_index - 1, 0)
-        log.info(new_index)
+        # Check if selected_index is within valid range
+        if 0 <= selected_index < len(files):
+            # New index
+            new_index = max(selected_index - 1, 0)
 
-        # Remove item and move it
-        files.insert(new_index, files.pop(selected_index))
+            # Remove item and move it
+            files.insert(new_index, files.pop(selected_index))
+        else:
+            log.warning(f"Invalid selected_index: {selected_index}, list length: {len(files)}")
+            return
 
         # Refresh tree
         self.treeFiles.refresh_view()
@@ -90,16 +94,20 @@ class AddToTimeline(QDialog):
         if self.treeFiles.selected:
             selected_index = self.treeFiles.selected.row()
 
-        # Ignore if empty files
+        # Ignore if empty files or no selection
         if not files or selected_index is None:
             return
 
-        # New index
-        new_index = min(selected_index + 1, len(files) - 1)
-        log.info(new_index)
+        # Check if selected_index is within valid range
+        if 0 <= selected_index < len(files):
+            # New index
+            new_index = min(selected_index + 1, len(files) - 1)
 
-        # Remove item and move it
-        files.insert(new_index, files.pop(selected_index))
+            # Remove item and move it
+            files.insert(new_index, files.pop(selected_index))
+        else:
+            log.warning(f"Invalid selected_index: {selected_index}, list length: {len(files)}")
+            return
 
         # Refresh tree
         self.treeFiles.refresh_view()

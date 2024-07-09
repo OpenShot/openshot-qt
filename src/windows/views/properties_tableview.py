@@ -779,7 +779,8 @@ class PropertiesTableView(QTableView):
             self.menu = self.build_menu(self.choices, menu)
 
             # Show context menu (if any options present)
-            if self.menu.children():
+            # There is always at least 1 QAction in an empty menu though
+            if len(self.menu.children()) > 1:
                 self.menu.popup(event.globalPos())
 
     def build_menu(self, data, parent_menu=None):

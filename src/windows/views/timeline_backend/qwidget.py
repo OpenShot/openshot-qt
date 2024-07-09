@@ -122,6 +122,10 @@ class TimelineWidget(QWidget):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        # Ignore changes that don't affect this
+        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]:
+            return
+
         # Clear previous rects
         self.clip_rects.clear()
         self.clip_rects_selected.clear()
