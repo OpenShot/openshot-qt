@@ -327,16 +327,16 @@ def main():
 
             # Publish GitHub Release objects (in all 3 repos)
             for repo_name in repo_names:
+                git_branch_name = version_info.get(repo_name, {}).get('CI_COMMIT_REF_NAME')
+                if git_branch_name == 'develop':
+                    continue
                 # If NO release is found, create a new one
                 github_release = releases.get(repo_name)
                 if github_release:
                     # Publish github release also
                     github_release.edit(prerelease=False)
                 else:
-                    raise Exception(
-                        "Cannot publish missing GitHub release: %s, version: %s" % (
-                            repo_name,
-                            openshot_qt_version))
+                    raise Exception("Cannot publish missing GitHub release: %s, version: %s" % (repo_name, openshot_qt_version))
 
             # Verify download links on openshot.org are correct (and include the new release version)
             r = get("https://www.openshot.org/download/")
@@ -358,10 +358,7 @@ def main():
                     if openshot_qt_version not in url:
                         raise Exception(
                             "Validation of URL FAILED. Missing version %s: %s, %s, %s" % (
-                                openshot_qt_version,
-                                url,
-                                r.status_code,
-                                r.reason)
+                                openshot_qt_version, url, r.status_code, r.reason)
                         )
             else:
                 raise Exception(
