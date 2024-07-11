@@ -106,9 +106,12 @@ def main():
         release_git_sha = version_info.get('openshot-qt', {}).get('CI_COMMIT_SHA', 'N/A')
 
         # Verify branch names are all the same (across the 3 repos)
+        # Ignore "develop" branches (since sometimes we have no changes in one or more repos)
         original_git_branch = ''
         for repo_name in repo_names:
             git_branch_name = version_info.get(repo_name, {}).get('CI_COMMIT_REF_NAME')
+            if git_branch_name == 'develop':
+                continue
             if not original_git_branch:
                 original_git_branch = git_branch_name
             if original_git_branch != git_branch_name:
@@ -128,6 +131,9 @@ def main():
                 raise Exception("Version cannot contain a '-' character: %s (repo: %s, branch: %s)" %
                                 (github_release_name, repo_name, git_branch_name))
 
+            if git_branch_name == 'develop':
+                output(f"Skipping develop branch for repo: {repo_name}")
+                continue
             if git_branch_name.startswith("release"):
                 # Get official version release (i.e. v2.1.0, v2.x.x)
                 releases[repo_name] = get_release(repos.get(repo_name), github_release_name)
@@ -140,10 +146,7 @@ def main():
                     )
             else:
                 # ignore all branches that don't start with 'release*'
-                raise Exception(
-                    "%s only allowed for branch names that start with 'release*'"
-                    " (repo: %s, branch: %s)" % (
-                        script_mode, repo_name, git_branch_name))
+                raise Exception("%s only allowed for branch names that start with 'release*' (repo: %s, branch: %s)" % (script_mode, repo_name, git_branch_name))
 
         if not is_publish:
 
@@ -167,19 +170,16 @@ def main():
                     if so_number:
                         so_title = ", SO: %s" % so_number
                     log_markdown = "%s Changelog (Version: %s%s)\n---\n%s\n\n" % (
-                        repo_name,
-                        version_info.get(repo_name, {}).get('VERSION'),
-                        so_title,
-                        logs.get(repo_name))
+                        repo_name, version_info.get(repo_name, {}).get('VERSION'), so_title, logs.get(repo_name))
+                    formatted_logs[repo_name] = log_title + log_markdown
                     combined_log_markdown += log_markdown
-                    if not repo_name == "openshot-qt":
-                        formatted_logs[repo_name] = log_title + log_markdown
-            formatted_logs["openshot-qt"] = log_title + combined_log_markdown
 
             # Create GitHub Release (if needed)
             for repo_name in repo_names:
-                # If NO release is found, create a new one
                 git_branch_name = version_info.get(repo_name, {}).get('CI_COMMIT_REF_NAME')
+                if git_branch_name == 'develop':
+                    continue
+                # If NO release is found, create a new one
                 github_release_name = "v%s" % version_info.get(repo_name, {}).get('VERSION')
                 if not releases.get(repo_name):
                     # Create a new release if one if missing (for each repo)
@@ -327,16 +327,16 @@ def main():
 
             # Publish GitHub Release objects (in all 3 repos)
             for repo_name in repo_names:
+                git_branch_name = version_info.get(repo_name, {}).get('CI_COMMIT_REF_NAME')
+                if git_branch_name == 'develop':
+                    continue
                 # If NO release is found, create a new one
                 github_release = releases.get(repo_name)
                 if github_release:
                     # Publish github release also
                     github_release.edit(prerelease=False)
                 else:
-                    raise Exception(
-                        "Cannot publish missing GitHub release: %s, version: %s" % (
-                            repo_name,
-                            openshot_qt_version))
+                    raise Exception("Cannot publish missing GitHub release: %s, version: %s" % (repo_name, openshot_qt_version))
 
             # Verify download links on openshot.org are correct (and include the new release version)
             r = get("https://www.openshot.org/download/")
@@ -358,10 +358,7 @@ def main():
                     if openshot_qt_version not in url:
                         raise Exception(
                             "Validation of URL FAILED. Missing version %s: %s, %s, %s" % (
-                                openshot_qt_version,
-                                url,
-                                r.status_code,
-                                r.reason)
+                                openshot_qt_version, url, r.status_code, r.reason)
                         )
             else:
                 raise Exception(
