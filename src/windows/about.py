@@ -216,7 +216,7 @@ class About(QDialog):
                             log.warning("Official release detected with SHA (%s) for v%s" %
                                         (release_git_SHA, info.VERSION))
                             build_name = build_name.replace("-candidate", "")
-                            frozen_version_label = f'<br/><br/><b>{build_name} ({string_official})</b><br/>{string_release_date}: {version_date}<br><a href="{release_notes}" style="text-decoration:none;">{string_release_notes}</a>'
+                            frozen_version_label = f'<br/><br/><b>{build_name} ({string_official})</b><br/>{string_release_date}: {version_date}<br><a href="https://www.openshot.org{release_notes}" style="text-decoration:none;">{string_release_notes}</a>'
                         else:
                             # Display current build name - unedited
                             log.warning("Build SHA (%s) does not match an official release SHA (%s) for v%s" %
