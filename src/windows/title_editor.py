@@ -127,10 +127,6 @@ class TitleEditor(QDialog):
         self.title_style_string = ""
         self.subtitle_style_string = ""
 
-        self.font_weight = 'normal'
-        self.font_style = 'normal'
-        self.font_size_ratio = 1.0
-
         self.new_title_text = ""
         self.sub_title_text = ""
         self.subTitle = False
@@ -139,8 +135,7 @@ class TitleEditor(QDialog):
         self.tspan_nodes = None
 
         self.default_font_family = "DejaVu Sans"
-        self.font_family = self.default_font_family
-        self.qfont = self.get_font(self.font_family)
+        self.qfont = self.get_font(self.default_font_family)
 
         # Add titles list view
         self.titlesView = TitlesListView(parent=self, window=self)
@@ -260,6 +255,47 @@ class TitleEditor(QDialog):
         shutil.copyfile(template_path, self.filename)
         return self.filename
 
+    def detect_font(self):
+        """ Detect font from SVG: TEXT and TSPAN nodes (or use fallback font) """
+        # Detect font from SVG
+        for node in self.tspan_nodes:
+            style = node.getAttribute("style")
+            if style:
+                style_dict = style_to_dict(style)
+                font_family = style_dict.get("font-family", "").strip("'\"")
+                font_style = style_dict.get("font-style", "normal")
+                font_weight = style_dict.get("font-weight", "normal")
+                font_size = style_dict.get("font-size")
+
+                if font_family:
+                    # Clean font_family string
+                    if QFont(self.get_font(font_family)).exactMatch():
+                        self.qfont = QFont(self.get_font(font_family))
+
+                        # Set font style
+                        if font_style == "italic":
+                            self.qfont.setItalic(True)
+                        else:
+                            self.qfont.setItalic(False)
+
+                        # Set font weight
+                        if font_weight == "bold":
+                            self.qfont.setWeight(QFont.Bold)
+                        else:
+                            self.qfont.setWeight(QFont.Normal)
+
+                        # Set font size
+                        if font_size:
+                            if font_size.endswith("px"):
+                                self.qfont.setPixelSize(int(float(font_size[:-2])))
+                            elif font_size.endswith("pt"):
+                                self.qfont.setPointSizeF(float(font_size[:-2]))
+                        break
+
+        # Reset default font (if none detected)
+        if not self.qfont:
+            self.qfont = QFont(self.get_font(self.default_font_family))
+
     def load_svg_template(self, filename_field=None):
         """ Load an SVG title and init all textboxes and controls """
 
@@ -270,14 +306,13 @@ class TitleEditor(QDialog):
         # The container for all our widgets
         layout = self.settingsContainer.layout()
 
-        # parse the svg object
+        # Parse the svg object
         self.xmldoc = minidom.parse(self.filename)
         # get the text elements
         self.tspan_nodes = self.xmldoc.getElementsByTagName('tspan')
 
-        # Reset default font
-        self.font_family = self.default_font_family
-        self.qfont = QFont(self.get_font(self.font_family))
+        # Detect font from template (or default font as a fallback)
+        self.detect_font()
 
         # Loop through child widgets (and remove them)
         for child in self.settingsContainer.children():
@@ -348,15 +383,6 @@ class TitleEditor(QDialog):
             text = node.childNodes[0].data
             title_text.append(text)
 
-            # Set font size (for possible font dialog)
-            s = node.getAttribute("style")
-            ard = style_to_dict(s)
-            fs = ard.get("font-size")
-            if fs and fs.endswith("px"):
-                self.qfont.setPixelSize(int(float(fs[:-2])))
-            elif fs and fs.endswith("pt"):
-                self.qfont.setPointSizeF(float(fs[:-2]))
-
             # Create Label
             label_line_text = _("Line %s:") % str(i + 1)
             label = QLabel(label_line_text)
@@ -368,8 +394,10 @@ class TitleEditor(QDialog):
             widget.textChanged.connect(functools.partial(self.txtLine_changed, widget))
             layout.addRow(label, widget)
 
-        # Set font
-        self.set_font_attributes(self.qfont.family())
+        # Apply font attributes to SVG: TEXT and TSPAN nodes
+        self.set_font_attributes()
+
+        # Write SVG temp file
         self.writeToFile(self.xmldoc)
 
         # Add Font button
@@ -508,16 +536,19 @@ class TitleEditor(QDialog):
 
         # Update SVG font
         if ok and font is not oldfont:
+            # Set new font
             self.qfont = font
+
+            # Determine font-size change in scale (i.e. % larger or smaller)
             fontinfo = QFontInfo(font)
             oldfontinfo = QFontInfo(oldfont)
-            self.font_family = fontinfo.family()
-            self.font_style = fontinfo.styleName()
-            self.font_weight = fontinfo.weight()
-            self.font_size_ratio = 1.0
+            font_size_ratio = 1.0
             if oldfontinfo.pixelSize() > 0:
-                self.font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
-            self.set_font_attributes(self.font_family, self.font_style, self.font_size_ratio)
+                font_size_ratio = fontinfo.pixelSize() / oldfontinfo.pixelSize()
+
+            # Apply font attributes to SVG: TEXT and TSPAN nodes
+            # Scale font-size up or down (if size changed)
+            self.set_font_attributes(font_size_ratio)
             self.update_timer.start()
 
     def update_font_color_button(self):
@@ -601,20 +632,26 @@ class TitleEditor(QDialog):
             self.bg_color_code = color
             log.debug("Set color of background-color button to %s", color.name())
 
-    def set_font_attributes(self, font_family, font_style=None, font_size_ratio=0):
-        '''sets the font properties'''
-        log.debug(f"Setting font-family to {font_family}.")
+    def set_font_attributes(self, font_size_ratio=1.0):
+        '''sets the QFont properties to all SVG: TEXT and TSPAN nodes'''
+        log.debug(f"Setting font-family to {self.qfont.family()}.")
 
         # Loop through each TEXT element
         for text_child in self.text_nodes + self.tspan_nodes:
             # set the style elements for the main text node
             s = text_child.getAttribute("style")
             ard = style_to_dict(s)
-            if font_family:
-                set_if_existing(ard, "font-family", f"'{font_family}'")
-            if font_style:
-                set_if_existing(ard, "font-style", font_style)
-            if font_size_ratio:
+            if self.qfont.family():
+                ard["font-family"] = f"'{self.qfont.family()}'"
+            if self.qfont.italic():
+                ard["font-style"] = "italic"
+            else:
+                ard["font-style"] = "normal"
+            if self.qfont.bold():
+                ard["font-weight"] = "bold"
+            else:
+                ard["font-weight"] = "normal"
+            if font_size_ratio != 1.0:
                 new_font_size_pixel = 100
                 if 'font-size' in ard:
                     new_font_size_pixel = font_size_ratio * float(ard['font-size'][:-2])
