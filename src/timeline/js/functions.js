@@ -327,9 +327,21 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   bounding_box.top += y_offset;
   bounding_box.bottom += y_offset;
 
+  // Snap bounding box to FPS grid (ensure we don't land between frames)
+  const fps_num = scope.project.fps.num;
+  const fps_den = scope.project.fps.den;
+
+  // Function to snap position to nearest frame boundary
+  function snapToFPSGrid(position) {
+    return (Math.round((position * fps_num) / fps_den) * fps_den) / fps_num;
+  }
+
+  // Snap left and right bounding box positions to the FPS grid
+  bounding_box.left = snapToFPSGrid(bounding_box.left);
+  bounding_box.right = snapToFPSGrid(bounding_box.right);
+
   // Find closest nearby object, if any (for snapping)
-  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right],
-    10.0, bounding_box.selected_ids);
+  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right], 10.0, bounding_box.selected_ids);
   var nearby_offset = results[0];
   var snapline_position = results[1];
 
@@ -396,6 +408,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
 }
+
 
 /**
  * Primes are used for factoring.
