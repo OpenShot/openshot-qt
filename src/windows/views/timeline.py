@@ -240,6 +240,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     # Add missing transition
     @pyqtSlot(str)
     def add_missing_transition(self, transition_json):
+        if not get_app().get_settings().get("automatic_transitions"):
+            log.debug("Skipping auto transition (disabled in settings)")
+            return
 
         transition_details = json.loads(transition_json)
 
