@@ -1903,21 +1903,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Update timeline settings
             get_app().updates.transaction_id = tid
-            get_app().updates.update(["profile"], profile.info.description)
-            get_app().updates.update(["width"], profile.info.width)
-            get_app().updates.update(["height"], profile.info.height)
-            get_app().updates.update(["fps"], {
-                "num": profile.info.fps.num,
-                "den": profile.info.fps.den,
-                })
-            get_app().updates.update(["display_ratio"], {
-                "num": profile.info.display_ratio.num,
-                "den": profile.info.display_ratio.den,
-                })
-            get_app().updates.update(["pixel_ratio"], {
-                "num": profile.info.pixel_ratio.num,
-                "den": profile.info.pixel_ratio.den,
-                })
 
             # Update size of audio-only files
             # Used by our video transform handles (if waveforms are visible)
@@ -1939,14 +1924,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Rescale all keyframes and reload project
             if fps_factor != 1.0:
-                # Get a copy of rescaled project data (this does not modify the active project... yet)
-                rescaled_app_data = proj.rescale_keyframes(fps_factor)
+                # Rescale keyframes (if FPS changed)
+                proj.rescale_keyframes(fps_factor)
 
-                # Apply rescaled data to active project
-                proj._data = rescaled_app_data
+                # Apply new profile (and any FPS precision updates)
+                proj.apply_profile(profile)
 
                 # Distribute all project data through update manager
-                get_app().updates.load(rescaled_app_data, reset_history=False)
+                get_app().updates.load(proj._data, reset_history=False)
 
             # Force ApplyMapperToClips to apply these changes
             self.timeline_sync.timeline.ApplyMapperToClips()

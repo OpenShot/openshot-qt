@@ -67,18 +67,6 @@ class JsonDataStore:
         # Regular expression used to detect lost slashes, when repairing data
         self.slash_repair_re = re.compile(r'(["/][.]+)(/u[0-9a-fA-F]{4})')
 
-        # Connection to Qt main window, used in recovery alerts
-        app = get_app()
-        if app:
-            self.app = app
-
-        if app and app._tr:
-            self._ = app._tr
-        else:
-            def fn(arg):
-                return arg
-            self._ = fn
-
     def get(self, key):
         """ Get copied value of a given key in data store """
         key = key.lower()
@@ -376,6 +364,8 @@ class JsonDataStore:
 
     def make_repair_backup(self, file_path, jsondata, backup_dir=None):
         """ Make a backup copy of an OSP file before performing recovery """
+        app = get_app()
+        _ = app._tr
 
         if backup_dir:
             backup_base = os.path.join(backup_dir, os.path.basename(file_path))
@@ -398,10 +388,8 @@ class JsonDataStore:
             with open(backup_file, "w") as fout:
                 fout.write(jsondata)
 
-            if hasattr(self.app, "window") and hasattr(self.app.window, "statusBar"):
-                self.app.window.statusBar.showMessage(
-                    self._("Saved backup file {}").format(backup_file), 5000
-                )
+            if hasattr(app, "window") and hasattr(app.window, "statusBar"):
+                app.window.statusBar.showMessage(_("Saved backup file {}").format(backup_file), 5000)
             log.info("Backed up {} as {}".format(file_path, backup_file))
         except (PermissionError, FileExistsError) as ex:
             # Couldn't write to backup file! Try alternate location
