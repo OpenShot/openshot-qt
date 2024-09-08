@@ -543,7 +543,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Paste_Clip = menu.addAction(_("Paste"))
             Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
             Paste_Clip.triggered.connect(
-                partial(self.Paste_Triggered, MenuCopy.PASTE, float(position), int(layer_number), [], [])
+                partial(self.Paste_Triggered, MenuCopy.PASTE, [], [])
             )
 
         # Show menu
@@ -637,7 +637,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if has_clipboard:
             # Paste Menu (Only show if partial clipboard available)
             Paste_Clip = menu.addAction(_("Paste"))
-            Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, 0.0, 0, clip_ids, []))
+            Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, clip_ids, []))
 
         menu.addSeparator()
 
@@ -1678,89 +1678,106 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-    def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
+    def Paste_Triggered(self, action, clip_ids, tran_ids):
         """Callback for paste context menus"""
         log.debug(action)
 
-        # Start transaction
-        tid = self.get_uuid()
-        get_app().updates.transaction_id = tid
+        # Get global mouse position
+        global_mouse_pos = QCursor.pos()
+        local_mouse_pos = self.mapFromGlobal(global_mouse_pos)
 
-        # Get clipboard
-        copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
-        if not copied_object:
+        # Callback function, to actually add the clip object
+        def callback(self, clip_ids, tran_ids, callback_data):
+            position = callback_data.get('position', 0.0)
+            layer_id = callback_data.get('track', 0)
+
+            # Start transaction
+            tid = self.get_uuid()
+            get_app().updates.transaction_id = tid
+
+            # Get clipboard
+            copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
+            if not copied_object:
+                get_app().updates.transaction_id = None
+                return
+
+            # Remove copied ids from targets
+            if isinstance(copied_object, Clip):
+                clip_ids = [id for id in clip_ids if id != copied_object.id]
+            if isinstance(copied_object, Transition):
+                tran_ids = [id for id in tran_ids if id != copied_object.id]
+
+            # Adjust positions and layers for lists of objects
+            def adjust_positions_and_layers(objects, position, layer_id):
+                left_most_position = min(obj.data['position'] for obj in objects)
+                top_most_layer = max(obj.data['layer'] for obj in objects)
+                position_diff = position - left_most_position
+                layer_diff = layer_id - top_most_layer if layer_id != -1 else 0
+
+                for obj in objects:
+                    obj.type = 'insert'
+                    obj.data.pop('id', None)
+                    obj.id = None
+                    if 'effects' in obj.data:
+                        obj.data['effects'] = [
+                            {k: (get_app().project.generate_id() if k == 'id' else v) for k, v in effect.items()}
+                            for effect in obj.data['effects']
+                        ]
+                    obj.data['position'] += position_diff
+                    obj.data['layer'] += layer_diff
+                    obj.save()
+
+            # Apply clipboard data to target object, merging effects
+            def apply_clipboard_data(target_obj, clipboard_data, excluded_keys=None):
+                excluded_keys = excluded_keys or []
+                for k, v in clipboard_data.items():
+                    if k in excluded_keys:
+                        continue
+                    if k == 'effects' and isinstance(v, list):
+                        existing_effects = target_obj.data.setdefault('effects', [])
+                        effect_map = {effect['class_name']: effect for effect in existing_effects}
+
+                        for effect in v:
+                            effect_type = effect.get('class_name')
+                            effect['id'] = get_app().project.generate_id()
+                            if effect_type in effect_map:
+                                effect_map[effect_type].update(effect)
+                            else:
+                                existing_effects.append(effect)
+
+                        target_obj.data['effects'] = existing_effects
+                    else:
+                        target_obj.data[k] = v
+                target_obj.save()
+
+            # If a single clip/transition is copied with no target, add to a list (for inserting)
+            if len(clip_ids + tran_ids) == 0 and \
+                (isinstance(copied_object, Clip) or isinstance(copied_object, Transition)):
+                copied_object = [copied_object]
+
+            # Handle list of objects (adjust positions and layers)
+            if isinstance(copied_object, list):
+                adjust_positions_and_layers(copied_object, position, layer_id)
+
+            # Handle individual objects (Clip, Transition, Effect)
+            for clip_id in clip_ids:
+                clip = Clip.get(id=clip_id)
+                if clip and isinstance(copied_object, Clip):
+                    apply_clipboard_data(clip, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
+                if clip and isinstance(copied_object, Effect):
+                    apply_clipboard_data(clip, {"effects": [copied_object.data]}, excluded_keys=['id'])
+
+            for tran_id in tran_ids:
+                tran = Transition.get(id=tran_id)
+                if tran and isinstance(copied_object, Transition):
+                    apply_clipboard_data(tran, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
+
+            # End transaction
             get_app().updates.transaction_id = None
-            return
 
-        print(f"Copied object found: {type(copied_object).__name__}")
-
-        # Adjust positions and layers for lists of objects
-        def adjust_positions_and_layers(objects, position, layer_id):
-            left_most_position = min(obj.data['position'] for obj in objects)
-            top_most_layer = max(obj.data['layer'] for obj in objects)
-            position_diff = position - left_most_position
-            layer_diff = layer_id - top_most_layer if layer_id != -1 else 0
-
-            for obj in objects:
-                obj.type = 'insert'
-                obj.data.pop('id', None)
-                obj.id = None
-                if 'effects' in obj.data:
-                    obj.data['effects'] = [
-                        {k: (get_app().project.generate_id() if k == 'id' else v) for k, v in effect.items()}
-                        for effect in obj.data['effects']
-                    ]
-                obj.data['position'] += position_diff
-                obj.data['layer'] += layer_diff
-                obj.save()
-
-        # Apply clipboard data to target object, merging effects
-        def apply_clipboard_data(target_obj, clipboard_data, excluded_keys=None):
-            excluded_keys = excluded_keys or []
-            for k, v in clipboard_data.items():
-                if k in excluded_keys:
-                    continue
-                if k == 'effects' and isinstance(v, list):
-                    existing_effects = target_obj.data.setdefault('effects', [])
-                    effect_map = {effect['class_name']: effect for effect in existing_effects}
-
-                    for effect in v:
-                        effect_type = effect.get('class_name')
-                        effect['id'] = get_app().project.generate_id()
-                        if effect_type in effect_map:
-                            effect_map[effect_type].update(effect)
-                        else:
-                            existing_effects.append(effect)
-
-                    target_obj.data['effects'] = existing_effects
-                else:
-                    target_obj.data[k] = v
-            target_obj.save()
-
-        # If a single clip/transition is copied with no target, add to a list (for inserting)
-        if len(clip_ids + tran_ids) == 0 and \
-            (isinstance(copied_object, Clip) or isinstance(copied_object, Transition)):
-            copied_object = [copied_object]
-
-        # Handle list of objects (adjust positions and layers)
-        if isinstance(copied_object, list):
-            adjust_positions_and_layers(copied_object, position, layer_id)
-
-        # Handle individual objects (Clip, Transition, Effect)
-        for clip_id in clip_ids:
-            clip = Clip.get(id=clip_id)
-            if clip and isinstance(copied_object, Clip):
-                apply_clipboard_data(clip, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
-            if clip and isinstance(copied_object, Effect):
-                apply_clipboard_data(clip, {"effects": [copied_object.data]}, excluded_keys=['id'])
-
-        for tran_id in tran_ids:
-            tran = Transition.get(id=tran_id)
-            if tran and isinstance(copied_object, Transition):
-                apply_clipboard_data(tran, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
-
-        # End transaction
-        get_app().updates.transaction_id = None
+        # Find position from javascript
+        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+            .format(local_mouse_pos.x(), local_mouse_pos.y()), partial(callback, self, clip_ids, tran_ids))
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
         """Callback for clip nudges"""
@@ -2722,7 +2739,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if has_clipboard:
             # Paste Menu (Only show when partial transition clipboard available)
             Paste_Tran = menu.addAction(_("Paste"))
-            Paste_Tran.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, 0.0, 0, [], tran_ids))
+            Paste_Tran.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, [], tran_ids))
 
         menu.addSeparator()
 

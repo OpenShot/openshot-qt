@@ -1852,9 +1852,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.timeline.Slice_Triggered(MenuSlice.KEEP_RIGHT, clip_ids, trans_ids, playhead_position)
 
         elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
-            self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions)
+            self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions, [])
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
-            self.timeline.Paste_Triggered(MenuCopy.PASTE, float(playhead_position), -1, [], [])
+            self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.ExactMatch:
             self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.ExactMatch:
@@ -3192,14 +3192,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def copyAll(self):
         """Handle Copy QShortcut (selected clips / transitions)"""
-        self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions)
+        self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions, [])
 
     def pasteAll(self):
         """Handle Paste QShortcut (at timeline position, same track as original clip)"""
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
-        self.timeline.Paste_Triggered(MenuCopy.PASTE, float(playhead_position), -1, [], [])
+        self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
 
     def eventFilter(self, obj, event):
         """Filter out certain QShortcuts - for example, arrow keys used
