@@ -158,10 +158,15 @@ App.directive("tlRuler", function ($timeout) {
       element.on("mousedown", function (e) {
         // Get playhead position
         var playhead_left = e.pageX - element.offset().left;
-        var playhead_seconds = playhead_left / scope.pixelsPerSecond;
+        var playhead_seconds = snapToFPSGridTime(scope, pixelToTime(scope, playhead_left));
 
         // Immediately preview frame (don't wait for animated playhead)
         scope.previewFrame(playhead_seconds);
+
+        if (playhead_seconds == scope.project.playhead_position) {
+          // No animation (playhead didn't move)
+          return;
+        }
 
         // Animate to new position (and then update scope)
         scope.playhead_animating = true;

@@ -70,7 +70,7 @@ App.directive("tlPlayhead", function () {
           }
 
           // Move playhead
-          let playhead_seconds = new_position / scope.pixelsPerSecond;
+          let playhead_seconds = snapToFPSGridTime(scope, pixelToTime(scope, new_position));
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
         }
