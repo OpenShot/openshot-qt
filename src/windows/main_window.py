@@ -1572,7 +1572,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position < current_position and (abs(marker_position - current_position) > 0.1):
+            if marker_position < current_position and (abs(marker_position - current_position) > 0.001):
                 # Is marker larger than previous marker
                 if closest_position and marker_position > closest_position:
                     # Set a new closest marker
@@ -1604,7 +1604,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position > current_position and (abs(marker_position - current_position) > 0.1):
+            if marker_position > current_position and (abs(marker_position - current_position) > 0.001):
                 # Is marker larger than previous marker
                 if closest_position and marker_position < closest_position:
                     # Set a new closest marker
