@@ -1515,6 +1515,9 @@ $scope.updateLayerIndex = function () {
     // Update playhead position and time readout (reset to zero)
     $scope.movePlayhead(0.0);
 
+    // Force ruler to redraw
+    $scope.project.scale += 1/100000
+
     // Apply all changes
     $scope.$apply();
 
