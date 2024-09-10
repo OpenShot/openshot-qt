@@ -46,6 +46,9 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        if self.ignore_updates:
+            return
+
         # Ignore changes that don't affect this
         if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]:
             return
@@ -515,6 +518,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.current_frame = 0
         self.is_auto_center = True
         self.min_distance = 0.02
+        self.ignore_updates = False
 
         # Load icon (using display DPI)
         self.cursors = {}
@@ -537,7 +541,6 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Connect zoom functionality
         self.win.TimelineScrolled.connect(self.update_scrollbars)
-
         self.win.TimelineResize.connect(self.delayed_resize_callback)
 
         # Connect Selection signals

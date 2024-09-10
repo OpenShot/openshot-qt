@@ -2630,7 +2630,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     # Update undo and redo buttons enabled/disabled to available changes
     def updateStatusChanged(self, undo_status, redo_status):
-        log.info('updateStatusChanged')
         self.actionUndo.setEnabled(undo_status)
         self.actionRedo.setEnabled(redo_status)
         self.actionClearHistory.setEnabled(undo_status | redo_status)

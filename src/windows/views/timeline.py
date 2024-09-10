@@ -195,6 +195,20 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             log.warning('Failed to parse clip JSON data', exc_info=1)
             return
 
+        if not ignore_refresh:
+            # Refresh ZoomSlider and Enable video caching
+            get_app().restoreOverrideCursor()
+            self.window.sliderZoomWidget.ignore_updates = False
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+        else:
+            # Ignore certain updates for now (no ZoomSlider drawing, or video caching)
+            if not self.window.sliderZoomWidget.ignore_updates:
+                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+                self.window.sliderZoomWidget.ignore_updates = True
+                openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+            # Keep UI from freezing during mass timeline updates
+            get_app().processEvents()
+
         # Search for matching clip in project data (if any)
         existing_clip = Clip.get(id=clip_data.get("id"))
         if not existing_clip:
