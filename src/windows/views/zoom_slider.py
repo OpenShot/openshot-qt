@@ -239,20 +239,13 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_position = event.pos().x()
         self.scrollbar_position_previous = self.scrollbar_position
 
-        # Check if click is outside the current selection (scroll bar rect)
-        if not self.scroll_bar_rect.contains(event.pos()):
-            self.selection_start_pos = event.pos().x()
-            self.selection_dragging = True
-        else:
-            self.selection_dragging = False
-
     def mouseReleaseEvent(self, event):
         """Capture mouse release event"""
         event.accept()
 
         # Handle the case where no dragging occurred (single click)
-        if not self.mouse_dragging and self.selection_dragging:
-            # Center the scroll region at the click position
+        if not self.mouse_dragging and not self.scroll_bar_rect.contains(event.pos()):
+            # Center the scroll region at the click position (if outside the selection)
             click_pos = event.pos().x() / self.width()
             selection_width = self.scrollbar_position[1] - self.scrollbar_position[0]
             half_width = selection_width / 2
@@ -266,10 +259,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Finalize drag selection
         self.mouse_pressed = False
         self.mouse_dragging = False
-        self.selection_dragging = False
         self.left_handle_dragging = False
         self.right_handle_dragging = False
         self.scroll_bar_dragging = False
+        self.create_bar_dragging = False
         self.update()
 
     def set_handle_limits(self, left_handle, right_handle, is_left=False):
@@ -317,22 +310,18 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Detect dragging (only if the user clicked and started dragging beyond the threshold)
         if self.mouse_pressed and not self.mouse_dragging:
-                if self.left_handle_rect.contains(event.pos()):
-                    self.mouse_dragging = True
-                    self.left_handle_dragging = True
-                elif self.right_handle_rect.contains(event.pos()):
-                    self.mouse_dragging = True
-                    self.right_handle_dragging = True
-                elif self.scroll_bar_rect.contains(event.pos()):
-                    self.mouse_dragging = True
-                    self.scroll_bar_dragging = True
-                elif abs(self.mouse_position - mouse_pos) > drag_threshold:
-                    # If clicking outside the current selection, initiate drag to create a new selection
-                    self.mouse_dragging = True
-                    self.selection_dragging = True
-                    self.selection_start_pos = event.pos().x()
-                else:
-                    return
+            self.mouse_dragging = True
+            if self.left_handle_rect.contains(event.pos()):
+                self.left_handle_dragging = True
+            elif self.right_handle_rect.contains(event.pos()):
+                self.right_handle_dragging = True
+            elif self.scroll_bar_rect.contains(event.pos()):
+                self.scroll_bar_dragging = True
+            elif abs(self.mouse_position - mouse_pos) > drag_threshold:
+                # If clicking outside the current selection, initiate drag to create a new selection
+                self.create_bar_dragging = True
+            else:
+                self.mouse_dragging = False
 
         # Handle dragging the selection (scroll bar dragging)
         if self.mouse_dragging:
@@ -356,8 +345,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
 
-                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_timer.start()
 
             elif self.right_handle_dragging:
@@ -380,8 +368,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 # Enforce limits
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
 
-                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_timer.start()
 
             elif self.scroll_bar_dragging:
@@ -393,29 +380,27 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 # Enforce limits
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
 
-                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 get_app().window.TimelineScroll.emit(new_left_pos)
 
-            elif self.selection_dragging:
+            elif self.create_bar_dragging:
                 # Handle creating a new selection region
                 new_pos = mouse_pos / self.width()
 
-                if self.selection_start_pos < mouse_pos:
+                if self.mouse_position < mouse_pos:
                     # Dragging to the right: set both handles to the starting position,
                     # then move the right handle (left handle stays where the drag started)
-                    new_left_pos = self.selection_start_pos / self.width()
+                    new_left_pos = self.mouse_position / self.width()
                     new_right_pos = new_pos
                 else:
                     # Dragging to the left: set both handles to the starting position,
                     # then move the left handle (right handle stays where the drag started)
-                    new_right_pos = self.selection_start_pos / self.width()
+                    new_right_pos = self.mouse_position / self.width()
                     new_left_pos = new_pos
 
                 # Enforce limits for the new selection
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
-                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_timer.start()
 
             # Force re-paint after any dragging
