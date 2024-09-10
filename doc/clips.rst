@@ -264,11 +264,14 @@ to clip properties, such as location, scale, rotation, etc... See :ref:`clip_pro
 
 Copy / Paste
 """"""""""""
-The :guilabel:`Copy / Paste` preset facilitates copying and pasting keyframes or 
-duplicating an entire clip along with its keyframes.
+The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, effects, or
+duplicating an entire clip along with its keyframes. Paste will create a new clip at the position of your
+mouse. If you select 1 or more clips before pasting, you can paste "over" those clips with your current clip.
 
 - **Usage Example:** Duplicating a clip with intricate animations for reuse in different parts of the project.
 - **Tip:** Use this preset to replicate animations or effects across multiple clips.
+- **Tip:** Selecting multiple clips before pasting, sets keyframes and/or effects for all clips.
+- **Tip:** You can copy a single effect, and paste it to multiple selected clips.
 
 Remove Clip
 """""""""""
