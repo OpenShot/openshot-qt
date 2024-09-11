@@ -66,6 +66,10 @@ App.directive("tlTrack", function ($timeout) {
           var ui_selected = $(".ui-selected");
           var selected_item_count = ui_selected.length;
 
+          // Arrays to collect updates for batch processing
+          var clip_updates = [];
+          var transition_updates = [];
+
           // Get uuid to group all these updates as a single transaction
           var tid = uuidv4();
           var drop_track_num = -1;
@@ -132,18 +136,26 @@ App.directive("tlTrack", function ($timeout) {
               // Keep track of dropped clips (we'll check for missing transitions in a sec)
               dropped_clips.push(item_data);
 
-              // Determine if this is the last iteration
-              var needs_refresh = (index === selected_item_count - 1);
-
-              // update clip in Qt (very important =)
-              if (scope.Qt && item_type === "clip") {
-                timeline.update_clip_data(JSON.stringify(item_data), true, true, !needs_refresh, tid);
-              } else if (scope.Qt && item_type === "transition") {
-                timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh, tid);
+              // Collect updates for later batch processing
+              if (item_type === "clip") {
+                clip_updates.push(item_data);
+              } else if (item_type === "transition") {
+                transition_updates.push(item_data);
               }
-
-
             }
+          });
+
+          // Now fire all the Qt updates after all scope.$apply calls
+          // Update clips in Qt
+          clip_updates.forEach(function(item_data, index) {
+            var needs_refresh = (index === clip_updates.length - 1);
+            timeline.update_clip_data(JSON.stringify(item_data), true, true, !needs_refresh, tid);
+          });
+
+          // Update transitions in Qt
+          transition_updates.forEach(function(item_data, index) {
+            var needs_refresh = (index === transition_updates.length - 1);
+            timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh, tid);
           });
 
           // Add missing transitions (if any)
