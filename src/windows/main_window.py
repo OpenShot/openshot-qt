@@ -123,6 +123,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SelectionRemoved = pyqtSignal(str, str)      # Signal to remove a selection
     SelectionChanged = pyqtSignal()      # Signal after selections have been changed (added/removed)
     SetKeyframeFilter = pyqtSignal(str)     # Signal to only show keyframes for the selected property
+    IgnoreUpdates = pyqtSignal(bool)     # Signal to let widgets know to ignore updates (i.e. batch updates)
 
     # Docks are closable, movable and floatable
     docks_frozen = False
@@ -3218,6 +3219,25 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 event.accept()
         return super(MainWindow, self).eventFilter(obj, event)
 
+    def ignore_updates_callback(self, ignore):
+        """Ignore updates callback - used to stop updating this widget during batch updates"""
+        if ignore and not self.ignore_updates:
+            # Wait for mass updates to finish
+            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
+            get_app().processEvents()
+        elif not ignore and self.ignore_updates:
+            # Restore normal updates
+            get_app().restoreOverrideCursor()
+            openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
+
+        if not ignore:
+            self.refreshFrameSignal.emit()
+            self.propertyTableView.select_frame(self.preview_thread.player.Position())
+
+        # Keep track of ignore / not ignore
+        self.ignore_updates = ignore
+
     def __init__(self, *args):
 
         # Create main window base class
@@ -3473,6 +3493,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect Selection signals
         self.SelectionAdded.connect(self.addSelection)
         self.SelectionRemoved.connect(self.removeSelection)
+
+        # Connect 'ignore update' signal
+        self.ignore_updates = False
+        self.IgnoreUpdates.connect(self.ignore_updates_callback)
 
         # Connect playhead moved signals
         self.SeekSignal.connect(self.handleSeek)
