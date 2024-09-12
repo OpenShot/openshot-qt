@@ -72,7 +72,7 @@ class FilesListView(QListView):
             file = File.get(id=file_id)
             if file and file.data.get("path").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
-                menu.addAction(self.win.actionDuplicateTitle)
+                menu.addAction(self.win.actionDuplicate)
                 menu.addSeparator()
 
             menu.addAction(self.win.actionPreview_File)

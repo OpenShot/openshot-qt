@@ -1545,16 +1545,16 @@
     <string>Clear All</string>
    </property>
   </action>
-  <action name="actionDuplicateTitle">
+  <action name="actionDuplicate">
    <property name="icon">
     <iconset theme="edit-copy" resource="../../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-copy.svg</normaloff>:/icons/Humanity/actions/16/edit-copy.svg</iconset>
    </property>
    <property name="text">
-    <string>Duplicate Title</string>
+    <string>Duplicate</string>
    </property>
    <property name="toolTip">
-    <string>Duplicate Title</string>
+    <string>Duplicate</string>
    </property>
   </action>
   <action name="actionClearHistory">

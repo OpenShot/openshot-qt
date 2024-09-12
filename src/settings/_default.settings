@@ -545,7 +545,7 @@
     "title": "Preferences",
     "restart": false,
     "setting": "actionPreferences",
-    "value": "Ctrl+Shift+P",
+    "value": "Ctrl+P",
     "type": "text",
     "sort": true
   },
@@ -570,7 +570,7 @@
     "title": "Add Marker",
     "restart": false,
     "setting": "actionAddMarker",
-    "value": "Ctrl+M",
+    "value": "M",
     "type": "text"
   },
   {
@@ -578,12 +578,28 @@
     "title": "Toggle Razor",
     "restart": false,
     "setting": "actionRazorTool",
-    "value": "R",
+    "value": "C",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Toggle Razor (Alternate 1)",
+    "restart": false,
+    "setting": "actionRazorTool",
+    "value": "B",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Previous Marker",
+    "restart": false,
+    "setting": "actionPreviousMarker",
+    "value": "Ctrl+Shift+M",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Previous Marker (Alternate 1)",
     "restart": false,
     "setting": "actionPreviousMarker",
     "value": "Ctrl+Left",
@@ -594,6 +610,14 @@
     "title": "Next Marker",
     "restart": false,
     "setting": "actionNextMarker",
+    "value": "Shift+M",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Next Marker (Alternate 1)",
+    "restart": false,
+    "setting": "actionNextMarker",
     "value": "Ctrl+Right",
     "type": "text"
   },
@@ -602,7 +626,7 @@
     "title": "Center on Playhead",
     "restart": false,
     "setting": "actionCenterOnPlayhead",
-    "value": "Ctrl+Up",
+    "value": "Shift+C",
     "type": "text"
   },
   {
@@ -610,7 +634,7 @@
     "title": "Add to Timeline",
     "restart": false,
     "setting": "actionAdd_to_Timeline",
-    "value": "Ctrl+W",
+    "value": "Ctrl+Shift+A",
     "type": "text"
   },
   {
@@ -618,7 +642,7 @@
     "title": "Animated Title",
     "restart": false,
     "setting": "actionAnimatedTitle",
-    "value": "Ctrl+B",
+    "value": "Ctrl+Shift+T",
     "type": "text"
   },
   {
@@ -626,7 +650,7 @@
     "title": "Choose Profile",
     "restart": false,
     "setting": "actionProfile",
-    "value": "Ctrl+P",
+    "value": "Ctrl+Alt+P",
     "type": "text"
   },
   {
@@ -634,7 +658,7 @@
     "title": "Details View",
     "restart": false,
     "setting": "actionDetailsView",
-    "value": "Ctrl+D",
+    "value": "Ctrl+Page Up",
     "type": "text"
   },
   {
@@ -643,6 +667,14 @@
     "restart": false,
     "setting": "actionExportVideo",
     "value": "Ctrl+E",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Export Video (Alternate 1)",
+    "restart": false,
+    "setting": "actionExportVideo",
+    "value": "Ctrl+M",
     "type": "text"
   },
   {
@@ -658,7 +690,7 @@
     "title": "Import Files...",
     "restart": false,
     "setting": "actionImportFiles",
-    "value": "Ctrl+F",
+    "value": "Ctrl+I",
     "type": "text"
   },
   {
@@ -682,7 +714,7 @@
     "title": "Redo",
     "restart": false,
     "setting": "actionRedo",
-    "value": "Ctrl+Y",
+    "value": "Ctrl+Shift+Z",
     "type": "text"
   },
   {
@@ -706,7 +738,7 @@
     "title": "Split Clip...",
     "restart": false,
     "setting": "actionSplitClip",
-    "value": "Ctrl+X",
+    "value": "Shift+1",
     "type": "text"
   },
   {
@@ -714,7 +746,7 @@
     "title": "Thumbnail View",
     "restart": false,
     "setting": "actionThumbnailView",
-    "value": "Ctrl+Shift+D",
+    "value": "Ctrl+Page Down",
     "type": "text"
   },
   {
@@ -743,10 +775,26 @@
   },
   {
     "category": "Keyboard",
+    "title": "Zoom In (Alternate 1)",
+    "restart": false,
+    "setting": "actionTimelineZoomIn",
+    "value": "Ctrl+=",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Zoom Out",
     "restart": false,
     "setting": "actionTimelineZoomOut",
     "value": "-",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Zoom Out (Alternate 1)",
+    "restart": false,
+    "setting": "actionTimelineZoomOut",
+    "value": "Ctrl+-",
     "type": "text"
   },
   {
@@ -759,10 +807,26 @@
   },
   {
     "category": "Keyboard",
+    "title": "Previous Frame (Alternate 1)",
+    "restart": false,
+    "setting": "seekPreviousFrame",
+    "value": ",",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Next Frame",
     "restart": false,
     "setting": "seekNextFrame",
     "value": "Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Next Frame (Alternate 1)",
+    "restart": false,
+    "setting": "seekNextFrame",
+    "value": ".",
     "type": "text"
   },
   {
@@ -834,7 +898,7 @@
     "title": "Slice All: Keep Both Sides",
     "restart": false,
     "setting": "sliceAllKeepBothSides",
-    "value": "Ctrl+K",
+    "value": "",
     "type": "text"
   },
   {
@@ -842,7 +906,7 @@
     "title": "Slice All: Keep Left Side",
     "restart": false,
     "setting": "sliceAllKeepLeftSide",
-    "value": "Ctrl+L",
+    "value": "",
     "type": "text"
   },
   {
@@ -850,7 +914,7 @@
     "title": "Slice All: Keep Right Side",
     "restart": false,
     "setting": "sliceAllKeepRightSide",
-    "value": "Ctrl+J",
+    "value": "",
     "type": "text"
   },
   {
@@ -858,7 +922,7 @@
     "title": "Slice Selected: Keep Both Sides",
     "restart": false,
     "setting": "sliceSelectedKeepBothSides",
-    "value": "s",
+    "value": "Ctrl+K",
     "type": "text"
   },
   {
@@ -866,7 +930,7 @@
     "title": "Slice Selected: Keep Left Side",
     "restart": false,
     "setting": "sliceSelectedKeepLeftSide",
-    "value": "d",
+    "value": "Ctrl+J",
     "type": "text"
   },
   {
@@ -874,7 +938,7 @@
     "title": "Slice Selected: Keep Right Side",
     "restart": false,
     "setting": "sliceSelectedKeepRightSide",
-    "value": "a",
+    "value": "Ctrl+L",
     "type": "text"
   },
   {
@@ -883,6 +947,14 @@
     "restart": false,
     "setting": "copyAll",
     "value": "Ctrl+C",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Cut",
+    "restart": false,
+    "setting": "cutAll",
+    "value": "Ctrl+X",
     "type": "text"
   },
   {
@@ -914,7 +986,7 @@
     "title": "Add Track",
     "restart": false,
     "setting": "actionAddTrack",
-    "value": "Ctrl+Shift+T",
+    "value": "Ctrl+Y",
     "type": "text"
   },
   {
@@ -922,7 +994,7 @@
     "title": "Snapping Enabled",
     "restart": false,
     "setting": "actionSnappingTool",
-    "value": "Ctrl+G",
+    "value": "S",
     "type": "text"
   },
   {
@@ -930,7 +1002,7 @@
     "title": "Jump To Start",
     "restart": false,
     "setting": "actionJumpStart",
-    "value": "Ctrl+Home",
+    "value": "Home",
     "type": "text"
   },
   {
@@ -938,7 +1010,7 @@
     "title": "Jump To End",
     "restart": false,
     "setting": "actionJumpEnd",
-    "value": "Ctrl+End",
+    "value": "End",
     "type": "text"
   },
   {
@@ -946,7 +1018,7 @@
     "title": "Properties",
     "restart": false,
     "setting": "actionProperties",
-    "value": "Ctrl+I",
+    "value": "Ctrl+Shift+H",
     "type": "text"
   },
   {
@@ -954,7 +1026,7 @@
     "title": "Transform",
     "restart": false,
     "setting": "actionTransform",
-    "value": "Ctrl+R",
+    "value": "Ctrl+Alt+T",
     "type": "text"
   },
   {
@@ -962,7 +1034,39 @@
     "title": "Insert Keyframe",
     "restart": false,
     "setting": "actionInsertKeyframe",
-    "value": "Ctrl+Shift+E",
+    "value": "Alt+Shift+K",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Position)",
+    "restart": false,
+    "setting": "actionInsertKeyframePosition",
+    "value": "Alt+Shift+P",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Scale)",
+    "restart": false,
+    "setting": "actionInsertKeyframeScale",
+    "value": "Alt+Shift+S",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Rotation)",
+    "restart": false,
+    "setting": "actionInsertKeyframeRotation",
+    "value": "Alt+Shift+R",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Alpha)",
+    "restart": false,
+    "setting": "actionInsertKeyframeAlpha",
+    "value": "Alt+Shift+T",
     "type": "text"
   },
   {
@@ -970,23 +1074,39 @@
     "title": "Save Current Frame",
     "restart": false,
     "setting": "actionSaveFrame",
-    "value": "",
+    "value": "Shift+E",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Nudge left",
+    "title": "Nudge left (1 Frame)",
     "restart": false,
     "setting": "nudgeLeft",
-    "value": "Shift+Left",
+    "value": "Ctrl+Left",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Nudge right",
+    "title": "Nudge left (5 Frames)",
+    "restart": false,
+    "setting": "nudgeLeftBig",
+    "value": "Shift+Ctrl+Left",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Nudge right (1 Frame)",
     "restart": false,
     "setting": "nudgeRight",
-    "value": "Shift+Right",
+    "value": "Ctrl+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Nudge right (5 Frames)",
+    "restart": false,
+    "setting": "nudgeRightBig",
+    "value": "Shift+Ctrl+Right",
     "type": "text"
   },
   {
@@ -999,10 +1119,10 @@
   },
   {
     "category": "Keyboard",
-    "title": "Duplicate Title",
+    "title": "Duplicate",
     "restart": false,
-    "setting": "actionDuplicateTitle",
-    "value": "Ctrl+Shift+C",
+    "setting": "actionDuplicate",
+    "value": "Ctrl+Shift+/",
     "type": "text"
   },
   {
@@ -1042,7 +1162,7 @@
     "title": "Simple View",
     "restart": false,
     "setting": "actionSimple_View",
-    "value": "Ctrl+Shift+V",
+    "value": "Alt+Shift+0",
     "type": "text"
   },
   {
@@ -1050,7 +1170,7 @@
     "title": "Advanced View",
     "restart": false,
     "setting": "actionAdvanced_View",
-    "value": "Ctrl+Shift+R",
+    "value": "Alt+Shift+1",
     "type": "text"
   },
   {
@@ -1058,7 +1178,7 @@
     "title": "Freeze View",
     "restart": false,
     "setting": "actionFreeze_View",
-    "value": "Ctrl+Shift+F",
+    "value": "Ctrl+F",
     "type": "text"
   },
   {
@@ -1066,7 +1186,7 @@
     "title": "Un-Freeze View",
     "restart": false,
     "setting": "actionUn_Freeze_View",
-    "value": "Ctrl+Shift+U",
+    "value": "Ctrl+Shift+F",
     "type": "text"
   },
   {
@@ -1074,7 +1194,7 @@
     "title": "Show All Docks",
     "restart": false,
     "setting": "actionShow_All",
-    "value": "Ctrl+Shift+Q",
+    "value": "Ctrl+Shift+D",
     "type": "text"
   },
   {
@@ -1101,8 +1221,38 @@
     "value": "F1",
     "type": "text"
   },
-
-
+  {
+    "category": "Keyboard",
+    "title": "Ripple Delete",
+    "restart": false,
+    "setting": "actionRippleDelete",
+    "value": "Shift+Delete",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Ripple Select",
+    "restart": false,
+    "setting": "actionRippleSelect",
+    "value": "Ctrl+Alt+A",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Ripple Slice (Keep Left)",
+    "restart": false,
+    "setting": "actionRippleSliceKeepLeft",
+    "value": "W",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Ripple Slice (Keep Right)",
+    "restart": false,
+    "setting": "actionRippleSliceKeepRight",
+    "value": "Q",
+    "type": "text"
+  },
 
 
 

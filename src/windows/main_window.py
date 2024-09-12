@@ -411,7 +411,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """ Clear all timeline cache - deep clear """
         self.timeline_sync.timeline.ClearAllCache(True)
 
-    def actionDuplicateTitle_trigger(self):
+    def actionDuplicate_trigger(self):
 
         file_path = None
 
