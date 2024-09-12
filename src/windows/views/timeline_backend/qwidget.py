@@ -79,7 +79,7 @@ class TimelineWidget(QWidget):
             self.cursors[cursor_name] = QCursor(icon.pixmap(24, 24))
 
         # Init Qt widget's properties (background repainting, etc...)
-        super().setAttribute(Qt.WA_OpaquePaintEvent)
+        super().setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent)
         super().setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         # Add self as listener to project data updates (used to update the timeline)
@@ -210,7 +210,7 @@ class TimelineWidget(QWidget):
         marker_pen = QPen(QBrush(marker_color), 1.0)
         marker_pen.setCosmetic(True)
 
-        playhead_color = QColor(Qt.red)
+        playhead_color = QColor(Qt.GlobalColor.red)
         playhead_color.setAlphaF(0.5)
         playhead_pen = QPen(QBrush(playhead_color), 2.0)
         playhead_pen.setCosmetic(True)
@@ -407,7 +407,7 @@ class TimelineWidget(QWidget):
             elif self.scroll_bar_rect.contains(event.pos()):
                 self.setCursor(self.cursors.get('move'))
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
 
         # Detect dragging
         if self.mouse_pressed and not self.mouse_dragging:
@@ -420,7 +420,7 @@ class TimelineWidget(QWidget):
             elif self.scroll_bar_rect.contains(event.pos()):
                 self.scroll_bar_dragging = True
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.setCursor(Qt.CursorShape.ArrowCursor)
 
         # Dragging handle
         if self.mouse_dragging:
@@ -429,7 +429,7 @@ class TimelineWidget(QWidget):
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 new_left_pos = self.scrollbar_position_previous[0] - delta
                 is_left = True
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier) > 0:
                     # SHIFT key pressed (move )
                         if (self.scrollbar_position_previous[1] + delta) - new_left_pos > self.min_distance:
                             #both handles if we don't exceed min distance
@@ -454,7 +454,7 @@ class TimelineWidget(QWidget):
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 is_left = False
                 new_right_pos = self.scrollbar_position_previous[1] - delta
-                if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+                if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier) > 0:
                     # SHIFT key pressed (move )
                         if new_right_pos - (self.scrollbar_position_previous[0] + delta) > self.min_distance:
                             #both handles if we don't exceed min distance

@@ -275,7 +275,7 @@ class BlenderListView(QListView):
 
         # Show 'Wait' cursor
         if cursor:
-            QApplication.setOverrideCursor(Qt.WaitCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
     @pyqtSlot()
     def end_processing(self):
@@ -404,9 +404,9 @@ class BlenderListView(QListView):
             return {}
 
         # Get all selected rows items
-        animation_title = current.sibling(current.row(), 1).data(Qt.DisplayRole)
-        xml_path = current.sibling(current.row(), 2).data(Qt.DisplayRole)
-        service = current.sibling(current.row(), 3).data(Qt.DisplayRole)
+        animation_title = current.sibling(current.row(), 1).data(Qt.ItemDataRole.DisplayRole)
+        xml_path = current.sibling(current.row(), 2).data(Qt.ItemDataRole.DisplayRole)
+        service = current.sibling(current.row(), 3).data(Qt.ItemDataRole.DisplayRole)
 
         # load xml effect file
         xmldoc = xml.parse(xml_path)
@@ -643,7 +643,7 @@ Blender Path: {}
 
         # Cleanup signals all 'round
         self.worker.finished.connect(self.worker.deleteLater)
-        self.worker.finished.connect(self.background.quit, Qt.DirectConnection)
+        self.worker.finished.connect(self.background.quit, Qt.ConnectionType.DirectConnection)
         self.background.finished.connect(self.background.deleteLater)
         self.background.finished.connect(self.worker.deleteLater)
 
@@ -704,7 +704,7 @@ Blender Path: {}
         self.setResizeMode(QListView.Adjust)
         self.setUniformItemSizes(True)
         self.setWordWrap(True)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         # Hook up controls
         self.win.btnRefresh.clicked.connect(self.preview_timer.start)

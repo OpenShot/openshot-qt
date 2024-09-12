@@ -73,7 +73,7 @@ class TitleStandardItemModel(QStandardItemModel):
 
 
 class TitleRoles:
-    PathRole = Qt.UserRole + 11
+    PathRole = Qt.ItemDataRole.UserRole + 11
 
 
 class TitlesModel(QObject):
@@ -162,7 +162,7 @@ class TitlesModel(QObject):
             icon.addFile(thumb_path)
 
             # Create item entry for model
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled
+            flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled
             item = QStandardItem(icon, title_name)
             item.setData(path, TitleRoles.PathRole)
             item.setToolTip(title_name)
@@ -187,9 +187,9 @@ class TitlesModel(QObject):
         # Create proxy model (for sorting and filtering)
         self.proxy_model = TitleFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.proxy_model.setFilterKeyColumn(1)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 

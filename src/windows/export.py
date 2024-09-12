@@ -1116,7 +1116,7 @@ class Export(QDialog):
             # Make progress bar green (to indicate we are done)
             from PyQt5.QtGui import QPalette
             p = QPalette()
-            p.setColor(QPalette.Highlight, Qt.green)
+            p.setColor(QPalette.Highlight, Qt.GlobalColor.green)
             self.progressExportVideo.setPalette(p)
 
             # Raise the window

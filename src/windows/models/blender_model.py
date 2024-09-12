@@ -118,7 +118,7 @@ class BlenderModel():
                 icon.addFile(thumb_path)
 
                 row = []
-                flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable
+                flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable
                 # Append thumbnail
                 col = QStandardItem(self.app._tr(title))
                 col.setIcon(icon)
@@ -128,19 +128,19 @@ class BlenderModel():
 
                 # Append Name
                 col = QStandardItem(self.app._tr(title))
-                col.setData(self.app._tr(title), Qt.DisplayRole)
+                col.setData(self.app._tr(title), Qt.ItemDataRole.DisplayRole)
                 col.setFlags(flags)
                 row.append(col)
 
                 # Append Path
                 col = QStandardItem(path)
-                col.setData(path, Qt.DisplayRole)
+                col.setData(path, Qt.ItemDataRole.DisplayRole)
                 col.setFlags(flags)
                 row.append(col)
 
                 # Append Service
                 col = QStandardItem(service)
-                col.setData(service, Qt.DisplayRole)
+                col.setData(service, Qt.ItemDataRole.DisplayRole)
                 col.setFlags(flags)
                 row.append(col)
 
@@ -161,9 +161,9 @@ class BlenderModel():
         # Create proxy model (for sorting and filtering)
         self.proxy_model = BlenderFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.proxy_model.setFilterKeyColumn(1)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 

@@ -56,7 +56,7 @@ class RegionButton(QPushButton):
         super().paintEvent(event)
         if self.qimage:
             painter = QPainter(self)
-            resized_qimage = self.qimage.scaled(self.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+            resized_qimage = self.qimage.scaled(self.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation)
             painter.drawImage(0, 0, resized_qimage)
         else:
             super().paintEvent(event)  # Draw the normal button
@@ -125,7 +125,7 @@ class ProcessEffect(QDialog):
             if param["type"] == "link":
                 # create a clickable link
                 label.setText('<a href="%s" style="color: #FFFFFF">%s</a>' % (param["value"], _(param["title"])))
-                label.setTextInteractionFlags(Qt.TextBrowserInteraction)
+                label.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
                 label.linkActivated.connect(functools.partial(self.link_activated, widget, param))
 
             if param["type"] == "spinner":
@@ -177,10 +177,10 @@ class ProcessEffect(QDialog):
                 # create spinner
                 widget = QCheckBox()
                 if param["value"] == True:
-                    widget.setCheckState(Qt.Checked)
+                    widget.setCheckState(Qt.CheckState.Checked)
                     self.context[param["setting"]] = True
                 else:
-                    widget.setCheckState(Qt.Unchecked)
+                    widget.setCheckState(Qt.CheckState.Unchecked)
                     self.context[param["setting"]] = False
                 widget.stateChanged.connect(functools.partial(self.bool_value_changed, widget, param))
 
@@ -253,7 +253,7 @@ class ProcessEffect(QDialog):
 
     def bool_value_changed(self, widget, param, state):
         """Boolean value change callback"""
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             self.context[param["setting"]] = True
         else:
             self.context[param["setting"]] = False
@@ -310,7 +310,7 @@ class ProcessEffect(QDialog):
                     region_qimage = win.videoPreview.region_qimage
 
                     # Resize QImage to match button size
-                    resized_qimage = region_qimage.scaled(widget.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+                    resized_qimage = region_qimage.scaled(widget.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
                     # Remove button text (so region QImage is more visible)
                     widget.setImage(resized_qimage)

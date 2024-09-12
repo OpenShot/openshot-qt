@@ -525,7 +525,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 return
 
         # Set cursor to waiting
-        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         try:
             if os.path.exists(file_path):
@@ -777,7 +777,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         )[0]
 
         # Set cursor to waiting
-        app.setOverrideCursor(QCursor(Qt.WaitCursor))
+        app.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         try:
             # Switch to Files dock
@@ -903,7 +903,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.PauseSignal.emit()
 
         # Set cursor to waiting
-        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+        get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
         # Show dialog
         from windows.preferences import Preferences
@@ -1687,7 +1687,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Abort handling if the key sequence is invalid
         if (key_value <= 0 or key_value in
-           [Qt.Key_Shift, Qt.Key_Alt, Qt.Key_Control, Qt.Key_Meta]):
+           [Qt.Key.Key_Shift, Qt.Key.Key_Alt, Qt.Key.Key_Control, Qt.Key.Key_Meta]):
             return
 
         # A valid keysequence was detected
@@ -2225,7 +2225,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def actionFullscreen_trigger(self):
         # Toggle fullscreen state (current state mask XOR WindowFullScreen)
-        self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
+        self.setWindowState(self.windowState() ^ Qt.WindowState.WindowFullScreen)
 
     def actionFile_Properties_trigger(self):
         log.info("Show file properties")
@@ -2322,7 +2322,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def removeDocks(self):
         """ Remove all dockable widgets on main screen """
         for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 self.removeDockWidget(dock)
 
     def addDocks(self, docks, area):
@@ -2333,19 +2333,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def floatDocks(self, is_floating):
         """ Float or Un-Float all dockable widgets above main screen """
         for dock in self.getDocks():
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 dock.setFloating(is_floating)
 
     def showDocks(self, docks):
         """ Show all dockable widgets on the main screen """
         for dock in docks:
-            if self.dockWidgetArea(dock) != Qt.NoDockWidgetArea:
+            if self.dockWidgetArea(dock) != Qt.DockWidgetArea.NoDockWidgetArea:
                 # Only show correctly docked widgets
                 dock.show()
 
     def freezeDock(self, dock, frozen=True):
         """ Freeze/unfreeze a dock widget on the main screen."""
-        if self.dockWidgetArea(dock) == Qt.NoDockWidgetArea:
+        if self.dockWidgetArea(dock) == Qt.DockWidgetArea.NoDockWidgetArea:
             # Don't freeze undockable widgets
             return
         if frozen:
@@ -2396,7 +2396,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockEmojis,
             self.dockVideo,
-            ], Qt.TopDockWidgetArea)
+            ], Qt.DockWidgetArea.TopDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockFiles, self.dockTransitions)
@@ -2422,13 +2422,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.removeDocks()
 
         # Add Docks
-        self.addDocks([self.dockFiles, self.dockVideo], Qt.TopDockWidgetArea)
+        self.addDocks([self.dockFiles, self.dockVideo], Qt.DockWidgetArea.TopDockWidgetArea)
         self.addDocks([
             self.dockEffects,
             self.dockTransitions,
             self.dockEmojis,
-            ], Qt.RightDockWidgetArea)
-        self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
+            ], Qt.DockWidgetArea.RightDockWidgetArea)
+        self.addDocks([self.dockProperties], Qt.DockWidgetArea.LeftDockWidgetArea)
 
         self.floatDocks(False)
         self.tabifyDockWidget(self.dockEmojis, self.dockEffects)
@@ -3004,7 +3004,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     # Add update available button (with icon and text)
                     updateButton = QToolButton(self)
                     updateButton.setDefaultAction(self.actionUpdate)
-                    updateButton.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+                    updateButton.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
                     self.toolBar.addWidget(updateButton)
             else:
                 log.warning("No ThemeManager loaded yet. Skip update available button.")
@@ -3318,10 +3318,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.frameWeb.layout().addWidget(self.timeline)
 
         # Configure the side docks to full-height
-        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.TopLeftCorner, Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomLeftCorner, Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.TopRightCorner, Qt.DockWidgetArea.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomRightCorner, Qt.DockWidgetArea.RightDockWidgetArea)
 
         self.initModels()
 
@@ -3509,11 +3509,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Use shortcuts to override keypress capturing for arrow keys
         # These keys are a bit special, and other approaches fail on certain
         # combinations of OS and Webview backend
-        QShortcut(app.window.getShortcutByName("seekPreviousFrame"), self, activated=self.seekPreviousFrame, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("seekNextFrame"), self, activated=self.seekNextFrame, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("copyAll"), self, activated=self.copyAll, context=Qt.WindowShortcut)
-        QShortcut(app.window.getShortcutByName("pasteAll"), self, activated=self.pasteAll, context=Qt.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("seekPreviousFrame"), self, activated=self.seekPreviousFrame, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("seekNextFrame"), self, activated=self.seekNextFrame, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle1"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle2"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("playToggle3"), self, activated=self.playToggle, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("copyAll"), self, activated=self.copyAll, context=Qt.ShortcutContext.WindowShortcut)
+        QShortcut(app.window.getShortcutByName("pasteAll"), self, activated=self.pasteAll, context=Qt.ShortcutContext.WindowShortcut)

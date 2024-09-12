@@ -74,7 +74,7 @@ class TutorialDialog(QWidget):
     def checkbox_metrics_callback(self, state):
         """ Callback for error and anonymous usage checkbox"""
         s = get_app().get_settings()
-        if state == Qt.Checked:
+        if state == Qt.CheckState.Checked:
             # Enabling metrics sending
             s.set("send_metrics", True)
             sentry.init_tracing()
@@ -115,10 +115,10 @@ class TutorialDialog(QWidget):
         # Add label
         self.label = QLabel(self)
         self.label.setText(text)
-        self.label.setTextFormat(Qt.RichText)
+        self.label.setTextFormat(Qt.TextFormat.RichText)
         self.label.setWordWrap(True)
         self.label.setStyleSheet("margin-left: 20px;")
-        self.label.setAttribute(Qt.WA_TransparentForMouseEvents)
+        self.label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
         vbox.addWidget(self.label)
 
         # Add error and anonymous metrics checkbox (for ID=0) tooltip
@@ -133,9 +133,9 @@ class TutorialDialog(QWidget):
             checkbox_metrics.setText(_("Yes, I would like to improve OpenShot!"))
             checkbox_metrics.setStyleSheet("margin-left: 25px; margin-bottom: 5px;")
             if s.get("send_metrics"):
-                checkbox_metrics.setCheckState(Qt.Checked)
+                checkbox_metrics.setCheckState(Qt.CheckState.Checked)
             else:
-                checkbox_metrics.setCheckState(Qt.Unchecked)
+                checkbox_metrics.setCheckState(Qt.CheckState.Unchecked)
             checkbox_metrics.stateChanged.connect(functools.partial(self.checkbox_metrics_callback))
             vbox.addWidget(checkbox_metrics)
 
@@ -145,8 +145,8 @@ class TutorialDialog(QWidget):
 
         # Close action
         self.close_action = QAction(_("Hide Tutorial"), self)
-        self.close_action.setShortcut(QKeySequence(Qt.Key_Escape))
-        self.close_action.setShortcutContext(Qt.ApplicationShortcut)
+        self.close_action.setShortcut(QKeySequence(Qt.Key.Key_Escape))
+        self.close_action.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
 
         # Create buttons
         self.btn_close_tips = QPushButton(self)
@@ -163,15 +163,15 @@ class TutorialDialog(QWidget):
 
         # Set layout, cursor, and size
         self.setLayout(vbox)
-        self.setCursor(Qt.ArrowCursor)
+        self.setCursor(Qt.CursorShape.ArrowCursor)
         self.setMinimumWidth(350)
         self.setMinimumHeight(100)
-        self.setFocusPolicy(Qt.ClickFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
         # Make transparent
-        self.setAttribute(Qt.WA_NoSystemBackground, True)
-        self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, True)
 
         # Connect close action signal
         self.close_action.triggered.connect(
@@ -439,9 +439,9 @@ class TutorialManager(QObject):
 
         # Configure tutorial frame
         self.dock.setTitleBarWidget(QWidget())  # Prevents window decoration
-        self.dock.setAttribute(Qt.WA_NoSystemBackground, True)
-        self.dock.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.dock.setWindowFlags(Qt.FramelessWindowHint)
+        self.dock.setAttribute(Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.dock.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+        self.dock.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.dock.setFloating(True)
 
         # Timer for processing new tutorials

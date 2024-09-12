@@ -81,10 +81,10 @@ class ProfilesModel:
                 continue
 
             row = []
-            flags = Qt.ItemIsSelectable | Qt.ItemIsEnabled
+            flags = Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
 
             item = QStandardItem(f"{profile.Key()}")
-            item.setData(profile, Qt.UserRole)
+            item.setData(profile, Qt.ItemDataRole.UserRole)
             row.append(item)
 
             item = QStandardItem(f"{profile.info.description}")
@@ -130,7 +130,7 @@ class ProfilesModel:
         # Create proxy model (for sorting and filtering)
         self.proxy_model = ProfilesProxyModel()
         self.proxy_model.setDynamicSortFilter(False)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)

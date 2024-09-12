@@ -54,7 +54,7 @@ class CreditsTreeView(QTreeView):
         self.setColumnWidth(2, 150)
         self.setColumnWidth(3, 150)
         self.setColumnWidth(4, 150)
-        self.sortByColumn(2, Qt.AscendingOrder)
+        self.sortByColumn(2, Qt.SortOrder.AscendingOrder)
 
         if "email" not in self.columns:
             self.setColumnHidden(3, True)

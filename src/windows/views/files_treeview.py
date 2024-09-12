@@ -66,7 +66,7 @@ class FilesTreeView(QTreeView):
 
             # Look up file_id from 5th column of row
             id_index = index.sibling(index.row(), 5)
-            file_id = model.data(id_index, Qt.DisplayRole)
+            file_id = model.data(id_index, Qt.ItemDataRole.DisplayRole)
 
             # If a valid file selected, show file related options
             menu.addSeparator()
@@ -95,7 +95,7 @@ class FilesTreeView(QTreeView):
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
         if event.mimeData().hasUrls():
-            event.setDropAction(Qt.CopyAction)
+            event.setDropAction(Qt.DropAction.CopyAction)
             event.accept()
 
     def startDrag(self, supportedActions):
@@ -114,7 +114,7 @@ class FilesTreeView(QTreeView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
@@ -137,7 +137,7 @@ class FilesTreeView(QTreeView):
         # Use try/finally so we always reset the cursor
         try:
             # Set cursor to waiting
-            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+            get_app().setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
 
             qurl_list = event.mimeData().urls()
             log.info("Processing drop event for {} urls".format(len(qurl_list)))
@@ -228,7 +228,7 @@ class FilesTreeView(QTreeView):
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
 
         self.setWordWrap(False)
-        self.setTextElideMode(Qt.ElideRight)
+        self.setTextElideMode(Qt.TextElideMode.ElideRight)
 
         self.files_model.ModelRefreshed.connect(self.refresh_view)
 

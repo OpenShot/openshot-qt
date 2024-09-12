@@ -50,7 +50,7 @@ class BaseTheme:
         """Create Dynamic High DPI icons"""
         renderer = QSvgRenderer(svg_path)
         image = QPixmap(size * self.app.devicePixelRatio())
-        image.fill(Qt.transparent)
+        image.fill(Qt.GlobalColor.transparent)
         painter = QPainter(image)
         renderer.render(painter)
         painter.end()
@@ -188,36 +188,36 @@ class BaseTheme:
         self.set_dock_margins()
 
         # Move tabs to bottom
-        self.app.window.setTabPosition(Qt.TopDockWidgetArea, QTabWidget.South)
+        self.app.window.setTabPosition(Qt.DockWidgetArea.TopDockWidgetArea, QTabWidget.South)
 
         # Main toolbar buttons
         toolbar_buttons = [
-            {"action": self.app.window.actionNew, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionOpen, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionSave, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionNew, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionOpen, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionSave, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
             {"divide": True},
-            {"action": self.app.window.actionUndo, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionRedo, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionUndo, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionRedo, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
             {"divide": True},
-            {"action": self.app.window.actionImportFiles, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionProfile, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionFullscreen, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionImportFiles, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionProfile, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionFullscreen, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
             {"divide": True},
-            {"action": self.app.window.actionExportVideo, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionExportVideo, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
         ]
         self.set_toolbar_buttons(self.app.window.toolBar, icon_size=24, settings=toolbar_buttons)
 
         # Timeline toolbar buttons
         timeline_buttons = [
-            {"action": self.app.window.actionAddTrack, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionAddTrack, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
             {"divide": True},
-            {"action": self.app.window.actionSnappingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/snap.svg"},
-            {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
+            {"action": self.app.window.actionSnappingTool, "style": Qt.ToolButtonStyle.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/snap.svg"},
+            {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonStyle.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
             {"divide": True},
-            {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/actions/add_marker.svg"},
-            {"action": self.app.window.actionPreviousMarker, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionNextMarker, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionCenterOnPlayhead, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/center-on-playhead.svg"},
+            {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonStyle.ToolButtonIconOnly, "icon": ":/icons/actions/add_marker.svg"},
+            {"action": self.app.window.actionPreviousMarker, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionNextMarker, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionCenterOnPlayhead, "style": Qt.ToolButtonStyle.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/center-on-playhead.svg"},
             {"divide": True},
             {"widget": self.app.window.sliderZoomWidget}
         ]
@@ -226,11 +226,11 @@ class BaseTheme:
         # Video toolbar
         toolbar_buttons = [
             {"expand": True},
-            {"action": self.app.window.actionJumpStart, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionRewind, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionPlay, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionFastForward, "style": Qt.ToolButtonIconOnly},
-            {"action": self.app.window.actionJumpEnd, "style": Qt.ToolButtonIconOnly},
+            {"action": self.app.window.actionJumpStart, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionRewind, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionPlay, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionFastForward, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
+            {"action": self.app.window.actionJumpEnd, "style": Qt.ToolButtonStyle.ToolButtonIconOnly},
             {"expand": True}
         ]
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=24, settings=toolbar_buttons)

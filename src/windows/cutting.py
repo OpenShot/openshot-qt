@@ -194,18 +194,18 @@ class Cutting(QDialog):
     def eventFilter(self, obj, event):
         if event.type() == event.KeyPress and obj is self.txtName:
             # Handle ENTER key to create new clip
-            if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
                 if self.btnAddClip.isEnabled():
                     self.btnAddClip_clicked()
                     return True
         if event.type() == QEvent.MouseButtonPress and isinstance(obj, QSlider):
             # Handle QSlider click, jump to cursor position
-            if event.button() == Qt.LeftButton:
+            if event.button() == Qt.MouseButton.LeftButton:
                 min_val = obj.minimum()
                 max_val = obj.maximum()
 
-                click_position = event.pos().x() if obj.orientation() == Qt.Horizontal else event.pos().y()
-                slider_length = obj.width() if obj.orientation() == Qt.Horizontal else obj.height()
+                click_position = event.pos().x() if obj.orientation() == Qt.Orientation.Horizontal else event.pos().y()
+                slider_length = obj.width() if obj.orientation() == Qt.Orientation.Horizontal else obj.height()
                 new_value = min_val + ((max_val - min_val) * click_position) / slider_length
 
                 obj.setValue(int(new_value))

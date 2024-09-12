@@ -2031,9 +2031,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Determine slice mode (keep both [default], keep left [shift], keep right [ctrl]
         slice_mode = MenuSlice.KEEP_BOTH
-        if int(QCoreApplication.instance().keyboardModifiers() & Qt.ControlModifier) > 0:
+        if int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ControlModifier) > 0:
             slice_mode = MenuSlice.KEEP_RIGHT
-        elif int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
+        elif int(QCoreApplication.instance().keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier) > 0:
             slice_mode = MenuSlice.KEEP_LEFT
 
         if clip_id:

@@ -171,7 +171,7 @@ class clipExportWindow(QDialog):
         # Make progress bar look like the one in the export dialog
         from PyQt5.QtGui import QPalette
         p = QPalette()
-        p.setColor(QPalette.Highlight, Qt.green)
+        p.setColor(QPalette.Highlight, Qt.GlobalColor.green)
         self.progressExportVideo.setPalette(p)
 
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.ActionRole)

@@ -65,7 +65,7 @@ class TransitionsTreeView(QTreeView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
@@ -81,7 +81,7 @@ class TransitionsTreeView(QTreeView):
             self.hideColumn(2)
             self.hideColumn(3)
             self.setColumnWidth(0, 80)
-        self.sortByColumn(1, Qt.AscendingOrder)
+        self.sortByColumn(1, Qt.SortOrder.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init

@@ -184,34 +184,34 @@ class EffectsModel(QObject):
             col.setIcon(icon)
             col.setText(self.app._tr(title))
             col.setToolTip(self.app._tr(title))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
             row.append(col)
 
             # Append Name
             col = QStandardItem("Name")
-            col.setData(self.app._tr(title), Qt.DisplayRole)
+            col.setData(self.app._tr(title), Qt.ItemDataRole.DisplayRole)
             col.setText(self.app._tr(title))
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
             row.append(col)
 
             # Append Description
             col = QStandardItem("Description")
-            col.setData(self.app._tr(description), Qt.DisplayRole)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setData(self.app._tr(description), Qt.ItemDataRole.DisplayRole)
+            col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
             row.append(col)
 
             # Append Category
             col = QStandardItem("Category")
-            col.setData(category, Qt.DisplayRole)
+            col.setData(category, Qt.ItemDataRole.DisplayRole)
             col.setText(category)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
             row.append(col)
 
             # Append Path
             col = QStandardItem("Effect")
-            col.setData(effect_name, Qt.DisplayRole)
+            col.setData(effect_name, Qt.ItemDataRole.DisplayRole)
             col.setText(effect_name)
-            col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+            col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
             row.append(col)
 
             # Append ROW to MODEL (if does not already exist in model)
@@ -235,8 +235,8 @@ class EffectsModel(QObject):
         # Create proxy model (for sorting and filtering)
         self.proxy_model = EffectsProxyModel()
         self.proxy_model.setDynamicSortFilter(False)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 

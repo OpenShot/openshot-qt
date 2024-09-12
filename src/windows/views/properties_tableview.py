@@ -119,7 +119,7 @@ class PropertyDelegate(QItemDelegate):
             log.warning("No ThemeManager loaded yet. Skip rendering properties widget.")
 
         # set background color
-        painter.setPen(QPen(Qt.NoPen))
+        painter.setPen(QPen(Qt.PenStyle.NoPen))
         if property_type == "color":
             # Color keyframe
             red = int(cur_property[1]["red"]["value"])
@@ -146,7 +146,7 @@ class PropertyDelegate(QItemDelegate):
             painter.setBrush(QBrush(QColor("#000000")))
             mask_rect = QRectF(option.rect)
             mask_rect.setWidth(option.rect.width() * value_percent)
-            painter.setClipRect(mask_rect, Qt.IntersectClip)
+            painter.setClipRect(mask_rect, Qt.ClipOperation.IntersectClip)
 
             # gradient for value box
             gradient = QLinearGradient(option.rect.topLeft(), option.rect.topRight())
@@ -170,11 +170,11 @@ class PropertyDelegate(QItemDelegate):
                     self.curve_pixmaps[interpolation])
 
             # Set text color
-            painter.setPen(QPen(Qt.white))
+            painter.setPen(QPen(Qt.GlobalColor.white))
 
-        value = index.data(Qt.DisplayRole)
+        value = index.data(Qt.ItemDataRole.DisplayRole)
         if value:
-            painter.drawText(option.rect, Qt.AlignCenter, value)
+            painter.drawText(option.rect, Qt.AlignmentFlag.AlignCenter, value)
 
         painter.restore()
 
@@ -520,7 +520,7 @@ class PropertiesTableView(QTableView):
                             file_row = self.files_model.index(file_index, 0)
                             project_file_id = file_row.sibling(file_index, 5).data()
                             if file_id == project_file_id:
-                                clip_instance_icon = file_row.data(Qt.DecorationRole)
+                                clip_instance_icon = file_row.data(Qt.ItemDataRole.DecorationRole)
                                 break
 
                         effect_choices = []
@@ -607,7 +607,7 @@ class PropertiesTableView(QTableView):
                             file_row = self.files_model.index(file_index, 0)
                             project_file_id = file_row.sibling(file_index, 5).data()
                             if file_id == project_file_id:
-                                clip_instance_icon = file_row.data(Qt.DecorationRole)
+                                clip_instance_icon = file_row.data(Qt.ItemDataRole.DecorationRole)
                                 clip_choices.append({"name": clip.data["title"],
                                               "value": clip.id,
                                               "selected": False,
@@ -655,7 +655,7 @@ class PropertiesTableView(QTableView):
                     idx = self.files_model.index(i, 0)
                     if not idx.isValid():
                         continue
-                    icon = idx.data(Qt.DecorationRole)
+                    icon = idx.data(Qt.ItemDataRole.DecorationRole)
                     name = idx.sibling(i, 1).data()
                     path = os.path.join(idx.sibling(i, 4).data(), name)
 
@@ -676,7 +676,7 @@ class PropertiesTableView(QTableView):
                     idx = self.transition_model.index(i, 0)
                     if not idx.isValid():
                         continue
-                    icon = idx.data(Qt.DecorationRole)
+                    icon = idx.data(Qt.ItemDataRole.DecorationRole)
                     name = idx.sibling(i, 1).data()
                     path = idx.sibling(i, 3).data()
 
@@ -1100,7 +1100,7 @@ class SelectionLabel(QFrame):
         self.btnSelectionName.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         # Support rich text
-        self.lblSelection.setTextFormat(Qt.RichText)
+        self.lblSelection.setTextFormat(Qt.TextFormat.RichText)
 
         hbox = QHBoxLayout()
         hbox.setContentsMargins(0, 0, 0, 0)

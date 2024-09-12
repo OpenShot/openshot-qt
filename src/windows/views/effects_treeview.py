@@ -67,7 +67,7 @@ class EffectsTreeView(QTreeView):
             return False
 
         # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        icon = current.sibling(current.row(), 0).data(Qt.ItemDataRole.DecorationRole)
 
         # Start drag operation
         drag = QDrag(self)
@@ -83,7 +83,7 @@ class EffectsTreeView(QTreeView):
             self.hideColumn(3)
             self.hideColumn(4)
             self.setColumnWidth(0, 80)
-        self.sortByColumn(0, Qt.AscendingOrder)
+        self.sortByColumn(0, Qt.SortOrder.AscendingOrder)
 
     def __init__(self, model):
         # Invoke parent init

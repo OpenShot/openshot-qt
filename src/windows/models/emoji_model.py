@@ -156,7 +156,7 @@ class EmojisModel():
                 col.setText(emoji_name)
                 col.setToolTip(emoji_name)
                 col.setData(path)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append filterable group name
@@ -184,16 +184,16 @@ class EmojisModel():
         # Create proxy models (for grouping, sorting and filtering)
         self.group_model = QSortFilterProxyModel()
         self.group_model.setDynamicSortFilter(True)
-        self.group_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.group_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.group_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.group_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.group_model.setSourceModel(self.model)
         self.group_model.setSortLocaleAware(True)
         self.group_model.setFilterKeyColumn(1)
 
         self.proxy_model = QSortFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.group_model)
         self.proxy_model.setSortLocaleAware(True)
 

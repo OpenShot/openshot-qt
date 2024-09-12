@@ -42,18 +42,18 @@ class ProfilesTreeView(QTreeView):
             self.selectionModel().clear()
         if not self.is_filter_running and selected and selected.first() and selected.first().indexes():
             # Selection changed due to user selection or init of treeview
-            self.selected_profile_object = selected.first().indexes()[0].data(Qt.UserRole)
+            self.selected_profile_object = selected.first().indexes()[0].data(Qt.ItemDataRole.UserRole)
         super().selectionChanged(selected, deselected)
 
     def refresh_view(self, filter_text=""):
         """Filter transitions with proxy class"""
         self.is_filter_running = True
-        self.model().setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.model().setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.model().setFilterRegExp(QRegExp(filter_text.lower()))
-        self.model().sort(Qt.DescendingOrder)
+        self.model().sort(Qt.SortOrder.DescendingOrder)
 
         # Format columns
-        self.sortByColumn(0, Qt.DescendingOrder)
+        self.sortByColumn(0, Qt.SortOrder.DescendingOrder)
         self.setColumnHidden(0, True)
         self.is_filter_running = False
 

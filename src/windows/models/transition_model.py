@@ -198,28 +198,28 @@ class TransitionsModel(QObject):
                 col.setText(trans_name)
                 col.setToolTip(trans_name)
                 col.setData(type)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Filename
                 col = QStandardItem("Name")
-                col.setData(trans_name, Qt.DisplayRole)
+                col.setData(trans_name, Qt.ItemDataRole.DisplayRole)
                 col.setText(trans_name)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Media Type
                 col = QStandardItem("Type")
-                col.setData(type, Qt.DisplayRole)
+                col.setData(type, Qt.ItemDataRole.DisplayRole)
                 col.setText(type)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append Path
                 col = QStandardItem("Path")
-                col.setData(path, Qt.DisplayRole)
+                col.setData(path, Qt.ItemDataRole.DisplayRole)
                 col.setText(path)
-                col.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsUserCheckable | Qt.ItemIsDragEnabled)
+                col.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsDragEnabled)
                 row.append(col)
 
                 # Append ROW to MODEL (if does not already exist in model)
@@ -243,8 +243,8 @@ class TransitionsModel(QObject):
         # Create proxy model (for sorting and filtering)
         self.proxy_model = TransitionFilterProxyModel()
         self.proxy_model.setDynamicSortFilter(True)
-        self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
+        self.proxy_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitivity.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
 

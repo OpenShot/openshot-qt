@@ -80,6 +80,6 @@ class StyledContextMenu(QMenu):
 
         if self.border_radius:
             rect = QRectF(0, 0, self.width(), self.height())
-            painter.drawRoundedRect(rect, self.border_radius.get('x'), self.border_radius.get('y'), Qt.AbsoluteSize)
+            painter.drawRoundedRect(rect, self.border_radius.get('x'), self.border_radius.get('y'), Qt.SizeMode.AbsoluteSize)
 
         painter.end()

@@ -45,7 +45,7 @@ class EmojisListView(QListView):
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept
         if event.mimeData().hasUrls():
-            event.setDropAction(Qt.CopyAction)
+            event.setDropAction(Qt.DropAction.CopyAction)
             event.accept()
 
     def startDrag(self, event):
@@ -57,7 +57,7 @@ class EmojisListView(QListView):
         # Start drag operation
         drag = QDrag(self)
         drag.setMimeData(self.model.mimeData(selected))
-        icon = self.model.data(selected[0], Qt.DecorationRole)
+        icon = self.model.data(selected[0], Qt.ItemDataRole.DecorationRole)
         drag.setPixmap(icon.pixmap(self.drag_item_size))
         drag.setHotSpot(self.drag_item_center)
 
@@ -129,7 +129,7 @@ class EmojisListView(QListView):
     def filter_changed(self, filter_text=None):
         """Filter emoji with proxy class"""
 
-        self.model.setFilterRegExp(QRegExp(filter_text, Qt.CaseInsensitive))
+        self.model.setFilterRegExp(QRegExp(filter_text, Qt.CaseSensitivity.CaseInsensitive))
         self.model.setFilterKeyColumn(0)
         self.refresh_view()
 
