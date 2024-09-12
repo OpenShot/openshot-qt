@@ -161,11 +161,11 @@ App.directive("tlClip", function ($timeout) {
           scope.$apply(function () {
             // Apply clip scope changes
             if (scope.clip.end !== new_right) {
-              scope.clip.end = new_right;
+              scope.clip.end = snapToFPSGridTime(scope, new_right);
             }
             if (scope.clip.start !== new_left) {
-              scope.clip.start = new_left;
-              scope.clip.position = new_position;
+              scope.clip.start = snapToFPSGridTime(scope, new_left);
+              scope.clip.position = snapToFPSGridTime(scope, new_position);
             }
             // Resize timeline if it's too small to contain all clips
             scope.resizeTimeline();

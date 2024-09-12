@@ -611,6 +611,16 @@ class PropertiesModel(updates.UpdateInterface):
                     clip_updated = True
                     try:
                         clip_data[property_key] = float(new_value)
+
+                        # Fix precision issues with time properties by snapping to FPS grid
+                        if property_key in ['position', 'start', 'end']:
+                            fps_num = get_app().project.get("fps").get("num")
+                            fps_den = get_app().project.get("fps").get("den")
+                            frame_duration = fps_den / fps_num
+
+                            # Snap the value to the nearest frame
+                            clip_data[property_key] = round(clip_data[property_key] / frame_duration) * frame_duration
+
                     except Exception:
                         log.warn('Invalid Float value passed to property', exc_info=1)
 

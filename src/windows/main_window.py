@@ -1573,7 +1573,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position < current_position and (abs(marker_position - current_position) > 0.1):
+            if marker_position < current_position and (abs(marker_position - current_position) > 0.001):
                 # Is marker larger than previous marker
                 if closest_position and marker_position > closest_position:
                     # Set a new closest marker
@@ -1605,7 +1605,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
-            if marker_position > current_position and (abs(marker_position - current_position) > 0.1):
+            if marker_position > current_position and (abs(marker_position - current_position) > 0.001):
                 # Is marker larger than previous marker
                 if closest_position and marker_position < closest_position:
                     # Set a new closest marker
@@ -1853,9 +1853,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.timeline.Slice_Triggered(MenuSlice.KEEP_RIGHT, clip_ids, trans_ids, playhead_position)
 
         elif key.matches(self.getShortcutByName("copyAll")) == QKeySequence.ExactMatch:
-            self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions)
+            self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions, [])
         elif key.matches(self.getShortcutByName("pasteAll")) == QKeySequence.ExactMatch:
-            self.timeline.Paste_Triggered(MenuCopy.PASTE, float(playhead_position), -1, [], [])
+            self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("nudgeLeft")) == QKeySequence.ExactMatch:
             self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
         elif key.matches(self.getShortcutByName("nudgeRight")) == QKeySequence.ExactMatch:
@@ -1904,21 +1904,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Update timeline settings
             get_app().updates.transaction_id = tid
-            get_app().updates.update(["profile"], profile.info.description)
-            get_app().updates.update(["width"], profile.info.width)
-            get_app().updates.update(["height"], profile.info.height)
-            get_app().updates.update(["fps"], {
-                "num": profile.info.fps.num,
-                "den": profile.info.fps.den,
-                })
-            get_app().updates.update(["display_ratio"], {
-                "num": profile.info.display_ratio.num,
-                "den": profile.info.display_ratio.den,
-                })
-            get_app().updates.update(["pixel_ratio"], {
-                "num": profile.info.pixel_ratio.num,
-                "den": profile.info.pixel_ratio.den,
-                })
 
             # Update size of audio-only files
             # Used by our video transform handles (if waveforms are visible)
@@ -1940,14 +1925,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             # Rescale all keyframes and reload project
             if fps_factor != 1.0:
-                # Get a copy of rescaled project data (this does not modify the active project... yet)
-                rescaled_app_data = proj.rescale_keyframes(fps_factor)
+                # Rescale keyframes (if FPS changed)
+                proj.rescale_keyframes(fps_factor)
 
-                # Apply rescaled data to active project
-                proj._data = rescaled_app_data
+                # Apply new profile (and any FPS precision updates)
+                proj.apply_profile(profile)
 
                 # Distribute all project data through update manager
-                get_app().updates.load(rescaled_app_data, reset_history=False)
+                get_app().updates.load(proj._data, reset_history=False)
 
             # Force ApplyMapperToClips to apply these changes
             self.timeline_sync.timeline.ApplyMapperToClips()
@@ -3192,14 +3177,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def copyAll(self):
         """Handle Copy QShortcut (selected clips / transitions)"""
-        self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions)
+        self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions, [])
 
     def pasteAll(self):
         """Handle Paste QShortcut (at timeline position, same track as original clip)"""
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        playhead_position = float(self.preview_thread.current_frame - 1) / fps_float
-        self.timeline.Paste_Triggered(MenuCopy.PASTE, float(playhead_position), -1, [], [])
+        self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
 
     def eventFilter(self, obj, event):
         """Filter out certain QShortcuts - for example, arrow keys used

@@ -81,6 +81,7 @@
 			<div id="track-container" tl-track tl-multi-selectable style="width: {{getTimelineWidth(0) - 6}}px; padding-bottom: 2px;">
 				<!-- TRACKS -->
 				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="showTimelineMenu($event, layer.number)"  class="{{getTrackStyle(layer.lock)}}" style="width:{{getTimelineWidth(0) - 6}}px;">
+					<div class="banding-overlay"></div>
 				</div>
 				
 				<!-- CLIPS -->
