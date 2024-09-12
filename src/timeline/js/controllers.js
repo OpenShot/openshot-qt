@@ -90,7 +90,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Move the playhead to a specific time
   $scope.movePlayhead = function (position_seconds) {
     // Update internal scope (in seconds)
-    $scope.project.playhead_position = position_seconds;
+    $scope.project.playhead_position = snapToFPSGridTime($scope, position_seconds);
     $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
@@ -926,8 +926,9 @@ App.controller("TimelineCtrl", function ($scope) {
       // Bail out if no id found
       return;
     }
-    // Get position of item
-    var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
+
+    // Get position of item (snapped to FPS grid)
+    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(bounding_box.left)));
 
     // Get the nearest track
     var layer_num = 0;
@@ -1540,6 +1541,9 @@ $scope.updateLayerIndex = function () {
 
     // Update playhead position and time readout (reset to zero)
     $scope.movePlayhead(0.0);
+
+    // Force ruler to redraw
+    $scope.project.scale += 1/100000
 
     // Apply all changes
     $scope.$apply();

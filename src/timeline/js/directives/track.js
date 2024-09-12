@@ -118,12 +118,16 @@ App.directive("tlTrack", function ($timeout) {
                 position_diff = (item_left / scope.pixelsPerSecond) - item_data.position;
               }
 
-              // change the clip's track and position in the json data
               scope.$apply(function () {
-                //set track
+                //set track and position
                 item_data.layer = drop_track.number;
                 item_data.position += position_diff;
-                item_data.position = (Math.round((item_data.position * scope.project.fps.num) / scope.project.fps.den) * scope.project.fps.den ) / scope.project.fps.num;
+              });
+              scope.$apply(function () {
+                // Snap to FPS grid (must be done separately so Angular will actually refresh
+                // when extreme zooms are used (i.e. you drag a clip a partial frame, this causes it
+                // to jump back to it's original position correctly).
+                item_data.position = snapToFPSGridTime(scope, item_data.position);
               });
 
               // Resize timeline if it's too small to contain all clips
@@ -141,8 +145,6 @@ App.directive("tlTrack", function ($timeout) {
               } else if (scope.Qt && item_type === "transition") {
                 timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh, tid);
               }
-
-
             }
           });
 

@@ -24,6 +24,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
+import copy
 import functools
 import locale
 import os
@@ -106,9 +107,11 @@ class Export(QDialog):
         # Set OMP thread disabled flag (for stability)
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
 
-        project_timeline = get_app().window.timeline_sync.timeline
+        # Copy project (so we don't change data in our current project)
+        self.project = copy.deepcopy(get_app().project)
 
         # Clear timeline preview cache (to get more available memory)
+        project_timeline = get_app().window.timeline_sync.timeline
         project_timeline.ClearAllCache()
 
         # Get the original timeline settings
@@ -134,7 +137,7 @@ class Export(QDialog):
 
         # Load the "export" Timeline reader with the JSON from the real timeline
         try:
-            json_timeline = json.dumps(get_app().project._data)
+            json_timeline = json.dumps(self.project._data)
             self.timeline.SetJson(json_timeline)
         except Exception as ex:
             msg = QMessageBox()
@@ -908,11 +911,15 @@ class Export(QDialog):
 
         # Rescale all keyframes (if needed)
         if self.export_fps_factor != 1.0:
-            # Get a copy of rescaled project data (this does not modify the active project)
-            rescaled_app_data = get_app().project.rescale_keyframes(self.export_fps_factor)
+            # Update project data with rescaled keyframes
+            self.project.rescale_keyframes(self.export_fps_factor)
 
-            # Load the "export" Timeline reader with the JSON from the real timeline
-            self.timeline.SetJson(json.dumps(rescaled_app_data))
+            # Apply new profile (and any FPS precision updates) to project data
+            profile = openshot.Profile(self.cboSimpleVideoProfile.currentData())
+            self.project.apply_profile(profile)
+
+            # Update the timeline with rescaled keyframes and adjusted profile's FPS precision
+            self.timeline.SetJson(json.dumps(self.project._data))
 
         # Re-update the timeline FPS again (since the timeline just got clobbered)
         self.updateFrameRate(set_limits=False)
