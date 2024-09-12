@@ -533,13 +533,15 @@ class Preferences(QDialog):
         if param.get("category") == "Keyboard":
             previous_value = value
             value = QKeySequence(value).toString()
-            log.info(
-                "Parsing keyboard mapping via QKeySequence from %s to %s",
-                previous_value, value)
+            log.info("Parsing keyboard mapping via QKeySequence from %s to %s", previous_value, value)
 
         # Save setting
         self.s.set(param["setting"], value)
         log.info(value)
+
+        # Reload shortcuts (if needed)
+        if param.get("category") == "Keyboard":
+            get_app().window.initShortcuts()
 
         # Check for restart
         self.check_for_restart(param)
