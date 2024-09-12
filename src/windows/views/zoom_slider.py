@@ -47,7 +47,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Ignore changes that don't affect this
-        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]:
+        if (action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]) or self.ignore_updates:
             return
 
         # Clear previous rects
@@ -512,6 +512,15 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.win.preview_thread.position_changed.connect(self.update_playhead_pos)
         self.win.PlaySignal.connect(self.handle_play)
 
+    def ignore_updates_callback(self, ignore):
+        """Ignore updates callback - used to stop updating this widget during batch updates"""
+        if not ignore and self.ignore_updates:
+            # Force recalculation and repaint
+            self.ignore_updates = ignore
+            self.changed(None)
+            self.repaint()
+        self.ignore_updates = ignore
+
     def __init__(self, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
@@ -541,6 +550,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.current_frame = 0
         self.is_auto_center = True
         self.min_distance = 0.002
+        self.ignore_updates = False
 
         # Load icon (using display DPI)
         self.cursors = {}
@@ -563,8 +573,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Connect zoom functionality
         self.win.TimelineScrolled.connect(self.update_scrollbars)
-
         self.win.TimelineResize.connect(self.delayed_resize_callback)
+        self.win.IgnoreUpdates.connect(self.ignore_updates_callback)
 
         # Connect Selection signals
         self.win.SelectionChanged.connect(self.handle_selection)

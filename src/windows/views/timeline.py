@@ -135,7 +135,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             return
 
         # Bail out if change unrelated to webview
-        if len(action.key) >= 1 and action.key[0] not in ["clips", "effects", "duration", "layers", "markers"]:
+        if action and len(action.key) >= 1 and action.key[0] not in ["clips", "effects", "duration", "layers", "markers"]:
             log.debug(f"Skipping unneeded webview update for '{action.key[0]}'")
             return
 
@@ -233,10 +233,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-        # Update the preview and reselect current frame in properties
-        if not ignore_refresh:
-            self.window.refreshFrameSignal.emit()
-            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        # Notify UI to ignore OR not ignore updates
+        self.window.IgnoreUpdates.emit(ignore_refresh)
 
     # Add missing transition
     @pyqtSlot(str)
@@ -393,10 +391,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-        # Update the preview and reselect current frame in properties
-        if not ignore_refresh:
-            self.window.refreshFrameSignal.emit()
-            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        # Notify UI to ignore OR not ignore updates
+        self.window.IgnoreUpdates.emit(ignore_refresh)
 
     # Prevent default context menu, and ignore, so that javascript can intercept
     def contextMenuEvent(self, event):
