@@ -742,17 +742,29 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && !$scope.enable_razor) {
       setTimeout(function() {
         timeline.qt_log("DEBUG", "$scope.showClipMenu");
-        $scope.selectClip(clip_id, false, event);
+
+        // Get data
+        var id = clip_id.replace("clip_", "");
+        var clip = findElement($scope.project.clips, "id", id);
+        var is_ctrl = event && event.ctrlKey;
+
+        // Select clip and show menu
+        if (is_ctrl || clip.selected) {
+          $scope.selectClip(clip_id, false);
+        } else {
+          $scope.selectClip(clip_id, true);
+        }
         timeline.ShowClipMenu(clip_id);
       });
     }
   };
 
 // Show clip context menu
-  $scope.showEffectMenu = function (effect_id) {
+  $scope.showEffectMenu = function (effect_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
       setTimeout(function() {
         timeline.qt_log("DEBUG", "$scope.showEffectMenu");
+        $scope.selectEffect(effect_id);
         timeline.ShowEffectMenu(effect_id);
       });
     }
@@ -763,7 +775,17 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && !$scope.enable_razor) {
       setTimeout(function() {
         timeline.qt_log("DEBUG", "$scope.showTransitionMenu");
-        $scope.selectTransition(tran_id, false, event);
+        // Get data
+        var id = tran_id.replace("transition_", "");
+        var tran = findElement($scope.project.effects, "id", id);
+        var is_ctrl = event && event.ctrlKey;
+
+        // Select clip and show menu
+        if (is_ctrl || tran.selected) {
+          $scope.selectTransition(tran_id, false);
+        } else {
+          $scope.selectTransition(tran_id, true);
+        }
         timeline.ShowTransitionMenu(tran_id);
       });
     }
@@ -1482,6 +1504,11 @@ $scope.updateLayerIndex = function () {
     // return true
     return true;
   };
+
+  // Force Angular to refresh (i.e. when selections change outside)
+  $scope.refreshTimeline = function () {
+    $scope.$apply();
+  }
 
   // Load entire project data JSON from UpdateManager (i.e. user opened an existing project)
   /**
