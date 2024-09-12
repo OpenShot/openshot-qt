@@ -111,7 +111,7 @@ class FilesModel(QObject, updates.UpdateInterface):
     def changed(self, action):
 
         # Something was changed in the 'files' list
-        if (len(action.key) >= 1 and action.key[0].lower() == "files") or action.type == "load":
+        if action and ((len(action.key) >= 1 and action.key[0].lower() == "files") or action.type == "load"):
             # Refresh project files model
             if action.type == "insert":
                 # Don't clear the existing items if only inserting new things

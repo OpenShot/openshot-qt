@@ -285,14 +285,22 @@ class UpdateManager:
         """ Undo the last UpdateAction (and notify all listeners and watchers).
             Continue until all identical transaction ids have been found. """
         last_transaction = None
-        for last_action in reversed(self.actionHistory):
+        total_actions = len(self.actionHistory)
+
+        for index, last_action in enumerate(reversed(self.actionHistory)):
+            # Set ignore_refresh to True for all iterations except the final one
+            ignore_refresh = (index != total_actions - 1)
+
+            # Emit the IgnoreUpdates signal
+            get_app().window.IgnoreUpdates.emit(ignore_refresh)
+
             # Compare transaction ids
             if last_transaction and last_transaction != last_action.transaction:
                 # Different transaction, skip
                 continue
-            else:
-                last_transaction = last_action.transaction or str(uuid.uuid4())
-                self.actionHistory.remove(last_action)
+
+            last_transaction = last_action.transaction or str(uuid.uuid4())
+            self.actionHistory.remove(last_action)
 
             # Copy action
             last_action = last_action.copy()
@@ -313,14 +321,22 @@ class UpdateManager:
         """ Redo the last UpdateAction (and notify all listeners and watchers).
             Continue until all identical transaction ids have been found. """
         last_transaction = None
-        for next_action in reversed(self.redoHistory):
+        total_actions = len(self.redoHistory)
+
+        for index, next_action in enumerate(reversed(self.redoHistory)):
+            # Set ignore_refresh to True for all iterations except the final one
+            ignore_refresh = (index != total_actions - 1)
+
+            # Emit the IgnoreUpdates signal
+            get_app().window.IgnoreUpdates.emit(ignore_refresh)
+
             # Compare transaction ids
             if last_transaction and last_transaction != next_action.transaction:
                 # Different transaction, skip
                 continue
-            else:
-                last_transaction = next_action.transaction or str(uuid.uuid4())
-                self.redoHistory.remove(next_action)
+
+            last_transaction = next_action.transaction or str(uuid.uuid4())
+            self.redoHistory.remove(next_action)
 
             # Copy action
             next_action = next_action.copy()

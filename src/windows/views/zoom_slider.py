@@ -47,7 +47,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
         # Ignore changes that don't affect this
-        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]:
+        if (action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]) or self.ignore_updates:
             return
 
         # Clear previous rects
@@ -243,11 +243,27 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         """Capture mouse release event"""
         event.accept()
 
+        # Handle the case where no dragging occurred (single click)
+        if not self.mouse_dragging and not self.scroll_bar_rect.contains(event.pos()):
+            # Center the scroll region at the click position (if outside the selection)
+            click_pos = event.pos().x() / self.width()
+            selection_width = self.scrollbar_position[1] - self.scrollbar_position[0]
+            half_width = selection_width / 2
+            new_left_pos = max(0.0, click_pos - half_width)
+            new_right_pos = min(1.0, click_pos + half_width)
+            self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2],
+                                       self.scrollbar_position[3]]
+            self.delayed_resize_timer.start()
+            self.update()
+
+        # Finalize drag selection
         self.mouse_pressed = False
         self.mouse_dragging = False
         self.left_handle_dragging = False
         self.right_handle_dragging = False
         self.scroll_bar_dragging = False
+        self.create_bar_dragging = False
+        self.update()
 
     def set_handle_limits(self, left_handle, right_handle, is_left=False):
         """Set min/max limits on the bounds of the handles (to prevent invalid values)"""
@@ -280,7 +296,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         elif mouse_pos > self.width():
             mouse_pos = self.width()
 
-        # Set cursor
+        # Set cursor (based on current mouse position)
+        drag_threshold = 5
         if not self.mouse_dragging:
             if self.left_handle_rect.contains(event.pos()):
                 self.setCursor(self.cursors.get('resize_x'))
@@ -291,94 +308,103 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             else:
                 self.setCursor(Qt.ArrowCursor)
 
-        # Detect dragging
+        # Detect dragging (only if the user clicked and started dragging beyond the threshold)
         if self.mouse_pressed and not self.mouse_dragging:
             self.mouse_dragging = True
-
             if self.left_handle_rect.contains(event.pos()):
                 self.left_handle_dragging = True
             elif self.right_handle_rect.contains(event.pos()):
                 self.right_handle_dragging = True
             elif self.scroll_bar_rect.contains(event.pos()):
                 self.scroll_bar_dragging = True
+            elif abs(self.mouse_position - mouse_pos) > drag_threshold:
+                # If clicking outside the current selection, initiate drag to create a new selection
+                self.create_bar_dragging = True
             else:
-                self.setCursor(Qt.ArrowCursor)
+                self.mouse_dragging = False
 
-        # Dragging handle
+        # Handle dragging the selection (scroll bar dragging)
         if self.mouse_dragging:
             if self.left_handle_dragging:
-                # Update scrollbar position
+                # Dragging the left handle to resize the selection
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 new_left_pos = self.scrollbar_position_previous[0] - delta
                 is_left = True
+
                 if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
-                    # SHIFT key pressed (move )
-                        if (self.scrollbar_position_previous[1] + delta) - new_left_pos > self.min_distance:
-                            #both handles if we don't exceed min distance
-                            new_right_pos = self.scrollbar_position_previous[1] + delta
-                        else:
-                            midpoint = (self.scrollbar_position_previous[1] + self.scrollbar_position_previous)/2
-                            new_right_pos = midpoint + (self.min_distance/2)
-                            new_left_pos = midpoint - (self.min_distance/2)
+                    # SHIFT key pressed, move both handles
+                    if (self.scrollbar_position_previous[1] + delta) - new_left_pos > self.min_distance:
+                        new_right_pos = self.scrollbar_position_previous[1] + delta
+                    else:
+                        midpoint = (self.scrollbar_position_previous[1] + self.scrollbar_position_previous[0]) / 2
+                        new_right_pos = midpoint + (self.min_distance / 2)
+                        new_left_pos = midpoint - (self.min_distance / 2)
                 else:
                     new_right_pos = self.scrollbar_position_previous[1]
 
                 # Enforce limits (don't allow handles to go past each other, or out of bounds)
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
 
-                self.scrollbar_position = [new_left_pos,
-                                           new_right_pos,
-                                           self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_timer.start()
 
             elif self.right_handle_dragging:
+                # Dragging the right handle to resize the selection
                 delta = (self.mouse_position - mouse_pos) / self.width()
-                is_left = False
                 new_right_pos = self.scrollbar_position_previous[1] - delta
+                is_left = False
+
                 if int(QCoreApplication.instance().keyboardModifiers() & Qt.ShiftModifier) > 0:
-                    # SHIFT key pressed (move )
-                        if new_right_pos - (self.scrollbar_position_previous[0] + delta) > self.min_distance:
-                            #both handles if we don't exceed min distance
-                            new_left_pos = self.scrollbar_position_previous[0] + delta
-                        else:
-                            midpoint = (self.scrollbar_position_previous[1] + self.scrollbar_position_previous)/2
-                            new_right_pos = midpoint + (self.min_distance/2)
-                            new_left_pos = midpoint - (self.min_distance/2)
+                    # SHIFT key pressed, move both handles
+                    if new_right_pos - (self.scrollbar_position_previous[0] + delta) > self.min_distance:
+                        new_left_pos = self.scrollbar_position_previous[0] + delta
+                    else:
+                        midpoint = (self.scrollbar_position_previous[1] + self.scrollbar_position_previous[0]) / 2
+                        new_right_pos = midpoint + (self.min_distance / 2)
+                        new_left_pos = midpoint - (self.min_distance / 2)
                 else:
                     new_left_pos = self.scrollbar_position_previous[0]
 
-                # Enforce limits (don't allow handles to go past each other, or out of bounds)
+                # Enforce limits
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos, is_left)
 
-                self.scrollbar_position = [new_left_pos,
-                                           new_right_pos,
-                                           self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 self.delayed_resize_timer.start()
 
             elif self.scroll_bar_dragging:
-                # Update scrollbar position
+                # Dragging the entire selection (scrolling the timeline)
                 delta = (self.mouse_position - mouse_pos) / self.width()
                 new_left_pos = self.scrollbar_position_previous[0] - delta
                 new_right_pos = self.scrollbar_position_previous[1] - delta
 
-                # Enforce limits (don't allow handles to go past each other, or out of bounds)
+                # Enforce limits
                 new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
 
-                self.scrollbar_position = [new_left_pos,
-                                           new_right_pos,
-                                           self.scrollbar_position[2],
-                                           self.scrollbar_position[3]]
-
-                # Emit signal to scroll Timeline
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
                 get_app().window.TimelineScroll.emit(new_left_pos)
 
-            # Force re-paint
-            self.update()
+            elif self.create_bar_dragging:
+                # Handle creating a new selection region
+                new_pos = mouse_pos / self.width()
 
-        # Update mouse position
-        # self.mouse_position = mouse_pos
+                if self.mouse_position < mouse_pos:
+                    # Dragging to the right: set both handles to the starting position,
+                    # then move the right handle (left handle stays where the drag started)
+                    new_left_pos = self.mouse_position / self.width()
+                    new_right_pos = new_pos
+                else:
+                    # Dragging to the left: set both handles to the starting position,
+                    # then move the left handle (right handle stays where the drag started)
+                    new_right_pos = self.mouse_position / self.width()
+                    new_left_pos = new_pos
+
+                # Enforce limits for the new selection
+                new_left_pos, new_right_pos = self.set_handle_limits(new_left_pos, new_right_pos)
+                self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
+                self.delayed_resize_timer.start()
+
+            # Force re-paint after any dragging
+            self.update()
 
     def resizeEvent(self, event):
         """Widget resize event"""
@@ -486,6 +512,15 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.win.preview_thread.position_changed.connect(self.update_playhead_pos)
         self.win.PlaySignal.connect(self.handle_play)
 
+    def ignore_updates_callback(self, ignore):
+        """Ignore updates callback - used to stop updating this widget during batch updates"""
+        if not ignore and self.ignore_updates:
+            # Force recalculation and repaint
+            self.ignore_updates = ignore
+            self.changed(None)
+            self.repaint()
+        self.ignore_updates = ignore
+
     def __init__(self, *args):
         # Invoke parent init
         QWidget.__init__(self, *args)
@@ -514,7 +549,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.marker_rects = []
         self.current_frame = 0
         self.is_auto_center = True
-        self.min_distance = 0.02
+        self.min_distance = 0.002
+        self.ignore_updates = False
 
         # Load icon (using display DPI)
         self.cursors = {}
@@ -537,8 +573,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Connect zoom functionality
         self.win.TimelineScrolled.connect(self.update_scrollbars)
-
         self.win.TimelineResize.connect(self.delayed_resize_callback)
+        self.win.IgnoreUpdates.connect(self.ignore_updates_callback)
 
         # Connect Selection signals
         self.win.SelectionChanged.connect(self.handle_selection)

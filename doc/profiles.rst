@@ -61,6 +61,19 @@ Choose Profile Dialog
 4   Accept Profile      Click the :guilabel:`OK` button to switch to the selected profile.
 ==  ==================  ============
 
+Converting Profiles
+-------------------
+When switching profiles (or exporting to a different profile), OpenShot will do it's best to convert all clip,
+transition, and keyframe data to the new framerate (FPS). Certain properties, such as `position`, `start`, `end`, and `keyframes`
+will be updated to match the new framerate precision. For example, if moving from 30 FPS to 25 FPS, these properties will be changed
+from increments of 1/30 seconds to increments of 1/25 seconds. In order to preserve the overall timing accuracy of the
+timeline, OpenShot will match the `position` and `start` trim as closely as possible, and any tiny gaps (1-3 frames big)
+caused due to rounding or precision changes, will be resolved automatically by adjusting the `end` trim. This should
+result in a seamless conversion for most video projects (with no noticeable black gaps between clips).
+
+However, the destructive nature of this conversion is why we recommend always editing in your target profile, or at least your
+target FPS, in order to avoid converting between profiles as much as possible.
+
 Export Profile
 --------------
 

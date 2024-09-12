@@ -45,7 +45,8 @@ from classes import info, updates
 from classes.app import get_app
 from classes.effect_init import effect_options
 from classes.logger import log
-from classes.query import File, Clip, Transition, Track
+from classes.query import File, Clip, Transition, Track, Effect
+from classes.clipboard import ClipboardManager
 from classes.thumbnail import GetThumbPath
 from classes.waveform import get_audio_data
 from .timeline_backend.enums import (
@@ -134,7 +135,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             return
 
         # Bail out if change unrelated to webview
-        if len(action.key) >= 1 and action.key[0] not in ["clips", "effects", "duration", "layers", "markers"]:
+        if action and len(action.key) >= 1 and action.key[0] not in ["clips", "effects", "duration", "layers", "markers"]:
             log.debug(f"Skipping unneeded webview update for '{action.key[0]}'")
             return
 
@@ -232,14 +233,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-        # Update the preview and reselect current frame in properties
-        if not ignore_refresh:
-            self.window.refreshFrameSignal.emit()
-            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        # Notify UI to ignore OR not ignore updates
+        self.window.IgnoreUpdates.emit(ignore_refresh)
 
     # Add missing transition
     @pyqtSlot(str)
     def add_missing_transition(self, transition_json):
+        if not get_app().get_settings().get("automatic_transitions"):
+            log.debug("Skipping auto transition (disabled in settings)")
+            return
 
         transition_details = json.loads(transition_json)
 
@@ -389,10 +391,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-        # Update the preview and reselect current frame in properties
-        if not ignore_refresh:
-            self.window.refreshFrameSignal.emit()
-            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+        # Notify UI to ignore OR not ignore updates
+        self.window.IgnoreUpdates.emit(ignore_refresh)
 
     # Prevent default context menu, and ignore, so that javascript can intercept
     def contextMenuEvent(self, event):
@@ -437,23 +437,31 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Cache_Menu.addAction(self.window.actionClearAllCache)
             menu.addMenu(Cache_Menu)
 
-            return menu.exec_(QCursor.pos())
+            return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
         log.debug('ShowEffectMenu: %s' % effect_id)
 
-        # Set the selected clip (if needed)
-        self.addSelection(effect_id, 'effect', True)
+        # Get translation method
+        _ = get_app()._tr
 
         menu = StyledContextMenu(parent=self)
+
+        # Only a single clip is selected (Show normal copy menus)
+        Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
+        Copy_Effect = Copy_Menu.addAction(_("Effect"))
+        Copy_Effect.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
+        Copy_Effect.triggered.connect(partial(self.Copy_Triggered, MenuCopy.EFFECT, [], [], [effect_id]))
+        menu.addMenu(Copy_Menu)
+
         # Properties
         menu.addAction(self.window.actionProperties)
 
         # Remove Effect Menu
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveEffect)
-        return menu.exec_(QCursor.pos())
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(float, int)
     def ShowTimelineMenu(self, position, layer_number):
@@ -462,21 +470,24 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get translation method
         _ = get_app()._tr
 
-        # Get list of clipboard items (that are complete clips or transitions)
-        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
-        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
-        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
-
-        # Paste Menu (if entire clips or transitions are copied)
-        have_clipboard = (
-            (self.copy_clipboard or self.copy_transition_clipboard)
-            and (len(clipboard_clip_ids) + len(clipboard_tran_ids) > 0)
-        )
-
         # Initialize variables to track the found gap
         found_start = 0.0
         found_end = float('inf')
         found_gap = False
+
+        # Get clipboard
+        copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
+        if copied_object:
+            print(f"Copied object found: {type(copied_object).__name__}")
+
+        # Determine if clipboard has FULL clip or transition data (or a list of multiple objects)
+        has_clipboard = False
+        if copied_object and isinstance(copied_object, Clip) and len(copied_object.data.keys()) > 20:
+            has_clipboard = True
+        elif copied_object and isinstance(copied_object, Transition) and len(copied_object.data.keys()) > 10:
+            has_clipboard = True
+        elif copied_object and isinstance(copied_object, list):
+            has_clipboard = True
 
         # Combine and sort the clips and transitions by their position
         clips_and_transitions = sorted(
@@ -499,7 +510,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             found_start = max(found_start, right_edge)
 
         # Don't show context menu
-        if not have_clipboard and not found_gap:
+        if not has_clipboard and not found_gap:
             return
 
         # Get track object (ignore locked tracks)
@@ -524,18 +535,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.window.actionRemoveGap.triggered.connect(
                 partial(self.RemoveGap_Triggered, found_start, found_end, int(layer_number))
             )
-        if have_clipboard and found_gap:
+        if has_clipboard and found_gap:
             menu.addSeparator()
-        if have_clipboard:
+        if has_clipboard:
             # Add 'Paste' Menu
             Paste_Clip = menu.addAction(_("Paste"))
             Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
             Paste_Clip.triggered.connect(
-                partial(self.Paste_Triggered, MenuCopy.PASTE, float(position), int(layer_number), [], [])
+                partial(self.Paste_Triggered, MenuCopy.PASTE, [], [])
             )
 
         # Show menu
-        return menu.exec_(QCursor.pos())
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -550,9 +561,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Not a valid clip id
             return
 
-        # Set the selected clip (if needed)
-        if clip_id not in self.window.selected_clips:
-            self.addSelection(clip_id, 'clip')
         # Get list of selected clips
         clip_ids = self.window.selected_clips
         tran_ids = self.window.selected_transitions
@@ -564,6 +572,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get playhead position
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
+        # Get clipboard
+        copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
+        if copied_object:
+            print(f"Copied object found: {type(copied_object).__name__}")
+        has_clipboard = False
+        if copied_object and isinstance(copied_object, Clip):
+            has_clipboard = True
+        elif copied_object and isinstance(copied_object, Effect):
+            has_clipboard = True
+
         # Create blank context menu
         menu = StyledContextMenu(parent=self)
 
@@ -572,57 +590,53 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
             Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
-            Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids))
+            Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids, []))
         else:
             # Only a single clip is selected (Show normal copy menus)
             Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
             Copy_Clip = Copy_Menu.addAction(_("Clip"))
             Copy_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
-            Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MenuCopy.CLIP, [clip_id], []))
+            Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MenuCopy.CLIP, [clip_id], [], []))
 
             Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
             Copy_Keyframes_All.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [clip_id], [], []))
             Keyframe_Menu.addSeparator()
             Copy_Keyframes_Alpha = Keyframe_Menu.addAction(_("Alpha"))
             Copy_Keyframes_Alpha.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_ALPHA, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_ALPHA, [clip_id], [], []))
             Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Scale"))
             Copy_Keyframes_Scale.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_SCALE, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_SCALE, [clip_id], [], []))
             Copy_Keyframes_Shear = Keyframe_Menu.addAction(_("Shear"))
             Copy_Keyframes_Shear.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_SHEAR, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_SHEAR, [clip_id], [], []))
             Copy_Keyframes_Rotate = Keyframe_Menu.addAction(_("Rotation"))
             Copy_Keyframes_Rotate.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_ROTATE, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_ROTATE, [clip_id], [], []))
             Copy_Keyframes_Locate = Keyframe_Menu.addAction(_("Location"))
             Copy_Keyframes_Locate.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_LOCATION, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_LOCATION, [clip_id], [], []))
             Copy_Keyframes_Time = Keyframe_Menu.addAction(_("Time"))
             Copy_Keyframes_Time.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_TIME, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_TIME, [clip_id], [], []))
             Copy_Keyframes_Volume = Keyframe_Menu.addAction(_("Volume"))
             Copy_Keyframes_Volume.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_VOLUME, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_VOLUME, [clip_id], [], []))
 
             # Only add copy->effects and copy->keyframes if 1 clip is selected
             Copy_Effects = Copy_Menu.addAction(_("Effects"))
             Copy_Effects.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.EFFECTS, [clip_id], []))
+                self.Copy_Triggered, MenuCopy.ALL_EFFECTS, [clip_id], [], []))
             Copy_Menu.addMenu(Keyframe_Menu)
             menu.addMenu(Copy_Menu)
 
-        # Get list of clipboard items (that are complete clips or transitions)
-        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
-        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
-        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
-        # Determine if the paste menu should be shown
-        if self.copy_clipboard and len(clipboard_clip_ids) + len(clipboard_tran_ids) == 0:
+        # Determine if the paste menu should be shown (for partial copied clip data)
+        if has_clipboard:
             # Paste Menu (Only show if partial clipboard available)
             Paste_Clip = menu.addAction(_("Paste"))
-            Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, 0.0, 0, clip_ids, []))
+            Paste_Clip.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, clip_ids, []))
 
         menu.addSeparator()
 
@@ -1009,7 +1023,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionRemoveClip)
 
         # Show Context menu
-        return menu.exec_(QCursor.pos())
+        return menu.popup(QCursor.pos())
 
     def Transform_Triggered(self, action, clip_ids):
         log.debug("Transform_Triggered")
@@ -1516,15 +1530,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         keyframe["Points"] = cleaned_points
 
 
-    def Copy_Triggered(self, action, clip_ids, tran_ids):
+    def Copy_Triggered(self, action, clip_ids, tran_ids, effect_ids):
         """Callback for copy context menus"""
         log.debug(action)
 
-        # Empty previous clipboard
-        self.copy_clipboard = {}
-        self.copy_transition_clipboard = {}
-
-        # Loop through clip objects
+        # Loop through selected clip objects
+        copied_objects = []
         for clip_id in clip_ids:
 
             # Get existing clip object
@@ -1533,45 +1544,44 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Invalid clip, skip to next item
                 continue
 
-            self.copy_clipboard[clip_id] = {}
-
-            if action in [MenuCopy.CLIP, MenuCopy.ALL]:
-                self.copy_clipboard[clip_id] = clip.data
-            elif action == MenuCopy.KEYFRAMES_ALL:
-                self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
-                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
-                self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
-                self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
-                self.copy_clipboard[clip_id]['shear_x'] = clip.data['shear_x']
-                self.copy_clipboard[clip_id]['shear_y'] = clip.data['shear_y']
-                self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
-                self.copy_clipboard[clip_id]['location_x'] = clip.data['location_x']
-                self.copy_clipboard[clip_id]['location_y'] = clip.data['location_y']
-                self.copy_clipboard[clip_id]['time'] = clip.data['time']
-                self.copy_clipboard[clip_id]['volume'] = clip.data['volume']
+            # Filter data copied (if needed)
+            if action == MenuCopy.KEYFRAMES_ALL:
+                clip.data = {'alpha': clip.data['alpha'],
+                             'gravity': clip.data['gravity'],
+                             'scale_x': clip.data['scale_x'],
+                             'scale_y': clip.data['scale_y'],
+                             'shear_x': clip.data['shear_x'],
+                             'shear_y': clip.data['shear_y'],
+                             'rotation': clip.data['rotation'],
+                             'location_x': clip.data['location_x'],
+                             'location_y': clip.data['location_y'],
+                             'time': clip.data['time'],
+                             'volume': clip.data['volume']}
             elif action == MenuCopy.KEYFRAMES_ALPHA:
-                self.copy_clipboard[clip_id]['alpha'] = clip.data['alpha']
+                clip.data = {'alpha': clip.data['alpha']}
             elif action == MenuCopy.KEYFRAMES_SCALE:
-                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
-                self.copy_clipboard[clip_id]['scale_x'] = clip.data['scale_x']
-                self.copy_clipboard[clip_id]['scale_y'] = clip.data['scale_y']
+                clip.data = {'gravity': clip.data['gravity'],
+                             'scale_x': clip.data['scale_x'],
+                             'scale_y': clip.data['scale_y']}
             elif action == MenuCopy.KEYFRAMES_SHEAR:
-                self.copy_clipboard[clip_id]['shear_x'] = clip.data['shear_x']
-                self.copy_clipboard[clip_id]['shear_y'] = clip.data['shear_y']
+                clip.data = {'shear_x': clip.data['shear_x'],
+                             'shear_y': clip.data['shear_y']}
             elif action == MenuCopy.KEYFRAMES_ROTATE:
-                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
-                self.copy_clipboard[clip_id]['rotation'] = clip.data['rotation']
+                clip.data = {'gravity': clip.data['gravity'],
+                             'rotation': clip.data['rotation']}
             elif action == MenuCopy.KEYFRAMES_LOCATION:
-                self.copy_clipboard[clip_id]['gravity'] = clip.data['gravity']
-                self.copy_clipboard[clip_id]['location_x'] = clip.data['location_x']
-                self.copy_clipboard[clip_id]['location_y'] = clip.data['location_y']
+                clip.data = {'gravity': clip.data['gravity'],
+                             'location_x': clip.data['location_x'],
+                             'location_y': clip.data['location_y']}
             elif action == MenuCopy.KEYFRAMES_TIME:
-                self.copy_clipboard[clip_id]['time'] = clip.data['time']
+                clip.data = {'time': clip.data['time']}
             elif action == MenuCopy.KEYFRAMES_VOLUME:
-                self.copy_clipboard[clip_id]['volume'] = clip.data['volume']
-            elif action == MenuCopy.EFFECTS:
-                self.copy_clipboard[clip_id]['effects'] = clip.data['effects']
+                clip.data = {'volume': clip.data['volume']}
+            elif action == MenuCopy.ALL_EFFECTS:
+                clip.data = {'effects': clip.data['effects']}
 
+            # Append copied instance
+            copied_objects.append(clip)
 
         # Loop through transition objects
         for tran_id in tran_ids:
@@ -1582,17 +1592,31 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Invalid transition, skip to next item
                 continue
 
-            self.copy_transition_clipboard[tran_id] = {}
-
-            if action in [MenuCopy.TRANSITION, MenuCopy.ALL]:
-                self.copy_transition_clipboard[tran_id] = tran.data
-            elif action == MenuCopy.KEYFRAMES_ALL:
-                self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
-                self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
+            if action == MenuCopy.KEYFRAMES_ALL:
+                tran.data = {'brightness': tran.data['brightness'],
+                             'contrast': tran.data['contrast']}
             elif action == MenuCopy.KEYFRAMES_BRIGHTNESS:
-                self.copy_transition_clipboard[tran_id]['brightness'] = tran.data['brightness']
+                tran.data = {'brightness': tran.data['brightness']}
             elif action == MenuCopy.KEYFRAMES_CONTRAST:
-                self.copy_transition_clipboard[tran_id]['contrast'] = tran.data['contrast']
+                tran.data = {'contrast': tran.data['contrast']}
+
+            # Append copied instance
+            copied_objects.append(tran)
+
+        # Loop through transition objects
+        for effect_id in effect_ids:
+
+            # Get existing transition object
+            effect = Effect.get(id=effect_id)
+            if not effect:
+                # Invalid transition, skip to next item
+                continue
+
+            if action == MenuCopy.EFFECT:
+                copied_objects.append(effect)
+
+        # Copy instances to clipboard
+        get_app().clipboard().setMimeData(ClipboardManager.to_mime(copied_objects))
 
     def RemoveGap_Triggered(self, found_start, found_end, layer_number):
         """Callback for removing gap context menus"""
@@ -1653,131 +1677,106 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Clear transaction id
         get_app().updates.transaction_id = None
 
-    def Paste_Triggered(self, action, position, layer_id, clip_ids, tran_ids):
+    def Paste_Triggered(self, action, clip_ids, tran_ids):
         """Callback for paste context menus"""
         log.debug(action)
 
-        # Group transactions
-        tid = self.get_uuid()
-        get_app().updates.transaction_id = tid
+        # Get global mouse position
+        global_mouse_pos = QCursor.pos()
+        local_mouse_pos = self.mapFromGlobal(global_mouse_pos)
 
-        # Get list of clipboard items (that are complete clips or transitions)
-        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
-        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
-        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
+        # Callback function, to actually add the clip object
+        def callback(self, clip_ids, tran_ids, callback_data):
+            position = callback_data.get('position', 0.0)
+            layer_id = callback_data.get('track', 0)
 
-        # Determine left most copied clip, and top most track (the top left point of the copied objects)
-        if len(clipboard_clip_ids) + len(clipboard_tran_ids):
-            left_most_position = -1.0
-            top_most_layer = -1
-            # Loop through each copied clip (looking for top left point)
-            for clip_id in clipboard_clip_ids:
-                # Get existing clip object
-                clip = Clip()
-                clip.data = self.copy_clipboard.get(clip_id, {})
-                if clip.data['position'] < left_most_position or left_most_position == -1.0:
-                    left_most_position = clip.data['position']
-                if clip.data['layer'] > top_most_layer or top_most_layer == -1.0:
-                    top_most_layer = clip.data['layer']
-            # Loop through each copied transition (looking for top left point)
-            for tran_id in clipboard_tran_ids:
-                # Get existing transition object
-                tran = Transition()
-                tran.data = self.copy_transition_clipboard.get(tran_id, {})
-                if tran.data['position'] < left_most_position or left_most_position == -1.0:
-                    left_most_position = tran.data['position']
-                if tran.data['layer'] > top_most_layer or top_most_layer == -1.0:
-                    top_most_layer = tran.data['layer']
+            # Start transaction
+            tid = self.get_uuid()
+            get_app().updates.transaction_id = tid
 
-            # Default layer if not known
-            if layer_id == -1:
-                layer_id = top_most_layer
+            # Get clipboard
+            copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
+            if not copied_object:
+                get_app().updates.transaction_id = None
+                return
 
-            # Determine difference from top left and paste location
-            position_diff = position - left_most_position
-            layer_diff = layer_id - top_most_layer
+            # Remove copied ids from targets
+            if isinstance(copied_object, Clip):
+                clip_ids = [id for id in clip_ids if id != copied_object.id]
+            if isinstance(copied_object, Transition):
+                tran_ids = [id for id in tran_ids if id != copied_object.id]
 
-            # Loop through each copied clip
-            for clip_id in clipboard_clip_ids:
-                # Get existing clip object
-                clip = Clip()
-                clip.data = self.copy_clipboard.get(clip_id, {})
+            # Adjust positions and layers for lists of objects
+            def adjust_positions_and_layers(objects, position, layer_id):
+                left_most_position = min(obj.data['position'] for obj in objects)
+                top_most_layer = max(obj.data['layer'] for obj in objects)
+                position_diff = position - left_most_position
+                layer_diff = layer_id - top_most_layer if layer_id != -1 else 0
 
-                # Remove the ID property from the clip (so it becomes a new one)
-                clip.type = 'insert'
-                clip.data.pop('id')
+                for obj in objects:
+                    obj.type = 'insert'
+                    obj.data.pop('id', None)
+                    obj.id = None
+                    if 'effects' in obj.data:
+                        obj.data['effects'] = [
+                            {k: (get_app().project.generate_id() if k == 'id' else v) for k, v in effect.items()}
+                            for effect in obj.data['effects']
+                        ]
+                    obj.data['position'] += position_diff
+                    obj.data['layer'] += layer_diff
+                    obj.save()
 
-                # Update effect IDs
-                clip.data['effects'] = [{k: (get_app().project.generate_id() if k == 'id' else v)
-                                         for k, v in effect.items()} for effect in clip.data['effects']]
+            # Apply clipboard data to target object, merging effects
+            def apply_clipboard_data(target_obj, clipboard_data, excluded_keys=None):
+                excluded_keys = excluded_keys or []
+                for k, v in clipboard_data.items():
+                    if k in excluded_keys:
+                        continue
+                    if k == 'effects' and isinstance(v, list):
+                        existing_effects = target_obj.data.setdefault('effects', [])
+                        effect_map = {effect['class_name']: effect for effect in existing_effects}
 
-                # Adjust the position and track
-                clip.data['position'] += position_diff
-                clip.data['layer'] += layer_diff
+                        for effect in v:
+                            effect_type = effect.get('class_name')
+                            effect['id'] = get_app().project.generate_id()
+                            if effect_type in effect_map:
+                                effect_map[effect_type].update(effect)
+                            else:
+                                existing_effects.append(effect)
 
-                # Save changes
-                clip.save()
+                        target_obj.data['effects'] = existing_effects
+                    else:
+                        target_obj.data[k] = v
+                target_obj.save()
 
-            # Loop through all copied transitions
-            for tran_id in clipboard_tran_ids:
-                # Get existing transition object
-                tran = Transition()
-                tran.data = self.copy_transition_clipboard.get(tran_id, {})
+            # If a single clip/transition is copied with no target, add to a list (for inserting)
+            if len(clip_ids + tran_ids) == 0 and \
+                (isinstance(copied_object, Clip) or isinstance(copied_object, Transition)):
+                copied_object = [copied_object]
 
-                # Remove the ID property from the transition (so it becomes a new one)
-                tran.type = 'insert'
-                tran.data.pop('id')
+            # Handle list of objects (adjust positions and layers)
+            if isinstance(copied_object, list):
+                adjust_positions_and_layers(copied_object, position, layer_id)
 
-                # Adjust the position and track
-                tran.data['position'] += position_diff
-                tran.data['layer'] += layer_diff
-
-                # Save changes
-                tran.save()
-
-        # Loop through each full clip object copied
-        if self.copy_clipboard:
+            # Handle individual objects (Clip, Transition, Effect)
             for clip_id in clip_ids:
-
-                # Get existing clip object
                 clip = Clip.get(id=clip_id)
-                if not clip:
-                    # Invalid clip, skip to next item
-                    continue
+                if clip and isinstance(copied_object, Clip):
+                    apply_clipboard_data(clip, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
+                if clip and isinstance(copied_object, Effect):
+                    apply_clipboard_data(clip, {"effects": [copied_object.data]}, excluded_keys=['id'])
 
-                # Apply clipboard to clip (there should only be a single key in this dict)
-                for k, v in self.copy_clipboard[list(self.copy_clipboard)[0]].items():
-                    if k != 'id':
-                        if k == 'effects':
-                            # Update effect IDs
-                            v = [{k: (get_app().project.generate_id() if k == 'id' else v)
-                                  for k, v in effect.items()} for effect in v]
-                        # Overwrite clips properties (which are in the clipboard)
-                        clip.data[k] = v
-
-                # Save changes
-                clip.save()
-
-        # Loop through each full transition object copied
-        if self.copy_transition_clipboard:
             for tran_id in tran_ids:
-
-                # Get existing transition object
                 tran = Transition.get(id=tran_id)
-                if not tran:
-                    # Invalid transition, skip to next item
-                    continue
+                if tran and isinstance(copied_object, Transition):
+                    apply_clipboard_data(tran, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
 
-                # Apply clipboard to transition (there should only be a single key in this dict)
-                for k, v in self.copy_transition_clipboard[list(self.copy_transition_clipboard)[0]].items():
-                    if k != 'id':
-                        # Overwrite transition properties (which are in the clipboard)
-                        tran.data[k] = v
+            # End transaction
+            get_app().updates.transaction_id = None
 
-                # Save changes
-                tran.save()
-
-        get_app().updates.transaction_id = None
+        # Find position from javascript
+        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+            .format(local_mouse_pos.x(), local_mouse_pos.y()), partial(callback, self, clip_ids, tran_ids))
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
         """Callback for clip nudges"""
@@ -2685,9 +2684,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Not a valid transition id
             return
 
-        # Set the selected transition (if needed)
-        if tran_id not in self.window.selected_transitions:
-            self.addSelection(tran_id, 'transition')
         # Get list of all selected transitions
         tran_ids = self.window.selected_transitions
         clip_ids = self.window.selected_clips
@@ -2699,6 +2695,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get playhead position
         playhead_position = float(self.window.preview_thread.current_frame) / fps_float
 
+        # Get clipboard
+        copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
+        if copied_object:
+            print(f"Copied object found: {type(copied_object).__name__}")
+        has_clipboard = False
+        if copied_object and isinstance(copied_object, Transition):
+            has_clipboard = True
+
         menu = StyledContextMenu(parent=self)
 
         # Copy Menu
@@ -2706,39 +2710,35 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Copy All Menu (Clips and/or transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
             Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
-            Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids))
+            Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids, []))
         else:
             # Only a single transitions is selected (show normal transition copy menu)
             Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
             Copy_Tran = Copy_Menu.addAction(_("Transition"))
             Copy_Tran.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
-            Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MenuCopy.TRANSITION, [], [tran_id]))
+            Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MenuCopy.TRANSITION, [], [tran_id], []))
 
             Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
             Copy_Keyframes_All.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [], [tran_id]))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [], [tran_id], []))
             Keyframe_Menu.addSeparator()
             Copy_Keyframes_Brightness = Keyframe_Menu.addAction(_("Brightness"))
             Copy_Keyframes_Brightness.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_BRIGHTNESS, [], [tran_id]))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_BRIGHTNESS, [], [tran_id], []))
             Copy_Keyframes_Scale = Keyframe_Menu.addAction(_("Contrast"))
             Copy_Keyframes_Scale.triggered.connect(partial(
-                self.Copy_Triggered, MenuCopy.KEYFRAMES_CONTRAST, [], [tran_id]))
+                self.Copy_Triggered, MenuCopy.KEYFRAMES_CONTRAST, [], [tran_id], []))
 
             # Only show copy->keyframe if a single transitions is selected
             Copy_Menu.addMenu(Keyframe_Menu)
             menu.addMenu(Copy_Menu)
 
-        # Get list of clipboard items (that are complete clips or transitions)
-        # i.e. ignore partial clipboard items (keyframes / effects / etc...)
-        clipboard_clip_ids = [k for k, v in self.copy_clipboard.items() if v.get('id')]
-        clipboard_tran_ids = [k for k, v in self.copy_transition_clipboard.items() if v.get('id')]
         # Determine if the paste menu should be shown
-        if self.copy_transition_clipboard and len(clipboard_clip_ids) + len(clipboard_tran_ids) == 0:
+        if has_clipboard:
             # Paste Menu (Only show when partial transition clipboard available)
             Paste_Tran = menu.addAction(_("Paste"))
-            Paste_Tran.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, 0.0, 0, [], tran_ids))
+            Paste_Tran.triggered.connect(partial(self.Paste_Triggered, MenuCopy.PASTE, [], tran_ids))
 
         menu.addSeparator()
 
@@ -2786,7 +2786,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionRemoveTransition)
 
         # Show menu
-        return menu.exec_(QCursor.pos())
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowTrackMenu(self, layer_id=None):
@@ -2858,7 +2858,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.window.actionRemoveTrack.setEnabled(True)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
-        return menu.exec_(QCursor.pos())
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot(str)
     def ShowMarkerMenu(self, marker_id=None):
@@ -2869,7 +2869,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         menu = StyledContextMenu(parent=self)
         menu.addAction(self.window.actionRemoveMarker)
-        return menu.exec_(QCursor.pos())
+        return menu.popup(QCursor.pos())
 
     @pyqtSlot()
     def EnableCacheThread(self):
@@ -3411,6 +3411,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Log the exception and ignore
             log.warning("Exception processing timeline cache: %s", ex)
 
+    def handle_selection(self):
+        # Force recalculation of clips and repaint
+        self.run_js(JS_SCOPE_SELECTOR + ".refreshTimeline();")
+
     def __init__(self, window):
         super().__init__()
         self.setObjectName("TimelineView")
@@ -3434,10 +3438,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Connect update thumbnail signal
         window.ThumbnailUpdated.connect(self.Thumbnail_Updated)
-
-        # Copy clipboard
-        self.copy_clipboard = {}
-        self.copy_transition_clipboard = {}
 
         # Init New clip
         self.new_item = False
@@ -3468,3 +3468,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # connect signal to receive waveform data
         self.clipAudioDataReady.connect(self.clipAudioDataReady_Triggered)
         self.fileAudioDataReady.connect(self.fileAudioDataReady_Triggered)
+
+        # Connect Selection signals
+        self.window.SelectionChanged.connect(self.handle_selection)
+

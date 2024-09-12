@@ -90,7 +90,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Move the playhead to a specific time
   $scope.movePlayhead = function (position_seconds) {
     // Update internal scope (in seconds)
-    $scope.project.playhead_position = position_seconds;
+    $scope.project.playhead_position = snapToFPSGridTime($scope, position_seconds);
     $scope.playheadTime = secondsToTime(position_seconds, $scope.project.fps.num, $scope.project.fps.den);
 
     // Use JQuery to move playhead (for performance reasons) - scope.apply is too expensive here
@@ -742,17 +742,29 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && !$scope.enable_razor) {
       setTimeout(function() {
         timeline.qt_log("DEBUG", "$scope.showClipMenu");
-        $scope.selectClip(clip_id, false, event);
+
+        // Get data
+        var id = clip_id.replace("clip_", "");
+        var clip = findElement($scope.project.clips, "id", id);
+        var is_ctrl = event && event.ctrlKey;
+
+        // Select clip and show menu
+        if (is_ctrl || clip.selected) {
+          $scope.selectClip(clip_id, false);
+        } else {
+          $scope.selectClip(clip_id, true);
+        }
         timeline.ShowClipMenu(clip_id);
       });
     }
   };
 
 // Show clip context menu
-  $scope.showEffectMenu = function (effect_id) {
+  $scope.showEffectMenu = function (effect_id, event) {
     if ($scope.Qt && !$scope.enable_razor) {
       setTimeout(function() {
         timeline.qt_log("DEBUG", "$scope.showEffectMenu");
+        $scope.selectEffect(effect_id);
         timeline.ShowEffectMenu(effect_id);
       });
     }
@@ -763,7 +775,17 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && !$scope.enable_razor) {
       setTimeout(function() {
         timeline.qt_log("DEBUG", "$scope.showTransitionMenu");
-        $scope.selectTransition(tran_id, false, event);
+        // Get data
+        var id = tran_id.replace("transition_", "");
+        var tran = findElement($scope.project.effects, "id", id);
+        var is_ctrl = event && event.ctrlKey;
+
+        // Select clip and show menu
+        if (is_ctrl || tran.selected) {
+          $scope.selectTransition(tran_id, false);
+        } else {
+          $scope.selectTransition(tran_id, true);
+        }
         timeline.ShowTransitionMenu(tran_id);
       });
     }
@@ -904,8 +926,9 @@ App.controller("TimelineCtrl", function ($scope) {
       // Bail out if no id found
       return;
     }
-    // Get position of item
-    var clip_position = parseFloat(bounding_box.left) / parseFloat($scope.pixelsPerSecond);
+
+    // Get position of item (snapped to FPS grid)
+    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(bounding_box.left)));
 
     // Get the nearest track
     var layer_num = 0;
@@ -1483,6 +1506,11 @@ $scope.updateLayerIndex = function () {
     return true;
   };
 
+  // Force Angular to refresh (i.e. when selections change outside)
+  $scope.refreshTimeline = function () {
+    $scope.$apply();
+  }
+
   // Load entire project data JSON from UpdateManager (i.e. user opened an existing project)
   /**
    * @return {boolean}
@@ -1513,6 +1541,9 @@ $scope.updateLayerIndex = function () {
 
     // Update playhead position and time readout (reset to zero)
     $scope.movePlayhead(0.0);
+
+    // Force ruler to redraw
+    $scope.project.scale += 1/100000
 
     // Apply all changes
     $scope.$apply();

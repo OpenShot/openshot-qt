@@ -394,6 +394,14 @@
     "setting": "show_finished_window"
   },
   {
+    "value": true,
+    "title": "Auto-Transition (overlap clips)",
+    "type": "bool",
+    "restart": false,
+    "category": "General",
+    "setting": "automatic_transitions"
+  },
+  {
     "max": 4,
     "title": "Hardware Decoder Mode",
     "category": "Performance",

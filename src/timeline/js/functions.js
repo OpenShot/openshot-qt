@@ -305,6 +305,23 @@ function setBoundingBox(scope, item, item_type="clip") {
   }
 }
 
+// Convert pixel positions to time (in seconds)
+function pixelToTime(scope, pixelPosition) {
+    return pixelPosition / scope.pixelsPerSecond;  // Convert from pixel to time
+}
+
+// Function to snap time (in seconds) to the nearest frame boundary based on FPS
+function snapToFPSGridTime(scope, timePosition) {
+    const fps_num = scope.project.fps.num;
+    const fps_den = scope.project.fps.den;
+
+    // Frames per second (including fractional frame rates like 29.97)
+    const fps = fps_num / fps_den;
+
+    // Snap time to the nearest frame boundary (frames = time * fps)
+    return Math.round(timePosition * fps) / fps;
+}
+
 // Move bounding box (apply snapping and constraints)
 function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left, top, item_type="clip", cursor_offset= {top: 0}) {
   let scrolling_tracks = $("#scrolling_tracks");
@@ -328,8 +345,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   bounding_box.bottom += y_offset;
 
   // Find closest nearby object, if any (for snapping)
-  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right],
-    10.0, bounding_box.selected_ids);
+  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right], 10.0, bounding_box.selected_ids);
   var nearby_offset = results[0];
   var snapline_position = results[1];
 
@@ -396,6 +412,7 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
 
   return {"position": snapping_result, "x_offset": x_offset, "y_offset": y_offset};
 }
+
 
 /**
  * Primes are used for factoring.

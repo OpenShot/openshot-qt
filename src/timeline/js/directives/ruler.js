@@ -158,10 +158,15 @@ App.directive("tlRuler", function ($timeout) {
       element.on("mousedown", function (e) {
         // Get playhead position
         var playhead_left = e.pageX - element.offset().left;
-        var playhead_seconds = playhead_left / scope.pixelsPerSecond;
+        var playhead_seconds = snapToFPSGridTime(scope, pixelToTime(scope, playhead_left));
 
         // Immediately preview frame (don't wait for animated playhead)
         scope.previewFrame(playhead_seconds);
+
+        if (playhead_seconds == scope.project.playhead_position) {
+          // No animation (playhead didn't move)
+          return;
+        }
 
         // Animate to new position (and then update scope)
         scope.playhead_animating = true;
@@ -217,6 +222,78 @@ App.directive("tlRuler", function ($timeout) {
       });
 
       /**
+       * Draw frame precision alternating banding on each track (when zoomed in)
+       */
+      function updateTrackBackground() {
+          const fps = scope.project.fps.num / scope.project.fps.den;
+          const pixelsPerFrame = scope.pixelsPerSecond / fps;
+          const fpt = framesPerTick(scope.pixelsPerSecond, scope.project.fps.num, scope.project.fps.den);
+
+          // Calculate the time start and end positions
+          let timeStart = scope.scrollLeft / scope.pixelsPerSecond;
+          let timeEnd = (scope.scrollLeft + $("body").width()) / scope.pixelsPerSecond;
+
+          // Align the start time based on frames per tick
+          timeStart -= fpt > fps ? (timeStart % (fpt / Math.round(fps))) : (timeStart % 2);
+          timeEnd -= timeEnd % 1 - 1;
+
+          const startFrame = timeStart * Math.round(fps);
+          const endFrame = timeEnd * Math.round(fps);
+
+          if (fpt <= 2.0) {
+              $('.track').each(function() {
+                  const $bandingContainer = $(this).find('.banding-overlay').empty();
+                  const trackHeight = $(this).innerHeight();
+                  let frame = startFrame;
+                  let isDarkBand = true;
+
+                  while (frame <= endFrame) {
+                      const pos = (frame / fps) * scope.pixelsPerSecond;
+
+                      if (fpt === 1.0) {
+                          // When fpt == 1, alternate entire ticks as dark or transparent
+                          if (isDarkBand) {
+                              $bandingContainer.append($('<div></div>').css({
+                                  'position': 'absolute',
+                                  'left': `${pos}px`,
+                                  'width': `${pixelsPerFrame}px`,  // Full frame width for one frame
+                                  'height': '100%',
+                                  'background-color': 'rgba(0, 0, 0, 0.1)'
+                              }));
+                          }
+                          isDarkBand = !isDarkBand;  // Alternate bands
+                      } else if (fpt === 2.0) {
+                          // When fpt == 2, create two alternating dark bands per tick
+                          const bandWidth = pixelsPerFrame * fpt;
+                          $bandingContainer.append($('<div></div>').css({
+                              'position': 'absolute',
+                              'left': `${pos}px`,
+                              'width': `${bandWidth / 2}px`,  // Dark band width is half of the tick
+                              'height': '100%',
+                              'background-color': 'rgba(0, 0, 0, 0.1)'
+                          }));
+                      }
+                      frame += fpt;  // Move to the next frame
+                  }
+
+                  // Set container CSS for banding overlay
+                  $bandingContainer.css({
+                      'position': 'absolute',
+                      'top': '0',
+                      'left': '0',
+                      'height': `${trackHeight}px`,
+                      'width': '100%',
+                      'z-index': '1',
+                      'pointer-events': 'none'
+                  });
+              });
+          } else {
+              // Clear bands when not zoomed in enough
+              $('.track').find('.banding-overlay').empty();
+          }
+      }
+
+      /**
        * Draw times on the ruler
        * Always starts on a second
        * Draws to the right edge of the screen
@@ -266,11 +343,12 @@ App.directive("tlRuler", function ($timeout) {
             ruler.append(timeSpan);
           }
           ruler.append(tickSpan);
-
           frame += fpt;
         }
-        return;
-      };
+
+        // Add alternating banding to indicate frame boundaries (when zoomed in)
+        updateTrackBackground();
+      }
 
       scope.$watch("project.scale + project.duration + scrollLeft + element.width()", function (val) {
         $timeout(function () {

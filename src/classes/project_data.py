@@ -42,6 +42,7 @@ from classes.logger import log
 from classes.updates import UpdateInterface
 from classes.assets import get_assets_path
 from windows.views.find_file import find_missing_file
+from classes.convert_framerate import change_profile
 
 from .keyframe_scaler import KeyframeScaler
 
@@ -360,6 +361,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data["fps"] = {"num": profile.info.fps.num, "den": profile.info.fps.den}
         self._data["display_ratio"] = {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den}
         self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
+
+        # Convert all position, start, and end trims to profile FPS precision (if any)
+        change_profile(self._data["clips"] + self._data["effects"], profile)
+
         return profile
 
     def load(self, file_path, clear_thumbnails=True):
@@ -445,13 +450,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def rescale_keyframes(self, scale_factor):
         """Adjust all keyframe coordinates from previous FPS to new FPS (using a scale factor)
            and return scaled project data without modifing the current project."""
-        #
         log.info('Scale all keyframes by a factor of %s', scale_factor)
-        # Create a scaler instance
+        # Create a scaler instance, and scale all key-frames
         scaler = KeyframeScaler(factor=scale_factor)
-        # Create copy of active project data and scale
-        scaled = scaler(json.loads(json.dumps(self._data)))
-        return scaled
+        scaler(self._data)
 
     def read_legacy_project_file(self, file_path):
         """Attempt to read a legacy version 1.x openshot project file"""
