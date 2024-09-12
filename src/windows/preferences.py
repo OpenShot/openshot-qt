@@ -87,6 +87,7 @@ class Preferences(QDialog):
 
         # Connect search textbox
         self.txtSearch.textChanged.connect(self.txtSearch_changed)
+        self.btnRestoreDefaults.clicked.connect(self.confirm_restore_defaults)
 
         self.requires_restart = False
         self.category_names = {}
@@ -670,6 +671,21 @@ class Preferences(QDialog):
         btn.setIcon(icon)
 
         return is_supported
+
+    def confirm_restore_defaults(self):
+        """Prompt the user for confirmation before restoring defaults."""
+        _ = get_app()._tr
+        reply = QMessageBox.question(
+            self,
+            _('Restore Defaults'),
+            _('Are you sure you want to restore preferences to their default values?'),
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+
+        if reply == QMessageBox.Yes:
+            self.s.restore()
+            self.Populate()
 
     def closeEvent(self, event):
         """Signal for closing Preferences window"""

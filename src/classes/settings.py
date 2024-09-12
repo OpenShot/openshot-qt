@@ -125,6 +125,49 @@ class SettingStore(JsonDataStore):
             # try to save data to file, will raise exception on failure
             self.write_to_file(file_path, self._data)
 
+    def restore(self):
+        """Restore settings to default, preserving specific keys using the merge function."""
+        log.info("Restoring settings to default, except for specific keys.")
+
+        # Keys to be preserved
+        preserve_keys = ['unique_install_id', 'theme', 'default-language', 'tutorial_ids',
+                         'tutorial_enabled', 'send_metrics', 'recent_projects']
+
+        # Load the default settings
+        try:
+            default_settings = self.read_from_file(self.defaults_path)
+        except Exception as ex:
+            log.error(f"Failed to load default settings: {ex}")
+            return False
+
+        # Try to find the user settings file
+        if os.path.exists(info.USER_PATH):
+            file_path = os.path.join(info.USER_PATH, self.settings_filename)
+            try:
+                # Load current user settings if they exist
+                if os.path.exists(os.fsencode(file_path)):
+                    user_settings = self.read_from_file(file_path)
+                else:
+                    user_settings = {}
+
+                # Filter user settings to only keep the ones in preserve_keys
+                preserved_settings = [item for item in user_settings if item.get("setting") in preserve_keys]
+
+                # Use the existing merge function to combine default settings with preserved ones
+                merged_settings = self.merge_settings(default_settings, preserved_settings)
+
+                # Write the merged settings to the user settings file
+                self.write_to_file(file_path, merged_settings)
+                log.info("User settings file successfully overwritten with default settings, preserving specific keys.")
+
+            except Exception as ex:
+                log.error(f"Failed to overwrite user settings file: {ex}")
+                return False
+
+            # Update in-memory settings data
+            self._data = merged_settings
+        return True
+
     def pathSettings(self, action: actionType):
         """Given an action, return the corresponding setting names"""
         if action == self.actionType.IMPORT:
