@@ -705,11 +705,16 @@ class Preferences(QDialog):
 
         # If the user confirms, restore the settings for the current category
         if reply == QMessageBox.Yes:
+            # Restore category settings
             self.requires_restart = self.s.restore(category_filter=category)
             self.settings_data = self.s.get_all_settings()
 
+            # Repopulate preferences
             self.Populate()
             self.tabCategories.setCurrentIndex(current_index)
+
+            # Update shortcuts on main window
+            get_app().window.initShortcuts()
 
     def closeEvent(self, event):
         """Signal for closing Preferences window"""
