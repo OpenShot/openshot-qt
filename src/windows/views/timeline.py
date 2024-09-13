@@ -37,7 +37,7 @@ from operator import itemgetter
 from random import uniform
 
 import openshot
-from PyQt5.QtCore import pyqtSlot, Qt, QCoreApplication, QTimer, pyqtSignal
+from PyQt5.QtCore import pyqtSlot, Qt, QCoreApplication, QTimer, pyqtSignal, QPointF
 from PyQt5.QtGui import QCursor, QKeySequence
 from PyQt5.QtWidgets import QDialog
 
@@ -3259,11 +3259,25 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.window.dockFiles.raise_()
             self.window.dockFiles.activateWindow()
 
+            if not event.mimeData().hasUrls():
+                log.debug("Ignoring OS drop because has no URL")
+                return
+
             # Add new files to project
+            urls = event.mimeData().urls()
             self.window.filesView.dropEvent(event)
 
+            # Get FPS from project and calculate the FPS float value
+            fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
+            current_scale = float(get_app().project.get("scale") or 15.0)
+            pixels_per_second = 100.0 / current_scale
+            snap_to_grid = lambda t: round(t * fps_float) / fps_float
+
+            # Snap the initial position (X value) to the FPS grid
+            pos.setX(snap_to_grid(pos.x()))
+
             # Add clips for each file dropped
-            for uri in event.mimeData().urls():
+            for uri in urls:
                 filepath = uri.toLocalFile()
                 if not os.path.exists(filepath) or not os.path.isfile(filepath):
                     continue
@@ -3271,8 +3285,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Valid file, so create clip for it
                 log.debug('Adding clip for {}'.format(os.path.basename(filepath)))
                 for file in File.filter(path=filepath):
-                    # Insert clip for this file at this position
+                    # Calculate the duration in frames, snapping it to the FPS grid
+                    duration_in_seconds = float(file.data["duration"])
+                    if file.data["media_type"] == "image":
+                        duration_in_seconds = get_app().get_settings().get("default-image-length")
+                    duration = snap_to_grid(duration_in_seconds)
+
+                        # Add clip at snapped position and increment position for the next clip
                     self.addClip([file.id], pos)
+                    pos += QPointF(duration * pixels_per_second, 0.0)
 
         # Clear new clip
         self.new_item = False
