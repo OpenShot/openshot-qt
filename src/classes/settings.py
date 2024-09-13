@@ -125,48 +125,59 @@ class SettingStore(JsonDataStore):
             # try to save data to file, will raise exception on failure
             self.write_to_file(file_path, self._data)
 
-    def restore(self):
-        """Restore settings to default, preserving specific keys using the merge function."""
-        log.info("Restoring settings to default, except for specific keys.")
+    def restore(self, category_filter=None):
+        """
+        Restore settings to default, optionally filtering by category, and preserving specific keys.
+        Return True if any settings with 'restart: True' are changed.
+        """
+        log.info(f"Restoring defaults for category: {category_filter or 'all categories'}")
+        preserve_keys = ['unique_install_id', 'tutorial_ids', 'tutorial_enabled', 'send_metrics', 'recent_projects']
 
-        # Keys to be preserved
-        preserve_keys = ['unique_install_id', 'theme', 'default-language', 'tutorial_ids',
-                         'tutorial_enabled', 'send_metrics', 'recent_projects']
+        requires_restart = False  # Track if any setting requires a restart
 
-        # Load the default settings
         try:
             default_settings = self.read_from_file(self.defaults_path)
         except Exception as ex:
-            log.error(f"Failed to load default settings: {ex}")
+            log.error(f"Error loading default settings: {ex}")
             return False
 
-        # Try to find the user settings file
         if os.path.exists(info.USER_PATH):
             file_path = os.path.join(info.USER_PATH, self.settings_filename)
             try:
-                # Load current user settings if they exist
-                if os.path.exists(os.fsencode(file_path)):
-                    user_settings = self.read_from_file(file_path)
-                else:
-                    user_settings = {}
+                user_settings = self.read_from_file(file_path) if os.path.exists(os.fsencode(file_path)) else []
 
-                # Filter user settings to only keep the ones in preserve_keys
-                preserved_settings = [item for item in user_settings if item.get("setting") in preserve_keys]
+                # Convert user settings to a dict for easier lookup
+                user_settings_dict = {item['setting']: item for item in user_settings}
 
-                # Use the existing merge function to combine default settings with preserved ones
-                merged_settings = self.merge_settings(default_settings, preserved_settings)
+                # Keep settings outside the filter or in the preserved keys
+                updated_settings = [
+                    item for item in user_settings
+                    if item.get("category") != category_filter or item.get("setting") in preserve_keys
+                ]
 
-                # Write the merged settings to the user settings file
-                self.write_to_file(file_path, merged_settings)
-                log.info("User settings file successfully overwritten with default settings, preserving specific keys.")
+                # Add default settings for the current category, ignoring preserved keys
+                for item in default_settings:
+                    if item.get("category") == category_filter and item.get("setting") not in preserve_keys:
+                        default_value = item.get("value")
+                        user_value = user_settings_dict.get(item['setting'], {}).get("value")
+
+                        # If the value has changed, and restart is required, set the flag
+                        if item.get("restart") == True and default_value != user_value:
+                            requires_restart = True
+
+                        # Append the default setting to updated settings
+                        updated_settings.append(item)
+
+                # Save the updated settings back to the user file
+                self.write_to_file(file_path, updated_settings)
+                log.info(f"Settings updated successfully for category: {category_filter}")
 
             except Exception as ex:
-                log.error(f"Failed to overwrite user settings file: {ex}")
+                log.error(f"Error saving settings: {ex}")
                 return False
 
-            # Update in-memory settings data
-            self._data = merged_settings
-        return True
+        self._data = updated_settings
+        return requires_restart
 
     def pathSettings(self, action: actionType):
         """Given an action, return the corresponding setting names"""

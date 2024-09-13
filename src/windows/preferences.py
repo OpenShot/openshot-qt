@@ -67,6 +67,9 @@ class Preferences(QDialog):
         # Init UI
         ui_util.init_ui(self)
 
+        # Define the custom category order
+        self.custom_order = ["General", "Preview", "Autosave", "Cache", "Debug", "Keyboard", "Performance", "Location"]
+
         # Get settings
         self.s = get_app().get_settings()
 
@@ -85,9 +88,10 @@ class Preferences(QDialog):
             if "setting" in item and "value" in item:
                 self.params[item["setting"]] = item
 
-        # Connect search textbox
+        # Connect signals
         self.txtSearch.textChanged.connect(self.txtSearch_changed)
         self.btnRestoreDefaults.clicked.connect(self.confirm_restore_defaults)
+        self.tabCategories.currentChanged.connect(self.category_tab_changed)
 
         self.requires_restart = False
         self.category_names = {}
@@ -103,6 +107,20 @@ class Preferences(QDialog):
 
         # Restore normal cursor
         get_app().restoreOverrideCursor()
+
+    def category_tab_changed(self, index):
+        """Update the Restore Defaults button label based on the selected tab."""
+        # Get the current widget for the selected tab
+        current_widget = self.tabCategories.widget(index)
+        if not current_widget:
+            return
+
+        # Retrieve the non-translated category using the object name
+        non_translated_category = current_widget.objectName()
+
+        # Update the Restore Defaults button label
+        if non_translated_category:
+            self.btnRestoreDefaults.setText(f"Restore Defaults: {non_translated_category}")
 
     def txtSearch_changed(self):
         """textChanged event handler for search box"""
@@ -128,7 +146,6 @@ class Preferences(QDialog):
 
     def Populate(self, filter=""):
         """Populate all preferences and tabs"""
-
         # get translations
         app = get_app()
         _ = app._tr
@@ -138,51 +155,46 @@ class Preferences(QDialog):
 
         self.category_names = {}
         self.category_tabs = {}
-        self.category_sort = {}
         self.visible_category_names = {}
 
-        # Loop through settings and find all unique categories
+        # Loop through settings and collect categories
         for item in self.settings_data:
             category = item.get("category")
             setting_type = item.get("type")
-            sort_category = item.get("sort")
-
-            # Indicate sorted category
-            if sort_category:
-                self.category_sort[category] = sort_category
 
             if setting_type != "hidden":
                 # Load setting
                 if category not in self.category_names:
                     self.category_names[category] = []
 
-                    # Create scrollarea
-                    scroll_area = QScrollArea(self)
-                    scroll_area.setWidgetResizable(True)
-                    scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-                    scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-                    scroll_area.setMinimumSize(675, 100)
-
-                    # Create tab widget and layout
-                    layout = QVBoxLayout()
-                    tabWidget = QWidget(self)
-                    tabWidget.setObjectName("PreferencePanel")
-                    tabWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-                    tabWidget.setLayout(layout)
-                    scroll_area.setWidget(tabWidget)
-
-                    # Add tab
-                    self.tabCategories.addTab(scroll_area, _(category))
-                    self.category_tabs[category] = tabWidget
-
-                # Append translated title
-                item["title_tr"] = _(item.get("title"))
-
                 # Append settings into correct category
                 self.category_names[category].append(item)
 
-        # Loop through each category setting, and add them to the tabs
-        for category in dict(self.category_tabs).keys():
+        # Create tabs in the predefined order (only add categories present in settings_data)
+        for category in self.custom_order:
+            if category in self.category_names:
+                # Create scroll area
+                scroll_area = QScrollArea(self)
+                scroll_area.setWidgetResizable(True)
+                scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+                scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                scroll_area.setMinimumSize(675, 100)
+
+                # Create tab widget and layout
+                layout = QVBoxLayout()
+                tabWidget = QWidget(self)
+                tabWidget.setObjectName("PreferencePanel")
+                tabWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+                tabWidget.setLayout(layout)
+                scroll_area.setWidget(tabWidget)
+                scroll_area.setObjectName(category)
+
+                # Add tab in the predefined order
+                self.tabCategories.addTab(scroll_area, _(category))
+                self.category_tabs[category] = tabWidget
+
+        # Now populate each tab with settings
+        for category in self.custom_order:
             tabWidget = self.category_tabs[category]
             filterFound = False
 
@@ -673,19 +685,31 @@ class Preferences(QDialog):
         return is_supported
 
     def confirm_restore_defaults(self):
-        """Prompt the user for confirmation before restoring defaults."""
+        """Prompt the user for confirmation before restoring defaults for the current tab."""
+        # Get the current tab index and widget
+        current_index = self.tabCategories.currentIndex()
+        current_widget = self.tabCategories.widget(current_index)
+
+        # Retrieve the non-translated category using the object name
+        category = current_widget.objectName()
+
+        # Prompt the user for confirmation using named placeholders in the translation
         _ = get_app()._tr
         reply = QMessageBox.question(
             self,
-            _('Restore Defaults'),
-            _('Are you sure you want to restore preferences to their default values?'),
+            _('Restore Defaults: {category}').format(category=category),
+            _('Restore default values for {category}?').format(category=category),
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
         )
 
+        # If the user confirms, restore the settings for the current category
         if reply == QMessageBox.Yes:
-            self.s.restore()
+            self.requires_restart = self.s.restore(category_filter=category)
+            self.settings_data = self.s.get_all_settings()
+
             self.Populate()
+            self.tabCategories.setCurrentIndex(current_index)
 
     def closeEvent(self, event):
         """Signal for closing Preferences window"""
