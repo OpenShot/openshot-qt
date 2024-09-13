@@ -880,7 +880,7 @@ App.controller("TimelineCtrl", function ($scope) {
     x += horz_scroll_offset;
 
     // Convert x into position in seconds
-    var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
+    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(x - scrolling_tracks_offset_left)));
     if (clip_position < 0) {
       clip_position = 0;
     }
