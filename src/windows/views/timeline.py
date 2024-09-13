@@ -590,7 +590,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
             Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
-            Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids, []))
+            Copy_All.triggered.connect(self.window.copyAll)
+            # Show Cut All menu
+            Cut_All = menu.addAction(_("Cut"))
+            Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+            Cut_All.triggered.connect(self.window.cutAll)
         else:
             # Only a single clip is selected (Show normal copy menus)
             Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
@@ -631,6 +635,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.Copy_Triggered, MenuCopy.ALL_EFFECTS, [clip_id], [], []))
             Copy_Menu.addMenu(Keyframe_Menu)
             menu.addMenu(Copy_Menu)
+
+            # Show Cut menu
+            Cut_All = menu.addAction(_("Cut"))
+            Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+            Cut_All.triggered.connect(self.window.cutAll)
 
         # Determine if the paste menu should be shown (for partial copied clip data)
         if has_clipboard:
@@ -2650,10 +2659,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Copy Menu
         if len(tran_ids) + len(clip_ids) > 1:
-            # Copy All Menu (Clips and/or transitions are selected)
+            # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
             Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
-            Copy_All.triggered.connect(partial(self.Copy_Triggered, MenuCopy.ALL, clip_ids, tran_ids, []))
+            Copy_All.triggered.connect(self.window.copyAll)
+            # Show Cut All menu
+            Cut_All = menu.addAction(_("Cut"))
+            Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+            Cut_All.triggered.connect(self.window.cutAll)
         else:
             # Only a single transitions is selected (show normal transition copy menu)
             Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
@@ -2676,6 +2689,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Only show copy->keyframe if a single transitions is selected
             Copy_Menu.addMenu(Keyframe_Menu)
             menu.addMenu(Copy_Menu)
+
+        # Show Cut menu
+        Cut_All = menu.addAction(_("Cut"))
+        Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+        Cut_All.triggered.connect(self.window.cutAll)
 
         # Determine if the paste menu should be shown
         if has_clipboard:
