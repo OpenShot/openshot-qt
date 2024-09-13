@@ -1571,7 +1571,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         all_marker_positions = self.findAllMarkerPositions()
 
         # Loop through all markers, and find the closest one to the left
-        closest_position = Non
+        closest_position = None
         for marker_position in sorted(all_marker_positions):
             # Is marker smaller than position?
             if marker_position < current_position and (abs(marker_position - current_position) > 0.001):
@@ -1682,43 +1682,53 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         return keyboard_shortcuts
 
     def initShortcuts(self):
-        """ Initialize / update QShortcuts for the main window actions """
-        # Clear all existing shortcuts for QAction objects
-        for action in self.findChildren(QAction):
-            action.setShortcut(QKeySequence())  # Clear any default shortcuts
+        """Initialize / update QShortcuts for the main window actions."""
 
-        # Dictionary to store all shortcut objects so they don't go out of scope
+        # Store all QShortcuts so they don't go out of scope
         if not hasattr(self, 'shortcuts'):
-            self.shortcuts = {}
+            self.shortcuts = []
 
-        # Automatically create shortcuts that follow the pattern self.SHORTCUTNAME or self.SHORTCUTNAME.trigger
+        # Clear previous QShortcuts
+        for shortcut in self.shortcuts:
+            shortcut.setParent(None)  # Remove shortcuts by clearing parent
+
+        self.shortcuts.clear()  # Clear list of previous shortcuts
+
+        # Set to track all key sequences and prevent duplication
+        used_shortcuts = set()
+
+        # Automatically create shortcuts that follow the pattern self.SHORTCUTNAME
         for shortcut in self.getAllKeyboardShortcuts():
             method_name = shortcut.get('setting')
             shortcut_value = shortcut.get('value')
 
-            # Remove any trailing numbers from the method name
+            # Split the shortcut values by the pipe '|' and strip any surrounding whitespace
+            shortcut_sequences = [s.strip() for s in shortcut_value.split('|')]
+
+            # Remove any trailing numbers from the method name (i.e., strip suffix for alternates)
             base_method_name = re.sub(r'\d+$', '', method_name)
 
-            # Check if this method_name refers to a QAction or a method
+            # Apply the shortcuts to the corresponding QAction or method
             if hasattr(self, base_method_name):
                 obj = getattr(self, base_method_name)
 
-                if isinstance(obj, QAction):
-                    # If it's a QAction, set its shortcut
-                    obj.setShortcut(QKeySequence(shortcut_value))
-                else:
-                    # If it's a method or has a trigger, create or update the QShortcut
-                    try:
-                        method = obj.trigger  # Check for self.SHORTCUT.trigger
-                    except AttributeError:
-                        method = obj  # If no .trigger, assume it's a method
+                key_sequences = [QKeySequence(seq) for seq in shortcut_sequences if seq]  # Create QKeySequence list
 
-                    if method_name in self.shortcuts:
-                        self.shortcuts[method_name].setKey(QKeySequence(shortcut_value))
-                    else:
-                        self.shortcuts[method_name] = QShortcut(QKeySequence(shortcut_value), self, activated=method, context=Qt.WindowShortcut)
+                if isinstance(obj, QAction):
+                    # Handle QAction with multiple key sequences using setShortcuts()
+                    obj.setShortcuts(key_sequences)
+                else:
+                    # If it's a method, create QShortcuts for each key sequence
+                    for key_seq_obj in key_sequences:
+                        if key_seq_obj not in used_shortcuts:  # Avoid assigning duplicate shortcuts
+                            qshortcut = QShortcut(key_seq_obj, self, activated=obj, context=Qt.WindowShortcut)
+                            self.shortcuts.append(qshortcut)  # Keep reference to avoid garbage collection
+                            used_shortcuts.add(key_seq_obj)  # Track the shortcut as used
+                        else:
+                            log.warning(
+                                f"Duplicate shortcut {key_seq_obj.toString()} detected for {base_method_name}. Skipping.")
             else:
-                log.warning(f"Shortcut {method_name} does not have a matching method or QAction.")
+                log.warning(f"Shortcut {base_method_name} does not have a matching method or QAction.")
 
         # Log shortcut initialization completion
         log.debug("Shortcuts initialized or updated.")
@@ -1878,6 +1888,38 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
+
+    # def actionInsertKeyframePosition_Triggered(self):
+    #     """Insert a 'Location' / 'Position' keyframe"""
+    #     log.info("Inserting keyframe for position")
+    #
+    # def actionInsertKeyframeScale_Triggered(self):
+    #     """Insert a 'Scale' keyframe"""
+    #     log.info("Inserting keyframe for scale")
+    #
+    # def actionInsertKeyframeRotation_Triggered(self):
+    #     """Insert a 'Rotation' keyframe"""
+    #     log.info("Inserting keyframe for rotation")
+    #
+    # def actionInsertKeyframeAlpha_Triggered(self):
+    #     """Insert an 'Alpha' keyframe"""
+    #     log.info("Inserting keyframe for alpha (opacity)")
+    #
+    # def actionRippleDelete_Triggered(self):
+    #     """Removes a clip or transition and shifts the timeline accordingly"""
+    #     log.info("Performing ripple delete")
+    #
+    # def actionRippleSelect_Triggered(self):
+    #     """Selects ALL clips or transitions to the right of the current selected item"""
+    #     log.info("Selecting clips for ripple editing")
+    #
+    # def actionRippleSliceKeepLeft_Triggered(self):
+    #     """Slice and keep the left side of a clip/transition, and then ripple the position change to the right."""
+    #     log.info("Slicing timeline and keeping the left side")
+    #
+    # def actionRippleSliceKeepRight_Triggered(self):
+    #     """Slice and keep the right side of a clip/transition, and then ripple the position change to the right."""
+    #     log.info("Slicing timeline and keeping the right side")
 
     def actionProperties_trigger(self):
         log.debug('actionProperties_trigger')
@@ -3103,19 +3145,30 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Handle Copy QShortcut (selected clips / transitions)"""
         self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions, [])
 
+    def cutAll(self):
+        """Copy and remove the currently selected clip/transition"""
+        self.copyAll()
+        self.deleteItem()
+
+    def pasteAll(self):
+        """Handle Paste QShortcut (at timeline position, same track as original clip)"""
+        self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
+
     def nudgeLeft(self):
         """Nudge the selected clips to the left"""
         self.timeline.Nudge_Triggered(-1, self.selected_clips, self.selected_transitions)
+
+    def nudgeLeftBig(self):
+        """Nudge the selected clip/transition to the left (5 pixels)"""
+        self.timeline.Nudge_Triggered(-5, self.selected_clips, self.selected_transitions)
 
     def nudgeRight(self):
         """Nudge the selected clips to the right"""
         self.timeline.Nudge_Triggered(1, self.selected_clips, self.selected_transitions)
 
-    def pasteAll(self):
-        """Handle Paste QShortcut (at timeline position, same track as original clip)"""
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
-        self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
+    def nudgeRightBig(self):
+        """Nudge the selected clip/transition to the right (5 pixels)"""
+        self.timeline.Nudge_Triggered(5, self.selected_clips, self.selected_transitions)
 
     def eventFilter(self, obj, event):
         """Filter out certain QShortcuts - for example, arrow keys used

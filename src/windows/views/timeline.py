@@ -1779,90 +1779,33 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             .format(local_mouse_pos.x(), local_mouse_pos.y()), partial(callback, self, clip_ids, tran_ids))
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
-        """Callback for clip nudges"""
-        log.debug("Nudging clip(s) and/or transition(s)")
-        left_edge = -1.0
-        right_edge = -1.0
-
-        # Determine how far we're going to nudge (1/2 frame or 0.01s, whichever is larger)
+        """Callback for nudging clips/transitions by a specified number of frames."""
+        # Determine the nudge duration in seconds based on the FPS
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        nudgeDistance = float(action) / float(fps_float)
-        nudgeDistance /= 2.0  # 1/2 frame
-        if abs(nudgeDistance) < 0.01:
-            nudgeDistance = 0.01 * action  # nudge is less than the minimum of +/- 0.01s
-        log.debug("Nudging by %s sec" % nudgeDistance)
+        nudge_duration = float(action) / fps_float  # Nudge duration in seconds
+        log.debug(f"Nudging by {nudge_duration} seconds")
 
-        # Loop through each selected clip (find furthest left and right edge)
+        # Nudge all selected clips
         for clip_id in clip_ids:
-            # Get existing clip object
             clip = Clip.get(id=clip_id)
             if not clip:
-                # Invalid clip, skip to next item
                 continue
 
-            position = float(clip.data["position"])
-            start_of_clip = float(clip.data["start"])
-            end_of_clip = float(clip.data["end"])
-
-            if position < left_edge or left_edge == -1.0:
-                left_edge = position
-            if position + (end_of_clip - start_of_clip) > right_edge or right_edge == -1.0:
-                right_edge = position + (end_of_clip - start_of_clip)
-
-            # Do not nudge beyond the start of the timeline
-            if left_edge + nudgeDistance < 0.0:
-                log.info("Cannot nudge beyond start of timeline")
-                nudgeDistance = 0
-
-        # Loop through each selected transition (find furthest left and right edge)
-        for tran_id in tran_ids:
-            # Get existing transition object
-            tran = Transition.get(id=tran_id)
-            if not tran:
-                # Invalid transition, skip to next item
-                continue
-
-            position = float(tran.data["position"])
-            start_of_tran = float(tran.data["start"])
-            end_of_tran = float(tran.data["end"])
-
-            if position < left_edge or left_edge == -1.0:
-                left_edge = position
-            if position + (end_of_tran - start_of_tran) > right_edge or right_edge == -1.0:
-                right_edge = position + (end_of_tran - start_of_tran)
-
-            # Do not nudge beyond the start of the timeline
-            if left_edge + nudgeDistance < 0.0:
-                log.info("Cannot nudge beyond start of timeline")
-                nudgeDistance = 0
-
-        # Loop through each selected clip (update position to align clips)
-        for clip_id in clip_ids:
-            # Get existing clip object
-            clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
-                continue
-
-            # Do the nudge
-            clip.data['position'] += nudgeDistance
-
-            # Save changes
+            # Apply the nudge and ensure the position doesn't go below 0
+            new_position = max(clip.data['position'] + nudge_duration, 0.0)
+            clip.data['position'] = new_position
             self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-        # Loop through each selected transition (update position to align clips)
+        # Nudge all selected transitions
         for tran_id in tran_ids:
-            # Get existing transition object
             tran = Transition.get(id=tran_id)
             if not tran:
-                # Invalid transition, skip to next item
                 continue
 
-            # Do the nudge
-            tran.data['position'] += nudgeDistance
-
-            # Save changes
+            # Apply the nudge and ensure the position doesn't go below 0
+            new_position = max(tran.data['position'] + nudge_duration, 0.0)
+            tran.data['position'] = new_position
             self.update_transition_data(tran.data, only_basic_props=False)
 
     def Align_Triggered(self, action, clip_ids, tran_ids):

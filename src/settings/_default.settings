@@ -578,15 +578,7 @@
     "title": "Toggle Razor",
     "restart": false,
     "setting": "actionRazorTool",
-    "value": "C",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Toggle Razor (Alternate 1)",
-    "restart": false,
-    "setting": "actionRazorTool",
-    "value": "B",
+    "value": "C | B | R",
     "type": "text"
   },
   {
@@ -594,15 +586,7 @@
     "title": "Previous Marker",
     "restart": false,
     "setting": "actionPreviousMarker",
-    "value": "Ctrl+Shift+M",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Previous Marker (Alternate 1)",
-    "restart": false,
-    "setting": "actionPreviousMarker",
-    "value": "Ctrl+Left",
+    "value": "Ctrl+Shift+M | Alt+Left",
     "type": "text"
   },
   {
@@ -610,15 +594,7 @@
     "title": "Next Marker",
     "restart": false,
     "setting": "actionNextMarker",
-    "value": "Shift+M",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Next Marker (Alternate 1)",
-    "restart": false,
-    "setting": "actionNextMarker",
-    "value": "Ctrl+Right",
+    "value": "Shift+M | Alt+Right",
     "type": "text"
   },
   {
@@ -666,15 +642,7 @@
     "title": "Export Video",
     "restart": false,
     "setting": "actionExportVideo",
-    "value": "Ctrl+E",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Export Video (Alternate 1)",
-    "restart": false,
-    "setting": "actionExportVideo",
-    "value": "Ctrl+M",
+    "value": "Ctrl+E | Ctrl+M",
     "type": "text"
   },
   {
@@ -770,15 +738,7 @@
     "title": "Zoom In",
     "restart": false,
     "setting": "actionTimelineZoomIn",
-    "value": "=",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Zoom In (Alternate 1)",
-    "restart": false,
-    "setting": "actionTimelineZoomIn",
-    "value": "Ctrl+=",
+    "value": "= | Ctrl+=",
     "type": "text"
   },
   {
@@ -786,15 +746,7 @@
     "title": "Zoom Out",
     "restart": false,
     "setting": "actionTimelineZoomOut",
-    "value": "-",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Zoom Out (Alternate 1)",
-    "restart": false,
-    "setting": "actionTimelineZoomOut",
-    "value": "Ctrl+-",
+    "value": "- | Ctrl+-",
     "type": "text"
   },
   {
@@ -802,15 +754,7 @@
     "title": "Previous Frame",
     "restart": false,
     "setting": "seekPreviousFrame",
-    "value": "Left",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Previous Frame (Alternate 1)",
-    "restart": false,
-    "setting": "seekPreviousFrame",
-    "value": ",",
+    "value": "Left | ,",
     "type": "text"
   },
   {
@@ -818,15 +762,7 @@
     "title": "Next Frame",
     "restart": false,
     "setting": "seekNextFrame",
-    "value": "Right",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Next Frame (Alternate 1)",
-    "restart": false,
-    "setting": "seekNextFrame",
-    "value": ".",
+    "value": "Right | .",
     "type": "text"
   },
   {
@@ -850,31 +786,7 @@
     "title": "Play/Pause Toggle",
     "restart": false,
     "setting": "playToggle",
-    "value": "Space",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Play/Pause Toggle (Alternate 1)",
-    "restart": false,
-    "setting": "playToggle1",
-    "value": "Up",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Play/Pause Toggle (Alternate 2)",
-    "restart": false,
-    "setting": "playToggle2",
-    "value": "Down",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Play/Pause Toggle (Alternate 3)",
-    "restart": false,
-    "setting": "playToggle3",
-    "value": "K",
+    "value": "Space | Up | Down | K",
     "type": "text"
   },
   {
@@ -882,15 +794,7 @@
     "title": "Delete Item",
     "restart": false,
     "setting": "deleteItem",
-    "value": "Delete",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Delete Item (Alternate 1)",
-    "restart": false,
-    "setting": "deleteItem1",
-    "value": "Backspace",
+    "value": "Delete | Backspace",
     "type": "text"
   },
   {
