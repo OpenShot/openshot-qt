@@ -225,13 +225,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             existing_clip.data.pop("reader")
 
         # Set transaction id (if any)
-        get_app().updates.transaction_id = transaction_id
+        if transaction_id:
+            get_app().updates.transaction_id = transaction_id
 
         # Save clip
         existing_clip.save()
 
-        # Clear transaction id
-        get_app().updates.transaction_id = None
+        if transaction_id:
+            get_app().updates.transaction_id = None
 
         # Notify UI to ignore OR not ignore updates
         self.window.IgnoreUpdates.emit(ignore_refresh)
@@ -282,8 +283,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # Javascript callable function to update the project data when a transition changes
     @pyqtSlot(str, bool, bool, str)
-    def update_transition_data(self, transition_json, only_basic_props=True,
-                               ignore_refresh=False, transaction_id=None):
+    def update_transition_data(self, transition_json, only_basic_props=True, ignore_refresh=False, transaction_id=None):
         """ Create an updateAction and send it to the update manager.
             Transaction ID is for undo/redo grouping (if any) """
 
@@ -383,13 +383,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             return
 
         # Set transaction id (if any)
-        get_app().updates.transaction_id = transaction_id
+        if transaction_id:
+            get_app().updates.transaction_id = transaction_id
 
         # Save transition
         existing_item.save()
 
-        # Clear transaction id
-        get_app().updates.transaction_id = None
+        if transaction_id:
+            get_app().updates.transaction_id = None
 
         # Notify UI to ignore OR not ignore updates
         self.window.IgnoreUpdates.emit(ignore_refresh)
@@ -985,6 +986,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
                 Slice_Keep_Right.triggered.connect(partial(
                     self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [clip_id], [], playhead_position))
+
+                # Add slice clip menu w/ Ripple
+                Slice_Menu.addSeparator()
+                Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side (Ripple)"))
+                Slice_Keep_Left.triggered.connect(partial(
+                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, [clip_id], [], playhead_position, True))
+                Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side (Ripple)"))
+                Slice_Keep_Right.triggered.connect(partial(
+                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [clip_id], [], playhead_position, True))
+
                 menu.addMenu(Slice_Menu)
 
         # Transform menu
@@ -1235,7 +1246,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             clip.data["has_audio"] = {"Points": [p_object]}
 
             # Save filter on original clip
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=tid)
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
             clip.save()
 
         # Clear transaction
@@ -1976,7 +1987,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Slice transitions
             QTimer.singleShot(0, partial(self.Slice_Triggered, slice_mode, [], [trans_id], cursor_position))
 
-    def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0):
+    def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0, ripple=False):
         """Callback for slice context menus"""
         # Get FPS from project
         fps = get_app().project.get("fps")
@@ -1984,140 +1995,138 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         fps_den = float(fps["den"])
 
         # Get locked tracks from project
-        locked_layers = [
-            t.get("number")
-            for t in get_app().project.get("layers")
-            if t.get("lock")
-        ]
+        locked_layers = [t.get("number") for t in get_app().project.get("layers") if t.get("lock")]
 
         # Group transactions
         tid = self.get_uuid()
+        get_app().updates.transaction_id = tid
 
-        # Get the nearest starting frame position to the playhead (this helps to prevent cutting
-        # in-between frames, and thus less likely to repeat or skip a frame).
-        playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
+        try:
+            # Get the nearest starting frame position to the playhead (snap to frame boundaries)
+            playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
 
-        # Loop through each clip (using the list of ids)
-        for clip_id in clip_ids:
+            # Loop through each clip (using the list of ids)
+            for clip_id in clip_ids:
 
-            # Get existing clip object
-            clip = Clip.get(id=clip_id)
-            if not clip or clip.data.get("layer") in locked_layers:
-                # Invalid or locked clip, skip to next item
-                continue
-
-            if action in [MenuSlice.KEEP_LEFT, MenuSlice.KEEP_BOTH]:
-                # Get details of original clip
-                position_of_clip = float(clip.data["position"])
-                start_of_clip = float(clip.data["start"])
-
-                # Set new 'end' of clip
-                clip.data["end"] = start_of_clip + (playhead_position - position_of_clip)
-
-            elif action == MenuSlice.KEEP_RIGHT:
-                # Get details of original clip
-                position_of_clip = float(clip.data["position"])
-                start_of_clip = float(clip.data["start"])
-
-                # Set new 'end' of clip
-                clip.data["position"] = playhead_position
-                clip.data["start"] = start_of_clip + (playhead_position - position_of_clip)
-
-            if action == MenuSlice.KEEP_BOTH:
-                # Add the 2nd clip (the right side, since the left side has already been adjusted above)
-                # Get right side clip object
-                right_clip = Clip.get(id=clip_id)
-                if not right_clip:
-                    # Invalid clip, skip to next item
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+                if not clip or clip.data.get("layer") in locked_layers:
                     continue
 
-                # Remove the ID property from the clip (so it becomes a new one)
-                right_clip.id = None
-                right_clip.type = 'insert'
-                right_clip.data.pop('id')
-                right_clip.key.pop(1)
+                original_position = float(clip.data["position"])  # Original position in timeline seconds
+                start_of_clip = float(clip.data["start"])  # Trim start time in clip seconds
+                end_of_clip = float(clip.data["end"])  # Trim end time in clip seconds
+                original_duration = end_of_clip - start_of_clip  # Duration in media seconds
 
-                # Generate new ID to effects on the right (so they become new ones)
-                for clip_propertie_name, propertie_value in right_clip.data.items() :
-                    if clip_propertie_name == "effects":
-                        for item in propertie_value:
-                            item['id'] = get_app().project.generate_id()
+                if action == MenuSlice.KEEP_LEFT:
+                    # Keep the left side of the clip, adjust the "end" of the clip
+                    clip.data["end"] = start_of_clip + (playhead_position - original_position)
 
-                # Place the new clip at the playhead, starting where the last clip ended.
-                right_clip.data["position"] = float(playhead_position)
-                right_clip.data["start"] = float(clip.data["end"])
+                    if ripple:
+                        removed_duration = original_duration - (clip.data["end"] - start_of_clip)
+                        self.ripple_delete_gap(playhead_position, clip.data["layer"], removed_duration)
 
-                # Save changes
-                get_app().updates.transaction_id = tid
-                right_clip.save()
-                get_app().updates.transaction_id = None
+                elif action == MenuSlice.KEEP_RIGHT:
+                    # Keep the right side of the clip, adjust the "start" and "position"
+                    new_start = start_of_clip + (playhead_position - original_position)
+                    clip.data["position"] = playhead_position  # Set new timeline position
+                    clip.data["start"] = new_start
 
-                # Save changes again (with new thumbnail)
-                self.update_clip_data(right_clip.data, only_basic_props=True, ignore_reader=True, transaction_id=tid)
+                    if ripple:
+                        removed_duration = original_duration - (end_of_clip - new_start)
+                        clip.data["position"] = original_position  # Move right side back to original position
+                        self.ripple_delete_gap(playhead_position, clip.data["layer"], removed_duration)
 
-            # Save changes
-            self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True, transaction_id=tid)
+                elif action == MenuSlice.KEEP_BOTH:
+                    # Update clip data for the left clip
+                    clip.data["end"] = start_of_clip + (playhead_position - original_position)
 
-        # Start or restart timer to redraw audio waveforms
-        self.redraw_audio_timer.start()
+                    # Split into two clips (left and right side)
+                    right_clip = Clip.get(id=clip_id)
+                    if not right_clip:
+                        continue
 
-        # Loop through each transition (using the list of ids)
-        for trans_id in trans_ids:
-            # Get existing transition object
-            trans = Transition.get(id=trans_id)
-            if not trans or trans.data.get("layer") in locked_layers:
-                # Invalid or locked transition, skip to next item
-                continue
+                    # Create right side clip
+                    right_clip.id = None
+                    right_clip.type = 'insert'
+                    right_clip.data.pop('id')
+                    right_clip.key.pop(1)
+                    right_clip.data["position"] = playhead_position
+                    right_clip.data["start"] = clip.data["end"]
+                    right_clip.save()
 
-            if action in [MenuSlice.KEEP_LEFT, MenuSlice.KEEP_BOTH]:
-                # Get details of original transition
-                position_of_tran = float(trans.data["position"])
+                # Save changes for the left or right slice
+                self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True)
 
-                # Set new 'end' of transition
-                trans.data["end"] = playhead_position - position_of_tran
+            # Redraw audio waveforms
+            self.redraw_audio_timer.start()
 
-            elif action == MenuSlice.KEEP_RIGHT:
-                # Get details of transition clip
-                position_of_tran = float(trans.data["position"])
-                end_of_tran = float(trans.data["end"])
-
-                # Set new 'end' of transition
-                trans.data["position"] = playhead_position
-                trans.data["end"] = end_of_tran - (playhead_position - position_of_tran)
-
-            if action == MenuSlice.KEEP_BOTH:
-                # Add the 2nd transition (the right side, since the left side has already been adjusted above)
-                # Get right side transition object
-                right_tran = Transition.get(id=trans_id)
-                if not right_tran:
-                    # Invalid transition, skip to next item
+            # Handle transitions (similar to clips)
+            for trans_id in trans_ids:
+                trans = Transition.get(id=trans_id)
+                if not trans or trans.data.get("layer") in locked_layers:
                     continue
 
-                # Remove the ID property from the transition (so it becomes a new one)
-                right_tran.id = None
-                right_tran.type = 'insert'
-                right_tran.data.pop('id')
-                right_tran.key.pop(1)
+                original_position = float(trans.data["position"])  # Timeline position
+                start_of_tran = float(trans.data["start"])  # Trim start time
+                end_of_tran = float(trans.data["end"])  # Trim end time
+                original_duration = end_of_tran - start_of_tran  # Original duration in seconds
 
-                # Get details of original transition
-                end_of_tran = float(right_tran.data["end"])
+                if action == MenuSlice.KEEP_LEFT:
+                    # Keep the left side of the transition, adjust the "end"
+                    trans.data["end"] = start_of_tran + (playhead_position - original_position)
 
-                # Place the right transition at the position of the playhead.
-                right_tran.data["position"] = float(playhead_position)
-                # Duration of the right transition is the original duration, minus the length
-                # of the left side of the slice.
-                right_tran.data["end"] = float(end_of_tran - trans.data["end"])
+                    if ripple:
+                        removed_duration = original_duration - (trans.data["end"] - start_of_tran)
+                        self.ripple_delete_gap(playhead_position, trans.data["layer"], removed_duration)
 
-                # Save changes
-                get_app().updates.transaction_id = tid
-                right_tran.save()
-                get_app().updates.transaction_id = None
+                elif action == MenuSlice.KEEP_RIGHT:
+                    # Keep the right side of the transition
+                    new_start = start_of_tran + (playhead_position - original_position)
+                    trans.data["position"] = playhead_position
+                    trans.data["start"] = new_start
+                    if ripple:
+                        removed_duration = original_duration - (end_of_tran - new_start)
+                        trans.data["position"] = original_position
+                        self.ripple_delete_gap(playhead_position, trans.data["layer"], removed_duration)
 
-                # Save changes again (right side)
-                self.update_transition_data(right_tran.data, only_basic_props=False, transaction_id=tid)
+                elif action == MenuSlice.KEEP_BOTH:
+                    # Update data for the left transition
+                    trans.data["end"] = start_of_tran + (playhead_position - original_position)
 
-            # Save changes (left side)
-            self.update_transition_data(trans.data, only_basic_props=False, transaction_id=tid)
+                    # Split into two transitions (left and right side)
+                    right_tran = Transition.get(id=trans_id)
+                    if not right_tran:
+                        continue
+
+                    # Create right side transition
+                    right_tran.id = None
+                    right_tran.type = 'insert'
+                    right_tran.data.pop('id')
+                    right_tran.key.pop(1)
+                    right_tran.data["position"] = playhead_position
+                    right_tran.data["start"] = trans.data["end"]
+                    right_tran.save()
+
+                # Save changes for the left or right slice
+                self.update_transition_data(trans.data, only_basic_props=False)
+        finally:
+            get_app().updates.transaction_id = None
+
+    def ripple_delete_gap(self, ripple_start, layer, ripple_gap):
+        """Remove the ripple gap and adjust subsequent items"""
+        # Get all clips and transitions right of ripple_start in the given layer
+        clips = [clip for clip in Clip.filter(layer=layer) if clip.data.get("position", 0.0) >= ripple_start]
+        transitions = [tran for tran in Transition.filter(layer=layer) if tran.data.get("position", 0.0) >= ripple_start]
+
+        # Adjust all subsequent items by the ripple gap
+        for clip in clips:
+            clip.data["position"] -= ripple_gap
+            clip.save()
+
+        for trans in transitions:
+            trans.data["position"] -= ripple_gap
+            trans.save()
 
     def Volume_Triggered(self, action, clip_ids, position="Entire Clip", level=1.0):
         """Callback for volume context menus"""
@@ -2702,6 +2711,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
                 Slice_Keep_Right.triggered.connect(partial(
                     self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [], [tran_id], playhead_position))
+
+                # Add slice clip menu w/ Ripple
+                Slice_Menu.addSeparator()
+                Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side (Ripple)"))
+                Slice_Keep_Left.triggered.connect(partial(
+                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, [], [tran_id], playhead_position, True))
+                Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side (Ripple)"))
+                Slice_Keep_Right.triggered.connect(partial(
+                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [], [tran_id], playhead_position, True))
+
                 menu.addMenu(Slice_Menu)
 
         # Reverse Transition menu
@@ -2974,6 +2993,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.ClearAllSelections()
         get_app().processEvents()
 
+        # Group drag/drop transactions
+        tid = self.get_uuid()
+        get_app().updates.transaction_id = tid
+
         # If a plain text drag accept
         if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().html():
             # Get type of dropped data
@@ -3056,9 +3079,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Convert path to the correct relative path (based on this folder)
             file_path = file.absolute_path()
 
-            # Group transactions
-            tid = self.get_uuid()
-
             # Create clip object for this file
             c = openshot.Clip(file_path)
 
@@ -3090,11 +3110,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 new_clip["end"] = get_app().get_settings().get("default-image-length")  # default to 8 seconds
 
             # Add clip to timeline
-            self.update_clip_data(new_clip, only_basic_props=False, transaction_id=tid)
+            self.update_clip_data(new_clip, only_basic_props=False)
 
             # temp hold item_id
             self.item_ids.append(new_clip.get('id'))
-            self.item_tid = tid
 
             # Init javascript bounding box (for snapping support)
             self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
@@ -3133,9 +3152,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             fps = get_app().project.get("fps")
             fps_float = float(fps["num"]) / float(fps["den"])
 
-            # Group transactions
-            tid = self.get_uuid()
-
             # Open up QtImageReader for transition Image
             transition_reader = openshot.QtImageReader(file_path)
 
@@ -3160,11 +3176,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             }
 
             # Send to update manager
-            self.update_transition_data(transitions_data, only_basic_props=False, transaction_id=tid)
+            self.update_transition_data(transitions_data, only_basic_props=False)
 
             # temp keep track of id
             self.item_ids.append(transitions_data.get('id'))
-            self.item_tid = tid
 
             # Init javascript bounding box (for snapping support)
             self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, json.dumps(self.item_ids)))
@@ -3270,67 +3285,71 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get position of cursor
         pos = event.posF()
 
-        if self.item_type in ["clip", "transition"] and self.item_ids:
-            # Update most recent clip
-            self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}', '{}');".format(self.item_type,
-                                                                                              json.dumps(self.item_ids),
-                                                                                              self.item_tid))
+        try:
+            if self.item_type in ["clip", "transition"] and self.item_ids:
+                # Update most recent clip
+                self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}', '{}');".format(self.item_type,
+                                                                                                  json.dumps(self.item_ids),
+                                                                                                  get_app().updates.transaction_id))
 
-        elif self.item_type == "effect":
-            # Add effect only on drop
-            data = json.loads(event.mimeData().text())
-            self.addEffect(data, pos)
+            elif self.item_type == "effect":
+                # Add effect only on drop
+                data = json.loads(event.mimeData().text())
+                self.addEffect(data, pos)
 
-        elif self.item_type == "os_drop":
-            # Switch to Files dock
-            self.window.dockFiles.setVisible(True)
-            self.window.dockFiles.raise_()
-            self.window.dockFiles.activateWindow()
+            elif self.item_type == "os_drop":
+                # Switch to Files dock
+                self.window.dockFiles.setVisible(True)
+                self.window.dockFiles.raise_()
+                self.window.dockFiles.activateWindow()
 
-            if not event.mimeData().hasUrls():
-                log.debug("Ignoring OS drop because has no URL")
-                return
+                if not event.mimeData().hasUrls():
+                    log.debug("Ignoring OS drop because has no URL")
+                    return
 
-            # Add new files to project
-            urls = event.mimeData().urls()
-            self.window.filesView.dropEvent(event)
+                # Add new files to project
+                urls = event.mimeData().urls()
+                self.window.filesView.dropEvent(event)
 
-            # Get FPS from project and calculate the FPS float value
-            fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
-            current_scale = float(get_app().project.get("scale") or 15.0)
-            pixels_per_second = 100.0 / current_scale
-            snap_to_grid = lambda t: round(t * fps_float) / fps_float
+                # Get FPS from project and calculate the FPS float value
+                fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
+                current_scale = float(get_app().project.get("scale") or 15.0)
+                pixels_per_second = 100.0 / current_scale
+                snap_to_grid = lambda t: round(t * fps_float) / fps_float
 
-            # Snap the initial position (X value) to the FPS grid
-            pos.setX(snap_to_grid(pos.x()))
+                # Snap the initial position (X value) to the FPS grid
+                pos.setX(snap_to_grid(pos.x()))
 
-            # Add clips for each file dropped
-            for uri in urls:
-                filepath = uri.toLocalFile()
-                if not os.path.exists(filepath) or not os.path.isfile(filepath):
-                    continue
+                # Add clips for each file dropped
+                for uri in urls:
+                    filepath = uri.toLocalFile()
+                    if not os.path.exists(filepath) or not os.path.isfile(filepath):
+                        continue
 
-                # Valid file, so create clip for it
-                log.debug('Adding clip for {}'.format(os.path.basename(filepath)))
-                for file in File.filter(path=filepath):
-                    # Calculate the duration in frames, snapping it to the FPS grid
-                    duration_in_seconds = float(file.data["duration"])
-                    if file.data["media_type"] == "image":
-                        duration_in_seconds = get_app().get_settings().get("default-image-length")
-                    duration = snap_to_grid(duration_in_seconds)
+                    # Valid file, so create clip for it
+                    log.debug('Adding clip for {}'.format(os.path.basename(filepath)))
+                    for file in File.filter(path=filepath):
+                        # Calculate the duration in frames, snapping it to the FPS grid
+                        duration_in_seconds = float(file.data["duration"])
+                        if file.data["media_type"] == "image":
+                            duration_in_seconds = get_app().get_settings().get("default-image-length")
+                        duration = snap_to_grid(duration_in_seconds)
 
-                        # Add clip at snapped position and increment position for the next clip
-                    self.addClip(file.id, pos)
-                    pos += QPointF(duration * pixels_per_second, 0.0)
+                            # Add clip at snapped position and increment position for the next clip
+                        self.addClip(file.id, pos)
+                        pos += QPointF(duration * pixels_per_second, 0.0)
 
-        # Clear new clip
-        self.new_item = False
-        self.item_type = None
-        self.item_ids = []
+            # Clear new clip
+            self.new_item = False
+            self.item_type = None
+            self.item_ids = []
 
-        # Update the preview and reselct current frame in properties
-        self.window.refreshFrameSignal.emit()
-        self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+            # Update the preview and reselect current frame in properties
+            self.window.refreshFrameSignal.emit()
+            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+
+        finally:
+            get_app().updates.transaction_id = None
 
     def dragLeaveEvent(self, event):
         """A drag is in-progress and the user moves mouse outside of timeline"""
@@ -3359,7 +3378,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.new_item = False
         self.item_type = None
         self.item_ids = None
-        self.item_tid = None
 
     def redraw_audio_onTimeout(self):
         """Timer is ready to redraw audio (if any)"""
@@ -3437,7 +3455,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.new_item = False
         self.item_type = None
         self.item_ids = []
-        self.item_tid = None
 
         # Delayed zoom audio redraw
         self.redraw_audio_timer = QTimer(self)

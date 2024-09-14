@@ -1912,14 +1912,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     # def actionRippleSelect_Triggered(self):
     #     """Selects ALL clips or transitions to the right of the current selected item"""
     #     log.info("Selecting clips for ripple editing")
-    #
-    # def actionRippleSliceKeepLeft_Triggered(self):
-    #     """Slice and keep the left side of a clip/transition, and then ripple the position change to the right."""
-    #     log.info("Slicing timeline and keeping the left side")
-    #
-    # def actionRippleSliceKeepRight_Triggered(self):
-    #     """Slice and keep the right side of a clip/transition, and then ripple the position change to the right."""
-    #     log.info("Slicing timeline and keeping the right side")
+
+    def actionRippleSliceKeepLeft(self):
+        """Slice and keep the left side of a clip/transition, and then ripple the position change to the right."""
+        self.slice_clips(MenuSlice.KEEP_LEFT, selected_only=True, ripple=True)
+
+    def actionRippleSliceKeepRight(self):
+        """Slice and keep the right side of a clip/transition, and then ripple the position change to the right."""
+        self.slice_clips(MenuSlice.KEEP_RIGHT, selected_only=True, ripple=True)
 
     def actionProperties_trigger(self):
         log.debug('actionProperties_trigger')
@@ -3085,7 +3085,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         get_app().updates.transaction_id = tid
         self.actionRemoveTransition.trigger()
 
-    def slice_clips(self, slice_type, selected_only=False):
+    def slice_clips(self, slice_type, selected_only=False, ripple=False):
         """Helper function for slicing clips and transitions at the playhead position."""
         # Get framerate and calculate the playhead position
         fps = get_app().project.get("fps")
@@ -3107,7 +3107,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 trans_ids = [t.id for t in intersecting_trans]
 
             # Trigger the slice action with the appropriate slice type
-            self.timeline.Slice_Triggered(slice_type, clip_ids, trans_ids, playhead_position)
+            self.timeline.Slice_Triggered(slice_type, clip_ids, trans_ids, playhead_position, ripple)
 
     def sliceAllKeepBothSides(self):
         """Handler for slicing all clips and keeping both sides at the playhead position."""
