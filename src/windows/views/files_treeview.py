@@ -30,7 +30,7 @@
 import os
 
 from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtGui import QDrag, QCursor
+from PyQt5.QtGui import QDrag, QCursor, QPixmap, QPainter
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QSizePolicy, QHeaderView
 
 from classes import info
@@ -104,24 +104,54 @@ class FilesTreeView(QTreeView):
         # Get first column indexes for all selected rows
         selected = self.selectionModel().selectedRows(0)
 
-        # Get image of current item
-        current = self.selectionModel().currentIndex()
-        if not current.isValid() and selected:
-            current = selected[0]
-
-        if not current.isValid():
+        # Check if there are any selected items
+        if not selected:
             log.warning("No draggable items found in model!")
             return False
 
-        # Get icon from column 0 on same row as current item
-        icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+        # Get icons from up to 3 selected items
+        icons = []
+        for i in range(min(3, len(selected))):
+            current = selected[i]
+            icon = current.sibling(current.row(), 0).data(Qt.DecorationRole)
+            if icon:
+                icons.append(icon.pixmap(self.drag_item_size))
 
-        # Start drag operation
+        # If no icons were retrieved, abort the drag
+        if not icons:
+            log.warning("No valid icons found for dragging!")
+            return False
+
+        # Calculate the total width of the composite pixmap including gaps
+        gap = 1  # 1 pixel gap between icons
+        total_width = (self.drag_item_size.width() * len(icons)) + (gap * (len(icons) - 1))
+
+        # Create a composite pixmap to hold the icons in a row
+        composite_pixmap = QPixmap(total_width, self.drag_item_size.height())
+        composite_pixmap.fill(Qt.transparent)  # Start with a transparent background
+
+        # Use a QPainter to draw the icons in a row with 1 pixel gap between them
+        painter = QPainter(composite_pixmap)
+        for idx, icon_pixmap in enumerate(icons):
+            x_offset = idx * (self.drag_item_size.width() + gap)  # Position each icon with a gap
+            painter.drawPixmap(int(x_offset), 0, icon_pixmap)
+        painter.end()
+
+        # Start the drag operation
         drag = QDrag(self)
-        drag.setMimeData(self.model().mimeData(selected))
-        drag.setPixmap(icon.pixmap(self.drag_item_size))
-        drag.setHotSpot(self.drag_item_center)
-        drag.exec_()
+
+        # Combine all selected items into the mime data
+        mime_data = self.model().mimeData(selected)
+        drag.setMimeData(mime_data)
+
+        # Set the composite pixmap for the drag operation
+        drag.setPixmap(composite_pixmap)
+
+        # Set the hot spot to the center of the composite pixmap
+        drag.setHotSpot(composite_pixmap.rect().center())
+
+        # Execute the drag operation
+        drag.exec_(supportedActions)
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):

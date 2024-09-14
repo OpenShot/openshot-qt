@@ -911,44 +911,51 @@ App.controller("TimelineCtrl", function ($scope) {
       }
   };
 
-  // Get JSON of most recent item (used by Qt)
-  $scope.updateRecentItemJSON = function (item_type, item_id, item_tid) {
+// Get JSON of most recent items (used by Qt)
+$scope.updateRecentItemJSON = function (item_type, item_ids, item_tid) {
+  // Ensure item_ids is an array for consistency
+  item_ids = JSON.parse(item_ids);
 
+  // Iterate through each item_id
+  item_ids.forEach(function (item_id) {
     // Find item in JSON
     var item_object = null;
     if (item_type === "clip") {
       item_object = findElement($scope.project.clips, "id", item_id);
-    }
-    else if (item_type === "transition") {
+    } else if (item_type === "transition") {
       item_object = findElement($scope.project.effects, "id", item_id);
-    }
-    else {
-      // Bail out if no id found
+    } else {
+      // Bail out if no item_type matches
+      console.error("Invalid item_type: ", item_type);
       return;
     }
 
+    // Get recent move data
+    var element_id = item_type + "_" + item_id;
+    var top = bounding_box.move_clips[element_id].top;
+    var left = bounding_box.move_clips[element_id].left;
+
     // Get position of item (snapped to FPS grid)
-    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(bounding_box.left)));
+    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(left)));
 
     // Get the nearest track
     var layer_num = 0;
-    var nearest_track = findTrackAtLocation($scope, bounding_box.top);
+    var nearest_track = findTrackAtLocation($scope, top);
     if (nearest_track !== null) {
       layer_num = nearest_track.number;
     }
 
-    // update scope with final position of items
+    // Update scope with final position of the item
     $scope.$apply(function () {
-      // update item
+      // Update item with new position and layer
       item_object.position = clip_position;
       item_object.layer = layer_num;
     });
 
-    // update clip in Qt (very important =)
+    // Update clip or transition in Qt (very important)
     if (item_type === "clip") {
       timeline.update_clip_data(JSON.stringify(item_object), true, true, false, item_tid);
-    }
-    else if (item_type === "transition") {
+    } else if (item_type === "transition") {
       timeline.update_transition_data(JSON.stringify(item_object), true, false, item_tid);
     }
 
@@ -963,59 +970,89 @@ App.controller("TimelineCtrl", function ($scope) {
     if ($scope.Qt && missing_transition_details !== null) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
-    // Remove manual move stylesheet
-    if (bounding_box.element) {
-      bounding_box.element.removeClass("manual-move");
-    }
+  });
 
-    // Remove CSS class (after the drag)
-    bounding_box = {};
-  };
-
-  // Init bounding boxes for manual move
-  $scope.startManualMove = function (item_type, item_id) {
-    // Select the item
-    $scope.$apply(function () {
-      if (item_type === "clip") {
-        $scope.selectClip(item_id, true);
-      }
-      else if (item_type === "transition") {
-        $scope.selectTransition(item_id, true);
-      }
+  // Remove manual move stylesheet
+  if (bounding_box.elements) {
+    bounding_box.elements.each(function () {
+      $(this).removeClass("manual-move");
     });
+  }
 
-    // Select new clip object (and unselect others)
-    // This needs to be done inline due to async issues with the
-    // above calls to selectClip/selectTransition
+  // Reset bounding box
+  bounding_box = {};
+};
+
+// Init bounding boxes for manual move
+$scope.startManualMove = function (item_type, item_ids) {
+  console.log("Start manual move: " + item_ids);
+  // Ensure item_ids is an array for consistency
+  item_ids = JSON.parse(item_ids);
+
+  // Select new objects (and unselect others)
+  $scope.$apply(function () {
+    $scope.selectClip("", true);
+    $scope.selectTransition("", true);
+
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      $scope.project.clips[clip_index].selected = $scope.project.clips[clip_index].id === item_id;
+      $scope.project.clips[clip_index].selected = item_ids.includes($scope.project.clips[clip_index].id);
     }
 
-    // Select new transition object (and unselect others)
+    // Select new transition objects (and unselect others)
     for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
-      $scope.project.effects[tran_index].selected = $scope.project.effects[tran_index].id === item_id;
+      $scope.project.effects[tran_index].selected = item_ids.includes($scope.project.effects[tran_index].id);
     }
+  });
 
-    // JQuery selector for element (clip or transition)
-    var element_id = "#" + item_type + "_" + item_id;
+  // Prepare to store clip positions
+  var scrolling_tracks = $("#scrolling_tracks");
+  var vert_scroll_offset = scrolling_tracks.scrollTop();
+  var horz_scroll_offset = scrolling_tracks.scrollLeft();
 
-    // Init bounding box
-    bounding_box = {};
-    setBoundingBox($scope, $(element_id));
+  // Init bounding box
+  bounding_box = {};
 
-    // Init some variables to track the changing position
-    bounding_box.previous_x = bounding_box.left;
-    bounding_box.previous_y = bounding_box.top;
-    bounding_box.offset_x = 0;
-    bounding_box.offset_y = 0;
-    bounding_box.element = $(element_id);
-    bounding_box.track_position = 0;
+  // Set bounding box that contains all selected clips/transitions
+  var selectedClips = $(".ui-selected");
+  selectedClips.each(function () {
+    // Send each selected clip or transition to the bounding box builder
+    setBoundingBox($scope, $(this)); // Pass the element and scope to setBoundingBox
+  });
 
-    // Set z-order to be above other clips/transitions
-    if (item_type !== "os_drop" && bounding_box.element) {
-      bounding_box.element.addClass("manual-move");
-    }
-  };
+  // After calling setBoundingBox, now initialize the start_clips and move_clips
+  bounding_box.start_clips = {};
+  bounding_box.move_clips = {};
+
+  // Iterate again to set start_clips and move_clips properties
+  selectedClips.each(function () {
+    var element_id = $(this).attr("id");
+
+    // Store initial positions after setBoundingBox is called
+    bounding_box.start_clips[element_id] = {
+      "top": $(this).position().top + vert_scroll_offset,
+      "left": $(this).position().left + horz_scroll_offset
+    };
+    bounding_box.move_clips[element_id] = {
+      "top": $(this).position().top + vert_scroll_offset,
+      "left": $(this).position().left + horz_scroll_offset
+    };
+  });
+
+  // Init some variables to track the changing position
+  bounding_box.previous_x = bounding_box.left;
+  bounding_box.previous_y = bounding_box.top;
+  bounding_box.offset_x = 0;
+  bounding_box.offset_y = 0;
+  bounding_box.elements = selectedClips;
+  bounding_box.track_position = 0;
+
+  // Set z-order to be above other clips/transitions
+  if (item_type !== "os_drop") {
+    selectedClips.each(function () {
+      $(this).addClass("manual-move");
+    });
+  }
+};
 
 $scope.moveItem = function (x, y) {
   // Adjust x and y to account for the scroll position
@@ -1038,10 +1075,23 @@ $scope.moveItem = function (x, y) {
   bounding_box.previous_x = results.position.left;
   bounding_box.previous_y = results.position.top;
 
-  // Update the element's position
-  if (bounding_box.element) {
-    bounding_box.element.css("left", results.position.left + "px");
-    bounding_box.element.css("top", results.position.top + "px");
+  // Apply snapping results to the first clip and calculate the delta for the remaining clips
+  var delta_x = results.position.left - bounding_box.start_clips[bounding_box.elements.first().attr("id")].left;
+  var delta_y = results.position.top - bounding_box.start_clips[bounding_box.elements.first().attr("id")].top;
+
+  // Update the position of each selected element by applying the delta
+  if (bounding_box.elements) {
+    bounding_box.elements.each(function () {
+      var element_id = $(this).attr("id");
+      // Apply x_offset and y_offset to the starting position of each selected clip
+      var new_left = bounding_box.start_clips[element_id].left + delta_x;
+      var new_top = bounding_box.start_clips[element_id].top + delta_y;
+      bounding_box.move_clips[element_id]["top"] = new_top;
+      bounding_box.move_clips[element_id]["left"] = new_left;
+      // Set the new position for the element
+      $(this).css("left", new_left + "px");
+      $(this).css("top", new_top + "px");
+    });
   }
 };
 

@@ -2993,26 +2993,60 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
+        # Clear previous selections
+        self.ClearAllSelections()
+        get_app().processEvents()
 
         # If a plain text drag accept
         if not self.new_item and not event.mimeData().hasUrls() and event.mimeData().html():
-            # get type of dropped data
+            # Get type of dropped data
             self.item_type = event.mimeData().html()
 
             # Track that a new item is being 'added'
             self.new_item = True
+            self.item_ids = []
 
             # Get the mime data (i.e. list of files, list of transitions, etc...)
+            # Assuming the data contains a list of clips or transitions
             data = json.loads(event.mimeData().text())
             pos = event.posF()
 
-            # create the item
-            if self.item_type == "clip":
-                self.addClip(data, pos)
-            elif self.item_type == "transition":
-                self.addTransition(data, pos)
+            # Ensure data is a list (to support multiple items)
+            if not isinstance(data, list):
+                data = [data]
 
-            # accept all events, even if a new clip is not being added
+            # Get FPS from project and calculate the FPS float value
+            fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
+            current_scale = float(get_app().project.get("scale") or 15.0)
+            pixels_per_second = 100.0 / current_scale
+            snap_to_grid = lambda t: round(t * fps_float) / fps_float
+
+            # Snap the initial position (X value) to the FPS grid
+            pos.setX(snap_to_grid(pos.x()))
+
+            # Create the items (multiple clips or transitions)
+            for item_id in data:
+                if self.item_type == "clip":
+                    file = File.get(id=item_id)
+                    if not file:
+                        continue
+                    # Calculate the duration in frames, snapping it to the FPS grid
+                    duration_in_seconds = float(file.data["duration"])
+                    if file.data["media_type"] == "image":
+                        duration_in_seconds = get_app().get_settings().get("default-image-length")
+                    duration = snap_to_grid(duration_in_seconds)
+
+                    # Add Clip
+                    self.addClip(item_id, pos)
+                    pos += QPointF(duration * pixels_per_second, 0)
+
+                elif self.item_type == "transition":
+                    self.addTransition(item_id, pos)
+                    duration_in_seconds = get_app().get_settings().get("default-transition-length")
+                    duration = snap_to_grid(duration_in_seconds)
+                    pos += QPointF(duration * pixels_per_second, 0)
+
+            # Accept all events, even if a new clip is not being added
             event.accept()
 
         # Accept a plain file URL (from the OS)
@@ -3021,19 +3055,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.new_item = True
             self.item_type = "os_drop"
 
-            # accept event
+            # Accept event
             event.accept()
 
     # Add Clip
-    def addClip(self, data, event_position):
+    def addClip(self, file_id, event_position):
 
         # Callback function, to actually add the clip object
-        def callback(self, data, callback_data):
+        def callback(self, file_id, callback_data):
             js_position = callback_data.get('position', 0.0)
             js_nearest_track = callback_data.get('track', 0)
 
             # Search for matching file in project data (if any)
-            file_id = data[0]
             file = File.get(id=file_id)
 
             if not file:
@@ -3083,15 +3116,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.update_clip_data(new_clip, only_basic_props=False, transaction_id=tid)
 
             # temp hold item_id
-            self.item_id = new_clip.get('id')
+            self.item_ids.append(new_clip.get('id'))
             self.item_tid = tid
 
             # Init javascript bounding box (for snapping support)
-            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, self.item_id))
+            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
 
         # Find position from javascript
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
-            .format(event_position.x(), event_position.y()), partial(callback, self, data))
+            .format(event_position.x(), event_position.y()), partial(callback, self, file_id))
 
     @pyqtSlot(list)
     def ScrollbarChanged(self, new_positions):
@@ -3112,10 +3145,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             log.debug("Duration unchanged. Not updating")
 
     # Add Transition
-    def addTransition(self, file_ids, event_position):
+    def addTransition(self, file_path, event_position):
 
         # Callback function, to actually add the transition object
-        def callback(self, file_ids, callback_data):
+        def callback(self, file_path, callback_data):
             js_position = callback_data.get('position', 0.0)
             js_nearest_track = callback_data.get('track', 0)
 
@@ -3127,7 +3160,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             tid = self.get_uuid()
 
             # Open up QtImageReader for transition Image
-            transition_reader = openshot.QtImageReader(file_ids[0])
+            transition_reader = openshot.QtImageReader(file_path)
 
             brightness = openshot.Keyframe()
             brightness.AddPoint(1, 1.0, openshot.BEZIER)
@@ -3142,7 +3175,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 "type": "Mask",
                 "position": js_position,
                 "start": 0,
-                "end": 10,
+                "end": get_app().get_settings().get("default-transition-length"),
                 "brightness": json.loads(brightness.Json()),
                 "contrast": json.loads(contrast.Json()),
                 "reader": json.loads(transition_reader.Json()),
@@ -3153,16 +3186,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.update_transition_data(transitions_data, only_basic_props=False, transaction_id=tid)
 
             # temp keep track of id
-            self.item_id = transitions_data.get('id')
+            self.item_ids.append(transitions_data.get('id'))
             self.item_tid = tid
 
             # Init javascript bounding box (for snapping support)
-            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, self.item_id))
+            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, json.dumps(self.item_ids)))
 
         # Find position from javascript
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
             .format(event_position.x(), event_position.y()),
-            partial(callback, self, file_ids))
+            partial(callback, self, file_path))
 
     # Add Effect
     def addEffect(self, effect_names, event_position):
@@ -3252,7 +3285,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # Drop an item on the timeline
     def dropEvent(self, event):
-        log.info("Dropping item on timeline - item_id: %s, item_type: %s" % (self.item_id, self.item_type))
+        log.info("Dropping item on timeline - item_ids: %s, item_type: %s" % (self.item_ids, self.item_type))
 
         # Accept event
         event.accept()
@@ -3260,10 +3293,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get position of cursor
         pos = event.posF()
 
-        if self.item_type in ["clip", "transition"] and self.item_id:
+        if self.item_type in ["clip", "transition"] and self.item_ids:
             # Update most recent clip
             self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}', '{}');".format(self.item_type,
-                                                                                              self.item_id,
+                                                                                              json.dumps(self.item_ids),
                                                                                               self.item_tid))
 
         elif self.item_type == "effect":
@@ -3310,13 +3343,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     duration = snap_to_grid(duration_in_seconds)
 
                         # Add clip at snapped position and increment position for the next clip
-                    self.addClip([file.id], pos)
+                    self.addClip(file.id, pos)
                     pos += QPointF(duration * pixels_per_second, 0.0)
 
         # Clear new clip
         self.new_item = False
         self.item_type = None
-        self.item_id = None
+        self.item_ids = []
 
         # Update the preview and reselct current frame in properties
         self.window.refreshFrameSignal.emit()
@@ -3330,24 +3363,25 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         event.accept()
 
         # Clear selected clips
-        self.window.removeSelection(self.item_id, self.item_type)
+        for item_id in self.item_ids:
+            self.window.removeSelection(item_id, self.item_type)
 
-        if self.item_type == "clip":
-            # Delete dragging clip
-            clips = Clip.filter(id=self.item_id)
-            for c in clips:
-                c.delete()
+            if self.item_type == "clip":
+                # Delete dragging clip
+                clips = Clip.filter(id=item_id)
+                for c in clips:
+                    c.delete()
 
-        elif self.item_type == "transition":
-            # Delete dragging transitions
-            transitions = Transition.filter(id=self.item_id)
-            for t in transitions:
-                t.delete()
+            elif self.item_type == "transition":
+                # Delete dragging transitions
+                transitions = Transition.filter(id=item_id)
+                for t in transitions:
+                    t.delete()
 
         # Clear new clip
         self.new_item = False
         self.item_type = None
-        self.item_id = None
+        self.item_ids = None
         self.item_tid = None
 
     def redraw_audio_onTimeout(self):
@@ -3424,7 +3458,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Init New clip
         self.new_item = False
         self.item_type = None
-        self.item_id = None
+        self.item_ids = []
         self.item_tid = None
 
         # Delayed zoom audio redraw
