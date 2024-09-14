@@ -49,6 +49,15 @@
     "type": "spinner"
   },
   {
+    "max": 10000,
+    "title": "Transition Length (seconds)",
+    "category": "General",
+    "min": 0,
+    "setting": "default-transition-length",
+    "value": 10.0,
+    "type": "spinner"
+  },
+  {
     "max": 100,
     "title": "Volume",
     "category": "General",
