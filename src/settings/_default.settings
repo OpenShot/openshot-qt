@@ -602,7 +602,7 @@
     "title": "Center on Playhead",
     "restart": false,
     "setting": "actionCenterOnPlayhead",
-    "value": "Shift+C",
+    "value": "Shift+C|Alt+Up",
     "type": "text"
   },
   {

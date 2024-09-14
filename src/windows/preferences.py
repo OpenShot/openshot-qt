@@ -545,7 +545,15 @@ class Preferences(QDialog):
         # If this setting is a keyboard mapping, parse it first
         if param.get("category") == "Keyboard":
             previous_value = value
-            value = QKeySequence(value).toString()
+
+            # Split the input value by the '|' delimiter
+            key_sequences = value.split('|')
+
+            # Parse each sequence part and re-join them with ' | ' after parsing
+            parsed_sequences = [QKeySequence(seq).toString() for seq in key_sequences]
+
+            # Join the parsed sequences back with ' | '
+            value = ' | '.join(parsed_sequences)
             log.info("Parsing keyboard mapping via QKeySequence from %s to %s", previous_value, value)
 
         # Save setting
