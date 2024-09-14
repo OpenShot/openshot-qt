@@ -92,17 +92,7 @@ class MenuVolume(Enum):
     FADE_OUT_SLOW = auto()
     FADE_IN_OUT_FAST = auto()
     FADE_IN_OUT_SLOW = auto()
-    LEVEL_100 = 100
-    LEVEL_90 = 90
-    LEVEL_80 = 80
-    LEVEL_70 = 70
-    LEVEL_60 = 60
-    LEVEL_50 = 50
-    LEVEL_40 = 40
-    LEVEL_30 = 30
-    LEVEL_20 = 20
-    LEVEL_10 = 10
-    LEVEL_0 = 0
+    LEVEL = auto()
 
 
 class MenuTransform(Enum):

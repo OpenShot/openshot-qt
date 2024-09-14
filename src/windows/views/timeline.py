@@ -938,41 +938,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 Fade_Out_Slow.triggered.connect(partial(
                     self.Volume_Triggered, MenuVolume.FADE_OUT_SLOW, clip_ids, position))
 
-            # Add levels (100% to 0%)
+            # Add levels
             Position_Menu.addSeparator()
-            Volume_100 = Position_Menu.addAction(_("Level 100%"))
-            Volume_100.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_100, clip_ids, position))
-            Volume_90 = Position_Menu.addAction(_("Level 90%"))
-            Volume_90.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_90, clip_ids, position))
-            Volume_80 = Position_Menu.addAction(_("Level 80%"))
-            Volume_80.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_80, clip_ids, position))
-            Volume_70 = Position_Menu.addAction(_("Level 70%"))
-            Volume_70.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_70, clip_ids, position))
-            Volume_60 = Position_Menu.addAction(_("Level 60%"))
-            Volume_60.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_60, clip_ids, position))
-            Volume_50 = Position_Menu.addAction(_("Level 50%"))
-            Volume_50.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_50, clip_ids, position))
-            Volume_40 = Position_Menu.addAction(_("Level 40%"))
-            Volume_40.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_40, clip_ids, position))
-            Volume_30 = Position_Menu.addAction(_("Level 30%"))
-            Volume_30.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_30, clip_ids, position))
-            Volume_20 = Position_Menu.addAction(_("Level 20%"))
-            Volume_20.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_20, clip_ids, position))
-            Volume_10 = Position_Menu.addAction(_("Level 10%"))
-            Volume_10.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_10, clip_ids, position))
-            Volume_0 = Position_Menu.addAction(_("Level 0%"))
-            Volume_0.triggered.connect(partial(
-                self.Volume_Triggered, MenuVolume.LEVEL_0, clip_ids, position))
+
+            # Volume levels menu optinos
+            for level in reversed(range(0, 140, 10)):
+                action = Position_Menu.addAction(_("Level {level}%").format(level=level))
+                action.triggered.connect(partial(self.Volume_Triggered, MenuVolume.LEVEL, clip_ids, position, level))
 
             Volume_Menu.addMenu(Position_Menu)
         menu.addMenu(Volume_Menu)
@@ -2137,7 +2109,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Save changes (left side)
             self.update_transition_data(trans.data, only_basic_props=False, transaction_id=tid)
 
-    def Volume_Triggered(self, action, clip_ids, position="Entire Clip"):
+    def Volume_Triggered(self, action, clip_ids, position="Entire Clip", level=1.0):
         """Callback for volume context menus"""
         log.debug(action)
 
@@ -2242,21 +2214,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.AddPoint(clip.data['volume'], start_object)
                 self.AddPoint(clip.data['volume'], end_object)
 
-            if action in [
-                MenuVolume.LEVEL_100,
-                MenuVolume.LEVEL_90,
-                MenuVolume.LEVEL_80,
-                MenuVolume.LEVEL_70,
-                MenuVolume.LEVEL_60,
-                MenuVolume.LEVEL_50,
-                MenuVolume.LEVEL_40,
-                MenuVolume.LEVEL_30,
-                MenuVolume.LEVEL_20,
-                MenuVolume.LEVEL_10,
-                MenuVolume.LEVEL_0
-            ]:
+            if action == MenuVolume.LEVEL:
                 # Add keyframes
-                p = openshot.Point(start_animation, float(action.value) / 100.0, openshot.BEZIER)
+                p = openshot.Point(start_animation, float(level) / 100.0, openshot.BEZIER)
                 p_object = json.loads(p.Json())
                 self.AddPoint(clip.data['volume'], p_object)
 
