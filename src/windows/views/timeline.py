@@ -437,7 +437,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Cache_Menu.addAction(self.window.actionClearAllCache)
             menu.addMenu(Cache_Menu)
 
-            return menu.popup(QCursor.pos())
+            # Show context menu
+            self.context_menu_cursor_position = QCursor.pos()
+            return menu.popup(self.context_menu_cursor_position)
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
@@ -461,7 +463,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Remove Effect Menu
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveEffect)
-        return menu.popup(QCursor.pos())
+
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.popup(self.context_menu_cursor_position)
 
     @pyqtSlot(float, int)
     def ShowTimelineMenu(self, position, layer_number):
@@ -545,8 +550,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 partial(self.Paste_Triggered, MenuCopy.PASTE, [], [])
             )
 
-        # Show menu
-        return menu.popup(QCursor.pos())
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.popup(self.context_menu_cursor_position)
 
     @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
@@ -1003,8 +1009,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveClip)
 
-        # Show Context menu
-        return menu.popup(QCursor.pos())
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.popup(self.context_menu_cursor_position)
 
     def Transform_Triggered(self, action, clip_ids):
         log.debug("Transform_Triggered")
@@ -1663,7 +1670,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         log.debug(action)
 
         # Get global mouse position
-        global_mouse_pos = QCursor.pos()
+        if self.context_menu_cursor_position:
+            global_mouse_pos = self.context_menu_cursor_position
+        else:
+            global_mouse_pos = QCursor.pos()
         local_mouse_pos = self.mapFromGlobal(global_mouse_pos)
 
         # Callback function, to actually add the clip object
@@ -2706,8 +2716,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTransition)
 
-        # Show menu
-        return menu.popup(QCursor.pos())
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.popup(self.context_menu_cursor_position)
 
     @pyqtSlot(str)
     def ShowTrackMenu(self, layer_id=None):
@@ -2779,7 +2790,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.window.actionRemoveTrack.setEnabled(True)
         menu.addSeparator()
         menu.addAction(self.window.actionRemoveTrack)
-        return menu.popup(QCursor.pos())
+
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.popup(self.context_menu_cursor_position)
 
     @pyqtSlot(str)
     def ShowMarkerMenu(self, marker_id=None):
@@ -2790,7 +2804,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         menu = StyledContextMenu(parent=self)
         menu.addAction(self.window.actionRemoveMarker)
-        return menu.popup(QCursor.pos())
+
+        # Show context menu
+        self.context_menu_cursor_position = QCursor.pos()
+        return menu.popup(self.context_menu_cursor_position)
 
     @pyqtSlot()
     def EnableCacheThread(self):
@@ -3399,6 +3416,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.window = window
         self.setAcceptDrops(True)
         self.last_position_frames = None
+        self.context_menu_cursor_position = None
 
         # Get logger
         self.log_fn = log.log

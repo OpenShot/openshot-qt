@@ -3152,6 +3152,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def pasteAll(self):
         """Handle Paste QShortcut (at timeline position, same track as original clip)"""
+        self.timeline.context_menu_cursor_position = None
         self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
 
     def nudgeLeft(self):
