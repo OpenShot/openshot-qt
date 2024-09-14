@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""
+r"""
  @file
  @brief This file updates the OpenShot.POT (language translation template) by scanning all source files.
  @author Jonathan Thomas <jonathan@openshot.org>
@@ -103,7 +103,7 @@ log.info(" Using xgettext to generate .py POT files")
 log.info("-----------------------------------------------------")
 
 # Generate POT for Source Code strings (i.e. strings marked with a _("translate me"))
-subprocess.call('find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (
+subprocess.call(r'find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (
 openshot_path, os.path.join(language_folder_path, 'OpenShot_source.pot')), shell=True)
 
 log.info("-----------------------------------------------------")
