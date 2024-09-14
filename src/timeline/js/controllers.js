@@ -967,7 +967,7 @@ $scope.updateRecentItemJSON = function (item_type, item_ids, item_tid) {
 
     // Check again for missing transitions
     var missing_transition_details = $scope.getMissingTransitions(item_object);
-    if ($scope.Qt && missing_transition_details !== null) {
+    if ($scope.Qt && missing_transition_details !== null && item_ids.length === 1) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
   });
