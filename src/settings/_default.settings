@@ -619,7 +619,7 @@
     "title": "Add to Timeline",
     "restart": false,
     "setting": "actionAdd_to_Timeline",
-    "value": "Ctrl+Shift+A",
+    "value": "Ctrl+Alt+A",
     "type": "text"
   },
   {
@@ -1139,7 +1139,7 @@
     "title": "Select Item (Ripple)",
     "restart": false,
     "setting": "actionRippleSelect",
-    "value": "Ctrl+Alt+A",
+    "value": "Shift+A",
     "type": "text"
   },
   {
