@@ -412,23 +412,32 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline_sync.timeline.ClearAllCache(True)
 
     def actionDuplicate_trigger(self):
+        """Duplicate either the selected file in filesView or the timeline selection."""
 
-        file_path = None
+        # Check if filesView has focus
+        if self.filesView.hasFocus():
+            file_path = None
 
-        # Loop through selected files (set 1 selected file if more than 1)
-        for f in self.selected_files():
-            if f.data.get("path").endswith(".svg"):
-                file_path = f.data.get("path")
-                break
+            # Loop through selected files and find the first .svg file
+            for f in self.selected_files():
+                if f.data.get("path").endswith(".svg"):
+                    file_path = f.data.get("path")
+                    break
 
-        if not file_path:
-            return
+            if not file_path:
+                return
 
-        # show dialog for editing title
-        from windows.title_editor import TitleEditor
-        win = TitleEditor(edit_file_path=file_path, duplicate=True)
-        # Run the dialog event loop - blocking interaction on this window during that time
-        return win.exec_()
+            # Show dialog for editing title
+            from windows.title_editor import TitleEditor
+            win = TitleEditor(edit_file_path=file_path, duplicate=True)
+            # Run the dialog event loop (blocking interaction on this window during that time)
+            return win.exec_()
+
+        # If filesView doesn't have focus, duplicate timeline selections
+        # at the current cursor position
+        else:
+            self.copyAll()
+            self.pasteAll()
 
     def actionClearWaveformData_trigger(self):
         """Clear audio data from current project"""
