@@ -2928,6 +2928,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         """ Add the selected item to the current selection """
         self.window.SelectionAdded.emit(item_id, item_type, clear_existing)
 
+    def addRippleSelection(self, item_id, item_type):
+        if item_type == "clip":
+            self.run_js(JS_SCOPE_SELECTOR + ".selectClipRipple('{}', false, null);".format(item_id))
+        elif item_type == "transition":
+            self.run_js(JS_SCOPE_SELECTOR + ".selectTransitionRipple('{}', false, null);".format(item_id))
+
     @pyqtSlot(str, str)
     def removeSelection(self, item_id, item_type):
         """ Remove the selected clip from the selection """

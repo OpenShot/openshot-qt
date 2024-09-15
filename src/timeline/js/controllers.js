@@ -578,110 +578,114 @@ App.controller("TimelineCtrl", function ($scope) {
     });
   };
 
-  // Select clip in scope
-  $scope.selectClip = function (clip_id, clear_selections, event) {
-    // Trim clip_id
-    var id = clip_id.replace("clip_", "");
+  // Select item (either clip or transition)
+  $scope.selectItem = function (item_id, item_type, clear_selections, event, force_ripple) {
+    // Trim item_id
+    var id = item_id.replace(`${item_type}_`, "");
 
-    // Is CTRL pressed?
+    // Check for modifier keys
     var is_ctrl = event && event.ctrlKey;
+    var is_shift = event && event.shiftKey;
 
-    // Clear transitions selection if needed
-    if (id !== "" && clear_selections && !is_ctrl) {
-      $scope.selectTransition("", true);
-    }
-    // Call slice method and exit (don't actually select the clip)
-    if (id !== "" && $scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
-      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
-      timeline.RazorSliceAtCursor(id, "", cursor_seconds);
-
-      // Don't actually select clip
-      return;
-    }
-
-    // Update selection for clips
-    for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ($scope.project.clips[clip_index].id === id) {
-        // Invert selection if CTRL is pressed and not forced add and already selected
-        if (is_ctrl && clear_selections && ($scope.project.clips[clip_index].selected === true)) {
-          $scope.project.clips[clip_index].selected = false;
-          if ($scope.Qt) {
-            timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
-          }
-        }
-        else {
-          $scope.project.clips[clip_index].selected = true;
-          if ($scope.Qt) {
-            // Do not clear selection if CTRL is pressed
-            if (is_ctrl) {
-              timeline.addSelection(id, "clip", false);
-            }
-            else {
-              timeline.addSelection(id, "clip", clear_selections);
-            }
-          }
-        }
+    // If no ID is provided (id == ""), unselect all items
+    if (id === "") {
+      if (clear_selections) {
+        // Unselect all clips
+        $scope.project.clips.forEach(function (clip) {
+          clip.selected = false;
+          if ($scope.Qt) timeline.removeSelection(clip.id, "clip");
+        });
+        // Unselect all transitions
+        $scope.project.effects.forEach(function (transition) {
+          transition.selected = false;
+          if ($scope.Qt) timeline.removeSelection(transition.id, "transition");
+        });
       }
-      else if (clear_selections && !is_ctrl) {
-        $scope.project.clips[clip_index].selected = false;
-        if ($scope.Qt) {
-          timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
+      return; // Exit after clearing all selections
+    }
+
+    // Razor mode check
+    if ($scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
+      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
+      timeline.RazorSliceAtCursor(item_type === "clip" ? id : "", item_type === "transition" ? id : "", cursor_seconds);
+      return; // Don't select if razor mode is enabled
+    }
+
+    // Clear all selections if necessary (no CTRL modifier)
+    if (clear_selections && !is_ctrl) {
+      // Unselect all clips
+      $scope.project.clips.forEach(function (clip) {
+        clip.selected = false;
+        if ($scope.Qt) timeline.removeSelection(clip.id, "clip");
+      });
+      // Unselect all transitions
+      $scope.project.effects.forEach(function (transition) {
+        transition.selected = false;
+        if ($scope.Qt) timeline.removeSelection(transition.id, "transition");
+      });
+    }
+
+    // Get the correct array based on item_type
+    var items = item_type === "clip" ? $scope.project.clips : $scope.project.effects;
+
+    // Handle ripple selection (SHIFT key) for both clips and transitions
+    if (is_shift || force_ripple) {
+      var selected_item = items.find(item => item.id === id);
+      if (selected_item) {
+        var selected_layer = selected_item.layer;
+        var selected_position = selected_item.position;
+
+        // Select all clips and transitions to the right on the same layer
+        $scope.project.clips.forEach(function (clip) {
+          if (clip.layer === selected_layer && clip.position >= selected_position) {
+            clip.selected = true;
+            if ($scope.Qt) timeline.addSelection(clip.id, "clip", false);
+          }
+        });
+        $scope.project.effects.forEach(function (transition) {
+          if (transition.layer === selected_layer && transition.position >= selected_position) {
+            transition.selected = true;
+            if ($scope.Qt) timeline.addSelection(transition.id, "transition", false);
+          }
+        });
+      }
+      return; // No need to do normal selection logic after ripple select
+    }
+
+    // Update selection for clips or transitions
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (item.id === id) {
+        // Invert selection if CTRL is pressed and item is already selected
+        if (is_ctrl && clear_selections && item.selected) {
+          item.selected = false;
+          if ($scope.Qt) timeline.removeSelection(item.id, item_type);
+        } else {
+          item.selected = true;
+          if ($scope.Qt) timeline.addSelection(item.id, item_type, !is_ctrl && clear_selections);
         }
       }
     }
   };
 
-  // Select transition in scope
+  // Wrapper for ripple selecting clips
+  $scope.selectClipRipple = function (clip_id, clear_selections, event) {
+    $scope.selectItem(clip_id, "clip", clear_selections, event, true);
+  };
+
+  // Wrapper for ripple selecting transitions
+  $scope.selectTransitionRipple = function (tran_id, clear_selections, event) {
+    $scope.selectItem(tran_id, "transition", clear_selections, event, true);
+  };
+
+  // Wrapper for selecting clips
+  $scope.selectClip = function (clip_id, clear_selections, event) {
+    $scope.selectItem(clip_id, "clip", clear_selections, event, false);
+  };
+
+  // Wrapper for selecting transitions
   $scope.selectTransition = function (tran_id, clear_selections, event) {
-    // Trim tran_id
-    var id = tran_id.replace("transition_", "");
-
-    // Is CTRL pressed?
-    var is_ctrl = event && event.ctrlKey;
-
-    // Clear clips selection if needed
-    if (id !== "" && clear_selections && !is_ctrl) {
-      $scope.selectClip("", true);
-    }
-    // Call slice method and exit (don't actually select the transition)
-    if (id !== "" && $scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
-      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
-      timeline.RazorSliceAtCursor("", id, cursor_seconds);
-
-      // Don't actually select transition
-      return;
-    }
-
-    // Update selection for transitions
-    for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
-      if ($scope.project.effects[tran_index].id === id) {
-        // Invert selection if CTRL is pressed and not forced add and already selected
-        if (is_ctrl && clear_selections && ($scope.project.effects[tran_index].selected === true)) {
-          $scope.project.effects[tran_index].selected = false;
-          if ($scope.Qt) {
-            timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
-          }
-        }
-        else {
-          $scope.project.effects[tran_index].selected = true;
-          if ($scope.Qt) {
-            // Do not clear selection if CTRL is pressed
-            if (is_ctrl) {
-              timeline.addSelection(id, "transition", false);
-            }
-            else {
-              timeline.addSelection(id, "transition", clear_selections);
-            }
-          }
-        }
-      }
-      else if (clear_selections && !is_ctrl) {
-        $scope.project.effects[tran_index].selected = false;
-        if ($scope.Qt) {
-          timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
-        }
-      }
-    }
+    $scope.selectItem(tran_id, "transition", clear_selections, event, false);
   };
 
   // Format the thumbnail path: http://127.0.0.1:8081/thumbnails/FILE-ID/FRAME-NUMBER/

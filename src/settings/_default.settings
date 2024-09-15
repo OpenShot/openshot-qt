@@ -1144,11 +1144,11 @@
   },
   {
     "category": "Keyboard",
-    "title": "Ripple Select",
+    "title": "Select Item (Ripple)",
     "restart": false,
     "setting": "actionRippleSelect",
     "value": "Ctrl+Alt+A",
-    "type": "hidden"
+    "type": "text"
   },
   {
     "category": "Keyboard",

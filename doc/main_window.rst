@@ -170,6 +170,7 @@ Save Current Frame                    :kbd:`Ctrl+Shift+Y`
 Save Project                          :kbd:`Ctrl+S`
 Save Project As...                    :kbd:`Ctrl+Shift+S`
 Select All                            :kbd:`Ctrl+A`
+Select Item (Ripple)                  :kbd:`Ctrl+Alt+A`         :kbd:`Shift+Click`
 Select None                           :kbd:`Ctrl+Shift+A`
 Show All Docks                        :kbd:`Ctrl+Shift+D`
 Simple View                           :kbd:`Alt+Shift+0`

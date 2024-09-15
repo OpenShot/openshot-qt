@@ -1969,25 +1969,28 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             trans.data["position"] -= total_gap
             trans.save()
 
-    # def actionInsertKeyframePosition_Triggered(self):
+    # def actionInsertKeyframePosition(self):
     #     """Insert a 'Location' / 'Position' keyframe"""
     #     log.info("Inserting keyframe for position")
     #
-    # def actionInsertKeyframeScale_Triggered(self):
+    # def actionInsertKeyframeScale(self):
     #     """Insert a 'Scale' keyframe"""
     #     log.info("Inserting keyframe for scale")
     #
-    # def actionInsertKeyframeRotation_Triggered(self):
+    # def actionInsertKeyframeRotation(self):
     #     """Insert a 'Rotation' keyframe"""
     #     log.info("Inserting keyframe for rotation")
     #
-    # def actionInsertKeyframeAlpha_Triggered(self):
+    # def actionInsertKeyframeAlpha(self):
     #     """Insert an 'Alpha' keyframe"""
     #     log.info("Inserting keyframe for alpha (opacity)")
-    #
-    # def actionRippleSelect_Triggered(self):
-    #     """Selects ALL clips or transitions to the right of the current selected item"""
-    #     log.info("Selecting clips for ripple editing")
+
+    def actionRippleSelect(self):
+        """Selects ALL clips or transitions to the right of the current selected item"""
+        for clip_id in self.selected_clips:
+            self.timeline.addRippleSelection(clip_id, "clip")
+        for tran_id in self.selected_transitions:
+            self.timeline.addRippleSelection(tran_id, "transition")
 
     def actionRippleSliceKeepLeft(self):
         """Slice and keep the left side of a clip/transition, and then ripple the position change to the right."""
