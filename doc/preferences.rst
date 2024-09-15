@@ -66,6 +66,24 @@ OpenShot comes with 3 standard themes, which change the look and feel of the pro
 
 .. _preferences_preview_ref:
 
+Restoring Defaults
+""""""""""""""""""
+In OpenShot, each preferences category (or tab) in the Preferences window has a **Restore Defaults** button that allows
+you to easily reset the values for that specific category. This feature is particularly useful if you want to
+reset only certain parts of your preferences, like keyboard shortcuts, without affecting the rest of your custom settings.
+
+**Where to Find the Restore Defaults Button:**
+Each category or tab in the Preferences window has a **Restore Defaults** button located in the bottom left corner of the screen.
+The name of the button updates based on the category you’re viewing. For example, if you're in the "Keyboard" tab,
+the button will say **Restore Defaults: Keyboard**.
+
+**How It Works:**
+Only the settings in the currently selected category will be restored to their default values. This selective restoration makes it easy
+to reset certain preferences without affecting others.
+
+**Tip for Beginners:**
+- If you're not sure about a change you've made in a particular category, don’t hesitate to use the **Restore Defaults** button. It’s a simple way to undo changes and get back to the default settings for that specific category without affecting your overall setup.
+
 Preview
 -------
 
