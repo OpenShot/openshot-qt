@@ -3351,6 +3351,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         finally:
             get_app().updates.transaction_id = None
 
+            # Restore focus to the timeline
+            self.setFocus()
+
     def dragLeaveEvent(self, event):
         """A drag is in-progress and the user moves mouse outside of timeline"""
         log.debug('dragLeaveEvent - Undo drop')

@@ -547,6 +547,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Clear all selections
   $scope.clearAllSelections = function () {
     // Clear the selections on the main window
+    $scope.selectClip("", true);
     $scope.selectTransition("", true);
     $scope.selectEffect("", true);
 
@@ -989,18 +990,21 @@ $scope.startManualMove = function (item_type, item_ids) {
   // Ensure item_ids is an array for consistency
   item_ids = JSON.parse(item_ids);
 
-  // Select new objects (and unselect others)
+  // Select new objects
   $scope.$apply(function () {
-    $scope.selectClip("", true);
-    $scope.selectTransition("", true);
-
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
       $scope.project.clips[clip_index].selected = item_ids.includes($scope.project.clips[clip_index].id);
+      if ($scope.project.clips[clip_index].selected) {
+        $scope.selectClip($scope.project.clips[clip_index].id, false);
+      }
     }
 
     // Select new transition objects (and unselect others)
     for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
       $scope.project.effects[tran_index].selected = item_ids.includes($scope.project.effects[tran_index].id);
+      if ($scope.project.effects[tran_index].selected) {
+        $scope.selectTransition($scope.project.effects[tran_index].id, false);
+      }
     }
   });
 

@@ -521,7 +521,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
             if ret == QMessageBox.Yes:
                 # Save project
-                self.actionSave.trigger()
+                self.actionSave_trigger()
             elif ret == QMessageBox.Cancel:
                 # User canceled prompt
                 return
@@ -1085,7 +1085,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             requested_speed = 2
 
         if player.Mode() == openshot.PLAYBACK_PAUSED:
-            self.actionPlay.trigger()
+            self.actionPlay_trigger()
 
         if self.should_play(requested_speed):
             self.SpeedSignal.emit(requested_speed)
@@ -1100,7 +1100,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         if self.should_play(requested_speed):
             if player.Mode() == openshot.PLAYBACK_PAUSED:
-                self.actionPlay.trigger()
+                self.actionPlay_trigger()
             self.SpeedSignal.emit(requested_speed)
 
     def actionJumpStart_trigger(self, checked=True):
@@ -1661,7 +1661,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         frame_num = player.Position()
 
         # Toggle Play/Pause
-        get_app().window.actionPlay.trigger()
+        get_app().window.actionPlay_trigger()
 
         # Notify properties dialog
         get_app().window.propertyTableView.select_frame(frame_num)
@@ -1864,9 +1864,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     def actionRemoveClip_trigger(self):
         log.debug('actionRemoveClip_trigger')
 
-        locked_tracks = [l.get("number")
-                         for l in get_app().project.get('layers')
-                         if l.get("lock", False)]
+        locked_tracks = [l.get("number") for l in get_app().project.get('layers') if l.get("lock", False)]
 
         # Set transaction id (if not already set)
         get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
@@ -3075,15 +3073,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def deleteItem(self):
         """Remove the current selected clip / transition"""
-        # Set delete transaction id
+        # Set transaction id
         tid = str(uuid.uuid4())
         get_app().updates.transaction_id = tid
-        # Delete selected clip / transition
-        self.actionRemoveClip.trigger()
+        try:
+            # Delete selected clip / transition
+            self.actionRemoveClip_trigger()
 
-        # Set delete transaction id (again)
-        get_app().updates.transaction_id = tid
-        self.actionRemoveTransition.trigger()
+            # Set delete transaction id (again)
+            self.actionRemoveTransition_trigger()
+        finally:
+            get_app().updates.transaction_id = None
 
     def slice_clips(self, slice_type, selected_only=False, ripple=False):
         """Helper function for slicing clips and transitions at the playhead position."""
