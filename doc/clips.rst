@@ -59,38 +59,43 @@ You can easily find a clip's start by using the :guilabel:`next/previous marker`
 
 Trimming & Slicing
 ------------------
-OpenShot has many easy ways to adjust the start and end trim positions of a clip (also known as
-trimming). The most common method is simply clicking and dragging the left (or right) edge of the clip. Trimming
-a clip can be used to remove unwanted sections from the beginning and/or ending of a clip.
+OpenShot provides multiple ways to adjust the start and end trim positions of a clip (also known as trimming). The
+most common method is to click and drag the left or right edge of a clip. Trimming can be used to remove unwanted
+sections from the beginning or ending of a clip.
 
-To slice a clip into smaller sections, OpenShot provides many different options, including dividing/slicing a
-clip at the play-head (i.e. vertical red playback line) position. Trimming and Slicing clips are two very powerful 
-tools when editing a video project, allowing the user to quickly rearrange sections of video and remove unwanted sections.
+To **slice** a clip into smaller sections, OpenShot offers several options, including dividing or slicing a clip
+at the play-head (*vertical playback line*) position. Trimming and slicing clips are powerful tools that
+allow users to rearrange sections of video and remove unwanted parts.
 
 Here is a list of all methods for cutting and/or trimming clips in OpenShot:
 
 .. table::
    :widths: 30 80
-   
-   ======================  ============
-   Trim & Slice Method     Description
-   ======================  ============
-   **Resizing Edge**       Mouse over the edge of a clip, and resize the edge, by dragging it left/right.
-   **Slice**               When the play-head (i.e. vertical red playback line) is overlapping a clip, right click on the clip,
-                           and choose :guilabel:`Slice`.
-   **Slice All**           When the play-head is overlapping many clips, right click on the play-head, and choose
-                           :guilabel:`Slice All` (all intersecting clips on all tracks will be cut/sliced).
-   **Split Clip Dialog**   Right click on a file, and choose :guilabel:`Split Clip`. A dialog will appear which allows
-                           for creating lots of small cuts in a single video file.
-   **Razor Tool**          The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip wherever you click on it.
-                           So be careful, it is easy and dangerous!
-   ======================  ============
+
+   =======================================   ================================================================
+   Trim & Slice Method                       Description
+   =======================================   ================================================================
+   **Resizing Edge**                         Mouse over the edge of a clip and resize it by dragging left or right.
+   **Slice All**                             When the play-head overlaps multiple clips, right-click the play-head and choose :guilabel:`Slice All`.
+                                             This will cut/slice all intersecting clips on all tracks. You can also use the keyboard shortcuts
+                                             :kbd:`Ctrl+Shift+K` to keep both sides, :kbd:`Ctrl+Shift+J` to keep the left side, or :kbd:`Ctrl+Shift+L`
+                                             to keep the right side of the clips.
+   **Slice Selected**                        When the play-head overlaps a clip, right-click the clip and choose :guilabel:`Slice`.
+                                             This provides options to keep the left side, the right side, or both sides of the clip. Alternatively, use
+                                             :kbd:`Ctrl+K` to keep both sides, :kbd:`Ctrl+J` to keep the left side, or :kbd:`Ctrl+L` to keep the right side.
+   **Slice Selected (Ripple)**               Slice the selected clip(s) at the play-head position, keeping either the left side (shortcut: :kbd:`W`) or the
+                                             right side (shortcut: :kbd:`Q`), while rippling the gap removal across the current track.
+   **Razor Tool**                            The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the position where it is clicked.
+                                             Use :kbd:`SHIFT` to slice and keep the left side, or :kbd:`CTRL` to keep the right side.
+   **Split Clip Dialog**                     Right-click on a file and choose :guilabel:`Split Clip`. This opens a dialog that allows you to create multiple
+                                             clips from a single video file.
+   =======================================   ================================================================
 
 Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
 
 Remove Gap
 """"""""""
-The :guilabel:`Remove Gap` context menu option deletes the gap between two clips on the timeline, shifting all subsequent clips to close the gap.
+The :guilabel:`Remove Gap` context menu option deletes the gap between two clips on the timeline, rippling to (i.e. shifting) all subsequent clips to close the gap.
 Right click on a gap between clips to find this option. The option is only available when a gap is detected.
 
 - **Usage Example:** Use this option when you want to quickly eliminate a specific gap between clips caused by trimming or the razor tool.
@@ -98,7 +103,7 @@ Right click on a gap between clips to find this option. The option is only avail
 
 Remove All Gaps
 """""""""""""""
-The :guilabel:`Remove All Gaps` context menu option removes all gaps between clips on the timeline, shifting all clips to ensure there are no empty spaces.
+The :guilabel:`Remove All Gaps` context menu option removes all gaps between clips on the timeline, rippling to (i.e. shifting) all clips to ensure there are no empty spaces.
 Right click on a track name to find this option. The option is only available when gaps are detected.
 
 - **Usage Example:** Ideal for tracks that contain back-to-back clips, such as a photo slideshow, where no gaps are desired.
@@ -212,11 +217,26 @@ below the original clip on the timeline. This preset can either create a **singl
 
 Slice
 """""
-The :guilabel:`Slice` preset cuts a clip at the play-head position, creating two separate clips. It
-divides a clip into two distinct parts at the current play-head position. See :ref:`clips_cutting_slicing_ref`.
+The :guilabel:`Slice` tool lets you cut a clip at the position of the play-head (*the vertical line that shows your
+current position in the timeline*). This will split the clip into two separate parts at the exact point where the play-head is.
 
-- **Usage Example:** Splitting a clip to remove an unwanted section.
-- **Tip:** Quickly cut a clip into many smaller clips, for easy rearranging.
+Slicing is a key feature for making precise edits and rearranging sections of your video. You can slice a clip and
+choose to keep one side or both, and with the ripple option, you can automatically shift other clips on the same
+track to fill any gaps caused by the cut.
+
+**Slicing Options:**
+
+- **Keep Both Sides**: This option splits the clip into two parts, keeping everything on both sides of the play-head. It’s useful when you want to break a clip into sections but don’t want to remove anything.
+- **Keep Left Side**: This option cuts the clip and removes the part to the right of the play-head, keeping only the part before the play-head. Use this to get rid of the portion of the clip that comes after the current point.
+- **Keep Right Side**: This option cuts the clip and removes the part to the left of the play-head, keeping only the part after the play-head. It’s handy for trimming away the beginning of a clip and keeping the rest.
+- **Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any clips and transitions that follow to close the gap. This way, your timeline stays continuous without empty spaces after a cut, saving you the trouble of manually adjusting the clips that come after.
+
+**Tips for Beginners:**
+
+- **Example**: If there’s a part of a clip you don’t want (like the end of a scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you want to split a scene into multiple smaller sections to rearrange, use **Keep Both Sides**.
+- **Quick Tip**: Slicing can also be used to break a long clip into smaller parts, making it easier to manage and edit each section separately.
+
+For a complete guide to slicing and all available keyboard shortcuts, see the :ref:`clips_cutting_slicing_ref` section.
 
 .. _clip_transform_ref:
 
@@ -262,8 +282,8 @@ to clip properties, such as location, scale, rotation, etc... See :ref:`clip_pro
 - **Usage Example:** Adjusting clip properties like opacity, volume, or position.
 - **Tip:** Apply this preset to streamline adjustments to all clip properties in a single dock.
 
-Copy / Paste
-""""""""""""
+Copy / Cut / Paste
+""""""""""""""""""
 The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, effects, or
 duplicating an entire clip along with its keyframes. Paste will create a new clip at the position of your
 mouse. If you select 1 or more clips before pasting, you can paste "over" those clips with your current clip.
@@ -275,10 +295,28 @@ mouse. If you select 1 or more clips before pasting, you can paste "over" those 
 
 Remove Clip
 """""""""""
-The :guilabel:`Remove Clip` preset deletes a clip and its associated elements from the timeline.
+The :guilabel:`Remove Clip` option lets you delete a clip from the timeline. Removing clips is an essential part of
+organizing your project and getting rid of unwanted sections. Removing a clip can also impact the surrounding clips.
+If you want to clean up the gap that remains after deleting a clip, you have a few options to automatically adjust your timeline.
 
-- **Usage Example:** Deleting unused or redundant clips to declutter the project.
-- **Tip:** Be cautious when using this preset, as it permanently removes clips from the timeline.
+**How to Remove a Clip:**
+To delete a clip, simply select it and press :kbd:`Delete` on your keyboard, or right-click the clip and choose :guilabel:`Remove Clip` from the context menu.
+You can also select multiple clips at once by holding down the :kbd:`Ctrl` key and clicking on additional clips, then remove them all at once.
+
+**Ripple Delete:**
+If you want to delete a clip and automatically remove the empty space (gap) it leaves behind, use the **Ripple Delete** feature by
+pressing :kbd:`Shift+Delete`. This will shift all the remaining clips and transitions on the track to the left, filling in the
+gap and keeping your timeline smooth and continuous.
+
+**Remove Gap:**
+After deleting a clip, if you have gaps left in your timeline that you want to remove, simply right-click in the empty space
+and choose :guilabel:`Remove Gap`. This action will shift all clips and transitions to the left, closing the gap and maintaining the flow of your video.
+
+**Tips for Beginners:**
+
+- **Example**: If you have a clip that’s no longer needed, such as an intro you’ve decided not to use, you can quickly select it and either delete it or use **Ripple Delete** to remove it and shift everything left to close the gap.
+
+For more advanced editing options and shortcuts, refer to the :ref:`clips_cutting_slicing_ref` section.
 
 Effects
 -------
