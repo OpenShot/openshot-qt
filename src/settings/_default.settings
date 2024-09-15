@@ -956,7 +956,7 @@
     "restart": false,
     "setting": "actionInsertKeyframePosition",
     "value": "Alt+Shift+P",
-    "type": "text"
+    "type": "hidden"
   },
   {
     "category": "Keyboard",
@@ -964,7 +964,7 @@
     "restart": false,
     "setting": "actionInsertKeyframeScale",
     "value": "Alt+Shift+S",
-    "type": "text"
+    "type": "hidden"
   },
   {
     "category": "Keyboard",
@@ -972,7 +972,7 @@
     "restart": false,
     "setting": "actionInsertKeyframeRotation",
     "value": "Alt+Shift+R",
-    "type": "text"
+    "type": "hidden"
   },
   {
     "category": "Keyboard",
@@ -980,7 +980,7 @@
     "restart": false,
     "setting": "actionInsertKeyframeAlpha",
     "value": "Alt+Shift+T",
-    "type": "text"
+    "type": "hidden"
   },
   {
     "category": "Keyboard",
@@ -1148,7 +1148,7 @@
     "restart": false,
     "setting": "actionRippleSelect",
     "value": "Ctrl+Alt+A",
-    "type": "text"
+    "type": "hidden"
   },
   {
     "category": "Keyboard",

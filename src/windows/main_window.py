@@ -1677,7 +1677,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         keyboard_shortcuts = []
         all_settings = get_app().get_settings()._data
         for setting in all_settings:
-            if setting.get('category') == 'Keyboard':
+            if setting.get('category') == 'Keyboard' and setting.get('type') == 'text':
                 keyboard_shortcuts.append(setting)
         return keyboard_shortcuts
 
@@ -1691,8 +1691,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Clear previous QShortcuts
         for shortcut in self.shortcuts:
             shortcut.setParent(None)  # Remove shortcuts by clearing parent
-
-        self.shortcuts.clear()  # Clear list of previous shortcuts
+        self.shortcuts.clear()
 
         # Set to track all key sequences and prevent duplication
         used_shortcuts = set()
@@ -1887,6 +1886,89 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
 
+    def actionRippleDelete(self):
+        log.debug('actionRippleDelete_trigger')
+
+        locked_tracks = [l.get("number") for l in get_app().project.get('layers') if l.get("lock", False)]
+
+        # Set transaction id (if not already set)
+        get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
+
+        # Calculate the total duration (gap) being deleted and track affected layers
+        total_gap = 0.0
+        ripple_start_position = None
+        affected_layers = set()
+
+        # First, loop through selected clips to calculate the gap and remove the clips
+        for clip_id in json.loads(json.dumps(self.selected_clips)):
+            clips = Clip.filter(id=clip_id)
+            clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
+            for c in clips:
+                # Calculate gap based on the clip's duration
+                start_position = float(c.data["position"])
+                duration = float(c.data["end"]) - float(c.data["start"])
+                total_gap += duration
+
+                if ripple_start_position is None or start_position < ripple_start_position:
+                    ripple_start_position = start_position
+
+                # Track the layer of this clip for ripple
+                affected_layers.add(c.data["layer"])
+
+                # Clear selected clips
+                self.removeSelection(clip_id, "clip")
+
+                # Remove clip
+                c.delete()
+
+        # Now, loop through selected transitions to calculate the gap and remove them
+        for transition_id in json.loads(json.dumps(self.selected_transitions)):
+            transitions = Transition.filter(id=transition_id)
+            transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))
+            for t in transitions:
+                # Calculate gap based on the transition's duration
+                start_position = float(t.data["position"])
+                duration = float(t.data["end"]) - float(t.data["start"])
+                total_gap += duration
+
+                if ripple_start_position is None or start_position < ripple_start_position:
+                    ripple_start_position = start_position
+
+                # Track the layer of this transition for ripple
+                affected_layers.add(t.data["layer"])
+
+                # Clear selected transitions
+                self.removeSelection(transition_id, "transition")
+
+                # Remove transition
+                t.delete()
+
+        # If there was any gap to ripple, apply ripple adjustment on affected layers
+        if total_gap > 0 and ripple_start_position is not None:
+            for layer in affected_layers:
+                self.ripple_delete_gap(ripple_start_position, layer, total_gap)
+
+        # Clear transaction id
+        get_app().updates.transaction_id = None
+
+        # Refresh preview
+        get_app().window.refreshFrameSignal.emit()
+
+    def ripple_delete_gap(self, ripple_start, layer, total_gap):
+        """Remove the ripple gap and adjust subsequent items on the same layer"""
+        # Get all clips and transitions on the specified layer right of ripple_start
+        clips = [clip for clip in Clip.filter(layer=layer) if clip.data.get("position", 0.0) > ripple_start]
+        transitions = [tran for tran in Transition.filter(layer=layer) if tran.data.get("position", 0.0) > ripple_start]
+
+        # Adjust all subsequent items by the total gap on the same layer
+        for clip in clips:
+            clip.data["position"] -= total_gap
+            clip.save()
+
+        for trans in transitions:
+            trans.data["position"] -= total_gap
+            trans.save()
+
     # def actionInsertKeyframePosition_Triggered(self):
     #     """Insert a 'Location' / 'Position' keyframe"""
     #     log.info("Inserting keyframe for position")
@@ -1902,10 +1984,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     # def actionInsertKeyframeAlpha_Triggered(self):
     #     """Insert an 'Alpha' keyframe"""
     #     log.info("Inserting keyframe for alpha (opacity)")
-    #
-    # def actionRippleDelete_Triggered(self):
-    #     """Removes a clip or transition and shifts the timeline accordingly"""
-    #     log.info("Performing ripple delete")
     #
     # def actionRippleSelect_Triggered(self):
     #     """Selects ALL clips or transitions to the right of the current selected item"""
@@ -3079,8 +3157,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         try:
             # Delete selected clip / transition
             self.actionRemoveClip_trigger()
-
-            # Set delete transaction id (again)
             self.actionRemoveTransition_trigger()
         finally:
             get_app().updates.transaction_id = None
