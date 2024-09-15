@@ -1048,14 +1048,6 @@
   },
   {
     "category": "Keyboard",
-    "title": "Save Current Frame",
-    "restart": false,
-    "setting": "actionSaveFrame",
-    "value": "Ctrl+Shift+Y",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
     "title": "Clear History",
     "restart": false,
     "setting": "actionClearHistory",
