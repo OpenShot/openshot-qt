@@ -1667,10 +1667,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         get_app().window.propertyTableView.select_frame(frame_num)
 
     def getShortcutByName(self, setting_name):
-        """ Get a key sequence back from the setting name """
+        """Get a list of key sequences from the setting name."""
         s = get_app().get_settings()
-        shortcut = QKeySequence(s.get(setting_name))
-        return shortcut
+        shortcut_value = s.get(setting_name)
+        if shortcut_value:
+            # Split the setting value by the pipe '|' delimiter for multiple shortcuts
+            shortcut_parts = shortcut_value.split('|')
+
+            # Create a list of QKeySequence objects from the parts
+            return [QKeySequence(part.strip()) for part in shortcut_parts if part.strip()]
+        return []
 
     def getAllKeyboardShortcuts(self):
         """ Get a key sequence back from the setting name """
@@ -1699,10 +1705,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Automatically create shortcuts that follow the pattern self.SHORTCUTNAME
         for shortcut in self.getAllKeyboardShortcuts():
             method_name = shortcut.get('setting')
-            shortcut_value = shortcut.get('value')
 
-            # Split the shortcut values by the pipe '|' and strip any surrounding whitespace
-            shortcut_sequences = [s.strip() for s in shortcut_value.split('|')]
+            # Get list of key sequences (divided by | delimiter)
+            shortcut_sequences = self.getShortcutByName(method_name)
 
             # Remove any trailing numbers from the method name (i.e., strip suffix for alternates)
             base_method_name = re.sub(r'\d+$', '', method_name)
@@ -1724,8 +1729,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                             self.shortcuts.append(qshortcut)  # Keep reference to avoid garbage collection
                             used_shortcuts.add(key_seq_obj)  # Track the shortcut as used
                         else:
-                            log.warning(
-                                f"Duplicate shortcut {key_seq_obj.toString()} detected for {base_method_name}. Skipping.")
+                            log.warning(f"Duplicate shortcut {key_seq_obj.toString()} detected for {base_method_name}. Skipping.")
             else:
                 log.warning(f"Shortcut {base_method_name} does not have a matching method or QAction.")
 
@@ -1865,9 +1869,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         locked_tracks = [l.get("number") for l in get_app().project.get('layers') if l.get("lock", False)]
 
-        # Set transaction id (if not already set)
-        get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
-
         # Loop through selected clips
         for clip_id in json.loads(json.dumps(self.selected_clips)):
             # Find matching file
@@ -1879,9 +1880,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
                 # Remove clip
                 c.delete()
-
-        # Clear transaction id
-        get_app().updates.transaction_id = None
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
@@ -2049,9 +2047,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                          for l in get_app().project.get('layers')
                          if l.get("lock", False)]
 
-        # Set transaction id (if not already set)
-        get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
-
         # Loop through selected clips
         for tran_id in json.loads(json.dumps(self.selected_transitions)):
             # Find matching file
@@ -2063,9 +2058,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
                 # Remove transition
                 t.delete()
-
-        # Clear transaction id
-        get_app().updates.transaction_id = None
 
         # Refresh preview
         self.refreshFrameSignal.emit()
@@ -3009,18 +3001,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.show_property_id,
             self.show_property_type)
 
-    def InitKeyboardShortcuts(self):
-        """Initialize all keyboard shortcuts from the settings file"""
-
-        # Translate object
-        _ = get_app()._tr
-
-        # Update all action-based shortcuts (from settings file)
-        for shortcut in self.getAllKeyboardShortcuts():
-            for action in self.findChildren(QAction):
-                if shortcut.get('setting') == action.objectName():
-                    action.setShortcut(QKeySequence(_(shortcut.get('value'))))
-
     def InitCacheSettings(self):
         """Set the correct cache settings for the timeline"""
         # Load user settings
@@ -3153,14 +3133,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         get_app().window.PlayPauseToggleSignal.emit()
 
     def deleteItem(self):
-        """Remove the current selected clip / transition"""
+        """Remove the current selected clip / transition or file from the project."""
         # Set transaction id
         tid = str(uuid.uuid4())
         get_app().updates.transaction_id = tid
         try:
-            # Delete selected clip / transition
-            self.actionRemoveClip_trigger()
-            self.actionRemoveTransition_trigger()
+            # If the filesView has focus, remove the item from the project
+            if self.filesView.hasFocus():
+                self.actionRemove_from_Project_trigger()
+            else:
+                # Otherwise, proceed with the normal timeline delete behavior
+                self.actionRemoveClip_trigger()
+                self.actionRemoveTransition_trigger()
         finally:
             get_app().updates.transaction_id = None
 
@@ -3251,21 +3235,50 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.timeline.Nudge_Triggered(5, self.selected_clips, self.selected_transitions)
 
     def eventFilter(self, obj, event):
-        """Filter out certain QShortcuts - for example, arrow keys used
-        in our files, transitions, effects, and emojis views."""
-        if event.type() == QEvent.ShortcutOverride:
-            if self.emojiListView.hasFocus() or self.filesView.hasFocus() or \
-                    self.transitionsView.hasFocus() or self.effectsView.hasFocus():
-                # Mark event as 'handled' so it stops propagating
-                event.accept()
+        """Filter out specific QActions/QShortcuts when certain docks have focus."""
 
-            elif self.propertyTableView.hasFocus() and \
-                    (event.key() == get_app().window.getShortcutByName("playToggle") or
-                     event.key() == get_app().window.getShortcutByName("playToggle1") or
-                     event.key() == get_app().window.getShortcutByName("playToggle2") or
-                     event.key() == get_app().window.getShortcutByName("playToggle3")):
-                # Mark event as 'handled' so it stops propagating
+        # List of QAction names to ignore when non-timeline dock widgets have focus
+        ignored_actions = [
+            "seekPreviousFrame",
+            "seekNextFrame",
+            "playToggle",
+            "actionRewind",
+            "actionFastForward",
+            "actionRazorTool",
+            "actionAddMarker",
+            "actionSnappingTool",
+            "actionJumpStart",
+            "actionJumpEnd",
+            "actionRippleSliceKeepLeft",
+            "actionRippleSliceKeepRight"
+        ]
+
+        # Check if event type is a shortcut override (keyboard shortcut triggered)
+        if event.type() == QEvent.ShortcutOverride:
+
+            # If any of these dock widgets have focus, we want to block specific actions
+            if self.emojiListView.hasFocus() or self.filesView.hasFocus() or \
+                self.transitionsView.hasFocus() or self.effectsView.hasFocus():
+
+                # Check for each QAction name in the ignored_actions list
+                for action_name in ignored_actions:
+                    try:
+                        # Get the shortcut key sequence
+                        sequences = get_app().window.getShortcutByName(action_name)
+                        for sequence in sequences:
+                            if (sequence == QKeySequence(event.modifiers() | event.key())):
+                                event.accept()
+                                return True
+
+                    except KeyError:
+                        pass
+
+            # Special handling for propertyTableView with playToggle shortcut
+            elif self.propertyTableView.hasFocus() and event.key() == get_app().window.getShortcutByName("playToggle"):
                 event.accept()
+                return True
+
+        # Allow all other events to propagate normally
         return super(MainWindow, self).eventFilter(obj, event)
 
     def ignore_updates_callback(self, ignore):
@@ -3338,9 +3351,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Load UI from designer
         ui_util.load_ui(self, self.ui_path)
-
-        # Set all keyboard shortcuts from the settings file
-        self.InitKeyboardShortcuts()
 
         # Init UI
         ui_util.init_ui(self)

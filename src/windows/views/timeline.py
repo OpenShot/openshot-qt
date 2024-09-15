@@ -420,15 +420,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Add split clip menu
             Slice_Menu = StyledContextMenu(title=_("Slice All"), parent=self)
             Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
-            Slice_Keep_Both.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepBothSides")))
+            Slice_Keep_Both.setShortcuts(self.window.getShortcutByName("sliceAllKeepBothSides"))
             Slice_Keep_Both.triggered.connect(partial(
                 self.Slice_Triggered, MenuSlice.KEEP_BOTH, clip_ids, trans_ids, position))
             Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
-            Slice_Keep_Left.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepLeftSide")))
+            Slice_Keep_Left.setShortcuts(self.window.getShortcutByName("sliceAllKeepLeftSide"))
             Slice_Keep_Left.triggered.connect(partial(
                 self.Slice_Triggered, MenuSlice.KEEP_LEFT, clip_ids, trans_ids, position))
             Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
-            Slice_Keep_Right.setShortcut(QKeySequence(self.window.getShortcutByName("sliceAllKeepRightSide")))
+            Slice_Keep_Right.setShortcuts(self.window.getShortcutByName("sliceAllKeepRightSide"))
             Slice_Keep_Right.triggered.connect(partial(
                 self.Slice_Triggered, MenuSlice.KEEP_RIGHT, clip_ids, trans_ids, position))
             menu.addMenu(Slice_Menu)
@@ -454,7 +454,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Only a single clip is selected (Show normal copy menus)
         Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
         Copy_Effect = Copy_Menu.addAction(_("Effect"))
-        Copy_Effect.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
+        Copy_Effect.setShortcuts(self.window.getShortcutByName("copyAll"))
         Copy_Effect.triggered.connect(partial(self.Copy_Triggered, MenuCopy.EFFECT, [], [], [effect_id]))
         menu.addMenu(Copy_Menu)
 
@@ -546,7 +546,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if has_clipboard:
             # Add 'Paste' Menu
             Paste_Clip = menu.addAction(_("Paste"))
-            Paste_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("pasteAll")))
+            Paste_Clip.setShortcuts(self.window.getShortcutByName("pasteAll"))
             Paste_Clip.triggered.connect(
                 partial(self.Paste_Triggered, MenuCopy.PASTE, [], [])
             )
@@ -596,17 +596,17 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if len(tran_ids) + len(clip_ids) > 1:
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
-            Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
+            Copy_All.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_All.triggered.connect(self.window.copyAll)
             # Show Cut All menu
             Cut_All = menu.addAction(_("Cut"))
-            Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+            Cut_All.setShortcuts(self.window.getShortcutByName("cutAll"))
             Cut_All.triggered.connect(self.window.cutAll)
         else:
             # Only a single clip is selected (Show normal copy menus)
             Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
             Copy_Clip = Copy_Menu.addAction(_("Clip"))
-            Copy_Clip.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
+            Copy_Clip.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MenuCopy.CLIP, [clip_id], [], []))
 
             Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
@@ -645,7 +645,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
             # Show Cut menu
             Cut_All = menu.addAction(_("Cut"))
-            Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+            Cut_All.setShortcuts(self.window.getShortcutByName("cutAll"))
             Cut_All.triggered.connect(self.window.cutAll)
 
         # Determine if the paste menu should be shown (for partial copied clip data)
@@ -2640,17 +2640,17 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if len(tran_ids) + len(clip_ids) > 1:
             # Show Copy All menu (clips and transitions are selected)
             Copy_All = menu.addAction(_("Copy"))
-            Copy_All.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
+            Copy_All.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_All.triggered.connect(self.window.copyAll)
             # Show Cut All menu
             Cut_All = menu.addAction(_("Cut"))
-            Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+            Cut_All.setShortcuts(self.window.getShortcutByName("cutAll"))
             Cut_All.triggered.connect(self.window.cutAll)
         else:
             # Only a single transitions is selected (show normal transition copy menu)
             Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
             Copy_Tran = Copy_Menu.addAction(_("Transition"))
-            Copy_Tran.setShortcut(QKeySequence(self.window.getShortcutByName("copyAll")))
+            Copy_Tran.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MenuCopy.TRANSITION, [], [tran_id], []))
 
             Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
@@ -2671,7 +2671,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Show Cut menu
         Cut_All = menu.addAction(_("Cut"))
-        Cut_All.setShortcut(QKeySequence(self.window.getShortcutByName("cutAll")))
+        Cut_All.setShortcuts(self.window.getShortcutByName("cutAll"))
         Cut_All.triggered.connect(self.window.cutAll)
 
         # Determine if the paste menu should be shown
