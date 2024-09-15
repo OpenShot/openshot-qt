@@ -161,11 +161,14 @@ class Preferences(QDialog):
         for item in self.settings_data:
             category = item.get("category")
             setting_type = item.get("type")
+            sort_type = item.get("sort")
 
             if setting_type != "hidden":
                 # Load setting
                 if category not in self.category_names:
                     self.category_names[category] = []
+                if sort_type:
+                    self.category_sort[category] = sort_type
 
                 # Append settings into correct category
                 self.category_names[category].append(item)
@@ -202,7 +205,7 @@ class Preferences(QDialog):
             params = self.category_names[category]
             if self.category_sort.get(category):
                 # Sort this category by translated title
-                params.sort(key=operator.itemgetter("title_tr"))
+                params.sort(key=lambda setting: _(setting.get("title")))
 
             # Loop through settings for each category
             for param in params:
@@ -705,7 +708,7 @@ class Preferences(QDialog):
         _ = get_app()._tr
         reply = QMessageBox.question(
             self,
-            _('Restore Defaults: {category}').format(category=category),
+            _('Restore Defaults').format(category=category),
             _('Restore default values for {category}?').format(category=category),
             QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
