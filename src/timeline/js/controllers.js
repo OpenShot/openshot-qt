@@ -28,7 +28,7 @@
 
 
 // Initialize the main controller module
-/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement, findTrackAtLocation*/
+/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement, findTrackAtLocation, snapToFPSGridTime, pixelToTime*/
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)
@@ -593,12 +593,12 @@ App.controller("TimelineCtrl", function ($scope) {
         // Unselect all clips
         $scope.project.clips.forEach(function (clip) {
           clip.selected = false;
-          if ($scope.Qt) timeline.removeSelection(clip.id, "clip");
+          if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
         });
         // Unselect all transitions
         $scope.project.effects.forEach(function (transition) {
           transition.selected = false;
-          if ($scope.Qt) timeline.removeSelection(transition.id, "transition");
+          if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
         });
       }
       return; // Exit after clearing all selections
@@ -616,12 +616,12 @@ App.controller("TimelineCtrl", function ($scope) {
       // Unselect all clips
       $scope.project.clips.forEach(function (clip) {
         clip.selected = false;
-        if ($scope.Qt) timeline.removeSelection(clip.id, "clip");
+        if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
       });
       // Unselect all transitions
       $scope.project.effects.forEach(function (transition) {
         transition.selected = false;
-        if ($scope.Qt) timeline.removeSelection(transition.id, "transition");
+        if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
       });
     }
 
@@ -639,13 +639,13 @@ App.controller("TimelineCtrl", function ($scope) {
         $scope.project.clips.forEach(function (clip) {
           if (clip.layer === selected_layer && clip.position >= selected_position) {
             clip.selected = true;
-            if ($scope.Qt) timeline.addSelection(clip.id, "clip", false);
+            if ($scope.Qt) { timeline.addSelection(clip.id, "clip", false); }
           }
         });
         $scope.project.effects.forEach(function (transition) {
           if (transition.layer === selected_layer && transition.position >= selected_position) {
             transition.selected = true;
-            if ($scope.Qt) timeline.addSelection(transition.id, "transition", false);
+            if ($scope.Qt) { timeline.addSelection(transition.id, "transition", false); }
           }
         });
       }
@@ -659,10 +659,10 @@ App.controller("TimelineCtrl", function ($scope) {
         // Invert selection if CTRL is pressed and item is already selected
         if (is_ctrl && clear_selections && item.selected) {
           item.selected = false;
-          if ($scope.Qt) timeline.removeSelection(item.id, item_type);
+          if ($scope.Qt) { timeline.removeSelection(item.id, item_type); }
         } else {
           item.selected = true;
-          if ($scope.Qt) timeline.addSelection(item.id, item_type, !is_ctrl && clear_selections);
+          if ($scope.Qt) { timeline.addSelection(item.id, item_type, !is_ctrl && clear_selections); }
         }
       }
     }
@@ -694,7 +694,6 @@ App.controller("TimelineCtrl", function ($scope) {
    */
   $scope.getThumbPath = function (clip) {
     if (!clip || !clip.reader) {
-      console.error("Invalid clip object or missing reader property in getThumbPath");
       return "../images/NotFound.svg";
     }
 
@@ -931,7 +930,6 @@ $scope.updateRecentItemJSON = function (item_type, item_ids, tid) {
       item_object = findElement($scope.project.effects, "id", item_id);
     } else {
       // Bail out if no item_type matches
-      console.error("Invalid item_type: ", item_type);
       return;
     }
 
@@ -990,7 +988,6 @@ $scope.updateRecentItemJSON = function (item_type, item_ids, tid) {
 
 // Init bounding boxes for manual move
 $scope.startManualMove = function (item_type, item_ids) {
-  console.log("Start manual move: " + item_ids);
   // Ensure item_ids is an array for consistency
   item_ids = JSON.parse(item_ids);
 
