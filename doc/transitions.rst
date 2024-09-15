@@ -64,21 +64,8 @@ combine a transition and ``alpha`` fade when using transparent clips to more smo
 Cutting & Slicing
 -----------------
 OpenShot has many easy ways to adjust the start and end trim positions of a transition (otherwise known as cutting or trimming). The most common
-method is simply grabbing the left (or right) edge of the transition and dragging. Here is a list of methods for cutting transitions in OpenShot:
-
-.. table::
-   :widths: 20 80
-
-   ==================  ============
-   Slice Method        Description
-   ==================  ============
-   Slice               When the play-head (i.e. red playback line) is overlapping a transition, right click on the transition, and choose Slice
-   Slice All           When the play-head is overlapping many transitions, right click on the play-head, and choose Slice All (it will cut all intersecting transitions)
-   Resizing Edge       Mouse over the edge of a transition, and resize the edge
-   Razor Tool          The razor tool cuts a transition wherever you click, so be careful. Easy and dangerous.
-   ==================  ============
-
-Keep in mind that all of the above cutting methods also have :ref:`keyboard_shortcut_ref`.
+method is simply grabbing the left (or right) edge of the transition and dragging. For a complete guide to slicing and all available keyboard
+shortcuts, see the :ref:`clips_cutting_slicing_ref` and :ref:`keyboard_shortcut_ref` sections.
 
 Mask
 ----
