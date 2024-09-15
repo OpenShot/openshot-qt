@@ -584,7 +584,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "Toggle Razor",
+    "title": "Razor Toggle",
     "restart": false,
     "setting": "actionRazorTool",
     "value": "C | B | R",
@@ -811,7 +811,7 @@
     "title": "Slice All: Keep Both Sides",
     "restart": false,
     "setting": "sliceAllKeepBothSides",
-    "value": "",
+    "value": "Ctrl+Shift+K",
     "type": "text"
   },
   {
@@ -819,7 +819,7 @@
     "title": "Slice All: Keep Left Side",
     "restart": false,
     "setting": "sliceAllKeepLeftSide",
-    "value": "",
+    "value": "Ctrl+Shift+J",
     "type": "text"
   },
   {
@@ -827,7 +827,7 @@
     "title": "Slice All: Keep Right Side",
     "restart": false,
     "setting": "sliceAllKeepRightSide",
-    "value": "",
+    "value": "Ctrl+Shift+L",
     "type": "text"
   },
   {
@@ -904,7 +904,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "Snapping Enabled",
+    "title": "Snapping Toggle",
     "restart": false,
     "setting": "actionSnappingTool",
     "value": "S",
@@ -1136,7 +1136,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "Ripple Delete",
+    "title": "Delete Item (Ripple)",
     "restart": false,
     "setting": "actionRippleDelete",
     "value": "Shift+Delete",
@@ -1152,7 +1152,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "Ripple Slice (Keep Left)",
+    "title": "Slice Selected: Keep Left (Ripple)",
     "restart": false,
     "setting": "actionRippleSliceKeepLeft",
     "value": "W",
@@ -1160,7 +1160,7 @@
   },
   {
     "category": "Keyboard",
-    "title": "Ripple Slice (Keep Right)",
+    "title": "Slice Selected: Keep Right (Ripple)",
     "restart": false,
     "setting": "actionRippleSliceKeepRight",
     "value": "Q",
