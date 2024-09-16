@@ -122,7 +122,7 @@ Action                                Shortcut 1                Shortcut 2      
 About OpenShot                        :kbd:`Ctrl+H`
 Add Marker                            :kbd:`M`
 Add Track                             :kbd:`Ctrl+Y`
-Add to Timeline                       :kbd:`Ctrl+Shift+A`
+Add to Timeline                       :kbd:`Ctrl+Alt+A`
 Advanced View                         :kbd:`Alt+Shift+1`
 Animated Title                        :kbd:`Ctrl+Shift+T`
 Center on Playhead                    :kbd:`Shift+C`            :kbd:`Alt+Up`
@@ -170,7 +170,7 @@ Save Current Frame                    :kbd:`Ctrl+Shift+Y`
 Save Project                          :kbd:`Ctrl+S`
 Save Project As...                    :kbd:`Ctrl+Shift+S`
 Select All                            :kbd:`Ctrl+A`
-Select Item (Ripple)                  :kbd:`Ctrl+Alt+A`         :kbd:`Shift+Click`
+Select Item (Ripple)                  :kbd:`Shift+A`         :kbd:`Shift+Click`
 Select None                           :kbd:`Ctrl+Shift+A`
 Show All Docks                        :kbd:`Ctrl+Shift+D`
 Simple View                           :kbd:`Alt+Shift+0`
