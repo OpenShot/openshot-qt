@@ -41,6 +41,7 @@ class ColorPicker(QWidget):
         super().__init__(parent=parent, *args, **kwargs)
         self.setObjectName("ColorPicker")
         # Merge any additional user-supplied options with our own
+        options = QColorDialog.ColorDialogOptions()
         if extra_options > 0:
             options = options | extra_options
         # Set up non-modal color dialog (to avoid blocking the eyedropper)
@@ -52,6 +53,7 @@ class ColorPicker(QWidget):
         if title:
             self.dialog.setWindowTitle(title)
         self.dialog.setWindowFlags(Qt.Tool)
+        self.dialog.setOptions(options)
         # Avoid signal loops
         self.dialog.blockSignals(True)
         self.dialog.colorSelected.connect(callback)
