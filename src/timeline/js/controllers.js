@@ -400,12 +400,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.setSnappingMode = function (enable_snapping) {
     $scope.$apply(function () {
       $scope.enable_snapping = enable_snapping;
-      if (enable_snapping) {
-        $(".droppable").draggable("option", "snapTolerance", 20);
-      }
-      else {
-        $(".droppable").draggable("option", "snapTolerance", 0);
-      }
     });
   };
 
@@ -580,6 +574,11 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Select item (either clip or transition)
   $scope.selectItem = function (item_id, item_type, clear_selections, event, force_ripple) {
+    if ($scope.dragging) {
+      timeline.qt_log("DEBUG", "Skip selection due to dragging...");
+      return;
+    }
+
     // Trim item_id
     var id = item_id.replace(`${item_type}_`, "");
 

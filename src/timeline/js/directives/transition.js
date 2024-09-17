@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, updateDraggables */
 // Init Variables
 var resize_disabled = false;
 var previous_drag_position = null;
@@ -266,10 +266,11 @@ App.directive("tlTransition", function () {
           // Hide snapline (if any)
           scope.hideSnapline();
 
+          // Call the shared function for drag stop
+          updateDraggables(scope, ui, 'transition');
+
           // Clear previous drag position
           previous_drag_position = null;
-          scope.setDragging(false);
-
         },
         drag: function (e, ui) {
           // Retrieve the initial cursor offset
@@ -313,18 +314,6 @@ App.directive("tlTransition", function () {
             }
           });
 
-        },
-        revert: function (valid) {
-          if (!valid) {
-            // The drop spot was invalid, so we're going to move all transitions to their original position
-            $(".ui-selected").each(function () {
-              var oldY = start_transitions[$(this).attr("id")]["top"];
-              var oldX = start_transitions[$(this).attr("id")]["left"];
-
-              $(this).css("left", oldX);
-              $(this).css("top", oldY);
-            });
-          }
         }
       });
 

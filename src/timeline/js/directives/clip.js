@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio, updateDraggables */
 // Init variables
 var dragging = false;
 var resize_disabled = false;
@@ -323,9 +323,11 @@ App.directive("tlClip", function ($timeout) {
           // Hide snapline (if any)
           scope.hideSnapline();
 
+          // Call the shared function for drag stop
+          updateDraggables(scope, ui, 'clip');
+
           // Clear previous drag position
           previous_drag_position = null;
-          scope.setDragging(false);
         },
         drag: function (e, ui) {
           // Retrieve the initial cursor offset
@@ -368,18 +370,6 @@ App.directive("tlClip", function ($timeout) {
               $(this).css("top", newY);
             }
           });
-        },
-        revert: function (valid) {
-          if (!valid) {
-            //the drop spot was invalid, so we're going to move all clips to their original position
-            $(".ui-selected").each(function () {
-              var oldY = start_clips[$(this).attr("id")]["top"];
-              var oldX = start_clips[$(this).attr("id")]["left"];
-
-              $(this).css("left", oldX);
-              $(this).css("top", oldY);
-            });
-          }
         }
       });
     }
