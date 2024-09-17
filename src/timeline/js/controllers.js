@@ -870,6 +870,20 @@ App.controller("TimelineCtrl", function ($scope) {
     return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
   };
 
+  // Seek to the beginning of the timeline
+  $scope.rulerTimeClick = function () {
+      $scope.movePlayhead(0.0);
+      $scope.previewFrame(0.0);
+
+      // Force a scroll event (from 1 to 0, to send the geometry to zoom slider)
+      $("#scrolling_tracks").scrollLeft(1);
+
+      // Scroll to top/left when loading a project
+      $("#scrolling_tracks").animate({
+        scrollTop: 0,
+        scrollLeft: 0
+      }, "slow");
+  };
 
   // Get Position of item (used by Qt), both the position and track number.
   /**
