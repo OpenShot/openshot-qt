@@ -576,6 +576,46 @@
   },
   {
     "category": "Keyboard",
+    "title": "Report a Bug...",
+    "restart": false,
+    "setting": "actionReportBug",
+    "value": "F3",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Ask a Question...",
+    "restart": false,
+    "setting": "actionAskQuestion",
+    "value": "F4",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Join our Community...",
+    "restart": false,
+    "setting": "actionDiscord",
+    "value": "F5",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Translate this Application...",
+    "restart": false,
+    "setting": "actionTranslate",
+    "value": "F6",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Donate",
+    "restart": false,
+    "setting": "actionDonate",
+    "value": "F7",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Add Marker",
     "restart": false,
     "setting": "actionAddMarker",
@@ -656,6 +696,22 @@
   },
   {
     "category": "Keyboard",
+    "title": "Export Files",
+    "restart": false,
+    "setting": "actionExportFiles",
+    "value": "Ctrl+Shift+E",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "File Properties",
+    "restart": false,
+    "setting": "actionFile_Properties",
+    "value": "Alt+I",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Fullscreen",
     "restart": false,
     "setting": "actionFullscreen",
@@ -712,10 +768,10 @@
   },
   {
     "category": "Keyboard",
-    "title": "Split Clip...",
+    "title": "Split File",
     "restart": false,
-    "setting": "actionSplitClip",
-    "value": "Shift+1",
+    "setting": "actionSplitFile",
+    "value": "Alt+S",
     "type": "text"
   },
   {
@@ -1027,7 +1083,15 @@
     "title": "Edit Title",
     "restart": false,
     "setting": "actionEditTitle",
-    "value": "",
+    "value": "Alt+T",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Preview File",
+    "restart": false,
+    "setting": "actionPreview_File",
+    "value": "Alt+P",
     "type": "text"
   },
   {

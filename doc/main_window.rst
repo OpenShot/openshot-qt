@@ -116,15 +116,16 @@ configure these shortcuts in the Preferences window, which is opened by selectin
 (On macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.)
 Learning a few of these shortcuts can save you a bunch of time!
 
-===================================   =======================   ====================  ====================
-Action                                Shortcut 1                Shortcut 2            Shortcut 3
-===================================   =======================   ====================  ====================
+===================================   =======================   ==========================   ====================
+Action                                Shortcut 1                Shortcut 2                   Shortcut 3
+===================================   =======================   ==========================   ====================
 About OpenShot                        :kbd:`Ctrl+H`
 Add Marker                            :kbd:`M`
 Add Track                             :kbd:`Ctrl+Y`
 Add to Timeline                       :kbd:`Ctrl+Alt+A`
 Advanced View                         :kbd:`Alt+Shift+1`
 Animated Title                        :kbd:`Ctrl+Shift+T`
+Ask a Question...                     :kbd:`F4`
 Center on Playhead                    :kbd:`Shift+C`            :kbd:`Alt+Up`
 Choose Profile                        :kbd:`Ctrl+Alt+P`
 Clear All Cache                       :kbd:`Ctrl+Shift+ESC`
@@ -135,14 +136,18 @@ Cut                                   :kbd:`Ctrl+X`
 Delete Item                           :kbd:`Delete`             :kbd:`Backspace`
 Delete Item (Ripple)                  :kbd:`Shift+Delete`
 Details View                          :kbd:`Ctrl+Page Up`
+Donate                                :kbd:`F7`
 Duplicate                             :kbd:`Ctrl+Shift+/`
-Edit Title                            :kbd:``
-Export Video                          :kbd:`Ctrl+E`             :kbd:`Ctrl+M`
+Edit Title                            :kbd:`Alt+T`
+Export Selected Files                 :kbd:`Ctrl+Shift+E`
+Export Video / Media                  :kbd:`Ctrl+E`             :kbd:`Ctrl+M`
 Fast Forward                          :kbd:`L`
+File Properties                       :kbd:`Alt+I`              :kbd:`Alt+Double Click`
 Freeze View                           :kbd:`Ctrl+F`
 Fullscreen                            :kbd:`F11`
 Import Files...                       :kbd:`Ctrl+I`
 Insert Keyframe                       :kbd:`Alt+Shift+K`
+Join our Community...                 :kbd:`F5`
 Jump To End                           :kbd:`End`
 Jump To Start                         :kbd:`Home`
 Launch Tutorial                       :kbd:`F2`
@@ -156,14 +161,16 @@ Nudge right (5 Frames)                :kbd:`Shift+Ctrl+Right`
 Open Help Contents                    :kbd:`F1`
 Open Project...                       :kbd:`Ctrl+O`
 Paste                                 :kbd:`Ctrl+V`
-Play/Pause Toggle                     :kbd:`Space`              :kbd:`Up`             :kbd:`Down`
+Play/Pause Toggle                     :kbd:`Space`              :kbd:`Up`                    :kbd:`Down`
 Preferences                           :kbd:`Ctrl+P`
+Preview File                          :kbd:`Alt+P`              :kbd:`Double Click`
 Previous Frame                        :kbd:`Left`               :kbd:`,`
 Previous Marker                       :kbd:`Ctrl+Shift+M`       :kbd:`Alt+Left`
 Properties                            :kbd:`U`
 Quit                                  :kbd:`Ctrl+Q`
-Razor Toggle                          :kbd:`C`                  :kbd:`B`              :kbd:`R`
+Razor Toggle                          :kbd:`C`                  :kbd:`B`                     :kbd:`R`
 Redo                                  :kbd:`Ctrl+Shift+Z`
+Report a Bug...                       :kbd:`F3`
 Rewind                                :kbd:`J`
 Save Current Frame                    :kbd:`Ctrl+Shift+Y`
 Save Current Frame                    :kbd:`Ctrl+Shift+Y`
@@ -183,16 +190,17 @@ Slice Selected: Keep Right Side       :kbd:`Ctrl+L`
 Slice Selected: Keep Left (Ripple)    :kbd:`W`
 Slice Selected: Keep Right (Ripple)   :kbd:`Q`
 Snapping Toggle                       :kbd:`S`
-Split Clip...                         :kbd:`Shift+1`
+Split File                            :kbd:`Alt+S`              :kbd:`Shift+Double Click`
 Thumbnail View                        :kbd:`Ctrl+Page Down`
 Title                                 :kbd:`Ctrl+T`
 Transform                             :kbd:`Ctrl+Alt+T`
+Translate this Application...         :kbd:`F6`
 Un-Freeze View                        :kbd:`Ctrl+Shift+F`
 Undo                                  :kbd:`Ctrl+Z`
 View Toolbar                          :kbd:`Ctrl+Shift+B`
 Zoom In                               :kbd:`=`                  :kbd:`Ctrl+=`
 Zoom Out                              :kbd:`-`                  :kbd:`Ctrl+-`
-===================================   =======================   ====================  ====================
+===================================   =======================   ==========================   ====================
 
 Menu
 ----

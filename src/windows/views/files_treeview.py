@@ -80,8 +80,8 @@ class FilesTreeView(QTreeView):
 
             menu.addAction(self.win.actionPreview_File)
             menu.addSeparator()
-            menu.addAction(self.win.actionSplitClip)
-            menu.addAction(self.win.actionExportClips)
+            menu.addAction(self.win.actionSplitFile)
+            menu.addAction(self.win.actionExportFiles)
             menu.addSeparator()
             menu.addAction(self.win.actionAdd_to_Timeline)
             menu.addAction(self.win.actionFile_Properties)
@@ -91,6 +91,16 @@ class FilesTreeView(QTreeView):
 
         # Show menu
         menu.popup(event.globalPos())
+
+    def mouseDoubleClickEvent(self, event):
+        super(FilesTreeView, self).mouseDoubleClickEvent(event)
+        # Preview File, File Properties, or Split Clip (depending on Shift/Ctrl)
+        if int(get_app().keyboardModifiers() & Qt.ShiftModifier) > 0:
+            get_app().window.actionSplitFile.trigger()
+        elif int(get_app().keyboardModifiers() & Qt.ControlModifier) > 0:
+            get_app().window.actionFile_Properties.trigger()
+        else:
+            get_app().window.actionPreview_File.trigger()
 
     def dragEnterEvent(self, event):
         # If dragging urls onto widget, accept

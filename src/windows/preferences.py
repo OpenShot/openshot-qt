@@ -779,9 +779,6 @@ class Preferences(QDialog):
                     if info['is_duplicate']:
                         # Mark the field with red text and border for duplicates
                         widget.setStyleSheet("color: red;")
-                    else:
-                        # Reset the widget style if the shortcut is valid
-                        widget.setStyleSheet("")
 
     def closeEvent(self, event):
         """Signal for closing Preferences window"""

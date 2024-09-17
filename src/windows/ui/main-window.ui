@@ -573,17 +573,17 @@
     <string>Save Project As...</string>
    </property>
   </action>
-  <action name="actionExportClips">
+  <action name="actionExportFiles">
    <property name="icon">
     <iconset theme="media-record" resource="../../../images/openshot.qrc">
     <!--PLACEHOLDER ICON-->
      <normaloff>:/icons/Humanity/actions/16/media-record.svg</normaloff>:/icons/Humanity/actions/16/media-record.svg</iconset>
    </property>
    <property name="text">
-    <string>Export Clips</string>
+    <string>Export Files</string>
    </property>
    <property name="toolTip">
-    <string>Export clips to video files</string>
+    <string>Export files</string>
    </property>
   </action>
   <action name="actionImportFiles">
@@ -1404,16 +1404,16 @@
     <string>Remove Effect</string>
    </property>
   </action>
-  <action name="actionSplitClip">
+  <action name="actionSplitFile">
    <property name="icon">
     <iconset theme="edit-cut" resource="../../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-cut.svg</normaloff>:/icons/Humanity/actions/16/edit-cut.svg</iconset>
    </property>
    <property name="text">
-    <string>Split Clip...</string>
+    <string>Split File</string>
    </property>
    <property name="toolTip">
-    <string>Split Clip</string>
+    <string>Split File</string>
    </property>
   </action>
   <action name="actionProperties">

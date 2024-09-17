@@ -1821,9 +1821,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Enable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
-
-    def actionSplitClip_trigger(self):
-        log.debug("actionSplitClip_trigger")
+    def actionSplitFile_trigger(self):
+        log.debug("actionSplitFile_trigger")
 
         # Loop through selected files (set 1 selected file if more than 1)
         f = self.files_model.current_file()
@@ -2185,7 +2184,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         else:
             log.info('File Properties Cancelled')
 
-    def actionExportClips_trigger(self):
+    def actionExportFiles_trigger(self):
         from windows.export_clips import clipExportWindow
         f = self.selected_files()
         exp = clipExportWindow(export_clips_arg=f)
