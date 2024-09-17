@@ -66,6 +66,24 @@ OpenShot comes with 3 standard themes, which change the look and feel of the pro
 
 .. _preferences_preview_ref:
 
+Restoring Defaults
+""""""""""""""""""
+In OpenShot, each preferences category (or tab) in the Preferences window has a **Restore Defaults** button that allows
+you to easily reset the values for that specific category. This feature is particularly useful if you want to
+reset only certain parts of your preferences, like keyboard shortcuts, without affecting the rest of your custom settings.
+
+**Where to Find the Restore Defaults Button:**
+Each category or tab in the Preferences window has a **Restore Defaults** button located in the bottom left corner of the screen.
+The name of the button updates based on the category you’re viewing. For example, if you're in the "Keyboard" tab,
+the button will say **Restore Defaults: Keyboard**.
+
+**How It Works:**
+Only the settings in the currently selected category will be restored to their default values. This selective restoration makes it easy
+to reset certain preferences without affecting others.
+
+**Tip for Beginners:**
+- If you're not sure about a change you've made in a particular category, don’t hesitate to use the **Restore Defaults** button. It’s a simple way to undo changes and get back to the default settings for that specific category without affecting your overall setup.
+
 Preview
 -------
 
@@ -171,8 +189,23 @@ Keyboard
 --------
 .. image:: images/preferences-7-keyboard.jpg
 
-This is where hotkeys can be seen and re-assigned, as described under 
-:ref:`keyboard_shortcut_ref`. 
+This section allows you to view and customize hotkeys for various actions in the application.
+Here, you can assign and manage multiple shortcuts for the same action and restore default shortcuts if needed.
+
+- **Assign Multiple Shortcuts**:
+  You can assign multiple keyboard shortcuts to the same action by separating them with a pipe (``|``) delimiter.
+  This flexibility allows you to configure as many shortcuts as you need for each action.
+- **Immediate Application**:
+  No restart is required after adjusting keyboard shortcuts. Changes are applied immediately, so you can start using
+  your updated shortcuts right away.
+- **Restore Default Shortcuts**:
+  If needed, you can reset all keyboard shortcuts to their default settings by clicking on the
+  :guilabel:`Restore Defaults: Keyboard` button located in the bottom-left corner of the Preferences screen.
+- **Unique Shortcuts**:
+  Each keyboard shortcut must be unique. If there are any duplicate shortcuts, they will be highlighted in **red**
+  and will not function until the conflict is resolved.
+
+For more detailed information on how to use and customize keyboard shortcuts, see :ref:`keyboard_shortcut_ref`.
 
 Location
 --------

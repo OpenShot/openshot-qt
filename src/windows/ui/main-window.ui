@@ -122,7 +122,7 @@
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionRecent_Placeholder"/>
+    <addaction name="actionRecentProjects"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
@@ -524,9 +524,6 @@
    <property name="toolTip">
     <string>New Project</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+N</string>
-   </property>
   </action>
   <action name="actionOpen">
    <property name="icon">
@@ -538,9 +535,6 @@
    </property>
    <property name="toolTip">
     <string>Open Project</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave">
@@ -554,9 +548,6 @@
    <property name="toolTip">
     <string>Save Project</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
   </action>
   <action name="actionUndo">
    <property name="icon">
@@ -568,9 +559,6 @@
    </property>
    <property name="toolTip">
     <string>Undo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Z</string>
    </property>
   </action>
   <action name="actionSaveAs">
@@ -584,21 +572,18 @@
    <property name="toolTip">
     <string>Save Project As...</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+S</string>
-   </property>
   </action>
-  <action name="actionExportClips">
+  <action name="actionExportFiles">
    <property name="icon">
     <iconset theme="media-record" resource="../../../images/openshot.qrc">
     <!--PLACEHOLDER ICON-->
      <normaloff>:/icons/Humanity/actions/16/media-record.svg</normaloff>:/icons/Humanity/actions/16/media-record.svg</iconset>
    </property>
    <property name="text">
-    <string>Export Clips</string>
+    <string>Export Files</string>
    </property>
    <property name="toolTip">
-    <string>Export clips to video files</string>
+    <string>Export files</string>
    </property>
   </action>
   <action name="actionImportFiles">
@@ -612,9 +597,6 @@
    <property name="toolTip">
     <string>Import Files</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+F</string>
-   </property>
   </action>
   <action name="actionImportImageSequence">
    <property name="icon">
@@ -626,9 +608,6 @@
    </property>
    <property name="toolTip">
     <string>Import Image Sequence</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionImportTransition">
@@ -642,9 +621,6 @@
    <property name="toolTip">
     <string>Import New Transition</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+W</string>
-   </property>
   </action>
   <action name="actionRedo">
    <property name="icon">
@@ -656,9 +632,6 @@
    </property>
    <property name="toolTip">
     <string>Redo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Y</string>
    </property>
   </action>
   <action name="actionRemoveClip">
@@ -696,9 +669,6 @@
    <property name="toolTip">
     <string>Export Video</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+E</string>
-   </property>
   </action>
   <action name="actionUploadVideo">
    <property name="icon">
@@ -711,9 +681,6 @@
    <property name="toolTip">
     <string>Upload Video</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+U</string>
-   </property>
   </action>
   <action name="actionQuit">
    <property name="icon">
@@ -725,9 +692,6 @@
    </property>
    <property name="toolTip">
     <string>Quit</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
    </property>
    <property name="menuRole">
     <enum>QAction::QuitRole</enum>
@@ -755,9 +719,6 @@
    </property>
    <property name="toolTip">
     <string>Preferences</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+P</string>
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
@@ -849,9 +810,6 @@
    <property name="toolTip">
     <string>Enable Razor</string>
    </property>
-   <property name="shortcut">
-    <string>R</string>
-   </property>
   </action>
   <action name="actionSnappingTool">
    <property name="checkable">
@@ -881,9 +839,6 @@
    </property>
    <property name="toolTip">
     <string>Add Marker</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionPreviousMarker">
@@ -1092,9 +1047,6 @@
    <property name="toolTip">
     <string>Zoom In</string>
    </property>
-   <property name="shortcut">
-    <string>=</string>
-   </property>
   </action>
   <action name="actionTimelineZoomOut">
    <property name="icon">
@@ -1106,9 +1058,6 @@
    </property>
    <property name="toolTip">
     <string>Zoom Out</string>
-   </property>
-   <property name="shortcut">
-    <string>-</string>
    </property>
   </action>
   <action name="actionTitle">
@@ -1122,9 +1071,6 @@
    <property name="toolTip">
     <string>Title</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+T</string>
-   </property>
   </action>
   <action name="actionAnimatedTitle">
    <property name="icon">
@@ -1136,9 +1082,6 @@
    </property>
    <property name="toolTip">
     <string>Animated Title</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+B</string>
    </property>
   </action>
   <action name="actionFullscreen">
@@ -1154,9 +1097,6 @@
    </property>
    <property name="toolTip">
     <string>Fullscreen</string>
-   </property>
-   <property name="shortcut">
-    <string>F11</string>
    </property>
   </action>
   <action name="actionView_Toolbar">
@@ -1184,9 +1124,6 @@
    <property name="toolTip">
     <string>About OpenShot</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+H</string>
-   </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
    </property>
@@ -1202,9 +1139,6 @@
    <property name="toolTip">
     <string>Thumbnail View</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+E</string>
-   </property>
   </action>
   <action name="actionDetailsView">
    <property name="icon">
@@ -1216,9 +1150,6 @@
    </property>
    <property name="toolTip">
     <string>Details View</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="actionReportBug">
@@ -1326,7 +1257,7 @@
     <string>Show All</string>
    </property>
   </action>
-  <action name="actionRecent_Placeholder">
+  <action name="actionRecentProjects">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1352,9 +1283,6 @@
    <property name="toolTip">
     <string>Choose Profile</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+P</string>
-   </property>
   </action>
   <action name="actionAdd_to_Timeline">
    <property name="icon">
@@ -1366,9 +1294,6 @@
    </property>
    <property name="toolTip">
     <string>Add to Timeline</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionPreview_File">
@@ -1479,19 +1404,16 @@
     <string>Remove Effect</string>
    </property>
   </action>
-  <action name="actionSplitClip">
+  <action name="actionSplitFile">
    <property name="icon">
     <iconset theme="edit-cut" resource="../../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-cut.svg</normaloff>:/icons/Humanity/actions/16/edit-cut.svg</iconset>
    </property>
    <property name="text">
-    <string>Split Clip...</string>
+    <string>Split File</string>
    </property>
    <property name="toolTip">
-    <string>Split Clip</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+X</string>
+    <string>Split File</string>
    </property>
   </action>
   <action name="actionProperties">
@@ -1622,23 +1544,17 @@
    <property name="toolTip">
     <string>Clear All</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+ESC</string>
-   </property>
   </action>
-  <action name="actionDuplicateTitle">
+  <action name="actionDuplicate">
    <property name="icon">
     <iconset theme="edit-copy" resource="../../../images/openshot.qrc">
      <normaloff>:/icons/Humanity/actions/16/edit-copy.svg</normaloff>:/icons/Humanity/actions/16/edit-copy.svg</iconset>
    </property>
    <property name="text">
-    <string>Duplicate Title</string>
+    <string>Duplicate</string>
    </property>
    <property name="toolTip">
-    <string>Duplicate Title</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+C</string>
+    <string>Duplicate</string>
    </property>
   </action>
   <action name="actionClearHistory">

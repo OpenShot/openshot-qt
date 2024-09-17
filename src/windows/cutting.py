@@ -389,15 +389,6 @@ class Cutting(QDialog):
         # Reset form
         self.clearForm()
 
-    # TODO: Remove these 4 methods
-    def accept(self):
-        """ Ok button clicked """
-        log.info('accept')
-
-    def close(self):
-        """ Actually close window and accept dialog """
-        log.info('close')
-
     def closeEvent(self, event):
         log.debug('closeEvent')
 
@@ -413,5 +404,3 @@ class Cutting(QDialog):
         self.clip.Close()
         self.r.ClearAllCache()
 
-    def reject(self):
-        log.info('reject')

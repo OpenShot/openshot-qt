@@ -49,6 +49,15 @@
     "type": "spinner"
   },
   {
+    "max": 10000,
+    "title": "Transition Length (seconds)",
+    "category": "General",
+    "min": 0,
+    "setting": "default-transition-length",
+    "value": 10.0,
+    "type": "spinner"
+  },
+  {
     "max": 100,
     "title": "Volume",
     "category": "General",
@@ -532,18 +541,27 @@
     "setting": "tutorial_ids"
   },
   {
+    "value": true,
+    "title": "Auto-Transform Selection",
+    "type": "bool",
+    "category": "General",
+    "setting": "auto-transform"
+  },
+
+
+  {
     "category": "Keyboard",
     "title": "Preferences",
-    "restart": true,
+    "restart": false,
     "setting": "actionPreferences",
-    "value": "Ctrl+Shift+P",
+    "value": "Ctrl+P",
     "type": "text",
     "sort": true
   },
   {
     "category": "Keyboard",
     "title": "Quit",
-    "restart": true,
+    "restart": false,
     "setting": "actionQuit",
     "value": "Ctrl+Q",
     "type": "text"
@@ -551,95 +569,151 @@
   {
     "category": "Keyboard",
     "title": "About OpenShot",
-    "restart": true,
+    "restart": false,
     "setting": "actionAbout",
     "value": "Ctrl+H",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Add Marker",
-    "restart": true,
-    "setting": "actionAddMarker",
-    "value": "Ctrl+M",
+    "title": "Report a Bug...",
+    "restart": false,
+    "setting": "actionReportBug",
+    "value": "F3",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Toggle Razor",
-    "restart": true,
+    "title": "Ask a Question...",
+    "restart": false,
+    "setting": "actionAskQuestion",
+    "value": "F4",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Join our Community...",
+    "restart": false,
+    "setting": "actionDiscord",
+    "value": "F5",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Translate this Application...",
+    "restart": false,
+    "setting": "actionTranslate",
+    "value": "F6",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Donate",
+    "restart": false,
+    "setting": "actionDonate",
+    "value": "F7",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Add Marker",
+    "restart": false,
+    "setting": "actionAddMarker",
+    "value": "M",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Razor Toggle",
+    "restart": false,
     "setting": "actionRazorTool",
-    "value": "R",
+    "value": "C | B | R",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Previous Marker",
-    "restart": true,
+    "restart": false,
     "setting": "actionPreviousMarker",
-    "value": "Ctrl+Left",
+    "value": "Ctrl+Shift+M | Alt+Left",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Next Marker",
-    "restart": true,
+    "restart": false,
     "setting": "actionNextMarker",
-    "value": "Ctrl+Right",
+    "value": "Shift+M | Alt+Right",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Center on Playhead",
-    "restart": true,
+    "restart": false,
     "setting": "actionCenterOnPlayhead",
-    "value": "Ctrl+Up",
+    "value": "Shift+C|Alt+Up",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Add to Timeline",
-    "restart": true,
+    "restart": false,
     "setting": "actionAdd_to_Timeline",
-    "value": "Ctrl+W",
+    "value": "Ctrl+Alt+A",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Animated Title",
-    "restart": true,
+    "restart": false,
     "setting": "actionAnimatedTitle",
-    "value": "Ctrl+B",
+    "value": "Ctrl+Shift+T",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Choose Profile",
-    "restart": true,
+    "restart": false,
     "setting": "actionProfile",
-    "value": "Ctrl+P",
+    "value": "Ctrl+Alt+P",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Details View",
-    "restart": true,
+    "restart": false,
     "setting": "actionDetailsView",
-    "value": "Ctrl+D",
+    "value": "Ctrl+Page Up",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Export Video",
-    "restart": true,
+    "restart": false,
     "setting": "actionExportVideo",
-    "value": "Ctrl+E",
+    "value": "Ctrl+E | Ctrl+M",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Export Files",
+    "restart": false,
+    "setting": "actionExportFiles",
+    "value": "Ctrl+Shift+E",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "File Properties",
+    "restart": false,
+    "setting": "actionFile_Properties",
+    "value": "Alt+I",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Fullscreen",
-    "restart": true,
+    "restart": false,
     "setting": "actionFullscreen",
     "value": "F11",
     "type": "text"
@@ -647,15 +721,15 @@
   {
     "category": "Keyboard",
     "title": "Import Files...",
-    "restart": true,
+    "restart": false,
     "setting": "actionImportFiles",
-    "value": "Ctrl+F",
+    "value": "Ctrl+I",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "New Project",
-    "restart": true,
+    "restart": false,
     "setting": "actionNew",
     "value": "Ctrl+N",
     "type": "text"
@@ -663,7 +737,7 @@
   {
     "category": "Keyboard",
     "title": "Open Project...",
-    "restart": true,
+    "restart": false,
     "setting": "actionOpen",
     "value": "Ctrl+O",
     "type": "text"
@@ -671,15 +745,15 @@
   {
     "category": "Keyboard",
     "title": "Redo",
-    "restart": true,
+    "restart": false,
     "setting": "actionRedo",
-    "value": "Ctrl+Y",
+    "value": "Ctrl+Shift+Z",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Save Project",
-    "restart": true,
+    "restart": false,
     "setting": "actionSave",
     "value": "Ctrl+S",
     "type": "text"
@@ -687,31 +761,31 @@
   {
     "category": "Keyboard",
     "title": "Save Project As...",
-    "restart": true,
+    "restart": false,
     "setting": "actionSaveAs",
     "value": "Ctrl+Shift+S",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Split Clip...",
-    "restart": true,
-    "setting": "actionSplitClip",
-    "value": "Ctrl+X",
+    "title": "Split File",
+    "restart": false,
+    "setting": "actionSplitFile",
+    "value": "Alt+S",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Thumbnail View",
-    "restart": true,
+    "restart": false,
     "setting": "actionThumbnailView",
-    "value": "Ctrl+Shift+D",
+    "value": "Ctrl+Page Down",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Title",
-    "restart": true,
+    "restart": false,
     "setting": "actionTitle",
     "value": "Ctrl+T",
     "type": "text"
@@ -719,7 +793,7 @@
   {
     "category": "Keyboard",
     "title": "Undo",
-    "restart": true,
+    "restart": false,
     "setting": "actionUndo",
     "value": "Ctrl+Z",
     "type": "text"
@@ -727,159 +801,135 @@
   {
     "category": "Keyboard",
     "title": "Zoom In",
-    "restart": true,
+    "restart": false,
     "setting": "actionTimelineZoomIn",
-    "value": "=",
+    "value": "= | Ctrl+=",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Zoom Out",
-    "restart": true,
+    "restart": false,
     "setting": "actionTimelineZoomOut",
-    "value": "-",
+    "value": "- | Ctrl+-",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Previous Frame",
-    "restart": true,
+    "restart": false,
     "setting": "seekPreviousFrame",
-    "value": "Left",
+    "value": "Left | ,",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Next Frame",
-    "restart": true,
+    "restart": false,
     "setting": "seekNextFrame",
-    "value": "Right",
+    "value": "Right | .",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Rewind",
-    "restart": true,
-    "setting": "rewindVideo",
+    "restart": false,
+    "setting": "actionRewind",
     "value": "J",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Fast Forward",
-    "restart": true,
-    "setting": "fastforwardVideo",
+    "restart": false,
+    "setting": "actionFastForward",
     "value": "L",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Play/Pause Toggle",
-    "restart": true,
+    "restart": false,
     "setting": "playToggle",
-    "value": "Space",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Play/Pause Toggle (Alternate 1)",
-    "restart": true,
-    "setting": "playToggle1",
-    "value": "Up",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Play/Pause Toggle (Alternate 2)",
-    "restart": true,
-    "setting": "playToggle2",
-    "value": "Down",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Play/Pause Toggle (Alternate 3)",
-    "restart": true,
-    "setting": "playToggle3",
-    "value": "K",
+    "value": "Space | Up | Down | K",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Delete Item",
-    "restart": true,
+    "restart": false,
     "setting": "deleteItem",
-    "value": "Delete",
-    "type": "text"
-  },
-  {
-    "category": "Keyboard",
-    "title": "Delete Item (Alternate 1)",
-    "restart": true,
-    "setting": "deleteItem1",
-    "value": "Backspace",
+    "value": "Delete | Backspace",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Slice All: Keep Both Sides",
-    "restart": true,
+    "restart": false,
     "setting": "sliceAllKeepBothSides",
-    "value": "Ctrl+K",
+    "value": "Ctrl+Shift+K",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Slice All: Keep Left Side",
-    "restart": true,
+    "restart": false,
     "setting": "sliceAllKeepLeftSide",
-    "value": "Ctrl+L",
+    "value": "Ctrl+Shift+J",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Slice All: Keep Right Side",
-    "restart": true,
+    "restart": false,
     "setting": "sliceAllKeepRightSide",
-    "value": "Ctrl+J",
+    "value": "Ctrl+Shift+L",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Slice Selected: Keep Both Sides",
-    "restart": true,
+    "restart": false,
     "setting": "sliceSelectedKeepBothSides",
-    "value": "s",
+    "value": "Ctrl+K",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Slice Selected: Keep Left Side",
-    "restart": true,
+    "restart": false,
     "setting": "sliceSelectedKeepLeftSide",
-    "value": "d",
+    "value": "Ctrl+J",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Slice Selected: Keep Right Side",
-    "restart": true,
+    "restart": false,
     "setting": "sliceSelectedKeepRightSide",
-    "value": "a",
+    "value": "Ctrl+L",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Copy",
-    "restart": true,
+    "restart": false,
     "setting": "copyAll",
     "value": "Ctrl+C",
     "type": "text"
   },
   {
     "category": "Keyboard",
+    "title": "Cut",
+    "restart": false,
+    "setting": "cutAll",
+    "value": "Ctrl+X",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Paste",
-    "restart": true,
+    "restart": false,
     "setting": "pasteAll",
     "value": "Ctrl+V",
     "type": "text"
@@ -887,7 +937,7 @@
   {
     "category": "Keyboard",
     "title": "Select All",
-    "restart": true,
+    "restart": false,
     "setting": "selectAll",
     "value": "Ctrl+A",
     "type": "text"
@@ -895,7 +945,7 @@
   {
     "category": "Keyboard",
     "title": "Select None",
-    "restart": true,
+    "restart": false,
     "setting": "selectNone",
     "value": "Ctrl+Shift+A",
     "type": "text"
@@ -903,104 +953,153 @@
   {
     "category": "Keyboard",
     "title": "Add Track",
-    "restart": true,
+    "restart": false,
     "setting": "actionAddTrack",
-    "value": "Ctrl+Shift+T",
+    "value": "Ctrl+Y",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Snapping Enabled",
-    "restart": true,
+    "title": "Snapping Toggle",
+    "restart": false,
     "setting": "actionSnappingTool",
-    "value": "Ctrl+G",
+    "value": "S",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Jump To Start",
-    "restart": true,
+    "restart": false,
     "setting": "actionJumpStart",
-    "value": "Ctrl+Home",
+    "value": "Home",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Jump To End",
-    "restart": true,
+    "restart": false,
     "setting": "actionJumpEnd",
-    "value": "Ctrl+End",
+    "value": "End",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Properties",
-    "restart": true,
+    "restart": false,
     "setting": "actionProperties",
-    "value": "Ctrl+I",
+    "value": "U",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Transform",
-    "restart": true,
+    "restart": false,
     "setting": "actionTransform",
-    "value": "Ctrl+R",
+    "value": "Ctrl+Alt+T",
     "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Insert Keyframe",
-    "restart": true,
+    "restart": false,
     "setting": "actionInsertKeyframe",
-    "value": "Ctrl+Shift+E",
+    "value": "Alt+Shift+K",
     "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Position)",
+    "restart": false,
+    "setting": "actionInsertKeyframePosition",
+    "value": "Alt+Shift+P",
+    "type": "hidden"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Scale)",
+    "restart": false,
+    "setting": "actionInsertKeyframeScale",
+    "value": "Alt+Shift+S",
+    "type": "hidden"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Rotation)",
+    "restart": false,
+    "setting": "actionInsertKeyframeRotation",
+    "value": "Alt+Shift+R",
+    "type": "hidden"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Insert Keyframe (Alpha)",
+    "restart": false,
+    "setting": "actionInsertKeyframeAlpha",
+    "value": "Alt+Shift+T",
+    "type": "hidden"
   },
   {
     "category": "Keyboard",
     "title": "Save Current Frame",
-    "restart": true,
+    "restart": false,
     "setting": "actionSaveFrame",
-    "value": "",
+    "value": "Shift+E",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Nudge left",
-    "restart": true,
+    "title": "Nudge left (1 Frame)",
+    "restart": false,
     "setting": "nudgeLeft",
-    "value": "Shift+Left",
+    "value": "Ctrl+Left",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Nudge right",
-    "restart": true,
-    "setting": "nudgeRight",
-    "value": "Shift+Right",
+    "title": "Nudge left (5 Frames)",
+    "restart": false,
+    "setting": "nudgeLeftBig",
+    "value": "Shift+Ctrl+Left",
     "type": "text"
   },
   {
-    "value": true,
-    "title": "Auto-Transform Selection",
-    "type": "bool",
-    "category": "General",
-    "setting": "auto-transform"
+    "category": "Keyboard",
+    "title": "Nudge right (1 Frame)",
+    "restart": false,
+    "setting": "nudgeRight",
+    "value": "Ctrl+Right",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Nudge right (5 Frames)",
+    "restart": false,
+    "setting": "nudgeRightBig",
+    "value": "Shift+Ctrl+Right",
+    "type": "text"
   },
   {
     "category": "Keyboard",
     "title": "Edit Title",
-    "restart": true,
+    "restart": false,
     "setting": "actionEditTitle",
-    "value": "",
+    "value": "Alt+T",
     "type": "text"
   },
   {
     "category": "Keyboard",
-    "title": "Duplicate Title",
-    "restart": true,
-    "setting": "actionDuplicateTitle",
-    "value": "Ctrl+Shift+C",
+    "title": "Preview File",
+    "restart": false,
+    "setting": "actionPreview_File",
+    "value": "Alt+P",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Duplicate",
+    "restart": false,
+    "setting": "actionDuplicate",
+    "value": "Ctrl+Shift+/",
     "type": "text"
   },
   {
@@ -1011,6 +1110,121 @@
     "value": "Ctrl+Shift+ESC",
     "type": "text"
   },
+  {
+    "category": "Keyboard",
+    "title": "Clear History",
+    "restart": false,
+    "setting": "actionClearHistory",
+    "value": "Ctrl+Shift+H",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Clear Waveform Display Data",
+    "restart": false,
+    "setting": "actionClearWaveformData",
+    "value": "Ctrl+Shift+W",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Simple View",
+    "restart": false,
+    "setting": "actionSimple_View",
+    "value": "Alt+Shift+0",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Advanced View",
+    "restart": false,
+    "setting": "actionAdvanced_View",
+    "value": "Alt+Shift+1",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Freeze View",
+    "restart": false,
+    "setting": "actionFreeze_View",
+    "value": "Ctrl+F",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Un-Freeze View",
+    "restart": false,
+    "setting": "actionUn_Freeze_View",
+    "value": "Ctrl+Shift+F",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Show All Docks",
+    "restart": false,
+    "setting": "actionShow_All",
+    "value": "Ctrl+Shift+D",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "View Toolbar",
+    "restart": false,
+    "setting": "actionView_Toolbar",
+    "value": "Ctrl+Shift+B",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Launch Tutorial",
+    "restart": false,
+    "setting": "actionTutorial",
+    "value": "F2",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Open Help Contents",
+    "restart": false,
+    "setting": "actionHelpContents",
+    "value": "F1",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Delete Item (Ripple)",
+    "restart": false,
+    "setting": "actionRippleDelete",
+    "value": "Shift+Delete",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Select Item (Ripple)",
+    "restart": false,
+    "setting": "actionRippleSelect",
+    "value": "Shift+A",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Left (Ripple)",
+    "restart": false,
+    "setting": "actionRippleSliceKeepLeft",
+    "value": "W",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Slice Selected: Keep Right (Ripple)",
+    "restart": false,
+    "setting": "actionRippleSliceKeepRight",
+    "value": "Q",
+    "type": "text"
+  },
+
+
+
   {
     "category": "Location",
     "title": "File Import",

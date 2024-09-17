@@ -28,7 +28,7 @@
 
 
 // Initialize the main controller module
-/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement, findTrackAtLocation*/
+/*global App, timeline, bounding_box, setBoundingBox, moveBoundingBox, findElement, findTrackAtLocation, snapToFPSGridTime, pixelToTime*/
 App.controller("TimelineCtrl", function ($scope) {
 
   // DEMO DATA (used when debugging outside of Qt using Chrome)
@@ -547,6 +547,7 @@ App.controller("TimelineCtrl", function ($scope) {
   // Clear all selections
   $scope.clearAllSelections = function () {
     // Clear the selections on the main window
+    $scope.selectClip("", true);
     $scope.selectTransition("", true);
     $scope.selectEffect("", true);
 
@@ -577,110 +578,114 @@ App.controller("TimelineCtrl", function ($scope) {
     });
   };
 
-  // Select clip in scope
-  $scope.selectClip = function (clip_id, clear_selections, event) {
-    // Trim clip_id
-    var id = clip_id.replace("clip_", "");
+  // Select item (either clip or transition)
+  $scope.selectItem = function (item_id, item_type, clear_selections, event, force_ripple) {
+    // Trim item_id
+    var id = item_id.replace(`${item_type}_`, "");
 
-    // Is CTRL pressed?
+    // Check for modifier keys
     var is_ctrl = event && event.ctrlKey;
+    var is_shift = event && event.shiftKey;
 
-    // Clear transitions selection if needed
-    if (id !== "" && clear_selections && !is_ctrl) {
-      $scope.selectTransition("", true);
-    }
-    // Call slice method and exit (don't actually select the clip)
-    if (id !== "" && $scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
-      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
-      timeline.RazorSliceAtCursor(id, "", cursor_seconds);
-
-      // Don't actually select clip
-      return;
-    }
-
-    // Update selection for clips
-    for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ($scope.project.clips[clip_index].id === id) {
-        // Invert selection if CTRL is pressed and not forced add and already selected
-        if (is_ctrl && clear_selections && ($scope.project.clips[clip_index].selected === true)) {
-          $scope.project.clips[clip_index].selected = false;
-          if ($scope.Qt) {
-            timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
-          }
-        }
-        else {
-          $scope.project.clips[clip_index].selected = true;
-          if ($scope.Qt) {
-            // Do not clear selection if CTRL is pressed
-            if (is_ctrl) {
-              timeline.addSelection(id, "clip", false);
-            }
-            else {
-              timeline.addSelection(id, "clip", clear_selections);
-            }
-          }
-        }
+    // If no ID is provided (id == ""), unselect all items
+    if (id === "") {
+      if (clear_selections) {
+        // Unselect all clips
+        $scope.project.clips.forEach(function (clip) {
+          clip.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
+        });
+        // Unselect all transitions
+        $scope.project.effects.forEach(function (transition) {
+          transition.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
+        });
       }
-      else if (clear_selections && !is_ctrl) {
-        $scope.project.clips[clip_index].selected = false;
-        if ($scope.Qt) {
-          timeline.removeSelection($scope.project.clips[clip_index].id, "clip");
+      return; // Exit after clearing all selections
+    }
+
+    // Razor mode check
+    if ($scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
+      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
+      timeline.RazorSliceAtCursor(item_type === "clip" ? id : "", item_type === "transition" ? id : "", cursor_seconds);
+      return; // Don't select if razor mode is enabled
+    }
+
+    // Clear all selections if necessary (no CTRL modifier)
+    if (clear_selections && !is_ctrl) {
+      // Unselect all clips
+      $scope.project.clips.forEach(function (clip) {
+        clip.selected = false;
+        if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
+      });
+      // Unselect all transitions
+      $scope.project.effects.forEach(function (transition) {
+        transition.selected = false;
+        if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
+      });
+    }
+
+    // Get the correct array based on item_type
+    var items = item_type === "clip" ? $scope.project.clips : $scope.project.effects;
+
+    // Handle ripple selection (SHIFT key) for both clips and transitions
+    if (is_shift || force_ripple) {
+      var selected_item = items.find(item => item.id === id);
+      if (selected_item) {
+        var selected_layer = selected_item.layer;
+        var selected_position = selected_item.position;
+
+        // Select all clips and transitions to the right on the same layer
+        $scope.project.clips.forEach(function (clip) {
+          if (clip.layer === selected_layer && clip.position >= selected_position) {
+            clip.selected = true;
+            if ($scope.Qt) { timeline.addSelection(clip.id, "clip", false); }
+          }
+        });
+        $scope.project.effects.forEach(function (transition) {
+          if (transition.layer === selected_layer && transition.position >= selected_position) {
+            transition.selected = true;
+            if ($scope.Qt) { timeline.addSelection(transition.id, "transition", false); }
+          }
+        });
+      }
+      return; // No need to do normal selection logic after ripple select
+    }
+
+    // Update selection for clips or transitions
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (item.id === id) {
+        // Invert selection if CTRL is pressed and item is already selected
+        if (is_ctrl && clear_selections && item.selected) {
+          item.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(item.id, item_type); }
+        } else {
+          item.selected = true;
+          if ($scope.Qt) { timeline.addSelection(item.id, item_type, !is_ctrl && clear_selections); }
         }
       }
     }
   };
 
-  // Select transition in scope
+  // Wrapper for ripple selecting clips
+  $scope.selectClipRipple = function (clip_id, clear_selections, event) {
+    $scope.selectItem(clip_id, "clip", clear_selections, event, true);
+  };
+
+  // Wrapper for ripple selecting transitions
+  $scope.selectTransitionRipple = function (tran_id, clear_selections, event) {
+    $scope.selectItem(tran_id, "transition", clear_selections, event, true);
+  };
+
+  // Wrapper for selecting clips
+  $scope.selectClip = function (clip_id, clear_selections, event) {
+    $scope.selectItem(clip_id, "clip", clear_selections, event, false);
+  };
+
+  // Wrapper for selecting transitions
   $scope.selectTransition = function (tran_id, clear_selections, event) {
-    // Trim tran_id
-    var id = tran_id.replace("transition_", "");
-
-    // Is CTRL pressed?
-    var is_ctrl = event && event.ctrlKey;
-
-    // Clear clips selection if needed
-    if (id !== "" && clear_selections && !is_ctrl) {
-      $scope.selectClip("", true);
-    }
-    // Call slice method and exit (don't actually select the transition)
-    if (id !== "" && $scope.enable_razor && $scope.Qt && typeof event !== 'undefined') {
-      var cursor_seconds = $scope.getJavaScriptPosition(event.clientX, null).position;
-      timeline.RazorSliceAtCursor("", id, cursor_seconds);
-
-      // Don't actually select transition
-      return;
-    }
-
-    // Update selection for transitions
-    for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
-      if ($scope.project.effects[tran_index].id === id) {
-        // Invert selection if CTRL is pressed and not forced add and already selected
-        if (is_ctrl && clear_selections && ($scope.project.effects[tran_index].selected === true)) {
-          $scope.project.effects[tran_index].selected = false;
-          if ($scope.Qt) {
-            timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
-          }
-        }
-        else {
-          $scope.project.effects[tran_index].selected = true;
-          if ($scope.Qt) {
-            // Do not clear selection if CTRL is pressed
-            if (is_ctrl) {
-              timeline.addSelection(id, "transition", false);
-            }
-            else {
-              timeline.addSelection(id, "transition", clear_selections);
-            }
-          }
-        }
-      }
-      else if (clear_selections && !is_ctrl) {
-        $scope.project.effects[tran_index].selected = false;
-        if ($scope.Qt) {
-          timeline.removeSelection($scope.project.effects[tran_index].id, "transition");
-        }
-      }
-    }
+    $scope.selectItem(tran_id, "transition", clear_selections, event, false);
   };
 
   // Format the thumbnail path: http://127.0.0.1:8081/thumbnails/FILE-ID/FRAME-NUMBER/
@@ -689,7 +694,6 @@ App.controller("TimelineCtrl", function ($scope) {
    */
   $scope.getThumbPath = function (clip) {
     if (!clip || !clip.reader) {
-      console.error("Invalid clip object or missing reader property in getThumbPath");
       return "../images/NotFound.svg";
     }
 
@@ -880,7 +884,7 @@ App.controller("TimelineCtrl", function ($scope) {
     x += horz_scroll_offset;
 
     // Convert x into position in seconds
-    var clip_position = parseFloat(x - scrolling_tracks_offset_left) / parseFloat($scope.pixelsPerSecond);
+    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(x - scrolling_tracks_offset_left)));
     if (clip_position < 0) {
       clip_position = 0;
     }
@@ -911,45 +915,51 @@ App.controller("TimelineCtrl", function ($scope) {
       }
   };
 
-  // Get JSON of most recent item (used by Qt)
-  $scope.updateRecentItemJSON = function (item_type, item_id, item_tid) {
+// Get JSON of most recent items (used by Qt)
+$scope.updateRecentItemJSON = function (item_type, item_ids, tid) {
+  // Ensure item_ids is an array for consistency
+  item_ids = JSON.parse(item_ids);
 
+  // Iterate through each item_id
+  item_ids.forEach(function (item_id) {
     // Find item in JSON
     var item_object = null;
     if (item_type === "clip") {
       item_object = findElement($scope.project.clips, "id", item_id);
-    }
-    else if (item_type === "transition") {
+    } else if (item_type === "transition") {
       item_object = findElement($scope.project.effects, "id", item_id);
-    }
-    else {
-      // Bail out if no id found
+    } else {
+      // Bail out if no item_type matches
       return;
     }
 
+    // Get recent move data
+    var element_id = item_type + "_" + item_id;
+    var top = bounding_box.move_clips[element_id].top;
+    var left = bounding_box.move_clips[element_id].left;
+
     // Get position of item (snapped to FPS grid)
-    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(bounding_box.left)));
+    var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(left)));
 
     // Get the nearest track
     var layer_num = 0;
-    var nearest_track = findTrackAtLocation($scope, bounding_box.top);
+    var nearest_track = findTrackAtLocation($scope, top);
     if (nearest_track !== null) {
       layer_num = nearest_track.number;
     }
 
-    // update scope with final position of items
+    // Update scope with final position of the item
     $scope.$apply(function () {
-      // update item
+      // Update item with new position and layer
       item_object.position = clip_position;
       item_object.layer = layer_num;
     });
 
-    // update clip in Qt (very important =)
+    // Update clip or transition in Qt (very important)
     if (item_type === "clip") {
-      timeline.update_clip_data(JSON.stringify(item_object), true, true, false, item_tid);
-    }
-    else if (item_type === "transition") {
-      timeline.update_transition_data(JSON.stringify(item_object), true, false, item_tid);
+      timeline.update_clip_data(JSON.stringify(item_object), true, true, false, tid);
+    } else if (item_type === "transition") {
+      timeline.update_transition_data(JSON.stringify(item_object), true, false, tid);
     }
 
     // Resize timeline if it's too small to contain all clips
@@ -960,62 +970,94 @@ App.controller("TimelineCtrl", function ($scope) {
 
     // Check again for missing transitions
     var missing_transition_details = $scope.getMissingTransitions(item_object);
-    if ($scope.Qt && missing_transition_details !== null) {
+    if ($scope.Qt && missing_transition_details !== null && item_ids.length === 1) {
       timeline.add_missing_transition(JSON.stringify(missing_transition_details));
     }
-    // Remove manual move stylesheet
-    if (bounding_box.element) {
-      bounding_box.element.removeClass("manual-move");
-    }
+  });
 
-    // Remove CSS class (after the drag)
-    bounding_box = {};
-  };
-
-  // Init bounding boxes for manual move
-  $scope.startManualMove = function (item_type, item_id) {
-    // Select the item
-    $scope.$apply(function () {
-      if (item_type === "clip") {
-        $scope.selectClip(item_id, true);
-      }
-      else if (item_type === "transition") {
-        $scope.selectTransition(item_id, true);
-      }
+  // Remove manual move stylesheet
+  if (bounding_box.elements) {
+    bounding_box.elements.each(function () {
+      $(this).removeClass("manual-move");
     });
+  }
 
-    // Select new clip object (and unselect others)
-    // This needs to be done inline due to async issues with the
-    // above calls to selectClip/selectTransition
+  // Reset bounding box
+  bounding_box = {};
+};
+
+// Init bounding boxes for manual move
+$scope.startManualMove = function (item_type, item_ids) {
+  // Ensure item_ids is an array for consistency
+  item_ids = JSON.parse(item_ids);
+
+  // Select new objects
+  $scope.$apply(function () {
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      $scope.project.clips[clip_index].selected = $scope.project.clips[clip_index].id === item_id;
+      $scope.project.clips[clip_index].selected = item_ids.includes($scope.project.clips[clip_index].id);
+      if ($scope.project.clips[clip_index].selected) {
+        $scope.selectClip($scope.project.clips[clip_index].id, false);
+      }
     }
 
-    // Select new transition object (and unselect others)
+    // Select new transition objects (and unselect others)
     for (var tran_index = 0; tran_index < $scope.project.effects.length; tran_index++) {
-      $scope.project.effects[tran_index].selected = $scope.project.effects[tran_index].id === item_id;
+      $scope.project.effects[tran_index].selected = item_ids.includes($scope.project.effects[tran_index].id);
+      if ($scope.project.effects[tran_index].selected) {
+        $scope.selectTransition($scope.project.effects[tran_index].id, false);
+      }
     }
+  });
 
-    // JQuery selector for element (clip or transition)
-    var element_id = "#" + item_type + "_" + item_id;
+  // Prepare to store clip positions
+  var scrolling_tracks = $("#scrolling_tracks");
+  var vert_scroll_offset = scrolling_tracks.scrollTop();
+  var horz_scroll_offset = scrolling_tracks.scrollLeft();
 
-    // Init bounding box
-    bounding_box = {};
-    setBoundingBox($scope, $(element_id));
+  // Init bounding box
+  bounding_box = {};
 
-    // Init some variables to track the changing position
-    bounding_box.previous_x = bounding_box.left;
-    bounding_box.previous_y = bounding_box.top;
-    bounding_box.offset_x = 0;
-    bounding_box.offset_y = 0;
-    bounding_box.element = $(element_id);
-    bounding_box.track_position = 0;
+  // Set bounding box that contains all selected clips/transitions
+  var selectedClips = $(".ui-selected");
+  selectedClips.each(function () {
+    // Send each selected clip or transition to the bounding box builder
+    setBoundingBox($scope, $(this)); // Pass the element and scope to setBoundingBox
+  });
 
-    // Set z-order to be above other clips/transitions
-    if (item_type !== "os_drop" && bounding_box.element) {
-      bounding_box.element.addClass("manual-move");
-    }
-  };
+  // After calling setBoundingBox, now initialize the start_clips and move_clips
+  bounding_box.start_clips = {};
+  bounding_box.move_clips = {};
+
+  // Iterate again to set start_clips and move_clips properties
+  selectedClips.each(function () {
+    var element_id = $(this).attr("id");
+
+    // Store initial positions after setBoundingBox is called
+    bounding_box.start_clips[element_id] = {
+      "top": $(this).position().top + vert_scroll_offset,
+      "left": $(this).position().left + horz_scroll_offset
+    };
+    bounding_box.move_clips[element_id] = {
+      "top": $(this).position().top + vert_scroll_offset,
+      "left": $(this).position().left + horz_scroll_offset
+    };
+  });
+
+  // Init some variables to track the changing position
+  bounding_box.previous_x = bounding_box.left;
+  bounding_box.previous_y = bounding_box.top;
+  bounding_box.offset_x = 0;
+  bounding_box.offset_y = 0;
+  bounding_box.elements = selectedClips;
+  bounding_box.track_position = 0;
+
+  // Set z-order to be above other clips/transitions
+  if (item_type !== "os_drop") {
+    selectedClips.each(function () {
+      $(this).addClass("manual-move");
+    });
+  }
+};
 
 $scope.moveItem = function (x, y) {
   // Adjust x and y to account for the scroll position
@@ -1038,10 +1080,23 @@ $scope.moveItem = function (x, y) {
   bounding_box.previous_x = results.position.left;
   bounding_box.previous_y = results.position.top;
 
-  // Update the element's position
-  if (bounding_box.element) {
-    bounding_box.element.css("left", results.position.left + "px");
-    bounding_box.element.css("top", results.position.top + "px");
+  // Apply snapping results to the first clip and calculate the delta for the remaining clips
+  var delta_x = results.position.left - bounding_box.start_clips[bounding_box.elements.first().attr("id")].left;
+  var delta_y = results.position.top - bounding_box.start_clips[bounding_box.elements.first().attr("id")].top;
+
+  // Update the position of each selected element by applying the delta
+  if (bounding_box.elements) {
+    bounding_box.elements.each(function () {
+      var element_id = $(this).attr("id");
+      // Apply x_offset and y_offset to the starting position of each selected clip
+      var new_left = bounding_box.start_clips[element_id].left + delta_x;
+      var new_top = bounding_box.start_clips[element_id].top + delta_y;
+      bounding_box.move_clips[element_id]["top"] = new_top;
+      bounding_box.move_clips[element_id]["left"] = new_left;
+      // Set the new position for the element
+      $(this).css("left", new_left + "px");
+      $(this).css("top", new_top + "px");
+    });
   }
 };
 

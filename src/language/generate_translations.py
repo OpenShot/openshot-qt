@@ -22,7 +22,7 @@
 		$ msgfmt es.po --output-file=es/LC_MESSAGES/OpenShot.mo
 
  Command to compile all PO files in a folder
-		$ find -iname "*.po" -exec msgfmt {} -o {}.mo \;
+		$ find -iname "*.po" -exec msgfmt {} -o {}.mo \\;
 
  Command to combine the 2 pot files into 1 file
        $ msgcat ~/openshot/locale/OpenShot/OpenShot_source.pot ~/openshot/openshot/locale/OpenShot/OpenShot_glade.pot -o ~/openshot/main/locale/OpenShot/OpenShot.pot
@@ -103,8 +103,8 @@ log.info(" Using xgettext to generate .py POT files")
 log.info("-----------------------------------------------------")
 
 # Generate POT for Source Code strings (i.e. strings marked with a _("translate me"))
-subprocess.call('find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (
-openshot_path, os.path.join(language_folder_path, 'OpenShot_source.pot')), shell=True)
+subprocess.call(r'find %s -iname "*.py" -exec xgettext -j -o %s --keyword=_ {} \;' % (
+    openshot_path, os.path.join(language_folder_path, 'OpenShot_source.pot')), shell=True)
 
 log.info("-----------------------------------------------------")
 log.info(" Using Qt's lupdate to generate .ui POT files")
@@ -223,7 +223,7 @@ emoji_text = { "translator-credits": "Translator credits to be translated by Lau
 emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
 emoji_ignore_keys = ("Keyboard", "Sunset", "Key", "Right arrow", "Left arrow", "Bubbles",
                      "Twitter", "Instagram", "Scale", "Simple", "Close", "Forward", "Copy",
-                     "Filter", "Details")
+                     "Filter", "Details", "Duplicate")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
 

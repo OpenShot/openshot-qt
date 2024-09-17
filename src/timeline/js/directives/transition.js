@@ -217,6 +217,7 @@ App.directive("tlTransition", function () {
       element.draggable({
         snap: false,
         scroll: true,
+        distance: 5,
         cancel: ".transition_menu, .point",
         start: function (event, ui) {
           previous_drag_position = null;

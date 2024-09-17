@@ -273,6 +273,7 @@ App.directive("tlClip", function ($timeout) {
       element.draggable({
         snap: false,
         scroll: true,
+        distance: 5,
         cancel: ".effect-container,.clip_menu,.point",
         start: function (event, ui) {
           previous_drag_position = null;
