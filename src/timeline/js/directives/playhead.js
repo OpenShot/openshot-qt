@@ -37,26 +37,24 @@ App.directive("tlPlayhead", function () {
     link: function (scope, element, attrs) {
       // get the default top position so we can lock it in place vertically
       playhead_y_max = element.position().top;
+      var isDragging = false;
 
       element.on("mousedown", function (e) {
         // Set bounding box for the playhead
         setBoundingBox(scope, $("#playhead"), "playhead");
+
+        // Start dragging
+        isDragging = true;
+
         if (scope.Qt) {
-            // Disable caching thread during scrubbing
-            timeline.DisableCacheThread();
+          // Disable caching thread during scrubbing
+          timeline.DisableCacheThread();
         }
       });
 
-      element.on("contextmenu", function (e) {
-        if (scope.Qt) {
-            // Enable caching thread after scrubbing
-            timeline.EnableCacheThread();
-        }
-      });
-
-      // Move playhead to new position (if it's not currently being animated)
-      element.on("mousemove", function (e) {
-        if (e.which === 1 && !scope.playhead_animating && !scope.getDragging()) { // left button
+      // Global mousemove listener
+      $(document).on("mousemove", function (e) {
+        if (isDragging && e.which === 1 && !scope.playhead_animating && !scope.getDragging()) { // left button is held
           // Calculate the playhead bounding box movement and apply snapping rules
           let cursor_position = e.pageX - $("#ruler").offset().left;
           let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
@@ -71,11 +69,23 @@ App.directive("tlPlayhead", function () {
 
           // Move playhead
           let playhead_seconds = snapToFPSGridTime(scope, pixelToTime(scope, new_position));
+          playhead_seconds = Math.min(Math.max(0.0, playhead_seconds), scope.project.duration);
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
         }
       });
 
+      // Global mouseup listener to stop dragging
+      $(document).on("mouseup", function (e) {
+        if (isDragging) {
+          isDragging = false;
+
+          if (scope.Qt) {
+            // Enable caching thread after scrubbing
+            timeline.EnableCacheThread();
+          }
+        }
+      });
     }
   };
 });
