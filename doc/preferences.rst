@@ -189,8 +189,23 @@ Keyboard
 --------
 .. image:: images/preferences-7-keyboard.jpg
 
-This is where hotkeys can be seen and re-assigned, as described under 
-:ref:`keyboard_shortcut_ref`. 
+This section allows you to view and customize hotkeys for various actions in the application.
+Here, you can assign and manage multiple shortcuts for the same action and restore default shortcuts if needed.
+
+- **Assign Multiple Shortcuts**:
+  You can assign multiple keyboard shortcuts to the same action by separating them with a pipe (``|``) delimiter.
+  This flexibility allows you to configure as many shortcuts as you need for each action.
+- **Immediate Application**:
+  No restart is required after adjusting keyboard shortcuts. Changes are applied immediately, so you can start using
+  your updated shortcuts right away.
+- **Restore Default Shortcuts**:
+  If needed, you can reset all keyboard shortcuts to their default settings by clicking on the
+  :guilabel:`Restore Defaults: Keyboard` button located in the bottom-left corner of the Preferences screen.
+- **Unique Shortcuts**:
+  Each keyboard shortcut must be unique. If there are any duplicate shortcuts, they will be highlighted in **red**
+  and will not function until the conflict is resolved.
+
+For more detailed information on how to use and customize keyboard shortcuts, see :ref:`keyboard_shortcut_ref`.
 
 Location
 --------

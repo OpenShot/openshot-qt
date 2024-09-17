@@ -160,7 +160,7 @@ Play/Pause Toggle                     :kbd:`Space`              :kbd:`Up`       
 Preferences                           :kbd:`Ctrl+P`
 Previous Frame                        :kbd:`Left`               :kbd:`,`
 Previous Marker                       :kbd:`Ctrl+Shift+M`       :kbd:`Alt+Left`
-Properties                            :kbd:`Ctrl+Shift+H`
+Properties                            :kbd:`U`
 Quit                                  :kbd:`Ctrl+Q`
 Razor Toggle                          :kbd:`C`                  :kbd:`B`              :kbd:`R`
 Redo                                  :kbd:`Ctrl+Shift+Z`
@@ -170,7 +170,7 @@ Save Current Frame                    :kbd:`Ctrl+Shift+Y`
 Save Project                          :kbd:`Ctrl+S`
 Save Project As...                    :kbd:`Ctrl+Shift+S`
 Select All                            :kbd:`Ctrl+A`
-Select Item (Ripple)                  :kbd:`Shift+A`         :kbd:`Shift+Click`
+Select Item (Ripple)                  :kbd:`Shift+A`            :kbd:`Shift+Click`
 Select None                           :kbd:`Ctrl+Shift+A`
 Show All Docks                        :kbd:`Ctrl+Shift+D`
 Simple View                           :kbd:`Alt+Shift+0`

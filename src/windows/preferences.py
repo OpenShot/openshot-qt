@@ -105,6 +105,9 @@ class Preferences(QDialog):
         # Populate preferences
         self.Populate()
 
+        # Highlight invalid keyboard shortcuts
+        self.check_shortcut_validity()
+
         # Restore normal cursor
         get_app().restoreOverrideCursor()
 
@@ -130,13 +133,16 @@ class Preferences(QDialog):
         self.Populate(filter=self.txtSearch.text())
 
     def DeleteAllTabs(self, onlyInVisible=False):
-        """Delete all tabs"""
+        """Delete all tabs and ensure they are fully removed from memory."""
         for name, widget in dict(self.category_tabs).items():
+            # Check visibility condition
             if (onlyInVisible and name not in self.visible_category_names) or not onlyInVisible:
+                # Remove hidden widgets
                 parent_widget = widget.parent().parent()
-                parent_widget.parent().removeWidget(parent_widget)
+                parent_widget.setParent(None)
                 parent_widget.deleteLater()
 
+                # Clean up the references in the internal tracking dictionaries
                 if name in self.category_names:
                     self.category_names.pop(name)
                 if name in self.visible_category_names:
@@ -252,6 +258,7 @@ class Preferences(QDialog):
                     # create QLineEdit
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
+                    widget.setObjectName(param["setting"])
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
                     if param["type"] == "browse":
@@ -567,6 +574,9 @@ class Preferences(QDialog):
         if param.get("category") == "Keyboard":
             get_app().window.initShortcuts()
 
+            # Check for duplicates and update UI feedback
+            self.check_shortcut_validity()
+
         # Check for restart
         self.check_for_restart(param)
 
@@ -726,6 +736,52 @@ class Preferences(QDialog):
 
             # Update shortcuts on main window
             get_app().window.initShortcuts()
+
+            # Highlight invalid keyboard shortcuts
+            self.check_shortcut_validity()
+
+    def check_shortcut_validity(self):
+        """Check all keyboard settings for duplicate or invalid shortcuts and update the UI."""
+
+        # Set to track all key sequences and prevent duplication
+        used_shortcuts = {}
+
+        # Iterate over all keyboard shortcuts from the application settings
+        for shortcut in get_app().window.getAllKeyboardShortcuts():
+            method_name = shortcut.get('setting')
+
+            # Get list of key sequences (divided by | delimiter)
+            shortcut_sequences = get_app().window.getShortcutByName(method_name)
+
+            # Create QKeySequence list for each sequence
+            key_sequences = [QKeySequence(seq).toString() for seq in shortcut_sequences if seq]
+
+            for key_sequence in key_sequences:
+                if key_sequence in used_shortcuts:
+                    # Mark both current and new shortcut as duplicates
+                    used_shortcuts[key_sequence]['is_duplicate'] = True
+                    used_shortcuts[key_sequence]['params'].append(method_name)
+                else:
+                    used_shortcuts[key_sequence] = {'is_duplicate': False, 'params': [method_name]}
+
+        # Update the UI based on shortcut validation
+        self.update_shortcut_visual_feedback(used_shortcuts)
+
+    def update_shortcut_visual_feedback(self, shortcut_map):
+        """Update the UI to provide feedback for duplicated/invalid shortcuts."""
+
+        for key_sequence, info in shortcut_map.items():
+            for param_name in info['params']:
+                # Find the QLineEdit using the objectName (which is set to the param name)
+                widget = self.findChild(QLineEdit, param_name)
+
+                if widget:
+                    if info['is_duplicate']:
+                        # Mark the field with red text and border for duplicates
+                        widget.setStyleSheet("color: red;")
+                    else:
+                        # Reset the widget style if the shortcut is valid
+                        widget.setStyleSheet("")
 
     def closeEvent(self, event):
         """Signal for closing Preferences window"""

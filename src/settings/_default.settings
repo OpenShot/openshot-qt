@@ -931,7 +931,7 @@
     "title": "Properties",
     "restart": false,
     "setting": "actionProperties",
-    "value": "Ctrl+Shift+H",
+    "value": "U",
     "type": "text"
   },
   {
