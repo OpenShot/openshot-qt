@@ -87,7 +87,7 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
                                              right side (shortcut: :kbd:`Q`), while rippling the gap removal across the current track.
    **Razor Tool**                            The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the position where it is clicked.
                                              Use :kbd:`SHIFT` to slice and keep the left side, or :kbd:`CTRL` to keep the right side.
-   **Split Clip Dialog**                     Right-click on a file and choose :guilabel:`Split Clip`. This opens a dialog that allows you to create multiple
+   **Split File Dialog**                     Right-click on a file and choose :guilabel:`Split File`. This opens a dialog that allows you to create multiple
                                              clips from a single video file.
    =======================================   ================================================================
 

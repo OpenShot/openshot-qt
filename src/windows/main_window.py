@@ -1829,7 +1829,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Bail out if no file selected
         if not f:
-            log.warn("Split clip action failed, couldn't find current file")
+            log.warn("Split file action failed, couldn't find current file")
             return
 
         # show dialog

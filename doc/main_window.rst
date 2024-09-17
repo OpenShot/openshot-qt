@@ -142,7 +142,7 @@ Edit Title                            :kbd:`Alt+T`
 Export Selected Files                 :kbd:`Ctrl+Shift+E`
 Export Video / Media                  :kbd:`Ctrl+E`             :kbd:`Ctrl+M`
 Fast Forward                          :kbd:`L`
-File Properties                       :kbd:`Alt+I`              :kbd:`Alt+Double Click`
+File Properties                       :kbd:`Alt+I`              :kbd:`Ctrl+Double Click`
 Freeze View                           :kbd:`Ctrl+F`
 Fullscreen                            :kbd:`F11`
 Import Files...                       :kbd:`Ctrl+I`

@@ -67,22 +67,22 @@ File Context Option   Description
 Import Files...       Import files into your project
 Thumbnail/Detail      Toggle the view between details and thumbnails
 Preview File          Preview a media file
-Split Clip...         Split a file into many smaller clips
+Split File            Split a file into many smaller files. The new trimmed files appear in the Project Files list.
 Edit Title            Edit an existing title SVG file
 Duplicate Title       Make a copy, and then edit the copied title SVG file
-Add to Timeline       Add many files to the timeline in one step
+Add to Timeline       Add many files to the timeline in one step, including transitions or alternating tracks.
 File Properties       View the properties of a file, such as frame rate, size, etc...
 Remove from Project   Remove a file from the project
 ====================  ============
 
 .. _split_clip_ref:
 
-Split Clip
+Split File
 ----------
-If you need to cut a file into many smaller clips before editing, the **Split Clip** dialog is built exactly for this
-purpose. Right click on a file, and choose Split Clip... from the file menu. This opens the Split Clip dialog. Use this
-dialog to quickly cut out as many small clips as you need. The dialog stays open after you create a clip, to allow you
-to repeat the steps for your next clip. When you are finished, simply close the dialog.
+If you need to cut a large video file into many smaller files before editing, the **Split File** dialog is built exactly for this
+purpose. Right click on a file, and choose :guilabel:`Split File`. Use this dialog to quickly separate a large file into
+many smaller segments. For each segment, you can select the starting and ending frame, and a title. Each segment appears
+as a new file in the Project Files dialog.
 
 .. image:: images/file-split-dialog.jpg
 
@@ -92,25 +92,25 @@ to repeat the steps for your next clip. When you are finished, simply close the 
    ==  ==================  ============
    #   Name                Description
    ==  ==================  ============
-   1   Start of Clip       Choose the starting frame of your clip by clicking this button
-   2   End of Clip         Choose the ending frame of your clip by clicking this button
-   3   Name of Clip        Enter an optional name
-   4   Create Clip         Create the clip (which resets this dialog, so you can repeat these steps for each clip)
+   1   Start of File       Choose the starting frame of your file by clicking this button
+   2   End of File         Choose the ending frame of your file by clicking this button
+   3   Name of File        Enter an optional name
+   4   Create Button       Create the file (which resets this dialog, so you can repeat these steps for each segment)
    ==  ==================  ============
 
 Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline.
 
-Export Clips
+Export Files
 ------------
-If you want your clips available outside of your OpenShot project, or want to copy all your video assets to one place,
-you can do this with the **Export Clips** dialog. Simply :kbd:`Ctrl+Click` to select any clips or files you like,
-then :kbd:`Right Click` and choose :guilabel:`Export Clips`. In the dialog that appears, choose a destination folder, and
+If you want your split file segments available outside of your OpenShot project, or want to copy all your video assets to one place,
+you can do this with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the files you like,
+then :kbd:`Right Click` and choose :guilabel:`Export Files`. In the dialog that appears, choose a destination folder, and
 click :guilabel:`Export`.
 
-NOTE: This will export each clip using its **original video profile** (width, height, framerate, aspect ratio, etc...). It
+NOTE: This will export each file or file segment using its **original video profile** (width, height, framerate, aspect ratio, etc...). It
 also supports any :ref:`split_clip_ref` (described above). For example, if you have split a long video file into
-many different clips (and named them), you can now export all the clips as separate video files (using the original
-clip's video profile).
+many different segments (and named them), you can now export all the segments as separate video files (using the original
+file's video profile).
 
 .. image:: images/export-clips-dialog.jpg
 

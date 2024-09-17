@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Split Clip</string>
+   <string>Split File</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../../images/openshot.qrc">
@@ -41,7 +41,7 @@
        <item>
         <widget class="QLabel" name="lblInstructions">
          <property name="text">
-          <string>Choose the &lt;b&gt;start&lt;/b&gt; and &lt;b&gt;end&lt;/b&gt; of each clip</string>
+          <string>Choose the &lt;b&gt;start&lt;/b&gt; and &lt;b&gt;end&lt;/b&gt; of each file</string>
          </property>
         </widget>
        </item>
@@ -91,7 +91,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>Set the start of a clip</string>
+             <string>Set the start</string>
             </property>
             <property name="text">
              <string>Start</string>
@@ -110,7 +110,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>Set the end of a clip</string>
+             <string>Set the end</string>
             </property>
             <property name="text">
              <string>End</string>
@@ -128,7 +128,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Name of clip:</string>
+               <string>Name:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

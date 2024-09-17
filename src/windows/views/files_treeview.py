@@ -94,7 +94,7 @@ class FilesTreeView(QTreeView):
 
     def mouseDoubleClickEvent(self, event):
         super(FilesTreeView, self).mouseDoubleClickEvent(event)
-        # Preview File, File Properties, or Split Clip (depending on Shift/Ctrl)
+        # Preview File, File Properties, or Split File (depending on Shift/Ctrl)
         if int(get_app().keyboardModifiers() & Qt.ShiftModifier) > 0:
             get_app().window.actionSplitFile.trigger()
         elif int(get_app().keyboardModifiers() & Qt.ControlModifier) > 0:
