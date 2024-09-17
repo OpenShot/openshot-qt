@@ -979,22 +979,22 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 Slice_Menu = StyledContextMenu(title=_("Slice"), parent=self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
                 Slice_Keep_Both.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_BOTH, [clip_id], [], playhead_position))
+                    self.Slice_Triggered, MenuSlice.KEEP_BOTH, clip_ids, tran_ids, playhead_position))
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
                 Slice_Keep_Left.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, [clip_id], [], playhead_position))
+                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, clip_ids, tran_ids, playhead_position))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
                 Slice_Keep_Right.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [clip_id], [], playhead_position))
+                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, clip_ids, tran_ids, playhead_position))
 
                 # Add slice clip menu w/ Ripple
                 Slice_Menu.addSeparator()
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side (Ripple)"))
                 Slice_Keep_Left.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, [clip_id], [], playhead_position, True))
+                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, clip_ids, tran_ids, playhead_position, True))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side (Ripple)"))
                 Slice_Keep_Right.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [clip_id], [], playhead_position, True))
+                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, clip_ids, tran_ids, playhead_position, True))
 
                 menu.addMenu(Slice_Menu)
 
@@ -2704,22 +2704,22 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 Slice_Menu = StyledContextMenu(title=_("Slice"), parent=self)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
                 Slice_Keep_Both.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_BOTH, [], [tran_id], playhead_position))
+                    self.Slice_Triggered, MenuSlice.KEEP_BOTH, clip_ids, tran_ids, playhead_position))
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side"))
                 Slice_Keep_Left.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, [], [tran_id], playhead_position))
+                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, clip_ids, tran_ids, playhead_position))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side"))
                 Slice_Keep_Right.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [], [tran_id], playhead_position))
+                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, clip_ids, tran_ids, playhead_position))
 
                 # Add slice clip menu w/ Ripple
                 Slice_Menu.addSeparator()
                 Slice_Keep_Left = Slice_Menu.addAction(_("Keep Left Side (Ripple)"))
                 Slice_Keep_Left.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, [], [tran_id], playhead_position, True))
+                    self.Slice_Triggered, MenuSlice.KEEP_LEFT, clip_ids, tran_ids, playhead_position, True))
                 Slice_Keep_Right = Slice_Menu.addAction(_("Keep Right Side (Ripple)"))
                 Slice_Keep_Right.triggered.connect(partial(
-                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, [], [tran_id], playhead_position, True))
+                    self.Slice_Triggered, MenuSlice.KEEP_RIGHT, clip_ids, tran_ids, playhead_position, True))
 
                 menu.addMenu(Slice_Menu)
 
