@@ -1901,59 +1901,33 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Set transaction id (if not already set)
         get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
 
-        # Calculate the total duration (gap) being deleted and track affected layers
-        total_gap = 0.0
-        ripple_start_position = None
-        affected_layers = set()
-
-        # First, loop through selected clips to calculate the gap and remove the clips
+        # Loop through each selected clip, delete it, and ripple the remaining clips on the same layer
         for clip_id in json.loads(json.dumps(self.selected_clips)):
             clips = Clip.filter(id=clip_id)
             clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
             for c in clips:
-                # Calculate gap based on the clip's duration
                 start_position = float(c.data["position"])
                 duration = float(c.data["end"]) - float(c.data["start"])
-                total_gap += duration
 
-                if ripple_start_position is None or start_position < ripple_start_position:
-                    ripple_start_position = start_position
-
-                # Track the layer of this clip for ripple
-                affected_layers.add(c.data["layer"])
-
-                # Clear selected clips
-                self.removeSelection(clip_id, "clip")
-
-                # Remove clip
+                self.removeSelection(c.id, "clip")
                 c.delete()
 
-        # Now, loop through selected transitions to calculate the gap and remove them
+                # After deleting, ripple the remaining clips on the same layer
+                self.ripple_delete_gap(start_position, c.data["layer"], duration)
+
+        # Loop through each selected transition, delete it, and ripple the remaining transitions on the same layer
         for transition_id in json.loads(json.dumps(self.selected_transitions)):
             transitions = Transition.filter(id=transition_id)
             transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))
             for t in transitions:
-                # Calculate gap based on the transition's duration
                 start_position = float(t.data["position"])
                 duration = float(t.data["end"]) - float(t.data["start"])
-                total_gap += duration
 
-                if ripple_start_position is None or start_position < ripple_start_position:
-                    ripple_start_position = start_position
-
-                # Track the layer of this transition for ripple
-                affected_layers.add(t.data["layer"])
-
-                # Clear selected transitions
-                self.removeSelection(transition_id, "transition")
-
-                # Remove transition
+                self.removeSelection(t.id, "transition")
                 t.delete()
 
-        # If there was any gap to ripple, apply ripple adjustment on affected layers
-        if total_gap > 0 and ripple_start_position is not None:
-            for layer in affected_layers:
-                self.ripple_delete_gap(ripple_start_position, layer, total_gap)
+                # After deleting, ripple the remaining transitions on the same layer
+                self.ripple_delete_gap(start_position, t.data["layer"], duration)
 
         # Clear transaction id
         get_app().updates.transaction_id = None
@@ -1963,11 +1937,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def ripple_delete_gap(self, ripple_start, layer, total_gap):
         """Remove the ripple gap and adjust subsequent items on the same layer"""
-        # Get all clips and transitions on the specified layer right of ripple_start
         clips = [clip for clip in Clip.filter(layer=layer) if clip.data.get("position", 0.0) > ripple_start]
         transitions = [tran for tran in Transition.filter(layer=layer) if tran.data.get("position", 0.0) > ripple_start]
 
-        # Adjust all subsequent items by the total gap on the same layer
         for clip in clips:
             clip.data["position"] -= total_gap
             clip.save()
