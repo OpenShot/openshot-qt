@@ -278,7 +278,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Make sure we're working with a list of files
         if not isinstance(files, (list, tuple)):
             files = [files]
-        new_file_objects = []
+        scroll_to_files = []
 
         start_count = len(files)
         for count, filepath in enumerate(files):
@@ -289,6 +289,8 @@ class FilesModel(QObject, updates.UpdateInterface):
 
             # If this file is already found, exit
             if new_file:
+                # Still add the file (to be selected and scrolled to)
+                scroll_to_files.append(new_file)
                 del new_file
                 continue
 
@@ -369,7 +371,7 @@ class FilesModel(QObject, updates.UpdateInterface):
 
                 # Save file
                 new_file.save()
-                new_file_objects.append(new_file)
+                scroll_to_files.append(new_file)
 
                 if start_count > 15:
                     message = _("Importing %(count)d / %(total)d") % {
@@ -397,7 +399,7 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Select all new files (clear previous selection)
         self.selection_model.clearSelection()
-        for file_object in new_file_objects:
+        for file_object in scroll_to_files:
             # Get the index of the newly added file in the proxy model
             index = self.proxy_model.get_file_index(file_object.id)
             if index.isValid():
