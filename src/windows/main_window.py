@@ -1901,39 +1901,47 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Set transaction id (if not already set)
         get_app().updates.transaction_id = get_app().updates.transaction_id or str(uuid.uuid4())
 
-        # Loop through each selected clip, delete it, and ripple the remaining clips on the same layer
-        for clip_id in json.loads(json.dumps(self.selected_clips)):
-            clips = Clip.filter(id=clip_id)
-            clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
-            for c in clips:
-                start_position = float(c.data["position"])
-                duration = float(c.data["end"]) - float(c.data["start"])
+        # Emit signal to ignore updates (start ignoring updates)
+        get_app().window.IgnoreUpdates.emit(True)
 
-                self.removeSelection(c.id, "clip")
-                c.delete()
+        try:
+            # Loop through each selected clip, delete it, and ripple the remaining clips on the same layer
+            for clip_id in json.loads(json.dumps(self.selected_clips)):
+                clips = Clip.filter(id=clip_id)
+                clips = list(filter(lambda x: x.data.get("layer") not in locked_tracks, clips))
+                for c in clips:
+                    start_position = float(c.data["position"])
+                    duration = float(c.data["end"]) - float(c.data["start"])
 
-                # After deleting, ripple the remaining clips on the same layer
-                self.ripple_delete_gap(start_position, c.data["layer"], duration)
+                    self.removeSelection(c.id, "clip")
+                    c.delete()
 
-        # Loop through each selected transition, delete it, and ripple the remaining transitions on the same layer
-        for transition_id in json.loads(json.dumps(self.selected_transitions)):
-            transitions = Transition.filter(id=transition_id)
-            transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))
-            for t in transitions:
-                start_position = float(t.data["position"])
-                duration = float(t.data["end"]) - float(t.data["start"])
+                    # After deleting, ripple the remaining clips on the same layer
+                    self.ripple_delete_gap(start_position, c.data["layer"], duration)
 
-                self.removeSelection(t.id, "transition")
-                t.delete()
+            # Loop through each selected transition, delete it, and ripple the remaining transitions on the same layer
+            for transition_id in json.loads(json.dumps(self.selected_transitions)):
+                transitions = Transition.filter(id=transition_id)
+                transitions = list(filter(lambda x: x.data.get("layer") not in locked_tracks, transitions))
+                for t in transitions:
+                    start_position = float(t.data["position"])
+                    duration = float(t.data["end"]) - float(t.data["start"])
 
-                # After deleting, ripple the remaining transitions on the same layer
-                self.ripple_delete_gap(start_position, t.data["layer"], duration)
+                    self.removeSelection(t.id, "transition")
+                    t.delete()
 
-        # Clear transaction id
-        get_app().updates.transaction_id = None
+                    # After deleting, ripple the remaining transitions on the same layer
+                    self.ripple_delete_gap(start_position, t.data["layer"], duration)
 
-        # Refresh preview
-        get_app().window.refreshFrameSignal.emit()
+        finally:
+            # Emit signal to resume updates (stop ignoring updates)
+            get_app().window.IgnoreUpdates.emit(False)
+
+            # Clear transaction id
+            get_app().updates.transaction_id = None
+
+            # Refresh preview
+            get_app().window.refreshFrameSignal.emit()
 
     def ripple_delete_gap(self, ripple_start, layer, total_gap):
         """Remove the ripple gap and adjust subsequent items on the same layer"""

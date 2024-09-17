@@ -2001,6 +2001,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         tid = self.get_uuid()
         get_app().updates.transaction_id = tid
 
+        # Emit signal to ignore updates (start ignoring updates)
+        get_app().window.IgnoreUpdates.emit(True)
+
         try:
             # Get the nearest starting frame position to the playhead (snap to frame boundaries)
             playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
@@ -2112,6 +2115,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 self.update_transition_data(trans.data, only_basic_props=False)
         finally:
             get_app().updates.transaction_id = None
+
+            # Emit signal to resume updates (stop ignoring updates)
+            get_app().window.IgnoreUpdates.emit(False)
 
     def ripple_delete_gap(self, ripple_start, layer, ripple_gap):
         """Remove the ripple gap and adjust subsequent items"""
