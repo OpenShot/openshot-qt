@@ -37,7 +37,9 @@ You can also toggle the view between :guilabel:`details` and :guilabel:`thumbnai
 
 Import Files
 ------------
-These are all possible methods to import media files into OpenShot:
+There are many different ways to import media files into an OpenShot project. When a file is imported successfully,
+it will be automatically selected and scrolled into view (in the **Project Files** panel). Also, if the **Project Files** panel
+is not currently visible, OpenShot will automatically display the panel.
 
 .. table::
    :widths: 25 80
