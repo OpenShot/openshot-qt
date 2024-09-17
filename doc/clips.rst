@@ -93,21 +93,31 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
 
 Keep in mind that the above cutting methods also have :ref:`keyboard_shortcut_ref`, to save even more time.
 
-Remove Gap
-""""""""""
-The :guilabel:`Remove Gap` context menu option deletes the gap between two clips on the timeline, rippling to (i.e. shifting) all subsequent clips to close the gap.
-Right click on a gap between clips to find this option. The option is only available when a gap is detected.
+Selections
+----------
+Selecting clips and transitions on the timeline is an essential part of editing in OpenShot. Multiple selection methods
+are available to streamline your workflow, enabling efficient editing of clips and transitions.
 
-- **Usage Example:** Use this option when you want to quickly eliminate a specific gap between clips caused by trimming or the razor tool.
-- **Tip:** If you have many gaps on a single track, you can also right click on the track name, and select :guilabel:`Remove All Gaps`.
+Here is a list of all methods for selecting clips in OpenShot:
 
-Remove All Gaps
-"""""""""""""""
-The :guilabel:`Remove All Gaps` context menu option removes all gaps between clips on the timeline, rippling to (i.e. shifting) all clips to ensure there are no empty spaces.
-Right click on a track name to find this option. The option is only available when gaps are detected.
+.. table::
+   :widths: 25 80
 
-- **Usage Example:** Ideal for tracks that contain back-to-back clips, such as a photo slideshow, where no gaps are desired.
-- **Tip:** Review the entire track after using this option to ensure that no clips are unintentionally moved.
+   =======================================   ================================================================
+   Selection Method                          Description
+   =======================================   ================================================================
+   **Box Selection**                         Click and drag a selection box around clips or transitions to select multiple items at once. Hold down :kbd:`Ctrl` to add to your current selection.
+   **Mouse Click**                           Click on a clip or transition to select it. This will deselect all other items unless you hold down :kbd:`Ctrl`.
+   **Ctrl + Click**                          Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current selection, allowing you to select non-adjacent clips.
+   **Shift + Click**                         Hold down :kbd:`Shift` while clicking to ripple select all clips/transitions from your selection to the end of the track.
+   **Ctrl + Shift + Click**                  Hold down both :kbd:`Ctrl` and :kbd:`Shift` to ripple select clips/transitions and add them to the current selection, allowing you to extend the selection.
+   **Click on Timeline**                     Clicking anywhere on the timeline, or on a new clip/transition, will reset the current selection unless :kbd:`Ctrl` is pressed.
+   **Select All**                            Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline.
+   **Select None**                           Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the timeline.
+   =======================================   ================================================================
+
+Mastering these selection techniques will streamline your editing process, especially when dealing with complex projects.
+For more advanced tips on selection and editing, refer to the :ref:`clips_cutting_slicing_ref` section.
 
 .. _clip_presets_ref:
 
@@ -292,6 +302,19 @@ mouse. If you select 1 or more clips before pasting, you can paste "over" those 
 - **Tip:** Use this preset to replicate animations or effects across multiple clips.
 - **Tip:** Selecting multiple clips before pasting, sets keyframes and/or effects for all clips.
 - **Tip:** You can copy a single effect, and paste it to multiple selected clips.
+
+Remove Gaps
+"""""""""""
+The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you quickly eliminate gaps between clips on the timeline by rippling (i.e., shifting)
+subsequent clips to close the gap. These options can be accessed via the context menu and are only available when gaps are detected.
+
+- **Remove Gap:**
+  - This option deletes a specific gap between two clips on the timeline. Right-click on the gap between clips to access the :guilabel:`Remove Gap` option.
+  - Usage: Use this option to quickly eliminate a specific gap caused by trimming or using the razor tool.
+
+- **Remove All Gaps:**
+  - This option removes all gaps between clips on the timeline for the entire track. Right-click on the track name to access the :guilabel:`Remove All Gaps` option.
+  - Usage: Ideal for tracks that contain back-to-back clips, such as a photo slideshow, where no gaps are desired.
 
 Remove Clip
 """""""""""
