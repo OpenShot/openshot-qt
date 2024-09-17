@@ -26,7 +26,7 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*global bounding_box, global_primes*/
+/*global bounding_box, global_primes, timeline*/
 
 // Generate a UUID
 function uuidv4() {

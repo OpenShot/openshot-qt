@@ -267,7 +267,7 @@ App.directive("tlTransition", function () {
           scope.hideSnapline();
 
           // Call the shared function for drag stop
-          updateDraggables(scope, ui, 'transition');
+          updateDraggables(scope, ui, "transition");
 
           // Clear previous drag position
           previous_drag_position = null;

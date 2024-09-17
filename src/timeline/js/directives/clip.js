@@ -324,7 +324,7 @@ App.directive("tlClip", function ($timeout) {
           scope.hideSnapline();
 
           // Call the shared function for drag stop
-          updateDraggables(scope, ui, 'clip');
+          updateDraggables(scope, ui, "clip");
 
           // Clear previous drag position
           previous_drag_position = null;
