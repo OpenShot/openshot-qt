@@ -34,11 +34,12 @@ import functools
 
 from PyQt5.QtCore import (
     QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
-    QSortFilterProxyModel, QItemSelectionModel, QPersistentModelIndex,
+    QSortFilterProxyModel, QItemSelectionModel, QPersistentModelIndex, QModelIndex
 )
 from PyQt5.QtGui import (
     QIcon, QStandardItem, QStandardItemModel
 )
+from PyQt5.QtWidgets import QAbstractItemView
 from classes import updates
 from classes import info
 from classes.image_types import get_media_type
@@ -94,6 +95,12 @@ class FileFilterProxyModel(QSortFilterProxyModel):
 
         # Return Mimedata
         return data
+
+    def get_file_index(self, file_id):
+        # Find the index in the proxy model based on the file ID
+        if file_id in self.parent.model_ids:
+            return self.mapFromSource(QModelIndex(self.parent.model_ids[file_id]))
+        return QModelIndex()
 
     def __init__(self, **kwargs):
         if "parent" in kwargs:
@@ -271,6 +278,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Make sure we're working with a list of files
         if not isinstance(files, (list, tuple)):
             files = [files]
+        new_file_objects = []
 
         start_count = len(files)
         for count, filepath in enumerate(files):
@@ -361,6 +369,7 @@ class FilesModel(QObject, updates.UpdateInterface):
 
                 # Save file
                 new_file.save()
+                new_file_objects.append(new_file)
 
                 if start_count > 15:
                     message = _("Importing %(count)d / %(total)d") % {
@@ -385,6 +394,16 @@ class FilesModel(QObject, updates.UpdateInterface):
 
         # Reset list of ignored paths
         self.ignore_image_sequence_paths = []
+
+        # Select all new files (clear previous selection)
+        self.selection_model.clearSelection()
+        for file_object in new_file_objects:
+            # Get the index of the newly added file in the proxy model
+            index = self.proxy_model.get_file_index(file_object.id)
+            if index.isValid():
+                # Select & scroll to selection
+                self.selection_model.select(index, QItemSelectionModel.Select | QItemSelectionModel.Rows)
+                get_app().window.filesView.scrollTo(index.siblingAtColumn(0), QAbstractItemView.PositionAtCenter)
 
         message = _("Imported %(count)d files") % {"count": len(files) - 1}
         app.window.statusBar.showMessage(message, 3000)
