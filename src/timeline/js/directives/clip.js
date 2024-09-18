@@ -54,10 +54,12 @@ App.directive("tlClip", function ($timeout) {
         minWidth: 1,
         maxWidth: scope.clip.length * scope.pixelsPerSecond,
         start: function (e, ui) {
-          scope.setDragging(true);
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Set dragging mode
+          scope.setDragging(true);
+          resize_disabled = false;
 
           // Set bounding box
           setBoundingBox(scope, $(this), "trimming");
@@ -276,11 +278,11 @@ App.directive("tlClip", function ($timeout) {
         distance: 5,
         cancel: ".effect-container,.clip_menu,.point",
         start: function (event, ui) {
-          previous_drag_position = null;
-          scope.setDragging(true);
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          previous_drag_position = null;
+          scope.setDragging(true);
 
           // Store initial cursor vs draggable offset
           var elementOffset = $(this).offset();

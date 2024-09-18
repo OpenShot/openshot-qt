@@ -52,11 +52,12 @@ App.directive("tlTransition", function () {
         handles: "e, w",
         minWidth: 1,
         start: function (e, ui) {
-          scope.setDragging(true);
-          resize_disabled = false;
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Set dragging mode
+          scope.setDragging(true);
+          resize_disabled = false;
 
           // Set bounding box
           setBoundingBox(scope, $(this), "trimming");
@@ -220,11 +221,12 @@ App.directive("tlTransition", function () {
         distance: 5,
         cancel: ".transition_menu, .point",
         start: function (event, ui) {
-          previous_drag_position = null;
-          scope.setDragging(true);
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Set dragging mode
+          previous_drag_position = null;
+          scope.setDragging(true);
 
           // Store initial cursor vs draggable offset
           var elementOffset = $(this).offset();
