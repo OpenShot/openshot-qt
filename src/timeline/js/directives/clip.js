@@ -394,7 +394,7 @@ App.directive("tlMultiSelectable", function () {
       element.selectable({
         filter: ".droppable",
         distance: 0,
-        cancel: ".effect-container,.transition_menu,.clip_menu,.point,.resize-handle",
+        cancel: ".effect-container,.transition_menu,.clip_menu,.point,.track-resize-handle",
         selected: function (event, ui) {
           // Identify the selected ID and TYPE
           var id = ui.selected.id;

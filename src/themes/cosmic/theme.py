@@ -188,7 +188,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: #283241 
+    background-color: #283241;
 }
 
 QWidget#settingsContainer {
@@ -573,6 +573,17 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
               border: 1px solid #283241;
               border-radius: 0px;
               height: 48px;
+            }
+            .track-resize-handle {
+              background-color: #1B222CFF;
+              border-top: 1px solid #1B222CFF;
+              border-bottom: 1px solid #1B222CFF;
+              border-right: 1px solid #1B222CFF;
+              border-top-right-radius: 0px;
+              border-bottom-right-radius: 0px;
+            }
+            .track-resize-handle:hover {
+              background-color: #333F51FF;
             }
             .transition {
               height: 48px;

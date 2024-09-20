@@ -82,7 +82,7 @@
 				<!-- TRACKS -->
 				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="showTimelineMenu($event, layer.number)"  class="{{getTrackStyle(layer.lock)}}" style="width:{{getTimelineWidth(0)}}px;">
 					<div class="banding-overlay"></div>
-					<div class="resize-handle"></div>
+					<div class="track-resize-handle"></div>
 				</div>
 				
 				<!-- CLIPS -->

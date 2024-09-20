@@ -39,7 +39,7 @@ App.directive('tlTrack', function () {
             };
 
             // Delegate the mousedown event to the parent element for dynamically created resize-handle
-            element.on('mousedown', '.resize-handle', function(event) {
+            element.on('mousedown', '.track-resize-handle', function(event) {
                 // Start resizing logic
                 isResizing = true;
                 startX = event.pageX;
