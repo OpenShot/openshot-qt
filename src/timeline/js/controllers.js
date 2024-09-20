@@ -1339,6 +1339,11 @@ $scope.updateLayerIndex = function () {
         }
       }
 
+      // Add end of timeline position
+      var end_of_track = $scope.project.duration * $scope.pixelsPerSecond;
+      var end_of_track_diff = position - end_of_track;
+      diffs.push({"diff": end_of_track_diff, "position": end_of_track});
+
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
         var diff = diffs[diff_index].diff;

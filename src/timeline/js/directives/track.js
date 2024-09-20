@@ -29,60 +29,64 @@
 App.directive('tlTrack', function () {
     return {
         restrict: 'A',
-        link: function (scope, element, attrs) {
-            var newDuration = null;  // Define the variable in a higher scope
-            var minimumWidth = 0;    // Define the minimum width based on furthest right edge
+        link: function (scope, element) {
+            var startX, startWidth, isResizing = false, newDuration, minimumWidth;
 
             // Function to calculate the furthest right edge of any clip
             var getFurthestRightEdge = function() {
-                var furthest_right_edge = 0;
-
-                for (var clip_index = 0; clip_index < scope.project.clips.length; clip_index++) {
-                    var clip = scope.project.clips[clip_index];
-                    var right_edge = clip.position + (clip.end - clip.start);
-                    if (right_edge > furthest_right_edge) {
-                        furthest_right_edge = right_edge;
-                    }
-                }
-
-                return furthest_right_edge;
+                return scope.project.clips.reduce((max, clip) =>
+                    Math.max(max, clip.position + (clip.end - clip.start)), 0);
             };
 
-            // Make the track resizable using jQuery UI, but restrict resizing to the right side
-            element.resizable({
-                handles: 'e', // right edge
-                minWidth: 0,  // Set minimum width (optional)
-                distance: 5,  // threshold for resizing to avoid small movements
+            // Delegate the mousedown event to the parent element for dynamically created resize-handle
+            element.on('mousedown', '.resize-handle', function(event) {
+                // Start resizing logic
+                isResizing = true;
+                startX = event.pageX;
+                startWidth = element.width();
 
-                // Event triggered when resizing starts
-                start: function (event, ui) {
-                    // Calculate the furthest right edge once, at the start of resizing
-                    var furthestRightEdge = getFurthestRightEdge();
-                    minimumWidth = furthestRightEdge * scope.pixelsPerSecond;
-                },
+                // Calculate the minimum width based on the furthest right edge of clips
+                minimumWidth = getFurthestRightEdge() * scope.pixelsPerSecond;
 
-                // Event triggered while resizing
-                resize: function (event, ui) {
-                    // Get the new width of the track in pixels
-                    var newWidth = Math.max(ui.size.width, minimumWidth);
-
-                    // Update the track duration based on the new constrained width and pixels per second
-                    newDuration = snapToFPSGridTime(scope, pixelToTime(scope, newWidth));
-
-                    // Apply the new duration to the scope
-                    scope.$apply(function () {
-                        scope.project.duration = newDuration;
-                    });
-                },
-
-                // Event triggered when resizing ends (mouse released)
-                stop: function (event, ui) {
-                    // Use the newDuration variable defined in the resize event
-                    if (newDuration !== null) {
-                        timeline.resizeTimeline(newDuration);
-                    }
-                }
+                // Attach document-wide mousemove and mouseup events
+                $(document).on('mousemove', resizeTrack);
+                $(document).on('mouseup', stopResizing);
+                event.preventDefault();
             });
+
+            // Function to handle resizing as mouse moves
+            function resizeTrack(event) {
+                if (!isResizing) return;
+
+                // Calculate the new width (ensure it doesn't go below the minimum width)
+                var newWidth = Math.max(startWidth + (event.pageX - startX), minimumWidth);
+
+                // Update the track's new duration based on the resized width
+                newDuration = snapToFPSGridTime(scope, pixelToTime(scope, newWidth));
+
+                // Update the element's width dynamically
+                element.width(newWidth);
+
+                // Apply the new duration to the scope
+                scope.$apply(function () {
+                    scope.project.duration = newDuration;
+                });
+            }
+
+            // Function to stop resizing when the mouse button is released
+            function stopResizing() {
+                if (!isResizing) return;
+                isResizing = false;
+
+                // Clean up the document-wide event listeners
+                $(document).off('mousemove', resizeTrack);
+                $(document).off('mouseup', stopResizing);
+
+                // Finalize the new duration on the timeline (if valid)
+                if (newDuration !== null) {
+                    timeline.resizeTimeline(newDuration);
+                }
+            }
         }
     };
 });

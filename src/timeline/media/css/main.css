@@ -193,11 +193,23 @@ img {
   border-top: 1px solid #4b92ad;
   border-bottom: 1px solid #4b92ad;
   border-right: 1px solid #4b92ad;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
   box-shadow: 0 0 10px #000;
   position: relative;
   z-index: 1;
+}
+
+.resize-handle {
+    position: absolute;
+    right: -8px; /* To the right of the track right edge */
+    top: 0;
+    width: 8px;
+    height: 100%;
+    cursor: ew-resize;
+    background-color: silver;
+}
+
+.resize-handle:hover {
+    background-color: red;
 }
 
 .banding-overlay {
