@@ -269,10 +269,27 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             click_pos = event.pos().x() / self.width()
             selection_width = self.scrollbar_position[1] - self.scrollbar_position[0]
             half_width = selection_width / 2
-            new_left_pos = max(0.0, click_pos - half_width)
-            new_right_pos = min(1.0, click_pos + half_width)
-            self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2],
-                                       self.scrollbar_position[3]]
+
+            # Calculate new left / right handles
+            new_left_pos = click_pos - half_width
+            new_right_pos = click_pos + half_width
+
+            # If the new left position is less than 0, adjust both sides to fit within bounds
+            if new_left_pos < 0.0:
+                diff = -new_left_pos
+                new_left_pos = 0.0
+                new_right_pos = min(1.0, new_right_pos + diff)
+
+            # If the new right position is greater than 1, adjust both sides to fit within bounds
+            if new_right_pos > 1.0:
+                diff = new_right_pos - 1.0
+                new_right_pos = 1.0
+                new_left_pos = max(0.0, new_left_pos - diff)
+
+            # Update the scrollbar position to the newly calculated values
+            self.scrollbar_position = [new_left_pos, new_right_pos, self.scrollbar_position[2], self.scrollbar_position[3]]
+
+            # Trigger the resize and update
             self.delayed_resize_timer.start()
             self.update()
 
