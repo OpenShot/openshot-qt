@@ -732,10 +732,14 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     // Resize timeline
-    if (furthest_right_edge > $scope.project.duration - min_timeline_padding || furthest_right_edge < $scope.project.duration - max_timeline_padding) {
+    if (furthest_right_edge > $scope.project.duration) {
       if ($scope.Qt) {
         let new_timeline_length = Math.max(min_timeline_length, furthest_right_edge + min_timeline_padding);
         timeline.resizeTimeline(new_timeline_length);
+        // Apply the new duration to the scope
+        $scope.$apply(function () {
+            $scope.project.duration = new_timeline_length;
+        });
       }
     }
   };
@@ -1559,8 +1563,6 @@ $scope.updateLayerIndex = function () {
             delete previous_object[current_key];
           }
         }
-        // Resize timeline if it's too small to contain all clips
-        $scope.resizeTimeline();
 
         // Re-sort clips and transitions array
         $scope.sortItems();

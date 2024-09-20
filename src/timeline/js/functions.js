@@ -615,9 +615,6 @@ function updateDraggables(scope, ui, itemType) {
                 item_data.position = snapToFPSGridTime(scope, item_data.position);
             });
 
-            // Resize timeline if necessary
-            scope.resizeTimeline();
-
             // Keep track of dropped clips/transitions
             dropped_clips.push(item_data);
 
@@ -660,6 +657,7 @@ function updateDraggables(scope, ui, itemType) {
     // Re-enable sorting and sort items
     scope.enable_sorting = true;
     scope.sortItems();
+    scope.resizeTimeline();
 
     // Delay clearing the dragging variable (to prevent an ng-click race condition
     // which causes selections to be randomly cleared after a drag)

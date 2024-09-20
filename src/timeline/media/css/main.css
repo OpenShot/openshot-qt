@@ -70,6 +70,7 @@ img {
   position: relative;
   line-height: 4px;
   height: 43px;
+  margin-right: 8px; /* Prevent playhead from becoming unaligned due to scrollbars */
 }
 
 #scrolling_tracks {
@@ -90,6 +91,7 @@ img {
   color: #999;
   padding-top: 12px;
   padding-left: 17px;
+  cursor: default;
 }
 
 #progress {
@@ -122,6 +124,7 @@ img {
   font-size: 0.8em;
   position: absolute;
   transform: translate(-50%, 0);
+  cursor: default;
 }
 
 /* Tracks */

@@ -24,6 +24,8 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
+import copy
+import math
 
 from PyQt5.QtCore import (
     Qt, QCoreApplication, QRectF, QTimer
@@ -157,12 +159,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         layers = Track.filter()
 
         # Wait for timeline object and valid scrollbar positions
-        # TODO: Fix commented out logic
-        if get_app().window.timeline:  # and self.scrollbar_position[2] != 0.0:
+        if get_app().window.timeline:
             # Get max width of timeline
             project_duration = get_app().project.get("duration")
             pixels_per_second = event.rect().width() / project_duration
-            project_pixel_width = max(0, project_duration * pixels_per_second)
             scroll_width = (self.scrollbar_position[1] - self.scrollbar_position[0]) * event.rect().width()
 
             # Get FPS info
@@ -217,7 +217,8 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 painter.fillPath(left_handle_path, handle_color)
 
                 # right handle
-                right_handle_x = (self.scrollbar_position[1] * event.rect().width()) - (handle_width/2.0)
+                right_handle_x = self.scroll_bar_rect.right() - (handle_width/2.0)
+                right_handle_x = min(right_handle_x, event.rect().width() - (handle_width/2.0))
                 self.right_handle_rect = QRectF(right_handle_x, event.rect().height() / 4.0, handle_width, event.rect().height() / 2.0)
                 right_handle_path = QPainterPath()
                 right_handle_path.addRoundedRect(self.right_handle_rect, handle_width, handle_width)
@@ -230,6 +231,24 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # End painter
         painter.end()
+
+    def zoomToTimeline(self):
+        """Toggle between zooming to the entire timeline and the previous zoom"""
+        # Are we already zoomed complete out?
+        if math.isclose(self.scrollbar_position[0], 0.0, abs_tol=1e-9) and math.isclose(self.scrollbar_position[1], 1.0, abs_tol=1e-9):
+            # Restore previous zoom
+            self.scrollbar_position[0] = self.scrollbar_zoom_previous[0]
+            self.scrollbar_position[1] = self.scrollbar_zoom_previous[1]
+        else:
+            # Zoom out to reveal the entire timeline
+            self.scrollbar_zoom_previous = copy.deepcopy(self.scrollbar_position)
+            self.scrollbar_position[0] = 0.0
+            self.scrollbar_position[1] = 1.0
+        self.delayed_resize_callback()
+
+    def mouseDoubleClickEvent(self, event):
+        super(ZoomSlider, self).mouseDoubleClickEvent(event)
+        self.zoomToTimeline()
 
     def mousePressEvent(self, event):
         """Capture mouse press event"""
@@ -412,6 +431,19 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.delayed_size = self.size()
         self.delayed_resize_timer.start()
 
+    def get_scroll_width(self):
+        """Calculate the width of the scrollbar handle (i.e. selection width)"""
+        # Get max width of timeline
+        project_duration = get_app().project.get("duration")
+
+        # Calculate scroll bar / selection width
+        timeline_pixels_per_second = 100.0 / get_app().project.get("scale")
+        timeline_project_width = project_duration * timeline_pixels_per_second
+        scroll_ratio = self.scrollbar_position[3] / timeline_project_width
+        scroll_width = scroll_ratio * self.width()
+        scroll_width = min(scroll_width, self.width())
+        return scroll_width, scroll_ratio
+
     def delayed_resize_callback(self):
         """Callback for resize event timer (to delay the resize event, and prevent lots of similar resize events)"""
         # Get max width of timeline
@@ -445,6 +477,14 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Emit zoom signal
         get_app().window.TimelineZoom.emit(self.zoom_factor)
         get_app().window.TimelineCenter.emit()
+
+        # Prevent scrollbars from exceeding 100% of zoomslider
+        # This is caused by the scrollbars stopping events once zoomed out too much
+        scroll_width, scroll_ratio = self.get_scroll_width()
+        if scroll_ratio >= 1.0 and self.scrollbar_position:
+            # Set to left/right edge - max
+            self.scrollbar_position[0] = 0.0
+            self.scrollbar_position[1] = 1.0
 
         # Force re-paint
         self.repaint()
@@ -496,6 +536,11 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.changed(None)
         self.repaint()
 
+    def timeline_resized(self):
+        # Force recalculation of clips and repaint
+        self.repaint()
+        self.delayed_resize_timer.start()
+
     def update_playhead_pos(self, currentFrame):
         """Callback when position is changed"""
         self.current_frame = currentFrame
@@ -538,6 +583,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.zoom_factor = 15.0
         self.scrollbar_position = [0.0, 0.0, 0.0, 0.0]
         self.scrollbar_position_previous = [0.0, 0.0, 0.0, 0.0]
+        self.scrollbar_zoom_previous = [0.0, 0.2, 0.0, 0.0]
         self.left_handle_rect = QRectF()
         self.left_handle_dragging = False
         self.right_handle_rect = QRectF()
@@ -573,7 +619,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Connect zoom functionality
         self.win.TimelineScrolled.connect(self.update_scrollbars)
-        self.win.TimelineResize.connect(self.delayed_resize_callback)
+        self.win.TimelineResize.connect(self.timeline_resized)
         self.win.IgnoreUpdates.connect(self.ignore_updates_callback)
 
         # Connect Selection signals
