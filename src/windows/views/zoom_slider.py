@@ -247,8 +247,9 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.delayed_resize_callback()
 
     def mouseDoubleClickEvent(self, event):
-        super(ZoomSlider, self).mouseDoubleClickEvent(event)
         self.zoomToTimeline()
+        self.mouse_dragging = True  # Prevent mouseReleaseEvent from moving selection
+        event.accept()
 
     def mousePressEvent(self, event):
         """Capture mouse press event"""
