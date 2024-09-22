@@ -347,9 +347,18 @@ App.controller("TimelineCtrl", function ($scope) {
     var scrolling_tracks = $("#scrolling_tracks");
     var scrollingTracksWidth = scrolling_tracks.width();
 
-    // Calculate the position to scroll the timeline to to center on the requested time
+    // Get the total width of the timeline (the entire scrollable content width)
+    var totalTimelineWidth = $scope.getTimelineWidth(0);
+
+    // Calculate the position to scroll the timeline to center on the requested time
     var pixelToCenterOn = parseFloat(centerTime) * $scope.pixelsPerSecond;
     var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
+
+    // Condition: Check if we are zoomed into the very right edge of the timeline
+    if (scrollPosition + scrollingTracksWidth >= totalTimelineWidth) {
+        // We are near the right edge, so align the right edge with the right of the screen
+        scrollPosition = totalTimelineWidth - scrollingTracksWidth;
+    }
 
     // Scroll the timeline using JQuery
     scrolling_tracks.scrollLeft(Math.floor(scrollPosition + 0.5));

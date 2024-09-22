@@ -487,14 +487,15 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Repaint widget on zoom
         self.repaint()
 
-    def setZoomFactor(self, zoom_factor):
+    def setZoomFactor(self, zoom_factor, center=False):
         """Set the current zoom factor"""
         # Force recalculation of clips
         self.zoom_factor = zoom_factor
 
         # Emit zoom signal
         get_app().window.TimelineZoom.emit(self.zoom_factor)
-        get_app().window.TimelineCenter.emit()
+        if center:
+            get_app().window.TimelineCenter.emit()
 
         # Prevent scrollbars from exceeding 100% of zoomslider
         # This is caused by the scrollbars stopping events once zoomed out too much
@@ -517,7 +518,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             new_factor = self.zoom_factor * 0.8
 
         # Emit zoom signal
-        self.setZoomFactor(new_factor)
+        self.setZoomFactor(new_factor, center=True)
 
     def zoomOut(self):
         """Zoom out of timeline"""
@@ -530,7 +531,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
             new_factor = min(self.zoom_factor * 1.25, 4.0)
 
         # Emit zoom signal
-        self.setZoomFactor(new_factor)
+        self.setZoomFactor(new_factor, center=True)
 
     def update_scrollbars(self, new_positions):
         """Consume the current scroll bar positions from the webview timeline"""
