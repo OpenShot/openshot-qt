@@ -69,40 +69,43 @@ App.directive("tlScrollableTracks", function () {
 
       // Sync ruler to track scrolling
       element.on("scroll", function () {
-        //set amount scrolled
-        scroll_left_pixels = element.scrollLeft();
+        var scrollLeft = element.scrollLeft();
+        var timelineWidth = scope.getTimelineWidth(0); // Full width of the timeline
+        var maxScrollLeft = timelineWidth - element.width(); // Max horizontal scroll
 
+        // Clamp to right edge
+        element.scrollLeft(Math.min(scrollLeft, maxScrollLeft));
+
+        // Sync the ruler and other components
         $("#track_controls").scrollTop(element.scrollTop());
-        $("#scrolling_ruler").scrollLeft(element.scrollLeft());
-        $("#progress_container").scrollLeft(element.scrollLeft());
+        $("#scrolling_ruler, #progress_container").scrollLeft(scrollLeft);
 
-        // Send scrollbar position to Qt
+        // Send scrollbar position to Qt if available
         if (scope.Qt) {
-           // Calculate scrollbar positions (left and right edge of scrollbar)
-           var timeline_length = scope.getTimelineWidth(0);
-           var left_scrollbar_edge = scroll_left_pixels / timeline_length;
-           var right_scrollbar_edge = (scroll_left_pixels + element.width()) / timeline_length;
+          // Create variables first and pass them as arguments
+          var leftScrollbarEdge = scrollLeft / timelineWidth; // Use the full timeline width
+          var rightScrollbarEdge = (scrollLeft + element.width()) / timelineWidth; // Use the full timeline width
 
-           // Send normalized scrollbar positions to Qt
-           timeline.ScrollbarChanged([left_scrollbar_edge, right_scrollbar_edge, timeline_length, element.width()]);
+          // Pass the variables as a JavaScript array (interpreted as a PyQt list)
+          timeline.ScrollbarChanged([leftScrollbarEdge, rightScrollbarEdge, timelineWidth, element.width()]);
         }
 
-        scope.$apply( () => {
-          scope.scrollLeft = element[0].scrollLeft;
-        })
-
+        // Update scrollLeft in scope
+        scope.$apply(() => scope.scrollLeft = scrollLeft);
       });
 
-      // Pans the timeline (on middle mouse clip and drag)
+      // Pans the timeline (on middle mouse click and drag)
       element.on("mousemove", function (e) {
         if (is_scrolling) {
-          // Calculate difference from last position
+          console.log("scope.getTimelineWidth(0): " + scope.getTimelineWidth(0));
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
-          var newPos = { x: starting_scrollbar.x + difference.x, y: starting_scrollbar.y + difference.y};
+          var newPos = {
+            x: Math.max(0, Math.min(starting_scrollbar.x + difference.x, scope.getTimelineWidth(0) - element.width())),
+            y: Math.max(0, Math.min(starting_scrollbar.y + difference.y, $("#scrolling_tracks")[0].scrollHeight - element.height()))
+          };
 
           // Scroll the tracks div
-          element.scrollLeft(newPos.x);
-          element.scrollTop(newPos.y);
+          element.scrollLeft(newPos.x).scrollTop(newPos.y);
         }
       });
 
