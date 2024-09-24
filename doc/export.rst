@@ -65,13 +65,14 @@ Advanced Options
 .. table::
    :widths: 10 30
 
-   ==================  ============
-   Advanced Setting    Description
-   ==================  ============
-   Export To           Export both `video & audio`, `only audio`, `only video`, or an `image sequence`
-   Start Frame         The first frame to export (default is 1)
-   End Frame           The final frame to export (default is the last frame in your project to contain a clip)
-   ==================  ============
+   =======================  ============
+   Advanced Setting         Description
+   =======================  ============
+   Export To                Export both `video & audio`, `only audio`, `only video`, or an `image sequence`
+   Start Frame              The first frame to export (default is 1)
+   End Frame                The final frame to export (default is the last frame in your project to contain a clip)
+   Export Entire Timeline   Export all frames in your project (which can extend past your final clip). The project duration can be adjusted by dragging the right edge of the tracks. Checking this option will update the End Frame in this dialog.
+   =======================  ============
 
 Profile
 ^^^^^^^

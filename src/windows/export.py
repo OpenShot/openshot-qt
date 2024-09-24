@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (
     QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
 )
 from PyQt5.QtGui import QIcon
-
+from functools import partial
 from classes import info
 from classes import ui_util
 from classes import openshot_rc  # noqa
@@ -200,6 +200,7 @@ class Export(QDialog):
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
         self.ExportFrame.connect(self.updateProgressBar)
         self.btnBrowseProfiles.clicked.connect(self.btnBrowseProfiles_clicked)
+        self.checkboxExportEntireTimeline.toggled.connect(partial(self.updateFrameRate, True))
 
         # ********* Advanced Profile List **********
         # Loop through profiles
@@ -344,8 +345,12 @@ class Export(QDialog):
             self.timeline.info.has_audio = True
 
         if set_limits:
-            # Determine max frame (based on clips)
-            self.timeline_length_int = self.timeline.GetMaxFrame()
+            if self.checkboxExportEntireTimeline.isChecked():
+                # Set the end frame to the full timeline length if the checkbox is checked
+                self.timeline_length_int = self.timeline.info.video_length
+            else:
+                # Set the end frame to the furthest right clip edge (existing behavior)
+                self.timeline_length_int = self.timeline.GetMaxFrame()
 
             # Set the min and max frame numbers for this project
             self.txtStartFrame.setValue(1)

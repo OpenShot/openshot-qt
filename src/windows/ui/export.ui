@@ -277,7 +277,7 @@
             <x>0</x>
             <y>0</y>
             <width>480</width>
-            <height>122</height>
+            <height>119</height>
            </rect>
           </property>
           <attribute name="label">
@@ -378,6 +378,13 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="checkboxExportEntireTimeline">
+               <property name="text">
+                <string>Export Entire Timeline</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
           </layout>
@@ -387,8 +394,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>466</width>
-            <height>269</height>
+            <width>263</width>
+            <height>262</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -678,8 +685,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>480</width>
-            <height>68</height>
+            <width>151</width>
+            <height>47</height>
            </rect>
           </property>
           <attribute name="label">
@@ -713,8 +720,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>480</width>
-            <height>120</height>
+            <width>151</width>
+            <height>117</height>
            </rect>
           </property>
           <attribute name="label">
@@ -787,6 +794,14 @@
           </layout>
          </widget>
          <widget class="QWidget" name="pageAudioSettings">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>212</width>
+            <height>189</height>
+           </rect>
+          </property>
           <attribute name="label">
            <string>Audio Settings</string>
           </attribute>
