@@ -372,7 +372,7 @@
              <item>
               <widget class="QCheckBox" name="checkStartFirstClip">
                <property name="text">
-                <string>Start at first Clip</string>
+                <string>Start at First Clip</string>
                </property>
               </widget>
              </item>

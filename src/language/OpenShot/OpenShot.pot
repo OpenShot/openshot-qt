@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor (version: 3.2.1-dev)\n"
 "Report-Msgid-Bugs-To: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
-"POT-Creation-Date: 2024-09-24 13:45:59.746176\n"
+"POT-Creation-Date: 2024-09-30 16:30:18.199948\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Jonathan Thomas <Jonathan.Oomph@gmail.com>\n"
 "Language-Team: https://translations.launchpad.net/+groups/launchpad-translators\n"
@@ -48,9 +48,9 @@ msgid "Reset Zoom"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/export.py:91
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:855
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:866
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1146 Settings for
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:889
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:900
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1243 Settings for
 #: actionExportVideo
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:20
 msgid "Export Video"
@@ -62,11 +62,11 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:144
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:147
 msgid "Project Data Error"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:145
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:148
 #, python-format
 msgid ""
 "Sorry, an error was encountered while parsing your project data: \n"
@@ -75,7 +75,7 @@ msgid ""
 "Please save your project and inspect in a JSON editor to repair."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:161
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:164
 #: /home/jonathan/apps/openshot-qt/src/windows/main_window.py:658
 #: /home/jonathan/apps/openshot-qt/src/windows/main_window.py:756
 #: /home/jonathan/apps/openshot-qt/src/windows/main_window.py:2562
@@ -84,130 +84,130 @@ msgstr ""
 msgid "Untitled Project"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:173
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:520
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:863
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:949
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:963
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:176
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:552
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:897
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:983
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:997
 msgid "Video & Audio"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:173
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:520
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:863
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:949
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:176
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:552
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:897
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:983
 msgid "Video Only"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:173
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:521
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:863
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:963
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:977
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:176
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:553
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:897
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:997
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1011
 msgid "Audio Only"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:173
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:521
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:823
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:899
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:949
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:176
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:553
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:857
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:933
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:983
 msgid "Image Sequence"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:180
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:183
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:143 Settings
 #: for default-channellayout
 msgid "Mono (1 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:181
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:184
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:144 Settings
 #: for default-channellayout
 msgid "Stereo (2 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:182
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:185
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:145 Settings
 #: for default-channellayout
 msgid "Surround (3 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:183
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:186
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:146 Settings
 #: for default-channellayout
 msgid "Surround (5.1 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:184
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:187
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:147 Settings
 #: for default-channellayout
 msgid "Surround (7.1 Channel)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:260
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:264
 #: /home/jonathan/apps/openshot-qt/src/presets/format_mp4_x264_hw.xml
 msgid "All Formats"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:427
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:459
 #: /home/jonathan/apps/openshot-qt/src/presets/format_mp4_x264.xml
 msgid "MP4 (h.264)"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:457
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:489
 #: /home/jonathan/apps/openshot-qt/src/windows/file_properties.py:161
 #: libopenshot (Clip Properties)
 msgid "No"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:458
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:490
 msgid "Yes Top field first"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:459
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:491
 msgid "Yes Bottom field first"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:534
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:542
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:610
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:566
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:574
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:642
 msgid "Low"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:534
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:542
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:612
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:566
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:574
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:644
 msgid "Med"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:534
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:542
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:614
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:566
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:574
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:646
 msgid "High"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:676
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:708
 msgid "Choose a Folder..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:803
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1103
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:837
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1137
 msgid "Export Error"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:804
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:838
 msgid "Sorry, please select a valid range of frames to export"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:856
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:890
 #, python-format
 msgid ""
 "%s is an input file.\n"
 "Please choose a different name."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:867
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:901
 #: /home/jonathan/apps/openshot-qt/src/windows/title_editor.py:716
 #, python-format
 msgid ""
@@ -215,18 +215,18 @@ msgid ""
 "Do you want to replace it?"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1031
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1065
 msgid "Finalizing video export, please wait..."
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1104
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1138
 #, python-format
 msgid ""
 "Sorry, there was an error exporting your video: \n"
 "%s"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1147
+#: /home/jonathan/apps/openshot-qt/src/windows/export.py:1244
 msgid "Are you sure you want to cancel the export?"
 msgstr ""
 
@@ -1061,13 +1061,13 @@ msgid ""
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:266
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:1019
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:1053
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:117
 msgid "Browse..."
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:305
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:179
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:203
 msgid "Search Profiles"
 msgstr ""
 
@@ -1089,7 +1089,7 @@ msgid "Select executable file"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/preferences.py:721
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/preferences.ui:48
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:48
 msgid "Restore Defaults"
 msgstr ""
 
@@ -1548,11 +1548,11 @@ msgstr ""
 msgid "Please choose a region at the beginning of the clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/preview_thread.py:95
+#: /home/jonathan/apps/openshot-qt/src/windows/preview_thread.py:94
 msgid "Audio Error"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/preview_thread.py:95
+#: /home/jonathan/apps/openshot-qt/src/windows/preview_thread.py:94
 #, python-format
 msgid ""
 "Please fix the following error and restart OpenShot\n"
@@ -1560,7 +1560,7 @@ msgid ""
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/title_editor.py:332
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:985
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:1019
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:43
 msgid "File Name:"
 msgstr ""
@@ -3390,19 +3390,19 @@ msgid "YourAnimation"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/animation.ui:165
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:613
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:647
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:386
 msgid "Frame Rate:"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/animation.ui:235
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:449
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:483
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:468
 msgid "Width:"
 msgstr ""
 
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/animation.ui:273
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:482
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:516
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:222
 msgid "Height:"
 msgstr ""
@@ -3474,139 +3474,143 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:69
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:93
 msgid "Simple"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:83
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:107
 msgid "<b>Select a Profile to start:</b>"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:107
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:422
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:131
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:456
 msgid "Profile:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:128
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:152
 msgid "<b>Select from the following options:</b>"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:156
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:180
 msgid "Target:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:201
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:225
 msgid "Video Profile:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:218
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:242
 msgid "Quality:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:251
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:275
 msgid "Advanced"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:284
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:308
 msgid "Advanced Options"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:301
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:325
 msgid "Export To:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:328
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:352
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:876
 msgid "Start Frame:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:361
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:375
+msgid "Start at First Clip"
+msgstr ""
+
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:392
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:837
 msgid "End Frame:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:384
-msgid "Export Entire Timeline"
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:415
+msgid "End at Last Clip"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:408
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:442
 msgid "Profile"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:515
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:549
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:264
 msgid "Aspect Ratio:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:564
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:598
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:325
 msgid "Pixel Ratio:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:665
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:699
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:438
 msgid "Interlaced:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:693
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:727
 msgid "Image Sequence Settings"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:707
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:741
 msgid "Image Format:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:728
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:762
 msgid "Video Settings"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:742
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:776
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:525
 msgid "Video Format:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:762
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:796
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:555
 msgid "Video Codec:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:785
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:936
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:819
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:970
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:588
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:711
 msgid "Bit Rate / Quality:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:806
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:840
 msgid "Audio Settings"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:820
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:854
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:681
 msgid "Audio Codec:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:840
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:874
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:639
 msgid "Sample Rate:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:873
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:907
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:747
 msgid "# of Channels:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:909
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:943
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:792
 msgid "Channel Layout:"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:992
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:1026
 #: /home/jonathan/apps/openshot-qt/src/windows/ui/file-properties.ui:50
 msgid "YourVideoName"
 msgstr ""
 
-#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:1009
+#: /home/jonathan/apps/openshot-qt/src/windows/ui/export.ui:1043
 msgid "Folder Path:"
 msgstr ""
 
