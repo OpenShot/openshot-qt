@@ -97,7 +97,6 @@ App.directive("tlScrollableTracks", function () {
       // Pans the timeline (on middle mouse click and drag)
       element.on("mousemove", function (e) {
         if (is_scrolling) {
-          console.log("scope.getTimelineWidth(0): " + scope.getTimelineWidth(0));
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
           var newPos = {
             x: Math.max(0, Math.min(starting_scrollbar.x + difference.x, scope.getTimelineWidth(0) - element.width())),

@@ -25,10 +25,10 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-App.directive('tlTrack', function () {
+/* global App, timeline, snapToFPSGridTime pixelToTime */
+App.directive("tlTrack", function () {
     return {
-        restrict: 'A',
+        restrict: "A",
         link: function (scope, element) {
             var startX, startWidth, isResizing = false, newDuration, minimumWidth;
 
@@ -39,7 +39,7 @@ App.directive('tlTrack', function () {
             };
 
             // Delegate the mousedown event to the parent element for dynamically created resize-handle
-            element.on('mousedown', '.track-resize-handle', function(event) {
+            element.on("mousedown", ".track-resize-handle", function(event) {
                 // Start resizing logic
                 isResizing = true;
                 startX = event.pageX;
@@ -49,8 +49,8 @@ App.directive('tlTrack', function () {
                 minimumWidth = getFurthestRightEdge() * scope.pixelsPerSecond;
 
                 // Attach document-wide mousemove and mouseup events
-                $(document).on('mousemove', resizeTrack);
-                $(document).on('mouseup', stopResizing);
+                $(document).on("mousemove", resizeTrack);
+                $(document).on("mouseup", stopResizing);
                 event.preventDefault();
             });
 
@@ -75,12 +75,12 @@ App.directive('tlTrack', function () {
 
             // Function to stop resizing when the mouse button is released
             function stopResizing() {
-                if (!isResizing) return;
+                if (!isResizing) {return;}
                 isResizing = false;
 
                 // Clean up the document-wide event listeners
-                $(document).off('mousemove', resizeTrack);
-                $(document).off('mouseup', stopResizing);
+                $(document).off("mousemove", resizeTrack);
+                $(document).off("mouseup", stopResizing);
 
                 // Finalize the new duration on the timeline (if valid)
                 if (newDuration !== null) {
