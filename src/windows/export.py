@@ -203,7 +203,8 @@ class Export(QDialog):
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
         self.ExportFrame.connect(self.updateProgressBar)
         self.btnBrowseProfiles.clicked.connect(self.btnBrowseProfiles_clicked)
-        self.checkboxExportEntireTimeline.toggled.connect(partial(self.updateFrameRate, True))
+        self.checkStartFirstClip.toggled.connect(partial(self.updateFrameRate, True))
+        self.checkEndLastClip.toggled.connect(partial(self.updateFrameRate, True))
 
         # ********* Advanced Profile List **********
         # Loop through profiles
@@ -369,16 +370,23 @@ class Export(QDialog):
             self.timeline.info.has_audio = True
 
         if set_limits:
-            if self.checkboxExportEntireTimeline.isChecked():
-                # Set the end frame to the full timeline length if the checkbox is checked
-                self.timeline_length_int = self.timeline.info.video_length
+            if self.checkEndLastClip.isChecked():
+                # Set end frame to last clip (right edge)
+                timeline_length_int = self.timeline.GetMaxFrame()
             else:
-                # Set the end frame to the furthest right clip edge (existing behavior)
-                self.timeline_length_int = self.timeline.GetMaxFrame()
+                # Set end frame to project length (full timeline)
+                timeline_length_int = self.timeline.info.video_length
+
+            if self.checkStartFirstClip.isChecked():
+                # Set the start frame to the first clip position
+                timeline_start_int = self.timeline.GetMinFrame()
+            else:
+                # Set the start frame to the start of the project (0.0)
+                timeline_start_int = 1
 
             # Set the min and max frame numbers for this project
-            self.txtStartFrame.setValue(1)
-            self.txtEndFrame.setValue(self.timeline_length_int)
+            self.txtStartFrame.setValue(timeline_start_int)
+            self.txtEndFrame.setValue(timeline_length_int)
 
         # Calculate differences between editing/preview FPS and export FPS
         current_fps = get_app().project.get("fps")
@@ -1172,6 +1180,8 @@ class Export(QDialog):
 
         # Iterate over all children in the dialog in the order they are defined
         for child in self.findChildren(QWidget):
+            if child.objectName().startswith("qt_"):
+                continue
             setting = {}
             if isinstance(child, QLineEdit):
                 setting['name'] = child.objectName()

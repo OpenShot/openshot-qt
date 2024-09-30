@@ -40,36 +40,35 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" alignment="Qt::AlignBottom">
-    <!-- Create a horizontal layout for Restore Defaults and buttonBox -->
+   <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-        <widget class="QPushButton" name="restore_defaults_button">
-          <property name="text">
-            <string>Restore Defaults</string>
-          </property>
-        </widget>
-      </item>
-      <item>
-        <spacer name="horizontalSpacer">
-          <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint">
-            <size>
-              <width>40</width>
-              <height>20</height>
-            </size>
-          </property>
-        </spacer>
-      </item>
-      <item>
-        <widget class="QDialogButtonBox" name="buttonBox">
-          <property name="standardButtons">
-            <set>QDialogButtonBox::NoButton</set>
-          </property>
-        </widget>
-      </item>
+     <item>
+      <widget class="QPushButton" name="restore_defaults_button">
+       <property name="text">
+        <string>Restore Defaults</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::NoButton</set>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="1" column="0">
@@ -370,6 +369,13 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="checkStartFirstClip">
+               <property name="text">
+                <string>Start at first Clip</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
            <item row="2" column="0">
@@ -404,9 +410,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkboxExportEntireTimeline">
+              <widget class="QCheckBox" name="checkEndLastClip">
                <property name="text">
-                <string>Export Entire Timeline</string>
+                <string>End at Last Clip</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
