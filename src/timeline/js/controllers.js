@@ -578,6 +578,9 @@ App.controller("TimelineCtrl", function ($scope) {
     });
   };
 
+  // Initialize last selected item
+  $scope.lastSelectedItem = null;
+
   // Select item (either clip or transition)
   $scope.selectItem = function (item_id, item_type, clear_selections, event, force_ripple) {
     // Trim item_id
@@ -586,16 +589,16 @@ App.controller("TimelineCtrl", function ($scope) {
     // Check for modifier keys
     var is_ctrl = event && event.ctrlKey;
     var is_shift = event && event.shiftKey;
+    var is_alt = event && event.altKey;
 
     // If no ID is provided (id == ""), unselect all items
     if (id === "") {
       if (clear_selections) {
-        // Unselect all clips
+        // Unselect all clips and transitions
         $scope.project.clips.forEach(function (clip) {
           clip.selected = false;
           if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
         });
-        // Unselect all transitions
         $scope.project.effects.forEach(function (transition) {
           transition.selected = false;
           if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
@@ -611,26 +614,9 @@ App.controller("TimelineCtrl", function ($scope) {
       return; // Don't select if razor mode is enabled
     }
 
-    // Clear all selections if necessary (no CTRL modifier)
-    if (clear_selections && !is_ctrl) {
-      // Unselect all clips
-      $scope.project.clips.forEach(function (clip) {
-        clip.selected = false;
-        if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
-      });
-      // Unselect all transitions
-      $scope.project.effects.forEach(function (transition) {
-        transition.selected = false;
-        if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
-      });
-    }
-
-    // Get the correct array based on item_type
-    var items = item_type === "clip" ? $scope.project.clips : $scope.project.effects;
-
-    // Handle ripple selection (SHIFT key) for both clips and transitions
-    if (is_shift || force_ripple) {
-      var selected_item = items.find(item => item.id === id);
+    // Handle ripple selection (ALT key) for both clips and transitions
+    if (is_alt || force_ripple) {
+      var selected_item = (item_type === "clip" ? $scope.project.clips : $scope.project.effects).find(item => item.id === id);
       if (selected_item) {
         var selected_layer = selected_item.layer;
         var selected_position = selected_item.position;
@@ -649,22 +635,104 @@ App.controller("TimelineCtrl", function ($scope) {
           }
         });
       }
+
+      // If CTRL is not pressed, clear previous selections (unless clear_selections is false)
+      if (clear_selections && !is_ctrl) {
+        $scope.project.clips.forEach(function (clip) {
+          if (!clip.selected) {
+            if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
+          }
+        });
+        $scope.project.effects.forEach(function (transition) {
+          if (!transition.selected) {
+            if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
+          }
+        });
+      }
+
+      // Do not update lastSelectedItem when ALT is pressed
       return; // No need to do normal selection logic after ripple select
     }
 
-    // Update selection for clips or transitions
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      if (item.id === id) {
+    // Handle SHIFT + Click selection (for both clips and transitions)
+    if (is_shift && $scope.lastSelectedItem) {
+      // If CTRL is not pressed, clear previous selections (unless clear_selections is false)
+      if (clear_selections && !is_ctrl) {
+        $scope.project.clips.forEach(function (clip) {
+          clip.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
+        });
+        $scope.project.effects.forEach(function (transition) {
+          transition.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
+        });
+      }
+
+      // Get the selected item
+      var selectedItem = (item_type === "clip" ? $scope.project.clips : $scope.project.effects).find(item => item.id === id);
+
+      if (selectedItem && $scope.lastSelectedItem) {
+        // Get the start (left edge) and end (right edge) of both selected items
+        var selectedItemStart = selectedItem.position;
+        var selectedItemEnd = selectedItem.position + (selectedItem.end - selectedItem.start);
+        var lastSelectedItemStart = $scope.lastSelectedItem.position;
+        var lastSelectedItemEnd = $scope.lastSelectedItem.position + ($scope.lastSelectedItem.end - $scope.lastSelectedItem.start);
+
+        // Calculate the proper selection range based on the leftmost and rightmost edges
+        var minPosition = Math.min(selectedItemStart, lastSelectedItemStart);
+        var maxPosition = Math.max(selectedItemEnd, lastSelectedItemEnd);
+        var minLayer = Math.min($scope.lastSelectedItem.layer, selectedItem.layer);
+        var maxLayer = Math.max($scope.lastSelectedItem.layer, selectedItem.layer);
+
+        // Select all clips and transitions that fall completely within the range
+        $scope.project.clips.forEach(function (clip) {
+          var clipEnd = clip.position + (clip.end - clip.start);
+          if (clip.position >= minPosition && clipEnd <= maxPosition &&
+              clip.layer >= minLayer && clip.layer <= maxLayer) {
+            clip.selected = true;
+            if ($scope.Qt) { timeline.addSelection(clip.id, "clip", false); }
+          }
+        });
+
+        $scope.project.effects.forEach(function (transition) {
+          var transitionEnd = transition.position + (transition.end - transition.start);
+          if (transition.position >= minPosition && transitionEnd <= maxPosition &&
+              transition.layer >= minLayer && transition.layer <= maxLayer) {
+            transition.selected = true;
+            if ($scope.Qt) { timeline.addSelection(transition.id, "transition", false); }
+          }
+        });
+      }
+    } else {
+      // Clear selections if necessary (and not CTRL)
+      if (clear_selections && !is_ctrl) {
+        $scope.project.clips.forEach(function (clip) {
+          clip.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(clip.id, "clip"); }
+        });
+        $scope.project.effects.forEach(function (transition) {
+          transition.selected = false;
+          if ($scope.Qt) { timeline.removeSelection(transition.id, "transition"); }
+        });
+      }
+
+      // Update selection for the clicked item (either clip or transition)
+      var item = (item_type === "clip" ? $scope.project.clips : $scope.project.effects).find(item => item.id === id);
+      if (item) {
         // Invert selection if CTRL is pressed and item is already selected
         if (is_ctrl && clear_selections && item.selected) {
           item.selected = false;
           if ($scope.Qt) { timeline.removeSelection(item.id, item_type); }
         } else {
           item.selected = true;
-          if ($scope.Qt) { timeline.addSelection(item.id, item_type, !is_ctrl && clear_selections); }
+          if ($scope.Qt) { timeline.addSelection(item.id, item_type, false); }
         }
       }
+    }
+
+    // Update last selected item (do not update if ALT is pressed)
+    if (!is_alt) {
+      $scope.lastSelectedItem = (item_type === "clip" ? $scope.project.clips : $scope.project.effects).find(item => item.id === id);
     }
   };
 
