@@ -3018,45 +3018,45 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.new_item = True
             self.item_ids = []
 
-            # Get the mime data (i.e. list of files, list of transitions, etc...)
-            # Assuming the data contains a list of clips or transitions
+            # Get the mime data (i.e. list of clips or transitions)
             data = json.loads(event.mimeData().text())
-            pos = event.posF()
+            initial_pos = event.posF()
 
             # Ensure data is a list (to support multiple items)
             if not isinstance(data, list):
                 data = [data]
 
-            # Get FPS from project and calculate the FPS float value
+            # Get FPS and scaling information
             fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
-            current_scale = float(get_app().project.get("scale") or 15.0)
-            pixels_per_second = 100.0 / current_scale
             snap_to_grid = lambda t: round(t * fps_float) / fps_float
 
-            # Snap the initial position (X value) to the FPS grid
-            pos.setX(snap_to_grid(pos.x()))
+            # Nested callback to handle the JavaScript position response
+            def handle_js_position(pos, js_position_data):
+                js_position = snap_to_grid(js_position_data.get('position', 0.0))
+                js_nearest_track = js_position_data.get('track', 0)
 
-            # Create the items (multiple clips or transitions)
-            for item_id in data:
-                if self.item_type == "clip":
-                    file = File.get(id=item_id)
-                    if not file:
-                        continue
-                    # Calculate the duration in frames, snapping it to the FPS grid
-                    duration_in_seconds = float(file.data["duration"])
-                    if file.data["media_type"] == "image":
-                        duration_in_seconds = get_app().get_settings().get("default-image-length")
-                    duration = snap_to_grid(duration_in_seconds)
+                # Use the captured JavaScript position and track
+                pos.setX(js_position)
 
-                    # Add Clip
-                    self.addClip(item_id, pos)
-                    pos += QPointF(duration * pixels_per_second, 0)
+                # Add clips or transitions
+                for item_id in data:
+                    new_item = None
+                    if self.item_type == "clip":
+                        # Retrieve File object before adding clips
+                        file = File.get(id=item_id)
+                        if not file:
+                            continue  # Skip invalid files
+                        new_item = self.addClip(file.id, pos, js_nearest_track)
+                    elif self.item_type == "transition":
+                        new_item = self.addTransition(item_id, pos, js_nearest_track)
 
-                elif self.item_type == "transition":
-                    self.addTransition(item_id, pos)
-                    duration_in_seconds = get_app().get_settings().get("default-transition-length")
-                    duration = snap_to_grid(duration_in_seconds)
-                    pos += QPointF(duration * pixels_per_second, 0)
+                    # Adjust position for the next item
+                    if new_item:
+                        pos += QPointF(new_item["end"] - new_item["start"], 0)
+
+            # Pass initial_pos to the callback via a closure
+            self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+                        .format(initial_pos.x(), initial_pos.y()), partial(handle_js_position, initial_pos))
 
             # Accept all events, even if a new clip is not being added
             event.accept()
@@ -3071,68 +3071,59 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             event.accept()
 
     # Add Clip
-    def addClip(self, file_id, event_position):
+    def addClip(self, file_id, position, track):
+        # Retrieve File object by file_id
+        file = File.get(id=file_id)
+        if not file:
+            return  # Skip if the file is not found
 
-        # Callback function, to actually add the clip object
-        def callback(self, file_id, callback_data):
-            js_position = callback_data.get('position', 0.0)
-            js_nearest_track = callback_data.get('track', 0)
+        # Get file name and path
+        filename = os.path.basename(file.data["path"])
+        file_path = file.absolute_path()
 
-            # Search for matching file in project data (if any)
-            file = File.get(id=file_id)
+        # Get FPS and frame precision
+        fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
+        snap_to_grid = lambda t: round(t * fps_float) / fps_float
 
-            if not file:
-                # File not found, do nothing
-                return
+        # Create a new Clip object with the file path
+        c = openshot.Clip(file_path)
 
-            # Get file name
-            filename = os.path.basename(file.data["path"])
+        # Convert the clip object to JSON and fill missing attributes
+        new_clip = json.loads(c.Json())
+        new_clip["file_id"] = file.id
+        new_clip["title"] = file.data.get("name", filename)
+        new_clip["reader"] = file.data
 
-            # Convert path to the correct relative path (based on this folder)
-            file_path = file.absolute_path()
+        # Skip clips that are missing a 'reader' attribute
+        if not new_clip.get("reader"):
+            return  # Skip this clip
 
-            # Create clip object for this file
-            c = openshot.Clip(file_path)
+        # Handle optional start and end times for the clip
+        if 'start' in file.data:
+            new_clip["start"] = snap_to_grid(file.data['start'])
+        if 'end' in file.data:
+            new_clip["end"] = snap_to_grid(file.data['end'])
+        else:
+            new_clip["end"] = snap_to_grid(new_clip["reader"]["duration"])
 
-            # Append missing attributes to Clip JSON
-            new_clip = json.loads(c.Json())
-            new_clip["file_id"] = file.id
-            new_clip["title"] = file.data.get("name", filename)
-            new_clip["reader"] = file.data
+        # Use the passed position and track directly
+        new_clip["position"] = position.x()
+        new_clip["layer"] = track
 
-            # Skip any clips that are missing a 'reader' attribute
-            if not new_clip.get("reader"):
-                return  # Do nothing
+        # Adjust the clip duration and set default values for images
+        new_clip["duration"] = snap_to_grid(new_clip["reader"]["duration"])
+        if file.data["media_type"] == "image":
+            new_clip["end"] = snap_to_grid(get_app().get_settings().get("default-image-length"))
 
-            # Check for optional start and end attributes
-            if 'start' in file.data:
-                new_clip["start"] = file.data['start']
-            if 'end' in file.data:
-                new_clip["end"] = file.data['end']
-            else:
-                new_clip["end"] = new_clip["reader"]["duration"]
+        # Add the clip to the timeline
+        self.update_clip_data(new_clip, only_basic_props=False)
 
-            # Set position and closet track
-            new_clip["position"] = js_position
-            new_clip["layer"] = js_nearest_track
+        # Track the added clip
+        self.item_ids.append(new_clip.get('id'))
 
-            # Adjust clip duration, start, and end
-            new_clip["duration"] = new_clip["reader"]["duration"]
-            if file.data["media_type"] == "image":
-                new_clip["end"] = get_app().get_settings().get("default-image-length")  # default to 8 seconds
-
-            # Add clip to timeline
-            self.update_clip_data(new_clip, only_basic_props=False)
-
-            # temp hold item_id
-            self.item_ids.append(new_clip.get('id'))
-
-            # Init javascript bounding box (for snapping support)
-            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
-
-        # Find position from javascript
-        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
-            .format(event_position.x(), event_position.y()), partial(callback, self, file_id))
+        # Trigger manual move event to initialize UI snapping
+        self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
+        return new_clip
 
     @pyqtSlot(list)
     def ScrollbarChanged(self, new_positions):
@@ -3153,53 +3144,47 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             log.debug("Duration unchanged. Not updating")
 
     # Add Transition
-    def addTransition(self, file_path, event_position):
+    def addTransition(self, file_path, position, track):
+        # Get FPS from project
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        snap_to_grid = lambda t: round(t * fps_float) / fps_float
+        duration = snap_to_grid(get_app().get_settings().get("default-transition-length"))
 
-        # Callback function, to actually add the transition object
-        def callback(self, file_path, callback_data):
-            js_position = callback_data.get('position', 0.0)
-            js_nearest_track = callback_data.get('track', 0)
+        # Open up QtImageReader for transition Image
+        transition_reader = openshot.QtImageReader(file_path)
 
-            # Get FPS from project
-            fps = get_app().project.get("fps")
-            fps_float = float(fps["num"]) / float(fps["den"])
+        # Create Keyframes for brightness and contrast
+        brightness = openshot.Keyframe()
+        brightness.AddPoint(1, 1.0, openshot.BEZIER)
+        brightness.AddPoint(round(duration * fps_float) + 1, -1.0, openshot.BEZIER)
 
-            # Open up QtImageReader for transition Image
-            transition_reader = openshot.QtImageReader(file_path)
+        contrast = openshot.Keyframe(3.0)
 
-            brightness = openshot.Keyframe()
-            brightness.AddPoint(1, 1.0, openshot.BEZIER)
-            brightness.AddPoint(round(10 * fps_float) + 1, -1.0, openshot.BEZIER)
-            contrast = openshot.Keyframe(3.0)
+        # Create transition dictionary
+        transition_data = {
+            "id": get_app().project.generate_id(),
+            "layer": track,
+            "title": "Transition",
+            "type": "Mask",
+            "position": snap_to_grid(position.x()),
+            "start": 0,
+            "end": duration,
+            "brightness": json.loads(brightness.Json()),
+            "contrast": json.loads(contrast.Json()),
+            "reader": json.loads(transition_reader.Json()),
+            "replace_image": False
+        }
 
-            # Create transition dictionary
-            transitions_data = {
-                "id": get_app().project.generate_id(),
-                "layer": js_nearest_track,
-                "title": "Transition",
-                "type": "Mask",
-                "position": js_position,
-                "start": 0,
-                "end": get_app().get_settings().get("default-transition-length"),
-                "brightness": json.loads(brightness.Json()),
-                "contrast": json.loads(contrast.Json()),
-                "reader": json.loads(transition_reader.Json()),
-                "replace_image": False
-            }
+        # Send to update manager
+        self.update_transition_data(transition_data, only_basic_props=False)
 
-            # Send to update manager
-            self.update_transition_data(transitions_data, only_basic_props=False)
+        # Track the added transition
+        self.item_ids.append(transition_data.get('id'))
 
-            # temp keep track of id
-            self.item_ids.append(transitions_data.get('id'))
-
-            # Init javascript bounding box (for snapping support)
-            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, json.dumps(self.item_ids)))
-
-        # Find position from javascript
-        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
-            .format(event_position.x(), event_position.y()),
-            partial(callback, self, file_path))
+        # Init javascript bounding box (for snapping support)
+        self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, json.dumps(self.item_ids)))
+        return transition_data
 
     # Add Effect
     def addEffect(self, effect_names, event_position):
@@ -3291,39 +3276,57 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def dropEvent(self, event):
         log.info("Dropping item on timeline - item_ids: %s, item_type: %s" % (self.item_ids, self.item_type))
 
-        # Accept event
+        # Accept the event
         event.accept()
 
-        # Get position of cursor
+        # Get position of the cursor
         pos = event.posF()
 
-        try:
-            if self.item_type in ["clip", "transition"] and self.item_ids:
-                # Update most recent clip
-                self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}', '{}');".format(self.item_type,
-                                                                                                  json.dumps(self.item_ids),
-                                                                                                  get_app().updates.transaction_id))
+        # Nested cleanup function
+        def cleanup():
+            """Handles cleanup tasks after the drop event."""
+            # Clear new clip flag and reset variables
+            self.new_item = False
+            self.item_type = None
+            self.item_ids = []
 
+            # Update the preview and reselect the current frame in properties
+            self.window.refreshFrameSignal.emit()
+            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+
+            # Clear transaction ID
+            get_app().updates.transaction_id = None
+
+        try:
+            # Handle clips and transitions by simply updating the most recent item (no need for JS position)
+            if self.item_type in ["clip", "transition"] and self.item_ids:
+                # Update most recent clip or transition
+                self.run_js(JS_SCOPE_SELECTOR + ".updateRecentItemJSON('{}', '{}', '{}');"
+                            .format(self.item_type, json.dumps(self.item_ids), get_app().updates.transaction_id))
+                cleanup()
+
+            # Handle effects
             elif self.item_type == "effect":
-                # Add effect only on drop
                 data = json.loads(event.mimeData().text())
                 self.addEffect(data, pos)
+                cleanup()
 
+            # Handle OS file drop (files dragged in from the OS)
             elif self.item_type == "os_drop":
-                # Switch to Files dock
+                # Switch to Files dock and activate window
                 self.window.dockFiles.setVisible(True)
                 self.window.dockFiles.raise_()
                 self.window.dockFiles.activateWindow()
 
                 if not event.mimeData().hasUrls():
-                    log.debug("Ignoring OS drop because has no URL")
+                    log.debug("Ignoring OS drop because it has no URL")
                     return
 
-                # Add new files to project
+                # Add new files to the project
                 urls = event.mimeData().urls()
                 self.window.filesView.dropEvent(event)
 
-                # Get FPS from project and calculate the FPS float value
+                # Get FPS and scaling information
                 fps_float = float(get_app().project.get("fps")["num"]) / float(get_app().project.get("fps")["den"])
                 current_scale = float(get_app().project.get("scale") or 15.0)
                 pixels_per_second = 100.0 / current_scale
@@ -3332,37 +3335,37 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Snap the initial position (X value) to the FPS grid
                 pos.setX(snap_to_grid(pos.x()))
 
-                # Add clips for each file dropped
-                for uri in urls:
-                    filepath = uri.toLocalFile()
-                    if not os.path.exists(filepath) or not os.path.isfile(filepath):
-                        continue
+                # Nested callback to handle the JavaScript position response
+                def handle_js_position(pos, js_position_data):
+                    js_position = js_position_data.get('position', 0.0)
+                    js_nearest_track = js_position_data.get('track', 0)
 
-                    # Valid file, so create clip for it
-                    log.debug('Adding clip for {}'.format(os.path.basename(filepath)))
-                    for file in File.filter(path=filepath):
-                        # Calculate the duration in frames, snapping it to the FPS grid
-                        duration_in_seconds = float(file.data["duration"])
-                        if file.data["media_type"] == "image":
-                            duration_in_seconds = get_app().get_settings().get("default-image-length")
-                        duration = snap_to_grid(duration_in_seconds)
+                    # Use the captured JavaScript position and track
+                    pos.setX(js_position)
 
-                            # Add clip at snapped position and increment position for the next clip
-                        self.addClip(file.id, pos)
-                        pos += QPointF(duration * pixels_per_second, 0.0)
+                    # Add clips for each file dropped
+                    for uri in urls:
+                        filepath = uri.toLocalFile()
+                        if not os.path.exists(filepath) or not os.path.isfile(filepath):
+                            continue
 
-            # Clear new clip
-            self.new_item = False
-            self.item_type = None
-            self.item_ids = []
+                        # Valid file, so create clip for it
+                        log.debug('Adding clip for {}'.format(os.path.basename(filepath)))
+                        for file in File.filter(path=filepath):
+                            # Add clip and retrieve the created clip object
+                            new_clip = self.addClip(file.id, pos, js_nearest_track)
 
-            # Update the preview and reselect current frame in properties
-            self.window.refreshFrameSignal.emit()
-            self.window.propertyTableView.select_frame(self.window.preview_thread.player.Position())
+                            # Adjust position for the next clip using new_clip["end"] - new_clip["start"]
+                            pos += QPointF(new_clip["end"] - new_clip["start"], 0)
+
+                    # Cleanup after handling OS file drop
+                    cleanup()
+
+                # Pass position to the callback via a closure
+                self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
+                            .format(pos.x(), pos.y()), partial(handle_js_position, pos))
 
         finally:
-            get_app().updates.transaction_id = None
-
             # Restore focus to the timeline
             self.setFocus()
 
