@@ -3186,7 +3186,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def selectAll(self):
         """Select all clips and transitions"""
-        self.timeline.SelectAll()
+        # Check if filesView has focus
+        if self.filesView.hasFocus():
+            # Select all files
+            self.filesView.selectAll()
+        else:
+            # Select all clips / transitions
+            self.timeline.SelectAll()
 
     def selectNone(self):
         """Clear all selections for clips and transitions"""
