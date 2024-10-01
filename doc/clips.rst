@@ -75,7 +75,7 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
    =======================================   ================================================================
    Trim & Slice Method                       Description
    =======================================   ================================================================
-   **Resizing Edge**                         Mouse over the edge of a clip and resize it by dragging left or right.
+   **Resizing Edge**                         Mouse over the edge of a clip and resize it by dragging **left** or **right**. The left edge of a clip can not be resized smaller than 0.0 (*i.e. the first frame of the file*). The right edge of a clip can not be resized larger than the duration of a file (*i.e. the last frame of a file*).
    **Slice All**                             When the play-head overlaps multiple clips, right-click the play-head and choose :guilabel:`Slice All`.
                                              This will cut/slice all intersecting clips on all tracks. You can also use the keyboard shortcuts
                                              :kbd:`Ctrl+Shift+K` to keep both sides, :kbd:`Ctrl+Shift+J` to keep the left side, or :kbd:`Ctrl+Shift+L`
