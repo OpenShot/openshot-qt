@@ -27,33 +27,31 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import functools
+import json
 import os
 import re
 import shutil
+import uuid
 import webbrowser
-import functools
 from time import sleep
 from uuid import uuid4
-import json
-import uuid
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
-    Qt, pyqtSignal, pyqtSlot, QCoreApplication, PYQT_VERSION_STR,
-    QTimer, QDateTime, QFileInfo, QUrl, QEvent
-    )
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QFileInfo, QEvent
+)
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
 from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QDockWidget,
     QMessageBox, QDialog, QFileDialog, QInputDialog,
     QAction, QActionGroup, QSizePolicy,
     QStatusBar, QToolBar, QToolButton,
-    QLineEdit, QComboBox, QTextEdit, QShortcut
+    QLineEdit, QComboBox, QTextEdit, QShortcut, QTabBar
 )
 
 from classes import exceptions, info, qt_types, sentry, ui_util, updates
 from classes.app import get_app
-from windows.views.timeline_backend.enums import MenuCopy, MenuSlice
 from classes.exporters.edl import export_edl
 from classes.exporters.final_cut_pro import export_xml
 from classes.importers.edl import import_edl
@@ -64,7 +62,9 @@ from classes.query import File, Clip, Transition, Marker, Track, Effect
 from classes.thumbnail import httpThumbnailServerThread, httpThumbnailException
 from classes.time_parts import secondsToTimecode
 from classes.timeline import TimelineSync
+from classes.title_bar import HiddenTitleBar
 from classes.version import get_current_Version
+from themes.manager import ThemeName
 from windows.models.effects_model import EffectsModel
 from windows.models.emoji_model import EmojisModel
 from windows.models.files_model import FilesModel
@@ -78,6 +78,7 @@ from windows.views.files_listview import FilesListView
 from windows.views.files_treeview import FilesTreeView
 from windows.views.properties_tableview import PropertiesTableView, SelectionLabel
 from windows.views.timeline import TimelineView
+from windows.views.timeline_backend.enums import MenuCopy, MenuSlice
 from windows.views.transitions_listview import TransitionsListView
 from windows.views.transitions_treeview import TransitionsTreeView
 from windows.views.tutorial import TutorialManager
@@ -125,6 +126,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
     SelectionChanged = pyqtSignal()      # Signal after selections have been changed (added/removed)
     SetKeyframeFilter = pyqtSignal(str)     # Signal to only show keyframes for the selected property
     IgnoreUpdates = pyqtSignal(bool)     # Signal to let widgets know to ignore updates (i.e. batch updates)
+    ThemeChangedSignal = pyqtSignal(object)     # Signal when theme is changed
 
     # Docks are closable, movable and floatable
     docks_frozen = False
@@ -3288,6 +3290,60 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Keep track of ignore / not ignore
         self.ignore_updates = ignore
 
+    def style_dock_widgets(self):
+        """Check if any dock widget is part of a tabbed group and hide the title text if tabbed."""
+        theme = None
+        if get_app().theme_manager:
+            theme = get_app().theme_manager.get_current_theme()
+
+        for dock_widget in self.getDocks():
+            # Check if dock is tabbed with other widgets
+            tabified_widgets = self.tabifiedDockWidgets(dock_widget)
+
+            if dock_widget.objectName() == "dockTimeline":
+                # Hide title bar for timeline widget (ALL themes)
+                dock_widget.setTitleBarWidget(QWidget())
+
+            elif theme and theme.name == ThemeName.COSMIC.value:
+                # handle COSMIC theme dock widgets
+                if tabified_widgets:
+                    # Apply custom title bar with grab handle (for grouped/tabbed docks)
+                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, ""))
+                elif dock_widget.isFloating():
+                    # Use standard system title bar (minimize, maximize, close) for floating docks
+                    dock_widget.setTitleBarWidget(None)
+                else:
+                    # Apply custom title bar with text (no grab handle) for non-tabbed, non-floating docks
+                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, dock_widget.windowTitle()))
+
+            else:
+                # for ALL other themes, regardless of floating or tabbed
+                # Use standard system title bar (minimize, maximize, close)
+                dock_widget.setTitleBarWidget(None)
+
+        # Set tab drawBase property
+        self.set_tab_drawbase()
+
+    def set_tab_drawbase(self):
+        """Set the drawBase property on all QTabBar objects. This draws a line
+        under the tabs, and is not required on all themes."""
+        # Get theme tab property
+        if get_app().theme_manager:
+            theme = get_app().theme_manager.get_current_theme()
+            if not theme:
+                log.warning("No theme loaded yet. Skip setting TabBar drawBase property.")
+                return
+            # Each theme can optionally include this property
+            draw_base = theme.get_int("QTabBar", "qproperty-drawBase")
+
+            # Loop through all QTabBar objects
+            tab_bars = self.findChildren(QTabBar)
+            for tab_bar in tab_bars:
+                if draw_base is None:
+                    tab_bar.setProperty("drawBase", True)
+                else:
+                    tab_bar.setProperty("drawBase", draw_base)
+
     def __init__(self, *args):
 
         # Create main window base class
@@ -3547,6 +3603,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Connect playhead moved signals
         self.SeekSignal.connect(self.handleSeek)
+
+        # Connect theme changed signal
+        self.ThemeChangedSignal.connect(self.style_dock_widgets)
+
+        # Connect the signals for each dock widget from self.getDocks()
+        for dock_widget in self.getDocks():
+            dock_widget.dockLocationChanged.connect(self.style_dock_widgets)
 
         # Ensure toolbar is movable when floated (even with docks frozen)
         self.toolBar.topLevelChanged.connect(

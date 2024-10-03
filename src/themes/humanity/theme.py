@@ -32,10 +32,10 @@ class HumanityDarkTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
-QToolTip { 
-    color: #ffffff; 
-    background-color: #2a82da; 
-    border: 0px solid white; 
+QToolTip {
+    color: #ffffff;
+    background-color: #2a82da;
+    border: 0px solid white;
 }
 
 QComboBox::item {
@@ -72,6 +72,8 @@ QWidget#videoPreview {
         # Apply timeline theme
         self.app.window.timeline.apply_theme("")
 
+        # Emit signal
+        self.app.window.ThemeChangedSignal.emit(self)
 
 class Retro(BaseTheme):
     def __init__(self, app):
@@ -167,3 +169,6 @@ QWidget#videoPreview {
               background-image: url(../themes/humanity/images/keyframe-constant.svg);
             }
         """)
+
+        # Emit signal
+        self.app.window.ThemeChangedSignal.emit(self)
