@@ -26,6 +26,7 @@
   "tick_pixels": 100,
   "playhead_position": 0,
   "profile": "HD 720p 30 fps",
+  "export_settings": null,
   "layers": [
     {
       "id": "L1",

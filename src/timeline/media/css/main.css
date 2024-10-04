@@ -70,6 +70,7 @@ img {
   position: relative;
   line-height: 4px;
   height: 43px;
+  margin-right: 8px; /* Prevent playhead from becoming unaligned due to scrollbars */
 }
 
 #scrolling_tracks {
@@ -90,6 +91,7 @@ img {
   color: #999;
   padding-top: 12px;
   padding-left: 17px;
+  cursor: default;
 }
 
 #progress {
@@ -122,6 +124,7 @@ img {
   font-size: 0.8em;
   position: absolute;
   transform: translate(-50%, 0);
+  cursor: default;
 }
 
 /* Tracks */
@@ -190,11 +193,28 @@ img {
   border-top: 1px solid #4b92ad;
   border-bottom: 1px solid #4b92ad;
   border-right: 1px solid #4b92ad;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
   box-shadow: 0 0 10px #000;
   position: relative;
   z-index: 1;
+}
+
+.track-resize-handle {
+    position: absolute;
+    right: -8px; /* To the right of the track right edge */
+    top: -1px;
+    width: 8px;
+    height: 100%;
+    cursor: ew-resize;
+    background-color: #2c2c2c;
+    border-top: 1px solid #4b92ad;
+    border-bottom: 1px solid #4b92ad;
+    border-right: 1px solid #4b92ad;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.track-resize-handle:hover {
+    background-color: #4C4C4CFF;
 }
 
 .banding-overlay {

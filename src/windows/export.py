@@ -44,10 +44,10 @@ from xml.parsers.expat import ExpatError
 
 from PyQt5.QtCore import Qt, QCoreApplication, QTimer, QSize, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import (
-    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton
+    QMessageBox, QDialog, QFileDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox
 )
 from PyQt5.QtGui import QIcon
-
+from functools import partial
 from classes import info
 from classes import ui_util
 from classes import openshot_rc  # noqa
@@ -91,6 +91,9 @@ class Export(QDialog):
         self.export_button = QPushButton(_('Export Video'))
         self.export_button.setObjectName("acceptButton")
         self.close_button = QPushButton(_('Done'))
+        self.restoring_defaults = False
+        self.restore_defaults_button.clicked.connect(self.restore_defaults)
+
         self.buttonBox.addButton(self.close_button, QDialogButtonBox.RejectRole)
         self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
@@ -200,6 +203,8 @@ class Export(QDialog):
         self.cboChannelLayout.currentIndexChanged.connect(self.updateChannels)
         self.ExportFrame.connect(self.updateProgressBar)
         self.btnBrowseProfiles.clicked.connect(self.btnBrowseProfiles_clicked)
+        self.checkStartFirstClip.toggled.connect(partial(self.updateFrameRate, True))
+        self.checkEndLastClip.toggled.connect(partial(self.updateFrameRate, True))
 
         # ********* Advanced Profile List **********
         # Loop through profiles
@@ -283,6 +288,27 @@ class Export(QDialog):
         # Determine the length of the timeline (in frames)
         self.updateFrameRate()
 
+        # Load previous settings (if any)
+        self.load_settings()
+
+    def restore_defaults(self):
+        """
+        Restore defaults by closing and reopening the dialog.
+        """
+        # Clear the saved settings
+        get_app().updates.ignore_history = True
+        get_app().updates.update(["export_settings"], None)
+        get_app().updates.ignore_history = False
+
+        log.info("Cleared last-export_settings.")
+
+        # Close the current dialog
+        self.restoring_defaults = True
+        self.close()
+
+        # Re-open the export dialog (calling the dialog anew)
+        QTimer.singleShot(0, get_app().window.actionExportVideo.trigger)
+
     def getProfilePath(self, profile_name):
         """Get the profile path that matches the name"""
         for profile, path in self.profile_paths.items():
@@ -344,12 +370,23 @@ class Export(QDialog):
             self.timeline.info.has_audio = True
 
         if set_limits:
-            # Determine max frame (based on clips)
-            self.timeline_length_int = self.timeline.GetMaxFrame()
+            if self.checkEndLastClip.isChecked():
+                # Set end frame to last clip (right edge)
+                timeline_length_int = self.timeline.GetMaxFrame()
+            else:
+                # Set end frame to project length (full timeline)
+                timeline_length_int = self.timeline.info.video_length
+
+            if self.checkStartFirstClip.isChecked():
+                # Set the start frame to the first clip position
+                timeline_start_int = self.timeline.GetMinFrame()
+            else:
+                # Set the start frame to the start of the project (0.0)
+                timeline_start_int = 1
 
             # Set the min and max frame numbers for this project
-            self.txtStartFrame.setValue(1)
-            self.txtEndFrame.setValue(self.timeline_length_int)
+            self.txtStartFrame.setValue(timeline_start_int)
+            self.txtEndFrame.setValue(timeline_length_int)
 
         # Calculate differences between editing/preview FPS and export FPS
         current_fps = get_app().project.get("fps")
@@ -769,6 +806,8 @@ class Export(QDialog):
 
     def accept(self):
         """ Start exporting video """
+        # Save export settings
+        self.save_settings()
 
         # Build the export window title
         def titlestring(sec, fps, mess):
@@ -1132,7 +1171,70 @@ class Export(QDialog):
             # Accept dialog
             super(Export, self).accept()
 
+    def save_settings(self):
+        if self.restoring_defaults:
+            return  # Ignore saving if we are actively restoring defaults
+
+        # Create a list to store the settings in order
+        settings = []
+
+        # Iterate over all children in the dialog in the order they are defined
+        for child in self.findChildren(QWidget):
+            if child.objectName().startswith("qt_"):
+                continue
+            setting = {}
+            if isinstance(child, QLineEdit):
+                setting['name'] = child.objectName()
+                setting['type'] = 'QLineEdit'
+                setting['value'] = child.text()
+            elif isinstance(child, QComboBox):
+                setting['name'] = child.objectName()
+                setting['type'] = 'QComboBox'
+                setting['value'] = child.currentIndex()
+            elif isinstance(child, QSpinBox):
+                setting['name'] = child.objectName()
+                setting['type'] = 'QSpinBox'
+                setting['value'] = child.value()
+            elif isinstance(child, QCheckBox):
+                setting['name'] = child.objectName()
+                setting['type'] = 'QCheckBox'
+                setting['value'] = child.isChecked()
+            # Append the setting to the list
+            if setting:
+                settings.append(setting)
+
+        # Save all settings as a JSON string
+        get_app().updates.ignore_history = True
+        get_app().updates.update(["export_settings"], settings)
+        get_app().updates.ignore_history = False
+
+        log.info("Export settings saved: %s", settings)
+
+    def load_settings(self):
+        # Load the JSON string from settings
+        settings = get_app().project.get("export_settings")
+
+        if not settings:
+            log.info("No saved settings found.")
+            return
+
+        # Iterate over the list of settings and apply them in order
+        for setting in settings:
+            widget = self.findChild(QWidget, setting['name'])
+            if widget:
+                if setting['type'] == 'QLineEdit':
+                    widget.setText(setting.get('value', ''))
+                elif setting['type'] == 'QComboBox':
+                    widget.setCurrentIndex(setting.get('value', 0))
+                elif setting['type'] in ['QSpinBox', 'QDoubleSpinBox']:
+                    widget.setValue(setting.get('value', widget.minimum()))
+                elif setting['type'] == 'QCheckBox':
+                    widget.setChecked(setting.get('value', False))
+        log.info("Export settings loaded: %s", settings)
+
     def reject(self):
+        self.save_settings()
+
         if self.exporting and not self.close_button.isVisible():
             # Show confirmation dialog
             _ = get_app()._tr

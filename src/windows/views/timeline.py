@@ -3144,13 +3144,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def resizeTimeline(self, new_duration):
         """Resize the duration of the timeline"""
         log.debug(f"Changing timeline to length: {new_duration}")
-        duration_diff = abs(get_app().project.get('duration') - new_duration)
-        if (duration_diff > 1.0):
-            log.debug("Updating duration")
-            get_app().updates.update_untracked(["duration"], new_duration)
-            get_app().window.TimelineResize.emit()
-        else:
-            log.debug("Duration unchanged. Not updating")
+        get_app().updates.update_untracked(["duration"], new_duration)
+        get_app().window.TimelineResize.emit()
 
     # Add Transition
     def addTransition(self, file_path, event_position):

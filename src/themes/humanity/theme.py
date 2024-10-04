@@ -32,10 +32,10 @@ class HumanityDarkTheme(BaseTheme):
     def __init__(self, app):
         super().__init__(app)
         self.style_sheet = """
-QToolTip { 
-    color: #ffffff; 
-    background-color: #2a82da; 
-    border: 0px solid white; 
+QToolTip {
+    color: #ffffff;
+    background-color: #2a82da;
+    border: 0px solid white;
 }
 
 QComboBox::item {
@@ -132,6 +132,12 @@ QWidget#videoPreview {
               margin-top: 8px;
               background: #e5e7ea;
               box-shadow: none;
+            }
+            .track-resize-handle {
+              background-color: #BEBFC1;
+            }
+            .track-resize-handle:hover {
+              background-color: #F7F8FA;
             }
             .transition_top {
               background: none;

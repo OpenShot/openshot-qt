@@ -2155,6 +2155,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Remove track
                 m.delete()
 
+    def actionZoomToTimeline(self):
+        self.sliderZoomWidget.zoomToTimeline()
+
     def actionTimelineZoomIn_trigger(self):
         self.sliderZoomWidget.zoomIn()
 

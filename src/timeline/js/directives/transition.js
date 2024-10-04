@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, updateDraggables */
 // Init Variables
 var resize_disabled = false;
 var previous_drag_position = null;
@@ -52,11 +52,12 @@ App.directive("tlTransition", function () {
         handles: "e, w",
         minWidth: 1,
         start: function (e, ui) {
-          scope.setDragging(true);
-          resize_disabled = false;
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Set dragging mode
+          scope.setDragging(true);
+          resize_disabled = false;
 
           // Set bounding box
           setBoundingBox(scope, $(this), "trimming");
@@ -220,11 +221,12 @@ App.directive("tlTransition", function () {
         distance: 5,
         cancel: ".transition_menu, .point",
         start: function (event, ui) {
-          previous_drag_position = null;
-          scope.setDragging(true);
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Set dragging mode
+          previous_drag_position = null;
+          scope.setDragging(true);
 
           // Store initial cursor vs draggable offset
           var elementOffset = $(this).offset();
@@ -266,10 +268,11 @@ App.directive("tlTransition", function () {
           // Hide snapline (if any)
           scope.hideSnapline();
 
+          // Call the shared function for drag stop
+          updateDraggables(scope, ui, "transition");
+
           // Clear previous drag position
           previous_drag_position = null;
-          scope.setDragging(false);
-
         },
         drag: function (e, ui) {
           // Retrieve the initial cursor offset
@@ -313,18 +316,6 @@ App.directive("tlTransition", function () {
             }
           });
 
-        },
-        revert: function (valid) {
-          if (!valid) {
-            // The drop spot was invalid, so we're going to move all transitions to their original position
-            $(".ui-selected").each(function () {
-              var oldY = start_transitions[$(this).attr("id")]["top"];
-              var oldX = start_transitions[$(this).attr("id")]["left"];
-
-              $(this).css("left", oldX);
-              $(this).css("top", oldY);
-            });
-          }
         }
       });
 

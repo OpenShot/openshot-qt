@@ -816,6 +816,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Zoom to Timeline",
+    "restart": false,
+    "setting": "actionZoomToTimeline",
+    "value": "\\ | Shift+\\",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Previous Frame",
     "restart": false,
     "setting": "seekPreviousFrame",
