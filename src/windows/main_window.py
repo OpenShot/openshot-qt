@@ -3290,23 +3290,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Keep track of ignore / not ignore
         self.ignore_updates = ignore
 
-    def dock_top_level_changed(self):
-        log.info("dock_top_level_changed")
-        dw = self.sender()
-
-        if dw.isFloating():
-            # Set custom window flags for the floating dock widget
-            dw.setWindowFlags(Qt.CustomizeWindowHint |
-                              Qt.Window |
-                              Qt.WindowMinimizeButtonHint |
-                              Qt.WindowMaximizeButtonHint |
-                              Qt.WindowCloseButtonHint)
-            dw.show()
-        else:
-            # Restore default window flags when docked
-            dw.setWindowFlags(Qt.Widget)
-            dw.show()
-
     def style_dock_widgets(self):
         """Check if any dock widget is part of a tabbed group and hide the title text if tabbed."""
         theme = None
@@ -3627,7 +3610,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Connect the signals for each dock widget from self.getDocks()
         for dock_widget in self.getDocks():
             dock_widget.dockLocationChanged.connect(self.style_dock_widgets)
-            dock_widget.topLevelChanged.connect(self.dock_top_level_changed)
 
         # Ensure toolbar is movable when floated (even with docks frozen)
         self.toolBar.topLevelChanged.connect(
