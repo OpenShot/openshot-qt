@@ -26,7 +26,7 @@
  * along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*global bounding_box, global_primes*/
+/*global bounding_box, global_primes, timeline*/
 
 // Generate a UUID
 function uuidv4() {
@@ -537,4 +537,131 @@ function forceDrawRuler() {
   var scroll = document.querySelector("#scrolling_tracks").scrollLeft;
   document.querySelector("#scrolling_tracks").scrollLeft = 10;
   document.querySelector("#scrolling_tracks").scrollLeft = scroll;
+}
+
+// Update the clip/transition data on Draggable stop (replaces the Track droppable)
+function updateDraggables(scope, ui, itemType) {
+    scope.enable_sorting = false;
+
+    var scrolling_tracks = $("#scrolling_tracks");
+    var vert_scroll_offset = scrolling_tracks.scrollTop();
+    var horz_scroll_offset = scrolling_tracks.scrollLeft();
+
+    // Track each dropped clip or transition
+    var dropped_clips = [];
+    var position_diff = 0; // The time difference for multiple selections (if any)
+    var ui_selected = $(".ui-selected");
+
+    // Arrays to collect updates for batch processing
+    var clip_updates = [];
+    var transition_updates = [];
+
+    // UUID to group these updates as a single transaction
+    var tid = uuidv4();
+
+    // Loop through each selected item and remove the selection if multiple items are selected
+    ui_selected.each(function (index) {
+        var item = $(this);
+
+        // Determine the type of item (clip or transition)
+        var item_type = itemType || null;
+        if (item.hasClass("clip")) {
+            item_type = "clip";
+        } else if (item.hasClass("transition")) {
+            item_type = "transition";
+        } else {
+            // Unknown drop type, skip it
+            return;
+        }
+
+        // Get the item properties
+        var item_id = item.attr("id");
+        var item_num = item_id.substr(item_id.indexOf("_") + 1);
+        var item_left = item.position().left;
+
+        // Adjust for scrollbars
+        item_left = parseFloat(item_left + horz_scroll_offset);
+        var item_top = parseFloat(item.position().top + vert_scroll_offset);
+
+        // Prevent items from being dropped too far to the left
+        if (item_left < 0) {
+            item_left = 0;
+        }
+
+        // Get the track where the item was dropped
+        let drop_track = findTrackAtLocation(scope, parseInt(item_top, 10));
+        if (drop_track != null) {
+            // Find the item in the project JSON data
+            let item_data = null;
+            if (item_type === "clip") {
+                item_data = findElement(scope.project.clips, "id", item_num);
+            } else if (item_type === "transition") {
+                item_data = findElement(scope.project.effects, "id", item_num);
+            }
+
+            // Set the time difference (if not already calculated)
+            if (position_diff === 0.0) {
+                position_diff = (item_left / scope.pixelsPerSecond) - item_data.position;
+            }
+
+            scope.$apply(function () {
+                // Set track and position
+                item_data.layer = drop_track.number;
+                item_data.position += position_diff;
+            });
+
+            scope.$apply(function () {
+                // Snap to FPS grid (if necessary)
+                item_data.position = snapToFPSGridTime(scope, item_data.position);
+            });
+
+            // Keep track of dropped clips/transitions
+            dropped_clips.push(item_data);
+
+            // Collect updates for batch processing
+            if (item_type === "clip") {
+                clip_updates.push(item_data);
+            } else if (item_type === "transition") {
+                transition_updates.push(item_data);
+            }
+        }
+    });
+
+    // Batch process updates
+    clip_updates.forEach(function(item_data, index) {
+        var needs_refresh = (index === clip_updates.length - 1);
+        timeline.update_clip_data(JSON.stringify(item_data), true, true, !needs_refresh, tid);
+    });
+
+    transition_updates.forEach(function(item_data, index) {
+        var needs_refresh = (index === transition_updates.length - 1);
+        timeline.update_transition_data(JSON.stringify(item_data), true, !needs_refresh, tid);
+    });
+
+    // Add missing transitions (if any)
+    if (dropped_clips.length === 1) {
+        for (var clip_index = 0; clip_index < dropped_clips.length; clip_index++) {
+            var item_data = dropped_clips[clip_index];
+
+            // Check for missing transitions
+            var missing_transition_details = scope.getMissingTransitions(item_data);
+            if (scope.Qt && missing_transition_details !== null) {
+                timeline.add_missing_transition(JSON.stringify(missing_transition_details));
+            }
+        }
+    }
+
+    // Clear dropped clips
+    dropped_clips = [];
+
+    // Re-enable sorting and sort items
+    scope.enable_sorting = true;
+    scope.sortItems();
+    scope.resizeTimeline();
+
+    // Delay clearing the dragging variable (to prevent an ng-click race condition
+    // which causes selections to be randomly cleared after a drag)
+    setTimeout(function() {
+      scope.setDragging(false);
+    }, 100);
 }

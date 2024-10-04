@@ -103,7 +103,7 @@ Timeline Toolbar
    Previous Marker              Jump to the previous marker. This moves the playhead to the left, seeking to the next marker or important position (i.e. start / end positions of clips).
    Next Marker                  Jump to the next marker. This moves the playhead to the right, seeking to the next marker or important position (i.e. start / end positions of clips).
    Center Timeline on Playhead  This centers the timeline on the playhead position. This can be useful if the playhead is not visible and you want to quickly scroll the timeline to that position.
-   Zoom Slider                  This controls the visible portion of the timeline. Adjusting the left/right handles will zoom in/out of your timeline, keeping a specific section of your project in view.
+   Zoom Slider                  This controls the visible portion of the timeline. Adjusting the left/right handles will zoom in/out of your timeline, keeping a specific section of your project in view. Double click to zoom to your entire timeline.
    ===========================  ============
 
 .. _keyboard_shortcut_ref:
@@ -116,91 +116,95 @@ configure these shortcuts in the Preferences window, which is opened by selectin
 (On macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.)
 Learning a few of these shortcuts can save you a bunch of time!
 
-===================================   =======================   ==========================   ====================
-Action                                Shortcut 1                Shortcut 2                   Shortcut 3
-===================================   =======================   ==========================   ====================
-About OpenShot                        :kbd:`Ctrl+H`
-Add Marker                            :kbd:`M`
-Add Track                             :kbd:`Ctrl+Y`
-Add to Timeline                       :kbd:`Ctrl+Alt+A`
-Advanced View                         :kbd:`Alt+Shift+1`
-Animated Title                        :kbd:`Ctrl+Shift+T`
-Ask a Question...                     :kbd:`F4`
-Center on Playhead                    :kbd:`Shift+C`            :kbd:`Alt+Up`
-Choose Profile                        :kbd:`Ctrl+Alt+P`
-Clear All Cache                       :kbd:`Ctrl+Shift+ESC`
-Clear History                         :kbd:`Ctrl+Shift+H`
-Clear Waveform Display Data           :kbd:`Ctrl+Shift+W`
-Copy                                  :kbd:`Ctrl+C`
-Cut                                   :kbd:`Ctrl+X`
-Delete Item                           :kbd:`Delete`             :kbd:`Backspace`
-Delete Item (Ripple)                  :kbd:`Shift+Delete`
-Details View                          :kbd:`Ctrl+Page Up`
-Donate                                :kbd:`F7`
-Duplicate                             :kbd:`Ctrl+Shift+/`
-Edit Title                            :kbd:`Alt+T`
-Export Selected Files                 :kbd:`Ctrl+Shift+E`
-Export Video / Media                  :kbd:`Ctrl+E`             :kbd:`Ctrl+M`
-Fast Forward                          :kbd:`L`
-File Properties                       :kbd:`Alt+I`              :kbd:`Ctrl+Double Click`
-Freeze View                           :kbd:`Ctrl+F`
-Fullscreen                            :kbd:`F11`
-Import Files...                       :kbd:`Ctrl+I`
-Insert Keyframe                       :kbd:`Alt+Shift+K`
-Join our Community...                 :kbd:`F5`
-Jump To End                           :kbd:`End`
-Jump To Start                         :kbd:`Home`
-Launch Tutorial                       :kbd:`F2`
-New Project                           :kbd:`Ctrl+N`
-Next Frame                            :kbd:`Right`              :kbd:`.`
-Next Marker                           :kbd:`Shift+M`            :kbd:`Alt+Right`
-Nudge left (1 Frame)                  :kbd:`Ctrl+Left`
-Nudge left (5 Frames)                 :kbd:`Shift+Ctrl+Left`
-Nudge right (1 Frame)                 :kbd:`Ctrl+Right`
-Nudge right (5 Frames)                :kbd:`Shift+Ctrl+Right`
-Open Help Contents                    :kbd:`F1`
-Open Project...                       :kbd:`Ctrl+O`
-Paste                                 :kbd:`Ctrl+V`
-Play/Pause Toggle                     :kbd:`Space`              :kbd:`Up`                    :kbd:`Down`
-Preferences                           :kbd:`Ctrl+P`
-Preview File                          :kbd:`Alt+P`              :kbd:`Double Click`
-Previous Frame                        :kbd:`Left`               :kbd:`,`
-Previous Marker                       :kbd:`Ctrl+Shift+M`       :kbd:`Alt+Left`
-Properties                            :kbd:`U`
-Quit                                  :kbd:`Ctrl+Q`
-Razor Toggle                          :kbd:`C`                  :kbd:`B`                     :kbd:`R`
-Redo                                  :kbd:`Ctrl+Shift+Z`
-Report a Bug...                       :kbd:`F3`
-Rewind                                :kbd:`J`
-Save Current Frame                    :kbd:`Ctrl+Shift+Y`
-Save Current Frame                    :kbd:`Ctrl+Shift+Y`
-Save Project                          :kbd:`Ctrl+S`
-Save Project As...                    :kbd:`Ctrl+Shift+S`
-Select All                            :kbd:`Ctrl+A`
-Select Item (Ripple)                  :kbd:`Alt+A`              :kbd:`Alt+Click`
-Select None                           :kbd:`Ctrl+Shift+A`
-Show All Docks                        :kbd:`Ctrl+Shift+D`
-Simple View                           :kbd:`Alt+Shift+0`
-Slice All: Keep Both Sides            :kbd:`Ctrl+Shift+K`
-Slice All: Keep Left Side             :kbd:`Ctrl+Shift+J`
-Slice All: Keep Right Side            :kbd:`Ctrl+Shift+L`
-Slice Selected: Keep Both Sides       :kbd:`Ctrl+K`
-Slice Selected: Keep Left Side        :kbd:`Ctrl+J`
-Slice Selected: Keep Right Side       :kbd:`Ctrl+L`
-Slice Selected: Keep Left (Ripple)    :kbd:`W`
-Slice Selected: Keep Right (Ripple)   :kbd:`Q`
-Snapping Toggle                       :kbd:`S`
-Split File                            :kbd:`Alt+S`              :kbd:`Shift+Double Click`
-Thumbnail View                        :kbd:`Ctrl+Page Down`
-Title                                 :kbd:`Ctrl+T`
-Transform                             :kbd:`Ctrl+Alt+T`
-Translate this Application...         :kbd:`F6`
-Un-Freeze View                        :kbd:`Ctrl+Shift+F`
-Undo                                  :kbd:`Ctrl+Z`
-View Toolbar                          :kbd:`Ctrl+Shift+B`
-Zoom In                               :kbd:`=`                  :kbd:`Ctrl+=`
-Zoom Out                              :kbd:`-`                  :kbd:`Ctrl+-`
-===================================   =======================   ==========================   ====================
+.. table::
+   :widths: 35 20 20 20
+
+   ===================================   =======================   ==========================   ====================
+   Action                                Shortcut 1                Shortcut 2                   Shortcut 3
+   ===================================   =======================   ==========================   ====================
+   About OpenShot                        :kbd:`Ctrl+H`
+   Add Marker                            :kbd:`M`
+   Add Track                             :kbd:`Ctrl+Y`
+   Add to Timeline                       :kbd:`Ctrl+Alt+A`
+   Advanced View                         :kbd:`Alt+Shift+1`
+   Animated Title                        :kbd:`Ctrl+Shift+T`
+   Ask a Question...                     :kbd:`F4`
+   Center on Playhead                    :kbd:`Shift+C`            :kbd:`Alt+Up`
+   Choose Profile                        :kbd:`Ctrl+Alt+P`
+   Clear All Cache                       :kbd:`Ctrl+Shift+ESC`
+   Clear History                         :kbd:`Ctrl+Shift+H`
+   Clear Waveform Display Data           :kbd:`Ctrl+Shift+W`
+   Copy                                  :kbd:`Ctrl+C`
+   Cut                                   :kbd:`Ctrl+X`
+   Delete Item                           :kbd:`Delete`             :kbd:`Backspace`
+   Delete Item (Ripple)                  :kbd:`Shift+Delete`
+   Details View                          :kbd:`Ctrl+Page Up`
+   Donate                                :kbd:`F7`
+   Duplicate                             :kbd:`Ctrl+Shift+/`
+   Edit Title                            :kbd:`Alt+T`
+   Export Selected Files                 :kbd:`Ctrl+Shift+E`
+   Export Video / Media                  :kbd:`Ctrl+E`             :kbd:`Ctrl+M`
+   Fast Forward                          :kbd:`L`
+   File Properties                       :kbd:`Alt+I`              :kbd:`Ctrl+Double Click`
+   Freeze View                           :kbd:`Ctrl+F`
+   Fullscreen                            :kbd:`F11`
+   Import Files...                       :kbd:`Ctrl+I`
+   Insert Keyframe                       :kbd:`Alt+Shift+K`
+   Join our Community...                 :kbd:`F5`
+   Jump To End                           :kbd:`End`
+   Jump To Start                         :kbd:`Home`
+   Launch Tutorial                       :kbd:`F2`
+   New Project                           :kbd:`Ctrl+N`
+   Next Frame                            :kbd:`Right`              :kbd:`.`
+   Next Marker                           :kbd:`Shift+M`            :kbd:`Alt+Right`
+   Nudge left (1 Frame)                  :kbd:`Ctrl+Left`
+   Nudge left (5 Frames)                 :kbd:`Shift+Ctrl+Left`
+   Nudge right (1 Frame)                 :kbd:`Ctrl+Right`
+   Nudge right (5 Frames)                :kbd:`Shift+Ctrl+Right`
+   Open Help Contents                    :kbd:`F1`
+   Open Project...                       :kbd:`Ctrl+O`
+   Paste                                 :kbd:`Ctrl+V`
+   Play/Pause Toggle                     :kbd:`Space`              :kbd:`Up`                    :kbd:`Down`
+   Preferences                           :kbd:`Ctrl+P`
+   Preview File                          :kbd:`Alt+P`              :kbd:`Double Click`
+   Previous Frame                        :kbd:`Left`               :kbd:`,`
+   Previous Marker                       :kbd:`Ctrl+Shift+M`       :kbd:`Alt+Left`
+   Properties                            :kbd:`U`
+   Quit                                  :kbd:`Ctrl+Q`
+   Razor Toggle                          :kbd:`C`                  :kbd:`B`                     :kbd:`R`
+   Redo                                  :kbd:`Ctrl+Shift+Z`
+   Report a Bug...                       :kbd:`F3`
+   Rewind                                :kbd:`J`
+   Save Current Frame                    :kbd:`Ctrl+Shift+Y`
+   Save Current Frame                    :kbd:`Ctrl+Shift+Y`
+   Save Project                          :kbd:`Ctrl+S`
+   Save Project As...                    :kbd:`Ctrl+Shift+S`
+   Select All                            :kbd:`Ctrl+A`
+   Select Item (Ripple)                  :kbd:`Alt+A`            :kbd:`Alt+Click`
+   Select None                           :kbd:`Ctrl+Shift+A`
+   Show All Docks                        :kbd:`Ctrl+Shift+D`
+   Simple View                           :kbd:`Alt+Shift+0`
+   Slice All: Keep Both Sides            :kbd:`Ctrl+Shift+K`
+   Slice All: Keep Left Side             :kbd:`Ctrl+Shift+J`
+   Slice All: Keep Right Side            :kbd:`Ctrl+Shift+L`
+   Slice Selected: Keep Both Sides       :kbd:`Ctrl+K`
+   Slice Selected: Keep Left Side        :kbd:`Ctrl+J`
+   Slice Selected: Keep Right Side       :kbd:`Ctrl+L`
+   Slice Selected: Keep Left (Ripple)    :kbd:`W`
+   Slice Selected: Keep Right (Ripple)   :kbd:`Q`
+   Snapping Toggle                       :kbd:`S`
+   Split File                            :kbd:`Alt+S`              :kbd:`Shift+Double Click`
+   Thumbnail View                        :kbd:`Ctrl+Page Down`
+   Title                                 :kbd:`Ctrl+T`
+   Transform                             :kbd:`Ctrl+Alt+T`
+   Translate this Application...         :kbd:`F6`
+   Un-Freeze View                        :kbd:`Ctrl+Shift+F`
+   Undo                                  :kbd:`Ctrl+Z`
+   View Toolbar                          :kbd:`Ctrl+Shift+B`
+   Zoom In                               :kbd:`=`                  :kbd:`Ctrl+=`
+   Zoom Out                              :kbd:`-`                  :kbd:`Ctrl+-`
+   Zoom to Timeline                      :kbd:`\\`                  :kbd:`Shift+\\`             :kbd:`Double Click`
+   ===================================   =======================   ==========================   ====================
 
 Menu
 ----

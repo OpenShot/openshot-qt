@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio, updateDraggables */
 // Init variables
 var dragging = false;
 var resize_disabled = false;
@@ -54,10 +54,12 @@ App.directive("tlClip", function ($timeout) {
         minWidth: 1,
         maxWidth: scope.clip.length * scope.pixelsPerSecond,
         start: function (e, ui) {
-          scope.setDragging(true);
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          // Set dragging mode
+          scope.setDragging(true);
+          resize_disabled = false;
 
           // Set bounding box
           setBoundingBox(scope, $(this), "trimming");
@@ -276,11 +278,11 @@ App.directive("tlClip", function ($timeout) {
         distance: 5,
         cancel: ".effect-container,.clip_menu,.point",
         start: function (event, ui) {
-          previous_drag_position = null;
-          scope.setDragging(true);
-
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
+
+          previous_drag_position = null;
+          scope.setDragging(true);
 
           // Store initial cursor vs draggable offset
           var elementOffset = $(this).offset();
@@ -323,9 +325,11 @@ App.directive("tlClip", function ($timeout) {
           // Hide snapline (if any)
           scope.hideSnapline();
 
+          // Call the shared function for drag stop
+          updateDraggables(scope, ui, "clip");
+
           // Clear previous drag position
           previous_drag_position = null;
-          scope.setDragging(false);
         },
         drag: function (e, ui) {
           // Retrieve the initial cursor offset
@@ -368,18 +372,6 @@ App.directive("tlClip", function ($timeout) {
               $(this).css("top", newY);
             }
           });
-        },
-        revert: function (valid) {
-          if (!valid) {
-            //the drop spot was invalid, so we're going to move all clips to their original position
-            $(".ui-selected").each(function () {
-              var oldY = start_clips[$(this).attr("id")]["top"];
-              var oldX = start_clips[$(this).attr("id")]["left"];
-
-              $(this).css("left", oldX);
-              $(this).css("top", oldY);
-            });
-          }
         }
       });
     }
@@ -402,7 +394,7 @@ App.directive("tlMultiSelectable", function () {
       element.selectable({
         filter: ".droppable",
         distance: 0,
-        cancel: ".effect-container,.transition_menu,.clip_menu,.point",
+        cancel: ".effect-container,.transition_menu,.clip_menu,.point,.track-resize-handle",
         selected: function (event, ui) {
           // Identify the selected ID and TYPE
           var id = ui.selected.id;

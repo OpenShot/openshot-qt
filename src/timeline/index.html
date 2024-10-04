@@ -26,8 +26,8 @@
         <script type="text/javascript" src="js/controllers.js"></script>
         <script type="text/javascript" src="js/directives/ruler.js"></script>
         <script type="text/javascript" src="js/directives/playhead.js"></script>
-        <script type="text/javascript" src="js/directives/track.js"></script>
         <script type="text/javascript" src="js/directives/clip.js"></script>
+	    <script type="text/javascript" src="js/directives/track.js"></script>
         <script type="text/javascript" src="js/directives/transition.js"></script>
         <script type="text/javascript" src="js/directives/misc.js"></script>
         <script type="text/javascript" src="media/js/ui-bootstrap-tpls-1.3.3.min.js"></script>
@@ -45,14 +45,14 @@
 		
 		<!-- RULER NAME (left of screen) -->
 		<div tl-rulertime id="ruler_label">
-			<div id="ruler_time">{{playheadTime.hour}}:{{playheadTime.min}}:{{playheadTime.sec}},{{playheadTime.frame}}</div>
+			<div id="ruler_time" ng-click="rulerTimeClick()">{{playheadTime.hour}}:{{playheadTime.min}}:{{playheadTime.sec}},{{playheadTime.frame}}</div>
 		</div>
 		<!-- RULER (right of screen) -->
 		<div id="scrolling_ruler">
 			<!-- PLAYHEAD TOP -->
 			<div tl-playhead class="playhead playhead-top" id="playhead" ng-right-click="showPlayheadMenu(project.playhead_position)" style="left:{{project.playhead_position * pixelsPerSecond}}px;"></div>
 			<!-- Ruler is width of the timeline -->
-			<div tl-ruler id="ruler" style="width: {{project.duration * pixelsPerSecond}}px;"></div>
+			<div tl-ruler id="ruler" style="width:{{getTimelineWidth(0)}}px;"></div>
 
 			<!-- MARKERS --> 
 			<span class="ruler_marker" id="marker_for_{{marker.id}}">
@@ -78,10 +78,11 @@
 		</div>
 		<!-- TRACKS CONTAINER (right of screen) -->
 		<div tl-scrollable-tracks id="scrolling_tracks">
-			<div id="track-container" tl-track tl-multi-selectable style="width: {{getTimelineWidth(0) - 6}}px; padding-bottom: 2px;">
+			<div id="track-container" tl-track tl-multi-selectable style="width: {{getTimelineWidth(0)}}px; padding-bottom: 2px;">
 				<!-- TRACKS -->
-				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="showTimelineMenu($event, layer.number)"  class="{{getTrackStyle(layer.lock)}}" style="width:{{getTimelineWidth(0) - 6}}px;">
+				<div ng-repeat="layer in project.layers.slice().reverse()" id="track_{{layer.number}}" ng-right-click="showTimelineMenu($event, layer.number)"  class="{{getTrackStyle(layer.lock)}}" style="width:{{getTimelineWidth(0)}}px;">
 					<div class="banding-overlay"></div>
+					<div class="track-resize-handle"></div>
 				</div>
 				
 				<!-- CLIPS -->

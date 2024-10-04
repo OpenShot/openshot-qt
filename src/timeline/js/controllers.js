@@ -347,9 +347,18 @@ App.controller("TimelineCtrl", function ($scope) {
     var scrolling_tracks = $("#scrolling_tracks");
     var scrollingTracksWidth = scrolling_tracks.width();
 
-    // Calculate the position to scroll the timeline to to center on the requested time
+    // Get the total width of the timeline (the entire scrollable content width)
+    var totalTimelineWidth = $scope.getTimelineWidth(0);
+
+    // Calculate the position to scroll the timeline to center on the requested time
     var pixelToCenterOn = parseFloat(centerTime) * $scope.pixelsPerSecond;
     var scrollPosition = Math.max(pixelToCenterOn - (scrollingTracksWidth / 2.0), 0);
+
+    // Condition: Check if we are zoomed into the very right edge of the timeline
+    if (scrollPosition + scrollingTracksWidth >= totalTimelineWidth) {
+        // We are near the right edge, so align the right edge with the right of the screen
+        scrollPosition = totalTimelineWidth - scrollingTracksWidth;
+    }
 
     // Scroll the timeline using JQuery
     scrolling_tracks.scrollLeft(Math.floor(scrollPosition + 0.5));
@@ -400,12 +409,6 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.setSnappingMode = function (enable_snapping) {
     $scope.$apply(function () {
       $scope.enable_snapping = enable_snapping;
-      if (enable_snapping) {
-        $(".droppable").draggable("option", "snapTolerance", 20);
-      }
-      else {
-        $(".droppable").draggable("option", "snapTolerance", 0);
-      }
     });
   };
 
@@ -583,6 +586,11 @@ App.controller("TimelineCtrl", function ($scope) {
 
   // Select item (either clip or transition)
   $scope.selectItem = function (item_id, item_type, clear_selections, event, force_ripple) {
+    if ($scope.dragging) {
+      timeline.qt_log("DEBUG", "Skip selection due to dragging...");
+      return;
+    }
+
     // Trim item_id
     var id = item_id.replace(`${item_type}_`, "");
 
@@ -801,10 +809,14 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
     // Resize timeline
-    if (furthest_right_edge > $scope.project.duration - min_timeline_padding || furthest_right_edge < $scope.project.duration - max_timeline_padding) {
+    if (furthest_right_edge > $scope.project.duration) {
       if ($scope.Qt) {
         let new_timeline_length = Math.max(min_timeline_length, furthest_right_edge + min_timeline_padding);
         timeline.resizeTimeline(new_timeline_length);
+        // Apply the new duration to the scope
+        $scope.$apply(function () {
+            $scope.project.duration = new_timeline_length;
+        });
       }
     }
   };
@@ -939,6 +951,20 @@ App.controller("TimelineCtrl", function ($scope) {
     return Math.max(min_value, $scope.project.duration * $scope.pixelsPerSecond);
   };
 
+  // Seek to the beginning of the timeline
+  $scope.rulerTimeClick = function () {
+      $scope.movePlayhead(0.0);
+      $scope.previewFrame(0.0);
+
+      // Force a scroll event (from 1 to 0, to send the geometry to zoom slider)
+      $("#scrolling_tracks").scrollLeft(1);
+
+      // Scroll to top/left when loading a project
+      $("#scrolling_tracks").animate({
+        scrollTop: 0,
+        scrollLeft: 0
+      }, "slow");
+  };
 
   // Get Position of item (used by Qt), both the position and track number.
   /**
@@ -1390,6 +1416,11 @@ $scope.updateLayerIndex = function () {
         }
       }
 
+      // Add end of timeline position
+      var end_of_track = $scope.project.duration * $scope.pixelsPerSecond;
+      var end_of_track_diff = position - end_of_track;
+      diffs.push({"diff": end_of_track_diff, "position": end_of_track});
+
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
         var diff = diffs[diff_index].diff;
@@ -1614,8 +1645,6 @@ $scope.updateLayerIndex = function () {
             delete previous_object[current_key];
           }
         }
-        // Resize timeline if it's too small to contain all clips
-        $scope.resizeTimeline();
 
         // Re-sort clips and transitions array
         $scope.sortItems();

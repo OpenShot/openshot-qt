@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box */
+/*global App, timeline, secondsToTime, setSelections, setBoundingBox, moveBoundingBox, bounding_box */
 // Variables for panning by middle click
 var is_scrolling = false;
 var starting_scrollbar = {x: 0, y: 0};
@@ -39,7 +39,6 @@ var scroll_left_pixels = 0;
 
 // This container allows for tracks to be scrolled (with synced ruler)
 // and allows for panning of the timeline with the middle mouse button
-/*global App, timeline, secondsToTime*/
 App.directive("tlScrollableTracks", function () {
   return {
     restrict: "A",
@@ -70,40 +69,42 @@ App.directive("tlScrollableTracks", function () {
 
       // Sync ruler to track scrolling
       element.on("scroll", function () {
-        //set amount scrolled
-        scroll_left_pixels = element.scrollLeft();
+        var scrollLeft = element.scrollLeft();
+        var timelineWidth = scope.getTimelineWidth(0); // Full width of the timeline
+        var maxScrollLeft = timelineWidth - element.width(); // Max horizontal scroll
 
+        // Clamp to right edge
+        element.scrollLeft(Math.min(scrollLeft, maxScrollLeft));
+
+        // Sync the ruler and other components
         $("#track_controls").scrollTop(element.scrollTop());
-        $("#scrolling_ruler").scrollLeft(element.scrollLeft());
-        $("#progress_container").scrollLeft(element.scrollLeft());
+        $("#scrolling_ruler, #progress_container").scrollLeft(scrollLeft);
 
-        // Send scrollbar position to Qt
+        // Send scrollbar position to Qt if available
         if (scope.Qt) {
-           // Calculate scrollbar positions (left and right edge of scrollbar)
-           var timeline_length = scope.getTimelineWidth(0);
-           var left_scrollbar_edge = scroll_left_pixels / timeline_length;
-           var right_scrollbar_edge = (scroll_left_pixels + element.width()) / timeline_length;
+          // Create variables first and pass them as arguments
+          var leftScrollbarEdge = scrollLeft / timelineWidth; // Use the full timeline width
+          var rightScrollbarEdge = (scrollLeft + element.width()) / timelineWidth; // Use the full timeline width
 
-           // Send normalized scrollbar positions to Qt
-           timeline.ScrollbarChanged([left_scrollbar_edge, right_scrollbar_edge, timeline_length, element.width()]);
+          // Pass the variables as a JavaScript array (interpreted as a PyQt list)
+          timeline.ScrollbarChanged([leftScrollbarEdge, rightScrollbarEdge, timelineWidth, element.width()]);
         }
 
-        scope.$apply( () => {
-          scope.scrollLeft = element[0].scrollLeft;
-        })
-
+        // Update scrollLeft in scope
+        scope.$apply(() => scope.scrollLeft = scrollLeft);
       });
 
-      // Pans the timeline (on middle mouse clip and drag)
+      // Pans the timeline (on middle mouse click and drag)
       element.on("mousemove", function (e) {
         if (is_scrolling) {
-          // Calculate difference from last position
           var difference = {x: starting_mouse_position.x - e.pageX, y: starting_mouse_position.y - e.pageY};
-          var newPos = { x: starting_scrollbar.x + difference.x, y: starting_scrollbar.y + difference.y};
+          var newPos = {
+            x: Math.max(0, Math.min(starting_scrollbar.x + difference.x, scope.getTimelineWidth(0) - element.width())),
+            y: Math.max(0, Math.min(starting_scrollbar.y + difference.y, $("#scrolling_tracks")[0].scrollHeight - element.height()))
+          };
 
           // Scroll the tracks div
-          element.scrollLeft(newPos.x);
-          element.scrollTop(newPos.y);
+          element.scrollLeft(newPos.x).scrollTop(newPos.y);
         }
       });
 
@@ -154,11 +155,24 @@ App.directive("tlRuler", function ($timeout) {
   return {
     restrict: "A",
     link: function (scope, element, attrs) {
-      //on click of the ruler canvas, jump playhead to the clicked spot
+      var isDragging = false;
+
+      // Start dragging when mousedown on the ruler
       element.on("mousedown", function (e) {
+        // Set bounding box for the playhead position
+        setBoundingBox(scope, $("#playhead"), "playhead");
+        isDragging = true;
+
+        if (scope.Qt) {
+            // Disable caching thread during scrubbing
+            timeline.DisableCacheThread();
+        }
+
         // Get playhead position
         var playhead_left = e.pageX - element.offset().left;
         var playhead_seconds = snapToFPSGridTime(scope, pixelToTime(scope, playhead_left));
+        playhead_seconds = Math.min(Math.max(0.0, playhead_seconds), scope.project.duration);
+        var playhead_snapped_target = playhead_seconds * scope.pixelsPerSecond;
 
         // Immediately preview frame (don't wait for animated playhead)
         scope.previewFrame(playhead_seconds);
@@ -170,8 +184,8 @@ App.directive("tlRuler", function ($timeout) {
 
         // Animate to new position (and then update scope)
         scope.playhead_animating = true;
-        $(".playhead-line").animate({left: playhead_left}, 200);
-        $(".playhead-top").animate({left: playhead_left}, 200, function () {
+        $(".playhead-line").animate({left: playhead_snapped_target}, 150);
+        $(".playhead-top").animate({left: playhead_snapped_target}, 150, function () {
           // Update playhead
           scope.movePlayhead(playhead_seconds);
 
@@ -182,30 +196,14 @@ App.directive("tlRuler", function ($timeout) {
         });
       });
 
-      element.on("mousedown", function (e) {
-        // Set bounding box for the playhead position
-        setBoundingBox(scope, $("#playhead"), "playhead");
-        if (scope.Qt) {
-            // Disable caching thread during scrubbing
-            timeline.DisableCacheThread();
-        }
-      });
-
-      element.on("contextmenu", function (e) {
-        if (scope.Qt) {
-            // Enable caching thread after scrubbing
-            timeline.EnableCacheThread();
-        }
-      });
-
-      // Move playhead to new position (if it's not currently being animated)
-      element.on("mousemove", function (e) {
-        if (e.which === 1 && !scope.playhead_animating && !scope.getDragging()) { // left button
+      // Global mousemove listener
+      $(document).on("mousemove", function (e) {
+        if (isDragging && e.which === 1 && !scope.playhead_animating && !scope.getDragging()) { // left button is held
           // Calculate the playhead bounding box movement
           let cursor_position = e.pageX - $("#ruler").offset().left;
           let new_position = cursor_position;
           if (e.shiftKey) {
-            // Only apply playhead shapping when SHIFT is pressed
+            // Only apply playhead snapping when SHIFT is pressed
             let results = moveBoundingBox(scope, bounding_box.left, bounding_box.top,
               cursor_position - bounding_box.left, cursor_position - bounding_box.top,
               cursor_position, cursor_position, "playhead");
@@ -216,8 +214,21 @@ App.directive("tlRuler", function ($timeout) {
 
           // Move playhead
           let playhead_seconds = new_position / scope.pixelsPerSecond;
+          playhead_seconds = Math.min(Math.max(0.0, playhead_seconds), scope.project.duration);
           scope.movePlayhead(playhead_seconds);
           scope.previewFrame(playhead_seconds);
+        }
+      });
+
+      // Global mouseup listener to stop dragging
+      $(document).on("mouseup", function (e) {
+        if (isDragging) {
+          isDragging = false;
+
+          if (scope.Qt) {
+            // Enable caching thread after scrubbing
+            timeline.EnableCacheThread();
+          }
         }
       });
 
