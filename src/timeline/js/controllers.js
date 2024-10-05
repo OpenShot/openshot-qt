@@ -1146,11 +1146,9 @@ $scope.startManualMove = function (item_type, item_ids) {
   bounding_box.track_position = 0;
 
   // Set z-order to be above other clips/transitions
-  if (item_type !== "os_drop") {
-    selectedClips.each(function () {
-      $(this).addClass("manual-move");
-    });
-  }
+  selectedClips.each(function () {
+    $(this).addClass("manual-move");
+  });
 };
 
 $scope.moveItem = function (x, y) {
