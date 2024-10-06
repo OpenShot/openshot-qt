@@ -72,6 +72,8 @@ QWidget#videoPreview {
         # Apply timeline theme
         self.app.window.timeline.apply_theme("")
 
+        # Emit signal
+        self.app.window.ThemeChangedSignal.emit(self)
 
 class Retro(BaseTheme):
     def __init__(self, app):
@@ -173,3 +175,6 @@ QWidget#videoPreview {
               background-image: url(../themes/humanity/images/keyframe-constant.svg);
             }
         """)
+
+        # Emit signal
+        self.app.window.ThemeChangedSignal.emit(self)
