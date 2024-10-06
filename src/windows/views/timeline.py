@@ -3082,8 +3082,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 if new_item:
                     pos += QPointF(new_item["end"] - new_item["start"], 0)
 
-            get_app().updates.transaction_id = None
-
         # Get JS position and pass initial position to the callback
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
                     .format(initial_pos.x(), initial_pos.y()), partial(handle_js_position, initial_pos))
