@@ -199,6 +199,37 @@ QWidget#scrollAreaWidgetContents {
     background-color: #141923;
 }
 
+QPushButton#dock-close-button {
+    image: url({PATH}themes/cosmic/images/dock-close.svg);
+    padding: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 0px;
+    margin-right: 16px;
+    width: 16px;
+    height: 16px;
+}
+QPushButton#dock-float-button {
+    image: url({PATH}themes/cosmic/images/dock-float.svg);
+    padding: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 0px;
+    width: 16px;
+    height: 16px;
+}
+
+QLabel#dock-title-label {
+    color: #91C3FF;
+    font-weight: 500;
+    padding: 16px;
+}
+
+QLabel#dock-title-handle {
+    padding-left: 16px;
+    qproperty-pixmap: url({PATH}themes/cosmic/images/dock-move.svg);
+}
+
 QDockWidget {
     background-color: #141923;
     titlebar-close-icon: url({PATH}themes/cosmic/images/dock-close.svg);
@@ -206,13 +237,6 @@ QDockWidget {
     color: #91C3FF;
     font-weight: 500;
     padding: 16px;
-}
-
-QDockWidget::title {
-    text-align: left;
-    margin-top: 18px;
-    margin-bottom: 18px;
-    margin-left: 16px;
 }
 
 QDockWidget QWidget {
@@ -233,26 +257,21 @@ QDockWidget QWidget#dockTimelineContents {
     padding: 0px;
 }
 
-QDockWidget::close-button, QDockWidget::float-button {
-    icon-size: 32px;
-}
-
-QDockWidget::close-button:hover, QDockWidget::float-button:hover {
-}
-
-QDockWidget::close-button:pressed, QDockWidget::float-button:pressed {
-}
-
 QTabBar {
-    background-color: transparent;
     border: none;
+    qproperty-drawBase: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 QTabBar::tab {
+    height: 16px;
+    border: none;
     margin-left: 16px;
-    height: 32px;
+    margin-top: 16px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     color: rgba(145, 195, 255, 0.4);
-    background-color: transparent;
 }
 
 QTabBar::tab:selected {
@@ -676,6 +695,9 @@ QMessageBox QPushButton[text="&{_('Yes')}"] {{
               background-image: url(../themes/cosmic/images/marker.svg);
             }
         """)
+
+        # Emit signal
+        self.app.window.ThemeChangedSignal.emit(self)
 
     def togglePlayIcon(self, isPlay):
         """ Toggle the play icon from play to pause and back """
