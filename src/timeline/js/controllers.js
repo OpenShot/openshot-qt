@@ -1103,52 +1103,52 @@ $scope.startManualMove = function (item_type, item_ids) {
     }
   });
 
-  // Prepare to store clip positions
-  var scrolling_tracks = $("#scrolling_tracks");
-  var vert_scroll_offset = scrolling_tracks.scrollTop();
-  var horz_scroll_offset = scrolling_tracks.scrollLeft();
+  // Delay to allow the DOM to update
+  setTimeout(function() {
+    // Prepare to store clip positions
+    var scrolling_tracks = $("#scrolling_tracks");
+    var vert_scroll_offset = scrolling_tracks.scrollTop();
+    var horz_scroll_offset = scrolling_tracks.scrollLeft();
 
-  // Init bounding box
-  bounding_box = {};
+    // Init bounding box
+    bounding_box = {};
 
-  // Set bounding box that contains all selected clips/transitions
-  var selectedClips = $(".ui-selected");
-  selectedClips.each(function () {
-    // Send each selected clip or transition to the bounding box builder
-    setBoundingBox($scope, $(this)); // Pass the element and scope to setBoundingBox
-  });
+    // Set bounding box that contains all selected clips/transitions
+    var selectedClips = $(".ui-selected");
+    selectedClips.each(function () {
+      setBoundingBox($scope, $(this));
+    });
 
-  // After calling setBoundingBox, now initialize the start_clips and move_clips
-  bounding_box.start_clips = {};
-  bounding_box.move_clips = {};
+    // Initialize start_clips and move_clips properties
+    bounding_box.start_clips = {};
+    bounding_box.move_clips = {};
 
-  // Iterate again to set start_clips and move_clips properties
-  selectedClips.each(function () {
-    var element_id = $(this).attr("id");
+    // Iterate again to set start_clips and move_clips properties
+    selectedClips.each(function () {
+      var element_id = $(this).attr("id");
+      bounding_box.start_clips[element_id] = {
+        "top": $(this).position().top + vert_scroll_offset,
+        "left": $(this).position().left + horz_scroll_offset
+      };
+      bounding_box.move_clips[element_id] = {
+        "top": $(this).position().top + vert_scroll_offset,
+        "left": $(this).position().left + horz_scroll_offset
+      };
+    });
 
-    // Store initial positions after setBoundingBox is called
-    bounding_box.start_clips[element_id] = {
-      "top": $(this).position().top + vert_scroll_offset,
-      "left": $(this).position().left + horz_scroll_offset
-    };
-    bounding_box.move_clips[element_id] = {
-      "top": $(this).position().top + vert_scroll_offset,
-      "left": $(this).position().left + horz_scroll_offset
-    };
-  });
+    // Set some additional properties
+    bounding_box.previous_x = bounding_box.left;
+    bounding_box.previous_y = bounding_box.top;
+    bounding_box.offset_x = 0;
+    bounding_box.offset_y = 0;
+    bounding_box.elements = selectedClips;
+    bounding_box.track_position = 0;
 
-  // Init some variables to track the changing position
-  bounding_box.previous_x = bounding_box.left;
-  bounding_box.previous_y = bounding_box.top;
-  bounding_box.offset_x = 0;
-  bounding_box.offset_y = 0;
-  bounding_box.elements = selectedClips;
-  bounding_box.track_position = 0;
-
-  // Set z-order to be above other clips/transitions
-  selectedClips.each(function () {
-    $(this).addClass("manual-move");
-  });
+    // Set z-order to be above other clips/transitions
+    selectedClips.each(function () {
+      $(this).addClass("manual-move");
+    });
+  }, 0);
 };
 
 $scope.moveItem = function (x, y) {

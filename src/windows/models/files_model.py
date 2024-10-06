@@ -31,6 +31,7 @@ import json
 import re
 import glob
 import functools
+import uuid
 
 from PyQt5.QtCore import (
     QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
@@ -487,6 +488,10 @@ class FilesModel(QObject, updates.UpdateInterface):
         import_quietly = False
         media_paths = []
 
+        # Transaction
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = tid
+
         for uri in qurl_list:
             filepath = uri.toLocalFile()
             if not os.path.exists(filepath):
@@ -512,6 +517,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         media_paths.sort()
         log.debug("Importing file list: {}".format(media_paths))
         self.add_files(media_paths, quiet=import_quietly)
+        get_app().updates.transaction_id = None
 
     def update_file_thumbnail(self, file_id):
         """Update/re-generate the thumbnail of a specific file"""

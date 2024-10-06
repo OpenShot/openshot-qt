@@ -3001,13 +3001,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
+        # Wait cursor
+        get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+
         # Clear previous selections
         self.ClearAllSelections()
         get_app().processEvents()
-
-        # Group drag/drop transactions
-        tid = self.get_uuid()
-        get_app().updates.transaction_id = tid
 
         # Initialize a list to hold file data (either from mime data or newly created files)
         data_list = []
@@ -3051,8 +3050,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.new_item = True
         self.item_ids = []
 
+        # Restore cursor
+        get_app().restoreOverrideCursor()
+
         # Nested callback to handle JavaScript position response
         def handle_js_position(pos, js_position_data):
+            # Group drag/drop transactions
+            tid = self.get_uuid()
+            get_app().updates.transaction_id = tid
+
             js_position = snap_to_grid(js_position_data.get('position', 0.0))
             js_nearest_track = js_position_data.get('track', 0)
 
@@ -3075,6 +3081,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Adjust position for the next clip/transition
                 if new_item:
                     pos += QPointF(new_item["end"] - new_item["start"], 0)
+
+            get_app().updates.transaction_id = None
 
         # Get JS position and pass initial position to the callback
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
