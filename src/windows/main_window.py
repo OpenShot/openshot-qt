@@ -1121,13 +1121,18 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         player = self.preview_thread.player
         current_speed = player.Speed()
 
+        min_frame = 1
+        if self.preview_thread and self.preview_thread.timeline:
+            min_frame = self.preview_thread.timeline.GetMinFrame()
+
         # Switch speed back to forward (and then pause)
         # This will allow video caching to start working in the forward direction
         self.SpeedSignal.emit(1)
         self.SpeedSignal.emit(0)
 
         # Seek to the 1st frame
-        self.SeekSignal.emit(1)
+        self.SeekSignal.emit(min_frame)
+        QTimer.singleShot(50, self.actionCenterOnPlayhead_trigger)
 
         # If playing, continue playing
         if current_speed >= 0:
@@ -1142,6 +1147,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Determine last frame (based on clips) & seek there
         max_frame = get_app().window.timeline_sync.timeline.GetMaxFrame()
         self.SeekSignal.emit(max_frame)
+        QTimer.singleShot(50, self.actionCenterOnPlayhead_trigger)
 
     def onPlayCallback(self):
         """Handle when playback is started"""
@@ -3191,7 +3197,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def selectAll(self):
         """Select all clips and transitions"""
-        self.timeline.SelectAll()
+        # Check if filesView has focus
+        if self.filesView.hasFocus():
+            # Select all files
+            self.filesView.selectAll()
+        else:
+            # Select all clips / transitions
+            self.timeline.SelectAll()
 
     def selectNone(self):
         """Clear all selections for clips and transitions"""

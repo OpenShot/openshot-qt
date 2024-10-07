@@ -31,6 +31,7 @@ import json
 import re
 import glob
 import functools
+import uuid
 
 from PyQt5.QtCore import (
     QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
@@ -482,10 +483,13 @@ class FilesModel(QObject, updates.UpdateInterface):
         }
         return parameters
 
-    def process_urls(self, qurl_list):
+    def process_urls(self, qurl_list, import_quietly=False, prevent_image_seq=False):
         """Recursively process QUrls from a QDropEvent"""
-        import_quietly = False
         media_paths = []
+
+        # Transaction
+        tid = str(uuid.uuid4())
+        get_app().updates.transaction_id = tid
 
         for uri in qurl_list:
             filepath = uri.toLocalFile()
@@ -511,7 +515,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Import all new media files
         media_paths.sort()
         log.debug("Importing file list: {}".format(media_paths))
-        self.add_files(media_paths, quiet=import_quietly)
+        self.add_files(media_paths, quiet=import_quietly, prevent_image_seq=prevent_image_seq)
+        get_app().updates.transaction_id = None
 
     def update_file_thumbnail(self, file_id):
         """Update/re-generate the thumbnail of a specific file"""

@@ -1211,7 +1211,7 @@
     "title": "Select Item (Ripple)",
     "restart": false,
     "setting": "actionRippleSelect",
-    "value": "Shift+A",
+    "value": "Alt+A",
     "type": "text"
   },
   {

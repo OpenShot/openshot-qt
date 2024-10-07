@@ -75,7 +75,7 @@ Here is a list of all methods for cutting and/or trimming clips in OpenShot:
    =======================================   ================================================================
    Trim & Slice Method                       Description
    =======================================   ================================================================
-   **Resizing Edge**                         Mouse over the edge of a clip and resize it by dragging left or right.
+   **Resizing Edge**                         Mouse over the edge of a clip and resize it by dragging **left** or **right**. The left edge of a clip can not be resized smaller than 0.0 (*i.e. the first frame of the file*). The right edge of a clip can not be resized larger than the duration of a file (*i.e. the last frame of a file*).
    **Slice All**                             When the play-head overlaps multiple clips, right-click the play-head and choose :guilabel:`Slice All`.
                                              This will cut/slice all intersecting clips on all tracks. You can also use the keyboard shortcuts
                                              :kbd:`Ctrl+Shift+K` to keep both sides, :kbd:`Ctrl+Shift+J` to keep the left side, or :kbd:`Ctrl+Shift+L`
@@ -107,11 +107,11 @@ Here is a list of all methods for selecting clips in OpenShot:
    Selection Method                          Description
    =======================================   ================================================================
    **Box Selection**                         Click and drag a selection box around clips or transitions to select multiple items at once. Hold down :kbd:`Ctrl` to add to your current selection.
-   **Mouse Click**                           Click on a clip or transition to select it. This will deselect all other items unless you hold down :kbd:`Ctrl`.
-   **Ctrl + Click**                          Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current selection, allowing you to select non-adjacent clips.
-   **Shift + Click**                         Hold down :kbd:`Shift` while clicking to ripple select all clips/transitions from your selection to the end of the track.
-   **Ctrl + Shift + Click**                  Hold down both :kbd:`Ctrl` and :kbd:`Shift` to ripple select clips/transitions and add them to the current selection, allowing you to extend the selection.
-   **Click on Timeline**                     Clicking anywhere on the timeline, or on a new clip/transition, will reset the current selection unless :kbd:`Ctrl` is pressed.
+   **Click Selection**                       Click on a clip or transition to select it. This will deselect all other items unless you hold down :kbd:`Ctrl`.
+   **Add to Selection**                      Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current selection, allowing you to select non-adjacent clips.
+   **Range Selection**                       Hold down :kbd:`Shift` while clicking to select a range of clips/transitions from the previous selection to the new selection. This supports ranges that span multiple tracks as well.
+   **Ripple Selection**                      Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions from your selection to the end of the track. This always adds to your current selection, even if :kbd:`Ctrl` is not pressed.
+   **Clear Selection**                       Click anywhere on the timeline or on a new clip/transition to reset the current selection, unless :kbd:`Ctrl` is pressed.
    **Select All**                            Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline.
    **Select None**                           Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the timeline.
    =======================================   ================================================================
