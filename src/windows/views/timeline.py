@@ -3022,7 +3022,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             urls = event.mimeData().urls()
 
             # Import list of files
-            get_app().window.files_model.process_urls(urls)
+            get_app().window.files_model.process_urls(urls, import_quietly=True, prevent_image_seq=True)
 
             # Get File objects and add JSON data
             for uri in urls:

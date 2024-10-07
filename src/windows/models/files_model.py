@@ -483,9 +483,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         }
         return parameters
 
-    def process_urls(self, qurl_list):
+    def process_urls(self, qurl_list, import_quietly=False, prevent_image_seq=False):
         """Recursively process QUrls from a QDropEvent"""
-        import_quietly = False
         media_paths = []
 
         # Transaction
@@ -516,7 +515,7 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Import all new media files
         media_paths.sort()
         log.debug("Importing file list: {}".format(media_paths))
-        self.add_files(media_paths, quiet=import_quietly)
+        self.add_files(media_paths, quiet=import_quietly, prevent_image_seq=prevent_image_seq)
         get_app().updates.transaction_id = None
 
     def update_file_thumbnail(self, file_id):
