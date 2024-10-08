@@ -1753,21 +1753,27 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Log shortcut initialization completion
         log.debug("Shortcuts initialized or updated.")
 
-    def actionProfile_trigger(self):
-        # Show dialog
-        from windows.profile import Profile
-        log.debug("Showing profile dialog")
-
-        # Get current project profile description
-        current_project_profile_desc = get_app().project.get(['profile'])
-
+    def actionProfile_trigger(self, profile=None):
         # Disable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
 
-        win = Profile(current_project_profile_desc)
-        # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        profile = win.selected_profile
+        # Show Profile dialog (if profile not passed)
+        if not profile:
+            # Show dialog
+            from windows.profile import Profile
+            log.debug("Showing profile dialog")
+
+            # Get current project profile description
+            current_project_profile_desc = get_app().project.get(['profile'])
+
+            win = Profile(current_project_profile_desc)
+            result = win.exec_()
+            profile = win.selected_profile
+        else:
+            # Profile passed in alraedy
+            result = QDialog.Accepted
+
+        # Update profile (if changed)
         if result == QDialog.Accepted and profile and profile.info.description != get_app().project.get(['profile']):
             proj = get_app().project
 
@@ -1792,8 +1798,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Check for audio-only files
                 if file.data.get("has_audio") and not file.data.get("has_video"):
                     # Audio-only file should match the current project size and FPS
-                    file.data["width"] = proj.get("width")
-                    file.data["height"] = proj.get("height")
+                    file.data["width"] = profile.info.width
+                    file.data["height"] = profile.info.height
+                    display_ratio = openshot.Fraction(file.data["width"], file.data["height"])
+                    display_ratio.Reduce()
+                    file.data["display_ratio"]["num"] = display_ratio.num
+                    file.data["display_ratio"]["den"] = display_ratio.den
                     file.save()
 
                     # Change all related clips
@@ -1801,22 +1811,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                         clip.data["reader"] = file.data
                         clip.save()
 
+            # Apply new profile (and any FPS precision updates)
+            get_app().updates.update(["profile"], profile.info.description)
+            get_app().updates.update(["width"], profile.info.width)
+            get_app().updates.update(["height"], profile.info.height)
+            get_app().updates.update(["display_ratio"], {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den})
+            get_app().updates.update(["pixel_ratio"], {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den})
+            get_app().updates.update(["fps"], {"num": profile.info.fps.num, "den": profile.info.fps.den})
+
             # Clear transaction id
             get_app().updates.transaction_id = None
-
-            # Rescale all keyframes and reload project
-            if fps_factor != 1.0:
-                # Rescale keyframes (if FPS changed)
-                proj.rescale_keyframes(fps_factor)
-
-                # Apply new profile (and any FPS precision updates)
-                proj.apply_profile(profile)
-
-                # Distribute all project data through update manager
-                get_app().updates.load(proj._data, reset_history=False)
-
-            # Force ApplyMapperToClips to apply these changes
-            self.timeline_sync.timeline.ApplyMapperToClips()
 
             # Seek to the same location, adjusted for new frame rate
             self.SeekSignal.emit(adjusted_frame)

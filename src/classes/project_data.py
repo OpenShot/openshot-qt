@@ -1107,6 +1107,30 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             action.set_old_values(old_vals)  # Save previous values to reverse this action
             self.has_unsaved_changes = True
 
+            if len(action.key) == 1 and action.key[0] in ["fps"]:
+                # FPS changed (apply profile)
+                profile_key = self._data.get("profile")
+                profile = self.get_profile(profile_key)
+                if profile:
+                    # Get current FPS (prior to changing)
+                    new_fps = self._data.get("fps")
+                    new_fps_float = float(new_fps["num"]) / float(new_fps["den"])
+                    old_fps_float = float(old_vals["num"]) / float(old_vals["den"])
+                    fps_factor = float(new_fps_float / old_fps_float)
+
+                    if fps_factor != 1.0:
+                        log.info(f"Convert {old_fps_float} FPS to {new_fps_float} FPS (profile: {profile.ShortName()})")
+                        # Snap to new FPS grid (start, end, duration)
+                        change_profile(self._data["clips"] + self._data["effects"], profile)
+
+                        # Rescale keyframes to match new FPS
+                        self.rescale_keyframes(fps_factor)
+
+                    # Broadcast this change out
+                    get_app().updates.load(self._data, reset_history=False)
+                else:
+                    log.warning(f"No profile found for {profile_key}")
+
         elif action.type == "delete":
             # Delete existing item
             old_vals = self._set(action.key, remove=True)

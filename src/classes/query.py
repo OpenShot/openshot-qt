@@ -25,8 +25,10 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os
 import json
+import os
+
+import openshot
 
 from classes import info
 from classes.app import get_app
@@ -256,6 +258,60 @@ class File(QueryObject):
         file_path = self.absolute_path()
         # Convert path to relative (based on current working directory of Python)
         return os.path.relpath(file_path, info.CWD)
+
+    def profile(self):
+        """ Get the profile of the file """
+        # Create Profile object for current file
+        d = self.data
+
+        # Calculate accurate DAR
+        pixel_ratio = openshot.Fraction(d.get("pixel_ratio", {}))
+        display_ratio = openshot.Fraction(d.get("display_ratio", {}))
+        if display_ratio.num == 1 and display_ratio.den == 1:
+            # Some audio / image files have inaccurate DAR - calculate from size
+            display_ratio = openshot.Fraction(round(d.get("width", 1) * pixel_ratio.ToFloat()),
+                                              round(d.get("height", 1) * pixel_ratio.ToFloat()))
+            display_ratio.Reduce()
+
+        profile_dict = {
+            "display_ratio":
+                {
+                    "den": display_ratio.den,
+                    "num": display_ratio.num,
+                },
+            "fps":
+                {
+                    "den": d.get("fps", {}).get("den", 1),
+                    "num": d.get("fps", {}).get("num", 1),
+                },
+            "height": d.get("height", 1),
+            "interlaced_frame": d.get("interlaced_frame", False),
+            "pixel_format": d.get("pixel_format", None),
+            "pixel_ratio":
+                {
+                    "den": d.get("pixel_ratio", {}).get("den", 1),
+                    "num": d.get("pixel_ratio", {}).get("num", 1),
+                },
+            "width": d.get("width", 1)
+        }
+        file_profile = openshot.Profile()
+        file_profile.SetJson(json.dumps(profile_dict))
+
+        # Load all possible profiles
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            for file in reversed(sorted(os.listdir(profile_folder))):
+                profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_path):
+                    continue
+                try:
+                    # Load Profile
+                    profile = openshot.Profile(profile_path)
+                    print(profile.Key(), file_profile.Key())
+                    if profile.Key() == file_profile.Key():
+                        return profile
+                except RuntimeError as e:
+                    pass
+        return file_profile
 
 
 class Marker(QueryObject):
