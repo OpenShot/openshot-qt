@@ -26,7 +26,7 @@ A transition is used to gradually fade (or wipe) between two clip images. In Ope
 transitions are represented by blue, rounded rectangles on the timeline. They are automatically created when you
 overlap two clips, and can be added manually by dragging one onto the timeline from the **Transitions** panel.
 A transition must be placed on top of a clip (overlapping it), with the most common location being the beginning or end
-or a clip.
+of a clip.
 
 NOTE: Transitions **do not** affect **audio**, so if you are intending to fade in/out the audio volume of a clip,
 you must adjust the ``volume`` clip property. See :ref:`clip_properties_ref`
