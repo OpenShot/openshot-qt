@@ -285,7 +285,7 @@ class File(QueryObject):
                     "num": d.get("fps", {}).get("num", 1),
                 },
             "height": d.get("height", 1),
-            "interlaced_frame": d.get("interlaced_frame", False),
+            "progressive": not d.get("interlaced_frame", False),
             "pixel_format": d.get("pixel_format", None),
             "pixel_ratio":
                 {

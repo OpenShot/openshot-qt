@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2023 OpenShot Studios, LLC
+ Copyright (c) 2008-2024 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -26,10 +26,11 @@
  """
 
 from PyQt5.QtCore import Qt, QItemSelectionModel, QRegExp, pyqtSignal, QTimer
-from PyQt5.QtWidgets import QListView, QTreeView, QAbstractItemView, QSizePolicy
+from PyQt5.QtWidgets import QListView, QTreeView, QAbstractItemView, QSizePolicy, QAction
 
 from classes.app import get_app
 from windows.models.profiles_model import ProfilesModel
+from .menu import StyledContextMenu
 
 
 class ProfilesTreeView(QTreeView):
@@ -72,11 +73,41 @@ class ProfilesTreeView(QTreeView):
         """Return the selected profile object, if any"""
         return self.selected_profile_object
 
-    def __init__(self, profiles, *args):
+    def contextMenuEvent(self, event):
+        """Handle right-click context menu for profiles"""
+        profile = self.selected_profile_object
+        if not profile:
+            return
+
+        # get translations
+        _ = get_app()._tr
+
+        menu = StyledContextMenu(parent=self)
+
+        # Determine if the profile is user-created or not
+        if hasattr(profile, 'user_created') and profile.user_created:
+            edit_action = QAction(_("Edit"), self)
+            edit_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, duplicate=False, parent=self))
+            menu.addAction(edit_action)
+
+        duplicate_action = QAction(_("Duplicate"), self)
+        duplicate_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, duplicate=True, parent=self))
+        menu.addAction(duplicate_action)
+        menu.addSeparator()
+
+        if hasattr(profile, 'user_created') and profile.user_created:
+            delete_action = QAction(_("Delete"), self)
+            delete_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, delete=True, parent=self))
+            menu.addAction(delete_action)
+
+        menu.popup(event.globalPos())
+
+    def __init__(self, dialog, profiles, *args):
         # Invoke parent init
         QListView.__init__(self, *args)
 
         # Get a reference to the window object
+        self.parent = dialog
         self.win = get_app().window
 
         # Get Model data

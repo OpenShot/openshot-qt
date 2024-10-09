@@ -92,11 +92,11 @@ class FilesListView(QListView):
             # Get file's profile
             file_profile = file.profile()
             if file_profile.info.description:
-                action = profile_menu.addAction(profile_icon, _(f"{file_profile.info.description}"))
+                action = profile_menu.addAction(profile_icon, file_profile.info.description)
                 action.triggered.connect(lambda: get_app().window.actionProfile_trigger(file_profile))
             else:
-                action = profile_menu.addAction(profile_missing_icon, _(f"Create Profile: {file_profile.ShortName()}"))
-                #action.triggered.connect(lambda: get_app().window.actionProfile_trigger(file_profile))
+                action = profile_menu.addAction(profile_missing_icon, _(f"Create Profile") + f": {file_profile.ShortName()}")
+                action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(file_profile))
             menu.addMenu(profile_menu)
 
             menu.addAction(self.win.actionFile_Properties)

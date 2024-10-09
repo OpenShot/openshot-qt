@@ -1753,6 +1753,38 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Log shortcut initialization completion
         log.debug("Shortcuts initialized or updated.")
 
+    def actionProfileEdit_trigger(self, profile=None, duplicate=False, delete=False, parent=None):
+        # Show profile edit dialog
+        from windows.profile_edit import EditProfileDialog
+        log.debug("Showing profile edit dialog")
+
+        # get translations
+        _ = get_app()._tr
+
+        if profile and delete and parent:
+            # Delete profile (no dialog)
+            if os.path.exists(profile.path):
+                if profile.info.description == get_app().project.get(['profile']):
+                    QMessageBox.warning(parent, _("Error"), _("You can not delete the current profile."))
+                    return
+
+                log.info(f"Removing custom profile: {profile.path}")
+                os.unlink(profile.path)
+            parent.profiles_model.remove_row(profile)
+        else:
+            # Show edit dialog
+            win = EditProfileDialog(profile, duplicate)
+            result = win.exec_()
+            if result == QDialog.Accepted:
+                profile = win.profile
+                if parent:
+                    # Update model and refresh view
+                    parent.profiles_model.update_or_insert_row(profile)
+                    parent.refresh_view(parent.parent.txtProfileFilter.text())
+                else:
+                    # Choose the edited profile
+                    self.actionProfile_trigger(profile)
+
     def actionProfile_trigger(self, profile=None):
         # Disable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
@@ -1770,11 +1802,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             result = win.exec_()
             profile = win.selected_profile
         else:
-            # Profile passed in alraedy
+            # Profile passed in already
             result = QDialog.Accepted
 
         # Update profile (if changed)
-        if result == QDialog.Accepted and profile and profile.info.description != get_app().project.get(['profile']):
+        if result == QDialog.Accepted and profile:
             proj = get_app().project
 
             # Group transactions
