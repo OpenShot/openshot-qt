@@ -59,7 +59,36 @@ Choose Profile Dialog
 2   Selected Profile    Click on the desired profile, and then the :guilabel:`OK` button. You can also double click a profile to select it.
 3   Filtered Count      Count of filtered profiles
 4   Accept Profile      Click the :guilabel:`OK` button to switch to the selected profile.
+5   Context Menu        Right click on any row to :guilabel:`Duplicate`, :guilabel:`Edit`, or :guilabel:`Delete` profiles. Note: Only custom, duplicated profiles can be edited or deleted.
 ==  ==================  ============
+
+.. _profiles_editor_ref:
+
+Edit/Duplicate Profile
+----------------------
+Right-click on any profile in OpenShot and choose :guilabel:`Duplicate` or :guilabel:`Edit` to open up the **Profile Editor**.
+This screen allows you to duplicate existing built-in profiles or edit any custom profiles. You can edit the description,
+resolution, frame rate, aspect ratio, and pixel ratio.
+
+The custom profiles are saved in the ``~/.openshot_qt/profiles/`` or ``C:\Users\USERNAME\.openshot_qt\profiles`` folder.
+
+.. image:: images/profiles-editor.jpg
+
+.. table::
+   :widths: 5 28 80
+
+   ==  ===================  ===================================================================
+   #   Name                 Description
+   ==  ===================  ===================================================================
+   1   **File Path**        The location on your system where the custom profile is saved.
+   2   **Description**      A text description for your custom profile, which is displayed in OpenShot.
+   3   **Width**            The horizontal resolution (in pixels) of the video.
+   4   **Height**           The vertical resolution (in pixels) of the video.
+   5   **Frame Rate**       The frame rate of the video (frames per second).
+   6   **Aspect Ratio**     The display aspect ratio of the video (automatically calculated from width/height and pixel ratio.
+   7   **Pixel Ratio**      The aspect ratio of each pixel in the video. A ratio of 1:1 means square pixels (default).
+   8   **Interlaced**       Whether the video is interlaced (Yes) or progressive (No).
+   ==  ===================  ===================================================================
 
 Converting Profiles
 -------------------
@@ -92,8 +121,11 @@ Custom Profile
 --------------
 Although OpenShot has more than 400 profiles (:ref:`profile_list_ref`) included by default, you can also create
 your own custom profiles. Create a new text file in the ``~/.openshot_qt/profiles/`` or
-``C:\Users\USERNAME\.openshot_qt\profiles`` folder. Use the following text as your template (i.e. copy and
-paste this into the new file):
+``C:\Users\USERNAME\.openshot_qt\profiles`` folder.
+
+NOTE: See :ref:`profiles_editor_ref` for an alternative method of duplicating an existing profile.
+
+Use the following text as your template (*i.e. copy and paste this into the new file*):
 
 .. code-block:: python
 

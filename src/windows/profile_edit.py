@@ -71,9 +71,9 @@ class EditProfileDialog(QDialog):
 
         # Update windows title
         if self.duplicate:
-            self.setWindowTitle(_('Duplicate Profile'))
-        else:
             self.setWindowTitle(_('Create Profile'))
+        else:
+            self.setWindowTitle(_('Edit Profile'))
 
         # Add options to cboInterlaced dropdown
         self.cboInterlaced.addItem(_('Yes'))
