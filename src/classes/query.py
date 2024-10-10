@@ -261,43 +261,16 @@ class File(QueryObject):
 
     def profile(self):
         """ Get the profile of the file """
-        # Create Profile object for current file
-        d = self.data
-
-        # Calculate accurate DAR
-        pixel_ratio = openshot.Fraction(d.get("pixel_ratio", {}))
-        display_ratio = openshot.Fraction(d.get("display_ratio", {}))
-        if display_ratio.num == 1 and display_ratio.den == 1:
-            # Some audio / image files have inaccurate DAR - calculate from size
-            display_ratio = openshot.Fraction(round(d.get("width", 1) * pixel_ratio.ToFloat()),
-                                              round(d.get("height", 1) * pixel_ratio.ToFloat()))
-            display_ratio.Reduce()
-
-        profile_dict = {
-            "display_ratio":
-                {
-                    "den": display_ratio.den,
-                    "num": display_ratio.num,
-                },
-            "fps":
-                {
-                    "den": d.get("fps", {}).get("den", 1),
-                    "num": d.get("fps", {}).get("num", 1),
-                },
-            "height": d.get("height", 1),
-            "progressive": not d.get("interlaced_frame", False),
-            "pixel_format": d.get("pixel_format", None),
-            "pixel_ratio":
-                {
-                    "den": d.get("pixel_ratio", {}).get("den", 1),
-                    "num": d.get("pixel_ratio", {}).get("num", 1),
-                },
-            "width": d.get("width", 1)
-        }
+        # Load file Json into Profile object
         file_profile = openshot.Profile()
-        file_profile.SetJson(json.dumps(profile_dict))
+        file_profile.SetJson(json.dumps(self.data))
 
-        # Load all possible profiles
+        if file_profile.info.display_ratio.num == 1 and file_profile.info.display_ratio.den == 1:
+            # Some audio / image files have inaccurate DAR - calculate from size and pixel ratio
+            file_profile.info.display_ratio = openshot.Fraction(round(file_profile.info.width * file_profile.info.pixel_ratio.ToFloat()), file_profile.info.height)
+            file_profile.info.display_ratio.Reduce()
+
+        # Iterate through all possible profiles
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_path = os.path.join(profile_folder, file)
@@ -306,8 +279,7 @@ class File(QueryObject):
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
-                    print(profile.Key(), file_profile.Key())
-                    if profile.Key() == file_profile.Key():
+                    if profile == file_profile:
                         return profile
                 except RuntimeError as e:
                     pass
