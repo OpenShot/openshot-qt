@@ -1126,6 +1126,22 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         # Rescale keyframes to match new FPS
                         self.rescale_keyframes(fps_factor)
 
+                    # Update size of audio-only files
+                    for file in self._data.get("files", []):
+                        # Check for audio-only files
+                        if file.get("has_audio") and not file.get("has_video"):
+                            # Audio-only file should match the current project size and FPS
+                            file["width"] = profile.info.width
+                            file["height"] = profile.info.height
+                            file["fps"]["num"] = profile.info.fps.num
+                            file["fps"]["den"] = profile.info.fps.den
+                            file["display_ratio"]["num"] = profile.info.display_ratio.num
+                            file["display_ratio"]["den"] = profile.info.display_ratio.den
+
+                            # Change all related clips
+                            for clip in self._data.get("clips", []):
+                                clip["reader"] = file
+
                     # Broadcast this change out
                     get_app().updates.load(self._data, reset_history=False)
                 else:

@@ -1824,25 +1824,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Update timeline settings
             get_app().updates.transaction_id = tid
 
-            # Update size of audio-only files
-            # Used by our video transform handles (if waveforms are visible)
-            for file in File.filter():
-                # Check for audio-only files
-                if file.data.get("has_audio") and not file.data.get("has_video"):
-                    # Audio-only file should match the current project size and FPS
-                    file.data["width"] = profile.info.width
-                    file.data["height"] = profile.info.height
-                    display_ratio = openshot.Fraction(file.data["width"], file.data["height"])
-                    display_ratio.Reduce()
-                    file.data["display_ratio"]["num"] = display_ratio.num
-                    file.data["display_ratio"]["den"] = display_ratio.den
-                    file.save()
-
-                    # Change all related clips
-                    for clip in Clip.filter(file_id=file.id):
-                        clip.data["reader"] = file.data
-                        clip.save()
-
             # Apply new profile (and any FPS precision updates)
             get_app().updates.update(["profile"], profile.info.description)
             get_app().updates.update(["width"], profile.info.width)
