@@ -1753,6 +1753,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Log shortcut initialization completion
         log.debug("Shortcuts initialized or updated.")
 
+    def actionProfileDefault_trigger(self, profile=None):
+        # Set default profile in settings
+        s = get_app().get_settings()
+        if profile:
+            s.set("default-profile", profile.info.description)
+            log.info(f"Setting default profile to '{profile.info.description}'")
+
     def actionProfileEdit_trigger(self, profile=None, duplicate=False, delete=False, parent=None):
         # Show profile edit dialog
         from windows.profile_edit import EditProfileDialog
@@ -1763,9 +1770,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         if profile and delete and parent:
             # Delete profile (no dialog)
+            error_title = _("Profile Error")
+            error_message = _("You can not delete the <b>current</b> or <b>default</b> profile.")
             if os.path.exists(profile.path):
-                if profile.info.description == get_app().project.get(['profile']):
-                    QMessageBox.warning(parent, _("Error"), _("You can not delete the current profile."))
+                if (profile.info.description.strip() == get_app().project.get(['profile']).strip() or
+                    profile.info.description.strip() == get_app().get_settings().get('default-profile').strip()):
+                    QMessageBox.warning(parent, error_title, error_message)
                     return
 
                 log.info(f"Removing custom profile: {profile.path}")

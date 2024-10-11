@@ -26,6 +26,7 @@
  """
 
 from PyQt5.QtCore import Qt, QItemSelectionModel, QRegExp, pyqtSignal, QTimer
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QListView, QTreeView, QAbstractItemView, QSizePolicy, QAction
 
 from classes.app import get_app
@@ -95,19 +96,27 @@ class ProfilesTreeView(QTreeView):
 
         menu = StyledContextMenu(parent=self)
 
+        default_action = QAction(_("Set as Default Profile"), self)
+        default_action.setIcon(QIcon(":/icons/Humanity/actions/16/bookmark-new.svg"))
+        default_action.triggered.connect(lambda: get_app().window.actionProfileDefault_trigger(profile))
+        menu.addAction(default_action)
+        menu.addSeparator()
+
+        duplicate_action = QAction(_("Duplicate"), self)
+        duplicate_action.setIcon(QIcon(":/icons/Humanity/actions/16/edit-copy.svg"))
+        duplicate_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, duplicate=True, parent=self))
+        menu.addAction(duplicate_action)
+
         # Determine if the profile is user-created or not
         if hasattr(profile, 'user_created') and profile.user_created:
+            menu.addSeparator()
             edit_action = QAction(_("Edit"), self)
+            edit_action.setIcon(QIcon(":/icons/Humanity/actions/16/gtk-edit.svg"))
             edit_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, duplicate=False, parent=self))
             menu.addAction(edit_action)
 
-        duplicate_action = QAction(_("Duplicate"), self)
-        duplicate_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, duplicate=True, parent=self))
-        menu.addAction(duplicate_action)
-        menu.addSeparator()
-
-        if hasattr(profile, 'user_created') and profile.user_created:
             delete_action = QAction(_("Delete"), self)
+            delete_action.setIcon(QIcon(":/icons/Humanity/actions/16/edit-delete.svg"))
             delete_action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(profile, delete=True, parent=self))
             menu.addAction(delete_action)
 

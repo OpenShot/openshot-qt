@@ -108,9 +108,7 @@ class Profile(QDialog):
                     self.profile_list.append(profile)
 
                 except RuntimeError as e:
-                    # This exception occurs when there's a problem parsing
-                    # the Profile file - display a message and continue
-                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
+                    log.warning("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
         # Create treeview
         self.profileListView = ProfilesTreeView(self, self.profile_list)

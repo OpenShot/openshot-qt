@@ -178,9 +178,26 @@ class EditProfileDialog(QDialog):
         _ = get_app()._tr
 
         # Prevent saving with no description
+        error_title = _("Profile Error")
+        error_message = _("Please enter a <b>unique</b> description for this profile.")
         if not self.profile.info.description.strip():
-            QMessageBox.warning(self, _("Error"), _("Please enter a description for this profile."))
+            QMessageBox.warning(self, error_title, error_message)
             return
+
+        # Verify description is unique
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            for file in reversed(sorted(os.listdir(profile_folder))):
+                profile_verify_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_verify_path):
+                    continue
+                try:
+                    # Load Profile
+                    p = openshot.Profile(profile_verify_path)
+                    if p.info.description.strip() == self.profile.info.description.strip():
+                        QMessageBox.warning(self, error_title, error_message)
+                        return
+                except RuntimeError as e:
+                    log.warning("Failed to parse file '%s' as a profile: %s" % (profile_verify_path, e))
 
         # Save the profile data as a text file in the user profiles folder
         profile_path = self.lblFilePathValue.text()
