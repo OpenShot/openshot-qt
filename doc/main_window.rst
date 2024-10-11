@@ -180,7 +180,7 @@ Learning a few of these shortcuts can save you a bunch of time!
    Save Project                          :kbd:`Ctrl+S`
    Save Project As...                    :kbd:`Ctrl+Shift+S`
    Select All                            :kbd:`Ctrl+A`
-   Select Item (Ripple)                  :kbd:`Alt+A`            :kbd:`Alt+Click`
+   Select Item (Ripple)                  :kbd:`Alt+A`              :kbd:`Alt+Click`
    Select None                           :kbd:`Ctrl+Shift+A`
    Show All Docks                        :kbd:`Ctrl+Shift+D`
    Simple View                           :kbd:`Alt+Shift+0`
