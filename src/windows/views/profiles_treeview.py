@@ -46,6 +46,17 @@ class ProfilesTreeView(QTreeView):
             self.selected_profile_object = selected.first().indexes()[0].data(Qt.UserRole)
         super().selectionChanged(selected, deselected)
 
+    def on_rows_inserted(self, parent, first, last):
+        """Handle row insertion and refresh view."""
+        self.last_inserted_row_index = self.model().index(last, 0)
+
+        # Select the newly inserted row
+        if self.last_inserted_row_index.isValid():
+            self.selectionModel().clear()
+            self.select_profile(self.last_inserted_row_index)
+            self.selectionModel().select(self.last_inserted_row_index, QItemSelectionModel.Select)
+            self.scrollTo(self.last_inserted_row_index)
+
     def refresh_view(self, filter_text=""):
         """Filter transitions with proxy class"""
         self.is_filter_running = True
@@ -126,6 +137,8 @@ class ProfilesTreeView(QTreeView):
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
         self.columns = 6
         self.selected_profile_object = None
+        self.last_inserted_row_index = None
+        self.model().rowsInserted.connect(self.on_rows_inserted)
 
         # Refresh view
         self.profiles_model.update_model()

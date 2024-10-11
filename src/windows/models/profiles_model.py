@@ -91,7 +91,7 @@ class ProfilesModel:
         existing_index = None
         for row in range(self.model.rowCount()):
             index = self.model.index(row, 0)  # Assuming key is in column 0
-            if index.data(Qt.UserRole) == profile:
+            if index.data(Qt.UserRole) is profile:
                 existing_index = index
                 break
 
@@ -109,7 +109,7 @@ class ProfilesModel:
         # Find if the profile already exists in the model by key
         for row in range(self.model.rowCount()):
             index = self.model.index(row, 0)  # Assuming key is in column 0
-            if index.data(Qt.UserRole) == profile:
+            if index.data(Qt.UserRole) is profile:
                 # Remove the row from the model
                 self.model.removeRow(row)
                 break
