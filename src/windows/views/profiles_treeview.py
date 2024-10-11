@@ -53,10 +53,7 @@ class ProfilesTreeView(QTreeView):
 
         # Select the newly inserted row
         if self.last_inserted_row_index.isValid():
-            self.selectionModel().clear()
             self.select_profile(self.last_inserted_row_index)
-            self.selectionModel().select(self.last_inserted_row_index, QItemSelectionModel.Select)
-            self.scrollTo(self.last_inserted_row_index)
 
     def refresh_view(self, filter_text=""):
         """Filter transitions with proxy class"""
@@ -79,7 +76,10 @@ class ProfilesTreeView(QTreeView):
 
     def select_profile(self, profile_index):
         """Select a specific profile Key"""
+        self.selectionModel().clear()
         self.selectionModel().setCurrentIndex(profile_index, QItemSelectionModel.Select | QItemSelectionModel.Rows)
+        self.selectionModel().select(profile_index, QItemSelectionModel.Select)
+        self.scrollTo(profile_index)
 
     def get_profile(self):
         """Return the selected profile object, if any"""
