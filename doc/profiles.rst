@@ -59,7 +59,7 @@ Choose Profile Dialog
 2   Selected Profile    Click on the desired profile, and then the :guilabel:`OK` button. You can also double click a profile to select it.
 3   Filtered Count      Count of filtered profiles
 4   Accept Profile      Click the :guilabel:`OK` button to switch to the selected profile.
-5   Context Menu        Right click on any row to :guilabel:`Duplicate`, :guilabel:`Edit`, or :guilabel:`Delete` profiles. Note: Only custom, duplicated profiles can be edited or deleted.
+5   Context Menu        Right click on any row to :guilabel:`Set as Default Profile`, :guilabel:`Duplicate`, :guilabel:`Edit`, or :guilabel:`Delete` profiles. Note: Only custom, duplicated profiles can be edited or deleted.
 ==  ==================  ============
 
 .. _profiles_editor_ref:
