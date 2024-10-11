@@ -188,7 +188,7 @@ class EditProfileDialog(QDialog):
         for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
             for file in reversed(sorted(os.listdir(profile_folder))):
                 profile_verify_path = os.path.join(profile_folder, file)
-                if os.path.isdir(profile_verify_path):
+                if os.path.isdir(profile_verify_path) or profile_verify_path == self.lblFilePathValue.text():
                     continue
                 try:
                     # Load Profile
