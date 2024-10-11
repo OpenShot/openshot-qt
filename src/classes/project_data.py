@@ -1140,7 +1140,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                             # Change all related clips
                             for clip in self._data.get("clips", []):
-                                clip["reader"] = file
+                                if clip.get("reader", {}).get("id") == file.get("id"):
+                                    clip["reader"] = file
 
                     # Broadcast this change out
                     get_app().updates.load(self._data, reset_history=False)
