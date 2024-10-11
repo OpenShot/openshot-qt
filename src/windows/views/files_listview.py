@@ -96,7 +96,7 @@ class FilesListView(QListView):
                 action.triggered.connect(lambda: get_app().window.actionProfile_trigger(file_profile))
             else:
                 action = profile_menu.addAction(profile_missing_icon, _(f"Create Profile") + f": {file_profile.ShortName()}")
-                action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(file_profile))
+                action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(file_profile, duplicate=True))
             menu.addMenu(profile_menu)
 
             menu.addAction(self.win.actionFile_Properties)
