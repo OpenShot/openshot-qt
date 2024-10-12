@@ -56,6 +56,8 @@ is not currently visible, OpenShot will automatically display the panel.
 
 .. image:: images/quick-start-drop-files.jpg
 
+.. _file_menu_ref:
+
 File Menu
 ---------
 To view the file menu, right click on a file (in the **Project Files** panel). Here are the actions you can use from the
