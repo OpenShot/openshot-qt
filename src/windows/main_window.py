@@ -2148,8 +2148,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         track_name = selected_track.data["label"] or _("Track %s") % display_count
 
-        text, ok = QInputDialog.getText(self, _('Rename Track'), _('Track Name:'), text=track_name)
-        if ok:
+        # Set up rename track dialog
+        rename_dialog = QInputDialog(self)
+        rename_dialog.setWindowTitle(_('Rename Track'))
+        rename_dialog.setLabelText(_('Track Name:'))
+        rename_dialog.setTextValue(track_name)
+        rename_dialog.setWindowFlags(rename_dialog.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+        
+        if rename_dialog.exec_() == QDialog.Accepted:
+            text = rename_dialog.textValue()
+            
             # Update track
             selected_track.data["label"] = text
             selected_track.save()
