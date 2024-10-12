@@ -41,7 +41,7 @@ class ColorPicker(QWidget):
         super().__init__(parent=parent, *args, **kwargs)
         self.setObjectName("ColorPicker")
         # Merge any additional user-supplied options with our own
-        options = QColorDialog.DontUseNativeDialog
+        options = QColorDialog.ColorDialogOptions()
         if extra_options > 0:
             options = options | extra_options
         # Set up non-modal color dialog (to avoid blocking the eyedropper)
