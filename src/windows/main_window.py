@@ -335,6 +335,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         app.updates.reset()
         self.updateStatusChanged(False, False)
 
+        # Load recent projects again
+        self.load_recent_menu()
+
         # Refresh files views
         self.refreshFilesSignal.emit()
         log.info("New Project created.")
@@ -2787,6 +2790,86 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.recent_menu.addAction(self.actionClearRecents)
         self.actionClearRecents.triggered.connect(self.clear_recents_clicked)
 
+        # Build recovery menu as well
+        self.load_restore_menu()
+
+    def time_ago_string(self, timestamp):
+        """ Returns a friendly time difference string for the given timestamp. """
+        from datetime import datetime
+        delta = datetime.now() - datetime.fromtimestamp(timestamp)
+        seconds = delta.total_seconds()
+
+        if seconds < 60:
+            return f"{int(seconds)} seconds ago"
+        elif seconds < 3600:
+            minutes = seconds // 60
+            return f"{int(minutes)} minute{'s' if minutes > 1 else ''} ago"
+        elif seconds < 86400:
+            hours = seconds // 3600
+            return f"{int(hours)} hour{'s' if hours > 1 else ''} ago"
+        else:
+            days = seconds // 86400
+            return f"{int(days)} day{'s' if days > 1 else ''} ago"
+
+    def load_restore_menu(self):
+        """ Clear and load the list of restore version menu items """
+        recovery_dir = info.RECOVERY_PATH
+        _ = get_app()._tr  # Get translation function
+        app = get_app()  # Get the application instance
+
+        # Get list of recovery files in the directory that match the current project
+        current_filepath = app.project.current_filepath if app.project else None
+        recovery_files = [
+            f for f in os.listdir(recovery_dir)
+            if f.endswith(".osp") and current_filepath and f.split("-", 1)[1].startswith(os.path.basename(current_filepath).replace(".osp", ""))
+        ]
+
+        # Add Restore Previous Version menu (after Open File)
+        if not self.restore_menu:
+            # Create a new restore menu
+            self.restore_menu = self.menuFile.addMenu(QIcon.fromTheme("edit-undo"), _("Recovery"))
+            self.menuFile.insertMenu(self.actionRecoveryProjects, self.restore_menu)
+        else:
+            # Clear the existing children
+            self.restore_menu.clear()
+
+        # Add recovery files to menu
+        # Show just a placeholder menu, if we have no recovery files
+        if not recovery_files:
+            self.restore_menu.addAction(_("No Previous Versions Available")).setDisabled(True)
+            return
+
+        # Sort files in descending order (latest first)
+        recovery_files.sort(reverse=True)
+
+        for file_name in recovery_files:
+            # Extract timestamp from file name
+            try:
+                timestamp = int(file_name.split("-", 1)[0])
+                friendly_time = self.time_ago_string(timestamp)
+                file_path = os.path.join(recovery_dir, file_name)
+
+                # Add each recovery file
+                new_action = self.restore_menu.addAction(friendly_time)
+                new_action.triggered.connect(functools.partial(self.restore_version_clicked, file_path))
+            except ValueError:
+                continue
+
+    def restore_version_clicked(self, file_path):
+        """ Handle restoring a previous version when a menu item is clicked """
+        app = get_app()  # Get the application instance
+        current_filepath = app.project.current_filepath if app.project else None
+
+        if current_filepath:
+            # Copy the recovery file to the current project folder without overwriting existing project
+            project_folder = os.path.dirname(current_filepath)
+            new_file_path = os.path.join(project_folder, os.path.basename(file_path))
+            log.info(f"Recover project from {file_path} to {new_file_path}")
+            shutil.copy(file_path, new_file_path)
+
+            # Emit signal to open the copied project file
+            self.OpenProjectSignal.emit(new_file_path)
+
     def remove_recent_project(self, file_path):
         """Remove a project from the Recent menu if OpenShot can't find it"""
         s = get_app().get_settings()
@@ -3407,6 +3490,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load user settings for window
         s = app.get_settings()
         self.recent_menu = None
+        self.restore_menu = None
 
         # Track metrics
         track_metric_session()  # start session

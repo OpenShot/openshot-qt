@@ -123,6 +123,7 @@
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionRecentProjects"/>
+    <addaction name="actionRecoveryProjects"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
@@ -1255,6 +1256,21 @@
    </property>
    <property name="text">
     <string>Show All</string>
+   </property>
+  </action>
+  <action name="actionRecoveryProjects">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="edit-undo" resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/edit-undo.svg</normaloff>:/icons/Humanity/actions/16/edit-undo.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Recovery Placeholder</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionRecentProjects">
