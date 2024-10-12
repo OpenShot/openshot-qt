@@ -350,6 +350,10 @@ For the full list of effects, see :ref:`effects_ref`.
 
 .. image:: images/clip-effects.jpg
 
+Emojis
+------
+Found to the right of the Effects tab, the Emoji feature provides the user with a pre-selected sampling of emoji categories that can be included in the video production. Similar to the Effects feature, emojis can be dropped directly onto a clip in the respective track and the clip can be either an image or video. The user can then adjust the properties of the chosen emoji to their desired needs by right-clicking it and selecting the available adjustments. 
+
 .. _clip_properties_ref:
 
 Clip Properties
