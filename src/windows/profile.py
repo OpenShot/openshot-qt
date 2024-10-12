@@ -94,6 +94,11 @@ class Profile(QDialog):
                 try:
                     # Load Profile
                     profile = openshot.Profile(profile_path)
+                    if profile_folder == info.USER_PROFILES_PATH:
+                        profile.path = profile_path
+                        profile.user_created = True
+                    else:
+                        profile.user_created = False
                     if profile.info.description == initial_profile_desc or profile.Key() == initial_profile_desc:
                         self.project_profile = profile
                         self.project_index = len(self.profile_list)
@@ -103,12 +108,10 @@ class Profile(QDialog):
                     self.profile_list.append(profile)
 
                 except RuntimeError as e:
-                    # This exception occurs when there's a problem parsing
-                    # the Profile file - display a message and continue
-                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
+                    log.warning("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
 
         # Create treeview
-        self.profileListView = ProfilesTreeView(self.profile_list)
+        self.profileListView = ProfilesTreeView(self, self.profile_list)
         self.profileListView.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.verticalLayout.insertWidget(1, self.profileListView)
 
@@ -133,10 +136,10 @@ class Profile(QDialog):
 
     def accept(self):
         """ Ok button clicked """
-        # Get selected profile (if any, and if different than current project)
+        # Get selected profile
         profile = self.profileListView.get_profile()
-        if profile and profile.info.description != get_app().project.get(['profile']):
-            # New profile selected (different than current project)
+        if profile:
+            # New profile selected
             self.selected_profile = profile
             super(Profile, self).accept()
         else:

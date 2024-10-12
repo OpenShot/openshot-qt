@@ -1107,6 +1107,47 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             action.set_old_values(old_vals)  # Save previous values to reverse this action
             self.has_unsaved_changes = True
 
+            if len(action.key) == 1 and action.key[0] in ["fps"]:
+                # FPS changed (apply profile)
+                profile_key = self._data.get("profile")
+                profile = self.get_profile(profile_key)
+                if profile:
+                    # Get current FPS (prior to changing)
+                    new_fps = self._data.get("fps")
+                    new_fps_float = float(new_fps["num"]) / float(new_fps["den"])
+                    old_fps_float = float(old_vals["num"]) / float(old_vals["den"])
+                    fps_factor = float(new_fps_float / old_fps_float)
+
+                    if fps_factor != 1.0:
+                        log.info(f"Convert {old_fps_float} FPS to {new_fps_float} FPS (profile: {profile.ShortName()})")
+                        # Snap to new FPS grid (start, end, duration)
+                        change_profile(self._data["clips"] + self._data["effects"], profile)
+
+                        # Rescale keyframes to match new FPS
+                        self.rescale_keyframes(fps_factor)
+
+                    # Update size of audio-only files
+                    for file in self._data.get("files", []):
+                        # Check for audio-only files
+                        if file.get("has_audio") and not file.get("has_video"):
+                            # Audio-only file should match the current project size and FPS
+                            file["width"] = profile.info.width
+                            file["height"] = profile.info.height
+                            file["fps"]["num"] = profile.info.fps.num
+                            file["fps"]["den"] = profile.info.fps.den
+                            file["display_ratio"]["num"] = profile.info.display_ratio.num
+                            file["display_ratio"]["den"] = profile.info.display_ratio.den
+
+                            # Change all related clips
+                            for clip in self._data.get("clips", []):
+                                if clip.get("reader", {}).get("id") == file.get("id"):
+                                    clip["reader"] = file
+
+                    # Broadcast this change out
+                    get_app().updates.load(self._data, reset_history=False)
+                else:
+                    log.warning(f"No profile found for {profile_key}")
+
         elif action.type == "delete":
             # Delete existing item
             old_vals = self._set(action.key, remove=True)

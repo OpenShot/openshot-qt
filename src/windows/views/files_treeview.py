@@ -30,7 +30,7 @@
 import os
 
 from PyQt5.QtCore import QSize, Qt, QPoint
-from PyQt5.QtGui import QDrag, QCursor, QPixmap, QPainter
+from PyQt5.QtGui import QDrag, QCursor, QPixmap, QPainter, QIcon
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QSizePolicy, QHeaderView
 
 from classes import info
@@ -49,6 +49,7 @@ class FilesTreeView(QTreeView):
 
         # Set context menu mode
         app = get_app()
+        _ = app._tr
         app.context_menu_object = "files"
 
         event.accept()
@@ -84,6 +85,23 @@ class FilesTreeView(QTreeView):
             menu.addAction(self.win.actionExportFiles)
             menu.addSeparator()
             menu.addAction(self.win.actionAdd_to_Timeline)
+
+            # Add Profile menu
+            profile_menu = StyledContextMenu(title=_("Choose Profile"), parent=self)
+            profile_icon = get_app().window.actionProfile.icon()
+            profile_missing_icon = QIcon(":/icons/Humanity/actions/16/list-add.svg")
+            profile_menu.setIcon(profile_icon)
+
+            # Get file's profile
+            file_profile = file.profile()
+            if file_profile.info.description:
+                action = profile_menu.addAction(profile_icon, file_profile.info.description)
+                action.triggered.connect(lambda: get_app().window.actionProfile_trigger(file_profile))
+            else:
+                action = profile_menu.addAction(profile_missing_icon, _(f"Create Profile") + f": {file_profile.ShortName()}")
+                action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(file_profile))
+            menu.addMenu(profile_menu)
+
             menu.addAction(self.win.actionFile_Properties)
             menu.addSeparator()
             menu.addAction(self.win.actionRemove_from_Project)

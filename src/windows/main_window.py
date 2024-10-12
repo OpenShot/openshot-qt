@@ -1753,22 +1753,70 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Log shortcut initialization completion
         log.debug("Shortcuts initialized or updated.")
 
-    def actionProfile_trigger(self):
-        # Show dialog
-        from windows.profile import Profile
-        log.debug("Showing profile dialog")
+    def actionProfileDefault_trigger(self, profile=None):
+        # Set default profile in settings
+        s = get_app().get_settings()
+        if profile:
+            s.set("default-profile", profile.info.description)
+            log.info(f"Setting default profile to '{profile.info.description}'")
 
-        # Get current project profile description
-        current_project_profile_desc = get_app().project.get(['profile'])
+    def actionProfileEdit_trigger(self, profile=None, duplicate=False, delete=False, parent=None):
+        # Show profile edit dialog
+        from windows.profile_edit import EditProfileDialog
+        log.debug("Showing profile edit dialog")
 
+        # get translations
+        _ = get_app()._tr
+
+        if profile and delete and parent:
+            # Delete profile (no dialog)
+            error_title = _("Profile Error")
+            error_message = _("You can not delete the <b>current</b> or <b>default</b> profile.")
+            if os.path.exists(profile.path):
+                if (profile.info.description.strip() == get_app().project.get(['profile']).strip() or
+                    profile.info.description.strip() == get_app().get_settings().get('default-profile').strip()):
+                    QMessageBox.warning(parent, error_title, error_message)
+                    return
+
+                log.info(f"Removing custom profile: {profile.path}")
+                os.unlink(profile.path)
+            parent.profiles_model.remove_row(profile)
+        else:
+            # Show edit dialog
+            win = EditProfileDialog(profile, duplicate)
+            result = win.exec_()
+            if result == QDialog.Accepted:
+                profile = win.profile
+                if parent:
+                    # Update model and refresh view
+                    parent.profiles_model.update_or_insert_row(profile)
+                    parent.refresh_view(parent.parent.txtProfileFilter.text())
+                else:
+                    # Choose the edited profile
+                    self.actionProfile_trigger(profile)
+
+    def actionProfile_trigger(self, profile=None):
         # Disable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
 
-        win = Profile(current_project_profile_desc)
-        # Run the dialog event loop - blocking interaction on this window during this time
-        result = win.exec_()
-        profile = win.selected_profile
-        if result == QDialog.Accepted and profile and profile.info.description != get_app().project.get(['profile']):
+        # Show Profile dialog (if profile not passed)
+        if not profile:
+            # Show dialog
+            from windows.profile import Profile
+            log.debug("Showing profile dialog")
+
+            # Get current project profile description
+            current_project_profile_desc = get_app().project.get(['profile'])
+
+            win = Profile(current_project_profile_desc)
+            result = win.exec_()
+            profile = win.selected_profile
+        else:
+            # Profile passed in already
+            result = QDialog.Accepted
+
+        # Update profile (if changed)
+        if result == QDialog.Accepted and profile:
             proj = get_app().project
 
             # Group transactions
@@ -1786,37 +1834,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             # Update timeline settings
             get_app().updates.transaction_id = tid
 
-            # Update size of audio-only files
-            # Used by our video transform handles (if waveforms are visible)
-            for file in File.filter():
-                # Check for audio-only files
-                if file.data.get("has_audio") and not file.data.get("has_video"):
-                    # Audio-only file should match the current project size and FPS
-                    file.data["width"] = proj.get("width")
-                    file.data["height"] = proj.get("height")
-                    file.save()
-
-                    # Change all related clips
-                    for clip in Clip.filter(file_id=file.id):
-                        clip.data["reader"] = file.data
-                        clip.save()
+            # Apply new profile (and any FPS precision updates)
+            get_app().updates.update(["profile"], profile.info.description)
+            get_app().updates.update(["width"], profile.info.width)
+            get_app().updates.update(["height"], profile.info.height)
+            get_app().updates.update(["display_ratio"], {"num": profile.info.display_ratio.num, "den": profile.info.display_ratio.den})
+            get_app().updates.update(["pixel_ratio"], {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den})
+            get_app().updates.update(["fps"], {"num": profile.info.fps.num, "den": profile.info.fps.den})
 
             # Clear transaction id
             get_app().updates.transaction_id = None
-
-            # Rescale all keyframes and reload project
-            if fps_factor != 1.0:
-                # Rescale keyframes (if FPS changed)
-                proj.rescale_keyframes(fps_factor)
-
-                # Apply new profile (and any FPS precision updates)
-                proj.apply_profile(profile)
-
-                # Distribute all project data through update manager
-                get_app().updates.load(proj._data, reset_history=False)
-
-            # Force ApplyMapperToClips to apply these changes
-            self.timeline_sync.timeline.ApplyMapperToClips()
 
             # Seek to the same location, adjusted for new frame rate
             self.SeekSignal.emit(adjusted_frame)

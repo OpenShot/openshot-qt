@@ -56,6 +56,8 @@ is not currently visible, OpenShot will automatically display the panel.
 
 .. image:: images/quick-start-drop-files.jpg
 
+.. _file_menu_ref:
+
 File Menu
 ---------
 To view the file menu, right click on a file (in the **Project Files** panel). Here are the actions you can use from the
@@ -73,6 +75,7 @@ Split File            Split a file into many smaller files. The new trimmed file
 Edit Title            Edit an existing title SVG file
 Duplicate Title       Make a copy, and then edit the copied title SVG file
 Add to Timeline       Add many files to the timeline in one step, including transitions or alternating tracks.
+Choose Profile        Change the current project profile to match the selected file. If the file's profile does not match a known profile, it will give you the option to create a custom profile.
 File Properties       View the properties of a file, such as frame rate, size, etc...
 Remove from Project   Remove a file from the project
 ====================  ============

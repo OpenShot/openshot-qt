@@ -1230,6 +1230,13 @@ class Export(QDialog):
                     widget.setValue(setting.get('value', widget.minimum()))
                 elif setting['type'] == 'QCheckBox':
                     widget.setChecked(setting.get('value', False))
+
+        # Update start / end frame after loading settings
+        if self.checkStartFirstClip.isChecked():
+            self.updateFrameRate(True)
+        if self.checkEndLastClip.isChecked():
+            self.updateFrameRate(True)
+
         log.info("Export settings loaded: %s", settings)
 
     def reject(self):

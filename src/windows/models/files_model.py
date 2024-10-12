@@ -391,8 +391,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Log exception
                 log.warning("Failed to import {}: {}".format(filepath, ex))
 
-                if not quiet:
-                    # Show message box to user
+                if not quiet and start_count == 1:
+                    # Show message box to user (if importing a single file)
                     app.window.invalidImage(filename)
 
         # Reset list of ignored paths
