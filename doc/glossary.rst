@@ -319,7 +319,7 @@ Non-linear Editing:
 Numerator:
    The number or expression above the line in a fraction (such as 1 in ½).
 NTSC:
-   NTSC is an abbreviation for National Television Standards Committee.  NTSC is the group that initially developed the black & white and subsequently color television system.  The United States, Japan, and many other countries use NTSC.  Five-hundred twenty-five interlaced lines make up NTSC that display at a rate of 29.97 frames per second.  ATSC Has now superseded by NTSC.
+   NTSC is an abbreviation for National Television Standards Committee.  NTSC is the group that initially developed the black & white and subsequently color television system.  The United States, Japan, and many other countries use NTSC.  Five-hundred twenty-five interlaced lines make up NTSC that display at a rate of 29.97 frames per second.  ATSC has now superseded NTSC.
 
 .. _letter_O_ref:
 
