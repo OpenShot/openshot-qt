@@ -75,6 +75,7 @@ the name and short description of each effect.
    Object Detector                Detect objects in video.
    Outline                        Add outline around any image or text.
    Pixelate                       Increase or decrease visible pixels.
+   Shadow                         Drop shadow under any image or text.
    Shift                          Shift image in different directions.
    Stabilizer                     Reduce video shake.
    Tracker                        Track bounding box in video.
@@ -527,6 +528,30 @@ to evoke a retro, digital, or abstract aesthetic.
    pixelization                ``(float, 0 to 0.99)`` The curve to adjust the amount of pixelization
    right                       ``(float, 0 to 1)`` The curve to adjust the right margin size
    top                         ``(float, 0 to 1)`` The curve to adjust the top margin size
+   ==========================  ============
+
+Shadow
+""""""
+The Shadow effect drops shadow under text or images within a video frame. It works by creating a solid color layer based
+on the image's alpha channel, blurring it to create a soft shadow and then, the original image will be placed on top of
+the newly created shadow layer. Users can adjust the shadow offset (both vertically and horizontally), blur radius (affecting
+the softness of the shadow's edge) as well as its color components (red, green, blue) and transparency (alpha). This effect
+helps you create various type of interesting effect. Please note that this shadow effect applied is not a physically accurate
+depiction of light and shadow, but rather a visual technique used to create the perception of depth and form.
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ============
+   Property Name               Description
+   ==========================  ============
+   x_offset                    ``(int, -4000 to 4000)`` The curve to adjust vertical shadow offset
+   y_offset                    ``(int, -4000 to 4000)`` The curve to adjust horizontal shadow offset
+   blur_radius                 ``(int, 0 to 100)``      The curve to adjust blur radius of the shadow's edge
+   red                         ``(int, 0 to 255)``      The red color component of the shadow.
+   green                       ``(int, 0 to 255)``      The green color component of the shadow.
+   blue                        ``(int, 0 to 255)``      The blue color component of the shadow.
+   alpha                       ``(int, 0 to 255)``      The transparency (alpha) value for the shadow.
    ==========================  ============
 
 Shift
