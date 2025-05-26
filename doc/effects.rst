@@ -76,7 +76,9 @@ the name and short description of each effect.
    Outline                        Add outline around any image or text.
    Pixelate                       Increase or decrease visible pixels.
    Shadow                         Drop shadow under any image or text.
+   Sharpen                        Boost edge contrast to make video details look crisper.
    Shift                          Shift image in different directions.
+   Spherical Projection           Flatten or project 360° videos.
    Stabilizer                     Reduce video shake.
    Tracker                        Track bounding box in video.
    Wave                           Distort image into a wave pattern.
@@ -554,6 +556,45 @@ depiction of light and shadow, but rather a visual technique used to create the 
    alpha                       ``(int, 0 to 255)``      The transparency (alpha) value for the shadow.
    ==========================  ============
 
+Sharpen
+"""""""
+The Sharpen effect enhances perceived detail by first blurring the frame slightly and then adding a scaled
+difference (the *un-sharp mask*) back on top. This boosts edge contrast, making textures and outlines appear
+crisper without changing overall brightness.
+
+Modes
+^^^^^
+
+* **Unsharp** – Classic un-sharp mask: the edge detail is added back to the *original* frame.
+  Produces the familiar punchy sharpen seen in photo editors.
+
+* **HighPass** – High-pass blend: the edge detail is added to the *blurred* frame, then the result replaces
+  the original.  Gives a softer, more “contrasty” look and can rescue highlights that would otherwise clip.
+
+Channels
+^^^^^^^^
+
+* **All** – Apply the edge mask to the full RGB signal (strongest effect – colour and brightness sharpened).
+* **Luma** – Apply only to luma (brightness).  Colours stay untouched, so chroma noise is not amplified.
+* **Chroma** – Apply only to the chroma (colour difference) channels.  Useful for gently reviving colour
+  edges without changing perceived brightness.
+
+Properties
+^^^^^^^^^^
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ============================================================
+   Property Name               Description
+   ==========================  ============================================================
+   amount                      ``(float, 0 to 40)`` Strength multiplier / up to 100% edge boost
+   radius                      ``(float, 0 to 10)`` Blur radius in pixels at 720p (auto-scaled to clip size)
+   threshold                   ``(float, 0 to 1)`` Minimum luma difference that will be sharpened
+   mode                        ``(int, choices: ['Unsharp', 'HighPass'])`` Math style of the sharpening mask
+   channel                     ``(int, choices: ['All', 'Luma', 'Chroma'])`` Which colour channels receive sharpening
+   ==========================  ============================================================
+
 Shift
 """""
 The Shift effect moves the entire image in different directions (up, down, left, and right with infinite wrapping),
@@ -569,6 +610,38 @@ add dynamic motion to static shots.
    x                           ``(float, -1 to 1)`` Shift the X coordinates (left or right)
    y                           ``(float, -1 to 1)`` Shift the Y coordinates (up or down)
    ==========================  ============
+
+Spherical Projection
+""""""""""""""""""""
+
+The Spherical Projection effect lets you flatten and re-project 360° or fisheye video into a normal rectangular view.
+You can steer the virtual camera with yaw, pitch and roll, zoom in or out with the field-of-view (FOV), choose between
+full-sphere, hemisphere or raw fisheye input, and select nearest-neighbor or bilinear sampling for quality vs. speed.
+This is ideal for editing keyframed “virtual camera” moves inside your 360° clips.
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ===========================================
+   Property Name               Description
+   ==========================  ===========================================
+   yaw                         ``(float, -180 to 180)``
+                               Horizontal rotation around the up axis (degrees).
+   pitch                       ``(float, -90 to 90)``
+                               Vertical rotation around the right axis (degrees).
+   roll                        ``(float, -180 to 180)``
+                               Roll (tilt) around the forward axis (degrees).
+   fov                         ``(float, 1 to 179)``
+                               Horizontal field-of-view of the virtual camera (degrees).
+   projection_mode             ``(int)``
+                               **Sphere (0)**: full 360×180° equirectangular, **Hemisphere (1)**: front or back half of an equirectangular, **Fisheye (2)**: raw circular fisheye source
+   invert                      ``(int)``
+                               Flip the view by 180° or switch front/back in fisheye:
+                               Normal (0), Inverted (1).
+   interpolation               ``(int)``
+                               Sampling method: Nearest-neighbor (0) or Bilinear (1).
+   ==========================  ===========================================
+
 
 Stabilizer
 """"""""""

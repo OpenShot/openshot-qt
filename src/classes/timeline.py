@@ -108,7 +108,7 @@ class TimelineSync(UpdateInterface):
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
 
         except Exception as e:
-            log.info("Error applying JSON to timeline object in libopenshot: %s. %s" %
+            log.error("Error applying JSON to timeline object in libopenshot: %s. %s" %
                      (e, action.json(is_array=True)))
 
         # Resume video caching original value

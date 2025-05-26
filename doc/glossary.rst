@@ -394,10 +394,14 @@ Scrub:
    Scrubbing is an act of moving the cursor or playhead across the Timeline manually.  Once specific to audio tracks, the term now also refers to video tracks.
 Shot:
    A recording of a single take.
+Side Data:
+   Auxiliary per-stream metadata (e.g. rotation, stereo3D, spherical) attached to packets or streams in containers like MP4.
 Slow-motion:
    A shot in which action takes place at a slower than average speed.  The camera achieves slow-motion by speeding up the frame rate during recording and then playing back the frames at a slower speed.
 Snap:
    Snapping quickly positions an object in alignment with grid lines, guidelines, or another object.  Snapping causes the object to automatically jump to an exact position when the user drags it to the proximity of the desired location.
+Spherical Video:
+   A full-sphere (360×180°) video format that requires special metadata (SV3D) so players know to render it as an interactive panorama.
 Splice:
    The process of physically attaching two pieces of film using tape or cement.
 Split cut (L-cut or J-cut):
@@ -424,6 +428,8 @@ Sync (Synchronization):
    Synchronization refers to the relative timing of audio (sound) and video (image) parts during creation, post-production (mixing), transmission, reception, and play-back processing.
 SECAM:
    Systeme Electronique Couleur Avec Memoire, a TV format used mainly in Eastern Europe, Russia, and Africa. 
+SV3D (Spherical Video metadata):
+   The “sv3d” atom in MP4/MOV files—side-data that marks a clip as 360° and carries projection, yaw/pitch/roll parameters.
 
 .. _letter_T_ref:
 

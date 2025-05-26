@@ -26,7 +26,6 @@
  """
 
 import os
-import copy
 import subprocess
 import sys
 import re
@@ -792,16 +791,17 @@ class Worker(QObject):
             self.process = subprocess.Popen(
                 command_get_version,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=self.startupinfo, env=self.env
+                startupinfo=self.startupinfo, env=self.env, cwd=info.HOME_PATH
             )
             # Give Blender up to 10 seconds to respond
             (out, err) = self.process.communicate(timeout=10)
         except subprocess.TimeoutExpired:
+            log.error("Blender version check timed out")
             self.process.kill()
             self.blender_error_nodata.emit()
             return False
         except FileNotFoundError:
-            log.warning("Blender executable not found. Please check the path.")
+            log.error("Blender executable not found at path: %s", self.blender_exec_path)
             self.blender_error_nodata.emit()
             return False
         except Exception:
@@ -811,7 +811,7 @@ class Worker(QObject):
             self.blender_error_nodata.emit()
             return False
 
-        ver_string = out.decode('utf-8')
+        ver_string = out.decode('utf-8', errors='ignore')
         log.debug("Blender output:\n%s", ver_string)
 
         ver_match = self.blender_version_re.search(ver_string)
@@ -906,7 +906,7 @@ class Worker(QObject):
             self.process = subprocess.Popen(
                 command_render, bufsize=512,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                startupinfo=self.startupinfo, env=self.env
+                startupinfo=self.startupinfo, env=self.env, cwd=info.HOME_PATH
             )
             # Signal UI that background task is running
             self.start_processing.emit()

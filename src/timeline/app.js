@@ -28,45 +28,74 @@
 
 // Initialize Angular application
 /*global App, angular, timeline, init_mixin*/
-var App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
+const App = angular.module("openshot-timeline", ["ui.bootstrap", "ngAnimate"]);
 
 
 // Wait for document ready event
 $(document).ready(function () {
 
-  var body_object = $("body");
+  const body_object = $("body");
 
   // Initialize Qt Mixin (WebEngine or WebKit)
   init_mixin();
 
-  // Always ensure caching thread has been resumed on any mouse-up event.
-  // The cache thread can be disabled while scrubbing, and the normal mouse-up event
-  // can be missed if the cursor is dragged outside the timeline.
-  $(document).on("mouseup", function (e) {
-      if (body_object.scope().Qt) {
-          // Enable caching thread after scrubbing
-          timeline.EnableCacheThread();
+  // Ensure caching thread is resumed on any mouse-up event during scrubbing
+  $(document).on("mouseup", function () {
+    if (body_object.scope().Qt) {
+      timeline.EnableCacheThread();
+    }
+  });
+
+  /// Capture window resize event, and resize scrollable track divs and playhead-line height
+  (function () {
+    const trackControls   = document.getElementById("track_controls");
+    const scrollTracks    = document.getElementById("scrolling_tracks");
+    const trackContainer  = document.getElementById("track-container");
+    const playheadLine    = document.querySelector(".playhead-line");
+
+    function syncAll() {
+      // Resize both control and tracks container to fill window height
+      if (trackControls && scrollTracks) {
+        const offsetTop = trackControls.getBoundingClientRect().top;
+        const newH = window.innerHeight - offsetTop;
+        trackControls.style.height   = newH + "px";
+        scrollTracks.style.height    = newH + "px";
       }
-  });
+      // Adjust playhead-line height to match track stack
+      if (trackContainer && playheadLine) {
+        const h = trackContainer.getBoundingClientRect().height;
+        playheadLine.style.height = h + "px";
+      }
+      // Adjust snapping-line height to match track stack
+      const snappingLine = document.querySelector(".snapping-line");
+      if (trackContainer && snappingLine) {
+        const h = trackContainer.getBoundingClientRect().height;
+        snappingLine.style.height = h + "px";
+      }
+    }
 
-  /// Capture window resize event, and resize scrollable divs (i.e. track container)
-  $(window).resize(function () {
+    // Re-sync on window resize
+    window.addEventListener("resize", syncAll);
 
-    // Determine Y offset for track container div
-    var track_controls = $("#track_controls");
-    var track_offset = track_controls.offset().top;
+    // Observe structural changes in the track container
+    if (window.ResizeObserver && trackContainer) {
+      new ResizeObserver(syncAll).observe(trackContainer);
+    } else if (trackContainer) {
+      new MutationObserver(syncAll).observe(trackContainer, { childList: true });
+    }
 
-    // Set the height of the scrollable divs. This resizes the tracks to fit the remaining
-    // height of the web page. As the user changes the size of the web page, this will continue
-    // to fire, and resize the child divs to fit.
-    var new_track_height = $(this).height() - track_offset;
+    // Observe Angular's style override on playhead-line
+    if (window.MutationObserver && playheadLine) {
+      new MutationObserver(syncAll).observe(playheadLine, { attributes: true, attributeFilter: ["style"] });
+    }
 
-    track_controls.height(new_track_height);
-    $("#scrolling_tracks").height(new_track_height);
-    body_object.scope().playhead_height = $("#track-container").height();
-    $(".playhead-line").height(body_object.scope().playhead_height);
-  });
+    // Observe Angular's style override on snapping-line
+    const snappingLine = document.querySelector(".snapping-line");
+    if (window.MutationObserver && snappingLine) {
+      new MutationObserver(syncAll).observe(snappingLine, { attributes: true, attributeFilter: ["style"] });
+    }
 
-  // Manually trigger the window resize code (to verify it runs at least once)
-  $(window).trigger("resize");
+    // Initial sync
+    syncAll();
+  })();
 });

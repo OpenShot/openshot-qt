@@ -368,7 +368,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         self._data["pixel_ratio"] = {"num": profile.info.pixel_ratio.num, "den": profile.info.pixel_ratio.den}
 
         # Convert all position, start, and end trims to profile FPS precision (if any)
-        change_profile(self._data["clips"] + self._data["effects"], profile)
+        change_profile(self._data["clips"] + self._data["effects"] + self._data["markers"], profile)
 
         return profile
 

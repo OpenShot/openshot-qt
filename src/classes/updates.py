@@ -284,22 +284,27 @@ class UpdateManager:
     def undo(self):
         """ Undo the last UpdateAction (and notify all listeners and watchers).
             Continue until all identical transaction ids have been found. """
-        last_transaction = None
-        total_actions = len(self.actionHistory)
+        # Get all actions with the same transaction id as the last one, in reverse order
+        last_transaction = self.actionHistory[-1].transaction if self.actionHistory else None
+        last_transactions = [a for a in reversed(self.actionHistory) if a.transaction == last_transaction]
+        remove_selection = any(a.type == "insert" for a in last_transactions)
 
-        for index, last_action in enumerate(reversed(self.actionHistory)):
-            # Set ignore_refresh to True for all iterations except the final one
-            ignore_refresh = (index != total_actions - 1)
+        if remove_selection:
+            # Remove selections for any items about to be deleted
+            for action in last_transactions:
+                if action.type == "insert":
+                    object_id = action.values.get("id", None)
+                    get_app().window.removeSelection(object_id, None)
 
-            # Emit the IgnoreUpdates signal
-            get_app().window.IgnoreUpdates.emit(ignore_refresh)
+            # Force property and selection timers to fire
+            get_app().window.show_property_timer.stop()
+            get_app().window.show_property_timer.timeout.emit()
+            get_app().window.selection_timer.stop()
+            get_app().window.selection_timer.timeout.emit()
+            get_app().processEvents()
 
-            # Compare transaction ids
-            if last_transaction and last_transaction != last_action.transaction:
-                # Different transaction, skip
-                continue
-
-            last_transaction = last_action.transaction or str(uuid.uuid4())
+        # Iterate each action in this transaction
+        for index, last_action in enumerate(last_transactions):
             self.actionHistory.remove(last_action)
 
             # Copy action
@@ -311,6 +316,10 @@ class UpdateManager:
             # Get reverse of last action and perform it
             reverse = self.get_reverse_action(last_action)
 
+            # Ignore updates to UI on all actions except last one
+            ignore_refresh = (index != len(last_transactions) - 1)
+            get_app().window.IgnoreUpdates.emit(ignore_refresh)
+
             # Perform next undo action
             self.dispatch_action(reverse)
 
@@ -320,22 +329,12 @@ class UpdateManager:
     def redo(self):
         """ Redo the last UpdateAction (and notify all listeners and watchers).
             Continue until all identical transaction ids have been found. """
-        last_transaction = None
-        total_actions = len(self.redoHistory)
+        # Get all actions with the same transaction id as the last one, in reverse order
+        last_transaction = self.redoHistory[-1].transaction if self.redoHistory else None
+        last_transactions = [a for a in reversed(self.redoHistory) if a.transaction == last_transaction]
 
-        for index, next_action in enumerate(reversed(self.redoHistory)):
-            # Set ignore_refresh to True for all iterations except the final one
-            ignore_refresh = (index != total_actions - 1)
-
-            # Emit the IgnoreUpdates signal
-            get_app().window.IgnoreUpdates.emit(ignore_refresh)
-
-            # Compare transaction ids
-            if last_transaction and last_transaction != next_action.transaction:
-                # Different transaction, skip
-                continue
-
-            last_transaction = next_action.transaction or str(uuid.uuid4())
+        # Iterate through each action in this transaction
+        for index, next_action in enumerate(last_transactions):
             self.redoHistory.remove(next_action)
 
             # Copy action
@@ -347,6 +346,11 @@ class UpdateManager:
 
             self.actionHistory.append(next_action)
             self.pending_action = None
+
+            # Ignore updates to UI on all actions except last one
+            ignore_refresh = (index != len(last_transactions) - 1)
+            get_app().window.IgnoreUpdates.emit(ignore_refresh)
+
             # Perform next redo action
             self.dispatch_action(next_action)
 

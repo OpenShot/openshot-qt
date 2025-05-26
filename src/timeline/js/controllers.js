@@ -57,7 +57,6 @@ App.controller("TimelineCtrl", function ($scope) {
   // Additional variables used to control the rendering of HTML
   $scope.pixelsPerSecond = parseFloat($scope.project.tick_pixels) / parseFloat($scope.project.scale);
   $scope.playhead_animating = false;
-  $scope.playhead_height = 300;
   $scope.playheadTime = secondsToTime($scope.project.playhead_position, $scope.project.fps.num, $scope.project.fps.den);
   $scope.snapline_position = 0.0;
   $scope.snapline = false;
@@ -1172,9 +1171,17 @@ $scope.moveItem = function (x, y) {
   bounding_box.previous_x = results.position.left;
   bounding_box.previous_y = results.position.top;
 
+  // protect against empty .first()
+  if (!bounding_box.elements || !bounding_box.elements.length) return;
+  const $first = bounding_box.elements.first();
+  if (!$first.length) return;
+  const firstId = $first.attr("id");
+  const firstStart = bounding_box.start_clips[firstId];
+  if (!firstStart) return;
+
   // Apply snapping results to the first clip and calculate the delta for the remaining clips
-  var delta_x = results.position.left - bounding_box.start_clips[bounding_box.elements.first().attr("id")].left;
-  var delta_y = results.position.top - bounding_box.start_clips[bounding_box.elements.first().attr("id")].top;
+  const delta_x = results.position.left - firstStart.left;
+  const delta_y = results.position.top - firstStart.top;
 
   // Update the position of each selected element by applying the delta
   if (bounding_box.elements) {
@@ -1208,10 +1215,6 @@ $scope.updateLayerIndex = function () {
       layer.height = layer_elem.outerHeight();
     }
   }
-
-  // Update playhead height
-  $scope.playhead_height = $("#track-container").height();
-  $(".playhead-line").height($scope.playhead_height);
 };
 
   // Sort clips and transitions by position
@@ -1647,8 +1650,12 @@ $scope.updateLayerIndex = function () {
         // Re-sort clips and transitions array
         $scope.sortItems();
 
-        // Re-index Layer Y values
-        $scope.updateLayerIndex();
+        // Re-index Layer Y values after DOM has been updated
+        setTimeout(function() {
+          $scope.$apply(function () {
+            $scope.updateLayerIndex();
+          });
+        }, 0);
       }
     }
 

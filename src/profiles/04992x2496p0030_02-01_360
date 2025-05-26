@@ -1,0 +1,11 @@
+description=5.2K 360° 2496p 30 fps
+frame_rate_num=30
+frame_rate_den=1
+width=4992
+height=2496
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=2
+display_aspect_den=1
+spherical=1

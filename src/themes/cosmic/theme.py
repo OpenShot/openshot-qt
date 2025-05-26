@@ -702,7 +702,6 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             .playhead-line {
               z-index: 9999;
               position: absolute;
-              height: 316px;
               top: 0;
               width: 2px;
               background-color: #FABE0A;

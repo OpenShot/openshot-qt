@@ -144,10 +144,10 @@
 			</div>
 
 			<!-- FLOATING PLAYHEAD LINE -->
-			<div class="playhead playhead-line" style="height: {{ playhead_height }}px; left:{{project.playhead_position * pixelsPerSecond}}px;"></div>
+			<div class="playhead playhead-line" style="left:{{project.playhead_position * pixelsPerSecond}}px;"></div>
 
 			<!-- SNAPPING HINT LINE -->
-			<div ng-show="snapline" class="snapping-line" style="height: {{ playhead_height }}px; left:{{ snapline_position}}px;"></div>
+			<div ng-show="snapline" class="snapping-line" style="left:{{ snapline_position}}px;"></div>
 
 		</div>
 		

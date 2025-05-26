@@ -394,7 +394,7 @@ class PropertiesTableView(QTableView):
                 except (ValueError, TypeError):
                     # Default to opaque red if conversion fails
                     currentColor = QColor(255, 0, 0, 255)
-                
+
                 ColorPicker(
                     currentColor, parent=self, title=_("Select a Color"),
                     callback=self.color_callback)
@@ -674,6 +674,10 @@ class PropertiesTableView(QTableView):
                                          "icon": icon
                                          })
 
+                # Add None option to clear the source
+                self.choices.append({"name": _("None"), "value": "", "selected": False, "icon": None})
+
+
                 # Add root file choice
                 if file_choices:
                     self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
@@ -873,7 +877,7 @@ class PropertiesTableView(QTableView):
         except (ValueError, TypeError):
             # Default to opaque red if conversion fails
             currentColor = QColor(255, 0, 0, 255)
-            
+
         ColorPicker(
             currentColor, parent=self, title=_("Select a Color"),
             callback=self.color_callback)

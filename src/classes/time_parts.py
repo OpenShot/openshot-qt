@@ -50,7 +50,7 @@ def secondsToTime(secs, fps_num=30, fps_den=1):
 
     frame = round((milli / 1000.0) * (fps_num / fps_den)) + 1
     return {"week": padNumber(week, 2), "day": padNumber(day, 2), "hour": padNumber(hour, 2),
-            "min": padNumber(min, 2), "sec": padNumber(sec, 2), "milli": padNumber(milli, 2),
+            "min": padNumber(min, 2), "sec": padNumber(sec, 2), "milli": padNumber(milli, 3),
             "frame": padNumber(frame, 2)}
 
 def timecodeToSeconds(time_code="00:00:00:00", fps_num=30, fps_den=1):

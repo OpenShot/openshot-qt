@@ -1327,192 +1327,203 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Save changes
                 self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
-    def Animate_Triggered(self, action, clip_ids, position="Entire Clip"):
+    def Animate_Triggered(self, action, clip_ids, position="Entire Clip", transaction_id=None):
         """Callback for the animate context menus"""
         log.debug(action)
 
-        # Loop through each selected clip
-        for clip_id in clip_ids:
+        # Create a transaction ID for all operations in this function (if not provided)
+        tid = transaction_id or self.get_uuid()
 
-            # Get existing clip object
-            clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
-                continue
+        try:
+            # Set transaction ID
+            get_app().updates.transaction_id = tid
 
-            # Get framerate
-            fps = get_app().project.get("fps")
-            fps_float = float(fps["num"]) / float(fps["den"])
+            # Loop through each selected clip
+            for clip_id in clip_ids:
 
-            # Get existing clip object
-            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+                if not clip:
+                    # Invalid clip, skip to next item
+                    continue
 
-            # Determine the beginning and ending of this animation
-            # ["Start of Clip", "End of Clip", "Entire Clip"]
-            start_animation = start_of_clip
-            end_animation = end_of_clip
-            if position == "Start of Clip":
+                # Get framerate
+                fps = get_app().project.get("fps")
+                fps_float = float(fps["num"]) / float(fps["den"])
+
+                # Get existing clip object
+                start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
+                end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+
+                # Determine the beginning and ending of this animation
+                # ["Start of Clip", "End of Clip", "Entire Clip"]
                 start_animation = start_of_clip
-                end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
-            elif position == "End of Clip":
-                start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
                 end_animation = end_of_clip
+                if position == "Start of Clip":
+                    start_animation = start_of_clip
+                    end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
+                elif position == "End of Clip":
+                    start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
+                    end_animation = end_of_clip
 
-            if action == MenuAnimate.NONE:
-                # Clear all keyframes
-                default_zoom = openshot.Point(start_animation, 1.0, openshot.BEZIER)
-                default_zoom_object = json.loads(default_zoom.Json())
-                default_loc = openshot.Point(start_animation, 0.0, openshot.BEZIER)
-                default_loc_object = json.loads(default_loc.Json())
-                clip.data["gravity"] = openshot.GRAVITY_CENTER
-                clip.data["scale_x"] = {"Points": [default_zoom_object]}
-                clip.data["scale_y"] = {"Points": [default_zoom_object]}
-                clip.data["location_x"] = {"Points": [default_loc_object]}
-                clip.data["location_y"] = {"Points": [default_loc_object]}
+                if action == MenuAnimate.NONE:
+                    # Clear all keyframes
+                    default_zoom = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+                    default_zoom_object = json.loads(default_zoom.Json())
+                    default_loc = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+                    default_loc_object = json.loads(default_loc.Json())
+                    clip.data["gravity"] = openshot.GRAVITY_CENTER
+                    clip.data["scale_x"] = {"Points": [default_zoom_object]}
+                    clip.data["scale_y"] = {"Points": [default_zoom_object]}
+                    clip.data["location_x"] = {"Points": [default_loc_object]}
+                    clip.data["location_y"] = {"Points": [default_loc_object]}
 
-            if action in [
-                MenuAnimate.IN_50_100,
-                MenuAnimate.IN_75_100,
-                MenuAnimate.IN_100_150,
-                MenuAnimate.OUT_100_75,
-                MenuAnimate.OUT_100_50,
-                MenuAnimate.OUT_150_100
-            ]:
-                # Scale animation
-                start_scale = 1.0
-                end_scale = 1.0
-                if action == MenuAnimate.IN_50_100:
-                    start_scale = 0.5
-                elif action == MenuAnimate.IN_75_100:
-                    start_scale = 0.75
-                elif action == MenuAnimate.IN_100_150:
-                    end_scale = 1.5
-                elif action == MenuAnimate.OUT_100_75:
-                    end_scale = 0.75
-                elif action == MenuAnimate.OUT_100_50:
-                    end_scale = 0.5
-                elif action == MenuAnimate.OUT_150_100:
-                    start_scale = 1.5
+                if action in [
+                    MenuAnimate.IN_50_100,
+                    MenuAnimate.IN_75_100,
+                    MenuAnimate.IN_100_150,
+                    MenuAnimate.OUT_100_75,
+                    MenuAnimate.OUT_100_50,
+                    MenuAnimate.OUT_150_100
+                ]:
+                    # Scale animation
+                    start_scale = 1.0
+                    end_scale = 1.0
+                    if action == MenuAnimate.IN_50_100:
+                        start_scale = 0.5
+                    elif action == MenuAnimate.IN_75_100:
+                        start_scale = 0.75
+                    elif action == MenuAnimate.IN_100_150:
+                        end_scale = 1.5
+                    elif action == MenuAnimate.OUT_100_75:
+                        end_scale = 0.75
+                    elif action == MenuAnimate.OUT_100_50:
+                        end_scale = 0.5
+                    elif action == MenuAnimate.OUT_150_100:
+                        start_scale = 1.5
 
-                # Add keyframes
-                start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
-                start_object = json.loads(start.Json())
-                end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
-                end_object = json.loads(end.Json())
-                clip.data["gravity"] = openshot.GRAVITY_CENTER
-                self.AddPoint(clip.data["scale_x"], start_object)
-                self.AddPoint(clip.data["scale_x"], end_object)
-                self.AddPoint(clip.data["scale_y"], start_object)
-                self.AddPoint(clip.data["scale_y"], end_object)
+                    # Add keyframes
+                    start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
+                    start_object = json.loads(start.Json())
+                    end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
+                    end_object = json.loads(end.Json())
+                    clip.data["gravity"] = openshot.GRAVITY_CENTER
+                    self.AddPoint(clip.data["scale_x"], start_object)
+                    self.AddPoint(clip.data["scale_x"], end_object)
+                    self.AddPoint(clip.data["scale_y"], start_object)
+                    self.AddPoint(clip.data["scale_y"], end_object)
 
-            if action in [
-                MenuAnimate.CENTER_TOP,
-                MenuAnimate.CENTER_LEFT,
-                MenuAnimate.CENTER_RIGHT,
-                MenuAnimate.CENTER_BOTTOM,
-                MenuAnimate.TOP_CENTER,
-                MenuAnimate.LEFT_CENTER,
-                MenuAnimate.RIGHT_CENTER,
-                MenuAnimate.BOTTOM_CENTER,
-                MenuAnimate.TOP_BOTTOM,
-                MenuAnimate.LEFT_RIGHT,
-                MenuAnimate.RIGHT_LEFT,
-                MenuAnimate.BOTTOM_TOP
-            ]:
-                # Location animation
-                animate_start_x = 0.0
-                animate_end_x = 0.0
-                animate_start_y = 0.0
-                animate_end_y = 0.0
-                # Center to edge...
-                if action == MenuAnimate.CENTER_TOP:
-                    animate_end_y = -1.0
-                elif action == MenuAnimate.CENTER_LEFT:
-                    animate_end_x = -1.0
-                elif action == MenuAnimate.CENTER_RIGHT:
-                    animate_end_x = 1.0
-                elif action == MenuAnimate.CENTER_BOTTOM:
-                    animate_end_y = 1.0
+                if action in [
+                    MenuAnimate.CENTER_TOP,
+                    MenuAnimate.CENTER_LEFT,
+                    MenuAnimate.CENTER_RIGHT,
+                    MenuAnimate.CENTER_BOTTOM,
+                    MenuAnimate.TOP_CENTER,
+                    MenuAnimate.LEFT_CENTER,
+                    MenuAnimate.RIGHT_CENTER,
+                    MenuAnimate.BOTTOM_CENTER,
+                    MenuAnimate.TOP_BOTTOM,
+                    MenuAnimate.LEFT_RIGHT,
+                    MenuAnimate.RIGHT_LEFT,
+                    MenuAnimate.BOTTOM_TOP
+                ]:
+                    # Location animation
+                    animate_start_x = 0.0
+                    animate_end_x = 0.0
+                    animate_start_y = 0.0
+                    animate_end_y = 0.0
+                    # Center to edge...
+                    if action == MenuAnimate.CENTER_TOP:
+                        animate_end_y = -1.0
+                    elif action == MenuAnimate.CENTER_LEFT:
+                        animate_end_x = -1.0
+                    elif action == MenuAnimate.CENTER_RIGHT:
+                        animate_end_x = 1.0
+                    elif action == MenuAnimate.CENTER_BOTTOM:
+                        animate_end_y = 1.0
 
-                # Edge to Center
-                elif action == MenuAnimate.TOP_CENTER:
-                    animate_start_y = -1.0
-                elif action == MenuAnimate.LEFT_CENTER:
-                    animate_start_x = -1.0
-                elif action == MenuAnimate.RIGHT_CENTER:
-                    animate_start_x = 1.0
-                elif action == MenuAnimate.BOTTOM_CENTER:
-                    animate_start_y = 1.0
+                    # Edge to Center
+                    elif action == MenuAnimate.TOP_CENTER:
+                        animate_start_y = -1.0
+                    elif action == MenuAnimate.LEFT_CENTER:
+                        animate_start_x = -1.0
+                    elif action == MenuAnimate.RIGHT_CENTER:
+                        animate_start_x = 1.0
+                    elif action == MenuAnimate.BOTTOM_CENTER:
+                        animate_start_y = 1.0
 
-                # Edge to Edge
-                elif action == MenuAnimate.TOP_BOTTOM:
-                    animate_start_y = -1.0
-                    animate_end_y = 1.0
-                elif action == MenuAnimate.LEFT_RIGHT:
-                    animate_start_x = -1.0
-                    animate_end_x = 1.0
-                elif action == MenuAnimate.RIGHT_LEFT:
-                    animate_start_x = 1.0
-                    animate_end_x = -1.0
-                elif action == MenuAnimate.BOTTOM_TOP:
-                    animate_start_y = 1.0
-                    animate_end_y = -1.0
+                    # Edge to Edge
+                    elif action == MenuAnimate.TOP_BOTTOM:
+                        animate_start_y = -1.0
+                        animate_end_y = 1.0
+                    elif action == MenuAnimate.LEFT_RIGHT:
+                        animate_start_x = -1.0
+                        animate_end_x = 1.0
+                    elif action == MenuAnimate.RIGHT_LEFT:
+                        animate_start_x = 1.0
+                        animate_end_x = -1.0
+                    elif action == MenuAnimate.BOTTOM_TOP:
+                        animate_start_y = 1.0
+                        animate_end_y = -1.0
 
-                # Add keyframes
-                start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
-                start_x_object = json.loads(start_x.Json())
-                end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
-                end_x_object = json.loads(end_x.Json())
-                start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
-                start_y_object = json.loads(start_y.Json())
-                end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
-                end_y_object = json.loads(end_y.Json())
-                clip.data["gravity"] = openshot.GRAVITY_CENTER
-                self.AddPoint(clip.data["location_x"], start_x_object)
-                self.AddPoint(clip.data["location_x"], end_x_object)
-                self.AddPoint(clip.data["location_y"], start_y_object)
-                self.AddPoint(clip.data["location_y"], end_y_object)
+                    # Add keyframes
+                    start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
+                    start_x_object = json.loads(start_x.Json())
+                    end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
+                    end_x_object = json.loads(end_x.Json())
+                    start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
+                    start_y_object = json.loads(start_y.Json())
+                    end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
+                    end_y_object = json.loads(end_y.Json())
+                    clip.data["gravity"] = openshot.GRAVITY_CENTER
+                    self.AddPoint(clip.data["location_x"], start_x_object)
+                    self.AddPoint(clip.data["location_x"], end_x_object)
+                    self.AddPoint(clip.data["location_y"], start_y_object)
+                    self.AddPoint(clip.data["location_y"], end_y_object)
 
-            if action == MenuAnimate.RANDOM:
-                # Location animation
-                animate_start_x = uniform(-0.5, 0.5)
-                animate_end_x = uniform(-0.15, 0.15)
-                animate_start_y = uniform(-0.5, 0.5)
-                animate_end_y = uniform(-0.15, 0.15)
+                if action == MenuAnimate.RANDOM:
+                    # Location animation
+                    animate_start_x = uniform(-0.5, 0.5)
+                    animate_end_x = uniform(-0.15, 0.15)
+                    animate_start_y = uniform(-0.5, 0.5)
+                    animate_end_y = uniform(-0.15, 0.15)
 
-                # Scale animation
-                start_scale = uniform(0.5, 1.5)
-                end_scale = uniform(0.85, 1.15)
+                    # Scale animation
+                    start_scale = uniform(0.5, 1.5)
+                    end_scale = uniform(0.85, 1.15)
 
-                # Add keyframes
-                start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
-                start_object = json.loads(start.Json())
-                end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
-                end_object = json.loads(end.Json())
-                clip.data["gravity"] = openshot.GRAVITY_CENTER
-                self.AddPoint(clip.data["scale_x"], start_object)
-                self.AddPoint(clip.data["scale_x"], end_object)
-                self.AddPoint(clip.data["scale_y"], start_object)
-                self.AddPoint(clip.data["scale_y"], end_object)
+                    # Add keyframes
+                    start = openshot.Point(start_animation, start_scale, openshot.BEZIER)
+                    start_object = json.loads(start.Json())
+                    end = openshot.Point(end_animation, end_scale, openshot.BEZIER)
+                    end_object = json.loads(end.Json())
+                    clip.data["gravity"] = openshot.GRAVITY_CENTER
+                    self.AddPoint(clip.data["scale_x"], start_object)
+                    self.AddPoint(clip.data["scale_x"], end_object)
+                    self.AddPoint(clip.data["scale_y"], start_object)
+                    self.AddPoint(clip.data["scale_y"], end_object)
 
-                # Add keyframes
-                start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
-                start_x_object = json.loads(start_x.Json())
-                end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
-                end_x_object = json.loads(end_x.Json())
-                start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
-                start_y_object = json.loads(start_y.Json())
-                end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
-                end_y_object = json.loads(end_y.Json())
-                clip.data["gravity"] = openshot.GRAVITY_CENTER
-                self.AddPoint(clip.data["location_x"], start_x_object)
-                self.AddPoint(clip.data["location_x"], end_x_object)
-                self.AddPoint(clip.data["location_y"], start_y_object)
-                self.AddPoint(clip.data["location_y"], end_y_object)
+                    # Add keyframes
+                    start_x = openshot.Point(start_animation, animate_start_x, openshot.BEZIER)
+                    start_x_object = json.loads(start_x.Json())
+                    end_x = openshot.Point(end_animation, animate_end_x, openshot.BEZIER)
+                    end_x_object = json.loads(end_x.Json())
+                    start_y = openshot.Point(start_animation, animate_start_y, openshot.BEZIER)
+                    start_y_object = json.loads(start_y.Json())
+                    end_y = openshot.Point(end_animation, animate_end_y, openshot.BEZIER)
+                    end_y_object = json.loads(end_y.Json())
+                    clip.data["gravity"] = openshot.GRAVITY_CENTER
+                    self.AddPoint(clip.data["location_x"], start_x_object)
+                    self.AddPoint(clip.data["location_x"], end_x_object)
+                    self.AddPoint(clip.data["location_y"], start_y_object)
+                    self.AddPoint(clip.data["location_y"], end_y_object)
 
-            # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+                # Save changes
+                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=tid)
+        finally:
+            # Reset transaction id only if we created it (not if it was passed in)
+            if not transaction_id:
+                get_app().updates.transaction_id = None
 
     def AddPoint(self, keyframe, new_point):
         """Add a Point to a Keyframe dict. Always remove existing points,
@@ -1893,7 +1904,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Save changes
             self.update_transition_data(tran.data, only_basic_props=False)
 
-    def Fade_Triggered(self, action, clip_ids, position="Entire Clip"):
+    def Fade_Triggered(self, action, clip_ids, position="Entire Clip", transaction_id=None):
         """Callback for fade context menus"""
         log.debug(action)
 
@@ -1901,73 +1912,83 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        # Loop through each selected clip
-        for clip_id in clip_ids:
+        # Create a transaction ID for all operations in this function (if not provided)
+        tid = transaction_id or self.get_uuid()
 
-            # Get existing clip object
-            clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
-                continue
+        try:
+            # Set transaction ID
+            get_app().updates.transaction_id = tid
 
-            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+            # Loop through each selected clip
+            for clip_id in clip_ids:
 
-            # Determine the beginning and ending of this animation
-            # ["Start of Clip", "End of Clip", "Entire Clip"]
-            start_animation = start_of_clip
-            end_animation = end_of_clip
-            if position == "Start of Clip" and action in [MenuFade.IN_FAST, MenuFade.OUT_FAST]:
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+                if not clip:
+                    # Invalid clip, skip to next item
+                    continue
+
+                start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
+                end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+
+                # Determine the beginning and ending of this animation
+                # ["Start of Clip", "End of Clip", "Entire Clip"]
                 start_animation = start_of_clip
-                end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
-            elif position == "Start of Clip" and action in [MenuFade.IN_SLOW, MenuFade.OUT_SLOW]:
-                start_animation = start_of_clip
-                end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
-            elif position == "End of Clip" and action in [MenuFade.IN_FAST, MenuFade.OUT_FAST]:
-                start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
                 end_animation = end_of_clip
-            elif position == "End of Clip" and action in [MenuFade.IN_SLOW, MenuFade.OUT_SLOW]:
-                start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
-                end_animation = end_of_clip
+                if position == "Start of Clip" and action in [MenuFade.IN_FAST, MenuFade.OUT_FAST]:
+                    start_animation = start_of_clip
+                    end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
+                elif position == "Start of Clip" and action in [MenuFade.IN_SLOW, MenuFade.OUT_SLOW]:
+                    start_animation = start_of_clip
+                    end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
+                elif position == "End of Clip" and action in [MenuFade.IN_FAST, MenuFade.OUT_FAST]:
+                    start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
+                    end_animation = end_of_clip
+                elif position == "End of Clip" and action in [MenuFade.IN_SLOW, MenuFade.OUT_SLOW]:
+                    start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
+                    end_animation = end_of_clip
 
-            # Fade in and out (special case)
-            if position == "Entire Clip" and action == MenuFade.IN_OUT_FAST:
-                # Call this method for the start and end of the clip
-                self.Fade_Triggered(MenuFade.IN_FAST, clip_ids, "Start of Clip")
-                self.Fade_Triggered(MenuFade.OUT_FAST, clip_ids, "End of Clip")
-                return
-            if position == "Entire Clip" and action == MenuFade.IN_OUT_SLOW:
-                # Call this method for the start and end of the clip
-                self.Fade_Triggered(MenuFade.IN_SLOW, clip_ids, "Start of Clip")
-                self.Fade_Triggered(MenuFade.OUT_SLOW, clip_ids, "End of Clip")
-                return
+                # Fade in and out (special case)
+                if position == "Entire Clip" and action in [MenuFade.IN_OUT_FAST, MenuFade.IN_OUT_SLOW]:
+                    # Call this method for the start and end of the clip
+                    if action == MenuFade.IN_OUT_FAST:
+                        self.Fade_Triggered(MenuFade.IN_FAST, clip_ids, "Start of Clip", transaction_id=tid)
+                        self.Fade_Triggered(MenuFade.OUT_FAST, clip_ids, "End of Clip", transaction_id=tid)
+                    elif action == MenuFade.IN_OUT_SLOW:
+                        self.Fade_Triggered(MenuFade.IN_SLOW, clip_ids, "Start of Clip", transaction_id=tid)
+                        self.Fade_Triggered(MenuFade.OUT_SLOW, clip_ids, "End of Clip", transaction_id=tid)
+                    return
 
-            if action == MenuFade.NONE:
-                # Clear all keyframes
-                p = openshot.Point(1, 1.0, openshot.BEZIER)
-                p_object = json.loads(p.Json())
-                clip.data['alpha'] = {"Points": [p_object]}
+                if action == MenuFade.NONE:
+                    # Clear all keyframes
+                    p = openshot.Point(1, 1.0, openshot.BEZIER)
+                    p_object = json.loads(p.Json())
+                    clip.data['alpha'] = {"Points": [p_object]}
 
-            if action in [MenuFade.IN_FAST, MenuFade.IN_SLOW]:
-                # Add keyframes
-                start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
-                start_object = json.loads(start.Json())
-                end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
-                end_object = json.loads(end.Json())
-                self.AddPoint(clip.data['alpha'], start_object)
-                self.AddPoint(clip.data['alpha'], end_object)
+                if action in [MenuFade.IN_FAST, MenuFade.IN_SLOW]:
+                    # Add keyframes
+                    start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+                    start_object = json.loads(start.Json())
+                    end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
+                    end_object = json.loads(end.Json())
+                    self.AddPoint(clip.data['alpha'], start_object)
+                    self.AddPoint(clip.data['alpha'], end_object)
 
-            if action in [MenuFade.OUT_FAST, MenuFade.OUT_SLOW]:
-                # Add keyframes
-                start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
-                start_object = json.loads(start.Json())
-                end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
-                end_object = json.loads(end.Json())
-                self.AddPoint(clip.data['alpha'], start_object)
-                self.AddPoint(clip.data['alpha'], end_object)
+                if action in [MenuFade.OUT_FAST, MenuFade.OUT_SLOW]:
+                    # Add keyframes
+                    start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+                    start_object = json.loads(start.Json())
+                    end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
+                    end_object = json.loads(end.Json())
+                    self.AddPoint(clip.data['alpha'], start_object)
+                    self.AddPoint(clip.data['alpha'], end_object)
 
-            # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+                # Save changes
+                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=tid)
+        finally:
+            # Reset transaction id only if we created it (not if it was passed in)
+            if not transaction_id:
+                get_app().updates.transaction_id = None
 
     @pyqtSlot(str, str, float)
     def RazorSliceAtCursor(self, clip_id, trans_id, cursor_position):
@@ -2145,7 +2166,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             trans.data["position"] -= ripple_gap
             trans.save()
 
-    def Volume_Triggered(self, action, clip_ids, position="Entire Clip", level=1.0):
+    def Volume_Triggered(self, action, clip_ids, position="Entire Clip", level=1.0, transaction_id=None):
         """Callback for volume context menus"""
         log.debug(action)
 
@@ -2154,117 +2175,128 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         fps_float = float(fps["num"]) / float(fps["den"])
         clips_with_waveforms = []
 
-        # Loop through each selected clip
-        for clip_id in clip_ids:
+        # Create a transaction ID for all operations in this function (if not provided)
+        tid = transaction_id or self.get_uuid()
 
-            # Get existing clip object
-            clip = Clip.get(id=clip_id)
-            if not clip:
-                # Invalid clip, skip to next item
-                continue
+        try:
+            # Set transaction ID
+            get_app().updates.transaction_id = tid
 
-            start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
-            end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+            # Loop through each selected clip
+            for clip_id in clip_ids:
 
-            # Determine the beginning and ending of this animation
-            # ["Start of Clip", "End of Clip", "Entire Clip"]
-            start_animation = start_of_clip
-            end_animation = end_of_clip
-            if position == "Start of Clip" and action in [
-                MenuVolume.FADE_IN_FAST,
-                MenuVolume.FADE_OUT_FAST
-            ]:
+                # Get existing clip object
+                clip = Clip.get(id=clip_id)
+                if not clip:
+                    # Invalid clip, skip to next item
+                    continue
+
+                start_of_clip = round(float(clip.data["start"]) * fps_float) + 1
+                end_of_clip = round(float(clip.data["end"]) * fps_float) + 1
+
+                # Determine the beginning and ending of this animation
+                # ["Start of Clip", "End of Clip", "Entire Clip"]
                 start_animation = start_of_clip
-                end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
-
-            elif position == "Start of Clip" and action in [
-                MenuVolume.FADE_IN_SLOW,
-                MenuVolume.FADE_OUT_SLOW
-            ]:
-                start_animation = start_of_clip
-                end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
-
-            elif position == "End of Clip" and action in [
-                MenuVolume.FADE_IN_FAST,
-                MenuVolume.FADE_OUT_FAST
-            ]:
-                start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
                 end_animation = end_of_clip
+                if position == "Start of Clip" and action in [
+                    MenuVolume.FADE_IN_FAST,
+                    MenuVolume.FADE_OUT_FAST
+                ]:
+                    start_animation = start_of_clip
+                    end_animation = min(start_of_clip + (1.0 * fps_float), end_of_clip)
 
-            elif position == "End of Clip" and action in [
-                MenuVolume.FADE_IN_SLOW,
-                MenuVolume.FADE_OUT_SLOW
-            ]:
-                start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
-                end_animation = end_of_clip
+                elif position == "Start of Clip" and action in [
+                    MenuVolume.FADE_IN_SLOW,
+                    MenuVolume.FADE_OUT_SLOW
+                ]:
+                    start_animation = start_of_clip
+                    end_animation = min(start_of_clip + (3.0 * fps_float), end_of_clip)
 
-            elif position == "Start of Clip":
-                # Only used when setting levels (a single keyframe)
-                start_animation = start_of_clip
-                end_animation = start_of_clip
+                elif position == "End of Clip" and action in [
+                    MenuVolume.FADE_IN_FAST,
+                    MenuVolume.FADE_OUT_FAST
+                ]:
+                    start_animation = max(1.0, end_of_clip - (1.0 * fps_float))
+                    end_animation = end_of_clip
 
-            elif position == "End of Clip":
-                # Only used when setting levels (a single keyframe)
-                start_animation = end_of_clip
-                end_animation = end_of_clip
+                elif position == "End of Clip" and action in [
+                    MenuVolume.FADE_IN_SLOW,
+                    MenuVolume.FADE_OUT_SLOW
+                ]:
+                    start_animation = max(1.0, end_of_clip - (3.0 * fps_float))
+                    end_animation = end_of_clip
 
-            # Fade in and out (special case)
-            if position == "Entire Clip" and action == MenuVolume.FADE_IN_OUT_FAST:
-                # Call this method for the start and end of the clip
-                self.Volume_Triggered(MenuVolume.FADE_IN_FAST, clip_ids, "Start of Clip")
-                self.Volume_Triggered(MenuVolume.FADE_OUT_FAST, clip_ids, "End of Clip")
-                return
-            if position == "Entire Clip" and action == MenuVolume.FADE_IN_OUT_SLOW:
-                # Call this method for the start and end of the clip
-                self.Volume_Triggered(MenuVolume.FADE_IN_SLOW, clip_ids, "Start of Clip")
-                self.Volume_Triggered(MenuVolume.FADE_OUT_SLOW, clip_ids, "End of Clip")
-                return
+                elif position == "Start of Clip":
+                    # Only used when setting levels (a single keyframe)
+                    start_animation = start_of_clip
+                    end_animation = start_of_clip
 
-            if action == MenuVolume.NONE:
-                # Clear all keyframes
-                p = openshot.Point(1, 1.0, openshot.BEZIER)
-                p_object = json.loads(p.Json())
-                clip.data['volume'] = {"Points": [p_object]}
+                elif position == "End of Clip":
+                    # Only used when setting levels (a single keyframe)
+                    start_animation = end_of_clip
+                    end_animation = end_of_clip
 
-            if action in [
-                MenuVolume.FADE_IN_FAST,
-                MenuVolume.FADE_IN_SLOW
-            ]:
-                # Add keyframes
-                start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
-                start_object = json.loads(start.Json())
-                end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
-                end_object = json.loads(end.Json())
-                self.AddPoint(clip.data['volume'], start_object)
-                self.AddPoint(clip.data['volume'], end_object)
+                # Fade in and out (special case)
+                if position == "Entire Clip" and action == MenuVolume.FADE_IN_OUT_FAST:
+                    # Call this method for the start and end of the clip
+                    self.Volume_Triggered(MenuVolume.FADE_IN_FAST, clip_ids, "Start of Clip", transaction_id=tid)
+                    self.Volume_Triggered(MenuVolume.FADE_OUT_FAST, clip_ids, "End of Clip", transaction_id=tid)
+                    return
+                if position == "Entire Clip" and action == MenuVolume.FADE_IN_OUT_SLOW:
+                    # Call this method for the start and end of the clip
+                    self.Volume_Triggered(MenuVolume.FADE_IN_SLOW, clip_ids, "Start of Clip", transaction_id=tid)
+                    self.Volume_Triggered(MenuVolume.FADE_OUT_SLOW, clip_ids, "End of Clip", transaction_id=tid)
+                    return
 
-            if action in [
-                MenuVolume.FADE_OUT_FAST,
-                MenuVolume.FADE_OUT_SLOW
-            ]:
-                # Add keyframes
-                start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
-                start_object = json.loads(start.Json())
-                end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
-                end_object = json.loads(end.Json())
-                self.AddPoint(clip.data['volume'], start_object)
-                self.AddPoint(clip.data['volume'], end_object)
+                if action == MenuVolume.NONE:
+                    # Clear all keyframes
+                    p = openshot.Point(1, 1.0, openshot.BEZIER)
+                    p_object = json.loads(p.Json())
+                    clip.data['volume'] = {"Points": [p_object]}
 
-            if action == MenuVolume.LEVEL:
-                # Add keyframes
-                p = openshot.Point(start_animation, float(level) / 100.0, openshot.BEZIER)
-                p_object = json.loads(p.Json())
-                self.AddPoint(clip.data['volume'], p_object)
+                if action in [
+                    MenuVolume.FADE_IN_FAST,
+                    MenuVolume.FADE_IN_SLOW
+                ]:
+                    # Add keyframes
+                    start = openshot.Point(start_animation, 0.0, openshot.BEZIER)
+                    start_object = json.loads(start.Json())
+                    end = openshot.Point(end_animation, 1.0, openshot.BEZIER)
+                    end_object = json.loads(end.Json())
+                    self.AddPoint(clip.data['volume'], start_object)
+                    self.AddPoint(clip.data['volume'], end_object)
 
-            # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+                if action in [
+                    MenuVolume.FADE_OUT_FAST,
+                    MenuVolume.FADE_OUT_SLOW
+                ]:
+                    # Add keyframes
+                    start = openshot.Point(start_animation, 1.0, openshot.BEZIER)
+                    start_object = json.loads(start.Json())
+                    end = openshot.Point(end_animation, 0.0, openshot.BEZIER)
+                    end_object = json.loads(end.Json())
+                    self.AddPoint(clip.data['volume'], start_object)
+                    self.AddPoint(clip.data['volume'], end_object)
 
-            # Add any clips with waveforms to a list
-            if clip.data.get("ui", {}).get("audio_data", []):
-                clips_with_waveforms.append(clip.id)
+                if action == MenuVolume.LEVEL:
+                    # Add keyframes
+                    p = openshot.Point(start_animation, float(level) / 100.0, openshot.BEZIER)
+                    p_object = json.loads(p.Json())
+                    self.AddPoint(clip.data['volume'], p_object)
 
-        # Update waveforms of all clips that have them
-        self.Show_Waveform_Triggered(clips_with_waveforms)
+                # Save changes
+                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True, transaction_id=tid)
+
+                # Add any clips with waveforms to a list
+                if clip.data.get("ui", {}).get("audio_data", []):
+                    clips_with_waveforms.append(clip.id)
+
+            # Update waveforms of all clips that have them
+            self.Show_Waveform_Triggered(clips_with_waveforms)
+        finally:
+            # Reset transaction id only if we created it (not if it was passed in)
+            if not transaction_id:
+                get_app().updates.transaction_id = None
 
     def Rotate_Triggered(self, action, clip_ids, position="Start of Clip"):
         """Callback for rotate context menus"""
@@ -3457,4 +3489,3 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Connect Selection signals
         self.window.SelectionChanged.connect(self.handle_selection)
-

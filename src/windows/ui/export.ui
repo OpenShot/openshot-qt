@@ -442,6 +442,36 @@
            <string>Profile</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
+           <item row="8" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_28">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="lblSpherical">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>360° / Spherical:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="cboSpherical">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
            <item row="0" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>

@@ -1,0 +1,91 @@
+{
+  "name": "360° Video Profiles",
+  "abbreviation": "360V",
+  "description": "Common 360° equirectangular (2:1 DAR) resolutions and frame rates",
+  "category": "spherical",
+  "profiles": [
+    {
+      "name": "Samsung Gear 360 (2016)",
+      "notes": "4K 360°",
+      "width": 3840,
+      "height": 1920,
+      "fps": [
+        { "num": 30, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "Samsung Gear 360 (2017)",
+      "notes": "DCI-4K 360°",
+      "width": 4096,
+      "height": 2048,
+      "fps": [
+        { "num": 24, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "GoPro Fusion 5.2K",
+      "notes": "5.2K 360°",
+      "width": 4992,
+      "height": 2496,
+      "fps": [
+        { "num": 30, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "GoPro Fusion 3K",
+      "notes": "3K 360°",
+      "width": 3008,
+      "height": 1504,
+      "fps": [
+        { "num": 60, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "GoPro Max 5.6K",
+      "notes": "5.6K 360°",
+      "width": 5760,
+      "height": 2880,
+      "fps": [
+        { "num": 30, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "GoPro Max 3K",
+      "notes": "3K 360°",
+      "width": 2880,
+      "height": 1440,
+      "fps": [
+        { "num": 60, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "Insta360 X3 5.7K",
+      "notes": "5.7K 360°",
+      "width": 5760,
+      "height": 2880,
+      "fps": [
+        { "num": 30, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } },
+        { "num": 25, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } },
+        { "num": 24, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    },
+    {
+      "name": "Insta360 X3 4K",
+      "notes": "4K 360°",
+      "width": 3840,
+      "height": 1920,
+      "fps": [
+        { "num": 60, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } },
+        { "num": 30, "den": 1, "progressive": true, "dar": { "num": 2, "den": 1 }, "notes": "", "sar": { "num": 1, "den": 1 } }
+      ],
+      "spherical": true
+    }
+  ]
+}

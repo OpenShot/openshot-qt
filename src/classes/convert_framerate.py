@@ -46,6 +46,10 @@ def remove_gaps(clips, new_profile):
     for i in range(1, len(clips)):
         current_clip = clips[i]
         previous_clip = clips[i - 1]
+        if 'start' not in current_clip or 'start' not in previous_clip:
+            continue
+        if 'end' not in current_clip or 'end' not in previous_clip:
+            continue
 
         # Calculate the right edge of the previous clip
         previous_clip_right_edge = snap_to_new_fps_grid(previous_clip['position'] + (previous_clip['end'] - previous_clip['start']))
@@ -76,8 +80,10 @@ def change_profile(clips, new_profile):
     for clip in clips:
         # Update position, start, and end to the new profile's FPS grid
         clip['position'] = snap_to_new_fps_grid(clip['position'])
-        clip['start'] = snap_to_new_fps_grid(clip['start'])
-        clip['end'] = snap_to_new_fps_grid(clip['end'])
+        if 'start' in clip:
+            clip['start'] = snap_to_new_fps_grid(clip['start'])
+        if 'end' in clip:
+            clip['end'] = snap_to_new_fps_grid(clip['end'])
 
     # After snapping to the new grid, remove gaps by adjusting the "end" attribute
     return remove_gaps(clips, new_profile)

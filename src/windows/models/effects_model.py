@@ -166,11 +166,7 @@ class EffectsModel(QObject):
 
                 except Exception:
                     # Handle exception
-                    log.info('Invalid effect image file: %s' % icon_path)
-                    msg = QMessageBox()
-                    msg.setText(_("{} is not a valid image file.".format(icon_path)))
-                    msg.exec_()
-                    continue
+                    log.warning("{} is not a valid image file.".format(icon_path))
 
             row = []
 

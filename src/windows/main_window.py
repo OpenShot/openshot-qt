@@ -2710,6 +2710,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self.selected_transitions.remove(item_id)
             elif item_type == "effect" and item_id in self.selected_effects:
                 self.selected_effects.remove(item_id)
+            elif item_id:
+                # Fallback (wrong type or missing type)
+                # When the UNDO system deletes an object, this happens
+                if item_id in self.selected_clips:
+                    self.selected_clips.remove(item_id)
+                elif item_id in self.selected_transitions:
+                    self.selected_transitions.remove(item_id)
+                elif item_id in self.selected_effects:
+                    self.selected_effects.remove(item_id)
 
         if not self.selected_clips and not self.selected_effects and not self.selected_transitions:
             # Clear properties view (if no other items are selected)

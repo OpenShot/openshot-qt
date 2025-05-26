@@ -144,7 +144,7 @@ class ProfilesTreeView(QTreeView):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWordWrap(True)
         self.setStyleSheet('QTreeView::item { padding-top: 2px; }')
-        self.columns = 6
+        self.columns = 7
         self.selected_profile_object = None
         self.last_inserted_row_index = None
         self.model().rowsInserted.connect(self.on_rows_inserted)

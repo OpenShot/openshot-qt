@@ -655,11 +655,16 @@ class PropertiesModel(updates.UpdateInterface):
                     # Transition
                     clip_updated = True
                     try:
-                        clip_object = openshot.Clip(value)
-                        clip_object.Open()
-                        clip_data[property_key] = json.loads(clip_object.Reader().Json())
-                        clip_object.Close()
-                        clip_object = None
+                        if value:
+                            # Set a new source
+                            clip_object = openshot.Clip(value)
+                            clip_object.Open()
+                            clip_data[property_key] = json.loads(clip_object.Reader().Json())
+                            clip_object.Close()
+                            clip_object = None
+                        else:
+                            # Clear the source (set to a dict with a type field)
+                            clip_data[property_key] = {"type": ""}
                     except Exception:
                         log.warn('Invalid Reader value passed to property: %s', value, exc_info=1)
 
@@ -809,11 +814,12 @@ class PropertiesModel(updates.UpdateInterface):
 
             if type == "color":
                 # Color needs to be handled special
-                red = int(property[1]["red"]["value"])
-                green = int(property[1]["green"]["value"])
-                blue = int(property[1]["blue"]["value"])
-                alpha = int(property[1]["alpha"]["value"])
-                col.setBackground(QColor(red, green, blue, alpha))
+                vals = property[1]
+                # r, g, b
+                r, g, b = (int(vals[c]["value"]) for c in ("red", "green", "blue"))
+                # alpha falls back to vals["max"] (usually 255) if missing
+                a = int(vals.get("alpha", {}).get("value", vals.get("max", 255.0)))
+                col.setBackground(QColor(r, g, b, a))
 
             if readonly or type in ["color", "font", "caption"] or choices or label == "Track":
                 col.setFlags(Qt.ItemIsEnabled)
@@ -911,11 +917,12 @@ class PropertiesModel(updates.UpdateInterface):
 
             if type == "color":
                 # Update the color based on the color curves
-                red = int(property[1]["red"]["value"])
-                green = int(property[1]["green"]["value"])
-                blue = int(property[1]["blue"]["value"])
-                alpha = int(property[1]["alpha"]["value"])
-                col.setBackground(QColor(red, green, blue, alpha))
+                vals = property[1]
+                # r, g, b
+                r, g, b = (int(vals[c]["value"]) for c in ("red", "green", "blue"))
+                # alpha falls back to vals["max"] (usually 255) if missing
+                a = int(vals.get("alpha", {}).get("value", vals.get("max", 255.0)))
+                col.setBackground(QColor(r, g, b, a))
 
             # Update helper dictionary
             row.append(col)

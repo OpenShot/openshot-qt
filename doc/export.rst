@@ -90,19 +90,20 @@ OpenShot.*
 .. image:: images/export-advanced-profile.jpg
 
 .. table::
-   :widths: 10 30
+   :widths: 10 80
 
-   ==================  ============
+   ==================  =============================================================================
    Profile Setting     Description
-   ==================  ============
+   ==================  =============================================================================
    Profile             The video profile to use during export (collection of size, frame rate, and aspect ratios, see :ref:`profile_list_ref`)
    Width               The width of the video export (in pixels)
    Height              The height of the video export (in pixels)
-   Aspect Ratio        The aspect ratio of the final exported video. 1920x1080 reduces to 16:9. This also takes into account the pixel ratio, for example 2:1 rectangular pixels will affect the aspect ratio.
+   Aspect Ratio        The aspect ratio of the final exported video. 1920×1080 reduces to 16:9. This also takes into account the pixel ratio, for example 2:1 rectangular pixels will affect the aspect ratio.
    Pixel Ratio         The ratio representing pixel shape. Most video profiles use a 1:1 square pixel shape, but others will use rectangular pixels.
    Frame Rate          The frequency that the frames will be displayed at.
    Interlaced          Is this format used on alternating scan lines (i.e. broadcast and analog formats)
-   ==================  ============
+   Spherical           When enabled, injects spherical 360° metadata (SV3D atom) into the exported file so compatible players immediately recognize it as a 360° video.
+   ==================  =============================================================================
 
 Image Sequence Settings
 ^^^^^^^^^^^^^^^^^^^^^^^

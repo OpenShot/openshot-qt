@@ -69,7 +69,7 @@ class ProfilesModel:
 
         # Add Headers
         self.model.setHorizontalHeaderLabels([_("Key"), _("Description"), _("Width"), _("Height"),
-                                              _("FPS"), _("DAR"), _("SAR")])
+                                              _("FPS"), _("DAR"), _("SAR"), _("360°")])
 
         for profile in self.profiles_list:
 
@@ -131,6 +131,9 @@ class ProfilesModel:
         self.model.setData(self.model.index(row, 5), f"{profile.info.display_ratio.num}:{profile.info.display_ratio.den}", Qt.DisplayRole)
         self.model.setData(self.model.index(row, 6), f"{profile.info.pixel_ratio.num}:{profile.info.pixel_ratio.den}", Qt.DisplayRole)
 
+        # Add spherical flag
+        self.model.setData(self.model.index(row, 7), "Yes" if profile.info.spherical else "No", Qt.DisplayRole)
+
     def _insert_row(self, profile):
         """Insert a new row into the model."""
         row = []
@@ -169,6 +172,11 @@ class ProfilesModel:
         item.setFlags(flags)
         row.append(item)
 
+        # Add spherical flag
+        item = QStandardItem("Yes" if profile.info.spherical else "No")
+        item.setFlags(flags)
+        row.append(item)
+
         self.model.appendRow(row)
 
     def __init__(self, profiles, *args):
@@ -178,7 +186,7 @@ class ProfilesModel:
         # Create standard model
         self.app = get_app()
         self.model = ProfilesStandardItemModel()
-        self.model.setColumnCount(6)
+        self.model.setColumnCount(7)
         self.profiles_list = profiles
 
         # Create proxy model (for sorting and filtering)

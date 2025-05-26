@@ -246,7 +246,6 @@ img {
 .playhead-line {
   z-index: 9999;
   position: absolute;
-  height: 316px;
   top: 0;
   width: 2px;
   background-color: #ff0024;
@@ -569,7 +568,6 @@ img {
 .snapping-line {
   z-index: 9998;
   position: absolute;
-  height: 316px;
   top: 0;
   width: 1px;
   background-color: #32b7ea;

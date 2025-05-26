@@ -9,7 +9,7 @@ export QT_PLUGIN_PATH="${HERE}"
 
 # For Debian-based systems with newer openssl, see:
 # https://github.com/OpenShot/openshot-qt/issues/3242
-# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=918727 
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=918727
 export OPENSSL_CONF="/dev/null"
 
 # Launch application

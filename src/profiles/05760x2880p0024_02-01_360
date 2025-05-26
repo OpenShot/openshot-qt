@@ -1,0 +1,11 @@
+description=5.7K 360° 2880p 24 fps
+frame_rate_num=24
+frame_rate_den=1
+width=5760
+height=2880
+progressive=1
+sample_aspect_num=1
+sample_aspect_den=1
+display_aspect_num=2
+display_aspect_den=1
+spherical=1

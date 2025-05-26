@@ -102,7 +102,7 @@
      </item>
     </layout>
    </item>
-   <item row="10" column="0">
+   <item row="11" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -235,6 +235,36 @@
      </item>
     </layout>
    </item>
+   <item row="10" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_16">
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lblSpherical">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>360° / Spherical:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cboSpherical">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="8" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_13">
      <item>
@@ -346,6 +376,7 @@
   <tabstop>txtPixelRatioNum</tabstop>
   <tabstop>txtPixelRatioDen</tabstop>
   <tabstop>cboInterlaced</tabstop>
+  <tabstop>cboSpherical</tabstop>
  </tabstops>
  <resources/>
  <connections>
