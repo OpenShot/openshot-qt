@@ -59,12 +59,12 @@ class EffectsProxyModel(QSortFilterProxyModel):
             # Return, if regExp match in displayed format.
             if get_app().window.actionEffectsShowVideo.isChecked():
                 return effect_type == "Video" and \
-                       self.filterRegExp().indexIn(effect_name) >= 0 and \
-                       self.filterRegExp().indexIn(effect_desc) >= 0
+                    (self.filterRegExp().indexIn(effect_name) >= 0 or
+                     self.filterRegExp().indexIn(effect_desc) >= 0)
             else:
                 return effect_type == "Audio" and \
-                       self.filterRegExp().indexIn(effect_name) >= 0 and \
-                       self.filterRegExp().indexIn(effect_desc) >= 0
+                    (self.filterRegExp().indexIn(effect_name) >= 0 or
+                     self.filterRegExp().indexIn(effect_desc) >= 0)
 
         # Continue running built-in parent filter logic
         return super(EffectsProxyModel, self).filterAcceptsRow(sourceRow, sourceParent)
@@ -126,15 +126,6 @@ class EffectsModel(QObject):
                 category = "Audio"
             elif effect_info["has_video"] and not effect_info["has_audio"]:
                 category = "Video"
-
-            # Filter out effect (if needed)
-            if (
-                win.effectsFilter.text() != ""
-                and win.effectsFilter.text().lower() not in self.app._tr(title).lower()
-                and win.effectsFilter.text().lower() not in self.app._tr(description).lower()
-            ):
-                continue
-
 
             # Check for thumbnail path (in build-in cache)
             thumb_path = os.path.join(info.IMAGES_PATH, "cache", icon_name)
@@ -230,11 +221,12 @@ class EffectsModel(QObject):
 
         # Create proxy model (for sorting and filtering)
         self.proxy_model = EffectsProxyModel()
-        self.proxy_model.setDynamicSortFilter(False)
+        self.proxy_model.setDynamicSortFilter(True)
         self.proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
         self.proxy_model.setSortCaseSensitivity(Qt.CaseSensitive)
         self.proxy_model.setSourceModel(self.model)
         self.proxy_model.setSortLocaleAware(True)
+        self.proxy_model.setFilterKeyColumn(-1)
 
         # Create selection model to share between views
         self.selection_model = QItemSelectionModel(self.proxy_model)

@@ -702,6 +702,51 @@ class PropertiesTableView(QTableView):
                 # Add root transitions choice
                 self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
 
+            elif property_key == "lut_path":
+                # “None” option
+                self.choices = [{"name": _("None"), "value": "", "selected": False, "icon": None}]
+
+                def _gather(dir_path):
+                    try:
+                        names = sorted(os.listdir(dir_path), key=str.lower)
+                    except OSError:
+                        return []
+                    result = []
+                    for name in names:
+                        full = os.path.join(dir_path, name)
+                        pretty = _(name.replace("_", " ").title()).replace("&", "&&")
+                        if os.path.isdir(full):
+                            # folder → submenu
+                            children = [
+                                {"name": _(os.path.splitext(fn)[0]
+                                           .replace("_", " ")
+                                           .title()).replace("&", "&&"),
+                                 "value": os.path.join(full, fn),
+                                 "selected": False,
+                                 "icon": None}
+                                for fn in sorted(os.listdir(full), key=str.lower)
+                                if fn.lower().endswith(".cube")
+                            ]
+                            if children:
+                                result.append({"name": pretty, "value": children})
+                        elif name.lower().endswith(".cube"):
+                            # loose .cube file
+                            result.append({
+                                "name": pretty,
+                                "value": full,
+                                "selected": False,
+                                "icon": None
+                            })
+                    return result
+
+                # user-defined group
+                user_choices = _gather(info.USER_COLORS_PATH)
+                if user_choices:
+                    self.choices.append({"name": _("User-Defined"), "value": user_choices})
+
+                # built-in LUTs
+                self.choices.extend(_gather(info.COLORS_PATH))
+
             # Handle reader type values
             if property_name == "Track" and self.property_type == "int" and not self.choices:
                 # Populate all display track names

@@ -66,6 +66,7 @@ the name and short description of each effect.
    Brightness & Contrast          Modify frame's brightness and contrast.
    Caption                        Add text captions to any clip.
    Chroma Key (Greenscreen)       Replace color with transparency.
+   Color Map / Lookup             Adjust colors using 3D LUT lookup tables (.cube format)
    Color Saturation               Adjust color intensity.
    Color Shift                    Shift image colors in various directions.
    Crop                           Crop out parts of your video.
@@ -324,6 +325,226 @@ impossible or impractical to shoot in.
    halo                        ``(float, 0 to 125)`` The additional threshold for halo elimination.
    keymethod                   ``(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])`` The keying method or algorithm to use.
    ==========================  ============
+
+Color Map / Lookup
+""""""""""""""""""
+The Color Map effect applies a 3D LUT (Lookup Table) to your footage, instantly transforming its
+colors to achieve a consistent look or mood. A 3D LUT is simply a table that remaps every input hue to a new output
+palette. With separate keyframe curves for red, green, and blue channels, you can precisely control, and even
+animate, how much each channel is influenced by the LUT, making it easy to fine-tune or blend your grade over time.
+
+LUT files (`.cube` format) can be downloaded from many online resources, including free packs on
+photography blogs or marketplaces, such as https://freshluts.com/. OpenShot includes a selection of popular LUTs
+designed for **Rec 709** gamma out of the box.
+
+.. table::
+   :widths: 20 80
+
+   ===================  ========================================================================
+   Property Name        Description
+   ===================  ========================================================================
+   lut_path             ``(string)`` Filesystem path to the `.cube` LUT file.
+   intensity            ``(float, 0.0 to 1.0)`` % Blending overall intensity (0.0 = no LUT, 1.0 = full LUT).
+   intensity_r          ``(float, 0.0 to 1.0)`` % Blending the LUT’s red channel (0.0 = no LUT, 1.0 = full LUT).
+   intensity_g          ``(float, 0.0 to 1.0)`` % Blending the LUT’s green channel (0.0 = no LUT, 1.0 = full LUT).
+   intensity_b          ``(float, 0.0 to 1.0)`` % Blending the LUT’s blue channel (0.0 = no LUT, 1.0 = full LUT).
+   ===================  ========================================================================
+
+Gamma and Rec 709
+^^^^^^^^^^^^^^^^^
+Gamma is the way video systems brighten or darken the midtones of an image. **Rec 709** is the standard gamma curve
+used for most HD and online video today. By shipping with **Rec 709** LUTs, OpenShot makes it simple to apply a grade
+that matches the vast majority of footage you’ll edit.
+
+If your camera or workflow uses a different gamma (for example a LOG profile), you can still use a LUT made for
+that curve. Simply use a `.cube` file designed for your gamma under the Color Map effect’s **LUT Path**.
+Just be sure your footage gamma matches the LUT gamma—or the colors may look incorrect.
+
+The following **Rec 709** LUT files are included in OpenShot, organized into the following categories:
+
+Cinematic & Blockbuster
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. container:: gallery
+
+   .. image:: images/colors/cinematic_&_blockbuster_bold_red_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_city_neon_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_cool_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_dreamy_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_elegant_dark_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_heroic_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_romantic_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_sunlit_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_teal_&_orange_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_teal_cinema.jpg
+      :width: 30%
+
+   .. image:: images/colors/cinematic_&_blockbuster_warm_cinema.jpg
+      :width: 30%
+
+
+Dark & Moody
+^^^^^^^^^^^^
+
+.. container:: gallery
+
+   .. image:: images/colors/dark_&_moody_city_night_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_cold_shadows.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_cool_haze.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_dramatic_warmth.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_icy_drama.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_mystic_emerald_drama.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_night_glow.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_noir_era.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_retro_red_shadows.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_spy_night.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_teal_horror.jpg
+      :width: 30%
+
+   .. image:: images/colors/dark_&_moody_woodland_drama.jpg
+      :width: 30%
+
+
+Film Stock & Vintage
+^^^^^^^^^^^^^^^^^^^^
+
+.. container:: gallery
+
+   .. image:: images/colors/film_stock_&_vintage_classic_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_dark_orange_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_emerald_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_faded_memories.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_golden_wood_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_golden_years_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_green_film_pop.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_low_key_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_red_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_standard_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_vintage_400_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_vintage_green_film.jpg
+      :width: 30%
+
+   .. image:: images/colors/film_stock_&_vintage_warm_roast_film.jpg
+      :width: 30%
+
+Teal & Orange Vibes
+^^^^^^^^^^^^^^^^^^^
+
+.. container:: gallery
+
+   .. image:: images/colors/teal_&_orange_vibes_moonlight_orange.jpg
+      :width: 30%
+
+   .. image:: images/colors/teal_&_orange_vibes_signature_teal_&_orange.jpg
+      :width: 30%
+
+   .. image:: images/colors/teal_&_orange_vibes_sunset_orange.jpg
+      :width: 30%
+
+   .. image:: images/colors/teal_&_orange_vibes_teal_punch.jpg
+      :width: 30%
+
+   .. image:: images/colors/teal_&_orange_vibes_tropical_teal.jpg
+      :width: 30%
+
+   .. image:: images/colors/teal_&_orange_vibes_western_sunset.jpg
+      :width: 30%
+
+
+Utility & Correction
+^^^^^^^^^^^^^^^^^^^^
+
+.. container:: gallery
+
+   .. image:: images/colors/utility_&_correction_clean_&_denoise.jpg
+      :width: 30%
+
+   .. image:: images/colors/utility_&_correction_protect_highlights.jpg
+      :width: 30%
+
+   .. image:: images/colors/utility_&_correction_warm_correction.jpg
+      :width: 30%
+
+
+Vibrant & Colorful
+^^^^^^^^^^^^^^^^^^
+
+.. container:: gallery
+
+   .. image:: images/colors/vibrant_&_colorful_color_pop.jpg
+      :width: 30%
+
+   .. image:: images/colors/vibrant_&_colorful_photo_contrast.jpg
+      :width: 30%
+
+   .. image:: images/colors/vibrant_&_colorful_valentine_pop.jpg
+      :width: 30%
+
+   .. image:: images/colors/vibrant_&_colorful_warm_pop.jpg
+      :width: 30%
+
+   .. image:: images/colors/vibrant_&_colorful_warm_to_cool.jpg
+      :width: 30%
 
 Color Saturation
 """"""""""""""""

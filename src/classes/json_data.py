@@ -39,7 +39,7 @@ from classes import info
 from classes.app import get_app
 
 # Compiled path regex
-path_regex = re.compile(r'"(image|path|protobuf_data_path)"\s*:\s*"(.*?)"')
+path_regex = re.compile(r'"(image|path|protobuf_data_path|lut_path)"\s*:\s*"(.*?)"')
 path_context = {}
 
 
@@ -234,6 +234,11 @@ class JsonDataStore:
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
+        elif "@colors" in path:
+            new_path = path.replace("@colors", os.path.join(info.COLORS_PATH))
+            new_path = json.dumps(new_path, ensure_ascii=False)
+            return '"%s": %s' % (key, new_path)
+
         elif "@emojis" in path:
             new_path = path.replace("@emojis", os.path.join(info.PATH, "emojis", "color", "svg"))
             new_path = json.dumps(new_path, ensure_ascii=False)
@@ -299,6 +304,12 @@ class JsonDataStore:
             new_path = os.path.join("@transitions", category_path, file_path).replace("\\", "/")
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
+
+        # Determine if @colors path is found
+        elif info.COLORS_PATH in folder_path:
+            rel = os.path.relpath(os.path.join(folder_path, file_path), info.COLORS_PATH)
+            path = json.dumps(f"@colors/{rel.replace(os.sep, '/')}", ensure_ascii=False)
+            return f'"{key}": {path}'
 
         # Determine if @emojis path is found
         elif os.path.join(info.PATH, "emojis") in folder_path:

@@ -156,46 +156,37 @@ for temp_file in temp_files:
     f.close()
 
 log.info("-----------------------------------------------------")
-log.info(" Scanning custom XML files and finding text")
+log.info(" Scanning effects & resources used by OpenShot")
 log.info("-----------------------------------------------------")
 
-# Loop through the Effects XML
+props = json.loads(openshot.Clip().PropertiesJSON(1))
+
+# Loop through props
 effects_text = {}
-for file in os.listdir(effects_path):
-    if os.path.isfile(os.path.join(effects_path, file)):
-        # load xml effect file
-        full_file_path = os.path.join(effects_path, file)
-        xmldoc = xml.parse(os.path.join(effects_path, file))
+for key in props.keys():
+    property = props[key]
+    if "name" in property:
+        effects_text[property["name"]] = "libopenshot (Clip Properties)"
+    if "choices" in property:
+        for choice in property["choices"]:
+            effects_text[choice["name"]] = "libopenshot (Clip Properties)"
 
-        # add text to list
-        effects_text[xmldoc.getElementsByTagName("title")[0].childNodes[0].data] = full_file_path
-        effects_text[xmldoc.getElementsByTagName("description")[0].childNodes[0].data] = full_file_path
-
-        # get params
-        params = xmldoc.getElementsByTagName("param")
-
-        # Loop through params
-        for param in params:
-            if param.attributes["title"]:
-                effects_text[param.attributes["title"].value] = full_file_path
-
-# Append on properties from libopenshot
-objects = [openshot.Clip(), openshot.Bars(), openshot.Blur(), openshot.Brightness(),
-           openshot.ChromaKey(), openshot.ColorShift(), openshot.Crop(), openshot.Deinterlace(), openshot.Hue(), openshot.Mask(),
-           openshot.Negate(), openshot.Pixelate(), openshot.Saturation(), openshot.Shift(), openshot.Wave()]
-
-# Loop through each libopenshot object
+# Loop through each libopenshot effect
+objects = json.loads(openshot.EffectInfo.Json())
 for object in objects:
-    props = json.loads(object.PropertiesJSON(1))
+    class_name = object.get("class_name")
+    props = json.loads(openshot.EffectInfo().CreateEffect(class_name).PropertiesJSON(1))
 
     # Loop through props
     for key in props.keys():
-        object = props[key]
-        if "name" in object:
-            effects_text[object["name"]] = "libopenshot (Clip Properties)"
+        property = props[key]
+        if key == "objects":
+            continue # Skip tracker / object detection property
+        if "name" in property:
+            effects_text[property["name"]] = "libopenshot (Effect Properties)"
         if "choices" in object:
-            for choice in object["choices"]:
-                effects_text[choice["name"]] = "libopenshot (Clip Properties)"
+            for choice in property["choices"]:
+                effects_text[choice["name"]] = "libopenshot (Effect Properties)"
 
 # Append Effect Init Data
 # Loop through props
@@ -218,12 +209,24 @@ for effect in props:
     if "description" in effect:
         effects_text[effect["description"]] = "libopenshot (Effect Metadata)"
 
+# Append LUT category and file names (for ColorMap effect)
+for folder in os.listdir(info.COLORS_PATH):
+    category_name = folder.replace("_", " ").title()
+    folder_path = os.path.join(info.COLORS_PATH, folder)
+    if os.path.isdir(folder_path):
+        for filename in os.listdir(folder_path):
+            basename, extension = os.path.splitext(filename)
+            if filename.endswith(".cube"):
+                lut_name = basename.replace("_", " ").title()
+                effects_text[category_name] = "ColorMap effect lookup (Category)"
+                effects_text[lut_name] = "ColorMap effect lookup (Name)"
+
 # Append Emoji Data
 emoji_text = { "translator-credits": "Translator credits to be translated by LaunchPad" }
 emoji_metadata_path = os.path.join(info.PATH, "emojis", "data", "openmoji-optimized.json")
 emoji_ignore_keys = ("Keyboard", "Sunset", "Key", "Right arrow", "Left arrow", "Bubbles",
                      "Twitter", "Instagram", "Scale", "Simple", "Close", "Forward", "Copy",
-                     "Filter", "Details", "Duplicate")
+                     "Filter", "Details", "Duplicate", "Edit", "Delete")
 with open(emoji_metadata_path, 'r', encoding="utf-8") as f:
     emoji_metadata = json.load(f)
 
