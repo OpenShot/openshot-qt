@@ -1,7 +1,18 @@
 stages:
+  - init-builders
   - build
   - deploy
   - publish
+
+init-builders:
+  stage: init-builders
+  except:
+    - tags
+  tags:
+    - gitlab
+  script:
+    - send-ci-sqs linux
+    - send-ci-sqs windows
 
 linux-builder:
   stage: build
@@ -161,6 +172,15 @@ windows-builder-x86:
   - tags
   tags:
     - windows
+
+re-init-builders:
+  stage: deploy
+  when: manual
+  tags:
+    - gitlab
+  script:
+    - send-ci-sqs linux
+    - send-ci-sqs windows
 
 deployer:
   stage: deploy

@@ -72,6 +72,7 @@ the name and short description of each effect.
    Crop                           Crop out parts of your video.
    Deinterlace                    Remove interlacing from video.
    Hue                            Adjust hue / color.
+   Lens Flare                     Simulate sunlight hitting a lens with flares.
    Negative                       Produce a negative image.
    Object Detector                Detect objects in video.
    Outline                        Add outline around any image or text.
@@ -647,6 +648,26 @@ the footage.
    ==========================  ============
    hue                         ``(float, 0 to 1)`` The curve to adjust the percentage of hue shift
    ==========================  ============
+
+Lens Flare
+""""""""""
+The Lens Flare effect simulates bright light hitting your camera lens, creating glowing halos, colored rings and
+gentle glares over your footage. Reflections are automatically placed along a line from the light source toward the
+center of the frame. You can animate any property with keyframes to follow your action or match your scene.
+
+.. table::
+   :widths: 26 80
+
+   ===================  ========================================================
+   Property Name        Description
+   ===================  ========================================================
+   x                    ``(float, -1 to 1)`` Horizontal position of the light source. -1 is left edge, 0 is center, +1 is right edge.
+   y                    ``(float, -1 to 1)`` Vertical position of the light source. -1 is top edge, 0 is center, +1 is bottom edge.
+   brightness           ``(float, 0 to 1)`` Overall glow strength and transparency. Higher values make brighter, more opaque flares.
+   size                 ``(float, 0.1 to 3)`` Scale of the entire flare effect. Larger values enlarge halos, rings and glows.
+   spread               ``(float, 0 to 1)`` How far secondary reflections travel. 0 keeps them close to the source, 1 pushes them all the way toward the opposite edge.
+   tint_color           ``(color)`` Shifts the flare colors to match your scene. Use the RGBA sliders to pick hue and transparency.
+   ===================  ========================================================
 
 Negative
 """"""""

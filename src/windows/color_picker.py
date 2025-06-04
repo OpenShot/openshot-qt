@@ -70,6 +70,28 @@ class BlockPaintFilter(QtCore.QObject):
         return super().eventFilter(obj, event)
 
 
+class PreviewFrameFilter(QtCore.QObject):
+    """
+    Intercepts paint events on the QColorDialog’s preview frame,
+    draws a checkerboard background + current hover/selected color.
+    """
+    def __init__(self, parent_dialog, get_color_callback):
+        super().__init__(parent_dialog)
+        self.get_color = get_color_callback
+
+    def eventFilter(self, obj, event):
+        if event.type() == QtCore.QEvent.Paint:
+            painter = QPainter(obj)
+            # Draw checkerboard inside the entire frame
+            draw_checkerboard(painter, obj.rect())
+            # Draw the overlay color
+            painter.setCompositionMode(QPainter.CompositionMode_SourceOver)
+            painter.fillRect(obj.rect(), self.get_color())
+            painter.end()
+            return True
+        return super().eventFilter(obj, event)
+
+
 class ColorPicker(QColorDialog):
     def __init__(self, initial_color, parent=None, title=None, callback=None, *args, **kwargs):
         # Initialize with parent only first
@@ -78,10 +100,6 @@ class ColorPicker(QColorDialog):
         self.callback = callback
         self.picked_pixmap = None
         self.hover_color = initial_color  # Track the color being hovered
-
-        # Keep track of the dialog dimensions to handle resizing
-        self.dialog_width = self.width()
-        self.dialog_height = self.height()
 
         if title:
             self.setWindowTitle(title)
@@ -101,57 +119,37 @@ class ColorPicker(QColorDialog):
         # Automatically open the dialog
         self.open()
 
-        # Calculate preview rectangle positions based on dialog size
+        # Install our preview-frame filter
         self.update_preview_rectangles()
 
     def update_preview_rectangles(self):
-        """Update the positions of preview rectangles based on current dialog size"""
+        """Find the built-in preview frame and install a filter on it."""
         all_frames = self.findChildren(QFrame)
         # Filter to exact QFrame instances (not subclasses)
         exact_frames = [w for w in all_frames if type(w) is QFrame]
+        if not exact_frames:
+            return
         preview_frame = exact_frames[-1]
-        if preview_frame:
-            # Map the top-left (0,0) of preview_frame to the dialog's coordinate system
-            topLeft = preview_frame.mapTo(self, QPoint(0, 0))
-            self.current_color_rect = QRect(topLeft, preview_frame.size())
-
-            # Install our paint blocking filter on the preview frame
-            filter = BlockPaintFilter(preview_frame)
-            preview_frame.installEventFilter(filter)
-            self._preview_paint_filter = filter
+        # Install a filter on the preview frame itself
+        filter = PreviewFrameFilter(self, lambda: self.currentColor())
+        preview_frame.installEventFilter(filter)
+        # Keep a reference so it is not garbage-collected
+        self._preview_frame_filter = filter
 
     def resizeEvent(self, event):
-        """Handle window resize events to update preview rectangle positions"""
+        """Handle window resize events to update preview frame filter."""
         super().resizeEvent(event)
-        #self.update_preview_rectangles()
+        self.update_preview_rectangles()
         self.update()  # Force repaint
 
     def on_current_color_changed(self, color):
-        """Track when the current color changes (hover or selection)"""
+        """Track when the current color changes (hover or selection)."""
         self.hover_color = color
-        self.update()  # Trigger a repaint
-
-    def paintEvent(self, event):
-        """Override paintEvent to add checkerboard pattern to color preview areas"""
-        # Call the parent class's paintEvent first
-        super().paintEvent(event)
-
-        # Create painter for our custom drawing
-        painter = QPainter(self)
-
-        # Draw checkerboard pattern under the current color
-        draw_checkerboard(painter, self.current_color_rect)
-
-        # Draw the current color with its alpha over the checkerboard
-        painter.setCompositionMode(QPainter.CompositionMode_SourceOver)
-        painter.fillRect(self.current_color_rect, self.currentColor())
-
-        painter.end()
+        self.update()  # Trigger a repaint of the preview frame
 
     def _override_pick_screen_color(self):
         # Get first pushbutton (color picker)
         color_picker_button = self.findChildren(QPushButton)[0]
-
         # Connect to button signals
         color_picker_button.clicked.disconnect()
         color_picker_button.clicked.connect(self.start_color_picking)

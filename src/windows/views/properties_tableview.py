@@ -396,7 +396,7 @@ class PropertiesTableView(QTableView):
                     currentColor = QColor(255, 0, 0, 255)
 
                 ColorPicker(
-                    currentColor, parent=self, title=_("Select a Color"),
+                    currentColor, parent=self.win, title=_("Select a Color"),
                     callback=self.color_callback)
                 return
 
@@ -924,7 +924,7 @@ class PropertiesTableView(QTableView):
             currentColor = QColor(255, 0, 0, 255)
 
         ColorPicker(
-            currentColor, parent=self, title=_("Select a Color"),
+            currentColor, parent=self.win, title=_("Select a Color"),
             callback=self.color_callback)
 
     def Insert_Action_Triggered(self):
