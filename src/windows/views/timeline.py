@@ -1702,6 +1702,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Variable to track the end of the last clip/transition
         last_end = found_start
+        moved_start = None
+        moved_gap_size = None
+        moved_end = None
+        last_end_max = None
 
         # List to track modified clips for saving
         modified_clips = []
@@ -1710,14 +1714,31 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         for clip in clips_and_transitions:
             left_edge = clip.data.get("position", 0.0)
             right_edge = left_edge + (clip.data.get("end", 0.0) - clip.data.get("start", 0.0))
+            if moved_start is not None and moved_start == left_edge:
+                clip.data["position"] -= moved_gap_size
+                modified_clips.append(clip)
+                log.info(f"Removing additional gap from {moved_end} to {left_edge} on layer {layer_number}")
+                last_end_max = max(right_edge - moved_gap_size, last_end)
+                continue
+            else:
+                moved_start = None
+                moved_gap_size = None
+                moved_end = None
+                if last_end_max is not None:
+                    last_end = last_end_max
+                    last_end_max = None
 
             # Check if there is a gap between the end of the last clip/transition and the start of the current one
             if left_edge > last_end:
                 gap_size = left_edge - last_end
+                moved_start = left_edge
+                moved_end = last_end
+                moved_gap_size = gap_size
                 clip.data["position"] -= gap_size
                 modified_clips.append(clip)
                 log.info(f"Removing gap from {last_end} to {left_edge} on layer {layer_number}")
                 last_end = right_edge - gap_size
+                last_end_max = last_end
             else:
                 last_end = max(last_end, right_edge)
 
