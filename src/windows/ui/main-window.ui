@@ -178,9 +178,15 @@
      <addaction name="separator"/>
      <addaction name="actionShow_All"/>
     </widget>
+    <widget class="QMenu" name="menuThemes">
+     <property name="title">
+      <string>Themes</string>
+     </property>
+    </widget>
     <addaction name="actionView_Toolbar"/>
     <addaction name="actionFullscreen"/>
     <addaction name="separator"/>
+    <addaction name="menuThemes"/>
     <addaction name="menuViews"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
