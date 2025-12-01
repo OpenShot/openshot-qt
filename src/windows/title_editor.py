@@ -409,7 +409,7 @@ class TitleEditor(QDialog):
         title_text = []
         for i, node in enumerate(self.tspan_nodes):
             if len(node.childNodes) < 1:
-                text = ""
+                text = "NOT UPDATABLE: previously empty field"
             else:
                 text = node.childNodes[0].data
             title_text.append(text)
