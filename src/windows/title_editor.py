@@ -213,10 +213,11 @@ class TitleEditor(QDialog):
 
         # Update text values in the SVG
         for i, node in enumerate(self.tspan_nodes):
-            if len(node.childNodes) > 0 and i <= (len(text_list) - 1):
+            if i <= (len(text_list) - 1):
                 new_text_node = self.xmldoc.createTextNode(text_list[i])
-                old_text_node = node.childNodes[0]
-                node.removeChild(old_text_node)
+                if len(node.childNodes) > 0:
+                    old_text_node = node.childNodes[0]
+                    node.removeChild(old_text_node)
                 # add new text node
                 node.appendChild(new_text_node)
 
