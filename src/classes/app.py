@@ -128,6 +128,7 @@ class OpenShotApp(QApplication):
         # Init data objects
         self.settings = settings.SettingStore(parent=self)
         self.settings.load()
+        self.apply_timeline_backend_preference()
         self.project = project_data.ProjectDataStore()
         self.updates = updates.UpdateManager()
         # It is important that the project is the first listener if the key gets update
@@ -200,6 +201,25 @@ class OpenShotApp(QApplication):
                 },
             level="error",
         ))
+
+    def apply_timeline_backend_preference(self):
+        """Select QWidget timeline backend if enabled and no CLI override exists."""
+        if not hasattr(self, "settings"):
+            return
+
+        # CLI flag overrides preference unless left as 'auto'
+        if getattr(self.info, "WEB_BACKEND", "auto") != "auto":
+            return
+
+        try:
+            use_qwidget = bool(self.settings.get("qwidget-based-timeline"))
+        except Exception:
+            self.log.debug("Unable to read qwidget-based timeline setting", exc_info=True)
+            return
+
+        if use_qwidget:
+            self.info.WEB_BACKEND = "qwidget"
+            self.log.info("Experimental timeline enabled via preferences; using QWidget backend.")
 
     def gui(self):
         """
@@ -338,4 +358,3 @@ def onLogTheEnd():
         import logging
         log = logging.getLogger(".")
         log.debug('Failed to write session ended log', exc_info=1)
-

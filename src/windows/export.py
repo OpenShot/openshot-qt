@@ -99,6 +99,8 @@ class Export(QDialog):
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
         self.close_button.setVisible(False)
         self.exporting = False
+        self.vbr = {}
+        self.abr = {}
 
         # Pause playback
         get_app().window.PauseSignal.emit()
@@ -505,6 +507,8 @@ class Export(QDialog):
         else:
             self.cboSpherical.setCurrentIndex(0)
 
+        self.update_all_formats_bitrates()
+
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
         log.info(selected_target)
@@ -515,6 +519,7 @@ class Export(QDialog):
         # don't do anything if the combo has been cleared
         if selected_target:
             profiles_list = []
+            v_l = v_m = v_h = a_l = a_m = a_h = None
 
             # Clear the following options (and remember current settings)
             previous_quality = self.cboSimpleQuality.currentIndex()
@@ -656,6 +661,9 @@ class Export(QDialog):
             if v_h or a_h:
                 self.cboSimpleQuality.addItem(_("High"), "High")
 
+            # Dynamically scale All Formats bitrates to the selected profile
+            self.update_all_formats_bitrates()
+
             # Default to the highest quality setting (or previous quality setting)
             if previous_quality <= self.cboSimpleQuality.count() - 1:
                 self.cboSimpleQuality.setCurrentIndex(previous_quality)
@@ -684,6 +692,7 @@ class Export(QDialog):
 
         # Populate the advanced profile list
         self.populateAllProfiles(selected_profile_path)
+        self.update_all_formats_bitrates()
 
     def populateAllProfiles(self, selected_profile_path):
         """Populate the full list of profiles"""
@@ -701,6 +710,9 @@ class Export(QDialog):
 
         # get translations
         _ = get_app()._tr
+
+        # Update dynamic bitrate (only used for All Formats)
+        self.update_all_formats_bitrates()
 
         # Set the video and audio bitrates
         if selected_quality:
@@ -1108,7 +1120,8 @@ class Export(QDialog):
 
                 # Write the frame object to the video
                 w.WriteFrame(self.timeline.GetFrame(frame))
-                self.cache_thread.Seek(frame)
+                if self.cache_thread:
+                    self.cache_thread.Seek(frame)
 
                 # Check if we need to bail out
                 if not self.exporting:
@@ -1177,8 +1190,10 @@ class Export(QDialog):
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
         # Stop cache thread and restore project cache
-        self.cache_thread.StopThread(10000)
-        self.cache_thread.Reader(None)
+        if self.cache_thread:
+            self.cache_thread.StopThread(10000)
+            self.cache_thread.Reader(None)
+            self.cache_thread = None
         get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
         get_app().window.cache_object = self.old_cache_object
 
@@ -1290,12 +1305,58 @@ class Export(QDialog):
         openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
 
         # Stop cache thread and restore project cache
-        self.cache_thread.StopThread(10000)
-        self.cache_thread.Reader(None)
-        self.cache_thread = None
+        if self.cache_thread:
+            self.cache_thread.StopThread(10000)
+            self.cache_thread.Reader(None)
+            self.cache_thread = None
         get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
         get_app().window.cache_object = self.old_cache_object
 
         # Cancel dialog
         self.exporting = False
         super(Export, self).reject()
+
+    def calculate_all_formats_bitrate(self, quality_key):
+        """Calculate a bitrate using bits-per-pixel guidance for All Formats presets."""
+        quality_bpp = {
+            "Low": 0.055,    # midpoint of 0.045 - 0.055
+            "Med": 0.08,     # midpoint of 0.065 - 0.08
+            "High": 0.12     # midpoint of 0.10 - 0.12
+        }
+        target_bpp = quality_bpp.get(quality_key)
+        if target_bpp is None:
+            return None
+
+        width = self.txtWidth.value()
+        height = self.txtHeight.value()
+        fps_den = self.txtFrameRateDen.value() or 1
+        fps = self.txtFrameRateNum.value() / fps_den
+
+        if not width or not height or not fps:
+            return None
+
+        bitrate_bits_per_sec = width * height * fps * target_bpp
+        bitrate_mbps = bitrate_bits_per_sec / 1_000_000.0
+        return f"{bitrate_mbps:.2f} Mb/s"
+
+    def update_all_formats_bitrates(self):
+        """Refresh dynamic video bitrates when using All Formats presets."""
+        _ = get_app()._tr
+        if self.cboSimpleProjectType.currentData() != _("All Formats"):
+            return
+
+        dynamic_vbr = {}
+        for key, translated in [("Low", _("Low")), ("Med", _("Med")), ("High", _("High"))]:
+            bitrate = self.calculate_all_formats_bitrate(key)
+            if bitrate:
+                dynamic_vbr[translated] = bitrate
+
+        if not dynamic_vbr:
+            return
+
+        self.vbr = dynamic_vbr
+        selected_quality = self.cboSimpleQuality.itemData(self.cboSimpleQuality.currentIndex())
+        if selected_quality:
+            translated_quality = _(selected_quality)
+            if translated_quality in self.vbr:
+                self.txtVideoBitRate.setText(self.vbr[translated_quality])

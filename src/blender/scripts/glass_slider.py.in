@@ -109,44 +109,85 @@ text_object1.font = font
 
 
 # TITLE - Change the material settings (color, alpha, etc...)
-material_object1 = bpy.data.materials["Title.Material"]
-material_object1.diffuse_color = params["diffuse_color"]
-material_object1.specular_color = params["specular_color"]
-material_object1.specular_intensity = params["specular_intensity"]
-bpy.data.materials["Title.Material"].node_tree.nodes[1].inputs[0].default_value = params["diffuse_color"]
+title_color_keyframes = [(params["start_frame"], params["diffuse_color"])]
+bg_color_keyframes = [(params["start_frame"], params["diffuse_color_bg"])]
+title_mat = keyframe_principled(
+    "Title.Material",
+    base_keyframes=title_color_keyframes,
+    emission_keyframes=title_color_keyframes,
+    emission_strength=(0.0, [f for f, _ in title_color_keyframes]),
+    viewport_color=params["diffuse_color"],
+    specular_value=params["specular_intensity"],
+    specular_color=params["specular_color"])
+if title_mat:
+    title_mat.specular_intensity = params["specular_intensity"]
+    title_mat.diffuse_color = ensure_rgba(params["diffuse_color"])
+    if title_mat.node_tree:
+        bsdf = title_mat.node_tree.nodes.get("Principled BSDF")
+        if bsdf:
+            bsdf.inputs[0].default_value = ensure_rgba(params["diffuse_color"])
+            if len(bsdf.inputs) > 26:
+                bsdf.inputs[26].default_value = ensure_rgba(params["diffuse_color"])
+        emission = title_mat.node_tree.nodes.get("Emission")
+        if emission and hasattr(emission, "inputs") and len(emission.inputs) > 0:
+            emission.inputs[0].default_value = ensure_rgba(params["diffuse_color"])
 
 # GLASS - Change the material settings (color, alpha, etc...)
-material_object2 = bpy.data.materials["Background.Material"]
-material_object2.diffuse_color = params["diffuse_color_bg"]
-material_object2.specular_color = params["specular_color_bg"]
-material_object2.specular_intensity = params["specular_intensity_bg"]
-bpy.data.materials["Background.Material"].node_tree.nodes[1].inputs[0].default_value = params["diffuse_color_bg"]
-bpy.data.materials["Background.Material"].node_tree.nodes[1].inputs[18].default_value = params["alpha_bg"]
+bg_mat = keyframe_principled(
+    "Background.Material",
+    base_keyframes=bg_color_keyframes,
+    emission_keyframes=bg_color_keyframes,
+    emission_strength=(0.0, [f for f, _ in bg_color_keyframes]),
+    viewport_color=params["diffuse_color_bg"],
+    specular_value=params["specular_intensity_bg"],
+    specular_color=params["specular_color_bg"])
+if bg_mat:
+    bg_mat.specular_intensity = params["specular_intensity_bg"]
+    bg_mat.diffuse_color = ensure_rgba(params["diffuse_color_bg"])
+    if bg_mat.node_tree:
+        bsdf_bg = bg_mat.node_tree.nodes.get("Principled BSDF")
+        if bsdf_bg:
+            bsdf_bg.inputs[0].default_value = ensure_rgba(params["diffuse_color_bg"])
+            if len(bsdf_bg.inputs) > 26:
+                bsdf_bg.inputs[26].default_value = ensure_rgba(params["diffuse_color_bg"])
+        emission_bg = bg_mat.node_tree.nodes.get("Emission")
+        if emission_bg and hasattr(emission_bg, "inputs") and len(emission_bg.inputs) > 0:
+            emission_bg.inputs[0].default_value = ensure_rgba(params["diffuse_color_bg"])
+if bpy.data.materials.get("Background.Material") and bpy.data.materials["Background.Material"].node_tree:
+    bg_nodes = bpy.data.materials["Background.Material"].node_tree.nodes
+    if len(bg_nodes) > 1 and hasattr(bg_nodes[1].inputs[18], "default_value"):
+        bg_nodes[1].inputs[18].default_value = params["alpha_bg"]
 
 # ADJUST STARTING POSITION (Keyframes)
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[0].co = (40.0, params["start_x"])
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[0].handle_left.y = params["start_x"]
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[0].handle_right.y = params["start_x"]
+text_action = bpy.data.actions.get("TextAction")
+if text_action:
+    try:
+        fcurves = list(get_action_fcurves(text_action))
+    except AttributeError:
+        fcurves = []
 
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[1].co = (80.0, params["start_x"])
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[1].handle_left.y = params["start_x"]
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[1].handle_right.y = params["start_x"]
+    loc_x = None
+    loc_z = None
+    for fc in fcurves:
+        if fc.data_path.endswith("location") and fc.array_index == 0:
+            loc_x = fc
+        if fc.data_path.endswith("location") and fc.array_index == 2:
+            loc_z = fc
 
-bpy.data.actions["TextAction"].fcurves[2].keyframe_points[1].co = (80.0, params["start_z"])
-bpy.data.actions["TextAction"].fcurves[2].keyframe_points[1].handle_left.y = params["start_z"]
-bpy.data.actions["TextAction"].fcurves[2].keyframe_points[1].handle_right.y = params["start_z"]
+    def _set_kp(fc, idx, frame, value):
+        if fc and len(fc.keyframe_points) > idx:
+            kp = fc.keyframe_points[idx]
+            kp.co = (frame, value)
+            kp.handle_left.y = value
+            kp.handle_right.y = value
 
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[2].co = (150.0, params["start_x"])
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[2].handle_left.y = params["start_x"]
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[2].handle_right.y = params["start_x"]
+    _set_kp(loc_x, 0, 40.0, params["start_x"])
+    _set_kp(loc_x, 1, 80.0, params["start_x"])
+    _set_kp(loc_x, 2, 150.0, params["start_x"])
+    _set_kp(loc_x, 3, 190.0, params["start_x"])
 
-bpy.data.actions["TextAction"].fcurves[2].keyframe_points[2].co = (150.0, params["start_z"])
-bpy.data.actions["TextAction"].fcurves[2].keyframe_points[2].handle_left.y = params["start_z"]
-bpy.data.actions["TextAction"].fcurves[2].keyframe_points[2].handle_right.y = params["start_z"]
-
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].co = (190.0, params["start_x"])
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].handle_left.y = params["start_x"]
-bpy.data.actions["TextAction"].fcurves[0].keyframe_points[3].handle_right.y = params["start_x"]
+    _set_kp(loc_z, 1, 80.0, params["start_z"])
+    _set_kp(loc_z, 2, 150.0, params["start_z"])
 
 
 # Set the render options.  It is important that these are set

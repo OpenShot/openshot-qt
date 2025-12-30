@@ -38,6 +38,7 @@ from PyQt5.QtGui import (
 from classes.waveform import get_audio_data
 from classes import info, updates
 from classes import openshot_rc  # noqa
+from classes.clip_utils import clamp_timing_to_media, clip_time_bounds
 from classes.query import Clip, Transition, Effect
 from classes.logger import log
 from classes.app import get_app
@@ -114,8 +115,6 @@ class PropertiesModel(updates.UpdateInterface):
                         self.selected.append((e, item_type))
                         self.selected_parent = e.ParentClip()
 
-                log.debug("Update item: %s" % item_type)
-
             # Update frame # from timeline
             self.update_frame(get_app().window.preview_thread.player.Position(), reload_model=False)
 
@@ -156,7 +155,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Calculate biggest and smallest possible frames
                 min_frame_number = round((clip.Start() * fps_float)) + 1
-                max_frame_number = round((clip.End() * fps_float)) + 1
+                max_frame_number = round((clip.End() * fps_float))
 
                 # Adjust frame number if out of range
                 if self.frame_number < min_frame_number:
@@ -271,6 +270,10 @@ class PropertiesModel(updates.UpdateInterface):
                                     'co': {'X': self.frame_number, 'Y': default_value},
                                     'interpolation': 1})
 
+                # Enforce clip timing constraints
+                if property_key in ("time", "start", "end", "duration"):
+                    clamp_timing_to_media(clip_data, c)
+
                 # Determine if waveforms are impacted by this change
                 has_waveform = False
                 waveform_file_id = None
@@ -281,7 +284,10 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Reduce # of clip properties we are saving (performance boost)
                 if not object_id:
-                    clip_data = {property_key: clip_data.get(property_key)}
+                    if property_key == "time":
+                        clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    else:
+                        clip_data = {property_key: clip_data.get(property_key)}
                 else:
                     # If objects dict detected - don't reduce the # of objects
                     objects[object_id] = clip_data
@@ -486,6 +492,9 @@ class PropertiesModel(updates.UpdateInterface):
                 "%s for %s changed to %s at frame %s with interpolation: %s at closest x: %s",
                 property_key, item_id, new_value, self.frame_number, interpolation, closest_point_x)
 
+            # Start each iteration with the original value
+            value = new_value
+
             # Find this clip
             c = None
             clip_updated = False
@@ -521,7 +530,7 @@ class PropertiesModel(updates.UpdateInterface):
                         # Keyframe
 
                         # Protection from HUGE scale values
-                        if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y'] and new_value:
+                        if property_key in ['scale_x', 'scale_y', 'shear_x', 'shear_y'] and value:
                             width = get_app().project.get("width")
                             height = get_app().project.get("height")
                             is_svg = clip_data.get("reader", {}).get("path", "").lower().endswith("svg")
@@ -533,8 +542,8 @@ class PropertiesModel(updates.UpdateInterface):
                                 # Clamp the max scale based on project size
                                 max_multiple = round((2000 * max_multiple) / max(width, height))
 
-                            # Apply the calculated max_multiple to new_value
-                            new_value = max(min(new_value, max_multiple), -max_multiple)
+                            # Apply the calculated max_multiple to value
+                            value = max(min(value, max_multiple), -max_multiple)
 
                         # Loop through points, find a matching points on this frame
                         found_point = False
@@ -546,10 +555,10 @@ class PropertiesModel(updates.UpdateInterface):
                                 found_point = True
                                 clip_updated = True
                                 # Update or delete point
-                                if new_value is not None:
-                                    point["co"]["Y"] = float(new_value)
-                                    log.debug("updating point: co.X = %d to value: %.3f",
-                                              point["co"]["X"], float(new_value))
+                                if value is not None:
+                                    point["co"]["Y"] = int(value) if property_key == "time" else float(value)
+                                    log.debug("updating point: co.X = %d to value: %s",
+                                              point["co"]["X"], value)
                                 else:
                                     point_to_delete = point
                                 break
@@ -594,11 +603,11 @@ class PropertiesModel(updates.UpdateInterface):
                             clip_data[property_key]["Points"].remove(point_to_delete)
 
                         # Create new point (if needed)
-                        elif not found_point and new_value is not None:
+                        elif not found_point and value is not None:
                             clip_updated = True
                             log.debug("Created new point at X=%d", self.frame_number)
                             clip_data[property_key].setdefault('Points', []).append({
-                                'co': {'X': self.frame_number, 'Y': new_value},
+                                'co': {'X': self.frame_number, 'Y': int(value) if property_key == "time" else value},
                                 'interpolation': 1})
 
                 if not clip_updated:
@@ -606,14 +615,14 @@ class PropertiesModel(updates.UpdateInterface):
                     if property_type == "int":
                         clip_updated = True
                         try:
-                            clip_data[property_key] = int(new_value)
+                            clip_data[property_key] = int(value)
                         except Exception:
                             log.warn('Invalid Integer value passed to property', exc_info=1)
 
                     elif property_type == "float":
                         clip_updated = True
                         try:
-                            clip_data[property_key] = float(new_value)
+                            clip_data[property_key] = float(value)
 
                             # Fix precision issues with time properties by snapping to FPS grid
                             if property_key in ['position', 'start', 'end']:
@@ -630,21 +639,21 @@ class PropertiesModel(updates.UpdateInterface):
                     elif property_type == "bool":
                         clip_updated = True
                         try:
-                            clip_data[property_key] = bool(new_value)
+                            clip_data[property_key] = bool(value)
                         except Exception:
                             log.warn('Invalid Boolean value passed to property', exc_info=1)
 
                     elif property_type == "string":
                         clip_updated = True
                         try:
-                            clip_data[property_key] = str(new_value or "")
+                            clip_data[property_key] = str(value or "")
                         except Exception:
                             log.warn('Invalid String value passed to property', exc_info=1)
 
                     elif property_type in ["font", "caption"]:
                         clip_updated = True
                         try:
-                            clip_data[property_key] = str(new_value)
+                            clip_data[property_key] = str(value)
                         except Exception:
                             log.warn('Invalid Font/Caption value passed to property', exc_info=1)
 
@@ -665,6 +674,10 @@ class PropertiesModel(updates.UpdateInterface):
                         except Exception:
                             log.warn('Invalid Reader value passed to property: %s', value, exc_info=1)
 
+                # Enforce clip timing constraints
+                if property_key in ("time", "start", "end", "duration"):
+                    clamp_timing_to_media(clip_data, c)
+
                 # Determine if waveforms are impacted by this change
                 has_waveform = False
                 waveform_file_id = None
@@ -675,7 +688,10 @@ class PropertiesModel(updates.UpdateInterface):
 
                 # Reduce # of clip properties we are saving (performance boost)
                 if not object_id:
-                    clip_data = {property_key: clip_data.get(property_key)}
+                    if property_key == "time":
+                        clip_data = {k: clip_data.get(k) for k in ("time", "end", "duration", "start")}
+                    else:
+                        clip_data = {property_key: clip_data.get(property_key)}
                 else:
                     # If objects dict detected - don't reduce the # of objects
                     objects[object_id] = clip_data
@@ -694,7 +710,7 @@ class PropertiesModel(updates.UpdateInterface):
                     # Update the preview
                     get_app().window.refreshFrameSignal.emit()
 
-                    log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (item_id, property_key, new_value, self.frame_number, closest_point_x))
+                    log.info("Item %s: changed %s to %s at frame %s (x: %s)" % (item_id, property_key, value, self.frame_number, closest_point_x))
 
                 # Clear selection
                 self.parent.clearSelection()
@@ -704,6 +720,14 @@ class PropertiesModel(updates.UpdateInterface):
         _ = app._tr
         label = property[1]["name"]
         name = property[0]
+
+        # Constrain time keyframes to the reader's frame range
+        if name == "time" and getattr(c, "data", None):
+            _, max_frames = clip_time_bounds(c.data, c)
+            if max_frames:
+                property[1]["min"] = 1
+                property[1]["max"] = float(max_frames)
+
         value = property[1]["value"]
         type = property[1]["type"]
         memo = property[1]["memo"]
@@ -784,8 +808,12 @@ class PropertiesModel(updates.UpdateInterface):
                 all_tracks = get_app().project.get("layers")
                 display_count = len(all_tracks)
                 display_label = None
+                try:
+                    value_int = int(float(value))
+                except (TypeError, ValueError):
+                    value_int = value
                 for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                    if track.get("number") == value:
+                    if track.get("number") == value_int:
                         display_label = track.get("label")
                         break
                     display_count -= 1
@@ -793,7 +821,11 @@ class PropertiesModel(updates.UpdateInterface):
                 col.setText(track_name)
 
             elif type == "int":
-                col.setText("%d" % value)
+                try:
+                    int_value = int(float(value))
+                    col.setText("%d" % int_value)
+                except (TypeError, ValueError):
+                    col.setText("" if value is None else str(value))
             else:
                 # Use numeric value
                 if value == "" or value is None:
@@ -945,107 +977,105 @@ class PropertiesModel(updates.UpdateInterface):
         # Ignore any events from this method
         self.ignore_update_signal = True
 
-        # Check for a selected clip
-        if self.selected and self.selected[0]:
-            c, item_type = self.selected[0]
+        try:
+            # Check for a selected clip
+            if self.selected and self.selected[0]:
+                c, item_type = self.selected[0]
 
-            # Skip blank clips
-            # TODO: Determine why c is occasional = None
-            if not c:
-                return
+                # Skip blank clips
+                # TODO: Determine why c is occasional = None
+                if not c:
+                    return
 
-            # Build list of raw properties for all selected items
-            all_raw_properties = []
-            for obj, _item_type in self.selected:
-                props = json.loads(obj.PropertiesJSON(self.frame_number))
-                all_raw_properties.append(props)
+                # Build list of raw properties for all selected items
+                all_raw_properties = []
+                for obj, _item_type in self.selected:
+                    props = json.loads(obj.PropertiesJSON(self.frame_number))
+                    all_raw_properties.append(props)
 
-            # Use first item's properties as baseline
-            raw_properties = all_raw_properties[0]
-            tracked_object_id = None
-            tracked_object_properties = {}
+                # Use first item's properties as baseline
+                raw_properties = all_raw_properties[0]
+                tracked_object_id = None
+                tracked_object_properties = {}
 
-            if len(all_raw_properties) == 1:
-                tracked_objects_raw_properties = raw_properties.pop('objects', None)
-                if tracked_objects_raw_properties:
-                    tracked_object_id = list(tracked_objects_raw_properties.keys())[0]
-                    tracked_object_properties = tracked_objects_raw_properties[tracked_object_id]
-                    raw_properties.update(tracked_object_properties)
+                if len(all_raw_properties) == 1:
+                    tracked_objects_raw_properties = raw_properties.pop('objects', None)
+                    if tracked_objects_raw_properties:
+                        tracked_object_id = list(tracked_objects_raw_properties.keys())[0]
+                        tracked_object_properties = tracked_objects_raw_properties[tracked_object_id]
+                        raw_properties.update(tracked_object_properties)
+                else:
+                    # Remove tracked object lists before comparing
+                    if 'objects' in raw_properties:
+                        raw_properties.pop('objects')
+                    for props in all_raw_properties[1:]:
+                        props.pop('objects', None)
+
+                    # Determine shared properties across all selected items
+                    shared = {}
+                    for key, prop in raw_properties.items():
+                        matches = True
+                        for other in all_raw_properties[1:]:
+                            if key not in other or other[key].get('type') != prop.get('type') or other[key].get('name') != prop.get('name'):
+                                matches = False
+                                break
+                        if matches:
+                            values = [other[key]['value'] for other in all_raw_properties]
+                            memos = [other[key]['memo'] for other in all_raw_properties]
+                            new_prop = prop.copy()
+                            if all(v == values[0] for v in values):
+                                new_prop['value'] = values[0]
+                            else:
+                                new_prop['value'] = ''
+                            if all(m == memos[0] for m in memos):
+                                new_prop['memo'] = memos[0]
+                            else:
+                                new_prop['memo'] = ''
+                            shared[key] = new_prop
+
+                    raw_properties = shared
+
+                # Sort all properties (by 'name')
+                all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
+
+                # Check if filter was changed (if so, wipe previous model data)
+                if self.previous_filter != filter:
+                    self.previous_filter = filter
+                    self.new_item = True  # filter changed, so we need to regenerate the entire model
+
+                # Build or update the model
+                if self.new_item:
+                    # Prepare for new properties
+                    self.items = {}
+                    self.model.clear()
+
+                    # Add Headers
+                    self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
+
+                    # Clear caption editor
+                    get_app().window.CaptionTextLoaded.emit("", None)
+
+                # Loop through properties, and build/update the model
+                for property in all_properties.items():
+                    if property[0] in tracked_object_properties:
+                        # Add/update tracked object property
+                        self.set_property(property, filter, c, item_type, object_id=tracked_object_id)
+                    else:
+                        # Add/update base property
+                        self.set_property(property, filter, c, item_type)
+
+                # After first render, future calls will update in place
+                self.new_item = False
+
             else:
-                # Remove tracked object lists before comparing
-                if 'objects' in raw_properties:
-                    raw_properties.pop('objects')
-                for props in all_raw_properties[1:]:
-                    props.pop('objects', None)
-
-                # Determine shared properties across all selected items
-                shared = {}
-                for key, prop in raw_properties.items():
-                    matches = True
-                    for other in all_raw_properties[1:]:
-                        if key not in other or other[key].get('type') != prop.get('type') or other[key].get('name') != prop.get('name'):
-                            matches = False
-                            break
-                    if matches:
-                        values = [other[key]['value'] for other in all_raw_properties]
-                        memos = [other[key]['memo'] for other in all_raw_properties]
-                        new_prop = prop.copy()
-                        if all(v == values[0] for v in values):
-                            new_prop['value'] = values[0]
-                        else:
-                            new_prop['value'] = ''
-                        if all(m == memos[0] for m in memos):
-                            new_prop['memo'] = memos[0]
-                        else:
-                            new_prop['memo'] = ''
-                        shared[key] = new_prop
-
-                raw_properties = shared
-
-            # Sort all properties (by 'name')
-            all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
-
-            # Check if filter was changed (if so, wipe previous model data)
-            if self.previous_filter != filter:
-                self.previous_filter = filter
-                self.new_item = True  # filter changed, so we need to regenerate the entire model
-
-            # Clear previous model data (if item is different)
-            if self.new_item:
-                # Prepare for new properties
-                self.items = {}
+                # Clear previous model data (if any)
                 self.model.clear()
 
                 # Add Headers
                 self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
-
-                # Clear caption editor
-                get_app().window.CaptionTextLoaded.emit("", None)
-
-            # Loop through properties, and build a model
-            for property in all_properties.items():
-                if property[0] in tracked_object_properties:
-                    # Add tracked object property
-                    self.set_property(property, filter, c, item_type, object_id=tracked_object_id)
-                else:
-                    # Add base property
-                    self.set_property(property, filter, c, item_type)
-
-            # Update the values on the next call to this method (instead of adding rows)
-            self.new_item = False
-
-        else:
-            # Clear previous properties hash
-            self.previous_hash = ""
-
-            # Clear previous model data (if any)
-            self.model.clear()
-
-            # Add Headers
-            self.model.setHorizontalHeaderLabels([_("Property"), _("Value")])
-
-        # Done updating model
-        self.ignore_update_signal = False
+        finally:
+            # Done updating model (even if we returned early)
+            self.ignore_update_signal = False
 
     def __init__(self, parent, *args):
 
@@ -1053,7 +1083,6 @@ class PropertiesModel(updates.UpdateInterface):
         self.selected = []
         self.current_item_id = None
         self.frame_number = 1
-        self.previous_hash = ""
         self.new_item = True
         self.items = {}
         self.ignore_update_signal = False

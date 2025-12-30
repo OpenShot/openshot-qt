@@ -52,9 +52,21 @@ is not currently visible, OpenShot will automatically display the panel.
    Main Menu                    In the main menu choose: :guilabel:`File\→Import Files`.
    Toolbar button               Click the :guilabel:`+` toolbar button in the main toolbar.
    Keyboard shortcut            Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac).
+   Paste from Clipboard         Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your clipboard. See :ref:`paste_from_clipboard_ref`.
    ===========================  ============
 
 .. image:: images/quick-start-drop-files.jpg
+
+.. _paste_from_clipboard_ref:
+
+Paste from Clipboard
+--------------------
+You can paste files and clipboard media straight into OpenShot. If you copied one or more files in your
+file manager, switch to OpenShot and press :kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing.
+
+If you copied media **data** (for example, **Copy Image** in a web browser, a pasted frame from another app, or other image/audio/video clipboard data),
+press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. OpenShot saves a copy in a temporary folder:
+``.openshot_qt/clipboard/``. The new file is then added to your project and appears in **Project Files**.
 
 .. _file_menu_ref:
 
@@ -168,6 +180,31 @@ Remove from Project
 -------------------
 
 This will remove a file from the project. It will not delete the underlying physical file though, so removing a file from the project merely makes it unavailable for this video project.
+
+.. _project_assets_folder_ref:
+
+Project Assets Folder
+---------------------
+OpenShot creates and uses a few **temporary working folders** while you edit. These live under
+``.openshot_qt/`` in your user profile and hold project-specific files that OpenShot generates for you:
+
+* ``.openshot_qt/blender/`` - Blender animation renders created by the Animated Title dialog
+* ``.openshot_qt/title/`` - SVG title files created by the Title dialog
+* ``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and Timeline
+* ``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, audio, or video that must be saved to disk first)
+* ``.openshot_qt/protobuf_data`` - Tracking and object detection data
+
+When you choose **File→Save As**, OpenShot copies these folders into your project directory, inside a single folder named
+``PROJECTNAME_Assets``. For example: ``MyProject_Assets/clipboard`` will contain any media you pasted from the clipboard.
+
+As part of this process, all paths inside your ``*.osp`` project file are updated to be **relative** to your project folder.
+This keeps everything self-contained and easy to move or back up as one folder.
+
+Cleanup behavior
+""""""""""""""""
+Starting a **new project** or opening an **existing project** clears the temporary ``.openshot_qt`` working folders so you begin
+with a clean slate. Your saved projects are not affected, and any assets previously copied into a ``PROJECTNAME_Assets`` folder
+remain in that project's directory.
 
 Missing Files
 -------------

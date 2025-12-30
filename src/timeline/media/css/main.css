@@ -34,9 +34,25 @@ body {
 }
 
 /* keyframe dragging */
-.point.ui-draggable-dragging {
+.point {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+.point.ui-draggable-dragging,
+.point.point-dragging {
   cursor: ew-resize !important;
   z-index: 9000 !important;
+}
+
+body.keyframe-dragging,
+body.keyframe-dragging #scrolling_tracks,
+body.keyframe-dragging #scrolling_tracks *,
+body.keyframe-dragging #scrolling_ruler,
+body.keyframe-dragging #scrolling_ruler *,
+body.keyframe-dragging #ruler,
+body.keyframe-dragging #ruler * {
+  cursor: ew-resize !important;
 }
 
 /* manually moving selected item */
@@ -76,7 +92,8 @@ img {
   position: relative;
   line-height: 4px;
   height: 43px;
-  margin-right: 8px; /* Prevent playhead from becoming unaligned due to scrollbars */
+  margin-right: 8px;
+  background: rgba(25, 25, 25, 1);
 }
 
 #scrolling_tracks {
@@ -90,6 +107,7 @@ img {
   width: 140px;
   float: left;
   margin-bottom: 4px;
+  background: rgba(25, 25, 25, 1);
 }
 
 #ruler_time {
@@ -478,6 +496,7 @@ img {
 }
 .point_bezier {
     position: absolute;
+    top: 0;
     width: 10px;
     height: 10px;
     background-image: url(../images/keyframe-bezier.svg);
@@ -488,6 +507,7 @@ img {
 
 .point_linear {
     position: absolute;
+    top: 0;
     width: 10px;
     height: 10px;
     background-image: url(../images/keyframe-linear.svg);
@@ -498,6 +518,7 @@ img {
 
 .point_constant {
     position: absolute;
+    top: 0;
     width: 10px;
     height: 10px;
     background-image: url(../images/keyframe-constant.svg);
@@ -548,6 +569,10 @@ img {
   background-repeat: no-repeat;
   background-position: center;
   background-size: calc(100% + 2px) 66px;
+}
+
+.transition.ui-selected {
+  opacity: 1;
 }
 
 .transition_label {

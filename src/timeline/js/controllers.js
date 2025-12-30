@@ -62,6 +62,7 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.snapline = false;
   $scope.enable_snapping = true;
   $scope.enable_razor = false;
+  $scope.enable_timing = false;
   $scope.enable_playhead_follow = true;
   $scope.keyframe_prop_filter = "";
   $scope.debug = false;
@@ -71,6 +72,59 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.ThumbServer = "http://127.0.0.1/";
   $scope.ThemeCSS = "";
   $scope.dragging = false;
+
+  $scope.keyframeIconPaths = {};
+  var keyframeSvgTemplates = {};
+  var keyframeCache = new WeakMap();
+
+  function loadKeyframeIcons() {
+    var ready = true;
+    ["bezier", "linear", "constant"].forEach(function(type) {
+      var el = document.createElement("div");
+      el.className = "point_" + type;
+      document.body.appendChild(el);
+      var url = getComputedStyle(el).getPropertyValue("background-image")
+        .replace(/url\((['"]?)(.*?)\1\)/, "$2");
+      document.body.removeChild(el);
+
+      if (!url || url === "none") {
+        ready = false;
+        return;
+      }
+
+      $scope.keyframeIconPaths[type] = url;
+
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+          keyframeSvgTemplates[type] = xhr.responseText;
+        }
+      };
+      xhr.open("GET", url, true);
+      xhr.send();
+    });
+
+    if (!ready) {
+      // CSS not ready yet, try again once the page has loaded
+      window.addEventListener("load", loadKeyframeIcons, { once: true });
+      return;
+    }
+
+    // Remove default background images now that we have their paths
+    var style = document.createElement("style");
+    style.textContent = ".point_bezier,.point_linear,.point_constant{background-image:none;}";
+    document.head.appendChild(style);
+  }
+
+  function coloredIcon(interpolation, color) {
+    var tpl = keyframeSvgTemplates[interpolation];
+    if (!tpl) {return $scope.keyframeIconPaths[interpolation];}
+    var svg = tpl.replace(/fill="[^"]*"/g, "fill=\"" + color + "\"");
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
+
+  // Load keyframe icons after all styles have finished loading
+  window.addEventListener("load", loadKeyframeIcons);
 
   // Method to set if Qt is detected (which clears demo data
   // and updates the document_is_ready variable in openshot-qt)
@@ -162,85 +216,239 @@ App.controller("TimelineCtrl", function ($scope) {
     }
   }
 
-  // Get an array of keyframe points for the selected clips
+  $scope.hasSelectedEffect = function (clip) {
+    if (!clip || !clip.effects) {return false;}
+    for (var i = 0; i < clip.effects.length; i++) {
+      if (clip.effects[i].selected) {return true;}
+    }
+    return false;
+  };
+
   $scope.getKeyframes = function (object) {
-    // List of keyframes
-    var keyframes = {};
-
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-    var clip_start_x = Math.round(object.start * frames_per_second) + 1;
-    var clip_end_x = Math.round(object.end * frames_per_second) + 1;
 
-    // Loop through properties of an object (clip/transition), looking for keyframe points
+    function toNumber(value, fallback) {
+      var num = parseFloat(value);
+      return isNaN(num) ? fallback : num;
+    }
+
+    var clip_start_sec = toNumber(object.start, 0);
+    var clip_end_sec = toNumber(object.end, clip_start_sec);
+    if (clip_end_sec < clip_start_sec) {
+      clip_end_sec = clip_start_sec;
+    }
+
+    var object_type = object.hasOwnProperty("file_id") ? "clip" : "transition";
+
+    var effect_selected = false;
+    var effect_key = "";
+    if ("effects" in object) {
+      effect_selected = object.effects.some(function(e) { return e.selected; });
+      effect_key = object.effects.map(function(e) {
+        return e.id + (e.selected ? "1" : "0");
+      }).join(",");
+    }
+
+    var preview = null;
+    if (object && object.ui && object.ui.keyframe_preview && object.ui.keyframe_preview.active) {
+      preview = object.ui.keyframe_preview;
+    }
+
+    var previewSignature = "none";
+    if (preview) {
+      var previewMode = preview.mode || "";
+      var displayStart = toNumber(preview.displayStart, clip_start_sec);
+      var displayEnd = toNumber(preview.displayEnd, clip_end_sec);
+      var originalStart = toNumber(preview.originalStart, clip_start_sec);
+      var originalEnd = toNumber(preview.originalEnd, clip_end_sec);
+      previewSignature = [previewMode, displayStart.toFixed(4), displayEnd.toFixed(4), originalStart.toFixed(4), originalEnd.toFixed(4)].join("|");
+    }
+
+    var cacheKey = object.selected + "|" + effect_key + "|" + $scope.keyframe_prop_filter + "|" + previewSignature;
+    var cached = keyframeCache.get(object);
+
+    var previewActive = !!(preview && preview.active);
+
+    if (object_type !== "transition" && !object.selected && !effect_selected && !previewActive) {
+      if (cached && cached.key === cacheKey) {
+        return cached.value;
+      }
+      keyframeCache.set(object, {key: cacheKey, value: {}});
+      return {};
+    }
+
+    var keyframes = {};
+    // Include every keyframe while previewing trims/retimes so the UI can dim out-of-range ones.
+    var includeAllKeyframes = !!preview;
+    var EPSILON = 0.000001;
+    var frameTolerance = EPSILON;
+    if (frames_per_second && isFinite(frames_per_second) && frames_per_second > 0) {
+      frameTolerance = Math.max(frameTolerance, 0.5 / frames_per_second);
+    }
+
+    var previewDisplayStart = preview ? toNumber(preview.displayStart, clip_start_sec) : clip_start_sec;
+    var previewDisplayEnd = preview ? toNumber(preview.displayEnd, clip_end_sec) : clip_end_sec;
+    if (previewDisplayEnd < previewDisplayStart) {
+      var tmp = previewDisplayStart;
+      previewDisplayStart = previewDisplayEnd;
+      previewDisplayEnd = tmp;
+    }
+
+    var previewProjectedStart = preview ? toNumber(preview.projectedStart, clip_start_sec) : clip_start_sec;
+    var previewProjectedEnd = preview ? toNumber(preview.projectedEnd, clip_end_sec) : clip_end_sec;
+    if (previewProjectedEnd < previewProjectedStart) {
+      previewProjectedEnd = previewProjectedStart;
+    }
+
+    var displayDuration = Math.max(previewDisplayEnd - previewDisplayStart, 0);
+    var projectedDuration = Math.max(previewProjectedEnd - previewProjectedStart, 0);
+
+    function mapSecondsToDisplay(seconds) {
+      if (!preview || preview.mode !== "retime") {
+        return seconds;
+      }
+      if (!(projectedDuration > 0) || !(displayDuration > 0)) {
+        return previewDisplayStart;
+      }
+      var normalized = (seconds - previewProjectedStart) / projectedDuration;
+      if (!isFinite(normalized)) {
+        normalized = 0;
+      }
+      var mapped = previewDisplayStart + (normalized * displayDuration);
+      return mapped;
+    }
+
+    function isInside(seconds, start, end) {
+      return seconds >= start - frameTolerance && seconds <= end + frameTolerance;
+    }
+
+    function isInsideClip(seconds) {
+      return isInside(seconds, clip_start_sec, clip_end_sec);
+    }
+
+    function isInsidePreview(seconds) {
+      if (!preview) {
+        return isInsideClip(seconds);
+      }
+      if (preview.mode === "retime") {
+        var mappedSeconds = mapSecondsToDisplay(seconds);
+        return isInside(mappedSeconds, previewDisplayStart, previewDisplayEnd);
+      }
+      return isInside(seconds, previewDisplayStart, previewDisplayEnd);
+    }
+
+    function storeKeyframe(frame, data) {
+      var existing = keyframes[frame];
+      if (!existing || (data.selected && !existing.selected)) {
+        keyframes[frame] = data;
+      }
+    }
+
     for (var child in object) {
-      if (!object.hasOwnProperty(child)) {
-        //The current property is not a direct property
-        continue;
-      }
+      if (!object.hasOwnProperty(child)) {continue;}
       if ($scope.keyframe_prop_filter.length > 0 &&
-        !child.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
-        // Not the current filter property
+          !child.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
         continue;
       }
-      // Determine if this property is a Keyframe
-      if (typeof object[child] === "object" && "Points" in object[child] && object[child].Points.length > 1) {
+      if (typeof object[child] === "object" && object[child].Points && object[child].Points.length > 1) {
         for (var point = 0; point < object[child].Points.length; point++) {
           var co = object[child].Points[point].co;
           var interpolation = $scope.lookupInterpolation(object[child].Points[point].interpolation);
-          if (co.X >= clip_start_x && co.X <= clip_end_x) {
-            // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[co.X] = interpolation;
+          var keyframeSeconds = (co.X - 1) / frames_per_second;
+          var withinClip = isInsideClip(keyframeSeconds);
+          if (includeAllKeyframes || withinClip) {
+            var insidePreview = isInsidePreview(keyframeSeconds);
+            var baseSelected = object_type === "transition" ? true : object.selected && !effect_selected;
+            storeKeyframe(co.X, {
+              interpolation: interpolation,
+              selected: baseSelected && insidePreview,
+              type: object_type,
+              owner: object.id,
+              insidePreview: insidePreview,
+              baseSelected: baseSelected
+            });
+            cacheKey += ";c" + co.X + ":" + interpolation;
           }
         }
       }
-      // Determine if this property is a Color Keyframe
-      if (typeof object[child] === "object" && "red" in object[child] && object[child]["red"].Points.length > 1) {
-        for (var color_point = 0; color_point < object[child]["red"].Points.length; color_point++) {
-          var color_co = object[child]["red"].Points[color_point].co;
-          var color_interpolation = $scope.lookupInterpolation(object[child]["red"].Points[color_point].interpolation);
-          if (color_co.X >= clip_start_x && color_co.X <= clip_end_x) {
-            // Only add keyframe coordinates that are within the bounds of the clip
-            keyframes[color_co.X] = color_interpolation;
+      if (typeof object[child] === "object" && object[child].red && object[child].red.Points.length > 1) {
+        for (var color_point = 0; color_point < object[child].red.Points.length; color_point++) {
+          var color_co = object[child].red.Points[color_point].co;
+          var color_interpolation = $scope.lookupInterpolation(object[child].red.Points[color_point].interpolation);
+          var colorSeconds = (color_co.X - 1) / frames_per_second;
+          var colorWithinClip = isInsideClip(colorSeconds);
+          if (includeAllKeyframes || colorWithinClip) {
+            var colorInsidePreview = isInsidePreview(colorSeconds);
+            var colorBaseSelected = object_type === "transition" ? true : object.selected && !effect_selected;
+            storeKeyframe(color_co.X, {
+              interpolation: color_interpolation,
+              selected: colorBaseSelected && colorInsidePreview,
+              type: object_type,
+              owner: object.id,
+              insidePreview: colorInsidePreview,
+              baseSelected: colorBaseSelected
+            });
+            cacheKey += ";cr" + color_co.X + ":" + color_interpolation;
           }
         }
       }
     }
-    // Determine if this property contains effects (i.e. clips have their own effects)
+
     if ("effects" in object) {
-      for (var effect in object["effects"]) {
-        // Loop through properties of an effect, looking for keyframe points
-        for (var effect_prop in object["effects"][effect]) {
-          if (!object["effects"][effect].hasOwnProperty(effect_prop)) {
-            //The current property is not a direct property
-            continue;
-          }
+      for (var e in object.effects) {
+        var eff = object.effects[e];
+        var eff_color = $scope.getEffectColor(eff.type);
+        for (var prop in eff) {
+          if (!eff.hasOwnProperty(prop)) {continue;}
           if ($scope.keyframe_prop_filter.length > 0 &&
-            !effect_prop.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
-            // Not the current filter property
+              !prop.toLowerCase().includes($scope.keyframe_prop_filter.toLowerCase())) {
             continue;
           }
-          // Determine if this property is a Keyframe
-          if (typeof object["effects"][effect][effect_prop] === "object"
-            && "Points" in object["effects"][effect][effect_prop] && object["effects"][effect][effect_prop].Points.length > 1) {
-            for (var effect_point = 0; effect_point < object["effects"][effect][effect_prop].Points.length; effect_point++) {
-              var effect_co = object["effects"][effect][effect_prop].Points[effect_point].co;
-              var effect_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop].Points[effect_point].interpolation);
-              if (effect_co.X >= clip_start_x && effect_co.X <= clip_end_x) {
-                // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[effect_co.X] = effect_interpolation;
+          if (typeof eff[prop] === "object" && eff[prop].Points && eff[prop].Points.length > 1) {
+            for (var ep = 0; ep < eff[prop].Points.length; ep++) {
+              var eco = eff[prop].Points[ep].co;
+              var einterp = $scope.lookupInterpolation(eff[prop].Points[ep].interpolation);
+              var eframe = eco.X;
+              var effectSeconds = (eframe - 1) / frames_per_second;
+              var effectWithinClip = isInsideClip(effectSeconds);
+              if (includeAllKeyframes || effectWithinClip) {
+                var effectInsidePreview = isInsidePreview(effectSeconds);
+                var icon = coloredIcon(einterp, eff_color);
+                var effectSelected = !!eff.selected;
+                storeKeyframe(eframe, {
+                  interpolation: einterp,
+                  icon: icon,
+                  selected: effectSelected && effectInsidePreview,
+                  type: "effect",
+                  owner: eff.id,
+                  insidePreview: effectInsidePreview,
+                  baseSelected: effectSelected
+                });
+                cacheKey += ";e" + eff.id + ":" + eframe + ":" + einterp;
               }
             }
           }
-          // Determine if this property is a Color Keyframe
-          if (typeof object["effects"][effect][effect_prop] === "object"
-            && "red" in object["effects"][effect][effect_prop]
-            && object["effects"][effect][effect_prop]["red"].Points.length > 1) {
-            for (var effect_color_point = 0; effect_color_point < object["effects"][effect][effect_prop]["red"].Points.length; effect_color_point++) {
-              var effect_color_co = object["effects"][effect][effect_prop]["red"].Points[effect_color_point].co;
-              var effect_color_interpolation = $scope.lookupInterpolation(object["effects"][effect][effect_prop]["red"].Points[effect_color_point].interpolation);
-              if (effect_color_co.X >= clip_start_x && effect_color_co.X <= clip_end_x) {
-                // Only add keyframe coordinates that are within the bounds of the clip
-                keyframes[effect_color_co.X] = effect_color_interpolation;
+          if (typeof eff[prop] === "object" && eff[prop].red && eff[prop].red.Points.length > 1) {
+            for (var ecp = 0; ecp < eff[prop].red.Points.length; ecp++) {
+              var ecc = eff[prop].red.Points[ecp].co;
+              var ecinterp = $scope.lookupInterpolation(eff[prop].red.Points[ecp].interpolation);
+              var ecframe = ecc.X;
+              var colorEffectSeconds = (ecframe - 1) / frames_per_second;
+              var colorEffectWithinClip = isInsideClip(colorEffectSeconds);
+              if (includeAllKeyframes || colorEffectWithinClip) {
+                var colorEffectInsidePreview = isInsidePreview(colorEffectSeconds);
+                var color_icon = coloredIcon(ecinterp, eff_color);
+                var colorEffectSelected = !!eff.selected;
+                storeKeyframe(ecframe, {
+                  interpolation: ecinterp,
+                  icon: color_icon,
+                  selected: colorEffectSelected && colorEffectInsidePreview,
+                  type: "effect",
+                  owner: eff.id,
+                  insidePreview: colorEffectInsidePreview,
+                  baseSelected: colorEffectSelected
+                });
+                cacheKey += ";ec" + eff.id + ":" + ecframe + ":" + ecinterp;
               }
             }
           }
@@ -248,8 +456,26 @@ App.controller("TimelineCtrl", function ($scope) {
       }
     }
 
-    // Return keyframe array
+    cached = keyframeCache.get(object);
+    if (cached && cached.key === cacheKey) {
+      return cached.value;
+    }
+    keyframeCache.set(object, {key: cacheKey, value: keyframes});
     return keyframes;
+  };
+
+  $scope.clickKeyframe = function(value, parent, point, event) {
+    if (event && event.stopPropagation) {
+      event.stopPropagation();
+    }
+    if (value.type === "clip") {
+      $scope.selectClip(parent.id, true, event);
+    } else if (value.type === "effect") {
+      $scope.selectEffect(value.owner, true, event);
+    } else if (value.type === "transition") {
+      $scope.selectTransition(parent.id, true, event);
+    }
+    $scope.selectPoint(parent, point);
   };
 
   // Move all keyframes located at old_frame to new_frame within an object
@@ -428,8 +654,9 @@ App.controller("TimelineCtrl", function ($scope) {
   $scope.reDrawAllAudioData = function () {
     // Loop through all clips (and look for audio data)
     for (var clip_index = 0; clip_index < $scope.project.clips.length; clip_index++) {
-      if ("ui" in $scope.project.clips[clip_index] && "audio_data" in $scope.project.clips[clip_index].ui
-        && $scope.project.clips[clip_index].ui.audio_data.length > 1) {
+      var clip_ui = $scope.project.clips[clip_index].ui;
+      var audio_data = clip_ui ? clip_ui.audio_data : null;
+      if (Array.isArray(audio_data) && audio_data.length > 1) {
         // Redraw audio data
         drawAudio($scope, $scope.project.clips[clip_index].id);
       }
@@ -456,6 +683,13 @@ App.controller("TimelineCtrl", function ($scope) {
     });
   };
 
+  // Change the timing mode
+  $scope.setTimingMode = function (enable_timing) {
+    $scope.$apply(function () {
+      $scope.enable_timing = enable_timing;
+    });
+  };
+
   // Change playhead follow mode
   $scope.setFollow = function (enable_follow) {
     $scope.$apply(function () {
@@ -466,6 +700,8 @@ App.controller("TimelineCtrl", function ($scope) {
   // Get the color of an effect
   $scope.getEffectColor = function (effect_type) {
     switch (effect_type) {
+      case "AnalogTape":
+        return "#907600";
       case "Bars":
         return "#4d7bff";
       case "Blur":
@@ -510,6 +746,18 @@ App.controller("TimelineCtrl", function ($scope) {
         return "#CC5500";
       case "Saturation":
         return "#ff3d00";
+      case "Sharpen":
+        return "#49759c";
+      case "ColorMap":
+        return "#4d945d";
+      case "LensFlare":
+        return "#7c29d1";
+      case "Normalize":
+        return "#607d3b";
+      case "Outline":
+        return "#be6d33";
+      case "SphericalProjection":
+        return "#b886ea";
       case "Shift":
         return "#8d7960";
       case "Stabilizer":
@@ -627,6 +875,7 @@ $scope.selectItem = function (item_id, item_type, clear_selections, event, force
     var is_ctrl = event && event.ctrlKey;
     var is_shift = event && event.shiftKey;
     var is_alt = event && event.altKey;
+    var parent_clip = null;
 
     // If no ID is provided (id == ""), unselect all items of this type
     if (id === "") {
@@ -824,7 +1073,7 @@ $scope.selectItem = function (item_id, item_type, clear_selections, event, force
         } else if (item_type === "effect") {
             // Try global effect first
             item = $scope.project.effects.find((item) => item.id === id);
-            // If not found, try to find in all clips
+            // If not found, try to find in all clips and keep track of parent clip
             if (!item) {
                 for (let j = 0; j < $scope.project.clips.length; j++) {
                     let clipItem = $scope.project.clips[j];
@@ -832,6 +1081,7 @@ $scope.selectItem = function (item_id, item_type, clear_selections, event, force
                         let effItem = clipItem.effects.find((e) => e.id === id);
                         if (effItem) {
                             item = effItem;
+                            parent_clip = clipItem;
                             break;
                         }
                     }
@@ -1036,7 +1286,7 @@ $scope.selectItem = function (item_id, item_type, clear_selections, event, force
 // Show marker context menu
   $scope.selectMarker = function (marker) {
     var frames_per_second = $scope.project.fps.num / $scope.project.fps.den;
-    var marker_position_frames = marker.position * frames_per_second;
+    var marker_position_frames = Math.round(marker.position * frames_per_second) + 1;
 
     if ($scope.Qt) {
       timeline.SeekToKeyframe(marker_position_frames);
@@ -1167,8 +1417,24 @@ $scope.updateRecentItemJSON = function (item_type, item_ids, tid) {
 
     // Get recent move data
     var element_id = item_type + "_" + item_id;
-    var top = bounding_box.move_clips[element_id].top;
-    var left = bounding_box.move_clips[element_id].left;
+    var top = 0;
+    var left = 0;
+
+    // Safely read the stored move data, or fall back to DOM values
+    if (
+      bounding_box.move_clips &&
+      Object.prototype.hasOwnProperty.call(bounding_box.move_clips, element_id)
+    ) {
+      top = bounding_box.move_clips[element_id].top;
+      left = bounding_box.move_clips[element_id].left;
+    } else {
+      var elem = $("#" + element_id);
+      if (elem.length) {
+        var scrolling_tracks = $("#scrolling_tracks");
+        top = elem.position().top + scrolling_tracks.scrollTop();
+        left = elem.position().left + scrolling_tracks.scrollLeft();
+      }
+    }
 
     // Get position of item (snapped to FPS grid)
     var clip_position = snapToFPSGridTime($scope, pixelToTime($scope, parseFloat(left)));
@@ -1241,8 +1507,18 @@ $scope.startManualMove = function (item_type, item_ids) {
     }
   });
 
-  // Delay to allow the DOM to update
-  setTimeout(function() {
+  // Helper to initialize bounding box once DOM elements exist
+  function initBoundingBox(attempt) {
+    attempt = attempt || 0;
+
+    var selectedClips = $(".ui-selected");
+
+    // If the DOM hasn't finished updating, retry a few times
+    if (selectedClips.length < item_ids.length && attempt < 10) {
+      setTimeout(function() { initBoundingBox(attempt + 1); }, 10);
+      return;
+    }
+
     // Prepare to store clip positions
     var scrolling_tracks = $("#scrolling_tracks");
     var vert_scroll_offset = scrolling_tracks.scrollTop();
@@ -1252,7 +1528,6 @@ $scope.startManualMove = function (item_type, item_ids) {
     bounding_box = {};
 
     // Set bounding box that contains all selected clips/transitions
-    var selectedClips = $(".ui-selected");
     selectedClips.each(function () {
       setBoundingBox($scope, $(this));
     });
@@ -1286,7 +1561,10 @@ $scope.startManualMove = function (item_type, item_ids) {
     selectedClips.each(function () {
       $(this).addClass("manual-move");
     });
-  }, 0);
+  }
+
+  // Delay to allow the DOM to update before trying to init bounding box
+  setTimeout(function() { initBoundingBox(0); }, 0);
 };
 
 $scope.moveItem = function (x, y) {
@@ -1367,7 +1645,11 @@ $scope.updateLayerIndex = function () {
       timeline.qt_log("DEBUG", "sortItems");
 
       $scope.$evalAsync(function () {
-        // Sort by position second
+        // Ensure clip list is always an array
+        if (!Array.isArray($scope.project.clips)) {
+          $scope.project.clips = Object.values($scope.project.clips || {});
+        }
+        // Sort clips by position
         $scope.project.clips = $scope.project.clips.sort(function (a, b) {
           if (a.position < b.position) {
             return -1;
@@ -1473,12 +1755,75 @@ $scope.updateLayerIndex = function () {
   };
 
   // Search through clips and transitions to find the closest element within a given threshold
-  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids={}) {
+  $scope.getNearbyPosition = function (pixel_positions, threshold, ignore_ids={}, options={}) {
     // init some vars
     var smallest_diff = 900.0;
     var smallest_abs_diff = 900.0;
     var snapping_position = 0.0;
     var diffs = [];
+    var keyframeTargets = [];
+
+    var includeKeyframeSnaps = !!(options && options.includeKeyframes);
+
+    function toNumber(value, fallback) {
+      var num = parseFloat(value);
+      return isNaN(num) ? fallback : num;
+    }
+
+    var frames_per_second = 0;
+    if ($scope.project && $scope.project.fps) {
+      var fps_num = toNumber($scope.project.fps.num, NaN);
+      var fps_den = toNumber($scope.project.fps.den, NaN);
+      if (isFinite(fps_num) && isFinite(fps_den) && fps_den !== 0) {
+        frames_per_second = fps_num / fps_den;
+      }
+    }
+
+    if (includeKeyframeSnaps && frames_per_second > 0) {
+      function collectKeyframes(object) {
+        if (!object) {
+          return;
+        }
+        var entries = $scope.getKeyframes(object);
+        for (var frame in entries) {
+          if (!Object.prototype.hasOwnProperty.call(entries, frame)) {
+            continue;
+          }
+          var frameNumber = parseFloat(frame);
+          if (!isFinite(frameNumber)) {
+            continue;
+          }
+          var keySeconds = (frameNumber - 1) / frames_per_second;
+          var startSec = toNumber(object.start, 0);
+          var positionSec = toNumber(object.position, 0);
+          var timelineSeconds = positionSec + (keySeconds - startSec);
+          if (!isFinite(timelineSeconds)) {
+            continue;
+          }
+          var pixelPosition = timelineSeconds * $scope.pixelsPerSecond;
+          if (!isFinite(pixelPosition)) {
+            continue;
+          }
+          keyframeTargets.push({ position: pixelPosition });
+        }
+      }
+
+      for (var clipIndex = 0; clipIndex < $scope.project.clips.length; clipIndex++) {
+        var clip = $scope.project.clips[clipIndex];
+        if (!clip || !(clip.selected || $scope.hasSelectedEffect(clip))) {
+          continue;
+        }
+        collectKeyframes(clip);
+      }
+
+      for (var transitionIndex = 0; transitionIndex < $scope.project.effects.length; transitionIndex++) {
+        var transition = $scope.project.effects[transitionIndex];
+        if (!transition || !transition.selected) {
+          continue;
+        }
+        collectKeyframes(transition);
+      }
+    }
 
     // Loop through each pixel position (supports multiple positions: i.e. left and right side of bounding box)
     for (var pos_index = 0; pos_index < pixel_positions.length; pos_index++) {
@@ -1561,6 +1906,17 @@ $scope.updateLayerIndex = function () {
       var end_of_track_diff = position - end_of_track;
       diffs.push({"diff": end_of_track_diff, "position": end_of_track});
 
+      if (includeKeyframeSnaps) {
+        // Add visible keyframe positions
+        for (var keyIndex = 0; keyIndex < keyframeTargets.length; keyIndex++) {
+          var keyTarget = keyframeTargets[keyIndex];
+          var keyDiff = position - keyTarget.position;
+          if (Math.abs(keyDiff) <= threshold) {
+            diffs.push({"diff": keyDiff, "position": keyTarget.position});
+          }
+        }
+      }
+
       // Loop through diffs (and find the smallest one)
       for (var diff_index = 0; diff_index < diffs.length; diff_index++) {
         var diff = diffs[diff_index].diff;
@@ -1640,6 +1996,7 @@ $scope.updateLayerIndex = function () {
       $scope.$apply(function () {
         $scope.updateLayerIndex();
       });
+      loadKeyframeIcons();
     }, 0);
   }
 

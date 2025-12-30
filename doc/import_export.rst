@@ -46,43 +46,74 @@ The following features are supported when importing and exporting an EDL file wi
 Example EDL Output
 ^^^^^^^^^^^^^^^^^^
 
+OpenShot follows the CMX 3600 layout for event lines and uses comment lines (`* ...`) to carry keyframes.
+CMX 3600 does not define units or interpolation in comments, so our exporter adds readable values and interpolation
+names, and our importer is very forgiving: it accepts units with or without spaces, mixed case,
+optional interpolation tokens, and ignores unknown trailing text/reel tags to maximize compatibility.
+
 .. code-block:: python
 
    :caption: Example EDL format supported by OpenShot:
 
-    TITLE: Clips - TRACK 5
+    TITLE: Test - TRACK 5
     FCM: NON-DROP FRAME
 
-    001  BL       V     C        00:00:00:01 00:00:03:17 00:00:00:01 00:00:03:17
-    001  AX       V     C        00:00:00:01 00:00:10:01 00:00:03:17 00:00:13:17
-    * FROM CLIP NAME: Intro.png
+    001  BL       V     C        00:00:00:00 00:00:01:24 00:00:00:00 00:00:01:24
+    002  AX       V     C        00:00:01:24 00:00:10:00 00:00:01:24 00:00:10:00
+    * FROM CLIP NAME:Logo.mp4
+    * SOURCE FILE: ../Videos/Logo.mp4
+    * VIDEO LEVEL AT 00:00:00:00 IS 100% BEZIER (REEL AX V)
+    * AUDIO LEVEL AT 00:00:00:00 IS 0.00 DB LINEAR (REEL AX A1)
+    * SCALE X AT 00:00:01:24 IS 100% BEZIER (REEL AX V)
+    * SCALE X AT 00:00:09:29 IS 93% BEZIER (REEL AX V)
+    * SCALE Y AT 00:00:01:24 IS 100% BEZIER (REEL AX V)
+    * SCALE Y AT 00:00:09:29 IS 55% BEZIER (REEL AX V)
+    * LOCATION X AT 00:00:01:24 IS 0% BEZIER (REEL AX V)
+    * LOCATION X AT 00:00:09:29 IS -1% BEZIER (REEL AX V)
+    * LOCATION Y AT 00:00:01:24 IS 0% BEZIER (REEL AX V)
+    * LOCATION Y AT 00:00:09:29 IS -32% BEZIER (REEL AX V)
+    * ROTATION AT 00:00:01:24 IS 0 DEG BEZIER (REEL AX V)
+    * ROTATION AT 00:00:09:29 IS 23.3 DEG BEZIER (REEL AX V)
+    * SHEAR X AT 00:00:01:24 IS 0% BEZIER (REEL AX V)
+    * SHEAR X AT 00:00:09:29 IS -12% BEZIER (REEL AX V)
+    * SHEAR Y AT 00:00:01:24 IS 0% BEZIER (REEL AX V)
+    * SHEAR Y AT 00:00:09:29 IS -7% BEZIER (REEL AX V)
 
-    002  BL       V     C        00:00:00:01 00:00:05:09 00:00:13:17 00:00:18:25
-    002  AX       V     C        00:00:00:01 00:00:10:01 00:00:18:25 00:00:28:25
-    * FROM CLIP NAME: FileName.mp4
-    * OPACITY LEVEL AT 00:00:00:01 IS 0.00%  (REEL AX)
-    * OPACITY LEVEL AT 00:00:01:01 IS 100.00%  (REEL AX)
-    * OPACITY LEVEL AT 00:00:09:01 IS 100.00%  (REEL AX)
-    * OPACITY LEVEL AT 00:00:10:01 IS 0.00%  (REEL AX)
+    TITLE: Test - TRACK 4
+    FCM: NON-DROP FRAME
 
-    003  BL       V     C        00:00:00:01 00:00:33:15 00:00:28:25 00:01:02:09
-    003  AX       V     C        00:00:14:25 00:00:34:29 00:01:02:09 00:01:22:13
-    003  AX       A     C        00:00:14:25 00:00:34:29 00:01:02:09 00:01:22:13
-    * FROM CLIP NAME: FileName2.mp4
+    001  AX       V     C        00:00:00:00 00:00:09:29 00:00:00:00 00:00:09:29
+    001  AX       A     C        00:00:00:00 00:00:09:29 00:00:00:00 00:00:09:29
+    * FROM CLIP NAME: Trailer.mp4
+    * SOURCE FILE: ../Videos/Trailer.mp4
+    * VIDEO LEVEL AT 00:00:00:00 IS 0% BEZIER (REEL AX V)
+    * VIDEO LEVEL AT 00:00:01:00 IS 100% BEZIER (REEL AX V)
+    * VIDEO LEVEL AT 00:00:08:29 IS 100% BEZIER (REEL AX V)
+    * VIDEO LEVEL AT 00:00:09:29 IS 0% BEZIER (REEL AX V)
+    * AUDIO LEVEL AT 00:00:00:00 IS 0.00 DB LINEAR (REEL AX A1)
 
-    004  BL       V     C        00:00:00:01 00:00:26:25 00:01:22:13 00:01:49:07
-    004  AX       A     C        00:00:00:01 00:02:20:01 00:01:49:07 00:04:09:07
-    * FROM CLIP NAME: Music.wav
-    * AUDIO LEVEL AT 00:00:00:01 IS -99.00 DB  (REEL AX A1)
-    * AUDIO LEVEL AT 00:00:03:01 IS 0.00 DB  (REEL AX A1)
-    * AUDIO LEVEL AT 00:02:17:01 IS 0.00 DB  (REEL AX A1)
-    * AUDIO LEVEL AT 00:02:20:01 IS -99.00 DB  (REEL AX A1)
+    TITLE: Test - TRACK 3
+    FCM: NON-DROP FRAME
+
+    001  AX       V     C        00:00:00:00 00:00:09:29 00:00:00:00 00:00:09:29
+    001  AX       A     C        00:00:00:00 00:00:09:29 00:00:00:00 00:00:09:29
+    * FROM CLIP NAME: Soundtrack.mp3
+    * SOURCE FILE: ../Audio/Soundtrack.mp3
+    * VIDEO LEVEL AT 00:00:00:00 IS 100% BEZIER (REEL AX V)
+    * AUDIO LEVEL AT 00:00:00:00 IS -96.00 DB LINEAR (REEL AX A1)
+    * AUDIO LEVEL AT 00:00:03:00 IS 0.00 DB LINEAR (REEL AX A1)
+    * AUDIO LEVEL AT 00:00:06:29 IS 0.00 DB LINEAR (REEL AX A1)
+    * AUDIO LEVEL AT 00:00:09:29 IS -96.00 DB LINEAR (REEL AX A1)
 
 XML (Final Cut Pro format)
 --------------------------
 The following features are supported when importing and exporting an XML file with OpenShot. This XML format
 is supported in many video editors (not just Final Cut Pro). In fact, most commercial video editors have some
 support for importing and exporting this same XML format.
+
+OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) from Final Cut Pro 7. Our exporter writes
+`<!DOCTYPE xmeml>` projects that follow the Final Cut Pro XML DTD v1.0, and is compatible with the v4 and v5 schema
+versions of that interchange format (the DTDs shipped with Final Cut Pro 7).
 
 .. table::
    :widths: 25 80

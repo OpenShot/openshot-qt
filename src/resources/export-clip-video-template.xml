@@ -10,8 +10,6 @@
 						<end>641</end>
 						<in>1</in>
 						<out>301</out>
-						<pproTicksIn>8475667200</pproTicksIn>
-						<pproTicksOut>2551175827200</pproTicksOut>
 						<alphatype>none</alphatype>
 						<pixelaspectratio>square</pixelaspectratio>
 						<anamorphic>FALSE</anamorphic>
@@ -46,7 +44,7 @@
 										<height>480</height>
 										<anamorphic>FALSE</anamorphic>
 										<pixelaspectratio>square</pixelaspectratio>
-										<fielddominance>lower</fielddominance>
+										<fielddominance>none</fielddominance>
 									</samplecharacteristics>
 								</video>
                                 <audio>
@@ -65,13 +63,43 @@
 								<effectcategory>motion</effectcategory>
 								<effecttype>motion</effecttype>
 								<mediatype>video</mediatype>
-								<pproBypass>false</pproBypass>
-								<parameter authoringApp="OpenShot">
+								<parameter>
 									<parameterid>opacity</parameterid>
 									<name>opacity</name>
 									<valuemin>0</valuemin>
 									<valuemax>100</valuemax>
 									<value>100</value>
+								</parameter>
+							</effect>
+							<effect>
+								<name>Basic Motion</name>
+								<effectid>basic</effectid>
+								<effectcategory>motion</effectcategory>
+								<effecttype>motion</effecttype>
+								<mediatype>video</mediatype>
+								<parameter>
+									<parameterid>center</parameterid>
+									<name>Center</name>
+									<valuemin>0</valuemin>
+									<valuemax>10000</valuemax>
+									<value>
+										<horiz>0</horiz>
+										<vert>0</vert>
+									</value>
+								</parameter>
+								<parameter>
+									<parameterid>scale</parameterid>
+									<name>Scale</name>
+									<valuemin>0</valuemin>
+									<valuemax>1000</valuemax>
+									<value>100</value>
+								</parameter>
+								<parameter>
+									<parameterid>rotation</parameterid>
+									<name>Rotation</name>
+									<valuemin>-360</valuemin>
+									<valuemax>360</valuemax>
+									<value>0</value>
 								</parameter>
 							</effect>
 						</filter>
@@ -81,16 +109,7 @@
 							<shottake></shottake>
 							<lognote></lognote>
 							<good></good>
-							<originalvideofilename></originalvideofilename>
-							<originalaudiofilename></originalaudiofilename>
 						</logginginfo>
-						<colorinfo>
-							<lut></lut>
-							<lut1></lut1>
-							<asc_sop></asc_sop>
-							<asc_sat></asc_sat>
-							<lut2></lut2>
-						</colorinfo>
 						<labels>
 							<label2>Violet</label2>
 						</labels>

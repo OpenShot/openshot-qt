@@ -230,7 +230,8 @@ class BlenderListView(QListView):
         color_value = self.params[param["name"]]
         currentColor = QColor("#FFFFFF")
         if len(color_value) >= 3:
-            currentColor.setRgbF(color_value[0], color_value[1], color_value[2], color_value[3])
+            alpha = color_value[3] if len(color_value) >= 4 else 1.0
+            currentColor.setRgbF(color_value[0], color_value[1], color_value[2], alpha)
         # Store our arguments for the callback to pick up again
         self._color_scratchpad = (widget, param)
         ColorPicker(currentColor, callback=self.color_selected, parent=self.win)
@@ -370,7 +371,9 @@ class BlenderListView(QListView):
     def update_progress_bar(self, current_frame):
 
         # update label and preview slider
+        was_blocked = self.win.sliderPreview.blockSignals(True)
         self.win.sliderPreview.setValue(current_frame)
+        self.win.sliderPreview.blockSignals(was_blocked)
 
         length = int(self.params.get("end_frame", 1) * self.params.get("length_multiplier", 1.0))
         self.win.lblFrame.setText("{}/{}".format(current_frame, length))
@@ -574,6 +577,15 @@ Blender Path: {}
         with open(source_path, 'r') as f:
             script_body = f.read()
 
+        # Prepend shared helper library to every script (keeps templates lightweight)
+        base_path = os.path.join(info.PATH, "blender", "scripts", "base.py.in")
+        try:
+            with open(base_path, 'r') as f:
+                base_body = f.read()
+            script_body = base_body + "\n\n" + script_body
+        except IOError:
+            log.error("Could not load base Blender helper script at %s", base_path)
+
         # insert our modifications to script source
         script_body = script_body.replace("# INJECT_PARAMS_HERE", user_params)
 
@@ -744,6 +756,7 @@ class Worker(QObject):
         self.blender_version_re = re.compile(
             r"Blender ([0-9a-z\.]*)", flags=re.MULTILINE)
         self.blender_frame_re = re.compile(r"Fra:([0-9,]+)")
+        self.blender_frame_alt_re = re.compile(r"[Ff]rame[s]?[^\d]*([0-9]+)")
         self.blender_saved_re = re.compile(r"Saved: '(.*\.png)")
         self.blender_syncing_re = re.compile(
             r"\| Syncing (.*)$", flags=re.MULTILINE)
@@ -844,6 +857,16 @@ class Worker(QObject):
             self.current_frame = int(output_frame.group(1))
             # update progress on frame change
             self.progress.emit(self.current_frame)
+        else:
+            alt_frame = self.blender_frame_alt_re.search(line)
+            if alt_frame:
+                try:
+                    new_frame = int(alt_frame.group(1))
+                    if new_frame != self.current_frame:
+                        self.current_frame = new_frame
+                        self.progress.emit(self.current_frame)
+                except ValueError:
+                    pass
 
         output_syncing = self.blender_syncing_re.search(line)
         if output_syncing:
@@ -858,8 +881,23 @@ class Worker(QObject):
 
         output_saved = self.blender_saved_re.search(line)
         if output_saved:
+            # Try to infer frame number from the saved filename (Blender 5 logs)
+            saved_path = output_saved.group(1)
+            base_name = os.path.splitext(os.path.basename(saved_path))[0]
+            if self.preview_frame > 0:
+                self.current_frame = self.preview_frame
+            else:
+                frame_from_name = re.search(r"([0-9]{1,5})$", base_name)
+                if frame_from_name:
+                    try:
+                        guessed_frame = int(frame_from_name.group(1))
+                        self.current_frame = guessed_frame
+                    except ValueError:
+                        pass
             self.frame_count += 1
             log.debug("Saved frame %d", self.current_frame)
+            # Emit progress on save to update UI even if render lines were missed
+            self.progress.emit(self.current_frame)
             self.frame_saved.emit(self.current_frame)
             # Update preview image
             self.image_updated.emit(output_saved.group(1))

@@ -110,12 +110,57 @@ else:
 
 text_object.font = font
 
-# Change the material settings (color, alpha, etc...)
-material_object = bpy.data.materials["Material.001"]
-material_object.diffuse_color = params["diffuse_color"]
+# Change the material settings (color, alpha, etc...) for emission-based shader
+static_color_keyframes = [(params["start_frame"], params["diffuse_color"])]
+mat = bpy.data.materials.get("Material.001")
+if mat:
+    mat.diffuse_color = ensure_rgba(params["diffuse_color"])
+    node_tree = mat.node_tree
+    emission = None
+    if node_tree:
+        emission = node_tree.nodes.get("Emission")
+        if not emission:
+            emission = next((n for n in node_tree.nodes if n.type == 'EMISSION'), None)
+    if emission and hasattr(emission, "inputs") and len(emission.inputs) > 0:
+        emission.inputs[0].default_value = ensure_rgba(params["diffuse_color"])
+        # Keyframe the emission color so it persists across frames
+        keyframe_color_socket(emission.inputs[0], static_color_keyframes)
 
-# Change glare type
-bpy.data.scenes[0].node_tree.nodes["Glare"].glare_type = params["glare_type"]
+# Change glare type (support scene tree and linked compositor group)
+def _apply_glare_type(node_tree):
+    """Assign glare_type or equivalent input on any GLARE compositor node (recursing into groups)."""
+    if not node_tree:
+        return False
+    updated = False
+    # Map internal enum strings to display strings for input sockets
+    glare_input_map = {
+        "STREAKS": "Streaks",
+        "GHOSTS": "Ghosts",
+        "SIMPLE_STAR": "Simple Star",
+        "SUN_BEAMS": "Sun Beams",
+    }
+    glare_input_value = glare_input_map.get(params["glare_type"], "Ghosts")
+    for node in node_tree.nodes:
+        if node.type == 'GLARE':
+            if hasattr(node, "glare_type"):
+                node.glare_type = params["glare_type"]
+                updated = True
+            elif hasattr(node, "inputs") and len(node.inputs) > 1:
+                try:
+                    node.inputs[1].default_value = glare_input_value
+                    updated = True
+                except Exception:
+                    pass
+        elif node.type == 'GROUP' and getattr(node, "node_tree", None):
+            updated = _apply_glare_type(node.node_tree) or updated
+    return updated
+
+scene = bpy.context.scene
+apply_tree = getattr(scene, "node_tree", None)
+if not _apply_glare_type(apply_tree):
+    comp_group = bpy.data.node_groups.get("Compositing Nodetree")
+    if comp_group:
+        _apply_glare_type(comp_group)
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These

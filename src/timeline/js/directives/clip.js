@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio, updateDraggables */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, drawAudio, updateDraggables, snapToFPSGridTime */
 // Init variables
 var dragging = false;
 var resize_disabled = false;
@@ -47,12 +47,468 @@ App.directive("tlClip", function ($timeout) {
   return {
     scope: "@",
     link: function (scope, element, attrs) {
+      var timing_original_start = 0.0;
+      var timing_original_end = 0.0;
+      var timing_original_audio = null;
+      var timing_original_duration = 0.0;
+
+      function toNumber(value, fallback) {
+        var parsed = parseFloat(value);
+        return isNaN(parsed) ? fallback : parsed;
+      }
+
+      function resampleWaveform(data, originalDuration, newDuration) {
+        if (!Array.isArray(data) || data.length === 0) {
+          return null;
+        }
+        if (!isFinite(originalDuration) || !isFinite(newDuration) || originalDuration <= 0 || newDuration <= 0) {
+          return null;
+        }
+        if (data.length === 1) {
+          return [data[0]];
+        }
+        var newLength = Math.max(1, Math.round(data.length * (newDuration / originalDuration)));
+        if (newLength === data.length) {
+          return data.slice();
+        }
+        var result = new Array(newLength);
+        var maxSourceIndex = data.length - 1;
+        for (var i = 0; i < newLength; i++) {
+          var t = newLength === 1 ? 0 : i / (newLength - 1);
+          var sourcePos = t * maxSourceIndex;
+          var idx0 = Math.floor(sourcePos);
+          var idx1 = Math.min(maxSourceIndex, idx0 + 1);
+          var frac = sourcePos - idx0;
+          var value0 = data[idx0];
+          var value1 = data[idx1];
+          if (!isFinite(value0)) { value0 = 0; }
+          if (!isFinite(value1)) { value1 = value0; }
+          result[i] = value0 + (value1 - value0) * frac;
+        }
+        return result;
+      }
+
+      function snapTime(value) {
+        if (typeof snapToFPSGridTime === "function") {
+          return snapToFPSGridTime(scope, value);
+        }
+        return value;
+      }
+
+      function getTimePoints() {
+        if (!scope.clip || !scope.clip.time) {
+          return [];
+        }
+        var points = scope.clip.time.Points;
+        return Array.isArray(points) ? points : [];
+      }
+
+      function hasTimeKeyframes() {
+        return getTimePoints().length >= 2;
+      }
+
+      function isSingleImageClip() {
+        if (!scope.clip) {
+          return false;
+        }
+        if (scope.clip.has_single_image) {
+          return true;
+        }
+        var mediaType = (scope.clip.media_type || "").toString().toLowerCase();
+        if (mediaType === "image") {
+          return true;
+        }
+        var reader = scope.clip.reader || {};
+        if (reader.has_single_image) {
+          return true;
+        }
+        var readerMediaType = (reader.media_type || "").toString().toLowerCase();
+        return readerMediaType === "image";
+      }
+
+      /* The following functions are for displaying all keyframes during trimming/re-timing */
+      function ensureKeyframePreviewContainer() {
+        if (!scope.clip) {
+          return null;
+        }
+        if (!scope.clip.ui) {
+          scope.clip.ui = {};
+        }
+        var container = scope.clip.ui.keyframe_preview;
+        if (!container || typeof container !== "object") {
+          container = {};
+          scope.clip.ui.keyframe_preview = container;
+        }
+        return container;
+      }
+
+      function scheduleKeyframePreviewDigest() {
+        scope.$evalAsync(function () {
+          scheduleKeyframePreviewRender();
+        });
+      }
+
+      var keyframePreviewRaf = null;
+
+      function resetKeyframePreviewState() {
+        var preview = ensureKeyframePreviewContainer();
+        if (!preview) {
+          return;
+        }
+        var clipStart = snapTime(toNumber(scope.clip && scope.clip.start, 0));
+        var clipEnd = snapTime(toNumber(scope.clip && scope.clip.end, clipStart));
+        if (clipEnd < clipStart) {
+          clipEnd = clipStart;
+        }
+        var duration = Math.max(clipEnd - clipStart, 0);
+        preview.active = false;
+        preview.mode = "";
+        preview.originalStart = clipStart;
+        preview.originalEnd = clipEnd;
+        preview.originalDuration = duration;
+        preview.displayStart = clipStart;
+        preview.displayEnd = clipEnd;
+        preview.displayDuration = duration;
+        preview.projectedStart = clipStart;
+        preview.projectedEnd = clipEnd;
+        preview.pixelsPerSecond = scope.pixelsPerSecond;
+      }
+
+      function cancelKeyframePreviewRender() {
+        if (keyframePreviewRaf === null) {
+          return;
+        }
+        if (typeof window !== "undefined" && window.cancelAnimationFrame) {
+          window.cancelAnimationFrame(keyframePreviewRaf);
+        } else {
+          clearTimeout(keyframePreviewRaf);
+        }
+        keyframePreviewRaf = null;
+      }
+
+      function scheduleKeyframePreviewRender() {
+        if (keyframePreviewRaf !== null) {
+          return;
+        }
+        var raf;
+        if (typeof window !== "undefined" && window.requestAnimationFrame) {
+          raf = window.requestAnimationFrame.bind(window);
+        } else {
+          raf = function (cb) {
+            return setTimeout(cb, 16);
+          };
+        }
+        keyframePreviewRaf = raf(function () {
+          keyframePreviewRaf = null;
+          renderKeyframePreview();
+        });
+      }
+
+      // Position keyframes based on the current trim/retime preview window.
+      function renderKeyframePreview() {
+        if (!scope.clip || !scope.project) {
+          return;
+        }
+
+        var preview = scope.clip.ui && scope.clip.ui.keyframe_preview ? scope.clip.ui.keyframe_preview : null;
+        var points = element.find(".point");
+        if (!points.length) {
+          return;
+        }
+
+        if (!preview || !preview.active) {
+          points.each(function () {
+            var original = this.getAttribute("data-original-left");
+            if (original !== null) {
+              this.style.left = original;
+              this.removeAttribute("data-original-left");
+            }
+          });
+          return;
+        }
+
+        var pxPerSecond = toNumber(preview.pixelsPerSecond, toNumber(scope.pixelsPerSecond, 1));
+        if (!isFinite(pxPerSecond) || pxPerSecond <= 0) {
+          pxPerSecond = 1;
+        }
+
+        var fps_num = toNumber(scope.project.fps && scope.project.fps.num, 0);
+        var fps_den = toNumber(scope.project.fps && scope.project.fps.den, 1);
+        var frames_per_second = 0;
+        if (fps_den !== 0) {
+          frames_per_second = fps_num / fps_den;
+        }
+        if (!isFinite(frames_per_second) || frames_per_second <= 0) {
+          frames_per_second = 1;
+        }
+
+        var clipStart = toNumber(scope.clip.start, 0);
+        var displayStart = toNumber(preview.displayStart, clipStart);
+        var displayEnd = toNumber(preview.displayEnd, displayStart);
+        if (displayEnd < displayStart) {
+          displayEnd = displayStart;
+        }
+        var displayDuration = Math.max(displayEnd - displayStart, 0);
+
+        var originalStart = toNumber(preview.originalStart, clipStart);
+        var originalEnd = toNumber(preview.originalEnd, originalStart);
+        if (originalEnd < originalStart) {
+          originalEnd = originalStart;
+        }
+        var originalDuration = Math.max(originalEnd - originalStart, 0);
+
+        var hasRetimeMapping = preview.mode === "retime" && originalDuration > 0 && displayDuration > 0 && isFinite(originalDuration) && isFinite(displayDuration);
+
+        points.each(function () {
+          if (!this.hasAttribute("data-original-left")) { // capture original CSS once
+            this.setAttribute("data-original-left", this.style.left || "");
+          }
+
+          var pointAttr = this.getAttribute("data-point");
+          var frameValue = parseFloat(pointAttr);
+          if (!isFinite(frameValue)) {
+            return;
+          }
+
+          var frameSeconds = (frameValue - 1) / frames_per_second;
+          if (!isFinite(frameSeconds)) {
+            frameSeconds = 0;
+          }
+
+          var mappedSeconds = frameSeconds;
+          if (hasRetimeMapping) { // stretch/scale keyframes in timing mode
+            var normalized = (frameSeconds - originalStart) / originalDuration;
+            if (!isFinite(normalized)) {
+              normalized = 0;
+            }
+            mappedSeconds = displayStart + (normalized * displayDuration);
+          }
+
+          var relativeSeconds = mappedSeconds - displayStart;
+          var newLeftPx = Math.round(relativeSeconds * pxPerSecond);
+          this.style.left = newLeftPx + "px";
+        });
+      }
+
+      function clearKeyframePreviewTransform() {
+        cancelKeyframePreviewRender();
+        element.find(".point").each(function () {
+          if (this.hasAttribute("data-original-left")) {
+            this.removeAttribute("data-original-left");
+          }
+        });
+      }
+
+      function startKeyframePreview(mode) {
+        var container = ensureKeyframePreviewContainer();
+        if (!container) {
+          return;
+        }
+
+        var clipStart = snapTime(toNumber(scope.clip.start, 0));
+        var clipEnd = snapTime(toNumber(scope.clip.end, clipStart));
+        var originalStart = mode === "retime" ? snapTime(toNumber(timing_original_start, clipStart)) : clipStart;
+        var originalEnd = mode === "retime" ? snapTime(toNumber(timing_original_end, clipEnd)) : clipEnd;
+
+        container.active = true;
+        container.mode = mode;
+        container.originalStart = originalStart;
+        container.originalEnd = originalEnd;
+        container.originalDuration = Math.max(originalEnd - originalStart, 0);
+        container.displayStart = clipStart;
+        container.displayEnd = clipEnd;
+        container.displayDuration = Math.max(container.displayEnd - container.displayStart, 0);
+        if (mode === "trim") { // trim keeps absolute keyframe positions
+          container.projectedStart = container.displayStart;
+          container.projectedEnd = container.displayEnd;
+        } else {
+          container.projectedStart = container.originalStart;
+          container.projectedEnd = container.originalEnd;
+        }
+        container.pixelsPerSecond = scope.pixelsPerSecond;
+        scheduleKeyframePreviewDigest();
+        renderKeyframePreview();
+      }
+
+      function updateKeyframePreview(displayStart, displayEnd) {
+        var container = ensureKeyframePreviewContainer();
+        if (!container || !container.active) {
+          return;
+        }
+
+        var startSec = snapTime(toNumber(displayStart, container.displayStart));
+        var endSec = snapTime(toNumber(displayEnd, startSec));
+        if (endSec < startSec) {
+          var temp = startSec;
+          startSec = endSec;
+          endSec = temp;
+        }
+
+        container.displayStart = startSec;
+        container.displayEnd = endSec;
+        container.displayDuration = Math.max(endSec - startSec, 0);
+
+        if (container.mode === "trim") {
+          container.projectedStart = container.displayStart;
+          container.projectedEnd = container.displayEnd;
+        } else {
+          var originStart = toNumber(container.originalStart, startSec);
+          var originEnd = toNumber(container.originalEnd, originStart);
+          if (originEnd < originStart) {
+            originEnd = originStart;
+          }
+          container.projectedStart = originStart;
+          container.projectedEnd = originEnd;
+        }
+
+        container.pixelsPerSecond = scope.pixelsPerSecond;
+        scheduleKeyframePreviewDigest();
+        renderKeyframePreview();
+      }
+
+      function stopKeyframePreview() {
+        var container = scope.clip && scope.clip.ui ? scope.clip.ui.keyframe_preview : null;
+        if (container && container.active) {
+          container.active = false;
+        }
+        scheduleKeyframePreviewDigest();
+        clearKeyframePreviewTransform();
+      }
+
+      resetKeyframePreviewState();
+
+      scope.$watch(function () {
+        return scope.clip && scope.clip.id;
+      }, function (newValue, oldValue) {
+        if (!newValue || newValue === oldValue) {
+          return;
+        }
+        resetKeyframePreviewState();
+        clearKeyframePreviewTransform();
+      });
+
+      function getReaderDurationSeconds() {
+        if (!scope.clip) {
+          return 0;
+        }
+        var reader = scope.clip.reader || {};
+        var duration = toNumber(reader.duration, NaN);
+        if (!isNaN(duration) && duration > 0) {
+          return duration;
+        }
+        var videoLength = toNumber(reader.video_length, NaN);
+        var fps = reader.fps || {};
+        var fpsNum = toNumber(fps.num, NaN);
+        var fpsDen = toNumber(fps.den, NaN);
+        if (!isNaN(videoLength) && !isNaN(fpsNum) && !isNaN(fpsDen) && fpsDen !== 0) {
+          var fpsValue = fpsNum / fpsDen;
+          if (fpsValue > 0) {
+            return videoLength / fpsValue;
+          }
+        }
+        var clipDuration = toNumber(scope.clip.duration, NaN);
+        if (!isNaN(clipDuration) && clipDuration > 0) {
+          return clipDuration;
+        }
+        var end = toNumber(scope.clip.end, 0);
+        var start = toNumber(scope.clip.start, 0);
+        return Math.max(end - start, 0);
+      }
+
+      function isResizeConstrained() {
+        return !scope.enable_timing && !isSingleImageClip();
+      }
+
+      function getMaxDurationSeconds() {
+        if (scope.enable_timing) {
+          return null;
+        }
+        var retimed = getRetimedDurationSeconds();
+        if (retimed !== null) {
+          return retimed;
+        }
+        if (!isResizeConstrained()) {
+          return null;
+        }
+        return getReaderDurationSeconds();
+      }
+
+      function getMaxClipEndSeconds() {
+        var maxDuration = getMaxDurationSeconds();
+        if (maxDuration === null || !isFinite(maxDuration)) {
+          return null;
+        }
+        return toNumber(scope.clip.start, 0) + maxDuration;
+      }
+
+      function getRetimedDurationSeconds() {
+        if (!hasTimeKeyframes()) {
+          return null;
+        }
+        var points = getTimePoints();
+        if (!points.length) {
+          return null;
+        }
+        var fpsNum = toNumber(scope.project && scope.project.fps && scope.project.fps.num, NaN);
+        var fpsDen = toNumber(scope.project && scope.project.fps && scope.project.fps.den, NaN);
+        if (!isFinite(fpsNum) || !isFinite(fpsDen) || fpsDen === 0) {
+          return null;
+        }
+        var fpsValue = fpsNum / fpsDen;
+        if (!isFinite(fpsValue) || fpsValue <= 0) {
+          return null;
+        }
+        var minFrame = Infinity;
+        var maxFrame = -Infinity;
+        points.forEach(function (point) {
+          if (!point || !point.co) {
+            return;
+          }
+          var frame = toNumber(point.co.X, NaN);
+          if (isNaN(frame)) {
+            return;
+          }
+          if (frame < minFrame) {
+            minFrame = frame;
+          }
+          if (frame > maxFrame) {
+            maxFrame = frame;
+          }
+        });
+        if (!isFinite(minFrame) || !isFinite(maxFrame) || maxFrame <= minFrame) {
+          return null;
+        }
+        var durationFrames = maxFrame - minFrame;
+        if (!isFinite(durationFrames) || durationFrames <= 0) {
+          return null;
+        }
+        return durationFrames / (fpsValue);
+      }
+
+      function getMaxResizeWidthPx() {
+        var maxDuration = getMaxDurationSeconds();
+        if (maxDuration === null || !isFinite(maxDuration)) {
+          return null;
+        }
+        var startSec = toNumber(scope.clip.start, 0);
+        var currentDuration = Math.max(0, toNumber(scope.clip.end, startSec) - startSec);
+        var maxWidthSeconds = Math.max(maxDuration, currentDuration);
+        return maxWidthSeconds * scope.pixelsPerSecond;
+      }
+
+      function updateMaxResizeWidth() {
+        var maxWidth = getMaxResizeWidthPx();
+        if (element.data("ui-resizable")) {
+          element.resizable("option", "maxWidth", maxWidth);
+        }
+        return maxWidth;
+      }
 
       //handle resizability of clip
       element.resizable({
         handles: "e, w",
         minWidth: 1,
-        maxWidth: scope.clip.length * scope.pixelsPerSecond,
+        maxWidth: getMaxResizeWidthPx(),
         start: function (e, ui) {
           // Set selections
           setSelections(scope, element, $(this).attr("id"));
@@ -60,6 +516,17 @@ App.directive("tlClip", function ($timeout) {
           // Set dragging mode
           scope.setDragging(true);
           resize_disabled = false;
+
+          if (scope.enable_timing) {
+            timing_original_start = scope.clip.start;
+            timing_original_end = scope.clip.end;
+            timing_original_duration = Math.max(timing_original_end - timing_original_start, 0);
+            var existingAudio = scope.clip && scope.clip.ui && Array.isArray(scope.clip.ui.audio_data) ? scope.clip.ui.audio_data : null;
+            timing_original_audio = existingAudio ? existingAudio.slice() : null;
+          } else {
+            timing_original_audio = null;
+            timing_original_duration = 0.0;
+          }
 
           // Set bounding box
           setBoundingBox(scope, $(this), "trimming");
@@ -87,17 +554,14 @@ App.directive("tlClip", function ($timeout) {
             resize_disabled = true;
           }
 
-          // Hide keyframe points
-          element.find(".point").fadeOut(100);
-          element.find(".audio-container").fadeOut(100);
-
+          // Show hidden keyframes during resize
+          startKeyframePreview(scope.enable_timing ? "retime" : "trim");
         },
         stop: function (e, ui) {
           scope.setDragging(false);
 
-          // Show keyframe points
-          element.find(".point").fadeIn(100);
-          element.find(".audio-container").fadeIn(100);
+          // Stop showing hidden keyframes after drag is done
+          stopKeyframePreview();
 
           // Calculate the pixel locations of the left and right side
           let original_left_edge = scope.clip.position * scope.pixelsPerSecond;
@@ -130,26 +594,44 @@ App.directive("tlClip", function ($timeout) {
           var new_left = scope.clip.start;
           var new_right = scope.clip.end;
 
+          var maxClipEndSeconds = getMaxClipEndSeconds();
+          var singleImageClip = isSingleImageClip();
+          var allowLeftOverflow = scope.enable_timing || singleImageClip;
+
           if (dragLoc === "left") {
             // changing the start of the clip
-            new_left -= delta_time;
-            if (new_left < 0) {
-              // prevent less than zero
-              new_left = 0.0;
-              new_position -= scope.clip.start;
-            } else if (new_left >= new_right) {
+            var targetStart = new_left - delta_time;
+            var overflow = 0;
+            if (targetStart < 0) {
+              overflow = -targetStart;
+              targetStart = 0.0;
+            }
+
+            if (targetStart >= new_right) {
               // prevent resizing past right edge
-              new_left = new_right;
+              targetStart = new_right;
             } else {
-              new_position -= delta_time;
+              var positionShift = delta_time;
+              if (overflow > 0 && !allowLeftOverflow) {
+                // When overflow isn't allowed, clamp at the media's true start
+                positionShift = scope.clip.start;
+              }
+              new_position -= positionShift;
+            }
+
+            new_left = targetStart;
+
+            if (overflow > 0 && allowLeftOverflow) {
+              // Extend duration when overflowing past the media's start
+              new_right += overflow;
             }
           }
           else {
             // changing the end of the clips
             new_right -= delta_time;
-            if (new_right > scope.clip.duration) {
+            if (maxClipEndSeconds !== null && new_right > maxClipEndSeconds) {
               // prevent greater than duration
-              new_right = scope.clip.duration;
+              new_right = maxClipEndSeconds;
             } else if (new_right < new_left) {
               // Prevent resizing past left edge
               new_right = new_left;
@@ -159,40 +641,76 @@ App.directive("tlClip", function ($timeout) {
           // Hide snapline (if any)
           scope.hideSnapline();
 
-          //apply the new start, end and length to the clip's scope
-          scope.$apply(function () {
-            // Apply clip scope changes
-            if (scope.clip.end !== new_right) {
-              scope.clip.end = snapToFPSGridTime(scope, new_right);
+          if (scope.enable_timing) {
+            var duration_sec = snapToFPSGridTime(scope, new_right) - snapToFPSGridTime(scope, new_left);
+            var position_sec = snapToFPSGridTime(scope, new_position);
+            scope.$apply(function () {
+              scope.clip.start = timing_original_start;
+              scope.clip.end = snapToFPSGridTime(scope, timing_original_start + duration_sec);
+              scope.clip.position = position_sec;
+              scope.resizeTimeline();
+            });
+            if (scope.Qt) {
+              timeline.RetimeClip(scope.clip.id, scope.clip.end, scope.clip.position);
             }
-            if (scope.clip.start !== new_left) {
-              scope.clip.start = snapToFPSGridTime(scope, new_left);
-              scope.clip.position = snapToFPSGridTime(scope, new_position);
+            if (timing_original_audio && timing_original_duration > 0) {
+              var newDuration = Math.max(scope.clip.end - scope.clip.start, 0);
+              var resampled = resampleWaveform(timing_original_audio, timing_original_duration, newDuration);
+              if (resampled) {
+                if (!scope.clip.ui) { scope.clip.ui = {}; }
+                scope.clip.ui.audio_data = resampled;
+                drawAudio(scope, scope.clip.id, {
+                  clip: scope.clip,
+                  pixelsPerSecond: scope.pixelsPerSecond
+                });
+              }
             }
-            // Resize timeline if it's too small to contain all clips
-            scope.resizeTimeline();
-          });
+            timing_original_audio = null;
+            timing_original_duration = 0.0;
+            updateMaxResizeWidth();
+          } else {
+            //apply the new start, end and length to the clip's scope
+            scope.$apply(function () {
+              if (scope.clip.end !== new_right) {
+                scope.clip.end = snapToFPSGridTime(scope, new_right);
+              }
+              var snappedStart = snapToFPSGridTime(scope, new_left);
+              var snappedPosition = snapToFPSGridTime(scope, new_position);
+              if (scope.clip.start !== snappedStart) {
+                scope.clip.start = snappedStart;
+              }
+              if (scope.clip.position !== snappedPosition) {
+                scope.clip.position = snappedPosition;
+              }
+              scope.resizeTimeline();
+            });
 
-          // update clip in Qt (very important =)
-          if (scope.Qt) {
-            timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false, null);
+            // update clip in Qt (very important =)
+            if (scope.Qt) {
+              timeline.update_clip_data(JSON.stringify(scope.clip), true, true, false, null);
+            }
+            updateMaxResizeWidth();
           }
 
           //resize the audio canvas to match the new clip width
           if (scope.clip.ui && scope.clip.ui.audio_data) {
-            //redraw audio as the resize cleared the canvas
-            drawAudio(scope, scope.clip.id);
+            // Redraw audio as the resize cleared the canvas
+            drawAudio(scope, scope.clip.id, {
+              clip: scope.clip,
+              forceScale: false,
+              pixelsPerSecond: scope.pixelsPerSecond
+            });
           }
           dragLoc = null;
         },
         resize: function (e, ui) {
-          element.find(".point").fadeOut(100);
-          element.find(".audio-container").fadeOut(100);
-
           // Calculate the pixel locations of the left and right side
           let original_left_edge = scope.clip.position * scope.pixelsPerSecond;
           let original_width = (scope.clip.end - scope.clip.start) * scope.pixelsPerSecond;
           let original_right_edge = original_left_edge + original_width;
+
+          var singleImageClip = isSingleImageClip();
+          var allowLeftOverflow = scope.enable_timing || singleImageClip;
 
           if (resize_disabled) {
             // disabled, keep the item the same size
@@ -219,28 +737,44 @@ App.directive("tlClip", function ($timeout) {
           var new_left = parseFloat(scope.clip.start * scope.pixelsPerSecond);
           var new_right = parseFloat(scope.clip.end * scope.pixelsPerSecond);
 
-          if (dragLoc === "left") {
-            // Adjust left side of clip
-            if (new_left - delta_x > 0.0) {
-              new_left -= delta_x;
-            } else {
-              // Don't allow less than 0.0 start
-              let position_x = (scope.clip.position - scope.clip.start) * scope.pixelsPerSecond;
-              delta_x = original_left_edge - position_x;
-              new_left = 0.0;
-            }
+          var maxClipEndPx = getMaxClipEndSeconds();
+          if (maxClipEndPx !== null) {
+            maxClipEndPx *= scope.pixelsPerSecond;
+          }
 
-            // Position and size clip
-            ui.element.css("left", original_left_edge - delta_x);
-            ui.element.width(new_right - new_left);
+          if (dragLoc === "left") {
+            if (allowLeftOverflow) {
+              // Allow timing and single-image clips to extend beyond their media start
+              var new_width_px = original_width + delta_x;
+              if (new_width_px < 0) {
+                new_width_px = 0;
+              }
+              ui.element.css("left", original_left_edge - delta_x);
+              ui.element.width(new_width_px);
+              new_left = Math.max((scope.clip.start * scope.pixelsPerSecond) - delta_x, 0.0);
+              new_right = new_left + new_width_px;
+            } else {
+              // Adjust left side of clip
+              if (new_left - delta_x > 0.0) {
+                new_left -= delta_x;
+              } else {
+                // Don't allow less than 0.0 start
+                let position_x = (scope.clip.position - scope.clip.start) * scope.pixelsPerSecond;
+                delta_x = original_left_edge - position_x;
+                new_left = 0.0;
+              }
+
+              // Position and size clip
+              ui.element.css("left", original_left_edge - delta_x);
+              ui.element.width(new_right - new_left);
+            }
           }
           else {
             // Adjust right side of clip
             new_right -= delta_x;
-            let duration_pixels = scope.clip.duration * scope.pixelsPerSecond;
-            if (new_right > duration_pixels) {
+            if (maxClipEndPx !== null && new_right > maxClipEndPx) {
               // change back to actual duration (for the preview below)
-              new_right = duration_pixels;
+              new_right = maxClipEndPx;
             }
             ui.element.width(new_right - new_left);
           }
@@ -248,14 +782,72 @@ App.directive("tlClip", function ($timeout) {
           // Preview frame during resize
           if (dragLoc === "left") {
             // Preview the left side of the clip
-            scope.previewClipFrame(scope.clip.id, new_left / scope.pixelsPerSecond);
+            scope.previewClipFrame(scope.clip.id, snapToFPSGridTime(scope, new_left / scope.pixelsPerSecond));
           }
           else {
             // Preview the right side of the clip
-            scope.previewClipFrame(scope.clip.id, new_right / scope.pixelsPerSecond);
+            scope.previewClipFrame(scope.clip.id, snapToFPSGridTime(scope, new_right / scope.pixelsPerSecond));
+          }
+
+          var previewStart = new_left / scope.pixelsPerSecond;
+          var previewEnd = new_right / scope.pixelsPerSecond;
+          updateKeyframePreview(previewStart, previewEnd);
+
+          if (scope.clip.ui && scope.clip.ui.audio_data) {
+            drawAudio(scope, scope.clip.id, {
+              clip: scope.clip,
+              start: previewStart,
+              end: previewEnd,
+              forceScale: scope.enable_timing,
+              pixelsPerSecond: scope.pixelsPerSecond
+            });
           }
         }
       });
+
+      // Adjust max resize width when toggling timing mode
+      scope.$watch("enable_timing", function () {
+        updateMaxResizeWidth();
+      });
+
+      scope.$watch(function () {
+        return scope.clip && scope.clip.start;
+      }, function () {
+        updateMaxResizeWidth();
+      });
+
+      scope.$watch(function () {
+        return getTimePoints().length;
+      }, function () {
+        updateMaxResizeWidth();
+      });
+
+      scope.$watch(function () {
+        return isSingleImageClip();
+      }, function () {
+        updateMaxResizeWidth();
+      });
+
+      scope.$on("$destroy", function () {
+        stopKeyframePreview();
+      });
+
+      scope.$watch(function () {
+        return scope.pixelsPerSecond;
+      }, function (newValue, oldValue) {
+        if (newValue === oldValue) {
+          return;
+        }
+        var preview = scope.clip && scope.clip.ui ? scope.clip.ui.keyframe_preview : null;
+        if (preview && preview.active) {
+          clearKeyframePreviewTransform();
+          scheduleKeyframePreviewDigest();
+          renderKeyframePreview();
+        }
+        updateMaxResizeWidth();
+      });
+
+      updateMaxResizeWidth();
 
       //handle hover over on the clip
       element.hover(

@@ -60,51 +60,161 @@ function getTrackContainerHeight() {
   return $("#track-container").height() - track_margin;
 }
 
-// Draw each bar of the audio waveform (a wave is made up from lots of vertical lines)
-function drawBar(ctx, startX, endX, maxHeight, avgHeight, transpColor, fillColor, bottom_edge) {
-  // Draw the slightly transparent max-bar
-  ctx.fillStyle = transpColor;
-  ctx.fillRect(startX, bottom_edge - maxHeight, endX - startX, maxHeight);
+// Calculate waveform column stats (peak and average) similar to the QWidget painter
+function buildWaveformColumns(audio_data, start_float, end_float, samples_per_pixel, width) {
+  var peaks = [];
+  var avgs = [];
+  var xs = [];
 
-  // Draw the fully visible average-bar
-  ctx.fillStyle = fillColor;
-  ctx.fillRect(startX, bottom_edge - avgHeight, endX - startX, avgHeight);
+  if (!Array.isArray(audio_data) || audio_data.length === 0) {
+    return {peaks: peaks, avgs: avgs, xs: xs};
+  }
+  if (!isFinite(samples_per_pixel) || samples_per_pixel <= 0 || !isFinite(start_float) || !isFinite(end_float)) {
+    return {peaks: peaks, avgs: avgs, xs: xs};
+  }
+
+  var samples = audio_data.length;
+
+  for (var column = 0; column < width; column++) {
+    var px_start = start_float + (column * samples_per_pixel);
+    var px_end = Math.min(end_float, px_start + samples_per_pixel);
+    var start_idx = Math.max(0, Math.floor(px_start));
+    var end_idx = Math.min(samples, Math.ceil(px_end));
+    var values = [];
+
+    if (end_idx <= start_idx) {
+      if (samples) {
+        var single_idx = Math.min(samples - 1, Math.max(0, Math.round(px_start)));
+        var single_sample = audio_data[single_idx];
+        var single_value = (typeof single_sample === "number" && isFinite(single_sample)) ? Math.abs(single_sample) : 0;
+        values.push(single_value);
+      }
+    } else {
+      var step = Math.max(1, Math.ceil((end_idx - start_idx) / 20));
+      for (var idx = start_idx; idx < end_idx; idx += step) {
+        var val = audio_data[idx];
+        values.push((typeof val === "number" && isFinite(val)) ? Math.abs(val) : 0);
+      }
+      var last_idx = end_idx - 1;
+      if (values.length && (last_idx - start_idx) % step !== 0) {
+        var tail = audio_data[last_idx];
+        values.push((typeof tail === "number" && isFinite(tail)) ? Math.abs(tail) : 0);
+      }
+    }
+
+    var max_val = 0;
+    var avg_val = 0;
+    for (var v = 0; v < values.length; v++) {
+      max_val = Math.max(max_val, values[v]);
+      avg_val += values[v];
+    }
+    if (values.length) {
+      avg_val /= values.length;
+    }
+
+    peaks.push(max_val);
+    avgs.push(avg_val);
+    xs.push(column + 0.5);
+  }
+
+  return {peaks: peaks, avgs: avgs, xs: xs};
 }
 
-// Draw audio waveform from audio samples
-function drawWaveform(ctx, audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge) {
-  var last_x = 0;
-  var avg = 0;
-  var avg_cnt = 0;
-  var max = 0;
-
-  // Loop through audio samples (calculate average and max amplitude)
-  for (var i = start_sample; i < end_sample; i++) {
-    var sample = Math.abs(audio_data[i]);
-    var x = Math.floor((i + 1 - start_sample) / sample_divisor);
-    avg += sample;
-    avg_cnt++;
-    max = Math.max(max, sample);
-
-    if (x >= last_x + block_width || i === end_sample - 1) {
-      drawBar(ctx, last_x, x, max * scale, avg / avg_cnt * scale, color_transp, color, bottom_edge);
-
-      // Reset for the next bar
-      last_x = x;
-      avg = 0;
-      avg_cnt = 0;
-      max = 0;
-    }
+// Draw audio waveform from audio samples using a filled path (matching the QWidget style)
+function drawWaveform(ctx, audio_data, options) {
+  if (!ctx || !options) {
+    return;
   }
+  var start_float = options.start;
+  var end_float = options.end;
+  var samples_per_pixel = options.samplesPerPixel;
+  var width = options.width;
+  var height = options.height;
+  var peakColor = options.peakColor;
+  var fillColor = options.fillColor;
+
+  if (!Array.isArray(audio_data) || audio_data.length === 0) {
+    return;
+  }
+  if (!isFinite(width) || !isFinite(height) || width <= 0 || height <= 0) {
+    return;
+  }
+  if (!isFinite(start_float) || !isFinite(end_float) || end_float <= start_float) {
+    return;
+  }
+  if (!isFinite(samples_per_pixel) || samples_per_pixel <= 0) {
+    samples_per_pixel = (end_float - start_float) / Math.max(width, 1);
+  }
+  if (!isFinite(samples_per_pixel) || samples_per_pixel <= 0) {
+    return;
+  }
+
+  var amplitude_scale = (height * 0.5) * 0.95;
+  var center_y = height / 2;
+  var columns = buildWaveformColumns(audio_data, start_float, end_float, samples_per_pixel, width);
+  var peaks = columns.peaks;
+  var avgs = columns.avgs;
+  var xs = columns.xs;
+
+  if (!xs.length) {
+    return;
+  }
+
+  var hasPeaks = peaks.some(function (h) { return h > 0; });
+  var hasAvgs = avgs.some(function (h) { return h > 0; });
+  if (!hasPeaks && !hasAvgs) {
+    return;
+  }
+
+  function fillPath(heights, color) {
+    if (!color) {
+      return;
+    }
+    ctx.beginPath();
+    ctx.moveTo(xs[0], center_y);
+    for (var i = 0; i < xs.length; i++) {
+      ctx.lineTo(xs[i], center_y - (heights[i] * amplitude_scale));
+    }
+    ctx.lineTo(xs[xs.length - 1], center_y);
+    for (var j = xs.length - 1; j >= 0; j--) {
+      ctx.lineTo(xs[j], center_y + (heights[j] * amplitude_scale));
+    }
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  ctx.save();
+  if (hasPeaks) {
+    fillPath(peaks, peakColor);
+  }
+  if (hasAvgs) {
+    fillPath(avgs, fillColor);
+  }
+  ctx.restore();
 }
 
 
 // Draw the audio waveform for a clip
-function drawAudio(scope, clip_id) {
-  // Find clip in scope
-  var clip = findElement(scope.project.clips, "id", clip_id);
-  if (!clip.ui || !clip.ui.audio_data) {
+function drawAudio(scope, clip_id, options) {
+  options = options || {};
+
+  // Find clip in scope (allow override to avoid extra lookups during drag)
+  var clip = options.clip || findElement(scope.project.clips, "id", clip_id);
+  if (!clip || !clip.ui || !Array.isArray(clip.ui.audio_data) || clip.ui.audio_data.length === 0) {
     return;
+  }
+
+  var audio_data = clip.ui.audio_data;
+
+  function toValidNumber(value, fallback) {
+    if (typeof value === "string") {
+      value = parseFloat(value);
+    }
+    if (typeof value === "number" && isFinite(value)) {
+      return value;
+    }
+    return fallback;
   }
 
   // Find audio canvas
@@ -114,22 +224,158 @@ function drawAudio(scope, clip_id) {
     return;
   }
 
-  // Init canvas and init variables
-  var ctx = audio_canvas[0].getContext("2d");
-  var samples_per_second = 20;
-  var start_sample = Math.round(clip.start * samples_per_second);
-  var end_sample = Math.round(clip.end * samples_per_second);
-  var sample_divisor = samples_per_second / scope.pixelsPerSecond;
-  var block_width = 2;
-  var color = "#2a82da"; // rgb(42,130,218)
-  var color_transp = "rgba(42,130,218,0.5)";
-  ctx.strokeStyle = color;
+  var canvas_element = audio_canvas[0];
+  var ctx = canvas_element.getContext("2d");
 
-  // Scale waveform to smaller % of clip height
-  var bottom_edge = audio_canvas.height();
-  var scale = bottom_edge * 0.85;
+  var samples_per_second = options.samplesPerSecond || 20;
+  var pixels_per_second = toValidNumber(options.pixelsPerSecond, NaN);
+  if (!isFinite(pixels_per_second) || pixels_per_second <= 0) {
+    pixels_per_second = toValidNumber(scope.pixelsPerSecond, 1) || 1;
+  }
 
-  drawWaveform(ctx, clip.ui.audio_data, start_sample, end_sample, sample_divisor, block_width, scale, color, color_transp, bottom_edge);
+  var clip_start_prop = toValidNumber(clip.start, 0);
+  var clip_end_prop = toValidNumber(clip.end, clip_start_prop);
+  if (clip_end_prop < clip_start_prop) {
+    clip_end_prop = clip_start_prop;
+  }
+
+  var timeline_start = toValidNumber(options.start, clip_start_prop);
+  var timeline_end = toValidNumber(options.end, clip_end_prop);
+  if (timeline_end < timeline_start) {
+    timeline_end = timeline_start;
+  }
+
+  var total_samples = audio_data.length;
+  var media_duration = total_samples / samples_per_second;
+
+  var display_duration = timeline_end - timeline_start;
+  if (!isFinite(display_duration) || display_duration <= 0) {
+    display_duration = clip_end_prop - clip_start_prop;
+  }
+  if (!isFinite(display_duration) || display_duration <= 0) {
+    display_duration = media_duration;
+  }
+  if (!isFinite(display_duration) || display_duration <= 0) {
+    display_duration = 1 / samples_per_second;
+  }
+
+  var MAX_CANVAS_WIDTH = 32767;
+  var desired_width = Math.round(display_duration * pixels_per_second);
+  if (!isFinite(desired_width) || desired_width <= 0) {
+    desired_width = Math.round((total_samples / samples_per_second) * pixels_per_second);
+  }
+  if (!isFinite(desired_width) || desired_width <= 0) {
+    desired_width = 1;
+  }
+  desired_width = Math.min(MAX_CANVAS_WIDTH, Math.max(1, desired_width));
+
+  // Ensure the canvas element matches the desired width/height
+  audio_canvas.width(desired_width);
+  if (canvas_element.width !== desired_width) {
+    canvas_element.width = desired_width;
+  }
+
+  var canvas_height = Math.max(Math.round(audio_canvas.height()), 1);
+  if (canvas_element.height !== canvas_height) {
+    canvas_element.height = canvas_height;
+  }
+
+  ctx.clearRect(0, 0, canvas_element.width, canvas_element.height);
+
+  var scale_waveform = !!options.forceScale;
+  var source_start;
+  var source_end;
+
+  if (scale_waveform) {
+    source_start = clip_start_prop;
+    source_end = clip_end_prop;
+  } else {
+    source_start = timeline_start;
+    source_end = timeline_end;
+  }
+
+  if (!isFinite(source_start)) {
+    source_start = clip_start_prop;
+  }
+  if (!isFinite(source_end)) {
+    source_end = clip_end_prop;
+  }
+
+  if (scale_waveform) {
+    source_start = Math.max(0, source_start);
+    source_end = Math.max(source_start, source_end);
+  } else {
+    source_start = Math.max(0, source_start);
+    source_end = Math.max(source_start, source_end);
+  }
+
+  if (isFinite(media_duration) && media_duration > 0) {
+    if (source_start > media_duration) {
+      source_start = Math.max(0, media_duration - (1 / samples_per_second));
+    }
+    if (source_end > media_duration) {
+      source_end = media_duration;
+    }
+  }
+
+  var start_sample_float = source_start * samples_per_second;
+  var end_sample_float = source_end * samples_per_second;
+  if (!isFinite(start_sample_float) || start_sample_float < 0) {
+    start_sample_float = 0;
+  }
+  if (!isFinite(end_sample_float) || end_sample_float <= start_sample_float) {
+    var span_seconds = source_end - source_start;
+    if (!isFinite(span_seconds) || span_seconds <= 0) {
+      span_seconds = 1 / samples_per_second;
+    }
+    end_sample_float = start_sample_float + (span_seconds * samples_per_second);
+  }
+
+  var start_sample = Math.floor(start_sample_float);
+  var end_sample = Math.ceil(end_sample_float);
+
+  if (start_sample >= total_samples) {
+    start_sample = Math.max(total_samples - 1, 0);
+    start_sample_float = start_sample;
+  }
+  if (end_sample > total_samples) {
+    end_sample = total_samples;
+    end_sample_float = total_samples;
+  }
+  if (end_sample <= start_sample) {
+    end_sample = Math.min(total_samples, start_sample + 1);
+    end_sample_float = Math.max(start_sample_float + 1, end_sample);
+  }
+  if (end_sample <= start_sample) {
+    return;
+  }
+
+  var span_float = end_sample_float - start_sample_float;
+  if (!isFinite(span_float) || span_float <= 0) {
+    span_float = end_sample - start_sample;
+  }
+  if (!isFinite(span_float) || span_float <= 0) {
+    span_float = 1;
+  }
+
+  var canvas_width = Math.max(canvas_element.width, 1);
+  var sample_divisor = span_float / canvas_width;
+  if (!isFinite(sample_divisor) || sample_divisor <= 0) {
+    sample_divisor = 1;
+  }
+
+  var waveform_color = "#2a82da"; // rgb(42,130,218)
+  var waveform_peak_color = "rgba(42,130,218,0.5)";
+
+  drawWaveform(ctx, audio_data, {
+    start: start_sample_float,
+    end: end_sample_float,
+    samplesPerPixel: sample_divisor,
+    width: canvas_element.width,
+    height: canvas_element.height,
+    peakColor: waveform_peak_color,
+    fillColor: waveform_color
+  });
 }
 
 function padNumber(value, pad_length) {
@@ -151,7 +397,11 @@ function secondsToTime(secs, fps_num, fps_den) {
   var week = Math.floor(day / 7);
   day = day % 7;
 
-  var frame = Math.round((milli / 1000.0) * (fps_num / fps_den)) + 1;
+  var fps_float = fps_den ? (fps_num / fps_den) : 0;
+  var frame = Math.round((milli / 1000.0) * fps_float);
+  if (fps_float > 0) {
+    frame = Math.max(0, Math.min(frame, Math.floor(fps_float) - 1));
+  }
   return {
     "week": padNumber(week, 2),
     "day": padNumber(day, 2),
@@ -345,7 +595,14 @@ function moveBoundingBox(scope, previous_x, previous_y, x_offset, y_offset, left
   bounding_box.bottom += y_offset;
 
   // Find closest nearby object, if any (for snapping)
-  var results = scope.getNearbyPosition([bounding_box.left, bounding_box.right], 10.0, bounding_box.selected_ids);
+  // Only enable keyframe snapping when trimming clip edges (not during retime/stretch mode).
+  var includeKeyframes = item_type === "trimming" && !(scope && scope.enable_timing);
+  var results = scope.getNearbyPosition(
+    [bounding_box.left, bounding_box.right],
+    10.0,
+    bounding_box.selected_ids,
+    { includeKeyframes: includeKeyframes }
+  );
   var nearby_offset = results[0];
   var snapline_position = results[1];
 
@@ -502,13 +759,18 @@ function setSelections(scope, element, id) {
   if (!element.hasClass("ui-selected")) {
     // Clear previous selections?
     var clear_selections = false;
-    if ($(".ui-selected").length > 0) {
+    if ($(".ui-selected").length > 0 || $(".clip_effects.selected").length > 0) {
       clear_selections = true;
 
       // Remove ui-selected class immediately
       $(".ui-selected").each(function () {
           $(this).removeClass("ui-selected");
       });
+    }
+
+    // Always clear effect selections when needed
+    if (clear_selections) {
+      scope.selectEffect("", true);
     }
 
     // selectClip, selectTransition
@@ -522,6 +784,10 @@ function setSelections(scope, element, id) {
       // Select this transition, unselect all others
       scope.selectClip("", clear_selections);
       scope.selectTransition(id, clear_selections);
+    } else if (clear_selections) {
+      // Clicked timeline background, clear clip and transition selections
+      scope.selectClip("", true);
+      scope.selectTransition("", true);
     }
   }
 

@@ -556,6 +556,7 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"action": self.app.window.actionUndo, "icon": "themes/cosmic/images/tool-undo.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
             {"action": self.app.window.actionRedo, "icon": "themes/cosmic/images/tool-redo.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},
             {"action": self.app.window.actionSnappingTool, "icon": "themes/cosmic/images/tool-snapping.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
+            {"action": self.app.window.actionTimingTool, "icon": "themes/cosmic/images/tool-timing.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; margin-right: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
             {"action": self.app.window.actionRazorTool, "icon": "themes/cosmic/images/tool-razor.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; }"},
             {"action": self.app.window.actionAddMarker, "icon": "themes/cosmic/images/tool-add-marker.svg", "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
             {"action": self.app.window.actionPreviousMarker, "icon": "themes/cosmic/images/tool-prev-marker.svg", "style": Qt.ToolButtonIconOnly, "stylesheet": "QToolButton { margin-left: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 0px; margin-right: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; }"},
@@ -717,8 +718,53 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             .point_constant {
               background-image: url(../themes/cosmic/images/keyframe-constant.svg);
             }
+            .track-keyframe-panel-disabled {
+              background-image: url(../themes/cosmic/images/track-keyframe-panel-show-disabled.svg);
+            }
+            .track-keyframe-panel-enabled {
+              background-image: url(../themes/cosmic/images/track-keyframe-panel-show-enabled.svg);
+            }
+            .track-add-above-disabled {
+              background-image: url(../themes/cosmic/images/track-add-above-disabled.svg);
+            }
+            .track-add-above-enabled {
+              background-image: url(../themes/cosmic/images/track-add-above-enabled.svg);
+            }
+            .track-add-below-disabled {
+              background-image: url(../themes/cosmic/images/track-add-below-disabled.svg);
+            }
+            .track-add-below-enabled {
+              background-image: url(../themes/cosmic/images/track-add-below-enabled.svg);
+            }
+            .track-delete-disabled {
+              background-image: url(../themes/cosmic/images/track-delete-disabled.svg);
+            }
+            .track-delete-enabled {
+              background-image: url(../themes/cosmic/images/track-delete-enabled.svg);
+            }
+            .track-locked-disabled {
+              background-image: url(../themes/cosmic/images/track-locked-disabled.svg);
+            }
+            .track-locked-enabled {
+              background-image: url(../themes/cosmic/images/track-locked-enabled.svg);
+            }
+            .track-unlocked-disabled {
+              background-image: url(../themes/cosmic/images/track-unlocked-disabled.svg);
+            }
+            .track-unlocked-enabled {
+              background-image: url(../themes/cosmic/images/track-unlocked-enabled.svg);
+            }
+            .keyframe-panel-add {
+              background-image: url(../themes/cosmic/images/keyframe-panel-add.svg);
+            }
             .marker_icon {
               background-image: url(../themes/cosmic/images/marker.svg);
+            }
+            #ruler_label {
+              background: #141923;
+            }
+            #scrolling_ruler {
+              background: #141923;
             }
         """)
 

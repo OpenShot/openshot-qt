@@ -181,7 +181,9 @@ class FileProperties(QDialog):
         if 'end' not in file_object.keys():
             self.txtEndFrame.setValue(int(file_object["video_length"]))
         else:
-            self.txtEndFrame.setValue(round(float(file_object["end"]) * fps_float) + 1)
+            # End times are stored as the first frame *after* the clip ends,
+            # so convert to an inclusive frame number without adding 1.
+            self.txtEndFrame.setValue(round(float(file_object["end"]) * fps_float))
 
     def verifyPath(self, new_path):
         """If the path has changed, verify that path is valid, and
@@ -261,7 +263,8 @@ class FileProperties(QDialog):
         elif self.txtStartFrame.value() != 1 or self.txtEndFrame.value() != int(self.file.data["video_length"]):
             # Scale 'start' and 'end' properties by FPS difference
             self.file.data["start"] = (self.txtStartFrame.value() - 1) / fps_float
-            self.file.data["end"] = (self.txtEndFrame.value() - 1) / fps_float
+            # End frames are inclusive, so convert to the time *after* the last frame
+            self.file.data["end"] = self.txtEndFrame.value() / fps_float
 
         # Transaction id to group all updates together
         tid = str(uuid4())

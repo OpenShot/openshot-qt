@@ -45,11 +45,12 @@ The General tab of the Preferences window allows you to modify the settings that
    ================================  =============  ===========
    Setting                           Default        Description
    ================================  =============  ===========
-   Language                          Default        Choose your preferred language for OpenShot menus and windows  
+   Language                          Default        Choose your preferred language for OpenShot menus and windows
    Default Theme                     Humanity:Dark  Choose your theme for OpenShot, either Light, Dark or None
+   User Interface Scale              1.0            Adjust the size of OpenShot's interface (restart required; range 1–3; known issues on Windows)
    Image Length (seconds)            10.00          How long the image displays on the screen when added to the timeline
    Volume                            75.00          The percentage of the volume of the clip when added to the timeline
-   Blender Command (path)            *<blank>*      The path to the binary for Blender (version 4.1+)
+   Blender Command (path)            *<blank>*      The path to the binary for Blender (version 5.0+)
    Advanced Title Editor (path)      *<blank>*      The path to the binary for Inkscape
    Show Export Dialog when Finished  *<checked>*    Displays the Export Video windows after the export is finished
    ================================  =============  ===========
@@ -203,8 +204,7 @@ NOTE: On systems with older graphics cards, hardware acceleration may not always
          Advices is N(cores-1) or N(Threads-1) ?
  Hardware Decoder max width/height  Can be found where? Link to HW manufacturers?
  Use Blender GPU rendering: Default = on?
-    (May be default in Blender 4.1? -
-    May work backfire if system has multiple GPUs and high-end GPU recognizes Blender automatically)
+    (Check current Blender defaults; may backfire if system has multiple GPUs and high-end GPU is auto-detected)
 
 .. _preferences_keyboard_ref:
 
@@ -280,4 +280,3 @@ to their Default values (i.e. also called a `clean install`). When OpenShot is r
 any missing folders (i.e. ``.openshot_qt/``) and settings files. See our
 `step-by-step guide <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-OpenShot>`_ for more
 information about **clean installs** of OpenShot.
-

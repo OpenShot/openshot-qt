@@ -27,6 +27,7 @@
  """
 
 import os, sys
+import copy
 import logging
 import logging.handlers
 
@@ -61,11 +62,25 @@ class StreamFilter(logging.Filter):
         source = getattr(record, "source", "")
         return source != "stream"
 
+# Clamp log messages to a reasonable size to avoid giant lines
+MAX_LOG_MESSAGE_LENGTH = 2048
+
+
+class TruncatingFormatter(logging.Formatter):
+    """Formatter that trims overly long log messages."""
+    def format(self, record):
+        message = record.getMessage()
+        if len(message) > MAX_LOG_MESSAGE_LENGTH:
+            record = copy.copy(record)
+            record.msg = message[:MAX_LOG_MESSAGE_LENGTH] + "... [truncated]"
+            record.args = None
+        return super().format(record)
+
 
 # Set up log formatters
 template = '%(levelname)s %(module)s: %(message)s'
-console_formatter = logging.Formatter(template)
-file_formatter = logging.Formatter('%(asctime)s ' + template, datefmt='%H:%M:%S')
+console_formatter = TruncatingFormatter(template)
+file_formatter = TruncatingFormatter('%(asctime)s ' + template, datefmt='%H:%M:%S')
 
 # Configure root logger for minimal logging
 logging.basicConfig(level=logging.ERROR)
@@ -80,19 +95,25 @@ log.propagate = False
 #
 # Create rotating file handler
 #
+fh = None
 if os.path.exists(info.USER_PATH):
-    fh = logging.handlers.RotatingFileHandler(
-             os.path.join(info.USER_PATH, 'openshot-qt.log'),
-             encoding="utf-8",
-             maxBytes=25*1024*1024, backupCount=3)
+    log_path = os.path.join(info.USER_PATH, 'openshot-qt.log')
+    try:
+        fh = logging.handlers.RotatingFileHandler(
+            log_path, encoding="utf-8", maxBytes=25*1024*1024, backupCount=3
+        )
+    except OSError:
+        # Fall back silently if the log file cannot be created (e.g. during tests
+        # in read-only environments)
+        fh = logging.NullHandler()
+
+if fh:
     fh.setLevel(info.LOG_LEVEL_FILE)
     fh.setFormatter(file_formatter)
+    # Only add the handler when it's a real logger (NullHandler is harmless)
     log.addHandler(fh)
 else:
-    class DummyHandler:
-        def setLevel(self, level):
-            return True
-    fh = DummyHandler()
+    fh = logging.NullHandler()
 
 #
 # Create typical stream handler which logs to stderr
@@ -125,4 +146,3 @@ def set_level_file(level=logging.INFO):
 def set_level_console(level=logging.INFO):
     """Adjust the minimum log level for output to the terminal"""
     sh.setLevel(level)
-

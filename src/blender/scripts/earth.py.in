@@ -275,11 +275,23 @@ def update_curve(curve, start, end):
 
 
 # set Y rotation on the camera
-action = bpy.data.actions["EmptyCamAction"]
-update_curve(
-    action.fcurves[1], math.radians(point_a.lat), math.radians(point_b.lat))
-update_curve(
-    action.fcurves[2], math.radians(point_a.lon), math.radians(point_b.lon))
+action = bpy.data.actions.get("EmptyCamAction")
+if action:
+    try:
+        fcurves = list(get_action_fcurves(action))
+    except AttributeError:
+        fcurves = []
+    by_index = {fc.array_index: fc for fc in fcurves}
+
+    fc_lat = by_index.get(1) if by_index else (fcurves[1] if len(fcurves) > 1 else None)
+    fc_lon = by_index.get(2) if by_index else (fcurves[2] if len(fcurves) > 2 else None)
+
+    if fc_lat:
+        update_curve(
+            fc_lat, math.radians(point_a.lat), math.radians(point_b.lat))
+    if fc_lon:
+        update_curve(
+            fc_lon, math.radians(point_a.lon), math.radians(point_b.lon))
 
 # set world texture (i.e. the globe texture)
 if params["map_texture"]:
@@ -311,6 +323,7 @@ for ob in [bpy.data.curves["Text"], bpy.data.curves["Text.001"]]:
     ob.font = font
 
 # Modify the Materials for Text, Lines, and Pins
+color_kfs = [(params["start_frame"], params["diffuse_color"])]
 for material in [
         "Material.001",
         "Material.002",
@@ -318,10 +331,16 @@ for material in [
         "Material.004",
         "Material.005",
         ]:
-    ob = bpy.data.materials[material]
-    ob.diffuse_color = params["diffuse_color"]
-    ob.specular_color = params["specular_color"]
-    ob.specular_intensity = params["specular_intensity"]
+    mat = keyframe_principled(
+        material,
+        base_keyframes=color_kfs,
+        emission_keyframes=color_kfs,
+        emission_strength=(0.0, [f for f, _ in color_kfs]),
+        viewport_color=params["diffuse_color"],
+        specular_value=params["specular_intensity"],
+        specular_color=params["specular_color"])
+    if mat:
+        mat.specular_intensity = params["specular_intensity"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These

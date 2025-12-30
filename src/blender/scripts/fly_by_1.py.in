@@ -113,9 +113,17 @@ text_object.font = font
 
 # Change the material settings (color, alpha, etc...)
 material_object = bpy.data.materials["Material.001"]
-material_object.diffuse_color = params["diffuse_color"]
 material_object.specular_color = params["specular_color"]
-material_object.specular_intensity = params["specular_intensity"]
+
+static_color_keyframes = [(params["start_frame"], params["diffuse_color"])]
+keyframe_principled(
+    "Material.001",
+    base_keyframes=static_color_keyframes,
+    emission_keyframes=static_color_keyframes,
+    emission_strength=(0.0, [f for f, _ in static_color_keyframes]),
+    viewport_color=params["diffuse_color"],
+    specular_value=params["specular_intensity"],
+    specular_color=params["specular_color"])
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These

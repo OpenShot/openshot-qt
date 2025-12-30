@@ -42,6 +42,12 @@ from classes.app import get_app
 path_regex = re.compile(r'"(image|path|protobuf_data_path|lut_path)"\s*:\s*"(.*?)"')
 path_context = {}
 
+# Determine regex pattern type (compatible with older Python versions)
+try:
+    _REGEX_TYPE = re.Pattern
+except AttributeError:
+    _REGEX_TYPE = type(re.compile(""))
+
 
 class JsonDataStore:
     """ This class which allows getting/setting of key/value settings, and loading and saving to json files.
@@ -66,6 +72,18 @@ class JsonDataStore:
 
         # Regular expression used to detect lost slashes, when repairing data
         self.slash_repair_re = re.compile(r'(["/][.]+)(/u[0-9a-fA-F]{4})')
+
+    def __deepcopy__(self, memo):
+        """Custom deepcopy to handle regex objects on older Python versions."""
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        for key, value in self.__dict__.items():
+            if isinstance(value, _REGEX_TYPE):
+                setattr(result, key, value)
+            else:
+                setattr(result, key, copy.deepcopy(value, memo))
+        return result
 
     def get(self, key):
         """ Get copied value of a given key in data store """

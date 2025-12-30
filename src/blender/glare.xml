@@ -62,10 +62,10 @@
 	
 	<param name="glare_type" type="dropdown" title="Glare Type" description="">
 		<values>
-			<value name="Streaks" num="STREAKS"/>
 			<value name="Ghosts" num="GHOSTS"/>
-			<value name="Fog Glow" num="FOG_GLOW"/>
+			<value name="Streaks" num="STREAKS"/>
 			<value name="Simple Star" num="SIMPLE_STAR"/>
+			<value name="Sun Beams" num="SUN_BEAMS"/>
 		</values>
 		<default>GHOSTS</default>
 	</param>

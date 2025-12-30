@@ -699,237 +699,249 @@ class PropertiesTableView(QTableView):
                             parent_clip_id = Effect.get(id=item_id).parent.get("id")
                             log.debug(f"Lookup parent clip ID for effect: '{item_id}' = '{parent_clip_id}'")
 
-                        # Avoid attach a clip to it's own object
-                        if clip.id != parent_clip_id:
-                            # Iterate through all project files (to find matching QIcon)
-                            for file_index in range(self.files_model.rowCount()):
-                                file_row = self.files_model.index(file_index, 0)
-                                project_file_id = file_row.sibling(file_index, 5).data()
-                                if file_id == project_file_id:
-                                    clip_instance_icon = file_row.data(Qt.DecorationRole)
-                                    clip_choices.append({"name": clip.data["title"],
-                                                  "value": clip.id,
-                                                  "selected": False,
-                                                  "icon": clip_instance_icon})
-                            # Get the pixmap of the clip icon
-                            icon_size = 72
-                            icon_pixmap = clip_instance_icon.pixmap(icon_size, icon_size)
-                            # Add tracked objects to the selection menu
-                            tracked_objects = []
-                            for effect in clip.data["effects"]:
-                                # Check if effect has a tracked object
-                                if effect.get("has_tracked_object"):
-                                    # Instantiate the effect
-                                    effect_instance = timeline_instance.GetClipEffect(effect["id"])
-                                    # Get the indexes and IDs of the visible objects
-                                    visible_objects = json.loads(effect_instance.GetVisibleObjects(frame_number))
-                                    # Add visible objects as choices
-                                    for enum_index, object_index in enumerate(visible_objects["visible_objects_index"]):
-                                        if "visible_class_names" in visible_objects:
-                                            class_name = visible_objects["visible_class_names"][enum_index]
-                                        else:
-                                            class_name = "Tracked Region"
-                                        tracked_objects.append({
-                                            "name": f"{class_name}: {object_index}",
-                                            "value": str(object_index),
-                                            "selected": False,
-                                            "icon": None
-                                        })
+                        # Skip attaching to itself
+                        if clip.id == parent_clip_id:
+                            continue
 
-                                    tracked_choices.append({"name": clip.data["title"],
-                                                          "value": tracked_objects,
-                                                          "selected": False,
-                                                          "icon": clip_instance_icon})
+                        # Get the file's icon
+                        clip_icon = None
+                        for row in range(self.files_model.rowCount()):
+                            idx = self.files_model.index(row, 0)
+                            if idx.sibling(row, 5).data() == file_id:
+                                clip_icon = idx.data(Qt.DecorationRole)
+                                break
+
+                        # Add the clip as a choice
+                        clip_choices.append({
+                            "name": clip.data["title"],
+                            "value": clip.id,
+                            "selected": False,
+                            "icon": clip_icon
+                        })
+
+                        # Now gather tracked objects under this clip
+                        tracked_objects = []
+                        for effect in clip.data["effects"]:
+                            if effect.get("has_tracked_object"):
+                                eff_inst = timeline_instance.GetClipEffect(effect["id"])
+                                visible = json.loads(eff_inst.GetVisibleObjects(frame_number))
+                                # Use the new "<effect-UUID>-<index>" IDs directly
+                                for obj_id in visible["visible_objects_id"]:
+                                    tracked_objects.append({
+                                        "name": obj_id,
+                                        "value": obj_id,
+                                        "selected": False,
+                                        "icon": None
+                                    })
+
+                        if tracked_objects:
+                            tracked_choices.append({
+                                "name": clip.data["title"],
+                                "value": tracked_objects,
+                                "selected": False,
+                                "icon": clip_icon
+                            })
+
+                    # Build the final choices list
                     self.choices.append({"name": _("None"), "value": "None", "selected": False, "icon": None})
-                    if property_key == "parentObjectId" and tracked_choices:
-                        self.choices.append({"name": _("Tracked Objects"), "value": tracked_choices, "selected": False, "icon": None})
+                    if tracked_choices:
+                        self.choices.append({
+                            "name": _("Tracked Objects"),
+                            "value": tracked_choices,
+                            "selected": False,
+                            "icon": None
+                        })
                     if clip_choices:
-                        self.choices.append({"name": _("Clips"), "value": clip_choices, "selected": False, "icon": None})
+                        self.choices.append({
+                            "name": _("Clips"),
+                            "value": clip_choices,
+                            "selected": False,
+                            "icon": None
+                        })
 
-                # Handle reader type values
-                if self.property_type == "reader" and not self.choices:
-                    # Add all files
-                    file_choices = []
-                    for i in range(self.files_model.rowCount()):
-                        idx = self.files_model.index(i, 0)
-                        if not idx.isValid():
-                            continue
-                        icon = idx.data(Qt.DecorationRole)
-                        name = idx.sibling(i, 1).data()
-                        path = os.path.join(idx.sibling(i, 4).data(), name)
+            # Handle reader type values
+            if self.property_type == "reader" and not self.choices:
+                # Add all files
+                file_choices = []
+                for i in range(self.files_model.rowCount()):
+                    idx = self.files_model.index(i, 0)
+                    if not idx.isValid():
+                        continue
+                    icon = idx.data(Qt.DecorationRole)
+                    name = idx.sibling(i, 1).data()
+                    path = os.path.join(idx.sibling(i, 4).data(), name)
 
-                        # Append file choice
-                        file_choices.append({"name": name,
-                                             "value": path,
-                                             "selected": False,
-                                             "icon": icon
-                                             })
+                    # Append file choice
+                    file_choices.append({"name": name,
+                                         "value": path,
+                                         "selected": False,
+                                         "icon": icon
+                                         })
 
-                    # Add None option to clear the source
-                    self.choices.append({"name": _("None"), "value": "", "selected": False, "icon": None})
+                # Add None option to clear the source
+                self.choices.append({"name": _("None"), "value": "", "selected": False, "icon": None})
 
 
-                    # Add root file choice
-                    if file_choices:
-                        self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
+                # Add root file choice
+                if file_choices:
+                    self.choices.append({"name": _("Files"), "value": file_choices, "selected": False, icon: None})
 
-                    # Add all transitions
-                    trans_choices = []
-                    for i in range(self.transition_model.rowCount()):
-                        idx = self.transition_model.index(i, 0)
-                        if not idx.isValid():
-                            continue
-                        icon = idx.data(Qt.DecorationRole)
-                        name = idx.sibling(i, 1).data()
-                        path = idx.sibling(i, 3).data()
+                # Add all transitions
+                trans_choices = []
+                for i in range(self.transition_model.rowCount()):
+                    idx = self.transition_model.index(i, 0)
+                    if not idx.isValid():
+                        continue
+                    icon = idx.data(Qt.DecorationRole)
+                    name = idx.sibling(i, 1).data()
+                    path = idx.sibling(i, 3).data()
 
-                        # Append transition choice
-                        trans_choices.append({"name": name,
-                                              "value": path,
-                                              "selected": False,
-                                              "icon": icon
-                                              })
+                    # Append transition choice
+                    trans_choices.append({"name": name,
+                                          "value": path,
+                                          "selected": False,
+                                          "icon": icon
+                                          })
 
-                    # Add root transitions choice
-                    self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
+                # Add root transitions choice
+                self.choices.append({"name": _("Transitions"), "value": trans_choices, "selected": False})
 
-                elif property_key == "lut_path":
-                    # “None” option
-                    self.choices = [{"name": _("None"), "value": "", "selected": False, "icon": None}]
+            elif property_key == "lut_path":
+                # “None” option
+                self.choices = [{"name": _("None"), "value": "", "selected": False, "icon": None}]
 
-                    def _gather(dir_path):
-                        try:
-                            names = sorted(os.listdir(dir_path), key=str.lower)
-                        except OSError:
-                            return []
-                        result = []
-                        for name in names:
-                            full = os.path.join(dir_path, name)
-                            pretty = _(name.replace("_", " ").title()).replace("&", "&&")
-                            if os.path.isdir(full):
-                                # folder → submenu
-                                children = [
-                                    {"name": _(os.path.splitext(fn)[0]
-                                               .replace("_", " ")
-                                               .title()).replace("&", "&&"),
-                                     "value": os.path.join(full, fn),
-                                     "selected": False,
-                                     "icon": None}
-                                    for fn in sorted(os.listdir(full), key=str.lower)
-                                    if fn.lower().endswith(".cube")
-                                ]
-                                if children:
-                                    result.append({"name": pretty, "value": children})
-                            elif name.lower().endswith(".cube"):
-                                # loose .cube file
-                                result.append({
-                                    "name": pretty,
-                                    "value": full,
-                                    "selected": False,
-                                    "icon": None
-                                })
-                        return result
+                def _gather(dir_path):
+                    try:
+                        names = sorted(os.listdir(dir_path), key=str.lower)
+                    except OSError:
+                        return []
+                    result = []
+                    for name in names:
+                        full = os.path.join(dir_path, name)
+                        pretty = _(name.replace("_", " ").title()).replace("&", "&&")
+                        if os.path.isdir(full):
+                            # folder → submenu
+                            children = [
+                                {"name": _(os.path.splitext(fn)[0]
+                                           .replace("_", " ")
+                                           .title()).replace("&", "&&"),
+                                 "value": os.path.join(full, fn),
+                                 "selected": False,
+                                 "icon": None}
+                                for fn in sorted(os.listdir(full), key=str.lower)
+                                if fn.lower().endswith(".cube")
+                            ]
+                            if children:
+                                result.append({"name": pretty, "value": children})
+                        elif name.lower().endswith(".cube"):
+                            # loose .cube file
+                            result.append({
+                                "name": pretty,
+                                "value": full,
+                                "selected": False,
+                                "icon": None
+                            })
+                    return result
 
-                    # user-defined group
-                    user_choices = _gather(info.USER_COLORS_PATH)
-                    if user_choices:
-                        self.choices.append({"name": _("User-Defined"), "value": user_choices})
+                # user-defined group
+                user_choices = _gather(info.USER_COLORS_PATH)
+                if user_choices:
+                    self.choices.append({"name": _("User-Defined"), "value": user_choices})
 
-                    # built-in LUTs
-                    self.choices.extend(_gather(info.COLORS_PATH))
+                # built-in LUTs
+                self.choices.extend(_gather(info.COLORS_PATH))
 
-                # Handle reader type values
-                if property_name == "Track" and self.property_type == "int" and not self.choices:
-                    # Populate all display track names
-                    all_tracks = get_app().project.get("layers")
-                    display_count = len(all_tracks)
-                    for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                        # Append track choice
-                        track_name = track.get("label") or _("Track %s") % display_count
-                        self.choices.append({"name": track_name, "value": track.get("number"), "selected": False, "icon": None})
-                        display_count -= 1
-                    return
+            # Handle track choices
+            if property_name == "Track" and self.property_type == "int" and not self.choices:
+                # Populate all display track names
+                all_tracks = get_app().project.get("layers")
+                display_count = len(all_tracks)
+                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                    # Append track choice
+                    track_name = track.get("label") or _("Track %s") % display_count
+                    self.choices.append({"name": track_name, "value": track.get("number"), "selected": False, "icon": None})
+                    display_count -= 1
 
-                elif self.property_type == "font":
-                    # Get font from user
-                    current_font_name = cur_property[1].get("memo", "sans")
-                    current_font = QFont(current_font_name)
-                    font, ok = QFontDialog.getFont(current_font, caption=("Change Font"))
+            elif self.property_type == "font":
+                # Get font from user
+                current_font_name = cur_property[1].get("memo", "sans")
+                current_font = QFont(current_font_name)
+                font, ok = QFontDialog.getFont(current_font, caption=("Change Font"))
 
-                    # Update font
-                    if ok and font:
-                        fontinfo = QFontInfo(font)
-                        self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
+                # Update font
+                if ok and font:
+                    fontinfo = QFontInfo(font)
+                    self.clip_properties_model.value_updated(self.selected_item, value=fontinfo.family())
 
-                # Define bezier presets
-                bezier_presets = [
-                    (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
-                    (0.420, 0.000, 1.000, 1.000, _("Ease In")),
-                    (0.000, 0.000, 0.580, 1.000, _("Ease Out")),
-                    (0.420, 0.000, 0.580, 1.000, _("Ease In/Out")),
+            # Define bezier presets
+            bezier_presets = [
+                (0.250, 0.100, 0.250, 1.000, _("Ease (Default)")),
+                (0.420, 0.000, 1.000, 1.000, _("Ease In")),
+                (0.000, 0.000, 0.580, 1.000, _("Ease Out")),
+                (0.420, 0.000, 0.580, 1.000, _("Ease In/Out")),
 
-                    (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
-                    (0.550, 0.055, 0.675, 0.190, _("Ease In (Cubic)")),
-                    (0.895, 0.030, 0.685, 0.220, _("Ease In (Quart)")),
-                    (0.755, 0.050, 0.855, 0.060, _("Ease In (Quint)")),
-                    (0.470, 0.000, 0.745, 0.715, _("Ease In (Sine)")),
-                    (0.950, 0.050, 0.795, 0.035, _("Ease In (Expo)")),
-                    (0.600, 0.040, 0.980, 0.335, _("Ease In (Circ)")),
-                    (0.600, -0.280, 0.735, 0.045, _("Ease In (Back)")),
+                (0.550, 0.085, 0.680, 0.530, _("Ease In (Quad)")),
+                (0.550, 0.055, 0.675, 0.190, _("Ease In (Cubic)")),
+                (0.895, 0.030, 0.685, 0.220, _("Ease In (Quart)")),
+                (0.755, 0.050, 0.855, 0.060, _("Ease In (Quint)")),
+                (0.470, 0.000, 0.745, 0.715, _("Ease In (Sine)")),
+                (0.950, 0.050, 0.795, 0.035, _("Ease In (Expo)")),
+                (0.600, 0.040, 0.980, 0.335, _("Ease In (Circ)")),
+                (0.600, -0.280, 0.735, 0.045, _("Ease In (Back)")),
 
-                    (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
-                    (0.215, 0.610, 0.355, 1.000, _("Ease Out (Cubic)")),
-                    (0.165, 0.840, 0.440, 1.000, _("Ease Out (Quart)")),
-                    (0.230, 1.000, 0.320, 1.000, _("Ease Out (Quint)")),
-                    (0.390, 0.575, 0.565, 1.000, _("Ease Out (Sine)")),
-                    (0.190, 1.000, 0.220, 1.000, _("Ease Out (Expo)")),
-                    (0.075, 0.820, 0.165, 1.000, _("Ease Out (Circ)")),
-                    (0.175, 0.885, 0.320, 1.275, _("Ease Out (Back)")),
+                (0.250, 0.460, 0.450, 0.940, _("Ease Out (Quad)")),
+                (0.215, 0.610, 0.355, 1.000, _("Ease Out (Cubic)")),
+                (0.165, 0.840, 0.440, 1.000, _("Ease Out (Quart)")),
+                (0.230, 1.000, 0.320, 1.000, _("Ease Out (Quint)")),
+                (0.390, 0.575, 0.565, 1.000, _("Ease Out (Sine)")),
+                (0.190, 1.000, 0.220, 1.000, _("Ease Out (Expo)")),
+                (0.075, 0.820, 0.165, 1.000, _("Ease Out (Circ)")),
+                (0.175, 0.885, 0.320, 1.275, _("Ease Out (Back)")),
 
-                    (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)")),
-                    (0.645, 0.045, 0.355, 1.000, _("Ease In/Out (Cubic)")),
-                    (0.770, 0.000, 0.175, 1.000, _("Ease In/Out (Quart)")),
-                    (0.860, 0.000, 0.070, 1.000, _("Ease In/Out (Quint)")),
-                    (0.445, 0.050, 0.550, 0.950, _("Ease In/Out (Sine)")),
-                    (1.000, 0.000, 0.000, 1.000, _("Ease In/Out (Expo)")),
-                    (0.785, 0.135, 0.150, 0.860, _("Ease In/Out (Circ)")),
-                    (0.680, -0.550, 0.265, 1.550, _("Ease In/Out (Back)"))
-                ]
+                (0.455, 0.030, 0.515, 0.955, _("Ease In/Out (Quad)")),
+                (0.645, 0.045, 0.355, 1.000, _("Ease In/Out (Cubic)")),
+                (0.770, 0.000, 0.175, 1.000, _("Ease In/Out (Quart)")),
+                (0.860, 0.000, 0.070, 1.000, _("Ease In/Out (Quint)")),
+                (0.445, 0.050, 0.550, 0.950, _("Ease In/Out (Sine)")),
+                (1.000, 0.000, 0.000, 1.000, _("Ease In/Out (Expo)")),
+                (0.785, 0.135, 0.150, 0.860, _("Ease In/Out (Circ)")),
+                (0.680, -0.550, 0.265, 1.550, _("Ease In/Out (Back)"))
+            ]
 
-                # Add menu options for keyframes
-                menu = StyledContextMenu(parent=self)
-                if self.property_type == "color":
-                    Color_Action = menu.addAction(_("Select a Color"))
-                    Color_Action.triggered.connect(functools.partial(self.Color_Picker_Triggered, cur_property))
-                    menu.addSeparator()
-                if points > 1:
-                    # Menu items only for multiple points
-                    Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
-                    for bezier_preset in bezier_presets:
-                        preset_action = Bezier_Menu.addAction(bezier_preset[4])
-                        preset_action.triggered.connect(functools.partial(
-                            self.Bezier_Action_Triggered, bezier_preset))
-                    Linear_Action = menu.addAction(self.linear_icon, _("Linear"))
-                    Linear_Action.triggered.connect(self.Linear_Action_Triggered)
-                    Constant_Action = menu.addAction(self.constant_icon, _("Constant"))
-                    Constant_Action.triggered.connect(self.Constant_Action_Triggered)
-                    menu.addSeparator()
-                if points >= 1:
-                    # Menu items for one or more points
-                    Insert_Action = menu.addAction(_("Insert Keyframe"))
-                    Insert_Action.triggered.connect(self.Insert_Action_Triggered)
-                    Remove_Action = menu.addAction(_("Remove Keyframe"))
-                    Remove_Action.triggered.connect(self.Remove_Action_Triggered)
-                    menu.addSeparator()
+            # Add menu options for keyframes
+            menu = StyledContextMenu(parent=self)
+            if self.property_type == "color":
+                Color_Action = menu.addAction(_("Select a Color"))
+                Color_Action.triggered.connect(functools.partial(self.Color_Picker_Triggered, cur_property))
+                menu.addSeparator()
+            if points > 1:
+                # Menu items only for multiple points
+                Bezier_Menu = menu.addMenu(self.bezier_icon, _("Bezier"))
+                for bezier_preset in bezier_presets:
+                    preset_action = Bezier_Menu.addAction(bezier_preset[4])
+                    preset_action.triggered.connect(functools.partial(
+                        self.Bezier_Action_Triggered, bezier_preset))
+                Linear_Action = menu.addAction(self.linear_icon, _("Linear"))
+                Linear_Action.triggered.connect(self.Linear_Action_Triggered)
+                Constant_Action = menu.addAction(self.constant_icon, _("Constant"))
+                Constant_Action.triggered.connect(self.Constant_Action_Triggered)
+                menu.addSeparator()
+            if points >= 1:
+                # Menu items for one or more points
+                Insert_Action = menu.addAction(_("Insert Keyframe"))
+                Insert_Action.triggered.connect(self.Insert_Action_Triggered)
+                Remove_Action = menu.addAction(_("Remove Keyframe"))
+                Remove_Action.triggered.connect(self.Remove_Action_Triggered)
+                menu.addSeparator()
 
-                # Format menu nesting
-                log.debug(f"Context menu choices: {self.choices}")
-                self.menu = self.build_menu(self.choices, menu)
+            # Format menu nesting
+            log.debug(f"Context menu choices: {self.choices}")
+            self.menu = self.build_menu(self.choices, menu)
 
-                # Show context menu (if any options present)
-                # There is always at least 1 QAction in an empty menu though
-                if len(self.menu.children()) > 1:
-                    self.menu.popup(event.globalPos())
+            # Show context menu (if any options present)
+            # There is always at least 1 QAction in an empty menu though
+            if len(self.menu.children()) > 1:
+                self.menu.popup(event.globalPos())
 
     def build_menu(self, data, parent_menu=None):
         """Build a Context Menu, included nested sub-menus, and divide lists if too large"""

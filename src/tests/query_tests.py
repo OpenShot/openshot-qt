@@ -50,7 +50,17 @@ from classes.app import OpenShotApp
 from classes.query import Clip, File, Transition
 from classes import info
 
-app = None
+info.LOG_LEVEL_CONSOLE = "ERROR"
+
+
+def ensure_open_shot_app():
+    """Ensure an OpenShot QApplication exists before tests run."""
+
+    instance = QGuiApplication.instance()
+    if instance:
+        return instance, False
+
+    return OpenShotApp(sys.argv, mode="unittest"), True
 
 
 class QueryTests(unittest.TestCase):
@@ -59,8 +69,8 @@ class QueryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """ Init unit test data """
-        # Create Qt application
-        cls.app = QGuiApplication.instance()
+        # Create or reuse Qt application
+        cls.app, cls._owns_app = ensure_open_shot_app()
         cls.clip_ids = []
         cls.file_ids = []
         cls.transition_ids = []
@@ -130,7 +140,8 @@ class QueryTests(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """ Clean up after running all tests in the class. """
-        cls.app.quit()
+        if getattr(cls, "_owns_app", False) and cls.app:
+            cls.app.quit()
 
     def test_add_clip(self):
 
@@ -329,21 +340,3 @@ class QueryTests(unittest.TestCase):
         # Save the file again (which should not change the total # of files)
         query_file.save()
         self.assertEqual(len(File.filter()), num_files + 1)
-
-
-def main():
-    global app
-    info.LOG_LEVEL_CONSOLE = "ERROR"
-    try:
-        app = OpenShotApp(sys.argv, mode="unittest")
-    except Exception:
-        import logging
-        log = logging.getLogger(".")
-        log.error("Failed to instantiate OpenShotApp", exc_info=1)
-        sys.exit()
-    unittest.main()
-    app.exec_()
-
-
-if __name__ == '__main__':
-    main()

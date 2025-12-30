@@ -28,9 +28,9 @@
 import os
 from time import strftime
 
-VERSION = "3.3.0"
-MINIMUM_LIBOPENSHOT_VERSION = "0.4.0"
-DATE = "20241221000000"
+VERSION = "3.4.0"
+MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
+DATE = "20250612000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"
@@ -66,6 +66,7 @@ USER_TITLES_PATH = os.path.join(USER_PATH, "title_templates")
 USER_COLORS_PATH = os.path.join(USER_PATH, "colors")
 PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
+CLIPBOARD_PATH = os.path.join(USER_PATH, "clipboard")
 # User files
 BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
 USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
@@ -100,7 +101,7 @@ JT = {"name": "Jonathan Thomas",
 DESKTOP_ID = "org.openshot.OpenShot.desktop"
 
 # Blender minimum version required (a string value)
-BLENDER_MIN_VERSION = "4.1"
+BLENDER_MIN_VERSION = "5.0"
 
 # Data-model debugging enabler
 MODEL_TEST = False
@@ -240,4 +241,3 @@ def website_language():
         "zh_TW": "zh-hant/",
         "en_US": ""}.get(CURRENT_LANGUAGE,
                          "%s/" % CURRENT_LANGUAGE.split("_")[0].lower())
-

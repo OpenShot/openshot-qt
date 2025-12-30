@@ -59,24 +59,54 @@ class BaseTheme:
 
     def get_color(self, class_name, property_name):
         """Return a QColor from a stylesheet class and property."""
-        # Regex to find the class and property with a color for more complex properties
-        pattern = rf"{re.escape(class_name)}\s*{{[^}}]*?{re.escape(property_name)}:\s*(#.*);"
-        match = re.search(pattern, self.style_sheet, re.IGNORECASE)
-        if match:
-            color_code = match.group(1).strip()
-            if QColor(color_code).isValid():
-                return QColor(color_code)
-        return QColor("black")
+        pattern = rf"{re.escape(class_name)}\s*{{([^}}]*)}}"
+        match = re.search(pattern, self.style_sheet, re.IGNORECASE | re.MULTILINE)
+        if not match:
+            return None
+
+        block = match.group(1)
+        m = re.search(rf"(?:^|;)\s*{re.escape(property_name)}\s*:\s*([^;]+)", block)
+        if not m:
+            return None
+
+        value = m.group(1).strip()
+
+        # Attempt to extract a color from the property value using
+        # a few different patterns. This allows parsing of complex
+        # properties such as "1px solid #FF0000" or "0 0 4px rgba(...)".
+        m_color = re.search(r"#([0-9a-fA-F]{3,8})", value)
+        if m_color:
+            return QColor("#" + m_color.group(1))
+
+        m_color = re.search(r"rgba?\([^\)]+\)", value)
+        if m_color:
+            return QColor(m_color.group(0))
+
+        parts = value.split()
+        if parts and QColor(parts[-1]).isValid():
+            return QColor(parts[-1])
+
+        return None
 
     def get_int(self, class_name, property_name):
         """Return an int from a stylesheet class and property."""
-        # Regex to find the class and property with a color for more complex properties
-        pattern = rf"{re.escape(class_name)}\s*{{[^}}]*?{re.escape(property_name)}:\s*(.*);"
-        match = re.search(pattern, self.style_sheet, re.IGNORECASE)
-        if match:
-            value = match.group(1).strip()
-            if value:
-                return int(value)
+        pattern = rf"{re.escape(class_name)}\s*{{([^}}]*)}}"
+        match = re.search(pattern, self.style_sheet, re.IGNORECASE | re.MULTILINE)
+        if not match:
+            return None
+
+        block = match.group(1)
+        m = re.search(rf"(?:^|;)\s*{re.escape(property_name)}\s*:\s*([^;]+)", block)
+        if not m:
+            return None
+
+        value = m.group(1).strip()
+        m_int = re.search(r"(-?[0-9]+)", value)
+        if m_int:
+            try:
+                return int(m_int.group(1))
+            except ValueError:
+                pass
         return None
 
     def set_dock_margins(self, content_margins=None, layout_margins=None, object_name=None):
@@ -223,6 +253,7 @@ class BaseTheme:
             {"action": self.app.window.actionAddTrack, "style": Qt.ToolButtonIconOnly},
             {"divide": True},
             {"action": self.app.window.actionSnappingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/snap.svg"},
+            {"action": self.app.window.actionTimingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/timing.svg"},
             {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
             {"divide": True},
             {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/actions/add_marker.svg"},

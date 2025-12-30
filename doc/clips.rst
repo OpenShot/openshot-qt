@@ -25,7 +25,7 @@ Clips
 In OpenShot, when you add project files (videos, images, and audio) to the timeline, they appear as **clips**
 represented by rounded rectangles. These clips come with different properties that influence how they're rendered
 and composited. These properties include the clip's :guilabel:`position`, :guilabel:`layer`, :guilabel:`scale`,
-:guilabel:`location`, :guilabel:`rotation`, and :guilabel:`alpha`.
+:guilabel:`location`, :guilabel:`rotation`, :guilabel:`alpha`, and :guilabel:`composite (blend mode)`.
 
 You can examine a clip's properties by either right-clicking and selecting :guilabel:`Properties` or by double-clicking the clip.
 The properties are listed alphabetically in the Property dock, and you can use the filter options at the top to
@@ -149,7 +149,7 @@ the following menu options:
    Animate             Zoom and slide a clip
    Rotate              Rotate or flip a clip
    Layout              Make a video smaller or larger, and snap to any corner
-   Time                Reverse and speed up or slow down video
+   Time                Reverse, repeat, and speed up or slow down video
    Volume              Fade in or out the volume, reduce or increase the volume of a clip, or mute
    Separate Audio      Separate the audio from a clip. This preset can either create a single detached audio clip (positioned on a layer below the original clip), or multiple detached audio clips (one per audio track, positioned on multiple layers below the original clip)
    Slice               Cut the clip at the play-head position
@@ -200,11 +200,62 @@ See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key-frames.
 Time
 """"
 The :guilabel:`Time` preset manipulates clip playback speed, allowing for reverse playback or time-lapse effects. It
-alters the speed and direction of a clip's playback, enhancing visual storytelling. 
+alters the speed and direction of a clip's playback, enhancing visual storytelling.
 See :ref:`clip_time_ref` key-frame.
 
 - **Usage Example:** Creating a slow-motion effect to emphasize a specific action.
 - **Tip:** Use time presets to creatively manipulate the pacing of your video.
+
+.. _clip_time_repeat_ref:
+
+Repeat
+""""""
+Use :guilabel:`Time → Repeat` to play a clip multiple times, without building the
+time curve by hand. OpenShot writes the needed :guilabel:`Time` keyframes for you (you can edit them later).
+
+**Menu path**
+
+- :guilabel:`Time → Repeat → Loop → Forward` – plays left to right, then starts again from the beginning
+- :guilabel:`Time → Repeat → Loop → Reverse` – plays right to left, then starts again from the end
+- :guilabel:`Time → Repeat → Ping-Pong → Forward` – forward, then backward, then forward…
+- :guilabel:`Time → Repeat → Ping-Pong → Reverse` – backward, then forward, then backward…
+- :guilabel:`Custom…` – opens a dialog for extra options (see below)
+
+Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number).  
+Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → 2x`.
+
+**What gets repeated**
+
+- Repeat always acts on the **currently trimmed** in/out of the clip.
+- The :guilabel:`Time` curve is stamped as a simple shape:
+  - Loop Forward = rising saw
+  - Loop Reverse = falling saw
+  - Ping-Pong = triangle (direction flips each pass)
+- To avoid a double frame at the seam, the last frame of each pass is not duplicated.
+
+**Keyframes during Repeat**
+
+- When you use Repeat, OpenShot will also **repeat other keyframes** found inside the trimmed section (location, scale, effects, etc.) into each pass so your animations stay in sync.
+- Repeated keyframes keep their relative timing inside each pass.
+
+**Custom Repeat** (dialog options)
+
+- :guilabel:`Pattern:` Loop | Ping-Pong
+- :guilabel:`Direction:` Forward | Reverse
+- :guilabel:`Passes:` integer (2 or more). This is the number of times it will play.
+- :guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional delay between each repeated pass.
+- :guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive speeds up each pass; negative slows down each pass.
+
+**Reset**
+
+- :guilabel:`Time → Reset Time` completely removes any Time curve (including Repeat) and restores the clip to its
+  original playback, **without deleting your original non-Time keyframes**.
+
+Timing Tool
+^^^^^^^^^^^
+Another way to change a clip's speed is with the :guilabel:`Timing` tool on the timeline toolbar. Enable the clock
+icon and drag a clip's edges. Lengthening the clip slows playback, while shotening it speeds the clip up.
+All keyframes on the clip and its effects are scaled so their relative positions remain intact.
 
 Volume
 """"""
@@ -279,7 +330,18 @@ of your clip. You can also manually adjust these same clip properties in the pro
 
 - **Usage Example:** Using transform mode to resize and reposition a clip for a picture-in-picture effect.
 - **Tip:** Utilize this preset to precisely control a clip's appearance.
-- **Tip:** To crop a clip in OpenShot, you must use the :ref:`effects_crop_ref` effect. Cropping is not a feature of the transform tool.
+
+Crop
+"""""
+The :guilabel:`Crop` preset adds a crop effect to the selected clip and displays
+interactive crop handles in the video preview. The submenu offers:
+
+- :guilabel:`No Crop` – remove any existing crop effect.
+- :guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining area.
+- :guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to fill the frame.
+
+Drag the blue handles to adjust the crop boundaries, move the cropped area around, or move the center handle to
+reposition the image inside the cropped area.
 
 Display
 """""""
@@ -387,6 +449,7 @@ See the table below for a full list of clip properties.
    Channel Filter          Key-Frame   A number representing an audio channel to filter (clears all other channels)
    Channel Mapping         Key-Frame   A number representing an audio channel to output (only works when filtering a channel)
    Frame Number            Enum        The format to display the frame number (if any)
+   Composite (Blend Mode)  Enum        The blend mode used to composite this clip into lower layers. Default is **Normal**. See :ref:`clip_composite_ref`.
    Duration                Float       The length of the clip (in seconds). Read-only property. This is calculated by: End - Start.
    End                     Float       The end trimming position of the clip (in seconds)
    Gravity                 Enum        The gravity of a clip determines where it snaps to its parent (details below)
@@ -413,6 +476,49 @@ See the table below for a full list of clip properties.
    Wave Color              Key-Frame   Curve representing the color of the audio waveform
    Waveform                Bool        Should a waveform be used instead of the clip's image
    ======================  ==========  ============
+
+.. _clip_composite_ref:
+
+Composite (Blend Mode)
+""""""""""""""""""""""
+The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of this clip mix with the clips on lower tracks**.
+If you are new to this, start with **Normal**. Switch modes when you want a quick creative change without adding an effect.
+
+**Beginner tips**
+
+- Want to **brighten** light effects, flares, or smoke over a dark scene? Try **Screen** or **Add**.
+- Want to **darken** or place a texture over footage (paper grain, grids, shadows)? Try **Multiply** or **Color Burn**.
+- Want **more contrast** without crushing blacks and whites too much? Try **Overlay** or **Soft Light**.
+- Want a **creative/inverted look** or to line things up? Try **Difference** or **Exclusion**.
+
+**Common modes (recommended)**
+
+.. table::
+   :widths: 22 78
+
+   ==================  ======================================================================
+   Mode                What it does
+   ==================  ======================================================================
+   Normal              Standard alpha compositing. Respects transparency from the clip.
+   Darken              Chooses the darker pixel from the two layers, per channel.
+   Multiply            Multiplies colors. Darkens and helps textures sit on top of footage.
+   Color Burn          Pushes shadows darker and boosts contrast; can clip to black.
+   Lighten             Chooses the lighter pixel from the two layers, per channel.
+   Screen              The opposite of Multiply. Brightens; great for light, glow, fire, fog.
+   Color Dodge         Brightens highlights strongly; can blow out to white.
+   Add                 Adds pixel values. Strong brightening; clips at white. Also called *Linear Dodge (Add)*.
+   Overlay             Mix of Multiply and Screen using the lower layer to decide. Adds punchy contrast.
+   Soft Light          Gentle contrast curve; softer than Overlay.
+   Hard Light          Stronger, edgy contrast using the upper layer to drive the change.
+   Difference          Absolute difference between layers. Creates inverted/psychedelic colors; useful for alignment.
+   Exclusion           Softer version of Difference with less contrast.
+   ==================  ======================================================================
+
+**Notes**
+
+- Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) affects **transparency**. You can use both.
+- Some modes can create very bright or very dark results. If needed, lower the :guilabel:`Alpha` property to soften.
+- The exact look of Multiply/Screen/Overlay family is best when project colors are in a linear color space.
 
 .. _clip_alpha_ref:
 
@@ -637,6 +743,8 @@ The :guilabel:`Time` property is a key-frame curve that represents frames played
 You can use one of the available presets (`normal, fast, slow, freeze, freeze & zoom, forward, backward`), by right clicking
 on a Clip and choosing the :guilabel:`Time` menu. Many presets are available in this menu for reversing,
 speeding up, and slowing down a video clip, see :ref:`clip_presets_ref`.
+The same adjustments can be made interactively with the :guilabel:`Timing` toolbar button by dragging a clip's edges; OpenShot
+adds the necessary time keyframes and scales all other keyframes automatically.
 
 Optionally, you can manually set key-frame values for the :guilabel:`Time` property. The value represents the
 `frame number` at the position of the key-frame. This can be tricky to determine and might require a calculator to find

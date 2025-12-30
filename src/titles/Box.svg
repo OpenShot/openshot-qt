@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 1920 1080"
+   fill="none"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="Box.svg"
+   inkscape:version="1.4.2 (2aeb623e1d, 2025-05-12)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.47361423"
+     inkscape:cx="992.36883"
+     inkscape:cy="615.47982"
+     inkscape:window-width="1854"
+     inkscape:window-height="1131"
+     inkscape:window-x="66"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <!-- Background -->
+  <rect
+     width="1920"
+     height="1080"
+     fill="#5014B4"
+     id="rect1" />
+  <!-- Border Rectangle -->
+  <rect
+     x="360"
+     y="337"
+     width="1200"
+     height="406"
+     stroke="#0FFFFF"
+     stroke-width="20"
+     fill="none"
+     id="rect2" />
+  <!-- Title -->
+  <text
+     x="964.10156"
+     y="500"
+     fill="#0fffff"
+     font-family="'DejaVu Sans'"
+     font-size="120px"
+     font-weight="bold"
+     id="text2"
+     style="text-align:center;text-anchor:middle"><tspan>THE TITLE</tspan></text>
+  <!-- Subtitle -->
+  <text
+     x="960.04395"
+     y="640"
+     fill="#0fffff"
+     font-family="'DejaVu Sans'"
+     font-size="60px"
+     font-weight="bold"
+     id="text3"
+     style="text-align:center;text-anchor:middle"><tspan>SUB-TITLE</tspan></text>
+</svg>

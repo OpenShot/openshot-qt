@@ -42,7 +42,7 @@ import threading
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from PyQt5.QtCore import (
-    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QFileInfo, QEvent
+    Qt, pyqtSignal, pyqtSlot, QCoreApplication, QTimer, QDateTime, QFileInfo, QEvent, QUrl
 )
 from PyQt5.QtGui import QIcon, QCursor, QKeySequence, QTextCursor
 from PyQt5.QtWidgets import (
@@ -188,6 +188,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Stop threads
         self.StopSignal.emit()
+
+        # Stop timeline background workers (such as the thumbnail thread) before Qt
+        # begins destroying child widgets, to avoid QThread warnings on shutdown.
+        timeline_widget = getattr(self, "timeline", None)
+        if timeline_widget and getattr(timeline_widget, "thumbnail_manager", None):
+            timeline_widget.thumbnail_manager.shutdown()
 
         # Stop thumbnail server thread (if any)
         if self.http_server_thread:
@@ -589,6 +595,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
 
+        # Clear preview selections
+        self.videoPreview.clearTransformState()
+
         # Reset selections
         self.clearSelections()
 
@@ -667,6 +676,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 info.get_default_path("THUMBNAIL_PATH"),
                 info.get_default_path("BLENDER_PATH"),
                 info.get_default_path("TITLE_PATH"),
+                info.get_default_path("CLIPBOARD_PATH"),
                 ]:
             try:
                 if os.path.exists(temp_dir):
@@ -1244,40 +1254,49 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Pause playback
         self.SpeedSignal.emit(0)
         self.PauseSignal.emit()
+        # Temporarily disable playback caching to avoid cache thread races while swapping caches
+        lib_settings = openshot.Settings.Instance()
+        lib_settings.ENABLE_PLAYBACK_CACHING = False
+        try:
+            # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
+            old_cache_object = self.cache_object
+            new_cache_object = openshot.CacheMemory(app.get_settings().get("cache-limit-mb") * 1024 * 1024)
+            self.timeline_sync.timeline.SetCache(new_cache_object)
 
-        # Save current cache object and create a new CacheMemory object (ignore quality and scale prefs)
-        old_cache_object = self.cache_object
-        new_cache_object = openshot.CacheMemory(app.get_settings().get("cache-limit-mb") * 1024 * 1024)
-        self.timeline_sync.timeline.SetCache(new_cache_object)
+            # Set MaxSize to full project resolution and clear cache so we get a full resolution frame
+            self.timeline_sync.timeline.SetMaxSize(app.project.get("width"), app.project.get("height"))
+            # Deep clear to drop any preview-sized frames cached by clips/readers
+            self.timeline_sync.timeline.ClearAllCache(True)
 
-        # Set MaxSize to full project resolution and clear preview cache so we get a full resolution frame
-        self.timeline_sync.timeline.SetMaxSize(app.project.get("width"), app.project.get("height"))
-        self.cache_object.Clear()
+            # Check if file exists, if it does, get the lastModified time
+            if os.path.exists(framePath):
+                framePathTime = QFileInfo(framePath).lastModified()
+            else:
+                framePathTime = QDateTime()
 
-        # Check if file exists, if it does, get the lastModified time
-        if os.path.exists(framePath):
-            framePathTime = QFileInfo(framePath).lastModified()
-        else:
-            framePathTime = QDateTime()
+            # Get and Save the frame
+            # (return is void, so we cannot check for success/fail here
+            # - must use file modification timestamp)
+            openshot.Timeline.GetFrame(
+                self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
 
-        # Get and Save the frame
-        # (return is void, so we cannot check for success/fail here
-        # - must use file modification timestamp)
-        openshot.Timeline.GetFrame(
-            self.timeline_sync.timeline, self.preview_thread.current_frame).Save(framePath, 1.0)
+            # Show message to user
+            if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
+                self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
+            else:
+                self.statusBar.showMessage(_("Failed to save image to %s" % framePath), 5000)
 
-        # Show message to user
-        if os.path.exists(framePath) and (QFileInfo(framePath).lastModified() > framePathTime):
-            self.statusBar.showMessage(_("Saved Frame to %s" % framePath), 5000)
-        else:
-            self.statusBar.showMessage(_("Failed to save image to %s" % framePath), 5000)
-
-        # Reset the MaxSize to match the preview and reset the preview cache
-        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
-        self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
-        self.cache_object.Clear()
-        self.timeline_sync.timeline.SetCache(old_cache_object)
-        self.cache_object = old_cache_object
+            # Reset the MaxSize to match the preview and reset the preview cache
+            viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+            self.timeline_sync.timeline.SetMaxSize(viewport_rect.width(), viewport_rect.height())
+            # Drop the full-res cache entries we created while saving the frame
+            self.timeline_sync.timeline.ClearAllCache(True)
+            self.cache_object.Clear()
+            self.timeline_sync.timeline.SetCache(old_cache_object)
+            self.cache_object = old_cache_object
+        finally:
+            # Restore caching flag
+            lib_settings.ENABLE_PLAYBACK_CACHING = True
 
     def renumber_all_layers(self, insert_at=None, stride=1000000):
         """Renumber all of the project's layers to be equidistant (in
@@ -1497,6 +1516,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionRazorTool.setText(_("Enable Razor"))
             self.actionRazorTool.setToolTip(_("Enable Razor"))
 
+    def actionTimingTool_trigger(self, checked=True):
+        """Toggle timing tool on and off"""
+        log.info('actionTimingTool_trigger')
+        _ = get_app()._tr
+
+        # Enable / Disable timing mode
+        self.timeline.SetTimingMode(checked)
+        if self.actionTimingTool.isChecked():
+            self.actionTimingTool.setText(_("Disable Timing"))
+            self.actionTimingTool.setToolTip(_("Disable Timing"))
+        else:
+            self.actionTimingTool.setText(_("Enable Timing"))
+            self.actionTimingTool.setToolTip(_("Enable Timing"))
+
     def actionAddMarker_trigger(self, checked=True):
         log.info("actionAddMarker_trigger")
 
@@ -1523,7 +1556,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Build and return a list of all seekable locations for the currently-selected timeline elements"""
 
         def getTimelineObjectPositions(obj):
-            """ Add boundaries & all keyframes of a timeline object (clip, transition...) to all_marker_positions """
+            """Add clip/transition boundaries & keyframes for timeline navigation"""
             positions = []
 
             fps = get_app().project.get("fps")
@@ -1539,7 +1572,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             positions.append(clip_start_time)
             positions.append(clip_stop_time)
 
-            # add all keyframes
+            # add all object keyframes
             for property in obj.data:
                 try:
                     # Try looping through keyframe points
@@ -1558,36 +1591,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 except (TypeError, KeyError):
                     pass
 
-            # Add all Effect keyframes
-            if "effects" in obj.data:
-                for effect_data in obj.data["effects"]:
-                    for prop in effect_data:
-                        try:
-                            # Try looping through keyframe points
-                            for point in effect_data[prop]["Points"]:
-                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
-                                if clip_start_time < keyframe_time < clip_stop_time:
-                                    positions.append(keyframe_time)
-                        except (TypeError, KeyError):
-                            pass
-                        try:
-                            # Try looping through color keyframe points
-                            for point in effect_data[prop]["red"]["Points"]:
-                                keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
-                                if clip_start_time < keyframe_time < clip_stop_time:
-                                    positions.append(keyframe_time)
-                        except (TypeError, KeyError):
-                            pass
-
             return positions
 
         # We can always jump to the beginning of the timeline
         all_marker_positions = [0]
         fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
         frame_duration = float(fps["den"]) / float(fps["num"])
 
         # If nothing is selected, also add the end of the last clip
-        if not self.selected_clips + self.selected_transitions:
+        if not self.selected_clips + self.selected_transitions + self.selected_effects:
             all_marker_positions.append(
                 # last frame is -1 frame's duration
                 get_app().window.timeline_sync.timeline.GetMaxTime() - frame_duration)
@@ -1596,19 +1609,45 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for marker in Marker.filter():
             all_marker_positions.append(marker.data["position"])
 
-        # Loop through selected clips (and add key positions)
-        for clip_id in self.selected_clips:
-            # Get selected object
-            selected_clip = Clip.get(id=clip_id)
-            if selected_clip:
-                all_marker_positions.extend(getTimelineObjectPositions(selected_clip))
+        if self.selected_effects:
+            # Only include keyframes for selected effects
+            for effect_id in self.selected_effects:
+                effect = Effect.get(id=effect_id)
+                if not effect:
+                    continue
+                parent = effect.parent
+                clip_start_time = parent["position"]
+                clip_orig_time = clip_start_time - parent["start"]
+                clip_stop_time = clip_orig_time + parent["end"] - frame_duration
+                # Always include parent clip boundaries
+                all_marker_positions.extend([clip_start_time, clip_stop_time])
+                for prop in effect.data:
+                    try:
+                        for point in effect.data[prop]["Points"]:
+                            keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                            if clip_start_time < keyframe_time < clip_stop_time:
+                                all_marker_positions.append(keyframe_time)
+                    except (TypeError, KeyError):
+                        pass
+                    try:
+                        for point in effect.data[prop]["red"]["Points"]:
+                            keyframe_time = (point["co"]["X"]-1)/fps_float + clip_orig_time
+                            if clip_start_time < keyframe_time < clip_stop_time:
+                                all_marker_positions.append(keyframe_time)
+                    except (TypeError, KeyError):
+                        pass
+        else:
+            # Loop through selected clips (and add key positions)
+            for clip_id in self.selected_clips:
+                selected_clip = Clip.get(id=clip_id)
+                if selected_clip:
+                    all_marker_positions.extend(getTimelineObjectPositions(selected_clip))
 
-        # Loop through selected transitions (and add key positions)
-        for tran_id in self.selected_transitions:
-            # Get selected object
-            selected_tran = Transition.get(id=tran_id)
-            if selected_tran:
-                all_marker_positions.extend(getTimelineObjectPositions(selected_tran))
+            # Loop through selected transitions (and add key positions)
+            for tran_id in self.selected_transitions:
+                selected_tran = Transition.get(id=tran_id)
+                if selected_tran:
+                    all_marker_positions.extend(getTimelineObjectPositions(selected_tran))
 
         # remove duplicates
         all_marker_positions = list(set(all_marker_positions))
@@ -1854,6 +1893,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Update profile (if changed)
         if result == QDialog.Accepted and profile:
+            # Clear any selections before changing the project profile
+            # to prevent invalid selection state from causing crashes
+            self.clearSelections()
+
             proj = get_app().project
 
             # Group transactions
@@ -1959,6 +2002,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             for c in clips:
                 # Clear selected clips
                 self.removeSelection(clip_id, "clip")
+                self.emit_selection_signal()
+                self.show_property_timeout()
 
                 # Remove clip
                 c.delete()
@@ -1987,6 +2032,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     duration = float(c.data["end"]) - float(c.data["start"])
 
                     self.removeSelection(c.id, "clip")
+                    self.emit_selection_signal()
+                    self.show_property_timeout()
                     c.delete()
 
                     # After deleting, ripple the remaining clips on the same layer
@@ -2001,6 +2048,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                     duration = float(t.data["end"]) - float(t.data["start"])
 
                     self.removeSelection(t.id, "transition")
+                    self.emit_selection_signal()
+                    self.show_property_timeout()
                     t.delete()
 
                     # After deleting, ripple the remaining transitions on the same layer
@@ -2028,22 +2077,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for trans in transitions:
             trans.data["position"] -= total_gap
             trans.save()
-
-    # def actionInsertKeyframePosition(self):
-    #     """Insert a 'Location' / 'Position' keyframe"""
-    #     log.info("Inserting keyframe for position")
-    #
-    # def actionInsertKeyframeScale(self):
-    #     """Insert a 'Scale' keyframe"""
-    #     log.info("Inserting keyframe for scale")
-    #
-    # def actionInsertKeyframeRotation(self):
-    #     """Insert a 'Rotation' keyframe"""
-    #     log.info("Inserting keyframe for rotation")
-    #
-    # def actionInsertKeyframeAlpha(self):
-    #     """Insert an 'Alpha' keyframe"""
-    #     log.info("Inserting keyframe for alpha (opacity)")
 
     def actionRippleSelect(self):
         """Selects ALL clips or transitions to the right of the current selected item"""
@@ -2117,6 +2150,8 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             for t in transitions:
                 # Clear selected clips
                 self.removeSelection(tran_id, "transition")
+                self.emit_selection_signal()
+                self.show_property_timeout()
 
                 # Remove transition
                 t.delete()
@@ -2148,13 +2183,17 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Remove all clips on this track first
         for clip in Clip.filter(layer=selected_track_number):
-            # Clear selected clips
+            # Clear selected clips (and immediately update properties/handles to avoid stale references)
             self.removeSelection(clip.id, "clip")
+            self.emit_selection_signal()
+            self.show_property_timeout()
             clip.delete()
 
         # Remove all transitions on this track first
         for trans in Transition.filter(layer=selected_track_number):
             self.removeSelection(trans.id, "transition")
+            self.emit_selection_signal()
+            self.show_property_timeout()
             trans.delete()
 
         # Remove track
@@ -2652,27 +2691,33 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.SetWindowTitle()
 
     def addSelection(self, item_id, item_type, clear_existing=False):
-        """ Add to (or clear) the selected items list for a given type. """
-        if not item_id:
-            log.debug('addSelection: item_type: {}, clear_existing: {}'.format(
-                item_type, clear_existing))
-        else:
-            log.debug('addSelection: item_id: {}, item_type: {}, clear_existing: {}'.format(
-                item_id, item_type, clear_existing))
+        """Add an item to the selection list.
 
-        # Clear existing selection (if needed)
+        When ``clear_existing`` is True and ``item_id`` is provided, any
+        existing selections of **all** types are cleared before adding the new
+        item. If ``item_id`` is empty, selections matching ``item_type`` are
+        removed instead. This keeps the method focused on simply managing the
+        selection list without extra special-casing.
+        """
         if clear_existing:
-            self.selected_items = [s for s in self.selected_items if s["type"] != item_type]
+            if item_id or not item_type:
+                # Replace the entire selection list
+                self.selected_items = []
+            else:
+                # Remove selections of the specified type only
+                self.selected_items = [s for s in self.selected_items if s["type"] != item_type]
 
         if item_id:
-            existing = any(s for s in self.selected_items if s["id"] == item_id and s["type"] == item_type)
-            if not existing:
+            exists = any(
+                s for s in self.selected_items if s["id"] == item_id and s["type"] == item_type
+            )
+            if not exists:
                 self.selected_items.append({"id": item_id, "type": item_type})
 
             # Change selected item in properties view
             self.show_property_timer.start()
 
-        # Notify UI that selection has been potentially changed
+        # Notify UI that selection has potentially changed
         self.selection_timer.start()
 
     # Remove from the selected items
@@ -2719,12 +2764,20 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if get_app().get_settings().get("auto-transform"):
             self.TransformSignal.emit(self.selected_clips)
 
+            emitted_transform = False
             for sel in self.selected_items:
                 if sel["type"] == "effect":
                     effect = Effect.get(id=sel["id"])
-                    if effect and effect.data.get("has_tracked_object"):
+                    if effect and (
+                        effect.data.get("has_tracked_object")
+                        or effect.data.get("class_name") == "Crop"
+                    ):
                         clip_id = effect.parent['id']
                         self.KeyFrameTransformSignal.emit(sel["id"], clip_id)
+                        emitted_transform = True
+
+            if not emitted_transform:
+                self.KeyFrameTransformSignal.emit("", "")
 
     def selected_files(self):
         """ Return a list of File objects for the Project Files dock's selection """
@@ -2766,6 +2819,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         s.set('window_state_v2', qt_types.bytes_to_str(self.saveState()))
         s.set('window_geometry_v2', qt_types.bytes_to_str(self.saveGeometry()))
         s.set('docks_frozen', self.docks_frozen)
+        dock = getattr(self, "dockTimeline", None)
+        if dock:
+            s.set('timeline_height', dock.height())
 
     # Get window settings from setting store
     def load_settings(self):
@@ -2780,6 +2836,14 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.actionFreeze_View_trigger()
         else:
             self.actionUn_Freeze_View_trigger()
+        timeline_height = s.get('timeline_height')
+        if timeline_height:
+            try:
+                height_value = int(timeline_height)
+            except (TypeError, ValueError):
+                height_value = None
+            if height_value and height_value > 0:
+                self.saved_timeline_height = height_value
 
         # Load Recent Projects
         self.load_recent_menu()
@@ -3091,7 +3155,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Hook up caption editor signal
         self.captionTextEdit.textChanged.connect(self.captionTextEdit_TextChanged)
         self.caption_save_timer = QTimer(self)
-        self.caption_save_timer.setInterval(100)
+        self.caption_save_timer.setInterval(1000)
         self.caption_save_timer.setSingleShot(True)
         self.caption_save_timer.timeout.connect(self.caption_editor_save)
         self.CaptionTextLoaded.connect(self.caption_editor_load)
@@ -3103,7 +3167,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Setup Zoom Slider widget
         from windows.views.zoom_slider import ZoomSlider
         self.sliderZoomWidget = ZoomSlider(self)
-        self.sliderZoomWidget.setMinimumSize(200, 20)
+        self.sliderZoomWidget.setMinimumHeight(20)
         self.sliderZoomWidget.setZoomFactor(initial_scale)
 
         # add zoom widgets
@@ -3113,7 +3177,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.frameWeb.addWidget(self.timelineToolbar)
 
     def clearSelections(self):
-        """Clear all selection containers"""
+        """Clear all selection containers and reset preview transforms"""
+        # Reset any active transform state on the video preview. This prevents
+        # the preview widget from holding references to libopenshot objects that
+        # may become invalid after timeline changes.
+        if hasattr(self, "videoPreview") and self.videoPreview:
+            self.videoPreview.clearTransformState()
+
         self.selected_items = []
         self.selected_markers = []
         self.selected_tracks = []
@@ -3193,6 +3263,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             if child.isFloating() and child.isEnabled():
                 child.raise_()
                 child.show()
+        if (self.saved_geometry or self.saved_state) and not self._restored_saved_window:
+            # Delay the restore until after the window is shown so layouts are settled.
+            QTimer.singleShot(0, self._restore_saved_window)
 
     def hideEvent(self, event):
         """ Have any child windows hide with main window """
@@ -3200,6 +3273,36 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         for child in self.getDocks():
             if child.isFloating() and child.isVisible():
                 child.hide()
+
+    def _restore_saved_window(self):
+        """Apply saved geometry/state after the first show event."""
+        if self._restored_saved_window:
+            return
+        self._restored_saved_window = True
+        if self.saved_geometry:
+            self.restoreGeometry(self.saved_geometry)
+        if self.saved_state:
+            self._restore_state_and_timeline()
+
+    def _restore_state_and_timeline(self):
+        """Restore saved dock state and then apply timeline height."""
+        if self.saved_state:
+            self.restoreState(self.saved_state)
+        self._apply_saved_timeline_height()
+
+    def _apply_saved_timeline_height(self):
+        """Apply the saved timeline dock height without a visible two-pass resize."""
+        if self._timeline_height_restored or not self.saved_timeline_height:
+            return
+
+        dock = getattr(self, "dockTimeline", None)
+        if not dock:
+            return
+
+        # If height already matches, skip the resize to avoid an extra layout pass.
+        if dock.height() != self.saved_timeline_height:
+            self.resizeDocks([dock], [self.saved_timeline_height], Qt.Vertical)
+        self._timeline_height_restored = True
 
     def show_property_timeout(self):
         """Callback for show property timer"""
@@ -3427,8 +3530,181 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def pasteAll(self):
         """Handle Paste QShortcut (at timeline position, same track as original clip)"""
+        clipboard = get_app().clipboard()
+        mime_data = clipboard.mimeData() if clipboard else None
+
+        if mime_data and not mime_data.hasFormat("application/x-openshot-generic"):
+            if self.import_files_from_clipboard(mime_data):
+                return
+
         self.timeline.context_menu_cursor_position = None
         self.timeline.Paste_Triggered(MenuCopy.PASTE, self.selected_clips, self.selected_transitions)
+
+    def clipboard_contains_media(self, mime_data=None):
+        """Check if clipboard contains media files or supported media data."""
+        clipboard = None
+        if mime_data is None:
+            clipboard = get_app().clipboard()
+            if not clipboard:
+                return False
+            mime_data = clipboard.mimeData()
+
+        if not mime_data:
+            return False
+
+        urls, has_binary = self._collect_clipboard_media_urls(mime_data, create_files=False)
+        return bool(urls or has_binary)
+
+    def _collect_clipboard_media_urls(self, mime_data, create_files):
+        """Return a list of QUrls for media items contained in the clipboard."""
+        urls = []
+        seen_paths = set()
+
+        if mime_data.hasUrls():
+            for url in mime_data.urls():
+                if url.isLocalFile():
+                    path = url.toLocalFile()
+                    if path and os.path.exists(path) and path not in seen_paths:
+                        urls.append(url)
+                        seen_paths.add(path)
+
+        if mime_data.hasText():
+            text = mime_data.text()
+            if text:
+                for part in re.split(r'[\r\n]+', text):
+                    part = part.strip()
+                    if not part:
+                        continue
+
+                    url = None
+                    if part.startswith("file://"):
+                        temp_url = QUrl(part)
+                        if temp_url.isLocalFile():
+                            url = temp_url
+                    elif os.path.exists(part):
+                        url = QUrl.fromLocalFile(part)
+
+                    if url:
+                        path = url.toLocalFile()
+                        if path and os.path.exists(path) and path not in seen_paths:
+                            urls.append(url)
+                            seen_paths.add(path)
+
+        if urls:
+            return urls, False
+
+        has_binary = False
+
+        for fmt in mime_data.formats():
+            fmt_str = str(fmt)
+            lower_fmt = fmt_str.lower()
+            if lower_fmt.startswith(("image/", "video/", "audio/")):
+                data = mime_data.data(fmt_str)
+                if data and not data.isEmpty():
+                    has_binary = True
+                    if create_files:
+                        path = self._write_clipboard_bytes(bytes(data), self._extension_for_mime(lower_fmt))
+                        if path:
+                            url = QUrl.fromLocalFile(path)
+                            urls.append(url)
+                            seen_paths.add(path)
+                            break
+                    else:
+                        break
+
+        clipboard = get_app().clipboard()
+        if not urls and create_files and mime_data.hasImage():
+            image = clipboard.image() if clipboard else None
+            if image and not image.isNull():
+                path = self._write_clipboard_image(image)
+                if path:
+                    urls.append(QUrl.fromLocalFile(path))
+                    has_binary = True
+        elif not has_binary and mime_data.hasImage():
+            image = clipboard.image() if clipboard else None
+            has_binary = bool(image and not image.isNull())
+
+        return urls, has_binary
+
+    def _extension_for_mime(self, mime_type):
+        """Return an appropriate file extension for a mime-type."""
+        subtype = mime_type.split('/')[-1]
+        subtype = subtype.split(';')[0]
+        subtype = subtype.split('+')[0]
+        mapping = {
+            "jpeg": "jpg",
+            "x-icon": "ico",
+            "x-matroska": "mkv",
+            "quicktime": "mov",
+            "x-msvideo": "avi",
+            "x-wav": "wav",
+        }
+        return mapping.get(subtype, subtype or "bin")
+
+    def _write_clipboard_bytes(self, data_bytes, extension):
+        """Persist clipboard bytes to a file and return its path."""
+        if not data_bytes:
+            return None
+
+        dest_dir = info.CLIPBOARD_PATH
+        os.makedirs(dest_dir, exist_ok=True)
+
+        filename = "clipboard-{}-{}.{}".format(
+            datetime.now().strftime("%Y%m%d-%H%M%S"),
+            uuid.uuid4().hex[:6],
+            extension or "bin",
+        )
+        filepath = os.path.join(dest_dir, filename)
+
+        try:
+            with open(filepath, "wb") as handle:
+                handle.write(data_bytes)
+        except OSError:
+            log.warning("Failed to write clipboard media to %s", filepath, exc_info=1)
+            return None
+
+        return filepath
+
+    def _write_clipboard_image(self, image):
+        """Persist a clipboard image to disk and return the new path."""
+        dest_dir = info.CLIPBOARD_PATH
+        os.makedirs(dest_dir, exist_ok=True)
+
+        filename = "clipboard-{}-{}.png".format(
+            datetime.now().strftime("%Y%m%d-%H%M%S"),
+            uuid.uuid4().hex[:6],
+        )
+        filepath = os.path.join(dest_dir, filename)
+
+        if image.save(filepath):
+            return filepath
+
+        log.warning("Failed to save clipboard image to %s", filepath)
+        return None
+
+    def import_files_from_clipboard(self, mime_data=None):
+        """Import any media files or data currently stored on the clipboard."""
+        clipboard = None
+        if mime_data is None:
+            clipboard = get_app().clipboard()
+            if not clipboard:
+                return False
+            mime_data = clipboard.mimeData()
+
+        if not mime_data:
+            return False
+
+        urls, _ = self._collect_clipboard_media_urls(mime_data, create_files=True)
+        if not urls:
+            return False
+
+        try:
+            get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+            self.files_model.process_urls(urls)
+        finally:
+            get_app().restoreOverrideCursor()
+
+        return True
 
     def nudgeLeft(self):
         """Nudge the selected clips to the left"""
@@ -3459,6 +3735,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             "actionRazorTool",
             "actionAddMarker",
             "actionSnappingTool",
+            "actionTimingTool",
             "actionJumpStart",
             "actionJumpEnd",
             "actionRippleSliceKeepLeft",
@@ -3495,16 +3772,27 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
     def ignore_updates_callback(self, ignore, show_wait=True):
         """Ignore updates callback - used to stop updating this widget during batch updates"""
+        app = get_app()
+
         if ignore and not self.ignore_updates:
             if show_wait:
                 # Wait for mass updates to finish
-                get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
+                app.setOverrideCursor(QCursor(Qt.WaitCursor))
+                self._wait_cursor_requests += 1
             openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
-            get_app().processEvents()
+            app.processEvents()
         elif not ignore and self.ignore_updates:
-            if show_wait:
-                # Restore normal updates
-                get_app().restoreOverrideCursor()
+            if self._wait_cursor_requests:
+                # Ensure we unwind any wait cursors that we previously applied
+                while self._wait_cursor_requests and app.overrideCursor():
+                    app.restoreOverrideCursor()
+                    self._wait_cursor_requests -= 1
+                if self._wait_cursor_requests:
+                    # Cursor stack unexpectedly empty; reset our counter to keep it accurate
+                    self._wait_cursor_requests = 0
+            elif show_wait and app.overrideCursor():
+                # Fallback for callers expecting an unconditional restore
+                app.restoreOverrideCursor()
             openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
         if not ignore:
@@ -3620,6 +3908,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.tutorial_manager = None
 
         # Load UI from designer
+        self.selected_items = []
         ui_util.load_ui(self, self.ui_path)
 
         # Init UI
@@ -3723,6 +4012,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Load window state and geometry
         self.saved_state = None
         self.saved_geometry = None
+        self.saved_timeline_height = None
+        self._restored_saved_window = False
+        self._timeline_height_restored = False
         self.load_settings()
 
         # Setup Cache settings
@@ -3827,6 +4119,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Connect 'ignore update' signal
         self.ignore_updates = False
+        self._wait_cursor_requests = 0
         self.IgnoreUpdates.connect(self.ignore_updates_callback)
 
         # Connect playhead moved signals
@@ -3850,14 +4143,6 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         theme_name = s.get("theme")
         theme = get_app().theme_manager.apply_theme(theme_name)
         s.set("theme", theme.name)
-
-        # Apply saved window geometry/state from settings
-        if self.saved_geometry:
-            self.restoreGeometry(self.saved_geometry)
-            QTimer.singleShot(0, functools.partial(self.restoreGeometry, self.saved_geometry))
-        if self.saved_state:
-            self.restoreState(self.saved_state)
-            QTimer.singleShot(0, functools.partial(self.restoreState, self.saved_state))
 
         # Save settings
         s.save()

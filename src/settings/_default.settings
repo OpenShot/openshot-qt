@@ -40,6 +40,17 @@
     "setting": "emoji_group_filter"
   },
   {
+    "max": 3.0,
+    "title": "User Interface Scale (Experimental)",
+    "category": "General",
+    "min": 0.5,
+    "step": 0.1,
+    "setting": "ui-scale",
+    "value": 1.0,
+    "type": "hidden",
+    "restart": true
+  },
+  {
     "max": 10000,
     "title": "Image Length (seconds)",
     "category": "General",
@@ -100,6 +111,13 @@
     "type": "hidden",
     "category": "Qt",
     "setting": "docks_frozen"
+  },
+  {
+    "value": 0,
+    "title": "",
+    "type": "hidden",
+    "category": "Qt",
+    "setting": "timeline_height"
   },
   {
     "value": "thumbnail",
@@ -419,6 +437,42 @@
     "restart": false,
     "category": "General",
     "setting": "automatic_transitions"
+  },
+  {
+    "value": false,
+    "title": "Enable Experimental Timeline",
+    "type": "bool",
+    "restart": true,
+    "category": "Experimental",
+    "setting": "qwidget-based-timeline"
+  },
+  {
+    "value": "start",
+    "title": "Thumbnail Style",
+    "type": "dropdown",
+    "restart": false,
+    "category": "Experimental",
+    "dependency": "qwidget-based-timeline",
+    "setting": "timeline-thumbnail-style",
+    "translate_values": true,
+    "values": [
+      {
+        "value": "none",
+        "name": "None"
+      },
+      {
+        "value": "start",
+        "name": "Only Start"
+      },
+      {
+        "value": "start-end",
+        "name": "Start and End"
+      },
+      {
+        "value": "entire",
+        "name": "Entire Clip"
+      }
+    ]
   },
   {
     "max": 4,
@@ -982,6 +1036,14 @@
     "restart": false,
     "setting": "actionSnappingTool",
     "value": "S",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
+    "title": "Timing Toggle",
+    "restart": false,
+    "setting": "actionTimingTool",
+    "value": "T",
     "type": "text"
   },
   {

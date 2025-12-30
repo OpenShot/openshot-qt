@@ -330,6 +330,58 @@ elif sys.platform == "linux":
         if os.path.exists(lib_name):
             lib_list.append(lib_name)
 
+    system_libs_to_skip = {
+        "libdl.so.2",
+        "librt.so.1",
+        "libpthread.so.0",
+        "libc.so.6",
+        "libstdc++.so.6",
+        "libGL.so.1",
+        "libxcb.so.1",
+        "libX11.so.6",
+        "libX11-xcb.so.1",
+        "libasound.so.2",
+        "libgcc_s.so.1",
+        "libICE.so.6",
+        "libp11-kit.so.0",
+        "libSM.so.6",
+        "libm.so.6",
+        "libdrm.so.2",
+        "libfreetype.so.6",
+        "libfontconfig.so.1",
+        "libharfbuzz.so.0",
+    }
+
+    # Driver/system libs detected inside the AppImage; keep them shared with the host OS
+    appimage_driver_libs = {
+        "libGLdispatch.so.0",
+        "libGLX.so.0",
+        "libva-drm.so.2",
+        "libva-x11.so.2",
+        "libva.so.2",
+        "libvdpau.so.1",
+        "libsystemd.so.0",
+        "libdbus-1.so.3",
+        "libblkid.so.1",
+        "libmount.so.1",
+        "libuuid.so.1",
+        "libresolv.so.2",
+        "libXau.so.6",
+        "libXdmcp.so.6",
+    }
+    system_libs_to_skip.update(appimage_driver_libs)
+
+    include_override_libs = {
+        "libgcrypt.so.11",
+        "libQt5DBus.so.5",
+        "libpng12.so.0",
+        "libbz2.so.1.0",
+        "libqxcb.so",
+        "libxcb-xinerama.so.0",
+        "libpcre.so.3",
+        "libselinux.so.1",  # required for Arch/Manjaro
+    }
+
     import subprocess
     for library in lib_list:
         p = subprocess.Popen(["ldd", library], stdout=subprocess.PIPE)
@@ -358,52 +410,12 @@ elif sys.platform == "linux":
             libpath_file = os.path.basename(libpath)
             log.info("libpath: %s, libpath_file: %s" % (libpath, libpath_file))
 
-            if (libpath
+            include_override = libpath_file in include_override_libs and libpath_file not in system_libs_to_skip
+            if ((libpath
                 and os.path.exists(libpath)
                 and "libnvidia-glcore.so" not in libpath
-                and libpath_file not in [
-                    "libdl.so.2",
-                    "librt.so.1",
-                    "libpthread.so.0",
-                    "libc.so.6",
-                    "libstdc++.so.6",
-                    "libGL.so.1",
-                    "libxcb.so.1",
-                    "libX11.so.6",
-                    "libX11-xcb.so.1",
-                    "libasound.so.2",
-                    "libgcc_s.so.1 ",
-                    "libICE.so.6",
-                    "libp11-kit.so.0",
-                    "libSM.so.6",
-                    # Next libs are all part of glib2
-                    # Adding these back in, for experimental RHEL 84 support (which has a custom version of glib
-                    # that breaks our AppImages).
-                    #"libglib-2.0.so.0",
-                    #"libgobject-2.0.so.0",
-                    #"libgio-2.0.so.0",
-                    #"libgmodule-2.0.so.0",
-                    #"libgthread-2.0.so.0",
-                    #"libpango-1.0.so.0",
-                    #"libpangocairo-1.0.so.0",
-                    #"libpangoft2-1.0.so.0",
-                    "libm.so.6",
-                    "libdrm.so.2",
-                    "libfreetype.so.6",
-                    "libfontconfig.so.1",
-                    "libharfbuzz.so.0",
-                    #"libthai.so.0",
-                    ]
-               ) or libpath_file in [
-                    "libgcrypt.so.11",
-                    "libQt5DBus.so.5",
-                    "libpng12.so.0",
-                    "libbz2.so.1.0",
-                    "libqxcb.so",
-                    "libxcb-xinerama.so.0",
-                    "libpcre.so.3",
-                    "libselinux.so.1",
-                    ]:
+                and libpath_file not in system_libs_to_skip)
+               ) or include_override:
                 external_so_files.append((libpath, libpath_file))
             else:
                 log.info("Skipping external library: %s" % libpath)

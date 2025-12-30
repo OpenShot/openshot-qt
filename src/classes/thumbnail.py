@@ -214,10 +214,6 @@ class httpThumbnailHandler(BaseHTTPRequestHandler):
         only_path = url_output.group('only_path')
         no_cache = url_output.group('no_cache')
 
-        log.debug(
-            "Processing thumbnail request for %s frame %d",
-            file_id, file_frame)
-
         try:
             # Look up file data
             file = File.get(id=file_id)

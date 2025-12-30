@@ -24,7 +24,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+import copy
 import json
 import os
 
@@ -32,10 +32,15 @@ import openshot
 
 from classes import info
 from classes.app import get_app
+from classes.path_utils import absolute_media_path
 
 
 class QueryObject:
     """ This class allows one or more project data objects to be queried """
+
+    # Cache detached project objects per update version
+    _cache_version = None
+    _cache = {}
 
     def __init__(self):
         """ Constructor """
@@ -88,6 +93,26 @@ class QueryObject:
         # Needs to be overwritten in each derived class
         return None
 
+    @classmethod
+    def _get_cached_child(cls, OBJECT_TYPE, child):
+        """Return a cached, detached copy of child, clearing cache when project changes"""
+        updates = get_app().updates
+        current_version = getattr(updates, "data_version", 0)
+
+        if cls._cache_version != current_version:
+            cls._cache = {}
+            cls._cache_version = current_version
+
+        object_cache = cls._cache.setdefault(OBJECT_TYPE.object_name, {})
+        child_id = child.get("id")
+
+        # Cache deep copies by id; reuse within the same project version
+        cached = object_cache.get(child_id)
+        if cached is None:
+            cached = copy.deepcopy(child)
+            object_cache[child_id] = cached
+        return cached
+
     def filter(OBJECT_TYPE, **kwargs):
         """ Take any arguments given as filters, and find a list of matching objects """
 
@@ -127,7 +152,7 @@ class QueryObject:
                 object = OBJECT_TYPE()
                 object.id = child["id"]
                 object.key = [OBJECT_TYPE.object_name, {"id": object.id}]
-                object.data = json.loads(json.dumps(child))  # copy of object
+                object.data = QueryObject._get_cached_child(OBJECT_TYPE, child)
                 object.type = "update"
                 matching_objects.append(object)
 
@@ -196,6 +221,8 @@ class Transition(QueryObject):
     def title(self):
         """ Get the translated display title of this item """
         path = self.data.get("reader", {}).get("path")
+        if not path:
+            return None
         fileBaseName = os.path.splitext(os.path.basename(path))[0]
 
         # split the name into parts (looking for a number)
@@ -239,18 +266,11 @@ class File(QueryObject):
     def absolute_path(self):
         """ Get absolute file path of file """
 
-        file_path = self.data["path"]
-        if os.path.isabs(file_path):
-            return file_path
-
-        # Try to expand path relative to project folder
-        app = get_app()
-        if (app and hasattr(app, "project")
-           and hasattr(app.project, "current_filepath")):
-            project_folder = os.path.dirname(app.project.current_filepath)
-            file_path = os.path.abspath(os.path.join(project_folder, file_path))
-
-        return file_path
+        file_path = self.data.get("path")
+        resolved = absolute_media_path(file_path)
+        if resolved:
+            return resolved
+        return file_path or ""
 
     def relative_path(self):
         """ Get relative path (based on the current working directory) """

@@ -28,6 +28,7 @@
  """
 
 import json
+from copy import deepcopy
 import logging
 import os
 import time
@@ -54,7 +55,11 @@ from .timeline_backend.enums import (
     MenuTransform, MenuTime, MenuCopy, MenuSlice, MenuSplitAudio
 )
 from .timeline_backend.qwidget import TimelineWidget
+from .timeline_backend.colors import effect_color_hex
 from .menu import StyledContextMenu
+from classes.clip_utils import clamp_timing_to_media
+from .retime import retime_clip
+from .repeat import apply_repeat, reset_repeat, RepeatDialog
 
 # Constants used by this file
 JS_SCOPE_SELECTOR = "$('body').scope()"
@@ -128,7 +133,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         get_app().updates.ignore_history = True
         # Ignore UI updates without showing the wait cursor
         self.window.IgnoreUpdates.emit(True, False)
-        self.ignore_webview_updates = True
+        self.show_wait_spinner = False
         obj = None
         if object_type == "clip":
             obj = Clip.get(id=object_id)
@@ -145,7 +150,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             obj = Clip.get(id=object_id)
         elif object_type == "transition":
             obj = Transition.get(id=object_id)
-        self.ignore_webview_updates = False
+        self.show_wait_spinner = True
         original = self.keyframe_drag_original.pop(object_id, None)
         if obj:
             get_app().updates.transaction_id = self.keyframe_transaction_id
@@ -159,14 +164,250 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Re-enable UI updates
         self.window.IgnoreUpdates.emit(False, False)
 
-    # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
-    def changed(self, action):
-        if self.ignore_webview_updates:
+    def _collect_clip_ids_from_value(self, value, clip_ids):
+        """Recursively collect clip ids from an update payload without walking audio samples"""
+        if isinstance(value, dict):
+            clip_id = value.get("id")
+            if clip_id:
+                clip_ids.add(str(clip_id))
+            for key, sub_value in value.items():
+                if key == "audio_data":
+                    continue
+                self._collect_clip_ids_from_value(sub_value, clip_ids)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, (dict, list)):
+                    self._collect_clip_ids_from_value(item, clip_ids)
+
+    def _payload_contains_waveform(self, value):
+        """Check if an update payload already contains waveform samples"""
+        if isinstance(value, dict):
+            audio_data = value.get("audio_data")
+            if isinstance(audio_data, list) and len(audio_data) > 0:
+                return True
+            ui_value = value.get("ui")
+            if ui_value and self._payload_contains_waveform(ui_value):
+                return True
+            for key, sub_value in value.items():
+                if key in ("audio_data", "ui"):
+                    continue
+                if self._payload_contains_waveform(sub_value):
+                    return True
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, (dict, list)) and self._payload_contains_waveform(item):
+                    return True
+        return False
+
+    def _assign_new_effect_ids(self, clip_data):
+        """Assign new unique IDs to each effect on the provided clip data."""
+        if not isinstance(clip_data, dict):
             return
 
-        if ViewClass == TimelineWidget:
-            # Propagate to timeline qwidget
-            TimelineWidget.changed(self, action)
+        effects = clip_data.get("effects")
+        if not isinstance(effects, list):
+            return
+
+        for effect in effects:
+            if isinstance(effect, dict):
+                effect["id"] = get_app().project.generate_id()
+
+    def _handle_paste_callback(self, clip_ids, tran_ids, callback_data):
+        """Handle clipboard data insertion after resolving timeline coordinates."""
+        position = callback_data.get("position", 0.0)
+        layer_id = callback_data.get("track", 0)
+
+        tid = self.get_uuid()
+        get_app().updates.transaction_id = tid
+
+        try:
+            copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
+            if not copied_object:
+                return
+
+            if isinstance(copied_object, Clip):
+                clip_ids = [cid for cid in clip_ids if cid != copied_object.id]
+            if isinstance(copied_object, Transition):
+                tran_ids = [tran_id for tran_id in tran_ids if tran_id != copied_object.id]
+
+            def adjust_positions_and_layers(objects, target_position, target_layer):
+                if not objects:
+                    return
+
+                left_most_position = min(obj.data.get("position", 0.0) for obj in objects)
+                top_most_layer = max(obj.data.get("layer", 0) for obj in objects)
+                position_diff = target_position - left_most_position
+                layer_diff = target_layer - top_most_layer if target_layer != -1 else 0
+
+                for obj in objects:
+                    obj.type = "insert"
+                    obj.data.pop("id", None)
+                    obj.id = None
+                    self._assign_new_effect_ids(obj.data)
+                    obj.data["position"] = obj.data.get("position", 0.0) + position_diff
+                    obj.data["layer"] = obj.data.get("layer", 0) + layer_diff
+                    obj.save()
+
+            def apply_clipboard_data(target_obj, clipboard_data, excluded_keys=None):
+                excluded_keys = excluded_keys or []
+                for key, value in clipboard_data.items():
+                    if key in excluded_keys:
+                        continue
+                    if key == "effects" and isinstance(value, list):
+                        existing_effects = target_obj.data.setdefault("effects", [])
+                        effect_map = {
+                            effect.get("class_name"): effect
+                            for effect in existing_effects
+                            if isinstance(effect, dict) and effect.get("class_name")
+                        }
+
+                        for effect in value:
+                            if not isinstance(effect, dict):
+                                continue
+                            effect_copy = deepcopy(effect)
+                            self._assign_new_effect_ids({"effects": [effect_copy]})
+                            effect_type = effect_copy.get("class_name")
+                            if effect_type in effect_map:
+                                effect_map[effect_type].update(effect_copy)
+                            else:
+                                existing_effects.append(effect_copy)
+                        target_obj.data["effects"] = existing_effects
+                    else:
+                        target_obj.data[key] = value
+                target_obj.save()
+
+            if len(clip_ids + tran_ids) == 0 and (
+                isinstance(copied_object, Clip) or isinstance(copied_object, Transition)
+            ):
+                copied_object = [copied_object]
+
+            if isinstance(copied_object, list):
+                adjust_positions_and_layers(copied_object, position, layer_id)
+
+            for clip_id in clip_ids:
+                clip = Clip.get(id=clip_id)
+                if not clip:
+                    continue
+                if isinstance(copied_object, Clip):
+                    apply_clipboard_data(
+                        clip,
+                        copied_object.data,
+                        excluded_keys=["id", "position", "layer", "start", "end"],
+                    )
+                elif isinstance(copied_object, Effect):
+                    effect_copy = deepcopy(copied_object.data)
+                    self._assign_new_effect_ids({"effects": [effect_copy]})
+                    apply_clipboard_data(clip, {"effects": [effect_copy]}, excluded_keys=["id"])
+
+            for tran_id in tran_ids:
+                tran = Transition.get(id=tran_id)
+                if tran and isinstance(copied_object, Transition):
+                    apply_clipboard_data(
+                        tran,
+                        copied_object.data,
+                        excluded_keys=["id", "position", "layer", "start", "end"],
+                    )
+        finally:
+            get_app().updates.transaction_id = None
+
+    def _qwidget_paste_coordinates(self, local_pos, clip_ids, tran_ids):
+        """Resolve paste coordinates for the QWidget timeline backend."""
+        if ViewClass != TimelineWidget:
+            return 0.0, 0
+
+        seconds = 0.0
+        if hasattr(self, "_seconds_from_x"):
+            seconds = max(0.0, float(self._seconds_from_x(local_pos.x())))
+
+        track_number = None
+        if hasattr(self, "geometry"):
+            self.geometry.ensure()
+            for track_rect, track, _name_rect in getattr(self.geometry, "track_rects", []):
+                if track_rect.contains(local_pos):
+                    track_number = track.data.get("number")
+                    break
+
+        if track_number is None and clip_ids:
+            clip = Clip.get(id=clip_ids[0])
+            if clip:
+                track_number = clip.data.get("layer")
+
+        if track_number is None and tran_ids:
+            tran = Transition.get(id=tran_ids[0])
+            if tran:
+                track_number = tran.data.get("layer")
+
+        if track_number is None:
+            selected_tracks = getattr(self.window, "selected_tracks", [])
+            if selected_tracks:
+                track = Track.get(id=selected_tracks[0])
+                if track:
+                    track_number = track.data.get("number")
+
+        if track_number is None:
+            track_number = 0
+
+        return seconds, track_number
+
+    def _apply_effect_colors(self, value):
+        """Ensure effect dictionaries define a color attribute."""
+        if isinstance(value, dict):
+            effects = value.get("effects")
+            if isinstance(effects, list):
+                for effect in effects:
+                    if not isinstance(effect, dict):
+                        continue
+                    ui_data = effect.get("ui")
+                    if not isinstance(ui_data, dict):
+                        ui_data = {}
+                        effect["ui"] = ui_data
+                    ui_data.setdefault("icon_color", effect_color_hex(effect))
+                    self._apply_effect_colors(effect)
+            for key, sub_value in value.items():
+                if key in ("effects", "ui", "audio_data"):
+                    continue
+                if isinstance(sub_value, (dict, list)):
+                    self._apply_effect_colors(sub_value)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, (dict, list)):
+                    self._apply_effect_colors(item)
+
+    def _should_refresh_waveforms(self, action):
+        """Determine if a project update requires redrawing clip waveforms."""
+        if not action:
+            return False
+        if action.type == "load":
+            return True
+        if not action.key or action.key[0] != "clips":
+            return False
+
+        if self._payload_contains_waveform(action.values):
+            return True
+
+        clip_ids = set()
+        for part in action.key:
+            if isinstance(part, dict) and part.get("id"):
+                clip_ids.add(str(part["id"]))
+
+        if not clip_ids:
+            self._collect_clip_ids_from_value(action.values, clip_ids)
+
+        for clip_id in clip_ids:
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                continue
+            audio_data = clip.data.get("ui", {}).get("audio_data")
+            if isinstance(audio_data, list) and len(audio_data) > 0:
+                return True
+        return False
+
+    # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
+    def changed(self, action):
+        if action is None:
+            if ViewClass == TimelineWidget:
+                TimelineWidget.changed(self, None)
+            return
 
         try:
             # Duplicate UpdateAction, and remove unused action attribute (old_values)
@@ -179,6 +420,20 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Bail out if change unrelated to webview
         if action and len(action.key) >= 1 and action.key[0] not in ["clips", "effects", "duration", "layers", "markers"]:
             log.debug(f"Skipping unneeded webview update for '{action.key[0]}'")
+            return
+
+        redraw_waveforms = self._should_refresh_waveforms(action)
+
+        if ViewClass == TimelineWidget:
+            # Propagate to timeline qwidget
+            TimelineWidget.changed(self, action)
+            if action and action.type == "load":
+                initial_scale = float(get_app().project.get("scale") or 15.0)
+                slider = getattr(self.window, "sliderZoomWidget", None)
+                if slider:
+                    slider.setZoomFactor(initial_scale)
+                else:
+                    TimelineWidget.setZoomFactor(self, initial_scale, emit=False)
             return
 
         # Send a JSON version of the UpdateAction to the timeline webview method: applyJsonDiff()
@@ -203,6 +458,43 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             initial_scale = float(get_app().project.get("scale") or 15.0)
             self.window.sliderZoomWidget.setZoomFactor(initial_scale)
 
+        if redraw_waveforms:
+            self.redraw_audio_timer.start()
+
+    def _extend_timeline_to_fit_items(self):
+        """Extend project duration to cover all clips/transitions."""
+        # Reuse QWidget timeline helper when available
+        update_duration = getattr(self, "_update_project_duration", None)
+        if callable(update_duration):
+            try:
+                update_duration()
+                return
+            except Exception:
+                log.warning("Failed to update project duration via widget helper", exc_info=1)
+
+        furthest = 0.0
+        for clip in Clip.filter():
+            data = clip.data if isinstance(clip.data, dict) else {}
+            position = float(data.get("position", 0.0) or 0.0)
+            start = float(data.get("start", 0.0) or 0.0)
+            end = float(data.get("end", start) or start)
+            duration = max(0.0, end - start)
+            furthest = max(furthest, position + duration)
+        for tran in Transition.filter():
+            data = tran.data if isinstance(tran.data, dict) else {}
+            position = float(data.get("position", 0.0) or 0.0)
+            start = float(data.get("start", 0.0) or 0.0)
+            end = float(data.get("end", start) or start)
+            duration = max(0.0, end - start)
+            furthest = max(furthest, position + duration)
+
+        min_length = 300.0
+        padding = 10.0
+        desired = max(min_length, furthest + padding)
+        current = float(get_app().project.get("duration") or 0.0)
+        if desired > current + 1e-3:
+            self.resizeTimeline(desired)
+
     def delete_invalid_timeline_item(self, item):
         """Delete an invalid timeline item (clip or transitions) if the basic
            data does not make sense - i.e. negative duration"""
@@ -221,8 +513,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         return False
 
     @pyqtSlot(str, bool, bool, bool, str)
-    def update_clip_data(self, clip_json, only_basic_props=True,
-                         ignore_reader=False, ignore_refresh=False, transaction_id=None):
+    def update_clip_data(
+        self, clip_json, only_basic_props=True, ignore_reader=False,
+        ignore_refresh=False, transaction_id=None
+    ):
         """ Javascript callable function to update the project data when a clip changes.
         Create an updateAction and send it to the update manager.
         Transaction ID is for undo/redo grouping (if any) """
@@ -238,12 +532,17 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             log.warning('Failed to parse clip JSON data', exc_info=1)
             return
 
+        self._apply_effect_colors(clip_data)
+
         # Search for matching clip in project data (if any)
         existing_clip = Clip.get(id=clip_data.get("id"))
         if not existing_clip:
             # Create a new clip (if not exists)
             log.debug("Create new clip object from clip_data: %s" % clip_data)
             existing_clip = Clip()
+
+        # Constrain timing values to the reader's bounds
+        clamp_timing_to_media(clip_data, existing_clip)
 
         # Update clip data
         existing_clip.data = clip_data
@@ -256,6 +555,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             existing_clip.data["position"] = clip_data["position"]
             existing_clip.data["start"] = clip_data["start"]
             existing_clip.data["end"] = clip_data["end"]
+            existing_clip.data["duration"] = clip_data.get("duration")
 
         # Delete invalid items (i.e. negative duration)
         if self.delete_invalid_timeline_item(existing_clip):
@@ -277,7 +577,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             get_app().updates.transaction_id = None
 
         # Notify UI to ignore OR not ignore updates
-        self.window.IgnoreUpdates.emit(ignore_refresh, not self.ignore_webview_updates)
+        self.window.IgnoreUpdates.emit(ignore_refresh, self.show_wait_spinner)
 
     # Add missing transition
     @pyqtSlot(str)
@@ -323,102 +623,103 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Send to update manager
         self.update_transition_data(transitions_data, only_basic_props=False)
 
+    def _scale_keyframes(self, keyframe, factor):
+        """Scale the X values of keyframe points"""
+        for point in keyframe.get("Points", []):
+            if "co" in point and "X" in point["co"] and point["co"]["X"] != 1:
+                point["co"]["X"] = round((point["co"]["X"] - 1) * factor) + 1
+
+    def _reverse_keyframes(self, keyframe, total_frames):
+        """Reverse keyframe positions, swapping handles"""
+        points = keyframe.get("Points", [])
+        x_values = [
+            point["co"]["X"]
+            for point in points
+            if isinstance(point.get("co"), dict) and "X" in point["co"]
+        ]
+
+        if not x_values:
+            return
+
+        min_x = min(x_values)
+        max_x = max(x_values)
+
+        # Keyframe X positions are 1-indexed.  Use the actual min/max X values to
+        # determine the reflection pivot so we don't lose leading keyframes when
+        # total_frames is smaller than the keyframe range (for example, when the
+        # last point is stored at duration + 1).
+        pivot = min_x + max_x
+
+        new_points = []
+        for point in points:
+            new_point = json.loads(json.dumps(point))
+            if isinstance(new_point.get("co"), dict) and "X" in new_point["co"]:
+                new_point["co"]["X"] = pivot - point["co"]["X"]
+                hl = new_point.pop("handle_left", None)
+                hr = new_point.pop("handle_right", None)
+                if hr is not None:
+                    new_point["handle_left"] = hr
+                if hl is not None:
+                    new_point["handle_right"] = hl
+            new_points.append(new_point)
+
+        keyframe["Points"] = sorted(
+            new_points,
+            key=lambda p: p.get("co", {}).get("X", 0)
+        )
+
     # Javascript callable function to update the project data when a transition changes
     @pyqtSlot(str, bool, bool, str)
     def update_transition_data(self, transition_json, only_basic_props=True, ignore_refresh=False, transaction_id=None):
-        """ Create an updateAction and send it to the update manager.
-            Transaction ID is for undo/redo grouping (if any) """
+        """Create an updateAction and send it to the update manager.
+        Transaction ID is for undo/redo grouping (if any)"""
 
-        # read clip json
+        # read transition json
         if not isinstance(transition_json, dict):
             transition_data = json.loads(transition_json)
         else:
             transition_data = transition_json
 
-        # Search for matching clip in project data (if any)
+        # Search for matching transition in project data (if any)
         existing_item = Transition.get(id=transition_data["id"])
+        old_data = json.loads(json.dumps(existing_item.data)) if existing_item else {}
         if not existing_item:
-            # Create a new clip (if not exists)
+            # Create a new transition (if not exists)
             existing_item = Transition()
         existing_item.data = transition_data
 
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        duration = existing_item.data["end"] - existing_item.data["start"]
-        position = transition_data["position"]
-        layer = transition_data["layer"]
 
-        # Determine if transition is intersecting a clip
-        # For example, the left side of a clip, or the right side, so we can determine
-        # which direction the wipe should be moving in
-        is_forward_direction = True
-        diff_from_edge = 9999
-        for intersecting_clip in Clip.filter(intersect=position, layer=layer):
-            diff_from_start = abs(intersecting_clip.data.get("position", 0.0) - position)
-            diff_from_end = abs((intersecting_clip.data.get("position", 0.0) + \
-                                (intersecting_clip.data.get("end", 0.0) - intersecting_clip.data.get("start", 0.0))) \
-                                - position)
-            if diff_from_end <= 0.25:
-                # Ignore when a transition is less than 1/2 second from the right edge of a clip
-                continue
-            smallest_diff = min(diff_from_start, diff_from_end)
-            if smallest_diff < diff_from_edge:
-                diff_from_edge = smallest_diff
-                if diff_from_end < diff_from_start:
-                    is_forward_direction = False
-                else:
-                    is_forward_direction = True
-            log.debug(f'Intersecting Clip: pos:{intersecting_clip.data.get("position")}, '
-                      f'from start: {diff_from_start}, from end: {diff_from_end}, '
-                      f'is forward: {is_forward_direction}')
-        log.debug(f"Is transition moving in a forward direction? {is_forward_direction}")
+        # Preserve and scale existing keyframes when only basic props are updated
+        old_duration = old_data.get("end", 0.0) - old_data.get("start", 0.0)
+        new_duration = existing_item.data.get("end", 0.0) - existing_item.data.get("start", 0.0)
+        old_frames = round(old_duration * fps_float) if old_duration > 0 else 0
+        new_frames = round(new_duration * fps_float) if new_duration > 0 else 0
 
-        # Determine existing brightness and contrast ranges (if any)
-        brightness_range = []
-        contrast_range = []
-        if existing_item:
-            for point in existing_item.data["brightness"].get("Points", []):
-                point_value = float(point["co"]["Y"])
-                brightness_range.append(point_value)
-            for point in existing_item.data["contrast"].get("Points", []):
-                point_value = float(point["co"]["Y"])
-                contrast_range.append(point_value)
-        if not brightness_range:
-            brightness_range.extend([1, -1])
-        if not contrast_range:
-            contrast_range.extend([3])
+        if old_data and only_basic_props:
+            if "brightness" in old_data:
+                existing_item.data["brightness"] = old_data["brightness"]
+            if "contrast" in old_data:
+                existing_item.data["contrast"] = old_data["contrast"]
 
-        # Create new brightness Keyframes (using the previous value range)
-        b = openshot.Keyframe()
-        if is_forward_direction:
-            b.AddPoint(1, sorted(brightness_range)[-1], openshot.BEZIER)
-            b.AddPoint(round(duration * fps_float), sorted(brightness_range)[0], openshot.BEZIER)
-        else:
-            b.AddPoint(1, sorted(brightness_range)[0], openshot.BEZIER)
-            b.AddPoint(round(duration * fps_float), sorted(brightness_range)[-1], openshot.BEZIER)
-        brightness = json.loads(b.Json())
-
-        # Create new contrast Keyframes (using the previous value range)
-        c = openshot.Keyframe()
-        if is_forward_direction:
-            c.AddPoint(1, sorted(contrast_range)[-1], openshot.BEZIER)
-            c.AddPoint(round(duration * fps_float), sorted(contrast_range)[0], openshot.BEZIER)
-        else:
-            c.AddPoint(1, sorted(contrast_range)[0], openshot.BEZIER)
-            c.AddPoint(round(duration * fps_float), sorted(contrast_range)[-1], openshot.BEZIER)
-        contrast = json.loads(c.Json())
+            if old_frames and new_frames and old_frames != new_frames:
+                scale = new_frames / old_frames
+                for prop in ("brightness", "contrast"):
+                    if prop in existing_item.data:
+                        self._scale_keyframes(existing_item.data[prop], scale)
 
         # Only include the basic properties (performance boost)
-        if only_basic_props:
+        if only_basic_props and not old_data:
             existing_item.data = {}
             existing_item.data["id"] = transition_data["id"]
             existing_item.data["layer"] = transition_data["layer"]
             existing_item.data["position"] = transition_data["position"]
             existing_item.data["start"] = transition_data["start"]
             existing_item.data["end"] = transition_data["end"]
-            existing_item.data["brightness"] = brightness
-            existing_item.data["contrast"] = contrast
+            existing_item.data["brightness"] = transition_data.get("brightness", {})
+            existing_item.data["contrast"] = transition_data.get("contrast", {})
 
         # Delete invalid items (i.e. negative duration)
         if self.delete_invalid_timeline_item(existing_item):
@@ -435,7 +736,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             get_app().updates.transaction_id = None
 
         # Notify UI to ignore OR not ignore updates
-        self.window.IgnoreUpdates.emit(ignore_refresh, not self.ignore_webview_updates)
+        self.window.IgnoreUpdates.emit(ignore_refresh, self.show_wait_spinner)
 
     # Prevent default context menu, and ignore, so that javascript can intercept
     def contextMenuEvent(self, event):
@@ -619,7 +920,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         fps_float = float(fps["num"]) / float(fps["den"])
 
         # Get playhead position
-        playhead_position = float(self.window.preview_thread.current_frame) / fps_float
+        playhead_position = float(self.window.preview_thread.current_frame - 1) / fps_float
 
         # Get clipboard
         copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
@@ -865,6 +1166,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.Rotate_Triggered, MenuRotate.FLIP_180, clip_ids))
         menu.addMenu(Rotation_Menu)
 
+        Crop_Menu = StyledContextMenu(title=_("Crop"), parent=self)
+        Crop_None = Crop_Menu.addAction(_("No Crop"))
+        Crop_None.triggered.connect(partial(self.Crop_Triggered, clip_ids, 'none'))
+        Crop_Menu.addSeparator()
+        Crop_NoResize = Crop_Menu.addAction(_("Crop (No Resize)"))
+        Crop_NoResize.triggered.connect(partial(self.Crop_Triggered, clip_ids, 'crop'))
+        Crop_Resize = Crop_Menu.addAction(_("Crop (Resize)"))
+        Crop_Resize.triggered.connect(partial(self.Crop_Triggered, clip_ids, 'resize'))
+        menu.addMenu(Crop_Menu)
+
         # Layout Menu
         Layout_Menu = StyledContextMenu(title=_("Layout"), parent=self)
         Layout_None = Layout_Menu.addAction(_("Reset Layout"))
@@ -900,8 +1211,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Time_None = Time_Menu.addAction(_("Reset Time"))
         Time_None.triggered.connect(partial(self.Time_Triggered, MenuTime.NONE, clip_ids, '1X'))
         Time_Menu.addSeparator()
+
+        Reverse_Action = Time_Menu.addAction(_("Reverse"))
+        Reverse_Action.triggered.connect(
+            partial(self.Time_Triggered, MenuTime.REVERSE, clip_ids, '1X')
+        )
+
+        Time_Menu.addSeparator()
         for speed, speed_values in [
-            (_("Normal"), ['1X']),
             (_("Fast"), ['2X', '4X', '8X', '16X']),
             (_("Slow"), ['1/2X', '1/4X', '1/8X', '1/16X'])
         ]:
@@ -923,6 +1240,22 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 Speed_Menu.addMenu(Direction_Menu)
             # Add menu to parent
             Time_Menu.addMenu(Speed_Menu)
+
+        # Repeat menu
+        Repeat_Menu = StyledContextMenu(title=_("Repeat"), parent=self)
+        for pattern_title, pattern in [(_("Loop"), "loop"), (_("Ping-Pong"), "pingpong")]:
+            Pattern_Menu = StyledContextMenu(title=pattern_title, parent=self)
+            for direction_title, start_dir in [(_("Forward"), 1), (_("Reverse"), -1)]:
+                Dir_Menu = StyledContextMenu(title=direction_title, parent=self)
+                for count in [2, 3, 4, 5, 8, 10]:
+                    Action = Dir_Menu.addAction(_("{}X").format(count))
+                    Action.triggered.connect(
+                        partial(self.Repeat_Triggered, pattern, start_dir, count, clip_ids))
+                Pattern_Menu.addMenu(Dir_Menu)
+            Repeat_Menu.addMenu(Pattern_Menu)
+        Custom_Action = Repeat_Menu.addAction(_("Custom"))
+        Custom_Action.triggered.connect(partial(self.Repeat_Custom, clip_ids))
+        Time_Menu.addMenu(Repeat_Menu)
 
         # Add Freeze menu options
         Time_Menu.addSeparator()
@@ -1079,6 +1412,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def Show_Waveform_Triggered(self, clip_ids, transaction_id=None):
         """Show a waveform for all selected clips"""
 
+        log.info("Show waveform requested for clips: %s", clip_ids)
+
         # Group clip IDs under each File ID
         # Data format:  { "fileID": ["ClipID-1", "ClipID-2", etc...]}
         files = {}
@@ -1121,7 +1456,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     def clipAudioDataReady_Triggered(self, clip_id, ui_data, tid):
         # When audio data has been calculated, add it to a clip
-        log.debug("clipAudioDataReady_Triggered received for clip: %s" % clip_id)
+        audio_samples = ui_data.get("ui", {}).get("audio_data") if isinstance(ui_data, dict) else []
+        sample_count = len(audio_samples) if isinstance(audio_samples, list) else 0
+        log.info(
+            "Waveform data ready for clip %s (samples: %s)", clip_id, sample_count
+        )
 
         # Transaction id to group all deletes together
         get_app().updates.transaction_id = tid
@@ -1131,6 +1470,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if clip:
             clip.data = ui_data
             clip.save()
+            if hasattr(self, "clip_painter"):
+                self.clip_painter.clear_cache()
+            QTimer.singleShot(0, self.update)
 
         # Clear transaction id
         get_app().updates.transaction_id = None
@@ -1168,6 +1510,97 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             # Get # of tracks
             all_tracks = get_app().project.get("layers")
 
+            reader = clip.data.get("reader", {})
+            has_audio = reader.get("has_audio")
+            has_audio = True if has_audio is None else bool(has_audio)
+            channels_value = reader.get("channels")
+            try:
+                channel_count = int(channels_value) if channels_value is not None else None
+            except (TypeError, ValueError):
+                channel_count = None
+            has_video = reader.get("has_video")
+            has_video = True if has_video is None else bool(has_video)
+            original_layer = clip.data.get("layer")
+
+            if (not has_audio) or (channel_count is not None and channel_count <= 0):
+                log.info("Split audio skipped for clip %s (no audio)", clip_id)
+                continue
+
+            def get_track_below(layer_number):
+                """Return the track number directly below the provided layer (or the same layer if none found)."""
+                next_track_number = layer_number
+                found_track = False
+                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
+                    if found_track:
+                        next_track_number = track.get("number")
+                        break
+                    if track.get("number") == layer_number:
+                        found_track = True
+                        continue
+                return next_track_number
+
+            # Get title of clip
+            clip_title = clip.data["title"]
+
+            # Audio-only clips reuse the source clip instead of deleting it
+            if not has_video:
+                if action == MenuSplitAudio.SINGLE:
+                    # Clear channel filter to all channels and keep the clip
+                    p = openshot.Point(1, -1.0, openshot.CONSTANT)
+                    p_object = json.loads(p.Json())
+                    clip.data["channel_filter"] = {"Points": [p_object]}
+                    clip.save()
+
+                    # Generate waveform for existing clip
+                    log.info("Generate waveform for audio-only clip id: %s" % clip.id)
+                    self.Show_Waveform_Triggered([clip.id], transaction_id=tid)
+                    continue
+
+                if action == MenuSplitAudio.MULTIPLE:
+                    channels = channel_count
+
+                    separate_clip_ids = []
+                    current_layer = original_layer
+                    for channel in range(0, channels):
+                        log.debug("Adding clip for channel %s" % channel)
+
+                        # Each clip is filtered to a different channel
+                        p = openshot.Point(1, channel, openshot.CONSTANT)
+                        p_object = json.loads(p.Json())
+                        clip.data["channel_filter"] = {"Points": [p_object]}
+
+                        # Explicitly keep video disabled and scale none
+                        p = openshot.Point(1, 0.0, openshot.CONSTANT)
+                        p_object = json.loads(p.Json())
+                        clip.data["has_video"] = {"Points": [p_object]}
+                        clip.data["scale"] = openshot.SCALE_NONE
+
+                        # Keep first clip on the same layer, others below
+                        target_layer = current_layer if channel == 0 else get_track_below(current_layer)
+                        clip.data['layer'] = max(target_layer, 0)
+                        current_layer = clip.data['layer']
+
+                        # Adjust the clip title
+                        channel_label = _("(channel %s)") % (channel + 1)
+                        clip.data["title"] = clip_title + " " + channel_label
+
+                        # Save changes
+                        clip.save()
+                        separate_clip_ids.append(clip.id)
+
+                        # Prepare a new clip for the next channel
+                        if channel < channels - 1:
+                            clip.id = None
+                            clip.type = 'insert'
+                            clip.data.pop('id', None)
+                            if clip.key and len(clip.key) > 1:
+                                clip.key.pop(1)
+
+                    # Generate waveform for new clips
+                    log.info("Generate waveform for split audio track clip ids: %s" % str(separate_clip_ids))
+                    self.Show_Waveform_Triggered(separate_clip_ids, transaction_id=tid)
+                    continue
+
             # Clear audio override
             p = openshot.Point(1, -1.0, openshot.CONSTANT)  # Override has_audio keyframe to False
             p_object = json.loads(p.Json())
@@ -1178,9 +1611,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             clip.type = 'insert'
             clip.data.pop('id')
             clip.key.pop(1)
-
-            # Get title of clip
-            clip_title = clip.data["title"]
 
             if action == MenuSplitAudio.SINGLE:
                 # Clear channel filter on new clip
@@ -1196,19 +1626,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Workaround for https://github.com/OpenShot/openshot-qt/issues/2882
                 clip.data["scale"] = openshot.SCALE_NONE
 
-                # Get track below selected track (if any)
-                next_track_number = clip.data['layer']
-                found_track = False
-                for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                    if found_track:
-                        next_track_number = track.get("number")
-                        break
-                    if track.get("number") == clip.data['layer']:
-                        found_track = True
-                        continue
-
-                # Adjust the layer, so this new audio clip doesn't overlap the parent
-                clip.data['layer'] = next_track_number  # Add to layer below clip
+                # Adjust the layer; place below the parent clip
+                target_layer = get_track_below(original_layer)
+                clip.data['layer'] = target_layer
 
                 # Adjust the clip title
                 channel_label = _("(all channels)")
@@ -1222,10 +1642,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
             if action == MenuSplitAudio.MULTIPLE:
                 # Get # of channels on clip
-                channels = int(clip.data["reader"]["channels"])
+                channels = channel_count
 
                 # Loop through each channel
                 separate_clip_ids = []
+                current_layer = original_layer
                 for channel in range(0, channels):
                     log.debug("Adding clip for channel %s" % channel)
 
@@ -1242,19 +1663,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     # Workaround for https://github.com/OpenShot/openshot-qt/issues/2882
                     clip.data["scale"] = openshot.SCALE_NONE
 
-                    # Get track below selected track (if any)
-                    next_track_number = clip.data['layer']
-                    found_track = False
-                    for track in reversed(sorted(all_tracks, key=itemgetter('number'))):
-                        if found_track:
-                            next_track_number = track.get("number")
-                            break
-                        if track.get("number") == clip.data['layer']:
-                            found_track = True
-                            continue
-
                     # Adjust the layer, so this new audio clip doesn't overlap the parent
-                    clip.data['layer'] = max(next_track_number, 0)  # Add to layer below clip
+                    target_layer = get_track_below(current_layer)
+                    clip.data['layer'] = max(target_layer, 0)
+                    current_layer = clip.data['layer']
 
                     # Adjust the clip title
                     channel_label = _("(channel %s)") % (channel + 1)
@@ -1281,6 +1693,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Invalid clip, skip to next item
                 continue
 
+            reader = clip.data.get("reader", {})
+            has_video = reader.get("has_video")
+            has_video = True if has_video is None else bool(has_video)
+
+            if not has_video:
+                continue
+
             # Filter out audio on the original clip
             p = openshot.Point(1, 0.0, openshot.CONSTANT)  # Override has_audio keyframe to False
             p_object = json.loads(p.Json())
@@ -1292,6 +1711,45 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Clear transaction
         get_app().updates.transaction_id = None
+
+    def Crop_Triggered(self, clip_ids, mode):
+        """Add/remove/select the Crop effect based on mode"""
+        get_app().window.clearSelections()
+        first_effect_id = None
+        first_clip_id = None
+        for clip_id in clip_ids:
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                continue
+            effects = clip.data.setdefault('effects', [])
+            existing = next((e for e in effects if e.get('class_name') == 'Crop'), None)
+            if mode == 'none':
+                if existing:
+                    effects.remove(existing)
+                    self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+                continue
+
+            if not existing:
+                effect = openshot.EffectInfo().CreateEffect('Crop')
+                effect_json = json.loads(effect.Json())
+                effects.append(effect_json)
+                existing = effect_json
+
+            # Update resize/scale property based on mode
+            resize_val = True if mode == 'resize' else False
+            existing['resize'] = resize_val
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
+            if not first_effect_id and existing.get('id'):
+                first_effect_id = existing['id']
+                first_clip_id = clip_id
+
+        if first_effect_id:
+            self.addSelection(first_effect_id, 'effect', True)
+            self.window.KeyFrameTransformSignal.emit(first_effect_id, first_clip_id)
+        elif mode == 'none' and clip_ids:
+            self.addSelection(clip_ids[0], 'clip', True)
+            self.window.KeyFrameTransformSignal.emit('', '')
 
     def Layout_Triggered(self, action, clip_ids):
         """Callback for the layout context menus"""
@@ -1700,30 +2158,60 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             key=lambda c: c.data.get("position", 0.0)
         )
 
-        # Variable to track the end of the last clip/transition
-        last_end = found_start
+        # Build groups of overlapping clips/transitions so overlapping items move together
+        groups = []
+        current_group = []
+        current_group_start = None
+        current_group_end = None
 
-        # List to track modified clips for saving
-        modified_clips = []
+        for item in clips_and_transitions:
+            left_edge = item.data.get("position", 0.0)
+            right_edge = left_edge + (item.data.get("end", 0.0) - item.data.get("start", 0.0))
 
-        # Iterate through the sorted list and remove gaps
-        for clip in clips_and_transitions:
-            left_edge = clip.data.get("position", 0.0)
-            right_edge = left_edge + (clip.data.get("end", 0.0) - clip.data.get("start", 0.0))
-
-            # Check if there is a gap between the end of the last clip/transition and the start of the current one
-            if left_edge > last_end:
-                gap_size = left_edge - last_end
-                clip.data["position"] -= gap_size
-                modified_clips.append(clip)
-                log.info(f"Removing gap from {last_end} to {left_edge} on layer {layer_number}")
-                last_end = right_edge - gap_size
+            if current_group and left_edge <= current_group_end:
+                current_group.append(item)
+                current_group_end = max(current_group_end, right_edge)
             else:
-                last_end = max(last_end, right_edge)
+                if current_group:
+                    groups.append((current_group_start, current_group_end, current_group))
+                current_group = [item]
+                current_group_start = left_edge
+                current_group_end = right_edge
 
-        # Save only the modified clips
-        for clip in modified_clips:
-            clip.save()
+        if current_group:
+            groups.append((current_group_start, current_group_end, current_group))
+
+        # Track the end of the last processed group (after shifting) and cumulative offset
+        last_end = found_start
+        total_offset = 0.0
+        modified_items = []
+
+        for group_start, group_end, group_items in groups:
+            # Skip groups that end before the first detected gap
+            if group_end <= found_start:
+                last_end = max(last_end, group_end)
+                continue
+
+            # Calculate where this group would start after prior shifts
+            shifted_start = group_start - total_offset
+
+            # If there is still a gap, close it and increase the total offset
+            if shifted_start > last_end:
+                gap_size = shifted_start - last_end
+                total_offset += gap_size
+                shifted_start -= gap_size
+                log.info(f"Removing gap from {last_end} to {last_end + gap_size} on layer {layer_number}")
+
+            # Shift the entire overlapping group together
+            for item in group_items:
+                item.data["position"] -= total_offset
+                modified_items.append(item)
+
+            last_end = group_end - total_offset
+
+        # Save only the modified items
+        for item in modified_items:
+            item.save()
 
         # Clear transaction id
         get_app().updates.transaction_id = None
@@ -1739,98 +2227,17 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             global_mouse_pos = QCursor.pos()
         local_mouse_pos = self.mapFromGlobal(global_mouse_pos)
 
-        # Callback function, to actually add the clip object
-        def callback(self, clip_ids, tran_ids, callback_data):
-            position = callback_data.get('position', 0.0)
-            layer_id = callback_data.get('track', 0)
+        if ViewClass == TimelineWidget:
+            seconds, track_number = self._qwidget_paste_coordinates(local_mouse_pos, clip_ids, tran_ids)
+            self._handle_paste_callback(clip_ids, tran_ids, {"position": seconds, "track": track_number})
+            return
 
-            # Start transaction
-            tid = self.get_uuid()
-            get_app().updates.transaction_id = tid
-
-            # Get clipboard
-            copied_object = ClipboardManager.from_mime(get_app().clipboard().mimeData())
-            if not copied_object:
-                get_app().updates.transaction_id = None
-                return
-
-            # Remove copied ids from targets
-            if isinstance(copied_object, Clip):
-                clip_ids = [id for id in clip_ids if id != copied_object.id]
-            if isinstance(copied_object, Transition):
-                tran_ids = [id for id in tran_ids if id != copied_object.id]
-
-            # Adjust positions and layers for lists of objects
-            def adjust_positions_and_layers(objects, position, layer_id):
-                left_most_position = min(obj.data['position'] for obj in objects)
-                top_most_layer = max(obj.data['layer'] for obj in objects)
-                position_diff = position - left_most_position
-                layer_diff = layer_id - top_most_layer if layer_id != -1 else 0
-
-                for obj in objects:
-                    obj.type = 'insert'
-                    obj.data.pop('id', None)
-                    obj.id = None
-                    if 'effects' in obj.data:
-                        obj.data['effects'] = [
-                            {k: (get_app().project.generate_id() if k == 'id' else v) for k, v in effect.items()}
-                            for effect in obj.data['effects']
-                        ]
-                    obj.data['position'] += position_diff
-                    obj.data['layer'] += layer_diff
-                    obj.save()
-
-            # Apply clipboard data to target object, merging effects
-            def apply_clipboard_data(target_obj, clipboard_data, excluded_keys=None):
-                excluded_keys = excluded_keys or []
-                for k, v in clipboard_data.items():
-                    if k in excluded_keys:
-                        continue
-                    if k == 'effects' and isinstance(v, list):
-                        existing_effects = target_obj.data.setdefault('effects', [])
-                        effect_map = {effect['class_name']: effect for effect in existing_effects}
-
-                        for effect in v:
-                            effect_type = effect.get('class_name')
-                            effect['id'] = get_app().project.generate_id()
-                            if effect_type in effect_map:
-                                effect_map[effect_type].update(effect)
-                            else:
-                                existing_effects.append(effect)
-
-                        target_obj.data['effects'] = existing_effects
-                    else:
-                        target_obj.data[k] = v
-                target_obj.save()
-
-            # If a single clip/transition is copied with no target, add to a list (for inserting)
-            if len(clip_ids + tran_ids) == 0 and \
-                (isinstance(copied_object, Clip) or isinstance(copied_object, Transition)):
-                copied_object = [copied_object]
-
-            # Handle list of objects (adjust positions and layers)
-            if isinstance(copied_object, list):
-                adjust_positions_and_layers(copied_object, position, layer_id)
-
-            # Handle individual objects (Clip, Transition, Effect)
-            for clip_id in clip_ids:
-                clip = Clip.get(id=clip_id)
-                if clip and isinstance(copied_object, Clip):
-                    apply_clipboard_data(clip, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
-                if clip and isinstance(copied_object, Effect):
-                    apply_clipboard_data(clip, {"effects": [copied_object.data]}, excluded_keys=['id'])
-
-            for tran_id in tran_ids:
-                tran = Transition.get(id=tran_id)
-                if tran and isinstance(copied_object, Transition):
-                    apply_clipboard_data(tran, copied_object.data, excluded_keys=['id', 'position', 'layer', 'start', 'end'])
-
-            # End transaction
-            get_app().updates.transaction_id = None
-
-        # Find position from javascript
-        self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
-            .format(local_mouse_pos.x(), local_mouse_pos.y()), partial(callback, self, clip_ids, tran_ids))
+        self.run_js(
+            JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});".format(
+                local_mouse_pos.x(), local_mouse_pos.y()
+            ),
+            partial(self._handle_paste_callback, clip_ids, tran_ids),
+        )
 
     def Nudge_Triggered(self, action, clip_ids, tran_ids):
         """Callback for nudging clips/transitions by a specified number of frames."""
@@ -2070,6 +2477,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         try:
             # Get the nearest starting frame position to the playhead (snap to frame boundaries)
             playhead_position = float(round((playhead_position * fps_num) / fps_den) * fps_den) / fps_num
+            if action == MenuSlice.KEEP_LEFT: playhead_position += fps_den / fps_num
 
             # Loop through each clip (using the list of ids)
             for clip_id in clip_ids:
@@ -2086,7 +2494,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                 if action == MenuSlice.KEEP_LEFT:
                     # Keep the left side of the clip, adjust the "end" of the clip
-                    clip.data["end"] = start_of_clip + (playhead_position - original_position)
+                    new_end = start_of_clip + (playhead_position - original_position)
+                    clip.data["end"] = new_end
+                    clip.data["duration"] = max(0.0, new_end - start_of_clip)
 
                     if ripple:
                         removed_duration = original_duration - (clip.data["end"] - start_of_clip)
@@ -2097,6 +2507,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     new_start = start_of_clip + (playhead_position - original_position)
                     clip.data["position"] = playhead_position  # Set new timeline position
                     clip.data["start"] = new_start
+                    clip.data["duration"] = max(0.0, end_of_clip - new_start)
 
                     if ripple:
                         removed_duration = original_duration - (end_of_clip - new_start)
@@ -2108,20 +2519,35 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
                 elif action == MenuSlice.KEEP_BOTH:
                     # Update clip data for the left clip
-                    clip.data["end"] = start_of_clip + (playhead_position - original_position)
+                    new_end = start_of_clip + (playhead_position - original_position)
+                    clip.data["end"] = new_end
+                    clip.data["duration"] = max(0.0, new_end - start_of_clip)
 
                     # Split into two clips (left and right side)
                     right_clip = Clip.get(id=clip_id)
                     if not right_clip:
                         continue
 
-                    # Create right side clip
+                    # Create right side clip. Work from deep copies so shared
+                    # references (such as effect dicts) are not retained between
+                    # the original and the new clip.
+                    right_clip_data = deepcopy(right_clip.data)
+                    right_clip_key = list(right_clip.key)
+
                     right_clip.id = None
                     right_clip.type = 'insert'
-                    right_clip.data.pop('id')
-                    right_clip.key.pop(1)
+                    right_clip.data = right_clip_data
+                    right_clip.data.pop('id', None)
+                    if len(right_clip_key) > 1:
+                        right_clip_key.pop(1)
+                    right_clip.key = right_clip_key
                     right_clip.data["position"] = playhead_position
                     right_clip.data["start"] = clip.data["end"]
+                    right_clip.data["end"] = end_of_clip
+                    right_start = float(right_clip.data["start"])
+                    right_end = float(right_clip.data.get("end", right_start))
+                    right_clip.data["duration"] = max(0.0, right_end - right_start)
+                    self._assign_new_effect_ids(right_clip.data)
                     right_clip.save()
 
                 # Save changes for the left or right slice
@@ -2333,7 +2759,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     clips_with_waveforms.append(clip.id)
 
             # Update waveforms of all clips that have them
-            self.Show_Waveform_Triggered(clips_with_waveforms)
+            if clips_with_waveforms:
+                self.Show_Waveform_Triggered(clips_with_waveforms, transaction_id=tid)
         finally:
             # Reset transaction id only if we created it (not if it was passed in)
             if not transaction_id:
@@ -2387,6 +2814,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
         clips_with_waveforms = []
+        transaction_id = self.get_uuid()
 
         # Loop through each selected clip
         for clip_id in clip_ids:
@@ -2397,43 +2825,26 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Invalid clip, skip to next item
                 continue
 
+            # Preserve original data for undo history
+            original_clip_data = json.loads(json.dumps(clip.data))
+
             # Add any clips with waveforms to a list
             if clip.data.get("ui", {}).get("audio_data", []):
                 clips_with_waveforms.append(clip.id)
 
-            # Keep original 'end' and 'duration'
-            if "original_data" not in clip.data:
-                clip.data["original_data"] = {
-                    "end": clip.data["end"],
-                    "duration": clip.data["duration"],
-                    "video_length": clip.data["reader"]["video_length"]
-                }
-
-            # Determine the beginning and ending of this animation
-            start_animation = 1
-
             # Freeze or Speed?
-            if action in [
-                MenuTime.FREEZE,
-                MenuTime.FREEZE_ZOOM
-            ]:
-                # Get freeze details
+            if action in [MenuTime.FREEZE, MenuTime.FREEZE_ZOOM]:
                 freeze_seconds = float(speed)
 
                 original_duration = clip.data["duration"]
-                if "original_data" in clip.data:
-                    original_duration = clip.data["original_data"]["duration"]
-
-                log.info('Updating timing for clip ID {}, original duration: {}'
-                         .format(clip.id, original_duration))
+                log.info('Updating timing for clip ID {}, original duration: {}'.format(clip.id, original_duration))
                 log.debug(clip.data)
 
-                # Extend end & duration (due to freeze)
+                # Extend end & duration (freeze). Do NOT touch reader.video_length.
                 clip.data["end"] = float(clip.data["end"]) + freeze_seconds
                 clip.data["duration"] = float(clip.data["duration"]) + freeze_seconds
-                clip.data["reader"]["video_length"] = float(clip.data["reader"]["video_length"]) + freeze_seconds
 
-                # Determine start frame from position
+                # Determine start frame from position (project frames)
                 start_animation_seconds = float(clip.data["start"]) + (playhead_position - float(clip.data["position"]))
                 start_animation_frames = round(start_animation_seconds * fps_float) + 1
                 start_animation_frames_value = start_animation_frames
@@ -2446,151 +2857,209 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Determine volume start and end
                 start_volume_value = 1.0
 
-                # Do we already have a time curve? Look up intersecting frame # from time curve
+                # If existing time curve, get intersecting Y from libopenshot curve
                 if len(clip.data["time"]["Points"]) > 1:
-                    # Delete last time point (which should be the end of the clip). We have a new end of the clip
-                    # after inserting this freeze.
                     del clip.data["time"]["Points"][-1]
-
-                    # Find actual clip object from libopenshot
                     c = self.window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
-                        # Look up correct position from time curve
                         start_animation_frames_value = c.time.GetLong(start_animation_frames)
 
-                # Do we already have a volume curve? Look up intersecting frame # from volume curve
+                # If existing volume curve, get intersecting value
                 if len(clip.data["volume"]["Points"]) > 1:
-                    # Find actual clip object from libopenshot
                     c = self.window.timeline_sync.timeline.GetClip(clip_id)
                     if c:
-                        # Look up correct volume from time curve
                         start_volume_value = c.volume.GetValue(start_animation_frames)
 
-                # Create Time Freeze keyframe points
+                # Time freeze keyframes
                 p = openshot.Point(start_animation_frames, start_animation_frames_value, openshot.LINEAR)
-                p_object = json.loads(p.Json())
-                self.AddPoint(clip.data['time'], p_object)
+                self.AddPoint(clip.data['time'], json.loads(p.Json()))
                 p1 = openshot.Point(end_animation_frames, start_animation_frames_value, openshot.LINEAR)
-                p1_object = json.loads(p1.Json())
-                self.AddPoint(clip.data['time'], p1_object)
+                self.AddPoint(clip.data['time'], json.loads(p1.Json()))
                 p2 = openshot.Point(end_of_clip_frames, end_of_clip_frames_value, openshot.LINEAR)
-                p2_object = json.loads(p2.Json())
-                self.AddPoint(clip.data['time'], p2_object)
+                self.AddPoint(clip.data['time'], json.loads(p2.Json()))
 
-                # Create Volume mute keyframe points (so the freeze is silent)
+                # Volume mute keyframes
                 p = openshot.Point(start_animation_frames - 1, start_volume_value, openshot.LINEAR)
-                p_object = json.loads(p.Json())
-                self.AddPoint(clip.data['volume'], p_object)
+                self.AddPoint(clip.data['volume'], json.loads(p.Json()))
                 p = openshot.Point(start_animation_frames, 0.0, openshot.LINEAR)
-                p_object = json.loads(p.Json())
-                self.AddPoint(clip.data['volume'], p_object)
+                self.AddPoint(clip.data['volume'], json.loads(p.Json()))
                 p2 = openshot.Point(end_animation_frames - 1, 0.0, openshot.LINEAR)
-                p2_object = json.loads(p2.Json())
-                self.AddPoint(clip.data['volume'], p2_object)
+                self.AddPoint(clip.data['volume'], json.loads(p2.Json()))
                 p3 = openshot.Point(end_animation_frames, start_volume_value, openshot.LINEAR)
-                p3_object = json.loads(p3.Json())
-                self.AddPoint(clip.data['volume'], p3_object)
+                self.AddPoint(clip.data['volume'], json.loads(p3.Json()))
 
-                # Create zoom keyframe points
                 if action == MenuTime.FREEZE_ZOOM:
                     p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
-                    p_object = json.loads(p.Json())
-                    self.AddPoint(clip.data['scale_x'], p_object)
+                    self.AddPoint(clip.data['scale_x'], json.loads(p.Json()))
                     p = openshot.Point(start_animation_frames, 1.0, openshot.BEZIER)
-                    p_object = json.loads(p.Json())
-                    self.AddPoint(clip.data['scale_y'], p_object)
-
+                    self.AddPoint(clip.data['scale_y'], json.loads(p.Json()))
                     diff_halfed = (end_animation_frames - start_animation_frames) / 2.0
                     p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
-                    p1_object = json.loads(p1.Json())
-                    self.AddPoint(clip.data['scale_x'], p1_object)
+                    self.AddPoint(clip.data['scale_x'], json.loads(p1.Json()))
                     p1 = openshot.Point(start_animation_frames + diff_halfed, 1.05, openshot.BEZIER)
-                    p1_object = json.loads(p1.Json())
-                    self.AddPoint(clip.data['scale_y'], p1_object)
-
+                    self.AddPoint(clip.data['scale_y'], json.loads(p1.Json()))
                     p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
-                    p1_object = json.loads(p1.Json())
-                    self.AddPoint(clip.data['scale_x'], p1_object)
+                    self.AddPoint(clip.data['scale_x'], json.loads(p1.Json()))
                     p1 = openshot.Point(end_animation_frames, 1.0, openshot.BEZIER)
-                    p1_object = json.loads(p1.Json())
-                    self.AddPoint(clip.data['scale_y'], p1_object)
+                    self.AddPoint(clip.data['scale_y'], json.loads(p1.Json()))
 
             else:
 
-                # Calculate speed factor
-                speed_label = speed.replace('X', '')
-                speed_parts = speed_label.split('/')
-                even_multiple = 1
-                if len(speed_parts) == 2:
-                    speed_factor = float(speed_parts[0]) / float(speed_parts[1])
-                    even_multiple = int(speed_parts[1])
+                if action == MenuTime.NONE:
+                    # RESET TIME
+                    reset_repeat(clip)
+                    reader = clip.data.get("reader", {}) or {}
+                    try:
+                        c_obj = self.window.timeline_sync.timeline.GetClip(clip_id)
+                    except Exception:
+                        c_obj = None
+
+                    start_sec = float(clip.data.get("start", 0.0))
+                    duration_sec = 0.0
+                    try:
+                        duration_sec = float(reader.get("duration", 0.0) or 0.0)
+                    except (TypeError, ValueError):
+                        duration_sec = 0.0
+
+                    if duration_sec <= 0.0 and c_obj:
+                        try:
+                            duration_sec = float(getattr(c_obj.Reader().info, "duration", 0.0))
+                        except Exception:
+                            duration_sec = 0.0
+                    if duration_sec <= 0.0:
+                        try:
+                            duration_sec = float(clip.data.get("duration", 0.0))
+                        except (TypeError, ValueError):
+                            duration_sec = 0.0
+
+                    is_single_image = False
+                    if c_obj and getattr(c_obj.Reader().info, "has_single_image", False):
+                        is_single_image = True
+                    elif reader.get("has_single_image") or reader.get("media_type") == "image":
+                        is_single_image = True
+                    if is_single_image:
+                        duration_sec = float(get_app().get_settings().get("default-image-length") or 10.0)
+
+                    if duration_sec <= 0.0:
+                        duration_sec = 1.0 / fps_float
+
+                    target_frames = max(1, int(round(duration_sec * fps_float)))
+                    snapped_duration = target_frames / fps_float
+                    target_end_sec = start_sec + snapped_duration
+
+                    # Retime the clip to that end (rescales ALL X correctly)
+                    retime_clip(clip, target_end_sec, clip.data.get("position"), direction=1)
+
+                    # Clear the time curve (default identity point)
+                    clip.data["time"] = {"Points": [{"co": {"X": 1, "Y": 1}, "interpolation": openshot.LINEAR}]}
+
+                elif action == MenuTime.REVERSE:
+                    start_sec = float(clip.data.get("start", 0.0))
+                    try:
+                        target_end_sec = float(clip.data.get("end", start_sec))
+                    except (TypeError, ValueError):
+                        target_end_sec = start_sec
+
+                    if target_end_sec <= start_sec:
+                        try:
+                            duration_sec = float(clip.data.get("duration", 0.0))
+                        except (TypeError, ValueError):
+                            duration_sec = 0.0
+                        if duration_sec <= 0.0:
+                            duration_sec = 1.0 / fps_float
+                        target_end_sec = start_sec + duration_sec
+
+                    retime_clip(clip, target_end_sec, clip.data.get("position"), direction=-1)
+
                 else:
-                    speed_factor = float(speed_label)
-                    even_multiple = int(speed_factor)
+                    speed_label = speed.replace('X', '')
+                    parts = speed_label.split('/')
+                    if len(parts) == 2:
+                        speed_factor = float(parts[0]) / float(parts[1])
+                    else:
+                        speed_factor = float(speed_label)
 
-                # Clear all keyframes
-                p = openshot.Point(start_animation, 0.0, openshot.LINEAR)
-                p_object = json.loads(p.Json())
-                clip.data['time'] = {"Points": [p_object]}
+                    original_duration = float(clip.data["end"]) - float(clip.data["start"])
+                    new_duration = original_duration / speed_factor
+                    new_end_time = float(clip.data["start"]) + new_duration
+                    direction = 1 if action == MenuTime.FORWARD else -1
 
-                # Get the ending frame (do not round)
-                end_of_clip = int(float(clip.data["end"]) * fps_float)
+                    retime_clip(clip, new_end_time, clip.data.get("position"), direction)
 
-                # Determine the beginning and ending of this animation
-                start_animation = round(float(clip.data["start"]) * fps_float) + 1
-                duration_animation = self.round_to_multiple(end_of_clip - start_animation, even_multiple)
-                end_animation = start_animation + duration_animation
-
-                if action == MenuTime.FORWARD:
-                    # Add keyframes
-                    start = openshot.Point(start_animation, start_animation, openshot.LINEAR)
-                    start_object = json.loads(start.Json())
-                    clip.data['time'] = {"Points": [start_object]}
-                    end = openshot.Point(
-                        start_animation + (duration_animation / speed_factor), end_animation, openshot.LINEAR)
-                    end_object = json.loads(end.Json())
-                    self.AddPoint(clip.data['time'], end_object)
-
-                    # Adjust end & duration
-                    clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
-                    clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-                    clip.data["reader"]["video_length"] = self.round_to_multiple(
-                        float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
-
-                if action == MenuTime.BACKWARD:
-                    # Add keyframes
-                    start = openshot.Point(start_animation, end_animation, openshot.LINEAR)
-                    start_object = json.loads(start.Json())
-                    clip.data['time'] = {"Points": [start_object]}
-                    end = openshot.Point(
-                        start_animation + (duration_animation / speed_factor), start_animation, openshot.LINEAR)
-                    end_object = json.loads(end.Json())
-                    self.AddPoint(clip.data['time'], end_object)
-
-                    # Adjust end & duration
-                    clip.data["end"] = (start_animation + (duration_animation / speed_factor)) / fps_float
-                    clip.data["duration"] = self.round_to_multiple(clip.data["duration"] / speed_factor, even_multiple)
-                    clip.data["reader"]["video_length"] = self.round_to_multiple(
-                        float(clip.data["reader"]["video_length"]) / speed_factor, even_multiple)
-
-                if action == MenuTime.NONE and "original_data" in clip.data:
-                    # Reset original end & duration (if available)
-                    orig = clip.data.pop("original_data")
-                    clip.data.update({
-                        "end": orig["end"],
-                        "duration": orig["duration"],
-                    })
-                    clip.data["reader"]["video_length"] = orig["video_length"]
-
-            # Save changes
-            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+            # Save changes with history
+            self.update_clip_data(
+                clip.data,
+                only_basic_props=False,
+                ignore_reader=True,
+                transaction_id=transaction_id,
+            )
+            get_app().updates.apply_last_action_to_history(original_clip_data)
 
         # Update waveforms of all clips that have them
-        self.Show_Waveform_Triggered(clips_with_waveforms)
+        if clips_with_waveforms:
+            self.Show_Waveform_Triggered(clips_with_waveforms, transaction_id=transaction_id)
 
-    def round_to_multiple(self, number, multiple):
-        """Round this to the closest multiple of a given #"""
-        return number - (number % multiple)
+    def Repeat_Triggered(self, pattern, direction, passes, clip_ids, delay_frames=0, ramp=0.0):
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        clips_with_waveforms = []
+        transaction_id = self.get_uuid()
+        for clip_id in clip_ids:
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                continue
+            if clip.data.get("ui", {}).get("audio_data", []):
+                clips_with_waveforms.append(clip.id)
+            apply_repeat(clip, pattern, direction, passes, delay_frames, ramp, fps_float)
+            self.update_clip_data(
+                clip.data,
+                only_basic_props=False,
+                ignore_reader=True,
+                transaction_id=transaction_id,
+            )
+        self._extend_timeline_to_fit_items()
+        if clips_with_waveforms:
+            self.Show_Waveform_Triggered(clips_with_waveforms, transaction_id=transaction_id)
+
+    def Repeat_Custom(self, clip_ids):
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+        dlg = RepeatDialog(self)
+        if dlg.exec_():
+            pattern, direction, passes, delay_frames, ramp = dlg.get_values(fps_float)
+            self.Repeat_Triggered(pattern, direction, passes, clip_ids, delay_frames, ramp)
+
+
+    @pyqtSlot(str, float, float)
+    def RetimeClip(self, clip_id, new_end, new_position):
+        """Public slot to retime a clip from the timeline UI (Timing Mode)."""
+        clip = Clip.get(id=clip_id)
+        if not clip:
+            return
+
+        audio_data = clip.data.get("ui", {}).get("audio_data")
+        has_waveform = audio_data not in (None, [])
+
+        original_clip_data = json.loads(json.dumps(clip.data))
+        if not retime_clip(clip, new_end, new_position, direction=1):
+            return
+
+        # Drop any existing waveform samples so the UI keeps its preview until fresh data arrives
+        ui_data = clip.data.get("ui")
+        if isinstance(ui_data, dict) and "audio_data" in ui_data:
+            ui_data.pop("audio_data", None)
+
+        tid = str(uuid.uuid4())
+        self.update_clip_data(
+            clip.data,
+            only_basic_props=False,
+            ignore_reader=True,
+            transaction_id=tid,
+        )
+        get_app().updates.apply_last_action_to_history(original_clip_data)
+
+        if has_waveform:
+            self.Show_Waveform_Triggered([clip.id], transaction_id=tid)
 
     def show_all_clips(self, clip, stretch=False):
         """ Show all clips at the same time (arranged col by col, row by row)  """
@@ -2673,24 +3142,26 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Loop through all selected transitions
         for tran_id in tran_ids:
 
-            # Get existing clip object
+            # Get existing transition object
             tran = Transition.get(id=tran_id)
             if not tran:
                 # Invalid transition, skip to next item
                 continue
 
-            # Loop through brightness keyframes
+            # Reverse transition keyframes
             tran_data_copy = json.loads(json.dumps(tran.data))
-            new_index = len(tran.data["brightness"]["Points"])
-            for point in tran.data["brightness"]["Points"]:
-                new_index -= 1
-                tran_data_copy["brightness"]["Points"][new_index]["co"]["Y"] = point["co"]["Y"]
-                if "handle_left" in point:
-                    tran_data_copy["brightness"]["Points"][new_index]["handle_left"]["Y"] = point["handle_left"]["Y"]
-                    tran_data_copy["brightness"]["Points"][new_index]["handle_right"]["Y"] = point["handle_right"]["Y"]
+            fps = get_app().project.get("fps")
+            fps_float = float(fps["num"]) / float(fps["den"])
+            duration = tran.data.get("end", 0.0) - tran.data.get("start", 0.0)
+            total_frames = round(duration * fps_float)
 
-            # Save changes
-            self.update_transition_data(tran_data_copy, only_basic_props=False)
+            for prop in ("brightness", "contrast"):
+                if prop in tran_data_copy:
+                    self._reverse_keyframes(tran_data_copy[prop], total_frames)
+
+            # Update in-memory data and persist changes
+            tran.data = tran_data_copy
+            self.update_transition_data(tran.data, only_basic_props=False)
 
     @pyqtSlot(str)
     def ShowTransitionMenu(self, tran_id=None):
@@ -2950,7 +3421,28 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Adjust frame # to valid range
         frame_number = max(frame_number, 1)
-        frame_number = min(frame_number, int(clip.data['reader']['video_length']))
+
+        # Map frame through time curve (if present)
+        mapped_frame = frame_number
+        timeline_sync = getattr(self.window, "timeline_sync", None)
+        timeline = getattr(timeline_sync, "timeline", None)
+        if timeline:
+            try:
+                clip_instance = timeline.GetClip(clip_id)
+            except Exception as exc:
+                clip_instance = None
+                log.debug("Unable to fetch clip %s for preview: %s", clip_id, exc, exc_info=True)
+            if clip_instance and getattr(clip_instance, "time", None):
+                try:
+                    if clip_instance.time.GetCount() > 1:
+                        mapped_value = clip_instance.time.GetValue(frame_number)
+                        mapped_frame = int(round(float(mapped_value)))
+                except (TypeError, ValueError):
+                    pass
+                except Exception as exc:
+                    log.debug("Failed to map time curve for clip %s: %s", clip_id, exc, exc_info=True)
+
+        frame_number = max(mapped_frame, 1)
 
         # Load the clip into the Player (ignored if this has already happened)
         self.window.LoadFileSignal.emit(preview_path)
@@ -2991,6 +3483,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     @pyqtSlot()
     def centerOnPlayhead(self):
         """ Center the timeline on the current playhead position """
+        if ViewClass == TimelineWidget:
+            TimelineWidget.centerOnPlayhead(self)
+            return
         # Execute JavaScript to center the timeline
         self.run_js(JS_SCOPE_SELECTOR + '.centerOnPlayhead();')
 
@@ -2998,13 +3493,28 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def SetSnappingMode(self, enable_snapping):
         """ Enable / Disable snapping mode """
         # Init snapping state (1 = snapping, 0 = no snapping)
-        self.run_js(JS_SCOPE_SELECTOR + ".setSnappingMode(%s);" % int(enable_snapping))
+        if ViewClass == TimelineWidget:
+            TimelineWidget.setSnappingMode(self, enable_snapping)
+        else:
+            self.run_js(JS_SCOPE_SELECTOR + ".setSnappingMode(%s);" % int(enable_snapping))
 
     @pyqtSlot(int)
     def SetRazorMode(self, enable_razor):
         """ Enable / Disable razor mode """
         # Init razor state (1 = razor, 0 = no razor)
-        self.run_js(JS_SCOPE_SELECTOR + ".setRazorMode(%s);" % int(enable_razor))
+        if ViewClass == TimelineWidget:
+            TimelineWidget.setRazorMode(self, enable_razor)
+        else:
+            self.run_js(JS_SCOPE_SELECTOR + ".setRazorMode(%s);" % int(enable_razor))
+
+    @pyqtSlot(int)
+    def SetTimingMode(self, enable_timing):
+        """ Enable / Disable timing mode """
+        # Init timing state (1 = timing, 0 = no timing)
+        if ViewClass == TimelineWidget:
+            TimelineWidget.setTimingMode(self, enable_timing)
+        else:
+            self.run_js(JS_SCOPE_SELECTOR + ".setTimingMode(%s);" % int(enable_timing))
 
     @pyqtSlot(str)
     def SetPropertyFilter(self, property):
@@ -3025,7 +3535,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.window.actionProperties.trigger()
 
     def addRippleSelection(self, item_id, item_type):
-        if item_type == "clip":
+        if ViewClass == TimelineWidget:
+            TimelineWidget.selectRipple(self, item_id, item_type)
+        elif item_type == "clip":
             self.run_js(JS_SCOPE_SELECTOR + ".selectClipRipple('{}', false, null);".format(item_id))
         elif item_type == "transition":
             self.run_js(JS_SCOPE_SELECTOR + ".selectTransitionRipple('{}', false, null);".format(item_id))
@@ -3075,20 +3587,23 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # Handle changes to zoom level, update js
     def update_zoom(self, newScale):
-        _ = get_app()._tr
-
-        # Determine X coordinate of cursor (to center zoom on)
-        cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
-        if cursor_y >= 0:
-            cursor_x = self.mapFromGlobal(self.cursor().pos()).x()
+        if ViewClass == TimelineWidget:
+            TimelineWidget.setZoomFactor(self, newScale, emit=False)
         else:
-            cursor_x = 0
+            _ = get_app()._tr
 
-        # Get access to timeline scope and set scale to new computed value
-        self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");")
+            # Determine X coordinate of cursor (to center zoom on)
+            cursor_y = self.mapFromGlobal(self.cursor().pos()).y()
+            if cursor_y >= 0:
+                cursor_x = self.mapFromGlobal(self.cursor().pos()).x()
+            else:
+                cursor_x = 0
 
-        # Start or restart timer to redraw audio
-        self.redraw_audio_timer.start()
+            # Get access to timeline scope and set scale to new computed value
+            self.run_js(JS_SCOPE_SELECTOR + ".setScale(" + str(newScale) + "," + str(cursor_x) + ");")
+
+            # Start or restart timer to redraw audio
+            self.redraw_audio_timer.start()
 
         # Only update scale if different
         current_scale = float(get_app().project.get("scale") or 15.0)
@@ -3101,6 +3616,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # An item is being dragged onto the timeline (mouse is entering the timeline now)
     def dragEnterEvent(self, event):
+        if ViewClass == TimelineWidget:
+            TimelineWidget.dragEnterEvent(self, event)
+            return
         # Wait cursor
         get_app().setOverrideCursor(QCursor(Qt.WaitCursor))
 
@@ -3172,15 +3690,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 # Handle clip creation
                 if self.item_type == "clip":
                     # Load file JSON and create the clip
-                    new_item = self.addClip(drag_id, pos, js_nearest_track, ignore_refresh)
+                    new_item = self.addClip(drag_id, pos, js_nearest_track, ignore_refresh, call_manual_move=False)
 
                 # Handle transition creation
                 elif self.item_type == "transition":
-                    new_item = self.addTransition(drag_id, pos, js_nearest_track, ignore_refresh)
+                    new_item = self.addTransition(drag_id, pos, js_nearest_track, ignore_refresh, call_manual_move=False)
 
                 # Adjust position for the next clip/transition
                 if new_item:
                     pos += QPointF(new_item["end"] - new_item["start"], 0)
+
+            # After all items are added, initialize manual move once for the group
+            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
 
         # Get JS position and pass initial position to the callback
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
@@ -3190,7 +3711,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         event.accept()
 
     # Add Clip
-    def addClip(self, file_id, position, track, ignore_refresh=False):
+    def addClip(self, file_id, position, track, ignore_refresh=False, call_manual_move=True):
         # Retrieve File object by file_id
         file = File.get(id=file_id)
         if not file:
@@ -3217,22 +3738,53 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if not new_clip.get("reader"):
             return  # Skip this clip
 
-        # Handle optional start and end times for the clip
-        if 'start' in file.data:
-            new_clip["start"] = snap_to_grid(file.data['start'])
-        if 'end' in file.data:
-            new_clip["end"] = snap_to_grid(file.data['end'])
+        # Determine start, duration, and end using file metadata
+        media_type = (file.data or {}).get("media_type")
+        start_value = file.data.get("start", new_clip.get("start", 0.0))
+        try:
+            start_sec = float(start_value)
+        except (TypeError, ValueError):
+            start_sec = 0.0
+        start_sec = snap_to_grid(start_sec)
+        new_clip["start"] = start_sec
+
+        duration_value = file.data.get("duration")
+        if duration_value is None:
+            duration_value = new_clip["reader"].get("duration")
+        try:
+            duration_sec = float(duration_value or 0.0)
+        except (TypeError, ValueError):
+            duration_sec = 0.0
+
+        default_img_len = get_app().get_settings().get("default-image-length") or 10.0
+        if media_type == "image" or new_clip["reader"].get("has_single_image"):
+            duration_sec = float(default_img_len)
+
+        end_override = file.data.get("end")
+        if end_override is not None:
+            try:
+                end_sec = float(end_override)
+            except (TypeError, ValueError):
+                end_sec = start_sec
+            end_sec = snap_to_grid(end_sec)
+            duration_sec = max(0.0, end_sec - start_sec)
         else:
-            new_clip["end"] = snap_to_grid(new_clip["reader"]["duration"])
+            if duration_sec <= 0.0:
+                duration_sec = 1.0 / fps_float
+            duration_frames = max(1, int(round(duration_sec * fps_float)))
+            duration_sec = duration_frames / fps_float
+            end_sec = start_sec + duration_sec
+
+        if duration_sec <= 0.0:
+            duration_sec = 1.0 / fps_float
+            end_sec = start_sec + duration_sec
+
+        new_clip["duration"] = duration_sec
+        new_clip["end"] = end_sec
 
         # Use the passed position and track directly
         new_clip["position"] = position.x()
         new_clip["layer"] = track
-
-        # Adjust the clip duration and set default values for images
-        new_clip["duration"] = snap_to_grid(new_clip["reader"]["duration"])
-        if file.data["media_type"] == "image":
-            new_clip["end"] = snap_to_grid(get_app().get_settings().get("default-image-length"))
 
         # Add the clip to the timeline
         self.update_clip_data(new_clip, only_basic_props=False, ignore_refresh=ignore_refresh)
@@ -3241,7 +3793,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.item_ids.append(new_clip.get('id'))
 
         # Trigger manual move event to initialize UI snapping
-        self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
+        if call_manual_move:
+            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}', '{}');".format(self.item_type, json.dumps(self.item_ids)))
         return new_clip
 
     @pyqtSlot(list)
@@ -3258,7 +3811,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         get_app().window.TimelineResize.emit()
 
     # Add Transition
-    def addTransition(self, file_path, position, track, ignore_refresh=False):
+    def addTransition(self, file_path, position, track, ignore_refresh=False, call_manual_move=True):
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
@@ -3297,11 +3850,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.item_ids.append(transition_data.get('id'))
 
         # Init javascript bounding box (for snapping support)
-        self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, json.dumps(self.item_ids)))
+        if call_manual_move:
+            self.run_js(JS_SCOPE_SELECTOR + ".startManualMove('{}','{}');".format(self.item_type, json.dumps(self.item_ids)))
         return transition_data
 
     # Add Effect
     def addEffect(self, effect_names, event_position):
+        if ViewClass == TimelineWidget:
+            self._add_effect_qwidget(effect_names, event_position)
+            return
 
         # Callback function, to actually add the effect object
         def callback(self, effect_names, callback_data):
@@ -3374,8 +3931,73 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.run_js(JS_SCOPE_SELECTOR + ".getJavaScriptPosition({}, {});"
             .format(event_position.x(), event_position.y()), partial(callback, self, effect_names))
 
+    def _add_effect_qwidget(self, effect_names, event_position):
+        if not effect_names:
+            return
+        try:
+            pos_seconds = float(event_position.x())
+        except AttributeError:
+            pos_seconds = float(event_position)
+        track_num = 0
+        try:
+            track_num = int(event_position.y())
+        except AttributeError:
+            try:
+                track_num = int(event_position)
+            except (TypeError, ValueError):
+                track_num = 0
+
+        for clip in Clip.filter(layer=track_num):
+            data = clip.data if isinstance(clip.data, dict) else {}
+            clip_position = float(data.get("position", 0.0) or 0.0)
+            clip_start = float(data.get("start", 0.0) or 0.0)
+            clip_end = float(data.get("end", clip_start) or clip_start)
+            duration = clip_end - clip_start
+            if duration <= 0.0:
+                continue
+            clip_finish = clip_position + duration
+            if pos_seconds == 0.0 or clip_position <= pos_seconds <= clip_finish:
+                self._apply_effect_to_clip(clip, effect_names[0])
+                break
+
+    def _apply_effect_to_clip(self, clip, effect_name):
+        if not effect_name:
+            return
+        log.info("Applying effect %s to clip ID %s", effect_name, clip.id)
+        if effect_name in effect_options:
+            effect_params = effect_options.get(effect_name)
+            from windows.process_effect import ProcessEffect
+            try:
+                win = ProcessEffect(clip.id, effect_name, effect_params)
+            except ModuleNotFoundError as e:
+                print("[ERROR]: " + str(e))
+                return
+            result = win.exec_()
+            if result != QDialog.Accepted:
+                log.info('Cancel processing')
+                return
+            effect = win.effect
+            if effect is None:
+                return
+        else:
+            effect = openshot.EffectInfo().CreateEffect(effect_name)
+            effect.Id(get_app().project.generate_id())
+
+        effect_json = json.loads(effect.Json())
+        if not isinstance(clip.data, dict):
+            clip.data = {}
+        effects = clip.data.get("effects")
+        if not isinstance(effects, list):
+            effects = list(effects) if effects else []
+            clip.data["effects"] = effects
+        effects.append(effect_json)
+        self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
+
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):
+        if ViewClass == TimelineWidget:
+            TimelineWidget.dragMoveEvent(self, event)
+            return
         # Accept all move events
         event.accept()
 
@@ -3388,6 +4010,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     # Drop an item on the timeline
     def dropEvent(self, event):
+        if ViewClass == TimelineWidget:
+            TimelineWidget.dropEvent(self, event)
+            return
+
         log.info("Dropping item on timeline - item_ids: %s, item_type: %s" % (self.item_ids, self.item_type))
 
         # Accept the event
@@ -3447,14 +4073,20 @@ class TimelineView(updates.UpdateInterface, ViewClass):
     def ClearAllSelections(self):
         """Clear all selections in JavaScript"""
 
-        # Call javascript command
-        self.run_js(JS_SCOPE_SELECTOR + ".clearAllSelections();")
+        # Call JS timeline or qwidget backend equivalent
+        if ViewClass == TimelineWidget:
+            TimelineWidget.clear_all_selections(self)
+        else:
+            self.run_js(JS_SCOPE_SELECTOR + ".clearAllSelections();")
 
     def SelectAll(self):
         """Select all clips and transitions in JavaScript"""
 
-        # Call javascript command
-        self.run_js(JS_SCOPE_SELECTOR + ".selectAll();")
+        # Call JS timeline or qwidget backend equivalent
+        if ViewClass == TimelineWidget:
+            TimelineWidget.select_all_items(self)
+        else:
+            self.run_js(JS_SCOPE_SELECTOR + ".selectAll();")
 
     def render_cache_json(self):
         """Render the cached frames to the timeline (called every X seconds), and only if changed"""
@@ -3475,7 +4107,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     return
                 # Cache has changed, re-render it
                 self.cache_renderer_version = cache_version
-                self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
+                if ViewClass == TimelineWidget:
+                    self.update_playback_cache(cache_dict)
+                else:
+                    self.run_js(JS_SCOPE_SELECTOR + ".renderCache({});".format(cache_json))
         except Exception as ex:
             # Log the exception and ignore
             log.warning("Exception processing timeline cache: %s", ex)
@@ -3486,6 +4121,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     def __init__(self, window):
         super().__init__()
+        if ViewClass == TimelineWidget:
+            TimelineWidget.__init__(self)
         self.setObjectName("TimelineView")
 
         app = get_app()
@@ -3544,4 +4181,4 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Keyframe drag support
         self.keyframe_drag_original = {}
         self.keyframe_transaction_id = None
-        self.ignore_webview_updates = False
+        self.show_wait_spinner = True

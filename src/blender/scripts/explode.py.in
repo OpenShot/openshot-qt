@@ -213,10 +213,17 @@ createExplodeTxt(
 )
 
 # Change the material settings (color, alpha, etc...)
-TextMaterial = bpy.data.materials["TextMaterial"]
-TextMaterial.diffuse_color = params["diffuse_color"]
-TextMaterial.specular_color = params["specular_color"]
-TextMaterial.specular_intensity = params["specular_intensity"]
+color_kfs = [(params["start_frame"], params["diffuse_color"])]
+mat = keyframe_principled(
+    "TextMaterial",
+    base_keyframes=color_kfs,
+    emission_keyframes=color_kfs,
+    emission_strength=(0.0, [f for f, _ in color_kfs]),
+    viewport_color=params["diffuse_color"],
+    specular_value=params["specular_intensity"],
+    specular_color=params["specular_color"])
+if mat:
+    mat.specular_intensity = params["specular_intensity"]
 
 
 # Set the render options.  It is important that these are set

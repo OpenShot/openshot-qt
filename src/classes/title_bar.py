@@ -39,14 +39,17 @@ class HiddenTitleBar(QWidget):
         layout = QHBoxLayout(self)
 
         # Add a QLabel for the title (optional, based on title_text)
-        title_label = QLabel(title_text)
+        self.title_label = QLabel(title_text)
         if title_text:
-            title_label.setObjectName("dock-title-label")
+            self.title_label.setObjectName("dock-title-label")
         else:
-            title_label.setObjectName("dock-title-handle")
+            self.title_label.setObjectName("dock-title-handle")
 
         # Add the QLabel to the layout
-        layout.addWidget(title_label)
+        layout.addWidget(self.title_label)
+
+        # Keep title in sync with dock widget
+        self.dock_widget.windowTitleChanged.connect(self.update_title)
 
         # Add a spacer to push buttons to the right
         layout.addStretch()
@@ -70,6 +73,10 @@ class HiddenTitleBar(QWidget):
         # Set margins and reduce height for the title bar
         layout.setContentsMargins(0, 0, 0, 0)
         self.setFixedHeight(20)  # Reduced height
+
+    def update_title(self, text):
+        """Update label text when dock title changes."""
+        self.title_label.setText(text)
 
     def toggle_dock_state(self):
         """Toggle between docked and floating states."""

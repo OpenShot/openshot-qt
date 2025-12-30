@@ -283,7 +283,7 @@
                 <number>1</number>
                </property>
                <property name="maximum">
-                <number>9999</number>
+                <number>2147483647</number>
                </property>
               </widget>
              </item>
@@ -305,7 +305,7 @@
                 <number>1</number>
                </property>
                <property name="maximum">
-                <number>9999</number>
+                <number>2147483647</number>
                </property>
               </widget>
              </item>
@@ -344,7 +344,7 @@
                 <number>1</number>
                </property>
                <property name="maximum">
-                <number>9999</number>
+                <number>2147483647</number>
                </property>
               </widget>
              </item>
@@ -366,7 +366,7 @@
                 <number>1</number>
                </property>
                <property name="maximum">
-                <number>9999</number>
+                <number>2147483647</number>
                </property>
               </widget>
              </item>

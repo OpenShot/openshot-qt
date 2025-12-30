@@ -119,61 +119,49 @@ for ob in [text_object1, text_object2, text_object3]:
     ob.space_character = params["width"]
     ob.font = font
 
-# Change the title material settings (color, alpha, etc...)
-for mat in [
-        "Title1.Material",
-        "Title2.Material",
-        "Title3.Material",
-        ]:
-    ob = bpy.data.materials[mat]
-    ob.diffuse_color = params["diffuse_color"]
-    ob.specular_color = params["specular_color"]
-    ob.specular_intensity = params["specular_intensity"]
+# TITLE MATERIAL COLORS (node-based)
+title_color_keyframes = [(1.0, params["diffuse_color"])]
+for mat_name in ["Title1.Material", "Title2.Material", "Title3.Material"]:
+    keyframe_principled(
+        mat_name,
+        base_keyframes=title_color_keyframes,
+        emission_keyframes=title_color_keyframes,
+        viewport_color=params["diffuse_color"],
+        specular_value=params["specular_intensity"],
+        specular_color=params["specular_color"])
 
 # BACKGROUND - Change the material settings (color, alpha, etc...)
 bg_mat = bpy.data.materials["Background.Material"]
 bg_mat.specular_color = params["specular_color_bg"]
 bg_mat.specular_intensity = params["specular_intensity_bg"]
 
-# Shadeless Background
-# TODO: Unsupported in Blender 2.8 (not sure of workaround yet)
-# if params["shadeless"] == "Yes":
-# material_object4.use_shadeless = True
-# else:
-# material_object4.use_shadeless = False
 
+# BACKGROUND COLORS (keyframes + node colors/emission)
+color_keyframes = [
+    (1.0, params["diffuse_color_t1"]),
+    (70.0, params["diffuse_color_t1"]),
+    (120.0, params["diffuse_color_t2"]),
+    (160.0, params["diffuse_color_t2"]),
+    (200.0, params["diffuse_color_t3"]),
+    (240.0, params["diffuse_color_t3"]),
+    (300.0, params["diffuse_color_t4"]),
+]
 
-def update_keyframe(point, coord):
-    point.co = coord
-    point.handle_left.y = coord[1]
-    point.handle_right.y = coord[1]
+# Update legacy/material fcurves (keeps UI solid-mode color in sync)
+update_color_fcurves("Background.MaterialAc", color_keyframes)
 
+# Update Principled BSDF base color + emission for rendering/shadowless look
+emission_strength_value = 1.0 if params.get("shadeless") == "Yes" else 0.0
+keyframe_principled(
+    "Background.Material",
+    base_keyframes=color_keyframes,
+    emission_keyframes=color_keyframes,
+    emission_strength=(emission_strength_value, [f for f, _ in color_keyframes]),
+    viewport_color=params["diffuse_color_t1"])
 
-def update_curves(action, point, frame, color):
-    for i in range(0, 3):
-        coord = (frame, color[i])
-        update_keyframe(
-            action.fcurves[i].keyframe_points[point],
-            coord)
-
-
-# BACKGROUND COLORS (KEYFRAMES) ----------------------
-action = bpy.data.actions["Background.MaterialAc"]
-
-# TILE 1
-update_curves(action, 0, 1.0, params["diffuse_color_t1"])
-update_curves(action, 1, 70.0, params["diffuse_color_t1"])
-
-# TILE 2
-update_curves(action, 2, 120.0, params["diffuse_color_t2"])
-update_curves(action, 3, 160.0, params["diffuse_color_t2"])
-
-# TILE 3
-update_curves(action, 4, 200.0, params["diffuse_color_t3"])
-update_curves(action, 5, 240.0, params["diffuse_color_t3"])
-
-# TILE 4
-update_curves(action, 6, 300.0, params["diffuse_color_t4"])
+# Force Blender to refresh depsgraph/materials so updated keyframes/colors take effect
+bpy.context.view_layer.update()
+bpy.context.scene.frame_set(bpy.context.scene.frame_current)
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These
@@ -200,3 +188,8 @@ render.frame_map_new = length_multiplier
 # Set render length/position
 bpy.context.scene.frame_start = params["start_frame"]
 bpy.context.scene.frame_end = new_length
+
+# Color management
+bpy.context.scene.view_settings.view_transform = "Filmic"
+bpy.context.scene.view_settings.exposure = 0.0
+bpy.context.scene.view_settings.gamma = 1.0

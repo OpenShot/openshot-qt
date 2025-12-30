@@ -23,6 +23,18 @@
 import bpy
 import json
 
+
+def _safe_rgba(value):
+    """Coerce color-like input to RGBA without assuming sequence length."""
+    try:
+        return ensure_rgba(value)
+    except Exception:
+        try:
+            v = float(value)
+            return [v, v, v, 1.0]
+        except Exception:
+            return [1.0, 1.0, 1.0, 1.0]
+
 # Debug Info:
 # ./blender -b test.blend -P demo.py
 # -b = background mode
@@ -75,51 +87,61 @@ except NameError:
 sphere_object = bpy.data.objects["Sphere"]
 sphere_object.location = [params["start_x"], params["start_y"], params["start_z"]]
 
-# Modify the Start and End keyframes
-bpy.data.actions["SphereAction"].fcurves[0].keyframe_points[0].co = (1.0, params["start_x"])
-bpy.data.actions["SphereAction"].fcurves[0].keyframe_points[0].handle_left.y = params["start_x"]
-bpy.data.actions["SphereAction"].fcurves[0].keyframe_points[0].handle_right.y = params["start_x"]
+# Modify the Start and End keyframes (Blender 5-safe)
+action = bpy.data.actions.get("SphereAction")
+if action:
+    try:
+        fcurves = list(get_action_fcurves(action))
+    except Exception:
+        fcurves = list(getattr(action, "fcurves", []))
 
-bpy.data.actions["SphereAction"].fcurves[1].keyframe_points[0].co = (1.0, params["start_y"])
-bpy.data.actions["SphereAction"].fcurves[1].keyframe_points[0].handle_left.y = params["start_y"]
-bpy.data.actions["SphereAction"].fcurves[1].keyframe_points[0].handle_right.y = params["start_y"]
+    by_index = {fc.array_index: fc for fc in fcurves}
 
-bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[0].co = (1.0, params["start_z"])
-bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[0].handle_left.y = params["start_z"]
-bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[0].handle_right.y = params["start_z"]
-#################
-bpy.data.actions["SphereAction"].fcurves[0].keyframe_points[1].co = (300.0, params["end_x"])
-bpy.data.actions["SphereAction"].fcurves[0].keyframe_points[1].handle_left.y = params["end_x"]
-bpy.data.actions["SphereAction"].fcurves[0].keyframe_points[1].handle_right.y = params["end_x"]
+    fc_x = by_index.get(0) if by_index else (fcurves[0] if len(fcurves) > 0 else None)
+    fc_y = by_index.get(1) if by_index else (fcurves[1] if len(fcurves) > 1 else None)
+    fc_z = by_index.get(2) if by_index else (fcurves[2] if len(fcurves) > 2 else None)
 
-bpy.data.actions["SphereAction"].fcurves[1].keyframe_points[1].co = (300.0, params["end_y"])
-bpy.data.actions["SphereAction"].fcurves[1].keyframe_points[1].handle_left.y = params["end_y"]
-bpy.data.actions["SphereAction"].fcurves[1].keyframe_points[1].handle_right.y = params["end_y"]
+    def _set_kp(fc, idx, frame, value):
+        if fc and len(fc.keyframe_points) > idx:
+            kp = fc.keyframe_points[idx]
+            kp.co = (frame, value)
+            kp.handle_left.y = value
+            kp.handle_right.y = value
 
-bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].co = (300.0, params["end_z"])
-bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_left.y = params["end_z"]
-bpy.data.actions["SphereAction"].fcurves[2].keyframe_points[1].handle_right.y = params["end_z"]
+    _set_kp(fc_x, 0, 1.0, params["start_x"])
+    _set_kp(fc_y, 0, 1.0, params["start_y"])
+    _set_kp(fc_z, 0, 1.0, params["start_z"])
+    _set_kp(fc_x, 1, 300.0, params["end_x"])
+    _set_kp(fc_y, 1, 300.0, params["end_y"])
+    _set_kp(fc_z, 1, 300.0, params["end_z"])
 
 # Change the material settings (color, alpha, etc...)
-material_object = bpy.data.materials["Material.001"]
-bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Base Color"].default_value = params["diffuse_color"]
-bpy.data.materials["Material.001"].node_tree.nodes["Principled BSDF"].inputs[26].default_value = params["diffuse_color"]  # Emission color
-bpy.data.materials["Material.001"].node_tree.nodes[1].inputs["Alpha"].default_value = params["alpha"]
-strength_value = params["strength"]
-bpy.data.materials["Material.001"].node_tree.nodes["Principled BSDF"].inputs[27].default_value = (strength_value, strength_value, strength_value, 1.0)
+material_object = bpy.data.materials.get("Material.001")
+if material_object and material_object.node_tree:
+    principled = material_object.node_tree.nodes.get("Principled BSDF")
+    if principled:
+        principled.inputs[0].default_value = _safe_rgba(params["diffuse_color"])
+        if len(principled.inputs) > 26:
+            principled.inputs[26].default_value = _safe_rgba(params["diffuse_color"])  # Emission color
+        strength_value = params["strength"]
+        if len(principled.inputs) > 27:
+            principled.inputs[27].default_value = (strength_value, strength_value, strength_value, 1.0)
+        alpha_input = principled.inputs.get("Alpha")
+        if alpha_input:
+            alpha_input.default_value = params["alpha"]
 
 # Change Composite Node settings
-glare_node = bpy.data.scenes[0].node_tree.nodes["Glare"]
-glare_node.color_modulation = params["glare1_color"]
-glare_node.glare_type = params["glare1_type"]
-glare_node.streaks = round(params["glare1_streaks"])
-glare_node.angle_offset = params["glare1_angle"]
+glare_node = bpy.data.node_groups["Compositing Nodetree"].nodes["Glare"]
+glare_node.inputs[9].default_value = params["diffuse_color"]
+glare_node.inputs[1].default_value = params["glare1_type"]
+glare_node.inputs[11].default_value = round(params["glare1_streaks"])
+glare_node.inputs[12].default_value = params["glare1_angle"]
 
-glare_node = bpy.data.scenes[0].node_tree.nodes["Glare.001"]
-glare_node.color_modulation = params["glare2_color"]
-glare_node.glare_type = params["glare2_type"]
-glare_node.streaks = round(params["glare2_streaks"])
-glare_node.angle_offset = params["glare2_angle"]
+glare_node = bpy.data.node_groups["Compositing Nodetree"].nodes["Glare.001"]
+glare_node.inputs[9].default_value = params["diffuse_color"]
+glare_node.inputs[1].default_value = params["glare2_type"]
+glare_node.inputs[11].default_value = round(params["glare2_streaks"])
+glare_node.inputs[12].default_value = params["glare2_angle"]
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These

@@ -81,10 +81,10 @@
 		<default>#ffffff</default>
 	</param>
 	
-	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.5</default>
+	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="IOR for Principled BSDF (1-5)">
+		<min>1.0</min>
+		<max>5.0</max>
+		<default>1.0</default>
 	</param>
 	
 	<param name="start_frame" type="spinner" title="Start Frame" description="">

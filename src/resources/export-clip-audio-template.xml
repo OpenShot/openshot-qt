@@ -1,4 +1,4 @@
-							<clipitem id="clipitem-1" premiereChannelType="stereo">
+							<clipitem id="clipitem-1">
 								<name>FileName.mp4</name>
 								<enabled>TRUE</enabled>
 								<duration>1566</duration>
@@ -10,8 +10,6 @@
 								<end>1720</end>
 								<in>0</in>
 								<out>1564</out>
-								<pproTicksIn>0</pproTicksIn>
-								<pproTicksOut>13242700800000</pproTicksOut>
                                 <file id="file-1">
                                     <name>FileName.mp4</name>
                                     <pathurl>FileName.mp4</pathurl>
@@ -50,8 +48,7 @@
                                         <effectcategory>audiolevels</effectcategory>
                                         <effecttype>audiolevels</effecttype>
                                         <mediatype>audio</mediatype>
-                                        <pproBypass>false</pproBypass>
-                                        <parameter authoringApp="OpenShot">
+                                        <parameter>
                                             <parameterid>level</parameterid>
                                             <name>Level</name>
                                             <valuemin>0</valuemin>
@@ -66,14 +63,5 @@
 									<shottake></shottake>
 									<lognote></lognote>
 									<good></good>
-									<originalvideofilename></originalvideofilename>
-									<originalaudiofilename></originalaudiofilename>
 								</logginginfo>
-								<colorinfo>
-									<lut></lut>
-									<lut1></lut1>
-									<asc_sop></asc_sop>
-									<asc_sat></asc_sat>
-									<lut2></lut2>
-								</colorinfo>
 							</clipitem>

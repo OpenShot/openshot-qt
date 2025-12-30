@@ -72,10 +72,10 @@
 		<default>#ffffff</default>
 	</param>
 
-	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.5</default>
+	<param name="specular_intensity" type="spinner" title="Specular Intensity" description="IOR for Principled BSDF (1-5)">
+		<min>1.0</min>
+		<max>5.0</max>
+		<default>1.0</default>
 	</param>
 	
 	<param name="diffuse_color_bg" type="color" title="Background: Diffuse Color" description="">
@@ -86,10 +86,10 @@
 		<default>#ffffff</default>
 	</param>
 	
-	<param name="specular_intensity_bg" type="spinner" title="Background: Specular Intensity" description="">
-		<min>0.0</min>
-		<max>1.0</max>
-		<default>0.5</default>
+	<param name="specular_intensity_bg" type="spinner" title="Background: Specular Intensity" description="IOR for Principled BSDF (1-5)">
+		<min>1.0</min>
+		<max>5.0</max>
+		<default>1.0</default>
 	</param>
 	
 	<param name="alpha_bg" type="spinner" title="Background: Alpha" description="">

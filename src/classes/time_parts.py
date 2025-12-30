@@ -39,18 +39,21 @@ def secondsToTime(secs, fps_num=30, fps_den=1):
     milliseconds = secs * 1000
     sec = math.floor(milliseconds / 1000)
     milli = milliseconds % 1000
-    min = math.floor(sec / 60)
+    minute = math.floor(sec / 60)
     sec = sec % 60
-    hour = math.floor(min / 60)
-    min = min % 60
+    hour = math.floor(minute / 60)
+    minute = minute % 60
     day = math.floor(hour / 24)
     hour = hour % 24
     week = math.floor(day / 7)
     day = day % 7
 
-    frame = round((milli / 1000.0) * (fps_num / fps_den)) + 1
+    fps_float = (float(fps_num) / float(fps_den)) if fps_den else 0.0
+    frame = int(round((milli / 1000.0) * fps_float))
+    if fps_float > 0:
+        frame = max(0, min(frame, int(fps_float) - 1))
     return {"week": padNumber(week, 2), "day": padNumber(day, 2), "hour": padNumber(hour, 2),
-            "min": padNumber(min, 2), "sec": padNumber(sec, 2), "milli": padNumber(milli, 3),
+            "min": padNumber(minute, 2), "sec": padNumber(sec, 2), "milli": padNumber(milli, 3),
             "frame": padNumber(frame, 2)}
 
 def timecodeToSeconds(time_code="00:00:00:00", fps_num=30, fps_den=1):

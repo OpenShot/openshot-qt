@@ -54,6 +54,7 @@
         <file>actions/add_marker.svg</file>
 	    <file>actions/lock.svg</file>
         <file>Humanity/actions/custom/snap.svg</file>
+        <file>Humanity/actions/custom/timing.svg</file>
         <file>Humanity/actions/custom/center-on-playhead.svg</file>
         <file>Humanity/actions/custom/camera-photo-symbolic.svg</file>
         <file>Humanity/actions/custom/paypal-icon.svg</file>

@@ -26,19 +26,52 @@
  """
 
 import threading
+from functools import partial
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File, Clip
+from classes.clip_utils import project_fps_fraction, video_length_to_project_frames
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt
 import openshot
 import uuid
 
-# Get settings
-s = get_app().get_settings()
-
 # resolution of audio waveform
 SAMPLES_PER_SECOND = 20
+
+TIME_CURVE_RETRY_DELAY = 0.05
+TIME_CURVE_MAX_RETRIES = 5
+
+_waveform_retry_counts = {}
+
+
+def _schedule_waveform_retry(file_id, clip_id, tid, reason=""):
+    """Retry waveform generation for clips whose time curve or clip instance isn't ready."""
+
+    attempts = _waveform_retry_counts.get(clip_id, 0)
+    if attempts >= TIME_CURVE_MAX_RETRIES:
+        _waveform_retry_counts.pop(clip_id, None)
+        return False
+
+    _waveform_retry_counts[clip_id] = attempts + 1
+
+    if reason:
+        log.debug(
+            "Scheduling waveform retry %s/%s for clip %s (%s)",
+            attempts + 1,
+            TIME_CURVE_MAX_RETRIES,
+            clip_id,
+            reason,
+        )
+
+    timer = threading.Timer(
+        TIME_CURVE_RETRY_DELAY,
+        partial(get_audio_data, {file_id: [clip_id]}),
+        kwargs={"transaction_id": tid},
+    )
+    timer.daemon = True
+    timer.start()
+    return True
 
 
 def get_audio_data(files: dict, transaction_id=None):
@@ -147,7 +180,75 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
             continue
 
         # Check for channel mapping and filters
-        channel_filter = int(clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1))
+        channel_filter = int(
+            clip.data.get("channel_filter", {}).get("Points", [])[0].get("co", {}).get("Y", -1)
+        )
+
+        time_points = clip.data.get("time", {}).get("Points", [])
+        has_time_curve = isinstance(time_points, list) and len(time_points) > 1
+
+        clip_instance = get_app().window.timeline_sync.timeline.GetClip(clip.id)
+        if not clip_instance:
+            reason = "clip not yet available in timeline"
+            if _schedule_waveform_retry(file_id, clip.id, tid, reason):
+                log.info(
+                    "Waveform request deferred; clip %s not ready yet. Retrying soon.",
+                    clip.id,
+                )
+            else:
+                log.info("Clip not found, bailing out of waveform volume adjustments")
+            continue
+
+        time_point_count = clip_instance.time.GetCount()
+
+        if has_time_curve and time_point_count <= 1:
+            reason = "time curve not ready"
+            if _schedule_waveform_retry(file_id, clip.id, tid, reason):
+                log.debug(
+                    "Clip %s time curve not ready, scheduling waveform retry", clip.id
+                )
+                continue
+
+        if time_point_count > 1:
+            # When time curves are present, generate waveform data from the clip instance itself
+            _waveform_retry_counts.pop(clip.id, None)
+            clip_audio_data = []
+            channel = channel_filter if channel_filter != -1 else -1
+            try:
+                waveformer = openshot.AudioWaveformer(clip_instance)
+                clip_wave_data = waveformer.ExtractSamples(
+                    channel, SAMPLES_PER_SECOND, True
+                )
+                sample_vectors = clip_wave_data.vectors()
+                if sample_vectors:
+                    clip_audio_data = list(sample_vectors[0])
+                clip_wave_data.clear()
+            except Exception:
+                log.error(
+                    "Error generating clip waveform data for clip %s", clip.id, exc_info=1
+                )
+
+            if clip_audio_data:
+                get_app().window.timeline.clipAudioDataReady.emit(
+                    clip.id, {"ui": {"audio_data": clip_audio_data}}, tid
+                )
+                continue
+
+            reason = "time curve waveform empty"
+            if _schedule_waveform_retry(file_id, clip.id, tid, reason):
+                log.debug(
+                    "Clip %s waveform generation empty; retry scheduled", clip.id
+                )
+                continue
+
+            log.warning(
+                "Clip %s waveform generation failed after retries; leaving waveform unchanged",
+                clip.id,
+            )
+            continue
+
+        _waveform_retry_counts.pop(clip.id, None)
+
         if channel_filter != -1:
             # Some kind of filtering is happening, so we need to re-generate waveform data for this clip
             file_audio_data = getAudioData(file, channel_filter, tid=tid)
@@ -158,34 +259,66 @@ def get_waveform_thread(file_id, clip_list, transaction_id):
             continue
 
         # Save empty 'audio_data' property before we get audio samples
-        get_app().window.timeline.clipAudioDataReady.emit(clip.id, {"ui": {"audio_data": None}}, tid)
+        get_app().window.timeline.clipAudioDataReady.emit(
+            clip.id, {"ui": {"audio_data": None}}, tid
+        )
 
         # Loop through samples from the file, applying this clip's volume curve
         clip_audio_data = []
-        clip_instance = get_app().window.timeline_sync.timeline.GetClip(clip.id)
-        if not clip_instance:
-            log.info("Clip not found, bailing out of waveform volume adjustments")
-            continue
-        num_frames = clip_instance.info.video_length
+        info = clip_instance.info
+        proj_fraction = project_fps_fraction()
+        num_frames = video_length_to_project_frames(
+            None,
+            video_length=getattr(info, 'video_length', None),
+            fps=getattr(info, 'fps', None),
+            duration=getattr(info, 'duration', None),
+            project_fps=proj_fraction,
+        )
+        if num_frames:
+            num_frames = int(num_frames)
+        else:
+            fallback_frames = getattr(info, 'video_length', 0)
+            num_frames = int(fallback_frames) if fallback_frames else 0
 
         # Determine best guess # of samples (based on duration)
         # We don't want to use the len(file_audio_data) due to padding at EOF
         # from libopenshot
         sample_count = round(clip_instance.info.duration * SAMPLES_PER_SECOND)
 
+        if not num_frames or not sample_count:
+            log.debug(
+                "No frames or samples available for clip %s when generating waveform", clip.id
+            )
+            continue
+
         # Determine sample ratio to FPS
         sample_ratio = float(sample_count / num_frames)
 
         # Loop through file samples and adjust time/volume values
         # Copy adjusted samples into clip data
+        file_data_len = len(file_audio_data)
+        if not file_data_len:
+            log.debug(
+                "File audio data is empty for clip %s, skipping waveform generation",
+                clip.id,
+            )
+            continue
         for sample_index in range(sample_count):
             frame_num = round(sample_index / sample_ratio) + 1
             volume = clip_instance.volume.GetValue(frame_num)
-            if clip_instance.time.GetCount() > 1:
+            source_index = sample_index
+            if time_point_count > 1:
                 # Override sample # using time curve (if set)
                 # Don't exceed array size
-                sample_index = min(round(clip_instance.time.GetValue(frame_num) * sample_ratio), sample_count - 1)
-            clip_audio_data.append(file_audio_data[sample_index] * volume)
+                source_index = min(
+                    round(clip_instance.time.GetValue(frame_num) * sample_ratio),
+                    sample_count - 1,
+                )
+            if file_data_len:
+                source_index = min(source_index, file_data_len - 1)
+            clip_audio_data.append(file_audio_data[source_index] * volume)
 
         # Save this data to the clip object
-        get_app().window.timeline.clipAudioDataReady.emit(clip.id, {"ui": {"audio_data": clip_audio_data}}, tid)
+        get_app().window.timeline.clipAudioDataReady.emit(
+            clip.id, {"ui": {"audio_data": clip_audio_data}}, tid
+        )

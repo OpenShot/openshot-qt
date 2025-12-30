@@ -84,6 +84,12 @@ def get_assets_path(file_path=None, create_paths=True):
                 os.mkdir(asset_blender_folder)
                 log.info("New blender folder: {}".format(asset_blender_folder))
 
+            # Create asset clipboard folder
+            asset_clipboard_folder = os.path.join(asset_path, "clipboard")
+            if not os.path.exists(asset_clipboard_folder):
+                os.mkdir(asset_clipboard_folder)
+                log.info("New clipboard folder: {}".format(asset_clipboard_folder))
+
         return asset_path
 
     except Exception as ex:

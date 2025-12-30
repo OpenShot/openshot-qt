@@ -56,45 +56,179 @@ OpenShot Video Editor has a total of 27 built-in video and audio effects: 18 vid
 These effects can be added to a clip by dragging the effect onto a clip. The following table contains
 the name and short description of each effect.
 
-.. table::
-   :widths: 30 80
+.. |analogtape_icon| image:: ../src/effects/icons/analogtape@2x.png
+   :width: 50px
+   :alt: Analog Tape Icon
 
-   =============================  ===============
-   Effect Name                    Effect Description
-   =============================  ===============
-   Alpha Mask / Wipe Transition   Grayscale mask transition between images.
-   Bars                           Add colored bars around your video.
-   Blur                           Adjust image blur.
-   Brightness & Contrast          Modify frame's brightness and contrast.
-   Caption                        Add text captions to any clip.
-   Chroma Key (Greenscreen)       Replace color with transparency.
-   Color Map / Lookup             Adjust colors using 3D LUT lookup tables (.cube format)
-   Color Saturation               Adjust color intensity.
-   Color Shift                    Shift image colors in various directions.
-   Crop                           Crop out parts of your video.
-   Deinterlace                    Remove interlacing from video.
-   Hue                            Adjust hue / color.
-   Lens Flare                     Simulate sunlight hitting a lens with flares.
-   Negative                       Produce a negative image.
-   Object Detector                Detect objects in video.
-   Outline                        Add outline around any image or text.
-   Pixelate                       Increase or decrease visible pixels.
-   Sharpen                        Boost edge contrast to make video details look crisper.
-   Shift                          Shift image in different directions.
-   Spherical Projection           Flatten or project 360° videos.
-   Stabilizer                     Reduce video shake.
-   Tracker                        Track bounding box in video.
-   Wave                           Distort image into a wave pattern.
-   Compressor                     Reduce loudness or amplify quiet sounds.
-   Delay                          Adjust audio-video synchronism.
-   Distortion                     Clip audio signal for distortion.
-   Echo                           Add delayed sound reflection.
-   Expander                       Make loud parts relatively louder.
-   Noise                          Add random equal-intensity signals.
-   Parametric EQ                  Adjust frequency volume in audio.
-   Robotization                   Transform audio into robotic voice.
-   Whisperization                 Transform audio into whispers.
-   =============================  ===============
+.. |mask_icon| image:: ../src/effects/icons/mask@2x.png
+   :width: 50px
+   :alt: Alpha Mask / Wipe Transition Icon
+
+.. |bars_icon| image:: ../src/effects/icons/bars@2x.png
+   :width: 50px
+   :alt: Bars Icon
+
+.. |blur_icon| image:: ../src/effects/icons/blur@2x.png
+   :width: 50px
+   :alt: Blur Icon
+
+.. |brightness_icon| image:: ../src/effects/icons/brightness@2x.png
+   :width: 50px
+   :alt: Brightness & Contrast Icon
+
+.. |caption_icon| image:: ../src/effects/icons/caption@2x.png
+   :width: 50px
+   :alt: Caption Icon
+
+.. |chromakey_icon| image:: ../src/effects/icons/chromakey@2x.png
+   :width: 50px
+   :alt: Chroma Key (Greenscreen) Icon
+
+.. |colormap_icon| image:: ../src/effects/icons/colormap@2x.png
+   :width: 50px
+   :alt: Color Map / Lookup Icon
+
+.. |saturation_icon| image:: ../src/effects/icons/saturation@2x.png
+   :width: 50px
+   :alt: Color Saturation Icon
+
+.. |colorshift_icon| image:: ../src/effects/icons/colorshift@2x.png
+   :width: 50px
+   :alt: Color Shift Icon
+
+.. |crop_icon| image:: ../src/effects/icons/crop@2x.png
+   :width: 50px
+   :alt: Crop Icon
+
+.. |deinterlace_icon| image:: ../src/effects/icons/deinterlace@2x.png
+   :width: 50px
+   :alt: Deinterlace Icon
+
+.. |hue_icon| image:: ../src/effects/icons/hue@2x.png
+   :width: 50px
+   :alt: Hue Icon
+
+.. |lensflare_icon| image:: ../src/effects/icons/lensflare@2x.png
+   :width: 50px
+   :alt: Lens Flare Icon
+
+.. |negate_icon| image:: ../src/effects/icons/negate@2x.png
+   :width: 50px
+   :alt: Negative Icon
+
+.. |objectdetection_icon| image:: ../src/effects/icons/objectdetection@2x.png
+   :width: 50px
+   :alt: Object Detector Icon
+
+.. |outline_icon| image:: ../src/effects/icons/outline@2x.png
+   :width: 50px
+   :alt: Outline Icon
+
+.. |pixelate_icon| image:: ../src/effects/icons/pixelate@2x.png
+   :width: 50px
+   :alt: Pixelate Icon
+
+.. |sharpen_icon| image:: ../src/effects/icons/sharpen@2x.png
+   :width: 50px
+   :alt: Sharpen Icon
+
+.. |shift_icon| image:: ../src/effects/icons/shift@2x.png
+   :width: 50px
+   :alt: Shift Icon
+
+.. |sphericalprojection_icon| image:: ../src/effects/icons/sphericalprojection@2x.png
+   :width: 50px
+   :alt: Spherical Projection Icon
+
+.. |stabilizer_icon| image:: ../src/effects/icons/stabilizer@2x.png
+   :width: 50px
+   :alt: Stabilizer Icon
+
+.. |tracker_icon| image:: ../src/effects/icons/tracker@2x.png
+   :width: 50px
+   :alt: Tracker Icon
+
+.. |wave_icon| image:: ../src/effects/icons/wave@2x.png
+   :width: 50px
+   :alt: Wave Icon
+
+.. |compressor_icon| image:: ../src/effects/icons/compressor@2x.png
+   :width: 50px
+   :alt: Compressor Icon
+
+.. |delay_icon| image:: ../src/effects/icons/delay@2x.png
+   :width: 50px
+   :alt: Delay Icon
+
+.. |distortion_icon| image:: ../src/effects/icons/distortion@2x.png
+   :width: 50px
+   :alt: Distortion Icon
+
+.. |echo_icon| image:: ../src/effects/icons/echo@2x.png
+   :width: 50px
+   :alt: Echo Icon
+
+.. |expander_icon| image:: ../src/effects/icons/expander@2x.png
+   :width: 50px
+   :alt: Expander Icon
+
+.. |noise_icon| image:: ../src/effects/icons/noise@2x.png
+   :width: 50px
+   :alt: Noise Icon
+
+.. |parametriceq_icon| image:: ../src/effects/icons/parametriceq@2x.png
+   :width: 50px
+   :alt: Parametric EQ Icon
+
+.. |robotization_icon| image:: ../src/effects/icons/robotization@2x.png
+   :width: 50px
+   :alt: Robotization Icon
+
+.. |whisperization_icon| image:: ../src/effects/icons/whisperization@2x.png
+   :width: 50px
+   :alt: Whisperization Icon
+
+.. table::
+   :widths: 15 30 80
+
+   =========================== ============================= ===============
+   Icon                        Effect Name                   Effect Description
+   =========================== ============================= ===============
+   |analogtape_icon|           Analog Tape                   Vintage home-video wobble, bleed, and snow.
+   |mask_icon|                 Alpha Mask / Wipe Transition  Grayscale mask transition between images.
+   |bars_icon|                 Bars                          Add colored bars around your video.
+   |blur_icon|                 Blur                          Adjust image blur.
+   |brightness_icon|           Brightness & Contrast         Modify frame’s brightness and contrast.
+   |caption_icon|              Caption                       Add text captions to any clip.
+   |chromakey_icon|            Chroma Key (Greenscreen)      Replace color with transparency.
+   |colormap_icon|             Color Map / Lookup            Adjust colors using 3D LUT lookup tables (.cube format).
+   |saturation_icon|           Color Saturation              Adjust color intensity.
+   |colorshift_icon|           Color Shift                   Shift image colors in various directions.
+   |crop_icon|                 Crop                          Crop out parts of your video.
+   |deinterlace_icon|          Deinterlace                   Remove interlacing from video.
+   |hue_icon|                  Hue                           Adjust hue / color.
+   |lensflare_icon|            Lens Flare                    Simulate sunlight hitting a lens with flares.
+   |negate_icon|               Negative                      Produce a negative image.
+   |objectdetection_icon|      Object Detector               Detect objects in video.
+   |outline_icon|              Outline                       Add outline around any image or text.
+   |pixelate_icon|             Pixelate                      Increase or decrease visible pixels.
+   |sharpen_icon|              Sharpen                       Boost edge contrast to make video details look crisper.
+   |shift_icon|                Shift                         Shift image in different directions.
+   |sphericalprojection_icon|  Spherical Projection          Flatten or project 360° and fisheye footage.
+   |stabilizer_icon|           Stabilizer                    Reduce video shake.
+   |tracker_icon|              Tracker                       Track bounding box in video.
+   |wave_icon|                 Wave                          Distort image into a wave pattern.
+   |compressor_icon|           Compressor                    Reduce loudness or amplify quiet sounds.
+   |delay_icon|                Delay                         Adjust audio-video synchronism.
+   |distortion_icon|           Distortion                    Clip audio signal for distortion.
+   |echo_icon|                 Echo                          Add delayed sound reflection.
+   |expander_icon|             Expander                      Make loud parts relatively louder.
+   |noise_icon|                Noise                         Add random equal-intensity signals.
+   |parametriceq_icon|         Parametric EQ                 Adjust frequency volume in audio.
+   |robotization_icon|         Robotization                  Transform audio into robotic voice.
+   |whisperization_icon|       Whisperization                Transform audio into whispers.
+   =========================== ============================= ===============
+
 
 Effect Properties
 -----------------
@@ -193,6 +327,33 @@ Video Effects
 Effects are generally divided into two categories: video and audio effects. Video effects modify the image and pixel
 data of a clip. Below is a list of video effects, and their properties. Often it is best to experiment with an effect,
 entering different values into the properties, and observing the results.
+
+Analog Tape
+"""""""""""
+The **Analog Tape** effect emulates consumer tape playback: horizontal line wobble ("tracking"), chroma bleed, luma softness, grainy snow, a bottom **tracking stripe**, and short **static bursts**.
+All controls are key-framable and the noise is deterministic (seeded from the effect’s ID with an optional offset), so renders are repeatable.
+
+.. table::
+    :widths: 26 80
+
+    ========================= ===========================================
+    Property Name             Description
+    ========================= ===========================================
+    tracking                  ``(float, 0–1)`` Horizontal **line wobble** plus a subtle bottom **skew**. Higher values increase amplitude and skew height.
+    bleed                     ``(float, 0–1)`` **Chroma bleed / fringing.** Horizontal chroma shift + blur with a slight desaturation. Gives the “rainbow edge” look.
+    softness                  ``(float, 0–1)`` **Luma softness.** Small horizontal blur on Y (approx. 0–2 px). Keep low to retain detail when noise is high.
+    noise                     ``(float, 0–1)`` **Snow, hiss, and dropouts.** Controls grain strength, probability/length of white **streaks**, and a faint line hum.
+    stripe                    ``(float, 0–1)`` **Tracking stripe.** Lifts the bottom band, adds hiss/noise there, and widens the lifted region as the value increases.
+    static_bands              ``(float, 0–1)`` **Static bursts.** Short bright bands with **row-clumped streaks** (many “shooting stars” across neighboring rows).
+    seed_offset               ``(int, 0–1000)`` Adds to the internal seed (derived from the effect ID) for deterministic variation between clips.
+    ========================= ===========================================
+
+**Usage notes**
+
+- **Subtle “home video”**: ``tracking=0.25``, ``bleed=0.20``, ``softness=0.20``, ``noise=0.25``, ``stripe=0.10``, ``static_bands=0.05``.
+- **Bad tracking / head clog**: ``tracking=0.8–1.0``, ``stripe=0.6–0.9``, ``noise=0.6–0.8``, ``static_bands=0.4–0.6``, ``softness<=0.2``, and set ``bleed`` to about 0.3.
+- **Color fringing only**: raise ``bleed`` (about 0.5) and keep other controls low.
+- **Different but repeatable snow**: leave the effect ID alone (for deterministic output) and change ``seed_offset`` to get a new, still-repeatable pattern.
 
 Alpha Mask / Wipe Transition
 """"""""""""""""""""""""""""
@@ -605,6 +766,10 @@ primary method for cropping a Clip in OpenShot. The ``left``, ``right``, ``top``
 even be animated, for a moving and resizing cropped area. You can leave the cropped area blank, or you can
 dynamically resize the cropped area to fill the screen.
 
+You can quickly add this effect by right-clicking a clip and choosing
+:guilabel:`Crop`. When active, blue crop handles appear in the video preview so
+you can adjust the crop visually.
+
 .. table::
    :widths: 26 80
 
@@ -833,10 +998,10 @@ add dynamic motion to static shots.
 Spherical Projection
 """"""""""""""""""""
 
-The Spherical Projection effect lets you flatten and re-project 360° or fisheye video into a normal rectangular view.
-You can steer the virtual camera with yaw, pitch and roll, zoom in or out with the field-of-view (FOV), choose between
-full-sphere, hemisphere or raw fisheye input, and select nearest-neighbor or bilinear sampling for quality vs. speed.
-This is ideal for editing keyframed “virtual camera” moves inside your 360° clips.
+The Spherical Projection effect flattens 360° or fisheye footage into a normal rectangular view, or generates fisheye output.
+Steer a virtual camera with yaw, pitch, and roll. Control the output view with FOV. Choose the input type (equirect or one of the fisheye models),
+pick a projection mode for the output, and select a sampling mode that balances quality and speed. This is ideal for keyframed
+“virtual camera” moves inside 360° clips and for converting circular fisheye shots.
 
 .. table::
    :widths: 26 80
@@ -846,21 +1011,40 @@ This is ideal for editing keyframed “virtual camera” moves inside your 360°
    ==========================  ===========================================
    yaw                         ``(float, -180 to 180)``
                                Horizontal rotation around the up axis (degrees).
-   pitch                       ``(float, -90 to 90)``
+   pitch                       ``(float, -180 to 180)``
                                Vertical rotation around the right axis (degrees).
    roll                        ``(float, -180 to 180)``
-                               Roll (tilt) around the forward axis (degrees).
-   fov                         ``(float, 1 to 179)``
-                               Horizontal field-of-view of the virtual camera (degrees).
+                               Rotation around the forward axis (degrees).
+   fov                         ``(float, 0 to 179)``
+                               **Out FOV.** Horizontal field of view of the virtual camera (degrees) for the output.
+   in_fov                      ``(float, 1 to 360)``
+                               **In FOV.** Total coverage of the source lens. Used when **Input Model = Fisheye** (typical value 180). Ignored for equirect sources.
    projection_mode             ``(int)``
-                               **Sphere (0)**: full 360×180° equirectangular, **Hemisphere (1)**: front or back half of an equirectangular, **Fisheye (2)**: raw circular fisheye source
+                               Output projection:
+                               **Sphere (0):** rectilinear output over the full sphere.
+                               **Hemisphere (1):** rectilinear output over a half sphere.
+                               **Fisheye: Equidistant (2)**, **Equisolid (3)**, **Stereographic (4)**, **Orthographic (5)**: circular fisheye output using the selected mapping.
+   input_model                 ``(int)``
+                               Source lens model:
+                               **Equirectangular (0)**, **Fisheye: Equidistant (1)**, **Fisheye: Equisolid (2)**, **Fisheye: Stereographic (3)**, **Fisheye: Orthographic (4)**.
    invert                      ``(int)``
-                               Flip the view by 180° or switch front/back in fisheye:
-                               Normal (0), Inverted (1).
+                               Flip the view by 180° without mirroring.
+                               **Normal (0)**, **Invert (1)**. For equirect sources this behaves like a 180° yaw. For fisheye inputs it swaps front/back hemispheres.
    interpolation               ``(int)``
-                               Sampling method: Nearest-neighbor (0) or Bilinear (1).
+                               Sampling method: **Nearest (0)**, **Bilinear (1)**, **Bicubic (2)**, **Auto (3)**.
+                               Auto picks Bilinear at ~1:1, Bicubic when upscaling, and a mipmapped Bilinear when downscaling.
    ==========================  ===========================================
 
+**Usage notes**
+
+- **Flatten a fisheye clip to a normal view:**
+  Set **Input Model** to the correct fisheye type, set **In FOV** to your lens coverage (often 180), choose **Projection Mode = Sphere** or **Hemisphere**, then frame with **Yaw/Pitch/Roll** and **Out FOV**.
+- **Reframe an equirect clip:**
+  Set **Input Model = Equirectangular**, pick **Sphere** (full) or **Hemisphere** (front/back). **Invert** on equirect is equivalent to yaw +180 and does not mirror.
+- **Create a fisheye output:**
+  Choose one of the **Fisheye** projection modes (2..5). **Out FOV** controls disk coverage (180 gives a classic circular fisheye).
+- If the image looks mirrored, turn **Invert** off. If you need the back view on equirect, use **Invert** or add +180 to **Yaw**.
+- If the output looks soft or aliased, reduce **Out FOV** or increase export resolution. **Auto** interpolation adapts the filter to scaling.
 
 Stabilizer
 """"""""""

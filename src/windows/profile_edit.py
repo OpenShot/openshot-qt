@@ -78,13 +78,10 @@ class EditProfileDialog(QDialog):
         # Add options to cboInterlaced dropdown
         self.cboInterlaced.addItem(_('Yes'))
         self.cboInterlaced.addItem(_('No'))
-        
+
         # Add options to cboSpherical dropdown
         self.cboSpherical.addItem(_('Yes'))
         self.cboSpherical.addItem(_('No'))
-
-        # Connect all signals
-        self.connect_signals()
 
         self.txtProfileName.setText(self.profile.info.description)
         self.txtWidth.setValue(self.profile.info.width)
@@ -97,6 +94,9 @@ class EditProfileDialog(QDialog):
         self.txtFrameRateDen.setValue(self.profile.info.fps.den)
         self.cboInterlaced.setCurrentText(_('Yes') if self.profile.info.interlaced_frame == 1 else _('No'))
         self.cboSpherical.setCurrentText(_('Yes') if self.profile.info.spherical else _('No'))
+
+        # Connect all signals
+        self.connect_signals()
 
     def connect_signals(self):
         """Connect input fields to update profile on change."""
@@ -164,11 +164,11 @@ class EditProfileDialog(QDialog):
 
         self.profile.info.interlaced_frame = True if value == _('Yes') else False
         self.update_profile_path()
-        
+
     def update_profile_spherical(self, value):
         # get translations
         _ = get_app()._tr
-        
+
         self.profile.info.spherical = True if value == _('Yes') else False
         self.update_profile_path()
 

@@ -175,6 +175,25 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
 
     bpy.ops.object.select_all(action='DESELECT')
 
+    # Create plane for controlling action of particle system (based on time)
+    bpy.ops.mesh.primitive_plane_add(align='WORLD', enter_editmode=False, location=(0, 0, 0), rotation=(pi/2, 0, 0))
+    active_object_plane = bpy.context.object
+    active_object_plane.name = 'Plane'
+    # Change dimensions
+    active_object_plane.dimensions = (active_object_text.dimensions[0] * 1.2, active_object_text.dimensions[1] * 1.2, 0)
+    # Keep in depsgraph but avoid rendering
+    active_object_plane.display_type = 'WIRE'
+    if hasattr(active_object_plane, "cycles_visibility"):
+        vis = active_object_plane.cycles_visibility
+        vis.camera = False
+        vis.diffuse = False
+        vis.glossy = False
+        vis.transmission = False
+        vis.scatter = False
+        vis.shadow = False
+
+    bpy.ops.object.select_all(action='DESELECT')
+
     # Selecting Text
     bpy.context.view_layer.objects.active = active_object_text
     active_object_text.select_set(True)
@@ -185,26 +204,6 @@ def createDissolveText(title, extrude, bevel_depth, spacemode, textsize, width, 
 
     tex_slot = particle_system.texture_slots.add()
     tex_slot.texture = sTex
-
-    bpy.ops.object.select_all(action='DESELECT')
-
-    # Create plane for controlling action of particle system (based on time)
-    bpy.ops.mesh.primitive_plane_add(align='WORLD', enter_editmode=False, location=(0, 0, 0), rotation=(pi/2, 0, 0))
-    active_object_plane = bpy.context.object
-    active_object_plane.name = 'Plane'
-    # Change dimensions
-    active_object_plane.dimensions = (active_object_text.dimensions[0] * 1.2, active_object_text.dimensions[1] * 1.2, 0)
-    # Hide plane for render
-    active_object_plane.hide_render = True
-    # Show as wire in 3D
-    active_object_plane.display_type = 'WIRE'
-
-    bpy.ops.object.select_all(action='DESELECT')
-
-    # Selecting Text
-    bpy.context.view_layer.objects.active = active_object_text
-    active_object_text.select_set(True)
-
     tex_slot.texture_coords = 'OBJECT'
     tex_slot.object = active_object_plane
     tex_slot.use_map_time = True
@@ -311,8 +310,13 @@ createDissolveText(
 )
 
 # Change the material settings (color, alpha, etc...)
-DissolveMaterial = bpy.data.materials["DissolveMaterial"]
-DissolveMaterial.node_tree.nodes["Principled BSDF"].inputs[26].default_value = params["diffuse_color"]
+dissolve_keyframes = [(params["start_frame"], params["diffuse_color"])]
+keyframe_principled(
+    "DissolveMaterial",
+    base_keyframes=dissolve_keyframes,
+    emission_keyframes=dissolve_keyframes,
+    emission_strength=(1.0, [f for f, _ in dissolve_keyframes]),
+    viewport_color=params["diffuse_color"])
 
 # Set the render options.  It is important that these are set
 # to the same values as the current OpenShot project.  These

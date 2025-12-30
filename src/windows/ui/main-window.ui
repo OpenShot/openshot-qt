@@ -818,6 +818,21 @@
     <string>Enable Razor</string>
    </property>
   </action>
+  <action name="actionTimingTool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/timing.svg</normaloff>:/icons/Humanity/actions/custom/timing.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Enable Timing</string>
+   </property>
+   <property name="toolTip">
+    <string>Enable Timing</string>
+   </property>
+  </action>
   <action name="actionSnappingTool">
    <property name="checkable">
     <bool>true</bool>

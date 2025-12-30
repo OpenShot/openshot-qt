@@ -27,7 +27,7 @@
  */
 
 
-/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, updateDraggables */
+/*global setSelections, setBoundingBox, moveBoundingBox, bounding_box, updateDraggables, snapToFPSGridTime */
 // Init Variables
 var resize_disabled = false;
 var previous_drag_position = null;
@@ -46,6 +46,130 @@ App.directive("tlTransition", function () {
   return {
     scope: "@",
     link: function (scope, element, attrs) {
+
+      var transitionKeyframePreview = {
+        active: false,
+        originalWidth: 0
+      };
+
+      function ensureTransitionPreviewContainer() {
+        if (!scope.transition) {
+          return null;
+        }
+        if (!scope.transition.ui) {
+          scope.transition.ui = {};
+        }
+        var container = scope.transition.ui.keyframe_preview;
+        if (!container || typeof container !== "object") {
+          container = {};
+          scope.transition.ui.keyframe_preview = container;
+        }
+        return container;
+      }
+
+      function setTransitionPreviewActive(active) {
+        scope.$evalAsync(function () {
+          var container = ensureTransitionPreviewContainer();
+          if (!container) {
+            return;
+          }
+          container.active = active;
+          container.displayStart = scope.transition.start;
+          container.displayEnd = scope.transition.end;
+          container.pixelsPerSecond = scope.pixelsPerSecond;
+        });
+      }
+
+      function startTransitionKeyframePreview() {
+        var points = element.find(".point");
+        if (!points.length) {
+          transitionKeyframePreview.active = false;
+          transitionKeyframePreview.originalWidth = 0;
+          return;
+        }
+
+        var width = element.width();
+        if (!width || width <= 0) {
+          transitionKeyframePreview.active = false;
+          transitionKeyframePreview.originalWidth = 0;
+          return;
+        }
+
+        transitionKeyframePreview.originalWidth = width;
+        transitionKeyframePreview.active = true;
+
+        setTransitionPreviewActive(true);
+
+        points.each(function () {
+          if (!this.hasAttribute("data-original-left")) {
+            var leftValue = this.style.left;
+            var numericLeft = parseFloat(leftValue);
+            if (!isNaN(numericLeft)) {
+              this.setAttribute("data-original-left", numericLeft);
+            } else {
+              this.setAttribute("data-original-left", 0);
+            }
+          }
+        });
+      }
+
+      function updateTransitionKeyframePreview(widthPx) {
+        if (!transitionKeyframePreview.active) {
+          return;
+        }
+
+        var width = widthPx;
+        if (typeof width !== "number" || !isFinite(width)) {
+          width = element.width();
+        }
+
+        if (!width || width < 0) {
+          width = 0;
+        }
+
+        var originalWidth = transitionKeyframePreview.originalWidth;
+        if (!originalWidth || originalWidth <= 0) {
+          return;
+        }
+
+        var scale = width / originalWidth;
+
+        element.find(".point").each(function () {
+          var originalLeft = parseFloat(this.getAttribute("data-original-left"));
+          if (isNaN(originalLeft)) {
+            originalLeft = parseFloat(this.style.left) || 0;
+            this.setAttribute("data-original-left", originalLeft);
+          }
+          var scaledLeft = originalLeft * scale;
+          if (!isFinite(scaledLeft)) {
+            scaledLeft = 0;
+          }
+          if (scaledLeft < 0) {
+            scaledLeft = 0;
+          }
+          if (scaledLeft > width) {
+            scaledLeft = width;
+          }
+          this.style.left = scaledLeft + "px";
+        });
+      }
+
+      function stopTransitionKeyframePreview() {
+        setTransitionPreviewActive(false);
+
+        if (!transitionKeyframePreview.active) {
+          return;
+        }
+
+        element.find(".point").each(function () {
+          if (this.hasAttribute("data-original-left")) {
+            this.removeAttribute("data-original-left");
+          }
+        });
+
+        transitionKeyframePreview.active = false;
+        transitionKeyframePreview.originalWidth = 0;
+      }
 
       //handle resizability of transition
       element.resizable({
@@ -79,15 +203,13 @@ App.directive("tlTransition", function () {
             resize_disabled = true;
           }
 
-          // Hide keyframe points
-          element.find(".point").fadeOut(100);
+          startTransitionKeyframePreview();
 
         },
         stop: function (e, ui) {
           scope.setDragging(false);
 
-          // Show keyframe points
-          element.find(".point").fadeIn(100);
+          stopTransitionKeyframePreview();
 
           // Calculate the pixel locations of the left and right side
           let original_left_edge = scope.transition.position * scope.pixelsPerSecond;
@@ -132,14 +254,17 @@ App.directive("tlTransition", function () {
           scope.hideSnapline();
 
           //apply the new start, end and length to the transition's scope
+          var snappedPosition = typeof snapToFPSGridTime === "function" ? snapToFPSGridTime(scope, new_position) : new_position;
+          var snappedEnd = typeof snapToFPSGridTime === "function" ? snapToFPSGridTime(scope, new_right) : new_right;
+
           scope.$apply(function () {
             if (dragLoc === "right") {
-              scope.transition.end = new_right;
+              scope.transition.end = snappedEnd;
             }
             if (dragLoc === "left") {
-              scope.transition.position = new_position;
+              scope.transition.position = snappedPosition;
               scope.transition.start = 0.0;
-              scope.transition.end = new_right;
+              scope.transition.end = snappedEnd;
             }
           });
 
@@ -152,8 +277,6 @@ App.directive("tlTransition", function () {
 
         },
         resize: function (e, ui) {
-          element.find(".point").fadeOut(100);
-
           // Calculate the pixel locations of the left and right side
           let original_left_edge = scope.transition.position * scope.pixelsPerSecond;
           let original_width = (scope.transition.end - scope.transition.start) * scope.pixelsPerSecond;
@@ -194,6 +317,8 @@ App.directive("tlTransition", function () {
             new_right -= delta_x;
             ui.element.width((new_right - new_left));
           }
+
+          updateTransitionKeyframePreview(ui.element.width());
 
         }
 
@@ -317,6 +442,10 @@ App.directive("tlTransition", function () {
           });
 
         }
+      });
+
+      scope.$on("$destroy", function () {
+        stopTransitionKeyframePreview();
       });
 
 

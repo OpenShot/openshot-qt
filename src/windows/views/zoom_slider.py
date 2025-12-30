@@ -28,7 +28,7 @@ import copy
 import math
 
 from PyQt5.QtCore import (
-    Qt, QCoreApplication, QRectF, QTimer
+    Qt, QCoreApplication, QRectF, QTimer, QSize
 )
 from PyQt5.QtGui import (
     QPainter, QColor, QPen, QBrush, QCursor, QPainterPath, QIcon
@@ -45,6 +45,14 @@ from classes.logger import log
 
 class ZoomSlider(QWidget, updates.UpdateInterface):
     """ A QWidget used to zoom and pan around a Timeline"""
+
+    def sizeHint(self):
+        """Preferred size for layouts that host the slider."""
+        return QSize(200, 20)
+
+    def minimumSizeHint(self):
+        """Allow the slider to shrink horizontally when space is limited."""
+        return QSize(0, 20)
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
@@ -257,7 +265,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = event.pos().x()
-        self.scrollbar_position_previous = self.scrollbar_position
+        self.scrollbar_position_previous = list(self.scrollbar_position)  # copy, don't alias
 
     def mouseReleaseEvent(self, event):
         """Capture mouse release event"""
@@ -475,10 +483,12 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
             # Set scroll width (and send signal)
             if zoom_factor > 0.0:
-                self.setZoomFactor(zoom_factor)
-
-                # Emit signal to scroll Timeline
-                get_app().window.TimelineScroll.emit(self.scrollbar_position[0])
+                self._syncing_backend = True
+                try:
+                    get_app().window.TimelineScroll.emit(self.scrollbar_position[0])
+                    self.setZoomFactor(zoom_factor)
+                finally:
+                    self._syncing_backend = False
 
     # Capture wheel event to alter zoom/scale of widget
     def wheelEvent(self, event):
@@ -487,23 +497,13 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         # Repaint widget on zoom
         self.repaint()
 
-    def setZoomFactor(self, zoom_factor, center=False):
-        """Set the current zoom factor"""
-        # Force recalculation of clips
+    def setZoomFactor(self, zoom_factor, center=False, emit=True):
+        """Set the current zoom factor (do not clamp width here — backend owns authoritative geometry)."""
         self.zoom_factor = zoom_factor
-
-        # Emit zoom signal
-        get_app().window.TimelineZoom.emit(self.zoom_factor)
+        if emit:
+            get_app().window.TimelineZoom.emit(self.zoom_factor)
         if center:
             get_app().window.TimelineCenter.emit()
-
-        # Prevent scrollbars from exceeding 100% of zoomslider
-        # This is caused by the scrollbars stopping events once zoomed out too much
-        scroll_width, scroll_ratio = self.get_scroll_width()
-        if scroll_ratio >= 1.0 and self.scrollbar_position:
-            # Set to left/right edge - max
-            self.scrollbar_position[0] = 0.0
-            self.scrollbar_position[1] = 1.0
 
         # Force re-paint
         self.repaint()
@@ -616,6 +616,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.is_auto_center = True
         self.min_distance = 0.002
         self.ignore_updates = False
+        self._syncing_backend = False
 
         # Load icon (using display DPI)
         self.cursors = {}
@@ -640,6 +641,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         self.win.TimelineScrolled.connect(self.update_scrollbars)
         self.win.TimelineResize.connect(self.timeline_resized)
         self.win.IgnoreUpdates.connect(self.ignore_updates_callback)
+        self.win.TimelineZoom.connect(lambda z: self.setZoomFactor(z, emit=False))
 
         # Connect Selection signals
         self.win.SelectionChanged.connect(self.handle_selection)

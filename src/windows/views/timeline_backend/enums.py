@@ -103,6 +103,7 @@ class MenuTime(Enum):
     NONE = 0
     FORWARD = auto()
     BACKWARD = auto()
+    REVERSE = auto()
     FREEZE = auto()
     FREEZE_ZOOM = auto()
 
