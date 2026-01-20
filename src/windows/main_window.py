@@ -2450,6 +2450,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockEmojis,
             self.dockVideo,
+            self.dockAIChat,
             ], Qt.TopDockWidgetArea)
 
         self.floatDocks(False)
@@ -2462,7 +2463,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockEmojis,
             self.dockVideo,
-            ])
+        ])
+        # Keep AI Chat dock hidden but accessible via menu
+        self.dockAIChat.hide()
 
         # Set initial size of docks
         simple_state = "".join([
@@ -2481,6 +2484,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockTransitions,
             self.dockEmojis,
+            self.dockAIChat,
             ], Qt.RightDockWidgetArea)
         self.addDocks([self.dockProperties], Qt.LeftDockWidgetArea)
 
@@ -2493,7 +2497,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self.dockEffects,
             self.dockEmojis,
             self.dockProperties,
-            ])
+        ])
+        # Keep AI Chat dock hidden but accessible via menu
+        self.dockAIChat.hide()
 
         # Set initial size of docks
         advanced_state = "".join([
@@ -3934,6 +3940,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         self.initModels()
 
+        # Setup AI Chat Dialog (must be before addViewDocksMenu)
+        from windows.ai_chat_ui import AIChatWindow
+        self.dockAIChat = AIChatWindow(self)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dockAIChat)
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 
@@ -3987,6 +3998,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self._restored_saved_window = False
         self._timeline_height_restored = False
         self.load_settings()
+        
+        # Hide AI Chat dock by default (ensure it stays hidden even after restore state)
+        self.dockAIChat.hide()
 
         # Setup Cache settings
         self.cache_object = None
