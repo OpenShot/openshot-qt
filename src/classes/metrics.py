@@ -27,12 +27,10 @@
 
 # idna encoding import required to prevent bug (unknown encoding: idna)
 import encodings.idna
-import requests
+import base64
 import platform
-import threading
+import requests
 import time
-import urllib.parse
-import json
 
 from classes import info
 from classes import language
@@ -79,95 +77,123 @@ except Exception:
 # Build user-agent
 user_agent = "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36" % os_version
 
-params = {
-    "cid": s.get("unique_install_id"),      # Unique install ID
-    "v": 1,                                 # Google Measurement API version
-    "tid": "UA-4381101-5",                  # Google Analytic Tracking ID
-    "an": info.PRODUCT_NAME,                # App Name
-    "aip": 1,                               # Anonymize IP
-    "aid": "org.openshot.%s" % info.NAME,   # App ID
-    "av": info.VERSION,                     # App Version
-    "ul": language.get_current_locale().replace('_', '-').lower(),   # Current Locale
-    "ua": user_agent,                       # Custom User Agent (for OS, Processor, and OS version)
-    "cd1": openshot.OPENSHOT_VERSION_FULL,  # Dimension 1: libopenshot version
-    "cd2": platform.python_version(),       # Dimension 2: python version (i.e. 3.4.3)
-    "cd3": QT_VERSION_STR,                  # Dimension 3: qt5 version (i.e. 5.2.1)
-    "cd4": PYQT_VERSION_STR,                # Dimension 4: pyqt5 version (i.e. 5.2.1)
-    "cd5": os_distro
-}
+GA4_ENDPOINT = "https://www.google-analytics.com/mp/collect"
+GA4_MID = "G-YGF4YGWPE2"
+GA4_MPS = "aG9qVmV0MllURXVPMlVoQm11RWRDQQ=="
+GA4_SESSION_ID = int(time.time())
+METRIC_QUEUE_MAX = 100
 
 # Queue for metrics (incase things are disabled... just queue it up
 # incase the user enables metrics later
 metric_queue = []
 
 
+def _d(value):
+    """Decode a stored string value."""
+    return base64.b64decode(value.encode("ascii")).decode("ascii")
+
+
+def _base_event_params():
+    """Shared GA4 params for all events (used as custom dimensions)."""
+    return {
+        "engagement_time_msec": 1,
+        "session_id": GA4_SESSION_ID,
+        "os_app_name": info.PRODUCT_NAME,
+        "os_app_version": info.VERSION,
+        "os_libopenshot_version": openshot.OPENSHOT_VERSION_FULL,
+        "os_python_version": platform.python_version(),
+        "os_qt_version": QT_VERSION_STR,
+        "os_pyqt_version": PYQT_VERSION_STR,
+        "os_locale": language.get_current_locale().replace('_', '-').lower(),
+        "os_platform": os_version,
+        "os_distro": os_distro,
+    }
+
+
+def _build_event(name, extra_params=None):
+    """Build a GA4 event payload."""
+    event_params = _base_event_params()
+    if extra_params:
+        event_params.update(extra_params)
+    return {
+        "name": name,
+        "params": event_params,
+    }
+
+
 def track_metric_screen(screen_name):
     """Track a GUI screen being shown"""
-    metric_params = json.loads(json.dumps(params))
-    metric_params["t"] = "screenview"
-    metric_params["cd"] = screen_name
-    metric_params["cid"] = s.get("unique_install_id")
-    QTimer.singleShot(0, partial(send_metric, metric_params))
+    event = _build_event("screen_view", {"screen_name": screen_name})
+    QTimer.singleShot(0, partial(send_metric, event))
 
 
 def track_metric_event(event_action, event_label, event_category="General", event_value=0):
-    """Track a GUI screen being shown"""
-    metric_params = json.loads(json.dumps(params))
-    metric_params["t"] = "event"
-    metric_params["ec"] = event_category
-    metric_params["ea"] = event_action
-    metric_params["el"] = event_label
-    metric_params["ev"] = event_value
-    metric_params["cid"] = s.get("unique_install_id")
-    QTimer.singleShot(0, partial(send_metric, metric_params))
+    """Track a UI event."""
+    event = _build_event(
+        "ui_event",
+        {
+            "event_category": event_category,
+            "event_action": event_action,
+            "event_label": event_label,
+            "value": event_value,
+        },
+    )
+    QTimer.singleShot(0, partial(send_metric, event))
 
 
 def track_metric_error(error_name, is_fatal=False):
     """Track an error has occurred"""
-    metric_params = json.loads(json.dumps(params))
-    metric_params["t"] = "exception"
-    metric_params["exd"] = error_name
-    metric_params["exf"] = 0
-    if is_fatal:
-        metric_params["exf"] = 1
-    QTimer.singleShot(0, partial(send_metric, metric_params))
+    event = _build_event(
+        "exception",
+        {
+            "description": error_name,
+            "fatal": 1 if is_fatal else 0,
+        },
+    )
+    QTimer.singleShot(0, partial(send_metric, event))
 
 
 def track_metric_session(is_start=True):
-    """Track a GUI screen being shown"""
-    metric_params = json.loads(json.dumps(params))
-    metric_params["t"] = "screenview"
-    metric_params["sc"] = "start"
-    metric_params["cd"] = "launch-app"
-    metric_params["cid"] = s.get("unique_install_id")
-    if not is_start:
-        metric_params["sc"] = "end"
-        metric_params["cd"] = "close-app"
-    QTimer.singleShot(0, partial(send_metric, metric_params))
+    """Track application session start/end."""
+    event_name = "session_start" if is_start else "session_end"
+    event = _build_event(event_name, {"screen_name": "launch-app" if is_start else "close-app"})
+    QTimer.singleShot(0, partial(send_metric, event))
 
 
-def send_metric(params):
-    """Send anonymous metric over HTTP for tracking"""
+def send_metric(event):
+    """Send anonymous GA4 Measurement Protocol events over HTTP."""
 
     # Add to queue and *maybe* send if the user allows it
-    metric_queue.append(params)
+    metric_queue.append(event)
+    if len(metric_queue) > METRIC_QUEUE_MAX:
+        metric_queue.pop(0)
 
     # Check if the user wants to send metrics and errors
     if s.get("send_metrics"):
+        if not GA4_MID or not GA4_MPS:
+            log.warning("GA4 metrics disabled: missing GA4 configuration")
+            return
 
-        for metric_params in metric_queue:
-            url_params = urllib.parse.urlencode(metric_params)
-            url = "https://www.google-analytics.com/collect?%s" % url_params
-
-            # Send metric HTTP data
-            try:
-                r = requests.get(url, headers={"user-agent": user_agent})
-            except Exception:
-                log.warning("Failed to track metric", exc_info=1)
-
-            # Wait a moment, so we don't spam the requests
-            time.sleep(0.25)
-
-        # All metrics have been sent (or attempted to send)
-        # Clear the queue
+        events_to_send = list(metric_queue)
         metric_queue.clear()
+
+        url = "%s?measurement_id=%s&api_secret=%s" % (
+            GA4_ENDPOINT,
+            GA4_MID,
+            _d(GA4_MPS),
+        )
+        payload = {
+            "client_id": s.get("unique_install_id"),
+            "events": events_to_send,
+        }
+
+        # Send metric HTTP data
+        try:
+            r = requests.post(url, json=payload, headers={"user-agent": user_agent}, timeout=5)
+            if r.status_code >= 300:
+                log.warning("Failed to track metric (status=%s)", r.status_code)
+        except Exception:
+            log.warning("Failed to track metric", exc_info=1)
+
+        # Wait a moment, so we don't spam the requests
+        time.sleep(0.25)

@@ -322,6 +322,11 @@ elif sys.platform == "linux":
             log.warning("Skipping {}: {}".format(mod_name, ex))
 
     lib_list = pyqt5_mod_files
+    try:
+        import _ssl
+        lib_list.append(inspect.getfile(_ssl))
+    except Exception as ex:
+        log.warning("Skipping _ssl module: %s", ex)
     for lib_name in [
             os.path.join(libopenshot_path, "libopenshot.so"),
             "/usr/local/lib/libresvg.so",
@@ -380,6 +385,10 @@ elif sys.platform == "linux":
         "libxcb-xinerama.so.0",
         "libpcre.so.3",
         "libselinux.so.1",  # required for Arch/Manjaro
+        "libssl.so.1.1",
+        "libcrypto.so.1.1",
+        "libssl.so.3",
+        "libcrypto.so.3",
     }
 
     import subprocess
