@@ -60,6 +60,14 @@ def list_available_models(settings):
     return result
 
 
+def list_all_models():
+    """
+    Return list of (model_id, display_name) for all registered chat models (no API key check).
+    Use this so the UI can show OpenAI, Anthropic, and Ollama; API key is checked when sending.
+    """
+    return [(model_id, display_name) for model_id, display_name, _ in PROVIDER_LIST]
+
+
 # --- Media analysis base classes (from nilay branch) ---
 from abc import ABC, abstractmethod
 from typing import Dict, List, Any, Optional

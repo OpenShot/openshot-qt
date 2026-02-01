@@ -64,7 +64,9 @@ def _wrap_tool_for_main_thread(raw_tool, runner):
     desc = getattr(raw_tool, "description", "") or ""
     args_schema = getattr(raw_tool, "args_schema", None)
 
-    def invoke_from_main_thread(args):
+    def invoke_from_main_thread(args=None):
+        if args is None:
+            args = {}
         if QMetaObject is None or Qt is None or runner is None:
             return raw_tool.invoke(args)
         args_json = json.dumps(args) if args else "{}"

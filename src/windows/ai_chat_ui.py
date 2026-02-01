@@ -78,20 +78,20 @@ class AIChatWindow(QDockWidget):
         self.setMinimumHeight(400)
 
     def _populate_models(self):
-        """Populate model combo from LLM registry (only models with API keys / config)."""
+        """Populate model combo with all models (OpenAI, Anthropic, Ollama); API key checked when sending."""
         try:
-            from classes.ai_llm_registry import list_models, get_default_model_id
+            from classes.ai_llm_registry import list_all_models, get_default_model_id
         except ImportError:
             self.model_combo.addItem("No AI providers loaded", "")
             return
-        models = list_models()
+        models = list_all_models()
         if not models:
-            self.model_combo.addItem("Configure API key in Preferences > AI", "")
+            self.model_combo.addItem("No AI providers loaded", "")
             return
         default_id = get_default_model_id()
         for model_id, display_name in models:
             self.model_combo.addItem(display_name, model_id)
-        # Select default
+        # Select default if present in list
         idx = self.model_combo.findData(default_id)
         if idx >= 0:
             self.model_combo.setCurrentIndex(idx)

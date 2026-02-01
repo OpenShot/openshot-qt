@@ -7,6 +7,7 @@ from classes.ai_providers import (
     PROVIDER_LIST,
     build_model as _build_model,
     list_available_models as _list_available,
+    list_all_models as _list_all_models,
 )
 
 
@@ -41,6 +42,14 @@ def list_models():
     if not settings:
         return []
     return _list_available(settings)
+
+
+def list_all_models():
+    """
+    Return list of (model_id, display_name) for all chat models (no API key check).
+    Use for model dropdown so user can see OpenAI, Anthropic, Ollama; key is checked when sending.
+    """
+    return _list_all_models()
 
 
 def get_default_model_id():
