@@ -241,19 +241,68 @@ class AIChat:
         Returns:
             The AI's response
         """
-        # This is a placeholder. In a real implementation, you would:
-        # 1. Call an actual AI API (OpenAI, Anthropic, local LLM, etc.)
-        # 2. Pass the conversation history
-        # 3. Return the generated response
+        # Check if this is a media management command
+        import asyncio
+        from classes.ai_media_manager import get_ai_media_manager
         
-        # For now, return a placeholder response
+        media_keywords = ['analyze', 'search', 'find', 'collection', 'tag', 'face', 'statistics']
+        
+        if any(keyword in user_input.lower() for keyword in media_keywords):
+            try:
+                # Process as media management command
+                manager = get_ai_media_manager()
+                
+                # Run async command
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                result = loop.run_until_complete(manager.process_command(user_input))
+                loop.close()
+                
+                if result.get('success'):
+                    response = result.get('message', 'Command executed successfully')
+                    
+                    # Add additional info based on action
+                    if result.get('action') == 'search' and result.get('results'):
+                        response += f"\n\nTop results:"
+                        for file_id, score in result['results'][:5]:
+                            from classes.query import File
+                            file_obj = File.get(id=file_id)
+                            if file_obj:
+                                import os
+                                filename = os.path.basename(file_obj.data.get('path', ''))
+                                response += f"\n- {filename} (relevance: {score:.2f})"
+                    
+                    elif result.get('action') == 'statistics':
+                        stats = result.get('stats', {})
+                        response += f"\n\nStatistics:"
+                        if 'tags' in stats:
+                            response += f"\n- Total tags: {stats['tags'].get('total_tags', 0)}"
+                        if 'faces' in stats:
+                            response += f"\n- People recognized: {stats['faces'].get('total_people', 0)}"
+                        if 'collections' in stats:
+                            response += f"\n- Collections: {stats['collections'].get('total', 0)}"
+                    
+                    return response
+                else:
+                    return result.get('message', 'Command failed')
+                    
+            except Exception as e:
+                log.error(f"Media management command failed: {e}")
+                return f"Failed to execute media command: {str(e)}"
+        
+        # For now, return a placeholder response for non-media commands
         log.debug(f"Generating response for: {user_input}")
         
         # Placeholder implementation - can be extended with real AI integration
         response = (
             f"I understand you're asking about video editing. "
             f"This is a placeholder response. "
-            f"To use real AI responses, configure an AI provider in the preferences."
+            f"To use real AI responses, configure an AI provider in the preferences.\n\n"
+            f"Try media management commands like:\n"
+            f"- 'analyze all files'\n"
+            f"- 'search for outdoor scenes'\n"
+            f"- 'create collection Nature'\n"
+            f"- 'show statistics'"
         )
         
         return response

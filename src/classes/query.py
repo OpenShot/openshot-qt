@@ -279,6 +279,25 @@ class File(QueryObject):
         # Convert path to relative (based on current working directory of Python)
         return os.path.relpath(file_path, info.CWD)
 
+    def get_ai_metadata(self) -> dict:
+        """Get AI metadata for this file"""
+        return self.data.get('ai_metadata', {})
+    
+    def has_ai_metadata(self) -> bool:
+        """Check if file has been analyzed by AI"""
+        ai_meta = self.get_ai_metadata()
+        return ai_meta.get('analyzed', False)
+    
+    def get_ai_tags(self) -> dict:
+        """Get AI-generated tags"""
+        ai_meta = self.get_ai_metadata()
+        return ai_meta.get('tags', {})
+    
+    def get_ai_description(self) -> str:
+        """Get AI-generated description"""
+        ai_meta = self.get_ai_metadata()
+        return ai_meta.get('description', '')
+    
     def profile(self):
         """ Get the profile of the file """
         # Load file Json into Profile object
