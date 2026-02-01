@@ -235,9 +235,50 @@ class AIChat:
 
     def _generate_response(self, user_input: str, model_id: Optional[str] = None) -> str:
         """
-        Generate a response using the LangChain agent and selected LLM.
+        Generate a response using the LangChain agent and selected LLM, or media manager for media commands.
         Runs the agent in a worker thread; tools run on the Qt main thread.
         """
+        # Check if this is a media management command (from nilay branch)
+        media_keywords = ['analyze', 'search', 'find', 'collection', 'tag', 'face', 'statistics']
+        if any(keyword in user_input.lower() for keyword in media_keywords):
+            try:
+                import asyncio
+                from classes.ai_media_manager import get_ai_media_manager
+                manager = get_ai_media_manager()
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                result = loop.run_until_complete(manager.process_command(user_input))
+                loop.close()
+                if result.get('success'):
+                    response = result.get('message', 'Command executed successfully')
+                    if result.get('action') == 'search' and result.get('results'):
+                        response += "\n\nTop results:"
+                        for file_id, score in result['results'][:5]:
+                            from classes.query import File
+                            file_obj = File.get(id=file_id)
+                            if file_obj:
+                                import os
+                                filename = os.path.basename(file_obj.data.get('path', ''))
+                                response += f"\n- {filename} (relevance: {score:.2f})"
+                    elif result.get('action') == 'statistics':
+                        stats = result.get('stats', {})
+                        response += "\n\nStatistics:"
+                        if 'tags' in stats:
+                            response += f"\n- Total tags: {stats['tags'].get('total_tags', 0)}"
+                        if 'faces' in stats:
+                            response += f"\n- People recognized: {stats['faces'].get('total_people', 0)}"
+                        if 'collections' in stats:
+                            response += f"\n- Collections: {stats['collections'].get('total', 0)}"
+                    return response
+                else:
+                    return result.get('message', 'Command failed')
+            except ImportError:
+                pass
+            except Exception as e:
+                log.error("Media management command failed: %s", e)
+                return "Failed to execute media command: %s" % (e,)
+
+        # LangChain agent (HEAD)
         import threading
         try:
             from classes.ai_agent_runner import run_agent, create_main_thread_runner
@@ -248,24 +289,18 @@ class AIChat:
                 "AI agent is not available. Install langchain and langchain-openai (or other providers), "
                 "then configure an API key in Preferences > AI."
             )
-
         resolved_model_id = model_id or get_default_model_id()
         messages = self.current_session.get_conversation_history() if self.current_session else []
-        # Ensure last message is the current user input
         if not messages or messages[-1].get("role") != "user" or messages[-1].get("content") != user_input:
             messages = list(messages) + [{"role": "user", "content": user_input}]
-
         try:
             main_thread_runner = create_main_thread_runner()
         except Exception as e:
             log.warning("Could not create main thread tool runner: %s", e)
             main_thread_runner = None
-
         result_holder = [None]
-
         def run():
             result_holder[0] = run_agent(resolved_model_id, messages, main_thread_runner)
-
         thread = threading.Thread(target=run, daemon=True)
         thread.start()
         thread.join()

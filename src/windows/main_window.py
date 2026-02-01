@@ -3945,6 +3945,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAIChat = AIChatWindow(self)
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAIChat)
 
+        # Setup AI Media Panel (must be before addViewDocksMenu)
+        from windows.ai_media_panel import AIMediaPanel
+        self.dockAIMedia = AIMediaPanel(self)
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dockAIMedia)
+        self.dockAIMedia.setVisible(False)  # Hidden by default
+
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
 

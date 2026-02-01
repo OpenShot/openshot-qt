@@ -1395,7 +1395,7 @@
   {
     "category": "AI",
     "title": "Anthropic API Key",
-    "setting": "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",
+    "setting": "anthropic-api-key",
     "value": "",
     "type": "text",
     "restart": false
@@ -1415,5 +1415,62 @@
     "value": "openai/gpt-4o-mini",
     "type": "text",
     "restart": false
+  },
+  {
+    "value": true,
+    "title": "Enable AI Features",
+    "category": "AI Features",
+    "setting": "ai-enabled",
+    "type": "bool"
+  },
+  {
+    "value": "openai",
+    "title": "Primary AI Provider",
+    "category": "AI Features",
+    "setting": "ai-provider",
+    "type": "dropdown",
+    "values": [
+      {"value": "openai", "name": "OpenAI GPT-4 Vision"},
+      {"value": "google", "name": "Google Cloud Vision"},
+      {"value": "aws", "name": "AWS Rekognition"},
+      {"value": "hybrid", "name": "Hybrid (Multiple Providers)"}
+    ]
+  },
+  {
+    "value": true,
+    "title": "Auto-Analyze on Import",
+    "category": "AI Features",
+    "setting": "ai-auto-analyze",
+    "type": "bool"
+  },
+  {
+    "value": "",
+    "title": "Google Cloud Credentials File",
+    "category": "AI Features",
+    "setting": "google-credentials-path",
+    "type": "browse"
+  },
+  {
+    "value": "",
+    "title": "AWS Access Key ID",
+    "category": "AI Features",
+    "setting": "aws-access-key-id",
+    "type": "text"
+  },
+  {
+    "value": "",
+    "title": "AWS Secret Access Key",
+    "category": "AI Features",
+    "setting": "aws-secret-access-key",
+    "type": "text"
+  },
+  {
+    "value": 5,
+    "title": "Number of Frames to Analyze (Video)",
+    "category": "AI Features",
+    "setting": "ai-video-frames",
+    "type": "spinner",
+    "min": 1,
+    "max": 20
   }
 ]

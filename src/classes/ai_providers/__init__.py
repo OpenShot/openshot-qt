@@ -1,11 +1,11 @@
 """
-AI LLM provider adapters. Each provider builds a LangChain BaseChatModel from app settings.
+AI LLM provider adapters (LangChain chat) and base classes for media analysis.
 Lazy-import to avoid breaking the app when optional deps are missing.
 """
 
 from classes.logger import log
 
-# Registry: list of (model_id, display_name, provider_module_name)
+# Registry: list of (model_id, display_name, provider_module_name) for LangChain chat
 PROVIDER_LIST = [
     ("openai/gpt-4o-mini", "OpenAI GPT-4o mini", "openai_provider"),
     ("openai/gpt-4o", "OpenAI GPT-4o", "openai_provider"),
@@ -58,3 +58,114 @@ def list_available_models(settings):
         if mod and hasattr(mod, "is_available") and mod.is_available(model_id, settings):
             result.append((model_id, display_name))
     return result
+
+
+# --- Media analysis base classes (from nilay branch) ---
+from abc import ABC, abstractmethod
+from typing import Dict, List, Any, Optional
+from enum import Enum
+
+
+class ProviderType(Enum):
+    """Enum for AI provider types (media analysis)."""
+    OPENAI = "openai"
+    GOOGLE = "google"
+    AWS = "aws"
+    HYBRID = "hybrid"
+
+
+class AnalysisResult:
+    """Standardized result from AI analysis."""
+
+    def __init__(self):
+        self.objects: List[str] = []
+        self.scenes: List[str] = []
+        self.activities: List[str] = []
+        self.mood: List[str] = []
+        self.colors: Dict[str, Any] = {}
+        self.faces: List[Dict[str, Any]] = []
+        self.quality_scores: Dict[str, float] = {}
+        self.description: str = ""
+        self.raw_response: Dict[str, Any] = {}
+        self.provider: str = ""
+        self.confidence: float = 0.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert analysis result to dictionary."""
+        return {
+            "objects": self.objects,
+            "scenes": self.scenes,
+            "activities": self.activities,
+            "mood": self.mood,
+            "colors": self.colors,
+            "faces": self.faces,
+            "quality_scores": self.quality_scores,
+            "description": self.description,
+            "provider": self.provider,
+            "confidence": self.confidence
+        }
+
+
+class BaseAIProvider(ABC):
+    """Abstract base class for AI providers (media analysis)."""
+
+    def __init__(self, api_key: Optional[str] = None, **kwargs):
+        self.api_key = api_key
+        self.config = kwargs
+        self.is_configured = False
+        self._validate_configuration()
+
+    @abstractmethod
+    def _validate_configuration(self) -> bool:
+        pass
+
+    @abstractmethod
+    async def analyze_image(self, image_path: str, **kwargs) -> AnalysisResult:
+        pass
+
+    @abstractmethod
+    async def analyze_video_frames(self, frame_paths: List[str], **kwargs) -> AnalysisResult:
+        pass
+
+    @abstractmethod
+    async def detect_faces(self, image_path: str) -> List[Dict[str, Any]]:
+        pass
+
+    @abstractmethod
+    async def parse_search_query(self, query: str) -> Dict[str, Any]:
+        pass
+
+    def get_provider_name(self) -> str:
+        return self.__class__.__name__
+
+    def is_available(self) -> bool:
+        return self.is_configured
+
+
+class ProviderFactory:
+    """Factory for creating AI provider instances (media analysis)."""
+
+    _providers = {}
+
+    @classmethod
+    def register_provider(cls, provider_type: ProviderType, provider_class):
+        cls._providers[provider_type] = provider_class
+        log.debug("Registered AI provider: %s", provider_type.value)
+
+    @classmethod
+    def create_provider(cls, provider_type: ProviderType, **kwargs) -> Optional[BaseAIProvider]:
+        provider_class = cls._providers.get(provider_type)
+        if provider_class:
+            try:
+                provider = provider_class(**kwargs)
+                log.info("Created AI provider: %s", provider_type.value)
+                return provider
+            except Exception as e:
+                log.error("Failed to create provider %s: %s", provider_type.value, e)
+                return None
+        log.error("Provider type %s not registered", provider_type.value)
+        return None
+
+    @classmethod
+    def get_available_providers(cls) -> List[ProviderType]:
+        return list(cls._providers.keys())

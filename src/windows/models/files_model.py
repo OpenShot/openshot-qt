@@ -374,6 +374,20 @@ class FilesModel(QObject, updates.UpdateInterface):
                 new_file.save()
                 scroll_to_files.append(new_file)
 
+                # Should we auto-analyze this file with AI?
+                try:
+                    s = get_app().get_settings()
+                    if s.get('ai-enabled') and s.get('ai-auto-analyze'):
+                        from classes.media_analyzer import get_analysis_queue
+                        queue = get_analysis_queue()
+                        queue.add_to_queue(
+                            new_file.id,
+                            new_file.absolute_path(),
+                            new_file.data.get('media_type', 'video')
+                        )
+                except Exception as e:
+                    log.warning(f"Failed to queue file for AI analysis: {e}")
+
                 if start_count > 15:
                     message = _("Importing %(count)d / %(total)d") % {
                             "count": count,
