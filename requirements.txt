@@ -1,0 +1,31 @@
+# OpenShot Video Editor - pip-installable dependencies
+# libopenshot must be installed separately (PPA on Ubuntu or build from source)
+
+# Qt GUI (required)
+PyQt5>=5.15
+PyQtWebEngine>=5.15
+
+# CI / packaging
+setuptools>=61
+wheel
+cx_Freeze==7.0.0
+distro
+defusedxml
+requests
+certifi
+chardet
+urllib3
+
+# Required by logger_libopenshot
+pyzmq
+
+# LangChain and AI chat
+langchain-core>=0.3
+langchain>=0.3
+langchain-openai>=0.2
+langchain-anthropic>=0.2
+langchain-community>=0.3
+langchain-ollama>=0.2
+
+# Error reporting
+sentry-sdk

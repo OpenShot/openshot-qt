@@ -26,18 +26,18 @@ class AIChatWindow(QDockWidget):
         
         self.ai_chat = AIChat()
         self.is_processing = False
-        
+
         # Main widget
         main = QWidget()
         layout = QVBoxLayout()
         main.setLayout(layout)
         self.setWidget(main)
-        
-        # Model selector
+
+        # Model selector (populated from LLM registry)
         model_h = QHBoxLayout()
         model_h.addWidget(QLabel("Model:"))
         self.model_combo = QComboBox()
-        self.model_combo.addItems(["default", "gpt-4", "claude-3", "local-llama"])
+        self._populate_models()
         model_h.addWidget(self.model_combo)
         model_h.addStretch()
         layout.addLayout(model_h)
@@ -76,7 +76,26 @@ class AIChatWindow(QDockWidget):
         
         self.setMinimumWidth(400)
         self.setMinimumHeight(400)
-    
+
+    def _populate_models(self):
+        """Populate model combo from LLM registry (only models with API keys / config)."""
+        try:
+            from classes.ai_llm_registry import list_models, get_default_model_id
+        except ImportError:
+            self.model_combo.addItem("No AI providers loaded", "")
+            return
+        models = list_models()
+        if not models:
+            self.model_combo.addItem("Configure API key in Preferences > AI", "")
+            return
+        default_id = get_default_model_id()
+        for model_id, display_name in models:
+            self.model_combo.addItem(display_name, model_id)
+        # Select default
+        idx = self.model_combo.findData(default_id)
+        if idx >= 0:
+            self.model_combo.setCurrentIndex(idx)
+
     def _key_press(self, event):
         if event.key() == Qt.Key_Return and event.modifiers() != Qt.ShiftModifier:
             self.send_message()
@@ -100,7 +119,10 @@ class AIChatWindow(QDockWidget):
         self.send_btn.setText("Processing...")
         
         try:
-            response = self.ai_chat.send_message(text)
+            model_id = self.model_combo.currentData()
+            if not model_id and self.model_combo.count():
+                model_id = self.model_combo.currentText()
+            response = self.ai_chat.send_message(text, model_id=model_id)
             self._add_assistant_msg(response)
         except Exception as e:
             log.error(f"AI chat error: {str(e)}")

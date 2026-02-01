@@ -1,0 +1,25 @@
+# Use this when system provides PyQt5 (e.g. apt install python3-pyqt5 python3-pyqt5.qtwebengine).
+# Avoids ABI mismatch between pip-installed Qt and system libopenshot.
+
+# Required by logger_libopenshot
+pyzmq
+
+# LangChain and AI chat
+langchain-core>=0.3
+langchain>=0.3
+langchain-openai>=0.2
+langchain-anthropic>=0.2
+langchain-community>=0.3
+langchain-ollama>=0.2
+
+# CI / packaging
+setuptools>=61
+wheel
+cx_Freeze==7.0.0
+distro
+defusedxml
+requests
+certifi
+chardet
+urllib3
+sentry-sdk

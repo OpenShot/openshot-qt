@@ -1383,5 +1383,37 @@
     "value": "",
     "type": "hidden",
     "restart": false
+  },
+  {
+    "category": "AI",
+    "title": "OpenAI API Key",
+    "setting": "openai-api-key",
+    "value": "",
+    "type": "text",
+    "restart": false
+  },
+  {
+    "category": "AI",
+    "title": "Anthropic API Key",
+    "setting": "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",
+    "value": "",
+    "type": "text",
+    "restart": false
+  },
+  {
+    "category": "AI",
+    "title": "Ollama Base URL",
+    "setting": "ollama-base-url",
+    "value": "http://localhost:11434",
+    "type": "text",
+    "restart": false
+  },
+  {
+    "category": "AI",
+    "title": "AI Default Model",
+    "setting": "ai-default-model",
+    "value": "openai/gpt-4o-mini",
+    "type": "text",
+    "restart": false
   }
 ]

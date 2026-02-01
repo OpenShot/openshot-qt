@@ -206,57 +206,70 @@ class AIChat:
         )
         log.info(f"AI Chat session initialized: {session_id}")
     
-    def send_message(self, user_input: str, context: Optional[Dict[str, Any]] = None) -> str:
+    def send_message(self, user_input: str, context: Optional[Dict[str, Any]] = None,
+                     model_id: Optional[str] = None) -> str:
         """
-        Send a message and get a response
-        
+        Send a message and get a response.
+
         Args:
             user_input: The user's message
             context: Optional context to attach to the message
-        
+            model_id: Optional model id from registry (e.g. openai/gpt-4o-mini). Uses default if not set.
+
         Returns:
             The AI assistant's response
         """
         if not self.current_session:
             self._init_session()
-        
+
         # Add user message to session
         self.current_session.add_message(MessageRole.USER, user_input, context)
-        
-        # Generate response from AI provider
-        response = self._generate_response(user_input)
-        
+
+        # Generate response from AI provider (agent + LLM)
+        response = self._generate_response(user_input, model_id=model_id)
+
         # Add assistant message to session
         self.current_session.add_message(MessageRole.ASSISTANT, response)
-        
+
         return response
-    
-    def _generate_response(self, user_input: str) -> str:
+
+    def _generate_response(self, user_input: str, model_id: Optional[str] = None) -> str:
         """
-        Generate a response from the AI provider
-        
-        Args:
-            user_input: The user's message
-        
-        Returns:
-            The AI's response
+        Generate a response using the LangChain agent and selected LLM.
+        Runs the agent in a worker thread; tools run on the Qt main thread.
         """
-        # This is a placeholder. In a real implementation, you would:
-        # 1. Call an actual AI API (OpenAI, Anthropic, local LLM, etc.)
-        # 2. Pass the conversation history
-        # 3. Return the generated response
-        
-        # For now, return a placeholder response
-        log.debug(f"Generating response for: {user_input}")
-        
-        # Placeholder implementation - can be extended with real AI integration
-        response = (
-            f"I understand you're asking about video editing. "
-            f"This is a placeholder response. "
-            f"To use real AI responses, configure an AI provider in the preferences."
-        )
-        
-        return response
+        import threading
+        try:
+            from classes.ai_agent_runner import run_agent, create_main_thread_runner
+            from classes.ai_llm_registry import get_default_model_id
+        except ImportError as e:
+            log.warning("AI agent runner not available: %s", e)
+            return (
+                "AI agent is not available. Install langchain and langchain-openai (or other providers), "
+                "then configure an API key in Preferences > AI."
+            )
+
+        resolved_model_id = model_id or get_default_model_id()
+        messages = self.current_session.get_conversation_history() if self.current_session else []
+        # Ensure last message is the current user input
+        if not messages or messages[-1].get("role") != "user" or messages[-1].get("content") != user_input:
+            messages = list(messages) + [{"role": "user", "content": user_input}]
+
+        try:
+            main_thread_runner = create_main_thread_runner()
+        except Exception as e:
+            log.warning("Could not create main thread tool runner: %s", e)
+            main_thread_runner = None
+
+        result_holder = [None]
+
+        def run():
+            result_holder[0] = run_agent(resolved_model_id, messages, main_thread_runner)
+
+        thread = threading.Thread(target=run, daemon=True)
+        thread.start()
+        thread.join()
+        return result_holder[0] or "Error: No response from agent."
     
     def attach_context_data(self, context_key: str, context_value: Any):
         """

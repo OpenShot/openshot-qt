@@ -1,0 +1,9 @@
+[console_scripts]
+cxfreeze = cx_Freeze.cli:main
+cxfreeze-quickstart = cx_Freeze.setupwriter:main
+
+[distutils.setup_keywords]
+executables = cx_Freeze.executable:validate_executables
+
+[setuptools.finalize_distribution_options]
+cxfreeze-plugin = cx_Freeze:plugin_install
