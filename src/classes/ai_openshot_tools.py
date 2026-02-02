@@ -137,12 +137,13 @@ def new_project() -> str:
 
 
 def save_project(file_path: str) -> str:
-    """Save the project to the given file path. Argument: file_path (string, e.g. /path/to/project.osp)."""
+    """Save the project to the given file path. Argument: file_path (string, e.g. /path/to/project.zvn)."""
+    from classes import info
     if not file_path or not isinstance(file_path, str):
         return "Error: file_path is required (string)."
     file_path = file_path.strip()
-    if not file_path.endswith(".osp"):
-        file_path = file_path + ".osp"
+    if not file_path.endswith(info.PROJECT_EXT):
+        file_path = file_path + info.PROJECT_EXT
     try:
         app = _get_app()
         app.window.save_project(file_path)
@@ -357,7 +358,7 @@ def get_openshot_tools_for_langchain():
 
     @tool
     def save_project_tool(file_path: str) -> str:
-        """Save the project to the given file path. Example: /home/user/my.osp"""
+        """Save the project to the given file path. Example: /home/user/my.zvn"""
         return save_project(file_path)
 
     @tool

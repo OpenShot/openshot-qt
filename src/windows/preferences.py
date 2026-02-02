@@ -851,12 +851,12 @@ class Preferences(QDialog):
         # Enable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
-        # Prompt user to restart openshot (if needed)
+        # Prompt user to restart Zenvi (if needed)
         if self.requires_restart:
             msg = QMessageBox()
             _ = get_app()._tr
             msg.setWindowTitle(_("Restart Required"))
-            msg.setText(_("Please restart OpenShot for all preferences to take effect."))
+            msg.setText(_("Please restart Zenvi for all preferences to take effect."))
             msg.exec_()
 
         # Close dialog

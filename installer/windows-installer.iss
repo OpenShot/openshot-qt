@@ -11,12 +11,12 @@
   #define PY_EXE_DIR "exe.mingw-3.8"
 #endif
 
-#define MyAppName "OpenShot Video Editor"
-#define MyAppProjectFileDesc "OpenShot Project File"
-#define MyAppPublisher "OpenShot Studios, LLC"
-#define MyPublisherURL "https://www.openshot.org/"
-#define MySupportURL "https://www.reddit.com/r/OpenShot/"
-#define MyAppExeName "openshot-qt.exe"
+#define MyAppName "Zenvi"
+#define MyAppProjectFileDesc "Zenvi Project File"
+#define MyAppPublisher "Zenvi"
+#define MyPublisherURL "https://zenvi.org/"
+#define MySupportURL "https://zenvi.org/community/"
+#define MyAppExeName "zenvi.exe"
 
 #include "isportable.iss"
 
@@ -44,7 +44,7 @@ ChangesEnvironment=not PortableCheck
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
-SetupIconFile=..\xdg\openshot-qt.ico
+SetupIconFile=..\xdg\zenvi.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -127,18 +127,18 @@ Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; Gro
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
-; Remove previous installed versions of OpenShot
+; Remove previous installed versions of Zenvi
 Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
-Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
+Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
 
 [Registry]
-; Associate .osp files with the installed application. Uninstaller will clean them up, when run.
-Root: HKLM; Subkey: "Software\Classes\.osp"; ValueType: string; ValueName: ""; ValueData: "OpenShotProject"; Flags: uninsdeletevalue; Tasks: fileassoc
-; .osp file description, "OpenShot Project File" (OpenShotProject, internally)
-Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
-; Launcher association for data files of type OpenShotProject
-Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
+; Associate .zvn files with the installed application. Uninstaller will clean them up, when run.
+Root: HKLM; Subkey: "Software\Classes\.zvn"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .zvn file description, "Zenvi Project File" (ZenviProject, internally)
+Root: HKLM; Subkey: "Software\Classes\ZenviProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
+; Launcher association for data files of type ZenviProject
+Root: HKLM; Subkey: "Software\Classes\ZenviProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
 ; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
 

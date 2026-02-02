@@ -148,7 +148,8 @@ def export_edl():
     if not recommended_path:
         recommended_path = os.path.join(info.HOME_PATH, "%s.edl" % _("Untitled Project"))
     else:
-        recommended_path = recommended_path.replace(".osp", ".edl")
+        for ext in (info.PROJECT_EXT, info.LEGACY_PROJECT_EXT):
+            recommended_path = recommended_path.replace(ext, ".edl")
     file_path = QFileDialog.getSaveFileName(app.window, _("Export EDL..."), recommended_path,
                                             _("Edit Decision List (*.edl)"))[0]
     if not file_path:

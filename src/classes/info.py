@@ -31,12 +31,12 @@ from time import strftime
 VERSION = "3.4.0"
 MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
 DATE = "20250612000000"
-NAME = "openshot-qt"
-PRODUCT_NAME = "OpenShot Video Editor"
+NAME = "zenvi"
+PRODUCT_NAME = "Zenvi"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit stunning videos, films, and animations with an " \
               "easy-to-use interface and rich set of features."
-COMPANY_NAME = "OpenShot Studios, LLC"
+COMPANY_NAME = "Zenvi"
 COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
@@ -67,10 +67,15 @@ USER_COLORS_PATH = os.path.join(USER_PATH, "colors")
 PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
 CLIPBOARD_PATH = os.path.join(USER_PATH, "clipboard")
+# Project file extensions
+PROJECT_EXT = ".zvn"
+LEGACY_PROJECT_EXT = ".osp"
 # User files
-BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
-USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
-LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(".osp", ".project")
+BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.zvn")
+USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.zvn")
+LEGACY_DEFAULT_PROJECT = USER_DEFAULT_PROJECT.replace(PROJECT_EXT, ".project")
+LEGACY_BACKUP_FILE = os.path.join(BACKUP_PATH, "backup.osp")
+LEGACY_USER_DEFAULT_PROJECT = os.path.join(USER_PATH, "default.osp")
 
 # Back up "default" values for user paths
 _path_defaults = {
@@ -98,7 +103,7 @@ JT = {"name": "Jonathan Thomas",
       "website": "http://openshot.org/developers/jonathan"}
 
 # Desktop launcher ID, for Linux
-DESKTOP_ID = "org.openshot.OpenShot.desktop"
+DESKTOP_ID = "org.zenvi.Zenvi.desktop"
 
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "5.0"
@@ -164,11 +169,11 @@ SETUP = {
     "author_email": JT["email"],
     "maintainer": JT["name"],
     "maintainer_email": JT["email"],
-    "url": "http://www.openshot.org/",
+    "url": "https://zenvi.org/",
     "license": "GNU GPL v." + GPL_VERSION,
     "description": DESCRIPTION,
     "long_description": "Create and edit videos and movies\n"
-                        " OpenShot Video Editor is a free, open-source, non-linear video editor. It\n"
+                        " Zenvi is a free, open-source, non-linear video editor. It\n"
                         " can create and edit videos and movies using many popular video, audio, \n"
                         " image formats.  Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,\n"
                         " Xbox, and many more common formats!\n"
@@ -199,7 +204,7 @@ SETUP = {
     # Automatic launch script creation
     "entry_points": {
         "gui_scripts": [
-            "openshot-qt = openshot_qt.launch:main"
+            "zenvi = openshot_qt.launch:main"
         ]
     }
 }
@@ -211,13 +216,32 @@ def setup_userdirs():
         if not os.path.exists(os.fsencode(folder)):
             os.makedirs(folder, exist_ok=True)
 
-    # Migrate USER_DEFAULT_PROJECT from former name
+    # Migrate USER_DEFAULT_PROJECT from former name (.project)
     if all([
         os.path.exists(LEGACY_DEFAULT_PROJECT),
         not os.path.exists(USER_DEFAULT_PROJECT),
     ]):
         print("Migrating default project file to new name")
         os.rename(LEGACY_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+    # Migrate default.osp to default.zvn
+    if all([
+        os.path.exists(LEGACY_USER_DEFAULT_PROJECT),
+        not os.path.exists(USER_DEFAULT_PROJECT),
+    ]):
+        print("Migrating default project file from .osp to .zvn")
+        os.rename(LEGACY_USER_DEFAULT_PROJECT, USER_DEFAULT_PROJECT)
+    # Migrate backup.osp to backup.zvn
+    if all([
+        os.path.exists(LEGACY_BACKUP_FILE),
+        not os.path.exists(BACKUP_FILE),
+    ]):
+        try:
+            import shutil
+            shutil.copy2(LEGACY_BACKUP_FILE, BACKUP_FILE)
+            os.unlink(LEGACY_BACKUP_FILE)
+            print("Migrated backup.osp to backup.zvn")
+        except OSError:
+            pass
 
 
 def reset_userdirs():

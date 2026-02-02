@@ -509,7 +509,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             filepath = uri.toLocalFile()
             if not os.path.exists(filepath):
                 continue
-            if filepath.endswith(".osp") and os.path.isfile(filepath):
+            if filepath.endswith((".zvn", ".osp")) and os.path.isfile(filepath):
                 # Auto load project passed as argument
                 get_app().window.OpenProjectSignal.emit(filepath)
                 return True

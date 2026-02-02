@@ -190,7 +190,7 @@ class AIChat:
     def _get_default_system_prompt(self) -> str:
         """Get default system prompt for video editing context"""
         return (
-            "You are an AI assistant for OpenShot Video Editor. "
+            "You are an AI assistant for Zenvi. "
             "You help users with video editing, effects, transitions, and general editing tasks. "
             "Provide concise, practical advice for video editing workflows."
         )

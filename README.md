@@ -1,6 +1,6 @@
-# OpenShot Video Editor
+# Zenvi
 
-OpenShot Video Editor is an award-winning free and open-source video editor 
+Zenvi is an award-winning free and open-source video editor 
 for Linux, Mac, and Windows, and is dedicated to delivering high quality 
 video editing and animation solutions to the world.
 
@@ -37,12 +37,12 @@ video editing and animation solutions to the world.
 
 ## Getting Started
 
-The quickest way to get started using OpenShot is to download one of 
+The quickest way to get started using Zenvi is to download one of 
 our pre-built installers. On our download page, click the **Daily Builds** 
 button to view the latest, experimental builds, which are created for each 
 new commit to this repo.
 
-https://www.openshot.org/download/
+https://zenvi.org/download/
 
 ## Tutorial
 
@@ -51,9 +51,9 @@ Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?l
 ## Developers
 
 Are you interested in becoming more involved in the development of 
-OpenShot? Build exciting new features, fix bugs, make friends, and become a hero! 
+Zenvi? Build exciting new features, fix bugs, make friends, and become a hero! 
 Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer) 
-instructions for getting source code, configuring dependencies, and building OpenShot.
+instructions for getting source code, configuring dependencies, and building Zenvi.
 
 ## Documentation
 
@@ -68,9 +68,9 @@ The documentation for the most recent release can be viewed online at [openshot.
 
 ## Report a bug
 
-Please report bugs using the official [Report a Bug](https://www.openshot.org/issues/new/) 
+Please report bugs using the official [Report a Bug](https://zenvi.org/support/) 
 feature on our website. This walks you through the bug reporting process, and helps 
-to create a high-quality bug report for the OpenShot community.
+to create a high-quality bug report for the Zenvi community.
 
 Or you can report a new issue directly on GitHub:
 

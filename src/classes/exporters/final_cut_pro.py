@@ -519,7 +519,8 @@ def export_xml():
     if not recommended_path:
         recommended_path = os.path.join(info.HOME_PATH, "%s.xml" % _("Untitled Project"))
     else:
-        recommended_path = recommended_path.replace(".osp", ".xml")
+        for ext in (info.PROJECT_EXT, info.LEGACY_PROJECT_EXT):
+            recommended_path = recommended_path.replace(ext, ".xml")
     file_path = QFileDialog.getSaveFileName(app.window, _("Export XML..."), recommended_path,
                                             _("Final Cut Pro (*.xml)"))[0]
     if not file_path:

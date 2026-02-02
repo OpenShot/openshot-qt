@@ -229,7 +229,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
 
-        # Check for backup.osp file
+        # Check for backup file (backup.zvn)
         if os.path.exists(info.BACKUP_FILE):
             # Load recovery project
             log.info("Recovering backup file: %s" % info.BACKUP_FILE)
@@ -276,7 +276,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Reset Sentry component (it can be temporarily changed to libopenshot during
         # the call to libopenshot_crash_recovery above)
-        sentry.set_tag("component", "openshot-qt")
+        sentry.set_tag("component", "zenvi")
 
         # Write lock file (try a few times if failure)
         lock_value = str(uuid4())
@@ -542,7 +542,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Ensures recovery files adhere to the configured daily and historical limits."""
         recovery_files = sorted(
             ((f, os.path.getmtime(os.path.join(info.RECOVERY_PATH, f)))
-             for f in os.listdir(info.RECOVERY_PATH) if f.endswith(".zip") or f.endswith(".osp")),
+             for f in os.listdir(info.RECOVERY_PATH) if f.endswith(".zip") or f.endswith(".zvn") or f.endswith(".osp")),
             key=lambda x: x[1],
             reverse=True
         )
@@ -717,12 +717,12 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # User canceled prompt
                 return
 
-        # Prompt for open project file
+        # Prompt for open project file (accept both .zvn and .osp)
         file_path = QFileDialog.getOpenFileName(
             self,
             _("Open Project..."),
             recommended_folder,
-            _("OpenShot Project (*.osp)"))[0]
+            _("Zenvi Project (*.zvn);;OpenShot Project (*.osp)"))[0]
 
         if file_path:
             # Load project file
@@ -739,19 +739,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             recommended_folder = s.getDefaultPath(s.actionType.SAVE)
             recommended_path = os.path.join(
                 recommended_folder,
-                _("Untitled Project") + ".osp"
+                _("Untitled Project") + info.PROJECT_EXT
             )
             file_path = QFileDialog.getSaveFileName(
                 self,
                 _("Save Project..."),
                 recommended_path,
-                _("OpenShot Project (*.osp)"))[0]
+                _("Zenvi Project (*.zvn)"))[0]
 
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
-            # Append .osp if needed
-            if not file_path.endswith(".osp"):
-                file_path = "%s.osp" % file_path
+            # Append .zvn if needed (new save only; existing path kept as-is)
+            if not file_path.endswith(info.PROJECT_EXT) and not file_path.endswith(info.LEGACY_PROJECT_EXT):
+                file_path = "%s%s" % (file_path, info.PROJECT_EXT)
 
             # Save project
             self.save_project(file_path)
@@ -768,19 +768,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             return
 
         if file_path:
-            # A Real project file exists
-            # Append .osp if needed
-            if not file_path.endswith(".osp"):
-                    file_path = "%s.osp" % file_path
-
+            # A Real project file exists (keep current path; may be .zvn or .osp)
             # Save project
             log.info("Auto save project file: %s", file_path)
             threading.Thread(target=self.save_project, args=(file_path,), daemon=True).start()
 
-            # Remove backup.osp (if any)
+            # Remove backup file (if any)
             if os.path.exists(info.BACKUP_FILE):
                 try:
-                    # Delete backup.osp since we just saved the actual project
+                    # Delete backup since we just saved the actual project
                     os.unlink(info.BACKUP_FILE)
                     log.info(f"Deleted backup file: {info.BACKUP_FILE}")
                 except PermissionError:
@@ -802,7 +798,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if project_file_path:
             recommended_file_name = os.path.basename(project_file_path)
         else:
-            recommended_file_name = "%s.osp" % _("Untitled Project")
+            recommended_file_name = "%s%s" % (_("Untitled Project"), info.PROJECT_EXT)
         recommended_folder = s.getDefaultPath(s.actionType.SAVE)
         recommended_path = os.path.join(
             recommended_folder,
@@ -812,12 +808,11 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             _("Save Project As..."),
             recommended_path,
-            _("OpenShot Project (*.osp)"))[0]
+            _("Zenvi Project (*.zvn)"))[0]
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
-            # Append .osp if needed
-            if ".osp" not in file_path:
-                file_path = "%s.osp" % file_path
+            # Save As always uses .zvn
+            file_path = os.path.splitext(file_path)[0] + info.PROJECT_EXT
 
             # Save new project
             threading.Thread(target=self.save_project, args=(file_path,), daemon=True).start()
@@ -1018,16 +1013,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         win.exec_()
 
     def actionHelpContents_trigger(self, checked=True):
-        url = "https://www.openshot.org/%suser-guide/?app-menu" % info.website_language()
+        url = "https://zenvi.org/docs/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
-            error_msg = f"Unable to open the official User Guide url: {url}"
+            error_msg = f"Unable to open the User Guide url: {url}"
             QMessageBox.information(self, "Error", error_msg)
             log.error(error_msg, exc_info=1)
 
     def actionReportBug_trigger(self, checked=True):
-        url = "https://www.openshot.org/%sissues/new/?app-menu" % info.website_language()
+        url = "https://zenvi.org/support/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1036,25 +1031,25 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionAskQuestion_trigger(self, checked=True):
-        url = "https://www.reddit.com/r/OpenShot/"
+        url = "https://zenvi.org/community/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
-            error_msg = f"Unable to open the official OpenShot subreddit url: {url}"
+            error_msg = f"Unable to open the Zenvi community url: {url}"
             QMessageBox.information(self, "Error", error_msg)
             log.error(error_msg, exc_info=1)
 
     def actionDiscord_trigger(self, checked=True):
-        url = "https://www.openshot.org/discord/?app-menu"
+        url = "https://zenvi.org/community/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
-            error_msg = f"Unable to open the Discord community invite url: {url}"
+            error_msg = f"Unable to open the community url: {url}"
             QMessageBox.information(self, "Error", error_msg)
             log.error(error_msg, exc_info=1)
 
     def actionTranslate_trigger(self, checked=True):
-        url = "https://translations.launchpad.net/openshot/2.0"
+        url = "https://zenvi.org/contribute/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1063,7 +1058,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionDonate_trigger(self, checked=True):
-        url = "https://www.openshot.org/%sdonate/?app-menu" % info.website_language()
+        url = "https://zenvi.org/donate/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1072,7 +1067,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionUpdate_trigger(self, checked=True):
-        url = "https://www.openshot.org/%sdownload/?app-toolbar" % info.website_language()
+        url = "https://zenvi.org/download/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -2679,7 +2674,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         if not app.project.current_filepath:
             # Not saved yet (use singleShot since this method can be invoked by our preview thread)
             QTimer.singleShot(0, functools.partial(self.setWindowTitle,
-                "%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, "OpenShot Video Editor")))
+                "%s %s [%s] - %s" % (save_indicator, _("Untitled Project"), profile, info.PRODUCT_NAME)))
         else:
             # Yes, project is saved
             # Get just the filename
@@ -2687,7 +2682,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             filename = os.path.splitext(filename)[0]
             # Use singleShot since this method can be invoked by our preview thread
             QTimer.singleShot(0, functools.partial(self.setWindowTitle,
-                "%s %s [%s] - %s" % (save_indicator, filename, profile, "OpenShot Video Editor")))
+                "%s %s [%s] - %s" % (save_indicator, filename, profile, info.PRODUCT_NAME)))
 
     # Update undo and redo buttons enabled/disabled to available changes
     def updateStatusChanged(self, undo_status, redo_status):
@@ -2955,9 +2950,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         recovery_files = []
         if current_filepath:
             recovery_dir = info.RECOVERY_PATH
+            base_no_ext = os.path.splitext(os.path.basename(current_filepath))[0]
             recovery_files = [
                 f for f in os.listdir(recovery_dir)
-                if (f.endswith(".osp") or f.endswith(".zip")) and "-" in f and current_filepath and f.split("-", 1)[1].startswith(os.path.basename(current_filepath).replace(".osp", ""))
+                if (f.endswith(".osp") or f.endswith(".zvn") or f.endswith(".zip")) and "-" in f and f.split("-", 1)[1].startswith(base_no_ext)
             ]
 
         # Show just a placeholder menu, if we have no recovery files
@@ -3000,13 +2996,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 # Unzip if the selected recovery file is a .zip file
                 if file_path.endswith(".zip"):
                     with zipfile.ZipFile(file_path, 'r') as zipf:
-                        # Extract over top original project *.osp file
+                        # Extract over top original project file
                         zipf.extractall(os.path.dirname(current_filepath))
                         extracted_files = zipf.namelist()
                         if len(extracted_files) != 1:
                             raise ValueError("Unexpected number of files in recovery zip.")
                 else:
-                    # Replace the original *.osp project file with the recovery file *.osp
+                    # Replace the original project file with the recovery file
                     shutil.copyfile(file_path, current_filepath)
                 log.info(f"Recovery file `{file_path}` restored to: `{current_filepath}`")
 
@@ -3017,7 +3013,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 log.error(f"Error recovering project from `{file_path}` to `{current_filepath}`: {ex}", exc_info=True)
 
     def remove_recent_project(self, file_path):
-        """Remove a project from the Recent menu if OpenShot can't find it"""
+        """Remove a project from the Recent menu if Zenvi can't find it"""
         s = get_app().get_settings()
         recent_projects = s.get("recent_projects")
         if file_path in recent_projects:
@@ -3510,7 +3506,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         clipboard = get_app().clipboard()
         mime_data = clipboard.mimeData() if clipboard else None
 
-        if mime_data and not mime_data.hasFormat("application/x-openshot-generic"):
+        if mime_data and not mime_data.hasFormat("application/x-zenvi-generic"):
             if self.import_files_from_clipboard(mime_data):
                 return
 
@@ -3915,7 +3911,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             msg.exec_()
 
             # Quit event loop, and stop initializing main window
-            log.info(f"Quiting OpenShot due to failed local HTTP thumbnail server: {ex}")
+            log.info(f"Quiting Zenvi due to failed local HTTP thumbnail server: {ex}")
             get_app().mode = "quit"
             return
 

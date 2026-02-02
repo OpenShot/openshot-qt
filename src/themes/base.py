@@ -40,8 +40,8 @@ class BaseTheme:
     def __init__(self, app):
         self.style_sheet = """
 .property_value {
-    foreground-color: #b3b3b3;
-    background-color: #343434;
+    foreground-color: #6366F1;
+    background-color: #1E2433;
 }
         """
         self.app = app

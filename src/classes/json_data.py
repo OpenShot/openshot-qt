@@ -401,7 +401,7 @@ class JsonDataStore:
         else:
             backup_base = os.path.realpath(file_path)
 
-        # Generate a filename.osp.bak (or filename.osp.bak.1...) backup file name
+        # Generate a filename.zvn.bak (or filename.zvn.bak.1...) backup file name
         backup_file = "{}.bak".format(backup_base)
         dup_count = 1
         while os.path.exists(backup_file) and dup_count <= 999:

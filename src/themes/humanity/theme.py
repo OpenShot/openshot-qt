@@ -58,6 +58,52 @@ QComboBox {
 QWidget#videoPreview {
     background-color: #191919;
 }
+
+/* Zenvi Assistant chat: match Humanity dark #191919, #ffffff, #2a82da */
+QDockWidget#AIChatWindow QWidget#AIChatWindowContents {
+    background-color: #191919;
+}
+QDockWidget#AIChatWindow QFrame#chatPreamble {
+    background-color: #252525;
+    border: 1px solid #404040;
+    border-radius: 0;
+}
+QDockWidget#AIChatWindow QLabel#chatPreambleLabel {
+    color: #ffffff;
+    font-size: 12px;
+}
+QDockWidget#AIChatWindow QTextEdit#chatBox {
+    background-color: #191919;
+    color: #ffffff;
+    border: 1px solid #404040;
+    border-radius: 0;
+    padding: 8px;
+}
+QDockWidget#AIChatWindow QTextEdit#msgInput {
+    background-color: #252525;
+    color: #ffffff;
+    border: 1px solid #404040;
+    border-radius: 0;
+    padding: 6px;
+}
+QDockWidget#AIChatWindow QPushButton#sendBtn,
+QDockWidget#AIChatWindow QPushButton#clearBtn {
+    background-color: #353535;
+    color: #ffffff;
+    border: 1px solid #404040;
+    border-radius: 0;
+}
+QDockWidget#AIChatWindow QPushButton#sendBtn:hover,
+QDockWidget#AIChatWindow QPushButton#clearBtn:hover {
+    background-color: #2a82da;
+    color: #ffffff;
+}
+QDockWidget#AIChatWindow QComboBox#modelCombo {
+    background-color: #252525;
+    color: #ffffff;
+    border: 1px solid #404040;
+    border-radius: 0;
+}
         """
 
     def apply_theme(self):
@@ -106,6 +152,52 @@ QWidget#videoPreview {
 
 QComboBox {
     combobox-popup: 0;
+}
+
+/* Zenvi Assistant chat: match Retro (light) #dedede, #333 */
+QDockWidget#AIChatWindow QWidget#AIChatWindowContents {
+    background-color: #f0f0f0;
+}
+QDockWidget#AIChatWindow QFrame#chatPreamble {
+    background-color: #e8e8e8;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+QDockWidget#AIChatWindow QLabel#chatPreambleLabel {
+    color: #333333;
+    font-size: 12px;
+}
+QDockWidget#AIChatWindow QTextEdit#chatBox {
+    background-color: #f0f0f0;
+    color: #333333;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 8px;
+}
+QDockWidget#AIChatWindow QTextEdit#msgInput {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 6px;
+}
+QDockWidget#AIChatWindow QPushButton#sendBtn,
+QDockWidget#AIChatWindow QPushButton#clearBtn {
+    background-color: #e8e8e8;
+    color: #333333;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+QDockWidget#AIChatWindow QPushButton#sendBtn:hover,
+QDockWidget#AIChatWindow QPushButton#clearBtn:hover {
+    background-color: #217dd4;
+    color: #ffffff;
+}
+QDockWidget#AIChatWindow QComboBox#modelCombo {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #ccc;
+    border-radius: 0;
 }
         """
 

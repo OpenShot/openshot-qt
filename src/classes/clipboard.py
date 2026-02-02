@@ -62,7 +62,7 @@ class ClipboardManager:
             mime_data.setText(json_data)
 
             # Set the pickled data in the custom MIME format
-            mime_data.setData(f"application/x-openshot-generic", pickled_data)
+            mime_data.setData("application/x-zenvi-generic", pickled_data)
 
         except (TypeError, AttributeError) as e:
             print(f"Error serializing data: {e}")
@@ -75,12 +75,12 @@ class ClipboardManager:
         Converts QMimeData back into the original object (QueryObject or list of QueryObjects).
         Assumes the data is pickled.
         """
-        if mime_data.hasFormat("application/x-openshot-generic"):
+        if mime_data.hasFormat("application/x-zenvi-generic"):
             try:
-                pickled_data = mime_data.data("application/x-openshot-generic").data()
+                pickled_data = mime_data.data("application/x-zenvi-generic").data()
                 return pickle.loads(pickled_data)
             except (pickle.UnpicklingError, AttributeError) as e:
                 print(f"Error unpickling data: {e}")
 
-        print("No valid OpenShot MIME type found.")
+        print("No valid Zenvi MIME type found.")
         return None

@@ -19,6 +19,9 @@ urllib3
 # Required by logger_libopenshot
 pyzmq
 
+# Markdown for chat rendering
+markdown>=3.5
+
 # LangChain and AI chat
 langchain-core>=0.3
 langchain>=0.3

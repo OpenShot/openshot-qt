@@ -256,13 +256,13 @@ results = await manager.search_files("outdoor scenes")
 
 ## Support
 
-- Documentation: https://www.openshot.org/user-guide/
-- Forums: https://www.reddit.com/r/OpenShot/
+- Documentation: https://zenvi.org/docs/
+- Forums: https://zenvi.org/community/
 - GitHub Issues: https://github.com/OpenShot/openshot-qt/issues
 
 ## Credits
 
-AI-Powered Media Management developed by the Zenvi team, built on OpenShot Video Editor.
+AI-Powered Media Management developed by the Zenvi team, built on Zenvi (OpenShot Video Editor fork).
 
 Powered by:
 - OpenAI GPT-4 Vision

@@ -1,5 +1,5 @@
 """
-Agent runner: builds a LangChain agent with the selected LLM and OpenShot tools,
+Agent runner: builds a LangChain agent with the selected LLM and Zenvi tools,
 runs it in a worker thread, and dispatches tool execution to the Qt main thread.
 """
 
@@ -17,12 +17,12 @@ except ImportError:
     pyqtSlot = lambda x: x
 
 
-SYSTEM_PROMPT = """You are an AI assistant for OpenShot Video Editor. You help users with video editing, effects, transitions, and general editing tasks. You can query project state and perform editing actions using the provided tools. When you use a tool, confirm briefly what you did. Respond concisely and practically."""
+SYSTEM_PROMPT = """You are an AI assistant for Zenvi. You help users with video editing, effects, transitions, and general editing tasks. You can query project state and perform editing actions using the provided tools. When you use a tool, confirm briefly what you did. Respond concisely and practically."""
 
 
 class MainThreadToolRunner(QObject if QObject is not object else object):
     """
-    Lives on the Qt main thread. Holds OpenShot tools and runs them when run_tool is invoked.
+    Lives on the Qt main thread. Holds Zenvi tools and runs them when run_tool is invoked.
     Used by the worker thread via BlockingQueuedConnection to run tools on the main thread.
     """
     def __init__(self):
@@ -175,7 +175,7 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
 
 
 def create_main_thread_runner():
-    """Create and register a MainThreadToolRunner with all OpenShot tools. Call from main thread."""
+    """Create and register a MainThreadToolRunner with all Zenvi tools. Call from main thread."""
     from classes.ai_openshot_tools import get_openshot_tools_for_langchain
     runner = MainThreadToolRunner()
     runner.register_tools(get_openshot_tools_for_langchain())
