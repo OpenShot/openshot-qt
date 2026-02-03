@@ -298,7 +298,7 @@ def center_on_playhead() -> str:
 
 
 def export_video() -> str:
-    """Open the export video dialog. No arguments."""
+    """Open the export video dialog. Use when the user wants to see or use the full export dialog."""
     try:
         app = _get_app()
         app.window.actionExportVideo_trigger()
@@ -306,6 +306,80 @@ def export_video() -> str:
     except Exception as e:
         log.error("export_video: %s", e, exc_info=True)
         return "Error: {}".format(e)
+
+
+def get_export_settings() -> str:
+    """Return a readable summary of current/default export settings (resolution, fps, codecs, format, path, start/end frame)."""
+    try:
+        from windows.export import get_default_export_settings
+        app = _get_app()
+        video_settings, audio_settings, export_type, default_path = get_default_export_settings()
+        overrides = app.project.get("export_overrides") or {}
+        lines = [
+            "Export type: %s" % export_type,
+            "Default path: %s" % default_path,
+            "Video: %sx%s, %s/%s fps, codec %s, format %s, bitrate %s" % (
+                video_settings.get("width"), video_settings.get("height"),
+                video_settings.get("fps", {}).get("num"), video_settings.get("fps", {}).get("den"),
+                video_settings.get("vcodec"), video_settings.get("vformat"),
+                video_settings.get("video_bitrate")),
+            "Audio: codec %s, %s Hz, %s channels, bitrate %s" % (
+                audio_settings.get("acodec"), audio_settings.get("sample_rate"),
+                audio_settings.get("channels"), audio_settings.get("audio_bitrate")),
+            "Frame range: %s - %s" % (video_settings.get("start_frame"), video_settings.get("end_frame")),
+        ]
+        if overrides:
+            lines.append("Overrides: %s" % overrides)
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("get_export_settings: %s", e, exc_info=True)
+        return "Error: %s" % e
+
+
+def set_export_setting(key: str, value: str) -> str:
+    """Update a single export setting. Keys: width, height, fps_num, fps_den, video_codec, audio_codec, output_path, start_frame, end_frame, vformat. Value is a string (e.g. 1920, 30, libx264)."""
+    try:
+        app = _get_app()
+        overrides = dict(app.project.get("export_overrides") or {})
+        key_lower = key.lower().strip()
+        if key_lower in ("width", "height", "fps_num", "fps_den", "start_frame", "end_frame", "sample_rate", "channels"):
+            try:
+                overrides[key_lower] = int(value.strip())
+            except ValueError:
+                return "Error: %s must be an integer." % key
+        elif key_lower in ("video_codec", "vcodec"):
+            overrides["video_codec"] = value.strip()
+        elif key_lower in ("audio_codec", "acodec"):
+            overrides["audio_codec"] = value.strip()
+        elif key_lower in ("output_path", "path"):
+            overrides["output_path"] = value.strip()
+        elif key_lower in ("vformat", "format"):
+            overrides["vformat"] = value.strip()
+        else:
+            overrides[key_lower] = value.strip()
+        get_app().updates.ignore_history = True
+        app.updates.update(["export_overrides"], overrides)
+        get_app().updates.ignore_history = False
+        return "Set %s = %s." % (key_lower, value)
+    except Exception as e:
+        log.error("set_export_setting: %s", e, exc_info=True)
+        return "Error: %s" % e
+
+
+def export_video_now(output_path: str = "") -> str:
+    """Export the video with current/default settings without opening the dialog. Use when the user says 'export the video' or 'export with current settings'. Optional output_path; if empty, uses default path. Overwrites existing file if present."""
+    try:
+        from windows.export import export_video_headless, get_default_export_settings
+        _, _, _, default_path = get_default_export_settings()
+        path = (output_path or "").strip() or None
+        err = export_video_headless(path, None, None, None)
+        if err:
+            return "Export failed: %s" % err
+        used_path = path or default_path
+        return "Exported to %s." % used_path
+    except Exception as e:
+        log.error("export_video_now: %s", e, exc_info=True)
+        return "Error: %s" % e
 
 
 def import_files() -> str:
@@ -423,8 +497,23 @@ def get_openshot_tools_for_langchain():
 
     @tool
     def export_video_tool() -> str:
-        """Open the export video dialog."""
+        """Open the export video dialog to choose settings and export. Use when the user wants to see or use the full export dialog."""
         return export_video()
+
+    @tool
+    def get_export_settings_tool() -> str:
+        """Get current/default export settings (resolution, fps, codecs, format, path, frame range). Use when the user asks what their export settings are."""
+        return get_export_settings()
+
+    @tool
+    def set_export_setting_tool(key: str, value: str) -> str:
+        """Set a single export setting. Keys: width, height, fps_num, fps_den, video_codec, audio_codec, output_path, start_frame, end_frame, vformat. Value is a string (e.g. 1920, 30, libx264)."""
+        return set_export_setting(key, value)
+
+    @tool
+    def export_video_now_tool(output_path: str = "") -> str:
+        """Export the video with current/default settings without opening the dialog. Use when the user says 'export the video' or 'export with current settings'. Optional output_path; if empty, uses default path. Overwrites existing file if present."""
+        return export_video_now(output_path)
 
     @tool
     def import_files_tool() -> str:
@@ -452,5 +541,8 @@ def get_openshot_tools_for_langchain():
         zoom_out_tool,
         center_on_playhead_tool,
         export_video_tool,
+        get_export_settings_tool,
+        set_export_setting_tool,
+        export_video_now_tool,
         import_files_tool,
     ]

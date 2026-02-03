@@ -79,12 +79,16 @@ def _wrap_tool_for_main_thread(raw_tool, runner):
     desc = getattr(raw_tool, "description", "") or ""
     args_schema = getattr(raw_tool, "args_schema", None)
 
-    def invoke_from_main_thread(args=None):
-        if args is None:
-            args = {}
+    def invoke_from_main_thread(*args, **kwargs):
+        # LangChain may call with invoke(args_dict) or invoke(**kwargs); accept both.
+        if args and len(args) == 1 and isinstance(args[0], dict):
+            args_dict = dict(args[0])
+        else:
+            args_dict = {}
+        args_dict.update(kwargs)
         if QMetaObject is None or Qt is None or runner is None:
-            return raw_tool.invoke(args)
-        args_json = json.dumps(args) if args else "{}"
+            return raw_tool.invoke(args_dict)
+        args_json = json.dumps(args_dict) if args_dict else "{}"
         QMetaObject.invokeMethod(
             runner,
             "run_tool",

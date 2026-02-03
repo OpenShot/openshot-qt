@@ -27,6 +27,7 @@
   "playhead_position": 0,
   "profile": "HD 720p 30 fps",
   "export_settings": null,
+  "export_overrides": {},
   "layers": [
     {
       "id": "L1",

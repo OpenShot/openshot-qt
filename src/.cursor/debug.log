@@ -1,0 +1,2 @@
+{"sessionId": "debug-session", "runId": "run1", "hypothesisId": "H3", "location": "export.py:run_export:audio_block", "message": "audio block check", "data": {"export_type": "Video Only", "in_audio_block": false}, "timestamp": 1770155450675}
+{"sessionId": "debug-session", "runId": "run1", "hypothesisId": "H5", "location": "export.py:run_export:before_Open", "message": "about to call w.Open()", "data": {"export_file_path": "/home/vboxuser/export.mp4"}, "timestamp": 1770155450678}
