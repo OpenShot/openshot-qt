@@ -5,7 +5,22 @@ runs it in a worker thread, and dispatches tool execution to the Qt main thread.
 
 import json
 import threading
+import time
 from classes.logger import log
+
+
+def _debug_log(location, message, data, hypothesis_id):
+    # #region agent log
+    try:
+        import os
+        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
+        os.makedirs(os.path.dirname(_path), exist_ok=True)
+        with open(_path, "a") as f:
+            f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
+    except Exception:
+        pass
+    # #endregion
+
 
 try:
     from PyQt5.QtCore import QObject, QMetaObject, Qt, Q_ARG, pyqtSlot
@@ -95,6 +110,9 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
     messages: list of dicts with "role" and "content" (and optionally "tool_calls").
     Returns the final response text or an error string.
     """
+    # #region agent log
+    _debug_log("ai_agent_runner.py:run_agent", "run_agent entered", {"model_id": model_id, "num_messages": len(messages) if messages else 0}, "H5")
+    # #endregion
     try:
         from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage
     except ImportError as e:
@@ -138,8 +156,14 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
     try:
         llm_with_tools = llm.bind_tools(tools)
         max_iterations = 15
-        for _ in range(max_iterations):
+        for iteration in range(max_iterations):
+            # #region agent log
+            _debug_log("ai_agent_runner.py:run_agent", "before llm.invoke", {"iteration": iteration}, "H5")
+            # #endregion
             response = llm_with_tools.invoke(lc_messages)
+            # #region agent log
+            _debug_log("ai_agent_runner.py:run_agent", "after llm.invoke", {"iteration": iteration}, "H5")
+            # #endregion
             lc_messages.append(response)
             tool_calls = getattr(response, "tool_calls", None) or getattr(response, "additional_kwargs", {}).get("tool_calls", [])
             if not tool_calls:
@@ -154,11 +178,17 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
                 if not tool:
                     result = "Error: unknown tool {}".format(name)
                 else:
+                    # #region agent log
+                    _debug_log("ai_agent_runner.py:run_agent", "before tool.invoke (blocks until main thread runs it)", {"tool_name": name}, "H3")
+                    # #endregion
                     try:
                         result = tool.invoke(args)
                     except Exception as e:
                         log.error("Tool %s failed: %s", name, e)
                         result = "Error: {}".format(e)
+                    # #region agent log
+                    _debug_log("ai_agent_runner.py:run_agent", "after tool.invoke", {"tool_name": name}, "H3")
+                    # #endregion
                 lc_messages.append(ToolMessage(content=str(result), tool_call_id=tid))
         # Final response text: last AIMessage content
         for m in reversed(lc_messages):
@@ -174,9 +204,23 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
         return "Error: {}".format(e)
 
 
+_main_thread_runner_cache = None
+
+
 def create_main_thread_runner():
     """Create and register a MainThreadToolRunner with all Zenvi tools. Call from main thread."""
     from classes.ai_openshot_tools import get_openshot_tools_for_langchain
     runner = MainThreadToolRunner()
     runner.register_tools(get_openshot_tools_for_langchain())
     return runner
+
+
+def set_main_thread_runner(runner):
+    """Set the runner used by the agent. Call from main thread before sending a request."""
+    global _main_thread_runner_cache
+    _main_thread_runner_cache = runner
+
+
+def get_main_thread_runner():
+    """Return the runner set by the main thread, or None."""
+    return _main_thread_runner_cache

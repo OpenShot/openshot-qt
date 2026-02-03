@@ -1,8 +1,16 @@
 import html
-from PyQt5.QtCore import Qt, QDateTime
+import json
+import threading
+import time
+
+from PyQt5.QtCore import (
+    Qt, QDateTime, QPropertyAnimation, QEasingCurve,
+    QObject, QThread, pyqtSignal, pyqtSlot, QMetaObject, Q_ARG,
+)
 from PyQt5.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout,
-    QTextEdit, QPushButton, QLabel, QComboBox, QMessageBox, QFrame
+    QTextEdit, QPushButton, QLabel, QComboBox, QMessageBox, QFrame,
+    QGraphicsOpacityEffect,
 )
 from PyQt5.QtGui import QTextCursor
 
@@ -36,6 +44,82 @@ def _plain_to_html(text: str) -> str:
     return "<p>" + html.escape(text).replace("\n", "<br/>") + "</p>"
 
 
+def _debug_log(location, message, data, hypothesis_id):
+    # #region agent log
+    try:
+        import os
+        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
+        os.makedirs(os.path.dirname(_path), exist_ok=True)
+        with open(_path, "a") as f:
+            f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
+    except Exception:
+        pass
+    # #endregion
+
+
+REQUEST_TIMEOUT_SECONDS = 120
+
+
+class AIChatWorker(QObject):
+    """Runs AIChat.send_message() in a background thread. Emits response_ready or error_occurred."""
+
+    response_ready = pyqtSignal(str)
+    error_occurred = pyqtSignal(str)
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.ai_chat = AIChat()
+
+    @pyqtSlot(str, str)
+    def run_request(self, text: str, model_id: str):
+        # #region agent log
+        _debug_log("ai_chat_ui.py:run_request", "worker run_request entered", {"text_len": len(text), "model_id": model_id or "(none)"}, "H1")
+        # #endregion
+        result_holder = [None]
+        exception_holder = [None]
+
+        def run():
+            try:
+                # #region agent log
+                _debug_log("ai_chat_ui.py:run_request:run()", "sub_thread calling send_message", {}, "H2")
+                # #endregion
+                result_holder[0] = self.ai_chat.send_message(text, model_id=model_id or None)
+                # #region agent log
+                _debug_log("ai_chat_ui.py:run_request:run()", "send_message returned", {"result_len": len(result_holder[0]) if result_holder[0] else 0}, "H2")
+                # #endregion
+            except Exception as e:
+                exception_holder[0] = e
+                # #region agent log
+                _debug_log("ai_chat_ui.py:run_request:run()", "send_message raised", {"error": str(e)}, "H2")
+                # #endregion
+
+        thread = threading.Thread(target=run, daemon=True)
+        thread.start()
+        thread.join(timeout=REQUEST_TIMEOUT_SECONDS)
+        timed_out = thread.is_alive()
+        # #region agent log
+        _debug_log("ai_chat_ui.py:run_request", "after join", {"timed_out": timed_out, "has_result": result_holder[0] is not None, "has_exception": exception_holder[0] is not None}, "H2")
+        # #endregion
+
+        if exception_holder[0] is not None:
+            log.error("AI chat error: %s", exception_holder[0])
+            self.error_occurred.emit(str(exception_holder[0]))
+        elif result_holder[0] is not None:
+            self.response_ready.emit(result_holder[0])
+        else:
+            # #region agent log
+            _debug_log("ai_chat_ui.py:run_request", "emitting timeout error", {"timed_out": timed_out}, "H5")
+            # #endregion
+            self.error_occurred.emit(
+                "Request timed out after %s seconds. You can try again or send a new message."
+                % REQUEST_TIMEOUT_SECONDS
+            )
+
+    @pyqtSlot()
+    def clear_session(self):
+        self.ai_chat.clear_session()
+
+
 class AIChatWindow(QDockWidget):
     """Zenvi Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
 
@@ -49,14 +133,33 @@ class AIChatWindow(QDockWidget):
             | QDockWidget.DockWidgetFloatable
         )
 
-        self.ai_chat = AIChat()
         self.is_processing = False
+
+        # AI runs in a background thread; worker owns AIChat and emits when done
+        self._ai_thread = QThread(self)
+        self._worker = AIChatWorker()  # no parent so we can moveToThread
+        self._worker.moveToThread(self._ai_thread)
+        self._worker.response_ready.connect(self._on_response_ready)
+        self._worker.error_occurred.connect(self._on_error)
+        self._ai_thread.start()
 
         main = QWidget()
         main.setObjectName("AIChatWindowContents")
         layout = QVBoxLayout()
         main.setLayout(layout)
         self.setWidget(main)
+
+        # Fade-in effect when dock is shown (GPU-accelerated)
+        self._chat_opacity_effect = QGraphicsOpacityEffect(main)
+        self._chat_opacity_effect.setOpacity(0.0)
+        main.setGraphicsEffect(self._chat_opacity_effect)
+        self._chat_fade_done = False
+        self._chat_fade_anim = QPropertyAnimation(self._chat_opacity_effect, b"opacity")
+        self._chat_fade_anim.setDuration(250)
+        self._chat_fade_anim.setEasingCurve(QEasingCurve.OutCubic)
+        self._chat_fade_anim.setStartValue(0.0)
+        self._chat_fade_anim.setEndValue(1.0)
+        self._chat_fade_anim.finished.connect(self._on_chat_fade_finished)
 
         # Preamble / context (Cursor-style: what the assistant is and quick tips)
         self.preamble_frame = QFrame()
@@ -103,11 +206,16 @@ class AIChatWindow(QDockWidget):
         self.send_btn = QPushButton("Send")
         self.send_btn.setObjectName("sendBtn")
         self.send_btn.clicked.connect(self.send_message)
+        self.cancel_btn = QPushButton("Cancel")
+        self.cancel_btn.setObjectName("cancelBtn")
+        self.cancel_btn.clicked.connect(self.cancel_request)
+        self.cancel_btn.setVisible(False)
         self.clear_btn = QPushButton("Clear")
         self.clear_btn.setObjectName("clearBtn")
         self.clear_btn.clicked.connect(self.clear_chat)
         btn_h.addStretch()
         btn_h.addWidget(self.send_btn)
+        btn_h.addWidget(self.cancel_btn)
         btn_h.addWidget(self.clear_btn)
         layout.addLayout(btn_h)
 
@@ -118,6 +226,25 @@ class AIChatWindow(QDockWidget):
 
         self.setMinimumWidth(400)
         self.setMinimumHeight(450)
+
+    def closeEvent(self, event):
+        """Stop the AI worker thread when the dock is closed."""
+        self._ai_thread.quit()
+        if not self._ai_thread.wait(3000):
+            log.warning("AI chat thread did not finish within 3s")
+        super().closeEvent(event)
+
+    def showEvent(self, event):
+        """Run fade-in animation the first time the dock is shown."""
+        super().showEvent(event)
+        if not self._chat_fade_done:
+            self._chat_opacity_effect.setOpacity(0.0)
+            self._chat_fade_anim.stop()
+            self._chat_fade_anim.start()
+
+    def _on_chat_fade_finished(self):
+        self._chat_fade_done = True
+        self._chat_opacity_effect.setOpacity(1.0)
 
     def _update_preamble(self):
         """Update preamble text with current context (project name, tips)."""
@@ -177,23 +304,54 @@ class AIChatWindow(QDockWidget):
             return
         self._add_user_msg(text)
         self.msg_input.clear()
-        self.is_processing = True
-        self.send_btn.setEnabled(False)
-        self.send_btn.setText("Processing...")
+        self._set_processing_ui(True)
+        model_id = self.model_combo.currentData()
+        if not model_id and self.model_combo.count():
+            model_id = self.model_combo.currentText()
+        model_id_str = model_id if model_id else ""
+        # Create main-thread runner on main thread so tool invocations (BlockingQueuedConnection) don't deadlock
         try:
-            model_id = self.model_combo.currentData()
-            if not model_id and self.model_combo.count():
-                model_id = self.model_combo.currentText()
-            response = self.ai_chat.send_message(text, model_id=model_id)
-            self._add_assistant_msg(response)
-        except Exception as e:
-            log.error("AI chat error: %s", str(e))
-            self._add_system_msg("Error: %s" % str(e))
-        finally:
-            self.is_processing = False
-            self.send_btn.setEnabled(True)
-            self.send_btn.setText("Send")
+            from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
+            set_main_thread_runner(create_main_thread_runner())
+        except Exception:
+            pass
+        # #region agent log
+        _debug_log("ai_chat_ui.py:send_message", "invoking worker run_request", {"text_len": len(text), "model_id": model_id_str or "(empty)"}, "H1")
+        # #endregion
+        QMetaObject.invokeMethod(
+            self._worker,
+            "run_request",
+            Qt.QueuedConnection,
+            Q_ARG(str, text),
+            Q_ARG(str, model_id_str),
+        )
+        self.msg_input.setFocus()
+
+    def _set_processing_ui(self, processing: bool):
+        """Update Send/Cancel visibility and enabled state."""
+        self.is_processing = processing
+        self.send_btn.setEnabled(not processing)
+        self.send_btn.setText("Processing..." if processing else "Send")
+        self.cancel_btn.setVisible(processing)
+        if not processing:
             self.msg_input.setFocus()
+
+    def cancel_request(self):
+        """Stop waiting for the current request; UI can accept follow-up messages. Late replies still appear."""
+        self._set_processing_ui(False)
+
+    @pyqtSlot(str)
+    def _on_response_ready(self, text: str):
+        self._add_assistant_msg(text)
+        self._set_processing_ui(False)
+
+    @pyqtSlot(str)
+    def _on_error(self, text: str):
+        # #region agent log
+        _debug_log("ai_chat_ui.py:_on_error", "error slot", {"text_preview": text[:80] if text else ""}, "H1")
+        # #endregion
+        self._add_system_msg("Error: %s" % text)
+        self._set_processing_ui(False)
 
     def clear_chat(self):
         reply = QMessageBox.question(
@@ -202,7 +360,11 @@ class AIChatWindow(QDockWidget):
             QMessageBox.No
         )
         if reply == QMessageBox.Yes:
-            self.ai_chat.clear_session()
+            QMetaObject.invokeMethod(
+                self._worker,
+                "clear_session",
+                Qt.QueuedConnection,
+            )
             self.chat_box.clear()
             self._update_preamble()
             self._add_system_msg("Chat cleared. Ask anything about your project or editing.")
@@ -228,7 +390,7 @@ class AIChatWindow(QDockWidget):
             self.chat_box.insertHtml(role_label + html_body + "<br/>")
         else:
             safe = html.escape(text).replace("\n", "<br/>")
-            role_style = "color: #6366F1;" if role == "user" else ""
+            role_style = "color: #3B82F6;" if role == "user" else ""
             role_label = f'<span style="font-weight: bold; {role_style}">[{time_str}] {role}</span><br/>'
             self.chat_box.insertHtml(role_label + "<p>" + safe + "</p><br/>")
 

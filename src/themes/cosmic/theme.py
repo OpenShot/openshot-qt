@@ -43,22 +43,15 @@ class CosmicTheme(BaseTheme):
         _ = get_app()._tr
 
         self.style_sheet = """
-/* Modern dark base */
 QMainWindow {
     background-color: #0B0E14;
     color: #E6E6EB;
 }
 
-QWidget {
-    color: #E6E6EB;
-    font-family: Inter, "Segoe UI", Roboto, sans-serif;
-    font-size: 11pt;
-}
-
 QWidget#tutorial {
     background-color: #151A23;
-    border: 1px solid rgba(230, 230, 235, 0.2);
-    border-radius: 8px;
+    border: 1.2px solid rgba(230, 230, 235, 0.2);
+    border-radius: 4px;
     padding: 20px;
 }
 
@@ -72,17 +65,13 @@ QCheckBox#checkboxMetrics {
 
 QWidget#tutorial QPushButton#NextTip {
     background-color: #151A23;
-    border-radius: 10px;
-    padding: 8px 14px;
     font-size: 12px;
 }
 
 QWidget#tutorial QPushButton#HideTutorial {
-    background-color: #151A23;
-    border-radius: 10px;
-    padding: 8px 14px;
     font-size: 12px;
 }
+
 
 QDialog {
     background-color: #0B0E14;
@@ -112,31 +101,30 @@ QMenuBar {
 QMenu {
     background-color: #151A23;
     color: #E6E6EB;
-    padding: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
     min-width: 40px;
-    border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
+    border: 1.2px solid rgba(230, 230, 235, 0.15);
+    border-radius: 3px 3px;
 }
 
 QMenu::item {
-    padding: 8px 16px 8px 12px;
-    border-radius: 6px;
+    padding: 6px 14px 6px 10px;
 }
 
 QMenu::item::checked {
-    padding: 8px 12px 8px 20px;
+    padding: 6px 12px 6px 20px;
 }
 
 QMenu::item:selected {
     background-color: #1E2433;
-    color: #ffffff;
+    color: #E6E6EB;
 }
 
 QMenu::separator {
     height: 8px;
-    background-color: transparent;
+    background-color: #151A23;
 }
 
 QToolBar#toolBar {
@@ -147,11 +135,13 @@ QToolBar#toolBar {
 }
 
 QToolBar#toolBar QToolButton {
-    background-color: transparent;
+    background-color: #151A23;
     color: #E6E6EB;
-    padding: 10px 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
     border: none;
-    border-radius: 8px;
 }
 
 QToolBar#toolBar QToolButton:hover {
@@ -180,11 +170,11 @@ QToolBar#timelineToolbar {
 QToolBar#timelineToolbar QToolButton {
     color: #E6E6EB;
     background-color: #151A23;
-    padding: 8px 12px;
+    padding: 8px;
     margin-bottom: 4px;
     margin-right: 5px;
     margin-left: 5px;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 QToolBar#timelineToolbar QToolButton:hover {
@@ -200,33 +190,25 @@ QToolBar#timelineToolbar QToolButton:checked {
 }
 
 QPushButton#acceptButton {
-    padding: 8px 14px;
-    border-radius: 10px;
-    background-color: #6366F1;
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    background-color: #3B82F6;
     color: #FFFFFF;
 }
 
 QPushButton#acceptButton:hover {
-    background-color: #818CF8;
-}
-
-QPushButton#acceptButton:pressed {
-    background-color: #4F46E5;
+    background-color: #2563EB;
 }
 
 QPushButton {
-    padding: 8px 14px;
-    border-radius: 10px;
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
     background-color: #151A23;
     color: #E6E6EB;
 }
 
 QPushButton:hover {
     background-color: #1E2433;
-}
-
-QPushButton:pressed {
-    background-color: #2A3147;
 }
 
 QWidget#settingsContainer {
@@ -283,7 +265,7 @@ QDockWidget QWidget {
 
 QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#dockEmojisContents, QWidget#dockEffectsContents, QWidget#dockCaptionContents, QWidget#dockVideoContents, QWidget#dockPropertiesContents {
     background-color: #151A23;
-    border-radius: 8px;
+    border-radius: 4px;
     margin-left: 16px;
     margin-right: 16px;
 }
@@ -324,18 +306,16 @@ QTabBar::tab:selected {
 
 QLineEdit#filesFilter, QLineEdit#effectsFilter, QLineEdit#transitionsFilter, QLineEdit#emojisFilter, QLineEdit#txtPropertyFilter {
     background-color: #151A23;
-    color: #E6E6EB;
-    border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
-    padding: 8px 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 4px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 QLineEdit#filesFilter:focus, QLineEdit#effectsFilter:focus, QLineEdit#transitionsFilter:focus, QLineEdit#emojisFilter:focus, QLineEdit#txtPropertyFilter:focus {
-    border-width: 1px;
+    border-width: 1.2px;
     border-style: solid;
-    border-color: #6366F1;
+    border-color: #3B82F6;
 }
 
 QScrollBar:vertical {
@@ -345,7 +325,7 @@ QScrollBar:vertical {
 }
 
 QScrollBar::handle:vertical {
-    background: rgba(145, 195, 255, 51);
+    background: rgba(230, 230, 235, 0.25);
     border-radius: 4px;
     min-height: 20px;
 }
@@ -367,8 +347,8 @@ QScrollBar:horizontal {
 }
 
 QScrollBar::handle:horizontal {
-    background: rgba(230, 230, 235, 0.25);
-    border-radius: 6px;
+    background: rgba(145, 195, 255, 51);
+    border-radius: 4px;
     min-width: 20px;
 }
 
@@ -385,11 +365,10 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
 QComboBox {
     background-color: #151A23;
     color: #E6E6EB;
-    border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
-    padding: 8px 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 4px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
     combobox-popup: 0;
 }
 
@@ -406,19 +385,17 @@ QComboBox::down-arrow {
 
 QComboBox QAbstractItemView {
     color: #E6E6EB;
-    border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
-    padding: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border: 1.2px solid rgba(230, 230, 235, 0.2);
+    border-radius: 3px 3px 0px 0px;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
     background-color: #151A23;
     text-align: left;
 }
 
 QComboBox::item {
-    height: 28px;
-    padding: 4px 8px;
-    border-radius: 6px;
+    height: 24px;
 }
 
 QComboBox::item:selected {
@@ -439,13 +416,13 @@ QComboBox::indicator::checked {
 QHeaderView::section {
     background-color: #151A23;
     color: #E6E6EB;
-    padding: 8px 4px;
+    padding: 4px;
     border: none;
 }
 
 QTableView {
     background-color: #151A23;
-    gridline-color: rgba(230, 230, 235, 0.08);
+    gridline-color: #151A23;
 }
 
 QTreeView {
@@ -466,7 +443,7 @@ QWidget#Output QTextEdit {
 
 QToolBox::tab {
     color: #E6E6EB;
-    border-top: 1px solid rgba(230, 230, 235, 0.12);
+    border-top: 1px solid rgba(230, 230, 235, 0.15);
 }
 
 QTabWidget QWidget#pageAdvancedOptions, QWidget#pageProfile, QWidget#pageImageSequenceSettings, QWidget#pageVideoSettings, QWidget#pageAudioSettings {
@@ -478,19 +455,17 @@ QTabWidget QWidget#pageVideoDetails, QWidget#pageVideoFormat, QWidget#pageAudioF
 }
 
 QWidget#cutting QPushButton#btnStart,QPushButton#btnEnd  {
-    border: 1px solid rgba(99, 102, 241, 0.5);
-    border-radius: 10px;
+    border: 1px solid rgba(230, 230, 235, 0.25);
 }
 
 QWidget#cutting QPushButton#btnStart:disabled,QPushButton#btnEnd:disabled {
     color: #6B7280;
-    border: 1px solid rgba(230, 230, 235, 0.2);
+    border: 1px solid #6B7280;
 }
 
 QWidget#cutting QPushButton#btnAddClip {
-    background-color: #6366F1;
+    background-color: #3B82F6;
     color: #FFFFFF;
-    border-radius: 10px;
 }
 
 QWidget#cutting QPushButton#btnAddClip:disabled {
@@ -499,12 +474,12 @@ QWidget#cutting QPushButton#btnAddClip:disabled {
 }
 
 .property_value {
-    foreground-color: #6366F1;
+    foreground-color: #3B82F6;
     background-color: #1E2433;
 }
 
 .zoom_slider_playhead {
-    background-color: #6366F1;
+    background-color: #F59E0B;
 }
 
 QWidget#videoPreview {
@@ -516,58 +491,53 @@ QDockWidget#AIChatWindow QWidget#AIChatWindowContents {
     background-color: #151A23;
 }
 QDockWidget#AIChatWindow QFrame#chatPreamble {
-    background-color: #1E2433;
+    background-color: #151A23;
     border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
+    border-radius: 0;
 }
 QDockWidget#AIChatWindow QLabel#chatPreambleLabel {
     color: #E6E6EB;
     font-size: 12px;
 }
 QDockWidget#AIChatWindow QTextEdit#chatBox {
-    background-color: #151A23;
+    background-color: #0B0E14;
     color: #E6E6EB;
     border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 8px;
 }
 QDockWidget#AIChatWindow QTextEdit#msgInput {
     background-color: #151A23;
     color: #E6E6EB;
     border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 0;
+    padding: 6px;
 }
 QDockWidget#AIChatWindow QPushButton#sendBtn,
 QDockWidget#AIChatWindow QPushButton#clearBtn {
     background-color: #151A23;
     color: #E6E6EB;
     border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 10px;
-    padding: 8px 14px;
+    border-radius: 0;
 }
 QDockWidget#AIChatWindow QPushButton#sendBtn:hover,
 QDockWidget#AIChatWindow QPushButton#clearBtn:hover {
     background-color: #1E2433;
-    color: #ffffff;
-}
-QDockWidget#AIChatWindow QPushButton#sendBtn:pressed,
-QDockWidget#AIChatWindow QPushButton#clearBtn:pressed {
-    background-color: #2A3147;
+    color: #E6E6EB;
 }
 QDockWidget#AIChatWindow QComboBox#modelCombo {
     background-color: #151A23;
     color: #E6E6EB;
     border: 1px solid rgba(230, 230, 235, 0.12);
-    border-radius: 8px;
+    border-radius: 0;
 }
         """
         path_unix_slashes = PATH.replace("\\", "/")
         self.style_sheet = f"""
 QMessageBox QPushButton[text="&{_('Yes')}"] {{
-    padding: 8px 14px;
-    border-radius: 10px;
-    background-color: #6366F1;
+    padding: 8px 16px 8px 12px;
+    border-radius: 4px;
+    background-color: #0078FF;
     color: #FFFFFF;
 }}
 
@@ -621,8 +591,8 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
             {"expand": True},
             {"action": self.app.window.actionSave, "icon": "themes/cosmic/images/tool-save-project.svg", "style": Qt.ToolButtonTextBesideIcon},
             {"action": self.app.window.actionExportVideo, "icon": "themes/cosmic/images/tool-export.svg",
-             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background-color: #6366F1; color: #FFFFFF; border: none; border-radius: 8px; } QToolButton:hover, QToolButton:pressed { background-color: #818CF8; }"},
-            {"action": self.app.window.actionUpdate, "icon": "themes/cosmic/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background-color: #151A23; color: #FABE0A; border-radius: 8px; }"}
+             "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton { background-color: #0078FF; color: #FFFFFF; border: none; } QToolButton:hover, QToolButton:pressed { background-color: #006EE6; }"},
+            {"action": self.app.window.actionUpdate, "icon": "themes/cosmic/images/warning.svg", "visible": False, "style": Qt.ToolButtonTextBesideIcon, "stylesheet": "QToolButton {  background-color: #141923; color: #FABE0A; }"}
         ]
         self.set_toolbar_buttons(self.app.window.toolBar, icon_size=20, settings=toolbar_buttons)
 
@@ -655,29 +625,29 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
         ]
         self.set_toolbar_buttons(self.app.window.videoToolbar, icon_size=32, settings=toolbar_buttons)
 
-        # Apply timeline theme (modern dark)
+        # Apply timeline theme
         self.app.window.timeline.apply_theme("""
             body {
-              background: #151A23;
+              background: #141923;
             }
             ::-webkit-scrollbar {
               width: 8px;
               height: 8px;
             }
             ::-webkit-scrollbar-thumb {
-                background: rgba(230, 230, 235, 0.2);
-                border-radius: 6px;
+                background: rgba(145, 195, 255, .2);
+                border-radius: 4px;
             }
             ::-webkit-scrollbar-track {
-              background: #151A23;
+              background: #141923;
               box-shadow: none;
             }
             .track_name {
-              background: #1E2433;
+              background: #192332;
               border-top-left-radius: 0px;
               border-bottom-left-radius: 0px;
-              border: 1px solid #1E2433;
-              border-left: 4px solid #6366F1;
+              border: 1px solid #192332;
+              border-left: 4px solid #0078FF;
               box-shadow: none;
               margin-left: 0px;
               height: 48px;
@@ -691,21 +661,21 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
               text-shadow: none;
             }
             .track {
-              background: #1E2433;
-              border: 1px solid #1E2433;
+              background: #283241;
+              border: 1px solid #283241;
               border-radius: 0px;
               height: 48px;
             }
             .track-resize-handle {
-              background-color: #151A23;
-              border-top: 1px solid #151A23;
-              border-bottom: 1px solid #151A23;
-              border-right: 1px solid #151A23;
+              background-color: #1B222CFF;
+              border-top: 1px solid #1B222CFF;
+              border-bottom: 1px solid #1B222CFF;
+              border-right: 1px solid #1B222CFF;
               border-top-right-radius: 0px;
               border-bottom-right-radius: 0px;
             }
             .track-resize-handle:hover {
-              background-color: #2A3147;
+              background-color: #333F51FF;
             }
             .transition {
               height: 48px;
@@ -715,8 +685,8 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
               background: none;
             }
             .clip {
-              background: #1E2433;
-              border: 1px solid #6366F1;
+              background: #192332;
+              border: 1px solid #0078FF;
               box-sizing: border-box;
               height: 48px;
               min-height: 48px;
@@ -837,10 +807,10 @@ QMessageBox QPushButton[text="&{_('Cancel')}"] {{
               background-image: url(../themes/cosmic/images/marker.svg);
             }
             #ruler_label {
-              background: #151A23;
+              background: #141923;
             }
             #scrolling_ruler {
-              background: #151A23;
+              background: #141923;
             }
         """)
 

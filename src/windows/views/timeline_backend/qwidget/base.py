@@ -39,6 +39,8 @@ from PyQt5.QtCore import (
     pyqtSignal,
     QObject,
     QMetaMethod,
+    QVariantAnimation,
+    QEasingCurve,
 )
 from PyQt5.QtGui import (
     QPainter,
@@ -206,6 +208,13 @@ class TimelineWidgetBase(QWidget):
         self._zoom_emit_timer.setInterval(50)
         self._zoom_emit_timer.timeout.connect(self._emit_pending_zoom)
         self._pending_zoom_emit = None
+
+        # Smooth zoom animation (~150ms, Figma/After Effects–style)
+        self._zoom_animation = QVariantAnimation(self)
+        self._zoom_animation.setDuration(150)
+        self._zoom_animation.setEasingCurve(QEasingCurve.OutCubic)
+        self._zoom_animation.valueChanged.connect(self._on_zoom_animation_value)
+        self._zoom_animation.finished.connect(self._on_zoom_animation_finished)
 
         # Internal flag to defer repaint scheduling from changed()
         self._suspend_changed_update = 0
@@ -596,8 +605,29 @@ class TimelineWidgetBase(QWidget):
         min_h = max(100.0, base_h + track_h)
         return QSize(int(round(max(min_w, 1.0))), int(round(min_h)))
 
+    def _on_zoom_animation_value(self, value):
+        """Apply an intermediate zoom value during animation (no emit)."""
+        try:
+            zoom_factor = float(value)
+        except (TypeError, ValueError):
+            return
+        self.setZoomFactor(zoom_factor, emit=False)
+        project_duration = self._current_project_duration()
+        tick_pixels = 100.0
+        self.scrollbar_position[2] = (
+            project_duration * tick_pixels / zoom_factor if zoom_factor else 0.0
+        )
+
+    def _on_zoom_animation_finished(self):
+        """Persist final zoom and sync slider after animation."""
+        self._emit_zoom_signals(list(self.scrollbar_position))
+
     def _apply_external_zoom(self, zoom_factor):
-        """Apply zoom requests from the ZoomSlider without feedback."""
+        """Apply zoom requests from the ZoomSlider with smooth animation (~150ms)."""
+        zoom_factor = self._clamp_zoom_factor(float(zoom_factor))
+        if abs(zoom_factor - self.zoom_factor) <= 1e-6:
+            return
+
         slider = getattr(self.win, "sliderZoomWidget", None)
         syncing_slider = bool(slider and getattr(slider, "_syncing_backend", False))
         if slider:
@@ -613,12 +643,11 @@ class TimelineWidgetBase(QWidget):
         else:
             self._external_zoom_span = None
 
-        self.setZoomFactor(zoom_factor, emit=False)
-        project_duration = self._current_project_duration()
-        tick_pixels = 100.0
-        self.scrollbar_position[2] = (
-            project_duration * tick_pixels / zoom_factor if zoom_factor else 0.0
-        )
+        # Animate from current to target over 150ms (don't emit until finished)
+        self._zoom_animation.stop()
+        self._zoom_animation.setStartValue(self.zoom_factor)
+        self._zoom_animation.setEndValue(zoom_factor)
+        self._zoom_animation.start()
 
     def setSnappingMode(self, enable):
         """Enable or disable snapping mode."""

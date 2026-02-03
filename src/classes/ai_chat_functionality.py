@@ -26,11 +26,25 @@
 """
 
 import json
+import time
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from enum import Enum
 
 from classes.logger import log
+
+
+def _debug_log(location, message, data, hypothesis_id):
+    # #region agent log
+    try:
+        import os
+        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
+        os.makedirs(os.path.dirname(_path), exist_ok=True)
+        with open(_path, "a") as f:
+            f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
+    except Exception:
+        pass
+    # #endregion
 
 
 class MessageRole(Enum):
@@ -222,11 +236,18 @@ class AIChat:
         if not self.current_session:
             self._init_session()
 
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:send_message", "send_message entered", {"user_input_len": len(user_input), "model_id": model_id or "(none)"}, "H2")
+        # #endregion
+
         # Add user message to session
         self.current_session.add_message(MessageRole.USER, user_input, context)
 
         # Generate response from AI provider (agent + LLM)
         response = self._generate_response(user_input, model_id=model_id)
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:send_message", "send_message returning", {"response_len": len(response) if response else 0}, "H2")
+        # #endregion
 
         # Add assistant message to session
         self.current_session.add_message(MessageRole.ASSISTANT, response)
@@ -238,9 +259,15 @@ class AIChat:
         Generate a response using the LangChain agent and selected LLM, or media manager for media commands.
         Runs the agent in a worker thread; tools run on the Qt main thread.
         """
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:_generate_response", "entry", {"user_input_preview": user_input[:60] if user_input else ""}, "H4")
+        # #endregion
         # Check if this is a media management command (from nilay branch)
         media_keywords = ['analyze', 'search', 'find', 'collection', 'tag', 'face', 'statistics']
         if any(keyword in user_input.lower() for keyword in media_keywords):
+            # #region agent log
+            _debug_log("ai_chat_functionality.py:_generate_response", "taking media path", {}, "H4")
+            # #endregion
             try:
                 import asyncio
                 from classes.ai_media_manager import get_ai_media_manager
@@ -279,9 +306,12 @@ class AIChat:
                 return "Failed to execute media command: %s" % (e,)
 
         # LangChain agent (HEAD)
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:_generate_response", "taking LangChain path", {}, "H5")
+        # #endregion
         import threading
         try:
-            from classes.ai_agent_runner import run_agent, create_main_thread_runner
+            from classes.ai_agent_runner import run_agent, get_main_thread_runner, create_main_thread_runner
             from classes.ai_llm_registry import get_default_model_id
         except ImportError as e:
             log.warning("AI agent runner not available: %s", e)
@@ -293,17 +323,29 @@ class AIChat:
         messages = self.current_session.get_conversation_history() if self.current_session else []
         if not messages or messages[-1].get("role") != "user" or messages[-1].get("content") != user_input:
             messages = list(messages) + [{"role": "user", "content": user_input}]
-        try:
-            main_thread_runner = create_main_thread_runner()
-        except Exception as e:
-            log.warning("Could not create main thread tool runner: %s", e)
-            main_thread_runner = None
+        # Use runner created on main thread (avoids deadlock when tools use BlockingQueuedConnection)
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:_generate_response", "before get_main_thread_runner", {"thread_note": "current thread is worker sub_thread"}, "H3")
+        # #endregion
+        main_thread_runner = get_main_thread_runner()
+        if main_thread_runner is None:
+            try:
+                main_thread_runner = create_main_thread_runner()
+            except Exception as e:
+                log.warning("Could not create main thread tool runner: %s", e)
+                main_thread_runner = None
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:_generate_response", "before run_agent (inner thread)", {"runner_ok": main_thread_runner is not None}, "H5")
+        # #endregion
         result_holder = [None]
         def run():
             result_holder[0] = run_agent(resolved_model_id, messages, main_thread_runner)
         thread = threading.Thread(target=run, daemon=True)
         thread.start()
         thread.join()
+        # #region agent log
+        _debug_log("ai_chat_functionality.py:_generate_response", "after run_agent join", {"has_result": result_holder[0] is not None}, "H5")
+        # #endregion
         return result_holder[0] or "Error: No response from agent."
     
     def attach_context_data(self, context_key: str, context_value: Any):
