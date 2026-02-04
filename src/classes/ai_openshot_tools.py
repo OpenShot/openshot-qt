@@ -3,7 +3,9 @@ OpenShot tools for the LangChain agent. All tools assume they are run on the Qt 
 (dispatched by the agent runner). They call get_app().project, get_app().updates, get_app().window.
 """
 
+import copy
 import json
+import os
 from classes.logger import log
 
 
@@ -393,6 +395,91 @@ def import_files() -> str:
         return "Error: {}".format(e)
 
 
+# ---- Clipping (split file): library-only, no dialog ----
+
+
+def get_file_info(file_id: str) -> str:
+    """Get metadata for a project file: fps, video_length, path. Use to validate frame ranges before split_file_add_clip. Argument: file_id (string id of the file)."""
+    try:
+        from classes.query import File
+        if not file_id or not isinstance(file_id, str):
+            return "Error: file_id is required (string)."
+        f = File.get(id=file_id.strip())
+        if not f:
+            return "Error: File not found for id={}.".format(file_id)
+        path = f.data.get("path") or f.data.get("name", "")
+        fps_data = f.data.get("fps") or {}
+        fps_num = int(fps_data.get("num", 30))
+        fps_den = int(fps_data.get("den", 1))
+        fps = float(fps_num) / float(fps_den) if fps_den else 0.0
+        video_length = int(f.data.get("video_length", 0))
+        return "file_id={} path={} fps={}/{} video_length={} (frames, 1-based).".format(
+            file_id, path or "(none)", fps_num, fps_den, video_length
+        )
+    except Exception as e:
+        log.error("get_file_info: %s", e, exc_info=True)
+        return "Error: {}".format(e)
+
+
+def split_file_add_clip(file_id: str, start_frame: int, end_frame: int, name: str = "") -> str:
+    """Add a new clip (file segment) to the project from an existing file, by frame range. No dialog. Arguments: file_id (string), start_frame (int, 1-based), end_frame (int, 1-based), name (optional string)."""
+    try:
+        from classes.query import File
+        from classes import time_parts
+        if not file_id or not isinstance(file_id, str):
+            return "Error: file_id is required (string)."
+        file_id = file_id.strip()
+        try:
+            start_frame = int(start_frame)
+            end_frame = int(end_frame)
+        except (TypeError, ValueError):
+            return "Error: start_frame and end_frame must be integers."
+        file = File.get(id=file_id)
+        if not file:
+            return "Error: File not found for id={}.".format(file_id)
+        fps_data = file.data.get("fps") or {}
+        fps_num = int(fps_data.get("num", 30))
+        fps_den = int(fps_data.get("den", 1))
+        fps = float(fps_num) / float(fps_den) if fps_den else 0.0
+        if fps <= 0:
+            return "Error: File has invalid fps."
+        video_length = int(file.data.get("video_length", 0))
+        if video_length <= 0:
+            return "Error: File has no video_length."
+        if start_frame < 1 or end_frame < 1:
+            return "Error: Frames are 1-based; start_frame and end_frame must be >= 1."
+        if start_frame >= end_frame:
+            return "Error: start_frame must be less than end_frame."
+        if end_frame > video_length:
+            return "Error: end_frame {} exceeds video_length {}.".format(end_frame, video_length)
+        previous_start = float(file.data.get("start", 0.0))
+        start_sec = previous_start + (start_frame - 1) / fps
+        end_sec = previous_start + end_frame / fps
+        new_file = File()
+        new_file.data = copy.deepcopy(file.data)
+        new_file.data.pop("name", None)
+        new_file.id = None
+        new_file.key = None
+        new_file.type = "insert"
+        new_file.data["start"] = start_sec
+        new_file.data["end"] = end_sec
+        if name and isinstance(name, str) and name.strip():
+            new_file.data["name"] = name.strip()
+        else:
+            global_frame = round(previous_start * fps) + start_frame
+            t = time_parts.secondsToTime((global_frame - 1) / fps, fps_num, fps_den)
+            timestamp = "%s:%s:%s:%s" % (t["hour"], t["min"], t["sec"], t["frame"])
+            base = os.path.splitext(os.path.basename(file.data.get("path") or file.data.get("name", "clip")))[0]
+            new_file.data["name"] = "{} ({})".format(base, timestamp)
+        new_file.save()
+        return "Added clip from frame {} to {} (name: {}).".format(
+            start_frame, end_frame, new_file.data.get("name", "")
+        )
+    except Exception as e:
+        log.error("split_file_add_clip: %s", e, exc_info=True)
+        return "Error: {}".format(e)
+
+
 def get_openshot_tools_for_langchain():
     """
     Return a list of LangChain Tool objects for the OpenShot agent.
@@ -520,6 +607,16 @@ def get_openshot_tools_for_langchain():
         """Open the import files dialog."""
         return import_files()
 
+    @tool
+    def get_file_info_tool(file_id: str) -> str:
+        """Get file metadata: fps, video_length, path. Use before split_file_add_clip to validate frame range. Argument: file_id (string)."""
+        return get_file_info(file_id)
+
+    @tool
+    def split_file_add_clip_tool(file_id: str, start_frame: int, end_frame: int, name: str = "") -> str:
+        """Create a new clip from a file by frame range and add it to the project (no dialog). Use when the user wants to split a file or create a clip from frames. Arguments: file_id (string), start_frame (int, 1-based), end_frame (int, 1-based), name (optional string)."""
+        return split_file_add_clip(file_id, start_frame, end_frame, name)
+
     return [
         get_project_info_tool,
         list_files_tool,
@@ -545,4 +642,6 @@ def get_openshot_tools_for_langchain():
         set_export_setting_tool,
         export_video_now_tool,
         import_files_tool,
+        get_file_info_tool,
+        split_file_add_clip_tool,
     ]

@@ -119,6 +119,12 @@ class AIChatWorker(QObject):
     def clear_session(self):
         self.ai_chat.clear_session()
 
+    @pyqtSlot(str, str)
+    def on_tool_completed(self, tool_name: str, result: str):
+        """When split_file_add_clip runs, start a new chat session (new thread)."""
+        if tool_name == "split_file_add_clip_tool":
+            self.ai_chat.clear_session()
+
 
 class AIChatWindow(QDockWidget):
     """Zenvi Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
@@ -134,6 +140,7 @@ class AIChatWindow(QDockWidget):
         )
 
         self.is_processing = False
+        self._main_thread_runner = None  # track runner to connect/disconnect tool_completed
 
         # AI runs in a background thread; worker owns AIChat and emits when done
         self._ai_thread = QThread(self)
@@ -312,7 +319,16 @@ class AIChatWindow(QDockWidget):
         # Create main-thread runner on main thread so tool invocations (BlockingQueuedConnection) don't deadlock
         try:
             from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
-            set_main_thread_runner(create_main_thread_runner())
+            if self._main_thread_runner is not None and hasattr(self._main_thread_runner, "tool_completed"):
+                try:
+                    self._main_thread_runner.tool_completed.disconnect(self._worker.on_tool_completed)
+                except Exception:
+                    pass
+            runner = create_main_thread_runner()
+            set_main_thread_runner(runner)
+            self._main_thread_runner = runner
+            if hasattr(runner, "tool_completed"):
+                runner.tool_completed.connect(self._worker.on_tool_completed)
         except Exception:
             pass
         # #region agent log

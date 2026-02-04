@@ -23,12 +23,13 @@ def _debug_log(location, message, data, hypothesis_id):
 
 
 try:
-    from PyQt5.QtCore import QObject, QMetaObject, Qt, Q_ARG, pyqtSlot
+    from PyQt5.QtCore import QObject, QMetaObject, Qt, Q_ARG, pyqtSignal, pyqtSlot
 except ImportError:
     QObject = object
     QMetaObject = None
     Qt = None
     Q_ARG = None
+    pyqtSignal = None
     pyqtSlot = lambda x: x
 
 
@@ -40,6 +41,9 @@ class MainThreadToolRunner(QObject if QObject is not object else object):
     Lives on the Qt main thread. Holds Zenvi tools and runs them when run_tool is invoked.
     Used by the worker thread via BlockingQueuedConnection to run tools on the main thread.
     """
+    if pyqtSignal is not None:
+        tool_completed = pyqtSignal(str, str)  # tool_name, result
+
     def __init__(self):
         if QObject is not object:
             super().__init__()
@@ -61,14 +65,20 @@ class MainThreadToolRunner(QObject if QObject is not object else object):
                 tool = self._tools.get(name)
                 if not tool:
                     self.last_tool_result = "Error: unknown tool {}".format(name)
+                    if pyqtSignal is not None and hasattr(self, "tool_completed"):
+                        self.tool_completed.emit(name, self.last_tool_result)
                     return self.last_tool_result
                 args = json.loads(args_json) if args_json else {}
                 result = tool.invoke(args)
                 self.last_tool_result = result if isinstance(result, str) else str(result)
+                if pyqtSignal is not None and hasattr(self, "tool_completed"):
+                    self.tool_completed.emit(name, self.last_tool_result)
                 return self.last_tool_result
             except Exception as e:
                 log.error("MainThreadToolRunner.run_tool %s: %s", name, e, exc_info=True)
                 self.last_tool_result = "Error: {}".format(e)
+                if pyqtSignal is not None and hasattr(self, "tool_completed"):
+                    self.tool_completed.emit(name, self.last_tool_result)
                 return self.last_tool_result
 
 
