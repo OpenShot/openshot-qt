@@ -6,7 +6,17 @@ OpenShot tools for the LangChain agent. All tools assume they are run on the Qt 
 import copy
 import json
 import os
+import uuid as uuid_module
 from classes.logger import log
+
+try:
+    from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop
+except ImportError:
+    QObject = object
+    QThread = None
+    pyqtSignal = None
+    pyqtSlot = lambda x: x
+    QEventLoop = None
 
 
 def _get_app():
@@ -397,6 +407,32 @@ def import_files() -> str:
 
 # ---- Clipping (split file): library-only, no dialog ----
 
+# Context for the agent: last file id created by split_file_add_clip, so add_clip_to_timeline
+# can be called with no arguments and never ask the user for a file ID.
+_last_split_file_id = None
+
+
+def slice_clip_at_playhead() -> str:
+    """Slice (split) the clip(s) and transition(s) at the current playhead position on the timeline, keeping both sides. Use when the user wants to clip the existing clip at the playhead. No arguments. Fails if no clip is under the playhead."""
+    try:
+        from classes.query import Clip, Transition
+        from windows.views.timeline_backend.enums import MenuSlice
+        app = _get_app()
+        win = app.window
+        fps = app.project.get("fps") or {}
+        fps_float = float(fps.get("num", 30)) / float(fps.get("den", 1) or 1)
+        playhead_position = float(win.preview_thread.current_frame - 1) / fps_float
+        intersecting_clips = Clip.filter(intersect=playhead_position)
+        intersecting_trans = Transition.filter(intersect=playhead_position)
+        if not intersecting_clips and not intersecting_trans:
+            return "No clip or transition at the playhead. Move the playhead over a clip on the timeline first, then ask again."
+        win.slice_clips(MenuSlice.KEEP_BOTH)
+        n = len(intersecting_clips) + len(intersecting_trans)
+        return "Sliced {} item(s) at the playhead; both sides kept.".format(n)
+    except Exception as e:
+        log.error("slice_clip_at_playhead: %s", e, exc_info=True)
+        return "Error: {}".format(e)
+
 
 def get_file_info(file_id: str) -> str:
     """Get metadata for a project file: fps, video_length, path. Use to validate frame ranges before split_file_add_clip. Argument: file_id (string id of the file)."""
@@ -472,11 +508,211 @@ def split_file_add_clip(file_id: str, start_frame: int, end_frame: int, name: st
             base = os.path.splitext(os.path.basename(file.data.get("path") or file.data.get("name", "clip")))[0]
             new_file.data["name"] = "{} ({})".format(base, timestamp)
         new_file.save()
-        return "Added clip from frame {} to {} (name: {}).".format(
-            start_frame, end_frame, new_file.data.get("name", "")
+        global _last_split_file_id
+        _last_split_file_id = new_file.id
+        clip_name = new_file.data.get("name", "")
+        return "Added clip from frame {} to {} (name: {}). Ask: \"Would you like this clip added to the timeline at the playhead?\" If they say yes, call add_clip_to_timeline_tool with no arguments.".format(
+            start_frame, end_frame, clip_name
         )
     except Exception as e:
         log.error("split_file_add_clip: %s", e, exc_info=True)
+        return "Error: {}".format(e)
+
+
+def add_clip_to_timeline(file_id: str = "", position_seconds: str = "", track: str = "") -> str:
+    """Add a project file as a clip on the timeline. When used right after split_file_add_clip and the user said yes, call with no arguments (uses the clip just created). Optional: file_id for a specific file; position_seconds (empty for playhead); track (empty for selected or first track)."""
+    global _last_split_file_id
+    try:
+        from classes.query import File, Track
+        if not file_id or (isinstance(file_id, str) and not file_id.strip()):
+            file_id = _last_split_file_id
+            if not file_id:
+                return "Error: No clip was just created. Split a file first with split_file_add_clip_tool, then when the user says yes to adding to the timeline, call add_clip_to_timeline_tool with no arguments."
+        else:
+            file_id = file_id.strip() if isinstance(file_id, str) else str(file_id)
+        f = File.get(id=file_id)
+        if not f:
+            return "Error: File not found for id={}.".format(file_id)
+        app = _get_app()
+        win = app.window
+        fps = app.project.get("fps") or {}
+        fps_float = float(fps.get("num", 30)) / float(fps.get("den", 1) or 1)
+        if position_seconds is None or (isinstance(position_seconds, str) and not position_seconds.strip()):
+            pos_sec = float(win.preview_thread.current_frame - 1) / fps_float
+        else:
+            try:
+                pos_sec = float(position_seconds)
+            except (TypeError, ValueError):
+                return "Error: position_seconds must be a number or empty for playhead."
+        if track is None or (isinstance(track, str) and not track.strip()):
+            selected = getattr(win, "selected_tracks", []) or []
+            if selected:
+                t = Track.get(id=selected[0])
+                track_num = int(t.data.get("number", 1)) if t else 1
+            else:
+                layers = app.project.get("layers") or []
+                track_num = int(layers[0].get("number", 1)) if layers else 1
+        else:
+            try:
+                track_num = int(track)
+            except (TypeError, ValueError):
+                return "Error: track must be a layer number or empty."
+        from PyQt5.QtCore import QPointF
+        pos = QPointF(pos_sec, 0.0)
+        win.timeline.addClip(file_id, pos, track_num)
+        _last_split_file_id = None  # clear so next no-arg call does not reuse
+        return "Added clip to timeline at position {}s on track {}.".format(pos_sec, track_num)
+    except Exception as e:
+        log.error("add_clip_to_timeline: %s", e, exc_info=True)
+        return "Error: {}".format(e)
+
+
+# ---- Video generation (worker runs in background thread) ----
+
+
+class _VideoGenerationWorker(QObject if QObject is not object else object):
+    """Runs Runware API + download in a worker thread. Emits done(path, error) when finished."""
+    if pyqtSignal is not None:
+        done = pyqtSignal(str, str)  # path_or_empty, error_or_empty
+
+    def __init__(self, api_key, prompt, duration_seconds, model, width, height, output_path):
+        if QObject is not object:
+            super().__init__()
+        self.api_key = api_key
+        self.prompt = prompt
+        self.duration_seconds = duration_seconds
+        self.model = model
+        self.width = width
+        self.height = height
+        self.output_path = output_path
+
+    @pyqtSlot() if pyqtSlot else (lambda f: f)
+    def run(self):
+        import threading
+        # This slot runs in the worker thread (we moved this object to thread via moveToThread).
+        assert threading.current_thread() is not threading.main_thread(), (
+            "Video generation run() must execute in worker thread, not main thread."
+        )
+        from classes.video_generation.runware_client import (
+            runware_generate_video,
+            download_video_to_path,
+        )
+        video_url, err = runware_generate_video(
+            self.api_key,
+            self.prompt,
+            duration_seconds=self.duration_seconds,
+            model=self.model,
+            width=self.width,
+            height=self.height,
+        )
+        if err:
+            if pyqtSignal is not None and hasattr(self, "done"):
+                self.done.emit("", err)
+            return
+        ok, download_err = download_video_to_path(video_url, self.output_path)
+        if pyqtSignal is not None and hasattr(self, "done"):
+            if ok:
+                self.done.emit(self.output_path, "")
+            else:
+                self.done.emit("", download_err or "Download failed.")
+
+
+def _output_path_for_generated_video():
+    """Return an absolute path for saving a generated video. Call from main thread."""
+    app = _get_app()
+    project_path = getattr(app.project, "current_filepath", None) or ""
+    if project_path and os.path.isabs(project_path):
+        base_dir = os.path.dirname(project_path)
+        out_dir = os.path.join(base_dir, "Generated")
+        try:
+            os.makedirs(out_dir, exist_ok=True)
+            return os.path.join(out_dir, "generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
+        except OSError:
+            pass
+    import tempfile
+    return os.path.join(tempfile.gettempdir(), "zenvi_generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
+
+
+def generate_video_and_add_to_timeline(
+    prompt,
+    duration_seconds=None,
+    position_seconds="",
+    track="",
+) -> str:
+    """Generate a video from prompt via Runware (Vidu), then add it to the timeline. Runs API+download in worker thread."""
+    if QThread is None or QEventLoop is None:
+        return "Error: Video generation requires PyQt5."
+    app = _get_app()
+    settings = app.get_settings()
+    api_key = (settings.get("runware-api-key") or "").strip()
+    if not api_key:
+        return "Video generation is not configured. Add your Runware API key in Preferences."
+    prompt = (prompt or "").strip()
+    if len(prompt) < 2:
+        return "Error: Prompt must be at least 2 characters."
+    duration = duration_seconds
+    if duration is None:
+        duration = int(settings.get("video-generation-duration") or 4)
+    duration = max(1, min(10, int(duration)))
+    model = (settings.get("video-generation-model") or "vidu:3@2").strip() or "vidu:3@2"
+    width, height = 640, 352  # Vidu Q2 Turbo allowed 16:9 (640x352)
+    output_path = _output_path_for_generated_video()
+
+    result_holder = [None, None]  # [path, error]
+    loop_holder = [None]
+
+    def on_done(path, error):
+        result_holder[0] = path
+        result_holder[1] = error
+        if loop_holder[0]:
+            loop_holder[0].quit()
+
+    # Run API + download in a separate thread so the main thread stays responsive.
+    thread = QThread(app)
+    worker = _VideoGenerationWorker(
+        api_key, prompt, duration, model, width, height, output_path
+    )
+    worker.moveToThread(thread)  # worker.run() will execute in this thread
+    worker.done.connect(on_done)
+    thread.started.connect(worker.run)  # when thread starts, run() is invoked in worker thread
+    loop_holder[0] = QEventLoop(app)
+    status_bar = getattr(app.window, "statusBar", None)
+    try:
+        if status_bar is not None:
+            status_bar.showMessage("Generating video...", 0)
+        thread.start()
+        loop_holder[0].exec_()
+    finally:
+        if status_bar is not None:
+            status_bar.clearMessage()
+    thread.quit()
+    thread.wait(5000)
+    worker.done.disconnect(on_done)
+
+    path, error = result_holder[0], result_holder[1]
+    if error:
+        return "Error: {}".format(error)
+    if not path or not os.path.isfile(path):
+        return "Error: Generated video file not found."
+
+    try:
+        app.window.files_model.add_files([path])
+        from classes.query import File
+        f = File.get(path=path)
+        if not f:
+            f = File.get(path=os.path.normpath(path))
+        if not f:
+            for candidate in File.filter():
+                if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == path:
+                    f = candidate
+                    break
+        if not f:
+            return "Error: Video was downloaded but could not be added to the project."
+        file_id = f.id
+        msg = add_clip_to_timeline(file_id=file_id, position_seconds=position_seconds or None, track=track or None)
+        return msg
+    except Exception as e:
+        log.error("generate_video_and_add_to_timeline: %s", e, exc_info=True)
         return "Error: {}".format(e)
 
 
@@ -617,6 +853,37 @@ def get_openshot_tools_for_langchain():
         """Create a new clip from a file by frame range and add it to the project (no dialog). Use when the user wants to split a file or create a clip from frames. Arguments: file_id (string), start_frame (int, 1-based), end_frame (int, 1-based), name (optional string)."""
         return split_file_add_clip(file_id, start_frame, end_frame, name)
 
+    @tool
+    def add_clip_to_timeline_tool(file_id: str = "", position_seconds: str = "", track: str = "") -> str:
+        """Add the clip just created by split_file_add_clip to the timeline at the playhead. Call with no arguments when the user says yes to adding the clip to the timeline (the app remembers which clip was just created). Do not ask the user for a file ID. Optional: file_id only if adding a different specific file; position_seconds (empty for playhead); track (empty for selected or first track)."""
+        return add_clip_to_timeline(file_id, position_seconds, track)
+
+    @tool
+    def generate_video_and_add_to_timeline_tool(
+        prompt: str,
+        duration_seconds: str = "",
+        position_seconds: str = "",
+        track: str = "",
+    ) -> str:
+        """Generate a video from a text prompt using AI (Runware/Vidu) and add it to the timeline. Use when the user asks to generate, create, or make a video and add it to the timeline. Argument: prompt (required, describe the video). Optional: duration_seconds (default from settings, e.g. 4); position_seconds (empty for playhead); track (empty for selected or first track)."""
+        duration = None
+        if duration_seconds and str(duration_seconds).strip():
+            try:
+                duration = int(float(duration_seconds))
+            except (TypeError, ValueError):
+                pass
+        return generate_video_and_add_to_timeline(
+            prompt=prompt,
+            duration_seconds=duration,
+            position_seconds=position_seconds.strip() if position_seconds else "",
+            track=track.strip() if track else "",
+        )
+
+    @tool
+    def slice_clip_at_playhead_tool() -> str:
+        """Slice (split) the clip(s) and transition(s) at the current playhead position on the timeline, keeping both sides. Use when the user wants to clip the existing clip at the playhead. No arguments. Fails if no clip is under the playhead."""
+        return slice_clip_at_playhead()
+
     return [
         get_project_info_tool,
         list_files_tool,
@@ -644,4 +911,7 @@ def get_openshot_tools_for_langchain():
         import_files_tool,
         get_file_info_tool,
         split_file_add_clip_tool,
+        add_clip_to_timeline_tool,
+        generate_video_and_add_to_timeline_tool,
+        slice_clip_at_playhead_tool,
     ]

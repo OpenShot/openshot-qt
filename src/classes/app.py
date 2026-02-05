@@ -34,8 +34,29 @@ import platform
 import traceback
 import json
 
-from PyQt5.QtCore import PYQT_VERSION_STR, QT_VERSION_STR, pyqtSlot
+from PyQt5.QtCore import (
+    PYQT_VERSION_STR,
+    QT_VERSION_STR,
+    pyqtSlot,
+    qInstallMessageHandler,
+    QtMsgType,
+)
 from PyQt5.QtWidgets import QApplication, QMessageBox
+
+def _qt_message_handler(msg_type, context, message):
+    """Filter out known noisy Qt warnings (e.g. QWebChannel property notify signals)."""
+    if "has no notify signal" in message and "value updates in HTML will be broken" in message:
+        return
+    # Forward all other messages to stderr like Qt's default handler
+    prefixes = {
+        QtMsgType.QtDebugMsg: "debug",
+        QtMsgType.QtInfoMsg: "info",
+        QtMsgType.QtWarningMsg: "warning",
+        QtMsgType.QtCriticalMsg: "critical",
+        QtMsgType.QtFatalMsg: "fatal",
+    }
+    prefix = prefixes.get(msg_type, "debug")
+    sys.stderr.write("%s: %s\n" % (prefix, message))
 
 # Disable sandbox support for QtWebEngine (required on some Linux distros
 # for the QtWebEngineWidgets to be rendered, otherwise no timeline is visible).
@@ -103,6 +124,9 @@ class OpenShotApp(QApplication):
             # Re-route stdout and stderr to logger
             if self.mode != "unittest":
                 reroute_output()
+
+            # Suppress noisy QWebChannel warnings (TimelineView properties without notify signals)
+            qInstallMessageHandler(_qt_message_handler)
 
         except ImportError as ex:
             tb = traceback.format_exc()

@@ -95,10 +95,13 @@ class TimelineWebEngineView(QWebEngineView):
                 log.debug(
                     "run_js() called before document ready event. Script queued: %s",
                     code)
-            elif retries % 5 == 0:
+            elif retries == 5:
+                # Warn once at 5 retries (~1s), then only debug to avoid log spam
                 log.warning(
-                    "WebEngine backend still not ready after %d retries.",
+                    "WebEngine backend still not ready after %d retries; further retries logged at debug.",
                     retries)
+            elif retries % 10 == 0:
+                log.debug("WebEngine backend still not ready after %d retries.", retries)
             else:
                 log.debug("Script queued, %d retries so far", retries)
             QTimer.singleShot(200, partial(self.run_js, code, callback, retries + 1))

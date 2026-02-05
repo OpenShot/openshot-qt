@@ -1472,5 +1472,30 @@
     "type": "spinner",
     "min": 1,
     "max": 20
+  },
+  {
+    "value": "",
+    "title": "Runware API Key",
+    "category": "AI",
+    "setting": "runware-api-key",
+    "type": "text",
+    "restart": false
+  },
+  {
+    "value": "vidu:3@2",
+    "title": "Video Generation Model",
+    "category": "AI",
+    "setting": "video-generation-model",
+    "type": "text",
+    "restart": false
+  },
+  {
+    "value": 4,
+    "title": "Video Generation Duration (seconds)",
+    "category": "AI",
+    "setting": "video-generation-duration",
+    "type": "spinner",
+    "min": 1,
+    "max": 10
   }
 ]

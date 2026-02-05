@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zenvi Assistant</title>
+    <link rel="stylesheet" href="chat.css">
+    <script type="text/javascript" src="qrc:/qtwebchannel/qwebchannel.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-preamble">
+            <div id="chat-preamble-label" class="chat-preamble-label">
+                <b>Zenvi Assistant</b> — Video editing assistant.<br>
+                Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i>
+            </div>
+        </div>
+        <div class="chat-toolbar">
+            <label for="chat-model-select">Model:</label>
+            <select id="chat-model-select" class="chat-model-select" aria-label="AI model"></select>
+        </div>
+        <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
+            <div class="chat-placeholder">Replies appear here. Assistant messages support markdown and code blocks.</div>
+        </div>
+        <div class="chat-input-row">
+            <textarea
+                id="chat-input"
+                class="chat-input"
+                placeholder="Type a message... (Enter to send, Shift+Enter for newline)"
+                rows="3"
+                aria-label="Message input"
+            ></textarea>
+            <div class="chat-buttons">
+                <button type="button" id="chat-send-btn" class="chat-btn">Send</button>
+                <button type="button" id="chat-cancel-btn" class="chat-btn chat-btn-cancel">Cancel</button>
+                <button type="button" id="chat-clear-btn" class="chat-btn">Clear</button>
+            </div>
+        </div>
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>

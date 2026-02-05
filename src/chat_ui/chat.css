@@ -1,0 +1,219 @@
+/* Zenvi Assistant chat – CEP/WebEngine UI. Colors set via CSS variables from host. */
+:root {
+    --chat-bg: #191919;
+    --chat-preamble-bg: #252525;
+    --chat-text: #ffffff;
+    --chat-border: #404040;
+    --chat-input-bg: #252525;
+    --chat-button-bg: #353535;
+    --chat-button-hover-bg: #2a82da;
+    --chat-code-bg: rgba(0, 0, 0, 0.25);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size: 13px;
+    background: var(--chat-bg);
+    color: var(--chat-text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.chat-preamble {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    background: var(--chat-preamble-bg);
+    border: 1px solid var(--chat-border);
+    border-radius: 0;
+}
+
+.chat-preamble-label {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--chat-text);
+}
+
+.chat-preamble-label b {
+    font-weight: 600;
+}
+
+.chat-preamble-label i {
+    font-style: italic;
+}
+
+.chat-toolbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+}
+
+.chat-toolbar label {
+    color: var(--chat-text);
+    white-space: nowrap;
+}
+
+.chat-model-select {
+    flex: 0 1 auto;
+    min-width: 120px;
+    padding: 6px 8px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--chat-preamble-bg);
+    color: var(--chat-text);
+    border: 1px solid var(--chat-border);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.chat-model-select:focus {
+    outline: none;
+    border-color: var(--chat-button-hover-bg);
+}
+
+.chat-messages {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid var(--chat-border);
+    border-radius: 0;
+    background: var(--chat-bg);
+    margin: 0 0 8px 0;
+}
+
+.chat-message {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.chat-message-role {
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.chat-message-role.user {
+    color: #3B82F6;
+}
+
+.chat-message-body {
+    word-wrap: break-word;
+}
+
+.chat-message-body p {
+    margin: 4px 0;
+}
+
+.chat-message-body pre,
+.chat-message-body code {
+    background: var(--chat-code-bg);
+    padding: 4px 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: inherit;
+    border-radius: 0;
+}
+
+.chat-message-body pre {
+    margin: 8px 0;
+    overflow-x: auto;
+    padding: 8px;
+}
+
+.chat-message-body pre code {
+    padding: 0;
+    background: transparent;
+}
+
+.chat-message-body ul,
+.chat-message-body ol {
+    margin: 4px 0 4px 16px;
+}
+
+.chat-message-body strong {
+    font-weight: 600;
+}
+
+.chat-input-row {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-input {
+    width: 100%;
+    min-height: 60px;
+    max-height: 120px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--chat-input-bg);
+    color: var(--chat-text);
+    border: 1px solid var(--chat-border);
+    border-radius: 0;
+    resize: none;
+}
+
+.chat-input::placeholder,
+.chat-placeholder {
+    color: var(--chat-placeholder, rgba(255, 255, 255, 0.5));
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: var(--chat-button-hover-bg);
+}
+
+.chat-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.chat-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--chat-button-bg);
+    color: var(--chat-text);
+    border: 1px solid var(--chat-border);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.chat-btn:hover:not(:disabled) {
+    background: var(--chat-button-hover-bg);
+    color: var(--chat-text);
+}
+
+.chat-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.chat-btn-cancel {
+    background: var(--chat-button-bg);
+}
+
+.chat-placeholder {
+    color: rgba(255, 255, 255, 0.45);
+    font-style: italic;
+    padding: 8px 0;
+}

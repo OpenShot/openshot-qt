@@ -1,0 +1,1167 @@
+Metadata-Version: 2.4
+Name: runware
+Version: 0.4.42
+Summary: The Python Runware SDK is used to interact with the Runware API, powered by the Runware inference platform. It supports image generation, video generation, image upscale, video upscale, image caption, video caption, image background removal, video background removal, audio generation, and more. It also allows the use of an existing gallery of models or selecting any model or LoRA from the CivitAI gallery. The API also supports inpainting, outpainting, and a series of other ControlNet models.
+Home-page: https://github.com/runware/sdk-python
+Author: Runware Inc.
+Author-email: python.sdk@runware.ai
+License: MIT
+Project-URL: Documentation, https://docs.runware.ai/
+Project-URL: Changes, https://github.com/runware/sdk-python/releases
+Project-URL: Code, https://github.com/runware/sdk-python
+Project-URL: Issue tracker, https://github.com/runware/sdk-python/issues
+Keywords: Runware,stable diffusion,text to image,image to text,text to video,image to video,video generation,text to audio,audio generation,image upscale,video upscale,background removal
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiofiles==23.2.1
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: websockets>=12.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Python Runware SDK
+
+The Python Runware SDK is used to run image inference with the Runware API, powered by the Runware inference platform. It can be used to generate images with text-to-image and image-to-image. It also allows the use of an existing gallery of models or selecting any model or LoRA from the CivitAI gallery. The API also supports upscaling, background removal, inpainting and outpainting, and a series of other ControlNet models.
+
+## Get API Access
+
+To use the Python Runware SDK, you need to obtain an API key. Follow these steps to get API access:
+
+1. [Create a free account](https://my.runware.ai/) with [Runware](https://runware.ai/).
+2. Once you have created an account, you will receive an API key and trial credits.
+
+**Important**: Please keep your API key private and do not share it with anyone. Treat it as a sensitive credential.
+
+## Documentation
+
+For detailed documentation and API reference, please visit the [Runware Documentation](https://docs.runware.ai/) or refer to the [docs](docs) folder in the repository. The documentation provides comprehensive information about the available classes, methods, and parameters, along with code examples to help you get started with the Runware SDK Python.
+
+## Installation
+
+To install the Python Runware SDK, use the following command:
+
+```bash
+pip install runware
+```
+
+## Usage
+
+Before using the Python Runware SDK, make sure to set your Runware API key in the environment variable `RUNWARE_API_KEY`. You can do this by creating a `.env` file in your project root and adding the following line:
+
+```bash
+RUNWARE_API_KEY = "your_api_key_here"
+```
+
+### Generating Images
+
+To generate images using the Runware API, you can use the `imageInference` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IImageInference
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_image = IImageInference(
+        positivePrompt="a beautiful sunset over the mountains",
+        model="civitai:36520@76907",  
+        numberResults=4,  
+        negativePrompt="cloudy, rainy",
+        height=512,  
+        width=512, 
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+#### Enabling teaCache/deepCache/fbCache for faster inference
+
+Some models support teaCache, deepCache, and fbCache for faster inference, with the trade-off of quality loss with more aggressive settings.
+
+```python
+from runware import Runware, IImageInference, IAcceleratorOptions
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_image = IImageInference(
+        positivePrompt="a beautiful sunset over the mountains",
+        model="civitai:943001@1055701", # using Shuttle v3 for this test, to showcase the power on 3rd party Flux finetunes.
+        numberResults=1,
+        negativePrompt="cloudy, rainy",
+        height=1024,
+        width=1024,
+        acceleratorOptions=IAcceleratorOptions(
+            teaCache=True,
+            teaCacheDistance=0.6, # 0.6 is at the more moderate-to-extreme end, and 0.1 is at the more conservative end.
+        ),
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+#### Using fbCache for enhanced performance
+
+fbCache (First Block Cache) provides additional acceleration options for compatible models:
+
+```python
+from runware import Runware, IImageInference, IAcceleratorOptions
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_image = IImageInference(
+        positivePrompt="a futuristic cityscape with flying cars",
+        model="runware:108@22",  # Qwen model with fbCache support
+        numberResults=1,
+        height=1024,
+        width=1024,
+        acceleratorOptions=IAcceleratorOptions(
+            fbcache=True,           # Enable First Block cache
+            cacheStartStep=0,       # Start caching from step 0
+            cacheStopStep=8         # Stop caching at step 8
+        ),
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+##### teaCache
+
+- `teaCache` is a boolean that enables or disables the teaCache feature. If set to `True`, it will use teaCache for faster inference.
+  - It is specific to transformer models, Flux and SD3. `teaCache` does not work for UNet models like SDXL or SD1x.
+- `teaCacheDistance` is a float between 0.0 and 1.0, where 0.0 is the most conservative and 1.0 is the most aggressive.
+- `cacheStartStep` and `cacheStopStep` are integers that represent the start and end steps of the teaCache and DeepCache process.
+  - `cacheStartStep` is the step at which the generator starts to skip blocks and reduce quality; `cacheStopStep` is the step at which the teaCache process ends, returning to full fidelity steps.
+  - If not specified, teaCache (or DeepCache) will be enabled throughout the entire image generation process, which may be undesirable for preserving quality.
+
+##### deepCache
+
+- `deepCache` is a boolean that enables or disables the deepCache feature. If set to `True`, it will use deepCache for faster inference.
+- `deepCacheInterval` represents the frequency of feature caching, specified as the number of steps between each cache operation.
+  - A larger cache interval makes inference faster, and costs more quality.
+  - The default value is `3`
+- `deepCacheBranchId` represents which branch of the network (ordered from the shallowest to the deepest layer) is responsible for executing the caching processes.
+  - Opting for a lower branch ID will result in a more aggressive caching process, while a higher branch ID will yield a more conservative approach.
+  - The default value is `0`
+
+##### fbCache
+
+- `fbcache` is a boolean that enables or disables the First Block cache feature. If set to `True`, it will use fbCache for faster inference.
+  - fbCache is compatible with specific models and provides additional acceleration options.
+  - Works in conjunction with `cacheStartStep` and `cacheStopStep` to control the caching behavior.
+- `cacheStartStep` and `cacheStopStep` control the range of steps where caching is applied.
+  - `cacheStartStep`: The step at which caching begins (default: 0)
+  - `cacheStopStep`: The step at which caching ends (default: total steps)
+  - These parameters allow fine-grained control over when caching is active during the generation process.
+
+### Asynchronous Processing with Webhooks
+
+The Runware SDK supports asynchronous processing via webhooks for long-running operations. When you provide a `webhookURL`, the API immediately returns a task response and sends the final result to your webhook endpoint when processing completes.
+
+#### How it works
+
+1. Include `webhookURL` parameter in your request
+2. Receive immediate response with `taskType` and `taskUUID`
+3. Final result is POSTed to your webhook URL when ready
+
+Supported operations:
+- Image Inference
+- Photo Maker
+- Image Caption
+- Image Background Removal
+- Image Upscale
+- Prompt Enhance
+- Video Inference
+
+#### Example
+
+```python
+from runware import Runware, IImageInference
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_image = IImageInference(
+        positivePrompt="a beautiful mountain landscape",
+        model="civitai:36520@76907",
+        height=512,
+        width=512,
+        webhookURL="https://your-server.com/webhook/runware"
+    )
+
+    # Returns immediately with task info
+    response = await runware.imageInference(requestImage=request_image)
+    print(f"Task Type: {response.taskType}")
+    print(f"Task UUID: {response.taskUUID}")
+    # Result will be sent to your webhook URL
+```
+
+#### Webhook Payload Format
+Your webhook endpoint will receive a POST request with the same format as synchronous responses:
+```json{
+  "data": [
+    {
+      "taskType": "imageInference",
+      "taskUUID": "a770f077-f413-47de-9dac-be0b26a35da6",
+      "imageUUID": "77da2d99-a6d3-44d9-b8c0-ae9fb06b6200",
+      "imageURL": "https://im.runware.ai/image/...",
+      "cost": 0.0013
+    }
+  ]
+}
+```
+
+### Video Inference with Skip Response
+
+For long-running video generation tasks, you can use `skipResponse` to submit the task and retrieve results later. This is useful for handling system interruptions, batch processing, or building queue-based systems.
+```python
+from runware import Runware, IVideoInference
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # Submit video task without waiting
+    request = IVideoInference(
+            model="openai:3@2",
+            positivePrompt="A beautiful sunset over the ocean",
+            duration=4,
+            width=1280,
+            height=720,
+            skipResponse=True,
+    )
+
+    response = await runware.videoInference(requestVideo=request)
+    task_uuid = response.taskUUID
+    print(f"Task submitted: {task_uuid}")
+    
+    # Later, retrieve results
+    videos = await runware.getResponse(
+        taskUUID=task_uuid,
+        numberResults=1
+    )
+    
+    for video in videos:
+        print(f"Video URL: {video.videoURL}")
+```
+
+**Parameters:**
+- `skipResponse`: Set to `True` to return immediately with `taskUUID` instead of waiting for completion
+- Use `getResponse(taskUUID)` to retrieve results at any time
+
+### Video Inference with Async Delivery Method
+
+For long-running video generation tasks, you can use `deliveryMethod="async"` to submit the task and retrieve results later. This is useful for handling system interruptions, batch processing, or building queue-based systems.
+
+```python
+from runware import Runware, IVideoInference
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # Submit video task with async delivery method
+    request = IVideoInference(
+            model="openai:3@2",
+            positivePrompt="A beautiful sunset over the ocean",
+            duration=4,
+            width=1280,
+            height=720,
+            deliveryMethod="async",
+    )
+
+    response = await runware.videoInference(requestVideo=request)
+    task_uuid = response.taskUUID
+    print(f"Task submitted: {task_uuid}")
+    
+    # Later, retrieve results
+    videos = await runware.getResponse(
+        taskUUID=task_uuid,
+        numberResults=1
+    )
+    
+    for video in videos:
+        print(f"Video URL: {video.videoURL}")
+```
+
+**Parameters:**
+- `deliveryMethod`: Set to `"async"` to return immediately with `IAsyncTaskResponse` containing `taskUUID` instead of waiting for completion
+- Use `getResponse(taskUUID)` to retrieve results at any time
+- `deliveryMethod="sync"` waits for complete results (may timeout for long-running tasks)
+
+### Enhancing Prompts
+
+To enhance prompts using the Runware API, you can use the `promptEnhance` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IPromptEnhance
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    prompt = "A beautiful sunset over the mountains"
+    prompt_enhancer = IPromptEnhance(
+        prompt=prompt,
+        promptVersions=3,
+        promptMaxLength=64,
+    )
+
+    enhanced_prompts = await runware.promptEnhance(promptEnhancer=prompt_enhancer)
+    for enhanced_prompt in enhanced_prompts:
+        print(enhanced_prompt.text)
+```
+
+### Removing Image Background
+
+To remove the background from an image using the Runware API, you can use the `imageBackgroundRemoval` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IImageBackgroundRemoval
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    image_path = "image.jpg"
+    remove_image_background_payload = IImageBackgroundRemoval(inputImage=image_path)
+
+    processed_images = await runware.imageBackgroundRemoval(
+        removeImageBackgroundPayload=remove_image_background_payload
+    )
+    for image in processed_images:
+        print(image.imageURL)
+```
+
+### Image-to-Text Conversion
+
+To convert an image to text using the Runware API, you can use the `imageCaption` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IImageCaption
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    image_path = "image.jpg"
+    request_image_to_text_payload = IImageCaption(inputImage=image_path)
+
+    image_to_text = await runware.imageCaption(
+        requestImageToText=request_image_to_text_payload
+    )
+    print(image_to_text.text)
+```
+
+### Video Caption
+
+To generate captions for videos using the Runware API, you can use the `videoCaption` method of the `Runware` class. The SDK automatically polls for results when using async delivery. Here's an example:
+
+```python
+from runware import Runware, IVideoCaption, IVideoCaptionInputs
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_caption = IVideoCaption(
+        model="memories:1@1",
+        inputs=IVideoCaptionInputs(
+            video="https://example.com/video.mp4"
+        ),
+        deliveryMethod="async",
+        includeCost=True
+    )
+
+    caption_response = await runware.videoCaption(
+        requestVideoCaption=request_caption
+    )
+    print(f"Caption: {caption_response.text}")
+    if caption_response.cost:
+        print(f"Cost: {caption_response.cost}")
+```
+
+**Video Caption Parameters:**
+- `model`: Caption model identifier (e.g., "memories:1@1")
+- `inputs`: IVideoCaptionInputs containing the video URL or UUID
+- `deliveryMethod`: "async" (with automatic polling) or use webhookURL for webhook delivery
+- `includeCost`: Include cost information in the response (optional)
+- `webhookURL`: Webhook URL for async delivery without polling (optional)
+
+### Video Background Removal
+
+To remove the background from videos you can use the `videoBackgroundRemoval` method of the `Runware` class. The SDK automatically polls for results when using async delivery. Here's an example:
+
+```python
+from runware import Runware, IVideoBackgroundRemoval, IVideoBackgroundRemovalInputs, IVideoBackgroundRemovalSettings
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_bg_removal = IVideoBackgroundRemoval(
+        model="bria:51@1",
+        inputs=IVideoBackgroundRemovalInputs(
+            video="https://example.com/video.mp4"
+        ),
+        outputFormat="WEBM",
+        includeCost=True,
+        settings=IVideoBackgroundRemovalSettings(
+            rgba=[255, 255, 255, 0]  
+        )
+    )
+
+    processed_videos = await runware.videoBackgroundRemoval(
+        requestVideoBackgroundRemoval=request_bg_removal
+    )
+    for video in processed_videos:
+        print(f"Video URL: {video.videoURL}")
+        if video.cost:
+            print(f"Cost: {video.cost}")
+```
+
+**Video Background Removal Parameters:**
+- `model`: Background removal model identifier (e.g., "bria:51@1")
+- `inputs`: IVideoBackgroundRemovalInputs containing the video URL or UUID
+- `outputFormat`: Output video format ("WEBM", "MP4", etc.)
+- `includeCost`: Include cost information in the response (optional)
+- `settings`: IVideoBackgroundRemovalSettings for custom background configuration
+- `webhookURL`: Webhook URL for async delivery without polling (optional)
+
+**Background Removal Settings:**
+- `rgba`: Background color as [R, G, B, A] array (0-255 for RGB, 0.0-1.0 for alpha)
+
+### Upscaling Images
+
+To upscale an image using the Runware API, you can use the `imageUpscale` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IImageUpscale
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    image_path = "image.jpg"
+    upscale_factor = 4
+
+    upscale_gan_payload = IImageUpscale(
+        inputImage=image_path, upscaleFactor=upscale_factor
+    )
+    upscaled_images = await runware.imageUpscale(upscaleGanPayload=upscale_gan_payload)
+    for image in upscaled_images:
+        print(image.imageURL)
+```
+
+### Photo Maker
+
+Use the `photoMaker` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IPhotoMaker
+import uuid
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    request_image = IPhotoMaker(
+        model="civitai:139562@344487",
+        positivePrompt="img of a beautiful lady in a forest",
+        steps=35,
+        numberResults=1,
+        height=512,
+        width=512,
+        style="No style",
+        strength=40,
+        outputFormat="WEBP",
+        includeCost=True,
+        taskUUID=str(uuid.uuid4()),
+        inputImages=[
+            "https://im.runware.ai/image/ws/0.5/ii/74723926-22f6-417c-befb-f2058fc88c13.webp",
+            "https://im.runware.ai/image/ws/0.5/ii/64acee31-100d-4aa1-a47e-6f8b432e7188.webp",
+            "https://im.runware.ai/image/ws/0.5/ii/1b39b0e0-6bf7-4c9a-8134-c0251b5ede01.webp",
+            "https://im.runware.ai/image/ws/0.5/ii/f4b4cec3-66d9-4c02-97c5-506b8813182a.webp"
+        ],
+    )
+    
+    
+     photos = await runware.photoMaker(requestPhotoMaker=request_image)
+     for photo in photos:
+         print(f"Image URL: {photo.imageURL}")
+```
+
+### ACE++
+
+ACE++ (**A**dvanced **C**haracter **E**dit) is an advanced framework for character-consistent image generation and editing. It allows you to create new images from a single reference image while preserving identity, and edit existing images without retraining the model.
+
+**Note:** When using ACE++, you must set the model parameter to `runware:102@1`.
+
+#### Character-Consistent Generation
+
+To generate new images while preserving character identity from a reference image:
+
+```python
+from runware import Runware, IImageInference, IAcePlusPlus
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # Upload your reference image first
+    reference_image = await runware.uploadImage("path/to/reference_image.jpg")
+
+    request_image = IImageInference(
+        positivePrompt="photo of man wearing a business suit in a modern office",
+        model="runware:102@1",                        # Required model for ACE++
+        height=1024,
+        width=1024,
+        numberResults=1,
+        acePlusPlus=IAcePlusPlus(
+            inputImages=[reference_image.imageUUID],  # Reference image for character identity
+            repaintingScale=0.3                       # Lower values (0.0-0.5) preserve more identity
+        )
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+#### Character-Consistent Editing
+
+To edit existing images while preserving character identity using masks:
+
+```python
+from runware import Runware, IImageInference, IAcePlusPlus
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # Upload your reference image and mask
+    reference_image = await runware.uploadImage("path/to/reference_image.jpg")
+    mask_image = await runware.uploadImage("path/to/mask_image.png")
+
+    request_image = IImageInference(
+        positivePrompt="photo of woman wearing a red dress",
+        model="runware:102@1",  # Required model for ACE++
+        height=1024,
+        width=1024,
+        numberResults=1,
+        acePlusPlus=IAcePlusPlus(
+            inputImages=[reference_image.imageUUID],  # Reference image
+            inputMasks=[mask_image.imageUUID],  # Mask for selective editing
+            repaintingScale=0.7  # Higher values (0.5-1.0) follow prompt more in edited areas
+        )
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+**ACE++ Parameters:**
+- `inputImages`: Array containing exactly one reference image (required)
+- `inputMasks`: Array containing at most one mask image (optional, for editing)
+- `repaintingScale`: Float between 0.0 and 1.0
+  - 0.0: Maximum character identity preservation
+  - 1.0: Maximum adherence to prompt instructions
+  - For generation: Use 0.0-0.5 for strong resemblance
+  - For editing: Use 0.5-1.0 for more creative freedom in edited areas
+
+**Mask Requirements:**
+- The mask should be a black and white image
+- White (255) represents areas to be edited
+- Black (0) represents areas to be preserved
+- Supported formats: PNG, JPG, WEBP
+
+### Generating Images with refiner
+
+To generate images using the Runware API with refiner support, you can use the `imageInference` method of the `Runware` class. Here's an example:
+
+```python
+from runware import Runware, IImageInference, IRefiner
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+    
+    refiner = IRefiner(
+        model="civitai:101055@128080",
+        startStep=2,
+        startStepPercentage=None,
+    )
+
+    request_image = IImageInference(
+        positivePrompt="a beautiful sunset over the mountains",
+        model="civitai:101055@128078",
+        numberResults=4,
+        negativePrompt="cloudy, rainy",
+        height=512,
+        width=512,
+        refiner=refiner
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+
+### Using ControlNet with Image Inference
+
+To use ControlNet for image inference in the Runware SDK, you can use a class `IControlNetGeneral`. Here's an example of how to set up and use this feature:
+
+```python
+from runware import Runware, IImageInference, IControlNetGeneral, EControlMode
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    controlNet = IControlNetGeneral(
+        startStep=1,
+        endStep=30,
+        weight=0.5,
+        controlMode=EControlMode.BALANCED.value,
+        guideImage="https://huggingface.co/datasets/mishig/sample_images/resolve/main/canny-edge.jpg",
+        model='civitai:38784@44716'
+    )
+
+    request_image = IImageInference(
+        positivePrompt="a beautiful sunset",
+        model='civitai:4384@128713',
+        controlNet=[controlNet],
+        numberResults=1,
+        height=512,
+        width=512,
+        outputType="URL",
+        seed=1568,
+        steps=40
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+
+```
+This example demonstrates how to configure and use a ControlNet to enhance the image inference process.
+
+
+### Inferencing Ace++ Pipeline
+
+To use Ace++ in the Runware SDK, you can use a class `IAcePlusPlus`. Here's an example of how to set up and use this feature:
+Much more examples are in examples/ace++
+
+```python
+from runware import Runware, IImageInference, IAcePlusPlus
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # Upload your reference image and mask
+    reference_image = "https://raw.githubusercontent.com/ali-vilab/ACE_plus/refs/heads/main/assets/samples/application/logo_paste/1_ref.png"
+    mask_image = "https://raw.githubusercontent.com/ali-vilab/ACE_plus/refs/heads/main/assets/samples/application/logo_paste/1_1_m.png"
+    init_image = "https://raw.githubusercontent.com/ali-vilab/ACE_plus/refs/heads/main/assets/samples/application/logo_paste/1_1_edit.png"
+    request_image = IImageInference(
+        positivePrompt="The logo is printed on the headphones.",
+        model="runware:102@1",  # Required model for ACE++
+        taskUUID="68020b8f-bbcf-4779-ba51-4f3bb00aef6a",
+        height=1024,
+        width=1024,
+        numberResults=1,
+        steps=28,
+        CFGScale=50.0,
+        referenceImages=[reference_image],  # Reference image
+        acePlusPlus=IAcePlusPlus(
+            inputImages=[init_image],  # Input image
+            inputMasks=[mask_image],  # Mask for selective editing
+            repaintingScale=1.0,
+            taskType="subject"  # Can be one of "portrait", "subject", "local_editing"
+        ),
+    )
+    print(f"Sending request: {request_image}")
+    images = await runware.imageInference(requestImage=request_image)
+    
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+
+```
+This example demonstrates how to configure and use a ControlNet to enhance the image inference process.
+
+### Generating Images with OpenAI Models (DALL-E 2 & DALL-E 3)
+
+The Runware SDK supports OpenAI's DALL-E 2 and DALL-E 3 models for image generation. These models offer high-quality image generation with various configuration options.
+
+#### DALL-E 2
+
+```python
+from runware import Runware, IImageInference, IOpenAIProviderSettings
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # DALL-E 2 configuration
+    provider_settings = IOpenAIProviderSettings(
+        quality="high",
+        background="transparent"  # Optional: for transparent backgrounds
+    )
+
+    request_image = IImageInference(
+        positivePrompt="A cute cartoon robot character",
+        model="openai:1@1",  # DALL-E 2 model identifier
+        width=1024,
+        height=1024,
+        numberResults=1,
+        outputFormat="PNG",
+        includeCost=True,
+        providerSettings=provider_settings
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+#### DALL-E 3
+
+```python
+from runware import Runware, IImageInference, IOpenAIProviderSettings
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # DALL-E 3 with HD quality
+    provider_settings = IOpenAIProviderSettings(
+        quality="hd"  # Options: "hd" or "standard"
+    )
+
+    request_image = IImageInference(
+        positivePrompt="A futuristic city with flying cars, highly detailed",
+        model="openai:2@3",  # DALL-E 3 model identifier
+        width=1024,
+        height=1024,
+        numberResults=1,
+        outputFormat="PNG",
+        includeCost=True,
+        providerSettings=provider_settings
+    )
+
+    images = await runware.imageInference(requestImage=request_image)
+    for image in images:
+        print(f"Image URL: {image.imageURL}")
+```
+
+**OpenAI Provider Settings:**
+- `quality`: Image quality setting
+  - DALL-E 2: `"high"` (recommended)
+  - DALL-E 3: `"hd"` or `"standard"`
+- `background`: (DALL-E 2 only) Set to `"transparent"` for transparent backgrounds
+- `style`: (Optional) Additional style parameters
+
+**Model Identifiers:**
+- DALL-E 2: `"openai:1@1"`
+- DALL-E 3: `"openai:2@3"`
+
+
+### Inferencing Video Models
+
+To inference Video Generation Models in the Runware SDK, you can use a class `IVideoInference`. Almost every video model support its own providerSettings: `IMinimaxProviderSettings`, `IBytedanceProviderSettings`, `IGoogleProviderSettings`, `IKlingAIProviderSettings`, `IPixverseProviderSettings`, `IViduProviderSettings`. More examples can be found in examples/video.
+
+Here's an example of an image-to-video (i2v) task using Google's Veo3:  
+
+```python
+import asyncio
+from runware import Runware, IVideoInference, IGoogleProviderSettings, IFrameImage
+
+
+async def main():
+    runware = Runware(
+        api_key=RUNWARE_API_KEY,
+    )
+    await runware.connect()
+
+    request = IVideoInference(
+        positivePrompt="spinning galaxy",
+        model="google:3@0",
+        width=1280,
+        height=720,
+        numberResults=1,
+        seed=10,
+        includeCost=True,
+        frameImages=[ # Comment this to use t2v
+            IFrameImage(
+                inputImage="https://github.com/adilentiq/test-images/blob/main/common/image_15_mb.jpg?raw=true",
+            ),
+        ],
+        providerSettings=IGoogleProviderSettings(
+            generateAudio=True,
+            enhancePrompt=True
+        )
+    )
+    videos = await runware.videoInference(requestVideo=request)
+    for video in videos:
+        print(f"Video URL: {video.videoURL}")
+        print(f"Cost: {video.cost}")
+        print(f"Seed: {video.seed}")
+        print(f"Status: {video.status}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+### Audio Inference
+
+To generate audio using the Runware SDK, you can use the `audioInference` method with the `IAudioInference` class. The SDK supports various audio generation models including ElevenLabs and other providers.
+
+Here's an example of generating audio using ElevenLabs:
+
+```python
+import asyncio
+from runware import Runware, IAudioInference, IAudioSettings
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    # Create audio settings
+    audio_settings = IAudioSettings(
+        sampleRate=22050,  # Sample rate in Hz
+        bitrate=32         # Audio bitrate
+    )
+
+    # Create audio inference request
+    request_audio = IAudioInference(
+        model="elevenlabs:1@1",           # ElevenLabs model
+        positivePrompt="upbeat electronic music with synthesizers and drums",
+        outputFormat="MP3",               # Output format: MP3, WAV, etc.
+        outputType="URL",                 # Return URL or base64
+        audioSettings=audio_settings,
+        numberResults=1,                  # Number of audio files to generate
+        duration=10,                      # Duration in seconds
+        includeCost=True                  # Include cost information
+    )
+
+    
+    audio_results = await runware.audioInference(requestAudio=request_audio)
+    for audio in audio_results:
+        print(f"Audio URL: {audio.audioURL}")
+        print(f"Duration: {audio.duration}")
+        print(f"Cost: {audio.cost}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+#### Audio Settings
+
+The `IAudioSettings` class allows you to configure audio generation parameters:
+
+- `sampleRate`: Audio sample rate in Hz (e.g., 22050, 44100)
+- `bitrate`: Audio bitrate for compressed formats
+
+#### Audio Inference Parameters
+
+The `IAudioInference` class supports the following parameters:
+
+- `model`: Audio generation model identifier (e.g., "elevenlabs:1@1")
+- `positivePrompt`: Text description of the audio to generate
+- `outputFormat`: Output audio format ("MP3", "WAV", etc.)
+- `outputType`: Return type ("URL" or "BASE64")
+- `audioSettings`: Audio configuration settings
+- `numberResults`: Number of audio files to generate
+- `duration`: Duration of the generated audio in seconds
+- `includeCost`: Whether to include cost information in the response
+
+### Model Upload
+
+To upload model using the Runware API, you can use the `uploadModel` method of the `Runware` class. Here are examples:
+
+```python
+from runware import Runware, IUploadModelCheckPoint
+
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    payload = IUploadModelCheckPoint(
+        air='qatests:68487@08629',
+        name='yWO8IaKwez',
+        heroImageURL='https://raw.githubusercontent.com/adilentiq/test-images/refs/heads/main/image.jpg',
+        downloadURL='https://repo-controlnets-r2.runware.ai/controlnet-zoe-depth-sdxl-1.0.safetensors'
+                    '/controlnet-zoe-depth-sdxl-1.0.safetensors.part-001-1',
+        uniqueIdentifier='aq2w3e4r5t6y7u8i9o0p1q2w3e4r5t6y7u8i9o0p1q2w3e4r5t6y7u8i9o0p1234',
+        version='1.0',
+        tags=['tag1', 'tag2', 'tag2'],
+        architecture='flux1d',
+        type='base',
+        defaultWeight=0.8,
+        format='safetensors',
+        positiveTriggerWords='my trigger word',
+        shortDescription='a model description',
+        private=False,
+        defaultScheduler='Default',
+        comment='some comments if you want to add for internal use',
+    )
+
+    uploaded = await runware.modelUpload(payload)
+    print(f"Response : {uploaded}")
+```
+
+```python
+from runware import Runware, IUploadModelLora
+
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    payload = IUploadModelLora(
+        air='qatests:68487@08629',
+        name='yWO8IaKwez',
+        heroImageURL='https://raw.githubusercontent.com/adilentiq/test-images/refs/heads/main/image.jpg',
+        downloadURL='https://repo-controlnets-r2.runware.ai/controlnet-zoe-depth-sdxl-1.0.safetensors'
+                    '/controlnet-zoe-depth-sdxl-1.0.safetensors.part-001-1',
+        uniqueIdentifier='aq2w3e4r5t6y7u8i9o0p1q2w3e4r5t6y7u8i9o0p1q2w3e4r5t6y7u8i9o0p1234',
+        version='1.0',
+        tags=['tag1', 'tag2', 'tag2'],
+        architecture='flux1d',
+        defaultWeight=0.8,
+        format='safetensors',
+        positiveTriggerWords='my trigger word',
+        shortDescription='a model description',
+        private=False,
+        comment='some comments if you want to add for internal use',
+    )
+
+    uploaded = await runware.modelUpload(payload)
+    print(f"Response : {uploaded}")
+```
+
+```python
+from runware import Runware, IUploadModelControlNet
+
+
+async def main() -> None:
+    runware = Runware(api_key=RUNWARE_API_KEY)
+    await runware.connect()
+
+    payload = IUploadModelControlNet(
+        air='qatests:68487@08629',
+        name='yWO8IaKwez',
+        heroImageURL='https://raw.githubusercontent.com/adilentiq/test-images/refs/heads/main/image.jpg',
+        downloadURL='https://repo-controlnets-r2.runware.ai/controlnet-zoe-depth-sdxl-1.0.safetensors'
+                    '/controlnet-zoe-depth-sdxl-1.0.safetensors.part-001-1',
+        uniqueIdentifier='aq2w3e4r5t6y7u8i9o0p1q2w3e4r5t6y7u8i9o0p1q2w3e4r5t6y7u8i9o0p1234',
+        version='1.0',
+        tags=['tag1', 'tag2', 'tag2'],
+        architecture='flux1d',
+        format='safetensors',
+        shortDescription='a model description',
+        private=False,
+        comment='some comments if you want to add for internal use',
+    )
+
+
+uploaded = await runware.modelUpload(payload)
+print(f"Response : {uploaded}")
+```
+### Image Background Removal
+There are two ways to remove the background from an image.
+1. Using the `settings` parameter of the `IImageBackgroundRemoval` class.
+2. Without using the `settings` parameter and using the `model` parameter to specify the model to use.
+
+### Using the `settings` parameter
+
+> **Note:** When using the `rgba` parameter, the final `a` value is a `float` between `0.0` and `1.0`, but a value of `1-255` will be internally scaled down to the correct float range.
+
+```python
+from runware import Runware, RunwareAPIError, IImage, IImageBackgroundRemoval, IBackgroundRemovalSettings
+import asyncio
+import os
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+
+async def main() -> None:
+    runware = Runware(
+        api_key=os.environ.get("RUNWARE_API_KEY")
+    )
+    await runware.connect()
+    background_removal_settings = IBackgroundRemovalSettings(
+        rgba=[255, 255, 255, 0],
+        alphaMatting=True,
+        postProcessMask=True,
+        returnOnlyMask=False,
+        alphaMattingErodeSize=10,
+        alphaMattingForegroundThreshold=240,
+        alphaMattingBackgroundThreshold=10
+        )
+
+    request_image = IImageBackgroundRemoval(
+        taskUUID="abcdbb9c-3bd3-4d75-9234-bffeef994772",
+        inputImage="https://raw.githubusercontent.com/adilentiq/test-images/refs/heads/main/common/headphones.jpeg",
+        settings=background_removal_settings,
+        outputType="URL",
+        outputFormat="PNG",
+        includeCost=True,
+    )
+
+    print(f"Payload: {request_image}")
+    try:
+        processed_images: List[IImage] = await runware.imageBackgroundRemoval(
+            removeImageBackgroundPayload=request_image
+        )
+    except RunwareAPIError as e:
+        print(f"API Error: {e}")
+        print(f"Error Code: {e.code}")
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+    else:
+        print("Processed Image with the background removed:")
+        print(processed_images)
+        for image in processed_images:
+            print(image.imageURL)
+
+
+asyncio.run(main())
+```
+
+### Using the `model` parameter
+
+```python
+
+from runware import Runware, RunwareAPIError, IImage, IImageBackgroundRemoval
+import asyncio
+import os
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+
+async def main() -> None:
+    runware = Runware(
+        api_key=os.environ.get("RUNWARE_API_KEY"),
+    )
+    await runware.connect()
+
+    request_image = IImageBackgroundRemoval(
+        taskUUID="abcdbb9c-3bd3-4d75-9234-bffeef994772",
+        model="runware:110@1",
+        inputImage="https://raw.githubusercontent.com/adilentiq/test-images/refs/heads/main/common/headphones.jpeg"
+    )
+
+    print(f"Payload: {request_image}")
+    try:
+        processed_images: List[IImage] = await runware.imageBackgroundRemoval(
+            removeImageBackgroundPayload=request_image
+        )
+    except RunwareAPIError as e:
+        print(f"API Error: {e}")
+        print(f"Error Code: {e.code}")
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+    else:
+        print("Processed Image with the background removed:")
+        print(processed_images)
+        for image in processed_images:
+            print(image.imageURL)
+
+
+asyncio.run(main())
+```
+
+For more detailed usage and additional examples, please refer to the examples directory.
+
+## Configuring Timeouts
+
+The Runware SDK provides configurable timeout settings for different operations through environment variables. All timeout values are in milliseconds.
+
+### Timeout Configuration
+
+Set environment variables to customize timeout behavior:
+
+```bash
+# Image Operations (milliseconds)
+RUNWARE_IMAGE_INFERENCE_TIMEOUT=300000      # Image generation (default: 5 min)
+RUNWARE_IMAGE_OPERATION_TIMEOUT=120000      # Caption, upscale, background removal (default: 2 min)
+RUNWARE_IMAGE_UPLOAD_TIMEOUT=60000          # Image upload (default: 1 min)
+
+# Model Operations (milliseconds)
+RUNWARE_MODEL_UPLOAD_TIMEOUT=900000         # Model upload (default: 15 min)
+
+# Video Operations (milliseconds)
+RUNWARE_VIDEO_INITIAL_TIMEOUT=30000         # Initial response wait (default: 30 sec)
+RUNWARE_VIDEO_POLLING_DELAY=3000            # Delay between status checks (default: 3 sec)
+RUNWARE_MAX_POLLS_VIDEO_GENERATION=480      # Max polling attempts (default: 480, ~24 min total)
+
+# Audio Operations (milliseconds)
+RUNWARE_AUDIO_INFERENCE_TIMEOUT=300000      # Audio generation (default: 5 min)
+RUNWARE_AUDIO_POLLING_DELAY=1000            # Delay between status checks (default: 1 sec)
+RUNWARE_MAX_POLLS_AUDIO_GENERATION=240      # Max polling attempts (default: 240, ~4 min total)
+
+# Other Operations (milliseconds)
+RUNWARE_PROMPT_ENHANCE_TIMEOUT=60000        # Prompt enhancement (default: 1 min)
+RUNWARE_WEBHOOK_TIMEOUT=30000               # Webhook acknowledgment (default: 30 sec)
+RUNWARE_TIMEOUT_DURATION=480000             # General operations (default: 8 min)
+```
+
+### Usage Example
+
+```python
+import os
+
+# Configure before importing Runware
+os.environ["RUNWARE_VIDEO_POLLING_DELAY"] = "5000"  # 5 seconds between checks
+os.environ["RUNWARE_MAX_POLLS_VIDEO_GENERATION"] = "600"  # Allow up to 50 minutes
+
+from runware import Runware
+
+async def main():
+    runware = Runware(api_key=os.getenv("RUNWARE_API_KEY"))
+    await runware.connect()
+    # Your code here
+```
+
+**Note:** For long-running video operations, consider using webhooks or `skipResponse=True` to avoid timeout issues with extended generation times.

@@ -1,11 +1,13 @@
 import html
 import json
+import os
 import threading
 import time
 
 from PyQt5.QtCore import (
     Qt, QDateTime, QPropertyAnimation, QEasingCurve,
     QObject, QThread, pyqtSignal, pyqtSlot, QMetaObject, Q_ARG,
+    QUrl, QFileInfo,
 )
 from PyQt5.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout,
@@ -16,6 +18,47 @@ from PyQt5.QtGui import QTextCursor
 
 from classes.logger import log
 from classes.ai_chat_functionality import AIChat
+
+# Optional CEP/WebEngine for HTML chat UI
+try:
+    from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+    from PyQt5.QtWebChannel import QWebChannel
+    _WEBENGINE_AVAILABLE = True
+except ImportError:
+    _WEBENGINE_AVAILABLE = False
+
+# Theme colors for chat CEP UI (match theme QSS). Keys match ThemeName.value.
+CHAT_THEME_COLORS = {
+    "Humanity: Dark": {
+        "chat-bg": "#191919",
+        "chat-preamble-bg": "#252525",
+        "chat-text": "#ffffff",
+        "chat-border": "#404040",
+        "chat-input-bg": "#252525",
+        "chat-button-bg": "#353535",
+        "chat-button-hover-bg": "#2a82da",
+        "chat-placeholder": "rgba(255, 255, 255, 0.5)",
+    },
+    "Retro": {
+        "chat-bg": "#f0f0f0",
+        "chat-preamble-bg": "#e8e8e8",
+        "chat-text": "#333333",
+        "chat-border": "#ccc",
+        "chat-input-bg": "#ffffff",
+        "chat-button-bg": "#e8e8e8",
+        "chat-button-hover-bg": "#217dd4",
+    },
+    "Cosmic Dusk": {
+        "chat-bg": "#151A23",
+        "chat-preamble-bg": "#151A23",
+        "chat-text": "#E6E6EB",
+        "chat-border": "rgba(230, 230, 235, 0.12)",
+        "chat-input-bg": "#151A23",
+        "chat-button-bg": "#151A23",
+        "chat-button-hover-bg": "#1E2433",
+        "chat-placeholder": "rgba(230, 230, 235, 0.5)",
+    },
+}
 
 
 def _markdown_to_html(text: str) -> str:
@@ -126,6 +169,35 @@ class AIChatWorker(QObject):
             self.ai_chat.clear_session()
 
 
+class ChatBridge(QObject):
+    """QWebChannel bridge: exposes sendMessage, cancelRequest, clearChat to the CEP chat UI."""
+
+    def __init__(self, window=None, parent=None):
+        super().__init__(parent)
+        self.window = window
+
+    @pyqtSlot(str, str)
+    def sendMessage(self, text: str, model_id: str):
+        if self.window:
+            self.window._handle_web_send_message(text.strip(), model_id or "")
+
+    @pyqtSlot()
+    def cancelRequest(self):
+        if self.window:
+            self.window.cancel_request()
+
+    @pyqtSlot()
+    def clearChat(self):
+        if self.window:
+            self.window.clear_chat()
+
+    @pyqtSlot()
+    def ready(self):
+        """Called from JS when QWebChannel is ready; push initial state."""
+        if self.window and getattr(self.window, "_chat_web_ready", None):
+            self.window._chat_web_ready()
+
+
 class AIChatWindow(QDockWidget):
     """Zenvi Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
 
@@ -141,6 +213,7 @@ class AIChatWindow(QDockWidget):
 
         self.is_processing = False
         self._main_thread_runner = None  # track runner to connect/disconnect tool_completed
+        self._use_web_ui = _WEBENGINE_AVAILABLE
 
         # AI runs in a background thread; worker owns AIChat and emits when done
         self._ai_thread = QThread(self)
@@ -150,13 +223,22 @@ class AIChatWindow(QDockWidget):
         self._worker.error_occurred.connect(self._on_error)
         self._ai_thread.start()
 
+        if self._use_web_ui:
+            self._init_web_ui()
+        else:
+            self._init_widget_ui()
+
+        self.setMinimumWidth(400)
+        self.setMinimumHeight(450)
+
+    def _init_widget_ui(self):
+        """Build classic Qt widget chat UI."""
         main = QWidget()
         main.setObjectName("AIChatWindowContents")
         layout = QVBoxLayout()
         main.setLayout(layout)
         self.setWidget(main)
 
-        # Fade-in effect when dock is shown (GPU-accelerated)
         self._chat_opacity_effect = QGraphicsOpacityEffect(main)
         self._chat_opacity_effect.setOpacity(0.0)
         main.setGraphicsEffect(self._chat_opacity_effect)
@@ -168,7 +250,6 @@ class AIChatWindow(QDockWidget):
         self._chat_fade_anim.setEndValue(1.0)
         self._chat_fade_anim.finished.connect(self._on_chat_fade_finished)
 
-        # Preamble / context (Cursor-style: what the assistant is and quick tips)
         self.preamble_frame = QFrame()
         self.preamble_frame.setObjectName("chatPreamble")
         preamble_layout = QVBoxLayout(self.preamble_frame)
@@ -181,7 +262,6 @@ class AIChatWindow(QDockWidget):
         layout.addWidget(self.preamble_frame)
         self._update_preamble()
 
-        # Model selector
         model_h = QHBoxLayout()
         model_h.addWidget(QLabel("Model:"))
         self.model_combo = QComboBox()
@@ -191,7 +271,6 @@ class AIChatWindow(QDockWidget):
         model_h.addStretch()
         layout.addLayout(model_h)
 
-        # Chat display: rich text for markdown; colors come from theme
         self.chat_box = QTextEdit()
         self.chat_box.setObjectName("chatBox")
         self.chat_box.setReadOnly(True)
@@ -199,7 +278,6 @@ class AIChatWindow(QDockWidget):
         self.chat_box.setPlaceholderText("Replies appear here. Assistant messages support **markdown** and code blocks.")
         layout.addWidget(self.chat_box)
 
-        # Input area
         input_h = QHBoxLayout()
         self.msg_input = QTextEdit()
         self.msg_input.setObjectName("msgInput")
@@ -208,7 +286,6 @@ class AIChatWindow(QDockWidget):
         input_h.addWidget(self.msg_input)
         layout.addLayout(input_h)
 
-        # Buttons
         btn_h = QHBoxLayout()
         self.send_btn = QPushButton("Send")
         self.send_btn.setObjectName("sendBtn")
@@ -227,12 +304,126 @@ class AIChatWindow(QDockWidget):
         layout.addLayout(btn_h)
 
         self.msg_input.keyPressEvent = self._key_press
-
-        # Short welcome (preamble has the main context)
         self._add_system_msg("Chat started. Ask to list files, add tracks, export video, or describe your project.")
 
-        self.setMinimumWidth(400)
-        self.setMinimumHeight(450)
+    def _init_web_ui(self):
+        """Build CEP/WebEngine HTML chat UI."""
+        from classes import info
+        self._chat_fade_done = True
+        self._chat_web_ready = lambda: None
+        self.preamble_frame = self.preamble_label = None
+        self.model_combo = self.chat_box = self.msg_input = None
+        self.send_btn = self.cancel_btn = self.clear_btn = None
+        self._chat_opacity_effect = self._chat_fade_anim = None
+
+        self._chat_view = QWebEngineView(self)
+        self._chat_view.setObjectName("AIChatWindowContents")
+        self.setWidget(self._chat_view)
+
+        self._chat_channel = QWebChannel(self._chat_view.page())
+        self._chat_bridge = ChatBridge(window=self, parent=self)
+        self._chat_bridge.window = self
+        self._chat_view.page().setWebChannel(self._chat_channel)
+        self._chat_channel.registerObject("zenviChatBridge", self._chat_bridge)
+
+        chat_ui_dir = os.path.join(info.PATH, "chat_ui")
+        index_path = os.path.join(chat_ui_dir, "index.html")
+        base_url = QUrl.fromLocalFile(QFileInfo(index_path).absoluteFilePath())
+        with open(index_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        self._chat_view.setHtml(html, base_url)
+
+        def on_load_finished(ok):
+            if ok:
+                self._chat_web_ready = self._inject_web_ready
+
+        self._chat_view.loadFinished.connect(on_load_finished)
+
+    def _run_js(self, code, callback=None):
+        """Run JavaScript in the chat WebEngine page. No-op if not using web UI."""
+        if not self._use_web_ui or not getattr(self, "_chat_view", None):
+            return
+        page = self._chat_view.page()
+        if callback:
+            page.runJavaScript(code, callback)
+        else:
+            page.runJavaScript(code)
+
+    def _inject_web_ready(self):
+        """Push theme colors, models, preamble and welcome message to the CEP UI."""
+        try:
+            from classes.app import get_app
+            app = get_app()
+            theme = app.theme_manager.get_current_theme() if getattr(app, "theme_manager", None) else None
+            name = getattr(theme, "name", "Humanity: Dark")
+            colors = CHAT_THEME_COLORS.get(name, CHAT_THEME_COLORS["Humanity: Dark"])
+            self._run_js("setThemeColors(%s);" % json.dumps(json.dumps(colors)))
+        except Exception:
+            colors = CHAT_THEME_COLORS["Humanity: Dark"]
+            self._run_js("setThemeColors(%s);" % json.dumps(json.dumps(colors)))
+
+        models = []
+        try:
+            from classes.ai_llm_registry import list_all_models, get_default_model_id
+            default_id = get_default_model_id()
+            for model_id, display_name in list_all_models():
+                models.append({"id": model_id, "name": display_name, "default": model_id == default_id})
+        except Exception:
+            pass
+        self._run_js("setModels(%s);" % json.dumps(json.dumps(models)))
+
+        preamble = self._get_preamble_html()
+        self._run_js("setPreamble(%s);" % json.dumps(preamble))
+
+        self._run_js("clearMessages();")
+        self._add_system_msg("Chat started. Ask to list files, add tracks, export video, or describe your project.")
+
+    def _get_preamble_html(self):
+        """Return preamble as HTML string (for CEP UI)."""
+        try:
+            from classes.app import get_app
+            app = get_app()
+            project_name = "Untitled"
+            profile = ""
+            if hasattr(app, "project") and app.project:
+                if getattr(app.project, "current_filepath", None):
+                    project_name = os.path.splitext(os.path.basename(app.project.current_filepath))[0] or "Untitled"
+                profile = app.project.get("profile") or ""
+            profile_line = " · " + profile if profile else ""
+            return "<b>Zenvi Assistant</b> — Video editing assistant.<br/>Project: <b>%s</b>%s<br/>Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i> · <i>Undo</i>" % (html.escape(project_name), html.escape(profile_line))
+        except Exception:
+            return "<b>Zenvi Assistant</b> — Video editing assistant.<br/>Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i>"
+
+    def _handle_web_send_message(self, text: str, model_id: str):
+        """Handle send from CEP UI (same logic as send_message but with args)."""
+        if self.is_processing:
+            self._run_js("alert('Processing previous message...');")
+            return
+        if not text:
+            return
+        self._add_user_msg(text)
+        self._set_processing_ui(True)
+        try:
+            from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
+            if self._main_thread_runner is not None and hasattr(self._main_thread_runner, "tool_completed"):
+                try:
+                    self._main_thread_runner.tool_completed.disconnect(self._worker.on_tool_completed)
+                except Exception:
+                    pass
+            runner = create_main_thread_runner()
+            set_main_thread_runner(runner)
+            self._main_thread_runner = runner
+            if hasattr(runner, "tool_completed"):
+                runner.tool_completed.connect(self._worker.on_tool_completed)
+        except Exception:
+            pass
+        QMetaObject.invokeMethod(
+            self._worker,
+            "run_request",
+            Qt.QueuedConnection,
+            Q_ARG(str, text),
+            Q_ARG(str, model_id),
+        )
 
     def closeEvent(self, event):
         """Stop the AI worker thread when the dock is closed."""
@@ -242,9 +433,9 @@ class AIChatWindow(QDockWidget):
         super().closeEvent(event)
 
     def showEvent(self, event):
-        """Run fade-in animation the first time the dock is shown."""
+        """Run fade-in animation the first time the dock is shown (widget UI only)."""
         super().showEvent(event)
-        if not self._chat_fade_done:
+        if not self._use_web_ui and not self._chat_fade_done and self._chat_opacity_effect and self._chat_fade_anim:
             self._chat_opacity_effect.setOpacity(0.0)
             self._chat_fade_anim.stop()
             self._chat_fade_anim.start()
@@ -255,28 +446,11 @@ class AIChatWindow(QDockWidget):
 
     def _update_preamble(self):
         """Update preamble text with current context (project name, tips)."""
-        try:
-            from classes.app import get_app
-            app = get_app()
-            project_name = "Untitled"
-            profile = ""
-            if hasattr(app, "project") and app.project:
-                if getattr(app.project, "current_filepath", None):
-                    import os
-                    project_name = os.path.splitext(os.path.basename(app.project.current_filepath))[0] or "Untitled"
-                profile = app.project.get("profile") or ""
-            profile_line = f" · {profile}" if profile else ""
-            text = (
-                "<b>Zenvi Assistant</b> — Video editing assistant.<br/>"
-                f"Project: <b>{project_name}</b>{profile_line}<br/>"
-                "Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i> · <i>Undo</i>"
-            )
-        except Exception:
-            text = (
-                "<b>Zenvi Assistant</b> — Video editing assistant.<br/>"
-                "Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i>"
-            )
-        self.preamble_label.setText(text)
+        text = self._get_preamble_html()
+        if self._use_web_ui:
+            self._run_js("setPreamble(%s);" % json.dumps(text))
+        elif self.preamble_label:
+            self.preamble_label.setText(text)
 
     def _populate_models(self):
         """Populate model combo with all models (OpenAI, Anthropic, Ollama)."""
@@ -346,10 +520,15 @@ class AIChatWindow(QDockWidget):
     def _set_processing_ui(self, processing: bool):
         """Update Send/Cancel visibility and enabled state."""
         self.is_processing = processing
-        self.send_btn.setEnabled(not processing)
-        self.send_btn.setText("Processing..." if processing else "Send")
-        self.cancel_btn.setVisible(processing)
-        if not processing:
+        if self._use_web_ui:
+            self._run_js("setProcessing(%s);" % ("true" if processing else "false"))
+            return
+        if self.send_btn:
+            self.send_btn.setEnabled(not processing)
+            self.send_btn.setText("Processing..." if processing else "Send")
+        if self.cancel_btn:
+            self.cancel_btn.setVisible(processing)
+        if not processing and self.msg_input:
             self.msg_input.setFocus()
 
     def cancel_request(self):
@@ -381,7 +560,10 @@ class AIChatWindow(QDockWidget):
                 "clear_session",
                 Qt.QueuedConnection,
             )
-            self.chat_box.clear()
+            if self._use_web_ui:
+                self._run_js("clearMessages();")
+            else:
+                self.chat_box.clear()
             self._update_preamble()
             self._add_system_msg("Chat cleared. Ask anything about your project or editing.")
 
@@ -395,10 +577,17 @@ class AIChatWindow(QDockWidget):
         self._add_msg(text, "system", is_assistant=False, is_system=True)
 
     def _add_msg(self, text, role, is_assistant=False, is_system=False):
+        if self._use_web_ui:
+            if is_assistant:
+                html_body = _markdown_to_html(text)
+                self._run_js("appendMessage(%s, %s, true);" % (json.dumps(role), json.dumps(html_body)))
+            else:
+                safe = html.escape(text).replace("\n", "<br/>")
+                self._run_js("appendMessage(%s, %s, false);" % (json.dumps(role), json.dumps("<p>" + safe + "</p>")))
+            return
         cursor = self.chat_box.textCursor()
         cursor.movePosition(QTextCursor.End)
         self.chat_box.setTextCursor(cursor)
-
         time_str = QDateTime.currentDateTime().toString("hh:mm:ss")
         if is_assistant:
             html_body = _markdown_to_html(text)
@@ -409,7 +598,6 @@ class AIChatWindow(QDockWidget):
             role_style = "color: #3B82F6;" if role == "user" else ""
             role_label = f'<span style="font-weight: bold; {role_style}">[{time_str}] {role}</span><br/>'
             self.chat_box.insertHtml(role_label + "<p>" + safe + "</p><br/>")
-
         cursor = self.chat_box.textCursor()
         cursor.movePosition(QTextCursor.End)
         self.chat_box.setTextCursor(cursor)

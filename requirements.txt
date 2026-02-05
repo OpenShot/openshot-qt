@@ -13,6 +13,8 @@ distro
 defusedxml
 requests
 certifi
+# Runware SDK (WebSocket) for in-app video generation; optional but recommended
+runware>=0.4.33
 chardet
 urllib3
 
