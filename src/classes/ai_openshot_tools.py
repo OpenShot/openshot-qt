@@ -567,54 +567,52 @@ def add_clip_to_timeline(file_id: str = "", position_seconds: str = "", track: s
         return "Error: {}".format(e)
 
 
-# ---- Video generation (worker runs in background thread) ----
+# ---- Video generation: heavy work in a real worker thread ----
+# We use a QThread subclass so run() is guaranteed to execute in the worker thread
+# (QThread.run() is always invoked in that thread). moveToThread + slot can be
+# ambiguous; this pattern keeps the main thread responsive during generation.
 
 
-class _VideoGenerationWorker(QObject if QObject is not object else object):
-    """Runs Runware API + download in a worker thread. Emits done(path, error) when finished."""
+class _VideoGenerationThread(QThread if QThread else object):
+    """Subclass of QThread: run() is always executed in the worker thread."""
     if pyqtSignal is not None:
-        done = pyqtSignal(str, str)  # path_or_empty, error_or_empty
+        finished_with_result = pyqtSignal(str, str)  # path_or_empty, error_or_empty
 
     def __init__(self, api_key, prompt, duration_seconds, model, width, height, output_path):
-        if QObject is not object:
+        if QThread is not None:
             super().__init__()
-        self.api_key = api_key
-        self.prompt = prompt
-        self.duration_seconds = duration_seconds
-        self.model = model
-        self.width = width
-        self.height = height
-        self.output_path = output_path
+        self._api_key = api_key
+        self._prompt = prompt
+        self._duration_seconds = duration_seconds
+        self._model = model
+        self._width = width
+        self._height = height
+        self._output_path = output_path
 
-    @pyqtSlot() if pyqtSlot else (lambda f: f)
     def run(self):
-        import threading
-        # This slot runs in the worker thread (we moved this object to thread via moveToThread).
-        assert threading.current_thread() is not threading.main_thread(), (
-            "Video generation run() must execute in worker thread, not main thread."
-        )
+        # QThread.run() is always executed in the worker thread — no moveToThread needed.
         from classes.video_generation.runware_client import (
             runware_generate_video,
             download_video_to_path,
         )
         video_url, err = runware_generate_video(
-            self.api_key,
-            self.prompt,
-            duration_seconds=self.duration_seconds,
-            model=self.model,
-            width=self.width,
-            height=self.height,
+            self._api_key,
+            self._prompt,
+            duration_seconds=self._duration_seconds,
+            model=self._model,
+            width=self._width,
+            height=self._height,
         )
         if err:
-            if pyqtSignal is not None and hasattr(self, "done"):
-                self.done.emit("", err)
+            if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                self.finished_with_result.emit("", err)
             return
-        ok, download_err = download_video_to_path(video_url, self.output_path)
-        if pyqtSignal is not None and hasattr(self, "done"):
+        ok, download_err = download_video_to_path(video_url, self._output_path)
+        if pyqtSignal is not None and hasattr(self, "finished_with_result"):
             if ok:
-                self.done.emit(self.output_path, "")
+                self.finished_with_result.emit(self._output_path, "")
             else:
-                self.done.emit("", download_err or "Download failed.")
+                self.finished_with_result.emit("", download_err or "Download failed.")
 
 
 def _output_path_for_generated_video():
@@ -661,20 +659,23 @@ def generate_video_and_add_to_timeline(
     result_holder = [None, None]  # [path, error]
     loop_holder = [None]
 
-    def on_done(path, error):
-        result_holder[0] = path
-        result_holder[1] = error
-        if loop_holder[0]:
-            loop_holder[0].quit()
+    # Receiver on main thread so the slot runs on main thread and can quit the loop safely.
+    class _DoneReceiver(QObject if QObject is not object else object):
+        if pyqtSignal is not None:
+            pass  # no signal; we use a slot only
 
-    # Run API + download in a separate thread so the main thread stays responsive.
-    thread = QThread(app)
-    worker = _VideoGenerationWorker(
+        def on_done(self, path, error):
+            result_holder[0] = path
+            result_holder[1] = error
+            if loop_holder[0]:
+                loop_holder[0].quit()
+
+    receiver = _DoneReceiver()
+    # _VideoGenerationThread.run() runs in the worker thread; signal is delivered to main thread.
+    thread = _VideoGenerationThread(
         api_key, prompt, duration, model, width, height, output_path
     )
-    worker.moveToThread(thread)  # worker.run() will execute in this thread
-    worker.done.connect(on_done)
-    thread.started.connect(worker.run)  # when thread starts, run() is invoked in worker thread
+    thread.finished_with_result.connect(receiver.on_done)
     loop_holder[0] = QEventLoop(app)
     status_bar = getattr(app.window, "statusBar", None)
     try:
@@ -686,8 +687,11 @@ def generate_video_and_add_to_timeline(
         if status_bar is not None:
             status_bar.clearMessage()
     thread.quit()
-    thread.wait(5000)
-    worker.done.disconnect(on_done)
+    thread.wait(10000)
+    try:
+        thread.finished_with_result.disconnect(receiver.on_done)
+    except Exception:
+        pass
 
     path, error = result_holder[0], result_holder[1]
     if error:
