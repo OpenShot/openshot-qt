@@ -2020,6 +2020,19 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Refresh preview
         get_app().window.refreshFrameSignal.emit()
+    def send_timeline_clip_to_project_files(self, clip):
+    """
+    Adds a clip from the timeline back to the Project Files pane.
+    """
+    if clip and clip.data:
+        # This is placeholder logic — assumes clip has .data with path info
+        source_path = clip.data.get('path')
+        if source_path and source_path not in self.project_files_model.files:
+            self.project_files_model.add_file(source_path)
+            print(f"Clip {source_path} added to Project Files.")
+        else:
+            print("Clip already exists in Project Files.")
+
 
     def actionRippleDelete(self):
         log.debug('actionRippleDelete_trigger')
