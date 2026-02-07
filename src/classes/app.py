@@ -118,7 +118,7 @@ class OpenShotApp(QApplication):
 
             log.debug("Command line: %s", self.args)
 
-            from classes import settings, project_data, updates, sentry
+            from classes import settings, project_data, updates, update_queue as update_queue_module, task_queue, sentry
             import openshot
 
             # Re-route stdout and stderr to logger
@@ -154,10 +154,13 @@ class OpenShotApp(QApplication):
         self.settings.load()
         self.apply_timeline_backend_preference()
         self.project = project_data.ProjectDataStore()
-        self.updates = updates.UpdateManager()
+        self._update_manager = updates.UpdateManager()
+        self.update_queue = update_queue_module.UpdateQueue(self._update_manager)
+        self.updates = update_queue_module.UpdatesRouter(self._update_manager, self.update_queue)
         # It is important that the project is the first listener if the key gets update
         self.updates.add_listener(self.project)
         self.updates.reset()
+        self.task_queue = task_queue.VideoTaskQueue(parent=self)
 
         # Set location of OpenShot program (for libopenshot)
         openshot.Settings.Instance().PATH_OPENSHOT_INSTALL = info.PATH

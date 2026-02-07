@@ -1,0 +1,5 @@
+# Optional: Manim educational video agent.
+# Install system deps first (Ubuntu/Debian):
+#   sudo apt-get install -y libcairo2-dev libpango1.0-dev pkg-config ffmpeg
+# Then: pip install -r requirements-manim.txt
+manim>=0.18.0

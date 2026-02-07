@@ -12,6 +12,19 @@ python3 -m venv --system-site-packages .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
+### Optional: Manim (educational video agent)
+
+The AI assistant can generate Manim educational videos. Manim is optional; the app runs without it (the Manim agent will report that it is not installed). To enable it:
+
+**Ubuntu/Debian** – install system libraries and then the Python package:
+
+```bash
+sudo apt-get install -y libcairo2-dev libpango1.0-dev pkg-config ffmpeg
+.venv/bin/pip install -r requirements-manim.txt
+```
+
+See `requirements-manim.txt` for details.
+
 ## 2. libopenshot (required to run the app)
 
 The app and tests require the `openshot` Python module (libopenshot). It is not on PyPI; install it via your system.

@@ -5,7 +5,7 @@ import threading
 import time
 
 from PyQt5.QtCore import (
-    Qt, QDateTime, QPropertyAnimation, QEasingCurve,
+    Qt, QPropertyAnimation, QEasingCurve,
     QObject, QThread, pyqtSignal, pyqtSlot, QMetaObject, Q_ARG,
     QUrl, QFileInfo,
 )
@@ -28,7 +28,20 @@ except ImportError:
     _WEBENGINE_AVAILABLE = False
 
 # Theme colors for chat CEP UI (match theme QSS). Keys match ThemeName.value.
+# Bloomberg Light: high information density, sharp edges, accent #6366F1.
 CHAT_THEME_COLORS = {
+    "Bloomberg Light": {
+        "chat-bg": "#F8FAFC",
+        "chat-preamble-bg": "#F1F5F9",
+        "chat-text": "#0F172A",
+        "chat-border": "#E2E8F0",
+        "chat-input-bg": "#FFFFFF",
+        "chat-button-bg": "#F1F5F9",
+        "chat-button-hover-bg": "#6366F1",
+        "chat-accent": "#6366F1",
+        "chat-code-bg": "#E2E8F0",
+        "chat-placeholder": "rgba(15, 23, 42, 0.5)",
+    },
     "Humanity: Dark": {
         "chat-bg": "#191919",
         "chat-preamble-bg": "#252525",
@@ -37,6 +50,7 @@ CHAT_THEME_COLORS = {
         "chat-input-bg": "#252525",
         "chat-button-bg": "#353535",
         "chat-button-hover-bg": "#2a82da",
+        "chat-accent": "#6366F1",
         "chat-placeholder": "rgba(255, 255, 255, 0.5)",
     },
     "Retro": {
@@ -47,6 +61,8 @@ CHAT_THEME_COLORS = {
         "chat-input-bg": "#ffffff",
         "chat-button-bg": "#e8e8e8",
         "chat-button-hover-bg": "#217dd4",
+        "chat-accent": "#217dd4",
+        "chat-placeholder": "rgba(51, 51, 51, 0.5)",
     },
     "Cosmic Dusk": {
         "chat-bg": "#151A23",
@@ -56,6 +72,7 @@ CHAT_THEME_COLORS = {
         "chat-input-bg": "#151A23",
         "chat-button-bg": "#151A23",
         "chat-button-hover-bg": "#1E2433",
+        "chat-accent": "#6366F1",
         "chat-placeholder": "rgba(230, 230, 235, 0.5)",
     },
 }
@@ -85,6 +102,29 @@ def _markdown_to_html(text: str) -> str:
 def _plain_to_html(text: str) -> str:
     """Escape plain text for safe HTML display."""
     return "<p>" + html.escape(text).replace("\n", "<br/>") + "</p>"
+
+
+def _summarize_prompt(prompt: str, max_words: int = 6) -> str:
+    """Use the default LLM to summarize the user prompt in a few words. Returns empty on failure."""
+    try:
+        from classes.ai_llm_registry import get_model, get_default_model_id
+        from langchain_core.messages import SystemMessage, HumanMessage
+    except ImportError:
+        return ""
+    model_id = get_default_model_id()
+    llm = get_model(model_id)
+    if not llm:
+        return ""
+    system = (
+        "Summarize the following user request in at most %d words. "
+        "Reply with only the short phrase, no punctuation, no period."
+    ) % max_words
+    try:
+        response = llm.invoke([SystemMessage(content=system), HumanMessage(content=prompt)])
+        out = (response.content if hasattr(response, "content") else str(response)).strip()
+        return out[:80] if out else ""
+    except Exception:
+        return ""
 
 
 def _debug_log(location, message, data, hypothesis_id):
@@ -214,6 +254,7 @@ class AIChatWindow(QDockWidget):
         self.is_processing = False
         self._main_thread_runner = None  # track runner to connect/disconnect tool_completed
         self._use_web_ui = _WEBENGINE_AVAILABLE
+        self._first_prompt_summary = None  # AI-generated summary of first user message for preamble
 
         # AI runs in a background thread; worker owns AIChat and emits when done
         self._ai_thread = QThread(self)
@@ -356,10 +397,12 @@ class AIChatWindow(QDockWidget):
             app = get_app()
             theme = app.theme_manager.get_current_theme() if getattr(app, "theme_manager", None) else None
             name = getattr(theme, "name", "Humanity: Dark")
-            colors = CHAT_THEME_COLORS.get(name, CHAT_THEME_COLORS["Humanity: Dark"])
+            colors = CHAT_THEME_COLORS.get(name)
+            if colors is None:
+                colors = CHAT_THEME_COLORS["Bloomberg Light"] if "Light" in name or "Retro" in name else CHAT_THEME_COLORS["Humanity: Dark"]
             self._run_js("setThemeColors(%s);" % json.dumps(json.dumps(colors)))
         except Exception:
-            colors = CHAT_THEME_COLORS["Humanity: Dark"]
+            colors = CHAT_THEME_COLORS["Bloomberg Light"]
             self._run_js("setThemeColors(%s);" % json.dumps(json.dumps(colors)))
 
         models = []
@@ -376,23 +419,37 @@ class AIChatWindow(QDockWidget):
         self._run_js("setPreamble(%s);" % json.dumps(preamble))
 
         self._run_js("clearMessages();")
-        self._add_system_msg("Chat started. Ask to list files, add tracks, export video, or describe your project.")
 
     def _get_preamble_html(self):
-        """Return preamble as HTML string (for CEP UI)."""
-        try:
-            from classes.app import get_app
-            app = get_app()
-            project_name = "Untitled"
-            profile = ""
-            if hasattr(app, "project") and app.project:
-                if getattr(app.project, "current_filepath", None):
-                    project_name = os.path.splitext(os.path.basename(app.project.current_filepath))[0] or "Untitled"
-                profile = app.project.get("profile") or ""
-            profile_line = " · " + profile if profile else ""
-            return "<b>Zenvi Assistant</b> — Video editing assistant.<br/>Project: <b>%s</b>%s<br/>Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i> · <i>Undo</i>" % (html.escape(project_name), html.escape(profile_line))
-        except Exception:
-            return "<b>Zenvi Assistant</b> — Video editing assistant.<br/>Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i>"
+        """Return preamble as HTML: AI summary as heading when set, else 'Zenvi Assistant'."""
+        if self._first_prompt_summary:
+            return '<span class="preamble-title">%s</span>' % html.escape(self._first_prompt_summary.strip())
+        return '<span class="preamble-title">Zenvi Assistant</span>'
+
+    def _request_preamble_summary(self, prompt: str):
+        """Start a background thread to summarize the first user prompt and update preamble."""
+        if self._first_prompt_summary or not prompt or not prompt.strip():
+            return
+
+        def run():
+            summary = _summarize_prompt(prompt.strip())
+            if summary:
+                QMetaObject.invokeMethod(
+                    self,
+                    "_on_preamble_summary",
+                    Qt.QueuedConnection,
+                    Q_ARG(str, summary),
+                )
+
+        t = threading.Thread(target=run, daemon=True)
+        t.start()
+
+    @pyqtSlot(str)
+    def _on_preamble_summary(self, text: str):
+        """Called on main thread when first-prompt summary is ready."""
+        if not self._first_prompt_summary and text:
+            self._first_prompt_summary = text
+            self._update_preamble()
 
     def _handle_web_send_message(self, text: str, model_id: str):
         """Handle send from CEP UI (same logic as send_message but with args)."""
@@ -402,6 +459,7 @@ class AIChatWindow(QDockWidget):
         if not text:
             return
         self._add_user_msg(text)
+        self._request_preamble_summary(text)
         self._set_processing_ui(True)
         try:
             from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
@@ -484,6 +542,7 @@ class AIChatWindow(QDockWidget):
         if not text:
             return
         self._add_user_msg(text)
+        self._request_preamble_summary(text)
         self.msg_input.clear()
         self._set_processing_ui(True)
         model_id = self.model_combo.currentData()
@@ -555,6 +614,7 @@ class AIChatWindow(QDockWidget):
             QMessageBox.No
         )
         if reply == QMessageBox.Yes:
+            self._first_prompt_summary = None
             QMetaObject.invokeMethod(
                 self._worker,
                 "clear_session",
@@ -588,15 +648,15 @@ class AIChatWindow(QDockWidget):
         cursor = self.chat_box.textCursor()
         cursor.movePosition(QTextCursor.End)
         self.chat_box.setTextCursor(cursor)
-        time_str = QDateTime.currentDateTime().toString("hh:mm:ss")
+        role_display = "You" if role == "user" else ("Assistant" if role == "assistant" else role)
         if is_assistant:
             html_body = _markdown_to_html(text)
-            role_label = f'<span style="font-weight: bold;">[{time_str}] assistant</span><br/>'
+            role_label = f'<span style="font-weight: bold;">{html.escape(role_display)}</span><br/>'
             self.chat_box.insertHtml(role_label + html_body + "<br/>")
         else:
             safe = html.escape(text).replace("\n", "<br/>")
             role_style = "color: #3B82F6;" if role == "user" else ""
-            role_label = f'<span style="font-weight: bold; {role_style}">[{time_str}] {role}</span><br/>'
+            role_label = f'<span style="font-weight: bold; {role_style}">{html.escape(role_display)}</span><br/>'
             self.chat_box.insertHtml(role_label + "<p>" + safe + "</p><br/>")
         cursor = self.chat_box.textCursor()
         cursor.movePosition(QTextCursor.End)

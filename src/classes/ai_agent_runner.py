@@ -68,18 +68,26 @@ class MainThreadToolRunner(QObject if QObject is not object else object):
         def run_tool(self, name, args_json):
             """Run a tool by name with JSON-serialized args. Called from worker via BlockingQueuedConnection."""
             try:
-                tool = self._tools.get(name)
-                if not tool:
-                    self.last_tool_result = "Error: unknown tool {}".format(name)
+                from classes.app import get_app
+                app = get_app()
+                if hasattr(app, "updates") and hasattr(app.updates, "set_agent_context"):
+                    app.updates.set_agent_context(True)
+                try:
+                    tool = self._tools.get(name)
+                    if not tool:
+                        self.last_tool_result = "Error: unknown tool {}".format(name)
+                        if pyqtSignal is not None and hasattr(self, "tool_completed"):
+                            self.tool_completed.emit(name, self.last_tool_result)
+                        return self.last_tool_result
+                    args = json.loads(args_json) if args_json else {}
+                    result = tool.invoke(args)
+                    self.last_tool_result = result if isinstance(result, str) else str(result)
                     if pyqtSignal is not None and hasattr(self, "tool_completed"):
                         self.tool_completed.emit(name, self.last_tool_result)
                     return self.last_tool_result
-                args = json.loads(args_json) if args_json else {}
-                result = tool.invoke(args)
-                self.last_tool_result = result if isinstance(result, str) else str(result)
-                if pyqtSignal is not None and hasattr(self, "tool_completed"):
-                    self.tool_completed.emit(name, self.last_tool_result)
-                return self.last_tool_result
+                finally:
+                    if hasattr(app, "updates") and hasattr(app.updates, "set_agent_context"):
+                        app.updates.set_agent_context(False)
             except Exception as e:
                 log.error("MainThreadToolRunner.run_tool %s: %s", name, e, exc_info=True)
                 self.last_tool_result = "Error: {}".format(e)
@@ -122,17 +130,19 @@ def _wrap_tool_for_main_thread(raw_tool, runner):
     )
 
 
-def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
+def run_agent_with_tools(
+    model_id,
+    messages,
+    tools,
+    main_thread_runner,
+    system_prompt,
+    max_iterations=15,
+):
     """
-    Run the LangChain agent with the given model_id and conversation messages.
-    Runs in the current thread (call from a worker thread). Tool execution is
-    dispatched to main_thread_runner (MainThreadToolRunner on main thread).
-    messages: list of dicts with "role" and "content" (and optionally "tool_calls").
+    Run a LangChain agent with the given tools and system prompt.
+    tools: list of LangChain tools (raw); they will be wrapped for main thread if main_thread_runner is set.
     Returns the final response text or an error string.
     """
-    # #region agent log
-    _debug_log("ai_agent_runner.py:run_agent", "run_agent entered", {"model_id": model_id, "num_messages": len(messages) if messages else 0}, "H5")
-    # #endregion
     try:
         from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage
     except ImportError as e:
@@ -141,7 +151,6 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
 
     try:
         from classes.ai_llm_registry import get_model
-        from classes.ai_openshot_tools import get_openshot_tools_for_langchain
     except ImportError as e:
         log.error("AI modules import failed: %s", e)
         return "Error: {}".format(e)
@@ -150,16 +159,13 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
     if not llm:
         return "Error: Could not load model '{}'. Check API keys in Preferences > AI.".format(model_id)
 
-    raw_tools = get_openshot_tools_for_langchain()
     if main_thread_runner:
-        tools = [_wrap_tool_for_main_thread(t, main_thread_runner) for t in raw_tools]
+        wrapped_tools = [_wrap_tool_for_main_thread(t, main_thread_runner) for t in tools]
     else:
-        tools = raw_tools
+        wrapped_tools = tools
+    tools_by_name = {getattr(t, "name", str(t)): t for t in wrapped_tools}
 
-    tools_by_name = {getattr(t, "name", str(t)): t for t in tools}
-
-    # Build LC message list from conversation
-    lc_messages = [SystemMessage(content=SYSTEM_PROMPT)]
+    lc_messages = [SystemMessage(content=system_prompt)]
     for m in messages:
         role = m.get("role") or m.get("type", "")
         content = m.get("content", "") or ""
@@ -174,8 +180,7 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
         return "Error: No message to send."
 
     try:
-        llm_with_tools = llm.bind_tools(tools)
-        max_iterations = 15
+        llm_with_tools = llm.bind_tools(wrapped_tools)
         for iteration in range(max_iterations):
             # #region agent log
             _debug_log("ai_agent_runner.py:run_agent", "before llm.invoke", {"iteration": iteration}, "H5")
@@ -222,6 +227,26 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
     except Exception as e:
         log.error("Agent execution failed: %s", e, exc_info=True)
         return "Error: {}".format(e)
+
+
+def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
+    """
+    Run the LangChain agent with the given model_id and conversation messages.
+    Uses the multi-agent root when available; otherwise runs the video agent with all tools.
+    """
+    try:
+        from classes.ai_multi_agent.root_agent import run_root_agent
+        return run_root_agent(model_id, messages, main_thread_runner)
+    except Exception as e:
+        log.debug("Multi-agent root not used: %s; falling back to single agent", e)
+    from classes.ai_openshot_tools import get_openshot_tools_for_langchain
+    return run_agent_with_tools(
+        model_id=model_id,
+        messages=messages,
+        tools=get_openshot_tools_for_langchain(),
+        main_thread_runner=main_thread_runner,
+        system_prompt=SYSTEM_PROMPT,
+    )
 
 
 _main_thread_runner_cache = None

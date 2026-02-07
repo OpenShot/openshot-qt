@@ -8,32 +8,53 @@
     <script type="text/javascript" src="qrc:/qtwebchannel/qwebchannel.js"></script>
 </head>
 <body>
-    <div class="chat-container">
+    <div class="chat-container" data-theme="bloomberg-light" role="application" aria-label="Zenvi Assistant chat">
         <div class="chat-preamble">
-            <div id="chat-preamble-label" class="chat-preamble-label">
-                <b>Zenvi Assistant</b> — Video editing assistant.<br>
-                Try: <i>List my files</i> · <i>Add a track</i> · <i>Export video</i>
-            </div>
-        </div>
-        <div class="chat-toolbar">
-            <label for="chat-model-select">Model:</label>
-            <select id="chat-model-select" class="chat-model-select" aria-label="AI model"></select>
+            <div id="chat-preamble-label" class="chat-preamble-label"></div>
+            <div id="chat-preamble-status" class="chat-preamble-status"></div>
         </div>
         <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
             <div class="chat-placeholder">Replies appear here. Assistant messages support markdown and code blocks.</div>
         </div>
-        <div class="chat-input-row">
-            <textarea
-                id="chat-input"
-                class="chat-input"
-                placeholder="Type a message... (Enter to send, Shift+Enter for newline)"
-                rows="3"
-                aria-label="Message input"
-            ></textarea>
-            <div class="chat-buttons">
-                <button type="button" id="chat-send-btn" class="chat-btn">Send</button>
-                <button type="button" id="chat-cancel-btn" class="chat-btn chat-btn-cancel">Cancel</button>
-                <button type="button" id="chat-clear-btn" class="chat-btn">Clear</button>
+        <div class="chat-input-row" id="chat-input-row">
+            <div class="chat-input-glow-wrap" id="chat-input-glow-wrap">
+                <div class="chat-input-glow-border"></div>
+                <div class="chat-input-glow-inner">
+                    <div class="chat-input-wrapper">
+                        <div id="chat-input-overlay" class="chat-input-overlay" aria-hidden="true">
+                            <span id="chat-typing-text"></span><span class="chat-typing-cursor">|</span>
+                        </div>
+                        <textarea
+                            id="chat-input"
+                            class="chat-input"
+                            placeholder=" "
+                            rows="3"
+                            aria-label="Message input"
+                        ></textarea>
+                    </div>
+                    <div class="chat-bottom-bar">
+                        <div class="chat-bottom-left">
+                            <select id="chat-model-select" style="display:none;" aria-hidden="true"></select>
+                            <button type="button" id="chat-model-trigger" class="chat-model-trigger" aria-label="Select model" aria-haspopup="listbox">
+                                <svg class="chat-model-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1a3 3 0 00-3 3v1H4a2 2 0 00-2 2v6a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-1V4a3 3 0 00-3-3zm0 1.5A1.5 1.5 0 019.5 4v1h-3V4A1.5 1.5 0 018 2.5zM6 9a1 1 0 112 0 1 1 0 01-2 0zm4 0a1 1 0 112 0 1 1 0 01-2 0z" fill="currentColor"/></svg>
+                                <span id="chat-model-label">Model</span>
+                                <svg class="chat-model-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 6.5L5 4l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div id="chat-model-menu" class="chat-model-menu" role="listbox" aria-label="AI model" style="display:none;"></div>
+                            <button type="button" id="chat-clear-btn" class="chat-bottom-icon" title="Clear chat" aria-label="Clear chat">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.333 4V2.667a1.333 1.333 0 011.334-1.334h2.666a1.333 1.333 0 011.334 1.334V4m2 0v9.333a1.333 1.333 0 01-1.334 1.334H4.667a1.333 1.333 0 01-1.334-1.334V4h9.334z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
+                        <div class="chat-bottom-right">
+                            <button type="button" id="chat-cancel-btn" class="chat-bottom-icon chat-cancel-icon" title="Cancel" aria-label="Cancel request" style="display:none;">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="3" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/></svg>
+                            </button>
+                            <button type="button" id="chat-send-btn" class="chat-send-circle" title="Send (Enter)" aria-label="Send message">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 12V4m0 0L4.5 7.5M8 4l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

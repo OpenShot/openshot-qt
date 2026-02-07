@@ -720,6 +720,34 @@ def generate_video_and_add_to_timeline(
         return "Error: {}".format(e)
 
 
+def generate_transition_clip(clip_a_id: str, clip_b_id: str, prompt_hint: str = "") -> str:
+    """Generate a short transition video between two clips (e.g. same room, camera move) and insert it between them. Uses Runware/Vidu."""
+    from classes.query import Clip
+
+    app = _get_app()
+    clip_a = Clip.get(id=clip_a_id) if clip_a_id else None
+    clip_b = Clip.get(id=clip_b_id) if clip_b_id else None
+    if not clip_a or not clip_b:
+        return "Error: Could not find both clips. Use list_clips_tool to get clip IDs."
+    pos_a = float(clip_a.data.get("position", 0))
+    start_a = float(clip_a.data.get("start", 0))
+    end_a = float(clip_a.data.get("end", 0))
+    duration_a = end_a - start_a
+    end_position_a = pos_a + duration_a
+    layer = clip_a.data.get("layer")
+    track = str(layer) if layer is not None else ""
+    hint = (prompt_hint or "").strip()
+    prompt = hint if hint else (
+        "Smooth transition, same scene, cinematic, 2 seconds, seamless blend between two shots"
+    )
+    return generate_video_and_add_to_timeline(
+        prompt=prompt,
+        duration_seconds=2,
+        position_seconds=str(end_position_a),
+        track=track,
+    )
+
+
 def get_openshot_tools_for_langchain():
     """
     Return a list of LangChain Tool objects for the OpenShot agent.
@@ -918,4 +946,5 @@ def get_openshot_tools_for_langchain():
         add_clip_to_timeline_tool,
         generate_video_and_add_to_timeline_tool,
         slice_clip_at_playhead_tool,
+        generate_transition_clip_tool,
     ]

@@ -32,5 +32,10 @@ langchain-anthropic>=0.2
 langchain-community>=0.3
 langchain-ollama>=0.2
 
+# Manim (educational video agent) - optional; needs system libs on Linux:
+#   sudo apt-get install -y libcairo2-dev libpango1.0-dev pkg-config
+#   pip install -r requirements-manim.txt
+# See requirements-manim.txt
+
 # Error reporting
 sentry-sdk
