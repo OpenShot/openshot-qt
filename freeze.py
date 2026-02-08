@@ -505,9 +505,9 @@ build_options["build_exe"] = build_exe_options
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
                    icon=os.path.join(PATH, "xdg", iconFile),
-                   shortcutName="%s" % info.PRODUCT_NAME,
-                   shortcutDir="ProgramMenuFolder",
-                   targetName=exe_name,
+                   shortcut_name="%s" % info.PRODUCT_NAME,
+                   shortcut_dir="ProgramMenuFolder",
+                   target_name=exe_name,
                    copyright=info.COPYRIGHT)]
 
 try:
@@ -515,7 +515,7 @@ try:
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
                 icon=os.path.join(PATH, "xdg", iconFile),
-                targetName=extra_exe['name'],
+                target_name=extra_exe['name'],
                 copyright=info.COPYRIGHT))
 except NameError:
     pass
