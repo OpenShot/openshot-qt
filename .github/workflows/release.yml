@@ -250,7 +250,8 @@ jobs:
           # Build installer (use existing .iss if it works, otherwise create one)
           $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
           if (Test-Path $ISCC) {
-            & $ISCC /DMyAppVersion="${env:VER}" installer/windows-installer.iss 2>$null
+            # windows-installer.iss expects VERSION macro
+            & $ISCC /DVERSION="${env:VER}" installer/windows-installer.iss 2>$null
             # Rename output to match expected convention
             $exe = Get-ChildItem -Path . -Filter "*.exe" -Recurse | Where-Object { $_.Name -like "Zenvi*Setup*" -or $_.Name -like "OpenShot*Setup*" } | Select-Object -First 1
             if ($exe) {
