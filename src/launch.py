@@ -115,10 +115,43 @@ except ImportError:
 app = None
 
 
+def _try_apply_staged_update():
+    """Check for a staged auto-update and apply it before the GUI starts.
+
+    This runs *before* PyQt5 or any heavy dependency is loaded so the user
+    sees the updated version on the very next launch.  If the update is
+    applied successfully we restart the process so it picks up the new code.
+    """
+    try:
+        from classes.update_installer import has_pending_update, apply_pending_update
+        if not has_pending_update():
+            return
+        print("[ZenviUpdater] Staged update detected — applying...")
+        if apply_pending_update():
+            print("[ZenviUpdater] Update applied. Restarting...")
+            # Re-exec the current process so the new binary / code runs.
+            # On Windows the Inno Setup installer runs asynchronously and
+            # replaces files itself, so we only need to exit — the user
+            # will relaunch the app manually or via the installer's
+            # /RESTARTAPPLICATIONS flag.
+            if sys.platform == "win32":
+                sys.exit(0)
+            else:
+                os.execv(sys.executable, [sys.executable] + sys.argv)
+                sys.exit(0)  # os.execv does not return, but just in case
+        else:
+            print("[ZenviUpdater] Update could not be applied — continuing with current version")
+    except Exception as exc:
+        print(f"[ZenviUpdater] Pre-launch update check failed: {exc}")
+
+
 def main():
     """"Initialize settings (not implemented) and create main window/application."""
 
     global app
+
+    # --- Auto-update: apply any staged update before heavy imports ----------
+    _try_apply_staged_update()
 
     # Configure argument handling for commandline launches
     parser = argparse.ArgumentParser(description='OpenShot version ' + info.SETUP['version'])

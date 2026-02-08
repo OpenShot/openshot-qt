@@ -26,7 +26,9 @@
 """
 
 import json
+import threading
 import time
+import uuid
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from enum import Enum
@@ -84,7 +86,8 @@ class ChatMessage:
 class ChatSession:
     """Manages a single chat session with conversation history"""
     
-    def __init__(self, session_id: str = "", model: str = "default", system_prompt: str = ""):
+    def __init__(self, session_id: str = "", model: str = "default", system_prompt: str = "",
+                 title: str = "", parent_session_id: str = ""):
         """
         Initialize a chat session
         
@@ -92,10 +95,14 @@ class ChatSession:
             session_id: Unique identifier for this session
             model: The AI model to use
             system_prompt: Initial system prompt for the conversation
+            title: Display title for the tab UI
+            parent_session_id: ID of the session this was carried-forward from (if any)
         """
         self.session_id = session_id
         self.model = model
         self.system_prompt = system_prompt
+        self.title = title or "New Chat"
+        self.parent_session_id = parent_session_id
         self.messages: List[ChatMessage] = []
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -174,6 +181,8 @@ class ChatSession:
         return {
             "session_id": self.session_id,
             "model": self.model,
+            "title": self.title,
+            "parent_session_id": self.parent_session_id,
             "system_prompt": self.system_prompt,
             "messages": self.get_conversation_history(),
             "context_data": self.context_data,
@@ -211,7 +220,6 @@ class AIChat:
     
     def _init_session(self):
         """Initialize a new chat session"""
-        import uuid
         session_id = str(uuid.uuid4())
         self.current_session = ChatSession(
             session_id=session_id,
@@ -410,3 +418,204 @@ class AIChat:
             "updated_at": self.current_session.updated_at.isoformat(),
             "context_keys": list(self.current_session.context_data.keys())
         }
+
+
+# ---------------------------------------------------------------------------
+# Multi-session manager
+# ---------------------------------------------------------------------------
+
+class ChatSessionManager:
+    """
+    Manages multiple AIChat sessions for the tab-based chat UI.
+
+    Thread-safe: all mutations are protected by a lock so the worker pool
+    can call ``get_session()`` / ``send_message()`` from any thread.
+    """
+
+    def __init__(self):
+        self._sessions: Dict[str, AIChat] = {}
+        self._active_session_id: Optional[str] = None
+        self._lock = threading.Lock()
+        # Titles assigned to sessions by the preamble-summary logic
+        self._titles: Dict[str, str] = {}
+
+    # -- CRUD ---------------------------------------------------------------
+
+    def create_session(self, model_id: str = "") -> str:
+        """Create a new chat session, make it active, and return its session ID."""
+        chat = AIChat(model=model_id or "default")
+        sid = chat.current_session.session_id
+        with self._lock:
+            self._sessions[sid] = chat
+            self._active_session_id = sid
+        log.info("ChatSessionManager: created session %s (model=%s)", sid, model_id)
+        return sid
+
+    def get_session(self, session_id: str) -> Optional[AIChat]:
+        """Return the AIChat for *session_id*, or None."""
+        with self._lock:
+            return self._sessions.get(session_id)
+
+    def get_active_session(self) -> Optional[AIChat]:
+        """Return the currently-active AIChat."""
+        with self._lock:
+            if self._active_session_id:
+                return self._sessions.get(self._active_session_id)
+        return None
+
+    @property
+    def active_session_id(self) -> Optional[str]:
+        with self._lock:
+            return self._active_session_id
+
+    def switch_session(self, session_id: str) -> bool:
+        """Set *session_id* as the active session. Returns False if not found."""
+        with self._lock:
+            if session_id not in self._sessions:
+                return False
+            self._active_session_id = session_id
+        return True
+
+    def close_session(self, session_id: str) -> Optional[str]:
+        """
+        Remove a session. If it was the active session, activate another one
+        (or create a fresh one if none remain). Returns the new active session ID.
+        """
+        with self._lock:
+            self._sessions.pop(session_id, None)
+            self._titles.pop(session_id, None)
+            if self._active_session_id == session_id:
+                if self._sessions:
+                    self._active_session_id = next(iter(self._sessions))
+                else:
+                    self._active_session_id = None
+        # If nothing left, create a fresh session
+        if self._active_session_id is None:
+            return self.create_session()
+        return self._active_session_id
+
+    def set_title(self, session_id: str, title: str):
+        """Set a display title for a session (called after preamble summary)."""
+        with self._lock:
+            self._titles[session_id] = title
+            chat = self._sessions.get(session_id)
+            if chat and chat.current_session:
+                chat.current_session.title = title
+
+    # -- Listing ------------------------------------------------------------
+
+    def list_sessions(self) -> List[Dict[str, Any]]:
+        """
+        Return a list of dicts describing each session, suitable for the
+        tab-bar UI. Includes context-usage fraction.
+        """
+        from classes.ai_context_tracker import get_usage_info
+        result = []
+        with self._lock:
+            for sid, chat in self._sessions.items():
+                sess = chat.current_session
+                if not sess:
+                    continue
+                model_id = sess.model if sess.model != "default" else "openai/gpt-4o-mini"
+                usage = get_usage_info(model_id, sess.get_conversation_history())
+                result.append({
+                    "id": sid,
+                    "title": self._titles.get(sid) or sess.title or "New Chat",
+                    "model": sess.model,
+                    "message_count": len(sess.messages),
+                    "context_used": usage["used"],
+                    "context_total": usage["total"],
+                    "context_fraction": usage["fraction"],
+                    "active": sid == self._active_session_id,
+                })
+        return result
+
+    # -- Carry-forward ------------------------------------------------------
+
+    def carry_forward(self, session_id: str, model_id: str = "") -> Optional[str]:
+        """
+        Summarize the conversation in *session_id*, create a new session
+        that starts with the summary as system context, and return its ID.
+        Returns None on failure.
+        """
+        chat = self.get_session(session_id)
+        if not chat or not chat.current_session:
+            return None
+
+        messages = chat.current_session.get_conversation_history()
+        resolved_model = model_id or chat.current_session.model
+        if resolved_model == "default":
+            try:
+                from classes.ai_llm_registry import get_default_model_id
+                resolved_model = get_default_model_id()
+            except Exception:
+                resolved_model = "openai/gpt-4o-mini"
+
+        summary = self._summarize_conversation(resolved_model, messages)
+        if not summary:
+            summary = "(Previous conversation context could not be summarized.)"
+
+        old_title = self._titles.get(session_id, chat.current_session.title)
+
+        # Create new session with summary injected as system context
+        new_chat = AIChat(model=resolved_model)
+        new_sid = new_chat.current_session.session_id
+        new_chat.current_session.parent_session_id = session_id
+        new_chat.current_session.title = old_title + " (cont.)" if old_title else "Continued Chat"
+        # Inject summary as a system message
+        new_chat.current_session.add_message(
+            MessageRole.SYSTEM,
+            "The following is a summary of the prior conversation:\n\n" + summary
+        )
+
+        with self._lock:
+            self._sessions[new_sid] = new_chat
+            self._titles[new_sid] = new_chat.current_session.title
+            self._active_session_id = new_sid
+
+        log.info("ChatSessionManager: carried forward %s -> %s", session_id, new_sid)
+        return new_sid
+
+    @staticmethod
+    def _summarize_conversation(model_id: str, messages: List[Dict[str, Any]]) -> str:
+        """Use the LLM to produce a concise summary of the conversation."""
+        try:
+            from classes.ai_llm_registry import get_model
+            from langchain_core.messages import SystemMessage, HumanMessage
+        except ImportError:
+            return ""
+        llm = get_model(model_id)
+        if not llm:
+            return ""
+        # Build a text transcript
+        lines = []
+        for m in messages:
+            role = m.get("role", "unknown")
+            content = m.get("content", "")
+            if isinstance(content, list):
+                content = " ".join(p.get("text", "") for p in content if isinstance(p, dict))
+            if role == "system":
+                continue
+            lines.append(f"{role}: {content}")
+        transcript = "\n".join(lines)
+        system = (
+            "Summarize the following conversation concisely. "
+            "Preserve key decisions, context, and any pending tasks or questions. "
+            "Reply with only the summary, no preamble."
+        )
+        try:
+            response = llm.invoke([SystemMessage(content=system), HumanMessage(content=transcript)])
+            out = (response.content if hasattr(response, "content") else str(response)).strip()
+            return out[:4000] if out else ""
+        except Exception as exc:
+            log.warning("carry_forward summarization failed: %s", exc)
+            return ""
+
+    # -- Convenience --------------------------------------------------------
+
+    def ensure_session(self, model_id: str = "") -> str:
+        """If no sessions exist, create one and return its ID."""
+        with self._lock:
+            if self._sessions:
+                return self._active_session_id or next(iter(self._sessions))
+        return self.create_session(model_id)

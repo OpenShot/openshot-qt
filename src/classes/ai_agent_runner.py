@@ -49,6 +49,7 @@ class MainThreadToolRunner(QObject if QObject is not object else object):
     """
     if pyqtSignal is not None:
         tool_completed = pyqtSignal(str, str)  # tool_name, result
+        tool_started = pyqtSignal(str, str)    # tool_name, args_json
 
     def __init__(self):
         if QObject is not object:
@@ -67,6 +68,8 @@ class MainThreadToolRunner(QObject if QObject is not object else object):
         @pyqtSlot(str, str, result=str)
         def run_tool(self, name, args_json):
             """Run a tool by name with JSON-serialized args. Called from worker via BlockingQueuedConnection."""
+            if pyqtSignal is not None and hasattr(self, "tool_started"):
+                self.tool_started.emit(name, args_json or "{}")
             try:
                 from classes.app import get_app
                 app = get_app()

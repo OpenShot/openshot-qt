@@ -179,6 +179,9 @@ class OpenShotApp(QApplication):
         # Empty window
         self.window = None
 
+        # Auto-updater instance (started later in gui())
+        self.auto_updater = None
+
         # Instantiate Theme Manager (Singleton)
         from themes.manager import ThemeManager
         self.theme_manager = ThemeManager(self)
@@ -316,6 +319,14 @@ class OpenShotApp(QApplication):
         # Show main window
         self.window.show()
 
+        # Start background auto-updater (downloads updates silently)
+        try:
+            from classes.auto_updater import AutoUpdater
+            self.auto_updater = AutoUpdater()
+            self.auto_updater.start()
+        except Exception:
+            log.warning("Failed to start auto-updater", exc_info=True)
+
         args = self.args
         if len(args) < 2:
             # Recover backup file (this can't happen until after the Main Window has completely loaded)
@@ -366,6 +377,14 @@ class OpenShotApp(QApplication):
     def cleanup(self):
         """aboutToQuit signal handler for application exit"""
         self.log.debug("Saving settings in app.cleanup")
+
+        # Stop the background auto-updater thread
+        if self.auto_updater:
+            try:
+                self.auto_updater.stop()
+            except Exception:
+                self.log.debug("Error stopping auto-updater", exc_info=True)
+
         try:
             self.settings.save()
         except Exception:

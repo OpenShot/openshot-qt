@@ -45,6 +45,15 @@
     var lastThoughtSec = null;
     var statusInterval = null;
 
+    var activityContainer = null;
+    var activitySteps = [];
+
+    var ACTIVITY_SPINNER_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none">' +
+        '<circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2" stroke-dasharray="16 16" stroke-linecap="round"/></svg>';
+
+    var ACTIVITY_CHECK_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none">' +
+        '<path d="M3.5 7.5l2.5 2L10.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
     const SUGGESTED_PROMPTS = 'List my files · Add a track · Export video · Undo';
     let typingInterval = null;
     let typingIndex = 0;
@@ -119,6 +128,61 @@
         messagesEl.scrollTop = messagesEl.scrollHeight;
     };
 
+    /* ── Activity log helpers (tool step display during processing) ── */
+
+    function addReasoningStep() {
+        if (!activityContainer) return;
+        var step = document.createElement('div');
+        step.className = 'chat-activity-step running';
+        step.setAttribute('data-type', 'reasoning');
+        step.innerHTML = '<span class="activity-icon">' + ACTIVITY_SPINNER_SVG + '</span>' +
+                         '<span class="activity-label activity-reasoning">Reasoning</span>';
+        activityContainer.appendChild(step);
+        activitySteps.push(step);
+    }
+
+    function completeActivityStep(step) {
+        if (!step) return;
+        step.classList.remove('running');
+        step.classList.add('done');
+        var icon = step.querySelector('.activity-icon');
+        if (icon) icon.innerHTML = ACTIVITY_CHECK_SVG;
+        // Remove animated dots class from reasoning labels when completed
+        var label = step.querySelector('.activity-reasoning');
+        if (label) label.classList.remove('activity-reasoning');
+    }
+
+    window.addActivityStep = function (label, detail) {
+        if (!activityContainer) return;
+        // Complete current step (reasoning or previous tool)
+        if (activitySteps.length > 0) {
+            completeActivityStep(activitySteps[activitySteps.length - 1]);
+        }
+        // Add new tool step
+        var step = document.createElement('div');
+        step.className = 'chat-activity-step running';
+        step.setAttribute('data-type', 'tool');
+        var h = '<span class="activity-icon">' + ACTIVITY_SPINNER_SVG + '</span>' +
+                '<span class="activity-label">' + escapeHtml(label) + '</span>';
+        if (detail) {
+            h += '<span class="activity-detail">' + escapeHtml(detail) + '</span>';
+        }
+        step.innerHTML = h;
+        activityContainer.appendChild(step);
+        activitySteps.push(step);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    window.completeLastActivityStep = function () {
+        if (!activityContainer || activitySteps.length === 0) return;
+        completeActivityStep(activitySteps[activitySteps.length - 1]);
+        // LLM will reason about the tool result next
+        addReasoningStep();
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    };
+
+    /* ── Processing state ── */
+
     let typingEl = null;
     window.setProcessing = function (processing) {
         sendBtn.disabled = processing;
@@ -127,17 +191,35 @@
             processingStartTime = Date.now();
             if (glowWrap) glowWrap.classList.add('glow-active');
             removePlaceholder();
-            if (!typingEl) {
-                typingEl = document.createElement('div');
-                typingEl.className = 'chat-typing-indicator';
-                typingEl.setAttribute('aria-live', 'polite');
-                typingEl.textContent = 'Thinking';
-            }
-            if (!typingEl.parentNode) messagesEl.appendChild(typingEl);
+            // Create activity log for this request
+            activityContainer = document.createElement('div');
+            activityContainer.className = 'chat-activity-log';
+            activityContainer.setAttribute('aria-live', 'polite');
+            messagesEl.appendChild(activityContainer);
+            addReasoningStep();
             messagesEl.scrollTop = messagesEl.scrollHeight;
         } else {
             if (glowWrap) glowWrap.classList.remove('glow-active');
-            if (typingEl && typingEl.parentNode) typingEl.remove();
+            // Finalize activity log: remove trailing reasoning step
+            if (activityContainer && activitySteps.length > 0) {
+                var last = activitySteps[activitySteps.length - 1];
+                if (last.getAttribute('data-type') === 'reasoning') {
+                    last.remove();
+                    activitySteps.pop();
+                }
+            }
+            // Complete any remaining running steps
+            for (var i = 0; i < activitySteps.length; i++) {
+                if (activitySteps[i].classList.contains('running')) {
+                    completeActivityStep(activitySteps[i]);
+                }
+            }
+            // Remove empty activity container
+            if (activityContainer && activitySteps.length === 0) {
+                activityContainer.remove();
+            }
+            activityContainer = null;
+            activitySteps = [];
             // Calculate thought time
             if (processingStartTime) {
                 var elapsed = Math.round((Date.now() - processingStartTime) / 1000);
@@ -370,7 +452,7 @@
 
     window.clearMessages = function () {
         typingEl = null;
-        messagesEl.innerHTML = '<div class="chat-placeholder">Replies appear here. Assistant messages support markdown and code blocks.</div>';
+        messagesEl.innerHTML = '';
     };
 
     function sendMessage() {
@@ -449,6 +531,8 @@
         return function () {
             if (orig) orig();
             typingEl = null;
+            activityContainer = null;
+            activitySteps = [];
             overlayVisible = true;
             if (inputOverlay) inputOverlay.classList.remove('hidden');
             typingIndex = 0;
@@ -469,4 +553,140 @@
             updateIdleState();
         };
     })(window.appendMessage);
+
+    // ==================================================================
+    // Multi-chat tab bar
+    // ==================================================================
+    var tabBarEl = document.getElementById('chat-tab-bar');
+    var tabAddBtn = document.getElementById('chat-tab-add');
+    var currentTabs = [];
+    var unreadSessions = {};  // sessionId -> true if has unread messages
+
+    window.setTabs = function (tabsJson) {
+        var list = [];
+        try { list = JSON.parse(tabsJson); } catch (e) { list = []; }
+        currentTabs = list;
+        renderTabs();
+    };
+
+    function renderTabs() {
+        // Remove all existing tab buttons (keep the "+" button)
+        var existing = tabBarEl.querySelectorAll('.chat-tab');
+        existing.forEach(function (el) { el.remove(); });
+
+        currentTabs.forEach(function (tab) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'chat-tab' + (tab.active ? ' active' : '') + (unreadSessions[tab.id] ? ' has-unread' : '');
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('data-session-id', tab.id);
+            btn.setAttribute('aria-selected', tab.active ? 'true' : 'false');
+
+            var titleSpan = '<span class="chat-tab-title">' + escapeHtml(tab.title || 'New Chat') + '</span>';
+            var badge = '<span class="chat-tab-badge"></span>';
+            var closeBtn = '<button type="button" class="chat-tab-close" data-close-id="' + escapeHtml(tab.id) + '" title="Close">&times;</button>';
+            btn.innerHTML = badge + titleSpan + closeBtn;
+
+            btn.addEventListener('click', function (e) {
+                if (e.target.classList.contains('chat-tab-close') || e.target.closest('.chat-tab-close')) {
+                    return; // handled by close button
+                }
+                unreadSessions[tab.id] = false;
+                getBridge(function (bridge) {
+                    if (bridge && bridge.switchSession) bridge.switchSession(tab.id);
+                });
+            });
+
+            // Close button handler
+            var closeBtnEl = btn.querySelector('.chat-tab-close');
+            if (closeBtnEl) {
+                closeBtnEl.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var closeId = this.getAttribute('data-close-id');
+                    getBridge(function (bridge) {
+                        if (bridge && bridge.closeSession) bridge.closeSession(closeId);
+                    });
+                });
+            }
+
+            tabBarEl.insertBefore(btn, tabAddBtn);
+        });
+    }
+
+    tabAddBtn.addEventListener('click', function () {
+        getBridge(function (bridge) {
+            if (bridge && bridge.createSession) bridge.createSession(modelSelect.value || '');
+        });
+    });
+
+    // Handle background responses (marks tab as unread)
+    window.onBackgroundResponse = function (sessionId, bodyHtml) {
+        unreadSessions[sessionId] = true;
+        renderTabs();
+    };
+
+    // ==================================================================
+    // Context progress ring + popover
+    // ==================================================================
+    var contextRingWrap = document.getElementById('chat-context-ring-wrap');
+    var contextRingFg = document.getElementById('chat-context-ring-fg');
+    var carryForwardBtn = document.getElementById('chat-carry-forward-btn');
+    var popoverPct = document.getElementById('chat-context-popover-pct');
+    var popoverTokens = document.getElementById('chat-context-popover-tokens');
+    var popoverBarFill = document.getElementById('chat-context-popover-bar-fill');
+    var RING_CIRCUMFERENCE = 2 * Math.PI * 8; // r=8 -> ~50.265
+
+    window.updateContextUsage = function (usageJson) {
+        var usage;
+        try { usage = JSON.parse(usageJson); } catch (e) { return; }
+        var fraction = usage.fraction || 0;
+        var used = usage.used || 0;
+        var total = usage.total || 1;
+        var pctText = (fraction * 100).toFixed(1) + '%';
+        var colorClass = fraction >= 0.85 ? 'danger' : (fraction >= 0.70 ? 'warn' : '');
+
+        // Update ring stroke-dashoffset
+        var offset = RING_CIRCUMFERENCE * (1 - fraction);
+        if (contextRingFg) {
+            contextRingFg.style.strokeDashoffset = offset;
+            contextRingFg.classList.remove('warn', 'danger');
+            if (colorClass) contextRingFg.classList.add(colorClass);
+        }
+
+        // Update popover contents
+        if (popoverPct) {
+            popoverPct.textContent = pctText;
+            popoverPct.classList.remove('warn', 'danger');
+            if (colorClass) popoverPct.classList.add(colorClass);
+        }
+        if (popoverTokens) {
+            popoverTokens.textContent = numberWithCommas(used) + ' / ' + numberWithCommas(total);
+        }
+        if (popoverBarFill) {
+            popoverBarFill.style.width = (fraction * 100).toFixed(2) + '%';
+            popoverBarFill.classList.remove('warn', 'danger');
+            if (colorClass) popoverBarFill.classList.add(colorClass);
+        }
+
+        // Show/hide carry-forward button
+        if (carryForwardBtn) {
+            carryForwardBtn.style.display = fraction >= 0.85 ? 'flex' : 'none';
+        }
+    };
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // Carry-forward button handler
+    if (carryForwardBtn) {
+        carryForwardBtn.addEventListener('click', function () {
+            getBridge(function (bridge) {
+                if (bridge && bridge.carryForward) {
+                    // Pass empty string to mean "active session"
+                    bridge.carryForward('');
+                }
+            });
+        });
+    }
 })();

@@ -28,7 +28,8 @@
 import os
 from time import strftime
 
-VERSION = "3.4.0"
+VERSION = "1.0.0"
+GITHUB_REPO = "Zenvi-pro/zenvi-core"
 MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
 DATE = "20250612000000"
 NAME = "zenvi"
@@ -67,6 +68,7 @@ USER_COLORS_PATH = os.path.join(USER_PATH, "colors")
 PROTOBUF_DATA_PATH = os.path.join(USER_PATH, "protobuf_data")
 YOLO_PATH = os.path.join(USER_PATH, "yolo")
 CLIPBOARD_PATH = os.path.join(USER_PATH, "clipboard")
+UPDATE_PATH = os.path.join(USER_PATH, "updates")
 # Project file extensions
 PROJECT_EXT = ".zvn"
 LEGACY_PROJECT_EXT = ".osp"

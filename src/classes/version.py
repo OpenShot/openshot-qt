@@ -1,62 +1,70 @@
 """
  @file
- @brief This file get the current version of openshot from the openshot.org website
- @author Jonathan Thomas <jonathan@openshot.org>
+ @brief Check the latest released version from GitHub Releases API.
+ @author Zenvi Team
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
- (http://www.openshotstudios.com). This file is part of
- OpenShot Video Editor (http://www.openshot.org), an open-source project
- dedicated to delivering high quality video editing and animation solutions
- to the world.
+ Copyright (c) 2008-2026 Zenvi.
+ This file is part of Zenvi Video Editor (https://zenvi.org).
 
- OpenShot Video Editor is free software: you can redistribute it and/or modify
+ Zenvi is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
+"""
 
- OpenShot Video Editor is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
- """
+import threading
 
 import requests
-import threading
-from classes.app import get_app
+
 from classes import info
+from classes.app import get_app
 from classes.logger import log
 
 
+GITHUB_API_URL = (
+    "https://api.github.com/repos/{repo}/releases/latest"
+)
+
+
 def get_current_Version():
-    """Get the current version """
-    t = threading.Thread(target=get_version_from_http, daemon=True)
+    """Kick off a background thread that queries GitHub for the latest release."""
+    t = threading.Thread(target=_fetch_latest_version, daemon=True)
     t.start()
 
-def get_version_from_http():
-    """Get the current version # from openshot.org"""
 
-    url = "http://www.openshot.org/version/json/"
+def _fetch_latest_version():
+    """HTTP call to GitHub Releases — emits FoundVersionSignal on success."""
+    url = GITHUB_API_URL.format(repo=info.GITHUB_REPO)
 
-    # Send metric HTTP data
     try:
-        r = requests.get(url, headers={"user-agent": "openshot-qt-%s" % info.VERSION}, verify=False)
-        log.info("Found current version: %s" % r.json())
+        resp = requests.get(
+            url,
+            headers={
+                "Accept": "application/vnd.github.v3+json",
+                "User-Agent": f"Zenvi/{info.VERSION}",
+            },
+            timeout=30,
+        )
+        resp.raise_for_status()
+        data = resp.json()
 
-        # Parse version
-        openshot_version = r.json().get("openshot_version")
-        info.ERROR_REPORT_STABLE_VERSION = r.json().get("openshot_version")
-        info.ERROR_REPORT_RATE_STABLE = r.json().get("error_rate_stable")
-        info.ERROR_REPORT_RATE_UNSTABLE = r.json().get("error_rate_unstable")
-        info.TRANS_REPORT_RATE_STABLE = r.json().get("trans_rate_stable")
-        info.TRANS_REPORT_RATE_UNSTABLE = r.json().get("trans_rate_unstable")
+        tag = data.get("tag_name", "")
+        latest_version = tag.lstrip("v")
 
-        # Emit signal for the UI
-        get_app().window.FoundVersionSignal.emit(openshot_version)
+        if not latest_version:
+            log.warning("version: Could not parse version from tag '%s'", tag)
+            return
 
-    except Exception as Ex:
-        log.error("Failed to get version from: %s" % url)
+        log.info("version: Latest release on GitHub: %s (local: %s)",
+                 latest_version, info.VERSION)
+
+        # Store the stable version for Sentry reporting
+        info.ERROR_REPORT_STABLE_VERSION = latest_version
+
+        # Notify the main window
+        get_app().window.FoundVersionSignal.emit(latest_version)
+
+    except Exception:
+        log.error("version: Failed to fetch latest version from GitHub", exc_info=True)

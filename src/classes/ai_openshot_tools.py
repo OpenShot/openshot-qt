@@ -916,6 +916,11 @@ def get_openshot_tools_for_langchain():
         """Slice (split) the clip(s) and transition(s) at the current playhead position on the timeline, keeping both sides. Use when the user wants to clip the existing clip at the playhead. No arguments. Fails if no clip is under the playhead."""
         return slice_clip_at_playhead()
 
+    @tool
+    def generate_transition_clip_tool(clip_a_id: str, clip_b_id: str, prompt_hint: str = "") -> str:
+        """Generate a short AI transition video between two clips and insert it between them. Arguments: clip_a_id (ID of the first clip), clip_b_id (ID of the second clip). Optional: prompt_hint (describe the desired transition style). Use list_clips_tool first to get clip IDs."""
+        return generate_transition_clip(clip_a_id=clip_a_id, clip_b_id=clip_b_id, prompt_hint=prompt_hint)
+
     return [
         get_project_info_tool,
         list_files_tool,
