@@ -185,70 +185,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Homebrew does not provide an `openshot` formula; install the official app cask.
-          brew install --cask openshot-video-editor
-
-          # Locate the OpenShot Python bindings bundled inside the OpenShot app.
-          # We pass this path via ZENVI_OPENSHOT_PYROOT so freeze.py can append it to sys.path
-          # (without poisoning PYTHONPATH and breaking Python startup).
-          OPENSHOT_APP="$(find /Applications -maxdepth 2 -type d -name '*OpenShot*.app' 2>/dev/null | head -n 1 || true)"
-          if [ -z "$OPENSHOT_APP" ]; then
-            # Sometimes casks may be staged in the Caskroom; try there too.
-            CASKROOM="$(brew --prefix)/Caskroom"
-            OPENSHOT_APP="$(find "$CASKROOM" -maxdepth 5 -type d -name '*OpenShot*.app' 2>/dev/null | head -n 1 || true)"
-          fi
-
-          if [ -z "$OPENSHOT_APP" ]; then
-            echo "::error::OpenShot .app bundle not found after installing cask"
-            exit 1
-          fi
-
-          echo "OpenShot app: $OPENSHOT_APP"
-
-          # Prefer an actual Python wrapper/package over the raw native module.
-          HIT_INIT="$(find "$OPENSHOT_APP" -type f -path '*/openshot/__init__.py' 2>/dev/null | head -n 1 || true)"
-          HIT_PY="$(find "$OPENSHOT_APP" -type f -name 'openshot.py' 2>/dev/null | head -n 1 || true)"
-          HIT_SO="$(find "$OPENSHOT_APP" -type f -name '_openshot*.so' 2>/dev/null | head -n 1 || true)"
-
-          if [ -n "$HIT_INIT" ]; then
-            HIT="$HIT_INIT"
-          elif [ -n "$HIT_PY" ]; then
-            HIT="$HIT_PY"
-          elif [ -n "$HIT_SO" ]; then
-            HIT="$HIT_SO"
-          else
-            echo "::error::Could not locate OpenShot Python bindings inside the app bundle"
-            exit 1
-          fi
-
-          if echo "$HIT" | grep -q '/openshot/__init__.py$'; then
-            OPENSHOT_PKG_DIR="$(dirname "$HIT")"              # .../openshot
-            OPENSHOT_PYROOT="$(dirname "$OPENSHOT_PKG_DIR")"  # .../(site-packages)
-          elif echo "$HIT" | grep -q '/openshot.py$'; then
-            OPENSHOT_PYROOT="$(dirname "$HIT")"
-          else
-            # Found only the native module. This isn't importable as `openshot` unless
-            # the corresponding wrapper (openshot.py or openshot package) exists nearby.
-            OPENSHOT_BIND_DIR="$(dirname "$HIT")"
-            if [ -f "$OPENSHOT_BIND_DIR/openshot.py" ]; then
-              OPENSHOT_PYROOT="$OPENSHOT_BIND_DIR"
-            else
-              echo "::error::Found native module $HIT but no openshot.py wrapper next to it"
-              echo "Hint: OpenShot cask may not ship Python wrapper bindings on this runner."
-              exit 1
-            fi
-          fi
-
-          echo "ZENVI_OPENSHOT_PYROOT=$OPENSHOT_PYROOT" >> "$GITHUB_ENV"
-          echo "Found OpenShot bindings at: $HIT"
-
+          # The macOS Homebrew cask for OpenShot bundles native bindings compiled
+          # against its own Python — ABI-incompatible with the CI Python 3.11.
+          # freeze.py now handles this gracefully: if `import openshot` fails it
+          # simply excludes the package from the frozen build. The end-user machine
+          # is expected to have libopenshot installed (brew cask or from source).
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
-
-      - name: Verify OpenShot Python bindings (macOS)
-        run: |
-          python3 -c "import os, sys; p=os.environ.get('ZENVI_OPENSHOT_PYROOT'); print('ZENVI_OPENSHOT_PYROOT=', p); sys.path.append(p); import openshot; print('openshot=', getattr(openshot, '__file__', openshot))"
 
       - name: Freeze with cx_Freeze
         run: python3 freeze.py bdist_mac --git-branch=production

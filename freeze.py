@@ -86,7 +86,6 @@ if not ARCHLIB.endswith('/'):
 python_packages = ["os",
                    "sys",
                    "PyQt5",
-                   "openshot",
                    "time",
                    "uuid",
                    "idna",
@@ -104,6 +103,19 @@ python_packages = ["os",
                    "webbrowser",
                    "json",
                    ]
+
+# Conditionally include openshot — it requires native C++ bindings (libopenshot)
+# which are only available when installed as a system package (Linux PPA) or via
+# ZENVI_OPENSHOT_PYROOT (Windows CI).  The macOS Homebrew cask ships bindings
+# compiled for its own bundled Python, so they are ABI-incompatible with the CI
+# Python and cannot be imported.  Rather than hard-failing, we skip the package
+# when it is not importable and let the frozen app load it at runtime.
+try:
+    import openshot  # noqa: F401
+    python_packages.append("openshot")
+    print("openshot module found — will be included in frozen packages")
+except ImportError:
+    print("WARNING: openshot module not importable — excluding from frozen packages")
 
 # Modules to include
 python_modules = ["idna.idnadata",
