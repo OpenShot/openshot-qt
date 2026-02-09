@@ -31,6 +31,9 @@ langchain-openai>=0.2
 langchain-anthropic>=0.2
 langchain-community>=0.3
 langchain-ollama>=0.2
+# Gemini / Gemma vision tagging
+google-genai>=0.3.0
+python-dotenv>=1.0.1
 
 # Manim (educational video agent) - optional; needs system libs on Linux:
 #   sudo apt-get install -y libcairo2-dev libpango1.0-dev pkg-config

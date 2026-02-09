@@ -8,6 +8,7 @@ import json
 import os
 import uuid as uuid_module
 from classes.logger import log
+from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
 
 try:
     from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop
@@ -499,6 +500,13 @@ def split_file_add_clip(file_id: str, start_frame: int, end_frame: int, name: st
         new_file.type = "insert"
         new_file.data["start"] = start_sec
         new_file.data["end"] = end_sec
+        
+        # Handle ai_metadata translation for sub-clips
+        if 'ai_metadata' in new_file.data and new_file.data['ai_metadata'].get('analyzed'):
+            new_file.data['ai_metadata'] = adjust_scene_descriptions_for_subclip(
+                new_file.data['ai_metadata'], start_sec, end_sec
+            )
+        
         if name and isinstance(name, str) and name.strip():
             new_file.data["name"] = name.strip()
         else:
