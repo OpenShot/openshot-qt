@@ -185,40 +185,72 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # The macOS Homebrew cask for OpenShot bundles native bindings compiled
-          # against its own Python — ABI-incompatible with the CI Python 3.11.
-          # freeze.py now handles this gracefully: if `import openshot` fails it
-          # simply excludes the package from the frozen build. The end-user machine
-          # is expected to have libopenshot installed (brew cask or from source).
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
 
       - name: Freeze with cx_Freeze
-        run: python3 freeze.py bdist_mac --git-branch=production
-
-      - name: Create DMG
         run: |
-          # cx_Freeze must produce a real .app bundle for a launchable DMG
-          APP_BUNDLE=$(find build -name "*.app" -type d 2>/dev/null | head -1)
-          if [ -z "$APP_BUNDLE" ]; then
-            echo "::error::No .app bundle found under build/ (cx_Freeze bdist_mac failed)"
-            find build -maxdepth 3 -type d -print || true
+          # Use plain `build` (not `bdist_mac`) to avoid cx_Freeze's fragile
+          # .app bundle post-processing. We construct the .app manually below.
+          python3 freeze.py build --git-branch=production
+
+      - name: Create .app bundle and DMG
+        run: |
+          # Locate the cx_Freeze output directory
+          FROZEN_DIR=$(find build -maxdepth 1 -type d -name 'exe.*' | head -1)
+          if [ -z "$FROZEN_DIR" ]; then
+            echo "::error::cx_Freeze output directory build/exe.* not found"
+            ls -la build/ || true
             exit 1
           fi
+          echo "Frozen directory: $FROZEN_DIR"
 
+          # Construct a standard macOS .app bundle
+          APP="Zenvi.app"
+          mkdir -p "$APP/Contents/MacOS"
+          mkdir -p "$APP/Contents/Resources"
+
+          # Copy frozen build into Contents/MacOS
+          cp -R "$FROZEN_DIR"/* "$APP/Contents/MacOS/"
+
+          # Copy Info.plist and substitute version
+          sed "s/VERSION/${VER}/g" installer/Info.plist > "$APP/Contents/Resources/Info.plist"
+          cp "$APP/Contents/Resources/Info.plist" "$APP/Contents/Info.plist"
+
+          # Copy icon if available
+          ICON=$(find xdg images -name "*.png" -path "*256*" 2>/dev/null | head -1)
+          if [ -n "$ICON" ]; then
+            cp "$ICON" "$APP/Contents/Resources/icon.png"
+          fi
+
+          # Ensure the launcher is executable
+          if [ -f "$APP/Contents/MacOS/zenvi" ]; then
+            chmod +x "$APP/Contents/MacOS/zenvi"
+          elif [ -f "$APP/Contents/MacOS/launch" ]; then
+            chmod +x "$APP/Contents/MacOS/launch"
+          fi
+
+          echo "App bundle contents:"
+          ls -la "$APP/Contents/MacOS/" | head -20
+
+          # Build DMG with App + /Applications symlink
           DMG_NAME="Zenvi-v${VER}-x86_64.dmg"
-
-          # Build a standard DMG root (App + /Applications link)
           rm -rf dmgroot
           mkdir -p dmgroot
-          cp -R "$APP_BUNDLE" dmgroot/
+          cp -R "$APP" dmgroot/
           ln -s /Applications dmgroot/Applications
 
           hdiutil create -volname "Zenvi" \
             -srcfolder "dmgroot" \
             -ov -format UDZO \
             "$DMG_NAME"
+
+          if [ ! -f "$DMG_NAME" ]; then
+            echo "::error::DMG file was not created"
+            exit 1
+          fi
+          echo "Created: $DMG_NAME ($(stat -f%z "$DMG_NAME") bytes)"
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
@@ -364,7 +396,7 @@ jobs:
 
   # ── 5. Create GitHub Release with all artifacts ───────────────────────
   # Run even if some platform builds fail so that successful artifacts
-  # (e.g. Linux + Windows) still get published.
+  # are still published.
   release:
     needs: [version, build-linux, build-macos, build-windows]
     if: always() && needs.version.result == 'success'
@@ -375,12 +407,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download all artifacts
+      # Download each platform's artifacts separately so that a missing one
+      # does not prevent the others from being collected.
+      - name: Download Linux artifacts
+        if: needs.build-linux.result == 'success'
         uses: actions/download-artifact@v4
         with:
+          name: linux-packages
           path: dist/
-          merge-multiple: true
-        continue-on-error: true   # some platform artifacts may be missing
+        continue-on-error: true
+
+      - name: Download macOS artifacts
+        if: needs.build-macos.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-package
+          path: dist/
+        continue-on-error: true
+
+      - name: Download Windows artifacts
+        if: needs.build-windows.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-package
+          path: dist/
+        continue-on-error: true
 
       - name: Ensure at least one artifact exists
         run: |
@@ -390,17 +441,14 @@ jobs:
             echo "::error::No build artifacts found — all platform builds failed"
             exit 1
           fi
-          echo "Found $COUNT artifact(s)"
+          echo "Found $COUNT artifact(s):"
+          find dist/ -type f -exec ls -lh {} \;
 
-      - name: List artifacts
+      - name: Generate checksums
         run: |
-          echo "### Release Artifacts" >> "$GITHUB_STEP_SUMMARY"
-          find dist/ -type f | while read f; do
-            SIZE=$(stat -c%s "$f" 2>/dev/null || stat -f%z "$f" 2>/dev/null || echo "?")
-            SHA=$(sha256sum "$f" | cut -d' ' -f1)
-            echo "- $(basename $f)  ($SIZE bytes, sha256: $SHA)" >> "$GITHUB_STEP_SUMMARY"
-            echo "$SHA  $(basename $f)" >> dist/SHA256SUMS.txt
-          done
+          cd dist
+          find . -type f ! -name 'SHA256SUMS.txt' -exec sha256sum {} \; > SHA256SUMS.txt
+          cat SHA256SUMS.txt
 
       - name: Remove legacy production release (if any)
         env:
@@ -413,29 +461,30 @@ jobs:
             gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/production" || true
           fi
 
-      - name: Create or update GitHub Release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
-          name: "Zenvi ${{ env.TAG }}"
+          name: "Zenvi v${{ env.VER }}"
           body: |
-            ## Zenvi ${{ env.VER }}
+            ## What's New
 
-            ### Auto-update
-            Users running Zenvi with an active internet connection will receive
-            this update automatically.  The download happens silently in the
-            background and the new version is applied on the next launch.
+            See the [commit log](https://github.com/${{ github.repository }}/compare/v${{ env.VER }}...HEAD) for a full list of changes.
 
-            ### Manual download
-            | Platform | File |
-            |----------|------|
-            | Linux (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
-            | Linux (Debian)   | `Zenvi-v${{ env.VER }}-x86_64.deb` |
-            | macOS (DMG)      | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
-            | Windows (EXE)    | `Zenvi-v${{ env.VER }}-x86_64.exe` |
+            ## Downloads
 
-            ### Checksums
-            See `SHA256SUMS.txt` attached to this release.
+            | Platform | Installer |
+            |----------|-----------|
+            | **Linux** (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
+            | **Linux** (Debian/Ubuntu) | `Zenvi-v${{ env.VER }}-x86_64.deb` |
+            | **macOS** | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | **Windows** | `Zenvi-v${{ env.VER }}-x86_64.exe` |
+
+            > **Note:** Some platform installers may not be available if the build for that platform is still in progress.
+
+            ## Checksums
+
+            See `SHA256SUMS.txt` for verification.
           draft: false
           prerelease: false
           files: dist/*
