@@ -67,6 +67,16 @@ from installer.version_parser import parse_version_info, parse_build_name
 
 print (str(cx_Freeze))
 
+# CI support (Windows):
+# Avoid setting PYTHONPATH to OpenShot install folders (can shadow stdlib modules and
+# crash Python during initialization). Instead, let CI provide the OpenShot bindings
+# location via an env var and append it to sys.path at runtime.
+_zenvi_openshot_pyroot = os.getenv("ZENVI_OPENSHOT_PYROOT")
+if _zenvi_openshot_pyroot and os.path.isdir(_zenvi_openshot_pyroot):
+    if _zenvi_openshot_pyroot not in sys.path:
+        sys.path.append(_zenvi_openshot_pyroot)
+        print(f"Added ZENVI_OPENSHOT_PYROOT to sys.path: {_zenvi_openshot_pyroot}")
+
 # Set '${ARCHLIB}' envvar to override system library path
 ARCHLIB = os.getenv('ARCHLIB', "/usr/lib/x86_64-linux-gnu/")
 if not ARCHLIB.endswith('/'):

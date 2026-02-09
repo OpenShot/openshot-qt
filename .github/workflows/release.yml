@@ -295,11 +295,16 @@ jobs:
           Write-Host "OpenShot bindings dir: $bindDir"
           Write-Host "OpenShot PYTHONPATH root: $pythonPathRoot"
 
-          # Make openshot importable for cx_Freeze during build.
+          # IMPORTANT:
+          # Do NOT set PYTHONPATH here. Some OpenShot distributions bundle a partial/alternate
+          # Python stdlib under their install tree, which can shadow stdlib modules (e.g.
+          # encodings) and crash Python during initialization.
           #
-          # IMPORTANT: Never prepend OpenShot folders to PYTHONPATH, because some OpenShot
-          # distributions bundle a Python stdlib of a different version (can break Python init).
-          Add-Content $env:GITHUB_ENV "PYTHONPATH=$env:PYTHONPATH;$pythonPathRoot"
+          # Instead, pass the path to freeze.py via a dedicated env var, and let freeze.py
+          # append it to sys.path at runtime (after Python has initialized).
+          Add-Content $env:GITHUB_ENV "PYTHONPATH="
+          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_PYROOT=$pythonPathRoot"
+          Add-Content $env:GITHUB_ENV "ZENVI_OPENSHOT_BINDDIR=$bindDir"
           if (Test-Path $binDir) {
             Add-Content $env:GITHUB_ENV "PATH=$bindDir;$binDir;$installRoot;$env:PATH"
           } else {
@@ -309,7 +314,7 @@ jobs:
       - name: Verify OpenShot Python bindings
         shell: powershell
         run: |
-          python -c "import sys; print(sys.version); import openshot; print('openshot:', getattr(openshot, '__file__', openshot))"
+          python -c "import os, sys; print(sys.version); print('PYTHONPATH:', os.environ.get('PYTHONPATH')); sys.path.append(os.environ['ZENVI_OPENSHOT_PYROOT']); import openshot; print('openshot:', getattr(openshot, '__file__', openshot))"
 
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
