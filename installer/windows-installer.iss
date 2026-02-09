@@ -44,7 +44,9 @@ ChangesEnvironment=not PortableCheck
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
-SetupIconFile=..\xdg\zenvi.ico
+; NOTE: Keep this path in sync with repo icons.
+; The Zenvi repo currently ships `xdg/openshot-qt.ico`.
+SetupIconFile=..\xdg\openshot-qt.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}

@@ -172,7 +172,7 @@ jobs:
   # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
   build-macos:
     needs: version
-    runs-on: macos-13
+    runs-on: macos-latest
     env:
       VER: ${{ needs.version.outputs.version }}
     steps:
