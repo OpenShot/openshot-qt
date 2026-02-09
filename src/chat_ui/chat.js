@@ -38,6 +38,7 @@
     const typingTextEl = document.getElementById('chat-typing-text');
     const sendBtn = document.getElementById('chat-send-btn');
     const cancelBtn = document.getElementById('chat-cancel-btn');
+    const attachClipBtn = document.getElementById('chat-attach-clip-btn');
     const clearBtn = document.getElementById('chat-clear-btn');
 
     var processingStartTime = null;
@@ -110,11 +111,17 @@
     }
 
     window.appendMessage = function (role, bodyHtml, isAssistant) {
-        if (role === 'system') return;
         removePlaceholder();
         const div = document.createElement('div');
-        div.className = 'chat-message chat-message-enter ' + (role === 'user' ? 'chat-message-user' : '');
-        div.innerHTML = '<div class="chat-message-body">' + (isAssistant ? bodyHtml : '<p>' + bodyHtml + '</p>') + '</div>';
+        var cls = 'chat-message chat-message-enter ';
+        if (role === 'user') cls += 'chat-message-user ';
+        if (role === 'system') cls += 'chat-message-system ';
+        div.className = cls;
+        if (role === 'system') {
+            div.innerHTML = '<div class="chat-message-body">' + '<p>' + bodyHtml + '</p>' + '</div>';
+        } else {
+            div.innerHTML = '<div class="chat-message-body">' + (isAssistant ? bodyHtml : '<p>' + bodyHtml + '</p>') + '</div>';
+        }
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
     };
@@ -385,6 +392,19 @@
         });
     }
 
+    function insertAtCursor(text) {
+        try {
+            if (!inputEl) return;
+            const start = inputEl.selectionStart || 0;
+            const end = inputEl.selectionEnd || 0;
+            const before = inputEl.value.slice(0, start);
+            const after = inputEl.value.slice(end);
+            inputEl.value = before + text + after;
+            const pos = start + text.length;
+            inputEl.selectionStart = inputEl.selectionEnd = pos;
+        } catch (e) {}
+    }
+
     function cancelRequest() {
         getBridge(function (bridge) {
             if (bridge) bridge.cancelRequest();
@@ -403,6 +423,13 @@
     }
 
     sendBtn.addEventListener('click', sendMessage);
+    if (attachClipBtn) {
+        attachClipBtn.addEventListener('click', function () {
+            hideOverlay();
+            insertAtCursor('@selected_clip ');
+            if (inputEl) inputEl.focus();
+        });
+    }
     cancelBtn.addEventListener('click', cancelRequest);
     clearBtn.addEventListener('click', clearChat);
 

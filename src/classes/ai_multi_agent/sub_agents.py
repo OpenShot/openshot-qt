@@ -4,6 +4,7 @@ Each returns a string result for the root agent to aggregate.
 """
 
 from classes.logger import log
+from classes.ai_prompts import VIDEO_AGENT_SYSTEM_PROMPT, MANIM_SYSTEM_PROMPT, VOICE_MUSIC_SYSTEM_PROMPT
 
 
 def run_video_agent(model_id, task_or_messages, main_thread_runner):
@@ -25,19 +26,8 @@ def run_video_agent(model_id, task_or_messages, main_thread_runner):
         messages=messages,
         tools=tools,
         main_thread_runner=main_thread_runner,
-        system_prompt=(
-            "You are the Zenvi video/timeline agent. You help with project state, clips, "
-            "timeline, export, and video generation. Use the provided tools. Respond concisely."
-        ),
+        system_prompt=VIDEO_AGENT_SYSTEM_PROMPT,
     )
-
-
-MANIM_SYSTEM_PROMPT = (
-    "You are the Zenvi Manim agent. You create educational and mathematical "
-    "animation videos using Manim (manim.community). Use generate_manim_video_tool "
-    "with the user's description to generate code, render, and add to the timeline. "
-    "Respond concisely."
-)
 
 
 def run_manim_agent(model_id, task_or_messages, main_thread_runner):
@@ -66,13 +56,6 @@ def run_manim_agent(model_id, task_or_messages, main_thread_runner):
         main_thread_runner=main_thread_runner,
         system_prompt=MANIM_SYSTEM_PROMPT,
     )
-
-
-VOICE_MUSIC_SYSTEM_PROMPT = (
-    "You are the Zenvi voice and music agent. You help with tagging videos (Azure API), "
-    "generating storylines from tags, voice overlays (TTS), and background music. "
-    "Use the provided tools. If a feature is not configured, say so and suggest using the video agent for other tasks."
-)
 
 
 def run_voice_music_agent(model_id, task_or_messages, main_thread_runner):

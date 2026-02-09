@@ -7,6 +7,7 @@ import json
 import threading
 import time
 from classes.logger import log
+from classes.ai_prompts import MAIN_SYSTEM_PROMPT
 
 
 def _debug_log(location, message, data, hypothesis_id):
@@ -33,13 +34,7 @@ except ImportError:
     pyqtSlot = lambda x: x
 
 
-SYSTEM_PROMPT = """You are an AI assistant for Zenvi. You help users with video editing, effects, transitions, and general editing tasks. You can query project state and perform editing actions using the provided tools. When you use a tool, confirm briefly what you did. Respond concisely and practically.
-
-When the user asks to "clip" or "split" without clearly choosing, ask: "Do you want to (1) clip the existing clip on the timeline at the playhead (split it into two), or (2) create a new clip from a file (by choosing a file and frame range)?" If they choose (1) or say "clip the current clip", "at the playhead", or "the one on the timeline": use slice_clip_at_playhead_tool. If they choose (2) or "create a new video/clip": use list_files_tool then split_file_add_clip_tool with file_id and start_frame, end_frame.
-
-After using split_file_add_clip_tool, always ask: "Would you like this clip added to the timeline at the playhead?" If the user says yes, call add_clip_to_timeline_tool with no arguments. Never ask the user for a file ID or show file IDs in your reply; the app keeps context of the clip just created.
-
-When the user asks to generate a video, create a video, make a video and add it to the timeline, or similar, use generate_video_and_add_to_timeline_tool with the user's description as the prompt. If they specify a position (e.g. "at 30 seconds") or track, pass position_seconds and/or track; otherwise leave them empty for playhead and default track."""
+SYSTEM_PROMPT = MAIN_SYSTEM_PROMPT
 
 
 class MainThreadToolRunner(QObject if QObject is not object else object):
@@ -192,6 +187,46 @@ def run_agent_with_tools(
             lc_messages.append(response)
             tool_calls = getattr(response, "tool_calls", None) or getattr(response, "additional_kwargs", {}).get("tool_calls", [])
             if not tool_calls:
+                # Low-reasoning guardrail: if user asked to slice/split the selected clip,
+                # but the model asks for an exact time, force semantic slicing.
+                try:
+                    last_user = None
+                    for mm in reversed(lc_messages):
+                        if isinstance(mm, HumanMessage):
+                            last_user = (mm.content or "") if hasattr(mm, "content") else ""
+                            break
+                    assistant_text = (getattr(response, "content", "") or "") if response is not None else ""
+                    if isinstance(last_user, str) and isinstance(assistant_text, str):
+                        user_l = last_user.lower()
+                        asst_l = assistant_text.lower()
+                        wants_slice = any(k in user_l for k in ["slice", "split", "cut in two", "cut into two"])
+                        has_clip_ctx = ("[selected timeline clip context]" in user_l) or ("@selected_clip" in user_l)
+                        asst_asks_time = any(k in asst_l for k in [
+                            "timestamp", "exact time", "specific time", "what time",
+                            "exact moment", "in seconds", "at what", "provide the",
+                            "need you to select", "select the clip", "confirm the selection",
+                            "confirm that you want",
+                        ])
+                        tool = tools_by_name.get("slice_selected_clip_at_best_match_tool")
+                        if tool and wants_slice and has_clip_ctx and asst_asks_time:
+                            # Extract a semantic query from the user's request.
+                            cleaned = last_user
+                            if "[Selected timeline clip context]" in cleaned and "[/Selected timeline clip context]" in cleaned:
+                                start = cleaned.find("[Selected timeline clip context]")
+                                end = cleaned.find("[/Selected timeline clip context]")
+                                if start != -1 and end != -1 and end > start:
+                                    cleaned = (cleaned[:start] + cleaned[end + len("[/Selected timeline clip context]"):]).strip()
+                            cleaned_l = cleaned.lower()
+                            q = cleaned
+                            if "when" in cleaned_l:
+                                q = cleaned[cleaned_l.find("when") + len("when"):].strip()
+                            elif "where" in cleaned_l:
+                                q = cleaned[cleaned_l.find("where") + len("where"):].strip()
+                            q = q.strip() or cleaned.strip()
+                            result = tool.invoke({"query": q})
+                            return result if isinstance(result, str) else str(result)
+                except Exception:
+                    pass
                 break
             for tc in tool_calls:
                 name = tc.get("name") if isinstance(tc, dict) else getattr(tc, "name", None)

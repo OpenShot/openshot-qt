@@ -262,9 +262,36 @@ class AIChat:
         # #region agent log
         _debug_log("ai_chat_functionality.py:_generate_response", "entry", {"user_input_preview": user_input[:60] if user_input else ""}, "H4")
         # #endregion
-        # Check if this is a media management command (from nilay branch)
+        # Check if this is a media management command.
+        # Important: do NOT route selected-clip/timeline-clip requests through the media manager,
+        # because those should use the timeline tools (search/slice selected clip).
+        lower = (user_input or "").lower()
+        clip_context_markers = [
+            "@selected_clip",
+            "[selected timeline clip context]",
+            "selected clip",
+            "timeline clip",
+            "this clip",
+            "on the timeline",
+        ]
+        refers_to_selected_clip = any(m in lower for m in clip_context_markers)
+
         media_keywords = ['analyze', 'search', 'find', 'collection', 'tag', 'face', 'statistics']
-        if any(keyword in user_input.lower() for keyword in media_keywords):
+        media_intent_markers = [
+            "media",
+            "library",
+            "project files",
+            "collection",
+            "import",
+            "file",
+            "footage",
+        ]
+
+        if (
+            not refers_to_selected_clip
+            and any(keyword in lower for keyword in media_keywords)
+            and any(m in lower for m in media_intent_markers)
+        ):
             # #region agent log
             _debug_log("ai_chat_functionality.py:_generate_response", "taking media path", {}, "H4")
             # #endregion

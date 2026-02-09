@@ -143,6 +143,37 @@ def _debug_log(location, message, data, hypothesis_id):
 REQUEST_TIMEOUT_SECONDS = 120
 
 
+def _format_mmss(seconds: float) -> str:
+    try:
+        seconds = float(seconds)
+    except Exception:
+        seconds = 0.0
+    m = int(seconds // 60)
+    s = int(seconds % 60)
+    return f"{m}:{s:02d}"
+
+
+def _text_likely_needs_clip_context(text: str) -> bool:
+    t = (text or "").lower()
+    keywords = [
+        "this clip",
+        "selected clip",
+        "timeline clip",
+        "in this clip",
+        "within this clip",
+        "search",
+        "find",
+        "slice",
+        "split",
+        "cut",
+        "razor",
+        "yellow marker",
+        "where",
+        "when",
+    ]
+    return any(k in t for k in keywords)
+
+
 class AIChatWorker(QObject):
     """Runs AIChat.send_message() in a background thread. Emits response_ready or error_occurred."""
 
@@ -255,6 +286,7 @@ class AIChatWindow(QDockWidget):
         self._main_thread_runner = None  # track runner to connect/disconnect tool_completed
         self._use_web_ui = _WEBENGINE_AVAILABLE
         self._first_prompt_summary = None  # AI-generated summary of first user message for preamble
+        self._auto_attach_selected_clip_context = True
 
         # AI runs in a background thread; worker owns AIChat and emits when done
         self._ai_thread = QThread(self)
@@ -328,6 +360,10 @@ class AIChatWindow(QDockWidget):
         layout.addLayout(input_h)
 
         btn_h = QHBoxLayout()
+        self.attach_btn = QPushButton("Attach Clip")
+        self.attach_btn.setObjectName("attachClipBtn")
+        self.attach_btn.setToolTip("Insert @selected_clip into your message")
+        self.attach_btn.clicked.connect(self._insert_selected_clip_token)
         self.send_btn = QPushButton("Send")
         self.send_btn.setObjectName("sendBtn")
         self.send_btn.clicked.connect(self.send_message)
@@ -339,6 +375,7 @@ class AIChatWindow(QDockWidget):
         self.clear_btn.setObjectName("clearBtn")
         self.clear_btn.clicked.connect(self.clear_chat)
         btn_h.addStretch()
+        btn_h.addWidget(self.attach_btn)
         btn_h.addWidget(self.send_btn)
         btn_h.addWidget(self.cancel_btn)
         btn_h.addWidget(self.clear_btn)
@@ -346,6 +383,85 @@ class AIChatWindow(QDockWidget):
 
         self.msg_input.keyPressEvent = self._key_press
         self._add_system_msg("Chat started. Ask to list files, add tracks, export video, or describe your project.")
+
+    def _insert_selected_clip_token(self):
+        """Insert a placeholder which expands into timeline selection context."""
+        try:
+            if self._use_web_ui:
+                # Web UI handles this on the JS side; keep as no-op.
+                return
+            if not self.msg_input:
+                return
+            cursor = self.msg_input.textCursor()
+            cursor.insertText("@selected_clip ")
+            self.msg_input.setTextCursor(cursor)
+            self.msg_input.setFocus()
+        except Exception:
+            pass
+
+    def _build_selected_clip_context(self) -> tuple[str, str]:
+        """Return (context_block, short_summary). Empty strings if no timeline clip is selected."""
+        try:
+            from classes.app import get_app
+            from classes.query import Clip, File
+
+            app = get_app()
+            win = getattr(app, "window", None)
+            selected_ids = getattr(win, "selected_clips", []) or []
+            if not selected_ids:
+                selected_ids = getattr(win, "ai_last_selected_clips", []) or []
+            if not selected_ids:
+                return "", ""
+            clip_obj = Clip.get(id=str(selected_ids[0]))
+            if not clip_obj:
+                return "", ""
+            data = clip_obj.data if isinstance(getattr(clip_obj, "data", None), dict) else {}
+            title = data.get("title") or data.get("label") or "Selected Clip"
+
+            clip_start = float(data.get("start", 0.0) or 0.0)
+            clip_end = float(data.get("end", 0.0) or 0.0)
+            position = float(data.get("position", 0.0) or 0.0)
+            # Keep context minimal (avoid leaking internal IDs into the prompt)
+
+            context = (
+                "[Selected timeline clip context]\n"
+                f"title: {title}\n"
+                f"source_window_seconds: {clip_start:.3f} to {clip_end:.3f}\n"
+                f"source_window_mmss: {_format_mmss(clip_start)} to {_format_mmss(clip_end)}\n"
+                f"timeline_position_seconds: {position:.3f}\n"
+                "[/Selected timeline clip context]"
+            )
+            summary = f"{title} ({_format_mmss(clip_start)}–{_format_mmss(clip_end)})"
+            return context, summary
+        except Exception:
+            return "", ""
+
+    def _augment_text_with_clip_context(self, text: str) -> tuple[str, str]:
+        """Return (augmented_text, attached_summary)."""
+        ctx, summary = self._build_selected_clip_context()
+        if not ctx:
+            try:
+                log.debug("AIChat: no selected clip context available")
+            except Exception:
+                pass
+            return text, ""
+
+        if "@selected_clip" in text or "@clip" in text:
+            augmented = text.replace("@selected_clip", ctx).replace("@clip", ctx)
+            try:
+                log.debug("AIChat: attached selected clip context via token: %s", summary)
+            except Exception:
+                pass
+            return augmented, summary
+
+        if self._auto_attach_selected_clip_context and _text_likely_needs_clip_context(text):
+            try:
+                log.debug("AIChat: auto-attached selected clip context: %s", summary)
+            except Exception:
+                pass
+            return f"{ctx}\n\n{text}", summary
+
+        return text, ""
 
     def _init_web_ui(self):
         """Build CEP/WebEngine HTML chat UI."""
@@ -460,6 +576,9 @@ class AIChatWindow(QDockWidget):
             return
         self._add_user_msg(text)
         self._request_preamble_summary(text)
+        augmented_text, attached_summary = self._augment_text_with_clip_context(text)
+        if attached_summary:
+            self._add_system_msg(f"Context attached: {attached_summary}")
         self._set_processing_ui(True)
         try:
             from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
@@ -473,13 +592,14 @@ class AIChatWindow(QDockWidget):
             self._main_thread_runner = runner
             if hasattr(runner, "tool_completed"):
                 runner.tool_completed.connect(self._worker.on_tool_completed)
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("AIChat: failed to create main-thread tool runner: %s", e)
+            self._add_system_msg("Warning: AI tools failed to load; some actions may not work.")
         QMetaObject.invokeMethod(
             self._worker,
             "run_request",
             Qt.QueuedConnection,
-            Q_ARG(str, text),
+            Q_ARG(str, augmented_text),
             Q_ARG(str, model_id),
         )
 
@@ -543,6 +663,9 @@ class AIChatWindow(QDockWidget):
             return
         self._add_user_msg(text)
         self._request_preamble_summary(text)
+        augmented_text, attached_summary = self._augment_text_with_clip_context(text)
+        if attached_summary:
+            self._add_system_msg(f"Context attached: {attached_summary}")
         self.msg_input.clear()
         self._set_processing_ui(True)
         model_id = self.model_combo.currentData()
@@ -562,8 +685,9 @@ class AIChatWindow(QDockWidget):
             self._main_thread_runner = runner
             if hasattr(runner, "tool_completed"):
                 runner.tool_completed.connect(self._worker.on_tool_completed)
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("AIChat: failed to create main-thread tool runner: %s", e)
+            self._add_system_msg("Warning: AI tools failed to load; some actions may not work.")
         # #region agent log
         _debug_log("ai_chat_ui.py:send_message", "invoking worker run_request", {"text_len": len(text), "model_id": model_id_str or "(empty)"}, "H1")
         # #endregion
@@ -571,7 +695,7 @@ class AIChatWindow(QDockWidget):
             self._worker,
             "run_request",
             Qt.QueuedConnection,
-            Q_ARG(str, text),
+            Q_ARG(str, augmented_text),
             Q_ARG(str, model_id_str),
         )
         self.msg_input.setFocus()

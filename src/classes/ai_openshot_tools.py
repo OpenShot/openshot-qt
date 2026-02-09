@@ -9,6 +9,12 @@ import os
 import uuid as uuid_module
 from classes.logger import log
 from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
+from classes.scene_description_search import search_scene_descriptions
+from classes.twelvelabs_indexer import (
+    build_project_index_name,
+    index_video_blocking,
+    is_configured as twelvelabs_is_configured,
+)
 
 try:
     from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop
@@ -24,6 +30,302 @@ def _get_app():
     """Get app; must be called from main thread."""
     from classes.app import get_app
     return get_app()
+
+
+def _get_selected_timeline_clip_and_window():
+    """Return (clip_obj, window) for current selection, or (None, window)."""
+    try:
+        from classes.query import Clip
+        app = _get_app()
+        win = app.window
+        selected_clip_ids = getattr(win, "selected_clips", []) or []
+        if not selected_clip_ids:
+            # Selection can be cleared when focus moves to the chat UI; use cached selection.
+            selected_clip_ids = getattr(win, "ai_last_selected_clips", []) or []
+        if selected_clip_ids:
+            clip_obj = Clip.get(id=str(selected_clip_ids[0]))
+            return clip_obj, win
+        return None, win
+    except Exception:
+        return None, getattr(_get_app(), "window", None)
+
+
+def _get_source_file_for_clip(clip_obj):
+    try:
+        from classes.query import File
+        data = clip_obj.data if hasattr(clip_obj, "data") and isinstance(clip_obj.data, dict) else {}
+        file_id = data.get("file_id")
+        if file_id:
+            f = File.get(id=str(file_id))
+            if f:
+                return f
+        reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+        path = reader.get("path")
+        if path:
+            return File.get(path=path)
+    except Exception:
+        return None
+    return None
+
+
+def _fmt_mmss(seconds: float) -> str:
+    try:
+        seconds = float(seconds)
+    except Exception:
+        seconds = 0.0
+    m = int(seconds // 60)
+    s = int(seconds % 60)
+    return f"{m}:{s:02d}"
+
+
+def _twelvelabs_search_in_window(index_id: str, query_text: str, *, page_limit: int = 30, video_id: str = ""):
+    """Run TwelveLabs search.query and return list[SearchItem]."""
+    try:
+        from twelvelabs.client import TwelveLabs  # type: ignore
+    except Exception:
+        return [], "TwelveLabs SDK not installed"
+
+    # Client creation is done inside index_video_blocking; repeat minimal logic here.
+    import os
+    api_key = os.getenv("TWELVELABS_API_KEY")
+    if not api_key:
+        return [], "TWELVELABS_API_KEY not configured"
+
+    try:
+        client = TwelveLabs(api_key=api_key)
+        # Use all modalities in search when possible.
+        pager = client.search.query(
+            index_id=index_id,
+            search_options=["visual", "audio", "transcription"],
+            query_text=query_text,
+            group_by="clip",
+            page_limit=page_limit,
+        )
+        items = list(pager)
+        if video_id:
+            items = [it for it in items if str(getattr(it, "video_id", "")) == str(video_id)]
+        return items, None
+    except Exception as e:
+        return [], str(e)
+
+
+def search_selected_clip_scenes(query: str, top_k: int = 5, use_openai_rerank: bool = True) -> str:
+    """Search within the currently selected timeline clip's time window.
+
+    Prefers TwelveLabs when indexed; falls back to local scene_descriptions search.
+    """
+    try:
+        from classes.query import Clip
+
+        clip_obj, win = _get_selected_timeline_clip_and_window()
+        if not clip_obj:
+            return "Error: No timeline clip selected. Select a clip and try again."
+
+        clip_data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
+        clip_start = float(clip_data.get("start", 0.0) or 0.0)
+        clip_end = float(clip_data.get("end", 0.0) or 0.0)
+        clip_name = clip_data.get("title") or clip_data.get("label") or "Selected Clip"
+
+        # Prefer per-clip ai_metadata if present (already adjusted to clip window)
+        per_clip_ai = clip_data.get("ai_metadata") if isinstance(clip_data.get("ai_metadata"), dict) else None
+
+        source_file = _get_source_file_for_clip(clip_obj)
+        source_ai = None
+        if source_file and isinstance(source_file.data, dict):
+            source_ai = source_file.data.get("ai_metadata") if isinstance(source_file.data.get("ai_metadata"), dict) else None
+
+        # Attempt TwelveLabs search against source file index
+        if source_ai and twelvelabs_is_configured():
+            tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
+            status = (tw.get("status") or "").lower() if isinstance(tw, dict) else ""
+            index_id = tw.get("index_id") if isinstance(tw, dict) else None
+            video_id = tw.get("video_id") if isinstance(tw, dict) else ""
+
+            if status != "ready" or not index_id:
+                # Queue indexing lazily if needed (automatic indexing should usually already do this)
+                if source_file and source_file.absolute_path() and twelvelabs_is_configured():
+                    try:
+                        app = _get_app()
+                        proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
+                        proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
+                        proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
+                        proj_index_id = proj_tw.get("index_id") if isinstance(proj_tw, dict) else None
+                        proj_id = str(app.project.get("id") or "")
+                        proj_index_name = build_project_index_name(proj_id or "project")
+
+                        ai_meta = source_file.data.get("ai_metadata") if isinstance(source_file.data, dict) else {}
+                        if not isinstance(ai_meta, dict):
+                            ai_meta = {}
+                        ai_meta["twelvelabs"] = {
+                            "status": "queued",
+                            "index_name": proj_index_name,
+                            "filename": os.path.basename(source_file.absolute_path()),
+                        }
+                        source_file.data["ai_metadata"] = ai_meta
+                        source_file.save()
+                        app.task_queue.submit(
+                            "twelvelabs",
+                            f"twelvelabs_index:{source_file.id}",
+                            index_video_blocking,
+                            file_path=source_file.absolute_path(),
+                            index_name=proj_index_name,
+                            filename=os.path.basename(source_file.absolute_path()),
+                            existing_index_id=proj_index_id,
+                        )
+                    except Exception:
+                        pass
+                # Continue to fallback
+            else:
+                items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=max(30, top_k * 10), video_id=str(video_id or ""))
+                if not err and items:
+                    # Filter to sub-clip window in source time
+                    matches = []
+                    for it in items:
+                        s = float(getattr(it, "start", 0.0) or 0.0)
+                        e = float(getattr(it, "end", 0.0) or 0.0)
+                        if e < clip_start or s > clip_end:
+                            continue
+                        rs = max(s, clip_start) - clip_start
+                        re = min(e, clip_end) - clip_start
+                        matches.append({
+                            "rel_start": rs,
+                            "rel_end": re,
+                            "src_start": s,
+                            "src_end": e,
+                            "score": float(getattr(it, "score", 0.0) or 0.0),
+                            "thumbnail_url": getattr(it, "thumbnail_url", "") or "",
+                            "transcription": getattr(it, "transcription", "") or "",
+                        })
+
+                    matches.sort(key=lambda x: x["score"], reverse=True)
+                    matches = matches[: max(1, int(top_k))]
+
+                    lines = [f"TwelveLabs matches in '{clip_name}' window ({_fmt_mmss(clip_start)} - {_fmt_mmss(clip_end)} source time):"]
+                    for m in matches:
+                        lines.append(
+                            f"- [{_fmt_mmss(m['rel_start'])} - {_fmt_mmss(m['rel_end'])}] score={m['score']:.3f}"
+                        )
+                        if m.get("transcription"):
+                            lines.append(f"  transcript: {str(m['transcription']).strip()[:180]}")
+                        if m.get("thumbnail_url"):
+                            lines.append(f"  thumb: {m['thumbnail_url']}")
+                    return "\n".join(lines)
+
+        # Local fallback (scene_descriptions)
+        local_ai = per_clip_ai
+        if local_ai is None and source_ai is not None:
+            # Adjust source metadata into this clip window for searching
+            local_ai = adjust_scene_descriptions_for_subclip(source_ai, clip_start, clip_end)
+
+        results = search_scene_descriptions(local_ai or {}, query, top_k=top_k, use_openai_rerank=use_openai_rerank)
+        if not results:
+            return "No matches found in scene descriptions (and TwelveLabs not ready)."
+
+        lines = [f"Scene-description matches in '{clip_name}':"]
+        for r in results:
+            lines.append(f"- [{_fmt_mmss(r['time'])}] score={r.get('score', 0.0):.3f} ({r.get('source','local')}): {r.get('description','')}")
+        return "\n".join(lines)
+
+    except Exception as e:
+        log.error("search_selected_clip_scenes: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def slice_selected_clip_at_best_match(query: str) -> str:
+    """Slice the selected timeline clip at the best TwelveLabs match inside the clip window.
+
+    Requires TwelveLabs to be configured and the source video to be indexed.
+    """
+    try:
+        clip_obj, win = _get_selected_timeline_clip_and_window()
+        if not clip_obj:
+            return "Error: No timeline clip selected."
+
+        if not twelvelabs_is_configured():
+            return "Error: TwelveLabs is not configured. Set TWELVELABS_API_KEY and re-try."
+
+        clip_data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
+        clip_start = float(clip_data.get("start", 0.0) or 0.0)
+        clip_end = float(clip_data.get("end", 0.0) or 0.0)
+        clip_pos = float(clip_data.get("position", 0.0) or 0.0)
+
+        source_file = _get_source_file_for_clip(clip_obj)
+        source_ai = (
+            source_file.data.get("ai_metadata")
+            if source_file and isinstance(source_file.data, dict) and isinstance(source_file.data.get("ai_metadata"), dict)
+            else None
+        )
+        if not source_file or not source_ai:
+            return "Error: Could not find the source file metadata for the selected clip."
+
+        tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
+        status = (tw.get("status") or "").lower() if isinstance(tw, dict) else ""
+        index_id = tw.get("index_id") if isinstance(tw, dict) else None
+
+        if status != "ready" or not index_id:
+            # Best-effort: queue indexing (import normally does this, but handle misses)
+            try:
+                if source_file.absolute_path():
+                    app = _get_app()
+                    proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
+                    proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
+                    proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
+                    proj_index_id = proj_tw.get("index_id") if isinstance(proj_tw, dict) else None
+                    proj_id = str(app.project.get("id") or "")
+                    proj_index_name = build_project_index_name(proj_id or "project")
+
+                    ai_meta = source_file.data.get("ai_metadata") if isinstance(source_file.data, dict) else {}
+                    if not isinstance(ai_meta, dict):
+                        ai_meta = {}
+                    ai_meta["twelvelabs"] = {
+                        "status": "queued",
+                        "index_name": proj_index_name,
+                        "filename": os.path.basename(source_file.absolute_path()),
+                    }
+                    source_file.data["ai_metadata"] = ai_meta
+                    source_file.save()
+                    app.task_queue.submit(
+                        "twelvelabs",
+                        f"twelvelabs_index:{source_file.id}",
+                        index_video_blocking,
+                        file_path=source_file.absolute_path(),
+                        index_name=proj_index_name,
+                        filename=os.path.basename(source_file.absolute_path()),
+                        existing_index_id=proj_index_id,
+                    )
+            except Exception:
+                pass
+            return "TwelveLabs indexing is not ready yet for this source video. Indexing has been queued; try again in a moment."
+
+        items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=30, video_id=str(tw.get("video_id") or ""))
+        if err:
+            return f"Error: TwelveLabs search failed: {err}"
+        if not items:
+            return "No TwelveLabs matches found inside the selected clip window."
+
+        best_mid = None
+        best_score = -1.0
+        for it in items:
+            s = float(getattr(it, "start", 0.0) or 0.0)
+            e = float(getattr(it, "end", 0.0) or 0.0)
+            if e < clip_start or s > clip_end:
+                continue
+            mid = (max(s, clip_start) + min(e, clip_end)) / 2.0
+            score = float(getattr(it, "score", 0.0) or 0.0)
+            if score > best_score:
+                best_score = score
+                best_mid = mid
+
+        if best_mid is None:
+            return "No TwelveLabs matches overlapped the selected clip window."
+
+        slice_pos = clip_pos + (best_mid - clip_start)
+        from windows.views.timeline import MenuSlice  # lazy import
+        _get_app().window.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, [str(clip_obj.id)], [], slice_pos)
+        return f"Sliced selected clip at {_fmt_mmss(best_mid - clip_start)} (best TwelveLabs match)."
+    except Exception as e:
+        log.error("slice_selected_clip_at_best_match: %s", e, exc_info=True)
+        return f"Error: {e}"
 
 
 # ---- Read-only: project state ----
@@ -924,6 +1226,32 @@ def get_openshot_tools_for_langchain():
         """Slice (split) the clip(s) and transition(s) at the current playhead position on the timeline, keeping both sides. Use when the user wants to clip the existing clip at the playhead. No arguments. Fails if no clip is under the playhead."""
         return slice_clip_at_playhead()
 
+    @tool
+    def search_selected_clip_scenes_tool(query: str, top_k: str = "5", use_openai_rerank: str = "true") -> str:
+        """Search within the currently selected timeline clip's time window. Uses TwelveLabs when indexed; otherwise falls back to local scene_descriptions (optionally OpenAI rerank).
+
+        Args:
+            query: natural language query
+            top_k: number of results (default 5)
+            use_openai_rerank: 'true'/'false' (default true)
+        """
+        try:
+            k = int(float(top_k)) if str(top_k).strip() else 5
+        except Exception:
+            k = 5
+        uo = str(use_openai_rerank).strip().lower() not in ("0", "false", "no", "off")
+        return search_selected_clip_scenes(query=query, top_k=k, use_openai_rerank=uo)
+
+    @tool
+    def slice_selected_clip_at_best_match_tool(query: str) -> str:
+        """Slice the selected timeline clip at the best match inside its time window (TwelveLabs preferred, else scene_descriptions)."""
+        return slice_selected_clip_at_best_match(query=query)
+
+    @tool
+    def generate_transition_clip_tool(clip_a_id: str, clip_b_id: str, prompt_hint: str = "") -> str:
+        """Generate a short transition clip between two clips and insert it between them. Arguments: clip_a_id, clip_b_id, prompt_hint (optional)."""
+        return generate_transition_clip(clip_a_id=clip_a_id, clip_b_id=clip_b_id, prompt_hint=prompt_hint)
+
     return [
         get_project_info_tool,
         list_files_tool,
@@ -954,5 +1282,7 @@ def get_openshot_tools_for_langchain():
         add_clip_to_timeline_tool,
         generate_video_and_add_to_timeline_tool,
         slice_clip_at_playhead_tool,
+        search_selected_clip_scenes_tool,
+        slice_selected_clip_at_best_match_tool,
         generate_transition_clip_tool,
     ]

@@ -3,14 +3,7 @@ Root/supervisor agent: routes user requests to Video, Manim, or Voice/Music sub-
 Runs in the worker thread; sub-agent tool execution is dispatched to the main thread.
 """
 
-ROOT_SYSTEM_PROMPT = """You are the Zenvi root assistant. You route user requests to the right specialist agent.
-
-You have three tools:
-- invoke_video_agent: for project state, timeline, clips, export, video generation, splitting, adding clips. Use for listing files, adding tracks, exporting, generating video, editing the timeline.
-- invoke_manim_agent: for creating educational or mathematical animation videos (Manim). Use when the user asks for educational content, math animations, or Manim.
-- invoke_voice_music_agent: for voice overlays and music generation. Use when the user asks for narration, TTS, or background music.
-
-Route each user message to one agent by calling the appropriate tool with the user's request as the "task" argument. If the request spans multiple domains, call one agent first and summarize; you can say you will handle the rest in a follow-up. Respond concisely with the agent's result."""
+from classes.ai_prompts import ROOT_SYSTEM_PROMPT
 
 
 def run_root_agent(model_id, messages, main_thread_runner):

@@ -32,6 +32,7 @@ import re
 import glob
 import functools
 import uuid
+import time
 
 from PyQt5.QtCore import (
     QMimeData, Qt, pyqtSignal, QEventLoop, QObject, QThread,
@@ -50,6 +51,7 @@ from classes.app import get_app
 from classes.thumbnail import GetThumbPath
 from classes.tag_manager import get_tag_manager
 from classes.gemini_tagger import GeminiVideoTagger
+from classes.twelvelabs_indexer import build_project_index_name, index_video_blocking, is_configured as twelvelabs_is_configured
 
 import openshot
 
@@ -466,6 +468,13 @@ class FilesModel(QObject, updates.UpdateInterface):
                 scroll_to_files.append(new_file)
                 self._apply_ai_metadata(new_file, ai_metadata)
 
+                # Automatic TwelveLabs indexing (runs in background; does not block UI)
+                try:
+                    if new_file.data.get("media_type") == "video" and twelvelabs_is_configured():
+                        self._queue_twelvelabs_indexing(new_file)
+                except Exception as e:
+                    log.debug(f"Failed to queue TwelveLabs indexing: {e}")
+
                 # Should we auto-analyze this file with the legacy queue?
                 try:
                     s = get_app().get_settings()
@@ -748,8 +757,151 @@ class FilesModel(QObject, updates.UpdateInterface):
         app.window.refreshFilesSignal.connect(
             functools.partial(self.update_model, clear=False))
 
+        # Listen for background task completion (used for TwelveLabs indexing)
+        try:
+            if hasattr(app, "task_queue") and hasattr(app.task_queue, "task_finished"):
+                app.task_queue.task_finished.connect(self._on_task_queue_finished)
+        except Exception:
+            pass
+
         # Call init for superclass QObject
         super(QObject, FilesModel).__init__(self, *args)
+
+    def _queue_twelvelabs_indexing(self, file_obj: File) -> None:
+        """Queue TwelveLabs indexing for a File. Must be called on the main thread."""
+        try:
+            app = get_app()
+            file_id = str(file_obj.id)
+            abs_path = file_obj.absolute_path()
+            filename = os.path.basename(abs_path or file_obj.data.get("path") or "")
+
+            # Project-wide TwelveLabs index config is stored under project.settings.ai_twelvelabs
+            project_id = str(app.project.get("id") or "") if getattr(app, "project", None) else ""
+            project_index_name = build_project_index_name(project_id or "project")
+            proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
+            proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
+            proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
+            project_index_id = proj_tw.get("index_id") if isinstance(proj_tw, dict) else None
+            video_by_path = proj_tw.get("video_by_path") if isinstance(proj_tw.get("video_by_path"), dict) else {}
+
+            # Dedupe: if this exact file path was already indexed in this project, reuse video_id.
+            if abs_path and isinstance(video_by_path, dict) and video_by_path.get(abs_path) and project_index_id:
+                ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
+                if not isinstance(ai_metadata, dict):
+                    ai_metadata = {}
+                ai_metadata["twelvelabs"] = {
+                    "status": "ready",
+                    "index_name": project_index_name,
+                    "index_id": project_index_id,
+                    "video_id": video_by_path.get(abs_path),
+                    "filename": filename,
+                    "updated_at": time.time(),
+                }
+                file_obj.data["ai_metadata"] = ai_metadata
+                file_obj.save()
+                try:
+                    app.window.FileUpdated.emit(file_id)
+                except Exception:
+                    pass
+                return
+
+            ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
+            if not isinstance(ai_metadata, dict):
+                ai_metadata = {}
+
+            tw = ai_metadata.get("twelvelabs")
+            if isinstance(tw, dict) and tw.get("status") in ("ready", "indexing", "queued"):
+                return
+
+            # Mark as queued and persist
+            index_name = project_index_name
+            ai_metadata["twelvelabs"] = {
+                "status": "queued",
+                "index_name": index_name,
+                "index_id": project_index_id,
+                "filename": filename,
+                "updated_at": time.time(),
+            }
+            file_obj.data["ai_metadata"] = ai_metadata
+            file_obj.save()
+            try:
+                app.window.FileUpdated.emit(file_id)
+            except Exception:
+                pass
+
+            task_id = f"twelvelabs_index:{file_id}"
+            app.task_queue.submit(
+                "twelvelabs",
+                task_id,
+                index_video_blocking,
+                file_path=abs_path,
+                index_name=index_name,
+                filename=filename,
+                existing_index_id=project_index_id,
+            )
+        except Exception as e:
+            log.debug(f"_queue_twelvelabs_indexing failed: {e}")
+
+    def _on_task_queue_finished(self, task_id: str, result: object, error: object) -> None:
+        """Persist background task results back into project data."""
+        try:
+            if not isinstance(task_id, str) or not task_id.startswith("twelvelabs_index:"):
+                return
+
+            file_id = task_id.split(":", 1)[1]
+            file_obj = File.get(id=file_id)
+            if not file_obj:
+                return
+
+            ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
+            if not isinstance(ai_metadata, dict):
+                ai_metadata = {}
+
+            if error is not None:
+                # Preserve any existing ids; just mark failed
+                tw = ai_metadata.get("twelvelabs") if isinstance(ai_metadata.get("twelvelabs"), dict) else {}
+                tw = dict(tw) if isinstance(tw, dict) else {}
+                tw.update({
+                    "status": "failed",
+                    "error": str(error),
+                    "updated_at": time.time(),
+                })
+                ai_metadata["twelvelabs"] = tw
+            elif isinstance(result, dict):
+                # result is already a twelvelabs metadata dict
+                ai_metadata["twelvelabs"] = result
+
+                # Persist/merge project-wide TwelveLabs settings (index_id + dedupe cache)
+                try:
+                    app = get_app()
+                    tw = result
+                    idx_id = tw.get("index_id") if isinstance(tw, dict) else None
+                    vid_id = tw.get("video_id") if isinstance(tw, dict) else None
+                    abs_path = file_obj.absolute_path()
+                    if idx_id:
+                        proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
+                        proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
+                        proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
+                        proj_tw = dict(proj_tw) if isinstance(proj_tw, dict) else {}
+                        proj_tw.setdefault("index_id", idx_id)
+                        if abs_path and vid_id:
+                            vbp = proj_tw.get("video_by_path") if isinstance(proj_tw.get("video_by_path"), dict) else {}
+                            vbp = dict(vbp) if isinstance(vbp, dict) else {}
+                            vbp[abs_path] = vid_id
+                            proj_tw["video_by_path"] = vbp
+                        app.updates.update_untracked(["settings"], {"ai_twelvelabs": proj_tw})
+                except Exception:
+                    pass
+
+            file_obj.data["ai_metadata"] = ai_metadata
+            file_obj.save()
+            try:
+                get_app().window.FileUpdated.emit(file_id)
+            except Exception:
+                pass
+
+        except Exception as e:
+            log.debug(f"Failed handling task completion: {e}")
 
         # Attempt to load model testing interface, if requested
         # (will only succeed with Qt 5.11+)
