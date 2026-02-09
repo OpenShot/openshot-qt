@@ -188,22 +188,54 @@ jobs:
           # Homebrew does not provide an `openshot` formula; install the official app cask.
           brew install --cask openshot-video-editor
 
-          # Locate the OpenShot Python bindings bundled inside the app, if present.
+          # Locate the OpenShot Python bindings bundled inside the OpenShot app.
           # We pass this path via ZENVI_OPENSHOT_PYROOT so freeze.py can append it to sys.path
           # (without poisoning PYTHONPATH and breaking Python startup).
-          OPENSHOT_INIT="$(find /Applications -maxdepth 4 -type f -name '__init__.py' 2>/dev/null | grep -E '/openshot/__init__\.py$' | head -n 1 || true)"
-          if [ -n "$OPENSHOT_INIT" ]; then
-            OPENSHOT_PKG_DIR="$(dirname "$OPENSHOT_INIT")"
-            OPENSHOT_PYROOT="$(dirname "$OPENSHOT_PKG_DIR")"
-            echo "Found OpenShot package: $OPENSHOT_INIT"
-            echo "ZENVI_OPENSHOT_PYROOT=$OPENSHOT_PYROOT" >> "$GITHUB_ENV"
-          else
-            echo "::warning::Could not locate bundled OpenShot Python bindings under /Applications"
+          OPENSHOT_APP="$(find /Applications -maxdepth 2 -type d -name '*OpenShot*.app' 2>/dev/null | head -n 1 || true)"
+          if [ -z "$OPENSHOT_APP" ]; then
+            # Sometimes casks may be staged in the Caskroom; try there too.
+            CASKROOM="$(brew --prefix)/Caskroom"
+            OPENSHOT_APP="$(find "$CASKROOM" -maxdepth 5 -type d -name '*OpenShot*.app' 2>/dev/null | head -n 1 || true)"
           fi
+
+          if [ -z "$OPENSHOT_APP" ]; then
+            echo "::error::OpenShot .app bundle not found after installing cask"
+            exit 1
+          fi
+
+          echo "OpenShot app: $OPENSHOT_APP"
+
+          HIT="$(
+            find "$OPENSHOT_APP" -type f \( -name '_openshot*.so' -o -path '*/openshot/__init__.py' \) 2>/dev/null | head -n 1 || true
+          )"
+
+          if [ -z "$HIT" ]; then
+            echo "::error::Could not locate OpenShot Python bindings inside the app bundle"
+            exit 1
+          fi
+
+          if echo "$HIT" | grep -q '/openshot/__init__.py$'; then
+            OPENSHOT_PKG_DIR="$(dirname "$HIT")"      # .../openshot
+            OPENSHOT_PYROOT="$(dirname "$OPENSHOT_PKG_DIR")"  # .../(site-packages)
+          else
+            OPENSHOT_BIND_DIR="$(dirname "$HIT")"
+            if [ "$(basename "$OPENSHOT_BIND_DIR")" = "openshot" ]; then
+              OPENSHOT_PYROOT="$(dirname "$OPENSHOT_BIND_DIR")"
+            else
+              OPENSHOT_PYROOT="$OPENSHOT_BIND_DIR"
+            fi
+          fi
+
+          echo "ZENVI_OPENSHOT_PYROOT=$OPENSHOT_PYROOT" >> "$GITHUB_ENV"
+          echo "Found OpenShot bindings at: $HIT"
 
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
+
+      - name: Verify OpenShot Python bindings (macOS)
+        run: |
+          python3 -c "import os, sys; p=os.environ.get('ZENVI_OPENSHOT_PYROOT'); print('ZENVI_OPENSHOT_PYROOT=', p); sys.path.append(p); import openshot; print('openshot=', getattr(openshot, '__file__', openshot))"
 
       - name: Freeze with cx_Freeze
         run: python3 freeze.py bdist_mac --git-branch=production
