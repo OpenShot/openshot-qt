@@ -65,7 +65,6 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [CustomMessages]
 english.FirewallException=Add an exception to the Windows Firewall for optionally sending anonymized usage and error information.
-italian.FirewallException=Aggiungi un'eccezione a Windows Firewall per l'invio facoltativo di informazioni anonime sull'uso/errori dell'applicazione.
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableCheck;
