@@ -419,8 +419,11 @@ jobs:
           if-no-files-found: error
 
   # ── 5. Create GitHub Release with all artifacts ───────────────────────
+  # Run even if some platform builds fail so that successful artifacts
+  # (e.g. Linux + Windows) still get published.
   release:
     needs: [version, build-linux, build-macos, build-windows]
+    if: always() && needs.version.result == 'success'
     runs-on: ubuntu-latest
     env:
       VER: ${{ needs.version.outputs.version }}
@@ -433,6 +436,17 @@ jobs:
         with:
           path: dist/
           merge-multiple: true
+        continue-on-error: true   # some platform artifacts may be missing
+
+      - name: Ensure at least one artifact exists
+        run: |
+          mkdir -p dist
+          COUNT=$(find dist/ -type f 2>/dev/null | wc -l)
+          if [ "$COUNT" -eq 0 ]; then
+            echo "::error::No build artifacts found — all platform builds failed"
+            exit 1
+          fi
+          echo "Found $COUNT artifact(s)"
 
       - name: List artifacts
         run: |
