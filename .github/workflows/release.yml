@@ -185,39 +185,43 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install openshot  2>/dev/null || true
+          brew install openshot
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
 
       - name: Freeze with cx_Freeze
-        run: python3 freeze.py bdist_mac --git-branch=production || true
+        run: python3 freeze.py bdist_mac --git-branch=production
 
       - name: Create DMG
         run: |
-          # If cx_Freeze produced a .app bundle, package it
+          # cx_Freeze must produce a real .app bundle for a launchable DMG
           APP_BUNDLE=$(find build -name "*.app" -type d 2>/dev/null | head -1)
           if [ -z "$APP_BUNDLE" ]; then
-            echo "::warning::No .app bundle found — creating placeholder DMG"
-            mkdir -p "Zenvi.app/Contents/MacOS"
-            cp -r build/exe.macos*/* "Zenvi.app/Contents/MacOS/" 2>/dev/null || true
-            APP_BUNDLE="Zenvi.app"
+            echo "::error::No .app bundle found under build/ (cx_Freeze bdist_mac failed)"
+            find build -maxdepth 3 -type d -print || true
+            exit 1
           fi
 
           DMG_NAME="Zenvi-v${VER}-x86_64.dmg"
 
-          # Create a temporary DMG
+          # Build a standard DMG root (App + /Applications link)
+          rm -rf dmgroot
+          mkdir -p dmgroot
+          cp -R "$APP_BUNDLE" dmgroot/
+          ln -s /Applications dmgroot/Applications
+
           hdiutil create -volname "Zenvi" \
-            -srcfolder "$APP_BUNDLE" \
+            -srcfolder "dmgroot" \
             -ov -format UDZO \
-            "$DMG_NAME" || true
+            "$DMG_NAME"
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-package
           path: Zenvi-v*.dmg
-          if-no-files-found: warn
+          if-no-files-found: error
 
   # ── 4. Windows build (.exe) ───────────────────────────────────────────
   build-windows:

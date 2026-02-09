@@ -445,7 +445,7 @@ elif sys.platform == "linux":
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-   # Add libresvg (if found)
+    # Add libresvg (if found)
     resvg_path = "/usr/local/lib/librsvg-2.dylib"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
@@ -457,13 +457,36 @@ elif sys.platform == "darwin":
     iconFile += ".hqx"
     src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
 
-    # Add QtWebEngineProcess (if found)
-    qt_install_path = "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64/"
-    qt_webengine_path = os.path.join(qt_install_path, "lib", "QtWebEngineCore.framework", "Versions", "5")
-    web_process_path = os.path.join(qt_webengine_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
-    web_core_path = os.path.join(qt_webengine_path, "QtWebEngineCore")
-    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
-    external_so_files.append((web_core_path, os.path.basename(web_core_path)))
+    # Add QtWebEngineProcess / resources if found.
+    #
+    # NOTE: The historical OpenShot build scripts used a hard-coded Qt install path.
+    # GitHub hosted runners (and pip-installed PyQt) do not use that layout.
+    # We locate paths dynamically and include them only when present.
+    qt_prefix = QLibraryInfo.location(QLibraryInfo.PrefixPath)
+    qt_plugins_path = QLibraryInfo.location(QLibraryInfo.PluginsPath)
+    qt_libexec_path = QLibraryInfo.location(QLibraryInfo.LibraryExecutablesPath)
+
+    # Candidate QtWebEngineProcess paths (Qt on macOS often ships this as a .app helper)
+    web_process_candidates = [
+        os.path.join(qt_libexec_path, "QtWebEngineProcess"),
+        os.path.join(qt_libexec_path, "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess"),
+    ]
+    for web_process_path in web_process_candidates:
+        if web_process_path and os.path.exists(web_process_path):
+            external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+            break
+
+    # Candidate locales/resources locations
+    qtwebengine_locales_candidates = [
+        os.path.join(qt_prefix, "resources", "qtwebengine_locales"),
+        os.path.join(qt_prefix, "translations", "qtwebengine_locales"),
+        os.path.join(qt_prefix, "qtwebengine_locales"),
+    ]
+    for locales_dir in qtwebengine_locales_candidates:
+        if locales_dir and os.path.isdir(locales_dir):
+            for filename in find_files(locales_dir, ["*"]):
+                external_so_files.append((filename, os.path.join("qtwebengine_locales", os.path.relpath(filename, start=locales_dir))))
+            break
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
@@ -471,16 +494,13 @@ elif sys.platform == "darwin":
     for filename in find_files(babl_ext_path, ["*.dylib"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
-    # Add QtWebEngineProcess Resources & Local
-    for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
-        relative_filepath = os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))
-        plugin_name = os.path.dirname(relative_filepath)
-        if plugin_name in ["imageformats", "platforms"]:
-            external_so_files.append((filename, relative_filepath))
+    # Include a minimal set of Qt plugins when available (platform + imageformats)
+    if qt_plugins_path and os.path.isdir(qt_plugins_path):
+        for filename in find_files(qt_plugins_path, ["*"]):
+            relative_filepath = os.path.relpath(filename, start=qt_plugins_path)
+            plugin_name = os.path.dirname(relative_filepath)
+            if plugin_name in ["imageformats", "platforms"]:
+                external_so_files.append((filename, os.path.join("plugins", relative_filepath)))
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
