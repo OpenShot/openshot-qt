@@ -185,7 +185,22 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install openshot
+          # Homebrew does not provide an `openshot` formula; install the official app cask.
+          brew install --cask openshot-video-editor
+
+          # Locate the OpenShot Python bindings bundled inside the app, if present.
+          # We pass this path via ZENVI_OPENSHOT_PYROOT so freeze.py can append it to sys.path
+          # (without poisoning PYTHONPATH and breaking Python startup).
+          OPENSHOT_INIT="$(find /Applications -maxdepth 4 -type f -name '__init__.py' 2>/dev/null | grep -E '/openshot/__init__\.py$' | head -n 1 || true)"
+          if [ -n "$OPENSHOT_INIT" ]; then
+            OPENSHOT_PKG_DIR="$(dirname "$OPENSHOT_INIT")"
+            OPENSHOT_PYROOT="$(dirname "$OPENSHOT_PKG_DIR")"
+            echo "Found OpenShot package: $OPENSHOT_INIT"
+            echo "ZENVI_OPENSHOT_PYROOT=$OPENSHOT_PYROOT" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Could not locate bundled OpenShot Python bindings under /Applications"
+          fi
+
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true

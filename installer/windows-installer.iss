@@ -50,8 +50,11 @@ SetupIconFile=..\xdg\openshot-qt.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
-SignedUninstaller=yes
-SignedUninstallerDir=..\build\
+; CI builds do not have a code-signing tool configured. If SignedUninstaller=yes,
+; ISCC will abort and ask for a manual signing step.
+; For release signing, re-enable this and configure SignTool in CI.
+SignedUninstaller=no
+; SignedUninstallerDir=..\build\
 PrivilegesRequiredOverridesAllowed=commandline
 AllowNoIcons=yes
 
