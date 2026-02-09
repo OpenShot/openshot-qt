@@ -3,9 +3,12 @@ OpenShot tools for the LangChain agent. All tools assume they are run on the Qt 
 (dispatched by the agent runner). They call get_app().project, get_app().updates, get_app().window.
 """
 
+import base64
 import copy
 import json
 import os
+import subprocess
+import tempfile
 import uuid as uuid_module
 from classes.logger import log
 from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
@@ -24,6 +27,54 @@ except ImportError:
     pyqtSignal = None
     pyqtSlot = lambda x: x
     QEventLoop = None
+
+
+def _pause_player():
+    """Pause the video preview player to prevent background threads from
+    calling Timeline::GetFrame while we mutate the native timeline.
+    Returns True if the player was playing (so the caller can resume later)."""
+    import time as _time
+    try:
+        app = _get_app()
+        player = app.window.preview_thread.player
+        import openshot
+        was_playing = player.Mode() == openshot.PLAYBACK_PLAY
+        player.Pause()  # sets mode + Speed(0); C++ thread-safe
+        # Give the player/cache threads a moment to finish any in-progress
+        # GetFrame call before we start mutating the timeline.
+        _time.sleep(0.05)
+        return was_playing
+    except Exception:
+        return False
+
+
+def _resume_player(was_playing):
+    """Resume the video player if it was playing before we paused it."""
+    try:
+        if was_playing:
+            app = _get_app()
+            app.window.preview_thread.player.Play()
+    except Exception:
+        pass
+
+
+def _load_dotenv_if_available() -> None:
+    """Best-effort .env loading for API keys."""
+    try:
+        from dotenv import load_dotenv  # type: ignore
+    except Exception:
+        return
+
+    try:
+        # Prefer repo-root .env, fallback to cwd
+        root_env = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env")
+        cwd_env = os.path.join(os.getcwd(), ".env")
+        if os.path.exists(root_env):
+            load_dotenv(dotenv_path=root_env, override=False)
+        elif os.path.exists(cwd_env):
+            load_dotenv(dotenv_path=cwd_env, override=False)
+    except Exception:
+        return
 
 
 def _get_app():
@@ -325,6 +376,617 @@ def slice_selected_clip_at_best_match(query: str) -> str:
         return f"Sliced selected clip at {_fmt_mmss(best_mid - clip_start)} (best TwelveLabs match)."
     except Exception as e:
         log.error("slice_selected_clip_at_best_match: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def _is_extreme_for_4_seconds(prompt: str) -> tuple[bool, str]:
+    """Return (is_too_extreme, reason). Heuristic guardrail for 4s inserts."""
+    text = (prompt or "").strip().lower()
+    if len(text) < 2:
+        return True, "Prompt is too short."
+
+    # Too many sequential actions / multi-scene narratives.
+    multi_markers = [
+        "then ",
+        "after that",
+        "afterwards",
+        "meanwhile",
+        "next ",
+        "cut to",
+        "scene change",
+        "montage",
+        "several",
+        "multiple",
+        "a series of",
+        "over the course of",
+        "gradually",
+        "time-lapse",
+        "timelapse",
+    ]
+    if sum(1 for m in multi_markers if m in text) >= 2:
+        return True, "Request describes multiple steps/scenes; keep it to one simple action for a 4s insert."
+
+    # Big unrealistic transformations for a short insert.
+    extreme_markers = [
+        "explode",
+        "nuke",
+        "earthquake",
+        "tsunami",
+        "apocalypse",
+        "destroy the city",
+        "teleport",
+        "time travel",
+        "turn into",
+        "transform into",
+        "grow wings",
+        "summon",
+        "giant",
+        "entire crowd",
+        "army",
+        "hundreds of",
+        "thousands of",
+    ]
+    if any(m in text for m in extreme_markers):
+        return True, "Request is too large/extreme to fit plausibly into a 4s insert."
+
+    # Very long prompts tend to imply too many constraints.
+    if len(text) > 240:
+        return True, "Prompt is too detailed for a 4s insert; simplify to the single key change."
+
+    return False, ""
+
+
+def _ffmpeg_run(args: list[str]) -> tuple[bool, str]:
+    try:
+        p = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+        if p.returncode != 0:
+            return False, (p.stderr or p.stdout or "ffmpeg failed")
+        return True, ""
+    except FileNotFoundError:
+        return False, "ffmpeg not found. Install ffmpeg to enable AI video-to-video inserts."
+    except Exception as e:
+        return False, str(e)
+
+
+def _file_to_data_uri(path: str, media_type: str) -> tuple[str | None, str | None]:
+    try:
+        with open(path, "rb") as f:
+            raw = f.read()
+        if len(raw) > 50 * 1024 * 1024:
+            return None, "Seed media is too large to send as base64. Try a smaller resolution or shorter segment."
+        b64 = base64.b64encode(raw).decode("ascii")
+        return f"data:{media_type};base64,{b64}", None
+    except OSError as e:
+        return None, f"Failed to read media: {e}"
+
+
+def _ffprobe_has_audio(path: str) -> bool:
+    """Return True if the media file has at least one audio stream (best-effort)."""
+    try:
+        p = subprocess.run(
+            [
+                "ffprobe",
+                "-v",
+                "error",
+                "-select_streams",
+                "a",
+                "-show_entries",
+                "stream=index",
+                "-of",
+                "csv=p=0",
+                path,
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        out = (p.stdout or "").strip()
+        return bool(out)
+    except Exception:
+        return False
+
+
+def _create_dissolve_transition(layer: int, position: float, duration: float, *, transaction_id: str | None = None) -> tuple[bool, str]:
+    """Create a Mask dissolve transition using fade.svg at the given overlap position."""
+    try:
+        import openshot
+        from classes import info
+
+        app = _get_app()
+        fps = app.project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"]) if fps else 24.0
+
+        transition_reader = openshot.QtImageReader(
+            os.path.join(info.PATH, "transitions", "common", "fade.svg")
+        )
+        transition_object = openshot.Mask()
+        brightness = transition_object.brightness
+        brightness.AddPoint(1, 1.0, openshot.BEZIER)
+        brightness.AddPoint(round(float(duration) * fps_float) + 1, -1.0, openshot.BEZIER)
+        contrast = openshot.Keyframe(3.0)
+
+        transitions_data = {
+            "id": app.project.generate_id(),
+            "layer": int(layer),
+            "title": "Transition",
+            "type": "Mask",
+            "position": float(position),
+            "start": 0,
+            "end": float(duration),
+            "brightness": json.loads(brightness.Json()),
+            "contrast": json.loads(contrast.Json()),
+            "reader": json.loads(transition_reader.Json()),
+            "replace_image": False,
+        }
+        app.window.timeline.update_transition_data(transitions_data, only_basic_props=False, ignore_refresh=False, transaction_id=transaction_id)
+        return True, ""
+    except Exception as e:
+        return False, str(e)
+
+
+class _ViduV2VInsertThread(QThread if QThread else object):
+    """Worker thread to build seed video, generate the 4s insert via Runware, then bake an updated clip."""
+    if pyqtSignal is not None:
+        finished_with_result = pyqtSignal(str, str)  # path_or_empty, error_or_empty
+
+    def __init__(
+        self,
+        api_key: str,
+        source_video_path: str,
+        center_time_seconds: float,
+        clip_window_start: float,
+        clip_window_end: float,
+        user_prompt: str,
+        output_path: str,
+        *,
+        model: str,
+        width: int,
+        height: int,
+        duration_seconds: float,
+        strength: float,
+        fade_seconds: float,
+    ):
+        if QThread is not None:
+            super().__init__()
+        self._api_key = api_key
+        self._source_video_path = source_video_path
+        self._center_time = float(center_time_seconds)
+        self._clip_window_start = float(clip_window_start)
+        self._clip_window_end = float(clip_window_end)
+        self._user_prompt = user_prompt
+        self._output_path = output_path
+        self._model = model
+        self._width = int(width)
+        self._height = int(height)
+        self._duration = float(duration_seconds)
+        self._strength = float(strength)
+        self._fade_s = float(fade_seconds)
+
+    def _emit(self, path: str, err: str):
+        if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+            self.finished_with_result.emit(path or "", err or "")
+
+    def run(self):
+        # Guardrail: keep prompt feasible for 4s
+        too_extreme, reason = _is_extreme_for_4_seconds(self._user_prompt)
+        if too_extreme:
+            self._emit("", f"Please simplify the request: {reason}")
+            return
+
+        from classes.video_generation.runware_client import (
+            runware_generate_video,
+            download_video_to_path,
+        )
+
+        try:
+            tmpdir = tempfile.mkdtemp(prefix="zenvi_vidu_seed_")
+        except Exception as e:
+            self._emit("", f"Failed to create temp dir: {e}")
+            return
+
+        try:
+            seg1 = os.path.join(tmpdir, "seg1.mp4")
+            seg2 = os.path.join(tmpdir, "seg2.mp4")
+            concat_list = os.path.join(tmpdir, "list.txt")
+            seed_mp4 = os.path.join(tmpdir, "seed.mp4")
+            first_jpg = os.path.join(tmpdir, "first.jpg")
+            last_jpg = os.path.join(tmpdir, "last.jpg")
+            insert_mp4 = os.path.join(tmpdir, "insert.mp4")
+
+            start1 = max(0.0, self._center_time - 2.0)
+            start2 = max(0.0, self._center_time)
+            # Extract two 2s segments at 720p to keep size manageable.
+            vf = (
+                f"scale={self._width}:{self._height}:force_original_aspect_ratio=decrease,"
+                f"pad={self._width}:{self._height}:(ow-iw)/2:(oh-ih)/2,setsar=1"
+            )
+            cmd1 = [
+                "ffmpeg", "-y",
+                "-ss", str(start1), "-i", self._source_video_path,
+                "-t", "2.0",
+                "-vf", vf,
+                "-r", "24",
+                "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
+                seg1,
+            ]
+            ok, err = _ffmpeg_run(cmd1)
+            if not ok:
+                self._emit("", f"Failed to build seed segment 1: {err}")
+                return
+
+            cmd2 = [
+                "ffmpeg", "-y",
+                "-ss", str(start2), "-i", self._source_video_path,
+                "-t", "2.0",
+                "-vf", vf,
+                "-r", "24",
+                "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
+                seg2,
+            ]
+            ok, err = _ffmpeg_run(cmd2)
+            if not ok:
+                self._emit("", f"Failed to build seed segment 2: {err}")
+                return
+
+            with open(concat_list, "w", encoding="utf-8") as f:
+                f.write(f"file '{seg1}'\n")
+                f.write(f"file '{seg2}'\n")
+            ok, err = _ffmpeg_run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list, "-c", "copy", seed_mp4])
+            if not ok:
+                # Fallback: re-encode concat if container copy fails
+                ok2, err2 = _ffmpeg_run([
+                    "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
+                    "-an", seed_mp4,
+                ])
+                if not ok2:
+                    self._emit("", f"Failed to concat seed segments: {err}; {err2}")
+                    return
+
+            ok, err = _ffmpeg_run(["ffmpeg", "-y", "-i", seed_mp4, "-frames:v", "1", first_jpg])
+            if not ok:
+                self._emit("", f"Failed to extract first frame: {err}")
+                return
+            ok, err = _ffmpeg_run(["ffmpeg", "-y", "-sseof", "-0.05", "-i", seed_mp4, "-frames:v", "1", last_jpg])
+            if not ok:
+                self._emit("", f"Failed to extract last frame: {err}")
+                return
+
+            seed_uri, err = _file_to_data_uri(seed_mp4, "video/mp4")
+            if err:
+                self._emit("", err)
+                return
+            first_uri, err = _file_to_data_uri(first_jpg, "image/jpeg")
+            if err:
+                self._emit("", err)
+                return
+            last_uri, err = _file_to_data_uri(last_jpg, "image/jpeg")
+            if err:
+                self._emit("", err)
+                return
+
+            # Encourage seamless endpoints.
+            prompt = (
+                f"{self._user_prompt.strip()}\n\n"
+                "Constraints: the first frame must closely match the provided first frame, "
+                "and the last frame must closely match the provided last frame. Keep it realistic for 4 seconds."
+            )
+            frame_images = [
+                {"inputImage": first_uri, "frame": "first"},
+                {"inputImage": last_uri, "frame": "last"},
+            ]
+
+            video_url, gen_err = runware_generate_video(
+                self._api_key,
+                prompt,
+                duration_seconds=self._duration,
+                model=self._model,
+                width=self._width,
+                height=self._height,
+                fps=24,
+                seed_video=seed_uri,
+                strength=self._strength,
+                frame_images=frame_images,
+                provider_settings=None,
+            )
+            if gen_err:
+                self._emit("", gen_err)
+                return
+            ok, dl_err = download_video_to_path(video_url, insert_mp4)
+            if not ok:
+                self._emit("", dl_err or "Download failed")
+                return
+
+            # Bake an updated clip: [clip_start..center] + insert + [center..clip_end], with internal crossfades.
+            clip_start = float(self._clip_window_start)
+            clip_end = float(self._clip_window_end)
+            center = float(self._center_time)
+            dur_a = max(0.0, center - clip_start)
+            dur_c = max(0.0, clip_end - center)
+            insert_dur = float(self._duration)
+
+            # Clamp fade so xfade offsets are valid.
+            fade = float(self._fade_s)
+            fade = min(fade, 0.49)
+            fade = min(fade, max(0.01, dur_a / 2.0) if dur_a > 0 else 0.01)
+            fade = min(fade, max(0.01, dur_c / 2.0) if dur_c > 0 else 0.01)
+            fade = min(fade, max(0.01, insert_dur / 2.0) if insert_dur > 0 else 0.01)
+            fade = max(0.01, fade)
+
+            vf = (
+                f"scale={self._width}:{self._height}:force_original_aspect_ratio=decrease,"
+                f"pad={self._width}:{self._height}:(ow-iw)/2:(oh-ih)/2,setsar=1,format=yuv420p,fps=24"
+            )
+
+            has_audio = _ffprobe_has_audio(self._source_video_path)
+            # xfade offsets
+            off1 = max(0.0, dur_a - fade)
+            off2 = max(0.0, dur_a + insert_dur - (2.0 * fade))
+
+            if has_audio:
+                # Build audio with fades and silence during the inserted section.
+                # Note: We intentionally don't attempt to synthesize audio for the generated insert.
+                filter_complex = (
+                    f"[0:v]trim=start={clip_start}:end={center},setpts=PTS-STARTPTS,{vf}[va];"
+                    f"[1:v]setpts=PTS-STARTPTS,{vf}[vb];"
+                    f"[0:v]trim=start={center}:end={clip_end},setpts=PTS-STARTPTS,{vf}[vc];"
+                    f"[va][vb]xfade=transition=fade:duration={fade}:offset={off1}[vab];"
+                    f"[vab][vc]xfade=transition=fade:duration={fade}:offset={off2}[vout];"
+                    f"[0:a]atrim=start={clip_start}:end={center},asetpts=PTS-STARTPTS,afade=t=out:st={max(0.0, dur_a - fade)}:d={fade}[aa];"
+                    f"anullsrc=channel_layout=stereo:sample_rate=48000,atrim=start=0:end={insert_dur}[ab];"
+                    f"[0:a]atrim=start={center}:end={clip_end},asetpts=PTS-STARTPTS,afade=t=in:st=0:d={fade}[ac];"
+                    f"[aa][ab][ac]concat=n=3:v=0:a=1[aout]"
+                )
+                cmd = [
+                    "ffmpeg",
+                    "-y",
+                    "-i",
+                    self._source_video_path,
+                    "-i",
+                    insert_mp4,
+                    "-filter_complex",
+                    filter_complex,
+                    "-map",
+                    "[vout]",
+                    "-map",
+                    "[aout]",
+                    "-c:v",
+                    "libx264",
+                    "-preset",
+                    "veryfast",
+                    "-crf",
+                    "20",
+                    "-c:a",
+                    "aac",
+                    "-b:a",
+                    "192k",
+                    self._output_path,
+                ]
+            else:
+                filter_complex = (
+                    f"[0:v]trim=start={clip_start}:end={center},setpts=PTS-STARTPTS,{vf}[va];"
+                    f"[1:v]setpts=PTS-STARTPTS,{vf}[vb];"
+                    f"[0:v]trim=start={center}:end={clip_end},setpts=PTS-STARTPTS,{vf}[vc];"
+                    f"[va][vb]xfade=transition=fade:duration={fade}:offset={off1}[vab];"
+                    f"[vab][vc]xfade=transition=fade:duration={fade}:offset={off2}[vout]"
+                )
+                cmd = [
+                    "ffmpeg",
+                    "-y",
+                    "-i",
+                    self._source_video_path,
+                    "-i",
+                    insert_mp4,
+                    "-filter_complex",
+                    filter_complex,
+                    "-map",
+                    "[vout]",
+                    "-c:v",
+                    "libx264",
+                    "-preset",
+                    "veryfast",
+                    "-crf",
+                    "20",
+                    "-an",
+                    self._output_path,
+                ]
+
+            ok, bake_err = _ffmpeg_run(cmd)
+            if not ok:
+                self._emit("", f"Failed to bake updated clip: {bake_err}")
+                return
+
+            self._emit(self._output_path, "")
+        finally:
+            try:
+                # Best-effort cleanup
+                import shutil
+                shutil.rmtree(tmpdir, ignore_errors=True)
+            except Exception:
+                pass
+
+
+def insert_vidu_v2v_clip_into_selected_clip(query: str, *, fade_ms: int = 400) -> str:
+    """Find best match in selected clip (TwelveLabs), generate a 4s v2v insert, bake an updated longer clip, and add it to the imported clips section.
+
+    The baked clip is tagged with Gemini and indexed with TwelveLabs before being
+    imported into the project. The original clip on the timeline is left unchanged.
+    """
+    if QThread is None or QEventLoop is None:
+        return "Error: This feature requires PyQt5."
+
+    clip_obj, win = _get_selected_timeline_clip_and_window()
+    if not clip_obj:
+        return "Error: No timeline clip selected. Select a clip and try again."
+
+    app = _get_app()
+    settings = app.get_settings()
+    _load_dotenv_if_available()
+    api_key = (os.getenv("RUNWARE_API_KEY") or "").strip() or (settings.get("runware-api-key") or "").strip()
+    if not api_key:
+        return "Error: Runware API key is not configured. Set RUNWARE_API_KEY in your .env (or add it in Preferences)."
+
+    query = (query or "").strip()
+    too_extreme, reason = _is_extreme_for_4_seconds(query)
+    if too_extreme:
+        return f"Error: Please simplify your request: {reason}"
+
+    clip_data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
+    clip_start = float(clip_data.get("start", 0.0) or 0.0)
+    clip_end = float(clip_data.get("end", 0.0) or 0.0)
+
+    source_file = _get_source_file_for_clip(clip_obj)
+    source_ai = (
+        source_file.data.get("ai_metadata")
+        if source_file and isinstance(source_file.data, dict) and isinstance(source_file.data.get("ai_metadata"), dict)
+        else None
+    )
+    if not source_file or not getattr(source_file, "absolute_path", None) or not source_file.absolute_path():
+        return "Error: Could not find the source video for the selected clip."
+
+    tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
+    status = (tw.get("status") or "").lower() if isinstance(tw, dict) else ""
+    index_id = tw.get("index_id") if isinstance(tw, dict) else None
+
+    best_mid = None
+    best_score = -1.0
+
+    # Strategy 1: TwelveLabs search (highest quality, needs indexing to be ready).
+    if status == "ready" and index_id:
+        items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=30, video_id=str(tw.get("video_id") or ""))
+        if err:
+            log.warning("TwelveLabs search failed, will try scene descriptions: %s", err)
+        elif items:
+            for it in items:
+                s = float(getattr(it, "start", 0.0) or 0.0)
+                e = float(getattr(it, "end", 0.0) or 0.0)
+                if e < clip_start or s > clip_end:
+                    continue
+                mid = (max(s, clip_start) + min(e, clip_end)) / 2.0
+                score = float(getattr(it, "score", 0.0) or 0.0)
+                if score > best_score:
+                    best_score = score
+                    best_mid = mid
+
+    # Strategy 2: Gemini scene description search (available if the file was tagged).
+    if best_mid is None and source_ai:
+        try:
+            scene_results = search_scene_descriptions(source_ai, query, top_k=5, use_openai_rerank=False)
+            for sr in (scene_results or []):
+                t = float(sr.get("time", 0.0) or 0.0)
+                sc = float(sr.get("score", 0.0) or 0.0)
+                if clip_start <= t <= clip_end and sc > best_score:
+                    best_score = sc
+                    best_mid = t
+        except Exception as exc:
+            log.debug("Scene description search fallback failed: %s", exc)
+
+    # Strategy 3: fall back to the midpoint of the clip.
+    if best_mid is None:
+        best_mid = (clip_start + clip_end) / 2.0
+        log.info("insert_vidu_v2v: no search results, using clip midpoint %.2fs", best_mid)
+
+    fade_s = max(0.05, min(0.49, float(fade_ms) / 1000.0))
+
+    # Generate the insert clip and bake the updated clip in a worker thread.
+    output_path = _output_path_for_generated_video()
+    model = (settings.get("video-insert-v2v-model") or "vidu:2@0").strip() or "vidu:2@0"
+    strength_val = 0.6
+    try:
+        strength_val = float(settings.get("video-generation-v2v-strength") or 0.6)
+    except Exception:
+        strength_val = 0.6
+
+    result_holder = [None, None]
+    loop_holder = [None]
+
+    class _DoneReceiver(QObject if QObject is not object else object):
+        def on_done(self, path, error):
+            result_holder[0] = path
+            result_holder[1] = error
+            if loop_holder[0]:
+                loop_holder[0].quit()
+
+    receiver = _DoneReceiver()
+    thread = _ViduV2VInsertThread(
+        api_key,
+        source_file.absolute_path(),
+        float(best_mid),
+        float(clip_start),
+        float(clip_end),
+        query,
+        output_path,
+        model=model,
+        width=1280,
+        height=720,
+        duration_seconds=4.0,
+        strength=strength_val,
+        fade_seconds=float(fade_s),
+    )
+    thread.finished_with_result.connect(receiver.on_done)
+    loop_holder[0] = QEventLoop(app)
+    status_bar = getattr(app.window, "statusBar", None)
+    try:
+        if status_bar is not None:
+            status_bar.showMessage("Generating 4s insert clip (Vidu v2v)...", 0)
+        thread.start()
+        loop_holder[0].exec_()
+    finally:
+        if status_bar is not None:
+            status_bar.clearMessage()
+    thread.quit()
+    thread.wait(10000)
+    try:
+        thread.finished_with_result.disconnect(receiver.on_done)
+    except Exception:
+        pass
+
+    path, error = result_holder[0], result_holder[1]
+    if error:
+        return f"Error: {error}"
+    if not path or not os.path.isfile(path):
+        return "Error: Generated video file not found."
+
+    # Import baked file into the project's imported clips section.
+    # The old clip on the timeline is intentionally left intact.
+    try:
+        # skip_tagging=True avoids nested QEventLoops (DeferredDelete
+        # flushing, processEvents) that cause re-entrancy and SIGSEGV
+        # when called from a BlockingQueuedConnection AI tool callback.
+        app.window.files_model.add_files([path], skip_tagging=True)
+        from classes.query import File
+        f = File.get(path=path)
+        if not f:
+            f = File.get(path=os.path.normpath(path))
+        if not f:
+            f = File.get(path=os.path.realpath(path))
+        if not f:
+            # Brute-force: match by absolute_path() which resolves symlinks/relative.
+            for candidate in File.filter():
+                try:
+                    if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == path:
+                        f = candidate
+                        break
+                except Exception:
+                    continue
+        if not f:
+            log.warning("insert_vidu_v2v: File.get failed for path=%s, but add_files succeeded; file is in the project.", path)
+            return (
+                f"The combined clip (with a 4s AI insert at {_fmt_mmss(best_mid - clip_start)}, "
+                f"baked with {int(fade_s * 1000)}ms crossfades) has been added to the imported clips section. "
+                "The original clip on the timeline was left unchanged."
+            )
+
+        return (
+            f"The combined clip (with a 4s AI insert at {_fmt_mmss(best_mid - clip_start)}, "
+            f"baked with {int(fade_s * 1000)}ms crossfades) has been added to the imported clips section. "
+            "The original clip on the timeline was left unchanged."
+        )
+    except Exception as e:
+        log.error("insert_vidu_v2v_clip_into_selected_clip: %s", e, exc_info=True)
         return f"Error: {e}"
 
 
@@ -869,7 +1531,11 @@ def add_clip_to_timeline(file_id: str = "", position_seconds: str = "", track: s
                 return "Error: track must be a layer number or empty."
         from PyQt5.QtCore import QPointF
         pos = QPointF(pos_sec, 0.0)
-        win.timeline.addClip(file_id, pos, track_num)
+        was_playing = _pause_player()
+        try:
+            win.timeline.addClip(file_id, pos, track_num)
+        finally:
+            _resume_player(was_playing)
         _last_split_file_id = None  # clear so next no-arg call does not reuse
         return "Added clip to timeline at position {}s on track {}.".format(pos_sec, track_num)
     except Exception as e:
@@ -937,6 +1603,18 @@ def _output_path_for_generated_video():
             return os.path.join(out_dir, "generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
         except OSError:
             pass
+
+    # Unsaved projects: avoid /tmp. Some environments clean /tmp aggressively and
+    # partially-written files can trigger native crashes when thumbnailed.
+    try:
+        from classes import info
+
+        out_dir = os.path.join(info.USER_PATH, "Generated")
+        os.makedirs(out_dir, exist_ok=True)
+        return os.path.join(out_dir, "generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
+    except Exception:
+        pass
+
     import tempfile
     return os.path.join(tempfile.gettempdir(), "zenvi_generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
 
@@ -962,8 +1640,9 @@ def generate_video_and_add_to_timeline(
     if duration is None:
         duration = int(settings.get("video-generation-duration") or 4)
     duration = max(1, min(10, int(duration)))
+    # Keep legacy text-to-video defaults unchanged.
     model = (settings.get("video-generation-model") or "vidu:3@2").strip() or "vidu:3@2"
-    width, height = 640, 352  # Vidu Q2 Turbo allowed 16:9 (640x352)
+    width, height = 640, 352  # legacy Vidu text-video default
     output_path = _output_path_for_generated_video()
 
     result_holder = [None, None]  # [path, error]
@@ -1010,20 +1689,37 @@ def generate_video_and_add_to_timeline(
         return "Error: Generated video file not found."
 
     try:
-        app.window.files_model.add_files([path])
+        # skip_tagging=True avoids nested QEventLoops (Gemini tagging, TwelveLabs)
+        # that cause re-entrancy and SIGSEGV when called from a
+        # BlockingQueuedConnection AI tool callback.
+        log.info("generate_video_and_add_to_timeline: calling add_files for %s", path)
+        app.window.files_model.add_files([path], skip_tagging=True)
+        log.info("generate_video_and_add_to_timeline: add_files returned, looking up File")
         from classes.query import File
         f = File.get(path=path)
         if not f:
             f = File.get(path=os.path.normpath(path))
         if not f:
-            for candidate in File.filter():
-                if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == path:
-                    f = candidate
-                    break
+            f = File.get(path=os.path.realpath(path))
         if not f:
-            return "Error: Video was downloaded but could not be added to the project."
+            for candidate in File.filter():
+                try:
+                    if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == path:
+                        f = candidate
+                        break
+                except Exception:
+                    continue
+        if not f:
+            log.warning("generate_video_and_add_to_timeline: File.get failed for path=%s, but add_files succeeded", path)
+            return "Video was generated and added to the project files."
         file_id = f.id
-        msg = add_clip_to_timeline(file_id=file_id, position_seconds=position_seconds or None, track=track or None)
+        log.info("generate_video_and_add_to_timeline: about to add_clip_to_timeline, file_id=%s", file_id)
+        was_playing = _pause_player()
+        try:
+            msg = add_clip_to_timeline(file_id=file_id, position_seconds=position_seconds or None, track=track or None)
+        finally:
+            _resume_player(was_playing)
+        log.info("generate_video_and_add_to_timeline: add_clip_to_timeline returned: %s", msg)
         return msg
     except Exception as e:
         log.error("generate_video_and_add_to_timeline: %s", e, exc_info=True)
@@ -1207,7 +1903,7 @@ def get_openshot_tools_for_langchain():
         position_seconds: str = "",
         track: str = "",
     ) -> str:
-        """Generate a video from a text prompt using AI (Runware/Vidu) and add it to the timeline. Use when the user asks to generate, create, or make a video and add it to the timeline. Argument: prompt (required, describe the video). Optional: duration_seconds (default from settings, e.g. 4); position_seconds (empty for playhead); track (empty for selected or first track)."""
+        """Generate a brand-new standalone video from a text prompt using AI (Runware/Vidu) and add it to the timeline. ONLY use this tool when the user wants to create an entirely new video from scratch (no existing clip involved). Do NOT use this tool when the user says 'insert into', 'add to', or 'modify' a selected clip — use insert_vidu_v2v_clip_into_selected_clip_tool for that instead. Argument: prompt (required, describe the video). Optional: duration_seconds (default from settings, e.g. 4); position_seconds (empty for playhead); track (empty for selected or first track)."""
         duration = None
         if duration_seconds and str(duration_seconds).strip():
             try:
@@ -1248,6 +1944,20 @@ def get_openshot_tools_for_langchain():
         return slice_selected_clip_at_best_match(query=query)
 
     @tool
+    def insert_vidu_v2v_clip_into_selected_clip_tool(query: str, fade_ms: str = "400") -> str:
+        """Insert an AI-generated 4s clip into the currently selected timeline clip. This is the ONLY tool to use when the user says 'insert', 'add into', 'modify', or 'change' the selected clip. It finds the best insertion point, generates a video-to-video clip, bakes it into the original with crossfades, and imports the combined clip into the project files panel. The original clip on the timeline is left unchanged. Do NOT also call generate_video_and_add_to_timeline_tool — this tool handles everything and only produces ONE imported file.
+
+        Args:
+            query: what to add/change (single simple action)
+            fade_ms: crossfade duration in milliseconds (<500). Default 400.
+        """
+        try:
+            fm = int(float(fade_ms)) if str(fade_ms).strip() else 400
+        except Exception:
+            fm = 400
+        return insert_vidu_v2v_clip_into_selected_clip(query=query, fade_ms=fm)
+
+    @tool
     def generate_transition_clip_tool(clip_a_id: str, clip_b_id: str, prompt_hint: str = "") -> str:
         """Generate a short transition clip between two clips and insert it between them. Arguments: clip_a_id, clip_b_id, prompt_hint (optional)."""
         return generate_transition_clip(clip_a_id=clip_a_id, clip_b_id=clip_b_id, prompt_hint=prompt_hint)
@@ -1284,5 +1994,6 @@ def get_openshot_tools_for_langchain():
         slice_clip_at_playhead_tool,
         search_selected_clip_scenes_tool,
         slice_selected_clip_at_best_match_tool,
+        insert_vidu_v2v_clip_into_selected_clip_tool,
         generate_transition_clip_tool,
     ]

@@ -430,14 +430,48 @@ class Cutting(QDialog):
         log.debug('closeEvent')
 
         # Stop playback
-        get_app().updates.disconnect_listener(self.videoPreview)
-        if self.videoPreview:
-            self.videoPreview.deleteLater()
-            self.videoPreview = None
+        try:
+            get_app().updates.disconnect_listener(self.videoPreview)
+        except Exception:
+            pass
         self.preview_parent.Stop()
 
-        # Close readers
-        self.r.Close()
-        self.clip.Close()
-        self.r.ClearAllCache()
+        # Close readers (order matters: close clip before timeline)
+        try:
+            self.clip.Close()
+        except Exception:
+            pass
+        try:
+            self.r.ClearAllCache()
+        except Exception:
+            pass
+        try:
+            self.r.Close()
+        except Exception:
+            pass
+
+        # Immediately destroy the video widget instead of deferring via
+        # deleteLater().  The native QtPlayer holds a raw pointer to this
+        # widget; a deferred deletion can fire during a later
+        # processEvents() call (e.g. during file import) and SIGSEGV when
+        # the native player or renderer tries to touch the freed widget.
+        # Using sip.delete() destroys the C++ QWidget right now, while we
+        # still control the order-of-destruction.
+        if self.videoPreview:
+            try:
+                import sip
+                self.videoPreview.hide()
+                self.verticalLayout.removeWidget(self.videoPreview)
+                sip.delete(self.videoPreview)
+            except Exception:
+                # Fallback: if sip.delete fails, at least hide and orphan it
+                try:
+                    self.videoPreview.setParent(None)
+                except Exception:
+                    pass
+            self.videoPreview = None
+
+        # Release references to native objects so they can be GC'd
+        self.clip = None
+        self.r = None
 

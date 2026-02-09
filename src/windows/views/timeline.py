@@ -572,7 +572,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             get_app().updates.transaction_id = transaction_id
 
         # Save clip
+        log.info("update_clip_data: about to save clip id=%s (triggers ApplyJsonDiff)", existing_clip.data.get('id', 'unknown'))
         existing_clip.save()
+        log.info("update_clip_data: clip saved successfully")
 
         if transaction_id:
             get_app().updates.transaction_id = None
@@ -3773,10 +3775,26 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         snap_to_grid = lambda t: round(t * fps_float) / fps_float
 
         # Create a new Clip object with the file path
+        log.info("addClip: creating native openshot.Clip for %s", file_path)
         c = openshot.Clip(file_path)
+        log.info("addClip: native Clip created, extracting JSON")
 
         # Convert the clip object to JSON and fill missing attributes
         new_clip = json.loads(c.Json())
+        log.info("addClip: JSON extracted, closing native Clip")
+
+        # Immediately close and delete the native C++ Clip object so its
+        # underlying FFmpegReader is released *before* the Timeline creates
+        # its own reader for the same file via ApplyJsonDiff.  Without this
+        # the two readers can overlap and a GC-triggered destructor can race
+        # with the Timeline reader, causing a SIGSEGV in libopenshot.
+        try:
+            c.Close()
+        except Exception:
+            pass
+        del c
+        log.info("addClip: native Clip closed and deleted")
+
         new_clip["file_id"] = file.id
         new_clip["title"] = file.data.get("name", filename)
         new_clip["reader"] = file.data

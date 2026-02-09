@@ -203,6 +203,15 @@ class AddToTimeline(QDialog):
 
             # Append missing attributes to Clip JSON
             new_clip = json.loads(c.Json())
+
+            # Close and delete native Clip immediately to avoid overlapping
+            # FFmpegReaders on the same file (can cause SIGSEGV in libopenshot).
+            try:
+                c.Close()
+            except Exception:
+                pass
+            del c
+
             new_clip["position"] = position
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id

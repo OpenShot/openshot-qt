@@ -188,7 +188,9 @@ def generate_manim_video_and_add_to_timeline(
         paths_to_add = video_paths
 
     try:
-        app.window.files_model.add_files(paths_to_add)
+        # skip_tagging=True avoids nested QEventLoops that cause SIGSEGV
+        # when called from a BlockingQueuedConnection AI tool callback.
+        app.window.files_model.add_files(paths_to_add, skip_tagging=True)
     except Exception as e:
         log.error("add_files failed: %s", e, exc_info=True)
         return "Error adding to project: %s" % e

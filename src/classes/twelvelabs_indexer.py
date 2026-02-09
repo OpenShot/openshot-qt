@@ -66,6 +66,40 @@ def _get_client():
         return None
 
 
+def delete_video_from_index(*, index_id: str, video_id: str) -> bool:
+    """Best-effort delete of an existing video from a TwelveLabs index.
+
+    Used to avoid duplicates when a file path is re-used but the media content changes.
+    Returns True if we believe the delete succeeded, else False.
+    """
+    client = _get_client()
+    if client is None:
+        return False
+
+    try:
+        videos_api = getattr(getattr(client, "indexes", None), "videos", None)
+        if videos_api is None:
+            return False
+        delete_fn = getattr(videos_api, "delete", None) or getattr(videos_api, "remove", None)
+        if delete_fn is None:
+            return False
+
+        # Try common SDK signatures.
+        try:
+            delete_fn(str(index_id), str(video_id))
+            return True
+        except TypeError:
+            try:
+                delete_fn(str(video_id))
+                return True
+            except Exception:
+                return False
+        except Exception:
+            return False
+    except Exception:
+        return False
+
+
 def build_project_index_name(project_id: str) -> str:
     """Build a deterministic TwelveLabs index name for a project."""
     # Keep index names short and deterministic

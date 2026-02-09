@@ -172,6 +172,15 @@ class GeminiVideoTagger:
                     reader.Close()
             except Exception:
                 pass
+            try:
+                if clip:
+                    clip.Close()
+            except Exception:
+                pass
+            try:
+                del clip
+            except Exception:
+                pass
 
         return frame_data
 

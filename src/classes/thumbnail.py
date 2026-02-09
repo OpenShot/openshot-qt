@@ -31,6 +31,7 @@ import openshot
 import socket
 import time
 import shutil
+import subprocess
 from requests import get
 from threading import Thread
 from classes import info
@@ -75,14 +76,106 @@ def GetThumbPath(file_id, thumbnail_frame, clear_cache=False):
 
 def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mask, overlay):
     """Create thumbnail image, and check for rotate metadata (if any)"""
+    def _ensure_parent_dir(_thumb_path: str) -> None:
+        parent_path = os.path.dirname(_thumb_path)
+        if parent_path and not os.path.exists(parent_path):
+            os.mkdir(parent_path)
+
+    def _copy_not_found(_thumb_path: str) -> None:
+        _ensure_parent_dir(_thumb_path)
+        not_found_path = os.path.join(info.IMAGES_PATH, "NotFound@2x.png")
+        try:
+            shutil.copyfile(not_found_path, _thumb_path)
+        except Exception:
+            # Last resort: create an empty placeholder file.
+            try:
+                with open(_thumb_path, "wb") as _fh:
+                    _fh.write(b"")
+            except Exception:
+                pass
+
+    def _is_zenvi_generated(_path: str) -> bool:
+        try:
+            base = os.path.basename(_path or "")
+            base_l = base.lower()
+            if not _path or not base_l:
+                return False
+            if not (base_l.startswith("zenvi_generated_") or base_l.startswith("generated_")):
+                return False
+            # Most of our generated assets are mp4; keep the scope tight.
+            return base_l.endswith(".mp4")
+        except Exception:
+            return False
+
+    def _try_ffmpeg_thumbnail(_path: str, _thumb_path: str, _frame: int, _w: int, _h: int) -> bool:
+        # Using ffmpeg in a subprocess prevents libopenshot crashes from taking down the app.
+        if not _path or not os.path.exists(_path):
+            return False
+        if shutil.which("ffmpeg") is None:
+            return False
+
+        scale = 1.0
+        try:
+            scale = float(get_app().devicePixelRatio())
+        except Exception:
+            scale = 1.0
+
+        out_w = max(2, int(round(float(_w) * scale)))
+        out_h = max(2, int(round(float(_h) * scale)))
+        frame_idx = max(0, int(_frame) - 1)
+
+        _ensure_parent_dir(_thumb_path)
+
+        # Select a specific frame index (fast for frame 0/1; may be slower for large indexes).
+        vf = (
+            f"select='eq(n\\,{frame_idx})',"
+            f"scale={out_w}:{out_h}:force_original_aspect_ratio=decrease,"
+            f"pad={out_w}:{out_h}:(ow-iw)/2:(oh-ih)/2:color=black"
+        )
+        cmd = [
+            "ffmpeg",
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            "-y",
+            "-i",
+            _path,
+            "-an",
+            "-sn",
+            "-dn",
+            "-vf",
+            vf,
+            "-frames:v",
+            "1",
+            _thumb_path,
+        ]
+        try:
+            r = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False, timeout=20)
+            return r.returncode == 0 and os.path.exists(_thumb_path) and os.path.getsize(_thumb_path) > 0
+        except Exception:
+            return False
+
+    # Early validation: missing or obviously invalid file
+    if not file_path or not os.path.exists(file_path):
+        _copy_not_found(thumb_path)
+        return
+
+    # Special-case Zenvi temporary generated media: never touch libopenshot for thumbnails.
+    # These files can be mid-write or partially downloaded, and libopenshot can segfault.
+    if _is_zenvi_generated(file_path):
+        if _try_ffmpeg_thumbnail(file_path, thumb_path, thumbnail_frame, width, height):
+            return
+        _copy_not_found(thumb_path)
+        log.warning(f"Failed to generate ffmpeg thumbnail for: {file_path}")
+        return
+
     # Create a clip object and get the reader
     try:
         clip = openshot.Clip(file_path)
         reader = clip.Reader()
     except RuntimeError:
         # Any failure calling Reader (i.e. file missing or corrupt) use placeholder thumbnail
-        not_found_path = os.path.join(info.IMAGES_PATH, "NotFound@2x.png")
-        shutil.copyfile(not_found_path, thumb_path)
+        _copy_not_found(thumb_path)
         log.warning(f"Failed to generate thumbnail for missing file: {file_path}")
         return
 
@@ -107,9 +200,7 @@ def GenerateThumbnail(file_path, thumb_path, thumbnail_frame, width, height, mas
         log.warning("Error reading rotation metadata from {}".format(file_path), exc_info=1)
 
     # Create thumbnail folder (if needed)
-    parent_path = os.path.dirname(thumb_path)
-    if not os.path.exists(parent_path):
-        os.mkdir(parent_path)
+    _ensure_parent_dir(thumb_path)
 
     # Save thumbnail image and close readers
     reader.GetFrame(thumbnail_frame).Thumbnail(thumb_path, round(width * scale), round(height * scale), mask, overlay, "#000", False, "png", 85, rotate)

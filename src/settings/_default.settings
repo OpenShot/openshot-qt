@@ -1490,6 +1490,14 @@
     "restart": false
   },
   {
+    "value": "vidu:2@0",
+    "title": "Video Insert V2V Model",
+    "category": "AI",
+    "setting": "video-insert-v2v-model",
+    "type": "text",
+    "restart": false
+  },
+  {
     "value": 4,
     "title": "Video Generation Duration (seconds)",
     "category": "AI",
@@ -1497,5 +1505,13 @@
     "type": "spinner",
     "min": 1,
     "max": 10
+  },
+  {
+    "value": "0.6",
+    "title": "Video Generation V2V Strength",
+    "category": "AI",
+    "setting": "video-generation-v2v-strength",
+    "type": "text",
+    "restart": false
   }
 ]
