@@ -205,24 +205,37 @@ jobs:
 
           echo "OpenShot app: $OPENSHOT_APP"
 
-          HIT="$(
-            find "$OPENSHOT_APP" -type f \( -name '_openshot*.so' -o -path '*/openshot/__init__.py' \) 2>/dev/null | head -n 1 || true
-          )"
+          # Prefer an actual Python wrapper/package over the raw native module.
+          HIT_INIT="$(find "$OPENSHOT_APP" -type f -path '*/openshot/__init__.py' 2>/dev/null | head -n 1 || true)"
+          HIT_PY="$(find "$OPENSHOT_APP" -type f -name 'openshot.py' 2>/dev/null | head -n 1 || true)"
+          HIT_SO="$(find "$OPENSHOT_APP" -type f -name '_openshot*.so' 2>/dev/null | head -n 1 || true)"
 
-          if [ -z "$HIT" ]; then
+          if [ -n "$HIT_INIT" ]; then
+            HIT="$HIT_INIT"
+          elif [ -n "$HIT_PY" ]; then
+            HIT="$HIT_PY"
+          elif [ -n "$HIT_SO" ]; then
+            HIT="$HIT_SO"
+          else
             echo "::error::Could not locate OpenShot Python bindings inside the app bundle"
             exit 1
           fi
 
           if echo "$HIT" | grep -q '/openshot/__init__.py$'; then
-            OPENSHOT_PKG_DIR="$(dirname "$HIT")"      # .../openshot
+            OPENSHOT_PKG_DIR="$(dirname "$HIT")"              # .../openshot
             OPENSHOT_PYROOT="$(dirname "$OPENSHOT_PKG_DIR")"  # .../(site-packages)
+          elif echo "$HIT" | grep -q '/openshot.py$'; then
+            OPENSHOT_PYROOT="$(dirname "$HIT")"
           else
+            # Found only the native module. This isn't importable as `openshot` unless
+            # the corresponding wrapper (openshot.py or openshot package) exists nearby.
             OPENSHOT_BIND_DIR="$(dirname "$HIT")"
-            if [ "$(basename "$OPENSHOT_BIND_DIR")" = "openshot" ]; then
-              OPENSHOT_PYROOT="$(dirname "$OPENSHOT_BIND_DIR")"
-            else
+            if [ -f "$OPENSHOT_BIND_DIR/openshot.py" ]; then
               OPENSHOT_PYROOT="$OPENSHOT_BIND_DIR"
+            else
+              echo "::error::Found native module $HIT but no openshot.py wrapper next to it"
+              echo "Hint: OpenShot cask may not ship Python wrapper bindings on this runner."
+              exit 1
             fi
           fi
 
