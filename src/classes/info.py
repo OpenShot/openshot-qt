@@ -28,7 +28,7 @@
 import os
 from time import strftime
 
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 GITHUB_REPO = "Zenvi-pro/zenvi-core"
 MINIMUM_LIBOPENSHOT_VERSION = "0.5.0"
 DATE = "20250612000000"

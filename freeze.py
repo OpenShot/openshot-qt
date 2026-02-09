@@ -238,7 +238,6 @@ if sys.platform == "win32":
     python_packages.extend([
         "idna",
         "OpenGL",
-        "OpenGL_accelerate",
     ])
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,

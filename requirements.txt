@@ -5,6 +5,9 @@
 PyQt5>=5.15
 PyQtWebEngine>=5.15
 
+# OpenGL (required by src/launch.py)
+PyOpenGL
+
 # CI / packaging
 setuptools>=61
 wheel
