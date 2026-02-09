@@ -249,28 +249,44 @@ jobs:
             "C:\Program Files (x86)\OpenShot Video Editor"
           )
 
+          $initPy = $null
           $pyd = $null
           $foundRoot = $null
           foreach ($root in $roots) {
             if (Test-Path $root) {
+              # Prefer locating the real Python package root (site-packages parent),
+              # so we don't accidentally shadow stdlib modules (e.g. encodings).
+              $initPy = Get-ChildItem -Path $root -Recurse -Filter "__init__.py" -ErrorAction SilentlyContinue |
+                Where-Object { $_.FullName -match "\\openshot\\__init__\.py$" } |
+                Select-Object -First 1
+              if ($initPy) { $foundRoot = $root; break }
+
               $pyd = Get-ChildItem -Path $root -Recurse -Filter "_openshot.pyd" -ErrorAction SilentlyContinue | Select-Object -First 1
               if ($pyd) { $foundRoot = $root; break }
             }
           }
 
-          if (-not $pyd) {
-            throw "Could not locate _openshot.pyd in OpenShot installation"
+          if (-not $foundRoot) {
+            throw "Could not locate OpenShot installation root"
           }
 
-          $bindDir = $pyd.Directory.FullName
           $installRoot = $foundRoot
+          $bindDir = $null
+          $pythonPathRoot = $null
 
-          # IMPORTANT:
-          # If _openshot.pyd lives inside a package directory (e.g. ...\site-packages\openshot\_openshot.pyd),
-          # Python must have the *parent* (site-packages) on sys.path in order to import `openshot`.
-          $pythonPathRoot = $bindDir
-          if ($pyd.Directory.Name -ieq "openshot") {
-            $pythonPathRoot = $pyd.Directory.Parent.FullName
+          if ($initPy) {
+            $bindDir = Split-Path -Parent $initPy.FullName   # ...\openshot
+            $pythonPathRoot = Split-Path -Parent $bindDir    # ...\site-packages
+          } elseif ($pyd) {
+            $bindDir = $pyd.Directory.FullName
+            $pythonPathRoot = $bindDir
+            if ($pyd.Directory.Name -ieq "openshot") {
+              $pythonPathRoot = $pyd.Directory.Parent.FullName
+            }
+          }
+
+          if (-not $bindDir -or -not $pythonPathRoot) {
+            throw "Could not determine Python path root for OpenShot bindings"
           }
 
           $binDir = Join-Path $installRoot "bin"
@@ -279,8 +295,11 @@ jobs:
           Write-Host "OpenShot bindings dir: $bindDir"
           Write-Host "OpenShot PYTHONPATH root: $pythonPathRoot"
 
-          # Make openshot importable for cx_Freeze during build
-          Add-Content $env:GITHUB_ENV "PYTHONPATH=$pythonPathRoot;$env:PYTHONPATH"
+          # Make openshot importable for cx_Freeze during build.
+          #
+          # IMPORTANT: Never prepend OpenShot folders to PYTHONPATH, because some OpenShot
+          # distributions bundle a Python stdlib of a different version (can break Python init).
+          Add-Content $env:GITHUB_ENV "PYTHONPATH=$env:PYTHONPATH;$pythonPathRoot"
           if (Test-Path $binDir) {
             Add-Content $env:GITHUB_ENV "PATH=$bindDir;$binDir;$installRoot;$env:PATH"
           } else {
