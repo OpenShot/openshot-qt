@@ -1,9 +1,9 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Zenvi — Production Release Workflow
+# Zenvi — Release Workflow
 #
-# Triggers when a version tag (v*.*.*) is pushed, OR on push to the
-# `production` branch.  Builds platform-specific installers and publishes
-# them as a GitHub Release so the in-app auto-updater can pick them up.
+# Triggers when a version tag (v*.*.*) is pushed. Builds platform-specific
+# installers and publishes them as a GitHub Release so the in-app auto-updater
+# can pick them up.
 #
 # Asset naming convention expected by the auto-updater:
 #   Linux   → Zenvi-v<VER>-x86_64.AppImage
@@ -14,7 +14,6 @@ name: Zenvi Production Release
 
 on:
   push:
-    branches: [production]
     tags: ["v*.*.*"]
 
 permissions:
@@ -44,8 +43,12 @@ jobs:
           m = re.search(r'VERSION\s*=\s*\"([^\"]+)\"', text)
           print(m.group(1))
           ")
+          if [ "${GITHUB_REF_NAME}" != "v${VER}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match version v${VER}"
+            exit 1
+          fi
           echo "version=$VER" >> "$GITHUB_OUTPUT"
-          echo "tag=v$VER"    >> "$GITHUB_OUTPUT"
+          echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
           echo "### Version: $VER" >> "$GITHUB_STEP_SUMMARY"
 
   # ── 2. Linux build (AppImage + .deb) ──────────────────────────────────
@@ -237,7 +240,6 @@ jobs:
 
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
-        continue-on-error: true
 
       - name: Build with Inno Setup
         run: |
@@ -247,31 +249,36 @@ jobs:
             Start-Process -Wait -FilePath .\is_setup.exe -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES"
           }
 
-          # Build installer (use existing .iss if it works, otherwise create one)
+          # Build installer (deterministically name output + package correct cx_Freeze dir)
           $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-          if (Test-Path $ISCC) {
-            # windows-installer.iss expects VERSION macro
-            & $ISCC /DVERSION="${env:VER}" installer/windows-installer.iss 2>$null
-            # Rename output to match expected convention
-            $exe = Get-ChildItem -Path . -Filter "*.exe" -Recurse | Where-Object { $_.Name -like "Zenvi*Setup*" -or $_.Name -like "OpenShot*Setup*" } | Select-Object -First 1
-            if ($exe) {
-              Rename-Item $exe.FullName "Zenvi-v${env:VER}-x86_64.exe"
-            }
+          if (!(Test-Path $ISCC)) { throw "Inno Setup compiler not found at $ISCC" }
+
+          $exeDir = Get-ChildItem -Path "build" -Directory -Filter "exe.*" | Select-Object -First 1
+          if (!$exeDir) { throw "cx_Freeze output directory build/exe.* not found" }
+          $pyExeDir = $exeDir.Name
+
+          & $ISCC `
+            /DVERSION="${env:VER}" `
+            /DPY_EXE_DIR="$pyExeDir" `
+            /F"Zenvi-v${env:VER}-x86_64" `
+            /O"." `
+            installer/windows-installer.iss
+
+          if (!(Test-Path "Zenvi-v${env:VER}-x86_64.exe")) {
+            throw "Expected installer Zenvi-v${env:VER}-x86_64.exe not created"
           }
         shell: powershell
-        continue-on-error: true
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-package
           path: Zenvi-v*.exe
-          if-no-files-found: warn
+          if-no-files-found: error
 
   # ── 5. Create GitHub Release with all artifacts ───────────────────────
   release:
     needs: [version, build-linux, build-macos, build-windows]
-    if: always() && needs.version.result == 'success'
     runs-on: ubuntu-latest
     env:
       VER: ${{ needs.version.outputs.version }}
@@ -294,6 +301,17 @@ jobs:
             echo "- $(basename $f)  ($SIZE bytes, sha256: $SHA)" >> "$GITHUB_STEP_SUMMARY"
             echo "$SHA  $(basename $f)" >> dist/SHA256SUMS.txt
           done
+
+      - name: Remove legacy production release (if any)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view production >/dev/null 2>&1; then
+            gh release delete production --yes --cleanup-tag || true
+          fi
+          if gh api "repos/${{ github.repository }}/git/ref/tags/production" >/dev/null 2>&1; then
+            gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/production" || true
+          fi
 
       - name: Create or update GitHub Release
         uses: softprops/action-gh-release@v2
