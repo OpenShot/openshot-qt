@@ -237,6 +237,39 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
+        shell: powershell
+
+      - name: Install OpenShot (libopenshot Python bindings)
+        shell: powershell
+        run: |
+          choco install openshot -y --no-progress
+
+          $roots = @(
+            "C:\Program Files\OpenShot Video Editor",
+            "C:\Program Files (x86)\OpenShot Video Editor"
+          )
+
+          $pyd = $null
+          foreach ($root in $roots) {
+            if (Test-Path $root) {
+              $pyd = Get-ChildItem -Path $root -Recurse -Filter "_openshot.pyd" -ErrorAction SilentlyContinue | Select-Object -First 1
+              if ($pyd) { break }
+            }
+          }
+
+          if (-not $pyd) {
+            throw "Could not locate _openshot.pyd in OpenShot installation"
+          }
+
+          $bindDir = $pyd.Directory.FullName
+          $installRoot = $pyd.Directory.Parent.FullName
+
+          Write-Host "OpenShot install root: $installRoot"
+          Write-Host "OpenShot bindings dir: $bindDir"
+
+          # Make openshot importable for cx_Freeze during build
+          Add-Content $env:GITHUB_ENV "PYTHONPATH=$bindDir;$env:PYTHONPATH"
+          Add-Content $env:GITHUB_ENV "PATH=$bindDir;$installRoot;$env:PATH"
 
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
