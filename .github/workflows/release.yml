@@ -250,10 +250,11 @@ jobs:
           )
 
           $pyd = $null
+          $foundRoot = $null
           foreach ($root in $roots) {
             if (Test-Path $root) {
               $pyd = Get-ChildItem -Path $root -Recurse -Filter "_openshot.pyd" -ErrorAction SilentlyContinue | Select-Object -First 1
-              if ($pyd) { break }
+              if ($pyd) { $foundRoot = $root; break }
             }
           }
 
@@ -262,14 +263,34 @@ jobs:
           }
 
           $bindDir = $pyd.Directory.FullName
-          $installRoot = $pyd.Directory.Parent.FullName
+          $installRoot = $foundRoot
+
+          # IMPORTANT:
+          # If _openshot.pyd lives inside a package directory (e.g. ...\site-packages\openshot\_openshot.pyd),
+          # Python must have the *parent* (site-packages) on sys.path in order to import `openshot`.
+          $pythonPathRoot = $bindDir
+          if ($pyd.Directory.Name -ieq "openshot") {
+            $pythonPathRoot = $pyd.Directory.Parent.FullName
+          }
+
+          $binDir = Join-Path $installRoot "bin"
 
           Write-Host "OpenShot install root: $installRoot"
           Write-Host "OpenShot bindings dir: $bindDir"
+          Write-Host "OpenShot PYTHONPATH root: $pythonPathRoot"
 
           # Make openshot importable for cx_Freeze during build
-          Add-Content $env:GITHUB_ENV "PYTHONPATH=$bindDir;$env:PYTHONPATH"
-          Add-Content $env:GITHUB_ENV "PATH=$bindDir;$installRoot;$env:PATH"
+          Add-Content $env:GITHUB_ENV "PYTHONPATH=$pythonPathRoot;$env:PYTHONPATH"
+          if (Test-Path $binDir) {
+            Add-Content $env:GITHUB_ENV "PATH=$bindDir;$binDir;$installRoot;$env:PATH"
+          } else {
+            Add-Content $env:GITHUB_ENV "PATH=$bindDir;$installRoot;$env:PATH"
+          }
+
+      - name: Verify OpenShot Python bindings
+        shell: powershell
+        run: |
+          python -c "import sys; print(sys.version); import openshot; print('openshot:', getattr(openshot, '__file__', openshot))"
 
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
