@@ -102,6 +102,17 @@ python_packages = ["os",
                    "zmq",
                    "webbrowser",
                    "json",
+                   # pydantic + its lazily-imported subpackages (required by langchain)
+                   "pydantic",
+                   "pydantic.deprecated",
+                   "pydantic_core",
+                   # langchain ecosystem (imported by sentry_sdk integrations at startup)
+                   "langchain",
+                   "langchain_core",
+                   "langchain_community",
+                   "langchain_openai",
+                   "langchain_anthropic",
+                   "langchain_ollama",
                    ]
 
 # Conditionally include openshot — it requires native C++ bindings (libopenshot)
