@@ -189,45 +189,24 @@ class AIChatWorker(QObject):
         # #region agent log
         _debug_log("ai_chat_ui.py:run_request", "worker run_request entered", {"text_len": len(text), "model_id": model_id or "(none)"}, "H1")
         # #endregion
-        result_holder = [None]
-        exception_holder = [None]
-
-        def run():
-            try:
-                # #region agent log
-                _debug_log("ai_chat_ui.py:run_request:run()", "sub_thread calling send_message", {}, "H2")
-                # #endregion
-                result_holder[0] = self.ai_chat.send_message(text, model_id=model_id or None)
-                # #region agent log
-                _debug_log("ai_chat_ui.py:run_request:run()", "send_message returned", {"result_len": len(result_holder[0]) if result_holder[0] else 0}, "H2")
-                # #endregion
-            except Exception as e:
-                exception_holder[0] = e
-                # #region agent log
-                _debug_log("ai_chat_ui.py:run_request:run()", "send_message raised", {"error": str(e)}, "H2")
-                # #endregion
-
-        thread = threading.Thread(target=run, daemon=True)
-        thread.start()
-        thread.join(timeout=REQUEST_TIMEOUT_SECONDS)
-        timed_out = thread.is_alive()
-        # #region agent log
-        _debug_log("ai_chat_ui.py:run_request", "after join", {"timed_out": timed_out, "has_result": result_holder[0] is not None, "has_exception": exception_holder[0] is not None}, "H2")
-        # #endregion
-
-        if exception_holder[0] is not None:
-            log.error("AI chat error: %s", exception_holder[0])
-            self.error_occurred.emit(str(exception_holder[0]))
-        elif result_holder[0] is not None:
-            self.response_ready.emit(result_holder[0])
-        else:
+        try:
             # #region agent log
-            _debug_log("ai_chat_ui.py:run_request", "emitting timeout error", {"timed_out": timed_out}, "H5")
+            _debug_log("ai_chat_ui.py:run_request", "calling send_message directly", {}, "H2")
             # #endregion
-            self.error_occurred.emit(
-                "Request timed out after %s seconds. You can try again or send a new message."
-                % REQUEST_TIMEOUT_SECONDS
-            )
+            result = self.ai_chat.send_message(text, model_id=model_id or None)
+            # #region agent log
+            _debug_log("ai_chat_ui.py:run_request", "send_message returned", {"result_len": len(result) if result else 0}, "H2")
+            # #endregion
+            if result is not None:
+                self.response_ready.emit(result)
+            else:
+                self.error_occurred.emit("No response from assistant.")
+        except Exception as e:
+            log.error("AI chat error: %s", e, exc_info=True)
+            # #region agent log
+            _debug_log("ai_chat_ui.py:run_request", "send_message raised", {"error": str(e)}, "H2")
+            # #endregion
+            self.error_occurred.emit(str(e))
 
     @pyqtSlot()
     def clear_session(self):

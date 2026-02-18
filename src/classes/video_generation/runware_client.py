@@ -27,46 +27,34 @@ POLL_TIMEOUT_SECONDS = 300  # 5 minutes
 
 
 def _model_supports_fps(model: str) -> bool:
-    """Best-effort: some models (e.g. vidu:2@0) reject the fps parameter."""
+    """Best-effort: some models reject the fps parameter."""
     m = (model or "").strip().lower()
     if not m:
         return True
-    # Known: vidu:2@0 (and likely other vidu:2 versions) can reject fps.
-    if m.startswith("vidu:2@"):  # e.g. vidu:2@0
+    # vidu:2@x rejects fps
+    if m.startswith("vidu:2@"):
         return False
     return True
 
 
 def _model_supports_seed_video(model: str) -> bool:
-    """Best-effort: some models (e.g. vidu:2@0) reject seedVideo/strength."""
+    """Best-effort: some models reject seedVideo/strength (image-to-video only)."""
     m = (model or "").strip().lower()
     if not m:
         return True
-    # Vidu 2.x models are documented as image-to-video/reference-to-video and can reject seedVideo.
-    if m.startswith("vidu:2@"):  # e.g. vidu:2@0
+    if m.startswith("vidu:2@"):
         return False
     return True
 
 
 def _model_supports_reference_videos(model: str) -> bool:
-    """Best-effort: some models (e.g. vidu:2@0) reject top-level referenceVideos."""
+    """Best-effort: some models reject top-level referenceVideos."""
     m = (model or "").strip().lower()
     if not m:
         return True
-    # Based on observed Runware 400 errors for vidu:2@0.
-    if m.startswith("vidu:2@"):  # e.g. vidu:2@0
+    if m.startswith("vidu:2@"):
         return False
     return True
-
-
-def _build_inputs_video_guidance(seed_video: str | None, reference_videos: list | None) -> dict | None:
-    """Build the Runware `inputs` object for video guidance."""
-    inputs = {}
-    if seed_video:
-        inputs["video"] = seed_video
-    if reference_videos:
-        inputs["referenceVideos"] = reference_videos
-    return inputs or None
 
 
 def _try_parse_runware_error(body_text: str) -> dict:
@@ -152,7 +140,6 @@ def runware_generate_video(
     strength: float | None = None,
     frame_images: list | None = None,
     reference_videos: list | None = None,
-    provider_settings: dict | None = None,
 ):
     """
     Generate video via Runware. Prefers the official SDK (WebSocket); falls back to REST.
@@ -169,17 +156,8 @@ def runware_generate_video(
     api_key = api_key.strip()
     duration_int = int(max(1, min(10, duration_seconds)))
 
-    # Model-specific schema:
-    # - Some models reject seedVideo/strength (e.g. vidu:2@0)
-    # - Some models reject top-level referenceVideos (e.g. vidu:2@0)
-    # For these, we move guidance into `inputs`.
-    inputs = None
-    if (seed_video or reference_videos) and (not _model_supports_seed_video(model) or not _model_supports_reference_videos(model)):
-        inputs = _build_inputs_video_guidance(seed_video, reference_videos)
-        seed_video = None
-        strength = None
-        reference_videos = None
-    elif not _model_supports_seed_video(model):
+    # Model-specific schema constraints
+    if not _model_supports_seed_video(model):
         seed_video = None
         strength = None
 
@@ -214,19 +192,20 @@ def runware_generate_video(
             if strength is not None:
                 req_kwargs["strength"] = float(strength)
             if frame_images:
-                req_kwargs["frameImages"] = frame_images
+                # Convert dict frameImages to IFrameImage objects for SDK serialization
+                try:
+                    from runware.types import IFrameImage as _IFrameImage
+                    sdk_frames = []
+                    for fi in frame_images:
+                        if isinstance(fi, dict) and "inputImage" in fi:
+                            sdk_frames.append(_IFrameImage(**fi))
+                        else:
+                            sdk_frames.append(fi)
+                    req_kwargs["frameImages"] = sdk_frames
+                except Exception:
+                    req_kwargs["frameImages"] = frame_images
             if reference_videos:
                 req_kwargs["referenceVideos"] = reference_videos
-            if inputs:
-                try:
-                    from runware.types import IVideoInputs
-
-                    req_kwargs["inputs"] = IVideoInputs(**inputs)
-                except Exception:
-                    # Older SDKs may not ship IVideoInputs; try raw dict.
-                    req_kwargs["inputs"] = inputs
-            if provider_settings:
-                req_kwargs["providerSettings"] = provider_settings
             req = IVideoInference(**req_kwargs)
             try:
                 result = loop.run_until_complete(rw.videoInference(requestVideo=req))
@@ -307,10 +286,6 @@ def runware_generate_video(
         task["frameImages"] = frame_images
     if reference_videos:
         task["referenceVideos"] = reference_videos
-    if inputs:
-        task["inputs"] = inputs
-    if provider_settings:
-        task["providerSettings"] = provider_settings
     def _post(payload_to_send):
         r = requests.post(RUNWARE_API_BASE, headers=headers, json=payload_to_send, timeout=120)
         return r

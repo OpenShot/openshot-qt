@@ -2,27 +2,37 @@
 OpenAI provider: LangChain ChatOpenAI for chat, and GPT-4 Vision for media analysis.
 """
 
+import os
+
 from classes.logger import log
+
+
+def _get_api_key(settings):
+    """Get OpenAI API key from settings or environment variables."""
+    key = (settings.get("openai-api-key") or "").strip() if settings else ""
+    if not key:
+        key = (os.environ.get("OPENAI_API_KEY") or os.environ.get("OPEN_AI_API_KEY") or "").strip()
+    return key
 
 
 def is_available(model_id, settings):
     """Return True if OpenAI is configured (API key set) and model_id is for this provider."""
     if not model_id.startswith("openai/"):
         return False
-    key = (settings.get("openai-api-key") or "").strip()
-    return bool(key)
+    return bool(_get_api_key(settings))
 
 
 def build_chat_model(model_id, settings):
-    """Build ChatOpenAI for the given model_id. Requires openai-api-key in settings."""
+    """Build ChatOpenAI for the given model_id. Requires openai-api-key in settings or OPENAI_API_KEY env var."""
     try:
         from langchain_openai import ChatOpenAI
     except ImportError:
         log.warning("langchain-openai not installed")
         return None
 
-    api_key = (settings.get("openai-api-key") or "").strip()
+    api_key = _get_api_key(settings)
     if not api_key:
+        log.warning("No OpenAI API key found in settings or environment variables")
         return None
 
     model_name = model_id.split("/", 1)[-1] if "/" in model_id else model_id
@@ -31,6 +41,7 @@ def build_chat_model(model_id, settings):
         model=model_name,
         api_key=api_key,
         temperature=0.2,
+        request_timeout=60,
     )
 
 

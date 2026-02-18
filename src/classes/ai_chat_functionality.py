@@ -336,7 +336,6 @@ class AIChat:
         # #region agent log
         _debug_log("ai_chat_functionality.py:_generate_response", "taking LangChain path", {}, "H5")
         # #endregion
-        import threading
         try:
             from classes.ai_agent_runner import run_agent, get_main_thread_runner, create_main_thread_runner
             from classes.ai_llm_registry import get_default_model_id
@@ -362,18 +361,20 @@ class AIChat:
                 log.warning("Could not create main thread tool runner: %s", e)
                 main_thread_runner = None
         # #region agent log
-        _debug_log("ai_chat_functionality.py:_generate_response", "before run_agent (inner thread)", {"runner_ok": main_thread_runner is not None}, "H5")
+        _debug_log("ai_chat_functionality.py:_generate_response", "before run_agent (direct call)", {"runner_ok": main_thread_runner is not None}, "H5")
         # #endregion
-        result_holder = [None]
-        def run():
-            result_holder[0] = run_agent(resolved_model_id, messages, main_thread_runner)
-        thread = threading.Thread(target=run, daemon=True)
-        thread.start()
-        thread.join()
+        # Run agent directly in this thread (already a worker thread).
+        # Do NOT spawn another thread here — that causes deadlock with
+        # BlockingQueuedConnection tool dispatch to the Qt main thread.
+        try:
+            result = run_agent(resolved_model_id, messages, main_thread_runner)
+        except Exception as e:
+            log.error("run_agent raised: %s", e, exc_info=True)
+            result = "Error: %s" % e
         # #region agent log
-        _debug_log("ai_chat_functionality.py:_generate_response", "after run_agent join", {"has_result": result_holder[0] is not None}, "H5")
+        _debug_log("ai_chat_functionality.py:_generate_response", "after run_agent", {"has_result": result is not None}, "H5")
         # #endregion
-        return result_holder[0] or "Error: No response from agent."
+        return result or "Error: No response from agent."
     
     def attach_context_data(self, context_key: str, context_value: Any):
         """

@@ -6,7 +6,7 @@ Runs in the worker thread; sub-agent tool execution is dispatched to the main th
 from classes.ai_prompts import ROOT_SYSTEM_PROMPT
 
 
-def run_root_agent(model_id, messages, main_thread_runner):
+def run_root_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
     """
     Run the root agent with invoke_* tools. Sub-agents run in this thread;
     their tools run on the main thread via main_thread_runner.
@@ -47,4 +47,5 @@ def run_root_agent(model_id, messages, main_thread_runner):
         main_thread_runner=None,  # do not wrap; invoke_* run in worker thread
         system_prompt=ROOT_SYSTEM_PROMPT,
         max_iterations=10,
+        timeout_seconds=timeout_seconds,
     )

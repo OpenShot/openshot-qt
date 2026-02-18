@@ -526,7 +526,7 @@ def _create_dissolve_transition(layer: int, position: float, duration: float, *,
 
 
 class _ViduV2VInsertThread(QThread if QThread else object):
-    """Worker thread to build seed video, generate the 4s insert via Runware, then bake an updated clip."""
+    """Worker thread to build seed video, generate a V2V insert via Runware, then bake an updated clip."""
     if pyqtSignal is not None:
         finished_with_result = pyqtSignal(str, str)  # path_or_empty, error_or_empty
 
@@ -580,23 +580,24 @@ class _ViduV2VInsertThread(QThread if QThread else object):
         )
 
         try:
-            tmpdir = tempfile.mkdtemp(prefix="zenvi_vidu_seed_")
+            tmpdir = tempfile.mkdtemp(prefix="zenvi_v2v_seed_")
         except Exception as e:
             self._emit("", f"Failed to create temp dir: {e}")
             return
 
         try:
+            insert_mp4 = os.path.join(tmpdir, "insert.mp4")
+
             seg1 = os.path.join(tmpdir, "seg1.mp4")
             seg2 = os.path.join(tmpdir, "seg2.mp4")
             concat_list = os.path.join(tmpdir, "list.txt")
             seed_mp4 = os.path.join(tmpdir, "seed.mp4")
             first_jpg = os.path.join(tmpdir, "first.jpg")
             last_jpg = os.path.join(tmpdir, "last.jpg")
-            insert_mp4 = os.path.join(tmpdir, "insert.mp4")
 
-            start1 = max(0.0, self._center_time - 2.0)
+            start1 = max(0.0, self._center_time - 2.5)
             start2 = max(0.0, self._center_time)
-            # Extract two 2s segments at 720p to keep size manageable.
+            seg_duration = self._duration / 2.0
             vf = (
                 f"scale={self._width}:{self._height}:force_original_aspect_ratio=decrease,"
                 f"pad={self._width}:{self._height}:(ow-iw)/2:(oh-ih)/2,setsar=1"
@@ -604,7 +605,7 @@ class _ViduV2VInsertThread(QThread if QThread else object):
             cmd1 = [
                 "ffmpeg", "-y",
                 "-ss", str(start1), "-i", self._source_video_path,
-                "-t", "2.0",
+                "-t", str(seg_duration),
                 "-vf", vf,
                 "-r", "24",
                 "-an",
@@ -619,7 +620,7 @@ class _ViduV2VInsertThread(QThread if QThread else object):
             cmd2 = [
                 "ffmpeg", "-y",
                 "-ss", str(start2), "-i", self._source_video_path,
-                "-t", "2.0",
+                "-t", str(seg_duration),
                 "-vf", vf,
                 "-r", "24",
                 "-an",
@@ -636,7 +637,6 @@ class _ViduV2VInsertThread(QThread if QThread else object):
                 f.write(f"file '{seg2}'\n")
             ok, err = _ffmpeg_run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list, "-c", "copy", seed_mp4])
             if not ok:
-                # Fallback: re-encode concat if container copy fails
                 ok2, err2 = _ffmpeg_run([
                     "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
                     "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
@@ -668,7 +668,6 @@ class _ViduV2VInsertThread(QThread if QThread else object):
                 self._emit("", err)
                 return
 
-            # Encourage seamless endpoints.
             prompt = (
                 f"{self._user_prompt.strip()}\n\n"
                 "Constraints: the first frame must closely match the provided first frame, "
@@ -690,8 +689,8 @@ class _ViduV2VInsertThread(QThread if QThread else object):
                 seed_video=seed_uri,
                 strength=self._strength,
                 frame_images=frame_images,
-                provider_settings=None,
             )
+
             if gen_err:
                 self._emit("", gen_err)
                 return
@@ -810,7 +809,7 @@ class _ViduV2VInsertThread(QThread if QThread else object):
 
 
 def insert_vidu_v2v_clip_into_selected_clip(query: str, *, fade_ms: int = 400) -> str:
-    """Find best match in selected clip (TwelveLabs), generate a 4s v2v insert, bake an updated longer clip, and add it to the imported clips section.
+    """Find best match in selected clip (TwelveLabs), generate a 4s V2V insert via Vidu/Runware, bake an updated longer clip, and add it to the imported clips section.
 
     The baked clip is tagged with Gemini and indexed with TwelveLabs before being
     imported into the project. The original clip on the timeline is left unchanged.
@@ -893,7 +892,7 @@ def insert_vidu_v2v_clip_into_selected_clip(query: str, *, fade_ms: int = 400) -
 
     # Generate the insert clip and bake the updated clip in a worker thread.
     output_path = _output_path_for_generated_video()
-    model = (settings.get("video-insert-v2v-model") or "vidu:2@0").strip() or "vidu:2@0"
+    model = (settings.get("video-insert-v2v-model") or "vidu:3@2").strip() or "vidu:3@2"
     strength_val = 0.6
     try:
         strength_val = float(settings.get("video-generation-v2v-strength") or 0.6)
@@ -920,8 +919,8 @@ def insert_vidu_v2v_clip_into_selected_clip(query: str, *, fade_ms: int = 400) -
         query,
         output_path,
         model=model,
-        width=1280,
-        height=720,
+        width=1920,
+        height=1080,
         duration_seconds=4.0,
         strength=strength_val,
         fade_seconds=float(fade_s),
@@ -931,7 +930,7 @@ def insert_vidu_v2v_clip_into_selected_clip(query: str, *, fade_ms: int = 400) -
     status_bar = getattr(app.window, "statusBar", None)
     try:
         if status_bar is not None:
-            status_bar.showMessage("Generating 4s insert clip (Vidu v2v)...", 0)
+            status_bar.showMessage("Generating 4s V2V insert clip...", 0)
         thread.start()
         loop_holder[0].exec_()
     finally:
@@ -1625,7 +1624,7 @@ def generate_video_and_add_to_timeline(
     position_seconds="",
     track="",
 ) -> str:
-    """Generate a video from prompt via Runware (Vidu), then add it to the timeline. Runs API+download in worker thread."""
+    """Generate a video from prompt via Runware, then add it to the timeline. Runs API+download in worker thread."""
     if QThread is None or QEventLoop is None:
         return "Error: Video generation requires PyQt5."
     app = _get_app()
@@ -1945,7 +1944,7 @@ def get_openshot_tools_for_langchain():
 
     @tool
     def insert_vidu_v2v_clip_into_selected_clip_tool(query: str, fade_ms: str = "400") -> str:
-        """Insert an AI-generated 4s clip into the currently selected timeline clip. This is the ONLY tool to use when the user says 'insert', 'add into', 'modify', or 'change' the selected clip. It finds the best insertion point, generates a video-to-video clip, bakes it into the original with crossfades, and imports the combined clip into the project files panel. The original clip on the timeline is left unchanged. Do NOT also call generate_video_and_add_to_timeline_tool — this tool handles everything and only produces ONE imported file.
+        """Insert an AI-generated 4s clip into the currently selected timeline clip using Vidu V2V. This is the ONLY tool to use when the user says 'insert', 'add into', 'modify', or 'change' the selected clip. It finds the best insertion point, generates a video-to-video clip, bakes it into the original with crossfades, and imports the combined clip into the project files panel. The original clip on the timeline is left unchanged. Do NOT also call generate_video_and_add_to_timeline_tool — this tool handles everything and only produces ONE imported file.
 
         Args:
             query: what to add/change (single simple action)

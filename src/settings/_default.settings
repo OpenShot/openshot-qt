@@ -1490,7 +1490,7 @@
     "restart": false
   },
   {
-    "value": "vidu:2@0",
+    "value": "vidu:3@2",
     "title": "Video Insert V2V Model",
     "category": "AI",
     "setting": "video-insert-v2v-model",

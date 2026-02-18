@@ -229,6 +229,9 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
 
+        # Disabled automatic backup recovery - user can manually open backup if needed
+        return
+
         # Check for backup file (backup.zvn)
         if os.path.exists(info.BACKUP_FILE):
             # Load recovery project

@@ -4,10 +4,23 @@ runs it in a worker thread, and dispatches tool execution to the Qt main thread.
 """
 
 import json
+import os
 import threading
 import time
 from classes.logger import log
 from classes.ai_prompts import MAIN_SYSTEM_PROMPT
+
+# Load .env at import time so API keys are available
+try:
+    from dotenv import load_dotenv
+    _root_env = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env")
+    _cwd_env = os.path.join(os.getcwd(), ".env")
+    if os.path.exists(_root_env):
+        load_dotenv(dotenv_path=_root_env, override=False)
+    elif os.path.exists(_cwd_env):
+        load_dotenv(dotenv_path=_cwd_env, override=False)
+except Exception:
+    pass
 
 
 def _debug_log(location, message, data, hypothesis_id):
@@ -132,12 +145,16 @@ def run_agent_with_tools(
     main_thread_runner,
     system_prompt,
     max_iterations=15,
+    timeout_seconds=120,
 ):
     """
     Run a LangChain agent with the given tools and system prompt.
     tools: list of LangChain tools (raw); they will be wrapped for main thread if main_thread_runner is set.
     Returns the final response text or an error string.
     """
+    import time
+    start_time = time.time()
+    
     try:
         from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage
     except ImportError as e:
@@ -152,7 +169,8 @@ def run_agent_with_tools(
 
     llm = get_model(model_id)
     if not llm:
-        return "Error: Could not load model '{}'. Check API keys in Preferences > AI.".format(model_id)
+        log.error("Could not load model '%s'. No API key found in settings or environment.", model_id)
+        return "Error: Could not load model '{}'. Check API keys in Preferences > AI or set OPENAI_API_KEY environment variable.".format(model_id)
 
     if main_thread_runner:
         wrapped_tools = [_wrap_tool_for_main_thread(t, main_thread_runner) for t in tools]
@@ -177,6 +195,12 @@ def run_agent_with_tools(
     try:
         llm_with_tools = llm.bind_tools(wrapped_tools)
         for iteration in range(max_iterations):
+            # Check timeout
+            elapsed = time.time() - start_time
+            if elapsed > timeout_seconds:
+                log.warning("Agent execution timed out after %.1f seconds", elapsed)
+                return f"Error: Agent timed out after {int(elapsed)} seconds. The request may be too complex or the AI service is slow. Please try a simpler request or check your network connection."
+            
             # #region agent log
             _debug_log("ai_agent_runner.py:run_agent", "before llm.invoke", {"iteration": iteration}, "H5")
             # #endregion
@@ -489,7 +513,7 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
     """
     try:
         from classes.ai_multi_agent.root_agent import run_root_agent
-        return run_root_agent(model_id, messages, main_thread_runner)
+        return run_root_agent(model_id, messages, main_thread_runner, timeout_seconds)
     except Exception as e:
         log.debug("Multi-agent root not used: %s; falling back to single agent", e)
     from classes.ai_openshot_tools import get_openshot_tools_for_langchain
@@ -499,6 +523,7 @@ def run_agent(model_id, messages, main_thread_runner, timeout_seconds=120):
         tools=get_openshot_tools_for_langchain(),
         main_thread_runner=main_thread_runner,
         system_prompt=SYSTEM_PROMPT,
+        timeout_seconds=timeout_seconds,
     )
 
 
