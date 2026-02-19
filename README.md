@@ -152,3 +152,26 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
+
+# Zenvi Core Updates:
+## Custom Installation:
+1. Create a virtual environment & install required dependencies: 
+    ```sh
+    cd [zenvi-core folder]
+    sudo apt install python3-pyqt5 python3-pyqt5.qtwebengine
+    sudo apt-get install -y libcairo2-dev libpango1.0-dev pkg-config ffmpeg
+    python3 -m venv --system-site-packages .venv
+    source ./.venv/bin/activate
+    pip3 install -r requirements-noqt.txt
+    pip3 install -r requirements-manim.txt
+    ```
+1. Run the application:
+    ```sh
+    cd [libopenshot folder]
+    cmake -B build -S . [options]
+    cmake --build build
+        
+    cd [zenvi-core folder]
+    PYTHONPATH_LIBOPENSHOT=[libopenshot folder]/build/bindings/python \
+    bash run-zenvi-core.sh
+    ```

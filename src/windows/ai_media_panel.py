@@ -9,7 +9,6 @@
  This file is part of OpenShot Video Editor (http://www.openshot.org)
 """
 
-import asyncio
 import os
 from PyQt5.QtCore import Qt, QTimer, pyqtSignal
 from PyQt5.QtWidgets import (
@@ -22,7 +21,7 @@ from PyQt5.QtGui import QIcon
 from classes.logger import log
 from classes.app import get_app
 from classes.ai_metadata_utils import get_scene_descriptions_formatted
-from classes.media_analyzer import get_analysis_queue
+from classes.api_client import get_backend_client
 
 
 class AIMediaPanel(QDockWidget):
@@ -315,67 +314,59 @@ class AIMediaPanel(QDockWidget):
         return
     
     def update_analysis_status(self):
-        """Update analysis queue status"""
+        """Update analysis queue status from the backend."""
         try:
-            queue = get_analysis_queue()
-            status = queue.get_queue_status()
-            
-            # Update status label
+            client = get_backend_client()
+            status = client.get_analysis_status()
+
+            pending = status.get("pending", 0)
+            processing = status.get("processing", 0)
+            total = status.get("total", 0)
+
             self.status_label.setText(
-                f"Queue: {status['pending']} pending, {status['processing']} processing"
+                f"Queue: {pending} pending, {processing} processing"
             )
-            
-            # Update progress bar
-            total = status['total']
+
             if total > 0:
-                completed = total - status['pending'] - status['processing']
+                completed = total - pending - processing
                 progress = int((completed / total) * 100)
                 self.progress_bar.setValue(progress)
             else:
                 self.progress_bar.setValue(0)
-            
-            # Update current file
-            if status['current_file']:
-                import os
-                filename = os.path.basename(status['current_file'])
+
+            current = status.get("current_file", "")
+            if current:
+                filename = os.path.basename(current)
                 self.current_file_label.setText(f"Analyzing: {filename}")
             else:
                 self.current_file_label.setText("No file processing")
-            
+
             # Update queue list
             self.queue_list.clear()
-            for item in queue.queue:
-                import os
-                filename = os.path.basename(item['file_path'])
-                status_text = item['status'].upper()
+            for item in status.get("queue", []):
+                filename = os.path.basename(item.get("file_path", ""))
+                status_text = item.get("status", "").upper()
                 list_item = QListWidgetItem(f"{filename} - {status_text}")
                 self.queue_list.addItem(list_item)
-            
+
         except Exception as e:
             log.error(f"Failed to update analysis status: {e}")
     
     def start_analysis(self):
-        """Start processing the analysis queue"""
+        """Tell the backend to start processing the analysis queue."""
         try:
-            queue = get_analysis_queue()
-            
-            # Run async processing
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            loop.run_until_complete(queue.process_queue())
-            loop.close()
-            
+            client = get_backend_client()
+            client.start_analysis()
             self.analysisComplete.emit()
             self.refresh_tags()
-            
         except Exception as e:
             log.error(f"Failed to start analysis: {e}")
     
     def clear_queue(self):
-        """Clear the analysis queue"""
+        """Tell the backend to clear the analysis queue."""
         try:
-            queue = get_analysis_queue()
-            queue.clear_queue()
+            client = get_backend_client()
+            client.clear_analysis_queue()
             self.update_analysis_status()
         except Exception as e:
             log.error(f"Failed to clear queue: {e}")

@@ -50,13 +50,7 @@ from classes.logger import log
 from classes.app import get_app
 from classes.thumbnail import GetThumbPath
 from classes.tag_manager import get_tag_manager
-from classes.gemini_tagger import GeminiVideoTagger
-from classes.twelvelabs_indexer import (
-    build_project_index_name,
-    index_video_blocking,
-    is_configured as twelvelabs_is_configured,
-    delete_video_from_index,
-)
+from classes.api_client import get_backend_client
 
 import openshot
 
@@ -242,8 +236,8 @@ class FileFilterProxyModel(QSortFilterProxyModel):
         super().__init__(**kwargs)
 
 
-class GeminiTaggingWorker(QThread):
-    """Background worker that tags a single video file using Gemini/Gemma."""
+class BackendTaggingWorker(QThread):
+    """Background worker that tags a video file via the zenvi-backend API."""
 
     completed = pyqtSignal(dict, dict, object)
 
@@ -252,15 +246,15 @@ class GeminiTaggingWorker(QThread):
         self.file_data = file_data
 
     def run(self):
-        metadata = GeminiVideoTagger.empty_metadata()
+        client = get_backend_client()
+        metadata = client._empty_ai_metadata()
         error = None
         try:
-            tagger = GeminiVideoTagger()
             if self.file_data.get("media_type") == "video":
-                metadata = tagger.analyze_video(self.file_data.get("path"))
-        except Exception as exc:  # pragma: no cover - defensive logging
+                metadata = client.tag_video(self.file_data.get("path"))
+        except Exception as exc:
             error = exc
-            log.error(f"Gemini tagging worker failed: {exc}")
+            log.error(f"Backend tagging worker failed: {exc}")
 
         self.completed.emit(self.file_data, metadata, error)
 
@@ -426,17 +420,18 @@ class FilesModel(QObject, updates.UpdateInterface):
         self.ModelRefreshed.emit()
 
     def _tag_file_with_gemini(self, file_data):
-        """Run Gemini tagging off the UI thread and wait for completion."""
+        """Run AI tagging via the backend, off the UI thread, and wait for completion."""
+        client = get_backend_client()
         loop = QEventLoop()
         result = {
-            "metadata": GeminiVideoTagger.empty_metadata(),
+            "metadata": client._empty_ai_metadata(),
             "error": None,
         }
 
-        worker = GeminiTaggingWorker(dict(file_data))
+        worker = BackendTaggingWorker(dict(file_data))
 
         def _on_complete(_file_data, metadata, error):
-            result["metadata"] = metadata or GeminiVideoTagger.empty_metadata()
+            result["metadata"] = metadata or client._empty_ai_metadata()
             result["error"] = error
             loop.quit()
 
@@ -622,7 +617,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Skip when called from an AI tool (skip_tagging=True) because
                 # the nested QEventLoop in _tag_file_with_gemini causes
                 # re-entrancy inside a BlockingQueuedConnection callback → SIGSEGV.
-                ai_metadata = GeminiVideoTagger.empty_metadata()
+                ai_metadata = get_backend_client()._empty_ai_metadata()
                 if new_file.data.get("media_type") == "video" and not skip_tagging:
                     app.window.statusBar.showMessage(
                         _("Processing tags for %(name)s ...") % {"name": filename},
@@ -644,7 +639,7 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Skip when importing from an AI tool to avoid re-entrancy.
                 if not skip_tagging:
                     try:
-                        if new_file.data.get("media_type") == "video" and twelvelabs_is_configured():
+                        if new_file.data.get("media_type") == "video" and get_backend_client().is_indexing_configured():
                             self._queue_twelvelabs_indexing(new_file)
                     except Exception as e:
                         log.debug(f"Failed to queue TwelveLabs indexing: {e}")
@@ -654,9 +649,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                     try:
                         s = get_app().get_settings()
                         if s.get('ai-enabled') and s.get('ai-auto-analyze') and not ai_metadata.get('analyzed'):
-                            from classes.media_analyzer import get_analysis_queue
-                            queue = get_analysis_queue()
-                            queue.add_to_queue(
+                            client = get_backend_client()
+                            client.queue_file_for_analysis(
                                 new_file.id,
                                 new_file.absolute_path(),
                                 new_file.data.get('media_type', 'video')
@@ -967,9 +961,10 @@ class FilesModel(QObject, updates.UpdateInterface):
         super(QObject, FilesModel).__init__(self, *args)
 
     def _queue_twelvelabs_indexing(self, file_obj: File) -> None:
-        """Queue TwelveLabs indexing for a File. Must be called on the main thread."""
+        """Queue TwelveLabs indexing via the backend API. Must be called on the main thread."""
         try:
             app = get_app()
+            client = get_backend_client()
             file_id = str(file_obj.id)
             abs_path = file_obj.absolute_path()
             filename = os.path.basename(abs_path or file_obj.data.get("path") or "")
@@ -985,17 +980,16 @@ class FilesModel(QObject, updates.UpdateInterface):
             except Exception:
                 sig = None
 
-            # Project-wide TwelveLabs index config is stored under project.settings.ai_twelvelabs
+            # Project-wide TwelveLabs index config
             project_id = str(app.project.get("id") or "") if getattr(app, "project", None) else ""
-            project_index_name = build_project_index_name(project_id or "project")
+            project_index_name = f"zenvi_{project_id or 'project'}"
             proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
             proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
             proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
             project_index_id = proj_tw.get("index_id") if isinstance(proj_tw, dict) else None
             video_by_path = proj_tw.get("video_by_path") if isinstance(proj_tw.get("video_by_path"), dict) else {}
 
-            # Dedupe: if this exact file path was already indexed in this project and hasn't changed, reuse video_id.
-            # If the path was re-used but the media changed, best-effort delete the old video and re-index.
+            # Dedupe: reuse existing indexed video when file hasn't changed
             existing_entry = video_by_path.get(abs_path) if abs_path and isinstance(video_by_path, dict) else None
             existing_video_id = None
             existing_sig = None
@@ -1026,13 +1020,12 @@ class FilesModel(QObject, updates.UpdateInterface):
                         pass
                     return
 
-                # No signature or mismatch: re-index and best-effort delete the old TwelveLabs video.
+                # Signature mismatch: delete old video via backend, then re-index.
                 try:
-                    delete_video_from_index(index_id=str(project_index_id), video_id=str(existing_video_id))
+                    client.delete_indexed_video(index_id=str(project_index_id), video_id=str(existing_video_id))
                 except Exception:
                     pass
 
-                # Legacy behavior: if we can't establish signature, keep prior dedupe to avoid churn.
                 if sig is None or existing_sig is None:
                     ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
                     if not isinstance(ai_metadata, dict):
@@ -1077,11 +1070,12 @@ class FilesModel(QObject, updates.UpdateInterface):
             except Exception:
                 pass
 
+            # Submit to task queue — the callable now calls the backend API
             task_id = f"twelvelabs_index:{file_id}"
             app.task_queue.submit(
                 "twelvelabs",
                 task_id,
-                index_video_blocking,
+                client.index_video_for_search,
                 file_path=abs_path,
                 index_name=index_name,
                 filename=filename,

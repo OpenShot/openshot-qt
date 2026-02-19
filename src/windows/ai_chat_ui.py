@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QTextCursor
 
 from classes.logger import log
-from classes.ai_chat_functionality import AIChat
+from classes.api_client import get_backend_client
 
 # Optional CEP/WebEngine for HTML chat UI
 try:
@@ -105,39 +105,18 @@ def _plain_to_html(text: str) -> str:
 
 
 def _summarize_prompt(prompt: str, max_words: int = 6) -> str:
-    """Use the default LLM to summarize the user prompt in a few words. Returns empty on failure."""
+    """Ask the backend to summarize the user prompt in a few words. Returns empty on failure."""
     try:
-        from classes.ai_llm_registry import get_model, get_default_model_id
-        from langchain_core.messages import SystemMessage, HumanMessage
-    except ImportError:
-        return ""
-    model_id = get_default_model_id()
-    llm = get_model(model_id)
-    if not llm:
-        return ""
-    system = (
-        "Summarize the following user request in at most %d words. "
-        "Reply with only the short phrase, no punctuation, no period."
-    ) % max_words
-    try:
-        response = llm.invoke([SystemMessage(content=system), HumanMessage(content=prompt)])
-        out = (response.content if hasattr(response, "content") else str(response)).strip()
+        client = get_backend_client()
+        system = (
+            "Summarize the following user request in at most %d words. "
+            "Reply with only the short phrase, no punctuation, no period."
+        ) % max_words
+        resp = client.send_message(message=f"[SYSTEM]{system}[/SYSTEM]\n{prompt}")
+        out = resp.get("response", "").strip()
         return out[:80] if out else ""
     except Exception:
         return ""
-
-
-def _debug_log(location, message, data, hypothesis_id):
-    # #region agent log
-    try:
-        import os
-        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
-        os.makedirs(os.path.dirname(_path), exist_ok=True)
-        with open(_path, "a") as f:
-            f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
-    except Exception:
-        pass
-    # #endregion
 
 
 REQUEST_TIMEOUT_SECONDS = 120
@@ -175,48 +154,97 @@ def _text_likely_needs_clip_context(text: str) -> bool:
 
 
 class AIChatWorker(QObject):
-    """Runs AIChat.send_message() in a background thread. Emits response_ready or error_occurred."""
+    """Sends chat messages to the zenvi-backend API server in a background thread.
+
+    Uses WebSocket for bidirectional communication: the backend can delegate
+    tool calls (e.g. timeline operations) back to the frontend for execution.
+    Falls back to REST if WebSocket is unavailable.
+
+    Emits *response_ready* with the assistant reply or *error_occurred* on failure.
+    """
 
     response_ready = pyqtSignal(str)
     error_occurred = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.ai_chat = AIChat()
+        self._backend_session_id = None
 
     @pyqtSlot(str, str)
     def run_request(self, text: str, model_id: str):
-        # #region agent log
-        _debug_log("ai_chat_ui.py:run_request", "worker run_request entered", {"text_len": len(text), "model_id": model_id or "(none)"}, "H1")
-        # #endregion
+        """Send the user message to the backend via WebSocket (with tool delegation)."""
         try:
-            # #region agent log
-            _debug_log("ai_chat_ui.py:run_request", "calling send_message directly", {}, "H2")
-            # #endregion
-            result = self.ai_chat.send_message(text, model_id=model_id or None)
-            # #region agent log
-            _debug_log("ai_chat_ui.py:run_request", "send_message returned", {"result_len": len(result) if result else 0}, "H2")
-            # #endregion
+            from classes.tool_handlers import execute_tool
+
+            client = get_backend_client()
+
+            def on_tool_call(tool_name, tool_args, call_id):
+                """Execute a tool locally and return the result."""
+                log.info("Tool delegated from backend: %s", tool_name)
+                return execute_tool(tool_name, tool_args or {})
+
+            final_response = None
+            final_error = None
+
+            def on_response(response_text, session_id):
+                nonlocal final_response
+                final_response = response_text
+                self._backend_session_id = session_id or self._backend_session_id
+
+            def on_error(error_message):
+                nonlocal final_error
+                final_error = error_message
+
+            result = client.send_message_ws(
+                message=text,
+                model_id=model_id or None,
+                session_id=self._backend_session_id,
+                on_tool_call=on_tool_call,
+                on_response=on_response,
+                on_error=on_error,
+            )
+
+            if final_error:
+                # Fall back to REST on WebSocket error
+                log.warning("WebSocket failed (%s), falling back to REST", final_error)
+                resp = client.send_message(
+                    message=text,
+                    model_id=model_id or None,
+                    session_id=self._backend_session_id,
+                )
+                result = resp.get("response", "")
+                self._backend_session_id = resp.get("session_id", self._backend_session_id)
+                if result is not None:
+                    self.response_ready.emit(result)
+                else:
+                    self.error_occurred.emit("No response from backend.")
+                return
+
             if result is not None:
                 self.response_ready.emit(result)
+            elif final_response is not None:
+                self.response_ready.emit(final_response)
             else:
-                self.error_occurred.emit("No response from assistant.")
+                self.error_occurred.emit("No response from backend.")
         except Exception as e:
             log.error("AI chat error: %s", e, exc_info=True)
-            # #region agent log
-            _debug_log("ai_chat_ui.py:run_request", "send_message raised", {"error": str(e)}, "H2")
-            # #endregion
             self.error_occurred.emit(str(e))
 
     @pyqtSlot()
     def clear_session(self):
-        self.ai_chat.clear_session()
+        """Clear the backend chat session."""
+        if self._backend_session_id:
+            try:
+                get_backend_client().clear_chat_session(self._backend_session_id)
+            except Exception:
+                pass
+            self._backend_session_id = None
 
     @pyqtSlot(str, str)
     def on_tool_completed(self, tool_name: str, result: str):
-        """When split_file_add_clip runs, start a new chat session (new thread)."""
+        """When split_file_add_clip runs, clear the session so the next message starts fresh."""
         if tool_name == "split_file_add_clip_tool":
-            self.ai_chat.clear_session()
+            self.clear_session()
 
 
 class ChatBridge(QObject):
@@ -262,7 +290,6 @@ class AIChatWindow(QDockWidget):
         )
 
         self.is_processing = False
-        self._main_thread_runner = None  # track runner to connect/disconnect tool_completed
         self._use_web_ui = _WEBENGINE_AVAILABLE
         self._first_prompt_summary = None  # AI-generated summary of first user message for preamble
         self._auto_attach_selected_clip_context = True
@@ -502,12 +529,13 @@ class AIChatWindow(QDockWidget):
 
         models = []
         try:
-            from classes.ai_llm_registry import list_all_models, get_default_model_id
-            default_id = get_default_model_id()
-            for model_id, display_name in list_all_models():
-                models.append({"id": model_id, "name": display_name, "default": model_id == default_id})
+            client = get_backend_client()
+            api_models = client.list_models()
+            default_id = api_models.get("default_model_id", "")
+            for m in api_models.get("models", []):
+                models.append({"id": m["id"], "name": m["name"], "default": m["id"] == default_id})
         except Exception:
-            pass
+            log.warning("Failed to fetch models from backend")
         self._run_js("setModels(%s);" % json.dumps(json.dumps(models)))
 
         preamble = self._get_preamble_html()
@@ -559,21 +587,6 @@ class AIChatWindow(QDockWidget):
         if attached_summary:
             self._add_system_msg(f"Context attached: {attached_summary}")
         self._set_processing_ui(True)
-        try:
-            from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
-            if self._main_thread_runner is not None and hasattr(self._main_thread_runner, "tool_completed"):
-                try:
-                    self._main_thread_runner.tool_completed.disconnect(self._worker.on_tool_completed)
-                except Exception:
-                    pass
-            runner = create_main_thread_runner()
-            set_main_thread_runner(runner)
-            self._main_thread_runner = runner
-            if hasattr(runner, "tool_completed"):
-                runner.tool_completed.connect(self._worker.on_tool_completed)
-        except Exception as e:
-            log.warning("AIChat: failed to create main-thread tool runner: %s", e)
-            self._add_system_msg("Warning: AI tools failed to load; some actions may not work.")
         QMetaObject.invokeMethod(
             self._worker,
             "run_request",
@@ -610,17 +623,19 @@ class AIChatWindow(QDockWidget):
             self.preamble_label.setText(text)
 
     def _populate_models(self):
-        """Populate model combo with all models (OpenAI, Anthropic, Ollama)."""
+        """Populate model combo from the backend API."""
+        models = []
+        default_id = ""
         try:
-            from classes.ai_llm_registry import list_all_models, get_default_model_id
-        except ImportError:
-            self.model_combo.addItem("No AI providers loaded", "")
-            return
-        models = list_all_models()
+            client = get_backend_client()
+            api_resp = client.list_models()
+            default_id = api_resp.get("default_model_id", "")
+            models = [(m["id"], m["name"]) for m in api_resp.get("models", [])]
+        except Exception:
+            log.warning("Failed to fetch models from backend")
         if not models:
             self.model_combo.addItem("No AI providers loaded", "")
             return
-        default_id = get_default_model_id()
         for model_id, display_name in models:
             self.model_combo.addItem(display_name, model_id)
         idx = self.model_combo.findData(default_id)
@@ -651,25 +666,6 @@ class AIChatWindow(QDockWidget):
         if not model_id and self.model_combo.count():
             model_id = self.model_combo.currentText()
         model_id_str = model_id if model_id else ""
-        # Create main-thread runner on main thread so tool invocations (BlockingQueuedConnection) don't deadlock
-        try:
-            from classes.ai_agent_runner import create_main_thread_runner, set_main_thread_runner
-            if self._main_thread_runner is not None and hasattr(self._main_thread_runner, "tool_completed"):
-                try:
-                    self._main_thread_runner.tool_completed.disconnect(self._worker.on_tool_completed)
-                except Exception:
-                    pass
-            runner = create_main_thread_runner()
-            set_main_thread_runner(runner)
-            self._main_thread_runner = runner
-            if hasattr(runner, "tool_completed"):
-                runner.tool_completed.connect(self._worker.on_tool_completed)
-        except Exception as e:
-            log.warning("AIChat: failed to create main-thread tool runner: %s", e)
-            self._add_system_msg("Warning: AI tools failed to load; some actions may not work.")
-        # #region agent log
-        _debug_log("ai_chat_ui.py:send_message", "invoking worker run_request", {"text_len": len(text), "model_id": model_id_str or "(empty)"}, "H1")
-        # #endregion
         QMetaObject.invokeMethod(
             self._worker,
             "run_request",

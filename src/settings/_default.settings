@@ -1386,114 +1386,9 @@
   },
   {
     "category": "AI",
-    "title": "OpenAI API Key",
-    "setting": "openai-api-key",
-    "value": "",
-    "type": "text",
-    "restart": false
-  },
-  {
-    "category": "AI",
-    "title": "Anthropic API Key",
-    "setting": "anthropic-api-key",
-    "value": "",
-    "type": "text",
-    "restart": false
-  },
-  {
-    "category": "AI",
-    "title": "Ollama Base URL",
-    "setting": "ollama-base-url",
-    "value": "http://localhost:11434",
-    "type": "text",
-    "restart": false
-  },
-  {
-    "category": "AI",
-    "title": "AI Default Model",
-    "setting": "ai-default-model",
-    "value": "openai/gpt-4o-mini",
-    "type": "text",
-    "restart": false
-  },
-  {
-    "value": true,
-    "title": "Enable AI Features",
-    "category": "AI Features",
-    "setting": "ai-enabled",
-    "type": "bool"
-  },
-  {
-    "value": "openai",
-    "title": "Primary AI Provider",
-    "category": "AI Features",
-    "setting": "ai-provider",
-    "type": "dropdown",
-    "values": [
-      {"value": "openai", "name": "OpenAI GPT-4 Vision"},
-      {"value": "google", "name": "Google Cloud Vision"},
-      {"value": "aws", "name": "AWS Rekognition"},
-      {"value": "hybrid", "name": "Hybrid (Multiple Providers)"}
-    ]
-  },
-  {
-    "value": true,
-    "title": "Auto-Analyze on Import",
-    "category": "AI Features",
-    "setting": "ai-auto-analyze",
-    "type": "bool"
-  },
-  {
-    "value": "",
-    "title": "Google Cloud Credentials File",
-    "category": "AI Features",
-    "setting": "google-credentials-path",
-    "type": "browse"
-  },
-  {
-    "value": "",
-    "title": "AWS Access Key ID",
-    "category": "AI Features",
-    "setting": "aws-access-key-id",
-    "type": "text"
-  },
-  {
-    "value": "",
-    "title": "AWS Secret Access Key",
-    "category": "AI Features",
-    "setting": "aws-secret-access-key",
-    "type": "text"
-  },
-  {
-    "value": 5,
-    "title": "Number of Frames to Analyze (Video)",
-    "category": "AI Features",
-    "setting": "ai-video-frames",
-    "type": "spinner",
-    "min": 1,
-    "max": 20
-  },
-  {
-    "value": "",
-    "title": "Runware API Key",
-    "category": "AI",
-    "setting": "runware-api-key",
-    "type": "text",
-    "restart": false
-  },
-  {
-    "value": "vidu:3@2",
-    "title": "Video Generation Model",
-    "category": "AI",
-    "setting": "video-generation-model",
-    "type": "text",
-    "restart": false
-  },
-  {
-    "value": "vidu:3@2",
-    "title": "Video Insert V2V Model",
-    "category": "AI",
-    "setting": "video-insert-v2v-model",
+    "title": "Backend URL",
+    "setting": "zenvi-backend-url",
+    "value": "http://localhost:8500",
     "type": "text",
     "restart": false
   },
@@ -1505,13 +1400,5 @@
     "type": "spinner",
     "min": 1,
     "max": 10
-  },
-  {
-    "value": "0.6",
-    "title": "Video Generation V2V Strength",
-    "category": "AI",
-    "setting": "video-generation-v2v-strength",
-    "type": "text",
-    "restart": false
   }
 ]
