@@ -1,7 +1,7 @@
 """
  @file
  @brief Tag manager for organizing and filtering media by AI-generated tags
- @author Zenvi Development Team
+ @author Flowcut Development Team
 
  @section LICENSE
 

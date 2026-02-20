@@ -34,6 +34,8 @@ import random
 import shutil
 import json
 
+from PyQt5.QtWidgets import QMessageBox
+
 from classes import info
 from classes.app import get_app
 from classes.image_types import get_media_type
@@ -1078,50 +1080,76 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         s.save()
 
     def check_if_paths_are_valid(self):
-        """Check if all paths are valid, and prompt to update them if needed"""
+        """Check if all paths are valid, and prompt to update them if needed.
+        Shows one dialog: user can skip all missing files at once or locate them."""
         app = get_app()
         settings = app.get_settings()
-        # Get translation method
         _ = app._tr
+        dialog_parent = getattr(app, "window", None)
 
         log.info("checking project files...")
 
-        # Loop through each files (in reverse order)
-        for file in reversed(self._data["files"]):
+        # Collect all missing files and clips (don't prompt yet)
+        missing_files = []
+        missing_clips = []
+        for file in self._data["files"]:
             path = file["path"]
-            parent_path, file_name_with_ext = os.path.split(path)
-
-            log.info("checking file %s", path)
             if not os.path.exists(path) and "%" not in path:
-                # File is missing
-                path, is_modified, is_skipped = find_missing_file(path)
-                if path and is_modified and not is_skipped:
-                    # Found file, update path
-                    file["path"] = path
-                    settings.setDefaultPath(settings.actionType.IMPORT, path)
-                    log.info("Auto-updated missing file: %s", path)
-                elif is_skipped:
-                    # Remove missing file
-                    log.info('Removed missing file: %s', file_name_with_ext)
-                    self._data["files"].remove(file)
-
-        # Loop through each clip (in reverse order)
-        for clip in reversed(self._data["clips"]):
+                missing_files.append((file, path))
+        for clip in self._data["clips"]:
             path = clip.get("reader", {}).get("path", "")
-
             if path and not os.path.exists(path) and "%" not in path:
-                # File is missing
-                path, is_modified, is_skipped = find_missing_file(path)
-                file_name_with_ext = os.path.basename(path)
+                missing_clips.append((clip, path))
 
-                if path and is_modified and not is_skipped:
-                    # Found file, update path
-                    clip["reader"]["path"] = path
-                    log.info("Auto-updated missing file: %s", clip["reader"]["path"])
-                elif is_skipped:
-                    # Remove missing file
-                    log.info('Removed missing clip: %s', file_name_with_ext)
-                    self._data["clips"].remove(clip)
+        total_missing = len(missing_files) + len(missing_clips)
+        if total_missing == 0:
+            return
+
+        # One dialog: Skip all or Locate files (so the app isn't blocked by many dialogs)
+        sample_names = []
+        for _f, p in (missing_files + missing_clips)[:5]:
+            sample_names.append(os.path.basename(p))
+        sample_text = ", ".join(sample_names)
+        if total_missing > 5:
+            sample_text = _("%s and %s more") % (sample_text, total_missing - 5)
+
+        msg = QMessageBox(dialog_parent)
+        msg.setWindowTitle(_("Missing project files"))
+        msg.setText(_("This project references %s missing file(s).") % total_missing)
+        msg.setInformativeText(sample_text)
+        skip_all_btn = msg.addButton(_("Skip all and open project"), QMessageBox.AcceptRole)
+        locate_btn = msg.addButton(_("Locate files..."), QMessageBox.ActionRole)
+        msg.exec_()
+        skip_all = msg.clickedButton() == skip_all_btn
+
+        if skip_all:
+            for file, path in missing_files:
+                log.info("Removed missing file: %s", os.path.basename(path))
+                self._data["files"].remove(file)
+            for clip, path in missing_clips:
+                log.info("Removed missing clip: %s", os.path.basename(path))
+                self._data["clips"].remove(clip)
+            return
+
+        # User chose "Locate files...": prompt for each missing item with parent so dialogs stay on top
+        for file, path in reversed(missing_files):
+            path, is_modified, is_skipped = find_missing_file(path, parent=dialog_parent)
+            if path and is_modified and not is_skipped:
+                file["path"] = path
+                settings.setDefaultPath(settings.actionType.IMPORT, path)
+                log.info("Auto-updated missing file: %s", path)
+            elif is_skipped:
+                log.info("Removed missing file: %s", os.path.basename(path))
+                self._data["files"].remove(file)
+
+        for clip, path in reversed(missing_clips):
+            path, is_modified, is_skipped = find_missing_file(path, parent=dialog_parent)
+            if path and is_modified and not is_skipped:
+                clip["reader"]["path"] = path
+                log.info("Auto-updated missing file: %s", clip["reader"]["path"])
+            elif is_skipped:
+                log.info("Removed missing clip: %s", os.path.basename(path))
+                self._data["clips"].remove(clip)
 
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """

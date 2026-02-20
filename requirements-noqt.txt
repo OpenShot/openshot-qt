@@ -14,6 +14,9 @@ langchain-openai>=0.2
 langchain-anthropic>=0.2
 langchain-community>=0.3
 langchain-ollama>=0.2
+# Gemini / Gemma vision tagging
+google-genai>=0.3.0
+python-dotenv>=1.0.1
 
 # CI / packaging
 setuptools>=61

@@ -1,7 +1,7 @@
 """
  @file
  @brief Google Cloud Vision provider for media analysis
- @author Zenvi Development Team
+ @author Flowcut Development Team
 
  @section LICENSE
 

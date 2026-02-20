@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plan Graph</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 8px;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      background: #1e1e2e;
+      color: #cdd6f4;
+    }
+    .plan-graph { padding-left: 0; }
+    .plan-graph ul { list-style: none; padding-left: 16px; margin: 4px 0; border-left: 1px solid #45475a; }
+    .node {
+      margin: 4px 0;
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .node:hover { background: #313244; }
+    .node.root { background: #45475a; font-weight: 600; }
+    .node.branch { background: #313244; color: #89b4fa; }
+    .node.step { color: #a6e3a1; }
+    .node-label { font-weight: 500; }
+    .node-desc { font-size: 11px; color: #a6adc8; margin-top: 2px; }
+    .node-result { font-size: 11px; color: #6c7086; margin-top: 2px; max-height: 3em; overflow: hidden; text-overflow: ellipsis; }
+    .empty-state { color: #6c7086; padding: 16px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div id="plan-root" class="plan-graph">
+    <div class="empty-state">Send a message in the AI chat to see the edit plan graph here.</div>
+  </div>
+  <script>
+    function setPlanGraph(jsonStr) {
+      var rootEl = document.getElementById('plan-root');
+      if (!jsonStr || jsonStr === 'null') {
+        rootEl.innerHTML = '<div class="empty-state">No plan yet. Send a message in the AI chat to see the edit plan graph.</div>';
+        return;
+      }
+      var data;
+      try {
+        data = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
+      } catch (e) {
+        rootEl.innerHTML = '<div class="empty-state">Invalid plan data.</div>';
+        return;
+      }
+      rootEl.innerHTML = '';
+      rootEl.appendChild(renderNode(data));
+    }
+    function renderNode(n) {
+      var wrap = document.createElement('div');
+      wrap.className = 'node-wrap';
+      var div = document.createElement('div');
+      div.className = 'node ' + (n.type || '');
+      div.setAttribute('data-node-id', n.id || '');
+      var label = document.createElement('div');
+      label.className = 'node-label';
+      label.textContent = n.label || n.type || 'Node';
+      div.appendChild(label);
+      if (n.description) {
+        var desc = document.createElement('div');
+        desc.className = 'node-desc';
+        desc.textContent = n.description.length > 120 ? n.description.slice(0, 120) + '…' : n.description;
+        div.appendChild(desc);
+      }
+      if (n.result) {
+        var res = document.createElement('div');
+        res.className = 'node-result';
+        res.textContent = n.result.length > 150 ? n.result.slice(0, 150) + '…' : n.result;
+        div.appendChild(res);
+      }
+      div.onclick = function() { onNodeClick(n); };
+      wrap.appendChild(div);
+      if (n.children && n.children.length) {
+        var ul = document.createElement('ul');
+        n.children.forEach(function(c) {
+          var li = document.createElement('li');
+          li.appendChild(renderNode(c));
+          ul.appendChild(li);
+        });
+        wrap.appendChild(ul);
+      }
+      return wrap;
+    }
+    function onNodeClick(node) {
+      console.log('Plan node clicked:', node);
+      if (typeof window.flowcutPlanNodeClick === 'function') {
+        window.flowcutPlanNodeClick(node);
+      }
+    }
+  </script>
+</body>
+</html>

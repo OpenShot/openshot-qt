@@ -1,7 +1,7 @@
 """
  @file
  @brief Smart collections manager for organizing media files
- @author Zenvi Development Team
+ @author Flowcut Development Team
 
  @section LICENSE
 

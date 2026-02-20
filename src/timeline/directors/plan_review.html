@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Director Plan Review</title>
+    <link rel="stylesheet" href="plan_review.css">
+</head>
+<body>
+    <div id="app">
+        <div id="empty-state" class="empty-state">
+            <div class="empty-icon">📋</div>
+            <h2>No Plan to Review</h2>
+            <p>Directors will create plans here after analyzing your video.</p>
+        </div>
+
+        <div id="plan-container" class="plan-container" style="display: none;">
+            <!-- Header -->
+            <div class="plan-header">
+                <h1 id="plan-title" class="plan-title">Loading...</h1>
+                <div class="plan-meta">
+                    <span id="plan-directors" class="directors-badge"></span>
+                    <span id="plan-confidence" class="confidence-badge"></span>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="plan-summary">
+                <h3>Plan Summary</h3>
+                <p id="plan-summary-text">Loading...</p>
+            </div>
+
+            <!-- Steps List -->
+            <div class="steps-section">
+                <h3>Action Steps <span id="steps-count" class="count-badge"></span></h3>
+                <div id="steps-list" class="steps-list">
+                    <!-- Steps will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Debate Transcript (collapsible) -->
+            <div class="debate-section">
+                <h3 class="collapsible-header" onclick="toggleDebate()">
+                    <span id="debate-toggle" class="toggle-icon">▶</span>
+                    Director Debate <span id="debate-count" class="count-badge"></span>
+                </h3>
+                <div id="debate-transcript" class="debate-transcript" style="display: none;">
+                    <!-- Debate messages will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button id="btn-reject" class="btn btn-secondary" onclick="rejectPlan()">
+                    ✖ Reject
+                </button>
+                <button id="btn-approve" class="btn btn-primary" onclick="approvePlan()">
+                    ✓ Approve & Execute
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <script src="plan_review.js"></script>
+</body>
+</html>

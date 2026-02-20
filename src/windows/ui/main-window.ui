@@ -20,7 +20,7 @@
    <enum>Qt::StrongFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>Zenvi</string>
+   <string>Flowcut</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../../images/openshot.qrc">

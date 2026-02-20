@@ -10,12 +10,12 @@ The video editor includes an AI Assistant dock widget that uses real LLMs (OpenA
    ```
    ./run.sh
    ```
-   (or `run-zenvi-core.sh` if you use that launcher)
+   (or `run-flowcut-core.sh` if you use that launcher)
 
-2. Open the Zenvi Assistant:
+2. Open the Flowcut Assistant:
    - Click on the **View** menu
    - Select **Docks**
-   - Click on **Zenvi Assistant**
+   - Click on **Flowcut Assistant**
 
 3. The chat panel appears as a dockable widget that can be moved and resized.
 
@@ -27,7 +27,7 @@ The video editor includes an AI Assistant dock widget that uses real LLMs (OpenA
    - **Anthropic API Key** – for Anthropic models (e.g. Claude 3.5 Sonnet)
    - **Ollama Base URL** – for local Ollama (default: http://localhost:11434)
 3. Optionally set **AI Default Model** (e.g. `openai/gpt-4o-mini`).
-4. The **Model** dropdown in the Zenvi Assistant lists only models whose provider is configured (e.g. models appear when the corresponding API key is set).
+4. The **Model** dropdown in the Flowcut Assistant lists only models whose provider is configured (e.g. models appear when the corresponding API key is set).
 
 ## Using the Chat
 
@@ -52,7 +52,7 @@ Toggle visibility via **View > Docks > AI Assistant**.
 - **Session:** `src/classes/ai_chat_functionality.py` – `AIChat`, `send_message()`, `_generate_response()`.
 - **LLM registry:** `src/classes/ai_llm_registry.py` – `get_model()`, `list_models()`, `get_default_model_id()`.
 - **Providers:** `src/classes/ai_providers/` – OpenAI, Anthropic, Ollama (build LangChain ChatModels from settings).
-- **Tools:** `src/classes/ai_openshot_tools.py` – Zenvi tools (project state and actions) for the agent.
+- **Tools:** `src/classes/ai_openshot_tools.py` – Flowcut tools (project state and actions) for the agent.
 - **Agent runner:** `src/classes/ai_agent_runner.py` – builds agent with selected LLM and tools, runs in a worker thread, dispatches tool execution to the Qt main thread.
 
 ## Dependencies

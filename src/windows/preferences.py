@@ -848,15 +848,18 @@ class Preferences(QDialog):
         self.reject()
 
     def reject(self):
+        # Save all settings to disk
+        self.s.save()
+        
         # Enable video caching
         openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = True
 
-        # Prompt user to restart Zenvi (if needed)
+        # Prompt user to restart Flowcut (if needed)
         if self.requires_restart:
             msg = QMessageBox()
             _ = get_app()._tr
             msg.setWindowTitle(_("Restart Required"))
-            msg.setText(_("Please restart Zenvi for all preferences to take effect."))
+            msg.setText(_("Please restart Flowcut for all preferences to take effect."))
             msg.exec_()
 
         # Close dialog

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="application/vnd.flowcut-project">
+    <comment>Flowcut project</comment>
+    <glob pattern="*.flow"/>
+    <glob pattern="*.zvn"/>
+    <generic-icon name="flowcut-doc"/>
+  </mime-type>
+  <mime-type type="application/vnd.openshot-qt-project">
+    <comment>OpenShot project (legacy)</comment>
+    <glob pattern="*.osp"/>
+    <generic-icon name="openshot-qt-doc"/>
+  </mime-type>
+</mime-info>

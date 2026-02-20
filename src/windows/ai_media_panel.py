@@ -1,7 +1,7 @@
 """
  @file
  @brief AI Media Management panel for tags, collections, and analysis
- @author Zenvi Development Team
+ @author Flowcut Development Team
 
  @section LICENSE
 
@@ -10,17 +10,18 @@
 """
 
 import asyncio
+import os
 from PyQt5.QtCore import Qt, QTimer, pyqtSignal
 from PyQt5.QtWidgets import (
     QDockWidget, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget,
     QListWidget, QListWidgetItem, QPushButton, QLabel, QProgressBar,
-    QGroupBox, QTreeWidget, QTreeWidgetItem, QLineEdit
+    QGroupBox, QTreeWidget, QTreeWidgetItem, QTreeWidgetItemIterator, QLineEdit
 )
 from PyQt5.QtGui import QIcon
 
 from classes.logger import log
 from classes.app import get_app
-from classes.tag_manager import get_tag_manager
+from classes.ai_metadata_utils import get_scene_descriptions_formatted
 from classes.media_analyzer import get_analysis_queue
 
 
@@ -60,6 +61,10 @@ class AIMediaPanel(QDockWidget):
         self.update_timer.timeout.connect(self.update_analysis_status)
         self.update_timer.start(2000)  # Update every 2 seconds
         
+        # Track selection changes for clip tag display
+        self._wire_selection_signals()
+        self.update_selected_clip_tags()
+
         self.setMinimumWidth(300)
         self.setMinimumHeight(400)
     
@@ -71,23 +76,35 @@ class AIMediaPanel(QDockWidget):
         
         # Search box
         search_layout = QHBoxLayout()
-        search_layout.addWidget(QLabel("Search Tags:"))
+        search_layout.addWidget(QLabel("Search Scenes:"))
         self.tag_search = QLineEdit()
-        self.tag_search.setPlaceholderText("Filter tags...")
+        self.tag_search.setPlaceholderText("Filter scene descriptions...")
         self.tag_search.textChanged.connect(self.filter_tags)
         search_layout.addWidget(self.tag_search)
         layout.addLayout(search_layout)
         
         # Tags tree
         self.tags_tree = QTreeWidget()
-        self.tags_tree.setHeaderLabels(["Tag", "Count"])
-        self.tags_tree.itemClicked.connect(self.on_tag_clicked)
+        self.tags_tree.setHeaderLabels(["Time", "Description"])
+        self.tags_tree.setUniformRowHeights(True)
+        self.tags_tree.setWordWrap(True)
+        self.tags_tree.setRootIsDecorated(False)
         layout.addWidget(self.tags_tree)
         
         # Refresh button
-        refresh_btn = QPushButton("Refresh Tags")
+        refresh_btn = QPushButton("Refresh Scenes")
         refresh_btn.clicked.connect(self.refresh_tags)
         layout.addWidget(refresh_btn)
+
+        # Selected clip scenes
+        self.selected_clip_group = QGroupBox("Selected Clip Scenes")
+        selected_layout = QVBoxLayout()
+        self.selected_clip_group.setLayout(selected_layout)
+        self.selected_clip_label = QLabel("Select a clip to view scene descriptions")
+        self.selected_tags_list = QListWidget()
+        selected_layout.addWidget(self.selected_clip_label)
+        selected_layout.addWidget(self.selected_tags_list)
+        layout.addWidget(self.selected_clip_group)
         
         self.tabs.addTab(tags_widget, "Tags")
         
@@ -177,57 +194,125 @@ class AIMediaPanel(QDockWidget):
         self.refresh_collections()
     
     def refresh_tags(self):
-        """Refresh the tags tree"""
-        self.tags_tree.clear()
-        
-        try:
-            tag_manager = get_tag_manager()
-            all_tags = tag_manager.get_all_tags()
-            
-            # Create category items
-            for category, tags in all_tags.items():
-                if not tags:
-                    continue
-                
-                category_item = QTreeWidgetItem(self.tags_tree)
-                category_item.setText(0, category.capitalize())
-                category_item.setText(1, str(len(tags)))
-                
-                # Add tag items
-                for tag in tags:
-                    tag_item = QTreeWidgetItem(category_item)
-                    tag_item.setText(0, tag)
-                    
-                    # Get count
-                    files = tag_manager.get_files_with_tag(tag, category[:-1] if category.endswith('s') else category)
-                    tag_item.setText(1, str(len(files)))
-                    tag_item.setData(0, Qt.UserRole, {'category': category, 'tag': tag})
-                
-                category_item.setExpanded(True)
-            
-        except Exception as e:
-            log.error(f"Failed to refresh tags: {e}")
+        """Refresh the scenes tree (based on current selection)."""
+        self.update_selected_clip_tags()
     
     def filter_tags(self, text):
-        """Filter tags by search text"""
-        # Simple filter - hide items that don't match
+        """Filter scene descriptions by search text."""
         iterator = QTreeWidgetItemIterator(self.tags_tree)
         while iterator.value():
             item = iterator.value()
-            if item.parent():  # Only filter tag items, not categories
-                tag_text = item.text(0).lower()
-                item.setHidden(text.lower() not in tag_text if text else False)
+            # Only filter leaf rows (we disable decoration, so this is always a row)
+            desc_text = (item.text(1) or "").lower()
+            time_text = (item.text(0) or "").lower()
+            haystack = f"{time_text} {desc_text}".strip()
+            item.setHidden(text.lower() not in haystack if text else False)
             iterator += 1
-    
+
+    def _wire_selection_signals(self):
+        """Listen for file selection changes to show per-clip tags."""
+        try:
+            window = get_app().window
+            files_model = getattr(window, "files_model", None)
+            if files_model and files_model.selection_model:
+                files_model.selection_model.selectionChanged.connect(self.update_selected_clip_tags)
+            window.FileUpdated.connect(lambda _fid: self.update_selected_clip_tags())
+            # Timeline selection (clips/transitions/effects)
+            window.SelectionChanged.connect(self.update_selected_clip_tags)
+        except Exception as e:
+            log.warning(f"Failed to connect selection signals for tags: {e}")
+
+    def update_selected_clip_tags(self, *args, **kwargs):
+        """Update the selected-clip scene list when selection or metadata changes."""
+        try:
+            window = get_app().window
+            files_model = getattr(window, "files_model", None)
+
+            # Prefer timeline clip selection, fallback to current file selection
+            timeline_clip = None
+            try:
+                from classes.query import Clip, File
+                selected_clip_ids = getattr(window, "selected_clips", []) or []
+                if selected_clip_ids:
+                    timeline_clip = Clip.get(id=selected_clip_ids[0])
+            except Exception:
+                timeline_clip = None
+
+            file_obj = files_model.current_file() if files_model else None
+            self.selected_tags_list.clear()
+            self.tags_tree.clear()
+
+            if not timeline_clip and not file_obj:
+                self.selected_clip_label.setText("Select a clip to view scene descriptions")
+                return
+
+            ai_meta = {}
+            name = ""
+
+            if timeline_clip and isinstance(getattr(timeline_clip, "data", None), dict):
+                clip_data = timeline_clip.data
+                name = clip_data.get("title") or clip_data.get("name") or "Timeline Clip"
+                # First, prefer per-clip metadata (set during slice)
+                ai_meta = clip_data.get("ai_metadata") if isinstance(clip_data.get("ai_metadata"), dict) else {}
+
+                # Fallback to source File's metadata
+                if not ai_meta.get("analyzed"):
+                    try:
+                        file_id = clip_data.get("file_id")
+                        source_file = File.get(id=str(file_id)) if file_id else None
+                        if source_file:
+                            name = name or source_file.data.get("name") or os.path.basename(source_file.data.get("path", "Clip"))
+                            candidate = source_file.data.get("ai_metadata")
+                            if isinstance(candidate, dict):
+                                ai_meta = candidate
+                    except Exception:
+                        pass
+
+            if not name and file_obj:
+                name = file_obj.data.get('name') or os.path.basename(file_obj.data.get('path', 'Clip'))
+
+            if (not ai_meta or not ai_meta.get("analyzed")) and file_obj:
+                candidate = file_obj.get_ai_metadata()
+                ai_meta = candidate if isinstance(candidate, dict) else {}
+
+            if not ai_meta.get('analyzed'):
+                self.selected_clip_label.setText(f"{name} (processing scene descriptions...)")
+                self.selected_tags_list.addItem("Tagging in progress...")
+                return
+
+            self.selected_clip_label.setText(name)
+            scenes = ai_meta.get("scene_descriptions", [])
+            if not isinstance(scenes, list) or not scenes:
+                self.selected_tags_list.addItem("No scene descriptions found")
+                return
+
+            # Populate list widget with formatted strings
+            formatted = get_scene_descriptions_formatted(ai_meta)
+            for line in formatted:
+                self.selected_tags_list.addItem(line)
+
+            # Populate tree widget with (Time, Description)
+            for scene in scenes:
+                if not isinstance(scene, dict):
+                    continue
+                time_sec = scene.get("time", 0)
+                desc = scene.get("description", "")
+                try:
+                    minutes = int(float(time_sec) // 60)
+                    seconds = int(float(time_sec) % 60)
+                except Exception:
+                    minutes, seconds = 0, 0
+                time_str = f"{minutes}:{seconds:02d}"
+                row = QTreeWidgetItem(self.tags_tree)
+                row.setText(0, time_str)
+                row.setText(1, str(desc))
+
+        except Exception as e:
+            log.error(f"Failed to update selected clip tags: {e}")
+
     def on_tag_clicked(self, item, column):
-        """Handle tag click - filter files panel"""
-        if not item.parent():  # Category item
-            return
-        
-        data = item.data(0, Qt.UserRole)
-        if data:
-            log.info(f"Tag clicked: {data['category']} - {data['tag']}")
-            # TODO: Filter files panel by this tag
+        """Deprecated: tag click handler kept for backward compatibility."""
+        return
     
     def update_analysis_status(self):
         """Update analysis queue status"""

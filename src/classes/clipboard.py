@@ -33,6 +33,7 @@ from classes.query import QueryObject
 
 class ClipboardManager:
     """ Manages clipboard operations for QueryObjects or lists of QueryObjects """
+    MIME_TYPE = "application/x-flowcut-generic"
 
     @staticmethod
     def to_mime(data):
@@ -62,7 +63,7 @@ class ClipboardManager:
             mime_data.setText(json_data)
 
             # Set the pickled data in the custom MIME format
-            mime_data.setData("application/x-zenvi-generic", pickled_data)
+            mime_data.setData(ClipboardManager.MIME_TYPE, pickled_data)
 
         except (TypeError, AttributeError) as e:
             print(f"Error serializing data: {e}")
@@ -75,12 +76,12 @@ class ClipboardManager:
         Converts QMimeData back into the original object (QueryObject or list of QueryObjects).
         Assumes the data is pickled.
         """
-        if mime_data.hasFormat("application/x-zenvi-generic"):
+        if mime_data.hasFormat(ClipboardManager.MIME_TYPE):
             try:
-                pickled_data = mime_data.data("application/x-zenvi-generic").data()
+                pickled_data = mime_data.data(ClipboardManager.MIME_TYPE).data()
                 return pickle.loads(pickled_data)
             except (pickle.UnpicklingError, AttributeError) as e:
                 print(f"Error unpickling data: {e}")
 
-        print("No valid Zenvi MIME type found.")
+        print("No valid Flowcut MIME type found.")
         return None

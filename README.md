@@ -1,6 +1,6 @@
-# Zenvi
+# Flowcut
 
-Zenvi is an award-winning free and open-source video editor 
+Flowcut is an award-winning free and open-source video editor 
 for Linux, Mac, and Windows, and is dedicated to delivering high quality 
 video editing and animation solutions to the world.
 
@@ -37,12 +37,12 @@ video editing and animation solutions to the world.
 
 ## Getting Started
 
-The quickest way to get started using Zenvi is to download one of 
+The quickest way to get started using Flowcut is to download one of 
 our pre-built installers. On our download page, click the **Daily Builds** 
 button to view the latest, experimental builds, which are created for each 
 new commit to this repo.
 
-https://zenvi.org/download/
+https://flowcut.app/download/
 
 ## Tutorial
 
@@ -51,9 +51,9 @@ Watch the official [step-by-step video tutorial](https://www.youtube.com/watch?l
 ## Developers
 
 Are you interested in becoming more involved in the development of 
-Zenvi? Build exciting new features, fix bugs, make friends, and become a hero! 
+Flowcut? Build exciting new features, fix bugs, make friends, and become a hero! 
 Please read the [step-by-step](https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer) 
-instructions for getting source code, configuring dependencies, and building Zenvi.
+instructions for getting source code, configuring dependencies, and building Flowcut.
 
 ## Documentation
 
@@ -68,9 +68,9 @@ The documentation for the most recent release can be viewed online at [openshot.
 
 ## Report a bug
 
-Please report bugs using the official [Report a Bug](https://zenvi.org/support/) 
+Please report bugs using the official [Report a Bug](https://flowcut.app/support/) 
 feature on our website. This walks you through the bug reporting process, and helps 
-to create a high-quality bug report for the Zenvi community.
+to create a high-quality bug report for the Flowcut community.
 
 Or you can report a new issue directly on GitHub:
 

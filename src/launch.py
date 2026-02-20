@@ -225,11 +225,11 @@ def main():
         app.show_errors()
 
     # Setup Qt application details
-    app.setApplicationName('zenvi')
+    app.setApplicationName('flowcut')
     app.setApplicationVersion(info.VERSION)
     try:
         # Qt 5.7+ only
-        app.setDesktopFile("org.zenvi.Zenvi")
+        app.setDesktopFile("org.flowcut.Flowcut")
     except AttributeError:
         pass
 

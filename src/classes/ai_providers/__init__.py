@@ -5,14 +5,17 @@ Lazy-import to avoid breaking the app when optional deps are missing.
 
 from classes.logger import log
 
-# Registry: list of (model_id, display_name, provider_module_name) for LangChain chat
+# Registry: list of (model_id, display_name, provider_module_name, context_limit) for LangChain chat
+# context_limit is the maximum input-token window size for the model.
 PROVIDER_LIST = [
-    ("openai/gpt-4o-mini", "OpenAI GPT-4o mini", "openai_provider"),
-    ("openai/gpt-4o", "OpenAI GPT-4o", "openai_provider"),
-    ("anthropic/claude-3-5-sonnet", "Anthropic Claude 3.5 Sonnet", "anthropic_provider"),
-    ("anthropic/claude-3-haiku", "Anthropic Claude 3 Haiku", "anthropic_provider"),
-    ("ollama/llama3.2", "Ollama Llama 3.2 (local)", "ollama_provider"),
-    ("ollama/llama3.1", "Ollama Llama 3.1 (local)", "ollama_provider"),
+    ("openai/gpt-4o-mini", "OpenAI GPT-4o mini", "openai_provider", 128_000),
+    ("openai/gpt-4o", "OpenAI GPT-4o", "openai_provider", 128_000),
+    ("anthropic/claude-3-5-sonnet", "Anthropic Claude 3.5 Sonnet", "anthropic_provider", 200_000),
+    ("anthropic/claude-3-haiku", "Anthropic Claude 3 Haiku", "anthropic_provider", 200_000),
+    ("nvidia-edge/nemotron-mini-4b", "NVIDIA Nemotron-Mini 4B (Edge)", "nvidia_edge_provider", 32_000),
+    ("nvidia-edge/llava", "LLaVA 1.5-7B Vision (Edge)", "nvidia_edge_provider", 8_000),
+    ("ollama/llama3.2", "Ollama Llama 3.2 (local)", "ollama_provider", 128_000),
+    ("ollama/llama3.1", "Ollama Llama 3.1 (local)", "ollama_provider", 128_000),
 ]
 
 
@@ -24,6 +27,9 @@ def get_provider_module(provider_name):
     if provider_name == "anthropic_provider":
         from classes.ai_providers import anthropic_provider
         return anthropic_provider
+    if provider_name == "nvidia_edge_provider":
+        from classes.ai_providers import nvidia_edge_provider
+        return nvidia_edge_provider
     if provider_name == "ollama_provider":
         from classes.ai_providers import ollama_provider
         return ollama_provider
@@ -35,7 +41,7 @@ def build_model(model_id, settings):
     Build a LangChain ChatModel for the given model_id using app settings.
     Returns the model instance or None if provider unavailable or misconfigured.
     """
-    for mid, _display_name, provider_name in PROVIDER_LIST:
+    for mid, _display_name, provider_name, _ctx in PROVIDER_LIST:
         if mid == model_id:
             mod = get_provider_module(provider_name)
             if mod and hasattr(mod, "build_chat_model"):
@@ -53,7 +59,7 @@ def list_available_models(settings):
     Return list of (model_id, display_name) for models that can be built with current settings.
     """
     result = []
-    for model_id, display_name, provider_name in PROVIDER_LIST:
+    for model_id, display_name, provider_name, _ctx in PROVIDER_LIST:
         mod = get_provider_module(provider_name)
         if mod and hasattr(mod, "is_available") and mod.is_available(model_id, settings):
             result.append((model_id, display_name))
@@ -65,7 +71,15 @@ def list_all_models():
     Return list of (model_id, display_name) for all registered chat models (no API key check).
     Use this so the UI can show OpenAI, Anthropic, and Ollama; API key is checked when sending.
     """
-    return [(model_id, display_name) for model_id, display_name, _ in PROVIDER_LIST]
+    return [(model_id, display_name) for model_id, display_name, _, _ in PROVIDER_LIST]
+
+
+def get_context_limit(model_id):
+    """Return the context-window token limit for *model_id*, or 128000 as default."""
+    for mid, _dn, _pn, ctx in PROVIDER_LIST:
+        if mid == model_id:
+            return ctx
+    return 128_000
 
 
 # --- Media analysis base classes (from nilay branch) ---
@@ -80,6 +94,7 @@ class ProviderType(Enum):
     GOOGLE = "google"
     AWS = "aws"
     HYBRID = "hybrid"
+    NVIDIA_EDGE = "nvidia-edge"
 
 
 class AnalysisResult:

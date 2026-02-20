@@ -268,7 +268,7 @@ class OpenShotApp(QApplication):
             log.debug("Testing write access to user directory")
             # Create test paths
             TEST_PATH_DIR = os.path.join(info.USER_PATH, 'PERMISSION')
-            TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, 'test.zvn')
+            TEST_PATH_FILE = os.path.join(TEST_PATH_DIR, f'test{info.PROJECT_EXT}')
             os.makedirs(TEST_PATH_DIR, exist_ok=True)
             with open(TEST_PATH_FILE, 'w') as f:
                 f.write('{}')
@@ -324,8 +324,8 @@ class OpenShotApp(QApplication):
 
         log.info('Process command-line arguments: %s', args[1:])
 
-        # Auto load project if passed as argument (.zvn or .osp)
-        if args[1].endswith((self.info.PROJECT_EXT, self.info.LEGACY_PROJECT_EXT)):
+        # Auto load project if passed as argument (.flow or legacy)
+        if args[1].endswith(self.info.ALL_PROJECT_EXTS):
             self.window.OpenProjectSignal.emit(args[1])
             return True
 
@@ -366,6 +366,7 @@ class OpenShotApp(QApplication):
     def cleanup(self):
         """aboutToQuit signal handler for application exit"""
         self.log.debug("Saving settings in app.cleanup")
+
         try:
             self.settings.save()
         except Exception:

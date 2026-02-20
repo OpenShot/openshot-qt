@@ -1,0 +1,326 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Flowcut — Production Release Workflow
+#
+# Triggers when a version tag (v*.*.*) is pushed, OR on push to the
+# `production` branch.  Builds platform-specific installers and publishes
+# them as a GitHub Release so the in-app auto-updater can pick them up.
+#
+# Asset naming convention expected by the auto-updater:
+#   Linux   → Flowcut-v<VER>-x86_64.AppImage
+#   macOS   → Flowcut-v<VER>-x86_64.dmg
+#   Windows → Flowcut-v<VER>-x86_64.exe
+# ─────────────────────────────────────────────────────────────────────────────
+name: Flowcut Production Release
+
+on:
+  push:
+    branches: [production]
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write  # needed for creating releases & uploading assets
+
+env:
+  # Parsed from src/classes/info.py at build time
+  APP_NAME: Flowcut
+
+jobs:
+
+  # ── 1. Read the version from source so every job can reference it ──────
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+      tag: ${{ steps.ver.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version from info.py
+        id: ver
+        run: |
+          VER=$(python3 -c "
+          import re, pathlib
+          text = pathlib.Path('src/classes/info.py').read_text()
+          m = re.search(r'VERSION\s*=\s*\"([^\"]+)\"', text)
+          print(m.group(1))
+          ")
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VER"    >> "$GITHUB_OUTPUT"
+          echo "### Version: $VER" >> "$GITHUB_STEP_SUMMARY"
+
+  # ── 2. Linux build (AppImage + .deb) ──────────────────────────────────
+  build-linux:
+    needs: version
+    runs-on: ubuntu-22.04
+    env:
+      VER: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo add-apt-repository -y ppa:openshot.developers/libopenshot-daily
+          sudo apt-get update
+          sudo apt-get install -y \
+            libopenshot-audio-dev libopenshot-dev python3-openshot \
+            python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine \
+            python3-pyqt5.qtopengl python3-zmq python3-xdg \
+            libfuse2 desktop-file-utils
+
+      - name: Install Python dependencies
+        run: |
+          pip3 install --upgrade pip
+          pip3 install -r requirements.txt
+
+      - name: Freeze with cx_Freeze
+        run: python3 freeze.py build --git-branch=production
+
+      - name: Build AppImage
+        run: |
+          # Download appimagetool
+          wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" \
+            -O appimagetool && chmod +x appimagetool
+
+          # Create AppDir structure
+          APPDIR="Flowcut.AppDir"
+          mkdir -p "$APPDIR/usr/bin" "$APPDIR/usr/share/applications" \
+                   "$APPDIR/usr/share/icons/hicolor/256x256/apps" \
+                   "$APPDIR/usr/share/metainfo"
+
+          # Copy frozen build
+          cp -r build/exe.linux-*/* "$APPDIR/usr/bin/"
+
+          # Desktop file
+          cp xdg/*.desktop "$APPDIR/usr/share/applications/" 2>/dev/null || true
+          cp xdg/*.desktop "$APPDIR/" 2>/dev/null || true
+
+          # Icon
+          ICON=$(find images xdg -name "*.png" -path "*256*" 2>/dev/null | head -1)
+          if [ -n "$ICON" ]; then
+            cp "$ICON" "$APPDIR/usr/share/icons/hicolor/256x256/apps/flowcut.png"
+            cp "$ICON" "$APPDIR/flowcut.png"
+          fi
+
+          # AppRun
+          cat > "$APPDIR/AppRun" << 'APPRUN'
+          #!/bin/bash
+          HERE="$(dirname "$(readlink -f "$0")")"
+          export PATH="$HERE/usr/bin:$PATH"
+          export LD_LIBRARY_PATH="$HERE/usr/bin/lib:$HERE/usr/lib:$LD_LIBRARY_PATH"
+          exec "$HERE/usr/bin/launch" "$@"
+          APPRUN
+          chmod +x "$APPDIR/AppRun"
+
+          # Build AppImage
+          ARCH=x86_64 ./appimagetool "$APPDIR" \
+            "Flowcut-v${VER}-x86_64.AppImage"
+
+      - name: Build .deb package
+        run: |
+          DEB_DIR="flowcut_${VER}_amd64"
+          mkdir -p "$DEB_DIR/DEBIAN"
+          mkdir -p "$DEB_DIR/usr/bin"
+          mkdir -p "$DEB_DIR/usr/share/flowcut"
+          mkdir -p "$DEB_DIR/usr/share/applications"
+          mkdir -p "$DEB_DIR/usr/share/icons/hicolor/256x256/apps"
+
+          # Copy frozen build
+          cp -r build/exe.linux-*/* "$DEB_DIR/usr/share/flowcut/"
+
+          # Launcher script
+          cat > "$DEB_DIR/usr/bin/flowcut" << 'LAUNCHER'
+          #!/bin/bash
+          exec /usr/share/flowcut/launch "$@"
+          LAUNCHER
+          chmod +x "$DEB_DIR/usr/bin/flowcut"
+
+          # Desktop file
+          cp xdg/*.desktop "$DEB_DIR/usr/share/applications/" 2>/dev/null || true
+
+          # Icon
+          ICON=$(find images xdg -name "*.png" -path "*256*" 2>/dev/null | head -1)
+          if [ -n "$ICON" ]; then
+            cp "$ICON" "$DEB_DIR/usr/share/icons/hicolor/256x256/apps/flowcut.png"
+          fi
+
+          # Control file
+          cat > "$DEB_DIR/DEBIAN/control" << CTRL
+          Package: flowcut
+          Version: ${VER}
+          Section: video
+          Priority: optional
+          Architecture: amd64
+          Depends: libopenshot-dev, python3
+          Maintainer: Flowcut Team <team@flowcut.app>
+          Description: Flowcut Video Editor
+           Create and edit stunning videos, films, and animations.
+          CTRL
+
+          dpkg-deb --build "$DEB_DIR" "Flowcut-v${VER}-x86_64.deb"
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: linux-packages
+          path: |
+            Flowcut-v*.AppImage
+            Flowcut-v*.deb
+
+  # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
+  build-macos:
+    needs: version
+    runs-on: macos-13
+    env:
+      VER: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          brew install openshot  2>/dev/null || true
+          pip3 install --upgrade pip
+          pip3 install -r requirements.txt
+          pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
+
+      - name: Freeze with cx_Freeze
+        run: python3 freeze.py bdist_mac --git-branch=production || true
+
+      - name: Create DMG
+        run: |
+          # If cx_Freeze produced a .app bundle, package it
+          APP_BUNDLE=$(find build -name "*.app" -type d 2>/dev/null | head -1)
+          if [ -z "$APP_BUNDLE" ]; then
+            echo "::warning::No .app bundle found — creating placeholder DMG"
+            mkdir -p "Flowcut.app/Contents/MacOS"
+            cp -r build/exe.macos*/* "Flowcut.app/Contents/MacOS/" 2>/dev/null || true
+            APP_BUNDLE="Flowcut.app"
+          fi
+
+          DMG_NAME="Flowcut-v${VER}-x86_64.dmg"
+
+          # Create a temporary DMG
+          hdiutil create -volname "Flowcut" \
+            -srcfolder "$APP_BUNDLE" \
+            -ov -format UDZO \
+            "$DMG_NAME" || true
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: macos-package
+          path: Flowcut-v*.dmg
+          if-no-files-found: warn
+
+  # ── 4. Windows build (.exe) ───────────────────────────────────────────
+  build-windows:
+    needs: version
+    runs-on: windows-latest
+    env:
+      VER: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Freeze with cx_Freeze
+        run: python freeze.py build --git-branch=production
+        continue-on-error: true
+
+      - name: Build with Inno Setup
+        run: |
+          # Download and install Inno Setup if not present
+          if (!(Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe")) {
+            Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is_setup.exe
+            Start-Process -Wait -FilePath .\is_setup.exe -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES"
+          }
+
+          # Build installer (use existing .iss if it works, otherwise create one)
+          $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (Test-Path $ISCC) {
+            # windows-installer.iss expects VERSION macro
+            & $ISCC /DVERSION="${env:VER}" installer/windows-installer.iss 2>$null
+            # Rename output to match expected convention
+            $exe = Get-ChildItem -Path . -Filter "*.exe" -Recurse | Where-Object { $_.Name -like "Flowcut*Setup*" -or $_.Name -like "OpenShot*Setup*" } | Select-Object -First 1
+            if ($exe) {
+              Rename-Item $exe.FullName "Flowcut-v${env:VER}-x86_64.exe"
+            }
+          }
+        shell: powershell
+        continue-on-error: true
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-package
+          path: Flowcut-v*.exe
+          if-no-files-found: warn
+
+  # ── 5. Create GitHub Release with all artifacts ───────────────────────
+  release:
+    needs: [version, build-linux, build-macos, build-windows]
+    if: always() && needs.version.result == 'success'
+    runs-on: ubuntu-latest
+    env:
+      VER: ${{ needs.version.outputs.version }}
+      TAG: ${{ needs.version.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: dist/
+          merge-multiple: true
+
+      - name: List artifacts
+        run: |
+          echo "### Release Artifacts" >> "$GITHUB_STEP_SUMMARY"
+          find dist/ -type f | while read f; do
+            SIZE=$(stat -c%s "$f" 2>/dev/null || stat -f%z "$f" 2>/dev/null || echo "?")
+            SHA=$(sha256sum "$f" | cut -d' ' -f1)
+            echo "- $(basename $f)  ($SIZE bytes, sha256: $SHA)" >> "$GITHUB_STEP_SUMMARY"
+            echo "$SHA  $(basename $f)" >> dist/SHA256SUMS.txt
+          done
+
+      - name: Create or update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: "Flowcut ${{ env.TAG }}"
+          body: |
+            ## Flowcut ${{ env.VER }}
+
+            ### Auto-update
+            Users running Flowcut with an active internet connection will receive
+            this update automatically.  The download happens silently in the
+            background and the new version is applied on the next launch.
+
+            ### Manual download
+            | Platform | File |
+            |----------|------|
+            | Linux (AppImage) | `Flowcut-v${{ env.VER }}-x86_64.AppImage` |
+            | Linux (Debian)   | `Flowcut-v${{ env.VER }}-x86_64.deb` |
+            | macOS (DMG)      | `Flowcut-v${{ env.VER }}-x86_64.dmg` |
+            | Windows (EXE)    | `Flowcut-v${{ env.VER }}-x86_64.exe` |
+
+            ### Checksums
+            See `SHA256SUMS.txt` attached to this release.
+          draft: false
+          prerelease: false
+          files: dist/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

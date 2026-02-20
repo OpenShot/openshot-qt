@@ -34,11 +34,20 @@ from PyQt5.QtWidgets import QMessageBox, QFileDialog
 known_paths = [info.HOME_PATH]
 
 
-def find_missing_file(file_path):
-    """Find a missing file name or file path, and return valid path."""
+def _get_dialog_parent():
+    """Return main window as dialog parent so dialogs stay on top and are clickable."""
+    app = get_app()
+    return getattr(app, "window", None)
+
+
+def find_missing_file(file_path, parent=None):
+    """Find a missing file name or file path, and return valid path.
+    If parent is None, uses main window when available so dialogs stay on top."""
     _ = get_app()._tr
     modified = False
     skipped = False
+    if parent is None:
+        parent = _get_dialog_parent()
 
     # Bail if path is already valid
     if os.path.exists(file_path):
@@ -61,11 +70,12 @@ def find_missing_file(file_path):
             recommended_path = info.HOME_PATH
         else:
             recommended_path = os.path.dirname(recommended_path)
-        QMessageBox.warning(None, _("Missing File (%s)") % file_name,
+        QMessageBox.warning(parent, _("Missing File (%s)") % file_name,
                             _("%s cannot be found.") % file_name)
         modified = True
-        folder_to_check = QFileDialog.getExistingDirectory(None, _("Find directory that contains: %s" % file_name),
-                                                           recommended_path)
+        folder_to_check = QFileDialog.getExistingDirectory(
+            parent, _("Find directory that contains: %s" % file_name),
+            recommended_path)
         if folder_to_check and folder_to_check not in known_paths:
             known_paths.append(folder_to_check)
         if folder_to_check == "":

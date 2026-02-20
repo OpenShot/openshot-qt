@@ -1,6 +1,6 @@
 # AI-Powered Media Management - Implementation Summary
 
-## Project: Zenvi Core - AI Media Management Feature
+## Project: Flowcut - AI Media Management Feature
 **Branch**: `nilay`  
 **Status**: ✅ Complete  
 **Date**: January 31, 2026
@@ -9,7 +9,7 @@
 
 ## Overview
 
-Successfully implemented a comprehensive AI-Powered Media Management system for Zenvi Core (OpenShot Video Editor fork) with auto-tagging, natural language search, face recognition, and smart collections.
+Successfully implemented a comprehensive AI-Powered Media Management system for Flowcut (OpenShot Video Editor fork) with auto-tagging, natural language search, face recognition, and smart collections.
 
 ## Implementation Phases Completed
 
@@ -101,7 +101,7 @@ Successfully implemented a comprehensive AI-Powered Media Management system for 
 ## File Structure
 
 ```
-zenvi-core/
+flowcut/
 ├── src/
 │   ├── classes/
 │   │   ├── ai_providers/
@@ -511,7 +511,7 @@ The modular architecture allows for easy extension with additional AI providers,
 
 ---
 
-**Implementation Team**: Zenvi Development Team  
+**Implementation Team**: Flowcut Development Team
 **Project Duration**: Completed in single session  
 **Status**: ✅ Ready for Testing  
 **Version**: 1.0.0

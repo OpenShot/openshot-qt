@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directors Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-box:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .directors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .director-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .director-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .director-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .director-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .director-card.selected {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .director-card.selected::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .director-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            flex: 1;
+        }
+
+        .delete-btn {
+            background: rgba(255, 59, 48, 0.2);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 59, 48, 0.4);
+            transform: scale(1.1);
+        }
+
+        .director-author {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .director-description {
+            font-size: 14px;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .director-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .director-expertise {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .selection-footer {
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(102, 126, 234, 0.95) 20%);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin: -20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .selected-count {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .analyze-btn {
+            padding: 15px 40px;
+            font-size: 16px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .analyze-btn:hover {
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            opacity: 0.7;
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-wrapper {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .checkbox-wrapper input[type="checkbox"]:checked {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-color: transparent;
+        }
+
+        .checkbox-wrapper input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 AI Directors</h1>
+            <p>Select directors to analyze your project with AI-powered insights</p>
+        </div>
+
+        <div class="actions-bar">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search directors...">
+            <button class="btn btn-secondary" onclick="openMarketplace()">🛒 Marketplace</button>
+        </div>
+
+        <div class="directors-grid" id="directorsGrid">
+            <div class="empty-state">
+                <h2>Loading directors...</h2>
+                <p>Please wait while we load available directors</p>
+            </div>
+        </div>
+
+        <div class="selection-footer">
+            <div class="selected-count" id="selectedCount">No directors selected</div>
+            <button class="btn btn-primary analyze-btn" id="analyzeBtn" onclick="analyzeWithDirectors()" disabled>
+                ✨ Analyze Project
+            </button>
+        </div>
+    </div>
+
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <script>
+        let bridge = null;
+        let directors = [];
+        let selectedDirectors = new Set();
+
+        // Initialize QWebChannel
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+            bridge = channel.objects.directorPanelBridge;
+
+            // Listen for directors loaded
+            bridge.directorsLoaded.connect(function(directorsJson) {
+                directors = JSON.parse(directorsJson);
+                renderDirectors();
+            });
+
+            // Load directors on init
+            bridge.loadDirectors();
+        });
+
+        function renderDirectors(filter = '') {
+            const grid = document.getElementById('directorsGrid');
+            const filterLower = filter.toLowerCase();
+
+            const filteredDirectors = directors.filter(d => {
+                if (!filter) return true;
+                return d.name.toLowerCase().includes(filterLower) ||
+                       d.description.toLowerCase().includes(filterLower) ||
+                       d.tags.some(tag => tag.toLowerCase().includes(filterLower)) ||
+                       d.expertise.some(exp => exp.toLowerCase().includes(filterLower));
+            });
+
+            if (filteredDirectors.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No directors found</h2>
+                        <p>${filter ? 'Try a different search term' : 'Click Marketplace to add directors'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredDirectors.map(director => {
+                const isSelected = selectedDirectors.has(director.id);
+                return `
+                    <div class="director-card ${isSelected ? 'selected' : ''}"
+                         onclick="toggleDirector('${director.id}')"
+                         data-id="${director.id}">
+                        <div class="card-header">
+                            <div>
+                                <div class="director-name">${director.name}</div>
+                                <div class="director-author">by ${director.author}</div>
+                            </div>
+                            <button class="delete-btn" onclick="deleteDirector(event, '${director.id}')" title="Delete director">
+                                🗑️
+                            </button>
+                        </div>
+                        <div class="director-description">${director.description}</div>
+                        <div class="director-tags">
+                            ${director.tags.slice(0, 4).map(tag =>
+                                `<span class="tag">${tag}</span>`
+                            ).join('')}
+                        </div>
+                        <div class="director-expertise">
+                            <strong>Expertise:</strong> ${director.expertise.slice(0, 3).join(', ')}
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation()">
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateSelectedCount();
+        }
+
+        function toggleDirector(directorId) {
+            if (selectedDirectors.has(directorId)) {
+                selectedDirectors.delete(directorId);
+            } else {
+                selectedDirectors.add(directorId);
+            }
+            renderDirectors(document.getElementById('searchBox').value);
+        }
+
+        function deleteDirector(event, directorId) {
+            event.stopPropagation();
+
+            if (confirm('Are you sure you want to delete this director? You can add it back from the Marketplace.')) {
+                if (bridge && bridge.deleteDirector) {
+                    bridge.deleteDirector(directorId);
+
+                    // Remove from local array
+                    directors = directors.filter(d => d.id !== directorId);
+                    selectedDirectors.delete(directorId);
+                    renderDirectors(document.getElementById('searchBox').value);
+                }
+            }
+        }
+
+        function updateSelectedCount() {
+            const count = selectedDirectors.size;
+            const countEl = document.getElementById('selectedCount');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+
+            if (count === 0) {
+                countEl.textContent = 'No directors selected';
+                analyzeBtn.disabled = true;
+            } else {
+                countEl.textContent = `${count} director${count > 1 ? 's' : ''} selected`;
+                analyzeBtn.disabled = false;
+            }
+        }
+
+        function analyzeWithDirectors() {
+            if (selectedDirectors.size === 0) return;
+
+            const directorIds = Array.from(selectedDirectors);
+            if (bridge && bridge.selectDirectors) {
+                bridge.selectDirectors(JSON.stringify(directorIds));
+            }
+        }
+
+        function openMarketplace() {
+            if (bridge && bridge.openMarketplace) {
+                bridge.openMarketplace();
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            renderDirectors(e.target.value);
+        });
+    </script>
+</body>
+</html>

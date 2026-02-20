@@ -1,7 +1,7 @@
 """
  @file
  @brief Natural language search engine for media files
- @author Zenvi Development Team
+ @author Flowcut Development Team
 
  @section LICENSE
 

@@ -50,6 +50,7 @@ from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
 from classes.thumbnail import GetThumbPath
 from classes.waveform import get_audio_data
+from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
 from .timeline_backend.enums import (
     MenuFade, MenuRotate, MenuLayout, MenuAlign, MenuAnimate, MenuVolume,
     MenuTransform, MenuTime, MenuCopy, MenuSlice, MenuSplitAudio
@@ -2458,6 +2459,39 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     def Slice_Triggered(self, action, clip_ids, trans_ids, playhead_position=0, ripple=False):
         """Callback for slice context menus"""
+        def _source_ai_metadata_for_clip(clip_obj):
+            try:
+                data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
+                file_id = data.get("file_id")
+                if file_id:
+                    file_obj = File.get(id=str(file_id))
+                    if file_obj and isinstance(file_obj.data, dict):
+                        ai_meta = file_obj.data.get("ai_metadata")
+                        return ai_meta if isinstance(ai_meta, dict) else None
+                # Fallback: try reader path match (best-effort)
+                reader = data.get("reader") if isinstance(data.get("reader"), dict) else {}
+                path = reader.get("path")
+                if path:
+                    file_obj = File.get(path=path)
+                    if file_obj and isinstance(file_obj.data, dict):
+                        ai_meta = file_obj.data.get("ai_metadata")
+                        return ai_meta if isinstance(ai_meta, dict) else None
+            except Exception:
+                pass
+            return None
+
+        def _apply_clip_ai_metadata(clip_data, source_ai_metadata):
+            if not source_ai_metadata or not isinstance(clip_data, dict):
+                return
+            if not source_ai_metadata.get("analyzed"):
+                return
+            try:
+                start_sec = float(clip_data.get("start", 0.0) or 0.0)
+                end_sec = float(clip_data.get("end", start_sec) or start_sec)
+            except Exception:
+                return
+            clip_data["ai_metadata"] = adjust_scene_descriptions_for_subclip(source_ai_metadata, start_sec, end_sec)
+
         # Get FPS from project
         fps = get_app().project.get("fps")
         fps_num = float(fps["num"])
@@ -2487,6 +2521,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 if not clip or clip.data.get("layer") in locked_layers:
                     continue
 
+                source_ai_metadata = _source_ai_metadata_for_clip(clip)
+
                 original_position = float(clip.data["position"])  # Original position in timeline seconds
                 start_of_clip = float(clip.data["start"])  # Trim start time in clip seconds
                 end_of_clip = float(clip.data["end"])  # Trim end time in clip seconds
@@ -2498,6 +2534,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     clip.data["end"] = new_end
                     clip.data["duration"] = max(0.0, new_end - start_of_clip)
 
+                    _apply_clip_ai_metadata(clip.data, source_ai_metadata)
+
                     if ripple:
                         removed_duration = original_duration - (clip.data["end"] - start_of_clip)
                         self.ripple_delete_gap(playhead_position, clip.data["layer"], removed_duration)
@@ -2508,6 +2546,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     clip.data["position"] = playhead_position  # Set new timeline position
                     clip.data["start"] = new_start
                     clip.data["duration"] = max(0.0, end_of_clip - new_start)
+
+                    _apply_clip_ai_metadata(clip.data, source_ai_metadata)
 
                     if ripple:
                         removed_duration = original_duration - (end_of_clip - new_start)
@@ -2522,6 +2562,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     new_end = start_of_clip + (playhead_position - original_position)
                     clip.data["end"] = new_end
                     clip.data["duration"] = max(0.0, new_end - start_of_clip)
+
+                    # Left clip gets translated metadata
+                    _apply_clip_ai_metadata(clip.data, source_ai_metadata)
 
                     # Split into two clips (left and right side)
                     right_clip = Clip.get(id=clip_id)
@@ -2547,11 +2590,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     right_start = float(right_clip.data["start"])
                     right_end = float(right_clip.data.get("end", right_start))
                     right_clip.data["duration"] = max(0.0, right_end - right_start)
+
+                    # Right clip gets translated metadata
+                    _apply_clip_ai_metadata(right_clip.data, source_ai_metadata)
                     self._assign_new_effect_ids(right_clip.data)
                     right_clip.save()
 
-                # Save changes for the left or right slice
-                self.update_clip_data(clip.data, only_basic_props=True, ignore_reader=True)
+                # Save changes for the left or right slice. Persist full clip data
+                # so derived ai_metadata survives slicing.
+                self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
 
             # Redraw audio waveforms
             self.redraw_audio_timer.start()
@@ -4094,7 +4141,18 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get final cache object from timeline
         try:
             if self.window.timeline_sync and self.window.timeline_sync.timeline:
-                cache_object = self.window.timeline_sync.timeline.GetCache()
+                # Avoid blocking UI if timeline is currently being mutated (ApplyJsonDiff, SetJson, etc.)
+                lock = getattr(self.window.timeline_sync, "timeline_lock", None)
+                acquired = False
+                if lock is not None:
+                    acquired = lock.acquire(False)
+                    if not acquired:
+                        return
+                try:
+                    cache_object = self.window.timeline_sync.timeline.GetCache()
+                finally:
+                    if lock is not None and acquired:
+                        lock.release()
                 if not cache_object:
                     return
                 # Get the JSON from the cache object (i.e. which frames are cached)

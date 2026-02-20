@@ -11,12 +11,12 @@
   #define PY_EXE_DIR "exe.mingw-3.8"
 #endif
 
-#define MyAppName "Zenvi"
-#define MyAppProjectFileDesc "Zenvi Project File"
-#define MyAppPublisher "Zenvi"
-#define MyPublisherURL "https://zenvi.org/"
-#define MySupportURL "https://zenvi.org/community/"
-#define MyAppExeName "zenvi.exe"
+#define MyAppName "Flowcut"
+#define MyAppProjectFileDesc "Flowcut Project File"
+#define MyAppPublisher "Flowcut"
+#define MyPublisherURL "https://flowcut.app/"
+#define MySupportURL "https://flowcut.app/community/"
+#define MyAppExeName "flowcut.exe"
 
 #include "isportable.iss"
 
@@ -25,7 +25,7 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={code:GetAppId|{{4BB0DCDC-BC24-49EC-8937-72956C33A470}}
-AppName=OpenShot Video Editor
+AppName={#MyAppName}
 AppVersion={#VERSION}
 AppVerName={#MyAppName} {#VERSION}
 VersionInfoVersion={#VERSION}
@@ -33,10 +33,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
 AppSupportURL={#MySupportURL}
 AppCopyright=(c) 2008-2022 {#MyAppPublisher}
-DefaultDirName={code:GetDefaultDirName|OpenShot Video Editor}
+DefaultDirName={code:GetDefaultDirName|Flowcut}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
-OutputBaseFilename=OpenShot
+OutputBaseFilename=Flowcut
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
 ChangesAssociations=not PortableCheck
@@ -44,7 +44,6 @@ ChangesEnvironment=not PortableCheck
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
-SetupIconFile=..\xdg\zenvi.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -123,22 +122,22 @@ italian.FirewallException=Aggiungi un'eccezione a Windows Firewall per l'invio f
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableCheck;
-Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.flow}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
-; Remove previous installed versions of Zenvi
+; Remove previous installed versions of Flowcut
 Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
-Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
+Type: files; Name: "{group}\Flowcut"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
 
 [Registry]
-; Associate .zvn files with the installed application. Uninstaller will clean them up, when run.
-Root: HKLM; Subkey: "Software\Classes\.zvn"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
-; .zvn file description, "Zenvi Project File" (ZenviProject, internally)
-Root: HKLM; Subkey: "Software\Classes\ZenviProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
-; Launcher association for data files of type ZenviProject
-Root: HKLM; Subkey: "Software\Classes\ZenviProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
+; Associate .flow files with the installed application. Uninstaller will clean them up, when run.
+Root: HKLM; Subkey: "Software\Classes\.flow"; ValueType: string; ValueName: ""; ValueData: "FlowcutProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .flow file description, "Flowcut Project File" (FlowcutProject, internally)
+Root: HKLM; Subkey: "Software\Classes\FlowcutProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
+; Launcher association for data files of type FlowcutProject
+Root: HKLM; Subkey: "Software\Classes\FlowcutProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
 ; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
 

@@ -59,7 +59,7 @@ QWidget#videoPreview {
     background-color: #191919;
 }
 
-/* Zenvi Assistant chat: match Humanity dark #191919, #ffffff, #2a82da */
+/* Flowcut Assistant chat: match Humanity dark #191919, #ffffff, #2a82da */
 QDockWidget#AIChatWindow QWidget#AIChatWindowContents {
     background-color: #191919;
 }
@@ -154,7 +154,7 @@ QComboBox {
     combobox-popup: 0;
 }
 
-/* Zenvi Assistant chat: match Retro (light) #dedede, #333 */
+/* Flowcut Assistant chat: match Retro (light) #dedede, #333 */
 QDockWidget#AIChatWindow QWidget#AIChatWindowContents {
     background-color: #f0f0f0;
 }

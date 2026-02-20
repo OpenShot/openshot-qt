@@ -1,6 +1,6 @@
-# Zenvi – Setup
+# Flowcut – Setup
 
-This repo is **Zenvi** (Python 3, PyQt5). Follow these steps to set up and run it.
+This repo is **Flowcut** (Python 3, PyQt5). Follow these steps to set up and run it.
 
 ## 1. Python venv and pip dependencies
 
@@ -113,4 +113,4 @@ Tests also require libopenshot and Qt:
 | `requirements.txt`| ✅ Created          |
 | `.venv` + pip deps| ✅ Installed        |
 | libopenshot       | ❌ Install via PPA or build from source (see above) |
-| Run GUI           | ✅ Use `./run.sh` after libopenshot is installed and display is available (Zenvi) |
+| Run GUI           | ✅ Use `./run.sh` after libopenshot is installed and display is available (Flowcut) |

@@ -486,7 +486,7 @@ QWidget#videoPreview {
     background-color: #151A23;
 }
 
-/* Zenvi Assistant chat: modern dark */
+/* Flowcut Assistant chat: modern dark */
 QDockWidget#AIChatWindow QWidget#AIChatWindowContents {
     background-color: #151A23;
 }

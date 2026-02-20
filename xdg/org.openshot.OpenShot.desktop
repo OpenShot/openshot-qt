@@ -1,12 +1,12 @@
 [Desktop Entry]
-Name=Zenvi
+Name=Flowcut
 GenericName=Video Editor
-X-GNOME-FullName=Zenvi
+X-GNOME-FullName=Flowcut
 Comment=Create and edit amazing videos and movies
-Exec=zenvi %F
+Exec=flowcut %F
 Terminal=false
 Type=Application
-Icon=zenvi
+Icon=flowcut
 Categories=GNOME;GTK;AudioVideo;Video;AudioVideoEditing;
-MimeType=application/vnd.zenvi-project;application/vnd.openshot-qt-project;
-X-AppInstall-Package=zenvi
+MimeType=application/vnd.flowcut-project;application/vnd.openshot-qt-project;
+X-AppInstall-Package=flowcut
