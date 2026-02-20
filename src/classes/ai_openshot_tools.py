@@ -8,6 +8,7 @@ import json
 import os
 import uuid as uuid_module
 from classes.logger import log
+from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
 
 try:
     from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop
@@ -369,9 +370,9 @@ def set_export_setting(key: str, value: str) -> str:
             overrides["vformat"] = value.strip()
         else:
             overrides[key_lower] = value.strip()
-        get_app().updates.ignore_history = True
+        _get_app().updates.ignore_history = True
         app.updates.update(["export_overrides"], overrides)
-        get_app().updates.ignore_history = False
+        _get_app().updates.ignore_history = False
         return "Set %s = %s." % (key_lower, value)
     except Exception as e:
         log.error("set_export_setting: %s", e, exc_info=True)
@@ -499,6 +500,13 @@ def split_file_add_clip(file_id: str, start_frame: int, end_frame: int, name: st
         new_file.type = "insert"
         new_file.data["start"] = start_sec
         new_file.data["end"] = end_sec
+        
+        # Handle ai_metadata translation for sub-clips
+        if 'ai_metadata' in new_file.data and new_file.data['ai_metadata'].get('analyzed'):
+            new_file.data['ai_metadata'] = adjust_scene_descriptions_for_subclip(
+                new_file.data['ai_metadata'], start_sec, end_sec
+            )
+        
         if name and isinstance(name, str) and name.strip():
             new_file.data["name"] = name.strip()
         else:
@@ -615,6 +623,122 @@ class _VideoGenerationThread(QThread if QThread else object):
                 self.finished_with_result.emit("", download_err or "Download failed.")
 
 
+class _RemotionGenerationThread(QThread if QThread else object):
+    """Subclass of QThread for Remotion video generation: run() is always executed in the worker thread."""
+    if pyqtSignal is not None:
+        finished_with_result = pyqtSignal(str, str)  # path_or_empty, error_or_empty
+        progress_update = pyqtSignal(int, str)  # progress (0-100), status message
+
+    def __init__(self, api_key, prompt, base_url, output_path, duration_seconds=None):
+        if QThread is not None:
+            super().__init__()
+        self._api_key = api_key
+        self._prompt = prompt
+        self._base_url = base_url
+        self._output_path = output_path
+        self._duration_seconds = duration_seconds
+
+    def run(self):
+        """Execute Remotion video generation in worker thread"""
+        from classes.video_generation.remotion_client import (
+            RemotionError,
+            render_from_repo,
+            download_video,
+        )
+
+        try:
+            # Progress callback
+            def on_progress(progress: int, status: str):
+                if pyqtSignal is not None and hasattr(self, "progress_update"):
+                    self.progress_update.emit(progress, status)
+                log.info(f"Remotion progress: {progress}% - {status}")
+
+            # For now, we'll use repo-based rendering with a generic template
+            # In the future, this could be expanded to support Sonar data rendering
+            # Using "product-launch" template as it's versatile for general video content
+            result = render_from_repo(
+                api_key=self._api_key,
+                repo_url="https://github.com/remotion-dev/template-still",
+                template="product-launch",  # Use product-launch template (available on local server)
+                user_input=self._prompt,
+                codec="h264",
+                base_url=self._base_url,
+                timeout_seconds=300,
+                poll_callback=on_progress,
+            )
+
+            # Download the video
+            job_id = result.get('jobId')
+            if not job_id:
+                if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                    self.finished_with_result.emit("", "No job ID returned from Remotion")
+                return
+
+            success, error = download_video(
+                api_key=self._api_key,
+                job_id=job_id,
+                dest_path=self._output_path,
+                base_url=self._base_url,
+                timeout_seconds=300,
+            )
+
+            if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                if success:
+                    self.finished_with_result.emit(self._output_path, "")
+                else:
+                    self.finished_with_result.emit("", error or "Download failed")
+
+        except RemotionError as e:
+            log.error(f"Remotion generation failed: {e}")
+            if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                self.finished_with_result.emit("", str(e))
+        except Exception as e:
+            log.error(f"Unexpected error in Remotion generation: {e}")
+            if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                self.finished_with_result.emit("", f"Unexpected error: {str(e)}")
+
+
+class _ObjectReplacementThread(QThread if QThread else object):
+    """Subclass of QThread: run() is always executed in the worker thread."""
+    if pyqtSignal is not None:
+        finished_with_result = pyqtSignal(dict)  # result dict from replace_object_in_video
+
+    def __init__(self, video_path, object_desc, replacement_desc, start, end):
+        if QThread is not None:
+            super().__init__()
+        self._video_path = video_path
+        self._object_desc = object_desc
+        self._replacement_desc = replacement_desc
+        self._start = start
+        self._end = end
+
+    def run(self):
+        # QThread.run() is always executed in the worker thread.
+        try:
+            from classes.ai_object_replacer import replace_object_in_video
+            result = replace_object_in_video(
+                video_path=self._video_path,
+                object_description=self._object_desc,
+                replacement_description=self._replacement_desc,
+                start_sec=self._start,
+                end_sec=self._end,
+                keyframe_interval=0.5,
+            )
+            if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                self.finished_with_result.emit(result)
+        except Exception as e:
+            # Fallback error result
+            err_res = {
+                "success": False,
+                "error": str(e),
+                "output_path": None,
+                "frames_processed": 0,
+                "frames_with_object": 0
+            }
+            if pyqtSignal is not None and hasattr(self, "finished_with_result"):
+                self.finished_with_result.emit(err_res)
+
+
 def _output_path_for_generated_video():
     """Return an absolute path for saving a generated video. Call from main thread."""
     app = _get_app()
@@ -637,25 +761,25 @@ def generate_video_and_add_to_timeline(
     position_seconds="",
     track="",
 ) -> str:
-    """Generate a video from prompt via Runware (Vidu), then add it to the timeline. Runs API+download in worker thread."""
+    """Generate a video from prompt via configured service (Runware or Remotion), then add it to the timeline. Runs API+download in worker thread."""
     if QThread is None or QEventLoop is None:
         return "Error: Video generation requires PyQt5."
     app = _get_app()
     settings = app.get_settings()
-    api_key = (settings.get("runware-api-key") or "").strip()
-    if not api_key:
-        return "Video generation is not configured. Add your Runware API key in Preferences."
+
+    # Check which video generation service is selected
+    service = (settings.get("video-generation-service") or "runware").strip()
+
     prompt = (prompt or "").strip()
     if len(prompt) < 2:
         return "Error: Prompt must be at least 2 characters."
+
     duration = duration_seconds
     if duration is None:
         duration = int(settings.get("video-generation-duration") or 4)
     duration = max(1, min(10, int(duration)))
-    model = (settings.get("video-generation-model") or "vidu:3@2").strip() or "vidu:3@2"
-    width, height = 640, 352  # Vidu Q2 Turbo allowed 16:9 (640x352)
-    output_path = _output_path_for_generated_video()
 
+    output_path = _output_path_for_generated_video()
     result_holder = [None, None]  # [path, error]
     loop_holder = [None]
 
@@ -671,16 +795,38 @@ def generate_video_and_add_to_timeline(
                 loop_holder[0].quit()
 
     receiver = _DoneReceiver()
-    # _VideoGenerationThread.run() runs in the worker thread; signal is delivered to main thread.
-    thread = _VideoGenerationThread(
-        api_key, prompt, duration, model, width, height, output_path
-    )
+
+    # Route to appropriate service
+    if service == "remotion":
+        # Remotion service
+        api_key = (settings.get("remotion-api-key") or "").strip()
+        if not api_key:
+            return "Remotion is not configured. Add your Remotion API key in Preferences > AI."
+        base_url = (settings.get("remotion-base-url") or "http://localhost:4500/api/v1").strip()
+
+        thread = _RemotionGenerationThread(
+            api_key, prompt, base_url, output_path, duration
+        )
+        status_message = "Generating video with Remotion..."
+    else:
+        # Runware service (default)
+        api_key = (settings.get("runware-api-key") or "").strip()
+        if not api_key:
+            return "Runware is not configured. Add your Runware API key in Preferences > AI, or switch to Remotion in Video Generation Service."
+        model = (settings.get("video-generation-model") or "vidu:3@2").strip() or "vidu:3@2"
+        width, height = 640, 352  # Vidu Q2 Turbo allowed 16:9 (640x352)
+
+        thread = _VideoGenerationThread(
+            api_key, prompt, duration, model, width, height, output_path
+        )
+        status_message = "Generating video with Runware..."
+
     thread.finished_with_result.connect(receiver.on_done)
     loop_holder[0] = QEventLoop(app)
     status_bar = getattr(app.window, "statusBar", None)
     try:
         if status_bar is not None:
-            status_bar.showMessage("Generating video...", 0)
+            status_bar.showMessage(status_message, 0)
         thread.start()
         loop_holder[0].exec_()
     finally:
@@ -720,32 +866,186 @@ def generate_video_and_add_to_timeline(
         return "Error: {}".format(e)
 
 
-def generate_transition_clip(clip_a_id: str, clip_b_id: str, prompt_hint: str = "") -> str:
-    """Generate a short transition video between two clips (e.g. same room, camera move) and insert it between them. Uses Runware/Vidu."""
-    from classes.query import Clip
+class _MorphTransitionThread(QThread if QThread else object):
+    """Worker thread for morph transition generation."""
+    if pyqtSignal is not None:
+        finished_with_result = pyqtSignal(str, str)  # (output_path, error)
+
+    def __init__(self, video_a_path, video_b_path, output_path, prompt, duration, api_key, model):
+        if QThread is not None:
+            super().__init__()
+        self._video_a = video_a_path
+        self._video_b = video_b_path
+        self._output = output_path
+        self._prompt = prompt
+        self._duration = duration
+        self._api_key = api_key
+        self._model = model
+
+    def run(self):
+        try:
+            from classes.ai_morph_transition import generate_morph_transition
+            success, error = generate_morph_transition(
+                video_a_path=self._video_a,
+                video_b_path=self._video_b,
+                output_path=self._output,
+                prompt=self._prompt,
+                duration_seconds=self._duration,
+                api_key=self._api_key,
+                model=self._model,
+            )
+            if success:
+                self.finished_with_result.emit(self._output, "")
+            else:
+                self.finished_with_result.emit("", error or "Morph transition failed.")
+        except Exception as e:
+            self.finished_with_result.emit("", str(e))
+
+
+def generate_transition_clip(clip_a_id: str, clip_b_id: str, duration_seconds: str = "5") -> str:
+    """Generate a morph transition video between two clips using Kling (start/end frame images) and insert it between them on the timeline."""
+    if QThread is None or QEventLoop is None:
+        return "Error: Morph transition requires PyQt5."
+
+    from classes.query import Clip, File
 
     app = _get_app()
+    settings = app.get_settings()
+    api_key = (settings.get("runware-api-key") or "").strip()
+    if not api_key:
+        return "Error: Runware API key not configured. Add it in Preferences."
+
     clip_a = Clip.get(id=clip_a_id) if clip_a_id else None
     clip_b = Clip.get(id=clip_b_id) if clip_b_id else None
     if not clip_a or not clip_b:
         return "Error: Could not find both clips. Use list_clips_tool to get clip IDs."
+
+    # Get file paths for both clips
+    file_a_id = clip_a.data.get("file_id", "")
+    file_b_id = clip_b.data.get("file_id", "")
+    file_a = File.get(id=file_a_id) if file_a_id else None
+    file_b = File.get(id=file_b_id) if file_b_id else None
+    if not file_a or not file_b:
+        return "Error: Could not find source files for the clips."
+    path_a = file_a.absolute_path() if hasattr(file_a, 'absolute_path') else file_a.data.get('path', '')
+    path_b = file_b.absolute_path() if hasattr(file_b, 'absolute_path') else file_b.data.get('path', '')
+    if not path_a or not os.path.isfile(path_a):
+        return "Error: Source video for clip A not found: {}".format(path_a)
+    if not path_b or not os.path.isfile(path_b):
+        return "Error: Source video for clip B not found: {}".format(path_b)
+
+    # Timeline positions
     pos_a = float(clip_a.data.get("position", 0))
     start_a = float(clip_a.data.get("start", 0))
     end_a = float(clip_a.data.get("end", 0))
     duration_a = end_a - start_a
     end_position_a = pos_a + duration_a
+
+    pos_b = float(clip_b.data.get("position", 0))
     layer = clip_a.data.get("layer")
     track = str(layer) if layer is not None else ""
-    hint = (prompt_hint or "").strip()
-    prompt = hint if hint else (
-        "Smooth transition, same scene, cinematic, 2 seconds, seamless blend between two shots"
+
+    # Duration
+    try:
+        morph_duration = float(duration_seconds)
+    except (TypeError, ValueError):
+        morph_duration = 5.0
+    morph_duration = max(3, min(10, morph_duration))
+
+    # Prompt — instruct the model to morph start frame into end frame
+    prompt = (
+        "Gradually evolve the opening scene into the closing scene through a fluid, "
+        "continuous motion. Preserve the appearance and identity of all people and key "
+        "objects while naturally transitioning the pose, setting, and lighting from "
+        "the first frame to the last. The movement should feel organic and cinematic, "
+        "with no abrupt cuts or unrelated imagery."
     )
-    return generate_video_and_add_to_timeline(
+
+    model = "klingai:kling@o1"
+    output_path = _output_path_for_generated_video()
+
+    # Run morph in worker thread
+    result_holder = [None, None]  # [path, error]
+    loop_holder = [None]
+
+    class _DoneReceiver(QObject if QObject is not object else object):
+        def on_done(self, path, error):
+            result_holder[0] = path
+            result_holder[1] = error
+            if loop_holder[0]:
+                loop_holder[0].quit()
+
+    receiver = _DoneReceiver()
+    thread = _MorphTransitionThread(
+        video_a_path=path_a,
+        video_b_path=path_b,
+        output_path=output_path,
         prompt=prompt,
-        duration_seconds=2,
-        position_seconds=str(end_position_a),
-        track=track,
+        duration=morph_duration,
+        api_key=api_key,
+        model=model,
     )
+    thread.finished_with_result.connect(receiver.on_done)
+    loop_holder[0] = QEventLoop(app)
+    status_bar = getattr(app.window, "statusBar", None)
+    try:
+        if status_bar is not None:
+            status_bar.showMessage("Generating morph transition...", 0)
+        thread.start()
+        loop_holder[0].exec_()
+    finally:
+        if status_bar is not None:
+            status_bar.clearMessage()
+    thread.quit()
+    thread.wait(10000)
+    try:
+        thread.finished_with_result.disconnect(receiver.on_done)
+    except Exception:
+        pass
+
+    path, error = result_holder[0], result_holder[1]
+    if error:
+        return "Error: {}".format(error)
+    if not path or not os.path.isfile(path):
+        return "Error: Morph transition video file not found."
+
+    # Add to project and timeline
+    try:
+        app.window.files_model.add_files([path])
+        f = File.get(path=path)
+        if not f:
+            f = File.get(path=os.path.normpath(path))
+        if not f:
+            for candidate in File.filter():
+                if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == path:
+                    f = candidate
+                    break
+        if not f:
+            return "Error: Morph video generated but could not be added to project."
+
+        # Shift clip B (and all clips after it) right to make room for the morph
+        from classes.query import Clip as ClipQuery
+        all_clips = list(ClipQuery.filter())
+        for c in all_clips:
+            c_pos = float(c.data.get("position", 0))
+            c_layer = c.data.get("layer")
+            if c_pos >= end_position_a and c.id != clip_a_id:
+                c.data["position"] = c_pos + morph_duration
+                c.save()
+
+        # Insert the morph clip at the end of clip A
+        msg = add_clip_to_timeline(
+            file_id=f.id,
+            position_seconds=str(end_position_a),
+            track=track,
+        )
+        return (
+            "Morph transition created! A {:.0f}s AI morph video was generated using Kling "
+            "(last frame of clip A → first frame of clip B) and inserted between the clips. {}"
+        ).format(morph_duration, msg)
+    except Exception as e:
+        log.error("generate_transition_clip: %s", e, exc_info=True)
+        return "Error: {}".format(e)
 
 
 def get_openshot_tools_for_langchain():
@@ -897,7 +1197,7 @@ def get_openshot_tools_for_langchain():
         position_seconds: str = "",
         track: str = "",
     ) -> str:
-        """Generate a video from a text prompt using AI (Runware/Vidu) and add it to the timeline. Use when the user asks to generate, create, or make a video and add it to the timeline. Argument: prompt (required, describe the video). Optional: duration_seconds (default from settings, e.g. 4); position_seconds (empty for playhead); track (empty for selected or first track)."""
+        """Generate a video from a text prompt using AI video generation (supports Runware/Vidu or Remotion, configured in user settings) and add it to the timeline. Use when the user asks to generate, create, or make a video with any service including Remotion. The video generation service is selected in Preferences > AI settings. Argument: prompt (required, describe the video). Optional: duration_seconds (default from settings, e.g. 4); position_seconds (empty for playhead); track (empty for selected or first track)."""
         duration = None
         if duration_seconds and str(duration_seconds).strip():
             try:
@@ -915,6 +1215,106 @@ def get_openshot_tools_for_langchain():
     def slice_clip_at_playhead_tool() -> str:
         """Slice (split) the clip(s) and transition(s) at the current playhead position on the timeline, keeping both sides. Use when the user wants to clip the existing clip at the playhead. No arguments. Fails if no clip is under the playhead."""
         return slice_clip_at_playhead()
+
+    @tool
+    def generate_transition_clip_tool(clip_a_id: str, clip_b_id: str, duration_seconds: str = "5") -> str:
+        """Generate an AI morph transition video between two clips and insert it between them on the timeline. This automatically extracts the last frame of clip A and the first frame of clip B, then uses Kling AI to generate a smooth morph/transition video that seamlessly connects the two scenes. No description of the transition is needed — the AI figures out the motion from the two frames. The morph video is inserted between the clips and clip B is shifted right to make room. Use list_clips_tool first to get clip IDs. Arguments: clip_a_id (ID of the first clip), clip_b_id (ID of the second clip). Optional: duration_seconds (3-10, default 5). Use when the user asks for a morph transition, smooth transition, or AI transition between two clips."""
+        return generate_transition_clip(clip_a_id=clip_a_id, clip_b_id=clip_b_id, duration_seconds=duration_seconds)
+
+    @tool
+    def replace_object_in_video_tool(
+        file_id: str,
+        object_description: str,
+        replacement_description: str,
+        start_time: str = "0",
+        end_time: str = "-1",
+    ) -> str:
+        """Replace an object in a video file with something else using AI. The AI detects the object in video frames, creates a mask, and inpaints the replacement. Use when the user asks to replace, swap, or change an object in a video. Arguments: file_id (string, use list_files_tool to find it), object_description (what to find, e.g. 'the water bottle the man is holding'), replacement_description (what to replace it with, e.g. 'a Red Bull can'). Optional: start_time (seconds, default 0), end_time (seconds, default -1 for end of video)."""
+        try:
+            from classes.query import File
+            from classes.ai_object_replacer import replace_object_in_video
+            if not file_id or not isinstance(file_id, str):
+                return "Error: file_id is required. Use list_files_tool to find file IDs."
+            f = File.get(id=file_id.strip())
+            if not f:
+                return "Error: File not found for id={}. Use list_files_tool.".format(file_id)
+            video_path = f.absolute_path() if hasattr(f, 'absolute_path') else f.data.get('path', '')
+            if not video_path or not os.path.isfile(video_path):
+                return "Error: Video file not found at path: {}".format(video_path)
+
+            start_f = float(start_time) if start_time else 0.0
+            end_f = float(end_time) if end_time else -1.0
+
+            if QThread is None or QEventLoop is None:
+                return "Error: Object replacement requires PyQt5."
+
+            # Threaded execution to avoid freezing main thread
+            result_holder = [{}]
+            loop_holder = [None]
+
+            class _ObjReplDoneReceiver(QObject if QObject is not object else object):
+                if pyqtSignal is not None:
+                    pass
+                def on_done(self, result):
+                    result_holder[0] = result
+                    if loop_holder[0]:
+                        loop_holder[0].quit()
+
+            receiver = _ObjReplDoneReceiver()
+            thread = _ObjectReplacementThread(
+                video_path=video_path,
+                object_desc=object_description.strip(),
+                replacement_desc=replacement_description.strip(),
+                start=start_f,
+                end=end_f
+            )
+            thread.finished_with_result.connect(receiver.on_done)
+            
+            loop_holder[0] = QEventLoop(_get_app())
+            status_bar = getattr(_get_app().window, "statusBar", None)
+            
+            try:
+                if status_bar is not None:
+                    status_bar.showMessage("Replacing object via AI...", 0)
+                thread.start()
+                loop_holder[0].exec_()
+            finally:
+                if status_bar is not None:
+                    status_bar.clearMessage()
+            
+            thread.quit()
+            thread.wait(5000)
+            try:
+                thread.finished_with_result.disconnect(receiver.on_done)
+            except Exception:
+                pass
+
+            result = result_holder[0]
+
+            if result.get("success"):
+                # Import the new video into the project
+                output_path = result["output_path"]
+                app = _get_app()
+                app.window.files_model.add_files([output_path])
+                return (
+                    "Object replacement complete! "
+                    "Scanned {} frames with Phi-3.5 Vision — found '{}' in {} frames. "
+                    "Replaced {} segment(s) with '{}'. "
+                    "New video added to project: {}. "
+                    "Use add_clip_to_timeline_tool to add it to the timeline."
+                ).format(
+                    result.get("frames_scanned", 0),
+                    object_description,
+                    result.get("frames_with_object", 0),
+                    result.get("segments_replaced", 0),
+                    replacement_description,
+                    os.path.basename(output_path),
+                )
+            else:
+                return "Object replacement failed: {}".format(result.get("error", "Unknown error"))
+        except Exception as e:
+            log.error("replace_object_in_video_tool: %s", e, exc_info=True)
+            return "Error: {}".format(e)
 
     return [
         get_project_info_tool,
@@ -947,4 +1347,5 @@ def get_openshot_tools_for_langchain():
         generate_video_and_add_to_timeline_tool,
         slice_clip_at_playhead_tool,
         generate_transition_clip_tool,
+        replace_object_in_video_tool,
     ]

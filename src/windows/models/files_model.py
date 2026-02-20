@@ -34,7 +34,7 @@ import functools
 import uuid
 
 from PyQt5.QtCore import (
-    QMimeData, Qt, pyqtSignal, QEventLoop, QObject,
+    QMimeData, Qt, pyqtSignal, QEventLoop, QObject, QThread,
     QSortFilterProxyModel, QItemSelectionModel, QPersistentModelIndex, QModelIndex
 )
 from PyQt5.QtGui import (
@@ -48,6 +48,8 @@ from classes.query import File
 from classes.logger import log
 from classes.app import get_app
 from classes.thumbnail import GetThumbPath
+from classes.tag_manager import get_tag_manager
+from classes.gemini_tagger import GeminiVideoTagger
 
 import openshot
 
@@ -110,6 +112,29 @@ class FileFilterProxyModel(QSortFilterProxyModel):
 
         # Call base class implementation
         super().__init__(**kwargs)
+
+
+class GeminiTaggingWorker(QThread):
+    """Background worker that tags a single video file using Gemini/Gemma."""
+
+    completed = pyqtSignal(dict, dict, object)
+
+    def __init__(self, file_data, parent=None):
+        super().__init__(parent)
+        self.file_data = file_data
+
+    def run(self):
+        metadata = GeminiVideoTagger.empty_metadata()
+        error = None
+        try:
+            tagger = GeminiVideoTagger()
+            if self.file_data.get("media_type") == "video":
+                metadata = tagger.analyze_video(self.file_data.get("path"))
+        except Exception as exc:  # pragma: no cover - defensive logging
+            error = exc
+            log.error(f"Gemini tagging worker failed: {exc}")
+
+        self.completed.emit(self.file_data, metadata, error)
 
 
 class FilesModel(QObject, updates.UpdateInterface):
@@ -269,6 +294,61 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
+    def _tag_file_with_gemini(self, file_data):
+        """Run Gemini tagging off the UI thread and wait for completion."""
+        loop = QEventLoop()
+        result = {
+            "metadata": GeminiVideoTagger.empty_metadata(),
+            "error": None,
+        }
+
+        worker = GeminiTaggingWorker(dict(file_data))
+
+        def _on_complete(_file_data, metadata, error):
+            result["metadata"] = metadata or GeminiVideoTagger.empty_metadata()
+            result["error"] = error
+            loop.quit()
+
+        worker.completed.connect(_on_complete)
+        worker.start()
+        loop.exec_()
+        worker.wait()
+
+        if result["error"]:
+            log.warning(f"Gemini tagging returned an error: {result['error']}")
+
+        return result["metadata"]
+
+    def _apply_ai_metadata(self, file_obj, ai_metadata):
+        """Attach AI metadata to file and sync tag manager."""
+        if not ai_metadata:
+            return
+
+        file_obj.data["ai_metadata"] = ai_metadata
+
+        # Populate human-readable tags column with a short summary if empty
+        # (legacy UI column name is still "Tags" but we now prefer scene descriptions)
+        tags = ai_metadata.get("tags", {}) if isinstance(ai_metadata, dict) else {}
+        top_objects = tags.get("objects", []) if isinstance(tags, dict) else []
+        if top_objects and not file_obj.data.get("tags"):
+            file_obj.data["tags"] = ", ".join(top_objects[:5])
+
+        # If the new scene_descriptions exists, prefer showing the first one
+        if not file_obj.data.get("tags"):
+            scenes = ai_metadata.get("scene_descriptions", []) if isinstance(ai_metadata, dict) else []
+            if isinstance(scenes, list) and scenes:
+                first = scenes[0] if isinstance(scenes[0], dict) else None
+                if first:
+                    desc = (first.get("description") or "").strip()
+                    if desc:
+                        file_obj.data["tags"] = desc[:120]
+
+        # Sync tag cache for the new file
+        try:
+            get_tag_manager().update_file_tags(file_obj.id, ai_metadata)
+        except Exception as exc:
+            log.warning(f"Failed to update tag cache for {file_obj.id}: {exc}")
+
     def add_files(self, files, image_seq_details=None, quiet=False,
                   prevent_image_seq=False, prevent_recent_folder=False):
         # Access translations
@@ -370,14 +450,26 @@ class FilesModel(QObject, updates.UpdateInterface):
                     # Log our not-an-image-sequence import
                     log.info("Imported media file {}".format(filepath))
 
-                # Save file
+                # AI tagging (Gemini) before exposing clip to UI
+                ai_metadata = GeminiVideoTagger.empty_metadata()
+                if new_file.data.get("media_type") == "video":
+                    app.window.statusBar.showMessage(
+                        _("Processing tags for %(name)s ...") % {"name": filename},
+                        0
+                    )
+                    ai_metadata = self._tag_file_with_gemini(new_file.data)
+
+                new_file.data["ai_metadata"] = ai_metadata
+
+                # Save file after tagging completes so the UI only sees tagged clips
                 new_file.save()
                 scroll_to_files.append(new_file)
+                self._apply_ai_metadata(new_file, ai_metadata)
 
-                # Should we auto-analyze this file with AI?
+                # Should we auto-analyze this file with the legacy queue?
                 try:
                     s = get_app().get_settings()
-                    if s.get('ai-enabled') and s.get('ai-auto-analyze'):
+                    if s.get('ai-enabled') and s.get('ai-auto-analyze') and not ai_metadata.get('analyzed'):
                         from classes.media_analyzer import get_analysis_queue
                         queue = get_analysis_queue()
                         queue.add_to_queue(
@@ -509,7 +601,7 @@ class FilesModel(QObject, updates.UpdateInterface):
             filepath = uri.toLocalFile()
             if not os.path.exists(filepath):
                 continue
-            if filepath.endswith((".zvn", ".osp")) and os.path.isfile(filepath):
+            if filepath.endswith(info.ALL_PROJECT_EXTS) and os.path.isfile(filepath):
                 # Auto load project passed as argument
                 get_app().window.OpenProjectSignal.emit(filepath)
                 return True

@@ -2,6 +2,7 @@
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
   <mime-type type="application/vnd.zenvi-project">
     <comment>Zenvi project</comment>
+    <glob pattern="*.flow"/>
     <glob pattern="*.zvn"/>
     <generic-icon name="zenvi-doc"/>
   </mime-type>

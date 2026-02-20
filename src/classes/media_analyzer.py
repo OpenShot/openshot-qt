@@ -53,7 +53,17 @@ class MediaAnalyzer:
             api_key = None
             provider_config = {}
             
-            if provider_type == ProviderType.OPENAI:
+            if provider_type == ProviderType.NVIDIA_EDGE:
+                # Import to trigger provider registration
+                import classes.ai_providers.nvidia_edge_vision_provider  # noqa: F401
+                edge_url = (s.get('nvidia-edge-api-url') or 'http://10.19.183.5:8000/v1').strip()
+                api_key = 'not-needed'
+                provider_config = {
+                    'base_url': edge_url,
+                    'model': 'llava',
+                    'max_tokens': 1000
+                }
+            elif provider_type == ProviderType.OPENAI:
                 api_key = s.get('openai-api-key')
                 provider_config = {
                     'model': 'gpt-4-vision-preview',

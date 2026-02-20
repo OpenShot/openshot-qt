@@ -42,7 +42,7 @@ our pre-built installers. On our download page, click the **Daily Builds**
 button to view the latest, experimental builds, which are created for each 
 new commit to this repo.
 
-https://zenvi.org/download/
+https://zenvi.pro/download/
 
 ## Tutorial
 
@@ -68,7 +68,7 @@ The documentation for the most recent release can be viewed online at [openshot.
 
 ## Report a bug
 
-Please report bugs using the official [Report a Bug](https://zenvi.org/support/) 
+Please report bugs using the official [Report a Bug](https://zenvi.pro/support/) 
 feature on our website. This walks you through the bug reporting process, and helps 
 to create a high-quality bug report for the Zenvi community.
 

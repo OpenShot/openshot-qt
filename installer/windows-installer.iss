@@ -14,8 +14,8 @@
 #define MyAppName "Zenvi"
 #define MyAppProjectFileDesc "Zenvi Project File"
 #define MyAppPublisher "Zenvi"
-#define MyPublisherURL "https://zenvi.org/"
-#define MySupportURL "https://zenvi.org/community/"
+#define MyPublisherURL "https://zenvi.pro/"
+#define MySupportURL "https://zenvi.pro/community/"
 #define MyAppExeName "zenvi.exe"
 
 #include "isportable.iss"
@@ -25,7 +25,7 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={code:GetAppId|{{4BB0DCDC-BC24-49EC-8937-72956C33A470}}
-AppName=OpenShot Video Editor
+AppName={#MyAppName}
 AppVersion={#VERSION}
 AppVerName={#MyAppName} {#VERSION}
 VersionInfoVersion={#VERSION}
@@ -33,10 +33,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
 AppSupportURL={#MySupportURL}
 AppCopyright=(c) 2008-2022 {#MyAppPublisher}
-DefaultDirName={code:GetDefaultDirName|OpenShot Video Editor}
+DefaultDirName={code:GetDefaultDirName|Zenvi}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
-OutputBaseFilename=OpenShot
+OutputBaseFilename=Zenvi
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
 ChangesAssociations=not PortableCheck
@@ -44,7 +44,6 @@ ChangesEnvironment=not PortableCheck
 Compression=lzma
 SolidCompression=yes
 WizardSmallImageFile=installer-logo.bmp
-SetupIconFile=..\xdg\zenvi.ico
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -123,7 +122,7 @@ italian.FirewallException=Aggiungi un'eccezione a Windows Firewall per l'invio f
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; Check: not PortableCheck;
-Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
+Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.flow}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
@@ -133,9 +132,9 @@ Type: dirifempty; Name: "{app}\*"
 Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
 
 [Registry]
-; Associate .zvn files with the installed application. Uninstaller will clean them up, when run.
-Root: HKLM; Subkey: "Software\Classes\.zvn"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
-; .zvn file description, "Zenvi Project File" (ZenviProject, internally)
+; Associate .flow files with the installed application. Uninstaller will clean them up, when run.
+Root: HKLM; Subkey: "Software\Classes\.flow"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .flow file description, "Zenvi Project File" (ZenviProject, internally)
 Root: HKLM; Subkey: "Software\Classes\ZenviProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
 ; Launcher association for data files of type ZenviProject
 Root: HKLM; Subkey: "Software\Classes\ZenviProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc

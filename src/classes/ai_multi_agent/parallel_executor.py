@@ -21,6 +21,7 @@ def submit_sub_agent(agent_name, model_id, messages, main_thread_runner):
         "video": sub_agents.run_video_agent,
         "manim": sub_agents.run_manim_agent,
         "voice_music": sub_agents.run_voice_music_agent,
+        "music": sub_agents.run_music_agent,
     }
     fn = runners.get(agent_name)
     if not fn:

@@ -2,13 +2,13 @@
 
 ## Overview
 
-Zenvi Core includes powerful AI-powered media management features that automatically analyze, tag, organize, and search your media files using advanced AI technologies.
+Zenvi includes powerful AI-powered media management features that automatically analyze, tag, organize, and search your media files using advanced AI technologies.
 
 ## Features
 
 ### 1. Automatic Media Analysis
 
-When you import media files, Zenvi Core can automatically analyze them using AI to extract:
+When you import media files, Zenvi can automatically analyze them using AI to extract:
 
 - **Objects**: People, cars, buildings, animals, nature elements, and more
 - **Scenes**: Indoor/outdoor, city, nature, studio classifications
@@ -139,7 +139,7 @@ Or use the enhanced search bar in the Files panel (coming soon).
 
 ### Preset Collections
 
-Zenvi Core includes preset collections:
+Zenvi includes preset collections:
 
 - **High Quality**: Files with resolution score > 0.8
 - **Outdoor Shots**: Files tagged as outdoor scenes
@@ -256,8 +256,8 @@ results = await manager.search_files("outdoor scenes")
 
 ## Support
 
-- Documentation: https://zenvi.org/docs/
-- Forums: https://zenvi.org/community/
+- Documentation: https://zenvi.pro/docs/
+- Forums: https://zenvi.pro/community/
 - GitHub Issues: https://github.com/OpenShot/openshot-qt/issues
 
 ## Credits
