@@ -274,7 +274,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Reset Sentry component (it can be temporarily changed to libopenshot during
         # the call to libopenshot_crash_recovery above)
-        sentry.set_tag("component", "flowcut")
+        sentry.set_tag("component", "zenvi")
 
         # Write lock file (try a few times if failure)
         lock_value = str(uuid4())
@@ -720,7 +720,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             _("Open Project..."),
             recommended_folder,
-            _("Flowcut Project (*.flow);;Legacy Project (*.zvn *.osp)"))[0]
+            _("Zenvi Project (*.flow);;Legacy Project (*.zvn *.osp)"))[0]
 
         if file_path:
             # Load project file
@@ -743,7 +743,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
                 self,
                 _("Save Project..."),
                 recommended_path,
-                _("Flowcut Project (*.flow)"))[0]
+                _("Zenvi Project (*.flow)"))[0]
 
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
@@ -806,7 +806,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             self,
             _("Save Project As..."),
             recommended_path,
-            _("Flowcut Project (*.flow)"))[0]
+            _("Zenvi Project (*.flow)"))[0]
         if file_path:
             s.setDefaultPath(s.actionType.SAVE, file_path)
             # Save As always uses the current project extension
@@ -1011,7 +1011,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         win.exec_()
 
     def actionHelpContents_trigger(self, checked=True):
-        url = "https://flowcut.app/docs/"
+        url = "https://zenvi.pro/docs/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1020,7 +1020,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionReportBug_trigger(self, checked=True):
-        url = "https://flowcut.app/support/"
+        url = "https://zenvi.pro/support/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1029,7 +1029,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionAskQuestion_trigger(self, checked=True):
-        url = "https://flowcut.app/community/"
+        url = "https://zenvi.pro/community/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1038,7 +1038,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionDiscord_trigger(self, checked=True):
-        url = "https://flowcut.app/community/"
+        url = "https://zenvi.pro/community/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1047,7 +1047,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionTranslate_trigger(self, checked=True):
-        url = "https://flowcut.app/contribute/"
+        url = "https://zenvi.pro/contribute/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1056,7 +1056,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionDonate_trigger(self, checked=True):
-        url = "https://flowcut.app/donate/"
+        url = "https://zenvi.pro/donate/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -1065,7 +1065,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             log.error(error_msg, exc_info=1)
 
     def actionUpdate_trigger(self, checked=True):
-        url = "https://flowcut.app/download/"
+        url = "https://zenvi.pro/download/"
         try:
             webbrowser.open(url, new=1)
         except Exception:
@@ -3508,7 +3508,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         clipboard = get_app().clipboard()
         mime_data = clipboard.mimeData() if clipboard else None
 
-        if mime_data and not mime_data.hasFormat("application/x-flowcut-generic"):
+        if mime_data and not mime_data.hasFormat("application/x-zenvi-generic"):
             if self.import_files_from_clipboard(mime_data):
                 return
 
@@ -3910,7 +3910,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
             msg.exec_()
 
             # Quit event loop, and stop initializing main window
-            log.info(f"Quiting Flowcut due to failed local HTTP thumbnail server: {ex}")
+            log.info(f"Quiting Zenvi due to failed local HTTP thumbnail server: {ex}")
             get_app().mode = "quit"
             return
 

@@ -1,5 +1,5 @@
 """
-Perplexity research tools for Flowcut agents.
+Perplexity research tools for Zenvi agents.
 
 These tools are designed to be run on the Qt main thread (like ai_openshot_tools),
 but they offload network + download work to a QThread.
@@ -42,7 +42,7 @@ def _output_dir_for_research() -> str:
             pass
     import tempfile
 
-    temp_dir = os.path.join(tempfile.gettempdir(), f"flowcut_research_{uuid_module.uuid4().hex[:8]}")
+    temp_dir = os.path.join(tempfile.gettempdir(), f"zenvi_research_{uuid_module.uuid4().hex[:8]}")
     os.makedirs(temp_dir, exist_ok=True)
     return temp_dir
 

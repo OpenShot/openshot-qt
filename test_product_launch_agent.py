@@ -272,7 +272,7 @@ def main():
     if passed_count == total_count:
         print("\n🎉 ALL TESTS PASSED! Product Launch Agent is ready to use.")
         print("\nTo test the full agent:")
-        print('1. Start Flowcut')
+        print('1. Start Zenvi')
         print('2. In the chat, type: "Create a product launch video for https://github.com/facebook/react"')
         print('3. The agent will fetch GitHub data, generate Manim scenes, and add the video to your timeline')
         return 0

@@ -26,7 +26,7 @@ class DirectorMarketplace:
 
     def __init__(self):
         self.loader = DirectorLoader()
-        self.marketplace_index_path = os.path.expanduser("~/.config/flowcut/marketplace/index.json")
+        self.marketplace_index_path = os.path.expanduser("~/.config/zenvi/marketplace/index.json")
         os.makedirs(os.path.dirname(self.marketplace_index_path), exist_ok=True)
 
     def list_available_directors(self) -> List[Director]:

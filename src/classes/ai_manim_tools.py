@@ -243,7 +243,7 @@ class _ManimGenerationThread(QThread if QThread else object):
             log.info(f"Generated Manim code ({len(code)} chars)")
 
             # Write script to temp file
-            tmpdir = tempfile.mkdtemp(prefix="flowcut_manim_")
+            tmpdir = tempfile.mkdtemp(prefix="zenvi_manim_")
             script_path = os.path.join(tmpdir, "manim_scene.py")
             with open(script_path, "w", encoding="utf-8") as f:
                 f.write(code)

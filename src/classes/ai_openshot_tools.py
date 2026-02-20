@@ -752,7 +752,7 @@ def _output_path_for_generated_video():
         except OSError:
             pass
     import tempfile
-    return os.path.join(tempfile.gettempdir(), "flowcut_generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
+    return os.path.join(tempfile.gettempdir(), "zenvi_generated_{}.mp4".format(uuid_module.uuid4().hex[:12]))
 
 
 def generate_video_and_add_to_timeline(

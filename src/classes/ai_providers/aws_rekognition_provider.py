@@ -1,7 +1,7 @@
 """
  @file
  @brief AWS Rekognition provider for face detection and recognition
- @author Flowcut Development Team
+ @author Zenvi Development Team
 
  @section LICENSE
 

@@ -165,7 +165,7 @@ def _debug_log(location, message, data, hypothesis_id):
     # #region agent log
     try:
         import os
-        _path = "/home/vboxuser/Projects/Flowcut/.cursor/debug.log"
+        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
         os.makedirs(os.path.dirname(_path), exist_ok=True)
         with open(_path, "a") as f:
             f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
@@ -199,7 +199,7 @@ class ChatWorkerPool(QObject):
         self._session_manager = session_manager
         self._executor = concurrent.futures.ThreadPoolExecutor(
             max_workers=_MAX_CHAT_WORKERS,
-            thread_name_prefix="flowcut_chat",
+            thread_name_prefix="zenvi_chat",
         )
         # Track in-flight requests per session so we can reject duplicates
         self._in_flight: set = set()
@@ -360,10 +360,10 @@ class ChatBridge(QObject):
 
 
 class AIChatWindow(QDockWidget):
-    """Flowcut Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
+    """Zenvi Assistant chat dock. Supports markdown in assistant replies and matches app theme."""
 
     def __init__(self, parent=None):
-        super().__init__("Flowcut Assistant", parent)
+        super().__init__("Zenvi Assistant", parent)
         self.setObjectName("AIChatWindow")
 
         self.setFeatures(
@@ -497,7 +497,7 @@ class AIChatWindow(QDockWidget):
         self._chat_bridge = ChatBridge(window=self, parent=self)
         self._chat_bridge.window = self
         self._chat_view.page().setWebChannel(self._chat_channel)
-        self._chat_channel.registerObject("flowcutChatBridge", self._chat_bridge)
+        self._chat_channel.registerObject("zenviChatBridge", self._chat_bridge)
 
         chat_ui_dir = os.path.join(info.PATH, "chat_ui")
         index_path = os.path.join(chat_ui_dir, "index.html")
@@ -556,10 +556,10 @@ class AIChatWindow(QDockWidget):
         self._push_tab_list()
 
     def _get_preamble_html(self):
-        """Return preamble as HTML: AI summary as heading when set, else 'Flowcut Assistant'."""
+        """Return preamble as HTML: AI summary as heading when set, else 'Zenvi Assistant'."""
         if self._first_prompt_summary:
             return '<span class="preamble-title">%s</span>' % html.escape(self._first_prompt_summary.strip())
-        return '<span class="preamble-title">Flowcut Assistant</span>'
+        return '<span class="preamble-title">Zenvi Assistant</span>'
 
     def _request_preamble_summary(self, prompt: str):
         """Start a background thread to summarize the first user prompt and update preamble."""

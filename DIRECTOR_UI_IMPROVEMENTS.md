@@ -239,9 +239,9 @@ Selected:                  Selected:
 
 ### Step-by-Step:
 
-1. **Launch Flowcut**
+1. **Launch Zenvi**
    ```bash
-   ./run_flowcut.sh
+   ./run_zenvi.sh
    ```
 
 2. **Open Director Panel**

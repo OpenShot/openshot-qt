@@ -27,7 +27,7 @@ sudo apt-get install -y \
 
 **Step 2: Install Manim in virtual environment**
 ```bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 source .venv/bin/activate
 pip install manim
 ```
@@ -60,9 +60,9 @@ Add to your launch script or `.bashrc`:
 export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --no-sandbox --disable-software-rasterizer"
 ```
 
-Then run Flowcut:
+Then run Zenvi:
 ```bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 source .venv/bin/activate
 export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --no-sandbox --disable-software-rasterizer"
 python src/launch.py
@@ -70,11 +70,11 @@ python src/launch.py
 
 **Option B: Modify Launch Script**
 
-Create a wrapper script `/home/vboxuser/Projects/Flowcut/run_flowcut.sh`:
+Create a wrapper script `/home/vboxuser/Projects/Zenvi/run_zenvi.sh`:
 
 ```bash
 #!/bin/bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 source .venv/bin/activate
 export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --no-sandbox --disable-software-rasterizer"
 python src/launch.py
@@ -82,8 +82,8 @@ python src/launch.py
 
 Make it executable:
 ```bash
-chmod +x run_flowcut.sh
-./run_flowcut.sh
+chmod +x run_zenvi.sh
+./run_zenvi.sh
 ```
 
 **Option C: System-Wide Setting**
@@ -101,7 +101,7 @@ Then restart your terminal.
 
 Once both issues are fixed, test Manim generation:
 
-1. **Launch Flowcut** with GPU acceleration disabled
+1. **Launch Zenvi** with GPU acceleration disabled
 2. **Open AI Chat** window
 3. **Try a Manim request**:
    - "Create a manim video explaining the Pythagorean theorem"
@@ -160,9 +160,9 @@ manim example_scenes.py SquareToCircle  # Test render
 ### Still Having Issues?
 Check the full logs:
 ```bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 source .venv/bin/activate
-python src/launch.py 2>&1 | tee flowcut.log
+python src/launch.py 2>&1 | tee zenvi.log
 ```
 
 Then search the log for errors.

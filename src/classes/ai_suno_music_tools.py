@@ -1,5 +1,5 @@
 """
-Suno music tools for Flowcut agents.
+Suno music tools for Zenvi agents.
 
 These tools are designed to be run on the Qt main thread (like ai_openshot_tools),
 but they offload network + download work to a QThread.
@@ -43,7 +43,7 @@ def _output_path_for_generated_music(ext: str = ".mp3") -> str:
             pass
     import tempfile
 
-    return os.path.join(tempfile.gettempdir(), f"flowcut_generated_music_{uuid_module.uuid4().hex[:12]}{ext}")
+    return os.path.join(tempfile.gettempdir(), f"zenvi_generated_music_{uuid_module.uuid4().hex[:12]}{ext}")
 
 
 def _try_get_file_id_for_path(path: str):

@@ -1,7 +1,7 @@
 """
  @file
  @brief Main orchestrator for AI media management features
- @author Flowcut Development Team
+ @author Zenvi Development Team
 
  @section LICENSE
 

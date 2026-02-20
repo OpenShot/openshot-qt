@@ -1,5 +1,5 @@
 """
-Agent runner: builds a LangChain agent with the selected LLM and Flowcut tools,
+Agent runner: builds a LangChain agent with the selected LLM and Zenvi tools,
 runs it in a worker thread, and dispatches tool execution to the Qt main thread.
 """
 
@@ -20,7 +20,7 @@ except ImportError:
     pyqtSlot = lambda x: x
 
 
-SYSTEM_PROMPT = """You are an AI assistant for Flowcut. You help users with video editing, effects, transitions, and general editing tasks. You can query project state and perform editing actions using the provided tools. When you use a tool, confirm briefly what you did. Respond concisely and practically.
+SYSTEM_PROMPT = """You are an AI assistant for Zenvi. You help users with video editing, effects, transitions, and general editing tasks. You can query project state and perform editing actions using the provided tools. When you use a tool, confirm briefly what you did. Respond concisely and practically.
 
 When the user asks to "clip" or "split" without clearly choosing, ask: "Do you want to (1) clip the existing clip on the timeline at the playhead (split it into two), or (2) create a new clip from a file (by choosing a file and frame range)?" If they choose (1) or say "clip the current clip", "at the playhead", or "the one on the timeline": use slice_clip_at_playhead_tool. If they choose (2) or "create a new video/clip": use list_files_tool then split_file_add_clip_tool with file_id and start_frame, end_frame.
 
@@ -31,7 +31,7 @@ When the user asks to generate a video, create a video, make a video and add it 
 
 class MainThreadToolRunner(QObject if QObject is not object else object):
     """
-    Lives on the Qt main thread. Holds Flowcut tools and runs them when run_tool is invoked.
+    Lives on the Qt main thread. Holds Zenvi tools and runs them when run_tool is invoked.
     Used by the worker thread via BlockingQueuedConnection to run tools on the main thread.
 
     Supports version context for isolated state execution in parallel tasks.
@@ -323,7 +323,7 @@ _main_thread_runner_cache = None
 
 
 def create_main_thread_runner():
-    """Create and register a MainThreadToolRunner with all Flowcut tools. Call from main thread."""
+    """Create and register a MainThreadToolRunner with all Zenvi tools. Call from main thread."""
     from classes.ai_openshot_tools import get_openshot_tools_for_langchain
     runner = MainThreadToolRunner()
     runner.register_tools(get_openshot_tools_for_langchain())

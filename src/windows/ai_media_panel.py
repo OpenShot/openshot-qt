@@ -1,7 +1,7 @@
 """
  @file
  @brief AI Media Management panel for tags, collections, and analysis
- @author Flowcut Development Team
+ @author Zenvi Development Team
 
  @section LICENSE
 

@@ -24,7 +24,7 @@ class DirectorLoader:
         """Initialize loader with built-in and user director paths."""
         from classes import info
         self.builtin_dir = os.path.join(info.PATH, "directors", "built_in")
-        self.user_dir = os.path.expanduser("~/.config/flowcut/directors/")
+        self.user_dir = os.path.expanduser("~/.config/zenvi/directors/")
 
         # Ensure user directory exists
         os.makedirs(self.user_dir, exist_ok=True)

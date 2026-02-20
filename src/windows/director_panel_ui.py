@@ -47,7 +47,7 @@ class DirectorPanelBridge(QObject):
             loader = get_director_loader()
 
             # Check both user and built-in directories
-            user_dir = os.path.expanduser("~/.config/flowcut/directors")
+            user_dir = os.path.expanduser("~/.config/zenvi/directors")
             user_path = os.path.join(user_dir, f"{director_id}.director")
 
             from classes import info

@@ -345,4 +345,4 @@ For issues or feature requests:
 
 ---
 
-**Built with ❤️ for the Flowcut community**
+**Built with ❤️ for the Zenvi community**

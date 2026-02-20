@@ -44,7 +44,7 @@ def test_local_remotion():
             api_key=api_key,
             repo_url="https://github.com/remotion-dev/template-still",
             template="product-launch",  # Using available template from local server
-            user_input="Test from Flowcut - Local Remotion Working!",
+            user_input="Test from Zenvi - Local Remotion Working!",
             codec="h264",
             base_url=base_url,
             timeout_seconds=120,
@@ -70,7 +70,7 @@ def test_local_remotion():
         print("   ✅ Remotion server is running")
         print("   ✅ Authentication is working")
         print("   ✅ Video rendering is functional")
-        print("   ✅ Ready to use in Flowcut!")
+        print("   ✅ Ready to use in Zenvi!")
 
         return True
 

@@ -1,5 +1,5 @@
 """
-TTS (text-to-speech) tools for Flowcut agents.
+TTS (text-to-speech) tools for Zenvi agents.
 
 These tools are designed to be run on the Qt main thread (like ai_openshot_tools),
 but they offload network work to a QThread.
@@ -44,7 +44,7 @@ def _output_path_for_generated_audio(ext: str = ".mp3") -> str:
         except OSError:
             pass
 
-    return os.path.join(tempfile.gettempdir(), f"flowcut_generated_tts_{uuid_module.uuid4().hex[:12]}{ext}")
+    return os.path.join(tempfile.gettempdir(), f"zenvi_generated_tts_{uuid_module.uuid4().hex[:12]}{ext}")
 
 
 def _try_get_file_id_for_path(path: str):
@@ -129,7 +129,7 @@ class _TTSGenerationThread(QThread if QThread else object):
                     self.progress_update.emit(f"Generating speech in {len(chunks)} chunks...")
 
                 # Create temp directory for chunks
-                temp_dir = tempfile.mkdtemp(prefix="flowcut_tts_")
+                temp_dir = tempfile.mkdtemp(prefix="zenvi_tts_")
                 chunk_paths = []
 
                 try:

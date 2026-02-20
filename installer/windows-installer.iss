@@ -11,12 +11,12 @@
   #define PY_EXE_DIR "exe.mingw-3.8"
 #endif
 
-#define MyAppName "Flowcut"
-#define MyAppProjectFileDesc "Flowcut Project File"
-#define MyAppPublisher "Flowcut"
-#define MyPublisherURL "https://flowcut.app/"
-#define MySupportURL "https://flowcut.app/community/"
-#define MyAppExeName "flowcut.exe"
+#define MyAppName "Zenvi"
+#define MyAppProjectFileDesc "Zenvi Project File"
+#define MyAppPublisher "Zenvi"
+#define MyPublisherURL "https://zenvi.pro/"
+#define MySupportURL "https://zenvi.pro/community/"
+#define MyAppExeName "zenvi.exe"
 
 #include "isportable.iss"
 
@@ -33,10 +33,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
 AppSupportURL={#MySupportURL}
 AppCopyright=(c) 2008-2022 {#MyAppPublisher}
-DefaultDirName={code:GetDefaultDirName|Flowcut}
+DefaultDirName={code:GetDefaultDirName|Zenvi}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
-OutputBaseFilename=Flowcut
+OutputBaseFilename=Zenvi
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
 ChangesAssociations=not PortableCheck
@@ -126,18 +126,18 @@ Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.flow}"; Gr
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
-; Remove previous installed versions of Flowcut
+; Remove previous installed versions of Zenvi
 Type: filesandordirs; Name: "{app}\*"
 Type: dirifempty; Name: "{app}\*"
-Type: files; Name: "{group}\Flowcut"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
+Type: files; Name: "{group}\Zenvi"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
 
 [Registry]
 ; Associate .flow files with the installed application. Uninstaller will clean them up, when run.
-Root: HKLM; Subkey: "Software\Classes\.flow"; ValueType: string; ValueName: ""; ValueData: "FlowcutProject"; Flags: uninsdeletevalue; Tasks: fileassoc
-; .flow file description, "Flowcut Project File" (FlowcutProject, internally)
-Root: HKLM; Subkey: "Software\Classes\FlowcutProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
-; Launcher association for data files of type FlowcutProject
-Root: HKLM; Subkey: "Software\Classes\FlowcutProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
+Root: HKLM; Subkey: "Software\Classes\.flow"; ValueType: string; ValueName: ""; ValueData: "ZenviProject"; Flags: uninsdeletevalue; Tasks: fileassoc
+; .flow file description, "Zenvi Project File" (ZenviProject, internally)
+Root: HKLM; Subkey: "Software\Classes\ZenviProject"; ValueType: string; ValueName: ""; ValueData: "{#MyAppProjectFileDesc}"; Flags: uninsdeletekey; Tasks: fileassoc
+; Launcher association for data files of type ZenviProject
+Root: HKLM; Subkey: "Software\Classes\ZenviProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
 ; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
 

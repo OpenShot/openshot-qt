@@ -585,7 +585,7 @@ def get_product_launch_tools_for_langchain():
 
             # Write script to temp file
             print("[PRODUCT LAUNCH] Step 3: Writing script to temp file...")
-            tmpdir = tempfile.mkdtemp(prefix="flowcut_product_launch_")
+            tmpdir = tempfile.mkdtemp(prefix="zenvi_product_launch_")
             script_path = os.path.join(tmpdir, "product_launch.py")
             with open(script_path, "w", encoding="utf-8") as f:
                 f.write(manim_code)

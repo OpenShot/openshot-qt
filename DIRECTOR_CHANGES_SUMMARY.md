@@ -121,7 +121,7 @@ Directors now automatically use these 7 tools:
 ## 🚀 How to Use
 
 ### Quick Start:
-1. Launch Flowcut: `./run_flowcut.sh`
+1. Launch Zenvi: `./run_zenvi.sh`
 2. Open Directors panel (right sidebar)
 3. See animated clouds floating
 4. Hover over clouds to see director info
@@ -310,7 +310,7 @@ If you encounter any issues:
 
 ## 🚀 Next Steps
 
-1. **Test the feature**: Open Flowcut and try the director panel
+1. **Test the feature**: Open Zenvi and try the director panel
 2. **Verify analysis**: Run directors and check they analyze automatically
 3. **Enjoy the UI**: Experience the smooth animations
 4. **Provide feedback**: Note any improvements or issues

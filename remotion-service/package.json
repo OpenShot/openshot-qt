@@ -1,7 +1,7 @@
 {
   "name": "remotion-service",
   "version": "1.0.0",
-  "description": "Remotion video render service for Flowcut",
+  "description": "Remotion video render service for Zenvi",
   "scripts": {
     "dev": "remotion studio",
     "serve": "ts-node src/api/render-server.ts",

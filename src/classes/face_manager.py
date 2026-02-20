@@ -1,7 +1,7 @@
 """
  @file
  @brief Face detection, recognition, and people management
- @author Flowcut Development Team
+ @author Zenvi Development Team
 
  @section LICENSE
 

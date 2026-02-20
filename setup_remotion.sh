@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Setting up Remotion service for Flowcut..."
+echo "Setting up Remotion service for Zenvi..."
 
 # Navigate to project root
 cd /home/lol/project/core
@@ -32,4 +32,4 @@ echo "Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Start the service: npm run serve"
-echo "2. Test in Flowcut: 'Create a product launch video for facebook/react'"
+echo "2. Test in Zenvi: 'Create a product launch video for facebook/react'"

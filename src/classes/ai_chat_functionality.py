@@ -40,7 +40,7 @@ def _debug_log(location, message, data, hypothesis_id):
     # #region agent log
     try:
         import os
-        _path = "/home/vboxuser/Projects/Flowcut/.cursor/debug.log"
+        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
         os.makedirs(os.path.dirname(_path), exist_ok=True)
         with open(_path, "a") as f:
             f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")
@@ -213,7 +213,7 @@ class AIChat:
     def _get_default_system_prompt(self) -> str:
         """Get default system prompt for video editing context"""
         return (
-            "You are an AI assistant for Flowcut. "
+            "You are an AI assistant for Zenvi. "
             "You help users with video editing, effects, transitions, and general editing tasks. "
             "Provide concise, practical advice for video editing workflows."
         )

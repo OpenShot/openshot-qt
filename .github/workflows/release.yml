@@ -1,16 +1,16 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Flowcut — Production Release Workflow
+# Zenvi — Production Release Workflow
 #
 # Triggers when a version tag (v*.*.*) is pushed, OR on push to the
 # `production` branch.  Builds platform-specific installers and publishes
 # them as a GitHub Release so the in-app auto-updater can pick them up.
 #
 # Asset naming convention expected by the auto-updater:
-#   Linux   → Flowcut-v<VER>-x86_64.AppImage
-#   macOS   → Flowcut-v<VER>-x86_64.dmg
-#   Windows → Flowcut-v<VER>-x86_64.exe
+#   Linux   → Zenvi-v<VER>-x86_64.AppImage
+#   macOS   → Zenvi-v<VER>-x86_64.dmg
+#   Windows → Zenvi-v<VER>-x86_64.exe
 # ─────────────────────────────────────────────────────────────────────────────
-name: Flowcut Production Release
+name: Zenvi Production Release
 
 on:
   push:
@@ -22,7 +22,7 @@ permissions:
 
 env:
   # Parsed from src/classes/info.py at build time
-  APP_NAME: Flowcut
+  APP_NAME: Zenvi
 
 jobs:
 
@@ -82,7 +82,7 @@ jobs:
             -O appimagetool && chmod +x appimagetool
 
           # Create AppDir structure
-          APPDIR="Flowcut.AppDir"
+          APPDIR="Zenvi.AppDir"
           mkdir -p "$APPDIR/usr/bin" "$APPDIR/usr/share/applications" \
                    "$APPDIR/usr/share/icons/hicolor/256x256/apps" \
                    "$APPDIR/usr/share/metainfo"
@@ -97,8 +97,8 @@ jobs:
           # Icon
           ICON=$(find images xdg -name "*.png" -path "*256*" 2>/dev/null | head -1)
           if [ -n "$ICON" ]; then
-            cp "$ICON" "$APPDIR/usr/share/icons/hicolor/256x256/apps/flowcut.png"
-            cp "$ICON" "$APPDIR/flowcut.png"
+            cp "$ICON" "$APPDIR/usr/share/icons/hicolor/256x256/apps/zenvi.png"
+            cp "$ICON" "$APPDIR/zenvi.png"
           fi
 
           # AppRun
@@ -113,26 +113,26 @@ jobs:
 
           # Build AppImage
           ARCH=x86_64 ./appimagetool "$APPDIR" \
-            "Flowcut-v${VER}-x86_64.AppImage"
+            "Zenvi-v${VER}-x86_64.AppImage"
 
       - name: Build .deb package
         run: |
-          DEB_DIR="flowcut_${VER}_amd64"
+          DEB_DIR="zenvi_${VER}_amd64"
           mkdir -p "$DEB_DIR/DEBIAN"
           mkdir -p "$DEB_DIR/usr/bin"
-          mkdir -p "$DEB_DIR/usr/share/flowcut"
+          mkdir -p "$DEB_DIR/usr/share/zenvi"
           mkdir -p "$DEB_DIR/usr/share/applications"
           mkdir -p "$DEB_DIR/usr/share/icons/hicolor/256x256/apps"
 
           # Copy frozen build
-          cp -r build/exe.linux-*/* "$DEB_DIR/usr/share/flowcut/"
+          cp -r build/exe.linux-*/* "$DEB_DIR/usr/share/zenvi/"
 
           # Launcher script
-          cat > "$DEB_DIR/usr/bin/flowcut" << 'LAUNCHER'
+          cat > "$DEB_DIR/usr/bin/zenvi" << 'LAUNCHER'
           #!/bin/bash
-          exec /usr/share/flowcut/launch "$@"
+          exec /usr/share/zenvi/launch "$@"
           LAUNCHER
-          chmod +x "$DEB_DIR/usr/bin/flowcut"
+          chmod +x "$DEB_DIR/usr/bin/zenvi"
 
           # Desktop file
           cp xdg/*.desktop "$DEB_DIR/usr/share/applications/" 2>/dev/null || true
@@ -140,31 +140,31 @@ jobs:
           # Icon
           ICON=$(find images xdg -name "*.png" -path "*256*" 2>/dev/null | head -1)
           if [ -n "$ICON" ]; then
-            cp "$ICON" "$DEB_DIR/usr/share/icons/hicolor/256x256/apps/flowcut.png"
+            cp "$ICON" "$DEB_DIR/usr/share/icons/hicolor/256x256/apps/zenvi.png"
           fi
 
           # Control file
           cat > "$DEB_DIR/DEBIAN/control" << CTRL
-          Package: flowcut
+          Package: zenvi
           Version: ${VER}
           Section: video
           Priority: optional
           Architecture: amd64
           Depends: libopenshot-dev, python3
-          Maintainer: Flowcut Team <team@flowcut.app>
-          Description: Flowcut Video Editor
+          Maintainer: Zenvi Team <team@zenvi.pro>
+          Description: Zenvi Video Editor
            Create and edit stunning videos, films, and animations.
           CTRL
 
-          dpkg-deb --build "$DEB_DIR" "Flowcut-v${VER}-x86_64.deb"
+          dpkg-deb --build "$DEB_DIR" "Zenvi-v${VER}-x86_64.deb"
 
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v6
         with:
           name: linux-packages
           path: |
-            Flowcut-v*.AppImage
-            Flowcut-v*.deb
+            Zenvi-v*.AppImage
+            Zenvi-v*.deb
 
   # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
   build-macos:
@@ -196,15 +196,15 @@ jobs:
           APP_BUNDLE=$(find build -name "*.app" -type d 2>/dev/null | head -1)
           if [ -z "$APP_BUNDLE" ]; then
             echo "::warning::No .app bundle found — creating placeholder DMG"
-            mkdir -p "Flowcut.app/Contents/MacOS"
-            cp -r build/exe.macos*/* "Flowcut.app/Contents/MacOS/" 2>/dev/null || true
-            APP_BUNDLE="Flowcut.app"
+            mkdir -p "Zenvi.app/Contents/MacOS"
+            cp -r build/exe.macos*/* "Zenvi.app/Contents/MacOS/" 2>/dev/null || true
+            APP_BUNDLE="Zenvi.app"
           fi
 
-          DMG_NAME="Flowcut-v${VER}-x86_64.dmg"
+          DMG_NAME="Zenvi-v${VER}-x86_64.dmg"
 
           # Create a temporary DMG
-          hdiutil create -volname "Flowcut" \
+          hdiutil create -volname "Zenvi" \
             -srcfolder "$APP_BUNDLE" \
             -ov -format UDZO \
             "$DMG_NAME" || true
@@ -213,7 +213,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: macos-package
-          path: Flowcut-v*.dmg
+          path: Zenvi-v*.dmg
           if-no-files-found: warn
 
   # ── 4. Windows build (.exe) ───────────────────────────────────────────
@@ -253,9 +253,9 @@ jobs:
             # windows-installer.iss expects VERSION macro
             & $ISCC /DVERSION="${env:VER}" installer/windows-installer.iss 2>$null
             # Rename output to match expected convention
-            $exe = Get-ChildItem -Path . -Filter "*.exe" -Recurse | Where-Object { $_.Name -like "Flowcut*Setup*" -or $_.Name -like "OpenShot*Setup*" } | Select-Object -First 1
+            $exe = Get-ChildItem -Path . -Filter "*.exe" -Recurse | Where-Object { $_.Name -like "Zenvi*Setup*" -or $_.Name -like "OpenShot*Setup*" } | Select-Object -First 1
             if ($exe) {
-              Rename-Item $exe.FullName "Flowcut-v${env:VER}-x86_64.exe"
+              Rename-Item $exe.FullName "Zenvi-v${env:VER}-x86_64.exe"
             }
           }
         shell: powershell
@@ -265,7 +265,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: windows-package
-          path: Flowcut-v*.exe
+          path: Zenvi-v*.exe
           if-no-files-found: warn
 
   # ── 5. Create GitHub Release with all artifacts ───────────────────────
@@ -299,22 +299,22 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
-          name: "Flowcut ${{ env.TAG }}"
+          name: "Zenvi ${{ env.TAG }}"
           body: |
-            ## Flowcut ${{ env.VER }}
+            ## Zenvi ${{ env.VER }}
 
             ### Auto-update
-            Users running Flowcut with an active internet connection will receive
+            Users running Zenvi with an active internet connection will receive
             this update automatically.  The download happens silently in the
             background and the new version is applied on the next launch.
 
             ### Manual download
             | Platform | File |
             |----------|------|
-            | Linux (AppImage) | `Flowcut-v${{ env.VER }}-x86_64.AppImage` |
-            | Linux (Debian)   | `Flowcut-v${{ env.VER }}-x86_64.deb` |
-            | macOS (DMG)      | `Flowcut-v${{ env.VER }}-x86_64.dmg` |
-            | Windows (EXE)    | `Flowcut-v${{ env.VER }}-x86_64.exe` |
+            | Linux (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
+            | Linux (Debian)   | `Zenvi-v${{ env.VER }}-x86_64.deb` |
+            | macOS (DMG)      | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | Windows (EXE)    | `Zenvi-v${{ env.VER }}-x86_64.exe` |
 
             ### Checksums
             See `SHA256SUMS.txt` attached to this release.

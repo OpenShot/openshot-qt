@@ -2,7 +2,7 @@
 
 ## Overview
 
-Build a **fast, professional product launch video system** using Remotion that integrates with Flowcut's chat interface. Videos will render in **5-10 seconds** with smooth, polished animations.
+Build a **fast, professional product launch video system** using Remotion that integrates with Zenvi's chat interface. Videos will render in **5-10 seconds** with smooth, polished animations.
 
 ---
 
@@ -902,7 +902,7 @@ Create `setup_remotion.sh`:
 ```bash
 #!/bin/bash
 
-echo "🎬 Setting up Remotion service for Flowcut..."
+echo "🎬 Setting up Remotion service for Zenvi..."
 
 # Navigate to project root
 cd /home/lol/project/core
@@ -936,7 +936,7 @@ echo "Next steps:"
 echo "1. Copy the React component files to src/templates/ProductLaunch/"
 echo "2. Copy render-server.ts to src/api/"
 echo "3. Start the service: npm run serve"
-echo "4. Test in Flowcut: 'Create a product launch video for facebook/react'"
+echo "4. Test in Zenvi: 'Create a product launch video for facebook/react'"
 ```
 
 ### 5.2 Service Management
@@ -1031,10 +1031,10 @@ curl -X POST http://localhost:3100/render/product-launch \
   }'
 ```
 
-### 6.2 Test from Flowcut
+### 6.2 Test from Zenvi
 
 1. Start Remotion service: `./remotion-service.sh start`
-2. Start Flowcut
+2. Start Zenvi
 3. In chat: "Create a product launch video for facebook/react"
 4. Expected: Video renders in 5-10 seconds and appears on timeline
 
@@ -1070,7 +1070,7 @@ curl -X POST http://localhost:3100/render/product-launch \
 - [ ] Update agent system prompt
 - [ ] Start Remotion service
 - [ ] Test with sample repo
-- [ ] Integrate with Flowcut chat
+- [ ] Integrate with Zenvi chat
 - [ ] Verify timeline integration
 
 ---

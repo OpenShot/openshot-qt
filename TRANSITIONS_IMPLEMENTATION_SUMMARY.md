@@ -2,7 +2,7 @@
 
 ## ✅ Implementation Complete
 
-The Transitions Agent has been successfully implemented, tested, and integrated into Flowcut.
+The Transitions Agent has been successfully implemented, tested, and integrated into Zenvi.
 
 ## 🎯 What Was Built
 

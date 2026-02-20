@@ -9,7 +9,7 @@ import logging
 import requests
 from typing import Optional, Tuple
 
-log = logging.getLogger("flowcut-edge-client")
+log = logging.getLogger("zenvi-edge-client")
 
 
 def _get_edge_base_url(settings=None) -> str:

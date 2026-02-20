@@ -460,7 +460,7 @@ class DirectorMarketplaceDialog(QDialog):
 
             # Save to user directory
             import os
-            user_dir = os.path.expanduser("~/.config/flowcut/directors")
+            user_dir = os.path.expanduser("~/.config/zenvi/directors")
             os.makedirs(user_dir, exist_ok=True)
 
             filepath = os.path.join(user_dir, f"{director_id}.director")

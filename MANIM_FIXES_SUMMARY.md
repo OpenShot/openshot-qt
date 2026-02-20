@@ -160,7 +160,7 @@ except Exception as e:
 
 ## Usage
 
-**Restart Flowcut** to load the fixes, then:
+**Restart Zenvi** to load the fixes, then:
 
 ```
 User: "Create a product launch video for https://github.com/facebook/react"
@@ -210,7 +210,7 @@ If you need even faster generation:
 ## Troubleshooting
 
 ### Issue: Still getting control character errors
-**Solution:** Restart Flowcut to reload the updated code
+**Solution:** Restart Zenvi to reload the updated code
 
 ### Issue: Video still renders slowly
 **Expected:** 15-25s is normal for Manim

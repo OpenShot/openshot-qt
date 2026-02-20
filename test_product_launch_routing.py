@@ -114,7 +114,7 @@ def main():
         print("\n✅ Routing is properly configured!")
         print_example_prompts()
         print("\n💡 TIP: If you still get 'command not recognized' errors:")
-        print("   1. Restart the Flowcut application to reload the updated agent")
+        print("   1. Restart the Zenvi application to reload the updated agent")
         print("   2. Try one of the example prompts above")
         print("   3. Make sure to include 'product launch' or 'GitHub' in your request")
         return 0

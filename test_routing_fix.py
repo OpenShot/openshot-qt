@@ -120,7 +120,7 @@ def main():
         print_usage_examples()
 
         print("\n🚀 Next Steps:")
-        print("  1. Restart Flowcut (to load the routing fix)")
+        print("  1. Restart Zenvi (to load the routing fix)")
         print("  2. Try: \"Create a product launch video for facebook/react\"")
         print("  3. Should now route correctly to product launch agent!")
         return 0

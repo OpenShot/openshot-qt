@@ -49,13 +49,13 @@ Now includes the actual file path in error messages so you can manually add if n
 OR if it fails:
 
 ⚠ Video generated but could not be added to timeline.
-Video saved at: /tmp/flowcut_product_launch_xyz/product_launch_combined.mp4
+Video saved at: /tmp/zenvi_product_launch_xyz/product_launch_combined.mp4
 Try adding it manually from Project Files.
 ```
 
 ## How to Test
 
-**1. Restart Flowcut** (to load the updated code)
+**1. Restart Zenvi** (to load the updated code)
 
 **2. Try generating a video:**
 ```
@@ -127,9 +127,9 @@ This will check:
 If automatic timeline add still fails:
 
 1. **Note the file path** from the success/error message
-2. **Open Project Files tab** in Flowcut
+2. **Open Project Files tab** in Zenvi
 3. **Click "Import Files"**
-4. **Navigate to:** `/tmp/flowcut_product_launch_*/product_launch_combined.mp4`
+4. **Navigate to:** `/tmp/zenvi_product_launch_*/product_launch_combined.mp4`
 5. **Select the video** and click Open
 6. **Drag to timeline** from Project Files
 

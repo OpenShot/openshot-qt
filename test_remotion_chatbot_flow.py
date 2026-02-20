@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simulate the Flowcut chatbot -> Remotion video generation flow.
+Simulate the Zenvi chatbot -> Remotion video generation flow.
 This tests the exact path that would be taken when a user asks to generate a video.
 """
 
@@ -107,7 +107,7 @@ def simulate_chatbot_request():
 
     except ImportError as e:
         print(f"   ❌ Import error: {e}")
-        print("   ⚠️  Note: This is expected without a running Flowcut app instance")
+        print("   ⚠️  Note: This is expected without a running Zenvi app instance")
         print("   The code structure is correct, but needs Qt application context")
         return "partial"
     except Exception as e:
@@ -174,7 +174,7 @@ def test_end_to_end_flow():
                 json={
                     "repoUrl": "https://github.com/remotion-dev/template-still",
                     "template": "default",
-                    "userInput": "Test from Flowcut"
+                    "userInput": "Test from Zenvi"
                 },
                 headers={"Content-Type": "application/json"},
                 timeout=10
@@ -184,7 +184,7 @@ def test_end_to_end_flow():
 
             if response.status_code == 401:
                 print("   🔐 Server requires authentication")
-                print("   💡 This is expected - configure API key in Flowcut Preferences")
+                print("   💡 This is expected - configure API key in Zenvi Preferences")
                 return "needs_auth"
             elif response.status_code == 200:
                 print("   ✅ Server accepted request!")
@@ -248,8 +248,8 @@ def main():
         print("   • Remotion API server is running and accessible")
         print("   • Code will route correctly based on service selection")
 
-        print("\n🔧 To use in Flowcut:")
-        print("   1. Launch Flowcut application")
+        print("\n🔧 To use in Zenvi:")
+        print("   1. Launch Zenvi application")
         print("   2. Go to: Edit > Preferences > AI")
         print("   3. Set: Video Generation Service = 'Remotion'")
         print("   4. Set: Remotion API Key = [your-key]")

@@ -1,8 +1,8 @@
 #!/bin/bash
-# Install Manim for Flowcut educational video generation
+# Install Manim for Zenvi educational video generation
 
 echo "╔═══════════════════════════════════════════╗"
-echo "║   Installing Manim for Flowcut           ║"
+echo "║   Installing Manim for Zenvi           ║"
 echo "╚═══════════════════════════════════════════╝"
 echo ""
 

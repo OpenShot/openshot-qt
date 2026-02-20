@@ -2,11 +2,11 @@
 
 ## ❌ Root Cause Discovered
 
-Your Flowcut virtual environment (`.venv`) was **broken** - it was pointing to Zenvi's venv instead of its own!
+Your Zenvi virtual environment (`.venv`) was **broken** - it was pointing to Zenvi's venv instead of its own!
 
 ### Evidence:
 ```bash
-# Inside Flowcut's .venv/bin/activate:
+# Inside Zenvi's .venv/bin/activate:
 VIRTUAL_ENV=/home/vboxuser/Projects/Zenvi/.venv  # WRONG!
 ```
 
@@ -26,7 +26,7 @@ I've created a **one-command solution** that:
 ### Run This Single Command:
 
 ```bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 ./COMPLETE_SETUP.sh
 ```
 
@@ -47,7 +47,7 @@ Installs:
 ### Step 2: Fix Virtual Environment
 - Detects if venv is broken (pointing to Zenvi)
 - Backs up broken venv
-- Creates new proper venv at `/home/vboxuser/Projects/Flowcut/.venv`
+- Creates new proper venv at `/home/vboxuser/Projects/Zenvi/.venv`
 - Verifies `VIRTUAL_ENV` points to correct location
 
 ### Step 3: Install Requirements
@@ -66,9 +66,9 @@ Installs:
 
 Once the setup completes successfully:
 
-### 1. Launch Flowcut (with GPU fix)
+### 1. Launch Zenvi (with GPU fix)
 ```bash
-./run_flowcut.sh
+./run_zenvi.sh
 ```
 
 ### 2. Open AI Chat Window
@@ -92,7 +92,7 @@ Test with any of these prompts:
 
 ### Verify Manim is Accessible
 ```bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 source .venv/bin/activate
 python3 -c "import manim; print(manim.__version__)"
 ```
@@ -105,7 +105,7 @@ source .venv/bin/activate
 echo $VIRTUAL_ENV
 ```
 
-Should output: `/home/vboxuser/Projects/Flowcut/.venv`
+Should output: `/home/vboxuser/Projects/Zenvi/.venv`
 **NOT**: `/home/vboxuser/Projects/Zenvi/.venv`
 
 ### Test Manual Render
@@ -181,7 +181,7 @@ All rendered and combined automatically!
 | System dependencies | ✅ Fixed | `COMPLETE_SETUP.sh` installs them |
 | Manim not installed | ✅ Fixed | `COMPLETE_SETUP.sh` installs it |
 | Agent not calling tool | ✅ Fixed | System prompt enhanced (already done) |
-| GPU WebEngine errors | ✅ Fixed | `run_flowcut.sh` disables GPU |
+| GPU WebEngine errors | ✅ Fixed | `run_zenvi.sh` disables GPU |
 
 ---
 
@@ -190,9 +190,9 @@ All rendered and combined automatically!
 **TL;DR - Just run this:**
 
 ```bash
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 ./COMPLETE_SETUP.sh    # Enter sudo password when prompted
-./run_flowcut.sh       # Launch Flowcut
+./run_zenvi.sh       # Launch Zenvi
 ```
 
 Then try: **"Create a manim video explaining prime numbers"**

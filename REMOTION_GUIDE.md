@@ -1,20 +1,20 @@
-# Remotion Video Generation Guide for Flowcut
+# Remotion Video Generation Guide for Zenvi
 
-This guide explains how to set up, configure, and use Remotion for video generation in Flowcut.
+This guide explains how to set up, configure, and use Remotion for video generation in Zenvi.
 
 ## Overview
 
-Flowcut now supports two video generation services:
+Zenvi now supports two video generation services:
 - **Runware (Vidu)**: Cloud-based AI video generation
 - **Remotion**: Programmatic video generation with React
 
-This integration allows you to generate videos from text prompts using either service directly from the Flowcut chatbot and timeline.
+This integration allows you to generate videos from text prompts using either service directly from the Zenvi chatbot and timeline.
 
 ---
 
 ## Prerequisites
 
-Before using Remotion in Flowcut, ensure you have:
+Before using Remotion in Zenvi, ensure you have:
 
 1. **Remotion API Server Running**
    - The Remotion API server must be running locally or on a remote server
@@ -25,7 +25,7 @@ Before using Remotion in Flowcut, ensure you have:
    - This is used to authenticate requests
 
 3. **Python Dependencies**
-   - `requests` library (should already be installed with Flowcut)
+   - `requests` library (should already be installed with Zenvi)
 
 ---
 
@@ -40,12 +40,12 @@ If you have the Remotion server in `../remotion` (already configured):
 cd ../remotion
 npm start
 
-# In a new terminal, configure Flowcut:
+# In a new terminal, configure Zenvi:
 cd core
 python3 setup_local_remotion.py
 ```
 
-**Then in Flowcut Preferences:**
+**Then in Zenvi Preferences:**
 - **Video Generation Service**: `Remotion`
 - **Remotion API Key**: `dev-key-change-me`
 - **Remotion API Base URL**: `http://127.0.0.1:4500/api/v1`
@@ -69,7 +69,7 @@ npm start
 
 The server runs on `http://127.0.0.1:4500` by default with API key `dev-key-change-me`.
 
-### Step 2: Configure Flowcut
+### Step 2: Configure Zenvi
 
 1. **Quick Setup Script** (Recommended)
    ```bash
@@ -78,7 +78,7 @@ The server runs on `http://127.0.0.1:4500` by default with API key `dev-key-chan
    Follow the instructions displayed.
 
 2. **Manual Setup**
-   - Launch Flowcut
+   - Launch Zenvi
    - Go to `Edit > Preferences` (or `Preferences` menu on macOS)
    - Click on the `AI` category in the left sidebar
    - **Video Generation Service**: Select `Remotion` from the dropdown
@@ -92,7 +92,7 @@ The server runs on `http://127.0.0.1:4500` by default with API key `dev-key-chan
 # Test from command line
 python3 test_local_remotion.py
 
-# Or test in Flowcut:
+# Or test in Zenvi:
 # 1. Open AI Chat
 # 2. Type: "Generate a video showing a modern office"
 # 3. Watch it render and add to timeline!
@@ -111,7 +111,7 @@ The local Remotion server includes these templates:
 
 The integration automatically uses `product-launch` as it works well for most prompts.
 
-## Using Remotion in Flowcut
+## Using Remotion in Zenvi
 
 ### Method 1: Chatbot Commands
 
@@ -126,7 +126,7 @@ Create a 5-second video of a sunset over mountains
 ```
 
 ```
-Make a video with text "Welcome to Flowcut" and add it to the timeline
+Make a video with text "Welcome to Zenvi" and add it to the timeline
 ```
 
 The chatbot will:
@@ -146,7 +146,7 @@ In a future update, Remotion generation will be directly integrated into the tim
 ### Architecture
 
 ```
-Flowcut Chatbot
+Zenvi Chatbot
     ↓
 AI Agent Runner
     ↓
@@ -160,20 +160,20 @@ Remotion API Server
     ↓
 Video Rendered & Downloaded
     ↓
-Added to Flowcut Timeline
+Added to Zenvi Timeline
 ```
 
 ### Workflow Details
 
 1. **User Request**: User asks the chatbot to generate a video
-2. **Service Selection**: Flowcut checks the `video-generation-service` setting
+2. **Service Selection**: Zenvi checks the `video-generation-service` setting
 3. **API Call**: If Remotion is selected:
    - Creates a `_RemotionGenerationThread` worker
    - Calls `render_from_repo()` with the prompt
    - Uses a default Remotion template (configurable)
 4. **Polling**: Thread polls the Remotion API for job status
 5. **Download**: Once complete, downloads the video file
-6. **Timeline Integration**: Adds the video to the Flowcut project and timeline
+6. **Timeline Integration**: Adds the video to the Zenvi project and timeline
 
 ---
 
@@ -285,10 +285,10 @@ result = render_from_sonar(
 ### Issue: Generated video not appearing on timeline
 
 **Solution:**
-- Check Flowcut's project files directory
-- Look in system temp folder: `/tmp/flowcut_generated_*.mp4`
+- Check Zenvi's project files directory
+- Look in system temp folder: `/tmp/zenvi_generated_*.mp4`
 - Verify disk space is available
-- Check Flowcut logs for file import errors
+- Check Zenvi logs for file import errors
 
 ---
 
@@ -326,7 +326,7 @@ To use a remote Remotion server:
 
 ### Progress Callbacks
 
-Progress updates are displayed in the Flowcut status bar during generation. To customize:
+Progress updates are displayed in the Zenvi status bar during generation. To customize:
 
 1. Edit the `on_progress` callback in `_RemotionGenerationThread.run()`
 2. Emit custom signals or update UI elements as needed
@@ -339,7 +339,7 @@ Progress updates are displayed in the Flowcut status bar during generation. To c
 
 - **`src/classes/video_generation/remotion_client.py`**: API client for Remotion
 - **`src/classes/video_generation/remotion_worker.py`**: QThread worker for Remotion
-- **`src/classes/ai_openshot_tools.py`**: Integration with Flowcut tools (line ~625-695)
+- **`src/classes/ai_openshot_tools.py`**: Integration with Zenvi tools (line ~625-695)
 - **`src/settings/_default.settings`**: Configuration settings (line ~1610-1640)
 
 ### Example: Manual API Call
@@ -353,7 +353,7 @@ result = render_from_repo(
     api_key="your-api-key-here",
     repo_url="https://github.com/remotion-dev/template-still",
     template="default",
-    user_input="Hello from Flowcut!",
+    user_input="Hello from Zenvi!",
     base_url="http://localhost:4500/api/v1"
 )
 
@@ -398,7 +398,7 @@ Planned features for Remotion integration:
 
 If you encounter issues:
 
-1. Check Flowcut logs: View > Console/Logs
+1. Check Zenvi logs: View > Console/Logs
 2. Check Remotion server logs
 3. Test API directly with `curl`:
    ```bash
@@ -407,7 +407,7 @@ If you encounter issues:
      -H "Content-Type: application/json" \
      -d '{"repoUrl":"https://github.com/remotion-dev/template-still","template":"default","userInput":"Test"}'
    ```
-4. Report issues on the Flowcut GitHub repository
+4. Report issues on the Zenvi GitHub repository
 
 ---
 
@@ -415,7 +415,7 @@ If you encounter issues:
 
 - Remotion integration developed with Claude Sonnet 4.5
 - Original Remotion framework by Jonny Burger
-- Flowcut video editor by the Flowcut team
+- Zenvi video editor by the Zenvi team
 
 ---
 

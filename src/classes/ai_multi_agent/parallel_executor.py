@@ -7,7 +7,7 @@ import concurrent.futures
 from classes.logger import log
 
 # Shared executor for sub-agent invocations (I/O-bound LLM calls)
-_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix="flowcut_subagent")
+_executor = concurrent.futures.ThreadPoolExecutor(max_workers=4, thread_name_prefix="zenvi_subagent")
 
 
 def submit_sub_agent(agent_name, model_id, messages, main_thread_runner):

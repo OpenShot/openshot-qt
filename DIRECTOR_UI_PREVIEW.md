@@ -151,7 +151,7 @@ When hovering over a cloud, a tooltip appears:
 ```
 ┌────────────────────────────────┐
 │ 🎬 YouTube Director            │
-│ by Flowcut Team                │
+│ by Zenvi Team                │
 │                                │
 │ Optimizes videos for YouTube's │
 │ algorithm, focusing on         │

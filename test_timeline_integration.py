@@ -109,8 +109,8 @@ def print_integration_tips():
     print("   - Drag it to your timeline")
 
     print("\n4. Check temp directory:")
-    print("   - Videos are saved in: /tmp/flowcut_product_launch_*/")
-    print("   - Use: ls -la /tmp/flowcut_product_launch_*/")
+    print("   - Videos are saved in: /tmp/zenvi_product_launch_*/")
+    print("   - Use: ls -la /tmp/zenvi_product_launch_*/")
 
 
 def main():

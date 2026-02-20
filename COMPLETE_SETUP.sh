@@ -1,14 +1,14 @@
 #!/bin/bash
-# Complete setup for Flowcut with Manim support
+# Complete setup for Zenvi with Manim support
 
 set -e  # Exit on error
 
 echo "╔══════════════════════════════════════════════════════════╗"
-echo "║        Complete Flowcut + Manim Setup                   ║"
+echo "║        Complete Zenvi + Manim Setup                   ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 echo ""
 
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 
 # Step 1: Install system dependencies
 echo "📦 Step 1/4: Installing system dependencies (requires sudo)..."
@@ -78,7 +78,7 @@ echo "║                    ✅ Setup Complete!                    ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 echo ""
 echo "Next steps:"
-echo "  1. Run Flowcut:  ./run_flowcut.sh"
+echo "  1. Run Zenvi:  ./run_zenvi.sh"
 echo "  2. Open AI Chat"
 echo "  3. Try: 'Create a manim video explaining the Pythagorean theorem'"
 echo ""

@@ -33,7 +33,7 @@ from classes.query import QueryObject
 
 class ClipboardManager:
     """ Manages clipboard operations for QueryObjects or lists of QueryObjects """
-    MIME_TYPE = "application/x-flowcut-generic"
+    MIME_TYPE = "application/x-zenvi-generic"
 
     @staticmethod
     def to_mime(data):
@@ -83,5 +83,5 @@ class ClipboardManager:
             except (pickle.UnpicklingError, AttributeError) as e:
                 print(f"Error unpickling data: {e}")
 
-        print("No valid Flowcut MIME type found.")
+        print("No valid Zenvi MIME type found.")
         return None

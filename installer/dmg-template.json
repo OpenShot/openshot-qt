@@ -1,5 +1,5 @@
 {
-  "title": "Flowcut",
+  "title": "Zenvi",
   "icon": "dmg-icon.icns",
   "background": "dmg-background.png",
   "icon-size": 80,
@@ -14,7 +14,7 @@
       "x": 140,
       "y": 155,
       "type": "file",
-      "path": "../build/Flowcut.app"
+      "path": "../build/Zenvi.app"
     }
   ]
 }

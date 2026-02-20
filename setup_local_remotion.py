@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Configure Flowcut to use local Remotion server.
+Configure Zenvi to use local Remotion server.
 This script updates the settings to point to the local Remotion instance.
 """
 
@@ -9,10 +9,10 @@ import os
 import json
 
 def setup_local_remotion():
-    """Configure Flowcut settings for local Remotion"""
+    """Configure Zenvi settings for local Remotion"""
 
     print("\n" + "="*60)
-    print("⚙️  CONFIGURING FLOWCUT FOR LOCAL REMOTION")
+    print("⚙️  CONFIGURING ZENVI FOR LOCAL REMOTION")
     print("="*60)
 
     # Configuration
@@ -49,18 +49,18 @@ def setup_local_remotion():
     except Exception as e:
         print(f"   ⚠️  Could not check .env: {e}")
 
-    # Instructions for Flowcut Preferences
+    # Instructions for Zenvi Preferences
     print("\n" + "="*60)
-    print("📱 MANUAL SETUP REQUIRED IN FLOWCUT")
+    print("📱 MANUAL SETUP REQUIRED IN ZENVI")
     print("="*60)
 
-    print("\n1️⃣  Launch Flowcut")
+    print("\n1️⃣  Launch Zenvi")
     print("   python src/launch.py")
     print("   (or your normal launch method)")
 
     print("\n2️⃣  Open Preferences")
     print("   Menu: Edit > Preferences")
-    print("   (or Flowcut > Preferences on macOS)")
+    print("   (or Zenvi > Preferences on macOS)")
 
     print("\n3️⃣  Navigate to AI Settings")
     print("   Click: AI (in left sidebar)")

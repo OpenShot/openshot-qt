@@ -32,12 +32,12 @@ VERSION = "1.0.0"
 # 0.5.0+ preferred; 0.3.2 minimum for systems where only stable PPA (or older) is available (e.g. aarch64)
 MINIMUM_LIBOPENSHOT_VERSION = "0.3.2"
 DATE = "20250612000000"
-NAME = "flowcut"
-PRODUCT_NAME = "Flowcut"
+NAME = "zenvi"
+PRODUCT_NAME = "Zenvi"
 GPL_VERSION = "3"
 DESCRIPTION = "Create and edit stunning videos, films, and animations with an " \
               "easy-to-use interface and rich set of features."
-COMPANY_NAME = "Flowcut"
+COMPANY_NAME = "Zenvi"
 COPYRIGHT = "(c) 2008-{} {}".format(strftime("%Y"), COMPANY_NAME)
 CWD = os.getcwd()
 
@@ -108,7 +108,7 @@ JT = {"name": "Jonathan Thomas",
       "website": "http://openshot.org/developers/jonathan"}
 
 # Desktop launcher ID, for Linux
-DESKTOP_ID = "org.flowcut.Flowcut.desktop"
+DESKTOP_ID = "org.zenvi.Zenvi.desktop"
 
 # Blender minimum version required (a string value)
 BLENDER_MIN_VERSION = "5.0"
@@ -174,11 +174,11 @@ SETUP = {
     "author_email": JT["email"],
     "maintainer": JT["name"],
     "maintainer_email": JT["email"],
-    "url": "https://flowcut.app/",
+    "url": "https://zenvi.pro/",
     "license": "GNU GPL v." + GPL_VERSION,
     "description": DESCRIPTION,
     "long_description": "Create and edit videos and movies\n"
-                        " Flowcut is a free, open-source, non-linear video editor. It\n"
+                        " Zenvi is a free, open-source, non-linear video editor. It\n"
                         " can create and edit videos and movies using many popular video, audio, \n"
                         " image formats.  Create videos for YouTube, Flickr, Vimeo, Metacafe, iPod,\n"
                         " Xbox, and many more common formats!\n"
@@ -209,7 +209,7 @@ SETUP = {
     # Automatic launch script creation
     "entry_points": {
         "gui_scripts": [
-            "flowcut = openshot_qt.launch:main"
+            "zenvi = openshot_qt.launch:main"
         ]
     }
 }

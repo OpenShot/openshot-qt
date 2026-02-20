@@ -11,7 +11,7 @@ from classes.logger import log
 def _debug_log(location, message, data, hypothesis_id):
     try:
         import os
-        _path = "/home/vboxuser/Projects/Flowcut/.cursor/debug.log"
+        _path = "/home/vboxuser/Projects/Zenvi/.cursor/debug.log"
         os.makedirs(os.path.dirname(_path), exist_ok=True)
         with open(_path, "a") as f:
             f.write(json.dumps({"location": location, "message": message, "data": data, "hypothesisId": hypothesis_id, "timestamp": time.time()}) + "\n")

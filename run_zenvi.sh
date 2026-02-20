@@ -1,7 +1,7 @@
 #!/bin/bash
-# Flowcut launcher with GPU acceleration disabled (fixes WebEngine errors)
+# Zenvi launcher with GPU acceleration disabled (fixes WebEngine errors)
 
-cd /home/vboxuser/Projects/Flowcut
+cd /home/vboxuser/Projects/Zenvi
 
 # Activate virtual environment
 if [ ! -d ".venv" ]; then
@@ -17,7 +17,7 @@ export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --no-sandbox --disable-software
 # Optional: Enable logging
 # export QT_LOGGING_RULES="qt.webenginecontext.debug=true"
 
-echo "🚀 Starting Flowcut..."
+echo "🚀 Starting Zenvi..."
 echo "   GPU acceleration: disabled (prevents WebEngine errors)"
 echo ""
 

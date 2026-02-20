@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Test script for Remotion video generation integration in Flowcut.
+Test script for Remotion video generation integration in Zenvi.
 Tests the flow from prompt -> API call -> video generation without GUI.
 """
 
 import sys
 import os
 
-# Add src to path so we can import Flowcut modules
+# Add src to path so we can import Zenvi modules
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 def test_remotion_client():
@@ -25,7 +25,7 @@ def test_remotion_client():
         # Test parameters
         api_key = "test-key-123"  # Use a test key or real key if available
         base_url = "http://localhost:4500/api/v1"
-        prompt = "Test video from Flowcut"
+        prompt = "Test video from Zenvi"
 
         print(f"\n📋 Test Configuration:")
         print(f"   Base URL: {base_url}")
@@ -86,7 +86,7 @@ def test_remotion_worker():
         from classes.video_generation.remotion_worker import RemotionRenderThread
 
         print("\n✅ RemotionRenderThread imported successfully")
-        print("   This thread will be used by Flowcut for async rendering")
+        print("   This thread will be used by Zenvi for async rendering")
 
         # Check if PyQt5 is available
         try:
@@ -194,7 +194,7 @@ def main():
     print("🎬 REMOTION INTEGRATION TEST SUITE")
     print("="*60)
     print("\nThis tests the Remotion video generation integration")
-    print("without launching the full Flowcut GUI.\n")
+    print("without launching the full Zenvi GUI.\n")
 
     results = {
         "Settings Integration": test_settings_integration(),
@@ -231,8 +231,8 @@ def main():
     if passed == total or (passed + partial == total):
         print("✅ Integration is working correctly!")
         print("\n💡 Next steps:")
-        print("   1. Configure a valid Remotion API key in Flowcut")
-        print("   2. Open Flowcut and go to Preferences > AI")
+        print("   1. Configure a valid Remotion API key in Zenvi")
+        print("   2. Open Zenvi and go to Preferences > AI")
         print("   3. Set 'Video Generation Service' to 'Remotion'")
         print("   4. Test in the chatbot: 'Generate a video of a sunset'")
         return 0

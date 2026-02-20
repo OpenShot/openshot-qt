@@ -141,7 +141,7 @@ result = add_transition_between_clips(
 
 ## Integration
 
-The transitions agent is fully integrated into Flowcut's multi-agent system:
+The transitions agent is fully integrated into Zenvi's multi-agent system:
 - Accessible via root agent routing
 - Works with plan-graph tracking
 - Shares clip/timeline data with video agent

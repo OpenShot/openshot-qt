@@ -1,4 +1,4 @@
-/* Flowcut Assistant chat – CEP/WebEngine UI. Bloomberg Light default; host can override via setThemeColors(). */
+/* Zenvi Assistant chat – CEP/WebEngine UI. Bloomberg Light default; host can override via setThemeColors(). */
 :root {
     --chat-bg: #F8FAFC;
     --chat-preamble-bg: #F1F5F9;
