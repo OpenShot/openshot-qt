@@ -996,6 +996,480 @@ def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) 
 
 
 # ---------------------------------------------------------------------------
+# Transitions tools
+# ---------------------------------------------------------------------------
+
+def list_transitions(category="all", **_kw) -> str:
+    """List all available transitions in OpenShot."""
+    try:
+        from classes import info
+        transitions_dir = os.path.join(info.PATH, "transitions")
+        common_dir = os.path.join(transitions_dir, "common")
+        extra_dir = os.path.join(transitions_dir, "extra")
+
+        transitions = []
+
+        def process_dir(dir_path, category_name):
+            if not os.path.exists(dir_path):
+                return
+            for filename in sorted(os.listdir(dir_path)):
+                if filename.startswith(".") or "thumbs.db" in filename.lower():
+                    continue
+                path = os.path.join(dir_path, filename)
+                file_base_name = os.path.splitext(filename)[0]
+                trans_name = file_base_name.replace("_", " ").capitalize()
+                transitions.append({
+                    "name": trans_name, "filename": filename,
+                    "category": category_name, "path": path,
+                })
+
+        if category in ("all", "common"):
+            process_dir(common_dir, "common")
+        if category in ("all", "extra"):
+            process_dir(extra_dir, "extra")
+
+        if not transitions:
+            return "No transitions found."
+
+        data = {
+            "total": len(transitions),
+            "transitions": transitions[:50] if len(transitions) > 50 else transitions,
+        }
+        if len(transitions) > 50:
+            data["note"] = f"Showing first 50 of {len(transitions)} transitions."
+        return json.dumps(data, indent=2)
+    except Exception as e:
+        log.error("list_transitions: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def search_transitions(query="", **_kw) -> str:
+    """Search for transitions by name."""
+    try:
+        from classes import info
+        transitions_dir = os.path.join(info.PATH, "transitions")
+        common_dir = os.path.join(transitions_dir, "common")
+        extra_dir = os.path.join(transitions_dir, "extra")
+
+        query_lower = (query or "").lower()
+        matches = []
+
+        def search_dir(dir_path, category_name):
+            if not os.path.exists(dir_path):
+                return
+            for filename in os.listdir(dir_path):
+                if filename.startswith(".") or "thumbs.db" in filename.lower():
+                    continue
+                file_base = os.path.splitext(filename)[0]
+                trans_name = file_base.replace("_", " ").capitalize()
+                if query_lower in trans_name.lower() or query_lower in file_base.lower():
+                    matches.append({
+                        "name": trans_name, "filename": filename,
+                        "category": category_name,
+                        "path": os.path.join(dir_path, filename),
+                    })
+
+        search_dir(common_dir, "common")
+        search_dir(extra_dir, "extra")
+
+        if not matches:
+            return f"No transitions found matching '{query}'."
+
+        return json.dumps({"query": query, "matches": len(matches), "transitions": matches}, indent=2)
+    except Exception as e:
+        log.error("search_transitions: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def add_transition_between_clips(clip1_id="", clip2_id="", transition_name="", duration="1.0", **_kw) -> str:
+    """Add a transition between two clips."""
+    try:
+        from classes.query import Clip
+        from classes import info
+
+        app = _get_app()
+        clip1 = Clip.get(id=clip1_id)
+        clip2 = Clip.get(id=clip2_id)
+        if not clip1:
+            return f"Error: Clip '{clip1_id}' not found."
+        if not clip2:
+            return f"Error: Clip '{clip2_id}' not found."
+
+        # Find transition file
+        transitions_dir = os.path.join(info.PATH, "transitions")
+        transition_path = None
+        search_name = (transition_name or "").lower().replace(" ", "_")
+        for cat in ["common", "extra"]:
+            cat_dir = os.path.join(transitions_dir, cat)
+            if os.path.exists(cat_dir):
+                for fn in os.listdir(cat_dir):
+                    fb = os.path.splitext(fn)[0]
+                    if search_name in fb.lower() or fb.lower() in search_name:
+                        transition_path = os.path.join(cat_dir, fn)
+                        break
+            if transition_path:
+                break
+        if not transition_path:
+            return f"Error: Transition '{transition_name}' not found. Use search_transitions_tool."
+
+        clip1_end = clip1.data.get("position", 0) + (clip1.data.get("end", 0) - clip1.data.get("start", 0))
+        try:
+            dur = float(duration)
+        except ValueError:
+            dur = 1.0
+
+        trans_position = max(clip1_end - dur / 2, 0)
+        layer1 = clip1.data.get("layer", 0)
+        layer2 = clip2.data.get("layer", 0)
+
+        transition_data = {
+            "id": str(uuid_module.uuid4()), "layer": max(layer1, layer2),
+            "position": trans_position, "start": 0, "end": dur,
+            "brightness": 1.0, "contrast": 3.0,
+            "reader": {
+                "acodec": "", "audio_bit_rate": 0, "audio_stream_index": -1,
+                "audio_timebase": {"den": 1, "num": 1}, "channel_layout": 4, "channels": 0,
+                "display_ratio": {"den": 1, "num": 1}, "duration": dur,
+                "file_size": "0", "fps": {"den": 1, "num": 30},
+                "has_audio": False, "has_single_image": True, "has_video": True,
+                "height": 1080, "interlaced_frame": False, "metadata": {},
+                "path": transition_path, "pixel_ratio": {"den": 1, "num": 1},
+                "sample_rate": 0, "top_field_first": True, "type": "QtImageReader",
+                "vcodec": "", "video_bit_rate": 0, "video_length": "0",
+                "video_stream_index": -1, "video_timebase": {"den": 30, "num": 1}, "width": 1920,
+            },
+            "replace_image": False, "type": "Mask",
+            "title": os.path.splitext(os.path.basename(transition_path))[0],
+        }
+
+        app.updates.insert(["transitions"], transition_data)
+
+        return (
+            f"Added '{transition_name}' transition between clips.\n"
+            f"ID: {transition_data['id']}, Duration: {dur}s, Position: {trans_position}s"
+        )
+    except Exception as e:
+        log.error("add_transition_between_clips: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def add_transition_to_clip(clip_id="", transition_name="", position="start", duration="1.0", **_kw) -> str:
+    """Add a transition (fade in/out) to a single clip."""
+    try:
+        from classes.query import Clip
+        from classes import info
+
+        app = _get_app()
+        clip = Clip.get(id=clip_id)
+        if not clip:
+            return f"Error: Clip '{clip_id}' not found."
+
+        transitions_dir = os.path.join(info.PATH, "transitions")
+        transition_path = None
+        search_name = (transition_name or "").lower().replace(" ", "_")
+        for cat in ["common", "extra"]:
+            cat_dir = os.path.join(transitions_dir, cat)
+            if os.path.exists(cat_dir):
+                for fn in os.listdir(cat_dir):
+                    fb = os.path.splitext(fn)[0]
+                    if search_name in fb.lower() or fb.lower() in search_name:
+                        transition_path = os.path.join(cat_dir, fn)
+                        break
+            if transition_path:
+                break
+        if not transition_path:
+            return f"Error: Transition '{transition_name}' not found. Use search_transitions_tool."
+
+        clip_position = clip.data.get("position", 0)
+        clip_start = clip.data.get("start", 0)
+        clip_end = clip.data.get("end", 0)
+        clip_duration = clip_end - clip_start
+        clip_layer = clip.data.get("layer", 0)
+
+        try:
+            dur = float(duration)
+        except ValueError:
+            dur = 1.0
+
+        if (position or "").lower() == "end":
+            trans_position = clip_position + clip_duration - dur
+        else:
+            trans_position = clip_position
+
+        transition_data = {
+            "id": str(uuid_module.uuid4()), "layer": clip_layer,
+            "position": trans_position, "start": 0, "end": dur,
+            "brightness": 1.0, "contrast": 3.0,
+            "reader": {
+                "acodec": "", "audio_bit_rate": 0, "audio_stream_index": -1,
+                "audio_timebase": {"den": 1, "num": 1}, "channel_layout": 4, "channels": 0,
+                "display_ratio": {"den": 1, "num": 1}, "duration": dur,
+                "file_size": "0", "fps": {"den": 1, "num": 30},
+                "has_audio": False, "has_single_image": True, "has_video": True,
+                "height": 1080, "interlaced_frame": False, "metadata": {},
+                "path": transition_path, "pixel_ratio": {"den": 1, "num": 1},
+                "sample_rate": 0, "top_field_first": True, "type": "QtImageReader",
+                "vcodec": "", "video_bit_rate": 0, "video_length": "0",
+                "video_stream_index": -1, "video_timebase": {"den": 30, "num": 1}, "width": 1920,
+            },
+            "replace_image": False, "type": "Mask",
+            "title": os.path.splitext(os.path.basename(transition_path))[0],
+        }
+
+        app.updates.insert(["transitions"], transition_data)
+
+        return (
+            f"Added '{transition_name}' transition at {position} of clip.\n"
+            f"ID: {transition_data['id']}, Duration: {dur}s, Position: {trans_position}s"
+        )
+    except Exception as e:
+        log.error("add_transition_to_clip: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+# ---------------------------------------------------------------------------
+# Music tools (frontend-delegated: timeline insertion for Suno)
+# ---------------------------------------------------------------------------
+
+
+def add_music_to_timeline(audio_path="", track=0, position=0.0, **kwargs) -> str:
+    """Add a generated music audio file to the timeline."""
+    try:
+        from classes.query import File, Clip
+        app = _get_app()
+
+        if not audio_path or not os.path.isfile(audio_path):
+            return f"Error: Audio file not found: {audio_path}"
+
+        # Import file into project
+        file_data = {
+            "path": audio_path,
+            "id": str(uuid_module.uuid4()),
+        }
+        app.updates.insert(["files"], file_data)
+
+        # Add as clip to timeline
+        clip_data = {
+            "id": str(uuid_module.uuid4()),
+            "file_id": file_data["id"],
+            "layer": int(track),
+            "position": float(position),
+            "start": 0,
+            "end": 0,  # auto-detected
+            "reader": {"path": audio_path, "has_audio": True, "has_video": False},
+        }
+        app.updates.insert(["clips"], clip_data)
+
+        return f"Added music audio to timeline at position {position}s on track {track}."
+    except Exception as e:
+        log.error("add_music_to_timeline: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+# ---------------------------------------------------------------------------
+# TTS tools (frontend-delegated: timeline insertion for generated speech)
+# ---------------------------------------------------------------------------
+
+
+def add_tts_audio_to_timeline(audio_path="", track=0, position=0.0, **kwargs) -> str:
+    """Add a generated TTS audio file to the timeline."""
+    try:
+        from classes.query import File, Clip
+        app = _get_app()
+
+        if not audio_path or not os.path.isfile(audio_path):
+            return f"Error: Audio file not found: {audio_path}"
+
+        file_data = {
+            "path": audio_path,
+            "id": str(uuid_module.uuid4()),
+        }
+        app.updates.insert(["files"], file_data)
+
+        clip_data = {
+            "id": str(uuid_module.uuid4()),
+            "file_id": file_data["id"],
+            "layer": int(track),
+            "position": float(position),
+            "start": 0,
+            "end": 0,
+            "reader": {"path": audio_path, "has_audio": True, "has_video": False},
+        }
+        app.updates.insert(["clips"], clip_data)
+
+        return f"Added TTS audio to timeline at position {position}s on track {track}."
+    except Exception as e:
+        log.error("add_tts_audio_to_timeline: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+# ---------------------------------------------------------------------------
+# Director analysis tools (frontend-delegated: read project state for directors)
+# ---------------------------------------------------------------------------
+
+
+def analyze_timeline_structure(**kwargs) -> str:
+    """Get overview of timeline structure: tracks, clips, transitions."""
+    try:
+        from classes.query import Clip, Track
+        app = _get_app()
+        proj = app.project
+        clips = Clip.filter()
+        layers = {}
+        for clip in clips:
+            layer = clip.data.get("layer", 0)
+            layers.setdefault(layer, []).append(clip)
+        lines = [f"Timeline Structure:"]
+        lines.append(f"  Total clips: {len(clips)}")
+        lines.append(f"  Total layers: {len(layers)}")
+        for layer_num in sorted(layers.keys()):
+            lines.append(f"  Layer {layer_num}: {len(layers[layer_num])} clips")
+        transitions = proj.get("transitions") or []
+        lines.append(f"  Total transitions: {len(transitions)}")
+        effects = proj.get("effects") or []
+        lines.append(f"  Total effects: {len(effects)}")
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("analyze_timeline_structure: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def analyze_pacing(**kwargs) -> str:
+    """Analyze video pacing: cut frequency, scene durations, rhythm."""
+    try:
+        from classes.query import Clip
+        app = _get_app()
+        proj = app.project
+        clips = Clip.filter()
+        if not clips:
+            return "No clips to analyze"
+        fps = proj.get("fps", {})
+        fps_num = fps.get("num", 30)
+        fps_den = fps.get("den", 1)
+        fps_value = fps_num / fps_den if fps_den else 30
+        durations = []
+        for clip in clips:
+            start = clip.data.get("start", 0)
+            end = clip.data.get("end", 0)
+            duration_seconds = (end - start) / fps_value
+            durations.append(duration_seconds)
+        if not durations:
+            return "No clip durations available"
+        avg_dur = sum(durations) / len(durations)
+        if avg_dur < 2: cat = "Very fast-paced"
+        elif avg_dur < 4: cat = "Fast-paced"
+        elif avg_dur < 6: cat = "Moderate"
+        elif avg_dur < 10: cat = "Slow-paced"
+        else: cat = "Very slow-paced"
+        lines = [
+            f"Pacing Analysis:",
+            f"  Total clips: {len(clips)}",
+            f"  Average clip duration: {avg_dur:.2f}s",
+            f"  Shortest: {min(durations):.2f}s",
+            f"  Longest: {max(durations):.2f}s",
+            f"  Pacing: {cat}",
+            f"  Cuts/min: {60/avg_dur:.1f}" if avg_dur > 0 else "  Cuts/min: N/A",
+        ]
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("analyze_pacing: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def analyze_audio_levels(**kwargs) -> str:
+    """Analyze audio levels."""
+    try:
+        from classes.query import Clip
+        clips = Clip.filter()
+        audio_clips = [c for c in clips if c.data.get("reader", {}).get("has_audio", False)]
+        return f"Audio Analysis:\n  Total audio clips: {len(audio_clips)}\n  Detailed audio analysis requires libopenshot integration."
+    except Exception as e:
+        log.error("analyze_audio_levels: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def analyze_transitions_structure(**kwargs) -> str:
+    """Analyze transitions: types, timing, effectiveness."""
+    try:
+        app = _get_app()
+        proj = app.project
+        transitions = proj.get("transitions") or []
+        if not transitions:
+            return "No transitions in project"
+        types = {}
+        for t in transitions:
+            tt = t.get("type", "unknown")
+            types[tt] = types.get(tt, 0) + 1
+        lines = [f"Transition Analysis:", f"  Total: {len(transitions)}", "  Types:"]
+        for tt, count in types.items():
+            lines.append(f"    {tt}: {count}")
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("analyze_transitions_structure: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def analyze_clip_content(**kwargs) -> str:
+    """Analyze visual content of clips using metadata."""
+    try:
+        from classes.query import File
+        files = File.filter()
+        files_with_meta = sum(1 for f in files if f.data.get("ai_metadata"))
+        return f"Content Analysis:\n  Total files: {len(files)}\n  Files with AI analysis: {files_with_meta}"
+    except Exception as e:
+        log.error("analyze_clip_content: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def analyze_music_sync(**kwargs) -> str:
+    """Analyze music beat alignment with cuts."""
+    return "Music Sync Analysis:\n  Music sync analysis not yet implemented.\n  Requires beat detection and cut timing correlation."
+
+
+def get_project_metadata_info(**kwargs) -> str:
+    """Get project metadata: duration, resolution, fps, format."""
+    try:
+        app = _get_app()
+        proj = app.project
+        profile = proj.get("profile") or "unknown"
+        fps = proj.get("fps") or {}
+        fps_str = f"{fps.get('num', '')}/{fps.get('den', 1)}" if fps else "unknown"
+        return (
+            f"Project Metadata:\n"
+            f"  Profile: {profile}\n"
+            f"  Resolution: {proj.get('width', 0)}x{proj.get('height', 0)}\n"
+            f"  FPS: {fps_str}\n"
+            f"  Duration: {proj.get('duration', 0)} seconds"
+        )
+    except Exception as e:
+        log.error("get_project_metadata_info: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+def analyze_clip_visual_content(clip_id=None, **kwargs) -> str:
+    """Analyze visual content using AI vision models."""
+    try:
+        from classes.query import Clip
+        clips = [Clip.get(id=clip_id)] if clip_id else Clip.filter()
+        clips = [c for c in clips if c]
+        if not clips:
+            return "No clips found to analyze"
+        lines = [f"Visual Content Analysis:", f"  Total clips: {len(clips)}"]
+        for clip in clips:
+            meta = clip.data.get("ai_metadata", {})
+            if meta:
+                desc = meta.get("description", "N/A")
+                if len(desc) > 100:
+                    desc = desc[:97] + "..."
+                lines.append(f"\n  Clip {clip.id}:")
+                lines.append(f"    Description: {desc}")
+        return "\n".join(lines)
+    except Exception as e:
+        log.error("analyze_clip_visual_content: %s", e, exc_info=True)
+        return f"Error: {e}"
+
+
+# ---------------------------------------------------------------------------
 # Tool name → handler mapping
 # ---------------------------------------------------------------------------
 
@@ -1038,8 +1512,26 @@ TOOL_HANDLERS = {
     "slice_selected_clip_at_best_match_tool": slice_selected_clip_at_best_match,
     # Video generation
     "generate_video_and_add_to_timeline_tool": generate_video_and_add_to_timeline,
-    "insert_vidu_v2v_clip_into_selected_clip_tool": insert_vidu_v2v_clip_into_selected_clip,
+    "insert_kling_v2v_clip_into_selected_clip_tool": insert_vidu_v2v_clip_into_selected_clip,
     "generate_transition_clip_tool": generate_transition_clip,
+    # Transitions
+    "list_transitions_tool": list_transitions,
+    "search_transitions_tool": search_transitions,
+    "add_transition_between_clips_tool": add_transition_between_clips,
+    "add_transition_to_clip_tool": add_transition_to_clip,
+    # Music (Suno timeline insertion)
+    "add_music_to_timeline_tool": add_music_to_timeline,
+    # TTS (timeline insertion)
+    "add_tts_audio_to_timeline_tool": add_tts_audio_to_timeline,
+    # Director analysis (read-only project state access)
+    "analyze_timeline_structure_tool": analyze_timeline_structure,
+    "analyze_pacing_tool": analyze_pacing,
+    "analyze_audio_levels_tool": analyze_audio_levels,
+    "analyze_transitions_tool": analyze_transitions_structure,
+    "analyze_clip_content_tool": analyze_clip_content,
+    "analyze_music_sync_tool": analyze_music_sync,
+    "get_project_metadata_tool": get_project_metadata_info,
+    "analyze_clip_visual_content_tool": analyze_clip_visual_content,
 }
 
 

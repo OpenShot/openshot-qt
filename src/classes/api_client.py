@@ -326,6 +326,42 @@ class ZenviBackendClient:
             log.error("Video generation failed: %s", e)
             return {"error": str(e)}
 
+    def generate_morph_video(self, first_image_url: str, last_image_url: str, **kwargs) -> Dict[str, Any]:
+        """Generate a morph/transition video between two images."""
+        try:
+            payload = {"first_image_url": first_image_url, "last_image_url": last_image_url}
+            payload.update(kwargs)
+            r = self.session.post(f"{self.api_url}/generation/morph", json=payload, timeout=600)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Morph video generation failed: %s", e)
+            return {"error": str(e)}
+
+    def research_web(self, query: str, max_images: int = 3, **kwargs) -> Dict[str, Any]:
+        """Search the web via Perplexity through the backend."""
+        try:
+            payload = {"query": query, "max_images": max_images}
+            payload.update(kwargs)
+            r = self.session.post(f"{self.api_url}/research/search", json=payload, timeout=180)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Research failed: %s", e)
+            return {"error": str(e)}
+
+    def research_plan(self, topic: str, content_type: str = "video", aspects: str = "", **kwargs) -> Dict[str, Any]:
+        """Research a topic for content planning."""
+        try:
+            payload = {"query": topic, "content_type": content_type, "aspects": aspects}
+            payload.update(kwargs)
+            r = self.session.post(f"{self.api_url}/research/plan", json=payload, timeout=180)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            log.error("Research plan failed: %s", e)
+            return {"error": str(e)}
+
     # ------------------------------------------------------------------
     # Tags
     # ------------------------------------------------------------------

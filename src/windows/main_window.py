@@ -3229,6 +3229,24 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         # Notify properties dialog
         self.propertyTableView.select_frame(frame)
 
+    def on_plan_approved(self, plan_id):
+        """Handle director plan approval — send approval to backend via chat."""
+        log.info(f"Plan approved: {plan_id}")
+        try:
+            # Send the approval to the backend via the AI chat
+            if hasattr(self, 'dockAIChat'):
+                self.dockAIChat.send_message(f"Execute approved plan: {plan_id}")
+            if hasattr(self, 'dockPlanReview'):
+                self.dockPlanReview.hide()
+        except Exception as e:
+            log.error(f"Plan approval handling failed: {e}", exc_info=True)
+
+    def on_plan_rejected(self, plan_id):
+        """Handle director plan rejection."""
+        log.info(f"Plan rejected: {plan_id}")
+        if hasattr(self, 'dockPlanReview'):
+            self.dockPlanReview.hide()
+
     def moveEvent(self, event):
         """ Move tutorial dialogs also (if any)"""
         QMainWindow.moveEvent(self, event)
@@ -3957,6 +3975,46 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.dockAIMedia = AIMediaPanel(self)
         self.addDockWidget(Qt.RightDockWidgetArea, self.dockAIMedia)
         self.dockAIMedia.setVisible(False)  # Hidden by default
+
+        # Setup Director Panel (must be before addViewDocksMenu)
+        try:
+            from windows.director_panel_ui import get_director_panel_dock
+            self.dockDirectorPanel = get_director_panel_dock(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.dockDirectorPanel)
+            self.dockDirectorPanel.setVisible(False)  # Hidden by default
+        except Exception as e:
+            log.error(f"Failed to initialize Director Panel: {e}", exc_info=True)
+
+        # Setup Plan Review Panel (must be before addViewDocksMenu)
+        try:
+            from windows.director_plan_review_ui import get_plan_review_dock
+            self.dockPlanReview = get_plan_review_dock(self)
+            self.addDockWidget(Qt.BottomDockWidgetArea, self.dockPlanReview)
+            self.dockPlanReview.setVisible(False)  # Hidden by default
+
+            # Connect plan approval/rejection handlers
+            self.dockPlanReview.plan_approved.connect(self.on_plan_approved)
+            self.dockPlanReview.plan_rejected.connect(self.on_plan_rejected)
+        except Exception as e:
+            log.error(f"Failed to initialize Plan Review: {e}", exc_info=True)
+
+        # Plan Graph dock (edit plan hierarchy)
+        try:
+            from classes.plan_graph import PlanGraphDock
+            self.plan_graph_dock = PlanGraphDock(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.plan_graph_dock)
+            self.plan_graph_dock.setVisible(False)
+        except Exception as e:
+            log.error(f"Failed to initialize Plan Graph: {e}", exc_info=True)
+
+        # Thinking dock (director communication window)
+        try:
+            from windows.thinking_dock import ThinkingDockWidget
+            self.thinking_dock = ThinkingDockWidget(self)
+            self.addDockWidget(Qt.RightDockWidgetArea, self.thinking_dock)
+            self.thinking_dock.setVisible(False)  # Hidden by default, shown when directors run
+        except Exception as e:
+            log.error(f"Failed to initialize Thinking Dock: {e}", exc_info=True)
 
         # Add Docks submenu to View menu
         self.addViewDocksMenu()
