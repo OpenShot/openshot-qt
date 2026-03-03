@@ -530,10 +530,11 @@ class AIChatWindow(QDockWidget):
         models = []
         try:
             client = get_backend_client()
-            api_models = client.list_models()
-            default_id = api_models.get("default_model_id", "")
-            for m in api_models.get("models", []):
-                models.append({"id": m["id"], "name": m["name"], "default": m["id"] == default_id})
+            api_models = client.list_models()  # returns List[{model_id, display_name}]
+            default_id = client.get_default_model_id()
+            for m in api_models:
+                mid = m.get("model_id", "")
+                models.append({"id": mid, "name": m.get("display_name", mid), "default": mid == default_id})
         except Exception:
             log.warning("Failed to fetch models from backend")
         self._run_js("setModels(%s);" % json.dumps(json.dumps(models)))

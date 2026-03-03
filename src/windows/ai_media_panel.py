@@ -58,7 +58,7 @@ class AIMediaPanel(QDockWidget):
         # Update timer
         self.update_timer = QTimer()
         self.update_timer.timeout.connect(self.update_analysis_status)
-        self.update_timer.start(2000)  # Update every 2 seconds
+        # Timer starts on-demand; only runs while analysis is active
         
         # Track selection changes for clip tag display
         self._wire_selection_signals()
@@ -349,6 +349,10 @@ class AIMediaPanel(QDockWidget):
                 list_item = QListWidgetItem(f"{filename} - {status_text}")
                 self.queue_list.addItem(list_item)
 
+            # Stop polling when nothing is active
+            if pending == 0 and processing == 0 and self.update_timer.isActive():
+                self.update_timer.stop()
+
         except Exception as e:
             log.error(f"Failed to update analysis status: {e}")
     
@@ -357,6 +361,9 @@ class AIMediaPanel(QDockWidget):
         try:
             client = get_backend_client()
             client.start_analysis()
+            # Start polling now that analysis is running
+            if not self.update_timer.isActive():
+                self.update_timer.start(2000)
             self.analysisComplete.emit()
             self.refresh_tags()
         except Exception as e:

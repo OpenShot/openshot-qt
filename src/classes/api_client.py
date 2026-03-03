@@ -329,7 +329,8 @@ class ZenviBackendClient:
     def generate_morph_video(self, first_image_url: str, last_image_url: str, **kwargs) -> Dict[str, Any]:
         """Generate a morph/transition video between two images."""
         try:
-            payload = {"first_image_url": first_image_url, "last_image_url": last_image_url}
+            # Backend schema uses start_image_url / end_image_url
+            payload = {"start_image_url": first_image_url, "end_image_url": last_image_url}
             payload.update(kwargs)
             r = self.session.post(f"{self.api_url}/generation/morph", json=payload, timeout=600)
             r.raise_for_status()
