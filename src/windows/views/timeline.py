@@ -3797,10 +3797,26 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         new_clip["file_id"] = file.id
         new_clip["title"] = file.data.get("name", filename)
-        new_clip["reader"] = file.data
 
-        # Skip clips that are missing a 'reader' attribute
-        if not new_clip.get("reader"):
+        # Keep the native reader produced by openshot.Clip(file_path).
+        # It was read directly from the actual file so its fps, duration,
+        # video_length etc. are guaranteed to be accurate.  Previously we
+        # replaced it with file.data which could carry stale or
+        # non-reader keys (ai_metadata, tags, name, id, sub-clip
+        # start/end) that bloat ApplyJsonDiff and — more critically —
+        # could contain an fps that disagrees with the real file,
+        # causing the FrameMapper to produce wrong frame mappings and
+        # a preview drift proportional to the clip's timeline position.
+        #
+        # We only inject ``media_type`` so that existing fallback checks
+        # (timeline.py, clip.py, clip.js) that read reader.media_type
+        # still work.
+        if isinstance(new_clip.get("reader"), dict):
+            media_type_val = (file.data or {}).get("media_type")
+            if media_type_val:
+                new_clip["reader"]["media_type"] = media_type_val
+        else:
+            # Fallback: reader missing from native clip (shouldn't happen)
             return  # Skip this clip
 
         # Determine start, duration, and end using file metadata

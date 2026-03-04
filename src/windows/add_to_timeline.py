@@ -216,12 +216,17 @@ class AddToTimeline(QDialog):
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
             new_clip["title"] = file.data.get("name", filename)
-            new_clip["reader"] = file.data
 
-            # Skip any clips that are missing a 'reader' attribute
-            # TODO: Determine why this even happens, as it shouldn't be possible
-            if not new_clip.get("reader"):
-                continue  # Skip to next file
+            # Keep the native reader produced by openshot.Clip(file_path).
+            # It was read directly from the actual file so its fps,
+            # duration, video_length etc. are guaranteed accurate.
+            # Inject media_type so existing fallback checks work.
+            if isinstance(new_clip.get("reader"), dict):
+                media_type_val = (file.data or {}).get("media_type")
+                if media_type_val:
+                    new_clip["reader"]["media_type"] = media_type_val
+            else:
+                continue  # Skip — reader missing from native clip
 
             # Check for optional start and end attributes
             start_time = 0

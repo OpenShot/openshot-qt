@@ -17,12 +17,13 @@ import json
 import os
 import subprocess
 import tempfile
+import threading
 import uuid as uuid_module
 
 from classes.logger import log
 
 try:
-    from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop, QPointF
+    from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop, QPointF, QTimer
 except ImportError:
     QObject = object
     QThread = None
@@ -30,6 +31,7 @@ except ImportError:
     pyqtSlot = lambda x: x
     QEventLoop = None
     QPointF = None
+    QTimer = None
 
 
 # ---------------------------------------------------------------------------
@@ -61,6 +63,48 @@ def _resume_player(was_playing):
             _get_app().window.preview_thread.player.Play()
     except Exception:
         pass
+
+
+def _run_on_main_thread(func, *args, timeout=30):
+    """Schedule *func(*args)* on the Qt main thread and block until it
+    finishes.  Returns the value returned by *func*.
+
+    Slice_Triggered (and other timeline-mutating code) relies on Qt signals
+    being delivered **synchronously** (direct connection) — specifically the
+    IgnoreUpdates signal that prevents partial UI refreshes mid-transaction.
+    When those signals are emitted from a background thread they become
+    **queued** connections and arrive too late, leading to stale cached
+    frames and visual glitches.  By routing the work through the main
+    thread's event loop we get the same behaviour as a manual keyboard /
+    mouse-driven slice.
+    """
+    if QTimer is None:
+        # Fallback: no Qt — just call directly (unit-test scenario)
+        return func(*args)
+
+    # If we are already on the main thread, run directly
+    app_thread = _get_app().thread()
+    if QThread.currentThread() is app_thread:
+        return func(*args)
+
+    result_box = [None]
+    error_box = [None]
+    done = threading.Event()
+
+    def _trampoline():
+        try:
+            result_box[0] = func(*args)
+        except Exception as exc:
+            error_box[0] = exc
+        finally:
+            done.set()
+
+    QTimer.singleShot(0, _trampoline)
+    done.wait(timeout=timeout)
+
+    if error_box[0] is not None:
+        raise error_box[0]
+    return result_box[0]
 
 
 def _get_selected_timeline_clip_and_window():
@@ -621,11 +665,11 @@ def add_clip_to_timeline(file_id="", position_seconds="", track="", **_kw) -> st
         else:
             pos = QPointF(pos_sec, 0.0)
 
-        was_playing = _pause_player()
-        try:
+        def _do_add():
             win.timeline.addClip(file_id, pos, track_num)
-        finally:
-            _resume_player(was_playing)
+
+        _run_on_main_thread(_do_add)
+
         _last_split_file_id = None
         return f"Added clip to timeline at position {pos_sec}s on track {track_num}."
     except Exception as e:
@@ -645,7 +689,14 @@ def slice_clip_at_playhead(**_kw) -> str:
         intersecting_trans = Transition.filter(intersect=playhead_position)
         if not intersecting_clips and not intersecting_trans:
             return "No clip or transition at the playhead."
-        win.slice_clips(MenuSlice.KEEP_BOTH)
+
+        # Run on the main thread so Qt signals (IgnoreUpdates etc.) are
+        # delivered synchronously — matching manual slice behaviour.
+        def _do_slice():
+            win.slice_clips(MenuSlice.KEEP_BOTH)
+
+        _run_on_main_thread(_do_slice)
+
         n = len(intersecting_clips) + len(intersecting_trans)
         return f"Sliced {n} item(s) at the playhead; both sides kept."
     except Exception as e:
@@ -757,7 +808,31 @@ def search_selected_clip_scenes(query="", top_k="5", use_openai_rerank="true", *
         return f"Error: {e}"
 
 
-def slice_selected_clip_at_best_match(query="", **_kw) -> str:
+_ORDINAL_MAP = {
+    "first": 1, "1st": 1, "one": 1,
+    "second": 2, "2nd": 2, "two": 2,
+    "third": 3, "3rd": 3, "three": 3,
+    "fourth": 4, "4th": 4, "four": 4,
+    "fifth": 5, "5th": 5, "five": 5,
+}
+
+
+def _parse_occurrence(occurrence_str: str, query: str) -> int:
+    """Return 1-based occurrence index (0 = best-score). Checks explicit param first, then query text."""
+    try:
+        n = int(float(str(occurrence_str).strip()))
+        if n > 0:
+            return n
+    except Exception:
+        pass
+    q_lower = (query or "").lower()
+    for word, n in _ORDINAL_MAP.items():
+        if word in q_lower.split():
+            return n
+    return 0
+
+
+def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
     try:
         from classes.api_client import get_backend_client
         clip_obj, win = _get_selected_timeline_clip_and_window()
@@ -794,7 +869,8 @@ def slice_selected_clip_at_best_match(query="", **_kw) -> str:
         if not items:
             return "No matches found."
 
-        best_mid, best_score = None, -1.0
+        # Collect all overlapping matches
+        matches = []
         for it in items:
             s = float(getattr(it, "start", 0.0) or 0.0)
             e = float(getattr(it, "end", 0.0) or 0.0)
@@ -802,17 +878,48 @@ def slice_selected_clip_at_best_match(query="", **_kw) -> str:
                 continue
             mid = (max(s, clip_start) + min(e, clip_end)) / 2.0
             score = float(getattr(it, "score", 0.0) or 0.0)
-            if score > best_score:
-                best_score = score
-                best_mid = mid
+            matches.append({"mid": mid, "score": score, "start": s})
 
-        if best_mid is None:
+        if not matches:
             return "No matches overlapped the clip window."
 
-        slice_pos = clip_pos + (best_mid - clip_start)
+        # Determine which match to use
+        nth = _parse_occurrence(occurrence, query)
+        if nth > 0:
+            # Sort chronologically and pick the Nth (1-based)
+            matches.sort(key=lambda x: x["start"])
+            idx = min(nth - 1, len(matches) - 1)
+            chosen = matches[idx]
+            ordinal_label = f"occurrence #{nth}"
+        else:
+            # Pick highest-scoring match
+            matches.sort(key=lambda x: x["score"], reverse=True)
+            chosen = matches[0]
+            ordinal_label = "best match"
+
+        slice_pos = clip_pos + (chosen["mid"] - clip_start)
+
+        log.info(
+            "slice_selected_clip_at_best_match: clip_id=%s clip_start=%.3f "
+            "clip_end=%.3f clip_pos=%.3f chosen_mid=%.3f → slice_pos=%.3f",
+            clip_obj.id, clip_start, clip_end, clip_pos, chosen["mid"], slice_pos,
+        )
+
         from windows.views.timeline import MenuSlice
-        _get_app().window.timeline.Slice_Triggered(MenuSlice.KEEP_BOTH, [str(clip_obj.id)], [], slice_pos)
-        return f"Sliced at {_fmt_mmss(best_mid - clip_start)} (best match)."
+        clip_id_str = str(clip_obj.id)
+
+        # Run Slice_Triggered on the Qt main thread so that IgnoreUpdates
+        # signals are delivered synchronously (direct connection) and the
+        # transaction is atomic from the UI's perspective — exactly as a
+        # manual razor / keyboard slice would be.
+        def _do_slice():
+            _get_app().window.timeline.Slice_Triggered(
+                MenuSlice.KEEP_BOTH, [clip_id_str], [], slice_pos
+            )
+
+        _run_on_main_thread(_do_slice)
+
+        return f"Sliced at {_fmt_mmss(chosen['mid'] - clip_start)} ({ordinal_label})."
     except Exception as e:
         return f"Error: {e}"
 
@@ -867,11 +974,7 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
         found = File.get(path=output_path) or File.get(path=os.path.normpath(output_path))
         if not found:
             return "Video generated and added to project files."
-        was_playing = _pause_player()
-        try:
-            msg = add_clip_to_timeline(file_id=found.id, position_seconds=position_seconds or "", track=track or "")
-        finally:
-            _resume_player(was_playing)
+        msg = add_clip_to_timeline(file_id=found.id, position_seconds=position_seconds or "", track=track or "")
         return msg
     except Exception as e:
         return f"Error: {e}"
