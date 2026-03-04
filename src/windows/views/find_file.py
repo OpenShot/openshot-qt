@@ -35,8 +35,53 @@ from PyQt5.QtWidgets import (
     QPushButton, QLabel
 )
 
+def _default_known_paths():
+    paths = [info.HOME_PATH]
+    for name in ("Downloads", "Pictures", "Videos", "Music", "Documents"):
+        candidate = os.path.join(info.HOME_PATH, name)
+        if os.path.isdir(candidate):
+            paths.append(candidate)
+    return paths
+
+
 # Keep track of all previously checked paths, and keep checking them
-known_paths = [info.HOME_PATH]
+known_paths = _default_known_paths()
+
+
+def _path_parts_lower(file_path):
+    normalized = (file_path or "").replace("\\", "/")
+    return [part.lower() for part in normalized.split("/") if part]
+
+
+def _candidate_paths(file_path):
+    """Return likely candidate absolute paths for a missing file."""
+    file_name = os.path.split(file_path)[-1]
+    if not file_name:
+        return []
+
+    candidates = []
+    seen = set()
+
+    def add(path):
+        if not path:
+            return
+        path = os.path.normpath(path)
+        if path not in seen:
+            seen.add(path)
+            candidates.append(path)
+
+    # Re-check file name in previously successful folders
+    for base in known_paths:
+        add(os.path.join(base, file_name))
+
+    # If path hints at a common home folder, check that exact folder first.
+    parts_lower = _path_parts_lower(file_path)
+    for folder in ("downloads", "pictures", "videos", "music", "documents"):
+        if folder in parts_lower:
+            add(os.path.join(info.HOME_PATH, folder.capitalize(), file_name))
+            add(os.path.join(info.HOME_PATH, folder, file_name))
+
+    return candidates
 
 
 def _relative_display_path(file_path, starting_dir):
@@ -157,6 +202,15 @@ def find_missing_file(file_path, prompt_state=None):
 
     # Original filename
     file_name = os.path.split(file_path)[-1]
+
+    # Heuristic repairs for common moved-project path patterns.
+    for candidate in _candidate_paths(file_path):
+        if os.path.exists(candidate):
+            modified = True
+            folder_to_check = os.path.dirname(candidate)
+            if folder_to_check and folder_to_check not in known_paths:
+                known_paths.append(folder_to_check)
+            return (candidate, modified, skipped)
 
     # Loop through all known paths, and check for this file
     for known_path in known_paths:
