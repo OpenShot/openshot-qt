@@ -33,22 +33,6 @@ from classes.logger import log
 from classes.app import get_app
 
 
-def _pause_player_directly(window):
-    """Pause the C++ player to stop background GetFrame calls.
-    Returns the player object and whether it was playing."""
-    try:
-        player = window.preview_thread.player
-        was_playing = player.Mode() == openshot.PLAYBACK_PLAY
-        if was_playing:
-            player.Pause()
-            # Brief sleep lets the C++ player/cache threads finish any
-            # in-progress GetFrame before we mutate the timeline.
-            time.sleep(0.02)
-        return player, was_playing
-    except Exception:
-        return None, False
-
-
 class TimelineSync(UpdateInterface):
     """ This class syncs changes from the timeline to libopenshot """
 
@@ -90,17 +74,7 @@ class TimelineSync(UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if action and len(action.key) >= 1 and action.key[0].lower() in [
-            "files",
-            "history",
-            "markers",
-            "layers",
-            "scale",
-            "profile",
-            "export_settings",
-            "export_overrides",
-            "settings",
-        ]:
+        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile", "export_settings", "export_overrides"]:
             return
 
         # Disable video caching temporarily
@@ -130,21 +104,8 @@ class TimelineSync(UpdateInterface):
                 self.window.refreshFrameSignal.emit()
 
             else:
-                # This JSON DIFF is passed to libopenshot to update the timeline.
-                # For structural changes (insert/delete clips) we pause the
-                # player to prevent its C++ threads from calling
-                # Timeline::GetFrame while ApplyJsonDiff mutates the clip list.
-                is_structural = action.type in ("insert", "delete")
-                player, was_playing = (None, False)
-                if is_structural:
-                    player, was_playing = _pause_player_directly(self.window)
-
-                log.info("TimelineSync.changed: about to call ApplyJsonDiff for action type=%s key=%s", action.type, action.key[0] if action.key else 'none')
+                # This JSON DIFF is passed to libopenshot to update the timeline
                 self.timeline.ApplyJsonDiff(action.json(is_array=True))
-                log.info("TimelineSync.changed: ApplyJsonDiff completed")
-
-                if was_playing and player:
-                    player.Play()
 
         except Exception as e:
             log.error("Error applying JSON to timeline object in libopenshot: %s. %s" %

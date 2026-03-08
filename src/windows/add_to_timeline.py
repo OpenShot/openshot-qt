@@ -203,30 +203,16 @@ class AddToTimeline(QDialog):
 
             # Append missing attributes to Clip JSON
             new_clip = json.loads(c.Json())
-
-            # Close and delete native Clip immediately to avoid overlapping
-            # FFmpegReaders on the same file (can cause SIGSEGV in libopenshot).
-            try:
-                c.Close()
-            except Exception:
-                pass
-            del c
-
             new_clip["position"] = position
             new_clip["layer"] = track_num
             new_clip["file_id"] = file.id
             new_clip["title"] = file.data.get("name", filename)
+            new_clip["reader"] = file.data
 
-            # Keep the native reader produced by openshot.Clip(file_path).
-            # It was read directly from the actual file so its fps,
-            # duration, video_length etc. are guaranteed accurate.
-            # Inject media_type so existing fallback checks work.
-            if isinstance(new_clip.get("reader"), dict):
-                media_type_val = (file.data or {}).get("media_type")
-                if media_type_val:
-                    new_clip["reader"]["media_type"] = media_type_val
-            else:
-                continue  # Skip — reader missing from native clip
+            # Skip any clips that are missing a 'reader' attribute
+            # TODO: Determine why this even happens, as it shouldn't be possible
+            if not new_clip.get("reader"):
+                continue  # Skip to next file
 
             # Check for optional start and end attributes
             start_time = 0

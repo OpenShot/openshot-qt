@@ -40,7 +40,11 @@ class ClipGeometryMixin:
         overrides_map = getattr(w, "_pending_clip_overrides", {})
         entries = []
         selected_ids = set(getattr(win, "selected_clips", []) or [])
-        for clip in Clip.filter():
+        all_clips = list(Clip.filter())
+        from classes.logger import log as _glog
+        _glog.info("DIAG _populate_clip_rects: %d clips in store, pps=%.3f",
+                   len(all_clips), getattr(w, "pixels_per_second", -1))
+        for clip in all_clips:
             clip_data = clip.data if isinstance(clip.data, dict) else {}
             override = overrides_map.get(clip.id, {})
 
@@ -83,6 +87,9 @@ class ClipGeometryMixin:
                 + offset
             )
             cw = (end - start) * w.pixels_per_second
+            from classes.logger import log as _glog
+            _glog.info("DIAG geometry: clip_id=%s pos=%.4f start=%.4f end=%.4f pps=%.2f cx=%.1f cw=%.1f",
+                       getattr(clip, "id", "?"), position, start, end, w.pixels_per_second, cx, cw)
             rect = QRectF(cx, cy, cw, w.vertical_factor)
             entries.append((rect.left(), rect, clip))
 

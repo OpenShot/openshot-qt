@@ -931,6 +931,7 @@ class TimelineWidgetBase(QWidget):
 
     def dragMoveEvent(self, event):
         event.accept()
+        log.debug("DIAG dragMoveEvent: _drag_preview_items=%d", len(self._drag_preview_items))
         payload = self._ensure_drag_payload_from_event(event)
 
         if payload and payload.get("type") in {"clip", "transition"}:
@@ -951,6 +952,8 @@ class TimelineWidgetBase(QWidget):
 
     def dropEvent(self, event):
         event.accept()
+        log.info("DIAG dropEvent: _drag_preview_items count=%d _drag_payload=%s",
+                 len(self._drag_preview_items), self._drag_payload)
 
         if self._drag_preview_items:
             self._finalize_drag_preview()
@@ -1032,6 +1035,7 @@ class TimelineWidgetBase(QWidget):
 
     def dragLeaveEvent(self, event):
         event.accept()
+        log.info("DIAG dragLeaveEvent: fired, _drag_preview_items count=%d", len(self._drag_preview_items))
         self._reset_drag_preview(delete_items=True)
 
     def _ensure_drag_payload_from_event(self, event):
@@ -1170,6 +1174,8 @@ class TimelineWidgetBase(QWidget):
                     continue
                 model = Clip.get(id=item.get("id"))
                 duration = max(0.0, float(item.get("end", 0.0)) - float(item.get("start", 0.0)))
+                log.info("DIAG _ensure_drag_preview: addClip returned id=%s, Clip.get found model.id=%s model=%s",
+                         item.get("id"), getattr(model, "id", None), model)
             if not model:
                 continue
             offset = current_start - pos_seconds
@@ -1233,6 +1239,10 @@ class TimelineWidgetBase(QWidget):
         return bbox
 
     def _reset_drag_preview(self, delete_items=False):
+        import traceback
+        caller = "".join(traceback.format_stack(limit=4)[-3:-1]).strip().replace("\n", " | ")
+        log.info("DIAG _reset_drag_preview: delete_items=%s items=%d caller: %s",
+                 delete_items, len(self._drag_preview_items), caller)
         deleted_any = False
         if delete_items and self._drag_preview_items:
             for entry in self._drag_preview_items:
@@ -1258,6 +1268,7 @@ class TimelineWidgetBase(QWidget):
 
     def _finalize_drag_preview(self):
         total = len(self._drag_preview_items)
+        log.info("DIAG _finalize_drag_preview: %d items to finalize", total)
         if not total:
             self._reset_drag_preview()
             return
@@ -1265,6 +1276,9 @@ class TimelineWidgetBase(QWidget):
             model = entry.get("model")
             if not model:
                 continue
+            log.info("DIAG _finalize_drag_preview: model.id=%s data.id=%s pos=%s start=%s end=%s",
+                     getattr(model, "id", None), model.data.get("id"),
+                     model.data.get("position"), model.data.get("start"), model.data.get("end"))
             ignore_refresh = idx < total - 1
             if isinstance(model, Transition):
                 self.update_transition_data(

@@ -1702,39 +1702,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def _clip_source_dimensions(self, clip, clip_object, frame_number, skip_effect_id=None):
         pixel_adjust = self.pixel_ratio.Reciprocal().ToDouble()
-        reader_data = None
-        try:
-            if isinstance(getattr(clip, "data", None), dict):
-                reader_data = clip.data.get("reader")
-        except Exception:
-            reader_data = None
-
-        width = None
-        height = None
-        if isinstance(reader_data, dict):
-            width = reader_data.get("width")
-            height = reader_data.get("height")
-
-        # Fallback: some clips can briefly be missing reader metadata (e.g., right after insertion).
-        if not width or not height:
-            try:
-                rd = json.loads(clip_object.Reader().Json())
-                width = width or rd.get("width")
-                height = height or rd.get("height")
-            except Exception:
-                pass
-
-        if not width or not height:
-            try:
-                project = get_app().project
-                width = width or project.get("width") or 1280
-                height = height or project.get("height") or 720
-            except Exception:
-                width = width or 1280
-                height = height or 720
-
-        width = float(width)
-        height = float(height) * pixel_adjust
+        width = float(clip.data['reader']['width'])
+        height = float(clip.data['reader']['height']) * pixel_adjust
 
         for eff in clip_object.Effects():
             if getattr(getattr(eff, 'info', None), 'class_name', '') != 'Crop':

@@ -28,7 +28,6 @@
 import os
 import functools
 import json
-from copy import deepcopy
 
 from PyQt5.QtCore import pyqtSignal, QTimer
 from PyQt5.QtWidgets import QDialog, QMessageBox, QSizePolicy, QSlider
@@ -39,8 +38,6 @@ from classes import info, ui_util, time_parts
 from classes.app import get_app
 from classes.logger import log
 from classes.metrics import track_metric_screen
-from classes.ai_metadata_utils import adjust_scene_descriptions_for_subclip
-from classes.query import File
 from windows.preview_thread import PreviewParent
 from windows.video_widget import VideoWidget
 
@@ -390,35 +387,24 @@ class Cutting(QDialog):
         """Add the selected clip to the project"""
         log.info('btnAddClip_clicked')
 
-        # Calculate new start and end times
-        new_start = self.previous_start + ((self.start_frame - 1) / self.fps)
-        new_end = self.previous_start + (self.end_frame / self.fps)
+        # Remove unneeded attributes
+        if 'name' in self.file.data:
+            self.file.data.pop('name')
 
-        # Build a NEW File entry (do not mutate the original file object)
-        new_file = File()
-        new_file.data = deepcopy(self.file.data)
-        new_file.data.pop('name', None)
-        new_file.id = None
-        new_file.key = None
-        new_file.type = 'insert'
-        new_file.data['start'] = new_start
-        new_file.data['end'] = new_end
-
-        # Handle ai_metadata translation for sub-clips (stored in source-media time)
-        if 'ai_metadata' in new_file.data and isinstance(new_file.data.get('ai_metadata'), dict):
-            new_file.data['ai_metadata'] = adjust_scene_descriptions_for_subclip(
-                new_file.data['ai_metadata'], new_start, new_end
-            )
-
+        # Save new file
+        self.file.id = None
+        self.file.key = None
+        self.file.type = 'insert'
+        self.file.data['start'] = self.previous_start + ((self.start_frame - 1) / self.fps)
+        self.file.data['end'] = self.previous_start + (self.end_frame / self.fps)
         if self.txtName.text():
-            new_file.data['name'] = self.txtName.text()
+            self.file.data['name'] = self.txtName.text()
         else:
             global_frame = round(self.previous_start * self.fps) + self.start_frame
             timestamp = self.frame_to_timestamp(global_frame)
             base = os.path.splitext(os.path.basename(self.file_path))[0]
-            new_file.data['name'] = f"{base} ({timestamp})"
-
-        new_file.save()
+            self.file.data['name'] = f"{base} ({timestamp})"
+        self.file.save()
 
         # Move to next frame
         self.sliderVideo.setValue(self.end_frame + 1)
@@ -430,48 +416,14 @@ class Cutting(QDialog):
         log.debug('closeEvent')
 
         # Stop playback
-        try:
-            get_app().updates.disconnect_listener(self.videoPreview)
-        except Exception:
-            pass
+        get_app().updates.disconnect_listener(self.videoPreview)
+        if self.videoPreview:
+            self.videoPreview.deleteLater()
+            self.videoPreview = None
         self.preview_parent.Stop()
 
-        # Close readers (order matters: close clip before timeline)
-        try:
-            self.clip.Close()
-        except Exception:
-            pass
-        try:
-            self.r.ClearAllCache()
-        except Exception:
-            pass
-        try:
-            self.r.Close()
-        except Exception:
-            pass
-
-        # Immediately destroy the video widget instead of deferring via
-        # deleteLater().  The native QtPlayer holds a raw pointer to this
-        # widget; a deferred deletion can fire during a later
-        # processEvents() call (e.g. during file import) and SIGSEGV when
-        # the native player or renderer tries to touch the freed widget.
-        # Using sip.delete() destroys the C++ QWidget right now, while we
-        # still control the order-of-destruction.
-        if self.videoPreview:
-            try:
-                import sip
-                self.videoPreview.hide()
-                self.verticalLayout.removeWidget(self.videoPreview)
-                sip.delete(self.videoPreview)
-            except Exception:
-                # Fallback: if sip.delete fails, at least hide and orphan it
-                try:
-                    self.videoPreview.setParent(None)
-                except Exception:
-                    pass
-            self.videoPreview = None
-
-        # Release references to native objects so they can be GC'd
-        self.clip = None
-        self.r = None
+        # Close readers
+        self.r.Close()
+        self.clip.Close()
+        self.r.ClearAllCache()
 

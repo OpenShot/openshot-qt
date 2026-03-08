@@ -32,7 +32,6 @@ import re
 import glob
 import functools
 import uuid
-import time
 
 from PyQt5.QtCore import (
     QMimeData, Qt, pyqtSignal, QEventLoop, QObject, QThread,
@@ -49,131 +48,54 @@ from classes.query import File
 from classes.logger import log
 from classes.app import get_app
 from classes.thumbnail import GetThumbPath
-from classes.tag_manager import get_tag_manager
 from classes.api_client import get_backend_client
 
 import openshot
 
 
-def _probe_video_with_ffprobe(filepath: str) -> dict | None:
-    """Build a libopenshot-compatible file_data dict using ffprobe.
+class BackendTaggingWorker(QThread):
+    """Background worker that calls the zenvi-backend tagging API."""
+    completed = pyqtSignal(dict, object, object)  # file_data, metadata, error
 
-    Returns None if ffprobe is unavailable or the file cannot be probed.
-    This is used for generated assets to avoid native crashes in libopenshot.
-    """
-    import subprocess
-    import shutil
+    def __init__(self, file_data, parent=None):
+        super().__init__(parent)
+        self.file_data = file_data
+        self._session = None  # requests.Session, stored so we can close() it to interrupt
 
-    if not shutil.which("ffprobe"):
-        return None
-    try:
-        cmd = [
-            "ffprobe", "-v", "quiet",
-            "-print_format", "json",
-            "-show_format", "-show_streams",
-            filepath,
-        ]
-        r = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=15, check=False,
-        )
-        if r.returncode != 0:
-            return None
-        probe = json.loads(r.stdout)
-    except Exception:
-        return None
-
-    fmt = probe.get("format", {})
-    streams = probe.get("streams", [])
-
-    video_stream = None
-    audio_stream = None
-    for s in streams:
-        codec_type = s.get("codec_type", "")
-        if codec_type == "video" and video_stream is None:
-            video_stream = s
-        elif codec_type == "audio" and audio_stream is None:
-            audio_stream = s
-
-    duration = 0.0
-    try:
-        duration = float(fmt.get("duration", 0))
-    except (ValueError, TypeError):
-        pass
-    if duration <= 0 and video_stream:
+    def run(self):
+        import os as _os
+        import requests
+        self._session = requests.Session()
+        client = get_backend_client()
+        metadata = client._empty_ai_metadata()
+        error = None
         try:
-            duration = float(video_stream.get("duration", 0))
-        except (ValueError, TypeError):
-            pass
+            if self.file_data.get("media_type") == "video":
+                file_path = self.file_data.get("path", "")
+                metadata = client.tag_video(file_path, session=self._session)
 
-    width = int(video_stream.get("width", 0)) if video_stream else 0
-    height = int(video_stream.get("height", 0)) if video_stream else 0
+                # Trigger async TwelveLabs indexing (fire-and-forget) if configured
+                if client.is_indexing_configured():
+                    try:
+                        filename = _os.path.basename(file_path)
+                        client.index_video(file_path, "zenvi-videos", filename=filename, async_mode=True)
+                    except Exception as idx_exc:
+                        log.warning(f"TwelveLabs indexing request failed: {idx_exc}")
+        except Exception as exc:
+            error = exc
+            log.error(f"Backend tagging worker failed: {exc}")
+        finally:
+            self._session = None
+        self.completed.emit(self.file_data, metadata, error)
 
-    # FPS
-    fps_num, fps_den = 30, 1
-    if video_stream:
-        r_frame_rate = video_stream.get("r_frame_rate", "30/1")
-        try:
-            parts = r_frame_rate.split("/")
-            fps_num = int(parts[0])
-            fps_den = int(parts[1]) if len(parts) > 1 else 1
-        except (ValueError, IndexError):
-            fps_num, fps_den = 30, 1
-
-    fps_float = float(fps_num) / float(fps_den) if fps_den else 30.0
-    video_length = max(1, round(duration * fps_float))
-
-    has_video = video_stream is not None
-    has_audio = audio_stream is not None
-
-    # Channel layout
-    channels = int(audio_stream.get("channels", 0)) if audio_stream else 0
-    channel_layout_map = {1: 4, 2: 3, 6: 7}  # mono, stereo, 5.1 → libopenshot enums
-    channel_layout = channel_layout_map.get(channels, 3) if channels else 0
-
-    # Pixel aspect ratio
-    par_str = (video_stream or {}).get("sample_aspect_ratio", "1:1")
-    try:
-        par_parts = par_str.split(":")
-        par_num = int(par_parts[0])
-        par_den = int(par_parts[1]) if len(par_parts) > 1 else 1
-    except (ValueError, IndexError):
-        par_num, par_den = 1, 1
-
-    # Display aspect ratio
-    dar_str = (video_stream or {}).get("display_aspect_ratio", "")
-    try:
-        dar_parts = dar_str.split(":")
-        dar_num = int(dar_parts[0])
-        dar_den = int(dar_parts[1]) if len(dar_parts) > 1 else 1
-    except (ValueError, IndexError):
-        dar_num = width * par_num if width else 16
-        dar_den = height * par_den if height else 9
-
-    # Construct a dict that mirrors what libopenshot's reader.Json() produces.
-    file_data = {
-        "path": filepath,
-        "duration": duration,
-        "width": width,
-        "height": height,
-        "fps": {"num": fps_num, "den": fps_den},
-        "video_length": video_length,
-        "video_timebase": {"num": fps_den, "den": fps_num},
-        "has_video": has_video,
-        "has_audio": has_audio,
-        "has_single_image": False,
-        "acodec": (audio_stream or {}).get("codec_name", ""),
-        "vcodec": (video_stream or {}).get("codec_name", ""),
-        "channels": channels,
-        "channel_layout": channel_layout,
-        "sample_rate": int(float((audio_stream or {}).get("sample_rate", 0) or 0)),
-        "audio_bit_rate": int(float((audio_stream or {}).get("bit_rate", 0) or 0)),
-        "pixel_ratio": {"num": par_num, "den": par_den},
-        "display_ratio": {"num": dar_num, "den": dar_den},
-        "interlaced_frame": False,
-        "top_field_first": True,
-        "type": "FFmpegReader",
-    }
-    return file_data
+    def interrupt(self):
+        """Close the active HTTP session to unblock any pending request."""
+        s = self._session
+        if s is not None:
+            try:
+                s.close()
+            except Exception:
+                pass
 
 
 class FileFilterProxyModel(QSortFilterProxyModel):
@@ -234,29 +156,6 @@ class FileFilterProxyModel(QSortFilterProxyModel):
 
         # Call base class implementation
         super().__init__(**kwargs)
-
-
-class BackendTaggingWorker(QThread):
-    """Background worker that tags a video file via the zenvi-backend API."""
-
-    completed = pyqtSignal(dict, dict, object)
-
-    def __init__(self, file_data, parent=None):
-        super().__init__(parent)
-        self.file_data = file_data
-
-    def run(self):
-        client = get_backend_client()
-        metadata = client._empty_ai_metadata()
-        error = None
-        try:
-            if self.file_data.get("media_type") == "video":
-                metadata = client.tag_video(self.file_data.get("path"))
-        except Exception as exc:
-            error = exc
-            log.error(f"Backend tagging worker failed: {exc}")
-
-        self.completed.emit(self.file_data, metadata, error)
 
 
 class FilesModel(QObject, updates.UpdateInterface):
@@ -353,14 +252,11 @@ class FilesModel(QObject, updates.UpdateInterface):
                 # Check for start and end attributes (optional)
                 thumbnail_frame = 1
                 if 'start' in file.data:
-                    fps = file.data.get("fps") or {}
-                    try:
-                        fps_float = float(fps.get("num", 30)) / float(fps.get("den", 1))
-                    except (ZeroDivisionError, TypeError, ValueError):
-                        fps_float = 30.0
+                    fps = file.data["fps"]
+                    fps_float = float(fps["num"]) / float(fps["den"])
                     thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
-                # Get thumb path (calls HTTP thumbnail server → libopenshot)
+                # Get thumb path
                 thumb_icon = QIcon(GetThumbPath(file.id, thumbnail_frame))
             else:
                 # Audio file
@@ -419,61 +315,63 @@ class FilesModel(QObject, updates.UpdateInterface):
         # Emit signal when model is updated
         self.ModelRefreshed.emit()
 
-    def _tag_file_with_gemini(self, file_data):
-        """Run AI tagging via the backend, off the UI thread, and wait for completion."""
-        client = get_backend_client()
-        loop = QEventLoop()
-        result = {
-            "metadata": client._empty_ai_metadata(),
-            "error": None,
-        }
-
-        worker = BackendTaggingWorker(dict(file_data))
-
-        def _on_complete(_file_data, metadata, error):
-            result["metadata"] = metadata or client._empty_ai_metadata()
-            result["error"] = error
-            loop.quit()
-
-        worker.completed.connect(_on_complete)
-        worker.start()
-        loop.exec_()
-        worker.wait()
-
-        if result["error"]:
-            log.warning(f"Gemini tagging returned an error: {result['error']}")
-
-        return result["metadata"]
+    def _stop_active_taggers(self):
+        """Called at app quit — interrupt any pending HTTP requests, then wait briefly."""
+        for worker in list(self._active_taggers):
+            try:
+                worker.interrupt()  # close session to unblock requests.post()
+                worker.quit()
+                worker.wait(3000)
+            except Exception:
+                pass
+        self._active_taggers.clear()
 
     def _apply_ai_metadata(self, file_obj, ai_metadata):
-        """Attach AI metadata to file and sync tag manager."""
-        if not ai_metadata:
+        """Attach AI metadata to a file object (does not save)."""
+        if not ai_metadata or not isinstance(ai_metadata, dict):
             return
-
         file_obj.data["ai_metadata"] = ai_metadata
-
-        # Populate human-readable tags column with a short summary if empty
-        # (legacy UI column name is still "Tags" but we now prefer scene descriptions)
         tags = ai_metadata.get("tags", {}) if isinstance(ai_metadata, dict) else {}
         top_objects = tags.get("objects", []) if isinstance(tags, dict) else []
         if top_objects and not file_obj.data.get("tags"):
             file_obj.data["tags"] = ", ".join(top_objects[:5])
 
-        # If the new scene_descriptions exists, prefer showing the first one
-        if not file_obj.data.get("tags"):
-            scenes = ai_metadata.get("scene_descriptions", []) if isinstance(ai_metadata, dict) else []
-            if isinstance(scenes, list) and scenes:
-                first = scenes[0] if isinstance(scenes[0], dict) else None
-                if first:
-                    desc = (first.get("description") or "").strip()
-                    if desc:
-                        file_obj.data["tags"] = desc[:120]
+    def _tag_file_async(self, file_id):
+        """Fire-and-forget background AI tagging for an already-saved file."""
+        from classes.query import File as _File
+        file_obj = _File.get(id=file_id)
+        if not file_obj or not isinstance(file_obj.data, dict):
+            return
+        if file_obj.data.get("media_type") != "video":
+            return
 
-        # Sync tag cache for the new file
-        try:
-            get_tag_manager().update_file_tags(file_obj.id, ai_metadata)
-        except Exception as exc:
-            log.warning(f"Failed to update tag cache for {file_obj.id}: {exc}")
+        worker = BackendTaggingWorker(dict(file_obj.data))
+        self._active_taggers.append(worker)
+
+        def _on_finished():
+            try:
+                self._active_taggers.remove(worker)
+            except ValueError:
+                pass
+
+        def _on_complete(_file_data, metadata, error):
+            try:
+                if error:
+                    log.warning(f"Background tagging failed for {file_id}: {error}")
+                    return
+                if not metadata or not isinstance(metadata, dict):
+                    return
+                f = _File.get(id=file_id)
+                if not f:
+                    return
+                self._apply_ai_metadata(f, metadata)
+                f.save()
+            except Exception as exc:
+                log.warning(f"Failed to apply background tagging result: {exc}")
+
+        worker.completed.connect(_on_complete)
+        worker.finished.connect(_on_finished)
+        worker.start()
 
     def add_files(self, files, image_seq_details=None, quiet=False,
                   prevent_image_seq=False, prevent_recent_folder=False,
@@ -489,23 +387,6 @@ class FilesModel(QObject, updates.UpdateInterface):
         scroll_to_files = []
 
         start_count = len(files)
-
-        # Flush any pending Qt deferred deletions (safety net: the Cutting
-        # dialog now uses sip.delete, but other dialogs may still use
-        # deleteLater).  We send DeferredDelete events explicitly so they
-        # fire NOW, not in the middle of our import loop.
-        # SKIP when called from an AI tool (skip_tagging=True) because we are
-        # already inside a BlockingQueuedConnection callback and processing
-        # deferred deletes here causes re-entrancy → SIGSEGV.
-        if not skip_tagging:
-            try:
-                from PyQt5.QtCore import QEvent
-                app = get_app()
-                app.sendPostedEvents(None, QEvent.DeferredDelete)
-                app.processEvents()
-            except Exception:
-                pass
-
         for count, filepath in enumerate(files):
             (dir_path, filename) = os.path.split(filepath)
 
@@ -520,23 +401,12 @@ class FilesModel(QObject, updates.UpdateInterface):
                 continue
 
             try:
-                # Load filepath in libopenshot clip object (native reader)
+                # Load filepath in libopenshot clip object (which will try multiple readers to open it)
                 clip = openshot.Clip(filepath)
-                try:
-                    # Get the JSON for the clip's internal reader
-                    reader = clip.Reader()
-                    file_data = json.loads(reader.Json())
-                finally:
-                    # Be explicit: avoid relying on GC to clean up native objects.
-                    try:
-                        reader.Close()
-                    except Exception:
-                        pass
-                    try:
-                        clip.Close()
-                    except Exception:
-                        pass
-                    del clip
+
+                # Get the JSON for the clip's internal reader
+                reader = clip.Reader()
+                file_data = json.loads(reader.Json())
 
                 # Determine media type
                 file_data["media_type"] = get_media_type(file_data)
@@ -563,16 +433,8 @@ class FilesModel(QObject, updates.UpdateInterface):
 
                     # Load image sequence (to determine duration and video_length)
                     clip = openshot.Clip(new_path)
-                    try:
-                        new_file.data = json.loads(clip.Reader().Json())
-                        duration_ok = bool(clip and clip.info.duration > 0.0)
-                    finally:
-                        try:
-                            clip.Close()
-                        except Exception:
-                            pass
-                        del clip
-                    if duration_ok:
+                    new_file.data = json.loads(clip.Reader().Json())
+                    if clip and clip.info.duration > 0.0:
                         # Update file details
                         new_file.data["media_type"] = "video"
                         duration = new_file.data["duration"]
@@ -613,50 +475,16 @@ class FilesModel(QObject, updates.UpdateInterface):
                     # Log our not-an-image-sequence import
                     log.info("Imported media file {}".format(filepath))
 
-                # AI tagging (Gemini) before exposing clip to UI.
-                # Skip when called from an AI tool (skip_tagging=True) because
-                # the nested QEventLoop in _tag_file_with_gemini causes
-                # re-entrancy inside a BlockingQueuedConnection callback → SIGSEGV.
-                ai_metadata = get_backend_client()._empty_ai_metadata()
-                if new_file.data.get("media_type") == "video" and not skip_tagging:
-                    app.window.statusBar.showMessage(
-                        _("Processing tags for %(name)s ...") % {"name": filename},
-                        0
-                    )
-                    ai_metadata = self._tag_file_with_gemini(new_file.data)
-
-                new_file.data["ai_metadata"] = ai_metadata
-
-                # Save file after tagging completes so the UI only sees tagged clips
-                log.info("add_files: about to save new file to project: %s", filepath)
+                # Save file
                 new_file.save()
-                log.info("add_files: file saved, applying ai metadata")
                 scroll_to_files.append(new_file)
-                self._apply_ai_metadata(new_file, ai_metadata)
-                log.info("add_files: ai metadata applied")
 
-                # Automatic TwelveLabs indexing (runs in background; does not block UI)
-                # Skip when importing from an AI tool to avoid re-entrancy.
-                if not skip_tagging:
+                # Kick off background AI tagging (non-blocking, fire-and-forget)
+                if not skip_tagging and new_file.data.get("media_type") == "video":
                     try:
-                        if new_file.data.get("media_type") == "video" and get_backend_client().is_indexing_configured():
-                            self._queue_twelvelabs_indexing(new_file)
+                        self._tag_file_async(new_file.id)
                     except Exception as e:
-                        log.debug(f"Failed to queue TwelveLabs indexing: {e}")
-
-                # Should we auto-analyze this file with the legacy queue?
-                if not skip_tagging:
-                    try:
-                        s = get_app().get_settings()
-                        if s.get('ai-enabled') and s.get('ai-auto-analyze') and not ai_metadata.get('analyzed'):
-                            client = get_backend_client()
-                            client.queue_file_for_analysis(
-                                new_file.id,
-                                new_file.absolute_path(),
-                                new_file.data.get('media_type', 'video')
-                            )
-                    except Exception as e:
-                        log.warning(f"Failed to queue file for AI analysis: {e}")
+                        log.warning(f"Failed to start background tagging: {e}")
 
                 if start_count > 15:
                     message = _("Importing %(count)d / %(total)d") % {
@@ -665,10 +493,8 @@ class FilesModel(QObject, updates.UpdateInterface):
                             }
                     app.window.statusBar.showMessage(message, 15000)
 
-                # Let the event loop run to update the status bar.
-                # Skip when importing from an AI tool to avoid re-entrancy.
-                if not skip_tagging:
-                    get_app().processEvents()
+                # Let the event loop run to update the status bar
+                get_app().processEvents()
                 # Update the recent import path
                 if not prevent_recent_folder:
                     settings.setDefaultPath(settings.actionType.IMPORT, dir_path)
@@ -806,73 +632,51 @@ class FilesModel(QObject, updates.UpdateInterface):
 
     def update_file_thumbnail(self, file_id):
         """Update/re-generate the thumbnail of a specific file"""
-        try:
-            file_id = str(file_id) if file_id is not None else ""
-            file = File.get(id=file_id) if file_id else None
-            if not file or not getattr(file, "data", None):
-                # File can be deleted/cleaned up before the UI refresh runs.
-                log.debug("update_file_thumbnail: file not found for id=%s", file_id)
+        file = File.get(id=file_id)
+        path, filename = os.path.split(file.data["path"])
+        name = file.data.get("name", filename)
+
+        fps = file.data["fps"]
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        # Refresh thumbnail for updated file
+        self.ignore_updates = True
+        m = self.model
+
+        if file_id in self.model_ids:
+            # Look up stored index to ID column
+            id_index = self.model_ids[file_id]
+            if not id_index.isValid():
                 return
 
-            file_path = file.data.get("path")
-            if not file_path:
-                log.debug("update_file_thumbnail: missing path for id=%s", file_id)
-                return
+            # Generate thumbnail for file (if needed)
+            if file.data.get("media_type") in ["video", "image"]:
+                # Check for start and end attributes (optional)
+                thumbnail_frame = 1
+                if 'start' in file.data:
+                    thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
 
-            path, filename = os.path.split(file_path)
-            name = file.data.get("name", filename)
+                # Get thumb path
+                thumb_icon = QIcon(GetThumbPath(file.id, thumbnail_frame, clear_cache=True))
+            else:
+                # Audio file
+                thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
 
-            fps = file.data.get("fps") or {}
-            try:
-                fps_float = float(fps.get("num", 0.0)) / float(fps.get("den", 1.0))
-                if fps_float <= 0:
-                    fps_float = 30.0
-            except Exception:
-                fps_float = 30.0
+            # Update thumb for file
+            thumb_index = id_index.sibling(id_index.row(), 0)
+            item = m.itemFromIndex(thumb_index)
+            item.setIcon(thumb_icon)
+            item.setText(name)
 
-            # Refresh thumbnail for updated file
-            self.ignore_updates = True
-            m = self.model
+            # Update display name
+            text_index = id_index.sibling(id_index.row(), 1)
+            item = m.itemFromIndex(text_index)
+            item.setText(name)
 
-            if file_id in self.model_ids:
-                # Look up stored index to ID column
-                id_index = self.model_ids[file_id]
-                if not id_index.isValid():
-                    return
+            # Emit signal when model is updated
+            self.ModelRefreshed.emit()
 
-                # Generate thumbnail for file (if needed)
-                if file.data.get("media_type") in ["video", "image"]:
-                    # Check for start and end attributes (optional)
-                    thumbnail_frame = 1
-                    if 'start' in file.data:
-                        thumbnail_frame = round(float(file.data['start']) * fps_float) + 1
-
-                    # Get thumb path
-                    thumb_icon = QIcon(GetThumbPath(file.id, thumbnail_frame, clear_cache=True))
-                else:
-                    # Audio file
-                    thumb_icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
-
-                # Update thumb for file
-                thumb_index = id_index.sibling(id_index.row(), 0)
-                item = m.itemFromIndex(thumb_index)
-                if item is not None:
-                    item.setIcon(thumb_icon)
-                    item.setText(name)
-
-                # Update display name
-                text_index = id_index.sibling(id_index.row(), 1)
-                item = m.itemFromIndex(text_index)
-                if item is not None:
-                    item.setText(name)
-
-                # Emit signal when model is updated
-                self.ModelRefreshed.emit()
-        except Exception:
-            # Never let UI signal handlers raise; it can destabilize Qt / crash.
-            log.warning("update_file_thumbnail failed for file_id=%s", file_id, exc_info=1)
-        finally:
-            self.ignore_updates = False
+        self.ignore_updates = False
 
     def selected_file_ids(self):
         """ Get a list of file IDs for all selected files """
@@ -930,6 +734,13 @@ class FilesModel(QObject, updates.UpdateInterface):
         self.model_ids = {}
         self.ignore_updates = False
         self.ignore_image_sequence_paths = []
+        self._active_taggers = []  # strong refs to keep QThreads alive until finished
+
+        # Stop any running tagging threads cleanly when the app quits
+        try:
+            get_app().aboutToQuit.connect(self._stop_active_taggers)
+        except Exception:
+            pass
 
         # Create proxy model (for sorting and filtering)
         self.proxy_model = FileFilterProxyModel(parent=self)
@@ -950,210 +761,8 @@ class FilesModel(QObject, updates.UpdateInterface):
         app.window.refreshFilesSignal.connect(
             functools.partial(self.update_model, clear=False))
 
-        # Listen for background task completion (used for TwelveLabs indexing)
-        try:
-            if hasattr(app, "task_queue") and hasattr(app.task_queue, "task_finished"):
-                app.task_queue.task_finished.connect(self._on_task_queue_finished)
-        except Exception:
-            pass
-
         # Call init for superclass QObject
         super(QObject, FilesModel).__init__(self, *args)
-
-    def _queue_twelvelabs_indexing(self, file_obj: File) -> None:
-        """Queue TwelveLabs indexing via the backend API. Must be called on the main thread."""
-        try:
-            app = get_app()
-            client = get_backend_client()
-            file_id = str(file_obj.id)
-            abs_path = file_obj.absolute_path()
-            filename = os.path.basename(abs_path or file_obj.data.get("path") or "")
-
-            # File signature used for dedupe/invalidation when paths are re-used.
-            sig = None
-            try:
-                if abs_path and os.path.exists(abs_path):
-                    sig = {
-                        "size": int(os.path.getsize(abs_path)),
-                        "mtime": float(os.path.getmtime(abs_path)),
-                    }
-            except Exception:
-                sig = None
-
-            # Project-wide TwelveLabs index config
-            project_id = str(app.project.get("id") or "") if getattr(app, "project", None) else ""
-            project_index_name = f"zenvi_{project_id or 'project'}"
-            proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
-            proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
-            proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
-            project_index_id = proj_tw.get("index_id") if isinstance(proj_tw, dict) else None
-            video_by_path = proj_tw.get("video_by_path") if isinstance(proj_tw.get("video_by_path"), dict) else {}
-
-            # Dedupe: reuse existing indexed video when file hasn't changed
-            existing_entry = video_by_path.get(abs_path) if abs_path and isinstance(video_by_path, dict) else None
-            existing_video_id = None
-            existing_sig = None
-            if isinstance(existing_entry, dict):
-                existing_video_id = existing_entry.get("video_id")
-                existing_sig = existing_entry.get("sig")
-            elif isinstance(existing_entry, str):
-                existing_video_id = existing_entry
-
-            if abs_path and existing_video_id and project_index_id:
-                if sig is not None and existing_sig is not None and isinstance(existing_sig, dict) and existing_sig == sig:
-                    ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
-                    if not isinstance(ai_metadata, dict):
-                        ai_metadata = {}
-                    ai_metadata["twelvelabs"] = {
-                        "status": "ready",
-                        "index_name": project_index_name,
-                        "index_id": project_index_id,
-                        "video_id": existing_video_id,
-                        "filename": filename,
-                        "updated_at": time.time(),
-                    }
-                    file_obj.data["ai_metadata"] = ai_metadata
-                    file_obj.save()
-                    try:
-                        app.window.FileUpdated.emit(file_id)
-                    except Exception:
-                        pass
-                    return
-
-                # Signature mismatch: delete old video via backend, then re-index.
-                try:
-                    client.delete_indexed_video(index_id=str(project_index_id), video_id=str(existing_video_id))
-                except Exception:
-                    pass
-
-                if sig is None or existing_sig is None:
-                    ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
-                    if not isinstance(ai_metadata, dict):
-                        ai_metadata = {}
-                    ai_metadata["twelvelabs"] = {
-                        "status": "ready",
-                        "index_name": project_index_name,
-                        "index_id": project_index_id,
-                        "video_id": existing_video_id,
-                        "filename": filename,
-                        "updated_at": time.time(),
-                    }
-                    file_obj.data["ai_metadata"] = ai_metadata
-                    file_obj.save()
-                    try:
-                        app.window.FileUpdated.emit(file_id)
-                    except Exception:
-                        pass
-                    return
-
-            ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
-            if not isinstance(ai_metadata, dict):
-                ai_metadata = {}
-
-            tw = ai_metadata.get("twelvelabs")
-            if isinstance(tw, dict) and tw.get("status") in ("ready", "indexing", "queued"):
-                return
-
-            # Mark as queued and persist
-            index_name = project_index_name
-            ai_metadata["twelvelabs"] = {
-                "status": "queued",
-                "index_name": index_name,
-                "index_id": project_index_id,
-                "filename": filename,
-                "updated_at": time.time(),
-            }
-            file_obj.data["ai_metadata"] = ai_metadata
-            file_obj.save()
-            try:
-                app.window.FileUpdated.emit(file_id)
-            except Exception:
-                pass
-
-            # Submit to task queue — the callable now calls the backend API
-            task_id = f"twelvelabs_index:{file_id}"
-            app.task_queue.submit(
-                "twelvelabs",
-                task_id,
-                client.index_video_for_search,
-                file_path=abs_path,
-                index_name=index_name,
-                filename=filename,
-                existing_index_id=project_index_id,
-            )
-        except Exception as e:
-            log.debug(f"_queue_twelvelabs_indexing failed: {e}")
-
-    def _on_task_queue_finished(self, task_id: str, result: object, error: object) -> None:
-        """Persist background task results back into project data."""
-        try:
-            if not isinstance(task_id, str) or not task_id.startswith("twelvelabs_index:"):
-                return
-
-            file_id = task_id.split(":", 1)[1]
-            file_obj = File.get(id=file_id)
-            if not file_obj:
-                return
-
-            ai_metadata = file_obj.data.get("ai_metadata") if isinstance(file_obj.data, dict) else None
-            if not isinstance(ai_metadata, dict):
-                ai_metadata = {}
-
-            if error is not None:
-                # Preserve any existing ids; just mark failed
-                tw = ai_metadata.get("twelvelabs") if isinstance(ai_metadata.get("twelvelabs"), dict) else {}
-                tw = dict(tw) if isinstance(tw, dict) else {}
-                tw.update({
-                    "status": "failed",
-                    "error": str(error),
-                    "updated_at": time.time(),
-                })
-                ai_metadata["twelvelabs"] = tw
-            elif isinstance(result, dict):
-                # result is already a twelvelabs metadata dict
-                ai_metadata["twelvelabs"] = result
-
-                # Persist/merge project-wide TwelveLabs settings (index_id + dedupe cache)
-                try:
-                    app = get_app()
-                    tw = result
-                    idx_id = tw.get("index_id") if isinstance(tw, dict) else None
-                    vid_id = tw.get("video_id") if isinstance(tw, dict) else None
-                    abs_path = file_obj.absolute_path()
-                    if idx_id:
-                        proj_settings = app.project.get("settings") if getattr(app, "project", None) else {}
-                        proj_settings = proj_settings if isinstance(proj_settings, dict) else {}
-                        proj_tw = proj_settings.get("ai_twelvelabs") if isinstance(proj_settings.get("ai_twelvelabs"), dict) else {}
-                        proj_tw = dict(proj_tw) if isinstance(proj_tw, dict) else {}
-                        proj_tw.setdefault("index_id", idx_id)
-                        if abs_path and vid_id:
-                            vbp = proj_tw.get("video_by_path") if isinstance(proj_tw.get("video_by_path"), dict) else {}
-                            vbp = dict(vbp) if isinstance(vbp, dict) else {}
-                            # Store signature so we can invalidate if the file content changes at the same path.
-                            sig = None
-                            try:
-                                if abs_path and os.path.exists(abs_path):
-                                    sig = {
-                                        "size": int(os.path.getsize(abs_path)),
-                                        "mtime": float(os.path.getmtime(abs_path)),
-                                    }
-                            except Exception:
-                                sig = None
-                            vbp[abs_path] = {"video_id": vid_id, "sig": sig}
-                            proj_tw["video_by_path"] = vbp
-                        app.updates.update_untracked(["settings"], {"ai_twelvelabs": proj_tw})
-                except Exception:
-                    pass
-
-            file_obj.data["ai_metadata"] = ai_metadata
-            file_obj.save()
-            try:
-                get_app().window.FileUpdated.emit(file_id)
-            except Exception:
-                pass
-
-        except Exception as e:
-            log.debug(f"Failed handling task completion: {e}")
 
         # Attempt to load model testing interface, if requested
         # (will only succeed with Qt 5.11+)

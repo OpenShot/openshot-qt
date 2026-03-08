@@ -229,38 +229,15 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         """Recover the backup file (if any)"""
         log.info("recover_backup")
 
-        # Disabled automatic backup recovery - user can manually open backup if needed
-        return
-
-        # Check for backup file (backup.zvn)
-        if os.path.exists(info.BACKUP_FILE):
-            # Load recovery project
-            log.info("Recovering backup file: %s" % info.BACKUP_FILE)
-            self.open_project(info.BACKUP_FILE, clear_thumbnails=False)
-
-            # Clear the file_path (which is set by saving the project)
-            project = get_app().project
-            project.current_filepath = None
-            project.has_unsaved_changes = True
-
-            # Set Window title
-            self.SetWindowTitle()
-
-            # Show message to user
-            msg = QMessageBox()
-            _ = get_app()._tr
-            msg.setWindowTitle(_("Backup Recovered"))
-            msg.setText(_("Your most recent unsaved project has been recovered."))
-            msg.exec_()
-
-        else:
-            # No backup project found
-            # Load a blank project (to propagate the default settings)
-            get_app().project.load("")
-            self.actionUndo.setEnabled(False)
-            self.actionRedo.setEnabled(False)
-            self.actionClearHistory.setEnabled(False)
-            self.SetWindowTitle()
+        # Automatic backup recovery is disabled - user can manually open backup if needed.
+        # Always load a blank project to initialize the JS timeline with proper project data
+        # (layers, fps, etc.). Without this, the JS uses hardcoded defaults (layers 0-4)
+        # that don't match the Python project state (layers 1000000-5000000).
+        get_app().project.load("")
+        self.actionUndo.setEnabled(False)
+        self.actionRedo.setEnabled(False)
+        self.actionClearHistory.setEnabled(False)
+        self.SetWindowTitle()
 
     def create_lock_file(self):
         """Create a lock file"""
