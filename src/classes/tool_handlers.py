@@ -23,7 +23,10 @@ import uuid as uuid_module
 from classes.logger import log
 
 try:
-    from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot, QEventLoop, QPointF, QTimer
+    from PyQt5.QtCore import (
+        QObject, QThread, pyqtSignal, pyqtSlot,
+        QEventLoop, QPointF, QTimer,
+    )
 except ImportError:
     QObject = object
     QThread = None
@@ -32,6 +35,63 @@ except ImportError:
     QEventLoop = None
     QPointF = None
     QTimer = None
+
+try:
+    from PyQt5.QtWidgets import QApplication
+except ImportError:
+    QApplication = None
+
+
+# ---------------------------------------------------------------------------
+# Main-thread dispatcher (signal-based)
+# ---------------------------------------------------------------------------
+# QTimer.singleShot(0, fn) called from a *background* thread creates the
+# timer on that thread's event loop — if the thread is blocked (as the AI-
+# chat WebSocket loop is), the callback never fires and the caller times
+# out.  Instead we use a QObject that lives on the main thread and deliver
+# the callable via a cross-thread signal which Qt routes through the main
+# event loop.
+
+class _MainThreadDispatcher(QObject):
+    """Singleton helper that runs callables on the Qt main (GUI) thread."""
+
+    _dispatch = pyqtSignal(object)
+
+    def __init__(self):
+        super().__init__()
+        self._dispatch.connect(self._on_dispatch)
+
+    @pyqtSlot(object)
+    def _on_dispatch(self, payload):
+        func, args, result_box, error_box, done = payload
+        try:
+            result_box[0] = func(*args)
+        except Exception as exc:
+            error_box[0] = exc
+        finally:
+            done.set()
+
+
+_dispatcher = None
+_dispatcher_lock = threading.Lock()
+
+
+def _get_dispatcher():
+    """Return (and lazily create) the singleton main-thread dispatcher."""
+    global _dispatcher
+    if _dispatcher is not None:
+        return _dispatcher
+    with _dispatcher_lock:
+        if _dispatcher is not None:
+            return _dispatcher
+        d = _MainThreadDispatcher()
+        # Ensure the dispatcher lives on the main thread so that signals
+        # emitted from background threads are delivered via QueuedConnection.
+        app = QApplication.instance() if QApplication is not None else None
+        if app is not None:
+            d.moveToThread(app.thread())
+        _dispatcher = d
+        return d
 
 
 # ---------------------------------------------------------------------------
@@ -78,29 +138,26 @@ def _run_on_main_thread(func, *args, timeout=30):
     thread's event loop we get the same behaviour as a manual keyboard /
     mouse-driven slice.
     """
-    if QTimer is None:
+    if QThread is None:
         # Fallback: no Qt — just call directly (unit-test scenario)
         return func(*args)
 
     # If we are already on the main thread, run directly
-    app_thread = _get_app().thread()
-    if QThread.currentThread() is app_thread:
+    app = _get_app()
+    if QThread.currentThread() is app.thread():
         return func(*args)
 
     result_box = [None]
     error_box = [None]
     done = threading.Event()
 
-    def _trampoline():
-        try:
-            result_box[0] = func(*args)
-        except Exception as exc:
-            error_box[0] = exc
-        finally:
-            done.set()
+    dispatcher = _get_dispatcher()
+    dispatcher._dispatch.emit((func, args, result_box, error_box, done))
 
-    QTimer.singleShot(0, _trampoline)
-    done.wait(timeout=timeout)
+    if not done.wait(timeout=timeout):
+        raise TimeoutError(
+            f"Main-thread operation did not complete within {timeout}s"
+        )
 
     if error_box[0] is not None:
         raise error_box[0]
@@ -678,27 +735,30 @@ def add_clip_to_timeline(file_id="", position_seconds="", track="", **_kw) -> st
 
 def slice_clip_at_playhead(**_kw) -> str:
     try:
-        from classes.query import Clip, Transition
         from windows.views.timeline_backend.enums import MenuSlice
-        app = _get_app()
-        win = app.window
-        fps = app.project.get("fps") or {}
-        fps_float = float(fps.get("num", 30)) / float(fps.get("den", 1) or 1)
-        playhead_position = float(win.preview_thread.current_frame - 1) / fps_float
-        intersecting_clips = Clip.filter(intersect=playhead_position)
-        intersecting_trans = Transition.filter(intersect=playhead_position)
-        if not intersecting_clips and not intersecting_trans:
-            return "No clip or transition at the playhead."
 
-        # Run on the main thread so Qt signals (IgnoreUpdates etc.) are
-        # delivered synchronously — matching manual slice behaviour.
+        # Read state and perform the slice entirely on the main thread
+        result_box = [None]
+
         def _do_slice():
+            from classes.query import Clip, Transition
+            app = _get_app()
+            win = app.window
+            fps = app.project.get("fps") or {}
+            fps_float = float(fps.get("num", 30)) / float(fps.get("den", 1) or 1)
+            playhead_position = float(win.preview_thread.current_frame - 1) / fps_float
+            intersecting_clips = Clip.filter(intersect=playhead_position)
+            intersecting_trans = Transition.filter(intersect=playhead_position)
+            if not intersecting_clips and not intersecting_trans:
+                result_box[0] = "No clip or transition at the playhead."
+                return
             win.slice_clips(MenuSlice.KEEP_BOTH)
+            n = len(intersecting_clips) + len(intersecting_trans)
+            result_box[0] = f"Sliced {n} item(s) at the playhead; both sides kept."
 
         _run_on_main_thread(_do_slice)
 
-        n = len(intersecting_clips) + len(intersecting_trans)
-        return f"Sliced {n} item(s) at the playhead; both sides kept."
+        return result_box[0] or "Slice completed."
     except Exception as e:
         return f"Error: {e}"
 
@@ -737,13 +797,16 @@ def search_selected_clip_scenes(query="", top_k="5", use_openai_rerank="true", *
         client = get_backend_client()
 
         # TwelveLabs search
-        if source_ai and client.is_indexing_configured():
-            tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
+        if client.is_indexing_configured():
+            tw = (source_ai or {}).get("twelvelabs") if isinstance((source_ai or {}).get("twelvelabs"), dict) else {}
             status = (tw.get("status") or "").lower()
-            index_id = tw.get("index_id")
+            index_id = tw.get("index_id") or ""
             video_id = tw.get("video_id") or ""
 
-            if status == "ready" and index_id:
+            # Fallback: even if twelvelabs metadata is missing (old import),
+            # try searching with an empty index_id — the backend will use the
+            # first available TwelveLabs index.
+            if (status == "ready" and index_id) or not index_id:
                 items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=max(30, k * 10), video_id=str(video_id))
                 if not err and items:
                     matches = []
@@ -835,41 +898,82 @@ def _parse_occurrence(occurrence_str: str, query: str) -> int:
 def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
     try:
         from classes.api_client import get_backend_client
-        clip_obj, win = _get_selected_timeline_clip_and_window()
-        if not clip_obj:
-            return "Error: No timeline clip selected."
 
+        # ── 1. Read clip/file metadata on the MAIN thread so we see the
+        #       latest project state (avoids stale-cache problems when
+        #       reading from the background AI-chat thread).
+        clip_info_box = [None]   # will hold (clip_id, clip_start, clip_end, clip_pos, index_id, video_id)
+        error_box_pre = [None]
+
+        def _read_clip_info():
+            try:
+                obj, _win = _get_selected_timeline_clip_and_window()
+                if not obj:
+                    error_box_pre[0] = "Error: No timeline clip selected."
+                    return
+                d = obj.data if isinstance(obj.data, dict) else {}
+                cs = float(d.get("start", 0.0) or 0.0)
+                ce = float(d.get("end", 0.0) or 0.0)
+                cp = float(d.get("position", 0.0) or 0.0)
+                sf = _get_source_file_for_clip(obj)
+                sa = (
+                    sf.data.get("ai_metadata")
+                    if sf and isinstance(sf.data, dict)
+                    and isinstance(sf.data.get("ai_metadata"), dict)
+                    else None
+                )
+                # Extract TwelveLabs info (may be absent for old imports)
+                tw = (sa or {}).get("twelvelabs") if isinstance((sa or {}).get("twelvelabs"), dict) else {}
+                tw_status = (tw.get("status") or "").lower()
+                iid = tw.get("index_id") or ""
+                vid = tw.get("video_id") or ""
+                if tw_status == "failed":
+                    error_box_pre[0] = (
+                        "TwelveLabs indexing failed for this video. "
+                        "Try re-importing the file."
+                    )
+                    return
+                if tw_status == "indexing":
+                    error_box_pre[0] = (
+                        "TwelveLabs is still indexing this video. "
+                        "Please wait for indexing to finish and try again."
+                    )
+                    return
+                if not iid:
+                    log.warning(
+                        "TwelveLabs metadata missing for source file; "
+                        "falling back to default index lookup."
+                    )
+                clip_info_box[0] = (
+                    str(obj.id), cs, ce, cp, str(iid), str(vid)
+                )
+            except Exception as exc:
+                error_box_pre[0] = f"Error: {exc}"
+
+        _run_on_main_thread(_read_clip_info)
+
+        if error_box_pre[0]:
+            return error_box_pre[0]
+        if not clip_info_box[0]:
+            return "Error: Could not read clip metadata."
+
+        clip_id_str, clip_start, clip_end, clip_pos, index_id, video_id = clip_info_box[0]
+
+        # ── 2. Check backend connectivity (can run on any thread)
         client = get_backend_client()
         if not client.is_indexing_configured():
             return "Error: TwelveLabs is not configured."
 
-        clip_data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
-        clip_start = float(clip_data.get("start", 0.0) or 0.0)
-        clip_end = float(clip_data.get("end", 0.0) or 0.0)
-        clip_pos = float(clip_data.get("position", 0.0) or 0.0)
-
-        source_file = _get_source_file_for_clip(clip_obj)
-        source_ai = (
-            source_file.data.get("ai_metadata")
-            if source_file and isinstance(source_file.data, dict) and isinstance(source_file.data.get("ai_metadata"), dict)
-            else None
+        # ── 3. TwelveLabs search (REST call – fine from background thread)
+        items, err = _twelvelabs_search_in_window(
+            index_id, query, page_limit=30, video_id=video_id,
         )
-        if not source_ai:
-            return "Error: No metadata for source file."
-
-        tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
-        status = (tw.get("status") or "").lower()
-        index_id = tw.get("index_id")
-        if status != "ready" or not index_id:
-            return "TwelveLabs not ready for this source video."
-
-        items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=30, video_id=str(tw.get("video_id") or ""))
         if err:
             return f"Error: {err}"
         if not items:
             return "No matches found."
 
-        # Collect all overlapping matches
+        # ── 4. Collect overlapping matches
         matches = []
         for it in items:
             s = float(getattr(it, "start", 0.0) or 0.0)
@@ -883,16 +987,14 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
         if not matches:
             return "No matches overlapped the clip window."
 
-        # Determine which match to use
+        # ── 5. Determine which match to use
         nth = _parse_occurrence(occurrence, query)
         if nth > 0:
-            # Sort chronologically and pick the Nth (1-based)
             matches.sort(key=lambda x: x["start"])
             idx = min(nth - 1, len(matches) - 1)
             chosen = matches[idx]
             ordinal_label = f"occurrence #{nth}"
         else:
-            # Pick highest-scoring match
             matches.sort(key=lambda x: x["score"], reverse=True)
             chosen = matches[0]
             ordinal_label = "best match"
@@ -902,25 +1004,38 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
         log.info(
             "slice_selected_clip_at_best_match: clip_id=%s clip_start=%.3f "
             "clip_end=%.3f clip_pos=%.3f chosen_mid=%.3f → slice_pos=%.3f",
-            clip_obj.id, clip_start, clip_end, clip_pos, chosen["mid"], slice_pos,
+            clip_id_str, clip_start, clip_end, clip_pos, chosen["mid"], slice_pos,
         )
 
-        from windows.views.timeline import MenuSlice
-        clip_id_str = str(clip_obj.id)
-
-        # Run Slice_Triggered on the Qt main thread so that IgnoreUpdates
-        # signals are delivered synchronously (direct connection) and the
-        # transaction is atomic from the UI's perspective — exactly as a
-        # manual razor / keyboard slice would be.
-        def _do_slice():
-            _get_app().window.timeline.Slice_Triggered(
-                MenuSlice.KEEP_BOTH, [clip_id_str], [], slice_pos
+        # ── 6. Validate: slice_pos must fall inside the clip on the timeline
+        clip_timeline_end = clip_pos + (clip_end - clip_start)
+        if slice_pos <= clip_pos or slice_pos >= clip_timeline_end:
+            return (
+                f"Error: Computed slice position ({slice_pos:.3f}s) is outside "
+                f"the clip range [{clip_pos:.3f}s – {clip_timeline_end:.3f}s]."
             )
+
+        # ── 7. Perform the slice on the Qt main thread
+        from windows.views.timeline_backend.enums import MenuSlice
+
+        slice_error_box = [None]
+
+        def _do_slice():
+            try:
+                _get_app().window.timeline.Slice_Triggered(
+                    MenuSlice.KEEP_BOTH, [clip_id_str], [], slice_pos,
+                )
+            except Exception as exc:
+                slice_error_box[0] = str(exc)
 
         _run_on_main_thread(_do_slice)
 
+        if slice_error_box[0]:
+            return f"Error during slice: {slice_error_box[0]}"
+
         return f"Sliced at {_fmt_mmss(chosen['mid'] - clip_start)} ({ordinal_label})."
     except Exception as e:
+        log.error("slice_selected_clip_at_best_match failed: %s", e, exc_info=True)
         return f"Error: {e}"
 
 
@@ -1018,9 +1133,10 @@ def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> s
     if source_ai:
         tw = source_ai.get("twelvelabs") if isinstance(source_ai.get("twelvelabs"), dict) else {}
         status = (tw.get("status") or "").lower()
-        index_id = tw.get("index_id")
-        if status == "ready" and index_id:
-            items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=30, video_id=str(tw.get("video_id") or ""))
+        index_id = tw.get("index_id") or ""
+        video_id = tw.get("video_id") or ""
+        if (status == "ready" and index_id) or not index_id:
+            items, err = _twelvelabs_search_in_window(str(index_id), query, page_limit=30, video_id=str(video_id))
             if not err and items:
                 for it in items:
                     s = float(getattr(it, "start", 0.0) or 0.0)
@@ -1050,27 +1166,67 @@ def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> s
     if best_mid is None:
         best_mid = (clip_start + clip_end) / 2.0
 
+    # ---- Extract a reference frame from the source clip at the insertion point ----
+    frame_image_path = None
+    try:
+        import openshot
+        reader = openshot.FFmpegReader(source_file.absolute_path())
+        reader.Open()
+        fps_num = int(source_file.data.get("fps", {}).get("num", 30))
+        fps_den = int(source_file.data.get("fps", {}).get("den", 1))
+        fps = float(fps_num) / max(float(fps_den), 1.0)
+        frame_number = max(1, round(best_mid * fps))
+        # Save the frame as a temporary PNG for i2v reference
+        frame_dir = os.path.join(tempfile.gettempdir(), "zenvi_frames")
+        os.makedirs(frame_dir, exist_ok=True)
+        frame_image_path = os.path.join(frame_dir, f"ref_{uuid_module.uuid4().hex[:8]}.png")
+        reader.GetFrame(frame_number).Thumbnail(
+            frame_image_path,
+            int(source_file.data.get("width", 1920)),
+            int(source_file.data.get("height", 1080)),
+            "", "", "#000", False, "png", 95, 0.0
+        )
+        reader.Close()
+        log.info("Extracted reference frame %d (t=%.2fs) → %s", frame_number, best_mid, frame_image_path)
+    except Exception as frame_exc:
+        log.warning("Could not extract reference frame: %s (falling back to text-to-video)", frame_exc)
+        frame_image_path = None
+
     from classes.api_client import get_backend_client
     client = get_backend_client()
-    result = client.generate_video(query)
+    gen_kwargs = {}
+    if frame_image_path and os.path.isfile(frame_image_path):
+        gen_kwargs["input_image_path"] = frame_image_path
+    result = client.generate_video(query, **gen_kwargs)
     video_url = result.get("video_url", "")
+    local_path = result.get("local_path", "")
     err = result.get("error", "")
     if err:
         return f"Error: {err}"
 
-    output_path = _output_path_for_generated_video()
-    try:
-        import requests as _req
-        resp = _req.get(video_url, timeout=120)
-        resp.raise_for_status()
-        with open(output_path, "wb") as f:
-            f.write(resp.content)
-    except Exception as dl_exc:
-        return f"Error: Download failed: {dl_exc}"
+    # Prefer the local_path from the backend (already downloaded).
+    # Fall back to downloading from video_url ourselves.
+    output_path = None
+    if local_path and os.path.isfile(local_path):
+        output_path = local_path
+    elif video_url:
+        output_path = _output_path_for_generated_video()
+        try:
+            import requests as _req
+            resp = _req.get(video_url, timeout=120)
+            resp.raise_for_status()
+            with open(output_path, "wb") as f:
+                f.write(resp.content)
+        except Exception as dl_exc:
+            return f"Error: Download failed: {dl_exc}"
+    else:
+        return "Error: No video URL or local path returned."
 
     try:
-        app = _get_app()
-        app.window.files_model.add_files([output_path], skip_tagging=True)
+        def _do_import():
+            app = _get_app()
+            app.window.files_model.add_files([output_path], skip_tagging=True)
+        _run_on_main_thread(_do_import, timeout=30)
         return (
             f"AI insert at {_fmt_mmss(best_mid - clip_start)} added to imported clips. "
             "The original clip is unchanged."

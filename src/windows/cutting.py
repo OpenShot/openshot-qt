@@ -137,7 +137,9 @@ class Cutting(QDialog):
         try:
             # Add clip for current preview file
             self.clip = openshot.Clip(self.file_path)
-            self.clip.SetJson(json.dumps({"reader": file.data}))
+            # NOTE: Do NOT inject file.data into the reader via SetJson.
+            # file.data may contain ai_metadata, tags, etc. that corrupt
+            # the native FrameMapper and cause preview drift / SIGSEGV.
             self.clip.Start(clip_start)
             self.clip.End(clip_end)
 
@@ -415,15 +417,35 @@ class Cutting(QDialog):
     def closeEvent(self, event):
         log.debug('closeEvent')
 
-        # Stop playback
-        get_app().updates.disconnect_listener(self.videoPreview)
-        if self.videoPreview:
+        # 1. Stop any pending main-thread timers first
+        if hasattr(self, 'slider_timer') and self.slider_timer:
+            self.slider_timer.stop()
+
+        # 2. Stop the player rendering before anything else.
+        #    CloseAudioDevice + kill mirrors what the main window does.
+        if hasattr(self, 'preview_thread') and self.preview_thread:
+            try:
+                self.preview_thread.player.CloseAudioDevice()
+            except Exception:
+                pass
+            self.preview_thread.kill()          # is_running = False → exits loop
+
+        # 3. Stop the preview thread and WAIT for it to fully exit.
+        #    This must complete before we touch readers or the video widget.
+        if hasattr(self, 'preview_parent') and self.preview_parent:
+            self.preview_parent.Stop()          # disconnect, stop, exit, wait(5 s)
+
+        # 4. Now the background QThread is finished — safe to close readers.
+        if hasattr(self, 'r') and self.r:
+            self.r.Close()
+            self.r.ClearAllCache()
+        if hasattr(self, 'clip') and self.clip:
+            self.clip.Close()
+
+        # 5. Finally schedule videoPreview for deletion (no more timer callbacks
+        #    can reference it since the worker thread is gone).
+        if hasattr(self, 'videoPreview') and self.videoPreview:
+            get_app().updates.disconnect_listener(self.videoPreview)
             self.videoPreview.deleteLater()
             self.videoPreview = None
-        self.preview_parent.Stop()
-
-        # Close readers
-        self.r.Close()
-        self.clip.Close()
-        self.r.ClearAllCache()
 

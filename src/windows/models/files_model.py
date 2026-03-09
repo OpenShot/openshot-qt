@@ -57,9 +57,10 @@ class BackendTaggingWorker(QThread):
     """Background worker that calls the zenvi-backend tagging API."""
     completed = pyqtSignal(dict, object, object)  # file_data, metadata, error
 
-    def __init__(self, file_data, parent=None):
+    def __init__(self, file_data, project_id="", parent=None):
         super().__init__(parent)
         self.file_data = file_data
+        self.project_id = project_id or ""
         self._session = None  # requests.Session, stored so we can close() it to interrupt
 
     def run(self):
@@ -74,13 +75,44 @@ class BackendTaggingWorker(QThread):
                 file_path = self.file_data.get("path", "")
                 metadata = client.tag_video(file_path, session=self._session)
 
-                # Trigger async TwelveLabs indexing (fire-and-forget) if configured
+                # TwelveLabs indexing — run synchronously so we can capture the
+                # index_id / video_id and store them in ai_metadata.  This worker
+                # already runs in a background QThread, so blocking here won't
+                # freeze the UI.
                 if client.is_indexing_configured():
                     try:
                         filename = _os.path.basename(file_path)
-                        client.index_video(file_path, "zenvi-videos", filename=filename, async_mode=True)
+                        # Use per-project index name so different projects
+                        # don't mix their clips in the same TwelveLabs index.
+                        index_name = f"zenvi-{self.project_id}" if self.project_id else "zenvi-videos"
+                        idx_result = client.index_video(
+                            file_path, index_name,
+                            filename=filename, async_mode=False,
+                        )
+                        if isinstance(idx_result, dict) and idx_result.get("index_id"):
+                            metadata["twelvelabs"] = {
+                                "status": idx_result.get("status", "ready"),
+                                "index_id": idx_result["index_id"],
+                                "video_id": idx_result.get("video_id", ""),
+                                "index_name": index_name,
+                            }
+                            log.info(
+                                "TwelveLabs indexing complete: index=%s index_id=%s video_id=%s",
+                                index_name, idx_result.get("index_id"), idx_result.get("video_id"),
+                            )
+                        elif isinstance(idx_result, dict) and idx_result.get("error"):
+                            log.warning("TwelveLabs indexing returned error: %s", idx_result["error"])
+                            metadata["twelvelabs"] = {
+                                "status": "failed",
+                                "error": idx_result["error"],
+                                "index_name": index_name,
+                            }
                     except Exception as idx_exc:
-                        log.warning(f"TwelveLabs indexing request failed: {idx_exc}")
+                        log.warning(f"TwelveLabs indexing failed: {idx_exc}")
+                        metadata["twelvelabs"] = {
+                            "status": "failed",
+                            "error": str(idx_exc),
+                        }
         except Exception as exc:
             error = exc
             log.error(f"Backend tagging worker failed: {exc}")
@@ -345,7 +377,13 @@ class FilesModel(QObject, updates.UpdateInterface):
         if file_obj.data.get("media_type") != "video":
             return
 
-        worker = BackendTaggingWorker(dict(file_obj.data))
+        # Pass project ID so the worker can build a per-project index name.
+        project_id = ""
+        try:
+            project_id = get_app().project.get("id") or ""
+        except Exception:
+            pass
+        worker = BackendTaggingWorker(dict(file_obj.data), project_id=project_id)
         self._active_taggers.append(worker)
 
         def _on_finished():

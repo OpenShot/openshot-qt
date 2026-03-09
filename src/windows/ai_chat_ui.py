@@ -701,9 +701,7 @@ class AIChatWindow(QDockWidget):
 
     @pyqtSlot(str)
     def _on_error(self, text: str):
-        # #region agent log
-        _debug_log("ai_chat_ui.py:_on_error", "error slot", {"text_preview": text[:80] if text else ""}, "H1")
-        # #endregion
+        log.debug("ai_chat_ui _on_error: %s", text[:80] if text else "")
         self._add_system_msg("Error: %s" % text)
         self._set_processing_ui(False)
 

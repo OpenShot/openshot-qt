@@ -201,7 +201,7 @@ class ZenviBackendClient:
         ws_url = f"{ws_url}/api/v1/chat/ws"
 
         try:
-            ws = websocket.create_connection(ws_url, timeout=180)
+            ws = websocket.create_connection(ws_url, timeout=600)
 
             # Send user message
             ws.send(json.dumps({
@@ -222,13 +222,74 @@ class ZenviBackendClient:
                 data = msg.get("data", {})
 
                 if msg_type == "tool_call":
-                    # Backend wants us to execute a tool locally
+                    # Backend wants us to execute a tool locally.
+                    # Tool execution (e.g. video generation) can block for
+                    # minutes.  Run the handler in its own thread and keep
+                    # the WS alive by:
+                    #  1. A recv-loop thread that answers server pings/pongs
+                    #  2. Client-side pings every 30 s
                     if on_tool_call:
-                        result = on_tool_call(
-                            data.get("tool_name", ""),
-                            data.get("tool_args", {}),
-                            data.get("call_id", ""),
-                        )
+                        import threading
+                        _tool_result_holder = [None]
+                        _tool_error_holder = [None]
+
+                        def _run_tool():
+                            try:
+                                _tool_result_holder[0] = on_tool_call(
+                                    data.get("tool_name", ""),
+                                    data.get("tool_args", {}),
+                                    data.get("call_id", ""),
+                                )
+                            except Exception as _te:
+                                log.error("Tool execution error: %s", _te)
+                                _tool_error_holder[0] = str(_te)
+
+                        # Background recv thread: keep processing incoming
+                        # frames so the server's pings get answered.
+                        _stop_recv = threading.Event()
+
+                        def _recv_keepalive():
+                            try:
+                                old_timeout = ws.gettimeout()
+                                ws.settimeout(5)  # short timeout for polling
+                                while not _stop_recv.is_set():
+                                    try:
+                                        # recv() processes control frames
+                                        # (ping→pong) as a side-effect
+                                        _frame = ws.recv_frame()
+                                    except websocket.WebSocketTimeoutException:
+                                        pass  # no data — loop around
+                                    except Exception:
+                                        break
+                                ws.settimeout(old_timeout)
+                            except Exception:
+                                pass
+
+                        _recv_thread = threading.Thread(
+                            target=_recv_keepalive, daemon=True)
+                        _recv_thread.start()
+
+                        _tool_thread = threading.Thread(
+                            target=_run_tool, daemon=True)
+                        _tool_thread.start()
+
+                        # Wait for tool, sending client-side pings periodically
+                        while _tool_thread.is_alive():
+                            _tool_thread.join(timeout=30)
+                            if _tool_thread.is_alive():
+                                try:
+                                    ws.ping()
+                                except Exception:
+                                    pass
+
+                        # Stop the recv keepalive thread
+                        _stop_recv.set()
+                        _recv_thread.join(timeout=3)
+
+                        result = _tool_result_holder[0]
+                        if _tool_error_holder[0]:
+                            result = f"Tool execution error: {_tool_error_holder[0]}"
+
                         # Send result back
                         ws.send(json.dumps({
                             "type": "tool_result",
