@@ -11,10 +11,10 @@ Usage (from ai_chat_ui.py):
     result = execute_tool(tool_name, tool_args)
 """
 
-import base64
 import copy
 import json
 import os
+import shutil
 import subprocess
 import tempfile
 import threading
@@ -218,18 +218,6 @@ def _ffmpeg_run(args):
         return False, "ffmpeg not found."
     except Exception as e:
         return False, str(e)
-
-
-def _file_to_data_uri(path, media_type):
-    try:
-        with open(path, "rb") as f:
-            raw = f.read()
-        if len(raw) > 50 * 1024 * 1024:
-            return None, "File too large for base64."
-        b64 = base64.b64encode(raw).decode("ascii")
-        return f"data:{media_type};base64,{b64}", None
-    except OSError as e:
-        return None, f"Failed to read: {e}"
 
 
 def _ffprobe_has_audio(path):
@@ -1043,6 +1031,122 @@ def slice_selected_clip_at_best_match(query="", occurrence="0", **_kw) -> str:
 # Video generation
 # ---------------------------------------------------------------------------
 
+def _pause_auto_save():
+    """Pause auto-save timer to prevent backup interference during generation."""
+    try:
+        app = _get_app()
+        app._generation_in_progress = True
+        timer = getattr(app.window, "auto_save_timer", None)
+        if timer and timer.isActive():
+            timer.stop()
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def _resume_auto_save(was_active):
+    """Resume auto-save timer if it was previously active."""
+    try:
+        app = _get_app()
+        app._generation_in_progress = False
+    except Exception:
+        pass
+    if not was_active:
+        return
+    try:
+        app = _get_app()
+        timer = getattr(app.window, "auto_save_timer", None)
+        if timer:
+            timer.start()
+    except Exception:
+        pass
+
+
+def _reencode_for_openshot(input_path, output_path=None, width=1920, height=1080):
+    """Re-encode a video with a clean container so libopenshot can read it.
+
+    AI-generated downloads often have missing/corrupt moov atoms, wrong
+    timebases, or missing audio streams.  A quick re-encode with libx264
+    + aac fixes all of that.
+
+    Returns (output_path, None) on success, (None, error) on failure.
+    """
+    if output_path is None:
+        base, ext = os.path.splitext(input_path)
+        output_path = f"{base}_clean{ext}"
+
+    vf = (
+        f"scale={width}:{height}:force_original_aspect_ratio=decrease,"
+        f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,setsar=1,format=yuv420p"
+    )
+    cmd = [
+        "ffmpeg", "-y", "-i", input_path,
+        "-vf", vf,
+        "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+        "-c:a", "aac", "-b:a", "192k", "-ac", "2", "-ar", "48000",
+        "-movflags", "+faststart",
+        "-pix_fmt", "yuv420p",
+        output_path,
+    ]
+    ok, err = _ffmpeg_run(cmd)
+    if not ok:
+        # Try without audio (source may have no audio stream)
+        cmd_no_audio = [
+            "ffmpeg", "-y", "-i", input_path,
+            "-vf", vf,
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+            "-an",
+            "-movflags", "+faststart",
+            "-pix_fmt", "yuv420p",
+            output_path,
+        ]
+        ok, err = _ffmpeg_run(cmd_no_audio)
+        if not ok:
+            return None, f"Re-encode failed: {err}"
+    return output_path, None
+
+
+def _import_generated_video(video_path):
+    """Import a generated video into the project with clean metadata.
+
+    Re-encodes the video first, then adds it using skip_tagging=True
+    to avoid nested event loops and metadata corruption.
+
+    Returns (File object, None) on success, (None, error_string) on failure.
+    """
+    from classes.query import File
+
+    # Re-encode for libopenshot compatibility
+    clean_path, err = _reencode_for_openshot(video_path)
+    if err:
+        log.warning("Re-encode failed, using original: %s", err)
+        clean_path = video_path
+
+    final_path = clean_path
+
+    # Import into project on the main thread
+    def _do_import():
+        _get_app().window.files_model.add_files([final_path], skip_tagging=True)
+    _run_on_main_thread(_do_import, timeout=30)
+
+    # Look up the File object
+    f = File.get(path=final_path)
+    if not f:
+        f = File.get(path=os.path.normpath(final_path))
+    if not f:
+        f = File.get(path=os.path.realpath(final_path))
+    if not f:
+        for candidate in File.filter():
+            try:
+                if getattr(candidate, "absolute_path", None) and candidate.absolute_path() == final_path:
+                    f = candidate
+                    break
+            except Exception:
+                continue
+    return f, None
+
+
 def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_seconds="", track="", **_kw) -> str:
     if QThread is None or QEventLoop is None:
         return "Error: Requires PyQt5."
@@ -1064,38 +1168,61 @@ def generate_video_and_add_to_timeline(prompt="", duration_seconds="", position_
 
     output_path = _output_path_for_generated_video()
 
-    from classes.api_client import get_backend_client
-    client = get_backend_client()
-    result = client.generate_video(prompt, duration_seconds=duration)
-    video_url = result.get("video_url", "")
-    err = result.get("error", "")
-    if err:
-        return f"Error: {err}"
-    if not video_url:
-        return "Error: No video URL returned."
-
+    # Pause auto-save during generation to prevent backup interference
+    auto_save_was_active = _pause_auto_save()
     try:
-        import requests as _req
-        resp = _req.get(video_url, timeout=120)
-        resp.raise_for_status()
-        with open(output_path, "wb") as f:
-            f.write(resp.content)
-    except Exception as dl_exc:
-        return f"Error: Download failed: {dl_exc}"
+        from classes.api_client import get_backend_client
+        client = get_backend_client()
+        result = client.generate_video(prompt, duration_seconds=duration)
+        video_url = result.get("video_url", "")
+        local_path = result.get("local_path", "")
+        err = result.get("error", "")
+        if err:
+            return f"Error: {err}"
 
-    try:
-        app.window.files_model.add_files([output_path], skip_tagging=True)
-        from classes.query import File
-        found = File.get(path=output_path) or File.get(path=os.path.normpath(output_path))
-        if not found:
-            return "Video generated and added to project files."
-        msg = add_clip_to_timeline(file_id=found.id, position_seconds=position_seconds or "", track=track or "")
-        return msg
-    except Exception as e:
-        return f"Error: {e}"
+        # Prefer local_path from backend; fall back to downloading
+        if local_path and os.path.isfile(local_path):
+            output_path = local_path
+        elif video_url:
+            try:
+                import requests as _req
+                resp = _req.get(video_url, timeout=120)
+                resp.raise_for_status()
+                with open(output_path, "wb") as f:
+                    f.write(resp.content)
+            except Exception as dl_exc:
+                return f"Error: Download failed: {dl_exc}"
+        else:
+            return "Error: No video URL or local path returned."
+
+        try:
+            f, import_err = _import_generated_video(output_path)
+            if not f:
+                return "Video generated and added to project files."
+            was_playing = _pause_player()
+            try:
+                msg = add_clip_to_timeline(file_id=f.id, position_seconds=position_seconds or "", track=track or "")
+            finally:
+                _resume_player(was_playing)
+            return msg
+        except Exception as e:
+            return f"Error: {e}"
+    finally:
+        _resume_auto_save(auto_save_was_active)
 
 
 def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> str:
+    """Find best match in selected clip, generate a V2V insert via Kling,
+    bake an updated clip with crossfades, and import it.
+
+    Pipeline (ported from core/src/classes/ai_openshot_tools.py):
+      1. Find the best insertion point via TwelveLabs / scene descriptions / midpoint
+      2. Extract a seed video (two segments around the insertion point)
+      3. Extract first/last frames for frame-constrained generation
+      4. Generate V2V clip via Runware/Kling with seed video + frame constraints
+      5. Bake the generated insert into the original clip with crossfades
+      6. Re-encode and import with clean metadata
+    """
     if QThread is None or QEventLoop is None:
         return "Error: Requires PyQt5."
 
@@ -1112,6 +1239,7 @@ def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> s
         fm = int(float(fade_ms)) if str(fade_ms).strip() else 400
     except Exception:
         fm = 400
+    fade_s = max(0.05, min(0.49, float(fm) / 1000.0))
 
     clip_data = clip_obj.data if isinstance(clip_obj.data, dict) else {}
     clip_start = float(clip_data.get("start", 0.0) or 0.0)
@@ -1120,6 +1248,7 @@ def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> s
     source_file = _get_source_file_for_clip(clip_obj)
     if not source_file or not getattr(source_file, "absolute_path", None) or not source_file.absolute_path():
         return "Error: Could not find source video."
+    source_path = source_file.absolute_path()
 
     source_ai = (
         source_file.data.get("ai_metadata")
@@ -1165,93 +1294,392 @@ def insert_vidu_v2v_clip_into_selected_clip(query="", fade_ms="400", **_kw) -> s
     # Strategy 3: midpoint
     if best_mid is None:
         best_mid = (clip_start + clip_end) / 2.0
+        log.info("insert_v2v: no search results, using clip midpoint %.2fs", best_mid)
 
-    # ---- Extract a reference frame from the source clip at the insertion point ----
-    frame_image_path = None
+    # Get video dimensions — clamp to Kling O1 video-edit range [720, 2160]
+    vid_width = int(source_file.data.get("width", 1920))
+    vid_height = int(source_file.data.get("height", 1080))
+    # Kling O1 requires input video width & height ∈ [720, 2160].
+    # Scale up proportionally if either dimension is below 720.
+    _min_dim = 720
+    if vid_width < _min_dim or vid_height < _min_dim:
+        scale_factor = max(_min_dim / max(vid_width, 1), _min_dim / max(vid_height, 1))
+        vid_width = int(vid_width * scale_factor)
+        vid_height = int(vid_height * scale_factor)
+    # Ensure even dimensions (required by libx264)
+    vid_width = vid_width + (vid_width % 2)
+    vid_height = vid_height + (vid_height % 2)
+    # Cap at 2160
+    if vid_width > 2160 or vid_height > 2160:
+        scale_down = min(2160 / max(vid_width, 1), 2160 / max(vid_height, 1))
+        vid_width = int(vid_width * scale_down)
+        vid_height = int(vid_height * scale_down)
+        vid_width = vid_width + (vid_width % 2)
+        vid_height = vid_height + (vid_height % 2)
+    log.info("insert_v2v: seed video target dims %dx%d", vid_width, vid_height)
+    gen_duration = 4.0
+
+    # Pause auto-save during the generation pipeline
+    auto_save_was_active = _pause_auto_save()
     try:
-        import openshot
-        reader = openshot.FFmpegReader(source_file.absolute_path())
-        reader.Open()
-        fps_num = int(source_file.data.get("fps", {}).get("num", 30))
-        fps_den = int(source_file.data.get("fps", {}).get("den", 1))
-        fps = float(fps_num) / max(float(fps_den), 1.0)
-        frame_number = max(1, round(best_mid * fps))
-        # Save the frame as a temporary PNG for i2v reference
-        frame_dir = os.path.join(tempfile.gettempdir(), "zenvi_frames")
-        os.makedirs(frame_dir, exist_ok=True)
-        frame_image_path = os.path.join(frame_dir, f"ref_{uuid_module.uuid4().hex[:8]}.png")
-        reader.GetFrame(frame_number).Thumbnail(
-            frame_image_path,
-            int(source_file.data.get("width", 1920)),
-            int(source_file.data.get("height", 1080)),
-            "", "", "#000", False, "png", 95, 0.0
-        )
-        reader.Close()
-        log.info("Extracted reference frame %d (t=%.2fs) → %s", frame_number, best_mid, frame_image_path)
-    except Exception as frame_exc:
-        log.warning("Could not extract reference frame: %s (falling back to text-to-video)", frame_exc)
-        frame_image_path = None
-
-    from classes.api_client import get_backend_client
-    client = get_backend_client()
-    gen_kwargs = {}
-    if frame_image_path and os.path.isfile(frame_image_path):
-        gen_kwargs["input_image_path"] = frame_image_path
-    result = client.generate_video(query, **gen_kwargs)
-    video_url = result.get("video_url", "")
-    local_path = result.get("local_path", "")
-    err = result.get("error", "")
-    if err:
-        return f"Error: {err}"
-
-    # Prefer the local_path from the backend (already downloaded).
-    # Fall back to downloading from video_url ourselves.
-    output_path = None
-    if local_path and os.path.isfile(local_path):
-        output_path = local_path
-    elif video_url:
-        output_path = _output_path_for_generated_video()
+        tmpdir = tempfile.mkdtemp(prefix="zenvi_v2v_")
         try:
-            import requests as _req
-            resp = _req.get(video_url, timeout=120)
-            resp.raise_for_status()
-            with open(output_path, "wb") as f:
-                f.write(resp.content)
-        except Exception as dl_exc:
-            return f"Error: Download failed: {dl_exc}"
-    else:
-        return "Error: No video URL or local path returned."
+            # ---- Step 1: Build seed video from two segments around insertion point ----
+            seg1 = os.path.join(tmpdir, "seg1.mp4")
+            seg2 = os.path.join(tmpdir, "seg2.mp4")
+            concat_list = os.path.join(tmpdir, "list.txt")
+            seed_mp4 = os.path.join(tmpdir, "seed.mp4")
+            first_jpg = os.path.join(tmpdir, "first.jpg")
+            last_jpg = os.path.join(tmpdir, "last.jpg")
+            insert_mp4 = os.path.join(tmpdir, "insert.mp4")
 
-    try:
-        def _do_import():
-            app = _get_app()
-            app.window.files_model.add_files([output_path], skip_tagging=True)
-        _run_on_main_thread(_do_import, timeout=30)
-        return (
-            f"AI insert at {_fmt_mmss(best_mid - clip_start)} added to imported clips. "
-            "The original clip is unchanged."
-        )
+            start1 = max(0.0, best_mid - 2.5)
+            start2 = max(0.0, best_mid)
+            seg_duration = gen_duration / 2.0
+            vf = (
+                f"scale={vid_width}:{vid_height}:force_original_aspect_ratio=decrease,"
+                f"pad={vid_width}:{vid_height}:(ow-iw)/2:(oh-ih)/2,setsar=1"
+            )
+
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-ss", str(start1), "-i", source_path,
+                "-t", str(seg_duration), "-vf", vf, "-r", "24", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", seg1,
+            ])
+            if not ok:
+                return f"Error: Failed to extract seed segment 1: {err}"
+
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-ss", str(start2), "-i", source_path,
+                "-t", str(seg_duration), "-vf", vf, "-r", "24", "-an",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", seg2,
+            ])
+            if not ok:
+                return f"Error: Failed to extract seed segment 2: {err}"
+
+            with open(concat_list, "w", encoding="utf-8") as f:
+                f.write(f"file '{seg1}'\nfile '{seg2}'\n")
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
+                "-c", "copy", seed_mp4,
+            ])
+            if not ok:
+                ok, err = _ffmpeg_run([
+                    "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-an", seed_mp4,
+                ])
+                if not ok:
+                    return f"Error: Failed to concat seed segments: {err}"
+
+            # ---- Step 2: Extract first/last frames for frame constraints ----
+            ok, _ = _ffmpeg_run(["ffmpeg", "-y", "-i", seed_mp4, "-frames:v", "1", first_jpg])
+            if not ok:
+                return "Error: Failed to extract first frame from seed video."
+            ok, _ = _ffmpeg_run(["ffmpeg", "-y", "-sseof", "-0.05", "-i", seed_mp4, "-frames:v", "1", last_jpg])
+            if not ok:
+                return "Error: Failed to extract last frame from seed video."
+
+            # ---- Step 3: Generate V2V insert via backend ----
+            # Pass local file paths — the backend converts them to data URIs
+            # for the Runware API. This avoids sending huge base64 payloads
+            # over the HTTP request from frontend to backend.
+            prompt = (
+                f"{query}\n\n"
+                "Constraints: the first frame must closely match the provided first frame, "
+                "and the last frame must closely match the provided last frame. "
+                "Keep it realistic for 4 seconds."
+            )
+            frame_images_paths = [
+                {"path": first_jpg, "frame": "first"},
+                {"path": last_jpg, "frame": "last"},
+            ]
+
+            from classes.api_client import get_backend_client
+            client = get_backend_client()
+            result = client.generate_video(
+                prompt,
+                duration_seconds=int(gen_duration),
+                seed_video_path=seed_mp4,
+                strength=0.6,
+                frame_images_paths=frame_images_paths,
+                width=vid_width,
+                height=vid_height,
+            )
+            video_url = result.get("video_url", "")
+            local_path = result.get("local_path", "")
+            gen_err = result.get("error", "")
+            if gen_err:
+                return f"Error: {gen_err}"
+
+            # Download the generated insert clip
+            if local_path and os.path.isfile(local_path):
+                shutil.copy2(local_path, insert_mp4)
+            elif video_url:
+                try:
+                    import requests as _req
+                    resp = _req.get(video_url, timeout=120)
+                    resp.raise_for_status()
+                    with open(insert_mp4, "wb") as f:
+                        f.write(resp.content)
+                except Exception as dl_exc:
+                    return f"Error: Download failed: {dl_exc}"
+            else:
+                return "Error: No video URL or local path returned."
+
+            # ---- Step 4: Bake updated clip with crossfades ----
+            output_path = _output_path_for_generated_video()
+            dur_a = max(0.0, best_mid - clip_start)
+            dur_c = max(0.0, clip_end - best_mid)
+            insert_dur = gen_duration
+
+            # Clamp fade so xfade offsets are valid
+            fade = float(fade_s)
+            fade = min(fade, 0.49)
+            fade = min(fade, max(0.01, dur_a / 2.0) if dur_a > 0 else 0.01)
+            fade = min(fade, max(0.01, dur_c / 2.0) if dur_c > 0 else 0.01)
+            fade = min(fade, max(0.01, insert_dur / 2.0) if insert_dur > 0 else 0.01)
+            fade = max(0.01, fade)
+
+            vf_bake = (
+                f"scale={vid_width}:{vid_height}:force_original_aspect_ratio=decrease,"
+                f"pad={vid_width}:{vid_height}:(ow-iw)/2:(oh-ih)/2,setsar=1,format=yuv420p,fps=24"
+            )
+            off1 = max(0.0, dur_a - fade)
+            off2 = max(0.0, dur_a + insert_dur - (2.0 * fade))
+
+            has_audio = _ffprobe_has_audio(source_path)
+            if has_audio:
+                filter_complex = (
+                    f"[0:v]trim=start={clip_start}:end={best_mid},setpts=PTS-STARTPTS,{vf_bake}[va];"
+                    f"[1:v]setpts=PTS-STARTPTS,{vf_bake}[vb];"
+                    f"[0:v]trim=start={best_mid}:end={clip_end},setpts=PTS-STARTPTS,{vf_bake}[vc];"
+                    f"[va][vb]xfade=transition=fade:duration={fade}:offset={off1}[vab];"
+                    f"[vab][vc]xfade=transition=fade:duration={fade}:offset={off2}[vout];"
+                    f"[0:a]atrim=start={clip_start}:end={best_mid},asetpts=PTS-STARTPTS,"
+                    f"afade=t=out:st={max(0.0, dur_a - fade)}:d={fade}[aa];"
+                    f"anullsrc=channel_layout=stereo:sample_rate=48000,atrim=start=0:end={insert_dur}[ab];"
+                    f"[0:a]atrim=start={best_mid}:end={clip_end},asetpts=PTS-STARTPTS,"
+                    f"afade=t=in:st=0:d={fade}[ac];"
+                    f"[aa][ab][ac]concat=n=3:v=0:a=1[aout]"
+                )
+                bake_cmd = [
+                    "ffmpeg", "-y", "-i", source_path, "-i", insert_mp4,
+                    "-filter_complex", filter_complex,
+                    "-map", "[vout]", "-map", "[aout]",
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+                    "-c:a", "aac", "-b:a", "192k",
+                    "-movflags", "+faststart",
+                    output_path,
+                ]
+            else:
+                filter_complex = (
+                    f"[0:v]trim=start={clip_start}:end={best_mid},setpts=PTS-STARTPTS,{vf_bake}[va];"
+                    f"[1:v]setpts=PTS-STARTPTS,{vf_bake}[vb];"
+                    f"[0:v]trim=start={best_mid}:end={clip_end},setpts=PTS-STARTPTS,{vf_bake}[vc];"
+                    f"[va][vb]xfade=transition=fade:duration={fade}:offset={off1}[vab];"
+                    f"[vab][vc]xfade=transition=fade:duration={fade}:offset={off2}[vout]"
+                )
+                bake_cmd = [
+                    "ffmpeg", "-y", "-i", source_path, "-i", insert_mp4,
+                    "-filter_complex", filter_complex,
+                    "-map", "[vout]",
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+                    "-an",
+                    "-movflags", "+faststart",
+                    output_path,
+                ]
+
+            ok, bake_err = _ffmpeg_run(bake_cmd)
+            if not ok:
+                return f"Error: Failed to bake updated clip: {bake_err}"
+
+            # ---- Step 5: Import the baked clip ----
+            f, import_err = _import_generated_video(output_path)
+            if not f:
+                log.warning("insert_v2v: File.get failed but add_files succeeded")
+            return (
+                f"The combined clip (with a {int(gen_duration)}s AI insert at "
+                f"{_fmt_mmss(best_mid - clip_start)}, baked with {int(fade * 1000)}ms "
+                f"crossfades) has been added to the imported clips section. "
+                "The original clip on the timeline was left unchanged."
+            )
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
     except Exception as e:
+        log.error("insert_v2v_clip: %s", e, exc_info=True)
         return f"Error: {e}"
+    finally:
+        _resume_auto_save(auto_save_was_active)
 
 
 def generate_transition_clip(clip_a_id="", clip_b_id="", prompt_hint="", **_kw) -> str:
-    from classes.query import Clip
+    """Generate a morph transition video between two clips using Kling
+    (start/end frame images) and insert it between them on the timeline.
+
+    Pipeline (ported from core/src/classes/ai_openshot_tools.py):
+      1. Extract the last frame of clip A and first frame of clip B
+      2. Upload frames to temp hosting or encode as data URIs
+      3. Generate a morph video via Kling with frame constraints
+      4. Re-encode and import with clean metadata
+      5. Shift clip B rightward and insert the transition clip
+    """
+    from classes.query import Clip, File
     app = _get_app()
+
     clip_a = Clip.get(id=clip_a_id) if clip_a_id else None
     clip_b = Clip.get(id=clip_b_id) if clip_b_id else None
     if not clip_a or not clip_b:
-        return "Error: Could not find both clips."
+        return "Error: Could not find both clips. Use list_clips_tool to get clip IDs."
+
+    # Get source file paths
+    file_a_id = clip_a.data.get("file_id", "")
+    file_b_id = clip_b.data.get("file_id", "")
+    file_a = File.get(id=file_a_id) if file_a_id else None
+    file_b = File.get(id=file_b_id) if file_b_id else None
+    if not file_a or not file_b:
+        return "Error: Could not find source files for the clips."
+
+    path_a = file_a.absolute_path() if hasattr(file_a, 'absolute_path') else file_a.data.get('path', '')
+    path_b = file_b.absolute_path() if hasattr(file_b, 'absolute_path') else file_b.data.get('path', '')
+    if not path_a or not os.path.isfile(path_a):
+        return f"Error: Source video for clip A not found: {path_a}"
+    if not path_b or not os.path.isfile(path_b):
+        return f"Error: Source video for clip B not found: {path_b}"
+
+    # Timeline positions
     pos_a = float(clip_a.data.get("position", 0))
-    end_a = float(clip_a.data.get("end", 0))
     start_a = float(clip_a.data.get("start", 0))
-    end_position_a = pos_a + (end_a - start_a)
+    end_a = float(clip_a.data.get("end", 0))
+    duration_a = end_a - start_a
+    end_position_a = pos_a + duration_a
+
     layer = clip_a.data.get("layer")
     track = str(layer) if layer is not None else ""
-    prompt = (prompt_hint or "").strip() or "Smooth transition, cinematic, 2 seconds, seamless blend"
-    return generate_video_and_add_to_timeline(
-        prompt=prompt, duration_seconds="2", position_seconds=str(end_position_a), track=track,
-    )
+
+    morph_duration = 5.0
+    prompt = (prompt_hint or "").strip()
+    if not prompt:
+        prompt = (
+            "Gradually evolve the opening scene into the closing scene through a fluid, "
+            "continuous motion. Preserve the appearance and identity of all people and key "
+            "objects while naturally transitioning the pose, setting, and lighting from "
+            "the first frame to the last. The movement should feel organic and cinematic, "
+            "with no abrupt cuts or unrelated imagery."
+        )
+
+    # Pause auto-save during the generation pipeline
+    auto_save_was_active = _pause_auto_save()
+    try:
+        tmpdir = tempfile.mkdtemp(prefix="zenvi_morph_")
+        try:
+            frame_a_path = os.path.join(tmpdir, "frame_a.jpg")
+            frame_b_path = os.path.join(tmpdir, "frame_b.jpg")
+
+            # Extract last frame of clip A (at the end time in the source)
+            time_a = max(0.0, end_a - 0.1) if end_a > 0 else 0.0
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-ss", str(time_a), "-i", path_a,
+                "-frames:v", "1", "-q:v", "2", frame_a_path,
+            ])
+            if not ok:
+                return f"Error: Failed to extract last frame from clip A: {err}"
+
+            # Extract first frame of clip B
+            start_b = float(clip_b.data.get("start", 0))
+            ok, err = _ffmpeg_run([
+                "ffmpeg", "-y", "-ss", str(start_b), "-i", path_b,
+                "-frames:v", "1", "-q:v", "2", frame_b_path,
+            ])
+            if not ok:
+                return f"Error: Failed to extract first frame from clip B: {err}"
+
+            # Detect frame dimensions
+            frame_w, frame_h = 1920, 1080
+            try:
+                p = subprocess.run(
+                    ["ffprobe", "-v", "error", "-select_streams", "v:0",
+                     "-show_entries", "stream=width,height", "-of", "csv=p=0:s=x",
+                     frame_a_path],
+                    capture_output=True, text=True, check=True,
+                )
+                parts = p.stdout.strip().split("x")
+                if len(parts) == 2:
+                    frame_w, frame_h = int(parts[0]), int(parts[1])
+            except Exception:
+                pass
+
+            # Pass local frame paths to backend (shared filesystem avoids base64 overhead)
+            # Generate morph via backend morph endpoint
+            from classes.api_client import get_backend_client
+            client = get_backend_client()
+            result = client.generate_morph_video(
+                first_image_url="",
+                last_image_url="",
+                start_image_path=frame_a_path,
+                end_image_path=frame_b_path,
+                prompt=prompt,
+                duration_seconds=int(morph_duration),
+                width=frame_w,
+                height=frame_h,
+            )
+            video_url = result.get("video_url", "")
+            local_path = result.get("local_path", "")
+            gen_err = result.get("error", "")
+            if gen_err:
+                return f"Error: {gen_err}"
+
+            # Download the morph video
+            morph_path = os.path.join(tmpdir, "morph_video.mp4")
+            if local_path and os.path.isfile(local_path):
+                shutil.copy2(local_path, morph_path)
+            elif video_url:
+                try:
+                    import requests as _req
+                    resp = _req.get(video_url, timeout=120)
+                    resp.raise_for_status()
+                    with open(morph_path, "wb") as f:
+                        f.write(resp.content)
+                except Exception as dl_exc:
+                    return f"Error: Download failed: {dl_exc}"
+            else:
+                return "Error: No video URL or local path returned."
+
+            # Import the morph video
+            f, import_err = _import_generated_video(morph_path)
+            if not f:
+                return "Error: Morph video generated but could not be added to project."
+
+            # Shift clip B (and all clips after it) right to make room
+            all_clips = list(Clip.filter())
+            for c in all_clips:
+                c_pos = float(c.data.get("position", 0))
+                if c_pos >= end_position_a and c.id != clip_a_id:
+                    c.data["position"] = c_pos + morph_duration
+                    c.save()
+
+            # Insert the morph clip at the end of clip A
+            was_playing = _pause_player()
+            try:
+                msg = add_clip_to_timeline(
+                    file_id=f.id,
+                    position_seconds=str(end_position_a),
+                    track=track,
+                )
+            finally:
+                _resume_player(was_playing)
+
+            return (
+                f"Morph transition created! A {morph_duration:.0f}s AI morph video was "
+                f"generated using Kling (last frame of clip A → first frame of clip B) "
+                f"and inserted between the clips. {msg}"
+            )
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
+    except Exception as e:
+        log.error("generate_transition_clip: %s", e, exc_info=True)
+        return f"Error: {e}"
+    finally:
+        _resume_auto_save(auto_save_was_active)
 
 
 # ---------------------------------------------------------------------------

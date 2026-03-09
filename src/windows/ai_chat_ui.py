@@ -178,10 +178,18 @@ class AIChatWorker(QObject):
 
             client = get_backend_client()
 
+            last_tool_result = None
+
             def on_tool_call(tool_name, tool_args, call_id):
                 """Execute a tool locally and return the result."""
+                nonlocal last_tool_result
                 log.info("Tool delegated from backend: %s", tool_name)
-                return execute_tool(tool_name, tool_args or {})
+                result = execute_tool(tool_name, tool_args or {})
+                # Remember the last successful tool result so we can use it
+                # if the WebSocket breaks after the tool already completed.
+                if result and not str(result).startswith("Error"):
+                    last_tool_result = result
+                return result
 
             final_response = None
             final_error = None
@@ -205,7 +213,18 @@ class AIChatWorker(QObject):
             )
 
             if final_error:
-                # Fall back to REST on WebSocket error
+                # If a tool already executed successfully (e.g. v2v clip
+                # was generated and imported), use that result instead of
+                # falling back to REST which would re-run the entire agent.
+                if last_tool_result:
+                    log.info("WebSocket failed (%s) but tool already succeeded, using tool result", final_error)
+                    self.response_ready.emit(last_tool_result)
+                    return
+                if final_response:
+                    log.info("WebSocket failed (%s) but response already received", final_error)
+                    self.response_ready.emit(final_response)
+                    return
+                # Fall back to REST only if no tool result and no response
                 log.warning("WebSocket failed (%s), falling back to REST", final_error)
                 resp = client.send_message(
                     message=text,

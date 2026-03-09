@@ -229,7 +229,6 @@ class ZenviBackendClient:
                     #  1. A recv-loop thread that answers server pings/pongs
                     #  2. Client-side pings every 30 s
                     if on_tool_call:
-                        import threading
                         _tool_result_holder = [None]
                         _tool_error_holder = [None]
 
@@ -290,14 +289,28 @@ class ZenviBackendClient:
                         if _tool_error_holder[0]:
                             result = f"Tool execution error: {_tool_error_holder[0]}"
 
-                        # Send result back
-                        ws.send(json.dumps({
-                            "type": "tool_result",
-                            "data": {
-                                "call_id": data.get("call_id", ""),
-                                "result": str(result),
-                            },
-                        }))
+                        # Send result back to backend.  If the WS broke
+                        # during the (potentially minutes-long) tool
+                        # execution, the send will fail.  In that case,
+                        # return the tool result directly so the caller
+                        # can still use it.
+                        try:
+                            ws.send(json.dumps({
+                                "type": "tool_result",
+                                "data": {
+                                    "call_id": data.get("call_id", ""),
+                                    "result": str(result),
+                                },
+                            }))
+                        except Exception as _ws_err:
+                            log.warning("WS send tool_result failed: %s", _ws_err)
+                            # Tool already executed; return its result
+                            # instead of raising and losing it.
+                            if result and not str(result).startswith("Error"):
+                                if on_error:
+                                    on_error(f"WebSocket closed after tool completed: {_ws_err}")
+                                return str(result)
+                            raise  # re-raise if the tool itself failed
 
                 elif msg_type == "assistant_response":
                     final_response = data.get("response", "")
@@ -351,13 +364,6 @@ class ZenviBackendClient:
     # ------------------------------------------------------------------
     # Indexing
     # ------------------------------------------------------------------
-    def is_indexing_configured(self) -> bool:
-        try:
-            r = self.session.get(f"{self.api_url}/indexing/status", timeout=5)
-            return r.json().get("configured", False)
-        except Exception:
-            return False
-
     def index_video(self, file_path: str, index_name: str, filename: Optional[str] = None, async_mode: bool = True) -> Dict[str, Any]:
         """Index a video file."""
         try:
@@ -376,7 +382,11 @@ class ZenviBackendClient:
     # Video Generation
     # ------------------------------------------------------------------
     def generate_video(self, prompt: str, duration_seconds: int = 4, **kwargs) -> Dict[str, Any]:
-        """Generate a video from a text prompt."""
+        """Generate a video from a text prompt.
+
+        Supported kwargs: input_image_path, seed_video, strength, frame_images,
+                          model, width, height, input_video_url.
+        """
         try:
             payload = {"prompt": prompt, "duration_seconds": duration_seconds}
             payload.update(kwargs)

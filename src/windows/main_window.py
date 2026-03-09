@@ -742,6 +742,13 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         app = get_app()
 
+        # Skip auto-save if a video generation pipeline is in progress.
+        # The generation code pauses and resumes this timer, but as a
+        # secondary safeguard we also check a flag.
+        if getattr(app, '_generation_in_progress', False):
+            log.debug("auto_save_project: skipped — generation in progress")
+            return
+
         # Get current filepath (if any)
         file_path = app.project.current_filepath
         if not app.project.needs_save():
