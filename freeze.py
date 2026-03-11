@@ -205,11 +205,13 @@ build_exe_options = {}
 exe_name = info.NAME
 
 # Copy QT translations to local folder (to be packaged)
+# Skipped on macOS CI builds (translations are optional; reduces build time/size).
 qt_local_path = os.path.join(PATH, "openshot_qt", "language")
 qt_system_path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
 log.info("Qt local translation files path: %s" % qt_local_path)
 log.info("Qt system translation files path: %s" % qt_system_path)
-if os.path.exists(qt_system_path):
+_skip_translations = sys.platform == "darwin" and os.getenv("CI")
+if os.path.exists(qt_system_path) and not _skip_translations:
     # Create local QT translation folder (if needed)
     if not os.path.exists(qt_local_path):
         os.mkdir(qt_local_path)
@@ -219,6 +221,8 @@ if os.path.exists(qt_system_path):
         if (file.startswith("qt_") or file.startswith("qtbase_")) and file.endswith(".qm"):
             log.info("Qt system translation, copied: %s" % file)
             shutil.copyfile(os.path.join(qt_system_path, file), os.path.join(qt_local_path, file))
+elif _skip_translations:
+    log.info("Qt translations skipped (macOS CI build)")
 
 # Copy git log files into src/settings files (if found)
 version_info = {}

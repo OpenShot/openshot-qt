@@ -173,11 +173,14 @@ jobs:
   # Produces an x86_64 app that runs natively on Intel Macs and via
   # Rosetta 2 on Apple Silicon. (Free GitHub runners no longer offer
   # Intel macOS; macos-13 was retired. macos-latest = arm64, but we
-  # install x86_64 Python so cx_Freeze outputs an x86_64 app.)
+  # install x86_64 Python via Rosetta so the frozen app runs on all Macs.)
   #
-  # libopenshot Python bindings are extracted from the pre-built OpenShot
-  # x86_64 macOS DMG. If extraction fails, the build continues without
-  # the video engine (freeze.py handles ImportError gracefully).
+  # Note: libopenshot Python bindings are NOT bundled in this CI build.
+  # The OpenShot .so from their app bundle is linked against their bundled
+  # Python dylibs (not our CI Python), so cx_Freeze cannot package it.
+  # The app installs and launches; video editing requires libopenshot to be
+  # installed separately. Full bundled video support will come with proper
+  # macOS build infrastructure.
   build-macos:
     needs: version
     runs-on: macos-latest
@@ -187,8 +190,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Force x86_64 Python so that compiled extensions (.so / dylibs)
-      # and the frozen app are x86_64, matching the OpenShot DMG bindings.
+      # x86_64 Python runs natively on Intel and via Rosetta 2 on Apple Silicon.
       - name: Set up Python 3.11 (x86_64)
         uses: actions/setup-python@v5
         with:
@@ -200,43 +202,6 @@ jobs:
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
-
-      # Extract libopenshot Python bindings from the OpenShot x86_64 DMG.
-      # The openshot C extension (.so) is compiled for a specific Python ABI;
-      # OpenShot 3.4.0 ships bindings that match CPython 3.11 x86_64.
-      - name: Install libopenshot Python bindings (from OpenShot DMG)
-        run: |
-          OPENSHOT_VER="3.4.0"
-          DMG="OpenShot-v${OPENSHOT_VER}-x86_64.dmg"
-          echo "Downloading OpenShot v${OPENSHOT_VER} for libopenshot Python bindings…"
-          curl -L --retry 3 --silent --show-error \
-            "https://github.com/OpenShot/openshot-qt/releases/download/v${OPENSHOT_VER}/${DMG}" \
-            -o "/tmp/${DMG}"
-
-          hdiutil attach "/tmp/${DMG}" \
-            -mountpoint /Volumes/OpenShot -quiet -nobrowse
-
-          OLIB="/Volumes/OpenShot/OpenShot Video Editor.app/Contents/MacOS/lib"
-          SITE=$(python3 -c "import site; print(site.getsitepackages()[0])")
-          echo "Extracting openshot bindings from: $OLIB  →  $SITE"
-
-          # openshot pure-Python package (stubs, __init__, etc.)
-          [ -d "$OLIB/openshot" ] && cp -r "$OLIB/openshot" "$SITE/"
-
-          # _openshot compiled extension (e.g. _openshot.cpython-311-darwin.so)
-          find "$OLIB" -maxdepth 1 -name "_openshot*" \
-            -exec cp {} "$SITE/" \; 2>/dev/null || true
-
-          # libopenshot dylibs (bundled so cx_Freeze can include them)
-          find "$OLIB" -name "libopenshot*.dylib" \
-            -exec cp {} "$SITE/" \; 2>/dev/null || true
-
-          hdiutil detach /Volumes/OpenShot -quiet
-          rm -f "/tmp/${DMG}"
-
-          # Verify (non-fatal — freeze.py handles missing openshot gracefully)
-          python3 -c "import openshot; print('openshot OK:', openshot.OPENSHOT_VERSION_FULL)" \
-            || echo "WARNING: openshot not importable; app will build without video engine."
 
       - name: Freeze with cx_Freeze
         run: |
