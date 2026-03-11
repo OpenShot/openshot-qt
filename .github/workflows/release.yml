@@ -169,16 +169,25 @@ jobs:
             Zenvi-v*.AppImage
             Zenvi-v*.deb
 
-  # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
+  # ── 3. macOS build (.dmg) — matrix: Intel x86_64 + Apple Silicon arm64 ──
   build-macos:
     needs: version
-    runs-on: macos-latest
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-13
+            arch: x86_64
+          - runner: macos-14
+            arch: arm64
     env:
       VER: ${{ needs.version.outputs.version }}
+      ARCH: ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -218,10 +227,12 @@ jobs:
           sed "s/VERSION/${VER}/g" installer/Info.plist > "$APP/Contents/Resources/Info.plist"
           cp "$APP/Contents/Resources/Info.plist" "$APP/Contents/Info.plist"
 
-          # Copy icon if available
-          ICON=$(find xdg images -name "*.png" -path "*256*" 2>/dev/null | head -1)
-          if [ -n "$ICON" ]; then
-            cp "$ICON" "$APP/Contents/Resources/icon.png"
+          # Copy icon (.icns preferred for macOS, fall back to .png)
+          if [ -f "installer/openshot.icns" ]; then
+            cp "installer/openshot.icns" "$APP/Contents/Resources/icon.icns"
+          else
+            ICON=$(find xdg images -name "*.png" -path "*256*" 2>/dev/null | head -1)
+            [ -n "$ICON" ] && cp "$ICON" "$APP/Contents/Resources/icon.png"
           fi
 
           # Ensure the launcher is executable
@@ -231,11 +242,18 @@ jobs:
             chmod +x "$APP/Contents/MacOS/launch"
           fi
 
+          # Ad-hoc sign all dylibs + the app bundle to avoid dyld signature errors.
+          # Note: does NOT suppress Gatekeeper for downloaded apps (no cert yet).
+          find build \( -name '*.dylib' -o -name '*.so' \) \
+            -exec codesign -s - --force "{}" \; 2>/dev/null || true
+          codesign -s - --deep --force "$APP"
+          echo "Ad-hoc signing complete."
+
           echo "App bundle contents:"
           ls -la "$APP/Contents/MacOS/" | head -20
 
           # Build DMG with App + /Applications symlink
-          DMG_NAME="Zenvi-v${VER}-x86_64.dmg"
+          DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
           rm -rf dmgroot
           mkdir -p dmgroot
           cp -R "$APP" dmgroot/
@@ -255,7 +273,7 @@ jobs:
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macos-package
+          name: macos-package-${{ matrix.arch }}
           path: Zenvi-v*.dmg
           if-no-files-found: error
 
@@ -359,13 +377,12 @@ jobs:
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
 
+      - name: Install Inno Setup 6
+        run: choco install innosetup --yes --no-progress
+        shell: powershell
+
       - name: Build with Inno Setup
         run: |
-          # Download and install Inno Setup if not present
-          if (!(Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe")) {
-            Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is_setup.exe
-            Start-Process -Wait -FilePath .\is_setup.exe -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES"
-          }
 
           # Build installer (deterministically name output + package correct cx_Freeze dir)
           $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
@@ -417,11 +434,17 @@ jobs:
           path: dist/
         continue-on-error: true
 
-      - name: Download macOS artifacts
-        if: needs.build-macos.result == 'success'
+      - name: Download macOS artifacts (Intel)
         uses: actions/download-artifact@v4
         with:
-          name: macos-package
+          name: macos-package-x86_64
+          path: dist/
+        continue-on-error: true
+
+      - name: Download macOS artifacts (Apple Silicon)
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-package-arm64
           path: dist/
         continue-on-error: true
 
@@ -477,7 +500,8 @@ jobs:
             |----------|-----------|
             | **Linux** (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
             | **Linux** (Debian/Ubuntu) | `Zenvi-v${{ env.VER }}-x86_64.deb` |
-            | **macOS** | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | **macOS** Intel | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | **macOS** Apple Silicon | `Zenvi-v${{ env.VER }}-arm64.dmg` |
             | **Windows** | `Zenvi-v${{ env.VER }}-x86_64.exe` |
 
             > **Note:** Some platform installers may not be available if the build for that platform is still in progress.

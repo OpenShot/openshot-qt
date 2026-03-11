@@ -476,9 +476,10 @@ elif sys.platform == "darwin":
     # Copy openshot.py Python bindings
     src_files.append((os.path.join(PATH, "installer", "launch-mac"), "launch-mac"))
 
-    # Append Mac ICON file
-    iconFile += ".hqx"
-    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
+    # Append Mac ICON file (.icns format required for macOS app bundles)
+    # Use the full path to the .icns file; override iconFile to an absolute path
+    iconFile = os.path.join(PATH, "installer", "openshot.icns")
+    src_files.append((iconFile, "icon.icns"))
 
     # Add QtWebEngineProcess / resources if found.
     #
@@ -554,9 +555,16 @@ if sys.platform == "darwin":
 build_options["build_exe"] = build_exe_options
 
 # Define launcher executable to create
+# On macOS iconFile was set to a full absolute path (installer/openshot.icns).
+# On other platforms it is a bare filename resolved relative to xdg/.
+if sys.platform == "darwin":
+    _icon_path = iconFile
+else:
+    _icon_path = os.path.join(PATH, "xdg", iconFile)
+
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
-                   icon=os.path.join(PATH, "xdg", iconFile),
+                   icon=_icon_path,
                    shortcut_name="%s" % info.PRODUCT_NAME,
                    shortcut_dir="ProgramMenuFolder",
                    target_name=exe_name,
@@ -566,7 +574,7 @@ try:
     # Include extra launcher configuration, if defined
     exes.append(Executable("openshot_qt/launch.py",
                 base=extra_exe['base'],
-                icon=os.path.join(PATH, "xdg", iconFile),
+                icon=_icon_path,
                 target_name=extra_exe['name'],
                 copyright=info.COPYRIGHT))
 except NameError:

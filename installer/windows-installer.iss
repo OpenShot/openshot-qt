@@ -25,7 +25,7 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={code:GetAppId|{{4BB0DCDC-BC24-49EC-8937-72956C33A470}}
-AppName=OpenShot Video Editor
+AppName={#MyAppName}
 AppVersion={#VERSION}
 AppVerName={#MyAppName} {#VERSION}
 VersionInfoVersion={#VERSION}
@@ -33,10 +33,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyPublisherURL}
 AppSupportURL={#MySupportURL}
 AppCopyright=(c) 2008-2022 {#MyAppPublisher}
-DefaultDirName={code:GetDefaultDirName|OpenShot Video Editor}
+DefaultDirName={code:GetDefaultDirName|Zenvi}
 DisableProgramGroupPage=yes
 LicenseFile=..\COPYING
-OutputBaseFilename=OpenShot
+OutputBaseFilename=Zenvi
 ArchitecturesInstallIn64BitMode={#ONLY_64_BIT}
 ArchitecturesAllowed={#ONLY_64_BIT}
 ChangesAssociations=not PortableCheck
