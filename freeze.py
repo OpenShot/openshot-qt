@@ -214,7 +214,12 @@ if sys.platform == "win32":
     extra_exe = {"base": None, "name": exe_name + "-cli.exe"}
 
     # Standard graphical Win32 launcher
-    base = "Win32GUI"
+    # cx_Freeze 7.2+ renamed "Win32GUI" to "gui"
+    try:
+        from cx_Freeze._compat import EXE_BASE_WIN32_GUI
+        base = "Win32GUI"
+    except ImportError:
+        base = "gui"
     build_exe_options["include_msvcr"] = True
     exe_name += ".exe"
 
