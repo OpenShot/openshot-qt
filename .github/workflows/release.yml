@@ -235,9 +235,11 @@ jobs:
 
           # Ad-hoc sign — prevents dyld signature crashes.
           # Gatekeeper still warns on first open; right-click → Open to bypass.
-          find build \( -name '*.dylib' -o -name '*.so' \) \
+          # Sign each binary individually first; --deep is NOT used because it
+          # recurses into Python package dirs and chokes on non-code files (.hash, etc.)
+          find "$APP" \( -name '*.dylib' -o -name '*.so' \) \
             -exec codesign -s - --force "{}" \; 2>/dev/null || true
-          codesign -s - --deep --force "$APP"
+          codesign -s - --force "$APP"
           echo "Signing complete. Contents:"
           ls "$APP/Contents/MacOS/" | head -20
 
