@@ -248,9 +248,10 @@ jobs:
           # ad-hoc signing provides no Gatekeeper bypass (that needs a Developer ID
           # cert), so signing individual binaries is both necessary and sufficient to
           # prevent dyld crashes on macOS 12+.
-          find "$APP/Contents" -type f -print0 \
-            | xargs -0 -P4 -I{} sh -c \
-              'file "{}" 2>/dev/null | grep -q "Mach-O" && codesign -s - --force "{}" 2>/dev/null || true'
+          while IFS= read -r -d '' f; do
+            file "$f" 2>/dev/null | grep -q "Mach-O" \
+              && codesign -s - --force "$f" 2>/dev/null || true
+          done < <(find "$APP/Contents" -type f -print0)
           echo "Signing complete. Contents:"
           ls "$APP/Contents/MacOS/" | head -20
 
