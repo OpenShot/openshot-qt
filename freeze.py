@@ -535,11 +535,21 @@ elif sys.platform == "darwin":
     for filename in find_files("openshot_qt", ["*"]):
         src_files.append((filename, os.path.join("lib", os.path.relpath(filename, start=openshot_copy_path))))
 
-    # Exclude gif library which crashes on Mac
-    build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
-                                         "/usr/local/opt/giflib/lib/libgif.dylib",
-                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
-                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
+    # Exclude gif library which crashes on Mac, and system/Homebrew libs not present on CI runners
+    build_exe_options["bin_excludes"] = [
+        "/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
+        "/usr/local/opt/giflib/lib/libgif.dylib",
+        "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
+        "/usr/local/opt/leptonica/lib/liblept.5.dylib",
+        # PostgreSQL client library — not installed on CI runners (arm64 Homebrew paths)
+        "/opt/homebrew/opt/postgresql@15/lib/libpq.5.dylib",
+        "/opt/homebrew/opt/postgresql@14/lib/libpq.5.dylib",
+        "/opt/homebrew/opt/postgresql@16/lib/libpq.5.dylib",
+        "/opt/homebrew/lib/libpq.5.dylib",
+        # Basename pattern — catches libpq regardless of Homebrew prefix
+        "libpq.5.dylib",
+        "libpq.dylib",
+    ]
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
