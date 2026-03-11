@@ -27,11 +27,20 @@ def get_model(model_id):
     """
     Return a LangChain BaseChatModel for the given model_id, or None.
     Uses app settings for API keys and base URLs.
+    The returned model has the Zenvi usage callback pre-attached.
     """
     settings = get_settings()
     if not settings:
         return None
-    return _build_model(model_id, settings)
+    model = _build_model(model_id, settings)
+    if model is None:
+        return None
+    try:
+        from classes.ai_usage_callback import ZenviUsageCallback
+        model = model.with_config(callbacks=[ZenviUsageCallback()])
+    except Exception as exc:
+        log.debug("Could not attach usage callback: %s", exc)
+    return model
 
 
 def list_models():

@@ -125,3 +125,46 @@ supabase functions deploy stripe-webhook
 - Desktop app reports usage after each AI call
 - Website dashboard shows spend vs. tier limit
 - Tier enforcement: block/throttle when limit hit
+
+---
+
+## 2026-03-11 — Phase 4: API Usage Monitoring
+
+### Architecture
+- Desktop app records every AI call to a local JSON buffer (usage_buffer.json) — zero latency on the hot path
+- Buffer flushes to Supabase every 5 min, after 20 records, or on app quit
+- Cost computed server-side from api_pricing table — client cannot inflate/deflate costs
+- tier_limits table drives budget enforcement — update limits without a code deploy
+- Dashboard at /dashboard shows real-time spend, per-provider breakdown, 6-month history
+
+### zenvi-website
+- supabase/migrations/20260311000003_api_usage.sql (new)
+  - api_pricing table seeded with Mar 2026 OpenAI/Anthropic/Google/Runware prices
+  - tier_limits table (none=$2, creator=$10, pro=$25, studio=$60)
+  - api_usage table with indexed user+month lookups
+  - calculate_api_cost() pure stable function
+  - batch_record_api_usage(records JSONB) batched insert, SECURITY DEFINER
+  - get_monthly_totals(), get_usage_summary(), get_usage_history(), check_usage_allowed()
+- src/pages/Dashboard.tsx (new) — /dashboard
+  - Auth-gated; redirects to /login?next=/dashboard if unauthenticated
+  - Spend card with animated progress bar (green → yellow → red at 70/90%)
+  - Per-provider breakdown with proportional bars
+  - 6-month history bar chart (CSS-based, no extra library)
+  - Upgrade alert at ≥70% and ≥90% of limit
+- src/App.tsx — added /dashboard route
+- src/integrations/supabase/types.ts — added all Phase 4 function types
+
+### zenvi-core
+- src/classes/usage_tracker.py (new)
+  - Singleton UsageTracker.instance()
+  - record() — thread-safe, non-blocking, buffers locally
+  - flush() — batch POST to batch_record_api_usage RPC
+  - check_allowed() — calls check_usage_allowed RPC, fails open on network errors
+  - Buffer restored from disk on startup (survives crashes)
+- src/classes/ai_usage_callback.py (new)
+  - ZenviUsageCallback(BaseCallbackHandler) — parses OpenAI + Anthropic token formats
+- src/classes/ai_llm_registry.py — get_model() injects ZenviUsageCallback via with_config()
+
+### Action required
+  cd zenvi-website && supabase db push
+
