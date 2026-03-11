@@ -259,11 +259,27 @@ jobs:
         run: |
           DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
           rm -rf dmgroot && mkdir -p dmgroot
-          cp -R "Zenvi.app" dmgroot/
+
+          # Use ditto (not cp -R) — macOS-native bundle copy; handles resource
+          # forks and works more reliably with the security layer after codesigning.
+          ditto "Zenvi.app" "dmgroot/Zenvi.app"
           ln -s /Applications dmgroot/Applications
-          hdiutil create -volname "Zenvi" -srcfolder dmgroot \
-            -ov -format UDZO "$DMG_NAME"
-          [ -f "$DMG_NAME" ] || { echo "::error::DMG not created"; exit 1; }
+
+          # Strip quarantine and other extended attributes that keep security
+          # daemons (trustd, XProtect, mds_stores) attached to files, which
+          # causes hdiutil to fail with EBUSY.
+          xattr -cr dmgroot/ 2>/dev/null || true
+
+          # Retry loop: macOS security daemons scan newly signed binaries
+          # asynchronously; they typically release file handles within ~5 seconds.
+          for attempt in 1 2 3; do
+            echo "hdiutil attempt $attempt ..."
+            hdiutil create -volname "Zenvi" -srcfolder dmgroot \
+              -ov -format UDZO "$DMG_NAME" && break
+            [ "$attempt" -lt 3 ] && sleep 5
+          done
+
+          [ -f "$DMG_NAME" ] || { echo "::error::DMG not created after 3 attempts"; exit 1; }
           echo "Created $DMG_NAME ($(du -sh "$DMG_NAME" | cut -f1))"
 
       - name: Upload macOS artifact
