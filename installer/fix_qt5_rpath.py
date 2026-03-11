@@ -38,7 +38,12 @@ def fix_rpath(PATH):
            call(["install_name_tool", file_path, "-id", executable_path])
 
            # Loop through all dependencies of each library/executable
-           raw_output = subprocess.Popen(["oTool", "-L", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
+           try:
+               raw_output = subprocess.Popen(["otool", "-L", file_path], stdout=subprocess.PIPE,
+                                             stderr=subprocess.DEVNULL).communicate()[0].decode('utf-8')
+           except FileNotFoundError:
+               print("WARNING: otool not found, skipping rpath fix for %s" % file_path)
+               continue
            for output in raw_output.split("\n")[1:-1]:
                if output and "is not an object file" not in output and ".o):" not in output:
                    dependency_path = output.split('\t')[1].split(' ')[0]
@@ -46,9 +51,21 @@ def fix_rpath(PATH):
 
                    # If @rpath or /usr/local found in dependency path, update with @executable_path instead
                    if "/usr/local" in dependency_path or "@rpath" in dependency_path:
-                       dependency_exe_path = os.path.join("@executable_path", dependency_name)
-                       if not os.path.exists(os.path.join(PATH, dependency_name)):
-                           print("ERROR: /usr/local PATH not found in EXE folder: %s" % dependency_path)
+                       if dependency_path.startswith("@rpath/"):
+                           # Preserve the full relative path after @rpath/ — handles both flat
+                           # dylibs (e.g. @rpath/libfoo.dylib) and framework bundles
+                           # (e.g. @rpath/QtPdf.framework/Versions/5/QtPdf)
+                           relative_dep = dependency_path[len("@rpath/"):]
+                           dependency_exe_path = "@executable_path/" + relative_dep
+                           dep_in_exe = os.path.join(PATH, relative_dep)
+                       else:
+                           # /usr/local/... absolute path: rewrite using just the basename
+                           relative_dep = dependency_name
+                           dependency_exe_path = os.path.join("@executable_path", dependency_name)
+                           dep_in_exe = os.path.join(PATH, dependency_name)
+
+                       if not os.path.exists(dep_in_exe):
+                           print("WARNING: dependency not in EXE folder (skipping rpath fix): %s" % dependency_path)
                        else:
                            call(["install_name_tool", file_path, "-change", dependency_path, dependency_exe_path])
 
@@ -72,7 +89,8 @@ def print_min_versions(PATH):
            if os.path.splitext(file_path)[-1] in non_executables or basename.startswith("."):
                continue
 
-           raw_output = subprocess.Popen(["oTool", "-l", file_path], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
+           raw_output = subprocess.Popen(["otool", "-l", file_path], stdout=subprocess.PIPE,
+                                          stderr=subprocess.DEVNULL).communicate()[0].decode('utf-8')
            matches = REGEX_SDK_MATCH.findall(raw_output)
            matches2 = REGEX_SDK_MATCH2.findall(raw_output)
            min_version = None
