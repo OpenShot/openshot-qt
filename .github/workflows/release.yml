@@ -228,15 +228,21 @@ jobs:
           [ -f "installer/openshot.icns" ] \
             && cp "installer/openshot.icns" "$APP/Contents/Resources/icon.icns"
 
+          # Make all files readable but do NOT add +x to everything.
+          # chmod -R a+rx would give execute bits to text/data files (e.g.
+          # frozen_application_license.txt, .hash, .json), which makes codesign
+          # treat them as unsigned code objects and refuse to sign the bundle.
+          chmod -R a+r "$APP/Contents/"
+
+          # Give execute permission only to actual Mach-O binaries.
+          find "$APP" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
           for bin in zenvi launch launch-openshot; do
             [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin"
           done
-          chmod -R a+rx "$APP/Contents/"
 
-          # Ad-hoc sign — prevents dyld signature crashes.
-          # Gatekeeper still warns on first open; right-click → Open to bypass.
-          # Sign each binary individually first; --deep is NOT used because it
-          # recurses into Python package dirs and chokes on non-code files (.hash, etc.)
+          # Ad-hoc sign individual binaries first, then the bundle.
+          # --deep is NOT used: it recurses into Python package dirs and chokes
+          # on non-code files (.hash, etc.). We pre-sign binaries explicitly instead.
           find "$APP" \( -name '*.dylib' -o -name '*.so' \) \
             -exec codesign -s - --force "{}" \; 2>/dev/null || true
           codesign -s - --force "$APP"
