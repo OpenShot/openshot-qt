@@ -68,8 +68,6 @@ jobs:
             mingw-w64-x86_64-python
             mingw-w64-x86_64-python-pip
             mingw-w64-x86_64-python-pyqt5
-            mingw-w64-x86_64-python-pyqt5-webengine
-            mingw-w64-x86_64-python-pyqt5-sip
             mingw-w64-x86_64-python-cx-freeze
             mingw-w64-x86_64-python-pyzmq
             mingw-w64-x86_64-python-requests
@@ -77,16 +75,13 @@ jobs:
             mingw-w64-x86_64-python-certifi
             mingw-w64-x86_64-python-chardet
             mingw-w64-x86_64-python-urllib3
-            mingw-w64-x86_64-python-sentry-sdk
             mingw-w64-x86_64-python-defusedxml
             mingw-w64-x86_64-python-distro
             mingw-w64-x86_64-ffmpeg
-            mingw-w64-x86_64-openshot
-            mingw-w64-x86_64-babl
 
       - name: Install remaining pip packages
         run: |
-          pip install wheel markdown websocket-client python-dotenv || true
+          pip install sentry-sdk wheel markdown websocket-client python-dotenv || true
 
       - name: Build frozen executable
         run: |
@@ -120,7 +115,7 @@ jobs:
   # ──────────────────────────────────────────────
   build-macos:
     needs: version
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
 
@@ -131,7 +126,7 @@ jobs:
 
       - name: Install system dependencies (Homebrew)
         run: |
-          brew install ffmpeg pyqt@5 librsvg babl cairo pango pkg-config || true
+          brew install ffmpeg librsvg cairo pango pkg-config || true
 
       - name: Install Python dependencies
         run: |
@@ -141,33 +136,22 @@ jobs:
                       chardet urllib3 defusedxml distro markdown \
                       websocket-client python-dotenv
 
-      - name: Install libopenshot (if available)
-        run: |
-          # Attempt to install from brew or skip gracefully
-          brew install openshot || echo "libopenshot not in brew — freeze.py will use bundled/system libs"
-
       - name: Build frozen app bundle
         run: |
-          python3 freeze.py bdist_mac \
-            --iconfile=installer/openshot.icns \
-            --custom-info-plist=installer/Info.plist \
-            --bundle-name="Zenvi" \
-            --git-branch=${{ github.ref_name }}
+          python3 freeze.py build --git-branch=${{ github.ref_name }}
 
-      - name: Create DMG
+      - name: Package macOS app
         run: |
           VERSION="${{ needs.version.outputs.version }}"
-          APP_PATH=$(find build -maxdepth 1 -name "*.app" -type d | head -n1)
-          if [ -z "$APP_PATH" ]; then
-            echo "No .app bundle found, falling back to zip of build dir"
-            mkdir -p artifacts
-            cd build && zip -r ../artifacts/Zenvi-${VERSION}-macos.zip . && cd ..
+          mkdir -p artifacts
+          # Find the frozen build dir
+          EXE_DIR=$(find build -maxdepth 1 -type d -name "exe.*" | head -n1)
+          if [ -n "$EXE_DIR" ]; then
+            zip -r "artifacts/Zenvi-${VERSION}-macos.zip" "$EXE_DIR"
           else
-            mkdir -p artifacts
-            hdiutil create -volname "Zenvi ${VERSION}" \
-              -srcfolder "$APP_PATH" \
-              -ov -format UDZO \
-              "artifacts/Zenvi-${VERSION}-macos.dmg"
+            echo "No frozen build directory found"
+            ls -la build/
+            exit 1
           fi
 
       - name: Upload macOS artifacts
