@@ -1,0 +1,219 @@
+name: Build & Release (Windows + macOS)
+
+on:
+  push:
+    branches:
+      - harkit-new
+
+permissions:
+  contents: write
+
+jobs:
+  # ──────────────────────────────────────────────
+  # 1. Resolve the next semantic version tag once
+  # ──────────────────────────────────────────────
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      new_tag: ${{ steps.bump.outputs.new_tag }}
+      version: ${{ steps.bump.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # need full history for tags
+
+      - name: Determine next version
+        id: bump
+        run: |
+          # Fetch all tags explicitly (shallow clones sometimes miss them)
+          git fetch --tags --force
+
+          # Get the latest vX.Y.Z tag sorted by version
+          LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG="v1.0.0"
+          fi
+          echo "Latest tag: $LATEST_TAG"
+
+          # Strip the leading 'v' and split
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${LATEST_TAG#v}"
+
+          # Bump patch version
+          PATCH=$((PATCH + 1))
+          NEW_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+          VERSION="${MAJOR}.${MINOR}.${PATCH}"
+
+          echo "new_tag=$NEW_TAG"   >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION"   >> "$GITHUB_OUTPUT"
+          echo "Next release: $NEW_TAG"
+
+  # ──────────────────────────────────────────────
+  # 2. Windows build  (MSYS2 / MinGW-w64)
+  # ──────────────────────────────────────────────
+  build-windows:
+    needs: version
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-python
+            mingw-w64-x86_64-python-pip
+            mingw-w64-x86_64-python-pyqt5
+            mingw-w64-x86_64-python-pyqt5-webengine
+            mingw-w64-x86_64-python-pyqt5-sip
+            mingw-w64-x86_64-python-cx-freeze
+            mingw-w64-x86_64-python-pyzmq
+            mingw-w64-x86_64-python-requests
+            mingw-w64-x86_64-python-setuptools
+            mingw-w64-x86_64-python-certifi
+            mingw-w64-x86_64-python-chardet
+            mingw-w64-x86_64-python-urllib3
+            mingw-w64-x86_64-python-sentry-sdk
+            mingw-w64-x86_64-python-defusedxml
+            mingw-w64-x86_64-python-distro
+            mingw-w64-x86_64-ffmpeg
+            mingw-w64-x86_64-openshot
+            mingw-w64-x86_64-babl
+
+      - name: Install remaining pip packages
+        run: |
+          pip install wheel markdown websocket-client python-dotenv || true
+
+      - name: Build frozen executable
+        run: |
+          python freeze.py build --git-branch=${{ github.ref_name }}
+
+      - name: Build MSI installer
+        run: |
+          python freeze.py bdist_msi --git-branch=${{ github.ref_name }}
+
+      - name: Collect artifacts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts
+          # Copy the MSI(s) produced by cx_Freeze
+          Get-ChildItem -Path build -Recurse -Filter *.msi | Copy-Item -Destination artifacts/
+          # Also zip the frozen build directory as a portable archive
+          $exeDir = Get-ChildItem -Path build -Directory | Where-Object { $_.Name -like "exe.*" } | Select-Object -First 1
+          if ($exeDir) {
+            Compress-Archive -Path $exeDir.FullName -DestinationPath "artifacts/Zenvi-${{ needs.version.outputs.version }}-win64-portable.zip"
+          }
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: artifacts/*
+          retention-days: 5
+
+  # ──────────────────────────────────────────────
+  # 3. macOS build
+  # ──────────────────────────────────────────────
+  build-macos:
+    needs: version
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system dependencies (Homebrew)
+        run: |
+          brew install ffmpeg pyqt@5 librsvg babl cairo pango pkg-config || true
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install PyQt5 PyQtWebEngine
+          pip install cx_Freeze==7.0.0 sentry-sdk pyzmq requests certifi \
+                      chardet urllib3 defusedxml distro markdown \
+                      websocket-client python-dotenv
+
+      - name: Install libopenshot (if available)
+        run: |
+          # Attempt to install from brew or skip gracefully
+          brew install openshot || echo "libopenshot not in brew — freeze.py will use bundled/system libs"
+
+      - name: Build frozen app bundle
+        run: |
+          python3 freeze.py bdist_mac \
+            --iconfile=installer/openshot.icns \
+            --custom-info-plist=installer/Info.plist \
+            --bundle-name="Zenvi" \
+            --git-branch=${{ github.ref_name }}
+
+      - name: Create DMG
+        run: |
+          VERSION="${{ needs.version.outputs.version }}"
+          APP_PATH=$(find build -maxdepth 1 -name "*.app" -type d | head -n1)
+          if [ -z "$APP_PATH" ]; then
+            echo "No .app bundle found, falling back to zip of build dir"
+            mkdir -p artifacts
+            cd build && zip -r ../artifacts/Zenvi-${VERSION}-macos.zip . && cd ..
+          else
+            mkdir -p artifacts
+            hdiutil create -volname "Zenvi ${VERSION}" \
+              -srcfolder "$APP_PATH" \
+              -ov -format UDZO \
+              "artifacts/Zenvi-${VERSION}-macos.dmg"
+          fi
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-build
+          path: artifacts/*
+          retention-days: 5
+
+  # ──────────────────────────────────────────────
+  # 4. Create GitHub Release with tag
+  # ──────────────────────────────────────────────
+  release:
+    needs: [version, build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+
+      - name: Create tag and release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.version.outputs.new_tag }}
+          name: "Zenvi ${{ needs.version.outputs.new_tag }}"
+          body: |
+            ## Zenvi ${{ needs.version.outputs.new_tag }}
+
+            Automated release from `${{ github.ref_name }}` branch.
+
+            **Commit:** ${{ github.sha }}
+
+            ### Downloads
+            - **Windows** — MSI installer + portable ZIP
+            - **macOS** — DMG disk image
+
+            ---
+            _Built by GitHub Actions on ${{ github.event.head_commit.timestamp }}_
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            release-assets/windows-build/*
+            release-assets/macos-build/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
