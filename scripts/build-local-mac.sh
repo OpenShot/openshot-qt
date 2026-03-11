@@ -75,9 +75,11 @@ else
   [ -n "$ICON" ] && cp "$ICON" "$APP/Contents/Resources/icon.png"
 fi
 
-# Ensure launcher is executable
-[ -f "$APP/Contents/MacOS/zenvi" ] && chmod +x "$APP/Contents/MacOS/zenvi" || true
-[ -f "$APP/Contents/MacOS/launch" ] && chmod +x "$APP/Contents/MacOS/launch" || true
+# Ensure all known entry points are executable.
+# Info.plist declares CFBundleExecutable=launch-mac so it must be +x.
+for bin in zenvi launch launch-openshot launch-mac; do
+  [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin" || true
+done
 
 # ── Step 5: Sign ─────────────────────────────────────────────────────────────
 echo "[4/5] Signing..."

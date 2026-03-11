@@ -109,7 +109,8 @@ jobs:
           #!/bin/bash
           HERE="$(dirname "$(readlink -f "$0")")"
           export PATH="$HERE/usr/bin:$PATH"
-          export LD_LIBRARY_PATH="$HERE/usr/bin/lib:$HERE/usr/lib:$LD_LIBRARY_PATH"
+          export LD_LIBRARY_PATH="$HERE/usr/bin:$HERE/usr/bin/lib:$HERE/usr/lib:$LD_LIBRARY_PATH"
+          export QT_PLUGIN_PATH="$HERE/usr/bin"
           exec "$HERE/usr/bin/zenvi" "$@"
           APPRUN
           chmod +x "$APPDIR/AppRun"
@@ -133,6 +134,8 @@ jobs:
           # Launcher script
           cat > "$DEB_DIR/usr/bin/zenvi" << 'LAUNCHER'
           #!/bin/bash
+          export LD_LIBRARY_PATH="/usr/share/zenvi:/usr/share/zenvi/lib:$LD_LIBRARY_PATH"
+          export QT_PLUGIN_PATH="/usr/share/zenvi"
           exec /usr/share/zenvi/zenvi "$@"
           LAUNCHER
           chmod +x "$DEB_DIR/usr/bin/zenvi"

@@ -74,7 +74,14 @@ echo "Symlink lib folder into Resources - needed to find lib/babl-ext at runtime
 ln -sf "../MacOS/lib" "$OS_PATH/Resources/lib" 2>/dev/null || true
 
 echo "Fix permissions inside MacOS folder"
-chmod -R a+rx "$OS_PATH/"*
+# Give read access to all files; do NOT set +x on everything — codesign treats
+# any file with execute bits as a code object that must be signed, so non-binary
+# files (*.txt, *.json, *.hash, etc.) with +x will cause signing to fail.
+chmod -R a+r "$OS_PATH/"
+find "$OS_PATH" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
+for bin in zenvi launch launch-openshot launch-mac; do
+    [ -f "$OS_PATH/MacOS/$bin" ] && chmod +x "$OS_PATH/MacOS/$bin"
+done
 
 echo "Loop through bundled files and sign all binary files"
 if [ -n "$SIGN_IDENTITY" ]; then
