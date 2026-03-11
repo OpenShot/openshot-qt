@@ -46,7 +46,13 @@ def fix_rpath(PATH):
                continue
            for output in raw_output.split("\n")[1:-1]:
                if output and "is not an object file" not in output and ".o):" not in output:
-                   dependency_path = output.split('\t')[1].split(' ')[0]
+                   # Skip architecture-header lines from fat/universal binaries that don't
+                   # start with a tab (e.g. "/path (architecture x86_64):"). These lines
+                   # have no tab and would cause IndexError on split('\t')[1].
+                   parts = output.split('\t')
+                   if len(parts) < 2:
+                       continue
+                   dependency_path = parts[1].split(' ')[0]
                    dependency_base_path, dependency_name = os.path.split(dependency_path)
 
                    # If @rpath or /usr/local found in dependency path, update with @executable_path instead
