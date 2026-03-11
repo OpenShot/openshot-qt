@@ -234,18 +234,23 @@ jobs:
           # treat them as unsigned code objects and refuse to sign the bundle.
           chmod -R a+r "$APP/Contents/"
 
-          # Give execute permission only to actual Mach-O binaries.
+          # Give execute permission to Mach-O libraries and known entry points.
+          # Info.plist declares CFBundleExecutable=launch-mac, so that must be +x too.
           find "$APP" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
-          for bin in zenvi launch launch-openshot; do
+          for bin in zenvi launch launch-openshot launch-mac; do
             [ -f "$APP/Contents/MacOS/$bin" ] && chmod +x "$APP/Contents/MacOS/$bin"
           done
 
-          # Ad-hoc sign individual binaries first, then the bundle.
-          # --deep is NOT used: it recurses into Python package dirs and chokes
-          # on non-code files (.hash, etc.). We pre-sign binaries explicitly instead.
-          find "$APP" \( -name '*.dylib' -o -name '*.so' \) \
-            -exec codesign -s - --force "{}" \; 2>/dev/null || true
-          codesign -s - --force "$APP"
+          # Ad-hoc sign every Mach-O binary detected by content (magic bytes), not by
+          # file extension. Extension-only filtering (.dylib/.so) misses binaries with
+          # unusual names, causing codesign to fail with "code object is not signed at
+          # all" for each missed file. Bundle-level signing (codesign APP) is skipped:
+          # ad-hoc signing provides no Gatekeeper bypass (that needs a Developer ID
+          # cert), so signing individual binaries is both necessary and sufficient to
+          # prevent dyld crashes on macOS 12+.
+          find "$APP/Contents" -type f -print0 \
+            | xargs -0 -P4 -I{} sh -c \
+              'file "{}" 2>/dev/null | grep -q "Mach-O" && codesign -s - --force "{}" 2>/dev/null || true'
           echo "Signing complete. Contents:"
           ls "$APP/Contents/MacOS/" | head -20
 
