@@ -110,7 +110,7 @@ jobs:
           HERE="$(dirname "$(readlink -f "$0")")"
           export PATH="$HERE/usr/bin:$PATH"
           export LD_LIBRARY_PATH="$HERE/usr/bin/lib:$HERE/usr/lib:$LD_LIBRARY_PATH"
-          exec "$HERE/usr/bin/launch" "$@"
+          exec "$HERE/usr/bin/zenvi" "$@"
           APPRUN
           chmod +x "$APPDIR/AppRun"
 
@@ -133,7 +133,7 @@ jobs:
           # Launcher script
           cat > "$DEB_DIR/usr/bin/zenvi" << 'LAUNCHER'
           #!/bin/bash
-          exec /usr/share/zenvi/launch "$@"
+          exec /usr/share/zenvi/zenvi "$@"
           LAUNCHER
           chmod +x "$DEB_DIR/usr/bin/zenvi"
 
