@@ -1,17 +1,34 @@
 #!/bin/sh
+# build-mac-dmg.sh — Build, sign, and package Zenvi as a macOS DMG
+#
+# Usage:
+#   bash installer/build-mac-dmg.sh
+#
+# Environment variables (all optional):
+#   APP_NAME              — App bundle name without .app (default: Zenvi)
+#   ARCH                  — Target architecture label (default: x86_64)
+#   SIGN_IDENTITY         — codesign identity (e.g. "Developer ID Application: Zenvi Inc")
+#                           If unset, ad-hoc signing is used (no Gatekeeper trust)
+#   MAC_NOTARIZE_PASSWORD — App-specific password for notarytool (requires SIGN_IDENTITY)
+#   APPLE_ID              — Apple ID for notarytool (requires SIGN_IDENTITY)
+#   TEAM_ID               — Apple Team ID for notarytool (requires SIGN_IDENTITY)
 
-# XXX: These paths should be set using `brew prefix` commands,
-#      for future-proofing against upgrades
-PATH=/usr/local/Cellar/python@3.7/3.7.9_2/Frameworks/Python.framework/Versions/3.7/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/qt5/5.5/clang_64/bin:/opt/X11/bin
-MAC_NOTARIZE_PASSWORD=$1
+set -e
 
-# Get Version
+# ── Configuration ────────────────────────────────────────────────────────────
+APP_NAME="${APP_NAME:-Zenvi}"
+ARCH="${ARCH:-x86_64}"
+MAC_NOTARIZE_PASSWORD="${MAC_NOTARIZE_PASSWORD:-}"
+APPLE_ID="${APPLE_ID:-}"
+TEAM_ID="${TEAM_ID:-}"
+
+# Get Version from source
 VERSION=$(grep -E '^VERSION = "(.*)"' src/classes/info.py | awk '{print $3}' | tr -d '"')
 echo "Found Version $VERSION"
 
-# Set path to app bundle
-OS_APP_NAME="OpenShot Video Editor.app"
-OS_DMG_NAME="OpenShot-$VERSION.dmg"
+# Set paths
+OS_APP_NAME="${APP_NAME}.app"
+OS_DMG_NAME="${APP_NAME}-v${VERSION}-${ARCH}.dmg"
 OS_PATH="build/$OS_APP_NAME/Contents"
 echo "Fixing App Bundle ($OS_PATH)"
 
@@ -21,79 +38,134 @@ sed -e "s/VERSION/$VERSION/g" "$OS_PATH/Info.plist" > "$OS_PATH/Info.plist_versi
 mv  "$OS_PATH/Info.plist_version" "$OS_PATH/Info.plist"
 
 echo "Symlink Non-Code Files to Resources"
-mv "$OS_PATH/MacOS/lib/blender" "$OS_PATH/Resources/blender"; ln -s "../../Resources/blender" "$OS_PATH/MacOS/lib/blender";
-mv "$OS_PATH/MacOS/lib/classes" "$OS_PATH/Resources/classes"; ln -s "../../Resources/classes" "$OS_PATH/MacOS/lib/classes";
-mv "$OS_PATH/MacOS/lib/effects" "$OS_PATH/Resources/effects"; ln -s "../../Resources/effects" "$OS_PATH/MacOS/lib/effects";
-mv "$OS_PATH/MacOS/lib/emojis" "$OS_PATH/Resources/emojis"; ln -s "../../Resources/emojis" "$OS_PATH/MacOS/lib/emojis";
-mv "$OS_PATH/MacOS/lib/images" "$OS_PATH/Resources/images"; ln -s "../../Resources/images" "$OS_PATH/MacOS/lib/images";
-mv "$OS_PATH/MacOS/lib/themes" "$OS_PATH/Resources/themes"; ln -s "../../Resources/themes" "$OS_PATH/MacOS/lib/themes";
-mv "$OS_PATH/MacOS/lib/language" "$OS_PATH/Resources/language"; ln -s "../../Resources/language" "$OS_PATH/MacOS/lib/language";
-mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/qtwebengine_locales"; ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales";
-mv "$OS_PATH/MacOS/lib/presets" "$OS_PATH/Resources/presets"; ln -s "../../Resources/presets" "$OS_PATH/MacOS/lib/presets";
-mv "$OS_PATH/MacOS/lib/profiles" "$OS_PATH/Resources/profiles"; ln -s "../../Resources/profiles" "$OS_PATH/MacOS/lib/profiles";
-mv "$OS_PATH/MacOS/lib/resources" "$OS_PATH/Resources/resources"; ln -s "../../Resources/resources" "$OS_PATH/MacOS/lib/resources";
-mv "$OS_PATH/MacOS/lib/settings" "$OS_PATH/Resources/settings"; ln -s "../../Resources/settings" "$OS_PATH/MacOS/lib/settings";
-cp "$OS_PATH/MacOS/settings/"* "$OS_PATH/Resources/settings/"; # Copy *.log files into settings
-rm -r "$OS_PATH/MacOS/settings/" # remove old settings folder
-mv "$OS_PATH/MacOS/lib/tests" "$OS_PATH/Resources/tests"; ln -s "../../Resources/tests" "$OS_PATH/MacOS/lib/tests";
-mv "$OS_PATH/MacOS/lib/timeline" "$OS_PATH/Resources/timeline"; ln -s "../../Resources/timeline" "$OS_PATH/MacOS/lib/timeline";
-mv "$OS_PATH/MacOS/lib/titles" "$OS_PATH/Resources/titles"; ln -s "../../Resources/titles" "$OS_PATH/MacOS/lib/titles";
-mv "$OS_PATH/MacOS/lib/transitions" "$OS_PATH/Resources/transitions"; ln -s "../../Resources/transitions" "$OS_PATH/MacOS/lib/transitions";
-mv "$OS_PATH/MacOS/lib/windows" "$OS_PATH/Resources/windows"; ln -s "../../Resources/windows" "$OS_PATH/MacOS/lib/windows";
-mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"; ln -s "../Resources/qt.conf" "$OS_PATH/MacOS/qt.conf";
-mv "$OS_PATH/MacOS/openshot-qt.hqx" "$OS_PATH/Resources/openshot-qt.hqx"; ln -s "../Resources/openshot-qt.hqx" "$OS_PATH/MacOS/openshot-qt.hqx";
-mv "$OS_PATH/MacOS/lib/launch.py" "$OS_PATH/Resources/launch.py"; ln -s "../../Resources/launch.py" "$OS_PATH/MacOS/lib/launch.py";
+mv "$OS_PATH/MacOS/lib/blender"     "$OS_PATH/Resources/blender"     2>/dev/null && ln -s "../../Resources/blender"     "$OS_PATH/MacOS/lib/blender"     || true
+mv "$OS_PATH/MacOS/lib/classes"     "$OS_PATH/Resources/classes"     2>/dev/null && ln -s "../../Resources/classes"     "$OS_PATH/MacOS/lib/classes"     || true
+mv "$OS_PATH/MacOS/lib/effects"     "$OS_PATH/Resources/effects"     2>/dev/null && ln -s "../../Resources/effects"     "$OS_PATH/MacOS/lib/effects"     || true
+mv "$OS_PATH/MacOS/lib/emojis"      "$OS_PATH/Resources/emojis"      2>/dev/null && ln -s "../../Resources/emojis"      "$OS_PATH/MacOS/lib/emojis"      || true
+mv "$OS_PATH/MacOS/lib/images"      "$OS_PATH/Resources/images"      2>/dev/null && ln -s "../../Resources/images"      "$OS_PATH/MacOS/lib/images"      || true
+mv "$OS_PATH/MacOS/lib/themes"      "$OS_PATH/Resources/themes"      2>/dev/null && ln -s "../../Resources/themes"      "$OS_PATH/MacOS/lib/themes"      || true
+mv "$OS_PATH/MacOS/lib/language"    "$OS_PATH/Resources/language"    2>/dev/null && ln -s "../../Resources/language"    "$OS_PATH/MacOS/lib/language"    || true
+mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/qtwebengine_locales" 2>/dev/null && ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales" || true
+mv "$OS_PATH/MacOS/lib/presets"     "$OS_PATH/Resources/presets"     2>/dev/null && ln -s "../../Resources/presets"     "$OS_PATH/MacOS/lib/presets"     || true
+mv "$OS_PATH/MacOS/lib/profiles"    "$OS_PATH/Resources/profiles"    2>/dev/null && ln -s "../../Resources/profiles"    "$OS_PATH/MacOS/lib/profiles"    || true
+mv "$OS_PATH/MacOS/lib/resources"   "$OS_PATH/Resources/resources"   2>/dev/null && ln -s "../../Resources/resources"   "$OS_PATH/MacOS/lib/resources"   || true
+mv "$OS_PATH/MacOS/lib/settings"    "$OS_PATH/Resources/settings"    2>/dev/null && ln -s "../../Resources/settings"    "$OS_PATH/MacOS/lib/settings"    || true
+if [ -d "$OS_PATH/MacOS/settings" ]; then
+    cp "$OS_PATH/MacOS/settings/"* "$OS_PATH/Resources/settings/" 2>/dev/null || true
+    rm -r "$OS_PATH/MacOS/settings/"
+fi
+mv "$OS_PATH/MacOS/lib/tests"       "$OS_PATH/Resources/tests"       2>/dev/null && ln -s "../../Resources/tests"       "$OS_PATH/MacOS/lib/tests"       || true
+mv "$OS_PATH/MacOS/lib/timeline"    "$OS_PATH/Resources/timeline"    2>/dev/null && ln -s "../../Resources/timeline"    "$OS_PATH/MacOS/lib/timeline"    || true
+mv "$OS_PATH/MacOS/lib/titles"      "$OS_PATH/Resources/titles"      2>/dev/null && ln -s "../../Resources/titles"      "$OS_PATH/MacOS/lib/titles"      || true
+mv "$OS_PATH/MacOS/lib/transitions" "$OS_PATH/Resources/transitions" 2>/dev/null && ln -s "../../Resources/transitions" "$OS_PATH/MacOS/lib/transitions" || true
+mv "$OS_PATH/MacOS/lib/windows"     "$OS_PATH/Resources/windows"     2>/dev/null && ln -s "../../Resources/windows"     "$OS_PATH/MacOS/lib/windows"     || true
+mv "$OS_PATH/MacOS/qt.conf"         "$OS_PATH/Resources/qt.conf"     2>/dev/null && ln -s "../Resources/qt.conf"         "$OS_PATH/MacOS/qt.conf"         || true
+
+# Move icon (freeze.py places it as icon.icns per Info.plist CFBundleIconFile)
+if [ -f "$OS_PATH/MacOS/icon.icns" ]; then
+    mv "$OS_PATH/MacOS/icon.icns" "$OS_PATH/Resources/icon.icns"
+fi
+# Ensure icon.icns exists in Resources (fallback from installer/)
+if [ ! -f "$OS_PATH/Resources/icon.icns" ]; then
+    cp installer/openshot.icns "$OS_PATH/Resources/icon.icns"
+fi
 
 echo "Symlink lib folder into Resources - needed to find lib/babl-ext at runtime"
-ln -s "../MacOS/lib" "$OS_PATH/Resources/lib";
+ln -sf "../MacOS/lib" "$OS_PATH/Resources/lib" 2>/dev/null || true
 
-echo "Fix permissions inside MacOS folder (all everyone to read and execute all the files inside this *.app bundle)"
+echo "Fix permissions inside MacOS folder"
 chmod -R a+rx "$OS_PATH/"*
 
 echo "Loop through bundled files and sign all binary files"
-find "build" \( -iname '*.dylib' -o -iname '*.so' \) -exec codesign -s "OpenShot Studios, LLC" --timestamp=http://timestamp.apple.com/ts01 --entitlements "installer/openshot.entitlements" --force "{}" \;
+if [ -n "$SIGN_IDENTITY" ]; then
+    # ── Production signing (requires Apple Developer certificate) ──────────
+    find "build" \( -iname '*.dylib' -o -iname '*.so' \) \
+        -exec codesign -s "$SIGN_IDENTITY" \
+            --timestamp=http://timestamp.apple.com/ts01 \
+            --entitlements "installer/openshot.entitlements" \
+            --force "{}" \;
 
-echo "Code Sign App Bundle (deep)"
-codesign -s "OpenShot Studios, LLC" --force --deep --entitlements "installer/openshot.entitlements" --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME"
-codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/qtwebengine.entitlements" --options runtime --timestamp=http://timestamp.apple.com/ts01 "build/$OS_APP_NAME/Contents/MacOS/QtWebEngineProcess"
+    echo "Code Sign App Bundle (deep)"
+    codesign -s "$SIGN_IDENTITY" --force --deep \
+        --entitlements "installer/openshot.entitlements" \
+        --options runtime \
+        --timestamp=http://timestamp.apple.com/ts01 \
+        "build/$OS_APP_NAME"
 
-echo "Verifying App Signing"
-spctl -a -vv "build/$OS_APP_NAME"
+    if [ -f "build/$OS_APP_NAME/Contents/MacOS/QtWebEngineProcess" ]; then
+        codesign -s "$SIGN_IDENTITY" --force \
+            --entitlements "installer/qtwebengine.entitlements" \
+            --options runtime \
+            --timestamp=http://timestamp.apple.com/ts01 \
+            "build/$OS_APP_NAME/Contents/MacOS/QtWebEngineProcess"
+    fi
 
-echo "Building Custom DMG"
-appdmg "installer/dmg-template.json" "build/$OS_DMG_NAME"
-
-echo "Code Sign DMG"
-codesign -s "OpenShot Studios, LLC" --force --entitlements "installer/openshot.entitlements" --timestamp=http://timestamp.apple.com/ts01 "build/$OS_DMG_NAME"
-
-echo "Notarize DMG file (submit to Apple)"
-# No errors uploading '/Users/jonathan/builds/7d5103a1/0/OpenShot/openshot-qt/build/test.zip'.
-# RequestUUID = cc285719-823f-4f0b-8e71-2df4bbbdaf72
-notarize_output=$(xcrun notarytool submit --apple-id "jonathan@openshot.org" --password "$MAC_NOTARIZE_PASSWORD" --team-id "C94ZNQ5JF3" --wait "build/$OS_DMG_NAME")
-echo "$notarize_output"
-
-echo "Parse Notarize Output and get Notarization ID & Status"
-pat='.*id: (.*)\n.*status: ([^'$'\n'']*)'
-[[ "$notarize_output" =~ $pat ]]
-REQUEST_UUID="${BASH_REMATCH[1]}"
-echo " Notarization ID: $REQUEST_UUID"
-REQUEST_STATUS="${BASH_REMATCH[2]}"
-echo " Notarization Status: $REQUEST_STATUS"
-
-if [ "$REQUEST_UUID" == "" ]; then
-    echo "Failed to locate Notarization ID, exiting with error."
-    exit 1
-fi
-if [ "$REQUEST_STATUS" != "Accepted" ]; then
-    echo "Failed to locate Notarization Status of Accepted, exiting with error."
-    exit 1
+    echo "Verifying App Signing"
+    spctl -a -vv "build/$OS_APP_NAME"
+else
+    # ── Ad-hoc signing (no cert — satisfies dyld but NOT Gatekeeper) ──────
+    echo "No SIGN_IDENTITY set — using ad-hoc signing"
+    echo "Note: Gatekeeper will still warn users for downloaded apps (expected without a cert)"
+    find "build" \( -iname '*.dylib' -o -iname '*.so' \) \
+        -exec codesign -s - --force "{}" \; 2>/dev/null || true
+    codesign -s - --deep --force "build/$OS_APP_NAME"
+    codesign -dv --verbose=4 "build/$OS_APP_NAME" 2>&1 || true
 fi
 
-# Wait a few more seconds (otherwise the stapler can sometimes fail to find the ticket)
-sleep 120
+echo "Building DMG"
+hdiutil create \
+    -volname "$APP_NAME" \
+    -srcfolder "build/$OS_APP_NAME" \
+    -ov -format UDZO \
+    "build/$OS_DMG_NAME"
 
-echo "Staple Notarization Ticket to DMG"
-xcrun stapler staple "build/$OS_DMG_NAME"
+if [ -n "$SIGN_IDENTITY" ]; then
+    echo "Code Sign DMG"
+    codesign -s "$SIGN_IDENTITY" --force \
+        --entitlements "installer/openshot.entitlements" \
+        --timestamp=http://timestamp.apple.com/ts01 \
+        "build/$OS_DMG_NAME"
+fi
 
-echo "Verifying DMG Signing"
-spctl -a -t open --context context:primary-signature -v "build/$OS_DMG_NAME"
+# ── Notarization (requires Apple Developer account + app-specific password) ──
+# Set SIGN_IDENTITY + MAC_NOTARIZE_PASSWORD + APPLE_ID + TEAM_ID to enable.
+# See: https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution
+if [ -n "$SIGN_IDENTITY" ] && [ -n "$MAC_NOTARIZE_PASSWORD" ] && [ -n "$APPLE_ID" ] && [ -n "$TEAM_ID" ]; then
+    echo "Notarize DMG file (submit to Apple)"
+    notarize_output=$(xcrun notarytool submit \
+        --apple-id "$APPLE_ID" \
+        --password "$MAC_NOTARIZE_PASSWORD" \
+        --team-id "$TEAM_ID" \
+        --wait "build/$OS_DMG_NAME")
+    echo "$notarize_output"
+
+    echo "Parse Notarize Output"
+    pat='.*id: (.*)\n.*status: ([^'$'\n'']*)'
+    [[ "$notarize_output" =~ $pat ]]
+    REQUEST_UUID="${BASH_REMATCH[1]}"
+    REQUEST_STATUS="${BASH_REMATCH[2]}"
+    echo " Notarization ID: $REQUEST_UUID"
+    echo " Notarization Status: $REQUEST_STATUS"
+
+    if [ "$REQUEST_UUID" = "" ]; then
+        echo "Failed to locate Notarization ID, exiting with error."
+        exit 1
+    fi
+    if [ "$REQUEST_STATUS" != "Accepted" ]; then
+        echo "Failed to locate Notarization Status of Accepted, exiting with error."
+        exit 1
+    fi
+
+    sleep 30
+    echo "Staple Notarization Ticket to DMG"
+    xcrun stapler staple "build/$OS_DMG_NAME"
+
+    echo "Verifying DMG Signing"
+    spctl -a -t open --context context:primary-signature -v "build/$OS_DMG_NAME"
+else
+    echo "Notarization skipped (SIGN_IDENTITY / MAC_NOTARIZE_PASSWORD / APPLE_ID / TEAM_ID not set)"
+fi
+
+echo ""
+echo "=== Done ==="
+echo "Output: build/$OS_DMG_NAME"

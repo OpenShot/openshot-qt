@@ -8,7 +8,7 @@
   #define ONLY_64_BIT "x64"
 #endif
 #ifndef PY_EXE_DIR
-  #define PY_EXE_DIR "exe.mingw-3.8"
+  #define PY_EXE_DIR "exe.win-amd64-3.11"
 #endif
 
 #define MyAppName "Zenvi"
@@ -47,8 +47,7 @@ WizardSmallImageFile=installer-logo.bmp
 UsePreviousLanguage=no
 Uninstallable=not PortableCheck
 UninstallDisplayIcon={app}\{#MyAppExeName}
-SignedUninstaller=yes
-SignedUninstallerDir=..\build\
+SignedUninstaller=no
 PrivilegesRequiredOverridesAllowed=commandline
 AllowNoIcons=yes
 

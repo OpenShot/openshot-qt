@@ -7,8 +7,15 @@
 #
 # Asset naming convention expected by the auto-updater:
 #   Linux   → Zenvi-v<VER>-x86_64.AppImage
-#   macOS   → Zenvi-v<VER>-x86_64.dmg
+#   macOS   → Zenvi-v<VER>-x86_64.dmg  (Intel)
+#             Zenvi-v<VER>-arm64.dmg    (Apple Silicon)
 #   Windows → Zenvi-v<VER>-x86_64.exe
+#
+# Security note:
+#   Builds are ad-hoc signed (no Apple Developer or Windows code-signing cert).
+#   macOS users: right-click the app → Open to bypass Gatekeeper (first launch only).
+#   Windows users: click "More info" → "Run anyway" on the SmartScreen dialog.
+#   To enable full signing, set SIGN_IDENTITY / WINDOWS_CERT GitHub Secrets.
 # ─────────────────────────────────────────────────────────────────────────────
 name: Zenvi Production Release
 
@@ -21,7 +28,6 @@ permissions:
   contents: write  # needed for creating releases & uploading assets
 
 env:
-  # Parsed from src/classes/info.py at build time
   APP_NAME: Zenvi
 
 jobs:
@@ -159,62 +165,131 @@ jobs:
           dpkg-deb --build "$DEB_DIR" "Zenvi-v${VER}-x86_64.deb"
 
       - name: Upload Linux artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: linux-packages
           path: |
             Zenvi-v*.AppImage
             Zenvi-v*.deb
 
-  # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
+  # ── 3. macOS build (.dmg) — matrix for Intel (x86_64) + Apple Silicon (arm64) ──
   build-macos:
     needs: version
-    runs-on: macos-13
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-13
+            arch: x86_64
+          - runner: macos-14
+            arch: arm64
     env:
       VER: ${{ needs.version.outputs.version }}
+      ARCH: ${{ matrix.arch }}
+      APP_NAME: Zenvi
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          brew install openshot  2>/dev/null || true
           pip3 install --upgrade pip
           pip3 install -r requirements.txt
+          # pyobjc is needed by some cx_Freeze macOS hooks
           pip3 install pyobjc-framework-Cocoa 2>/dev/null || true
 
-      - name: Freeze with cx_Freeze
-        run: python3 freeze.py bdist_mac --git-branch=production || true
+      - name: Freeze with cx_Freeze (bdist_mac)
+        run: python3 freeze.py bdist_mac --git-branch=production
+
+      - name: Structure .app bundle and ad-hoc sign
+        run: |
+          # Find the .app produced by bdist_mac
+          APP_BUNDLE=$(find build -maxdepth 1 -name "*.app" -type d | head -1)
+          if [ -z "$APP_BUNDLE" ]; then
+            echo "ERROR: No .app bundle found in build/. The freeze step failed."
+            exit 1
+          fi
+
+          # Normalise name
+          EXPECTED="build/${APP_NAME}.app"
+          if [ "$APP_BUNDLE" != "$EXPECTED" ]; then
+            mv "$APP_BUNDLE" "$EXPECTED"
+          fi
+
+          OS_PATH="$EXPECTED/Contents"
+          mkdir -p "$OS_PATH/MacOS" "$OS_PATH/Resources"
+
+          # Substitute VERSION placeholder in Info.plist
+          cp installer/Info.plist "$OS_PATH/Info.plist"
+          sed -i '' "s/VERSION/${VER}/g" "$OS_PATH/Info.plist"
+
+          # Move non-code resource folders → Resources and symlink back
+          for dir in classes effects emojis images themes language presets \
+                     profiles resources settings timeline titles transitions windows blender; do
+            SRC="$OS_PATH/MacOS/lib/$dir"
+            DST="$OS_PATH/Resources/$dir"
+            if [ -d "$SRC" ]; then
+              mv "$SRC" "$DST"
+              ln -s "../../Resources/$dir" "$SRC"
+            fi
+          done
+
+          # qtwebengine_locales
+          if [ -d "$OS_PATH/MacOS/qtwebengine_locales" ]; then
+            mv "$OS_PATH/MacOS/qtwebengine_locales" "$OS_PATH/Resources/"
+            ln -s "../Resources/qtwebengine_locales" "$OS_PATH/MacOS/qtwebengine_locales"
+          fi
+
+          # qt.conf
+          if [ -f "$OS_PATH/MacOS/qt.conf" ]; then
+            mv "$OS_PATH/MacOS/qt.conf" "$OS_PATH/Resources/qt.conf"
+            ln -s "../Resources/qt.conf" "$OS_PATH/MacOS/qt.conf"
+          fi
+
+          # Icon
+          if [ -f "$OS_PATH/MacOS/icon.icns" ]; then
+            mv "$OS_PATH/MacOS/icon.icns" "$OS_PATH/Resources/icon.icns"
+          fi
+          if [ ! -f "$OS_PATH/Resources/icon.icns" ]; then
+            cp installer/openshot.icns "$OS_PATH/Resources/icon.icns"
+          fi
+
+          # Symlink Resources/lib → MacOS/lib (runtime lib lookup)
+          if [ ! -L "$OS_PATH/Resources/lib" ]; then
+            ln -s "../MacOS/lib" "$OS_PATH/Resources/lib"
+          fi
+
+          # Fix permissions
+          chmod -R a+rx "$OS_PATH/"
+
+          # Ad-hoc code signing — prevents dyld "library not signed" crashes.
+          # Note: does NOT suppress macOS Gatekeeper for downloaded apps.
+          find build \( -name '*.dylib' -o -name '*.so' \) \
+            -exec codesign -s - --force "{}" \; 2>/dev/null || true
+          codesign -s - --deep --force "$EXPECTED"
+          echo "Ad-hoc signing complete."
 
       - name: Create DMG
         run: |
-          # If cx_Freeze produced a .app bundle, package it
-          APP_BUNDLE=$(find build -name "*.app" -type d 2>/dev/null | head -1)
-          if [ -z "$APP_BUNDLE" ]; then
-            echo "::warning::No .app bundle found — creating placeholder DMG"
-            mkdir -p "Zenvi.app/Contents/MacOS"
-            cp -r build/exe.macos*/* "Zenvi.app/Contents/MacOS/" 2>/dev/null || true
-            APP_BUNDLE="Zenvi.app"
-          fi
-
-          DMG_NAME="Zenvi-v${VER}-x86_64.dmg"
-
-          # Create a temporary DMG
-          hdiutil create -volname "Zenvi" \
-            -srcfolder "$APP_BUNDLE" \
+          DMG_NAME="Zenvi-v${VER}-${ARCH}.dmg"
+          hdiutil create \
+            -volname "Zenvi" \
+            -srcfolder "build/${APP_NAME}.app" \
             -ov -format UDZO \
-            "$DMG_NAME" || true
+            "$DMG_NAME"
+          echo "DMG created: $DMG_NAME"
 
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
-          name: macos-package
+          name: macos-package-${{ matrix.arch }}
           path: Zenvi-v*.dmg
-          if-no-files-found: warn
+          if-no-files-found: error
 
   # ── 4. Windows build (.exe) ───────────────────────────────────────────
   build-windows:
@@ -225,48 +300,69 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
+        shell: powershell
 
       - name: Freeze with cx_Freeze
         run: python freeze.py build --git-branch=production
-        continue-on-error: true
-
-      - name: Build with Inno Setup
-        run: |
-          # Download and install Inno Setup if not present
-          if (!(Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe")) {
-            Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is_setup.exe
-            Start-Process -Wait -FilePath .\is_setup.exe -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES"
-          }
-
-          # Build installer (use existing .iss if it works, otherwise create one)
-          $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-          if (Test-Path $ISCC) {
-            # windows-installer.iss expects VERSION macro
-            & $ISCC /DVERSION="${env:VER}" installer/windows-installer.iss 2>$null
-            # Rename output to match expected convention
-            $exe = Get-ChildItem -Path . -Filter "*.exe" -Recurse | Where-Object { $_.Name -like "Zenvi*Setup*" -or $_.Name -like "OpenShot*Setup*" } | Select-Object -First 1
-            if ($exe) {
-              Rename-Item $exe.FullName "Zenvi-v${env:VER}-x86_64.exe"
-            }
-          }
         shell: powershell
-        continue-on-error: true
+
+      - name: Install Inno Setup 6
+        run: choco install innosetup --yes --no-progress
+        shell: powershell
+
+      - name: Build Windows installer with Inno Setup
+        run: |
+          $ISCC = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $ISCC)) {
+            Write-Error "ISCC.exe not found at $ISCC"
+            exit 1
+          }
+
+          # Pass VERSION and the exact cx_Freeze output dir for Python 3.11 x64
+          & $ISCC `
+            /DVERSION="${env:VER}" `
+            /DPY_EXE_DIR="exe.win-amd64-3.11" `
+            installer/windows-installer.iss
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "ISCC.exe failed with exit code $LASTEXITCODE"
+            exit 1
+          }
+
+          # Locate the produced installer (Inno Setup outputs to installer\Output\ by default)
+          $exe = Get-ChildItem -Path "installer\Output\" -Filter "Zenvi*.exe" `
+                               -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) {
+            # Fallback: search entire tree
+            $exe = Get-ChildItem -Path "." -Recurse -Filter "*.exe" |
+                   Where-Object { $_.Name -notmatch "is_setup" } |
+                   Select-Object -First 1
+          }
+          if (-not $exe) {
+            Write-Error "No installer .exe found after ISCC run"
+            exit 1
+          }
+
+          $dest = "Zenvi-v${env:VER}-x86_64.exe"
+          Move-Item $exe.FullName $dest
+          Write-Host "Installer produced: $dest"
+        shell: powershell
 
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: windows-package
           path: Zenvi-v*.exe
-          if-no-files-found: warn
+          if-no-files-found: error
 
   # ── 5. Create GitHub Release with all artifacts ───────────────────────
   release:
@@ -280,10 +376,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v4
         with:
           path: dist/
           merge-multiple: true
+          pattern: "*-package*"
 
       - name: List artifacts
         run: |
@@ -311,10 +408,20 @@ jobs:
             ### Manual download
             | Platform | File |
             |----------|------|
-            | Linux (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
-            | Linux (Debian)   | `Zenvi-v${{ env.VER }}-x86_64.deb` |
-            | macOS (DMG)      | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
-            | Windows (EXE)    | `Zenvi-v${{ env.VER }}-x86_64.exe` |
+            | Linux (AppImage)    | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
+            | Linux (Debian)      | `Zenvi-v${{ env.VER }}-x86_64.deb` |
+            | macOS Intel         | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | macOS Apple Silicon | `Zenvi-v${{ env.VER }}-arm64.dmg` |
+            | Windows (EXE)       | `Zenvi-v${{ env.VER }}-x86_64.exe` |
+
+            ### Security note
+            **macOS:** These builds are ad-hoc signed (no Apple Developer certificate yet).
+            macOS Gatekeeper will show an "unidentified developer" warning on first launch.
+            To bypass: right-click the app in the DMG → **Open** → click **Open** in the dialog.
+            This warning only appears once.
+
+            **Windows:** Without a code-signing certificate, Windows SmartScreen shows
+            "Windows protected your PC". Click **More info** → **Run anyway** to proceed.
 
             ### Checksums
             See `SHA256SUMS.txt` attached to this release.

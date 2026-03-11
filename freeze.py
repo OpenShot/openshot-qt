@@ -436,7 +436,8 @@ elif sys.platform == "linux":
 
 elif sys.platform == "darwin":
     # Copy Mac specific files that cx_Freeze misses
-   # Add libresvg (if found)
+
+    # Add libresvg (if found)
     resvg_path = "/usr/local/lib/librsvg-2.dylib"
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
@@ -444,17 +445,27 @@ elif sys.platform == "darwin":
     # Copy openshot.py Python bindings
     src_files.append((os.path.join(PATH, "installer", "launch-mac"), "launch-mac"))
 
-    # Append Mac ICON file
-    iconFile += ".hqx"
-    src_files.append((os.path.join(PATH, "xdg", iconFile), iconFile))
+    # Append Mac ICON file (.icns format required for macOS app bundles)
+    # iconFile is overridden here to the full path of the .icns file
+    iconFile = os.path.join(PATH, "installer", "openshot.icns")
+    src_files.append((iconFile, "icon.icns"))
 
-    # Add QtWebEngineProcess (if found)
-    qt_install_path = "/usr/local/qt5.15.X/qt5.15/5.15.0/clang_64/"
-    qt_webengine_path = os.path.join(qt_install_path, "lib", "QtWebEngineCore.framework", "Versions", "5")
-    web_process_path = os.path.join(qt_webengine_path, "Helpers", "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess")
-    web_core_path = os.path.join(qt_webengine_path, "QtWebEngineCore")
-    external_so_files.append((web_process_path, os.path.basename(web_process_path)))
-    external_so_files.append((web_core_path, os.path.basename(web_core_path)))
+    # Detect Qt paths dynamically via QLibraryInfo (already imported at top of file)
+    # This replaces the old hard-coded /usr/local/qt5.15.X/... path
+    qt_lib_path = QLibraryInfo.location(QLibraryInfo.LibrariesPath)
+    qt_plugins_path = QLibraryInfo.location(QLibraryInfo.PluginsPath)
+
+    # Add QtWebEngineProcess (if found — depends on PyQtWebEngine being installed)
+    qt_webengine_fw = os.path.join(qt_lib_path, "QtWebEngineCore.framework", "Versions", "5")
+    web_process_path = os.path.join(
+        qt_webengine_fw, "Helpers",
+        "QtWebEngineProcess.app", "Contents", "MacOS", "QtWebEngineProcess"
+    )
+    web_core_path = os.path.join(qt_webengine_fw, "QtWebEngineCore")
+    if os.path.exists(web_process_path):
+        external_so_files.append((web_process_path, os.path.basename(web_process_path)))
+    if os.path.exists(web_core_path):
+        external_so_files.append((web_core_path, os.path.basename(web_core_path)))
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
@@ -462,16 +473,21 @@ elif sys.platform == "darwin":
     for filename in find_files(babl_ext_path, ["*.dylib"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
-    # Add QtWebEngineProcess Resources & Local
-    for filename in find_files(os.path.join(qt_webengine_path, "Resources"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_webengine_path, "Resources", "qtwebengine_locales"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=os.path.join(qt_webengine_path, "Resources"))))
-    for filename in find_files(os.path.join(qt_install_path, "plugins"), ["*"]):
-        relative_filepath = os.path.relpath(filename, start=os.path.join(qt_install_path, "plugins"))
-        plugin_name = os.path.dirname(relative_filepath)
-        if plugin_name in ["imageformats", "platforms"]:
-            external_so_files.append((filename, relative_filepath))
+    # Add QtWebEngine Resources (inside the framework bundle)
+    webengine_resources = os.path.join(qt_webengine_fw, "Resources")
+    if os.path.exists(webengine_resources):
+        for filename in find_files(webengine_resources, ["*"]):
+            external_so_files.append(
+                (filename, os.path.relpath(filename, start=webengine_resources))
+            )
+
+    # Add Qt plugins (imageformats + platforms only)
+    if os.path.exists(qt_plugins_path):
+        for filename in find_files(qt_plugins_path, ["*"]):
+            relative_filepath = os.path.relpath(filename, start=qt_plugins_path)
+            plugin_name = os.path.dirname(relative_filepath)
+            if plugin_name in ["imageformats", "platforms"]:
+                external_so_files.append((filename, relative_filepath))
 
     # Append all source files
     src_files.append((os.path.join(PATH, "installer", "qt.conf"), "qt.conf"))
@@ -502,9 +518,15 @@ if sys.platform == "darwin":
 build_options["build_exe"] = build_exe_options
 
 # Define launcher executable to create
+if sys.platform == "darwin":
+    # iconFile was set to the full absolute path in the darwin block above
+    _icon_path = iconFile
+else:
+    _icon_path = os.path.join(PATH, "xdg", iconFile)
+
 exes = [Executable("openshot_qt/launch.py",
                    base=base,
-                   icon=os.path.join(PATH, "xdg", iconFile),
+                   icon=_icon_path,
                    shortcutName="%s" % info.PRODUCT_NAME,
                    shortcutDir="ProgramMenuFolder",
                    targetName=exe_name,
