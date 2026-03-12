@@ -174,9 +174,11 @@ jobs:
             Zenvi-v*.deb
 
   # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
-  # Produces two DMGs: one for Intel (x86_64) and one for Apple Silicon (arm64).
-  # - macos-13 runner: last Intel GitHub Actions runner → native x86_64 build
-  # - macos-14 runner: Apple Silicon (M1) → native arm64 build
+  # Produces two DMGs: Intel (x86_64) and Apple Silicon (arm64).
+  # Both jobs run on macos-15 (Apple Silicon). macos-13 (last Intel runner)
+  # was retired by GitHub. x86_64 build uses Rosetta 2 Python (architecture: x64)
+  # so cx_Freeze produces an x86_64-native frozen app that runs on Intel Macs.
+  # arm64 build uses the native Apple Silicon Python.
   #
   # Note: libopenshot Python bindings are NOT bundled in this CI build.
   # The OpenShot .so from their app bundle is linked against their bundled
@@ -190,9 +192,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: macos-13   # Intel x86_64
+          - runner: macos-15   # Apple Silicon; x64 Python via Rosetta → x86_64 app
             arch: x86_64
-          - runner: macos-14   # Apple Silicon arm64
+          - runner: macos-15   # Apple Silicon; native arm64 Python → arm64 app
             arch: arm64
     runs-on: ${{ matrix.runner }}
     env:
