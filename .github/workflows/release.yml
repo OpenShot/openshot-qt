@@ -7,7 +7,8 @@
 #
 # Asset naming convention expected by the auto-updater:
 #   Linux   → Zenvi-v<VER>-x86_64.AppImage
-#   macOS   → Zenvi-v<VER>-x86_64.dmg
+#   macOS   → Zenvi-v<VER>-x86_64.dmg   (Intel)
+#             Zenvi-v<VER>-arm64.dmg     (Apple Silicon)
 #   Windows → Zenvi-v<VER>-x86_64.exe
 # ─────────────────────────────────────────────────────────────────────────────
 name: Zenvi Production Release
@@ -173,10 +174,9 @@ jobs:
             Zenvi-v*.deb
 
   # ── 3. macOS build (.dmg) ─────────────────────────────────────────────
-  # Produces an x86_64 app that runs natively on Intel Macs and via
-  # Rosetta 2 on Apple Silicon. (Free GitHub runners no longer offer
-  # Intel macOS; macos-13 was retired. macos-latest = arm64, but we
-  # install x86_64 Python via Rosetta so the frozen app runs on all Macs.)
+  # Produces two DMGs: one for Intel (x86_64) and one for Apple Silicon (arm64).
+  # - macos-13 runner: last Intel GitHub Actions runner → native x86_64 build
+  # - macos-14 runner: Apple Silicon (M1) → native arm64 build
   #
   # Note: libopenshot Python bindings are NOT bundled in this CI build.
   # The OpenShot .so from their app bundle is linked against their bundled
@@ -186,19 +186,35 @@ jobs:
   # macOS build infrastructure.
   build-macos:
     needs: version
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-13   # Intel x86_64
+            arch: x86_64
+          - runner: macos-14   # Apple Silicon arm64
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
     env:
       VER: ${{ needs.version.outputs.version }}
-      ARCH: x86_64
+      ARCH: ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
 
-      # x86_64 Python runs natively on Intel and via Rosetta 2 on Apple Silicon.
-      - name: Set up Python 3.11 (x86_64)
+      # x86_64: force Rosetta Python so the frozen app is x86_64.
+      - name: Set up Python 3.11 (x86_64, via Rosetta)
+        if: matrix.arch == 'x86_64'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           architecture: x64
+
+      # arm64: use native Apple Silicon Python (no architecture override).
+      - name: Set up Python 3.11 (arm64, native)
+        if: matrix.arch == 'arm64'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Install Python dependencies
         run: |
@@ -288,7 +304,7 @@ jobs:
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macos-package-x86_64
+          name: macos-package-${{ matrix.arch }}
           path: Zenvi-v*.dmg
           if-no-files-found: error
 
@@ -449,10 +465,17 @@ jobs:
           path: dist/
         continue-on-error: true
 
-      - name: Download macOS artifacts (Intel)
+      - name: Download macOS artifacts (Intel x86_64)
         uses: actions/download-artifact@v4
         with:
           name: macos-package-x86_64
+          path: dist/
+        continue-on-error: true
+
+      - name: Download macOS artifacts (Apple Silicon arm64)
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-package-arm64
           path: dist/
         continue-on-error: true
 
@@ -508,7 +531,8 @@ jobs:
             |----------|-----------|
             | **Linux** (AppImage) | `Zenvi-v${{ env.VER }}-x86_64.AppImage` |
             | **Linux** (Debian/Ubuntu) | `Zenvi-v${{ env.VER }}-x86_64.deb` |
-            | **macOS** (Intel + Apple Silicon via Rosetta 2) | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | **macOS** (Intel) | `Zenvi-v${{ env.VER }}-x86_64.dmg` |
+            | **macOS** (Apple Silicon) | `Zenvi-v${{ env.VER }}-arm64.dmg` |
             | **Windows** | `Zenvi-v${{ env.VER }}-x86_64.exe` |
 
             > **Note:** Some platform installers may not be available if the build for that platform is still in progress.
