@@ -1,1 +1,0 @@
-application/vnd.openshot-qt-project; /usr/bin/launch-openshot '%s'; test=test -n "$DISPLAY"; priority=5
