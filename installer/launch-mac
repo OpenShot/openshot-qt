@@ -9,4 +9,4 @@ export MAGICK_CODER_MODULE_PATH="$CURR_DIR/ImageMagick/modules-Q16/coders"
 export QT_PLUGIN_PATH="$CURR_DIR"
 
 # Launch application
-exec "$CURR_DIR/zenvi"
+exec "$CURR_DIR/zenvi" "$@"
