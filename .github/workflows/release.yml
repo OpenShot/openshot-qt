@@ -112,8 +112,9 @@ jobs:
           #!/bin/bash
           HERE="$(dirname "$(readlink -f "$0")")"
           export PATH="$HERE/usr/bin:$PATH"
-          export LD_LIBRARY_PATH="$HERE/usr/bin/lib:$HERE/usr/lib:$LD_LIBRARY_PATH"
-          exec "$HERE/usr/bin/launch" "$@"
+          export LD_LIBRARY_PATH="$HERE/usr/bin:$HERE/usr/bin/lib:$HERE/usr/lib:$LD_LIBRARY_PATH"
+          export QT_PLUGIN_PATH="$HERE/usr/bin"
+          exec "$HERE/usr/bin/zenvi" "$@"
           APPRUN
           chmod +x "$APPDIR/AppRun"
 
@@ -136,7 +137,9 @@ jobs:
           # Launcher script
           cat > "$DEB_DIR/usr/bin/zenvi" << 'LAUNCHER'
           #!/bin/bash
-          exec /usr/share/zenvi/launch "$@"
+          export LD_LIBRARY_PATH="/usr/share/zenvi:/usr/share/zenvi/lib:$LD_LIBRARY_PATH"
+          export QT_PLUGIN_PATH="/usr/share/zenvi"
+          exec /usr/share/zenvi/zenvi "$@"
           LAUNCHER
           chmod +x "$DEB_DIR/usr/bin/zenvi"
 
@@ -264,8 +267,13 @@ jobs:
             ln -s "../MacOS/lib" "$OS_PATH/Resources/lib"
           fi
 
-          # Fix permissions
-          chmod -R a+rx "$OS_PATH/"
+          # Fix permissions — read for all; +x only for Mach-O binaries and entry points.
+          # chmod -R a+rx sets execute on text/data files, causing codesign to fail.
+          chmod -R a+r "$OS_PATH/"
+          find "$OS_PATH" \( -name '*.dylib' -o -name '*.so' \) -exec chmod +x {} \;
+          for bin in zenvi launch launch-openshot launch-mac; do
+            [ -f "$OS_PATH/MacOS/$bin" ] && chmod +x "$OS_PATH/MacOS/$bin"
+          done
 
           # Ad-hoc code signing — prevents dyld "library not signed" crashes.
           # Note: does NOT suppress macOS Gatekeeper for downloaded apps.
