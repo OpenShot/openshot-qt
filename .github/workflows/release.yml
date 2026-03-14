@@ -74,7 +74,10 @@ jobs:
           path: libopenshot
 
       - name: Install build dependencies
-        run: brew install cmake swig zeromq cppzmq ffmpeg pkg-config qt@5 libomp || true
+        run: |
+          # ffmpeg@5 is required: libopenshot 0.5.x uses APIs removed in FFmpeg 6.1+
+          # (AVStream.nb_side_data, av_stream_add_side_data, FF_PROFILE_H264_BASELINE)
+          brew install cmake swig zeromq cppzmq ffmpeg@5 pkg-config qt@5 libomp || true
 
       - name: Build libopenshot-audio
         run: |
@@ -88,6 +91,8 @@ jobs:
       - name: Build libopenshot (Python bindings)
         run: |
           LIBOMP_PREFIX=$(brew --prefix libomp)
+          # Point pkg-config at ffmpeg@5 (keg-only, not auto-linked)
+          export PKG_CONFIG_PATH="$(brew --prefix ffmpeg@5)/lib/pkgconfig:${PKG_CONFIG_PATH}"
           cmake -B libopenshot/build -S libopenshot \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/.install \
@@ -143,6 +148,7 @@ jobs:
             mingw-w64-x86_64-swig
             mingw-w64-x86_64-ffmpeg
             mingw-w64-x86_64-zeromq
+            mingw-w64-x86_64-cppzmq
             mingw-w64-x86_64-pkg-config
             mingw-w64-x86_64-qt5-base
             mingw-w64-x86_64-qt5-svg
