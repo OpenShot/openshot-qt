@@ -74,13 +74,14 @@ jobs:
           path: libopenshot
 
       - name: Install build dependencies
-        run: brew install cmake swig zeromq ffmpeg pkg-config || true
+        run: brew install cmake swig zeromq ffmpeg pkg-config qt@5 || true
 
       - name: Build libopenshot-audio
         run: |
           cmake -B libopenshot-audio/build -S libopenshot-audio \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/.install
+            -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/.install \
+            -DCMAKE_PREFIX_PATH=$(brew --prefix qt@5)
           cmake --build libopenshot-audio/build -j$(sysctl -n hw.logicalcpu)
           cmake --install libopenshot-audio/build
 
@@ -93,7 +94,8 @@ jobs:
             -DPYTHON_EXECUTABLE=$(which python3) \
             -DPYTHON_MODULE_PATH=python \
             -DENABLE_RUBY=OFF \
-            -DENABLE_TESTS=OFF
+            -DENABLE_TESTS=OFF \
+            -DCMAKE_PREFIX_PATH=$(brew --prefix qt@5)
           cmake --build libopenshot/build -j$(sysctl -n hw.logicalcpu)
           cmake --install libopenshot/build
 
@@ -135,6 +137,8 @@ jobs:
             mingw-w64-x86_64-ffmpeg
             mingw-w64-x86_64-zeromq
             mingw-w64-x86_64-pkg-config
+            mingw-w64-x86_64-qt5-base
+            mingw-w64-x86_64-qt5-svg
 
       - name: Checkout libopenshot-audio
         uses: actions/checkout@v4
@@ -153,7 +157,8 @@ jobs:
           cmake -B libopenshot-audio/build -S libopenshot-audio \
             -G "Ninja" \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_INSTALL_PREFIX=/mingw64
+            -DCMAKE_INSTALL_PREFIX=/mingw64 \
+            -DCMAKE_PREFIX_PATH=/mingw64
           cmake --build libopenshot-audio/build -j$(nproc)
           cmake --install libopenshot-audio/build
 
@@ -167,7 +172,8 @@ jobs:
             -DPYTHON_EXECUTABLE=/mingw64/bin/python3 \
             -DPYTHON_MODULE_PATH=python \
             -DENABLE_RUBY=OFF \
-            -DENABLE_TESTS=OFF
+            -DENABLE_TESTS=OFF \
+            -DCMAKE_PREFIX_PATH=/mingw64
           cmake --build libopenshot/build -j$(nproc)
           cmake --install libopenshot/build
 
