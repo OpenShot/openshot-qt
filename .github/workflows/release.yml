@@ -74,7 +74,7 @@ jobs:
           path: libopenshot
 
       - name: Install build dependencies
-        run: brew install cmake swig zeromq ffmpeg pkg-config qt@5 libomp || true
+        run: brew install cmake swig zeromq cppzmq ffmpeg pkg-config qt@5 libomp || true
 
       - name: Build libopenshot-audio
         run: |
@@ -165,7 +165,8 @@ jobs:
             -G "Ninja" \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_INSTALL_PREFIX=/mingw64 \
-            -DCMAKE_PREFIX_PATH=/mingw64
+            -DCMAKE_PREFIX_PATH=/mingw64 \
+            -DCMAKE_CXX_FLAGS="-DJUCE_ASIO=0"
           cmake --build libopenshot-audio/build -j$(nproc)
           cmake --install libopenshot-audio/build
 
