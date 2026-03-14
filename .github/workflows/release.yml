@@ -48,10 +48,150 @@ jobs:
           echo "Next release: $NEW_TAG"
 
   # ──────────────────────────────────────────────
-  # 2. Windows build  (MSYS2 / MinGW-w64)
+  # 2. Build libopenshot Python bindings (macOS)
+  #    openshot is a C++ SWIG extension — not on PyPI.
+  #    We build it here and pass the .so + .py as
+  #    artifacts to the main macOS build job.
+  # ──────────────────────────────────────────────
+  build-libopenshot-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Checkout libopenshot-audio
+        uses: actions/checkout@v4
+        with:
+          repository: OpenShot/libopenshot-audio
+          path: libopenshot-audio
+
+      - name: Checkout libopenshot
+        uses: actions/checkout@v4
+        with:
+          repository: OpenShot/libopenshot
+          path: libopenshot
+
+      - name: Install build dependencies
+        run: brew install cmake swig zeromq ffmpeg pkg-config || true
+
+      - name: Build libopenshot-audio
+        run: |
+          cmake -B libopenshot-audio/build -S libopenshot-audio \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/.install
+          cmake --build libopenshot-audio/build -j$(sysctl -n hw.logicalcpu)
+          cmake --install libopenshot-audio/build
+
+      - name: Build libopenshot (Python bindings)
+        run: |
+          cmake -B libopenshot/build -S libopenshot \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/.install \
+            -DOpenShotAudio_ROOT=${{ github.workspace }}/.install \
+            -DPYTHON_EXECUTABLE=$(which python3) \
+            -DPYTHON_MODULE_PATH=python \
+            -DENABLE_RUBY=OFF \
+            -DENABLE_TESTS=OFF
+          cmake --build libopenshot/build -j$(sysctl -n hw.logicalcpu)
+          cmake --install libopenshot/build
+
+      - name: Collect Python bindings + native libs
+        run: |
+          mkdir -p openshot-pkg
+          cp ${{ github.workspace }}/.install/python/openshot.py openshot-pkg/
+          cp ${{ github.workspace }}/.install/python/_openshot*.so openshot-pkg/
+          # Include dylibs so _openshot.so can resolve them at import time
+          cp ${{ github.workspace }}/.install/lib/libopenshot*.dylib openshot-pkg/ 2>/dev/null || true
+          cp ${{ github.workspace }}/.install/lib/libopenshot-audio*.dylib openshot-pkg/ 2>/dev/null || true
+          ls -la openshot-pkg/
+
+      - name: Upload openshot macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openshot-pkg-macos
+          path: openshot-pkg/
+
+  # ──────────────────────────────────────────────
+  # 3. Build libopenshot Python bindings (Windows)
+  # ──────────────────────────────────────────────
+  build-libopenshot-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-python
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-swig
+            mingw-w64-x86_64-ffmpeg
+            mingw-w64-x86_64-zeromq
+            mingw-w64-x86_64-pkg-config
+
+      - name: Checkout libopenshot-audio
+        uses: actions/checkout@v4
+        with:
+          repository: OpenShot/libopenshot-audio
+          path: libopenshot-audio
+
+      - name: Checkout libopenshot
+        uses: actions/checkout@v4
+        with:
+          repository: OpenShot/libopenshot
+          path: libopenshot
+
+      - name: Build libopenshot-audio
+        run: |
+          cmake -B libopenshot-audio/build -S libopenshot-audio \
+            -G "Ninja" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/mingw64
+          cmake --build libopenshot-audio/build -j$(nproc)
+          cmake --install libopenshot-audio/build
+
+      - name: Build libopenshot (Python bindings)
+        run: |
+          cmake -B libopenshot/build -S libopenshot \
+            -G "Ninja" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/mingw64 \
+            -DOpenShotAudio_ROOT=/mingw64 \
+            -DPYTHON_EXECUTABLE=/mingw64/bin/python3 \
+            -DPYTHON_MODULE_PATH=python \
+            -DENABLE_RUBY=OFF \
+            -DENABLE_TESTS=OFF
+          cmake --build libopenshot/build -j$(nproc)
+          cmake --install libopenshot/build
+
+      - name: Collect Python bindings + native DLLs
+        run: |
+          mkdir -p openshot-pkg
+          cp /mingw64/python/openshot.py openshot-pkg/
+          # Extension may be .pyd or .so depending on MSYS2 Python version
+          find /mingw64/python -name "_openshot*" -exec cp {} openshot-pkg/ \; 2>/dev/null || true
+          # Include DLLs required by the extension at runtime
+          find /mingw64/bin -name "libopenshot*.dll" -exec cp {} openshot-pkg/ \; 2>/dev/null || true
+          ls -la openshot-pkg/
+
+      - name: Upload openshot Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openshot-pkg-windows
+          path: openshot-pkg/
+
+  # ──────────────────────────────────────────────
+  # 4. Windows build  (MSYS2 / MinGW-w64)
   # ──────────────────────────────────────────────
   build-windows:
-    needs: version
+    needs: [version, build-libopenshot-windows]
     runs-on: windows-latest
     defaults:
       run:
@@ -78,6 +218,24 @@ jobs:
             mingw-w64-x86_64-python-defusedxml
             mingw-w64-x86_64-python-distro
             mingw-w64-x86_64-ffmpeg
+
+      - name: Download openshot Python bindings
+        uses: actions/download-artifact@v4
+        with:
+          name: openshot-pkg-windows
+          path: openshot-pkg
+
+      - name: Install openshot module
+        run: |
+          # Copy to project root so freeze.py finds it via the working directory
+          cp openshot-pkg/openshot.py .
+          find openshot-pkg -name "_openshot*" -exec cp {} . \;
+          # Also install into site-packages so cx_Freeze can locate the module
+          PY_SITE=$(python3 -c "import site; print(site.getsitepackages()[0])")
+          cp openshot-pkg/openshot.py "$PY_SITE/"
+          find openshot-pkg -name "_openshot*" -exec cp {} "$PY_SITE/" \;
+          # Put native DLLs on PATH
+          cp openshot-pkg/*.dll /mingw64/bin/ 2>/dev/null || true
 
       - name: Install remaining pip packages
         run: |
@@ -111,10 +269,10 @@ jobs:
           retention-days: 5
 
   # ──────────────────────────────────────────────
-  # 3. macOS build
+  # 5. macOS build
   # ──────────────────────────────────────────────
   build-macos:
-    needs: version
+    needs: [version, build-libopenshot-macos]
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -123,6 +281,20 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Download openshot Python bindings
+        uses: actions/download-artifact@v4
+        with:
+          name: openshot-pkg-macos
+          path: openshot-pkg
+
+      - name: Install openshot module
+        run: |
+          # Copy to project root so freeze.py finds it
+          cp openshot-pkg/openshot.py .
+          cp openshot-pkg/_openshot*.so .
+          # Expose native dylibs so _openshot.so can resolve its dependencies
+          echo "DYLD_LIBRARY_PATH=${{ github.workspace }}/openshot-pkg:$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
 
       - name: Install system dependencies (Homebrew)
         run: |
@@ -162,7 +334,7 @@ jobs:
           retention-days: 5
 
   # ──────────────────────────────────────────────
-  # 4. Create GitHub Release with tag
+  # 6. Create GitHub Release with tag
   # ──────────────────────────────────────────────
   release:
     needs: [version, build-windows, build-macos]
