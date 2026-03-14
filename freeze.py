@@ -307,6 +307,7 @@ elif sys.platform == "linux":
         external_so_files.append((filename, os.path.relpath(filename, start=qt5_plugin_root)))
 
     qt_plugin_dirs = [
+        "platformthemes",
         "xcbglintegrations",
         "wayland-decoration-client",
         "wayland-graphics-integration-client",
@@ -371,6 +372,7 @@ elif sys.platform == "linux":
         os.path.join(libopenshot_path, "libopenshot.so"),
         "/usr/local/lib/libresvg.so",
         os.path.join(qt5_plugin_root, "plugins", "platforms", "libqxcb.so"),
+        os.path.join(qt5_plugin_root, "plugins", "platformthemes", "libqgtk3.so"),
     ]
     qt_runtime_libs.extend(find_files(qt_platform_dir, ["libqwayland*.so"]))
     for lib_name in qt_runtime_libs:
