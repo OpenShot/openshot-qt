@@ -45,6 +45,99 @@ from windows.video_widget import VideoWidget
 import json
 
 
+def normalized_quarter_turn_rotation(rotation):
+    """Return clip rotation normalized to 0/90/180/270 when it's a quarter-turn."""
+    try:
+        rotation_value = float(rotation)
+    except (TypeError, ValueError):
+        return 0
+    normalized = int(round(rotation_value / 90.0)) * 90
+    normalized = normalized % 360
+    if normalized in (0, 90, 180, 270):
+        return normalized
+    return 0
+
+
+def rotated_content_rect(source_width, source_height, rotation):
+    """Return the displayed content rect inside the rendered frame for quarter-turn rotations."""
+    quarter_turn = normalized_quarter_turn_rotation(rotation)
+    if quarter_turn in (90, 270):
+        rotated_width = float(source_height)
+        rotated_height = float(source_width)
+    else:
+        rotated_width = float(source_width)
+        rotated_height = float(source_height)
+
+    frame_width = float(source_width)
+    frame_height = float(source_height)
+    if rotated_width <= 0.0 or rotated_height <= 0.0 or frame_width <= 0.0 or frame_height <= 0.0:
+        return None
+
+    scale = min(frame_width / rotated_width, frame_height / rotated_height)
+    display_width = rotated_width * scale
+    display_height = rotated_height * scale
+    return QRectF(
+        (frame_width - display_width) / 2.0,
+        (frame_height - display_height) / 2.0,
+        display_width,
+        display_height,
+    )
+
+
+def map_display_rect_to_source_rect(rect, source_width, source_height, rotation):
+    """Map a selection from the rendered frame back into raw source coordinates."""
+    if not isinstance(rect, dict):
+        return None
+
+    quarter_turn = normalized_quarter_turn_rotation(rotation)
+    if quarter_turn == 0:
+        return dict(rect)
+
+    content_rect = rotated_content_rect(source_width, source_height, quarter_turn)
+    if not content_rect or content_rect.width() <= 0.0 or content_rect.height() <= 0.0:
+        return dict(rect)
+
+    frame_width = float(source_width)
+    frame_height = float(source_height)
+    left = float(rect.get("normalized_x", 0.0)) * frame_width
+    top = float(rect.get("normalized_y", 0.0)) * frame_height
+    right = left + float(rect.get("normalized_width", 0.0)) * frame_width
+    bottom = top + float(rect.get("normalized_height", 0.0)) * frame_height
+
+    disp_left = (left - content_rect.left()) / content_rect.width()
+    disp_top = (top - content_rect.top()) / content_rect.height()
+    disp_right = (right - content_rect.left()) / content_rect.width()
+    disp_bottom = (bottom - content_rect.top()) / content_rect.height()
+
+    def inverse_rotate_point(x_pos, y_pos):
+        if quarter_turn == 90:
+            return y_pos, 1.0 - x_pos
+        if quarter_turn == 180:
+            return 1.0 - x_pos, 1.0 - y_pos
+        if quarter_turn == 270:
+            return 1.0 - y_pos, x_pos
+        return x_pos, y_pos
+
+    mapped_points = [
+        inverse_rotate_point(disp_left, disp_top),
+        inverse_rotate_point(disp_right, disp_top),
+        inverse_rotate_point(disp_left, disp_bottom),
+        inverse_rotate_point(disp_right, disp_bottom),
+    ]
+    xs = [min(1.0, max(0.0, point[0])) for point in mapped_points]
+    ys = [min(1.0, max(0.0, point[1])) for point in mapped_points]
+    min_x = min(xs)
+    min_y = min(ys)
+    max_x = max(xs)
+    max_y = max(ys)
+    return {
+        "normalized_x": min_x,
+        "normalized_y": min_y,
+        "normalized_width": max(0.0, max_x - min_x),
+        "normalized_height": max(0.0, max_y - min_y),
+    }
+
+
 class RegionAnnotatedSlider(QSlider):
     frameClicked = pyqtSignal(int)
 
@@ -277,11 +370,22 @@ class SelectRegion(QDialog):
         self.channels = int(c_info.channels)
         self.channel_layout = int(c_info.channel_layout)
         self.video_length = int(self.clip.Duration() * self.fps) + 1
+        self.source_rotation = 0
 
         # Apply effects to region frames
         if clip:
             for effect in clip.Effects():
                 self.clip.AddEffect(effect)
+
+        self.source_rotation = self._detect_source_rotation(clip)
+        try:
+            preview_props = json.loads(self.clip.PropertiesJSON(1))
+        except Exception:
+            preview_props = {}
+        try:
+            source_props = json.loads(clip.PropertiesJSON(1)) if clip else {}
+        except Exception:
+            source_props = {}
 
         # Open video file with Reader
         log.info(self.clip.Reader())
@@ -314,6 +418,31 @@ class SelectRegion(QDialog):
 
         # Set max size of video preview (for speed)
         self.viewport_rect = self.videoPreview.centeredViewport(self.width, self.height)
+        log.info(
+            "SelectRegion init: source=%sx%s current_rotation=%s display_aspect=%s viewport=%sx%s",
+            self.width,
+            self.height,
+            self.source_rotation,
+            self.videoPreview.aspect_ratio.ToFloat() if hasattr(self.videoPreview, "aspect_ratio") else "unknown",
+            self.viewport_rect.width(),
+            self.viewport_rect.height(),
+        )
+        log.info(
+            "SelectRegion props: preview_clip rotation=%s scale=(%s,%s) location=(%s,%s) gravity=%s; "
+            "source_clip rotation=%s scale=(%s,%s) location=(%s,%s) gravity=%s",
+            (preview_props.get("rotation") or {}).get("value"),
+            (preview_props.get("scale_x") or {}).get("value"),
+            (preview_props.get("scale_y") or {}).get("value"),
+            (preview_props.get("location_x") or {}).get("value"),
+            (preview_props.get("location_y") or {}).get("value"),
+            getattr(self.clip, "gravity", None),
+            (source_props.get("rotation") or {}).get("value"),
+            (source_props.get("scale_x") or {}).get("value"),
+            (source_props.get("scale_y") or {}).get("value"),
+            (source_props.get("location_x") or {}).get("value"),
+            (source_props.get("location_y") or {}).get("value"),
+            getattr(clip, "gravity", None) if clip else None,
+        )
 
         # Create an instance of a libopenshot Timeline object
         self.r = openshot.Timeline(self.viewport_rect.width(), self.viewport_rect.height(),
@@ -383,6 +512,58 @@ class SelectRegion(QDialog):
             self._refresh_marker_bar()
 
         get_app().window.SelectRegionSignal.emit(self.clip.Id())
+
+    def _detect_source_rotation(self, clip):
+        """Detect quarter-turn rotation applied to the displayed source."""
+        rotation = 0.0
+
+        if clip:
+            try:
+                clip_props = json.loads(clip.PropertiesJSON(1))
+                rotation = float((clip_props.get("rotation") or {}).get("value", 0.0))
+            except Exception:
+                log.debug("Unable to read clip rotation for region selection", exc_info=1)
+
+        if normalized_quarter_turn_rotation(rotation):
+            return normalized_quarter_turn_rotation(rotation)
+
+        try:
+            metadata = self.clip.Reader().info.metadata
+            if metadata.count("rotate"):
+                rotation = float(metadata["rotate"])
+                log.info("SelectRegion reader rotate metadata: %s", rotation)
+        except Exception:
+            log.debug("Unable to read reader rotate metadata for region selection", exc_info=1)
+
+        return normalized_quarter_turn_rotation(rotation)
+
+    def _log_selected_rect_debug(self, top_left, bottom_right, selected_rect):
+        curr_frame_size = getattr(self.videoPreview, "curr_frame_size", None)
+        current_image = getattr(self.videoPreview, "current_image", None)
+        viewport_rect = self.videoPreview.centeredViewport(self.videoPreview.width(), self.videoPreview.height())
+        region_transform = getattr(self.videoPreview, "region_transform", None)
+        log.info(
+            "SelectRegion rect debug: "
+            "top_left=(%s,%s) bottom_right=(%s,%s) "
+            "curr_frame_size=%sx%s current_image=%sx%s viewport=%s "
+            "zoom=%s source=%sx%s source_rotation=%s "
+            "selected_rect=%s transform=%s",
+            getattr(top_left, "x", lambda: None)(),
+            getattr(top_left, "y", lambda: None)(),
+            getattr(bottom_right, "x", lambda: None)(),
+            getattr(bottom_right, "y", lambda: None)(),
+            curr_frame_size.width() if curr_frame_size else None,
+            curr_frame_size.height() if curr_frame_size else None,
+            current_image.width() if current_image else None,
+            current_image.height() if current_image else None,
+            viewport_rect,
+            getattr(self.videoPreview, "zoom", None),
+            self.width,
+            self.height,
+            self.source_rotation,
+            selected_rect,
+            region_transform,
+        )
 
     def actionPlay_Triggered(self):
         # Trigger play button (This action is invoked from the preview thread, so it must exist here)
@@ -737,6 +918,14 @@ class SelectRegion(QDialog):
                     "normalized_width": max(0.0, right - left),
                     "normalized_height": max(0.0, bottom - top),
                 }
+                self._log_selected_rect_debug(top_left, bottom_right, self._selected_rect_normalized)
+                self._selected_rect_normalized = map_display_rect_to_source_rect(
+                    self._selected_rect_normalized,
+                    self.width,
+                    self.height,
+                    self.source_rotation,
+                )
+                log.info("SelectRegion final rect passed to tracker: %s", self._selected_rect_normalized)
             region_qimage = getattr(self.videoPreview, "region_qimage", None)
             if region_qimage:
                 self._selected_region_qimage = region_qimage.copy()
