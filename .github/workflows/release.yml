@@ -74,7 +74,7 @@ jobs:
           path: libopenshot
 
       - name: Install build dependencies
-        run: brew install cmake swig zeromq ffmpeg pkg-config qt@5 || true
+        run: brew install cmake swig zeromq ffmpeg pkg-config qt@5 libomp || true
 
       - name: Build libopenshot-audio
         run: |
@@ -87,6 +87,7 @@ jobs:
 
       - name: Build libopenshot (Python bindings)
         run: |
+          LIBOMP_PREFIX=$(brew --prefix libomp)
           cmake -B libopenshot/build -S libopenshot \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/.install \
@@ -95,7 +96,12 @@ jobs:
             -DPYTHON_MODULE_PATH=python \
             -DENABLE_RUBY=OFF \
             -DENABLE_TESTS=OFF \
-            -DCMAKE_PREFIX_PATH=$(brew --prefix qt@5)
+            -DCMAKE_PREFIX_PATH="$(brew --prefix qt@5);${LIBOMP_PREFIX}" \
+            -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp -I${LIBOMP_PREFIX}/include" \
+            -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp -I${LIBOMP_PREFIX}/include" \
+            -DOpenMP_C_LIB_NAMES="omp" \
+            -DOpenMP_CXX_LIB_NAMES="omp" \
+            -DOpenMP_omp_LIBRARY="${LIBOMP_PREFIX}/lib/libomp.dylib"
           cmake --build libopenshot/build -j$(sysctl -n hw.logicalcpu)
           cmake --install libopenshot/build
 
@@ -130,6 +136,7 @@ jobs:
           msystem: MINGW64
           update: true
           install: >-
+            mingw-w64-x86_64-gcc
             mingw-w64-x86_64-python
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-ninja
