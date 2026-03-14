@@ -112,14 +112,14 @@ def _show_missing_file_dialog(file_name, file_path, starting_dir):
     result = {"action": "file", "path": file_path}
 
     def pick_browse():
-        selected_path = QFileDialog.getOpenFileName(
+        selected_path = QFileDialog.getExistingDirectory(
             None,
-            _("Locate media file: %s") % file_name,
+            _("Find directory that contains: %s") % file_name,
             starting_dir,
-        )[0]
+        )
         if selected_path:
             result["action"] = "locate"
-            result["path"] = selected_path
+            result["path"] = os.path.join(selected_path, file_name)
             dialog.accept()
 
     def pick_skip_all():
