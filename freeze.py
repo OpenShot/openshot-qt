@@ -405,6 +405,11 @@ elif sys.platform == "linux":
     appimage_driver_libs = {
         "libGLdispatch.so.0",
         "libGLX.so.0",
+        "libEGL.so.1",
+        "libwayland-client.so.0",
+        "libwayland-cursor.so.0",
+        "libwayland-egl.so.1",
+        "libxkbcommon.so.0",
         "libva-drm.so.2",
         "libva-x11.so.2",
         "libva.so.2",
