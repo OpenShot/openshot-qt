@@ -21,8 +21,14 @@ jobs:
     - name: Install Sphinx & Dependencies
       run: pip install sphinx sphinx_markdown_builder sphinx_rtd_theme
     - name: Build Documentation
-      run: cd "$GITHUB_WORKSPACE/doc" && make html
+      run: |
+        if [ -f "$GITHUB_WORKSPACE/doc/Makefile" ]; then
+          cd "$GITHUB_WORKSPACE/doc" && make html
+        else
+          echo "doc/Makefile not present — skipping Sphinx build."
+        fi
     - uses: actions/upload-artifact@v6
+      if: hashFiles('doc/Makefile') != ''
       with:
         name: Documentation
         path: "doc/_build/html/"
