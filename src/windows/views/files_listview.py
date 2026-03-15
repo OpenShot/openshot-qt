@@ -26,15 +26,131 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp
-from PyQt5.QtGui import QDrag, QCursor, QPixmap, QPainter, QIcon
-from PyQt5.QtWidgets import QListView, QAbstractItemView
+from PyQt5.QtCore import QSize, Qt, QPoint, QRegExp, QRect, QEvent
+from PyQt5.QtGui import (QDrag, QCursor, QPixmap, QPainter, QIcon,
+                         QLinearGradient, QColor, QPen)
+from PyQt5.QtWidgets import (QListView, QAbstractItemView,
+                             QStyledItemDelegate)
 
 from classes import info
 from classes.app import get_app
 from classes.logger import log
 from classes.query import File
 from .menu import StyledContextMenu
+
+
+class FileCardDelegate(QStyledItemDelegate):
+    """Renders a quick-action overlay (Preview · Add · Remove) when a
+    thumbnail is hovered.  Clicks on the overlay buttons trigger the
+    corresponding window actions without opening the context menu."""
+
+    # Three quick-action slots
+    _ACTIONS = [
+        ("preview", "▶"),
+        ("add",     "+"),
+        ("remove",  "×"),
+    ]
+    BTN_SIZE = 20
+    BTN_GAP  = 4
+    OVLY_H   = 30   # gradient overlay height (px)
+
+    def __init__(self, list_view):
+        super().__init__(list_view)
+        self._hover_index = None
+        list_view.setMouseTracking(True)
+        list_view.viewport().installEventFilter(self)
+
+    # ── helpers ───────────────────────────────────────────────────────────
+
+    def _btn_rects(self, item_rect):
+        """Return {action_key: QRect} for each button, centred at bottom."""
+        n = len(self._ACTIONS)
+        total_w = n * self.BTN_SIZE + (n - 1) * self.BTN_GAP
+        x = item_rect.center().x() - total_w // 2
+        y = item_rect.bottom() - self.BTN_SIZE - 5
+        rects = {}
+        for key, _ in self._ACTIONS:
+            rects[key] = QRect(x, y, self.BTN_SIZE, self.BTN_SIZE)
+            x += self.BTN_SIZE + self.BTN_GAP
+        return rects
+
+    # ── event filter for hover tracking ──────────────────────────────────
+
+    def eventFilter(self, source, event):
+        view = self.parent()
+        if not hasattr(view, 'viewport') or source is not view.viewport():
+            return False
+
+        t = event.type()
+        if t == QEvent.MouseMove:
+            idx = view.indexAt(event.pos())
+            new = idx if idx.isValid() else None
+            if new != self._hover_index:
+                old = self._hover_index
+                self._hover_index = new
+                if old and old.isValid():
+                    view.update(view.visualRect(old))
+                if self._hover_index:
+                    view.update(view.visualRect(self._hover_index))
+        elif t == QEvent.Leave:
+            if self._hover_index:
+                old = self._hover_index
+                self._hover_index = None
+                if old.isValid():
+                    view.update(view.visualRect(old))
+        return False
+
+    # ── click handling ────────────────────────────────────────────────────
+
+    def editorEvent(self, event, model, option, index):
+        if event.type() == QEvent.MouseButtonRelease and index.isValid():
+            rects = self._btn_rects(option.rect)
+            pos = event.pos()
+            win = get_app().window
+            if rects.get("preview", QRect()).contains(pos):
+                win.actionPreview_File.trigger()
+                return True
+            if rects.get("add", QRect()).contains(pos):
+                win.actionAdd_to_Timeline.trigger()
+                return True
+            if rects.get("remove", QRect()).contains(pos):
+                win.actionRemove_from_Project.trigger()
+                return True
+        return super().editorEvent(event, model, option, index)
+
+    # ── painting ──────────────────────────────────────────────────────────
+
+    def paint(self, painter, option, index):
+        super().paint(painter, option, index)
+        if not (self._hover_index and index == self._hover_index):
+            return
+
+        painter.save()
+        rect = option.rect
+
+        # Dark gradient at bottom of thumbnail
+        ovly = QRect(rect.x(), rect.bottom() - self.OVLY_H,
+                     rect.width(), self.OVLY_H)
+        grad = QLinearGradient(0, ovly.top(), 0, ovly.bottom())
+        grad.setColorAt(0, QColor(0, 0, 0, 0))
+        grad.setColorAt(1, QColor(0, 0, 0, 175))
+        painter.fillRect(ovly, grad)
+
+        # Action buttons
+        labels = {k: lbl for k, lbl in self._ACTIONS}
+        font = painter.font()
+        font.setPointSizeF(8.5)
+        painter.setFont(font)
+        for key, btn_rect in self._btn_rects(rect).items():
+            # Semi-transparent pill background
+            painter.setBrush(QColor(30, 30, 30, 210))
+            painter.setPen(QPen(QColor(120, 120, 120, 160), 1))
+            painter.drawRoundedRect(btn_rect, 4, 4)
+            # Icon glyph
+            painter.setPen(QColor(220, 220, 220, 230))
+            painter.drawText(btn_rect, Qt.AlignCenter, labels.get(key, ""))
+
+        painter.restore()
 
 
 class FilesListView(QListView):
@@ -54,55 +170,31 @@ class FilesListView(QListView):
 
         # Build menu
         menu = StyledContextMenu(parent=self)
-
         menu.addAction(self.win.actionImportFiles)
         menu.addAction(self.win.actionDetailsView)
 
         if index.isValid():
-            # Look up the model item and our unique ID
-            model = self.model()
-
             # Look up file_id from 5th column of row
+            model = self.model()
             id_index = index.sibling(index.row(), 5)
             file_id = model.data(id_index, Qt.DisplayRole)
+            file = File.get(id=file_id)
 
-            # If a valid file selected, show file related options
             menu.addSeparator()
 
-            # Add edit title option (if svg file)
-            file = File.get(id=file_id)
-            if file and file.data.get("path").endswith(".svg"):
+            # SVG title editing (rare – keep it)
+            if file and file.data.get("path", "").endswith(".svg"):
                 menu.addAction(self.win.actionEditTitle)
-                menu.addAction(self.win.actionDuplicate)
                 menu.addSeparator()
 
+            # Core actions – the most common workflows
             menu.addAction(self.win.actionPreview_File)
+            menu.addAction(self.win.actionAdd_to_Timeline)
             menu.addSeparator()
             menu.addAction(self.win.actionSplitFile)
-            menu.addAction(self.win.actionExportFiles)
             menu.addSeparator()
-            menu.addAction(self.win.actionAdd_to_Timeline)
-
-            # Add Profile menu
-            profile_menu = StyledContextMenu(title=_("Choose Profile"), parent=self)
-            profile_icon = get_app().window.actionProfile.icon()
-            profile_missing_icon = QIcon(":/icons/Humanity/actions/16/list-add.svg")
-            profile_menu.setIcon(profile_icon)
-
-            # Get file's profile
-            file_profile = file.profile()
-            if file_profile.info.description:
-                action = profile_menu.addAction(profile_icon, file_profile.info.description)
-                action.triggered.connect(lambda: get_app().window.actionProfile_trigger(file_profile))
-            else:
-                action = profile_menu.addAction(profile_missing_icon, _(f"Create Profile") + f": {file_profile.ShortName()}")
-                action.triggered.connect(lambda: get_app().window.actionProfileEdit_trigger(file_profile, duplicate=True))
-            menu.addMenu(profile_menu)
-
             menu.addAction(self.win.actionFile_Properties)
-            menu.addSeparator()
             menu.addAction(self.win.actionRemove_from_Project)
-            menu.addSeparator()
 
         # Show menu
         menu.popup(event.globalPos())
@@ -251,10 +343,14 @@ class FilesListView(QListView):
         self.setResizeMode(QListView.Adjust)
 
         self.setUniformItemSizes(True)
-        self.setStyleSheet('QListView::item { padding-top: 2px; }')
+        self.setStyleSheet('QListView::item { padding-top: 2px; border-radius: 4px; }')
 
         self.setWordWrap(False)
         self.setTextElideMode(Qt.ElideRight)
+
+        # Hover-overlay delegate for quick actions
+        self._card_delegate = FileCardDelegate(self)
+        self.setItemDelegate(self._card_delegate)
 
         self.files_model.ModelRefreshed.connect(self.refresh_view)
 

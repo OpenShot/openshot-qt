@@ -4,66 +4,166 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zenvi Assistant</title>
+
+    <!-- Tailwind CSS (CDN – no build step required) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- Chat-specific styles: animations, glow, scrollbars, theming variables -->
     <link rel="stylesheet" href="chat.css">
+
+    <!-- Qt WebChannel bridge -->
     <script type="text/javascript" src="qrc:/qtwebchannel/qwebchannel.js"></script>
 </head>
-<body>
-    <div class="chat-container" data-theme="bloomberg-light" role="application" aria-label="Zenvi Assistant chat">
-        <div class="chat-preamble">
-            <div id="chat-preamble-label" class="chat-preamble-label"></div>
-            <div id="chat-preamble-status" class="chat-preamble-status"></div>
+
+<body class="m-0 p-0 h-screen flex flex-col overflow-hidden font-sans text-[13px]"
+      style="background: var(--chat-bg); color: var(--chat-text);">
+
+    <div class="chat-container relative flex flex-col h-full min-h-0"
+         role="application" aria-label="Zenvi Assistant chat">
+
+        <!-- ── Preamble header ─────────────────────────────────────────── -->
+        <div class="flex-shrink-0 mx-2.5 mt-2 mb-1 px-3.5 py-2.5"
+             style="background: #0d0d0d;">
+            <div id="chat-preamble-label"
+                 class="text-[13px] leading-relaxed"
+                 style="color: var(--chat-text);"></div>
+            <div id="chat-preamble-status"
+                 class="chat-preamble-status mt-1 text-[11px] font-mono leading-snug"
+                 style="color: var(--chat-muted);"></div>
         </div>
-        <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
-            <div class="chat-placeholder">Replies appear here. Assistant messages support markdown and code blocks.</div>
+
+        <!-- ── Messages area ───────────────────────────────────────────── -->
+        <div id="chat-messages"
+             class="flex-1 min-h-0 overflow-y-auto px-3 py-2.5 mx-2.5 mb-2"
+             role="log" aria-live="polite"
+             style="background: #0d0d0d;">
         </div>
-        <div class="chat-input-row" id="chat-input-row">
-            <div class="chat-input-glow-wrap" id="chat-input-glow-wrap">
+
+        <!-- ── Input row ───────────────────────────────────────────────── -->
+        <div class="chat-input-row flex-shrink-0 flex flex-col mx-2.5 mb-2.5" id="chat-input-row">
+
+            <!-- Glow border wrapper -->
+            <div class="chat-input-glow-wrap relative rounded-[10px]" id="chat-input-glow-wrap">
                 <div class="chat-input-glow-border"></div>
-                <div class="chat-input-glow-inner">
-                    <div class="chat-input-wrapper">
-                        <div id="chat-input-overlay" class="chat-input-overlay" aria-hidden="true">
-                            <span id="chat-typing-text"></span><span class="chat-typing-cursor">|</span>
+
+                <!-- Inner card -->
+                <div class="chat-input-glow-inner relative z-[1] rounded-[9px] overflow-hidden"
+                     style="background: var(--chat-input-bg);">
+
+                    <!-- Textarea + animated overlay -->
+                    <div class="chat-input-wrapper relative w-full">
+                        <div id="chat-input-overlay"
+                             class="chat-input-overlay absolute inset-0 px-3 pt-2 flex items-start
+                                    text-[13px] pointer-events-auto cursor-text whitespace-pre-wrap break-words"
+                             style="color: var(--chat-muted);" aria-hidden="true">
+                            <span id="chat-typing-text"></span>
+                            <span class="chat-typing-cursor" style="color: var(--chat-accent);">|</span>
                         </div>
-                        <textarea
-                            id="chat-input"
-                            class="chat-input"
-                            placeholder=" "
-                            rows="3"
-                            aria-label="Message input"
-                        ></textarea>
+                        <textarea id="chat-input"
+                                  class="chat-input w-full bg-transparent border-none resize-none
+                                         focus:outline-none px-3 pt-2 pb-1 text-[13px] font-sans"
+                                  placeholder=" "
+                                  rows="3"
+                                  aria-label="Message input"
+                                  style="min-height: 60px; max-height: 120px; color: var(--chat-text);"></textarea>
                     </div>
-                    <div class="chat-bottom-bar">
-                        <div class="chat-bottom-left">
-                            <select id="chat-model-select" style="display:none;" aria-hidden="true"></select>
-                            <button type="button" id="chat-model-trigger" class="chat-model-trigger" aria-label="Select model" aria-haspopup="listbox">
-                                <svg class="chat-model-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1a3 3 0 00-3 3v1H4a2 2 0 00-2 2v6a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-1V4a3 3 0 00-3-3zm0 1.5A1.5 1.5 0 019.5 4v1h-3V4A1.5 1.5 0 018 2.5zM6 9a1 1 0 112 0 1 1 0 01-2 0zm4 0a1 1 0 112 0 1 1 0 01-2 0z" fill="currentColor"/></svg>
-                                <span id="chat-model-label">Model</span>
-                                <svg class="chat-model-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 6.5L5 4l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <div id="chat-model-menu" class="chat-model-menu" role="listbox" aria-label="AI model" style="display:none;"></div>
-                            <button type="button" id="chat-attach-clip-btn" class="chat-bottom-icon" title="Attach selected clip (@selected_clip)" aria-label="Attach selected clip">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M6.2 5.2l4.6-2.6a2 2 0 012.7.8 2 2 0 01-.8 2.7L8 8.8a1.6 1.6 0 01-2.2-.6 1.6 1.6 0 01.6-2.2L10.7 3.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M4.6 6.1L3.1 7a3 3 0 00-1.1 4.1 3 3 0 004.1 1.1l6.4-3.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+
+                    <!-- Bottom toolbar -->
+                    <div class="flex items-center justify-between px-2 py-1 border-t"
+                         style="background: var(--chat-input-bg); border-color: var(--chat-border);">
+
+                        <!-- Left: model selector + icon buttons -->
+                        <div class="chat-bottom-left relative flex items-center gap-1">
+
+                            <!-- Hidden native select (QWebChannel reads its value) -->
+                            <select id="chat-model-select" class="hidden" aria-hidden="true"></select>
+
+                            <!-- Model trigger pill -->
+                            <button type="button" id="chat-model-trigger"
+                                    class="chat-model-trigger inline-flex items-center gap-1.5
+                                           rounded-full px-2 py-[3px] text-[11px] border transition-colors cursor-pointer"
+                                    style="background: var(--chat-surface); border-color: var(--chat-border); color: var(--chat-text);"
+                                    aria-label="Select model" aria-haspopup="listbox">
+                                <svg class="chat-model-icon flex-shrink-0 opacity-60" width="14" height="14"
+                                     viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1a3 3 0 00-3 3v1H4a2 2 0 00-2 2v6a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-1V4a3 3 0 00-3-3zm0 1.5A1.5 1.5 0 019.5 4v1h-3V4A1.5 1.5 0 018 2.5zM6 9a1 1 0 112 0 1 1 0 01-2 0zm4 0a1 1 0 112 0 1 1 0 01-2 0z" fill="currentColor"/>
+                                </svg>
+                                <span id="chat-model-label"
+                                      class="overflow-hidden text-ellipsis whitespace-nowrap max-w-[120px]">Model</span>
+                                <svg class="chat-model-chevron flex-shrink-0 opacity-50 transition-transform duration-200"
+                                     width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                    <path d="M2.5 6.5L5 4l2.5 2.5" stroke="currentColor" stroke-width="1.2"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </button>
-                            <button type="button" id="chat-clear-btn" class="chat-bottom-icon" title="Clear chat" aria-label="Clear chat">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5.333 4V2.667a1.333 1.333 0 011.334-1.334h2.666a1.333 1.333 0 011.334 1.334V4m2 0v9.333a1.333 1.333 0 01-1.334 1.334H4.667a1.333 1.333 0 01-1.334-1.334V4h9.334z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+                            <!-- Model dropdown menu -->
+                            <div id="chat-model-menu"
+                                 class="chat-model-menu absolute z-[100] py-1 rounded-[10px] border overflow-y-auto"
+                                 role="listbox" aria-label="AI model" style="display: none;"></div>
+
+                            <!-- Attach clip -->
+                            <button type="button" id="chat-attach-clip-btn"
+                                    class="chat-bottom-icon" title="Attach selected clip (@selected_clip)"
+                                    aria-label="Attach selected clip">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M6.2 5.2l4.6-2.6a2 2 0 012.7.8 2 2 0 01-.8 2.7L8 8.8a1.6 1.6 0 01-2.2-.6 1.6 1.6 0 01.6-2.2L10.7 3.6"
+                                          stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M4.6 6.1L3.1 7a3 3 0 00-1.1 4.1 3 3 0 004.1 1.1l6.4-3.7"
+                                          stroke="currentColor" stroke-width="1.2" stroke-linecap="round"
+                                          stroke-linejoin="round" opacity="0.85"/>
+                                </svg>
+                            </button>
+
+                            <!-- Clear chat -->
+                            <button type="button" id="chat-clear-btn"
+                                    class="chat-bottom-icon" title="Clear chat" aria-label="Clear chat">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M2 4h12M5.333 4V2.667a1.333 1.333 0 011.334-1.334h2.666a1.333 1.333 0 011.334 1.334V4m2 0v9.333a1.333 1.333 0 01-1.334 1.334H4.667a1.333 1.333 0 01-1.334-1.334V4h9.334z"
+                                          stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </button>
                         </div>
-                        <div class="chat-bottom-right">
-                            <button type="button" id="chat-cancel-btn" class="chat-bottom-icon chat-cancel-icon" title="Cancel" aria-label="Cancel request" style="display:none;">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="3" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/></svg>
+
+                        <!-- Right: cancel + send -->
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" id="chat-cancel-btn"
+                                    class="chat-bottom-icon chat-cancel-icon" title="Cancel"
+                                    aria-label="Cancel request" style="display: none;">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="3" y="3" width="10" height="10" rx="2"
+                                          stroke="currentColor" stroke-width="1.2"/>
+                                </svg>
                             </button>
-                            <button type="button" id="chat-send-btn" class="chat-send-circle" title="Send (Enter)" aria-label="Send message">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 12V4m0 0L4.5 7.5M8 4l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <button type="button" id="chat-send-btn"
+                                    class="chat-send-circle" title="Send (Enter)" aria-label="Send message">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 12V4m0 0L4.5 7.5M8 4l3.5 3.5"
+                                          stroke="currentColor" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+                </div><!-- /glow-inner -->
+            </div><!-- /glow-wrap -->
+        </div><!-- /input-row -->
+
+    </div><!-- /chat-container -->
+
     <script src="chat.js"></script>
 </body>
 </html>

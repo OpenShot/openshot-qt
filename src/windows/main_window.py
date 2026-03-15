@@ -3035,7 +3035,7 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.actionUndo.setEnabled(False)
         self.actionRedo.setEnabled(False)
 
-        # Add files toolbar
+        # Build files toolbar (hidden – actions remain available via context menu)
         self.filesToolbar = QToolBar("Files Toolbar")
         self.filesActionGroup = QActionGroup(self)
         self.filesActionGroup.setExclusive(True)
@@ -3044,16 +3044,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
         self.filesActionGroup.addAction(self.actionFilesShowAudio)
         self.filesActionGroup.addAction(self.actionFilesShowImage)
         self.actionFilesShowAll.setChecked(True)
-        self.filesToolbar.addAction(self.actionFilesShowAll)
-        self.filesToolbar.addAction(self.actionFilesShowVideo)
-        self.filesToolbar.addAction(self.actionFilesShowAudio)
-        self.filesToolbar.addAction(self.actionFilesShowImage)
+        # Keep filesFilter widget alive (referenced by FilesListView) but don't show it
         self.filesFilter = QLineEdit()
         self.filesFilter.setObjectName("filesFilter")
-        self.filesFilter.setPlaceholderText(_("Filter"))
-        self.filesFilter.setClearButtonEnabled(True)
-        self.filesToolbar.addWidget(self.filesFilter)
-        self.tabFiles.layout().insertWidget(0, self.filesToolbar)
+        # filesToolbar intentionally NOT inserted into tabFiles layout
 
         # Add transitions toolbar
         self.transitionsToolbar = QToolBar("Transitions Toolbar")
@@ -3804,15 +3798,16 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
             elif theme and theme.name == ThemeName.COSMIC.value:
                 # handle COSMIC theme dock widgets
-                if tabified_widgets:
-                    # Apply custom title bar with grab handle (for grouped/tabbed docks)
-                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, ""))
-                elif dock_widget.isFloating():
-                    # Use standard system title bar (minimize, maximize, close) for floating docks
+                _nav_docks = {"dockFiles", "dockTransitions", "dockEffects", "dockEmojis"}
+                if dock_widget.isFloating():
+                    # Use standard system title bar for floating docks
                     dock_widget.setTitleBarWidget(None)
+                elif dock_widget.objectName() in _nav_docks:
+                    # Nav docks: compact title bar with float + close buttons, no title text
+                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, show_buttons=True))
                 else:
-                    # Apply custom title bar with text (no grab handle) for non-tabbed, non-floating docks
-                    dock_widget.setTitleBarWidget(HiddenTitleBar(dock_widget, dock_widget.windowTitle()))
+                    # All other docks: completely suppress the title bar (no space, no buttons)
+                    dock_widget.setTitleBarWidget(QWidget())
 
             else:
                 # for ALL other themes, regardless of floating or tabbed
@@ -3899,6 +3894,10 @@ class MainWindow(updates.UpdateWatcher, QMainWindow):
 
         # Init UI
         ui_util.init_ui(self)
+
+        # Hide the Help menu from the menu bar
+        if hasattr(self, "menuHelp"):
+            self.menuHelp.menuAction().setVisible(False)
 
         # Create dock toolbars, set initial state of items, etc
         self.setup_toolbars()

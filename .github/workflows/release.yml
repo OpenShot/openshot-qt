@@ -187,7 +187,8 @@ jobs:
             -DPYTHON_MODULE_PATH=python \
             -DENABLE_RUBY=OFF \
             -DENABLE_TESTS=OFF \
-            -DCMAKE_PREFIX_PATH=/mingw64
+            -DCMAKE_PREFIX_PATH=/mingw64 \
+            -DCMAKE_CXX_FLAGS="-include cstdint"
           cmake --build libopenshot/build -j$(nproc)
           cmake --install libopenshot/build
 

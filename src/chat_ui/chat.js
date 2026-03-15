@@ -377,7 +377,7 @@
 
     window.clearMessages = function () {
         typingEl = null;
-        messagesEl.innerHTML = '<div class="chat-placeholder">Replies appear here. Assistant messages support markdown and code blocks.</div>';
+        messagesEl.innerHTML = '';
     };
 
     function sendMessage() {

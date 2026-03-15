@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (
     QTextEdit, QPushButton, QLabel, QComboBox, QMessageBox, QFrame,
     QGraphicsOpacityEffect,
 )
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QColor, QTextCursor
 
 from classes.logger import log
 from classes.api_client import get_backend_client
@@ -65,15 +65,17 @@ CHAT_THEME_COLORS = {
         "chat-placeholder": "rgba(51, 51, 51, 0.5)",
     },
     "Cosmic Dusk": {
-        "chat-bg": "#151A23",
-        "chat-preamble-bg": "#151A23",
-        "chat-text": "#E6E6EB",
-        "chat-border": "rgba(230, 230, 235, 0.12)",
-        "chat-input-bg": "#151A23",
-        "chat-button-bg": "#151A23",
-        "chat-button-hover-bg": "#1E2433",
-        "chat-accent": "#6366F1",
-        "chat-placeholder": "rgba(230, 230, 235, 0.5)",
+        "chat-bg":              "#161616",
+        "chat-surface":         "#1e1e1e",
+        "chat-text":            "#d4d4d4",
+        "chat-muted":           "#6b7280",
+        "chat-placeholder":     "#6b7280",
+        "chat-border":          "#2a2a2a",
+        "chat-input-bg":        "#1a1a1a",
+        "chat-button-bg":       "#252525",
+        "chat-button-hover-bg": "#2e2e2e",
+        "chat-accent":          "#4d9cf6",
+        "chat-code-bg":         "#252525",
     },
 }
 
@@ -313,13 +315,22 @@ class AIChatWindow(QDockWidget):
         self._first_prompt_summary = None  # AI-generated summary of first user message for preamble
         self._auto_attach_selected_clip_context = True
 
-        # AI runs in a background thread; worker owns AIChat and emits when done
-        self._ai_thread = QThread(self)
+        # AI runs in a background thread.
+        # No Qt parent on the thread — we manage its lifetime explicitly so Qt
+        # doesn't auto-delete it (and crash) when the dock widget is destroyed.
+        self._ai_thread = QThread()
         self._worker = AIChatWorker()  # no parent so we can moveToThread
         self._worker.moveToThread(self._ai_thread)
         self._worker.response_ready.connect(self._on_response_ready)
         self._worker.error_occurred.connect(self._on_error)
         self._ai_thread.start()
+
+        # Stop the thread on app quit (covers the shutdown path where
+        # closeEvent is never called on dock widgets).
+        from PyQt5.QtWidgets import QApplication
+        app_instance = QApplication.instance()
+        if app_instance:
+            app_instance.aboutToQuit.connect(self._stop_thread)
 
         if self._use_web_ui:
             self._init_web_ui()
@@ -373,7 +384,7 @@ class AIChatWindow(QDockWidget):
         self.chat_box.setObjectName("chatBox")
         self.chat_box.setReadOnly(True)
         self.chat_box.setAcceptRichText(True)
-        self.chat_box.setPlaceholderText("Replies appear here. Assistant messages support **markdown** and code blocks.")
+        self.chat_box.setPlaceholderText("")
         layout.addWidget(self.chat_box)
 
         input_h = QHBoxLayout()
@@ -500,6 +511,7 @@ class AIChatWindow(QDockWidget):
 
         self._chat_view = QWebEngineView(self)
         self._chat_view.setObjectName("AIChatWindowContents")
+        self._chat_view.page().setBackgroundColor(QColor(13, 13, 13))
         self.setWidget(self._chat_view)
 
         self._chat_channel = QWebChannel(self._chat_view.page())
@@ -517,6 +529,19 @@ class AIChatWindow(QDockWidget):
 
         def on_load_finished(ok):
             if ok:
+                # Force CSS variables and element backgrounds regardless of caching
+                self._chat_view.page().runJavaScript("""
+                    var r = document.documentElement.style;
+                    r.setProperty('--chat-bg',       '#0d0d0d');
+                    r.setProperty('--chat-surface',  '#0d0d0d');
+                    r.setProperty('--chat-input-bg', '#171717');
+                    r.setProperty('--chat-border',   'transparent');
+                    document.body.style.background = '#0d0d0d';
+                    var msgs = document.getElementById('chat-messages');
+                    if (msgs) { msgs.style.background = '#0d0d0d'; msgs.style.border = 'none'; }
+                    var preamble = document.querySelector('.chat-container > div');
+                    if (preamble) { preamble.style.background = '#0d0d0d'; preamble.style.border = 'none'; }
+                """)
                 self._chat_web_ready = self._inject_web_ready
 
         self._chat_view.loadFinished.connect(on_load_finished)
@@ -615,11 +640,20 @@ class AIChatWindow(QDockWidget):
             Q_ARG(str, model_id),
         )
 
+    def _stop_thread(self):
+        """Cleanly stop the AI worker thread. Safe to call more than once."""
+        if not hasattr(self, "_ai_thread") or self._ai_thread is None:
+            return
+        if self._ai_thread.isRunning():
+            self._ai_thread.quit()
+            if not self._ai_thread.wait(3000):
+                log.warning("AI chat thread did not stop within 3 s; terminating")
+                self._ai_thread.terminate()
+                self._ai_thread.wait(1000)
+
     def closeEvent(self, event):
-        """Stop the AI worker thread when the dock is closed."""
-        self._ai_thread.quit()
-        if not self._ai_thread.wait(3000):
-            log.warning("AI chat thread did not finish within 3s")
+        """Stop the AI worker thread when the dock is explicitly closed."""
+        self._stop_thread()
         super().closeEvent(event)
 
     def showEvent(self, event):
