@@ -250,10 +250,14 @@ class ZenviBackendClient:
                         def _recv_keepalive():
                             try:
                                 old_timeout = ws.gettimeout()
-                                ws.settimeout(5)  # short timeout for polling
+                                # Use a short poll interval so the thread can
+                                # react to _stop_recv quickly.  Must be smaller
+                                # than the join(timeout=) below to guarantee the
+                                # thread exits before the main thread proceeds.
+                                ws.settimeout(0.5)
                                 while not _stop_recv.is_set():
                                     try:
-                                        # recv() processes control frames
+                                        # recv_frame() processes control frames
                                         # (ping→pong) as a side-effect
                                         _frame = ws.recv_frame()
                                     except websocket.WebSocketTimeoutException:
@@ -281,7 +285,12 @@ class ZenviBackendClient:
                                 except Exception:
                                     pass
 
-                        # Stop the recv keepalive thread
+                        # Stop the recv keepalive thread and wait for it to exit
+                        # fully before sending the tool_result.  The join timeout
+                        # must exceed the recv_frame poll timeout (0.5 s) so we
+                        # are guaranteed the thread has stopped reading frames —
+                        # otherwise it can consume the backend's assistant_response
+                        # frame and the main loop never sees it.
                         _stop_recv.set()
                         _recv_thread.join(timeout=3)
 

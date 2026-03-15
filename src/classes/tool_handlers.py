@@ -813,7 +813,12 @@ def search_selected_clip_scenes(query="", top_k="5", use_openai_rerank="true", *
                     matches = matches[:max(1, k)]
                     lines = [f"TwelveLabs matches in '{clip_name}' ({_fmt_mmss(clip_start)} - {_fmt_mmss(clip_end)}):"]
                     for m in matches:
-                        lines.append(f"- [{_fmt_mmss(m['rel_start'])} - {_fmt_mmss(m['rel_end'])}] score={m['score']:.3f}")
+                        mid = (m['rel_start'] + m['rel_end']) / 2.0
+                        lines.append(
+                            f"- timestamp {_fmt_mmss(mid)}"
+                            f" (segment {_fmt_mmss(m['rel_start'])}-{_fmt_mmss(m['rel_end'])})"
+                            f" score={m['score']:.3f}"
+                        )
                         if m.get("transcription"):
                             lines.append(f"  transcript: {str(m['transcription']).strip()[:180]}")
                     return "\n".join(lines)
